@@ -34,7 +34,7 @@ import {
   checkIsValidProposalStatusToShowResoult,
 } from '@utils/checks'
 import { objectDeepCompare } from '@utils/object'
-import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
@@ -544,7 +544,11 @@ export const IdeaViewAndEditCard = observer(
                             {formFields?.productLinks?.length ? (
                               formFields?.productLinks?.map((el, index) => (
                                 <div key={index} className={styles.linkWrapper}>
-                                  <Link target="_blank" href={el} className={styles.linkTextWrapper}>
+                                  <Link
+                                    target="_blank"
+                                    href={checkAndMakeAbsoluteUrl(el)}
+                                    className={styles.linkTextWrapper}
+                                  >
                                     <Typography className={styles.linkText}>{`${index + 1}. ${el}`}</Typography>
                                   </Link>
 

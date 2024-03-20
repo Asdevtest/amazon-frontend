@@ -28,7 +28,7 @@ export const InStockCell: FC<InStockCellProps> = memo(props => {
 
               <Link
                 target="_blank"
-                underline={'hover'}
+                underline="hover"
                 className={styles.linkWrapper}
                 onClick={e => {
                   e.stopPropagation()
