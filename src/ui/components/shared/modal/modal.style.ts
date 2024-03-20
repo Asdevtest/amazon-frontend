@@ -24,7 +24,7 @@ export const useStyles = makeStyles()(theme => ({
 
   contentWrapper: {
     position: 'relative',
-    padding: 30,
+    padding: 20, // 20 - for test, before was 30
     background: theme.palette.background.general,
     borderRadius: 20,
 
@@ -41,7 +41,6 @@ export const useStyles = makeStyles()(theme => ({
     maxHeight: '85vh',
     overflowY: 'auto',
     overflowX: 'hidden',
-    // padding: 20, // need to add padding to the transmitted content, and not to the modal content className
 
     [theme.breakpoints.down(768)]: {
       maxWidth: '100%',

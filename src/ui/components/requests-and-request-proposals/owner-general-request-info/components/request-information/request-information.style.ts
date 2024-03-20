@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   firstBlock: {
-    width: 380,
+    width: 420,
   },
 
   priorityWrapper: {
@@ -85,9 +85,5 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: 7,
-  },
-
-  linkSpan: {
-    color: theme.palette.primary.main,
   },
 }))

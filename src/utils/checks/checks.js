@@ -3,8 +3,12 @@ import {
   amazonImageUrlMiddlePostfix,
   amazonImageUrlSmallPostfix,
 } from '@constants/configs/amazon-images'
+import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { BACKEND_API_URL } from '@constants/keys/env'
 import { UserRole } from '@constants/keys/user-roles'
+import { docValidTypes } from '@constants/media/doc-types'
+import { imageValidTypes } from '@constants/media/image-types'
+import { videoValidTypes } from '@constants/media/video-types'
 import { statusesValidToShowResoult } from '@constants/requests/request-proposal-status'
 
 export const isNotUndefined = value => typeof value !== 'undefined'
@@ -29,6 +33,8 @@ export const checkIsNumberWithDot = str => {
   return /^\d*\.?\d*$/.test(str)
 }
 export const checkIsPositiveNum = str => !(Number(str) < 0 || isNaN(str))
+export const checkIsPositiveOrNegativeDigit = str => /^-?\d*\.?\d+$/.test(Number(str)) || '-' === str
+
 export const checkIsMoreTwoCharactersAfterDot = str => {
   str += ''
   const indexOfDot = str.indexOf('.')
@@ -56,79 +62,25 @@ export const checkIsPositiveNummberAndNoMoreNCharactersAfterDot = (str, max) =>
 
 export const isHaveMasterUser = user => !!user.masterUser
 
-// export const noPermissionsUser = user => !user.permissions // Не используется
-
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
   storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
 
-export const checkIsVideoLink = link =>
-  link?.includes('.3g2') ||
-  link?.includes('.3gp') ||
-  link?.includes('.3gp2') ||
-  link?.includes('.3gpp') ||
-  link?.includes('.3gpp2') ||
-  link?.includes('.asf') ||
-  link?.includes('.asx') ||
-  link?.includes('.avi') ||
-  link?.includes('.bin') ||
-  link?.includes('.dat') ||
-  link?.includes('.drv') ||
-  link?.includes('.f4v') ||
-  link?.includes('.flv') ||
-  link?.includes('.gtp') ||
-  link?.includes('.h264') ||
-  link?.includes('.m4v') ||
-  link?.includes('.mkv') ||
-  link?.includes('.mod') ||
-  link?.includes('.moov') ||
-  link?.includes('.mov') ||
-  link?.includes('.mp4') ||
-  link?.includes('.mpeg') ||
-  link?.includes('.mpg') ||
-  link?.includes('.mts') ||
-  link?.includes('.rm') ||
-  link?.includes('.rmvb') ||
-  link?.includes('.spl') ||
-  link?.includes('.srt') ||
-  link?.includes('.stl') ||
-  link?.includes('.swf') ||
-  link?.includes('.ts') ||
-  link?.includes('.vcd') ||
-  link?.includes('.vid') ||
-  link?.includes('.vob') ||
-  link?.includes('.webm') ||
-  link?.includes('.wm') ||
-  link?.includes('.wmv') ||
-  link?.includes('.yuv')
+export const checkIsExternalVideoLink = url => {
+  const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
 
-export const checkIsImageLink = link =>
-  link?.includes('png') ||
-  link?.includes('PNG') ||
-  link?.includes('jpg') ||
-  link?.includes('ico') ||
-  link?.includes('gif') ||
-  link?.includes('svg') ||
-  link?.includes('webp') ||
-  link?.includes('avif') ||
-  link?.includes('jpeg') ||
-  link?.includes('rotated-image') ||
-  link?.includes('jfif') ||
-  link?.includes('bmp') ||
-  link?.includes('placeimg.com')
+  return youtubeRegex.test(url)
+}
+
+export const checkIsVideoLink = link =>
+  videoValidTypes.some(type => link?.includes(type)) || checkIsExternalVideoLink(link)
+
+export const checkIsImageLink = link => imageValidTypes.some(type => link?.includes(type))
 
 export const checkIsMediaFileLink = link => checkIsVideoLink(link) || checkIsImageLink(link)
 
 export const checkIsDocumentLink = link =>
-  link?.includes('doc') ||
-  link?.includes('docx') ||
-  link?.includes('pdf') ||
-  link?.includes('xlsx') ||
-  link?.includes('xls') ||
-  link?.includes('txt') ||
-  (link?.includes('.com') && !checkIsImageLink('placeimg.com')) ||
-  link?.includes('drive.google.com') ||
-  link?.includes('docs.google.com')
-// https://m.media-amazon.com/images/I/71CznSVO40L._AC_SY450_.jpg
+  docValidTypes.some(type => link?.includes(type)) || (link?.includes('.com') && !checkIsImageLink('placeimg.com'))
+
 export const validateEmail = email =>
   String(email)
     .toLowerCase()
@@ -185,3 +137,5 @@ export const checkIsImageInludesPostfixes = str =>
   [amazonImageUrlBigPostfix, amazonImageUrlSmallPostfix, amazonImageUrlMiddlePostfix, 'base64', 'placeimg.com'].some(
     item => str.includes(item),
   )
+
+export const checkIsValidBoxSize = field => !Number(field) || Number(field) > maxLengthInputInSizeBox

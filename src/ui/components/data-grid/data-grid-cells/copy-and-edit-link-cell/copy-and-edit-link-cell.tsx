@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import { Link } from '@mui/material'
 
@@ -18,7 +18,7 @@ interface CopyAndEditLinkCellProps {
   onChangeText: (key: string) => (value: string) => void
 }
 
-export const CopyAndEditLinkCell: FC<CopyAndEditLinkCellProps> = React.memo(({ link, isEdit, onChangeText }) => {
+export const CopyAndEditLinkCell: FC<CopyAndEditLinkCellProps> = memo(({ link, isEdit, onChangeText }) => {
   const { classes: styles } = useStyles()
 
   const [value, setValue] = useState(link)

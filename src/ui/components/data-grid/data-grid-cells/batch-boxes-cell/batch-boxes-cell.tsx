@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, Fragment } from 'react'
+import { ProductInfoAbbreviated, ProductInfoExtended } from '..'
+import { FC, Fragment, memo } from 'react'
 
 import { tableProductViewMode } from '@constants/keys/table-product-view'
 
@@ -11,14 +10,12 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 
 import { useStyles } from './batch-boxes-cell.style'
 
-import { ProductInfoAbbreviated, ProductInfoExtended } from '../data-grid-cells'
-
 interface BatchBoxesCellProps {
   boxes: any[]
   productViewMode: keyof typeof tableProductViewMode
 }
 
-export const BatchBoxesCell: FC<BatchBoxesCellProps> = React.memo(({ boxes, productViewMode }) => {
+export const BatchBoxesCell: FC<BatchBoxesCellProps> = memo(({ boxes, productViewMode }) => {
   const { classes: styles, cx } = useStyles()
 
   const isAbbreviatedView = productViewMode === tableProductViewMode.ABBREVIATED
@@ -28,7 +25,7 @@ export const BatchBoxesCell: FC<BatchBoxesCellProps> = React.memo(({ boxes, prod
     deliveryTotalPrice: box.deliveryTotalPrice,
     deliveryTotalPriceChanged: box.deliveryTotalPriceChanged,
     items: box.items.map((item: any) => ({
-      image: item.product.images[0],
+      image: item.product.images?.[0],
       amazonTitle: item.product.amazonTitle,
       asin: item.product.asin,
       amount: item.amount,

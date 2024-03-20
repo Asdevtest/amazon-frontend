@@ -8,7 +8,7 @@ import { BatchesModel } from '@models/batches-model'
 
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -88,7 +88,6 @@ export const ProductLotDataForm = memo(props => {
 
         {!isTransfer && (
           <Button
-            variant="contained"
             onClick={() => {
               onClickToggleArchiveProductLotData(!isArchive)
               setIsArchive(!isArchive)
@@ -105,8 +104,8 @@ export const ProductLotDataForm = memo(props => {
           <Typography className={styles.productTitle}>{product[0]?.amazonTitle}</Typography>
 
           <div>
-            <AsinOrSkuLink withCopyValue withAttributeTitle="asin" asin={product[0].asin} />
-            <AsinOrSkuLink withCopyValue withAttributeTitle="sku" asin={product[0]?.skuByClient} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product[0]?.asin} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product[0]?.skuByClient} />
           </div>
         </div>
 
@@ -132,12 +131,15 @@ export const ProductLotDataForm = memo(props => {
         />
       </div>
 
-      <BatchInfoModal
-        userInfo={userInfo}
-        openModal={showBatchInfoModal}
-        setOpenModal={setOpenBatchInfoModal}
-        batch={batchInfo}
-      />
+      {showBatchInfoModal ? (
+        <BatchInfoModal
+          // @ts-ignore
+          userInfo={userInfo}
+          openModal={showBatchInfoModal}
+          setOpenModal={setOpenBatchInfoModal}
+          batch={batchInfo}
+        />
+      ) : null}
     </div>
   )
 })

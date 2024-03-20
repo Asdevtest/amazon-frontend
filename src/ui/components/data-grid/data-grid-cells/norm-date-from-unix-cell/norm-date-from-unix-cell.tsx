@@ -1,5 +1,5 @@
 import { fromUnixTime } from 'date-fns'
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { formatDateForShowWithoutParseISO } from '@utils/date-time'
 
@@ -9,7 +9,7 @@ interface NormDateFromUnixCellProps {
   value: number
 }
 
-export const NormDateFromUnixCell: FC<NormDateFromUnixCellProps> = React.memo(({ value }) => {
+export const NormDateFromUnixCell: FC<NormDateFromUnixCellProps> = memo(({ value }) => {
   const { classes: styles } = useStyles()
 
   return (

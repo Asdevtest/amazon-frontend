@@ -1,57 +1,58 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   CommentUsersCell,
-  EditOrRemoveBtnsCell,
   MultilineTextHeaderCell,
   NormDateCell,
   UserCell,
   UserRolesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const subUsersColumns = handlers => [
   {
     field: 'name',
     headerName: t(TranslationKey.User),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-
+    renderCell: ({ row }) => <UserCell userId={row?._id} name={row?.name} email={row?.email} rating={row?.rating} />,
     width: 350,
-    renderCell: params => {
-      const user = params.row
-
-      return <UserCell userId={user?._id} name={user?.name} email={user?.email} rating={user?.rating} />
-    },
   },
 
   {
     field: 'roles',
     headerName: t(TranslationKey.Roles),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
-
-    width: 215,
-    renderCell: params => <UserRolesCell user={params.row} />,
+    renderCell: ({ row }) => <UserRolesCell user={row} />,
+    width: 160,
   },
 
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
-    width: 340,
     renderCell: params => (
-      <EditOrRemoveBtnsCell
-        isSubUsersTable
-        tooltipFirstButton={t(TranslationKey["Editing an employee's permission list"])}
-        tooltipSecondButton={t(
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        firstButtonTooltipText={t(TranslationKey["Editing an employee's permission list"])}
+        firstButtonElement={t(TranslationKey['Assign permissions'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonTooltipText={t(
           TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
         )}
-        handlers={handlers}
-        row={params.row}
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        secondButtonElement={t(TranslationKey.Remove)}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onClickEditBtn(params.row)}
+        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
+    width: 230,
+    disableColumnMenu: true,
     filterable: false,
     sortable: false,
   },
@@ -60,8 +61,6 @@ export const subUsersColumns = handlers => [
     field: 'note',
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-
-    width: 335,
     renderCell: params => (
       <CommentUsersCell
         id={params.row._id}
@@ -69,6 +68,8 @@ export const subUsersColumns = handlers => [
         handler={reason => handlers.onClickSaveComment(params.row._id, reason)}
       />
     ),
+    width: 335,
+    disableColumnMenu: true,
     filterable: false,
     sortable: false,
   },

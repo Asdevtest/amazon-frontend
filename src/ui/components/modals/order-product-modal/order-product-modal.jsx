@@ -6,8 +6,9 @@ import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, Table
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
+import { Text } from '@components/shared/text'
 import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
@@ -37,6 +38,7 @@ export const OrderProductModal = memo(props => {
     isPendingOrdering,
     isSetDeadline,
     isInventory,
+    statusesForChecking,
   } = props
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
@@ -62,6 +64,11 @@ export const OrderProductModal = memo(props => {
     reorderOrdersData?.length
       ? reorderOrdersData.map(reorderOrder => {
           const validDate = new Date(reorderOrder.deadline)
+          const isValidDeadline = !(isPast(validDate) || isToday(validDate) || isTomorrow(validDate))
+          const isSetCurrentDeadline =
+            ((isSetDeadline && statusesForChecking.some(status => status === reorderOrder.status)) ||
+              isPendingOrdering) &&
+            isValidDeadline
 
           return {
             ...reorderOrder.product,
@@ -78,13 +85,10 @@ export const OrderProductModal = memo(props => {
               .includes(reorderOrder.logicsTariff?._id)
               ? reorderOrder.logicsTariff?._id
               : '',
+            variationTariffId: reorderOrder?.variationTariffId,
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-            deadline:
-              (isSetDeadline || isPendingOrdering) &&
-              !(isPast(validDate) || isToday(validDate) || isTomorrow(validDate))
-                ? reorderOrder.deadline
-                : null,
+            deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
           }
         })
       : selectedProductsData.map(product => ({
@@ -93,49 +97,50 @@ export const OrderProductModal = memo(props => {
           expressChinaDelivery: false,
           priority: '30',
           deadline: null,
-          currentVariationTariffId: product.variationTariff?._id,
+          variationTariffId: product.variationTariff?._id,
         })),
   )
 
   const [orderState, setOrderState] = useState(
     reorderOrdersData?.length
-      ? reorderOrdersData.map(reorderOrder => ({
-          amount: reorderOrder.amount,
-          clientComment: '',
-          barCode: reorderOrder?.product?.barCode || '',
-          tmpBarCode: [],
+      ? reorderOrdersData.map(reorderOrder => {
+          const validDate = new Date(reorderOrder.deadline)
+          const isValidDeadline = !(isPast(validDate) || isToday(validDate) || isTomorrow(validDate))
+          const isSetCurrentDeadline =
+            ((isSetDeadline && statusesForChecking.some(status => status === reorderOrder.status)) ||
+              isPendingOrdering) &&
+            isValidDeadline
 
-          transparency: reorderOrder?.product?.transparency,
-          transparencyFile: '',
-          tmpTransparencyFile: [],
+          return {
+            amount: reorderOrder.amount,
+            clientComment: '',
+            barCode: reorderOrder?.product?.barCode || '',
+            tmpBarCode: [],
 
-          productId: reorderOrder.product._id,
-          images: [],
+            transparency: reorderOrder?.product?.transparency,
+            transparencyFile: '',
+            tmpTransparencyFile: [],
 
-          // @refactor: need to create function
-          destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
-          storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
+            productId: reorderOrder.product._id,
+            images: [],
 
-          logicsTariffId: storekeepers
-            .find(el => el._id === reorderOrder.storekeeper?._id)
-            ?.tariffLogistics.map(el => el._id)
-            .includes(reorderOrder.logicsTariff?._id)
-            ? reorderOrder.logicsTariff?._id
-            : '',
-          expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
-          priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-          _id: reorderOrder._id,
-          deadline:
-            isPendingOrdering &&
-            !(
-              isPast(new Date(reorderOrder.deadline)) ||
-              isToday(new Date(reorderOrder.deadline)) ||
-              isTomorrow(new Date(reorderOrder.deadline))
-            )
-              ? reorderOrder.deadline
-              : null,
-          buyerId: reorderOrder.buyer?._id || null,
-        }))
+            // @refactor: need to create function
+            destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
+            variationTariffId: reorderOrder?.variationTariffId,
+            logicsTariffId: storekeepers
+              .find(el => el._id === reorderOrder.storekeeper?._id)
+              ?.tariffLogistics.map(el => el._id)
+              .includes(reorderOrder.logicsTariff?._id)
+              ? reorderOrder.logicsTariff?._id
+              : '',
+            expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
+            priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
+            _id: reorderOrder._id,
+            deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
+            buyerId: reorderOrder.buyer?._id || null,
+          }
+        })
       : selectedProductsData.map(product => ({
           amount: 1,
           clientComment: '',
@@ -150,8 +155,8 @@ export const OrderProductModal = memo(props => {
 
           destinationId: null,
 
-          storekeeperId: '',
-          logicsTariffId: '',
+          storekeeperId: null,
+          logicsTariffId: null,
           expressChinaDelivery: false,
           priority: '30',
           buyerId: product.buyer?._id || null,
@@ -238,7 +243,7 @@ export const OrderProductModal = memo(props => {
   }
 
   const storekeeperEqualsDestination = orderState.some(
-    order => order.storekeeperId === destinations.find(el => el._id === order.destinationId)?.storekeeper?._id,
+    order => order?.storekeeperId === destinations?.find(el => el?._id === order?.destinationId)?.storekeeper?._id,
   )
 
   const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplier)
@@ -251,8 +256,8 @@ export const OrderProductModal = memo(props => {
         (productsForRender[index].currentSupplier &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
             platformSettings.orderAmountLimit) ||
-        order.storekeeperId === '' ||
-        order.logicsTariffId === '' ||
+        !order.storekeeperId ||
+        !order.logicsTariffId ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
@@ -276,91 +281,79 @@ export const OrderProductModal = memo(props => {
         <Table className={styles.table}>
           <TableHead>
             <TableRow className={styles.tableRow}>
-              <TableCell className={styles.imgCell}>
-                <p className={styles.cellText}>{t(TranslationKey.Image)}</p>
-              </TableCell>
               <TableCell className={styles.productCell}>
                 <p className={styles.cellText}>{t(TranslationKey.Product)}</p>
               </TableCell>
               <TableCell className={styles.priceCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.priceCellBtn}
                   tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
                 >
                   {t(TranslationKey['Price without delivery']) + ' $'}
-                </Button>
+                </Text>
               </TableCell>
 
               <TableCell className={styles.deliveryCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.deliveryCellBtn}
                   tooltipInfoContent={t(TranslationKey['Delivery costs to the prep center'])}
                 >
                   {t(TranslationKey['Delivery per unit.']) + ' $'}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.qntCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.qntCellBtn}
                   tooltipInfoContent={t(TranslationKey['Specify the amount of goods you want to order'])}
                 >
                   {t(TranslationKey.Quantity)}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.totalCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.totalCellBtn}
                   tooltipInfoContent={t(TranslationKey['Order amount for a specific product'])}
                 >
                   {t(TranslationKey.Total) + ' $'}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.totalCell}>
-                <Button disabled className={styles.totalCellBtn}>
-                  {t(TranslationKey['Price variations'])}
-                </Button>
+                <Text className={styles.totalCellBtn}>{t(TranslationKey['Price variations'])}</Text>
               </TableCell>
               <TableCell className={styles.barCodeCell}>
-                <Button disabled className={styles.barCodeCellBtn}>
+                <Text className={styles.barCodeCellBtn}>
                   {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency codes'])}`}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.tariffCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.tariffCellBtn}
                   tooltipInfoContent={t(
                     TranslationKey['Choose a prep center in China and the rate at which the delivery will take place'],
                   )}
                 >
                   {`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.warehouseCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.warehouseCellBtn}
                   tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
                 >
                   {t(TranslationKey.Destination)}
-                </Button>
+                </Text>
               </TableCell>
 
               <TableCell className={styles.commentCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.commentCellBtn}
                   tooltipInfoContent={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
                 >
                   {t(TranslationKey['Client comment'])}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.deadlineCell}>
-                <p className={styles.cellText}>{'Deadline'}</p>
+                <Text className={styles.cellText}>{'Deadline'}</Text>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -458,10 +451,9 @@ export const OrderProductModal = memo(props => {
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
         <SetBarcodeModal
           tmpCode={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex].tmpBarCode}
-          item={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]}
+          barCode={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]?.barCode}
           onClickSaveBarcode={barCode => {
             setOrderStateFiled(tmpOrderIndex)('tmpBarCode')(barCode)
-            triggerBarcodeModal()
             setTmpOrderIndex(undefined)
           }}
           onCloseModal={triggerBarcodeModal}

@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
@@ -10,14 +9,16 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { BoxSplit } from '@components/shared/boxes/box-split'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './reditstribute-box-modal.style'
+import { ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './reditstribute-box-modal.style'
 
 import { Box } from './box/box'
 import { NewBoxes } from './new-boxes/new-boxes'
@@ -34,7 +35,7 @@ export const RedistributeBox = observer(
     destinationsFavourites,
     setDestinationsFavouritesItem,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     const [currentBox, setCurrentBox] = useState({
       ...selectedBox,
       destinationId: selectedBox.destination?._id || null,
@@ -162,7 +163,7 @@ export const RedistributeBox = observer(
 
     const disabledSubmitBtn =
       totalProductsAmount !== 0 ||
-      requestStatus === loadingStatuses.isLoading ||
+      requestStatus === loadingStatuses.IS_LOADING ||
       filterEmptyBoxes(newBoxes).length < 2 ||
       filterEmptyBoxes(newBoxes).some(
         el =>
@@ -178,17 +179,17 @@ export const RedistributeBox = observer(
       selectedBox?.status !== BoxStatus.IN_STOCK
 
     return (
-      <div className={classNames.wrapper}>
-        <div className={classNames.modalTitleWrapper}>
-          <p className={classNames.modalTitle}>{t(TranslationKey['Box redistributing'])}</p>
+      <div className={styles.wrapper}>
+        <div className={styles.modalTitleWrapper}>
+          <p className={styles.modalTitle}>{t(TranslationKey['Box redistributing'])}</p>
           <BoxSplit />
         </div>
 
-        <div className={classNames.boxesWrapper}>
-          <div className={classNames.currentBox}>
-            <div className={classNames.currentBoxTitle}>
-              <p className={classNames.sectionTitle}>{t(TranslationKey.Redistribute)}</p>
-              <p className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${currentBox?.humanFriendlyId}`}</p>
+        <div className={styles.boxesWrapper}>
+          <div className={styles.currentBox}>
+            <div className={styles.currentBoxTitle}>
+              <p className={styles.sectionTitle}>{t(TranslationKey.Redistribute)}</p>
+              <p className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${currentBox?.humanFriendlyId}`}</p>
             </div>
 
             <Box
@@ -233,8 +234,8 @@ export const RedistributeBox = observer(
             <Field
               multiline
               inputProps={{ maxLength: 255 }}
-              className={classNames.heightFieldAuto}
-              labelClasses={classNames.commentLabel}
+              className={styles.heightFieldAuto}
+              labelClasses={styles.commentLabel}
               minRows={3}
               maxRows={3}
               label={t(TranslationKey['Client comment on the task'])}
@@ -245,11 +246,11 @@ export const RedistributeBox = observer(
           </div>
         </div>
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
             tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
             disabled={totalProductsAmount < 1 && isMasterBox}
-            className={classNames.button}
+            className={styles.button}
             onClick={() => {
               setNewBoxes(newBoxes.concat(getEmptyBox()))
             }}
@@ -259,16 +260,16 @@ export const RedistributeBox = observer(
           <Button
             tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
             disabled={disabledSubmitBtn}
-            className={classNames.button}
+            className={styles.button}
             onClick={onClickRedistributeBtn}
           >
             {t(TranslationKey.Redistribute)}
           </Button>
 
           <Button
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={cx(classNames.button, classNames.cancelButton)}
+            className={cx(styles.button, styles.cancelButton)}
             onClick={() => {
               onTriggerOpenModal('showRedistributeBoxModal')
               setShowNewBoxAttention(false)
@@ -278,19 +279,20 @@ export const RedistributeBox = observer(
           </Button>
         </div>
 
-        <WarningInfoModal
-          openModal={showNewBoxAttention}
-          setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
-          title={t(
-            TranslationKey[
-              'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
-            ],
-          )}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            setShowNewBoxAttention(!showNewBoxAttention)
-          }}
-        />
+        {showNewBoxAttention ? (
+          <WarningInfoModal
+            // @ts-ignore
+            openModal={showNewBoxAttention}
+            setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
+            title={t(
+              TranslationKey[
+                'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
+              ],
+            )}
+            btnText={t(TranslationKey.Ok)}
+            onClickBtn={() => setShowNewBoxAttention(!showNewBoxAttention)}
+          />
+        ) : null}
       </div>
     )
   },

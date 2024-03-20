@@ -273,4 +273,8 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '5px',
   },
+
+  capitalize: {
+    textTransform: 'capitalize',
+  },
 }))

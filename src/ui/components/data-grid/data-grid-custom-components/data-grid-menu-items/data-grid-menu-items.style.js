@@ -59,6 +59,7 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    textTransform: 'capitalize',
   },
 
   statusText: {
@@ -274,5 +275,10 @@ export const styles = theme => ({
   redFlagIcon: {
     width: 24,
     height: 24,
+  },
+
+  batchTrackingFormWrapper: {
+    padding: '20px 20px 0 20px',
+    flexDirection: 'column',
   },
 })

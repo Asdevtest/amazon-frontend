@@ -33,7 +33,7 @@ export class OwnerRequestDetailCustomViewModel {
 
   showAcceptMessage = undefined
   acceptMessage = undefined
-
+  findRequestProposalForCurChat = undefined
   platformSettings = null
 
   showConfirmModal = false
@@ -43,6 +43,8 @@ export class OwnerRequestDetailCustomViewModel {
   showConfirmWorkResultFormModal = false
   showRequestDesignerResultClientModal = false
   showReviewModal = false
+  showResultToCorrectFormModal = false
+  readOnlyRequestDesignerResultClientForm = true
 
   confirmModalSettings = {
     isWarning: false,
@@ -61,7 +63,7 @@ export class OwnerRequestDetailCustomViewModel {
   chatSelectedId = undefined
   chatIsConnected = false
   scrollToChat = undefined
-  showResultToCorrectFormModal = false
+  showMainRequestResultModal = false
 
   alertShieldSettings = {
     showAlertShield: false,
@@ -92,13 +94,6 @@ export class OwnerRequestDetailCustomViewModel {
     return ChatModel.chats
   }
 
-  get findRequestProposalForCurChat() {
-    return (
-      this.chatSelectedId &&
-      this.requestProposals.find(requestProposal => requestProposal.proposal.chatId === this.chatSelectedId)
-    )
-  }
-
   constructor({ history, scrollToChat }) {
     this.history = history
 
@@ -114,8 +109,8 @@ export class OwnerRequestDetailCustomViewModel {
       }
 
       this.alertShieldSettings = {
-        showAlertShield: location?.state?.showAcceptMessage,
-        alertShieldMessage: location?.state?.acceptMessage,
+        showAlertShield: history?.location?.state?.showAcceptMessage,
+        alertShieldMessage: history?.location?.state?.acceptMessage,
       }
 
       const state = { ...history.location.state }
@@ -198,15 +193,10 @@ export class OwnerRequestDetailCustomViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       await this.getCustomRequestCur()
       await this.getCustomProposalsForRequestCur()
       await this.getAnnouncementsByGuid(this.request?.request?.announcementId)
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -257,7 +247,7 @@ export class OwnerRequestDetailCustomViewModel {
         crmItemId: this.requestId,
         chatId: chatIdId,
         text: message,
-        files: files?.map(item => item?.file),
+        files,
         user: {
           name: UserModel.userInfo.name,
           _id: UserModel.userInfo._id,
@@ -270,11 +260,21 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickProposalResultAccept(proposalId) {
+    this.findRequestProposalForCurChat = this.requestProposals.find(
+      requestProposal => requestProposal.proposal._id === proposalId,
+    )
+
     this.acceptProposalResultSetting = {
       onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
     }
 
     this.onTriggerOpenModal('showConfirmWorkResultFormModal')
+
+    this.readOnlyRequestDesignerResultClientForm = true
+  }
+
+  onReadOnlyRequestDesignerResultClientForm() {
+    this.readOnlyRequestDesignerResultClientForm = true
   }
 
   async onClickProposalResultAcceptForm(proposalId, data) {
@@ -286,66 +286,23 @@ export class OwnerRequestDetailCustomViewModel {
       })
 
       this.onTriggerOpenModal('showConfirmWorkResultFormModal')
-      this.loadData()
-    } catch (error) {
-      console.warn('onClickProposalResultAccept error ', error)
-    }
-  }
-
-  onClickProposalResultToCorrect() {
-    if (this.request.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
-      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
-    } else {
-      this.triggerShowResultToCorrectFormModal()
-    }
-  }
-
-  async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
-    this.triggerShowResultToCorrectFormModal()
-
-    try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (files.length) {
-        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
-      }
-
-      const findProposalByChatId = this.requestProposals.find(
-        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
-      )
-
-      if (!findProposalByChatId) {
-        return
-      }
-
-      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
-        ...formFields,
-        timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
-        linksToMediaFiles: this.uploadedFiles,
-      })
-
-      this.loadData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  onSubmitSendInForReworkInRequestProposalResultToCorrectForm(formFields, files) {
-    this.confirmModalSettings = {
-      isWarning: false,
-      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
-      onSubmit: () => {
-        this.onTriggerOpenModal('showConfirmModal')
-        this.onPressSubmitRequestProposalResultToCorrectForm(formFields, files)
-      },
+  onClickProposalResultToCorrect() {
+    if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+      this.readOnlyRequestDesignerResultClientForm = false
+    } else if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]) {
+      this.onTriggerOpenModal('showResultToCorrectFormModal')
+    } else {
+      this.onTriggerOpenModal('showMainRequestResultModal')
     }
-
-    this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onPressSubmitDesignerResultToCorrect({ reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */ }) {
+  async onPressSubmitDesignerResultToCorrect({ reason, timeLimitInMinutes, imagesData }) {
     try {
       const findProposalByChatId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
@@ -361,7 +318,7 @@ export class OwnerRequestDetailCustomViewModel {
       })
       this.loadData()
     } catch (error) {
-      console.warn('onClickProposalResultToCorrect error ', error)
+      console.log(error)
     }
   }
 
@@ -381,6 +338,8 @@ export class OwnerRequestDetailCustomViewModel {
     }
 
     this.onTriggerOpenModal('showConfirmModal')
+
+    this.readOnlyRequestDesignerResultClientForm = true
   }
 
   async getCustomProposalsForRequestCur() {
@@ -622,13 +581,9 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  triggerShowResultToCorrectFormModal() {
-    this.showResultToCorrectFormModal = !this.showResultToCorrectFormModal
-  }
-
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await RequestModel.patchRequestsUploadedToListing({
         requestIds: [id],
@@ -637,9 +592,9 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -657,12 +612,63 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     await RequestModel.updateDeadline(this.requestId, getLocalToUTCDate(timeoutAt), maxAmountOfProposals)
 
     this.getCustomRequestCur()
     this.getCustomProposalsForRequestCur()
 
-    this.setRequestStatus(loadingStatuses.success)
+    this.setRequestStatus(loadingStatuses.SUCCESS)
+  }
+
+  async onSendInForRework(id, fields) {
+    try {
+      await RequestProposalModel.requestProposalResultToCorrect(id, fields)
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
+    this.onTriggerOpenModal('showResultToCorrectFormModal')
+
+    try {
+      if (files.length) {
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
+      }
+
+      const findProposalByChatId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
+
+      if (!findProposalByChatId) {
+        return
+      }
+
+      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
+        ...formFields,
+        timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
+        linksToMediaFiles: this.uploadedFiles,
+      })
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onSubmitSendInForReworkInRequestProposalResultToCorrectForm(formFields, files) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
+      onSubmit: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onPressSubmitRequestProposalResultToCorrectForm(formFields, files)
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 }

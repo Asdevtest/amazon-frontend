@@ -1,15 +1,13 @@
-import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import React, { FC, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
+import { CSSProperties, FC, PropsWithChildren, ReactElement, memo, useContext, useState } from 'react'
 
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './text.style'
+import { HintsContext } from '@contexts/hints-context'
+
+import { useStyles } from './text.style'
 
 enum tooltipPositions {
   Corner = 'corner',
@@ -17,92 +15,80 @@ enum tooltipPositions {
   BaseLine = 'baseLine',
 }
 
-interface Props extends PropsWithChildren {
+interface TextProps extends PropsWithChildren {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
   tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner | tooltipPositions.BaseLine
   className?: string
   containerClasses?: string
-  style?: {}
+  color?: CSSProperties['color']
 }
 
-export const Text: FC<Props> = observer(
-  ({ tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses, style }) => {
-    const { classes: classNames } = useClassNames()
+export const Text: FC<TextProps> = memo(props => {
+  const { tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses, color } =
+    props
 
-    const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
-    const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
+  const { classes: styles, cx } = useStyles()
 
-    const [showHints, setShowHints] = useState(SettingsModel.showHints)
+  const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
+  const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
 
-    useEffect(() => {
-      setShowHints(SettingsModel.showHints)
-    }, [SettingsModel.showHints])
+  const { hints } = useContext(HintsContext)
 
-    return (
-      <div
-        className={cx(
-          tooltipPosition && ['corner', 'baseLine'].includes(tooltipPosition)
-            ? classNames.noFlextextWrapper
-            : classNames.textWrapper,
-          containerClasses,
-        )}
-      >
-        <Typography className={className} style={style}>
-          {children}
-        </Typography>
+  return (
+    <div
+      className={cx(
+        tooltipPosition && ['corner', 'baseLine'].includes(tooltipPosition)
+          ? styles.noFlextextWrapper
+          : styles.textWrapper,
+        containerClasses,
+      )}
+    >
+      <Typography className={className} style={{ color }}>
+        {children}
+      </Typography>
 
-        {tooltipAttentionContent || tooltipInfoContent ? (
-          <div
-            className={
-              tooltipPosition === 'corner'
-                ? classNames.cornerTooltipsWrapper
-                : tooltipPosition === 'baseLine'
-                ? classNames.baseLineTooltipsWrapper
-                : classNames.tooltipsWrapper
-            }
-          >
-            {tooltipAttentionContent ? (
-              <Tooltip
-                arrow
-                open={openAttentionTooltip}
-                title={tooltipAttentionContent}
-                placement="top-end"
-                onClose={() => setOpenAttentionTooltip(false)}
-                onOpen={() => setOpenAttentionTooltip(true)}
-              >
-                {/* <img
-                  className={classNames.tooltip}
-                  src="/assets/icons/attention.svg"
-                  onClick={() => setOpenAttentionTooltip(true)}
-                /> */}
+      {tooltipAttentionContent || tooltipInfoContent ? (
+        <div
+          className={
+            tooltipPosition === 'corner'
+              ? styles.cornerTooltipsWrapper
+              : tooltipPosition === 'baseLine'
+              ? styles.baseLineTooltipsWrapper
+              : styles.tooltipsWrapper
+          }
+        >
+          {tooltipAttentionContent ? (
+            <Tooltip
+              arrow
+              open={openAttentionTooltip}
+              title={tooltipAttentionContent}
+              placement="top-end"
+              onClose={() => setOpenAttentionTooltip(false)}
+              onOpen={() => setOpenAttentionTooltip(true)}
+            >
+              <button onClick={() => setOpenAttentionTooltip(true)}>
+                <TooltipAttention className={styles.tooltip} />
+              </button>
+            </Tooltip>
+          ) : null}
 
-                <div>
-                  <TooltipAttention className={cx(classNames.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
-                </div>
-              </Tooltip>
-            ) : null}
-
-            {tooltipInfoContent && showHints ? (
-              <Tooltip
-                arrow
-                open={openInfoTooltip}
-                title={tooltipInfoContent}
-                placement="top-end"
-                onClose={() => setOpenInfoTooltip(false)}
-                onOpen={() => setOpenInfoTooltip(true)}
-              >
-                <div>
-                  <TooltipInfoIcon
-                    className={cx(classNames.tooltip, classNames.tooltipInfo)}
-                    onClick={() => setOpenInfoTooltip(true)}
-                  />
-                </div>
-              </Tooltip>
-            ) : null}
-          </div>
-        ) : null}
-      </div>
-    )
-  },
-)
+          {tooltipInfoContent && hints ? (
+            <Tooltip
+              arrow
+              open={openInfoTooltip}
+              title={tooltipInfoContent}
+              placement="top-end"
+              onClose={() => setOpenInfoTooltip(false)}
+              onOpen={() => setOpenInfoTooltip(true)}
+            >
+              <button onClick={() => setOpenInfoTooltip(true)}>
+                <TooltipInfoIcon className={cx(styles.tooltip, styles.tooltipInfo)} />
+              </button>
+            </Tooltip>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  )
+})

@@ -6,7 +6,7 @@ import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 
 import { SaveIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './member-select.style'
+import { useStyles } from './member-select.style'
 
 type MemberOptionType = {
   _id: string
@@ -26,17 +26,17 @@ interface Props {
 
 export const MemberSelect: FC<Props> = observer(
   ({ title, value, disabled, options, isEmptyMember = false, isDisabled, onChange, onSave }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     return (
-      <div className={classNames.selectWrapper}>
-        {title && <p className={classNames.title}>{title}</p>}
-        <div className={classNames.selectContainer}>
+      <div className={styles.selectWrapper}>
+        {title && <p className={styles.title}>{title}</p>}
+        <div className={styles.selectContainer}>
           <Select
             displayEmpty
             value={value}
             disabled={disabled}
-            className={classNames.select}
+            className={styles.select}
             onChange={(e: SelectChangeEvent<string>) => onChange(e)}
           >
             <MenuItem disabled={isEmptyMember} value="">
@@ -52,8 +52,8 @@ export const MemberSelect: FC<Props> = observer(
 
           <SaveIcon
             disabled={isDisabled}
-            className={cx(classNames.saveIcon, {
-              [classNames.disableIcon]: isDisabled,
+            className={cx(styles.saveIcon, {
+              [styles.disableIcon]: isDisabled,
             })}
             onClick={() => onSave()}
           />

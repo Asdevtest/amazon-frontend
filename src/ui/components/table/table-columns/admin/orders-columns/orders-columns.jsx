@@ -12,7 +12,7 @@ import {
   PriorityAndChinaDeliverCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -58,11 +58,12 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 210,
+    width: 220,
     renderCell: params => (
       <MultilineTextCell
         text={OrderStatusTranslate(OrderStatusByCode[params.value])}
         color={orderColorByStatus(OrderStatusByCode[params.value])}
+        maxLength={40}
       />
     ),
 
@@ -76,7 +77,7 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     width: 170,
-    renderCell: params => <DownloadAndCopyBtnsCell value={params.row.product.barcode} />,
+    renderCell: params => <DownloadAndCopyBtnsCell value={params.row.product.barCode} />,
 
     filterable: false,
     sortable: false,

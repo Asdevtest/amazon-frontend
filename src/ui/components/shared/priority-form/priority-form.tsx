@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
-import { usePriorityFormStyles } from '@components/shared/priority-form/priority-form.styles'
+import { usePriorityFormStyles } from '@components/shared/priority-form/priority-form.style'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
 import { t } from '@utils/translations'
@@ -57,7 +57,7 @@ export const PriorityForm = (props: PriorityFormProps) => {
             className={styles.reasonInput}
             value={reason}
             inputProps={{ maxLength: 250 }}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setReason(event.target.value)
               props.setComment(event.target.value)
             }}

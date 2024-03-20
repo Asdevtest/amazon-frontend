@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,34 +13,27 @@ import { t } from '@utils/translations'
 
 import { VacantDealsDetailsViewModel } from './deals-on-review-details-view.model'
 
-export const DealsOnReviewDetailsView = observer(props => {
-  const [viewModel] = useState(
-    () =>
-      new VacantDealsDetailsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+export const DealsOnReviewDetailsView = observer(({ history }) => {
+  const [viewModel] = useState(() => new VacantDealsDetailsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <div>
-        <DealDetailsCard
-          request={viewModel.request}
-          requestProposals={viewModel.requestProposals}
-          proposalId={viewModel.curProposalId}
-          onClickConfirmDealModal={viewModel.onClickConfirmDealModal}
-          onClickRejectDealModal={viewModel.onClickRejectDealModal}
-          onSubmitSendInForRework={viewModel.onSubmitSendInForRework}
-        />
-      </div>
+    <>
+      <DealDetailsCard
+        request={viewModel.request}
+        requestProposals={viewModel.requestProposals}
+        proposalId={viewModel.curProposalId}
+        onClickConfirmDealModal={viewModel.onClickConfirmDealModal}
+        onClickRejectDealModal={viewModel.onClickRejectDealModal}
+        onSubmitSendInForRework={viewModel.onSubmitSendInForRework}
+      />
 
-      {viewModel.showConfirmModal && (
+      {viewModel.showConfirmModal ? (
         <RequestProposalAcceptOrRejectResultForm
+          // @ts-ignore
           isSupervisor
           openModal={viewModel.showConfirmModal}
           title={t(TranslationKey['Confirm acceptance of the work result'])}
@@ -51,10 +44,11 @@ export const DealsOnReviewDetailsView = observer(props => {
           onSubmit={viewModel.onClickConfirmDeal}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
-      )}
+      ) : null}
 
-      {viewModel.showRejectModal && (
+      {viewModel.showRejectModal ? (
         <RequestProposalAcceptOrRejectResultForm
+          // @ts-ignore
           isReject
           isSupervisor
           title={t(TranslationKey['Reject the deal'])}
@@ -66,23 +60,26 @@ export const DealsOnReviewDetailsView = observer(props => {
           onSubmit={viewModel.onClickRejectDeal}
           onClose={() => viewModel.onTriggerOpenModal('showRejectModal')}
         />
-      )}
+      ) : null}
 
       <Modal openModal={viewModel.showReworkModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReworkModal')}>
         <RequestProposalResultToCorrectForm onPressSubmitForm={viewModel.onClickReworkDeal} />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
-    </React.Fragment>
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+    </>
   )
 })

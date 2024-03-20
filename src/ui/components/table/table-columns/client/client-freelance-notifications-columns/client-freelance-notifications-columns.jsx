@@ -1,12 +1,7 @@
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  AsinCell,
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { AsinCell, MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
@@ -28,12 +23,10 @@ export const clientFreelanceNotificationsColumns = handlers => [
   },
 
   {
-    field: 'typeTask',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: params => (
-      <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
-    ),
+    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
     width: 200,
   },
 
@@ -58,7 +51,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     renderCell: params => (
       <Button
-        sx={{
+        style={{
           height: '30px !important',
         }}
         onClick={() => handlers.onClickReplyBtn(params.row._id, params.row.chatId)}

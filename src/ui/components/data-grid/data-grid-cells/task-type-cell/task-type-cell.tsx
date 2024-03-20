@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,7 +11,7 @@ interface TaskTypeCellProps {
   operationType: string
 }
 
-export const TaskTypeCell: FC<TaskTypeCellProps> = React.memo(({ operationType }) => {
+export const TaskTypeCell: FC<TaskTypeCellProps> = memo(({ operationType }) => {
   const { classes: styles } = useStyles()
   const renderTaskDescription = (type: string) => {
     switch (type) {

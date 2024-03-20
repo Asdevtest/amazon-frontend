@@ -6,19 +6,21 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-destinations.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './tab-destinations.style'
 
 import { AdminSettingsDestinationsModel } from './tab-destinations.model'
 
 export const TabDestinations = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new AdminSettingsDestinationsModel())
 
@@ -27,20 +29,22 @@ export const TabDestinations = observer(() => {
   }, [])
 
   return (
-    <div className={classNames.wrapper}>
-      <Button success className={classNames.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+    <div className={styles.wrapper}>
+      <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
         {t(TranslationKey['Add a destination'])}
       </Button>
 
-      <div className={classNames.datagridWrapper}>
+      <div className={styles.datagridWrapper}>
         <CustomDataGrid
           useResizeContainer
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
+          sortingMode="client"
+          paginationMode="client"
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           rowHeight={70}
           slotProps={{
             baseTooltip: {
@@ -55,9 +59,9 @@ export const TabDestinations = observer(() => {
             },
           }}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
-          onPaginationModelChange={viewModel.onChangePaginationModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
@@ -71,17 +75,20 @@ export const TabDestinations = observer(() => {
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={viewModel.onClickToggleConfirmModal}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={viewModel.onClickToggleConfirmModal}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={viewModel.onClickToggleConfirmModal}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={viewModel.onClickToggleConfirmModal}
+        />
+      ) : null}
     </div>
   )
 })

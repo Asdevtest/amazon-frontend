@@ -1,35 +1,32 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import { Checkbox, Chip, IconButton } from '@mui/material'
+import { Checkbox, IconButton } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IDestination, IDestinationStorekeeper } from '@typings/destination'
+import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -49,7 +46,7 @@ interface BoxProps {
   onChangeField: (e: any, field: string, boxId: string, itemIndex?: number) => void
 }
 
-export const Box: FC<BoxProps> = React.memo(props => {
+export const Box: FC<BoxProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
     userInfo,
@@ -68,7 +65,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
-  const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
+  const [curProductToEditBarcode, setCurProductToEditBarcode] = useState<any>(null)
 
   const [showConfirmModal, setShowConfirmModal] = useState(false)
   const [confirmModalSettings, setConfirmModalSettings] = useState<any | undefined>(undefined)
@@ -265,8 +262,8 @@ export const Box: FC<BoxProps> = React.memo(props => {
                     <p className={styles.asinValue}>{box.humanFriendlyId}</p>
                   </div>
 
-                  <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order.product.asin} />
-                  <AsinOrSkuLink withCopyValue withAttributeTitle={'sku'} asin={order.product.skuByClient} />
+                  <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order.product.asin} />
+                  <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={order.product.skuByClient} />
 
                   <p className={styles.title}>{order.product.amazonTitle}</p>
 
@@ -411,7 +408,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
               </div>
               {isMasterBox ? (
                 <p className={styles.subTitle}>{`${t(TranslationKey['Units in a box'])} ${box.items[0].amount}`}</p>
-              ) : undefined}
+              ) : null}
             </div>
           ))}
           {showFullCard ? (
@@ -487,25 +484,12 @@ export const Box: FC<BoxProps> = React.memo(props => {
                 tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                 labelClasses={styles.label}
                 inputComponent={
-                  <Chip
-                    classes={{
-                      root: styles.barcodeChip,
-                      clickable: styles.barcodeChipHover,
-                      deletable: styles.barcodeChipHover,
-                      deleteIcon: styles.barcodeChipIcon,
-                      label: styles.barcodeChiplabel,
-                    }}
-                    className={cx({ [styles.barcodeChipExists]: box.shippingLabel })}
-                    size="small"
-                    label={
-                      box.tmpShippingLabel?.length
-                        ? t(TranslationKey['File added'])
-                        : box.shippingLabel
-                        ? trimBarcode(box.shippingLabel)
-                        : t(TranslationKey['Set Shipping Label'])
-                    }
-                    onClick={() => onClickShippingLabel()}
-                    onDelete={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                  <ChangeChipCell
+                    isChipOutTable
+                    text={!box.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''}
+                    value={box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0]}
+                    onClickChip={onClickShippingLabel}
+                    onDeleteChip={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
                   />
                 }
               />
@@ -581,7 +565,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
         <SetBarcodeModal
           // @ts-ignore
           tmpCode={curProductToEditBarcode?.tmpBarCode}
-          item={curProductToEditBarcode}
+          barCode={curProductToEditBarcode?.barCode}
           onClickSaveBarcode={(data: any) => onClickSaveBarcode(curProductToEditBarcode)(data)}
           onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
         />
@@ -604,17 +588,20 @@ export const Box: FC<BoxProps> = React.memo(props => {
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => setShowConfirmModal(false)}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings?.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-        onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => setShowConfirmModal(false)}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+        />
+      ) : null}
     </div>
   )
 })

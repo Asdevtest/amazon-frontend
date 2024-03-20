@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     gap: 30,
@@ -46,11 +46,6 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 30,
   },
 
-  buttonAdd: {
-    minWidth: '123px !important',
-    marginBottom: 10,
-  },
-
   proxyList: {
     width: '100%',
     height: 168,
@@ -87,9 +82,5 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
-  },
-
-  buttonSave: {
-    minWidth: '123px !important',
   },
 }))

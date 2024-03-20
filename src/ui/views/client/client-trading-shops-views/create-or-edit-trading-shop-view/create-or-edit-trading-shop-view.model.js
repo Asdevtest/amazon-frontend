@@ -9,8 +9,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditTradingShopViewModel {
   history = undefined
-  requestStatus = undefined
-  actionStatus = undefined
 
   showInfoModal = false
 
@@ -19,29 +17,21 @@ export class CreateOrEditTradingShopViewModel {
   infoModalText = ''
 
   uploadedFiles = []
-
-  readyImages = []
   progressValue = 0
   showProgress = false
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+  constructor({ history }) {
+    this.history = history
 
-      if (location.state) {
-        this.requestToEdit = location.state.request
-      }
-    })
+    if (history.location.state) {
+      this.requestToEdit = history.location.state.request
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async onSubmitCreateShopSell(data, files) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (files.length) {
         await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
@@ -53,18 +43,14 @@ export class CreateOrEditTradingShopViewModel {
       runInAction(() => {
         this.infoModalText = t(TranslationKey['An request has been created'])
       })
-      this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
       console.log(error)
 
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The request was not created'])
       })
+    } finally {
       this.onTriggerOpenModal('showInfoModal')
-
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -81,18 +67,14 @@ export class CreateOrEditTradingShopViewModel {
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The request has been changed'])
       })
-      this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
       console.log(error)
 
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The request has not been changed'])
       })
+    } finally {
       this.onTriggerOpenModal('showInfoModal')
-
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -102,8 +84,6 @@ export class CreateOrEditTradingShopViewModel {
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

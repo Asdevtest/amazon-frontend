@@ -15,37 +15,37 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './box-for-merge.style'
+import { useStyles } from './box-for-merge.style'
 
 export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const [showFullCard, setShowFullCard] = useState(true)
 
   return (
-    <div className={classNames.box}>
-      <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
+    <div className={styles.box}>
+      <Typography className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
       <div>
         <div>
           {box.items.map((order, orderIndex) => (
             <div key={`box_${box._id}_${readOnly ? 1 : 0}_${index}`}>
-              <div key={orderIndex} className={classNames.order}>
-                <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
+              <div key={orderIndex} className={styles.order}>
+                <img className={styles.img} src={getAmazonImageUrl(order.product.images[0])} />
                 <div>
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
+                  <div className={styles.asinWrapper}>
+                    <Typography className={styles.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
 
-                    <div className={classNames.asinTextWrapper}>
-                      <Typography className={classNames.asinValue}>{order.product.asin}</Typography>
+                    <div className={styles.asinTextWrapper}>
+                      <Typography className={styles.asinValue}>{order.product.asin}</Typography>
                       {order.product.asin && <CopyValue text={order.product.asin} />}
                     </div>
                   </div>
 
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asinTitle}>{t(TranslationKey.Order)}</Typography>
-                    <Typography className={classNames.asinValue}>{order.order.id}</Typography>
+                  <div className={styles.asinWrapper}>
+                    <Typography className={styles.asinTitle}>{t(TranslationKey.Order)}</Typography>
+                    <Typography className={styles.asinValue}>{order.order.id}</Typography>
                   </div>
 
-                  <Typography className={classNames.title}>
+                  <Typography className={styles.title}>
                     {getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}
                   </Typography>
                 </div>
@@ -54,8 +54,8 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
                   <Field
                     disabled={!readOnly}
                     label={t(TranslationKey.Quantity)}
-                    className={classNames.orderInput}
-                    labelClasses={classNames.label}
+                    className={styles.orderInput}
+                    labelClasses={styles.label}
                     value={order.amount}
                     tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
                   />
@@ -65,12 +65,12 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
           ))}
         </div>
         {showFullCard ? (
-          <div className={classNames.itemSubWrapper}>
+          <div className={styles.itemSubWrapper}>
             <Field
-              containerClasses={classNames.field}
+              containerClasses={styles.field}
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
               label={t(TranslationKey.Destination)}
-              labelClasses={classNames.label}
+              labelClasses={styles.label}
               inputComponent={
                 <WithSearchSelect
                   disabled
@@ -84,15 +84,13 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               }
             />
             <Field
-              containerClasses={classNames.field}
+              containerClasses={styles.field}
               tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
               label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
-              labelClasses={classNames.label}
+              labelClasses={styles.label}
               inputComponent={
                 <div>
-                  <Typography className={classNames.storekeeperDisableBtn}>
-                    {getNewTariffTextForBoxOrOrder(box)}
-                  </Typography>
+                  <Typography className={styles.storekeeperDisableBtn}>{getNewTariffTextForBoxOrOrder(box)}</Typography>
                 </div>
               }
             />
@@ -100,9 +98,9 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               disabled
               inputProps={{ maxLength: 255 }}
               tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-              containerClasses={classNames.field}
-              labelClasses={classNames.label}
-              className={classNames.fieldInput}
+              containerClasses={styles.field}
+              labelClasses={styles.label}
+              className={styles.fieldInput}
               label={t(TranslationKey['FBA Shipment'])}
               value={box.fbaShipment}
             />
@@ -114,15 +112,15 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               labelTitle={t(TranslationKey['Shipping label'])}
               labelValue={box.shippingLabel}
               lableLinkTitle={t(TranslationKey.View)}
-              labelWrapperStyles={classNames.labelWrapperStyles}
+              labelWrapperStyles={styles.labelWrapperStyles}
             />
           </div>
         ) : null}
       </div>
-      <div className={classNames.bottomBlockWrapper}>
-        <div className={classNames.incomingBtnWrapper}>
-          <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-            <Typography className={classNames.tablePanelViewText}>
+      <div className={styles.bottomBlockWrapper}>
+        <div className={styles.incomingBtnWrapper}>
+          <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
+            <Typography className={styles.tablePanelViewText}>
               {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
             </Typography>
 

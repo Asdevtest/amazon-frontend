@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Chip } from '@mui/material'
 
@@ -19,7 +19,7 @@ interface ChangeChipCellProps {
   isChipOutTable?: boolean
 }
 
-export const ChangeChipCell: FC<ChangeChipCellProps> = React.memo(props => {
+export const ChangeChipCell: FC<ChangeChipCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label, isChipOutTable } = props
 

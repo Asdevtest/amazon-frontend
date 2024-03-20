@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { plainToInstance } from 'class-transformer'
-import { transformAndValidate } from 'class-transformer-validator'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
+import { PaginationDirection } from '@constants/pagination/pagination-direction'
 import { noticeSound } from '@constants/sounds.js'
 
 import { OtherModel } from '@models/other-model'
@@ -13,6 +12,7 @@ import { UserModel } from '@models/user-model'
 import { WebsocketChatService } from '@services/websocket-chat-service'
 import {
   AddUsersToGroupChatParams,
+  ChatMessageTextType,
   ChatMessageType,
   EChatInfoType,
   FindChatMessageRequestParams,
@@ -41,8 +41,11 @@ class ChatModelStatic {
 
   public simpleChats: ChatContract[] = []
 
+  public messages: ChatContract[] = []
+
   public loadedFiles: string[] = []
   public loadedImages: string[] = []
+  public loadedVideos: string[] = []
 
   public typingUsers: OnTypingMessageResponse[] = []
 
@@ -110,8 +113,10 @@ class ChatModelStatic {
           pagination: {
             limit: 20,
             offset: 0,
+            offsetBottom: 0,
           },
-          isAllMessagesLoaded: false,
+          isAllNextMessagesLoaded: false,
+          isAllPreviousMessagesLoaded: true,
         }))
       })
     } catch (error) {
@@ -119,7 +124,7 @@ class ChatModelStatic {
     }
   }
 
-  public async getChatMessages(chatId: string, messageId?: string): Promise<void> {
+  public async getChatMessages(chatId: string, direction?: PaginationDirection): Promise<void> {
     if (!this.websocketChatService) {
       return
     }
@@ -132,28 +137,114 @@ class ChatModelStatic {
 
       const { chatType, index } = chatTypeAndIndex
 
-      if (this[chatType][index].isAllMessagesLoaded) {
-        return
-      }
+      const { limit, offset, offsetBottom } = this[chatType][index].pagination
 
-      const { offset, limit } = this[chatType][index].pagination
+      if (direction === PaginationDirection.START) {
+        const chatMessages = await this.websocketChatService.getChatMessages(chatId, 0, limit)
 
-      const chatMessages = await this.websocketChatService.getChatMessages(chatId, offset, limit, messageId)
+        runInAction(() => {
+          this[chatType][index] = {
+            ...this[chatType][index],
+            messages: chatMessages.rows,
+            pagination: {
+              ...this[chatType][index].pagination,
+              offset: limit,
+              offsetBottom: 0,
+            },
+            isAllNextMessagesLoaded: chatMessages.rows.length < limit,
+            isAllPreviousMessagesLoaded: true,
+          }
+        })
+      } else if (direction === PaginationDirection.NEXT) {
+        if (this[chatType][index].isAllNextMessagesLoaded) return
 
-      runInAction(() => {
-        this[chatType][index] = {
-          ...this[chatType][index],
-          messages: [...chatMessages.rows, ...this[chatType][index].messages],
-          pagination: {
-            ...this[chatType][index].pagination,
-            offset: offset + limit,
-          },
-          isAllMessagesLoaded: chatMessages.rows.length < limit,
+        const chatMessages = await this.websocketChatService.getChatMessages(chatId, offset, limit)
+
+        const newMessages = chatMessages.rows
+
+        if (!newMessages?.length) {
+          runInAction(() => {
+            this[chatType][index].isAllNextMessagesLoaded = true
+          })
+          return
         }
-      })
+
+        runInAction(() => {
+          this[chatType][index] = {
+            ...this[chatType][index],
+            messages: [...chatMessages.rows, ...this[chatType][index].messages],
+            pagination: {
+              ...this[chatType][index].pagination,
+              offset: offset + limit,
+            },
+            isAllNextMessagesLoaded: chatMessages.rows.length < limit,
+          }
+        })
+      } else if (direction === PaginationDirection.PREV) {
+        if (this[chatType][index].isAllPreviousMessagesLoaded) return
+
+        let validOffset = offsetBottom - limit
+        let validLimit = limit
+
+        if (validOffset < 0) {
+          validLimit = limit + validOffset
+          validOffset = 0
+        }
+
+        const chatMessages = await this.websocketChatService.getChatMessages(chatId, validOffset, validLimit)
+
+        const newMessages = chatMessages.rows
+
+        if (!newMessages?.length) {
+          runInAction(() => {
+            this[chatType][index].isAllPreviousMessagesLoaded = true
+          })
+          return
+        }
+
+        runInAction(() => {
+          this[chatType][index] = {
+            ...this[chatType][index],
+            messages: [...this[chatType][index].messages, ...chatMessages.rows],
+            pagination: {
+              ...this[chatType][index].pagination,
+              offsetBottom: validOffset,
+            },
+            isAllPreviousMessagesLoaded: chatMessages.rows.length < limit,
+          }
+        })
+      }
     } catch (error) {
       console.warn(error)
     }
+  }
+
+  public async resetChat(chatId: string) {
+    if (!this.websocketChatService) {
+      return
+    }
+
+    const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, chatId)
+
+    if (!chatTypeAndIndex || !chatId) {
+      return
+    }
+
+    const { chatType, index } = chatTypeAndIndex
+
+    runInAction(() => {
+      this[chatType][index] = {
+        ...this[chatType][index],
+        messages: [],
+        pagination: {
+          limit: 20,
+          offset: 0,
+          offsetBottom: 0,
+        },
+        isAllNextMessagesLoaded: false,
+        isAllPreviousMessagesLoaded: true,
+      }
+    })
   }
 
   public disconnect() {
@@ -176,8 +267,10 @@ class ChatModelStatic {
           pagination: {
             limit: 20,
             offset: 0,
+            offsetBottom: 0,
           },
-          isAllMessagesLoaded: false,
+          isAllNextMessagesLoaded: false,
+          isAllPreviousMessagesLoaded: true,
         }))
       })
     } catch (error) {
@@ -221,6 +314,8 @@ class ChatModelStatic {
 
       if (fileData.type.startsWith('image')) {
         this.loadedImages.push(fileUrl)
+      } else if (fileData.type.startsWith('video')) {
+        this.loadedVideos.push(fileUrl)
       } else {
         this.loadedFiles.push(fileUrl)
       }
@@ -235,26 +330,51 @@ class ChatModelStatic {
     }
 
     if (params.files?.length) {
-      for (let i = 0; i < params.files.length; i++) {
-        const file: File = params.files[i]
-
-        await this.onPostFile(file)
+      for (const file of params.files) {
+        if (typeof file === 'string') {
+          this.loadedVideos.push(file)
+        } else {
+          await this.onPostFile(file?.file)
+        }
       }
     }
 
-    const paramsWithLoadedFiles = { ...params, files: this.loadedFiles, images: this.loadedImages }
+    const messageWithoutFiles = {
+      ...params,
+      files: [],
+      images: this.loadedImages,
+      video: this.loadedVideos,
+    }
 
+    if (params.text || this.loadedImages.length || this.loadedVideos.length) {
+      await this.websocketChatService.sendMessage(messageWithoutFiles)
+    }
+
+    if (this.loadedFiles.length) {
+      const messageWithFiles = {
+        chatId: params.chatId,
+        crmItemId: params.crmItemId,
+        text: '',
+        files: this.loadedFiles,
+        user: params.user,
+        replyMessageId: params.replyMessageId,
+      }
+
+      await this.websocketChatService.sendMessage(messageWithFiles)
+    }
+
+    this.loadedVideos = []
     this.loadedImages = []
     this.loadedFiles = []
-
-    await transformAndValidate(SendMessageRequestParamsContract, paramsWithLoadedFiles)
-
-    const sendMessageResult = await this.websocketChatService.sendMessage(paramsWithLoadedFiles)
-
-    return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
-  public async getChatMessage(chatId: string, messageId?: string, messageData?: ChatMessageContract): Promise<void> {
+  public async getChatMessage(
+    chatId: string,
+    messageId?: string,
+  ): Promise<void | {
+    isExist: boolean
+    messageIndex: number
+  }> {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
@@ -267,49 +387,58 @@ class ChatModelStatic {
 
     const { chatType, index } = chatTypeAndIndex
 
-    const chatMessageOffset = await this.getMessageOffset(chatId, messageId, messageData)
+    if (!messageId) return
+    const messageIndex = this.findMessageIndex(this[chatType][index].messages, messageId)
 
-    if (this[chatType][index].pagination.offset >= chatMessageOffset) {
-      return
-    }
-
-    const { limit, offset } = this[chatType][index].pagination
-
-    const chatMessages = await this.websocketChatService.getChatMessages(
-      chatId,
-      offset,
-      chatMessageOffset - offset + limit,
-    )
-
-    runInAction(() => {
-      this[chatType][index] = {
-        ...this[chatType][index],
-        messages: [...chatMessages.rows, ...this[chatType][index].messages],
-        pagination: {
-          ...this[chatType][index].pagination,
-          offset: chatMessageOffset + limit,
-        },
+    if (messageIndex !== -1) {
+      return {
+        isExist: true,
+        messageIndex,
       }
-    })
+    } else {
+      const chatMessageOffset = await this.getMessageOffset(chatId, messageId)
+      const limit = 40
+
+      const chatMessages = await this.websocketChatService.getChatMessages(chatId, chatMessageOffset - limit / 2, limit)
+
+      runInAction(() => {
+        this[chatType][index] = {
+          ...this[chatType][index],
+          messages: chatMessages.rows,
+          pagination: {
+            ...this[chatType][index].pagination,
+            offset: chatMessageOffset + limit / 2,
+            offsetBottom: chatMessageOffset - limit / 2,
+          },
+          isAllNextMessagesLoaded: chatMessages.rows?.length < limit,
+          isAllPreviousMessagesLoaded: false,
+        }
+      })
+
+      const newMessageIndex = this.findMessageIndex(chatMessages.rows, messageId)
+
+      if (newMessageIndex !== -1) {
+        return {
+          isExist: false,
+          messageIndex: newMessageIndex,
+        }
+      }
+    }
   }
 
-  private async getMessageOffset(
-    chatId: string,
-    messageId?: string,
-    messageData?: ChatMessageContract,
-  ): Promise<number> {
+  private findMessageIndex(messages: ChatMessageContract[], messageId: string) {
+    return messages?.findIndex(el => el._id === messageId)
+  }
+
+  private async getMessageOffset(chatId: string, messageId: string): Promise<number> {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
     }
 
-    if (messageData?.offset) {
-      return messageData.offset
-    } else {
-      const chatMessage = await this.websocketChatService.getChatMessages(chatId, undefined, undefined, messageId)
-      const chatMessageOffset = chatMessage.offset
+    const chatMessage = await this.websocketChatService.getChatMessages(chatId, undefined, undefined, messageId)
+    const chatMessageOffset = chatMessage.offset
 
-      return chatMessageOffset
-    }
+    return chatMessageOffset
   }
 
   public async addUsersToGroupChat(params: AddUsersToGroupChatParams) {
@@ -326,7 +455,11 @@ class ChatModelStatic {
       const { chatType, index } = chatTypeAndIndex
       runInAction(() => {
         // @ts-ignore
-        this[chatType][index].users = [...this[chatType][index].users, ...addedUsers]
+        this[chatType][index] = {
+          ...this[chatType][index],
+          // @ts-ignore
+          users: [...this[chatType][index].users, ...addedUsers],
+        }
       })
     } catch (error) {
       console.log(error)
@@ -339,7 +472,7 @@ class ChatModelStatic {
     }
 
     try {
-      await this.websocketChatService.removeUsersFromGroupChat(params)
+      this.websocketChatService.removeUsersFromGroupChat(params)
       const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, params.chatId)
       if (!chatTypeAndIndex) {
         return
@@ -359,7 +492,28 @@ class ChatModelStatic {
       throw websocketChatServiceIsNotInitializedError
     }
 
-    await this.websocketChatService.patchInfoGroupChat(params)
+    try {
+      const newInfo = await this.websocketChatService.patchInfoGroupChat(params)
+
+      const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, params.chatId)
+      if (!chatTypeAndIndex) {
+        return
+      }
+      const { chatType, index } = chatTypeAndIndex
+
+      runInAction(() => {
+        // @ts-ignore
+        this[chatType][index] = {
+          ...this[chatType][index],
+          info: {
+            ...this[chatType][index].info,
+            ...newInfo,
+          },
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   public async typingMessage(params: TypingMessageRequestParams) {
@@ -422,7 +576,11 @@ class ChatModelStatic {
   }
 
   private onNewMessage(newMessage: ChatMessageContract) {
-    if (newMessage.type === ChatMessageType.SYSTEM && newMessage?.info?.type !== EChatInfoType.GROUP) {
+    if (
+      newMessage.type === ChatMessageType.SYSTEM &&
+      newMessage?.info?.type !== EChatInfoType.GROUP &&
+      window?.location?.pathname.includes('/messages')
+    ) {
       this.getSimpleChats()
     }
 
@@ -473,7 +631,15 @@ class ChatModelStatic {
       })
     }
 
-    this.getUnreadMessagesCount(!isCurrentUser ? 1 : 0)
+    const isSystemNotification = [
+      ChatMessageTextType.ADD_USERS_TO_GROUP_CHAT_BY_ADMIN,
+      ChatMessageTextType.REMOVE_USERS_FROM_GROUP_CHAT_BY_ADMIN,
+      ChatMessageTextType.PATCH_INFO,
+    ].some(messageTextType => message.text === messageTextType)
+
+    const isAddCounter = !isCurrentUser && !newMessage?.crmItemId && !isSystemNotification
+
+    this.getUnreadMessagesCount(isAddCounter ? 1 : 0)
   }
 
   public onChangeChatSelectedId(value: string | undefined) {
@@ -535,6 +701,12 @@ class ChatModelStatic {
   }
 
   private onNewChat(newChat: ChatContract) {
+    const path = window?.location?.pathname
+
+    if (!path.includes('/messages')) {
+      return
+    }
+
     this.getSimpleChats()
 
     const chat = plainToInstance<ChatContract, unknown>(ChatContract, newChat)

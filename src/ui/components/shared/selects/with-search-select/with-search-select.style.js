@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: 280,
-    height: 36,
+    height: '40px',
     position: 'relative',
 
     display: 'visible !important',
@@ -37,9 +37,9 @@ export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
     border: `1px solid ${theme.palette.primary.main}`,
-    borderRadius: 4,
+    borderRadius: '100px',
     transition: '0.3s ease',
-    maxHeight: 36,
+    height: 40,
     overflow: 'hidden',
     position: 'absolute',
   },
@@ -104,7 +104,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
-    height: 'auto !important',
     color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',

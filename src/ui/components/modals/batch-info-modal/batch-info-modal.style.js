@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -84,7 +84,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    gap: 30,
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       gap: 5,

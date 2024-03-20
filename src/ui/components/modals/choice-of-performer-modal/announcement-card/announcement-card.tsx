@@ -1,44 +1,43 @@
-import { cx } from '@emotion/css'
 import { FC, useState } from 'react'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { RadioButtons } from '@components/shared/radio-buttons'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { IService, IShortUser } from '@typings/master-user'
-import { IUploadFile } from '@typings/upload-file'
+import { isString } from '@typings/guards'
+import { IAnnoucement } from '@typings/models/announcements/annoucement'
+import { ICreatedBy } from '@typings/shared/created-by'
+import { UploadFileType } from '@typings/shared/upload-file'
 
-import { useClassNames } from './announcement-card.styles'
+import { useStyles } from './announcement-card.style'
 
 interface onClickThumbnailArguments {
-  images: Array<string | IUploadFile>
+  images: UploadFileType[]
   imgIndex: number
 }
 
 interface AnnouncementCardProps {
-  announcementData: IService
-  selectedCard?: IService
+  announcementData: IAnnoucement
+  selectedCard?: IAnnoucement
   onClickThumbnail: (images: onClickThumbnailArguments) => void
-  onClickSelectCard: (value: IService) => void
-  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IShortUser) => void
+  onClickSelectCard: (value: IAnnoucement) => void
+  onClickSelectButton?: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
-  const { classes: classNames } = useClassNames()
+  const { announcementData, selectedCard, onClickSelectCard, onClickSelectButton } = props
 
-  const { announcementData, selectedCard, /* onClickThumbnail, */ onClickSelectCard, onClickSelectButton } = props
+  const { classes: styles, cx } = useStyles()
 
   const imagesForRender = announcementData?.linksToMediaFiles?.filter(el =>
-    checkIsMediaFileLink(typeof el !== 'string' ? el?.file?.name : el),
+    checkIsMediaFileLink(isString(el) ? el : el?.file?.name),
   )
-
   const radioBottonsSettings = [
     {
       label: () => '',
@@ -55,15 +54,15 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
   return (
     <>
       <div
-        className={cx(classNames.root, { [classNames.selectedCard]: selectedCard?._id === announcementData?._id })}
+        className={cx(styles.root, { [styles.selectedCard]: selectedCard?._id === announcementData?._id })}
         onClick={e => {
           e.stopPropagation()
           onClickSelectCard(announcementData)
         }}
       >
-        <div className={classNames.header}>
-          <div className={classNames.titleWrapper}>
-            <p className={classNames.title}>{announcementData?.title}</p>
+        <div className={styles.header}>
+          <div className={styles.titleWrapper}>
+            <p className={styles.title}>{announcementData?.title}</p>
             <RadioButtons
               currentValue={selectedCard?._id}
               radioBottonsSettings={radioBottonsSettings}
@@ -71,36 +70,36 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
             />
           </div>
 
-          <p className={classNames.description}>{announcementData?.description}</p>
+          <p className={styles.description}>{announcementData?.description}</p>
         </div>
 
-        <div className={classNames.detailedDescriptionWrapper}>
-          <button className={classNames.detailedDescription} onClick={handleToggleModal}>
+        <div className={styles.detailedDescriptionWrapper}>
+          <button className={styles.detailedDescription} onClick={handleToggleModal}>
             {t(TranslationKey.Details)}
           </button>
         </div>
 
-        <PhotoAndFilesSlider showPreviews isHideCounter withoutFiles mediumSlider files={imagesForRender} />
+        <div className={styles.galleryWrapper}>
+          <SlideshowGallery hiddenPreviews files={imagesForRender} />
+        </div>
 
-        <div className={classNames.detailsWrapper}>
-          <div className={classNames.detailsSubWrapper}>
-            <p className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
-            <p className={classNames.detailDescription}>
-              {announcementData.type === 0
-                ? t(TranslationKey.Universal)
-                : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[announcementData.type])}
+        <div className={styles.detailsWrapper}>
+          <div className={styles.detailsSubWrapper}>
+            <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+            <p className={styles.detailDescription}>
+              {announcementData.spec?.type === 0 ? t(TranslationKey.Universal) : announcementData.spec?.title}
             </p>
           </div>
 
-          <div className={classNames.detailsSubWrapper}>
-            <p className={classNames.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
+          <div className={styles.detailsSubWrapper}>
+            <p className={styles.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
 
             <UserLink
               withAvatar
               name={announcementData?.createdBy?.name}
               userId={announcementData?.createdBy?._id}
               rating={announcementData?.createdBy?.rating || 5}
-              customClassNames={classNames.userLinkCustomClassNames}
+              customClassNames={styles.userLinkCustomClassNames}
               ratingSize="small"
               customRatingClass={{ fontSize: 13, opacity: 1 }}
             />
@@ -108,13 +107,15 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
         </div>
       </div>
 
-      <AnnouncementModal
-        select
-        isOpenModal={isOpenModal}
-        service={announcementData}
-        onOpenModal={handleToggleModal}
-        onClickSelectButton={onClickSelectButton}
-      />
+      {isOpenModal ? (
+        <AnnouncementModal
+          select
+          openModal={isOpenModal}
+          service={announcementData}
+          onOpenModal={handleToggleModal}
+          onClickSelectButton={onClickSelectButton}
+        />
+      ) : null}
     </>
   )
 }

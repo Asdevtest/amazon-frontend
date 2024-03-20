@@ -1,5 +1,5 @@
 import isEqual from 'lodash.isequal'
-import React, { memo, useEffect, useState } from 'react'
+import { Fragment, memo, useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -8,11 +8,13 @@ import { Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './with-search-select.style'
 
@@ -165,7 +167,10 @@ export const WithSearchSelect = memo(
                 vertical: 'bottom',
                 horizontal: 'left',
               }}
-              onClose={handleClose}
+              onClose={() => {
+                handleClose()
+                onClickSubmitSearch ? onClickSubmitSearch('') : undefined
+              }}
             >
               <div
                 className={cx(styles.subMainWrapper, customSubMainWrapper)}
@@ -199,7 +204,7 @@ export const WithSearchSelect = memo(
                     <Tooltip followCursor title={t(TranslationKey['Not chosen'])}>
                       <Button
                         className={styles.button}
-                        variant="text"
+                        styleType={ButtonStyle.TRANSPARENT}
                         onClick={e => {
                           e.stopPropagation()
 
@@ -233,7 +238,7 @@ export const WithSearchSelect = memo(
                         key={index}
                         className={cx(styles.button, buttonStyles)}
                         style={changeColorById && { color: changeColorById(el._id) }}
-                        variant="text"
+                        styleType={ButtonStyle.TRANSPARENT}
                         onClick={e => {
                           e.stopPropagation()
                           onClickSelect(el)
@@ -248,7 +253,7 @@ export const WithSearchSelect = memo(
                           })}
                         >
                           {searchFields?.map((fieldName, index) => (
-                            <React.Fragment key={index}>
+                            <Fragment key={index}>
                               {checkbox && (
                                 <Checkbox checked={currentShops?.some(shop => shop?._id === el?._id)} color="primary" />
                               )}
@@ -263,7 +268,7 @@ export const WithSearchSelect = memo(
                                   {getRowValue ? getRowValue(el) : el[fieldName]}
                                 </Typography>
                               )}
-                            </React.Fragment>
+                            </Fragment>
                           ))}
 
                           {isFlat && !searchFields?.length && (
@@ -304,7 +309,7 @@ export const WithSearchSelect = memo(
                                 e.stopPropagation()
                               }}
                             />
-                          ) : undefined}
+                          ) : null}
                         </div>
                       </Button>
                     ),

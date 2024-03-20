@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: '1360px',
     padding: 10,
@@ -27,26 +27,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   boxCounterWrapper: {
-    padding: '8px 11px',
-    height: '52px',
-    margin: '2px',
     display: 'flex',
     alignItems: 'center',
-
-    position: 'absolute',
-    top: 4,
-    right: 390,
-    zIndex: 50,
-
-    borderTop: 'none !important',
-    [theme.breakpoints.down(768)]: {
-      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
-        display: 'none',
-      },
-      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(5)': {
-        marginLeft: '2px',
-      },
-    },
+    gap: 5,
   },
 
   boxCounterText: {
@@ -59,14 +42,13 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    marginLeft: 5,
+    color: theme.palette.text.second,
   },
 
   tableWrapper: {
     marginTop: '10px',
     height: 450,
-    overflow: 'auto',
-    position: 'relative',
+    width: '100%',
   },
 
   chosenGoodsTitle: {
@@ -131,15 +113,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  filesWrapper: {
-    width: '450px',
-    overflow: 'auto',
-    [theme.breakpoints.down(768)]: {
-      overflow: 'hidden',
-      margin: 0,
-    },
-  },
-
   actionBtn: {
     width: '144px',
     height: '40px',
@@ -154,22 +127,6 @@ export const useClassNames = makeStyles()(theme => ({
       flexDirection: 'column',
       alignItems: 'end',
       margin: '25px 0 30px',
-    },
-  },
-
-  uploadFilesWrapper: {
-    width: '690px',
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-    },
-  },
-  imageFileInputWrapper: {
-    display: 'flex',
-    gap: '60px',
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-      flexDirection: 'column',
-      gap: '40px',
     },
   },
 
@@ -214,13 +171,5 @@ export const useClassNames = makeStyles()(theme => ({
   volumeWeightDivider: {
     margin: '0 40px',
     color: theme.palette.text.second,
-  },
-
-  imageAndFileInputWrapper: {
-    [theme.breakpoints.down(768)]: {
-      width: '280px',
-      display: 'flex',
-      justifyContent: 'center',
-    },
   },
 }))

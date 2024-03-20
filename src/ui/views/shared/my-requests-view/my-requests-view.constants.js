@@ -12,7 +12,7 @@ export const filtersFields = [
   'updatedAt',
   'status',
   'title',
-  'typeTask',
+  'spec',
   'price',
   'timeoutAt',
   'asin',

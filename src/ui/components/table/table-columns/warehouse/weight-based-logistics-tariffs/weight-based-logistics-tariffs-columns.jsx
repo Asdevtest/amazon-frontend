@@ -1,16 +1,19 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  EditOrRemoveIconBtnsCell,
+  ActionButtonsCell,
   MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   WarehouseTariffDatesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
+import { ArrowDownOutlineIcon, ArrowUpOutlineIcon, CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDestinationData) => [
   {
@@ -108,17 +111,32 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     width: 160,
-    renderCell: params => (
-      <EditOrRemoveIconBtnsCell
-        tooltipArchiveButton
-        tooltipFirstButton={t(TranslationKey.Edit)}
-        tooltipSecondButton={t(TranslationKey.Remove)}
-        handlers={handlers}
-        row={params.row}
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        isArchive={getIsArchive()}
-      />
-    ),
+    renderCell: params => {
+      const isArchive = getIsArchive()
+
+      return (
+        <ActionButtonsCell
+          row
+          iconButton
+          isFirstButton
+          isSecondButton
+          isThirdButton={isArchive}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+          firstButtonTooltipText={t(TranslationKey.Edit)}
+          firstButtonElement={<EditIcon />}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonTooltipText={isArchive ? t(TranslationKey.Restore) : t(TranslationKey['Move to archive'])}
+          secondButtonElement={isArchive ? <ArrowUpOutlineIcon /> : <ArrowDownOutlineIcon />}
+          secondButtonStyle={isArchive ? ButtonStyle.SUCCESS : ButtonStyle.DANGER}
+          thirdButtonTooltipText={t(TranslationKey.Remove)}
+          thirdButtonElement={<CrossIcon />}
+          thirdButtonStyle={ButtonStyle.DANGER}
+          onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
+          onClickSecondButton={() => handlers.onTriggerArchive(params.row.originalData)}
+          onClickThirdButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
+        />
+      )
+    },
 
     filterable: false,
     sortable: false,

@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   redRow: {
     color: theme.palette.text.red,
   },
@@ -11,4 +13,4 @@ export const styles = theme => ({
     height: '88vh',
     width: '100%',
   },
-})
+}))

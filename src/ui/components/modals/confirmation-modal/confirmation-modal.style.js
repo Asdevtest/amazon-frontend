@@ -13,7 +13,7 @@ const animate_gradient = keyframes`
   }
 `
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalMessageWrapper: {
     width: '425px',
     minHeight: '168px',

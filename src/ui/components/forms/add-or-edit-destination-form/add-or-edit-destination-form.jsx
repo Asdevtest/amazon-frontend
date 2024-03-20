@@ -1,21 +1,23 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-destination-form.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './add-or-edit-destination-form.style'
 
 export const AddOrEditDestinationForm = observer(
   ({ onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const sourceFormFields = {
       name: destinationToEdit?.name || '',
@@ -56,18 +58,18 @@ export const AddOrEditDestinationForm = observer(
     formFields.city === '' || formFields.state === ''
 
     return (
-      <div className={classNames.root}>
-        <Typography variant="h5" className={classNames.standartText}>
+      <div className={styles.root}>
+        <Typography variant="h5" className={styles.standartText}>
           {destinationToEdit
             ? t(TranslationKey['Edit drop off location'])
             : t(TranslationKey['Add a new drop off location'])}
         </Typography>
 
-        <div className={classNames.form}>
+        <div className={styles.form}>
           {destinationToEdit && (
             <Field
               label={t(TranslationKey.Account)}
-              labelClasses={classNames.label}
+              labelClasses={styles.label}
               inputComponent={
                 <>
                   {destinationToEdit.storekeeper ? (
@@ -78,7 +80,7 @@ export const AddOrEditDestinationForm = observer(
                       userId={destinationToEdit.storekeeper?._id}
                     />
                   ) : (
-                    <Typography className={classNames.standartText}>{t(TranslationKey.Missing)}</Typography>
+                    <Typography className={styles.standartText}>{t(TranslationKey.Missing)}</Typography>
                   )}
                 </>
               }
@@ -87,7 +89,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.Title)}
-            labelClasses={classNames.label}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.name}
             placeholder={t(TranslationKey.Title) + '...'}
@@ -96,7 +98,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.Country)}
-            labelClasses={classNames.label}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.country}
             placeholder={t(TranslationKey.Country) + '...'}
@@ -105,7 +107,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.City)}
-            labelClasses={classNames.label}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.city}
             placeholder={t(TranslationKey.City) + '...'}
@@ -114,7 +116,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.State)}
-            labelClasses={classNames.label}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.state}
             placeholder={t(TranslationKey.State) + '...'}
@@ -123,7 +125,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.Address)}
-            labelClasses={classNames.label}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.address}
             placeholder={t(TranslationKey.Address) + '...'}
@@ -132,7 +134,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey['ZIP code'])}
-            labelClasses={classNames.label}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             error={
               formFields.zipCode &&
@@ -145,12 +147,12 @@ export const AddOrEditDestinationForm = observer(
           />
         </div>
 
-        <div className={classNames.btnsWrapper}>
-          <Button success disabled={disableSubmitBtn} color="primary" variant="contained" onClick={onSubmit}>
+        <div className={styles.btnsWrapper}>
+          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button className={classNames.button} variant="text" onClick={() => onCloseModal()}>
+          <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

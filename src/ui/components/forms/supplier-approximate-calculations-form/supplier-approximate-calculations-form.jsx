@@ -2,19 +2,22 @@ import { memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { supplierWeightBasedApproximateCalculationsDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './supplier-approximate-calculations-form.style'
 
 import { SupplierWeightBasedApproximateCalculationsFormColumns } from './supplier-weight-based-approximate-calculations-form-columns'
 
 export const SupplierApproximateCalculationsForm = memo(props => {
-  const { product, supplier, storekeepers, onClose, volumeWeightCoefficient /* , destinationData */ } = props
+  const { product, supplier, storekeepers, onClose, volumeWeightCoefficient } = props
+
   const { classes: styles } = useStyles()
 
   const [curStorekeeper, setCurStorekeeper] = useState([])
@@ -31,7 +34,6 @@ export const SupplierApproximateCalculationsForm = memo(props => {
 
       <CustomSwitcher
         fullWidth
-        switchMode={'small'}
         condition={curStorekeeper?._id}
         switcherSettings={[...storekeepers]
           .sort((a, b) => a.name.localeCompare(b.name))
@@ -60,7 +62,7 @@ export const SupplierApproximateCalculationsForm = memo(props => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button danger onClick={onClose}>
+        <Button styleType={ButtonStyle.DANGER} onClick={onClose}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

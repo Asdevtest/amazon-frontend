@@ -1,32 +1,33 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import CircleIcon from '@mui/icons-material/Circle'
 import { List, ListItem, ListItemText, Typography } from '@mui/material'
 
-import { useClassNames } from './custom-list.style'
+import { useStyles } from './custom-list.style'
 
 interface Props {
   dataList: string[]
   title: string
 }
 
-export const CustomList: FC<Props> = ({ dataList, title }) => {
-  const { classes: classNames } = useClassNames()
+export const CustomList: FC<Props> = memo(({ dataList, title }) => {
+  const { classes: styles } = useStyles()
+
   return (
     <div>
-      <Typography className={classNames.listTitle}>{title}</Typography>
+      <Typography className={styles.listTitle}>{title}</Typography>
 
       <List>
         {dataList
           ? dataList.map(item => (
-              <ListItem key={item} className={classNames.listItem}>
-                <CircleIcon classes={{ root: classNames.dot }} style={{ width: '8px' }} />
+              <ListItem key={item} className={styles.listItem}>
+                <CircleIcon classes={{ root: styles.dot }} style={{ width: '8px' }} />
 
-                <ListItemText className={classNames.listItemText}>{item}</ListItemText>
+                <ListItemText className={styles.listItemText}>{item}</ListItemText>
               </ListItem>
             ))
           : null}
       </List>
     </div>
   )
-}
+})

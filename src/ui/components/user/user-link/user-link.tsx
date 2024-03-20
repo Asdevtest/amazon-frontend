@@ -8,7 +8,7 @@ import { UserModel } from '@models/user-model'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
-import { useClassNames } from './user-link.style'
+import { useStyles } from './user-link.style'
 
 interface UserLinkProps {
   name?: string
@@ -45,7 +45,7 @@ export const UserLink: FC<UserLinkProps> = memo(
     customRatingClass,
     readOnlyRating,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const curUserId = UserModel.userId
 
@@ -60,25 +60,25 @@ export const UserLink: FC<UserLinkProps> = memo(
                 : `${window.location.origin}/another-user?${userId}`
             }
             underline={blackText || blueText ? 'none' : 'hover'}
-            className={classNames.linkWrapper}
+            className={styles.linkWrapper}
             onClick={e => e.stopPropagation()}
           >
             {withAvatar ? (
               <Tooltip title={name}>
                 <Avatar
                   src={getUserAvatarSrc(userId)}
-                  className={classNames.avatarWrapper}
+                  className={styles.avatarWrapper}
                   sx={{ width: 28, height: 28, ...(customAvatarStyles && customAvatarStyles) }}
                 />
               </Tooltip>
             ) : null}
 
-            <div className={classNames.userInfoWrapper}>
+            <div className={styles.userInfoWrapper}>
               {name && !notShowName && (
                 <p
-                  className={cx(classNames.linkText, customClassNames, {
-                    [classNames.blackLinkText]: blackText,
-                    [classNames.blueLinkText]: blueText,
+                  className={cx(styles.linkText, customClassNames, {
+                    [styles.blackLinkText]: blackText,
+                    [styles.blueLinkText]: blueText,
                   })}
                   style={{ ...(customStyles ?? {}), ...(maxNameWidth ? { maxWidth: maxNameWidth } : {}) }}
                 >

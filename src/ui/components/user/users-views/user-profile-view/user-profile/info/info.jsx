@@ -1,5 +1,3 @@
-import { cx } from '@emotion/css'
-
 import { Box, Divider, Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -7,23 +5,23 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { toFixedWithDollarSign, withText } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './info.style'
+import { useStyles } from './info.style'
 
 export const Info = ({ headerInfoData }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const InfoRow = ({ label, value }) => (
-    <Box className={classNames.infoRow}>
-      <Typography className={cx(classNames.text, classNames.typoLabel)}>{label}</Typography>
-      <Typography className={cx(classNames.text, classNames.typoValue)}>{value}</Typography>
+    <Box className={styles.infoRow}>
+      <Typography className={cx(styles.text, styles.typoLabel)}>{label}</Typography>
+      <Typography className={cx(styles.text, styles.typoValue)}>{value}</Typography>
     </Box>
   )
 
   return (
-    <Paper elevation={0} className={classNames.paper}>
-      <Typography className={classNames.title}>{t(TranslationKey.Info)}</Typography>
+    <Paper elevation={0} className={styles.paper}>
+      <Typography className={styles.title}>{t(TranslationKey.Info)}</Typography>
 
-      <Divider orientation={'horizontal'} className={classNames.divider} />
+      <Divider orientation={'horizontal'} className={styles.divider} />
 
       <InfoRow label={t(TranslationKey['Number of investors'])} value={headerInfoData.investorsCount} />
       <InfoRow label={t(TranslationKey['The products found'])} value={headerInfoData.goodsFound} />
@@ -33,25 +31,25 @@ export const Info = ({ headerInfoData }) => {
       />
       <InfoRow label={t(TranslationKey.Earned)} value={toFixedWithDollarSign(headerInfoData.earnedAmount)} />
 
-      <Divider orientation={'horizontal'} className={classNames.divider} />
+      <Divider orientation={'horizontal'} className={styles.divider} />
       <InfoRow
         label={t(TranslationKey['Added to favorites'])}
         value={withText(headerInfoData.addInSave, t(TranslationKey.investors))}
       />
 
-      <Divider orientation={'horizontal'} className={classNames.divider} />
+      <Divider orientation={'horizontal'} className={styles.divider} />
       <InfoRow
         label={t(TranslationKey.Blocked)}
         value={withText(headerInfoData.inBlocked, t(TranslationKey.investors))}
       />
 
-      <Divider orientation={'horizontal'} className={classNames.divider} />
+      <Divider orientation={'horizontal'} className={styles.divider} />
       <InfoRow
         label={t(TranslationKey['Blocked by'])}
         value={withText(headerInfoData.youBlocked, t(TranslationKey.investors))}
       />
 
-      <Divider orientation={'horizontal'} className={[classNames.divider, classNames.mobileDivider]} />
+      <Divider orientation={'horizontal'} className={[styles.divider, styles.mobileDivider]} />
       <InfoRow label={t(TranslationKey['Account created'])} value={headerInfoData.accountCreateAt} />
     </Paper>
   )

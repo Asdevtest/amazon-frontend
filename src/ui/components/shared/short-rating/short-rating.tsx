@@ -1,8 +1,6 @@
-import { cx } from '@emotion/css'
-
 import { Rating, Typography } from '@mui/material'
 
-import { useShortRatingStyles } from '@components/shared/short-rating/short-rating.styles'
+import { useStyles } from '@components/shared/short-rating/short-rating.style'
 
 interface ShortRatingProps {
   rating: number
@@ -11,7 +9,7 @@ interface ShortRatingProps {
 
 export const ShortRating = (props: ShortRatingProps) => {
   const { rating, size = 'small' } = props
-  const { classes: styles } = useShortRatingStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.wrapper}>

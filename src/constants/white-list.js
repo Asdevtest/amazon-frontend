@@ -17,6 +17,11 @@ export const patchSuppliers = [
   'productionTerm',
   'boxProperties',
   'priceVariations',
+  'heightUnit',
+  'widthUnit',
+  'lengthUnit',
+  'weighUnit',
+  'imageUnit',
 ]
 
 export const creatSupplier = [
@@ -38,6 +43,11 @@ export const creatSupplier = [
   'productionTerm',
   'boxProperties',
   'priceVariations',
+  'heightUnit',
+  'widthUnit',
+  'lengthUnit',
+  'weighUnit',
+  'imageUnit',
 ]
 
 export const IdeaPatch = [
@@ -121,4 +131,24 @@ export const createProductByClient = [
   'fourMonthesStock',
   'suppliersIds',
   'tags',
+]
+
+export const createOrderRequestWhiteList = [
+  'storekeeperId',
+  'buyerId',
+  'transparencyFile',
+  'item',
+  'logicsTariffId',
+  'variationTariffId',
+  'priority',
+  'destinationId',
+  'amount',
+  'deliveryCostToTheWarehouse',
+  'clientComment',
+  'productId',
+  'images',
+  'expressChinaDelivery',
+  'needsResearch',
+  'deadline',
+  'totalPrice',
 ]

@@ -1,4 +1,4 @@
-import { cx } from '@emotion/css'
+import isEqual from 'lodash.isequal'
 import { memo, useEffect, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
@@ -7,14 +7,14 @@ import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -29,9 +29,11 @@ import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -52,12 +54,11 @@ export const EditBoxStorekeeperForm = memo(
     setDestinationsFavouritesItem,
     onClickHsCode,
   }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-    const [imagesOfBox, setImagesOfBox] = useState([])
     const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -239,6 +240,12 @@ export const EditBoxStorekeeperForm = memo(
       }
     }
 
+    const handleChangeImages = files =>
+      setBoxFields({
+        ...boxFields,
+        images: files,
+      })
+
     const getBoxDataToSubmit = () => {
       if (sizeSetting === unitsOfChangeOptions.US) {
         return {
@@ -340,10 +347,11 @@ export const EditBoxStorekeeperForm = memo(
     }
 
     const disableSubmit =
-      (JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
-        JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxFields, ['logicsTariffId'])) ||
-        boxFields.storekeeperId === '') &&
-      !imagesOfBox.length
+      isEqual(boxInitialState, boxFields) ||
+      boxFields.storekeeperId === '' ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
@@ -421,9 +429,7 @@ export const EditBoxStorekeeperForm = memo(
                     {boxFields.items.map((item, index) => (
                       <div key={index} className={styles.productWrapper}>
                         <div className={styles.leftProductColumn}>
-                          <div className={styles.photoWrapper}>
-                            <PhotoAndFilesSlider withoutFiles files={item.product.images} />
-                          </div>
+                          <PhotoAndFilesSlider withoutFiles mediumSlider files={item.product.images} />
 
                           <>
                             <Field
@@ -589,12 +595,7 @@ export const EditBoxStorekeeperForm = memo(
                             label={t(TranslationKey['HS code'])}
                             value={item.product.hsCode}
                             inputComponent={
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                className={styles.hsCodeBtn}
-                                onClick={() => onClickHsCode(item.product._id)}
-                              >
+                              <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
                                 {t(TranslationKey['HS code'])}
                               </Button>
                             }
@@ -644,15 +645,9 @@ export const EditBoxStorekeeperForm = memo(
                       containerClasses={styles.field}
                       label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
                       tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
-                      error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
                       inputComponent={
                         <Button
-                          disableElevation
-                          color="primary"
-                          disabled={!boxFields.storekeeperId}
-                          className={cx({
-                            [styles.storekeeperBtn]: !boxFields.storekeeperId,
-                          })}
+                          className={styles.storekeeperBtn}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
@@ -828,18 +823,14 @@ export const EditBoxStorekeeperForm = memo(
                 />
 
                 <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput
-                    images={imagesOfBox}
-                    setImages={setImagesOfBox}
-                    maxNumber={boxFields.images?.length ? 50 - boxFields.images?.length : 50}
-                  />
+                  <UploadFilesInput fullWidth images={boxFields.images} setImages={handleChangeImages} maxNumber={50} />
                 </div>
 
                 <div className={styles.boxPhotoWrapper}>
                   <Typography className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoAndFilesSlider withoutFiles files={boxFields.images} />
+                  <PhotoAndFilesSlider smallSlider showPreviews files={boxFields.images} />
                 </div>
 
                 <div className={styles.commentsWrapper}>
@@ -893,7 +884,7 @@ export const EditBoxStorekeeperForm = memo(
                 id: formItem?._id,
                 boxData: getBoxDataToSubmit(),
                 sourceData: formItem,
-                imagesOfBox,
+                imagesOfBox: boxFields.images,
                 dataToSubmitHsCode: boxFields.items.map(el => ({
                   productId: el.product._id,
                   hsCode: el.product.hsCode,
@@ -907,22 +898,22 @@ export const EditBoxStorekeeperForm = memo(
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelBtn)}
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             onClick={onTriggerOpenModal}
           >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
 
-        {showPhotosModal && (
-          <ImageModal
-            isOpenModal={showPhotosModal}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        {showPhotosModal ? (
+          <SlideshowGalleryModal
+            openModal={showPhotosModal}
             files={bigImagesOptions.images}
             currentFileIndex={bigImagesOptions.imgIndex}
-            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
-        )}
+        ) : null}
 
         <Modal
           openModal={showSetShippingLabelModal}
@@ -960,7 +951,7 @@ export const EditBoxStorekeeperForm = memo(
             title={barcodeModalSetting.title}
             maxNumber={barcodeModalSetting.maxNumber}
             tmpCode={barcodeModalSetting.tmpCode}
-            item={barcodeModalSetting.item}
+            barCode={barcodeModalSetting.item?.barCode}
             onClickSaveBarcode={barcodeModalSetting.onClickSaveBarcode}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
@@ -980,17 +971,20 @@ export const EditBoxStorekeeperForm = memo(
           />
         </Modal>
 
-        <ConfirmationModal
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => setShowConfirmModal(false)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(false)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </div>
     )
   },

@@ -8,10 +8,10 @@ import { AdministratorModel } from '@models/administrator-model'
 import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
 
-import { tagsColumns } from '@components/table/table-columns/admin/tags-columns'
-
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
+
+import { tagsColumns } from './tags-columns'
 
 export class AdminSettingsTagsModel {
   tags = []
@@ -42,20 +42,25 @@ export class AdminSettingsTagsModel {
 
   columnsModel = tagsColumns(this.rowHandlers)
 
+  get currentData() {
+    if (this.nameSearchValue) {
+      return this.tags.filter(({ title }) => title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+    } else {
+      return this.tags
+    }
+  }
+
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
 
-      await this.getTags()
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.getTags()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
     }
   }
 
@@ -65,40 +70,31 @@ export class AdminSettingsTagsModel {
 
   async getTags() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const result = await GeneralModel.getTagList()
+      const resolve = await GeneralModel.getTagList()
 
       runInAction(() => {
-        this.tags = addIdDataConverter(result)
+        this.tags = addIdDataConverter(resolve)
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
+      console.log(error)
       this.tags = []
-      this.setRequestStatus(loadingStatuses.failed)
-    }
-  }
-
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.tags).filter(({ title }) => title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
-    } else {
-      return toJS(this.tags)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_TAGS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setDataGridState() {
@@ -118,7 +114,7 @@ export class AdminSettingsTagsModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModel(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()
@@ -192,65 +188,49 @@ export class AdminSettingsTagsModel {
 
   async onCreateTag(titleTag) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       await GeneralModel.createTag(titleTag)
 
       this.onClickToggleAddOrEditModal()
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
     }
   }
 
   async onEditTag(id, data) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       await AdministratorModel.editTag(id, data)
 
       this.onClickToggleAddOrEditModal()
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
     }
   }
 
   async onRemoveTag() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       await AdministratorModel.removeTags([this.tagIdToRemove])
 
       this.onClickToggleConfirmModal()
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
     }
   }
 
   async onRemoveTags() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       await AdministratorModel.removeTags(this.rowSelectionModel)
 
       this.onClickToggleConfirmModal()
 
-      await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
     }
   }
 

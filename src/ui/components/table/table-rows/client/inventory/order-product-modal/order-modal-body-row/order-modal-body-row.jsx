@@ -1,7 +1,6 @@
-import { cx } from '@emotion/css'
 import { isValid } from 'date-fns'
 import dayjs from 'dayjs'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/material'
@@ -9,12 +8,11 @@ import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/mate
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
@@ -22,11 +20,12 @@ import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './order-modal-body-row.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './order-modal-body-row.style'
 
 export const OrderModalBodyRow = ({
   platformSettings,
@@ -47,7 +46,7 @@ export const OrderModalBodyRow = ({
   onClickSetDestinationFavourite,
   onClickTransparency,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
 
@@ -75,6 +74,9 @@ export const OrderModalBodyRow = ({
   const tariffRate =
     currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
     currentLogicsTariff?.destinationVariations?.find(el => el._id === item?.variationTariffId)?.pricePerKgUsd
+
+  const currentTariffName = tariffName ? `${tariffName}` : ''
+  const currentTariffRate = tariffRate ? `/ ${tariffRate} $` : ''
 
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const weightOfOneBox = item.currentSupplier
@@ -272,51 +274,36 @@ export const OrderModalBodyRow = ({
   }, [item?.destinationId])
 
   return (
-    <React.Fragment>
+    <>
       <TableRow
         key={item._id}
         hover
         role="checkbox"
-        className={cx(classNames.row, { [classNames.noCurrentSupplier]: !item.currentSupplier })}
+        className={cx(styles.row, { [styles.noCurrentSupplier]: !item.currentSupplier })}
       >
-        <TableCell className={classNames.asinCell}>
-          <div className={classNames.asinCellContainer}>
-            <div>
-              <img alt="" className={classNames.img} src={getAmazonImageUrl(item.images[0])} />
-            </div>
-          </div>
-        </TableCell>
-
-        <TableCell className={classNames.cell}>
-          <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
-          <AsinOrSkuLink
-            withCopyValue
-            withAttributeTitle={'asin'}
-            asin={item?.asin}
-            attributeTitleTextStyles={classNames.standartText}
-          />
-          <AsinOrSkuLink
-            withCopyValue
-            withAttributeTitle={'sku'}
-            sku={item?.skuByClient}
-            attributeTitleTextStyles={classNames.standartText}
+        <TableCell className={styles.cell}>
+          <ProductAsinCell
+            image={item.images[0]}
+            amazonTitle={item.amazonTitle}
+            asin={item.asin}
+            skuByClient={item.sku}
           />
 
           {!item.currentSupplier && (
-            <Typography className={classNames.noCurrentSupplierText}>
+            <Typography className={styles.noCurrentSupplierText}>
               {t(TranslationKey['No supplier selected!'])}
             </Typography>
           )}
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <Typography className={classNames.standartText}>
+        <TableCell className={styles.cell}>
+          <Typography className={styles.standartText}>
             {item.currentSupplier ? toFixed(item.currentSupplier.price, 2) : <span>—</span>}
           </Typography>
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <Typography className={classNames.standartText}>
+        <TableCell className={styles.cell}>
+          <Typography className={styles.standartText}>
             {item.currentSupplier ? (
               toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)
             ) : (
@@ -325,11 +312,11 @@ export const OrderModalBodyRow = ({
           </Typography>
         </TableCell>
 
-        <TableCell className={classNames.cell}>
+        <TableCell className={styles.cell}>
           <Field
-            containerClasses={classNames.containerField}
-            inputClasses={cx(classNames.amountCell, {
-              [classNames.errorSpaceInputCell]:
+            containerClasses={styles.containerField}
+            inputClasses={cx(styles.amountCell, {
+              [styles.errorSpaceInputCell]:
                 (item.currentSupplier?.multiplicity &&
                   item.currentSupplier?.boxProperties?.amountInBox &&
                   (orderState.amount % item.currentSupplier?.boxProperties?.amountInBox !== 0 || !orderState.amount)) ||
@@ -359,19 +346,19 @@ export const OrderModalBodyRow = ({
           />
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <Typography className={cx(classNames.standartText, { [classNames.errorSpace]: isLocalPriseOutOfLimit })}>
+        <TableCell className={styles.cell}>
+          <Typography className={cx(styles.standartText, { [styles.errorSpace]: isLocalPriseOutOfLimit })}>
             {toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}
           </Typography>
           {isLocalPriseOutOfLimit && (
-            <Typography className={classNames.error}>
+            <Typography className={styles.error}>
               {t(TranslationKey['At least'])} {platformSettings.orderAmountLimit}$
             </Typography>
           )}
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <div className={classNames.priceVariationsCell}>
+        <TableCell className={styles.cell}>
+          <div className={styles.priceVariationsCell}>
             {priceVariations?.length > 0 ? (
               priceVariations?.map((el, index) => (
                 <div key={index}>
@@ -386,8 +373,8 @@ export const OrderModalBodyRow = ({
           </div>
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <div className={classNames.buttonWrapper}>
+        <TableCell className={styles.cell}>
+          <div className={styles.buttonWrapper}>
             <ChangeChipCell
               text={!orderState.barCode && !orderState.tmpBarCode.length && t(TranslationKey['Set Barcode'])}
               value={orderState.tmpBarCode?.[0]?.file?.name || orderState.tmpBarCode?.[0] || orderState.barCode}
@@ -419,32 +406,30 @@ export const OrderModalBodyRow = ({
             />
 
             {orderState.transparency && !orderState.transparencyFile && !orderState.tmpTransparencyFile.length && (
-              <p className={classNames.warningText}>{t(TranslationKey['No Transparency codes'])}</p>
+              <p className={styles.warningText}>{t(TranslationKey['No Transparency codes'])}</p>
             )}
           </div>
         </TableCell>
 
-        <TableCell className={classNames.cell}>
+        <TableCell className={styles.cell}>
           <Button
-            variant={item.storekeeperId && 'text'}
-            className={cx(
-              { [classNames.storekeeperBtn]: !item.storekeeperId },
-              { [classNames.standartText]: item.storekeeperId },
-            )}
+            fullWidth
+            className={styles.button}
+            styleType={item.storekeeperId ? ButtonStyle.DEFAULT : ButtonStyle.PRIMARY}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {item.storekeeperId
-              ? `                
-                ${
-                  item.logicsTariffId
-                    ? `${tariffName}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
-                    : 'none'
-                }`
-              : t(TranslationKey.Select)}
+            {item.storekeeperId ? (
+              <>
+                <p>{currentTariffName}</p>
+                <p>{currentTariffRate}</p>
+              </>
+            ) : (
+              t(TranslationKey.Select)
+            )}
           </Button>
         </TableCell>
 
-        <TableCell className={classNames.cell}>
+        <TableCell className={styles.cell}>
           <WithSearchSelect
             width={160}
             widthPopover={220}
@@ -452,12 +437,8 @@ export const OrderModalBodyRow = ({
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
             data={
-              // destinations
-              item.logicsTariffId ? destinations.filter(el => el?._id === destinationId) : destinations
-              // .filter(el => el.storekeeper?._id !== item?.storekeeperId)
-
-              /* .filter(el => !el.storekeeperId)*/
-            } // убираем дестинейшены, которые одновременно и склады
+              item.logicsTariffId && destinationId ? destinations.filter(el => el?._id === destinationId) : destinations
+            }
             favourites={destinationsFavourites}
             searchFields={['name']}
             onClickSetDestinationFavourite={onClickSetDestinationFavourite}
@@ -466,20 +447,20 @@ export const OrderModalBodyRow = ({
           />
         </TableCell>
 
-        <TableCell className={classNames.cell}>
+        <TableCell className={styles.cell}>
           <Input
             multiline
             minRows={3}
             maxRows={3}
             inputProps={{ maxLength: 500 }}
-            className={classNames.commentInput}
-            classes={{ inputMultiline: classNames.inputMultiline }}
+            className={styles.commentInput}
+            classes={{ inputMultiline: styles.inputMultiline }}
             onChange={e => onChangeInput(e, 'clientComment')}
           />
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <div className={classNames.datePickerWrapper}>
+        <TableCell className={styles.cell}>
+          <div className={styles.datePickerWrapper}>
             <NewDatePicker
               disablePast
               // error={!isValid(parsedDeadline) || isPast(parsedDeadline)}
@@ -491,7 +472,7 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         {withRemove && (
-          <TableCell>
+          <TableCell className={styles.deleteCell}>
             <IconButton onClick={() => onRemoveProduct(item._id)}>
               <DeleteIcon />
             </IconButton>
@@ -517,11 +498,11 @@ export const OrderModalBodyRow = ({
 
       <TableRow key={item._id + `+`}>
         <TableCell colSpan={12}>
-          <div className={classNames.sumsWrapper}>
+          <div className={styles.sumsWrapper}>
             <Button
               tooltipAttentionContent={!boxPropertiesIsFull && t(TranslationKey['Not enough data'])}
               disabled={!boxPropertiesIsFull}
-              className={classNames.calculationButton}
+              className={styles.calculationButton}
               onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
             >
               {t(TranslationKey['View an oriented calculation'])}
@@ -529,29 +510,29 @@ export const OrderModalBodyRow = ({
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={styles.containerField}
+              labelClasses={styles.labelField}
               label={`${t(TranslationKey['Production time'])}, ${t(TranslationKey.days)}`}
               inputComponent={
-                <Typography className={classNames.sumText}>{item.currentSupplier?.productionTerm}</Typography>
+                <Typography className={styles.sumText}>{item.currentSupplier?.productionTerm}</Typography>
               }
             />
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={styles.containerField}
+              labelClasses={styles.labelField}
               label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
-              inputComponent={<Typography className={classNames.sumText}>{item.currentSupplier?.minlot}</Typography>}
+              inputComponent={<Typography className={styles.sumText}>{item.currentSupplier?.minlot}</Typography>}
             />
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={styles.containerField}
+              labelClasses={styles.labelField}
               label={t(TranslationKey['Weight 1 unit'])}
               inputComponent={
-                <Typography className={classNames.sumText}>
+                <Typography className={styles.sumText}>
                   {toFixed(weightOfOneBox, 2) || t(TranslationKey['No data'])}
                 </Typography>
               }
@@ -559,11 +540,11 @@ export const OrderModalBodyRow = ({
 
             <Field
               oneLine
-              containerClasses={cx(classNames.containerField, classNames.batchWeight)}
-              labelClasses={classNames.labelField}
+              containerClasses={cx(styles.containerField, styles.batchWeight)}
+              labelClasses={styles.labelField}
               label={t(TranslationKey['Batch weight'])}
               inputComponent={
-                <Typography className={classNames.sumText}>
+                <Typography className={styles.sumText}>
                   {toFixed(weightOfBatch, 2) || t(TranslationKey['No data'])}
                 </Typography>
               }
@@ -571,11 +552,11 @@ export const OrderModalBodyRow = ({
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={styles.containerField}
+              labelClasses={styles.labelField}
               label={t(TranslationKey['Batch delivery cost']) + ',$'}
               inputComponent={
-                <Typography className={classNames.sumText}>
+                <Typography className={styles.sumText}>
                   {toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}
                 </Typography>
               }
@@ -583,25 +564,25 @@ export const OrderModalBodyRow = ({
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={styles.containerField}
+              labelClasses={styles.labelField}
               label={t(TranslationKey['Cost per unit in the USA']) + ',$'}
-              inputComponent={<Typography className={classNames.sumText}>{pricePerUnit}</Typography>}
+              inputComponent={<Typography className={styles.sumText}>{pricePerUnit}</Typography>}
             />
           </div>
-          <div className={classNames.mainCheckboxWrapper}>
-            <div className={classNames.checkboxWrapper}>
-              <div className={classNames.expressWrapper} onClick={onClickPriority}>
-                <Checkbox className={classNames.checkbox} checked={item.priority === '40'} color="primary" />
-                <Typography className={classNames.sumText}>{t(TranslationKey['Mark an order as urgent'])}</Typography>
-                <img className={classNames.deliveryImg} src="/assets/icons/fire.svg" alt="" />
+          <div className={styles.mainCheckboxWrapper}>
+            <div className={styles.checkboxWrapper}>
+              <div className={styles.expressWrapper} onClick={onClickPriority}>
+                <Checkbox className={styles.checkbox} checked={item.priority === '40'} color="primary" />
+                <Typography className={styles.sumText}>{t(TranslationKey['Mark an order as urgent'])}</Typography>
+                <img className={styles.deliveryImg} src="/assets/icons/fire.svg" alt="" />
               </div>
-              <div className={classNames.expressWrapper} onClick={onClickExpressChinaDelivery}>
-                <Checkbox className={classNames.checkbox} checked={item.expressChinaDelivery} color="primary" />
-                <Typography className={classNames.sumText}>
+              <div className={styles.expressWrapper} onClick={onClickExpressChinaDelivery}>
+                <Checkbox className={styles.checkbox} checked={item.expressChinaDelivery} color="primary" />
+                <Typography className={styles.sumText}>
                   {t(TranslationKey['Order express delivery in China'])}
                 </Typography>
-                <img className={classNames.deliveryImg} src="/assets/icons/truck.svg" alt="" />
+                <img className={styles.deliveryImg} src="/assets/icons/truck.svg" alt="" />
               </div>
             </div>
           </div>
@@ -621,18 +602,21 @@ export const OrderModalBodyRow = ({
           />
         </Modal>
 
-        <ConfirmationModal
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmationModal}
-          setOpenModal={() => setShowConfirmationModal(prev => !prev)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
+        {showConfirmationModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmationModal}
+            setOpenModal={() => setShowConfirmationModal(prev => !prev)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </TableRow>
-    </React.Fragment>
+    </>
   )
 }

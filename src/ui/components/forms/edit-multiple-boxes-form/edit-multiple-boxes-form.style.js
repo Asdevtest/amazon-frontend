@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -115,10 +115,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '5px',
   },
 
-  storekeeperBtn: {
-    height: '40px',
-  },
-
   fieldInput: {
     height: '40px',
   },
@@ -139,10 +135,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
   },
 
-  button: {
-    height: '40px',
-    padding: '0 25px',
-  },
   cancelButton: {
     color: theme.palette.text.general,
     backgroundColor: theme.palette.background.general,
@@ -153,9 +145,5 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,
-  },
-
-  storekeeperBtnDefault: {
-    color: theme.palette.text.general,
   },
 }))

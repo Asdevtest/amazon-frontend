@@ -1,0 +1,49 @@
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(() => ({
+  videoPlayerCustomWrapper: {
+    position: 'relative',
+    zIndex: 5,
+    maxWidth: 1200,
+  },
+
+  videoPlayerCustom: {
+    video: {
+      maxHeight: '700px !important',
+    },
+  },
+
+  document: {
+    position: 'relative',
+    height: '75%',
+    width: '75%',
+    display: 'flex',
+    alignItems: 'center',
+    transition: 'opacity 0.3s ease-in-out',
+
+    '&:hover': {
+      svg: {
+        opacity: 0.5,
+      },
+
+      span: {
+        opacity: 1,
+      },
+    },
+  },
+
+  fileIcon: {
+    height: '100% !important',
+    width: '100% !important',
+    opacity: 1,
+  },
+
+  linkText: {
+    position: 'absolute',
+    width: '100%',
+    textAlign: 'center',
+    opacity: 0,
+    transition: 'opacity 0.3s ease-in-out',
+    wordBreak: 'break-all',
+  },
+}))

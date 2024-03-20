@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   compareAsc,
   compareDesc,
@@ -12,7 +11,7 @@ import {
 import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 
-import { ONE_MINUTE } from '@constants/time'
+import { ONE_HOUR_IN_MILLISECONDS } from '@constants/time'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -189,5 +188,17 @@ export const getTomorrowDate = () => {
 }
 
 export const getLocalToUTCDate = date => {
-  return new Date(date.valueOf() - date.getTimezoneOffset() * ONE_MINUTE)?.toISOString()
+  return new Date(date.valueOf() - date.getTimezoneOffset() * ONE_HOUR_IN_MILLISECONDS)?.toISOString()
+}
+
+export const formatDateToDefaultInputDate = dateString => format(new Date(dateString), 'yyyy-MM-dd')
+
+export const getMinutesDifferenceFromNow = dateString => {
+  const currentTime = new Date()
+  const inputDate = new Date(dateString)
+
+  const timeDifferenceInMilliseconds = inputDate - currentTime
+  const timeDifferenceInMinutes = Math.floor(timeDifferenceInMilliseconds / (1000 * 60))
+
+  return timeDifferenceInMinutes > 0 ? timeDifferenceInMinutes : 0
 }

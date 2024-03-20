@@ -1,4 +1,5 @@
-import React, { FC } from 'react'
+import { ChangeInputCommentCell, DatePickerCell } from '..'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -7,8 +8,6 @@ import { Field } from '@components/shared/field'
 import { t } from '@utils/translations'
 
 import { useStyles } from './batch-tracking-cell.style'
-
-import { ChangeInputCommentCell, DatePickerCell } from '../data-grid-cells'
 
 interface BatchTrackingCellProps {
   rowHandlers: {
@@ -22,7 +21,7 @@ interface BatchTrackingCellProps {
   disableMultilineForTrack?: boolean
 }
 
-export const BatchTrackingCell: FC<BatchTrackingCellProps> = React.memo(
+export const BatchTrackingCell: FC<BatchTrackingCellProps> = memo(
   ({ rowHandlers, id, trackingNumber, arrivalDate, disabled, disableMultilineForTrack }) => {
     const { classes: styles } = useStyles()
 

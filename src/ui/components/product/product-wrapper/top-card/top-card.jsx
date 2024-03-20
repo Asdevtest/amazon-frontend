@@ -1,31 +1,24 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 
-import AddIcon from '@material-ui/icons/Add'
-import AcceptIcon from '@material-ui/icons/Check'
-import AcceptRevokeIcon from '@material-ui/icons/Clear'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Alert, Paper, Typography } from '@mui/material'
-
+import { docValidTypes } from '@constants/media/doc-types'
+import { imageValidTypes } from '@constants/media/image-types'
+import { videoValidTypes } from '@constants/media/video-types'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindProductForm } from '@components/forms/bind-product-form'
-import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { ParentProductIcon, VariationIcon } from '@components/shared/svg-icons'
+import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { checkIsAdmin, checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
+import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './top-card.style'
-
-import { TableSupplier } from '../../table-supplier'
+import { useStyles } from './top-card.style'
 
 import { FieldsAndSuppliers } from './fields-and-suppliers'
 import { RightSideComments } from './right-side-comments'
@@ -44,7 +37,6 @@ export const TopCard = memo(
     imagesForLoad,
     showProgress,
     progressValue,
-    alertFailedText,
     curUserRole,
     onChangeField,
     actionStatus,
@@ -54,12 +46,8 @@ export const TopCard = memo(
     unbindProductHandler,
     shops,
     modal,
-    platformSettings,
     productBase,
-    onClickSupplierBtns,
-    selectedSupplier,
     formFieldsValidationErrors,
-    onClickSupplier,
     onClickParseProductData,
     onClickSetProductStatusBtn,
     handleProductActionButtons,
@@ -74,14 +62,14 @@ export const TopCard = memo(
     onClickNextButton,
     loadMorePermissionsDataHadler,
     onClickSubmitSearch,
+    onClickSaveSupplierBtn,
+    onSaveForceProductData,
+    onRemoveSupplier,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const clientToEdit =
       checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)
-
-    const isSupplierAcceptRevokeActive =
-      selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
 
     const showActionBtns =
       (checkIsSupervisor(curUserRole) &&
@@ -96,7 +84,6 @@ export const TopCard = memo(
       (checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)) ||
       (checkIsResearcher(curUserRole) &&
         productBase.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
-      // checkIsBuyer(curUserRole)
       (checkIsBuyer(curUserRole) && productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
       (checkIsBuyer(curUserRole) &&
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
@@ -105,28 +92,26 @@ export const TopCard = memo(
     const isChildProduct = product.parentProductId
 
     return (
-      <React.Fragment>
-        <Paper className={classNames.mainCardWrapper}>
-          <div className={classNames.topPartCardWrapper}>
-            <div className={classNames.mainCard}>
-              <div className={classNames.variationWrapper}>
+      <>
+        <div className={styles.mainCardWrapper}>
+          <div className={styles.topPartCardWrapper}>
+            <div className={styles.mainCard}>
+              <div className={styles.variationWrapper}>
                 {!isChildProduct ? (
-                  <ParentProductIcon className={classNames.parentVariation} />
+                  <ParentProductIcon className={styles.parentVariation} />
                 ) : (
-                  <VariationIcon className={classNames.variationIcon} />
+                  <VariationIcon className={styles.variationIcon} />
                 )}
 
-                <p className={cx(classNames.variationText, { [classNames.parentVariation]: !isChildProduct })}>
+                <p className={cx(styles.variationText, { [styles.parentVariation]: !isChildProduct })}>
                   {isChildProduct ? t(TranslationKey['Child product']) : t(TranslationKey['Parent product'])}
                 </p>
               </div>
-              <div className={classNames.card}>
+              <div className={styles.card}>
                 {product.images.length ? (
-                  <div className={classNames.carouselWrapper}>
-                    <PhotoAndFilesSlider
-                      showPreviews
-                      withoutFiles
-                      bigSlider
+                  <div className={styles.carouselWrapper}>
+                    <SlideshowGallery
+                      slidesToShow={5}
                       isEditable={clientToEdit}
                       files={imagesForLoad}
                       onChangeImagesForLoad={onChangeImagesForLoad}
@@ -137,31 +122,22 @@ export const TopCard = memo(
                 {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
                 !product.archive &&
                 showActionBtns ? (
-                  <div className={classNames.actionsWrapper}>
+                  <div className={styles.actionsWrapper}>
                     {(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || clientToEdit) && (
-                      <div className={classNames.imageFileInputWrapper}>
+                      <div className={styles.imageFileInputWrapper}>
                         <UploadFilesInput
                           fullWidth
                           images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
                           maxNumber={50}
+                          acceptType={[...videoValidTypes, ...docValidTypes, ...imageValidTypes]}
                         />
                       </div>
                     )}
                   </div>
                 ) : undefined}
-                {actionStatus === loadingStatuses.success || actionStatus === loadingStatuses.failed ? (
-                  <Alert
-                    className={classNames.alert}
-                    elevation={0}
-                    severity={actionStatus === loadingStatuses.success ? 'success' : 'error'}
-                  >
-                    {actionStatus === loadingStatuses.success
-                      ? t(TranslationKey['Request processed'])
-                      : alertFailedText || t(TranslationKey['Fields not filled in'])}
-                  </Alert>
-                ) : undefined}
               </div>
+
               <FieldsAndSuppliers
                 user={user}
                 showActionBtns={showActionBtns}
@@ -173,15 +149,13 @@ export const TopCard = memo(
                 unbindProductHandler={unbindProductHandler}
                 shops={shops}
                 productBase={productBase}
-                selectedSupplier={selectedSupplier}
                 onTriggerOpenModal={onTriggerOpenModal}
                 onChangeField={onChangeField}
-                onClickSupplierBtns={onClickSupplierBtns}
-                onClickSupplier={onClickSupplier}
                 onClickHsCode={onClickHsCode}
                 onClickParseProductData={onClickParseProductData}
               />
             </div>
+
             <RightSideComments
               modal={modal}
               showActionBtns={showActionBtns}
@@ -198,181 +172,20 @@ export const TopCard = memo(
           </div>
 
           {!checkIsResearcher(curUserRole) && (
-            <>
-              <div className={classNames.suppliersWrapper}>
-                <Typography variant="h6" className={classNames.supplierTitle}>
-                  {t(TranslationKey['List of suppliers'])}
-                </Typography>
-
-                {!(
-                  !showActionBtns ||
-                  (checkIsClient(curUserRole) && product.archive) ||
-                  (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
-                  (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
-                  checkIsSupervisor(curUserRole) ||
-                  checkIsAdmin(curUserRole) ||
-                  (checkIsResearcher(curUserRole) &&
-                    productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
-                ) || checkIsBuyer(curUserRole) ? (
-                  <div className={classNames.supplierActionsWrapper}>
-                    <div className={classNames.supplierContainer}>
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
-                          className={classNames.iconBtn}
-                          onClick={() => onClickSupplierBtns('add')}
-                        >
-                          <AddIcon />
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Add supplier'])}
-                        </Typography>
-                      </div>
-
-                      {selectedSupplier ? (
-                        <>
-                          {((user?._id === selectedSupplier?.createdBy?._id ||
-                            user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
-                            checkIsBuyer(curUserRole)) ||
-                          selectedSupplier.name !== 'access denied' ? (
-                            <>
-                              {!(checkIsClient(curUserRole) && user?._id !== selectedSupplier.createdBy?._id) ? (
-                                <div className={classNames.supplierButtonWrapper}>
-                                  <Button
-                                    tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                                    className={classNames.iconBtn}
-                                    onClick={() => onClickSupplierBtns('edit')}
-                                  >
-                                    <EditOutlinedIcon />
-                                  </Button>
-                                  <Typography className={classNames.supplierButtonText}>
-                                    {t(TranslationKey['Edit a supplier'])}
-                                  </Typography>
-                                </div>
-                              ) : null}
-
-                              {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
-                                <div className={classNames.supplierButtonWrapper}>
-                                  <Button
-                                    danger
-                                    tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                                    className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
-                                    onClick={() => onClickSupplierBtns('delete')}
-                                  >
-                                    <DeleteOutlineOutlinedIcon />
-                                  </Button>
-                                  <Typography className={classNames.supplierButtonText}>
-                                    {t(TranslationKey['Delete supplier'])}
-                                  </Typography>
-                                </div>
-                              )}
-                            </>
-                          ) : null}
-
-                          {showActionBtns ? (
-                            <div className={classNames.supplierButtonWrapper}>
-                              <Button
-                                tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                                className={classNames.iconBtn}
-                                onClick={() => onClickSupplierBtns('view')}
-                              >
-                                <VisibilityOutlinedIcon />
-                              </Button>
-                              <Typography className={classNames.supplierButtonText}>
-                                {t(TranslationKey['Open the parameters supplier'])}
-                              </Typography>
-                            </div>
-                          ) : null}
-
-                          {showActionBtns ? (
-                            <div className={classNames.supplierButtonWrapper}>
-                              <Button
-                                danger={isSupplierAcceptRevokeActive}
-                                success={!isSupplierAcceptRevokeActive}
-                                tooltipInfoContent={
-                                  isSupplierAcceptRevokeActive
-                                    ? t(TranslationKey['Remove the current supplier'])
-                                    : t(TranslationKey['Select a supplier as the current supplier'])
-                                }
-                                className={cx(classNames.iconBtn, {
-                                  [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                                })}
-                                onClick={() =>
-                                  isSupplierAcceptRevokeActive
-                                    ? onClickSupplierBtns('acceptRevoke')
-                                    : onClickSupplierBtns('accept')
-                                }
-                              >
-                                {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
-                              </Button>
-                              <Typography className={classNames.supplierButtonText}>
-                                {isSupplierAcceptRevokeActive
-                                  ? t(TranslationKey['Remove the main supplier status'])
-                                  : t(TranslationKey['Make the supplier the main'])}
-                              </Typography>
-                            </div>
-                          ) : null}
-                        </>
-                      ) : undefined}
-                    </div>
-                  </div>
-                ) : (
-                  <div className={classNames.supplierActionsWrapper}>
-                    <div className={classNames.supplierContainer}>
-                      {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            disabled={!selectedSupplier /* || selectedSupplier.name === 'access denied'*/}
-                            tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                            className={classNames.iconBtn}
-                            onClick={() => onClickSupplierBtns('view')}
-                          >
-                            <VisibilityOutlinedIcon />
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {t(TranslationKey['Open the parameters supplier'])}
-                          </Typography>
-                        </div>
-                      ) : null}
-                      {(user?._id === selectedSupplier?.createdBy?._id ||
-                        user?.masterUser?._id === selectedSupplier?.createdBy?._id) &&
-                      checkIsBuyer(curUserRole) ? (
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
-                            tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                            className={classNames.iconBtn}
-                            onClick={() => onClickSupplierBtns('edit')}
-                          >
-                            <EditOutlinedIcon />
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {t(TranslationKey['Edit a supplier'])}
-                          </Typography>
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <TableSupplier
-                // isClient
-                platformSettings={platformSettings}
-                product={product}
-                productBaseData={productBase}
-                selectedSupplier={selectedSupplier}
-                onClickSupplier={onClickSupplier}
-              />
-            </>
+            <ListSuppliers
+              formFields={product}
+              onClickSaveSupplier={onClickSaveSupplierBtn}
+              onSaveProduct={onSaveForceProductData}
+              onRemoveSupplier={onRemoveSupplier}
+            />
           )}
 
           {showProgress && (
             <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
           )}
 
-          {actionStatus === loadingStatuses.isLoading && !showProgress ? <CircularProgressWithLabel /> : null}
-        </Paper>
+          {actionStatus === loadingStatuses.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}
+        </div>
 
         {showBindProductModal && (
           <Modal
@@ -391,7 +204,7 @@ export const TopCard = memo(
             />
           </Modal>
         )}
-      </React.Fragment>
+      </>
     )
   },
 )

@@ -2,8 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   paymentMethods: {
-    cursor: 'pointer',
-    width: 150,
     padding: '10px 0',
     display: 'flex',
     alignItems: 'flex-start',

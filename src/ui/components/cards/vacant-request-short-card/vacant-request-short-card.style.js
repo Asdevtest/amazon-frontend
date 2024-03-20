@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   cardWrapper: {
     borderRadius: '4px',
     boxShadow: theme.palette.boxShadow.paper,
@@ -158,5 +158,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   redColor: {
     color: `#D70D0D`,
+  },
+
+  capitalize: {
+    textTransform: 'capitalize',
   },
 }))

@@ -2,13 +2,15 @@ import { memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { CustomReactSelect } from '@components/shared/selects/custom-react-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-new-chat-by-email-form.style'
 
@@ -58,7 +60,7 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
           menuIsOpen
           isMulti
           closeMenuOnSelect={false}
-          classes={{ option: styles.option }}
+          classes={{ option: styles.option, menuList: styles.menuList }}
           value={formFields.chosenUsers}
           options={userDataForRender}
           components={{ Option, MultiValueContainer }}
@@ -71,6 +73,7 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
       {formFields.chosenUsers.length > 1 ? (
         <>
           <Field
+            inputProps={{ maxLength: 254 }}
             label={t(TranslationKey['Name of group chat']) + '*'}
             labelClasses={styles.label}
             containerClasses={styles.selectContainer}
@@ -98,7 +101,7 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
 
       <div className={styles.buttonWrapper}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
           className={styles.button}
           onClick={() => {
@@ -109,7 +112,11 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
           {t(TranslationKey.Create)}
         </Button>
 
-        <Button variant="text" className={[styles.button, styles.cancelButton]} onClick={() => closeModal()}>
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={[styles.button, styles.cancelButton]}
+          onClick={() => closeModal()}
+        >
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

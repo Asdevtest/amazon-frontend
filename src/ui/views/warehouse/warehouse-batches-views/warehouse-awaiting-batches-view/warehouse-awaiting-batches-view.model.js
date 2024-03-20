@@ -40,6 +40,7 @@ const filtersFields = [
   'amount',
   'trackingNumber',
   'arrivalDate',
+  'quantityBoxes',
 ]
 
 export class WarehouseAwaitingBatchesViewModel {
@@ -53,7 +54,7 @@ export class WarehouseAwaitingBatchesViewModel {
   boxesData = []
 
   selectedBatches = []
-  curBatch = {}
+  curBatch = undefined
   showConfirmModal = false
   isWarning = false
   showBatchInfoModal = false
@@ -176,7 +177,7 @@ export class WarehouseAwaitingBatchesViewModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })
@@ -229,21 +230,14 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
 
       await BoxesModel.editAdditionalInfo(data._id, {
         storekeeperComment: data.storekeeperComment,
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
-
+        trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
       })
@@ -326,7 +320,7 @@ export class WarehouseAwaitingBatchesViewModel {
 
         this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
 
@@ -334,7 +328,7 @@ export class WarehouseAwaitingBatchesViewModel {
         this.error = error
         this.batches = []
       })
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -347,6 +341,14 @@ export class WarehouseAwaitingBatchesViewModel {
 
         this.showCircularProgress = true
       })
+
+      if (this.selectedBatches?.length) {
+        const batch = await BatchesModel.getBatchesByGuid(this.selectedBatches?.[0])
+
+        runInAction(() => {
+          this.curBatch = batch
+        })
+      }
 
       const [boxes, result] = await Promise.all([
         BoxesModel.getBoxesReadyToBatchStorekeeper(),
@@ -373,13 +375,7 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async onSubmitAddOrEditBatch({ boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields }) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (filesToAdd.length) {
-        await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
 
       if (!batchToEdit) {
         const batchId = await BatchesModel.createBatch({
@@ -389,43 +385,31 @@ export class WarehouseAwaitingBatchesViewModel {
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
 
-        if (filesToAdd.length) {
-          await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
-        }
+        await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
       } else {
         const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
         const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
 
-        await BatchesModel.changeBatch(batchToEdit.id, {
+        await BatchesModel.changeBatch(batchToEdit._id, {
           title: batchFields.title,
           calculationMethod: batchFields.calculationMethod,
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
 
         if (newBoxesIds.length) {
-          await BatchesModel.addBoxToBatch(batchToEdit.id, newBoxesIds)
+          await BatchesModel.addBoxToBatch(batchToEdit._id, newBoxesIds)
         }
         if (boxesToRemoveIds.length) {
-          await BatchesModel.removeBoxFromBatch(batchToEdit.id, boxesToRemoveIds)
+          await BatchesModel.removeBoxFromBatch(batchToEdit._id, boxesToRemoveIds)
         }
 
-        if (filesToAdd.length) {
-          await BatchesModel.editAttachedDocuments(
-            batchToEdit.id,
-            batchToEdit.originalData.attachedDocuments
-              ? [...batchToEdit.originalData.attachedDocuments, ...this.uploadedFiles]
-              : [...this.uploadedFiles],
-          )
-        }
+        await BatchesModel.editAttachedDocuments(batchToEdit._id, this.uploadedFiles)
       }
 
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -520,7 +504,7 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'batches'),
@@ -536,9 +520,9 @@ export class WarehouseAwaitingBatchesViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error

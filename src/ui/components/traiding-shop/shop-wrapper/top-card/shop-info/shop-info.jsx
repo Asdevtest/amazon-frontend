@@ -5,13 +5,15 @@ import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { LinesChart } from '@components/shared/charts/lines-chart/lines-chart'
 import { Field } from '@components/shared/field/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './shop-info.style'
 
@@ -86,7 +88,7 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
                 <Button className={styles.editButton} onClick={onClickEditBtn}>
                   {t(TranslationKey.Edit)}
                 </Button>
-                <Button disabled danger className={styles.deleteButton}>
+                <Button disabled styleType={ButtonStyle.DANGER} className={styles.deleteButton}>
                   {t(TranslationKey['Delete ad'])}
                 </Button>
               </>

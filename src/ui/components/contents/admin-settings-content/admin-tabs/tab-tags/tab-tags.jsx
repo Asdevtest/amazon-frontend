@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -14,12 +14,14 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './tab-tags.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './tab-tags.style'
 
 import { AdminSettingsTagsModel } from './tab-tags.model'
 
 export const TabTags = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new AdminSettingsTagsModel())
 
@@ -28,39 +30,40 @@ export const TabTags = observer(() => {
   }, [])
 
   return (
-    <div className={classNames.wrapper}>
-      <div className={classNames.buttons}>
+    <div className={styles.wrapper}>
+      <div className={styles.buttons}>
         <Button
-          danger
+          styleType={ButtonStyle.DANGER}
           disabled={!viewModel.rowSelectionModel.length}
-          className={classNames.deleteButton}
           onClick={viewModel.onClickRemoveTagsBtn}
         >
           {t(TranslationKey['Delete selected tags'])}
         </Button>
         <SearchInput
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           value={viewModel.nameSearchValue}
           placeholder={t(TranslationKey['Search by tags'])}
           onChange={e => viewModel.onChangeNameSearchValue(e)}
         />
-        <Button success className={classNames.saveButton} onClick={() => viewModel.onClickAddBtn()}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
           {t(TranslationKey['Add Tag'])}
         </Button>
       </div>
 
-      <div className={classNames.datagridWrapper}>
+      <div className={styles.datagridWrapper}>
         <CustomDataGrid
           checkboxSelection
           useResizeContainer
           disableRowSelectionOnClick
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
+          sortingMode="client"
+          paginationMode="client"
           filterModel={viewModel.filterModel}
           rowSelectionModel={viewModel.rowSelectionModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           rowHeight={70}
           slotProps={{
             baseTooltip: {
@@ -75,10 +78,10 @@ export const TabTags = observer(() => {
             },
           }}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onRowSelectionModelChange={viewModel.onSelectionModel}
-          onPaginationModelChange={viewModel.onChangePaginationModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
@@ -93,17 +96,20 @@ export const TabTags = observer(() => {
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={viewModel.onClickToggleConfirmModal}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={viewModel.onClickToggleConfirmModal}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={viewModel.onClickToggleConfirmModal}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={viewModel.onClickToggleConfirmModal}
+        />
+      ) : null}
     </div>
   )
 })

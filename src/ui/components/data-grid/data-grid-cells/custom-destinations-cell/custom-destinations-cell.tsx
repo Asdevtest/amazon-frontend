@@ -1,8 +1,7 @@
+import { MultilineTextCell } from '..'
 import { FC, memo } from 'react'
 
 import { useStyles } from './custom-destinations-cell.style'
-
-import { MultilineTextCell } from '../data-grid-cells'
 
 interface ICustomDestination {
   costDeliveryToUsa: string

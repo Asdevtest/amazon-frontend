@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -10,10 +9,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { ProductStatusButtons } from '@components/product/product-wrapper/top-card/right-side-comments/product-status-buttons'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
@@ -25,7 +23,8 @@ import { SupervisorProductViewModel } from '@views/supervisor/supervisor-product
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ProductVariation } from '@typings/product'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { ProductVariation } from '@typings/enums/product-variation'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
@@ -38,7 +37,8 @@ import { WarningInfoModal } from '../warning-info-modal'
 
 export const ProductCardModal = observer(props => {
   const { openModal, setOpenModal, history, onClickOpenNewTab, role, updateDataHandler } = props
-  const { classes: styles } = useStyles()
+
+  const { classes: styles, cx } = useStyles()
 
   const setCurrentModel = () => {
     if (checkIsBuyer(UserRoleCodeMap[role])) {
@@ -71,7 +71,7 @@ export const ProductCardModal = observer(props => {
   const [currentTab, setCurrentTab] = useState('MAIN_INFO')
 
   useEffect(() => {
-    viewModel?.loadData()
+    viewModel.loadData()
   }, [])
 
   const clientToEditStatuses = [
@@ -119,7 +119,6 @@ export const ProductCardModal = observer(props => {
         {viewModel?.product && (
           <ProductWrapper
             modal
-            platformSettings={viewModel?.platformSettings}
             showTab={viewModel?.showTab}
             user={viewModel?.userInfo}
             userRole={viewModel?.userInfo.role}
@@ -129,14 +128,11 @@ export const ProductCardModal = observer(props => {
             product={viewModel?.currentData}
             shops={viewModel?.shopsData}
             productBase={viewModel?.productBase}
-            selectedSupplier={viewModel?.selectedSupplier}
-            handleSupplierButtons={viewModel?.onClickSupplierButtons}
             handleProductActionButtons={viewModel?.handleProductActionButtons}
             formFieldsValidationErrors={viewModel?.formFieldsValidationErrors}
             setCurrentTab={tab => setCurrentTab(tab)}
             acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
             showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-            actionStatus={viewModel.actionStatus}
             productVariations={viewModel.productVariations}
             navigateToProduct={viewModel.navigateToProduct}
             unbindProductHandler={viewModel.unbindProductHandler}
@@ -144,7 +140,6 @@ export const ProductCardModal = observer(props => {
             loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
             productsToBind={useProductsPermissions.currentPermissionsData}
             onTriggerOpenModal={viewModel.onTriggerOpenModal}
-            onClickSupplier={viewModel?.onChangeSelectedSupplier}
             onChangeField={viewModel?.onChangeProductFields}
             onChangeImagesForLoad={viewModel?.onChangeImagesForLoad}
             onClickParseProductData={viewModel?.onClickParseProductData}
@@ -165,10 +160,14 @@ export const ProductCardModal = observer(props => {
                     },
               )
             }
+            onClickSaveSupplierBtn={viewModel?.onClickSaveSupplierBtn}
+            onRemoveSupplier={viewModel?.onRemoveSupplier}
           />
         )}
-        {viewModel?.requestStatus === loadingStatuses.isLoading && <CircularProgressWithLabel />}
+
+        {viewModel?.requestStatus === loadingStatuses.IS_LOADING && <CircularProgressWithLabel />}
       </div>
+
       {viewModel?.product && currentTab === 'MAIN_INFO' && (
         <div className={styles.footerWrapper}>
           <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(viewModel.productId)} />
@@ -187,21 +186,18 @@ export const ProductCardModal = observer(props => {
               {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
               (checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && !viewModel?.product.archive) ? (
                 <Button
-                  className={styles.buttonDelete}
-                  variant="contained"
+                  styleType={ButtonStyle.DANGER}
                   onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true, updateDataHandler)}
                 >
                   {t(TranslationKey.Delete)}
                 </Button>
-              ) : undefined}
+              ) : null}
 
               {viewModel?.product?.status ===
                 ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
               checkIsBuyer(UserRoleCodeMap[viewModel?.userInfo.role]) ? null : (
                 <Button
-                  className={cx(styles.buttonNormal, styles.buttonAccept)}
-                  color="primary"
-                  variant="contained"
+                  styleType={ButtonStyle.SUCCESS}
                   onClick={() => viewModel?.handleProductActionButtons('accept', undefined, true, updateDataHandler)}
                 >
                   {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
@@ -212,9 +208,9 @@ export const ProductCardModal = observer(props => {
 
               {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) && (
                 <Button
+                  styleType={ButtonStyle.SUCCESS}
                   disabled={viewModel?.product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
                   className={styles.buttonNormal}
-                  variant="contained"
                   onClick={
                     checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
                     checkIsSupervisor(UserRoleCodeMap[viewModel?.userInfo.role])
@@ -227,10 +223,10 @@ export const ProductCardModal = observer(props => {
               )}
 
               <Button
-                className={cx(styles.buttonClose, {
+                styleType={ButtonStyle.DANGER}
+                className={cx({
                   [styles.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
                 })}
-                variant="contained"
                 onClick={() => viewModel?.handleProductActionButtons('closeModal')}
               >
                 {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
@@ -241,8 +237,6 @@ export const ProductCardModal = observer(props => {
               {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && viewModel?.product.archive && (
                 <Button
                   className={styles.restoreBtn}
-                  color="primary"
-                  variant="contained"
                   onClick={() => viewModel?.handleProductActionButtons('restore', undefined, true, updateDataHandler)}
                 >
                   {t(TranslationKey.Restore)}
@@ -251,10 +245,10 @@ export const ProductCardModal = observer(props => {
             </div>
           ) : (
             <Button
-              className={cx(styles.buttonClose, {
+              styleType={ButtonStyle.DANGER}
+              className={cx({
                 [styles.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
               })}
-              variant="contained"
               onClick={() => viewModel?.handleProductActionButtons('closeModal')}
             >
               {t(TranslationKey.Close)}
@@ -263,60 +257,45 @@ export const ProductCardModal = observer(props => {
         </div>
       )}
 
-      <Modal
-        missClickModalOn={!viewModel?.supplierModalReadOnly}
-        openModal={viewModel?.showAddOrEditSupplierModal}
-        setOpenModal={viewModel?.onTriggerAddOrEditSupplierModal}
-      >
-        <AddOrEditSupplierModalContent
-          paymentMethods={viewModel?.paymentMethods}
-          product={viewModel?.product}
-          storekeepersData={viewModel?.storekeepersData}
-          onlyRead={viewModel?.supplierModalReadOnly}
-          requestStatus={viewModel?.requestStatus}
-          sourceYuanToDollarRate={viewModel?.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel?.volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          supplier={viewModel?.selectedSupplier}
-          showProgress={viewModel?.showProgress}
-          progressValue={viewModel?.progressValue}
-          onClickSaveBtn={viewModel?.onClickSaveSupplierBtn}
-          onTriggerShowModal={viewModel?.onTriggerAddOrEditSupplierModal}
+      {viewModel?.showWarningModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel?.showWarningModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+          title={viewModel?.warningModalTitle}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
         />
-      </Modal>
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel?.showWarningModal}
-        setOpenModal={() => viewModel?.onTriggerOpenModal('showWarningModal')}
-        title={viewModel?.warningModalTitle}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel?.onTriggerOpenModal('showWarningModal')
-        }}
-      />
+      {viewModel?.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel?.confirmModalSettings?.isWarning}
+          openModal={viewModel?.showConfirmModal}
+          setOpenModal={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
+          title={viewModel?.confirmModalSettings?.title}
+          message={viewModel?.confirmModalSettings?.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={() => {
+            viewModel?.confirmModalSettings?.onClickOkBtn()
+            viewModel?.onTriggerOpenModal('showConfirmModal')
+          }}
+          onClickCancelBtn={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        isWarning={viewModel?.confirmModalSettings?.isWarning}
-        openModal={viewModel?.showConfirmModal}
-        setOpenModal={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
-        title={viewModel?.confirmModalSettings?.title}
-        message={viewModel?.confirmModalSettings?.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={() => {
-          viewModel?.confirmModalSettings?.onClickOkBtn()
-          viewModel?.onTriggerOpenModal('showConfirmModal')
-        }}
-        onClickCancelBtn={() => viewModel?.onTriggerOpenModal('showConfirmModal')}
-      />
-
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={viewModel.successModalTitle}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.successModalTitle}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}

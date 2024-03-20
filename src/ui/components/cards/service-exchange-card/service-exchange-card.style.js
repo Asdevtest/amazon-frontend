@@ -62,9 +62,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   detailDescription: {
+    maxWidth: 120,
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
+    textTransform: 'capitalize',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 
   detailsWrapperAll: {
@@ -82,6 +87,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  gallery: {
+    margin: '20px 0',
     display: 'flex',
     justifyContent: 'center',
   },

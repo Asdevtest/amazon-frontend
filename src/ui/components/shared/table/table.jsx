@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { Pagination } from '@material-ui/lab'
 import { Table as MuiTable, Paper, TableBody, TableContainer, TableHead, Toolbar, Typography } from '@mui/material'
 
-import { useClassNames } from './table.style'
+import { useStyles } from './table.style'
 
 import { TableToolbar } from './table-toolbar'
 
@@ -23,7 +23,7 @@ export const Table = observer(
     rowsHandlers,
     ...restProps
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const dataWithPages = data.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage)
 
@@ -31,10 +31,10 @@ export const Table = observer(
       <Paper>
         {!rowsOnly && <TableToolbar handlerRowsPerPage={handlerRowsPerPage} rowsPerPage={rowsPerPage} />}
         <TableContainer>
-          <MuiTable className={classNames.table}>
-            <TableHead className={classNames.tableHead}>{renderHeadRow}</TableHead>
+          <MuiTable className={styles.table}>
+            <TableHead className={styles.tableHead}>{renderHeadRow}</TableHead>
 
-            <TableBody className={classNames.tableBody}>
+            <TableBody className={styles.tableBody}>
               {(rowsOnly ? data : dataWithPages).map((el, index) => (
                 <BodyRow
                   key={`${el._id ? el._id : 'tableItem'}_${index}`}
@@ -49,16 +49,16 @@ export const Table = observer(
         </TableContainer>
 
         {!data.length && (
-          <div className={classNames.noRowsTitleWrapper}>
+          <div className={styles.noRowsTitleWrapper}>
             <Typography>{noRowsTitle}</Typography>
           </div>
         )}
 
         {!rowsOnly && (
-          <Toolbar className={classNames.footer}>
-            <div className={classNames.buttonsWrapper}>{renderButtons && renderButtons()}</div>
+          <Toolbar className={styles.footer}>
+            <div className={styles.buttonsWrapper}>{renderButtons && renderButtons()}</div>
             <Pagination
-              className={classNames.pagination}
+              className={styles.pagination}
               count={pageCount}
               page={currentPage}
               shape="rounded"

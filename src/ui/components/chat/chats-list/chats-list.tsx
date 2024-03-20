@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { observer } from 'mobx-react'
-import React, { FC, useEffect, useMemo } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 
 import { Tabs } from '@mui/material'
 
@@ -17,7 +17,7 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './chats-list.styles'
+import { useStyles } from './chats-list.style'
 
 import { chatListMapper } from './chats-list-mapper'
 
@@ -38,7 +38,7 @@ interface Props {
 
 export const ChatsList: FC<Props> = observer(
   ({ chats, userId, chatSelectedId, onClickChat, typingUsers, isFreelanceOwner, mutedChats }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const solvedChats = isFreelanceOwner
       ? useMemo(
@@ -57,21 +57,21 @@ export const ChatsList: FC<Props> = observer(
       : []
     const inWorkChats = useMemo(() => chats.filter(el => !solvedChats.find(chat => chat._id === el._id)), [solvedChats])
 
-    const [tabIndex, setTabIndex] = React.useState(tabsValues.IN_WORK)
+    const [tabIndex, setTabIndex] = useState(tabsValues.IN_WORK)
 
     useEffect(() => {
       setTabIndex(() => (inWorkChats.some(el => el._id === chatSelectedId) ? tabsValues.IN_WORK : tabsValues.SOLVED))
     }, [chatSelectedId])
 
     return (
-      <div className={classNames.root}>
+      <div className={styles.root}>
         {isFreelanceOwner ? (
           <>
             <Tabs
               variant={'fullWidth'}
               classes={{
-                root: classNames.row,
-                indicator: classNames.indicator,
+                root: styles.row,
+                indicator: styles.indicator,
               }}
               textColor="primary"
               value={tabIndex}
@@ -83,8 +83,8 @@ export const ChatsList: FC<Props> = observer(
                 label={t(TranslationKey['In the work'])}
                 value={tabsValues.IN_WORK}
                 classes={{
-                  selected: classNames.selected,
-                  root: classNames.tabRoot,
+                  selected: styles.selected,
+                  root: styles.tabRoot,
                 }}
               />
 
@@ -92,8 +92,8 @@ export const ChatsList: FC<Props> = observer(
                 label={t(TranslationKey.EXECUTED_IN_PLURAL_KEY)}
                 value={tabsValues.SOLVED}
                 classes={{
-                  selected: classNames.selected,
-                  root: classNames.tabRoot,
+                  selected: styles.selected,
+                  root: styles.tabRoot,
                 }}
               />
             </Tabs>

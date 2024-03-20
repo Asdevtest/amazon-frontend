@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
 
@@ -15,7 +15,7 @@ interface CommentOfSbCellProps {
   productsInWarehouse: any
 }
 
-export const CommentOfSbCell: FC<CommentOfSbCellProps> = React.memo(({ productsInWarehouse }) => {
+export const CommentOfSbCell: FC<CommentOfSbCellProps> = memo(({ productsInWarehouse }) => {
   const { classes: styles } = useStyles()
 
   return (

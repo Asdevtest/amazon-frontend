@@ -77,7 +77,10 @@ export class ClientWarehouseTasksViewModel {
     type: [],
   }
 
-  currentPriority = null
+  selectedPriority = undefined
+  selectedStatus = undefined
+  selectedStorekeeper = undefined
+  selectedType = undefined
 
   showEditPriorityData = false
 
@@ -106,8 +109,8 @@ export class ClientWarehouseTasksViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  handleActivePriority(newPriority) {
-    this.currentPriority = newPriority
+  setFilters(filterCategory, filterValue) {
+    this[filterCategory] = filterValue
 
     this.getTasksMy()
   }
@@ -223,13 +226,13 @@ export class ClientWarehouseTasksViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     this.selectedBoxes.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedBoxes.length - 1) {
-          this.setRequestStatus(loadingStatuses.success)
+          this.setRequestStatus(loadingStatuses.SUCCESS)
         }
       })
     })
@@ -241,15 +244,15 @@ export class ClientWarehouseTasksViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
 
       await Promise.all([this.getStorekeepers(), this.getTasksMy()])
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -326,7 +329,7 @@ export class ClientWarehouseTasksViewModel {
 
   async getTasksMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const result = await ClientModel.getTasks({
         filters: this.getFilter(),
         limit: this.paginationModel.pageSize,
@@ -335,10 +338,10 @@ export class ClientWarehouseTasksViewModel {
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
-        storekeeperId: this.activeFilters.storekeeper.map(el => el._id).join(',') || undefined,
-        priority: this.activeFilters.priority.join(','),
-        status: this.activeFilters.status.join(','),
-        operationType: this.activeFilters.type.join(','),
+        storekeeperId: this.selectedStorekeeper,
+        priority: this.selectedPriority,
+        status: this.selectedStatus,
+        operationType: this.selectedType,
       })
 
       runInAction(() => {
@@ -346,7 +349,7 @@ export class ClientWarehouseTasksViewModel {
 
         this.tasksMy = warehouseTasksDataConverter(result.rows).sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {

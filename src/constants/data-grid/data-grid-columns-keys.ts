@@ -41,6 +41,8 @@ export const columnnsKeys = {
     FREELANCER_REQUEST_LISTING: 'FREELANCER_REQUEST_LISTING',
 
     IDEA_SHOPS: 'IDEA_SHOPS',
+
+    SHOP_REPORT: 'SHOP_REPORT',
   },
   researcher: {},
   freelancer: {

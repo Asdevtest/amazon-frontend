@@ -1,14 +1,16 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './warehouse-tasks-view.style'
 
@@ -19,20 +21,20 @@ export const WarehouseTasksView = observer(({ history }) => {
   const [viewModel] = useState(() => new WarehouseTasksViewModel({ history }))
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div>
           <Typography className={styles.title}>{t(TranslationKey['Choose a section in Tasks'])}</Typography>
 
           <div className={styles.btnsWrapper}>
-            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickVacantTask}>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickVacantTask}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['New tasks'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
-            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickMyTasks}>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickMyTasks}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['My tasks'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
@@ -41,8 +43,7 @@ export const WarehouseTasksView = observer(({ history }) => {
 
             <Button
               className={styles.button}
-              color="primary"
-              variant="outlined"
+              variant={ButtonVariant.OUTLINED}
               onClick={viewModel.onClickCompletedTasks}
             >
               <div className={styles.btnTextWrapper}>
@@ -51,12 +52,7 @@ export const WarehouseTasksView = observer(({ history }) => {
               </div>
             </Button>
 
-            <Button
-              className={styles.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickCanceledTasks}
-            >
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickCanceledTasks}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Canceled tasks'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
@@ -65,6 +61,6 @@ export const WarehouseTasksView = observer(({ history }) => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </>
   )
 })

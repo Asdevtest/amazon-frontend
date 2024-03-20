@@ -5,7 +5,7 @@ import Checkbox from '@mui/material/Checkbox'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
@@ -13,7 +13,9 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './select-storkeeper-and-tariff-form.style'
+import { ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './select-storkeeper-and-tariff-form.style'
 
 import { warehouseTariffsColumns } from './select-storkeeper-and-tariff-form-columns'
 import { TotalStorkeeperAndWeightBasedTariffFormColumns } from './total-storkeeper-and-weight-based-tariff-form-columns'
@@ -34,7 +36,7 @@ export const SelectStorekeeperAndTariffForm = observer(
     currentDestinationId,
     RemoveDestinationRestriction,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [tabIndex, setTabIndex] = useState(0)
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -67,7 +69,7 @@ export const SelectStorekeeperAndTariffForm = observer(
         Boolean(currentDestinationId),
       )
 
-    const getRowClassName = params => curTariffId === params.row._id && classNames.attentionRow
+    const getRowClassName = params => curTariffId === params.row._id && styles.attentionRow
 
     const getCurStorekeeperData = () =>
       curStorekeeperId
@@ -132,9 +134,8 @@ export const SelectStorekeeperAndTariffForm = observer(
     }, [nameSearchValue])
 
     return (
-      <div className={classNames.root}>
+      <div className={styles.root}>
         <CustomSwitcher
-          switchMode={'small'}
           condition={curStorekeeper}
           switcherSettings={storekeepers
             .slice()
@@ -147,21 +148,21 @@ export const SelectStorekeeperAndTariffForm = observer(
           changeConditionHandler={value => setCurStorekeeper(storekeepers.find(el => el._id === value))}
         />
 
-        <div className={classNames.searchWrapper}>
+        <div className={styles.searchWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey.search)}
             onChange={e => setNameSearchValue(e.target.value)}
           />
 
           {RemoveDestinationRestriction && (
-            <div className={classNames.checkboxWrapper}>
+            <div className={styles.checkboxWrapper}>
               <Checkbox
                 checked={isRemovedDestinationRestriction}
                 onChange={() => setIsRemovedDestinationRestriction(!isRemovedDestinationRestriction)}
               />
-              <span className={classNames.resetBtn}>{t(TranslationKey['Remove destination restriction'])}</span>
+              <span className={styles.resetBtn}>{t(TranslationKey['Remove destination restriction'])}</span>
             </div>
           )}
         </div>
@@ -180,8 +181,8 @@ export const SelectStorekeeperAndTariffForm = observer(
           }}
         />
 
-        <TabPanel value={tabIndex} index={0} className={classNames.tabPanel}>
-          <div className={classNames.tableWrapper}>
+        <TabPanel value={tabIndex} index={0} className={styles.tabPanel}>
+          <div className={styles.tableWrapper}>
             <CustomDataGrid
               getRowClassName={getRowClassName}
               rows={currentData || []}
@@ -204,12 +205,10 @@ export const SelectStorekeeperAndTariffForm = observer(
             />
           </div>
           {!inNotifications && (
-            <div className={classNames.clearBtnWrapper}>
+            <div className={styles.clearBtnWrapper}>
               <Button
-                disableElevation
-                color="primary"
-                variant={'outlined'}
-                className={classNames.resetBtn}
+                variant={ButtonVariant.OUTLINED}
+                className={styles.resetBtn}
                 onClick={() => {
                   setVariationTariffId(null)
                   onSubmit(null, null, null, null, null, true)
@@ -220,8 +219,8 @@ export const SelectStorekeeperAndTariffForm = observer(
             </div>
           )}
         </TabPanel>
-        <TabPanel value={tabIndex} index={1} className={classNames.tabPanel}>
-          <div className={classNames.tableWrapper}>
+        <TabPanel value={tabIndex} index={1} className={styles.tabPanel}>
+          <div className={styles.tableWrapper}>
             <CustomDataGrid
               rows={currentData || []}
               getRowId={row => row?._id}

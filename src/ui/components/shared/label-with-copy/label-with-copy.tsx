@@ -6,7 +6,7 @@ import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useStyles } from './label-with-copy.styles'
+import { useStyles } from './label-with-copy.style'
 
 import { LinkWithCopy } from '../link-with-copy'
 

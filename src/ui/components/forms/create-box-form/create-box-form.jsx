@@ -5,6 +5,7 @@ import { Typography } from '@mui/material'
 
 import {
   inchesCoefficient,
+  maxLengthInputInSizeBox,
   poundsWeightCoefficient,
   unitsOfChangeOptions,
   volumePoundsWeightCoefficient,
@@ -17,7 +18,7 @@ import {
 } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 
@@ -26,7 +27,9 @@ import { checkIsPositiveNum } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './create-box-form.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './create-box-form.style'
 
 import { OrderBox } from './order-box'
 
@@ -41,7 +44,7 @@ export const CreateBoxForm = observer(
     order,
     isEdit,
   }) => {
-    const { classes: classNames, cx } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
     const weightCoefficient =
@@ -133,8 +136,13 @@ export const CreateBoxForm = observer(
           el?.items?.[0]?.amount < 1 ||
           el?.amount < 1 ||
           (currentSupplier?.multiplicity && el?.items?.[0]?.amount % currentSupplier?.boxProperties?.amountInBox !== 0),
+      ) ||
+      formFieldsArr.some(
+        el =>
+          el.widthCmSupplier > maxLengthInputInSizeBox ||
+          el.heightCmSupplier > maxLengthInputInSizeBox ||
+          el.lengthCmSupplier > maxLengthInputInSizeBox,
       )
-
     const handleChange = newAlignment => {
       if (newAlignment !== sizeSetting) {
         const convertedFormFieldsArr = formFieldsArr.map(editingBox => {
@@ -223,18 +231,18 @@ export const CreateBoxForm = observer(
     }
 
     return (
-      <div className={classNames.root}>
-        <div className={classNames.form}>
-          <Typography paragraph className={classNames.subTitle}>
+      <div className={styles.root}>
+        <div className={styles.form}>
+          <Typography paragraph className={styles.subTitle}>
             {isEdit ? t(TranslationKey['Editing the box']) : t(TranslationKey['Creating new boxes'])}
           </Typography>
 
-          <div className={classNames.labelFieldsWrapper}>
+          <div className={styles.labelFieldsWrapper}>
             <Field
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               label={t(TranslationKey.Warehouse)}
               inputComponent={
-                <Typography className={classNames.destinationWrapper}>
+                <Typography className={styles.destinationWrapper}>
                   {formItem.destination?.name || t(TranslationKey.Missing)}
                 </Typography>
               }
@@ -246,30 +254,29 @@ export const CreateBoxForm = observer(
               inputComponent={
                 <Typography
                   className={cx({
-                    [classNames.orange]:
+                    [styles.orange]:
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
 
-                    [classNames.green]:
+                    [styles.green]:
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
-                    [classNames.red]:
+                    [styles.red]:
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
                   })}
                 >
-                  {/* {formItem.status && getOrderStatusOptionByCode(formItem.status).label} */}
                   {OrderStatusTranslate(getOrderStatusOptionByCode(formItem.status).key)}
                 </Typography>
               }
             />
           </div>
 
-          <div className={classNames.divider} />
+          <div className={styles.divider} />
 
-          <div className={classNames.sizesSubWrapper}>
+          <div className={styles.sizesSubWrapper}>
             <CustomSwitcher
               condition={sizeSetting}
               switcherSettings={[
@@ -281,7 +288,7 @@ export const CreateBoxForm = observer(
           </div>
 
           {formFieldsArr ? (
-            <div className={classNames.blockOfNewBoxWrapper}>
+            <div className={styles.blockOfNewBoxWrapper}>
               {formFieldsArr.map((orderBox, orderBoxIndex) => (
                 <OrderBox
                   key={orderBoxIndex}
@@ -299,16 +306,10 @@ export const CreateBoxForm = observer(
             </div>
           ) : null}
           {!isEdit ? (
-            <div className={classNames.buttonsWrapper}>
+            <div className={styles.buttonsWrapper}>
               <Button
-                disableElevation
                 tooltipInfoContent={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
-                className={classNames.button}
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                  setFormFieldsArr(formFieldsArr.concat({ ...sourceBox }))
-                }}
+                onClick={() => setFormFieldsArr(formFieldsArr.concat({ ...sourceBox }))}
               >
                 {t(TranslationKey['Add another box'])}
               </Button>
@@ -316,27 +317,12 @@ export const CreateBoxForm = observer(
           ) : null}
         </div>
 
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            success
-            disabled={disableSubmit}
-            className={classNames.button}
-            color="primary"
-            variant="contained"
-            onClick={onSubmit}
-          >
+        <div className={styles.buttonsWrapper}>
+          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmit} onClick={onSubmit}>
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
           </Button>
 
-          <Button
-            disableElevation
-            color="primary"
-            className={classNames.button}
-            variant="contained"
-            onClick={() => onTriggerOpenModal()}
-          >
-            {t(TranslationKey.Cancel)}
-          </Button>
+          <Button onClick={() => onTriggerOpenModal()}>{t(TranslationKey.Cancel)}</Button>
         </div>
       </div>
     )

@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -26,15 +26,10 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.btnsWrapper}>
-          <Button
-            color="primary"
-            variant="contained"
-            disabled={viewModel.selectedRowIds.length === 0}
-            onClick={viewModel.onPickupSomeItems}
-          >
+          <Button disabled={viewModel.selectedRowIds.length === 0} onClick={viewModel.onPickupSomeItems}>
             {t(TranslationKey['Take on the work of the selected'])}
           </Button>
         </div>
@@ -58,6 +53,10 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
                 title: t(TranslationKey.Filter),
               },
               toolbar: {
+                resetFiltersBtnSettings: {
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                },
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
                   columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -67,7 +66,7 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onPaginationModelChange}
@@ -77,25 +76,31 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
         </div>
       </div>
 
-      <TwoVerticalChoicesModal
-        tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
-        tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
-        openModal={viewModel.showTwoVerticalChoicesModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
-        title={t(TranslationKey['Order picked up'])}
-        topBtnText={t(TranslationKey['Go to order'])}
-        bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
-        onClickTopBtn={() => viewModel.goToMyOrders()}
-        onClickBottomBtn={viewModel.onClickContinueWorkButton}
-      />
+      {viewModel.showTwoVerticalChoicesModal ? (
+        <TwoVerticalChoicesModal
+          // @ts-ignore
+          tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
+          tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
+          openModal={viewModel.showTwoVerticalChoicesModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
+          title={t(TranslationKey['Order picked up'])}
+          topBtnText={t(TranslationKey['Go to order'])}
+          bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
+          onClickTopBtn={() => viewModel.goToMyOrders()}
+          onClickBottomBtn={viewModel.onClickContinueWorkButton}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel.showWarningModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        title={viewModel.warningTitle}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-      />
-    </React.Fragment>
+      {viewModel.showWarningModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showWarningModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+          title={viewModel.warningTitle}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        />
+      ) : null}
+    </>
   )
 })

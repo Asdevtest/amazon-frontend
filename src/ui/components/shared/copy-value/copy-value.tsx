@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DoneIcon from '@mui/icons-material/Done'
@@ -8,9 +8,10 @@ import { useStyles } from './copy-value.style'
 interface CopyValueProps {
   text: string | undefined
   disabled?: boolean
+  iconStyles?: string
 }
 
-export const CopyValue: FC<CopyValueProps> = memo(({ text, disabled }) => {
+export const CopyValue: FC<CopyValueProps> = memo(({ text, disabled, iconStyles }) => {
   const { classes: styles, cx } = useStyles()
 
   const [copied, setCopied] = useState(false)
@@ -24,10 +25,10 @@ export const CopyValue: FC<CopyValueProps> = memo(({ text, disabled }) => {
   return (
     <div className={styles.copyImgWrapper}>
       {copied ? (
-        <DoneIcon classes={{ root: styles.doneIcon }} />
+        <DoneIcon className={cx(styles.doneIcon, iconStyles)} />
       ) : (
         <ContentCopyIcon
-          className={cx(styles.copyImg, { [styles.disabledIcon]: disabled })}
+          className={cx(styles.copyImg, iconStyles, { [styles.disabledIcon]: disabled })}
           onClick={e => {
             e.stopPropagation()
             !disabled && !!text && handleCopyValue(text)

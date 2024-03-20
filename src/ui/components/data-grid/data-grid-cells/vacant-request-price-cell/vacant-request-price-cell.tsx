@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
 import { toFixed } from '@utils/text'
@@ -11,7 +11,7 @@ interface VacantRequestPriceCellProps {
   AlignLeft?: boolean
 }
 
-export const VacantRequestPriceCell: FC<VacantRequestPriceCellProps> = React.memo(
+export const VacantRequestPriceCell: FC<VacantRequestPriceCellProps> = memo(
   ({ price, cashBackInPercent, AlignLeft }) => {
     const { classes: styles, cx } = useStyles()
     const discountedPrice = calcNumberMinusPercent(price, cashBackInPercent)

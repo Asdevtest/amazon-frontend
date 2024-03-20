@@ -1,36 +1,36 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 
 import { t } from '@utils/translations'
 
-import { IProduct, IProductVariation, ProductVariation } from '@typings/product'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ProductVariation } from '@typings/enums/product-variation'
+import { IProduct } from '@typings/models/products/product'
 
-import { useClassNames } from './bind-product-form.styles'
+import { useStyles } from './bind-product-form.style'
 
 import { SelectedProduct } from './selected-product/selected-product'
 
 interface BindProductFormProps {
   sourceProduct: IProduct
-  productsToBind: Array<IProductVariation>
+  productsToBind: Array<IProduct>
   onClickGetProductsToBind: (options: string) => void
-  onClickNextButton: (option?: string, products?: Array<IProductVariation>) => void
+  onClickNextButton: (option?: string, products?: Array<IProduct>) => void
   onClickCancelButton: () => void
   loadMorePermissionsDataHadler: () => void
   onClickSubmitSearch: (searchValue: string) => void
 }
 
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const {
     sourceProduct,
@@ -42,7 +42,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     onClickSubmitSearch,
   } = props
 
-  const [selectedProducts, setSelectedProducts] = useState<Array<IProductVariation>>([])
+  const [selectedProducts, setSelectedProducts] = useState<Array<IProduct>>([])
   const [selectedRadioValue, setSelectedRadioValue] = useState<string>()
 
   const radioBottonsSettings = [
@@ -65,11 +65,11 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     }
   }
 
-  const onClickDeleteButton = (product: IProductVariation) => {
+  const onClickDeleteButton = (product: IProduct) => {
     setSelectedProducts(prev => prev.filter(el => el._id !== product._id))
   }
 
-  const selectProductHandler = (selectedProduct: IProductVariation) => {
+  const selectProductHandler = (selectedProduct: IProduct) => {
     setSelectedProducts(prev => {
       if (prev.some(product => product._id === selectedProduct._id)) {
         return prev.filter(product => product._id !== selectedProduct._id)
@@ -86,10 +86,10 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   }, [sourceProduct?.parentProductId, sourceProduct?.hasChildren])
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.title}>{t(TranslationKey['Select product'])}</p>
+    <div className={styles.root}>
+      <p className={styles.title}>{t(TranslationKey['Select product'])}</p>
 
-      <div className={classNames.radioButtonsWrapper}>
+      <div className={styles.radioButtonsWrapper}>
         <RadioButtons
           verticalDirection
           radioBottonsSettings={radioBottonsSettings}
@@ -98,7 +98,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
         />
       </div>
 
-      <div className={classNames.selectWrapper}>
+      <div className={styles.selectWrapper}>
         {/* @ts-ignore */}
         <WithSearchSelect
           // @ts-ignore
@@ -114,13 +114,13 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           data={productsToBind?.filter(productToBind => productToBind?._id !== sourceProduct?._id)}
           selectedData={selectedProducts}
           width={300}
-          customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}
-          customSearchInput={classNames.searchSelectCustomSearchInput}
-          customItemsWrapper={classNames.searchSelectCustomItemsWrapper}
+          customSubMainWrapper={styles.searchSelectCustomSubMainWrapper}
+          customSearchInput={styles.searchSelectCustomSearchInput}
+          customItemsWrapper={styles.searchSelectCustomItemsWrapper}
           selectedItemName={t(TranslationKey['Select products'])}
           onScrollItemList={loadMorePermissionsDataHadler}
           onClickSubmitSearch={onClickSubmitSearch}
-          onClickSelect={(product: IProductVariation) => {
+          onClickSelect={(product: IProduct) => {
             if (selectedRadioValue === ProductVariation.PARENT) {
               setSelectedProducts([product])
             } else {
@@ -129,25 +129,24 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           }}
         />
 
-        <div className={classNames.selectedVariationsWrapper}>
+        <div className={styles.selectedVariationsWrapper}>
           {!!selectedProducts.length &&
-            selectedProducts.map((product: IProductVariation, productIndex: number) => (
+            selectedProducts.map((product: IProduct, productIndex: number) => (
               <SelectedProduct key={productIndex} product={product} onClickDeleteButton={onClickDeleteButton} />
             ))}
         </div>
       </div>
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={!selectedProducts.length}
-          variant="contained"
           onClick={() => onClickNextButton(selectedRadioValue, selectedProducts)}
         >
           {t(TranslationKey.Next)}
         </Button>
 
-        <Button variant="text" className={classNames.canselButton} onClick={onClickCancelButton}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.canselButton} onClick={onClickCancelButton}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

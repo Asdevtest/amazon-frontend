@@ -2,13 +2,15 @@ import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './supplier-payment-form.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './supplier-payment-form.style'
 
 export const SupplierPaymentForm = ({
   onClickSaveButton,
@@ -17,20 +19,15 @@ export const SupplierPaymentForm = ({
   editPaymentDetailsPhotos,
   setEditPaymentDetailsPhotos,
 }) => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [files, setFiles] = useState(uploadedFiles || [])
 
   return (
-    <div className={classNames.modalWrapper}>
-      <p className={classNames.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</p>
+    <div className={styles.modalWrapper}>
+      <p className={styles.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</p>
 
-      <UploadFilesInput
-        fullWidth
-        images={files}
-        setImages={setFiles}
-        maxNumber={50 - editPaymentDetailsPhotos?.length}
-      />
+      <UploadFilesInput fullWidth images={files} setImages={setFiles} maxNumber={50} />
 
       {editPaymentDetailsPhotos.length ? (
         <PhotoAndFilesSlider
@@ -43,10 +40,10 @@ export const SupplierPaymentForm = ({
         />
       ) : null}
 
-      <diiv className={classNames.saveBox}>
+      <diiv className={styles.saveBox}>
         <Button
-          success
-          className={classNames.actionButton}
+          styleType={ButtonStyle.SUCCESS}
+          className={styles.actionButton}
           onClick={() => {
             onClickSaveButton(files, editPaymentDetailsPhotos)
             onCloseModal()
@@ -55,8 +52,8 @@ export const SupplierPaymentForm = ({
           {t(TranslationKey.Save)}
         </Button>
         <Button
-          className={cx(classNames.actionButton, classNames.cancelButton)}
-          variant={'text'}
+          className={cx(styles.actionButton, styles.cancelButton)}
+          variant={ButtonVariant.OUTLINED}
           onClick={onCloseModal}
         >
           {t(TranslationKey.Close)}

@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
-import { Avatar, Box, Button, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Box, Paper, Rating, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { Button } from '@components/shared/button'
 import { PurchaseHistory } from '@components/user/users-views/user-profile-view/purchase-history'
 import { Reviews } from '@components/user/users-views/user-profile-view/reviews'
 
@@ -17,7 +17,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './user-profile.style'
+import { useStyles } from './user-profile.style'
 
 import { Info } from './info'
 import { Tested } from './tested'
@@ -38,118 +38,95 @@ export const UserProfile = observer(
     reviews,
     onClickReview,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     return (
       <>
         {SettingsModel.languageTag && (
-          <Paper className={classNames.paper}>
+          <Paper className={styles.paper}>
             <div>
-              <Box className={classNames.mainBox}>
-                <Box className={classNames.sendOrderBox}>
+              <Box className={styles.mainBox}>
+                <Box className={styles.sendOrderBox}>
                   {isAnotherUser ? (
-                    <Avatar src={getUserAvatarSrc(user._id)} className={classNames.avatar} />
+                    <Avatar src={getUserAvatarSrc(user._id)} className={styles.avatar} />
                   ) : (
-                    <div className={classNames.avatarWrapper} onClick={onClickChangeAvatar}>
-                      <Avatar src={getUserAvatarSrc(user._id)} className={classNames.avatar} />
+                    <div className={styles.avatarWrapper} onClick={onClickChangeAvatar}>
+                      <Avatar src={getUserAvatarSrc(user._id)} className={styles.avatar} />
 
-                      <AutorenewIcon color="primary" fontSize="large" className={classNames.icon} />
+                      <AutorenewIcon color="primary" fontSize="large" className={styles.icon} />
                     </div>
                   )}
                 </Box>
 
                 <Box flexGrow={1}>
-                  <Typography className={classNames.username}>{user?.name}</Typography>
+                  <Typography className={styles.username}>{user?.name}</Typography>
 
                   {checkIsAdmin(UserRoleCodeMap[curUser?.role]) || !isAnotherUser ? (
-                    <Typography className={classNames.userEmail}>{user?.email}</Typography>
+                    <Typography className={styles.userEmail}>{user?.email}</Typography>
                   ) : null}
 
-                  <div className={classNames.ratingWrapper}>
-                    <Typography className={classNames.standartText}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
+                  <div className={styles.ratingWrapper}>
+                    <Typography className={styles.standartText}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
 
-                    <Rating readOnly className={classNames.userRating} value={user?.rating} />
+                    <Rating readOnly className={styles.userRating} value={user?.rating} />
                   </div>
-                  <div className={classNames.userButtonsWrapper}>
+                  <div className={styles.userButtonsWrapper}>
                     {isAnotherUser && (
-                      <Button
-                        id="user-profile-change-btn"
-                        variant="contained"
-                        color="primary"
-                        className={classNames.writeBtn}
-                        onClick={() => onClickWriteBtn(user._id)}
-                      >
+                      <Button className={styles.writeBtn} onClick={() => onClickWriteBtn(user._id)}>
                         {t(TranslationKey.Write)}
                       </Button>
                     )}
 
                     {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                      <Button
-                        id="user-profile-change-btn"
-                        variant="contained"
-                        className={classNames.changeBtn}
-                        onClick={onClickChangeUserInfo}
-                      >
+                      <Button className={styles.changeBtn} onClick={onClickChangeUserInfo}>
                         {t(TranslationKey.Edit)}
                       </Button>
                     )}
                   </div>
                 </Box>
               </Box>
-              <div className={classNames.userButtonsMobileWrapper}>
+              <div className={styles.userButtonsMobileWrapper}>
                 {isAnotherUser && (
-                  <Button
-                    id="user-profile-change-btn"
-                    variant="contained"
-                    color="primary"
-                    className={classNames.writeBtn}
-                    onClick={() => onClickWriteBtn(user._id)}
-                  >
+                  <Button className={styles.writeBtn} onClick={() => onClickWriteBtn(user._id)}>
                     {t(TranslationKey.Write)}
                   </Button>
                 )}
 
                 {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                  <Button
-                    id="user-profile-change-btn"
-                    variant="contained"
-                    color="primary"
-                    className={classNames.changeBtn}
-                    onClick={onClickChangeUserInfo}
-                  >
+                  <Button className={styles.changeBtn} onClick={onClickChangeUserInfo}>
                     {t(TranslationKey.Edit)}
                   </Button>
                 )}
               </div>
               {!isAnotherUser && (
-                <div className={classNames.rolesWrapper}>
-                  <Typography variant="h6" className={classNames.standartText}>
+                <div className={styles.rolesWrapper}>
+                  <Typography variant="h6" className={styles.standartText}>
                     {t(TranslationKey.Roles)}
                   </Typography>
 
                   {user?.allowedRoles.length && !user?.masterUser ? (
-                    <div className={classNames.roles}>
-                      {user?.allowedRoles.map((el, index) => (
-                        <Typography key={index} className={classNames.role}>
-                          {UserRoleCodeMap[el]}
+                    <div className={styles.roles}>
+                      {user?.allowedRoles.map(spec => (
+                        <Typography key={spec?._id} className={styles.role}>
+                          {UserRoleCodeMap[spec]}
                         </Typography>
                       ))}
                     </div>
                   ) : (
-                    <Typography className={classNames.role}>{UserRoleCodeMap[user?.role]}</Typography>
+                    <Typography className={styles.role}>{UserRoleCodeMap[user?.role]}</Typography>
                   )}
                 </div>
               )}
 
               {!!user?.allowedSpec?.length && (
-                <div className={classNames.rolesWrapper}>
-                  <Typography variant="h6" className={classNames.standartText}>
+                <div className={styles.rolesWrapper}>
+                  <Typography variant="h6" className={styles.standartText}>
                     {t(TranslationKey.Specialties)}
                   </Typography>
-                  <div className={classNames.roles}>
-                    {user?.allowedSpec?.map((el, index) => (
-                      <Typography key={index} className={classNames.role}>
-                        {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[el])}
+                  <div className={styles.roles}>
+                    {user?.allowedSpec?.map(spec => (
+                      <Typography key={spec?._id} className={styles.role}>
+                        {spec?.title}
                       </Typography>
                     ))}
                   </div>
@@ -163,13 +140,11 @@ export const UserProfile = observer(
               ) : null}
             </div>
 
-            <div className={classNames.rightSideWrapper}>
+            <div className={styles.rightSideWrapper}>
               <Reviews tabReview={tabReview} setTabReview={setTabReview} reviews={reviews} />
               {isAnotherUser && (
-                <div className={classNames.leaveReviewBtnWrapper}>
-                  <Button variant="contained" className={classNames.leaveReviewBtn} onClick={onClickReview}>
-                    {t(TranslationKey['Leave a review'])}
-                  </Button>
+                <div className={styles.leaveReviewBtnWrapper}>
+                  <Button onClick={onClickReview}>{t(TranslationKey['Leave a review'])}</Button>
                 </div>
               )}
 

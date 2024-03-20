@@ -10,19 +10,21 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { AddOrEditWeightBasedLogisticsTariffForm } from '@components/forms/add-or-edit-weight-based-logistics-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './weight-based-logistics-tariffs.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './weight-based-logistics-tariffs.style'
 
 import { LogisticsTariffsModel } from './weight-based-logistics-tariffs.model'
 
 export const WeightBasedLogisticsTariffs = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const gpModel = useRef(new LogisticsTariffsModel({ history }))
 
@@ -61,7 +63,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     onClickAddressBtn,
     onTriggerArchive,
     onColumnVisibilityModelChange,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
   } = gpModel.current
 
   useEffect(() => {
@@ -69,15 +71,15 @@ export const WeightBasedLogisticsTariffs = observer(() => {
   }, [])
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.placeAddBtnWrapper}>
-        <div className={classNames.addressMainWrapper}>
+    <div className={styles.mainWrapper}>
+      <div className={styles.placeAddBtnWrapper}>
+        <div className={styles.addressMainWrapper}>
           {storekeeperDestination ? (
-            <div className={classNames.addressSubWrapper}>
-              <Typography className={classNames.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
+            <div className={styles.addressSubWrapper}>
+              <Typography className={styles.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
 
               <Typography
-                className={classNames.addressMain}
+                className={styles.addressMain}
               >{`${storekeeperDestination.name} : ${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
             </div>
           ) : null}
@@ -88,19 +90,19 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         </div>
 
         {isArchive ? (
-          <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.openArchiveBtn} onClick={onTriggerArchive}>
             {t(TranslationKey['Current tariffs'])}
           </Button>
         ) : (
-          <div className={classNames.btnsWrapper}>
-            <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
+          <div className={styles.btnsWrapper}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.openArchiveBtn} onClick={onTriggerArchive}>
               {t(TranslationKey['Open archive'])}
             </Button>
 
             <Button
-              success
+              styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Add a new rate'])}
-              className={classNames.placeAddBtn}
+              className={styles.placeAddBtn}
               onClick={() => onClickAddBtn()}
             >
               {t(TranslationKey.Add)}
@@ -113,6 +115,8 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         useResizeContainer
         localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
+        sortingMode="client"
+        paginationMode="client"
         filterModel={filterModel}
         paginationModel={paginationModel}
         rows={currentData}
@@ -132,9 +136,9 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         density={densityModel}
         columns={columnsModel}
         columnVisibilityModel={columnVisibilityModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatuses.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onFilterModelChange={onChangeFilterModel}
         onColumnVisibilityModelChange={onColumnVisibilityModelChange}
       />
@@ -168,17 +172,21 @@ export const WeightBasedLogisticsTariffs = observer(() => {
           onClickClose={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
         />
       </Modal>
-      <ConfirmationModal
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </div>
   )
 })

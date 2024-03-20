@@ -1,13 +1,9 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
 
-import AddIcon from '@material-ui/icons/Add'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
@@ -16,16 +12,16 @@ import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TableSupplier } from '@components/product/table-supplier'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { PlusIcon } from '@components/shared/svg-icons'
+import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { deepArrayCompare } from '@utils/array'
@@ -35,14 +31,15 @@ import {
   checkIsBuyer,
   checkIsClient,
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
-  checkIsSupervisor,
   checkIsValidProposalStatusToShowResoult,
 } from '@utils/checks'
 import { objectDeepCompare } from '@utils/object'
 import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './idea-view-and-edit-card.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './idea-view-and-edit-card.style'
 
 import { IdeaRequestCard } from './idea-request-card'
 import { IdeaProgressBar } from './progress-bar'
@@ -58,16 +55,13 @@ export const IdeaViewAndEditCard = observer(
     idea,
     curIdea,
     selectedIdea,
-    selectedSupplier,
     currentProduct,
-    platformSettings,
     onClickCancelBtn,
     onClickSaveBtn,
     onSetCurIdea,
     onEditIdea,
     onCreateProduct,
-    onClickSupplierBtns,
-    onClickSupplier,
+    onClickSaveSupplierBtn,
     onClickCloseIdea,
     onClickAcceptButton,
     onClickRejectButton,
@@ -80,15 +74,16 @@ export const IdeaViewAndEditCard = observer(
     onClickToOrder,
     onClickRequestId,
     onClickUnbindButton,
+    onRemoveSupplier,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const linkListRef = useRef(null)
 
     const [linkLine, setLinkLine] = useState('')
     const [showFullCard, setShowFullCard] = useState(false)
 
-    const [formFields, setFormFields] = useState({})
+    const [formFields, setFormFields] = useState(undefined)
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showRequestType, setShowRequestType] = useState(
@@ -120,17 +115,17 @@ export const IdeaViewAndEditCard = observer(
 
     useEffect(() => {
       if (showRequestType === RequestSwitherType.REQUESTS_ON_CHECK) {
-        setRequestsToRender(formFields.requestsOnCheck)
+        setRequestsToRender(formFields?.requestsOnCheck)
       } else {
-        setRequestsToRender(formFields.requestsOnFinished)
+        setRequestsToRender(formFields?.requestsOnFinished)
       }
-    }, [showRequestType, formFields.requestsOnCheck, formFields.requestsOnFinished])
+    }, [showRequestType, formFields?.requestsOnCheck, formFields?.requestsOnFinished])
 
     useEffect(() => {
       if (formFields?.productLinks?.length > 2 && linkListRef?.current) {
         linkListRef.current.scrollTo(0, linkListRef.current.scrollHeight)
       }
-    }, [formFields.productLinks])
+    }, [formFields?.productLinks])
 
     const getShortIdea = () => ({
       ...idea,
@@ -199,7 +194,11 @@ export const IdeaViewAndEditCard = observer(
     }
 
     const onClickLinkBtn = () => {
-      onChangeField('productLinks')({ target: { value: [...formFields.productLinks, linkLine] } })
+      onChangeField('productLinks')({
+        target: {
+          value: [...(formFields?.productLinks ?? []), linkLine],
+        },
+      })
       setLinkLine('')
     }
 
@@ -219,10 +218,11 @@ export const IdeaViewAndEditCard = observer(
     }, [curIdea?._id, inEdit])
 
     useEffect(() => {
-      if (!isCurrentIdea) {
+      if (!isCurrentIdea && !inCreate) {
         setFormFields(getShortIdea())
       } else {
         setFormFields(getFullIdea())
+        setShowFullCard(true)
       }
     }, [curIdea, idea, languageTag])
 
@@ -238,9 +238,9 @@ export const IdeaViewAndEditCard = observer(
 
         setFormFields({
           ...formFields,
-          width: toFixed(formFields.width / multiplier, 2) || 0,
-          height: toFixed(formFields.height / multiplier, 2) || 0,
-          length: toFixed(formFields.length / multiplier, 2) || 0,
+          width: toFixed(formFields?.width / multiplier, 2) || 0,
+          height: toFixed(formFields?.height / multiplier, 2) || 0,
+          length: toFixed(formFields?.length / multiplier, 2) || 0,
         })
 
         setSizeSetting(newAlignment)
@@ -255,16 +255,16 @@ export const IdeaViewAndEditCard = observer(
         fbaFee: formFields?.fbaFee || 0,
         width:
           (sizeSetting === unitsOfChangeOptions.US
-            ? roundSafely(formFields.width * inchesCoefficient)
-            : formFields.width) || 0,
+            ? roundSafely(formFields?.width * inchesCoefficient)
+            : formFields?.width) || 0,
         height:
           (sizeSetting === unitsOfChangeOptions.US
-            ? roundSafely(formFields.height * inchesCoefficient)
-            : formFields.height) || 0,
+            ? roundSafely(formFields?.height * inchesCoefficient)
+            : formFields?.height) || 0,
         length:
           (sizeSetting === unitsOfChangeOptions.US
-            ? roundSafely(formFields.length * inchesCoefficient)
-            : formFields.length) || 0,
+            ? roundSafely(formFields?.length * inchesCoefficient)
+            : formFields?.length) || 0,
       }
 
       return res
@@ -278,16 +278,16 @@ export const IdeaViewAndEditCard = observer(
         fbaFee: formFields?.fbaFee || 0,
         width:
           (sizeSetting === unitsOfChangeOptions.EU
-            ? roundSafely(formFields.width / inchesCoefficient)
-            : formFields.width) || 0,
+            ? roundSafely(formFields?.width / inchesCoefficient)
+            : formFields?.width) || 0,
         height:
           (sizeSetting === unitsOfChangeOptions.EU
-            ? roundSafely(formFields.height / inchesCoefficient)
-            : formFields.height) || 0,
+            ? roundSafely(formFields?.height / inchesCoefficient)
+            : formFields?.height) || 0,
         length:
           (sizeSetting === unitsOfChangeOptions.EU
-            ? roundSafely(formFields.length / inchesCoefficient)
-            : formFields.length) || 0,
+            ? roundSafely(formFields?.length / inchesCoefficient)
+            : formFields?.length) || 0,
       }
 
       return res
@@ -295,7 +295,7 @@ export const IdeaViewAndEditCard = observer(
 
     const disabledSubmit =
       (objectDeepCompare(formFields, getFullIdea()) && deepArrayCompare(images, formFields?.media || [])) ||
-      !formFields.productName
+      !formFields?.productName
 
     const userRole = UserRoleCodeMap[curUser.role]
     const currentUserIsClient = checkIsClient(userRole)
@@ -321,7 +321,7 @@ export const IdeaViewAndEditCard = observer(
       !isVerified &&
       !isClosed &&
       !isRejected &&
-      !(isCardCreating && !formFields.childProduct && formFields.variation) &&
+      !(isCardCreating && !formFields?.childProduct && formFields?.variation) &&
       !(isAddingAsin && (formFields?.variation ? !formFields?.childProduct?.barCode : !currentProduct?.barCode))
 
     const showRejectButton = isNewIdea || isOnCheck || isSupplierSearch || isSupplierFound || isSupplierNotFound
@@ -330,58 +330,53 @@ export const IdeaViewAndEditCard = observer(
 
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
     const disableAcceptButton = isSupplierNotFound
-    const disableButtonAfterSupplierNotFound = formFields?.status > ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND]
-    const isSupplierCreatedByCurrentUser =
-      curUser?._id === selectedSupplier?.createdBy?._id || curUser?.masterUser?._id === selectedSupplier?.createdBy?._id
 
     return (
-      <div className={cx(classNames.root, isModalView && classNames.rootModal)}>
-        <div className={classNames.headerWrapper}>
+      <div className={cx(styles.root, isModalView && styles.rootModal)}>
+        <div className={styles.headerWrapper}>
           <IdeaProgressBar
             showStatusDuration={isModalView && curIdea}
             currentStatus={formFields?.status}
             ideaData={formFields}
           />
 
-          <div className={classNames.sourcesProductWraper}>
-            {formFields.childProduct && (
+          <div className={styles.sourcesProductWraper}>
+            {formFields?.childProduct && (
               <SourceProduct
                 showOpenInNewTabIcon
                 title={t(TranslationKey['Child product'])}
-                img={formFields.childProduct?.images?.[0]}
-                asin={formFields.childProduct?.asin}
-                sku={formFields.childProduct?.skuByClient}
-                onClickShareIcon={() => onClickOpenProduct(formFields.childProduct?._id)}
+                img={formFields?.childProduct?.images?.[0]}
+                asin={formFields?.childProduct?.asin}
+                sku={formFields?.childProduct?.skuByClient}
+                onClickShareIcon={() => onClickOpenProduct(formFields?.childProduct?._id)}
               />
             )}
-            {(currentProduct || formFields.parentProduct) && (
+            {(currentProduct || formFields?.parentProduct) && (
               <SourceProduct
                 showOpenInNewTabIcon
                 title={t(TranslationKey['Parent product'])}
-                img={formFields.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
-                asin={formFields.parentProduct?.asin || currentProduct?.asin}
-                sku={formFields.parentProduct?.skuByClient || currentProduct?.skuByClient}
-                onClickShareIcon={() => onClickOpenProduct(formFields.parentProduct?._id || currentProduct?._id)}
+                img={formFields?.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
+                asin={formFields?.parentProduct?.asin || currentProduct?.asin}
+                sku={formFields?.parentProduct?.skuByClient || currentProduct?.skuByClient}
+                onClickShareIcon={() => onClickOpenProduct(formFields?.parentProduct?._id || currentProduct?._id)}
               />
             )}
           </div>
         </div>
 
-        <div className={cx(classNames.contentWrapper, { [classNames.modalContentWrapper]: isModalView })}>
-          <div className={cx(classNames.cardWrapper, { [classNames.fullCardWpapper]: showFullCard })}>
-            <div className={classNames.mediaBlock}>
-              {!inCreate && (
-                <div className={classNames.photoCarouselWrapper}>
-                  <PhotoAndFilesSlider
-                    showPreviews
-                    withoutFiles
-                    bigSlider
+        <div className={cx(styles.contentWrapper, { [styles.modalContentWrapper]: isModalView })}>
+          <div className={cx(styles.cardWrapper, { [styles.fullCardWpapper]: showFullCard })}>
+            <div className={styles.mediaBlock}>
+              <div className={styles.gallery}>
+                {!inCreate && (
+                  <SlideshowGallery
+                    slidesToShow={5}
                     isEditable={inEdit}
                     files={images}
                     onChangeImagesForLoad={setImages}
                   />
-                </div>
-              )}
+                )}
+              </div>
 
               {!disableFields && (
                 <UploadFilesInput
@@ -390,17 +385,17 @@ export const IdeaViewAndEditCard = observer(
                   dragAndDropBtnHeight={59}
                   images={images}
                   setImages={setImages}
-                  maxNumber={50 - formFields?.media?.length}
+                  maxNumber={50}
                 />
               )}
 
               {showFullCard && currentUserIsClient && (
-                <div className={classNames.requestsBlockWrapper}>
-                  <div className={classNames.requestsControlWrapper}>
-                    <p className={classNames.requestsBlockTitle}>{t(TranslationKey.Freelance)}</p>
+                <div className={styles.requestsBlockWrapper}>
+                  <div className={styles.requestsControlWrapper}>
+                    <p className={styles.requestsBlockTitle}>{t(TranslationKey.Freelance)}</p>
 
-                    <div className={classNames.requestsControlButtonsWrapper}>
-                      <div className={classNames.switcherWrapper}>
+                    <div className={styles.requestsControlButtonsWrapper}>
+                      <div className={styles.switcherWrapper}>
                         <CustomSwitcher
                           switchMode={'medium'}
                           condition={showRequestType}
@@ -418,12 +413,12 @@ export const IdeaViewAndEditCard = observer(
                     </div>
                   </div>
 
-                  {(!!formFields.requestsOnCheck?.length || !!formFields.requestsOnFinished?.length) && (
-                    <div className={classNames.requestsWrapper}>
+                  {(!!formFields?.requestsOnCheck?.length || !!formFields?.requestsOnFinished?.length) && (
+                    <div className={styles.requestsWrapper}>
                       {requestsToRender?.map((request, requestIndex) => (
                         <IdeaRequestCard
                           key={requestIndex}
-                          requestType={request.typeTask}
+                          requestTitle={request?.spec?.title}
                           requestId={request.humanFriendlyId}
                           requestStatus={request.status}
                           executor={request.executor}
@@ -444,16 +439,16 @@ export const IdeaViewAndEditCard = observer(
               )}
             </div>
 
-            <div className={classNames.commentsWrapper}>
+            <div className={styles.commentsWrapper}>
               <Field
                 multiline
                 disabled={disableFields || currentUserIsBuyer}
-                className={classNames.сlientСomment}
-                containerClasses={classNames.noMarginContainer}
-                labelClasses={classNames.spanLabel}
+                className={styles.сlientСomment}
+                containerClasses={styles.noMarginContainer}
+                labelClasses={styles.spanLabel}
                 inputProps={{ maxLength: 255 }}
                 label={t(TranslationKey['Client comments'])}
-                value={formFields.comments}
+                value={formFields?.comments}
                 sx={{
                   '& .MuiInputBase-inputMultiline': {
                     height: '100% !important',
@@ -467,11 +462,11 @@ export const IdeaViewAndEditCard = observer(
                 multiline
                 disabled={disableFields || currentUserIsClient}
                 label={t(TranslationKey['Buyer comments'])}
-                labelClasses={classNames.spanLabel}
-                className={classNames.buyerComment}
-                containerClasses={classNames.noMarginContainer}
+                labelClasses={styles.spanLabel}
+                className={styles.buyerComment}
+                containerClasses={styles.noMarginContainer}
                 inputProps={{ maxLength: 255 }}
-                value={formFields.buyerComment}
+                value={formFields?.buyerComment}
                 sx={{
                   '& .MuiInputBase-inputMultiline': {
                     height: '100% !important',
@@ -485,21 +480,21 @@ export const IdeaViewAndEditCard = observer(
 
           {showFullCard && (
             <>
-              <div className={cx(classNames.middleBlock, { [classNames.fullMiddleBlock]: showFullCard })}>
-                <Typography className={classNames.supplierSearchTitle}>
+              <div className={cx(styles.middleBlock, { [styles.fullMiddleBlock]: showFullCard })}>
+                <Typography className={styles.supplierSearchTitle}>
                   {t(TranslationKey['Supplier search options'])}
                 </Typography>
 
-                <div className={cx(classNames.cardWrapper, { [classNames.fullCardWpapper]: showFullCard })}>
-                  <div className={classNames.nameAndInfoProductWrapper}>
+                <div className={cx(styles.cardWrapper, { [styles.fullCardWpapper]: showFullCard })}>
+                  <div className={styles.nameAndInfoProductWrapper}>
                     <Field
                       disabled={disableFields}
                       label={`${t(TranslationKey['Product name'])}*`}
                       inputProps={{ maxLength: 130 }}
-                      value={formFields.productName}
-                      labelClasses={classNames.spanLabel}
-                      containerClasses={classNames.noMarginContainer}
-                      className={classNames.oneLineField}
+                      value={formFields?.productName}
+                      labelClasses={styles.spanLabel}
+                      containerClasses={styles.noMarginContainer}
+                      className={styles.oneLineField}
                       onChange={onChangeField('productName')}
                     />
 
@@ -508,104 +503,101 @@ export const IdeaViewAndEditCard = observer(
                       minRows={10}
                       maxRows={10}
                       disabled={disableFields}
-                      labelClasses={classNames.spanLabel}
-                      className={classNames.criterionsField}
-                      containerClasses={classNames.noMarginContainer}
+                      labelClasses={styles.spanLabel}
+                      className={styles.criterionsField}
+                      containerClasses={styles.noMarginContainer}
                       inputProps={{ maxLength: 250 }}
                       label={t(TranslationKey['Important criteria'])}
-                      value={formFields.criteria}
+                      value={formFields?.criteria}
                       onChange={onChangeField('criteria')}
                     />
                   </div>
 
-                  <div className={classNames.linksAndDimensionsWrapper}>
+                  <div className={styles.linksAndDimensionsWrapper}>
                     <Field
-                      labelClasses={classNames.spanLabel}
+                      labelClasses={styles.spanLabel}
                       label={t(TranslationKey.Links)}
-                      containerClasses={classNames.noMarginContainer}
-                      className={classNames.oneLineField}
+                      containerClasses={styles.noMarginContainer}
+                      className={styles.oneLineField}
                       inputComponent={
-                        <div className={classNames.linksWrapper}>
+                        <div className={styles.linksWrapper}>
                           {(inEdit || inCreate) && (
-                            <div className={classNames.inputWrapper}>
+                            <div className={styles.inputWrapper}>
                               <Input
                                 disabled={disableFields}
                                 placeholder={t(TranslationKey['Link to the product'])}
                                 inputProps={{ maxLength: 510 }}
                                 value={linkLine}
-                                className={classNames.input}
+                                className={styles.input}
                                 onChange={e => setLinkLine(e.target.value)}
                               />
                               <Button
-                                disableElevation
                                 disabled={!linkLine || disableFields}
-                                className={classNames.defaultBtn}
-                                variant="contained"
-                                color="primary"
+                                className={styles.defaultBtn}
                                 onClick={onClickLinkBtn}
                               >
                                 {t(TranslationKey.Add)}
                               </Button>
                             </div>
                           )}
-                          <div ref={linkListRef} className={classNames.linksSubWrapper}>
+                          <div ref={linkListRef} className={styles.linksSubWrapper}>
                             {formFields?.productLinks?.length ? (
                               formFields?.productLinks?.map((el, index) => (
-                                <div key={index} className={classNames.linkWrapper}>
-                                  <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                                    <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
+                                <div key={index} className={styles.linkWrapper}>
+                                  <Link target="_blank" href={el} className={styles.linkTextWrapper}>
+                                    <Typography className={styles.linkText}>{`${index + 1}. ${el}`}</Typography>
                                   </Link>
 
-                                  <div className={classNames.linksBtnsWrapper}>
+                                  <div className={styles.linksBtnsWrapper}>
                                     <CopyValue text={el} />
                                     {!disableFields && (
                                       <IconButton
-                                        className={classNames.deleteBtnWrapper}
+                                        className={styles.deleteBtnWrapper}
                                         onClick={() => onRemoveLink(index)}
                                       >
-                                        <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
+                                        <DeleteOutlineOutlinedIcon className={styles.deleteBtn} />
                                       </IconButton>
                                     )}
                                   </div>
                                 </div>
                               ))
                             ) : (
-                              <Typography className={classNames.noDataText}>{t(TranslationKey['No data'])}</Typography>
+                              <Typography className={styles.noDataText}>{t(TranslationKey['No data'])}</Typography>
                             )}
                           </div>
                         </div>
                       }
                     />
 
-                    <div className={classNames.shortFieldsSubWrapper}>
+                    <div className={styles.shortFieldsSubWrapper}>
                       <Field
                         disabled={disableFields}
                         inputProps={{ maxLength: 6 }}
-                        labelClasses={classNames.spanLabel}
-                        inputClasses={classNames.shortInput}
-                        className={classNames.oneLineField}
-                        containerClasses={cx(classNames.noMarginContainer, classNames.mediumSizeContainer)}
+                        labelClasses={styles.spanLabel}
+                        inputClasses={styles.shortInput}
+                        className={styles.oneLineField}
+                        containerClasses={cx(styles.noMarginContainer, styles.mediumSizeContainer)}
                         label={t(TranslationKey.Quantity)}
-                        value={formFields.quantity}
+                        value={formFields?.quantity}
                         onChange={onChangeField('quantity')}
                       />
                       <Field
                         disabled={disableFields}
                         inputProps={{ maxLength: 6 }}
-                        labelClasses={classNames.spanLabel}
-                        inputClasses={classNames.shortInput}
-                        containerClasses={cx(classNames.noMarginContainer, classNames.mediumSizeContainer)}
+                        labelClasses={styles.spanLabel}
+                        inputClasses={styles.shortInput}
+                        containerClasses={cx(styles.noMarginContainer, styles.mediumSizeContainer)}
                         label={t(TranslationKey['Desired purchase price']) + ', $'}
-                        value={formFields.price}
-                        className={classNames.oneLineField}
+                        value={formFields?.price}
+                        className={styles.oneLineField}
                         onChange={onChangeField('price')}
                       />
                     </div>
 
-                    <div className={classNames.shortFieldsSubWrapper}>
-                      <div className={classNames.sizesWrapper}>
-                        <div className={classNames.sizesSubWrapper}>
-                          <p className={classNames.spanLabel}>{t(TranslationKey.Dimensions)}</p>
+                    <div className={styles.shortFieldsSubWrapper}>
+                      <div className={styles.sizesWrapper}>
+                        <div className={styles.sizesSubWrapper}>
+                          <p className={styles.spanLabel}>{t(TranslationKey.Dimensions)}</p>
 
                           <div>
                             <CustomSwitcher
@@ -619,53 +611,53 @@ export const IdeaViewAndEditCard = observer(
                           </div>
                         </div>
 
-                        <div className={classNames.sizesBottomWrapper}>
+                        <div className={styles.sizesBottomWrapper}>
                           <Field
                             disabled={disableFields}
                             inputProps={{ maxLength: 6 }}
-                            labelClasses={classNames.spanLabel}
-                            inputClasses={classNames.sizesInput}
-                            className={classNames.oneLineField}
-                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            labelClasses={styles.spanLabel}
+                            inputClasses={styles.sizesInput}
+                            className={styles.oneLineField}
+                            containerClasses={cx(styles.sizesContainer, styles.noMarginContainer)}
                             label={t(TranslationKey.Width)}
-                            value={formFields.width}
+                            value={formFields?.width}
                             onChange={onChangeField('width')}
                           />
                           <Field
                             disabled={disableFields}
                             inputProps={{ maxLength: 6 }}
-                            labelClasses={classNames.spanLabel}
-                            inputClasses={classNames.sizesInput}
-                            className={classNames.oneLineField}
-                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            labelClasses={styles.spanLabel}
+                            inputClasses={styles.sizesInput}
+                            className={styles.oneLineField}
+                            containerClasses={cx(styles.sizesContainer, styles.noMarginContainer)}
                             label={t(TranslationKey.Height)}
-                            value={formFields.height}
+                            value={formFields?.height}
                             onChange={onChangeField('height')}
                           />
                           <Field
                             disabled={disableFields}
                             inputProps={{ maxLength: 6 }}
-                            labelClasses={classNames.spanLabel}
-                            inputClasses={classNames.sizesInput}
-                            className={classNames.oneLineField}
-                            containerClasses={cx(classNames.sizesContainer, classNames.noMarginContainer)}
+                            labelClasses={styles.spanLabel}
+                            inputClasses={styles.sizesInput}
+                            className={styles.oneLineField}
+                            containerClasses={cx(styles.sizesContainer, styles.noMarginContainer)}
                             label={t(TranslationKey.Length)}
-                            value={formFields.length}
+                            value={formFields?.length}
                             onChange={onChangeField('length')}
                           />
                         </div>
                       </div>
 
-                      <div className={classNames.approximateCalculationFieldsWrapper}>
+                      <div className={styles.approximateCalculationFieldsWrapper}>
                         <Field
                           label={t(TranslationKey['Referral fee, $'])}
                           disabled={disableFields}
                           inputProps={{ maxLength: 6 }}
-                          labelClasses={classNames.spanLabel}
-                          inputClasses={classNames.approximateCalculationInput}
-                          className={classNames.oneLineField}
-                          containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
-                          value={formFields.fbaFee}
+                          labelClasses={styles.spanLabel}
+                          inputClasses={styles.approximateCalculationInput}
+                          className={styles.oneLineField}
+                          containerClasses={cx(styles.approximateCalculationInput, styles.noMarginContainer)}
+                          value={formFields?.fbaFee}
                           onChange={onChangeField('fbaFee')}
                         />
 
@@ -673,11 +665,11 @@ export const IdeaViewAndEditCard = observer(
                           label={t(TranslationKey['Approximate price'])}
                           disabled={disableFields}
                           inputProps={{ maxLength: 6 }}
-                          labelClasses={classNames.spanLabel}
-                          inputClasses={classNames.approximateCalculationInput}
-                          className={classNames.oneLineField}
-                          containerClasses={cx(classNames.approximateCalculationInput, classNames.noMarginContainer)}
-                          value={formFields.approximatePrice}
+                          labelClasses={styles.spanLabel}
+                          inputClasses={styles.approximateCalculationInput}
+                          className={styles.oneLineField}
+                          containerClasses={cx(styles.approximateCalculationInput, styles.noMarginContainer)}
+                          value={formFields?.approximatePrice}
                           onChange={onChangeField('approximatePrice')}
                         />
                       </div>
@@ -688,107 +680,26 @@ export const IdeaViewAndEditCard = observer(
             </>
           )}
 
-          <div className={classNames.fullMiddleBlock}>
-            <Field
-              labelClasses={cx(classNames.spanLabel, classNames.labelWithMargin)}
-              label={t(TranslationKey.Suppliers)}
-              containerClasses={classNames.noMarginContainer}
-              inputComponent={
-                <div className={classNames.supplierActionsWrapper}>
-                  {selectedSupplier && (checkIsClientOrBuyer || checkIsSupervisor(userRole)) && (
-                    <div className={classNames.supplierButtonWrapper}>
-                      <Button
-                        disabled={!selectedSupplier}
-                        tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                        className={classNames.iconBtn}
-                        onClick={() => onClickSupplierBtns('view', undefined, formFields?._id)}
-                      >
-                        <VisibilityOutlinedIcon />
-                      </Button>
-                      <Typography className={classNames.supplierButtonText}>
-                        {t(TranslationKey['Open the parameters supplier'])}
-                      </Typography>
-                    </div>
-                  )}
-
-                  <div className={classNames.supplierButtonWrapper}>
-                    <Button
-                      disabled={!formFields.productName || disableButtonAfterSupplierNotFound || !checkIsClientOrBuyer}
-                      className={classNames.iconBtn}
-                      onClick={() =>
-                        onClickSupplierBtns(
-                          'add',
-                          () => onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
-                          formFields?._id,
-                        )
-                      }
-                    >
-                      <AddIcon />
-                    </Button>
-                    <Typography className={classNames.supplierButtonText}>
-                      {t(TranslationKey['Add supplier'])}
-                    </Typography>
-                  </div>
-                  {selectedSupplier && (
-                    <>
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                          disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
-                          className={classNames.iconBtn}
-                          onClick={() =>
-                            onClickSupplierBtns(
-                              'edit',
-                              () => onClickSaveBtn(calculateFieldsToSubmit(), [], true),
-                              formFields?._id,
-                            )
-                          }
-                        >
-                          <EditOutlinedIcon />
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Edit a supplier'])}
-                        </Typography>
-                      </div>
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                          className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
-                          disabled={disableButtonAfterSupplierNotFound || !isSupplierCreatedByCurrentUser}
-                          onClick={() =>
-                            onClickSupplierBtns(
-                              'delete',
-                              () => onClickSaveBtn(calculateFieldsToSubmit(), [], true),
-                              formFields?._id,
-                            )
-                          }
-                        >
-                          <DeleteOutlineOutlinedIcon />
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Delete supplier'])}
-                        </Typography>
-                      </div>
-                    </>
-                  )}
-                </div>
-              }
-            />
-
-            <TableSupplier
-              product={formFields}
-              selectedSupplier={selectedSupplier}
-              platformSettings={platformSettings}
-              onClickSupplier={onClickSupplier}
-            />
+          <div className={styles.fullMiddleBlock}>
+            {formFields ? (
+              <ListSuppliers
+                formFields={formFields}
+                isNotProductNameForIdea={formFields?.productName.length === 0} // for disable add supplier button
+                onClickSaveSupplier={({ ...rest }) =>
+                  onClickSaveSupplierBtn({ ...rest, ideaFormFields: calculateFieldsToSubmit() })
+                }
+                onRemoveSupplier={onRemoveSupplier}
+                // onSaveProduct={onClickSupplierBtns}
+              />
+            ) : null}
           </div>
         </div>
 
         {!!idea && disableFields ? (
-          <div className={classNames.existedIdeaBtnsWrapper}>
+          <div className={styles.existedIdeaBtnsWrapper}>
             {!isModalView ? (
-              <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
-                <Typography className={classNames.tablePanelViewText}>
+              <div className={styles.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
+                <Typography className={styles.tablePanelViewText}>
                   {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
                 </Typography>
 
@@ -803,9 +714,9 @@ export const IdeaViewAndEditCard = observer(
             )}
 
             {!checkIsAdmin(userRole) && (
-              <div className={classNames.existedIdeaBtnsSubWrapper}>
+              <div className={styles.existedIdeaBtnsSubWrapper}>
                 {currentUserIsBuyer && isSupplierSearch && (
-                  <div className={classNames.supplierFoundWrapper}>
+                  <div className={styles.supplierFoundWrapper}>
                     <RadioButtons
                       radioBottonsSettings={radioBottonsSettings}
                       currentValue={supplierFound}
@@ -813,11 +724,9 @@ export const IdeaViewAndEditCard = observer(
                     />
 
                     <Button
-                      success
+                      styleType={ButtonStyle.SUCCESS}
                       disabled={!supplierFound}
-                      variant="contained"
-                      color="primary"
-                      className={classNames.actionButton}
+                      className={styles.actionButton}
                       onClick={() => onClickAcceptButton(formFields, supplierFound)}
                     >
                       {t(TranslationKey.Save)}
@@ -826,19 +735,17 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {(isSupplierFound || isSupplierNotFound) && (
-                  <p className={cx(classNames.statusText, { [classNames.supplierNotFoundText]: isSupplierNotFound })}>
+                  <p className={cx(styles.statusText, { [styles.supplierNotFoundText]: isSupplierNotFound })}>
                     {isSupplierFound ? t(TranslationKey['Supplier found']) : t(TranslationKey['Supplier not found'])}
                   </p>
                 )}
 
                 {currentUserIsClient && isCurrentIdea && isCardCreating && (
                   <Button
-                    success
+                    styleType={ButtonStyle.SUCCESS}
                     tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                    variant="contained"
-                    color="primary"
                     disabled={idea.childProduct}
-                    className={[classNames.actionButton]}
+                    className={[styles.actionButton]}
                     onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
                   >
                     {t(TranslationKey['Create a product card'])}
@@ -847,22 +754,19 @@ export const IdeaViewAndEditCard = observer(
 
                 {currentUserIsClient && showCreateRequestButton && (
                   <Button
-                    success
-                    variant="contained"
-                    className={classNames.actionButton}
+                    styleType={ButtonStyle.SUCCESS}
+                    className={styles.actionButton}
                     onClick={() => onClickCreateRequestButton(formFields)}
                   >
-                    <PlusIcon className={classNames.plusIcon} />
+                    <PlusIcon className={styles.plusIcon} />
                     {t(TranslationKey['Create a request'])}
                   </Button>
                 )}
 
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <Button
-                    success
+                    styleType={ButtonStyle.SUCCESS}
                     disabled={disableAcceptButton}
-                    variant="contained"
-                    color="primary"
                     onClick={() => onClickAcceptButton(formFields)}
                   >
                     {t(TranslationKey.Accept)}
@@ -870,14 +774,13 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isVerified && (
-                  <Button success variant="contained" onClick={() => onClickToOrder(formFields)}>
+                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickToOrder(formFields)}>
                     {t(TranslationKey['To order'])}
                   </Button>
                 )}
 
                 {currentUserIsClient && isNewIdea && (
                   <Button
-                    variant="contained"
                     onClick={() => {
                       onClickAcceptButton(formFields)
                     }}
@@ -887,33 +790,31 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button danger variant="contained" onClick={() => onClickCloseIdea(formFields._id)}>
+                  <Button styleType={ButtonStyle.DANGER} onClick={() => onClickCloseIdea(formFields?._id)}>
                     {t(TranslationKey['Close idea'])}
                   </Button>
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button success variant="contained" onClick={() => onClickReoperButton(formFields._id)}>
+                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickReoperButton(formFields?._id)}>
                     {t(TranslationKey.Restore)}
                   </Button>
                 )}
 
                 {checkIsClientOrBuyer && !isClosed && (
-                  <Button variant="contained" color="primary" onClick={() => onEditIdea(formFields)}>
-                    {t(TranslationKey.Edit)}
-                  </Button>
+                  <Button onClick={() => onEditIdea(formFields)}>{t(TranslationKey.Edit)}</Button>
                 )}
 
                 {currentUserIsClient && showRejectButton && (
-                  <Button danger variant="contained" onClick={() => onClickRejectButton(formFields._id)}>
+                  <Button styleType={ButtonStyle.DANGER} onClick={() => onClickRejectButton(formFields?._id)}>
                     {t(TranslationKey.Reject)}
                   </Button>
                 )}
 
                 {isModalView && (
                   <Button
-                    variant="text"
-                    className={cx(classNames.actionButton, classNames.cancelBtn)}
+                    variant={ButtonVariant.OUTLINED}
+                    className={cx(styles.actionButton, styles.cancelBtn)}
                     onClick={() => onClickCancelBtn()}
                   >
                     {t(TranslationKey.Close)}
@@ -923,20 +824,18 @@ export const IdeaViewAndEditCard = observer(
             )}
           </div>
         ) : (
-          <div className={classNames.addOrEditBtnsWrapper}>
+          <div className={styles.addOrEditBtnsWrapper}>
             <Button
-              success
               disabled={disabledSubmit}
-              variant="contained"
-              color="primary"
+              styleType={ButtonStyle.SUCCESS}
               onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
             >
               {t(TranslationKey.Save)}
             </Button>
 
             <Button
-              variant="text"
-              className={cx(classNames.actionButton, classNames.btnLeftMargin, classNames.cancelBtn)}
+              variant={ButtonVariant.OUTLINED}
+              className={cx(styles.actionButton, styles.btnLeftMargin, styles.cancelBtn)}
               onClick={() => onClickCancelBtn()}
             >
               {t(TranslationKey.Close)}

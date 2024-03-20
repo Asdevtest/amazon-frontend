@@ -81,16 +81,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: '0 50px 30px',
   },
 
-  button: {
-    height: 40,
-    padding: '0 40px',
-  },
-
-  cancelBtn: {
-    height: 40,
-    color: '#FFF',
-  },
-
   btnsSubWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',

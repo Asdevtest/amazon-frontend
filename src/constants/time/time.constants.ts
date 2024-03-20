@@ -1,3 +1,6 @@
-export const ONE_MINUTE = 60000
-
-export const ONE_HOUR = 3600000
+export const ONE_MINUTE_IN_MILLISECONDS = 60000
+export const ONE_HOUR_IN_MILLISECONDS = 3600000
+export const ONE_DAY_IN_SECONDS = 86400
+export const ONE_HOUR_IN_SECONDS = 3600
+export const ONE_HOUR_IN_MINUTES = 60
+export const ONE_MINUTES_IN_SECONDS = 60

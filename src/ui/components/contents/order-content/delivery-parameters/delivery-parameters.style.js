@@ -29,12 +29,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  researchWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-
   deliveryImg: {
     marginLeft: 10,
   },

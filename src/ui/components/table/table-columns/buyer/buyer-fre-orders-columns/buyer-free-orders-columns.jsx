@@ -1,20 +1,22 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
+  DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NormalActionBtnCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
-import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const buyerFreeOrdersViewColumns = handlers => [
   {
@@ -51,11 +53,13 @@ export const buyerFreeOrdersViewColumns = handlers => [
 
     width: 165,
     renderCell: params => (
-      <NormalActionBtnCell
-        tooltipText={t(TranslationKey['To assign the order to Byer'])}
-        bTnText={t(TranslationKey['Get to work'])}
+      <ActionButtonsCell
+        isFirstButton
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        onClickOkBtn={() => handlers.onClickTableRowBtn(params.row)}
+        firstButtonTooltipText={t(TranslationKey['To assign the order to Byer'])}
+        firstButtonElement={t(TranslationKey['Get to work'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickTableRowBtn(params.row)}
       />
     ),
     filterable: false,
@@ -115,17 +119,9 @@ export const buyerFreeOrdersViewColumns = handlers => [
 
   {
     field: 'deadline',
-    headerName: 'Deadline',
-    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
-
-    renderCell: params => (
-      <MultilineTextCell
-        withLineBreaks
-        tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-        color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-        text={params.value ? formatDate(params.value) : ''}
-      />
-    ),
+    headerName: t(TranslationKey.Deadline),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
+    renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
     width: 100,
   },
 

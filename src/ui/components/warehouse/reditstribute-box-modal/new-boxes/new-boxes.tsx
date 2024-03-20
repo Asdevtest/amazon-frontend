@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { IDestination, IDestinationStorekeeper } from '@typings/destination'
+import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useStyles } from './new-boxes.style'
 

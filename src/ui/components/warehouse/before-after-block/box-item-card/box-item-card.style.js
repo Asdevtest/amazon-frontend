@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     alignItems: 'flex-start',
@@ -20,7 +20,6 @@ export const useClassNames = makeStyles()(theme => ({
   applyButton: {
     height: 26,
     width: 65,
-    marginLeft: 5,
     fontSize: 11,
   },
 

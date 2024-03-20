@@ -10,13 +10,14 @@ import { getDaysHoursMinutesForMinuter } from '@utils/date-time'
 import { clearEverythingExceptNumbers } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './set-duration.style'
+import { useStyles } from './set-duration.style'
 
 interface SetDurationProps {
   duration: number
   setTotalTimeInMinute: (totalTimeInMinute: number) => void
   title?: string
   titleStyle?: string
+  readOnly?: boolean
 }
 
 interface FormFields {
@@ -27,8 +28,9 @@ interface FormFields {
 }
 
 export const SetDuration: FC<SetDurationProps> = observer(props => {
-  const { title, titleStyle, duration, setTotalTimeInMinute } = props
-  const { classes: styles } = useClassNames()
+  const { title, titleStyle, duration, readOnly, setTotalTimeInMinute } = props
+
+  const { classes: styles } = useStyles()
 
   const [formFields, setFormFields] = useState<FormFields>({
     days: '',
@@ -87,13 +89,14 @@ export const SetDuration: FC<SetDurationProps> = observer(props => {
 
   return (
     <div className={styles.wrapper}>
-      {title && <p className={titleStyle}>{title ?? t(TranslationKey['Time to complete']) + '*'}</p>}
+      {title && <p className={titleStyle}>{title || t(TranslationKey['Time to complete']) + '*'}</p>}
 
       <div className={styles.inputsWrapper}>
         <div className={styles.inputWrapper}>
           <Field
             oneLine
             placeholder="00"
+            readOnly={readOnly}
             value={formFields.days}
             containerClasses={styles.inputField}
             inputClasses={styles.input}
@@ -110,6 +113,7 @@ export const SetDuration: FC<SetDurationProps> = observer(props => {
           <Field
             oneLine
             placeholder="00"
+            readOnly={readOnly}
             value={formFields.hours}
             containerClasses={styles.inputField}
             inputClasses={styles.input}
@@ -126,6 +130,7 @@ export const SetDuration: FC<SetDurationProps> = observer(props => {
           <Field
             oneLine
             placeholder="00"
+            readOnly={readOnly}
             value={formFields.minutes}
             containerClasses={styles.inputField}
             inputClasses={styles.input}

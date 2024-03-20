@@ -1,7 +1,7 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ClientNotificationsBtnsCell,
+  ActionButtonsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -10,10 +10,12 @@ import {
   SuperboxQtyCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const clientBoxesNotificationsViewColumns = handlers => [
   {
@@ -53,9 +55,18 @@ export const clientBoxesNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 325,
-    renderCell: params => {
-      return <ClientNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />
-    },
+    renderCell: params => (
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
+        firstButtonElement={t(TranslationKey.Confirm)}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonElement={t(TranslationKey.Reject)}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(params.row.originalData)}
+        onClickSecondButton={() => handlers.onTriggerOpenRejectModal(params.row.originalData)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

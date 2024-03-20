@@ -73,6 +73,15 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     width: 450,
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+
+    [theme.breakpoints.down(1500)]: {
+      width: '100%',
+    },
   },
 
   customPerformerLink: {

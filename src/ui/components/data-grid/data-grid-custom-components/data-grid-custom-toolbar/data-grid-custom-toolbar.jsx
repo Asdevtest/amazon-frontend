@@ -1,39 +1,66 @@
 import { GridPagination, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 
-import { useClassNames } from './data-grid-custom-toolbar.style'
+import { useStyles } from './data-grid-custom-toolbar.style'
 
-import { DataGridCustomColumnsButton } from '../data-grid-custom-columns-button'
 import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
+import { DataGridTableSetting } from '../data-grid-table-setting'
+import { SelectedTags } from '../selected-tags'
+import { SortSettings } from '../sort-settings'
+import { TagSearch } from '../tag-search'
 
-export const DataGridCustomToolbar = ({ resetFiltersBtnSettings, columsBtnSettings, children, ...other }) => {
-  const { classes: classNames } = useClassNames()
+export const DataGridCustomToolbar = props => {
+  const {
+    resetFiltersBtnSettings,
+    columsBtnSettings,
+    children,
+    presetsSettings,
+    sortSettings,
+    tagSearchSettings,
+    ...restProps
+  } = props
+
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <GridToolbarContainer className={classNames.toolbar} {...other}>
-      <div className={classNames.buttons}>
-        {columsBtnSettings ? (
-          <DataGridCustomColumnsButton
-            size={'large'}
-            className={classNames.text}
-            columsBtnSettings={columsBtnSettings}
-          />
-        ) : null}
+    <GridToolbarContainer className={styles.wrapperToolbar} {...restProps}>
+      <div className={styles.toolbar}>
+        {(!!columsBtnSettings || !!presetsSettings) && (
+          <div className={styles.buttons}>
+            <DataGridTableSetting presetsSettings={presetsSettings} columsBtnSettings={columsBtnSettings} />
 
-        <GridToolbarExport size={'large'} className={classNames.text} />
+            <GridToolbarExport size="large" className={styles.text} excelOptions={{ disableToolbarButton: true }} />
 
-        {resetFiltersBtnSettings?.isSomeFilterOn ? (
-          <DataGridResetFilterButton
-            size={'large'}
-            className={classNames.text}
-            resetFiltersBtnSettings={resetFiltersBtnSettings}
-          />
-        ) : null}
+            {sortSettings ? <SortSettings {...sortSettings} /> : null}
+
+            {tagSearchSettings ? <TagSearch {...tagSearchSettings} /> : null}
+
+            {!!resetFiltersBtnSettings?.isSomeFilterOn && (
+              <DataGridResetFilterButton
+                size="large"
+                className={styles.text}
+                resetFiltersBtnSettings={resetFiltersBtnSettings}
+              />
+            )}
+          </div>
+        )}
+
+        <div
+          className={cx(styles.buttons, {
+            [styles.fullWidth]: !columsBtnSettings,
+            [styles.flexEnd]: !children,
+          })}
+        >
+          {children}
+          <GridPagination />
+        </div>
       </div>
 
-      <div className={classNames.buttons}>
-        {children}
-        <GridPagination />
-      </div>
+      {tagSearchSettings?.activeTags ? (
+        <SelectedTags
+          activeTags={tagSearchSettings?.activeTags}
+          setActiveProductsTag={tagSearchSettings?.setActiveProductsTag}
+        />
+      ) : null}
     </GridToolbarContainer>
   )
 }

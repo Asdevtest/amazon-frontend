@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useRef, useState } from 'react'
+import { FC, memo, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { useReactToPrint } from 'react-to-print'
 
 import PrintIcon from '@mui/icons-material/Print'
-import { Box, Button, IconButton } from '@mui/material'
+import { Box, IconButton } from '@mui/material'
 
-import { imageTypes } from '@constants/configs/image-types'
+import { imageValidTypes } from '@constants/media/image-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+import { Button } from '@components/shared/button'
 
 import { checkIsHasHttp } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -21,7 +22,7 @@ interface DownloadAndPrintFilesCellProps {
   files: any
 }
 
-export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = React.memo(({ files }) => {
+export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = memo(({ files }) => {
   const { classes: styles } = useStyles()
 
   const imageRef = useRef(null)
@@ -35,7 +36,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
   })
 
   const handleImagePreview = (el: any) => {
-    if (!imageTypes.includes(el.fileType)) {
+    if (!imageValidTypes.includes(el.fileType)) {
       const fileUrl = el.fileUrl
 
       window.open(checkIsHasHttp(fileUrl) ? fileUrl : getAmazonImageUrl(fileUrl, true), '_blank')
@@ -46,7 +47,7 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
   }
 
   const printFile = (el: any) => {
-    if (!imageTypes.includes(el.fileType)) {
+    if (!imageValidTypes.includes(el.fileType)) {
       const fileUrl = el.fileUrl
 
       window.open(checkIsHasHttp(fileUrl) ? fileUrl : getAmazonImageUrl(fileUrl, true), '_blank')
@@ -64,15 +65,8 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
             <p className={styles.dapTitle}>{el.title}</p>
             {el?.fileUrl && (
               <Box display="flex" gap="8px" alignItems="center">
-                <Button
-                  variant="contained"
-                  className={styles.dapBtn}
-                  onClick={e => {
-                    e.stopPropagation()
-                    handleImagePreview(el)
-                  }}
-                >
-                  <span>{el?.fileName}</span>
+                <Button isTableButton className={styles.dapBtn} onClick={() => handleImagePreview(el)}>
+                  <p>{el?.fileName}</p>
                 </Button>
 
                 <IconButton
@@ -99,15 +93,13 @@ export const DownloadAndPrintFilesCell: FC<DownloadAndPrintFilesCellProps> = Rea
         <img ref={imageRef} src={getAmazonImageUrl(selectedImage?.fileUrl)} alt="Printed Image" />
       </Box>
 
-      {isOpenModal && (
-        <ImageModal
-          isOpenModal={isOpenModal}
-          handleOpenModal={() => setIsOpenModal(prevState => !prevState)}
+      {isOpenModal ? (
+        <SlideshowGalleryModal
+          openModal={isOpenModal}
           files={[selectedImage?.fileUrl]}
-          currentFileIndex={0}
-          handleCurrentFileIndex={() => null}
+          onOpenModal={() => setIsOpenModal(!isOpenModal)}
         />
-      )}
+      ) : null}
     </>
   )
 })

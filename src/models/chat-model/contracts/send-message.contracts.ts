@@ -1,6 +1,7 @@
 import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
-import { IShortUser } from '@typings/master-user'
+import { ICreatedBy } from '@typings/shared/created-by'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 export class SendMessageRequestParamsContract {
   @IsNotEmpty()
@@ -14,7 +15,7 @@ export class SendMessageRequestParamsContract {
   public images?: string[]
   @IsOptional()
   // @IsString({each: true})
-  public files?: File[]
+  public files?: UploadFileType[]
   @IsOptional()
   @IsBoolean()
   public is_draft?: boolean
@@ -23,9 +24,9 @@ export class SendMessageRequestParamsContract {
   public replyMessageId?: string | null
 
   @IsOptional()
-  public user?: Omit<IShortUser, 'rating'>
+  public user?: Omit<ICreatedBy, 'rating'>
 
   @IsOptional()
   @IsString()
-  public crmItem?: string
+  public crmItemId?: string
 }

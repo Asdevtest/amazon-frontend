@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 import { BACKEND_API_URL } from '@constants/keys/env'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
@@ -9,7 +11,9 @@ import { UserModel } from '@models/user-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { errorMessageList } from './error-message-list'
+import { t } from '@utils/translations'
+
+import { accessDeniedErrorMessageList, errorMessageList } from './error-message-list'
 
 export const getAxiosInstance = () => {
   let isRefreshing = false
@@ -50,12 +54,12 @@ export const getAxiosInstance = () => {
 
     async error => {
       const originalConfig = error.config
+
       if (
         ((error.response.status === 403 && errorMessageList.includes(error.response.data.message)) ||
           error.response.status === 401) &&
         !originalConfig._retry
       ) {
-        console.log('error.response', error.response)
         if (isRefreshing) {
           return new Promise((resolve, reject) => {
             failedQueue.push({ resolve, reject })
@@ -100,11 +104,14 @@ export const getAxiosInstance = () => {
               isRefreshing = false
             })
         })
-
-        // return axiosInstance({
-        //   ...originalConfig,
-        //   headers: { Authorization: `Bearer ${accessToken}` },
-        // })
+      } else if (
+        error.response?.data?.statusCode === 403 &&
+        accessDeniedErrorMessageList.includes(error?.response?.data?.message)
+      ) {
+        toast.error(t(TranslationKey['Access is denied']), {
+          toastId: 'accessDenied',
+        })
+        return Promise.reject(error)
       } else {
         return Promise.reject(error)
       }

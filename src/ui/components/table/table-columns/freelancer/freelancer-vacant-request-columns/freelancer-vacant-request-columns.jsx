@@ -4,35 +4,27 @@ import {
   difficultyLevelByCode,
   difficultyLevelTranslate,
 } from '@constants/statuses/difficulty-level'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineRequestStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductAsinCell,
   ShortDateCell,
   UserMiniCell,
   VacantRequestPriceCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { timeToDeadlineInDaysAndHours, toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const FreelancerVacantRequestColumns = handlers => [
+export const freelancerVacantRequestColumns = handlers => [
   {
     field: 'priority',
     headerName: t(TranslationKey.Priority),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        textCenter
-        component={<img src="/assets/icons/bookmark.svg" />}
-        // isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell textCenter component={<img src="/assets/icons/bookmark.svg" />} />,
     width: 80,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
@@ -43,9 +35,6 @@ export const FreelancerVacantRequestColumns = handlers => [
     ),
 
     filterable: false,
-    // sortable: false,
-
-    // columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
   },
 
   {
@@ -71,7 +60,7 @@ export const FreelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     renderCell: params => <MultilineTextCell threeLines maxLength={56} text={params.value} />,
-    width: 170,
+    width: 110,
 
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -80,8 +69,19 @@ export const FreelancerVacantRequestColumns = handlers => [
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    renderCell: params => <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.product} />,
-    width: 256,
+    renderCell: params => {
+      const product = params.row?.product
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skuByClient={product?.skuByClient}
+        />
+      )
+    },
+    width: 250,
 
     columnKey: columnnsKeys.freelancer.FREELANCER_VACANT_REQUEST_PRODUCT,
   },
@@ -102,6 +102,8 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 145,
     renderCell: params => <UserMiniCell userName={params.row.createdBy.name} userId={params.row.createdBy._id} />,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -128,18 +130,13 @@ export const FreelancerVacantRequestColumns = handlers => [
   },
 
   {
-    field: 'typeTask',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-
-    renderCell: params => (
-      <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
-    ),
-    type: 'number',
-    width: 95,
+    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    width: 110,
     sortable: false,
-
-    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -160,7 +157,43 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderCell: params => (
       <MultilineTextCell withLineBreaks text={timeToDeadlineInDaysAndHours({ date: params.row.timeoutAt })} />
     ),
-    width: 100,
+    width: 80,
+  },
+
+  {
+    field: 'shop',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+
+    renderCell: params => (
+      <MultilineTextCell threeLines text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
+    ),
+    width: 110,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
+    field: 'announcement',
+    headerName: t(TranslationKey.Announcement),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Announcement)} />,
+
+    renderCell: params => <MultilineTextCell text={params.row.announcement?.title || t(TranslationKey.Missing)} />,
+    width: 130,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
+    field: 'proposalSub',
+    headerName: t(TranslationKey.Performer),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
+    width: 145,
+    renderCell: ({ row }) => (
+      <UserMiniCell userName={row.proposals?.[0]?.sub?.name} userId={row.proposals?.[0]?.sub?._id} />
+    ),
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -223,25 +256,8 @@ export const FreelancerVacantRequestColumns = handlers => [
       />
     ),
     width: 140,
-    // type: 'date',
-
     columnKey: columnnsKeys.freelancer.FREELANCE_REQUESTS_CONFIRMATION,
   },
-
-  // {
-  //   field: 'actions',
-  //   headerName: t(TranslationKey.Actions),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-  //
-  //   renderCell: params => (
-  //     <NormalActionBtnCell
-  //       // disabled={!params.row.batch}
-  //       bTnText={t(TranslationKey.Details)}
-  //       onClickOkBtn={() => handlers.onClickViewMore(params.row._id)}
-  //     />
-  //   ),
-  //   width: 126,
-  // },
 
   {
     field: 'updatedAt',
@@ -249,7 +265,6 @@ export const FreelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 105,
-    // type: 'date',
     columnKey: columnnsKeys.shared.DATE,
   },
 ]

@@ -37,20 +37,22 @@ export const Modal: FC<ModalProps> = memo(props => {
   }
 
   const { classes: styles, cx } = useStyles()
-
   const [showMissClickModal, setShowMissClickModal] = useState(false)
   const [mousedownTarget, setMousedownTarget] = useState<EventTarget | null>(null)
 
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     setMousedownTarget(e.target)
   }
-
   const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
     if (mousedownTarget === e.target && e.target === e.currentTarget) {
       missClickModalOn ? setShowMissClickModal(!showMissClickModal) : setOpenModal(false)
     }
 
     setMousedownTarget(null)
+  }
+  const handleCloseModal = () => {
+    setOpenModal(false)
+    setShowMissClickModal(false)
   }
 
   return (
@@ -61,22 +63,25 @@ export const Modal: FC<ModalProps> = memo(props => {
         onMouseUp={handleMouseUp}
       >
         <div className={cx(styles.contentWrapper, contentWrapperClassName)}>
-          <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={() => setOpenModal(false)} />
+          <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={handleCloseModal} />
 
           <div className={cx(styles.content, contentClassName)}>{children}</div>
         </div>
       </div>
 
-      <ConfirmationModal
-        openModal={showMissClickModal}
-        setOpenModal={() => setShowMissClickModal(!showMissClickModal)}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Window will be closed'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => setOpenModal(false)}
-        onClickCancelBtn={() => setShowMissClickModal(!showMissClickModal)}
-      />
+      {showMissClickModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showMissClickModal}
+          setOpenModal={() => setShowMissClickModal(!showMissClickModal)}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Window will be closed'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => setOpenModal(false)}
+          onClickCancelBtn={() => setShowMissClickModal(!showMissClickModal)}
+        />
+      ) : null}
     </ModalPortal>
   )
 })

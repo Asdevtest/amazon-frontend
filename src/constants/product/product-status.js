@@ -225,4 +225,26 @@ export const productStatusTranslateKey = status => {
   }
 }
 
+export const translateStatusForResearcher = status => {
+  switch (status) {
+    case ProductStatus.NEW_PRODUCT:
+      return TranslationKey['New product']
+
+    case ProductStatus.RESEARCHER_CREATED_PRODUCT:
+      return TranslationKey['Product on check with Supervisor']
+
+    case ProductStatus.RESEARCHER_FOUND_SUPPLIER:
+      return TranslationKey['Researcher found supplier']
+
+    case ProductStatus.CHECKED_BY_SUPERVISOR:
+      return TranslationKey['Product is appropriate']
+
+    case ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP:
+      return TranslationKey['Rejected by Supervisor']
+
+    default:
+      return TranslationKey.Ok
+  }
+}
+
 export const ProductStatusByKey = objectFlip(ProductStatusByCode, parseInt)

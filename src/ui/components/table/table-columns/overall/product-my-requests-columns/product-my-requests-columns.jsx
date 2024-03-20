@@ -1,17 +1,18 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  ProductMyRequestsBtnsCell,
   ShortDateCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, getOnHover) => [
   {
@@ -26,8 +27,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 120,
-    headerAlign: 'center',
-
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -43,7 +42,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     renderCell: params => <MultilineTextCell text={String(params.value)} />,
     width: 65,
-
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -59,7 +57,6 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
     width: 140,
-
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
 
@@ -75,12 +72,11 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
     width: 390,
-
     columnKey: columnnsKeys.shared.STRING,
   },
 
   {
-    field: 'typeTask',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -89,12 +85,9 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-    renderCell: params => (
-      <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
-    ),
-    width: 140,
-
-    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
+    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    width: 110,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -108,10 +101,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
       />
     ),
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    type: 'number',
     width: 115,
-    headerAlign: 'center',
-
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -121,18 +111,15 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 115,
-    headerAlign: 'center',
-
     columnKey: columnnsKeys.shared.DATE,
   },
 
   {
     field: 'allProposals',
     headerName: t(TranslationKey['Total proposals']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />, // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 115,
-    headerAlign: 'center',
   },
 
   {
@@ -141,16 +128,35 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Accepted)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 90,
-    headerAlign: 'center',
   },
 
   {
     field: 'actions',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    renderCell: params => <ProductMyRequestsBtnsCell data={params.row.originalData} handlers={handlers} />,
+    renderCell: params => {
+      const disableSecondButton =
+        !params.row.originalData.countProposalsByStatuses.acceptedProposals &&
+        !params.row.originalData.countProposalsByStatuses.atWorkProposals &&
+        !params.row.originalData.countProposalsByStatuses.verifyingProposals
+
+      return (
+        <ActionButtonsCell
+          isFirstButton
+          isSecondButton
+          firstButtonElement={t(TranslationKey['Open a request'])}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonElement={t(TranslationKey['Open result'])}
+          secondButtonStyle={ButtonStyle.SUCCESS}
+          disabledSecondButton={disableSecondButton}
+          onClickFirstButton={() => handlers.onClickOpenRequest(params.row.originalData._id)}
+          onClickSecondButton={() => handlers.onClickOpenResult(params.row.originalData)}
+        />
+      )
+    },
+    disableColumnMenu: true,
     filterable: false,
     sortable: false,
-    flex: 1,
+    width: 200,
   },
 ]

@@ -1,16 +1,20 @@
+import { memo } from 'react'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from '../../admin-settings.style'
+import { useStyles } from '../../admin-settings.style'
 
 import { fieldNameObject } from '../../admin-settings.constants'
 
-export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, onChangeField }) => {
-  const { classes: classNames } = useClassNames()
+export const TabSearchSupplier = memo(props => {
+  const { formFields, isFormFieldsChanged, onSubmit, onChangeField } = props
+
+  const { classes: styles } = useStyles()
 
   const disabledSubmit =
     !isFormFieldsChanged ||
@@ -19,35 +23,35 @@ export const TabSearchSupplier = ({ formFields, isFormFieldsChanged, onSubmit, o
     Number(formFields.costOfCheckingProduct) === 0
 
   return (
-    <div className={classNames.wrapper}>
+    <div className={styles.wrapper}>
       <Field
         label={t(TranslationKey['Price for the search of a supplier by a Buyer from the Client']) + ', $'}
-        labelClasses={classNames.label}
-        classes={{ root: classNames.textField }}
+        labelClasses={styles.label}
+        classes={{ root: styles.textField }}
         value={formFields.costOfFindingSupplier}
         error={formFields.costOfFindingSupplier === ''}
         onChange={e => onChangeField(fieldNameObject.costOfFindingSupplier, e)}
       />
       <Field
-        labelClasses={classNames.label}
+        labelClasses={styles.label}
         label={t(TranslationKey['Price for the Supervisor to check the search for a supplier from the Client']) + ', $'}
-        classes={{ root: classNames.textField }}
+        classes={{ root: styles.textField }}
         value={formFields.costOfCheckingProduct}
         error={formFields.costOfCheckingProduct === ''}
         onChange={e => onChangeField(fieldNameObject.costOfCheckingProduct, e)}
       />
       <Field
-        labelClasses={classNames.label}
+        labelClasses={styles.label}
         label={t(TranslationKey['Time to find a supplier, h'])}
-        classes={{ root: classNames.textField }}
+        classes={{ root: styles.textField }}
         value={formFields.deadlineForFindingSupplier}
         error={formFields.deadlineForFindingSupplier === ''}
         onChange={e => onChangeField(fieldNameObject.deadlineForFindingSupplier, e)}
       />
 
-      <Button disabled={disabledSubmit} className={classNames.saveButton} onClick={onSubmit}>
+      <Button disabled={disabledSubmit} onClick={onSubmit}>
         {t(TranslationKey.Save)}
       </Button>
     </div>
   )
-}
+})

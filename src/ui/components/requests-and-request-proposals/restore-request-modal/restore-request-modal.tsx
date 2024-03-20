@@ -1,9 +1,8 @@
-import { cx } from '@emotion/css'
 import { ChangeEvent, FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -11,7 +10,9 @@ import { Input } from '@components/shared/input'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useStyles } from './restore-request-modal.styles'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './restore-request-modal.style'
 
 interface RestoreRequestModalProps {
   currentRequestsCount: number
@@ -22,7 +23,7 @@ interface RestoreRequestModalProps {
 
 export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
   const { currentRequestsCount = 1, minDate, handleCloseModal, handleSubmit } = props
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [date, setDate] = useState<string>()
   const [requestCount, setRequestCount] = useState<string | number>(currentRequestsCount + 1)
@@ -64,7 +65,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
 
       <div className={styles.controls}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={!date || currentRequestsCount > Number(requestCount)}
           className={styles.controlButton}
           onClick={() => {
@@ -74,7 +75,11 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={cx(styles.controlButton, styles.cancelButton)} onClick={handleCloseModal}>
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={cx(styles.controlButton, styles.cancelButton)}
+          onClick={handleCloseModal}
+        >
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

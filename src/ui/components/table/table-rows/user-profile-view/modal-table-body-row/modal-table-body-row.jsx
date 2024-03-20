@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { MenuItem, Select, TableCell, TableRow, Typography } from '@mui/material'
@@ -11,29 +11,29 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { styles } from './modal-table-body-row.style'
 
 const ModalTableBodyRowRaw = ({ product, managersList, ...restProps }) => {
-  const classNames = restProps.classes
+  const styles = restProps.classes
 
   const [qty, setQty] = useState(product.qty)
 
   return (
     <TableRow>
-      <TableCell className={classNames.imgCell}>
-        <img alt="" src={product.categoryImg} className={classNames.img} />
+      <TableCell className={styles.imgCell}>
+        <img alt="" src={product.categoryImg} className={styles.img} />
       </TableCell>
-      <TableCell className={classNames.categoryCell}>
+      <TableCell className={styles.categoryCell}>
         <Typography>{product.category}</Typography>
       </TableCell>
-      <TableCell className={classNames.priceCell}>
+      <TableCell className={styles.priceCell}>
         <Typography>{toFixedWithDollarSign(product.price + product.deliveryPrice)}</Typography>
       </TableCell>
       <TableCell>
         <Input
           value={qty}
-          className={classNames.countCell}
+          className={styles.countCell}
           onChange={e => !(isNaN(e.target.value) || Number(e.target.value) < 0) && setQty(parseFloat(e.target.value))}
         />
       </TableCell>
-      <TableCell className={classNames.avgPriceCell}>
+      <TableCell className={styles.avgPriceCell}>
         <Typography>{toFixedWithDollarSign(product.avgPrice)}</Typography>
       </TableCell>
       <TableCell>
@@ -52,7 +52,7 @@ const ModalTableBodyRowRaw = ({ product, managersList, ...restProps }) => {
         <Typography>{product.avgRevenue}</Typography>
       </TableCell>
       <TableCell>
-        <Typography className={classNames.costStart}>
+        <Typography className={styles.costStart}>
           {priceCalculation(product.price, product.deliveryPrice, qty)}
         </Typography>
       </TableCell>
@@ -63,7 +63,7 @@ const ModalTableBodyRowRaw = ({ product, managersList, ...restProps }) => {
             name: 'warehouse',
             id: 'warehouse',
           }}
-          className={classNames.select}
+          className={styles.select}
           input={<Input />}
         >
           {managersList.map((managersItem, managersIndex) => (

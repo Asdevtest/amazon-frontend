@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
-
-import AddIcon from '@mui/icons-material/Add'
+import { useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -11,22 +9,26 @@ import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user
 import { LinkSubUserForm } from '@components/forms/link-sub-user-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './sub-users-view.style'
 
 import { SubUsersViewModel } from './sub-users-view.model'
 
-export const SubUsersView = observer(props => {
-  const [viewModel] = useState(() => new SubUsersViewModel({ history: props.history }))
+export const SubUsersView = observer(({ history }) => {
   const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new SubUsersViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -34,7 +36,7 @@ export const SubUsersView = observer(props => {
 
   return (
     <>
-      <div className={styles.subUserHeader}>
+      <div className={styles.header}>
         <div />
 
         <SearchInput
@@ -43,20 +45,19 @@ export const SubUsersView = observer(props => {
           value={viewModel.nameSearchValue}
           onChange={viewModel.onChangeNameSearchValue}
         />
-        <div className={styles.buttonWrapper}>
-          <Button
-            success
-            tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
-            className={styles.addUserButton}
-            onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
-          >
-            <AddIcon />
-            {t(TranslationKey['Add a user'])}
-          </Button>
-        </div>
+
+        <Button
+          styleType={ButtonStyle.SUCCESS}
+          tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
+          className={styles.addUserButton}
+          onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
+        >
+          <CustomPlusIcon />
+          {t(TranslationKey['Add a user'])}
+        </Button>
       </div>
 
-      <div className={styles.datagridWrapper}>
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           disableEnforceFocus
           useResizeContainer
@@ -64,6 +65,8 @@ export const SubUsersView = observer(props => {
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
+          sortingMode="client"
+          paginationMode="client"
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
@@ -82,10 +85,10 @@ export const SubUsersView = observer(props => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
@@ -99,47 +102,53 @@ export const SubUsersView = observer(props => {
           onSubmit={viewModel.onSubmitlinkSubUser}
         />
       </Modal>
+
       <Modal
         openModal={viewModel.showPermissionModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
       >
         <AddOrEditUserPermissionsForm
-          masterUserData={viewModel.userInfo}
           isWithoutProductPermissions={checkIsWithoutProductPermissions(UserRoleCodeMap[viewModel.userInfo.role])}
           isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[viewModel.userInfo.role])}
           curUserProductPermissions={viewModel.curUserProductPermissions}
+          curUserShopsPermissions={viewModel.curUserShopsPermissions}
           permissionsToSelect={viewModel.singlePermissions}
           permissionGroupsToSelect={viewModel.groupPermissions}
           sourceData={viewModel.selectedSubUser}
           shops={viewModel.shopsData}
+          specs={viewModel.specs}
           productPermissionsData={viewModel.productPermissionsData}
           onCloseModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
           onSubmit={viewModel.onSubmitUserPermissionsForm}
         />
       </Modal>
 
-      <WarningInfoModal
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
-      />
+      {viewModel.showWarningModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        isWarning
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Are you sure you want to unbind the sub-user?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.onSubmitUnlinkSubUser}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Are you sure you want to unbind the sub-user?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.onSubmitUnlinkSubUser}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </>
   )
 })

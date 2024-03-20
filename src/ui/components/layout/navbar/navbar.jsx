@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
@@ -11,13 +10,13 @@ import { NavbarDrawerContent } from '@components/layout/navbar/navbar-drawer-con
 import { DrawerModal } from '@components/shared/drawer-modal'
 import { LogoIcon, ShortLogoIcon } from '@components/shared/svg-icons'
 
-import { useStyles } from './navbar.styles'
+import { useStyles } from './navbar.style'
 
 import { NavbarModel } from './navbar.model'
 
 export const Navbar = observer(
   ({ shortNavbar, activeCategory, activeSubCategory, isOpenModal, onShowNavbar, onToggleModal }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
     const [viewModel] = useState(new NavbarModel())
 
     const {

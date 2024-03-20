@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   content: {
     width: '100%',
   },
@@ -17,7 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '20px',
   },
   warningText: {
-    color: 'red',
+    color: theme.palette.text.red,
   },
   noWarningText: {
     color: theme.palette.primary.main,

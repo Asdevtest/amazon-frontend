@@ -5,7 +5,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
@@ -13,6 +13,9 @@ import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { isString } from '@typings/guards'
 
 import { useStyles } from './request-result-modal.style'
 
@@ -52,16 +55,18 @@ export const RequestResultModal = memo(props => {
   const onRemoveLink = removeLinkIndex => {
     const newArr = formFields.publicationLinks.filter((_, linkIndex) => linkIndex !== removeLinkIndex)
 
-    onChangeField('publicationLinks')({ target: { value: [...newArr] } })
+    onChangeField('publicationLinks')({ target: { value: newArr } })
   }
 
   const isBloggerTypeTask =
-    (request?.typeTask || request?.request?.typeTask) === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
-  const disabledBtn =
+    (request?.spec?.type || request?.request?.spec?.type) === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]
+  const disabledSendButton =
     (isBloggerTypeTask && (!formFields.amazonOrderId || !formFields.publicationLinks.length)) ||
     (!isBloggerTypeTask && !formFields.result)
-  const disableFields = null
-  const mediaFiles = proposal?.proposal?.media?.map(el => (typeof el === 'string' ? el : el?.fileLink))
+  const mediaFiles = proposal?.proposal?.media?.map(mediaFile =>
+    isString(mediaFile) ? mediaFile : mediaFile?.fileLink,
+  )
+  const isNotEmptyPublicationLinks = formFields.publicationLinks.length > 0
 
   return (
     <Modal missClickModalOn={missClickModalOn} openModal={openModal} setOpenModal={setOpenModal}>
@@ -69,64 +74,59 @@ export const RequestResultModal = memo(props => {
         <p className={styles.title}>{t(TranslationKey['Result of the request'])}</p>
 
         {isBloggerTypeTask && (
-          <Field
-            disabled={!!proposal}
-            inputProps={{ maxLength: 100 }}
-            labelClasses={styles.label}
-            label={'Amazon order ID*'}
-            className={styles.input}
-            value={formFields.amazonOrderId}
-            onChange={onChangeField('amazonOrderId')}
-          />
-        )}
-
-        {onClickSendAsResult && (
-          <div
-            className={cx(styles.linkPublicationContainer, {
-              [styles.marginBottomDefault]: !formFields.publicationLinks.length,
-            })}
-          >
+          <>
             <Field
-              inputProps={{ maxLength: 512 }}
+              disabled={!!proposal}
+              inputProps={{ maxLength: 100 }}
               labelClasses={styles.label}
-              label={t(TranslationKey['Link to publication']) + '*'}
+              label={'Amazon order ID*'}
               className={styles.input}
-              containerClasses={styles.inputContainer}
-              value={link}
-              onChange={e => setLink(e.target.value)}
+              value={formFields.amazonOrderId}
+              onChange={onChangeField('amazonOrderId')}
             />
 
-            <Button
-              disableElevation
-              disabled={!link || disableFields}
-              className={styles.button}
-              variant="contained"
-              color="primary"
-              onClick={onClickLinkBtn}
-            >
-              {t(TranslationKey.Add)}
-            </Button>
-          </div>
-        )}
+            {onClickSendAsResult && (
+              <div
+                className={cx(styles.linkPublicationContainer, {
+                  [styles.marginBottomDefault]: !isNotEmptyPublicationLinks,
+                })}
+              >
+                <Field
+                  inputProps={{ maxLength: 512 }}
+                  labelClasses={styles.label}
+                  label={t(TranslationKey['Link to publication']) + '*'}
+                  className={styles.input}
+                  containerClasses={styles.inputContainer}
+                  value={link}
+                  onChange={e => setLink(e.target.value)}
+                />
 
-        {isBloggerTypeTask && formFields.publicationLinks.length ? (
-          <div className={styles.links}>
-            {formFields.publicationLinks.map((el, index) => (
-              <div key={index} className={styles.linkWrapper}>
-                <a href={el} className={styles.linkText} target="_blank" rel="noreferrer">
-                  {`${index + 1}. ${el}`}
-                </a>
-
-                <div className={styles.linksBtnsWrapper}>
-                  <CopyValue text={el} />
-                  {!disableFields && !proposal && (
-                    <DeleteOutlineOutlinedIcon className={styles.deleteBtn} onClick={() => onRemoveLink(index)} />
-                  )}
-                </div>
+                <Button disabled={!link} className={styles.button} onClick={onClickLinkBtn}>
+                  {t(TranslationKey.Add)}
+                </Button>
               </div>
-            ))}
-          </div>
-        ) : null}
+            )}
+
+            {isNotEmptyPublicationLinks && (
+              <div className={styles.links}>
+                {formFields.publicationLinks.map((el, index) => (
+                  <div key={index} className={styles.linkWrapper}>
+                    <a href={el} className={styles.linkText} target="_blank" rel="noreferrer noopener">
+                      {`${index + 1}. ${el}`}
+                    </a>
+
+                    <div className={styles.linksBtnsWrapper}>
+                      <CopyValue text={el} />
+                      {!proposal && (
+                        <DeleteOutlineOutlinedIcon className={styles.deleteBtn} onClick={() => onRemoveLink(index)} />
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
 
         <Field
           multiline
@@ -159,11 +159,10 @@ export const RequestResultModal = memo(props => {
         </div>
 
         <div className={styles.buttonsWrapper}>
-          {!!onClickSendAsResult && (
+          {onClickSendAsResult && (
             <Button
-              success
-              disableElevation
-              disabled={disabledBtn}
+              styleType={ButtonStyle.SUCCESS}
+              disabled={disabledSendButton}
               className={styles.button}
               onClick={() => {
                 onClickSendAsResult({
@@ -180,8 +179,7 @@ export const RequestResultModal = memo(props => {
           )}
 
           <Button
-            disableElevation
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             className={cx(styles.button, styles.cancelButton)}
             onClick={setOpenModal}
           >

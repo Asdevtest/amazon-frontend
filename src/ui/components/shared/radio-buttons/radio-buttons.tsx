@@ -1,10 +1,9 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
 import Radio from '@mui/material/Radio'
 
-import { useClassNames } from './radio-buttons.styles'
+import { useStyles } from './radio-buttons.style'
 
 interface IRadioBottonsSetting {
   label: () => string
@@ -22,18 +21,18 @@ interface RadioButtonsProps {
 }
 
 export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const { currentValue, radioBottonsSettings, disabled, verticalDirection, withoutLable, onClickRadioButton } = props
 
   return (
-    <div className={cx(classNames.root, { [classNames.verticalRoot]: verticalDirection })}>
+    <div className={cx(styles.root, { [styles.verticalRoot]: verticalDirection })}>
       {!!radioBottonsSettings.length &&
         radioBottonsSettings.map((setting, settingIndex: number) => (
-          <div key={settingIndex} className={classNames.buttonWrapper}>
+          <div key={settingIndex} className={styles.buttonWrapper}>
             <Radio
               disabled={disabled || setting?.disabled}
-              classes={{ root: cx(classNames.radioRoot, { [classNames.radioActive]: setting.value === currentValue }) }}
+              classes={{ root: cx(styles.radioRoot, { [styles.radioActive]: setting.value === currentValue }) }}
               checked={setting.value === currentValue}
               onClick={e => {
                 if (setting.value !== currentValue) {

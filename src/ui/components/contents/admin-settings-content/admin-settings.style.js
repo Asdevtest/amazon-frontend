@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   rootTabs: {
     minHeight: 0,
   },
@@ -57,10 +57,5 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 10,
     fontSize: 14,
     color: theme.palette.text.second,
-  },
-
-  saveButton: {
-    width: 123,
-    height: 40,
   },
 }))

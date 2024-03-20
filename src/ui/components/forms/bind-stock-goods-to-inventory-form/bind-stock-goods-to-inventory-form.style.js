@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: '800px',
     padding: 10,
@@ -16,7 +16,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   chosenGoodsTitle: {
-    margin: '24px 0 4px',
+    margin: '10px 0 5px',
 
     color: theme.palette.text.general,
   },
@@ -31,7 +31,7 @@ export const useClassNames = makeStyles()(theme => ({
   filtersWrapper: {
     display: 'flex',
     alignItems: 'center',
-    margin: '20px 0 13px',
+    margin: '10px 0 10px',
   },
 
   betweenChipsText: {
@@ -47,9 +47,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   chip: {
     marginBottom: 5,
-    color: theme.palette.text.general,
     fontSize: '16px',
-    // backgroundColor: '#F4F4F4',
     transition: '.15s ease-in-out',
     '&:hover': {
       color: theme.palette.primary.main,

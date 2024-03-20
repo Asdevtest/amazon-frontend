@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './product-launch-form.styles'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './product-launch-form.style'
 
 interface IProductsLaunch {
   amazonTitle: string
@@ -45,7 +45,7 @@ const radioBottonsSettings = [
 ]
 
 export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const {
     productsToLaunch,
     selectedProductToLaunch,
@@ -78,10 +78,10 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
   }, [selectedProductToLaunch])
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.modalTitle}>{t(TranslationKey['Create or select product'])}</p>
+    <div className={styles.root}>
+      <p className={styles.modalTitle}>{t(TranslationKey['Create or select product'])}</p>
 
-      <div className={classNames.radioButtonsWrapper}>
+      <div className={styles.radioButtonsWrapper}>
         <RadioButtons
           verticalDirection
           radioBottonsSettings={radioBottonsSettings}
@@ -104,9 +104,9 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
         disabled={!selectedRadioValue}
         data={productsToLaunch}
         width={300}
-        customSubMainWrapper={classNames.searchSelectCustomSubMainWrapper}
-        customSearchInput={classNames.searchSelectCustomSearchInput}
-        customItemsWrapper={classNames.searchSelectCustomItemsWrapper}
+        customSubMainWrapper={styles.searchSelectCustomSubMainWrapper}
+        customSearchInput={styles.searchSelectCustomSearchInput}
+        customItemsWrapper={styles.searchSelectCustomItemsWrapper}
         selectedItemName={
           selectedProduct?.asin ||
           (selectedProduct?.asin === '' && t(TranslationKey.Missing)) ||
@@ -117,17 +117,16 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
         onClickSelect={(el: IProductsLaunch) => setSelectedProduct(el)}
       />
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={selectedRadioValue && !selectedProduct}
-          variant="contained"
           onClick={() => onClickNextButton(selectedProduct)}
         >
           {t(TranslationKey.Next)}
         </Button>
 
-        <Button variant="text" className={classNames.canselButton} onClick={onClickCancelButton}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.canselButton} onClick={onClickCancelButton}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

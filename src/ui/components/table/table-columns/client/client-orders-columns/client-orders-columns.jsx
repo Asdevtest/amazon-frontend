@@ -3,27 +3,40 @@ import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
+  DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NormalActionBtnCell,
+  OpenInNewTabCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
   RenderFieldValueCell,
-  SuccessActionBtnCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { checkIsHasHttp } from '@utils/checks'
-import { formatDate, formatNormDateTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
+import { formatDate, formatNormDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
+import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
 export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
+  {
+    field: 'link',
+    renderHeader: () => null,
+    renderCell: params => <OpenInNewTabCell onClickOpenInNewTab={() => rowHandlers.onClickOpenNewTab(params.row.id)} />,
+    width: 50,
+    filterable: false,
+    sortable: false,
+    disableColumnMenu: true,
+  },
+
   {
     field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
@@ -93,7 +106,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     ),
     width: 160,
     sortable: false,
-
+    filterable: false,
     columnKey: columnnsKeys.client.ORDERS_STATUS,
   },
 
@@ -101,29 +114,26 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-    renderCell: params => (
-      <>
-        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-          <NormalActionBtnCell
-            fullWidthButton
-            bTnText={t(TranslationKey['Repeat order'])}
-            onClickOkBtn={e => {
-              e.stopPropagation()
-              rowHandlers.onClickReorder(params.row.originalData, false)
-            }}
-          />
-        ) : (
-          <SuccessActionBtnCell
-            bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={e => {
-              e.stopPropagation()
-              rowHandlers.onClickReorder(params.row.originalData, true)
-            }}
-          />
-        )}
-      </>
-    ),
-    width: 180,
+    renderCell: params => {
+      const firstButtonCondition =
+        Number(params.row.originalData.status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
+      const firstButtonText = firstButtonCondition ? t(TranslationKey['To order']) : t(TranslationKey['Repeat order'])
+
+      return (
+        <ActionButtonsCell
+          isFirstButton
+          isSecondButton
+          firstButtonStyle={firstButtonCondition ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
+          secondButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonVariant={ButtonVariant.OUTLINED}
+          firstButtonElement={firstButtonText}
+          secondButtonElement={t(TranslationKey['Warehouse and orders'])}
+          onClickFirstButton={() => rowHandlers.onClickReorder(params.row.originalData, firstButtonCondition)}
+          onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.originalData.product._id)}
+        />
+      )
+    },
+    width: 220,
     filterable: false,
     sortable: false,
   },
@@ -192,20 +202,15 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
 
   {
     field: 'deadline',
-    headerName: 'Deadline',
-    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
+    headerName: t(TranslationKey.Deadline),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params =>
       params.row.originalData.status < 20 ? (
-        <MultilineTextCell
-          withLineBreaks
-          tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-          color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-          text={params.value ? formatDate(params.value) : ''}
-        />
+        <DeadlineCell deadline={params.row.deadline} />
       ) : (
         <MultilineTextCell text={'-'} />
       ),
-    width: 150,
+    width: 100,
     valueGetter: params => (params.value ? formatDate(params.value) : ''),
     columnKey: columnnsKeys.shared.DATE,
   },

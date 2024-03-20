@@ -1,13 +1,11 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { EstimateCreateTradingShopForm } from '@components/forms/estimate-create-trading-shop-form'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
@@ -15,7 +13,9 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/check
 import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './create-or-edit-trading-shop-content.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './create-or-edit-trading-shop-content.style'
 
 import { FirstStep } from './first-step'
 import { SecondStep } from './second-step'
@@ -59,7 +59,7 @@ export const CreateOrEditTradingShopContent = ({
   showProgress,
   progressValue,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [images, setImages] = useState([])
 
@@ -177,42 +177,42 @@ export const CreateOrEditTradingShopContent = ({
         .length)
 
   const renderBackNextBtns = () => (
-    <div className={classNames.footerWrapper}>
-      <div className={classNames.footerRightWrapper}>
-        <div className={classNames.buttonsWrapper}>
+    <div className={styles.footerWrapper}>
+      <div className={styles.footerRightWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
             tooltipInfoContent={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Back to Step 1'])
                 : t(TranslationKey['Cancel request creation'])
             }
-            variant={'text'}
-            className={classNames.backBtn}
+            variant={ButtonVariant.OUTLINED}
+            className={styles.backBtn}
             onClick={onClickBackBtn}
           >
             {curStep === stepVariant.STEP_ONE ? t(TranslationKey.Cancel) : t(TranslationKey.Back)}
           </Button>
 
           <Button
-            success
+            styleType={ButtonStyle.SUCCESS}
             tooltipInfoContent={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Creates a completed request'])
                 : t(TranslationKey['Go to Step 2'])
             }
             disabled={disableSubmit}
-            className={classNames.successBtn}
+            className={styles.successBtn}
             onClick={onSuccessSubmit}
           >
             {curStep === stepVariant.STEP_THREE ? (
               t(TranslationKey.Save)
             ) : (
-              <div className={classNames.successBtnTextWrapper}>
+              <div className={styles.successBtnTextWrapper}>
                 <Typography>{t(TranslationKey.Next)}</Typography>
                 <img
                   src="/assets/icons/right-arrow.svg"
-                  className={cx(classNames.successBtnArrow, {
-                    [classNames.disablesBtnArrow]: disableSubmit,
+                  className={cx(styles.successBtnArrow, {
+                    [styles.disablesBtnArrow]: disableSubmit,
                   })}
                 />
               </div>
@@ -224,18 +224,18 @@ export const CreateOrEditTradingShopContent = ({
   )
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.headerWrapper}>
-        <Typography className={classNames.mainTitle}>
+    <div className={styles.mainWrapper}>
+      <div className={styles.headerWrapper}>
+        <Typography className={styles.mainTitle}>
           {t(TranslationKey['We will find a reliable buyer of your store'])}
         </Typography>
 
-        <Typography className={classNames.mainSubTitle}>
+        <Typography className={styles.mainSubTitle}>
           {t(TranslationKey['Fill in basic information about your store'])}
         </Typography>
       </div>
 
-      <div className={classNames.mainContentWrapper}>
+      <div className={styles.mainContentWrapper}>
         {curStep === stepVariant.STEP_ONE && (
           <FirstStep
             formFields={formFields}
@@ -269,34 +269,34 @@ export const CreateOrEditTradingShopContent = ({
         )}
       </div>
 
-      <div className={classNames.steps}>
-        <div className={classNames.stepPagination}>
-          <div className={classNames.stepPaginationStartBar}></div>
+      <div className={styles.steps}>
+        <div className={styles.stepPagination}>
+          <div className={styles.stepPaginationStartBar}></div>
 
-          <div className={classNames.stepPaginationBar}>
-            <div className={classNames.step} style={{ width: curStep === stepVariant.STEP_ONE ? '0%' : '100%' }}></div>
+          <div className={styles.stepPaginationBar}>
+            <div className={styles.step} style={{ width: curStep === stepVariant.STEP_ONE ? '0%' : '100%' }}></div>
           </div>
 
           <div
-            className={classNames.stepPaginationMiddleBar}
+            className={styles.stepPaginationMiddleBar}
             style={{
               backgroundColor: curStep !== stepVariant.STEP_ONE ? '#00B746' : '#c4c4c4',
             }}
           ></div>
 
-          <div className={classNames.stepPaginationBar}>
+          <div className={styles.stepPaginationBar}>
             <div
-              className={classNames.step}
+              className={styles.step}
               style={{ width: curStep === stepVariant.STEP_ONE || curStep === stepVariant.STEP_TWO ? '0%' : '100%' }}
             ></div>
           </div>
 
           <div
-            className={classNames.stepPaginationEndBar}
+            className={styles.stepPaginationEndBar}
             style={{ backgroundColor: curStep === stepVariant.STEP_THREE ? '#00B746' : '#c4c4c4' }}
           ></div>
         </div>
-        <Typography className={classNames.stepTitle}>
+        <Typography className={styles.stepTitle}>
           {curStep === stepVariant.STEP_ONE
             ? `${t(TranslationKey.Step)} 1`
             : curStep === stepVariant.STEP_TWO

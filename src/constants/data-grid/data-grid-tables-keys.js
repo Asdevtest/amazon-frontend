@@ -119,4 +119,11 @@ export const DataGridTablesKeys = {
   SUB_WAREHOUSE_LOGISTICS_TARIFFS: 'subWarehouseLogisticsTariffsDataGridState',
 
   GENERAL_NOTIFICATIONS: 'generalNotificationsDataGridState',
+
+  SHOPS_REPORT_STOCK_REPORT: 'shopsReportStockReportDataGridState',
+  SHOPS_REPORT_GOODS_DAYS_REPORT: 'shopsReportGoodsDaysReportDataGridState',
+  SHOPS_REPORT_INVENTORY: 'shopsReportInventoryDataGridState',
+  SHOPS_REPORT_PPC: 'shopsReportPpcDataGridState',
+  SHOPS_REPORT_INVENTORY_SHIPMENTS: 'shopsReportInventoryShipmentsDataGridState',
+  SHOPS_REPORT_RETURNS: 'shopsReportReturnsDataGridState',
 }

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Paper, Typography } from '@mui/material'
@@ -21,7 +21,7 @@ import { BuyerDashboardViewModel } from './buyer-dashboard-view.model'
 
 export const BuyerDashboardViewRaw = props => {
   const [viewModel] = useState(() => new BuyerDashboardViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -33,11 +33,11 @@ export const BuyerDashboardViewRaw = props => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <Paper className={classNames.userInfoWrapper}>
-          <div className={classNames.userInfoLeftWrapper}>
-            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
+        <Paper className={styles.userInfoWrapper}>
+          <div className={styles.userInfoLeftWrapper}>
+            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
             <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
           </div>
@@ -45,7 +45,7 @@ export const BuyerDashboardViewRaw = props => {
           <DashboardButtons user={viewModel.userInfo} routes={buyerButtonsRoutes} />
 
           {viewModel.userInfo.masterUser && (
-            <div className={classNames.masterUserWrapper}>
+            <div className={styles.masterUserWrapper}>
               <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
               <UserLink
@@ -66,7 +66,7 @@ export const BuyerDashboardViewRaw = props => {
             />
           ))}
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

@@ -1,19 +1,17 @@
-import { cx } from '@emotion/css'
-
 import { Typography } from '@mui/material'
 
-import { useClassNames } from './on-off-selector.style'
+import { useStyles } from './on-off-selector.style'
 
 export const OnOffSelector = ({ value, onClick }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={classNames.mainWrapper}>
-      <Typography className={cx(classNames.option, { [classNames.offSelected]: !value })} onClick={value && onClick}>
+    <div className={styles.mainWrapper}>
+      <Typography className={cx(styles.option, { [styles.offSelected]: !value })} onClick={value && onClick}>
         {'Off'}
       </Typography>
 
-      <Typography className={cx(classNames.option, { [classNames.onSelected]: value })} onClick={!value && onClick}>
+      <Typography className={cx(styles.option, { [styles.onSelected]: value })} onClick={!value && onClick}>
         {'On'}
       </Typography>
     </div>

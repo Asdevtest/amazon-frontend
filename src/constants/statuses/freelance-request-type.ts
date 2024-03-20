@@ -7,7 +7,7 @@ export const freelanceRequestType = {
   DEFAULT: 'DEFAULT',
   DESIGNER: 'DESIGNER',
   SEO: 'SEO',
-  BLOGGER: 'BLOGER',
+  BLOGGER: 'BLOGGER',
   PPC: 'PPC',
 }
 

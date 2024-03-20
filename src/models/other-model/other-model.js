@@ -172,6 +172,11 @@ class OtherModelStatic {
     const response = await restApiService.otherApi.apiV1OtherFeedbackPost({ body })
     return response.data
   }
+
+  getPresets = async () => {
+    const response = await restApiService.otherApi.apiV1OtherFieldsGet()
+    return response.data
+  }
 }
 
 export const OtherModel = new OtherModelStatic()

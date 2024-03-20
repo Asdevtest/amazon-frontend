@@ -5,7 +5,7 @@ import { Checkbox, Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
@@ -14,7 +14,9 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useStyles } from './request-to-send-batch-box.styles'
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './request-to-send-batch-box.style'
 
 export const RequestToSendBatchBox = memo(
   ({ box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient, setCurrentOpenedBox }) => {
@@ -69,10 +71,9 @@ export const RequestToSendBatchBox = memo(
                     <div>
                       <AsinOrSkuLink
                         withCopyValue
-                        withAttributeTitle={'asin'}
+                        withAttributeTitle="asin"
                         textStyles={styles.asinTitle}
-                        attributeTitleTextStyles={styles.asinTitle}
-                        asin={box.items[0].product.asin}
+                        link={box.items[0].product.asin}
                       />
 
                       <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${box.items[0].amount} ${t(
@@ -153,10 +154,9 @@ export const RequestToSendBatchBox = memo(
                       <div>
                         <AsinOrSkuLink
                           withCopyValue
-                          withAttributeTitle={'asin'}
+                          withAttributeTitle="asin"
                           textStyles={styles.asinTitle}
-                          attributeTitleTextStyles={styles.asinTitle}
-                          asin={box.items[0].product.asin}
+                          link={box.items[0].product.asin}
                         />
 
                         <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} ${t(
@@ -281,7 +281,13 @@ export const RequestToSendBatchBox = memo(
 
             {box.shippingLabel ? (
               <div className={styles.linkWrapper}>
-                <a download target="_blank" rel="noreferrer" href={box.shippingLabel} className={styles.downloadLink}>
+                <a
+                  download
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href={box.shippingLabel}
+                  className={styles.downloadLink}
+                >
                   {t(TranslationKey.download)}
                 </a>
                 <CopyValue text={box.shippingLabel} />
@@ -294,10 +300,10 @@ export const RequestToSendBatchBox = memo(
         <td className={cx(tableCellClsx, styles.pricePerAmoutCell)}>
           {box.items.map((item, index) => {
             const deliveryCostPerPcs = calculateDeliveryCostPerPcs({
-              itemSupplierBoxWeightGrossKg: item.order.orderSupplier.boxProperties?.boxWeighGrossKg,
+              itemSupplierBoxWeightGrossKg: item.order?.orderSupplier?.boxProperties?.boxWeighGrossKg,
               deliveryCost: price,
               itemAmount: item.amount,
-              itemSupplierAmountInBox: item.order.orderSupplier.boxProperties?.amountInBox,
+              itemSupplierAmountInBox: item.order?.orderSupplier?.boxProperties?.amountInBox,
               boxFinalWeight: calcFinalWeightForBox(box, volumeWeightCoefficient),
               box,
             })
@@ -352,7 +358,7 @@ export const RequestToSendBatchBox = memo(
         )}
 
         <td className={styles.tableCellCrossBtn}>
-          <Button danger className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
+          <Button styleType={ButtonStyle.DANGER} className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
             X
           </Button>
         </td>

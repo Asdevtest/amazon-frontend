@@ -28,7 +28,7 @@ import { ProfileViewModel } from './user-profile-view.model'
 export const UserProfileViewRaw = props => {
   const [viewModel] = useState(() => new ProfileViewModel({ history: props.history }))
 
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -64,7 +64,7 @@ export const UserProfileViewRaw = props => {
           mapUserRoleEnumToKey[UserRole.BUYER],
         ].includes(viewModel.user.role) ? (
           <>
-            <Typography variant="h6" className={classNames.title}>
+            <Typography variant="h6" className={styles.title}>
               {t(TranslationKey['Active offers on the commodity exchange'])}
             </Typography>
 
@@ -91,15 +91,16 @@ export const UserProfileViewRaw = props => {
               }}
               density={viewModel.densityModel}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
               onSortModelChange={viewModel.onChangeSortingModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onChangePaginationModelChange}
+              onPaginationModelChange={viewModel.onPaginationModelChange}
               onFilterModelChange={viewModel.onChangeFilterModel}
             />
           </>
         ) : null}
       </div>
+
       <Modal openModal={viewModel.showTabModal} setOpenModal={viewModel.onTriggerShowTabModal}>
         <ContentModal
           setOpenModal={viewModel.onTriggerShowTabModal}
@@ -133,18 +134,20 @@ export const UserProfileViewRaw = props => {
         />
       </Modal>
 
-      <WarningInfoModal
-        openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-        title={viewModel.warningInfoModalTitle}
-        btnText={t(TranslationKey.Close)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showInfoModal')
-        }}
-      />
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+          title={viewModel.warningInfoModalTitle}
+          btnText={t(TranslationKey.Close)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        />
+      ) : null}
 
-      {viewModel.showConfirmWorkResultFormModal && (
+      {viewModel.showConfirmWorkResultFormModal ? (
         <RequestProposalAcceptOrRejectResultForm
+          // @ts-ignore
           openModal={viewModel.showConfirmWorkResultFormModal}
           title={t(TranslationKey['Confirm acceptance of the work result'])}
           rateLabel={t(TranslationKey['Rate the performer'])}
@@ -154,7 +157,7 @@ export const UserProfileViewRaw = props => {
           onSubmit={viewModel.onAcceptReview}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
-      )}
+      ) : null}
     </>
   )
 }

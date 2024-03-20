@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { compareDesc, isAfter, parseISO } from 'date-fns'
-import React, { useCallback, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import {
@@ -19,31 +19,35 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
-import { freelanceRequestType, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { MultilineTextCell } from '@components/data-grid/data-grid-cells'
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Input } from '@components/shared/input'
 import { SearchInput } from '@components/shared/search-input'
 
-import { checkIsPositiveNum } from '@utils/checks'
+import { checkIsPositiveNum, checkIsPositiveOrNegativeDigit } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/enums/button-style'
+
 import { styles } from './data-grid-menu-items.style'
 
-export const IsFormedMenuItem = React.memo(
+import { negativeOrPositiveList, wholeIntegersList } from './whole-integers-list'
+
+export const IsFormedMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       isFormedData,
       onClose,
       data,
@@ -64,27 +68,27 @@ export const IsFormedMenuItem = React.memo(
       }
 
       return (
-        <div title="" className={classNames.isFormedWrapper}>
+        <div title="" className={styles.isFormedWrapper}>
           <div>
-            <FormControl className={classNames.formControl}>
+            <FormControl className={styles.formControl}>
               <RadioGroup
                 row
-                className={cx(classNames.radioGroup, classNames.formedRadioGroup)}
+                className={cx(styles.radioGroup, styles.formedRadioGroup)}
                 value={currentOption}
                 onChange={handleCategory}
               >
                 <FormControlLabel
                   title={t(TranslationKey.Formed)}
-                  className={classNames.radioOption}
+                  className={styles.radioOption}
                   value="first"
-                  control={<Radio className={classNames.radioControl} />}
+                  control={<Radio className={styles.radioControl} />}
                   label={t(TranslationKey.Formed)}
                 />
                 <FormControlLabel
                   title={t(TranslationKey.Responsible)}
-                  className={classNames.radioOption}
+                  className={styles.radioOption}
                   value="second"
-                  control={<Radio className={classNames.radioControl} />}
+                  control={<Radio className={styles.radioControl} />}
                   label={t(TranslationKey.Responsible)}
                 />
               </RadioGroup>
@@ -92,9 +96,9 @@ export const IsFormedMenuItem = React.memo(
           </div>
 
           {currentOption === 'first' && (
-            <div className={classNames.shopsWrapper}>
-              <div className={classNames.shopsBody}>
-                <div className={classNames.shop}>
+            <div className={styles.shopsWrapper}>
+              <div className={styles.shopsBody}>
+                <div className={styles.shop}>
                   <Checkbox
                     color="primary"
                     checked={isFormedData.isFormed || isFormedData.isFormed === undefined}
@@ -112,7 +116,7 @@ export const IsFormedMenuItem = React.memo(
                   <Typography title={t(TranslationKey.Formed)}>{t(TranslationKey.Formed)}</Typography>
                 </div>
 
-                <div className={classNames.shop}>
+                <div className={styles.shop}>
                   <Checkbox
                     color="primary"
                     checked={!isFormedData.isFormed || isFormedData.isFormed === undefined}
@@ -155,13 +159,14 @@ export const IsFormedMenuItem = React.memo(
   ),
 )
 
-export const IsNeedPurchaseFilterMenuItem = React.memo(
+export const IsNeedPurchaseFilterMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       isNeedPurchaseFilterData,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -169,38 +174,34 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
     }) => {
       const [currentOption, setCurrentOption] = useState('first')
 
+      const isSomeFilterActive =
+        !isNeedPurchaseFilterData.isNeedPurchaseFilter || !isNeedPurchaseFilterData.isNotNeedPurchaseFilter
+
       const handleCategory = e => {
+        if (e.target.value === 'second' && isSomeFilterActive) {
+          isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, true)
+        }
+
         setCurrentOption(e.target.value)
       }
 
-      // useEffect(() => {
-      //   if (currentOption === 'second') {
-      //     if (isNeedPurchaseFilterData.isNeedPurchaseFilter) {
-      //       isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, false)
-      //     } else {
-      //       isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, true)
-      //     }
-      //   }
-      // }, [currentOption])
-
       return (
-        <div title="" className={classNames.shopsDataWrapper}>
+        <div title="" className={styles.shopsDataWrapper}>
           <div>
-            <FormControl className={classNames.formControl}>
-              {/* <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel> */}
-              <RadioGroup row className={classNames.radioGroup} value={currentOption} onChange={handleCategory}>
+            <FormControl className={styles.formControl}>
+              <RadioGroup row className={styles.radioGroup} value={currentOption} onChange={handleCategory}>
                 <FormControlLabel
                   title={t(TranslationKey.Repurchase)}
-                  className={classNames.radioOption}
+                  className={styles.radioOption}
                   value="first"
-                  control={<Radio className={classNames.radioControl} />}
+                  control={<Radio className={styles.radioControl} />}
                   label={t(TranslationKey.Repurchase)}
                 />
                 <FormControlLabel
                   title={t(TranslationKey['Quantity of repurchase'])}
-                  className={classNames.radioOption}
+                  className={styles.radioOption}
                   value="second"
-                  control={<Radio className={classNames.radioControl} />}
+                  control={<Radio className={styles.radioControl} />}
                   label={t(TranslationKey['Quantity of repurchase'])}
                 />
               </RadioGroup>
@@ -208,8 +209,8 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
           </div>
 
           {currentOption === 'first' && (
-            <div className={classNames.isFormedWrapper}>
-              <div className={classNames.isFormedSubWrapper}>
+            <div className={styles.isFormedWrapper}>
+              <div className={styles.isFormedSubWrapper}>
                 <Typography title={t(TranslationKey['Not need refills'])}>
                   {t(TranslationKey['Not need refills'])}
                 </Typography>
@@ -227,7 +228,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
                 />
               </div>
 
-              <div className={classNames.isFormedSubWrapper}>
+              <div className={styles.isFormedSubWrapper}>
                 <Typography title={t(TranslationKey['Need refills'])}>{t(TranslationKey['Need refills'])}</Typography>
 
                 <Checkbox
@@ -251,6 +252,7 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
             <NumberFieldMenuItem
               data={data.purchaseQuantity}
               field={'purchaseQuantity'}
+              table={table}
               filterRequestStatus={filterRequestStatus}
               onClickFilterBtn={onClickFilterBtn}
               onClose={onClose}
@@ -265,11 +267,11 @@ export const IsNeedPurchaseFilterMenuItem = React.memo(
   ),
 )
 
-export const IsHaveBarCodeFilterMenuItem = React.memo(
+export const IsHaveBarCodeFilterMenuItem = memo(
   withStyles(
-    ({ classes: classNames, isHaveBarCodeFilterData }) => (
-      <div title="" className={classNames.isFormedWrapper}>
-        <div className={classNames.isFormedSubWrapper}>
+    ({ classes: styles, isHaveBarCodeFilterData }) => (
+      <div title="" className={styles.isFormedWrapper}>
+        <div className={styles.isFormedSubWrapper}>
           <Typography title={t(TranslationKey['Got barcode'])}>{t(TranslationKey['Got barcode'])}</Typography>
 
           <Checkbox
@@ -289,7 +291,7 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
           />
         </div>
 
-        <div className={classNames.isFormedSubWrapper}>
+        <div className={styles.isFormedSubWrapper}>
           <Typography title={t(TranslationKey['No barcode'])}>{t(TranslationKey['No barcode'])}</Typography>
 
           <Checkbox
@@ -316,8 +318,8 @@ export const IsHaveBarCodeFilterMenuItem = React.memo(
   ),
 )
 
-export const OrderStatusMenuItem = React.memo(
-  withStyles(({ classes: classNames, orderStatusData }) => {
+export const OrderStatusMenuItem = memo(
+  withStyles(({ classes: styles, orderStatusData }) => {
     const { isCheckedStatusByFilter, onCheckboxChange } = orderStatusData
 
     const checkboxes = [
@@ -344,9 +346,9 @@ export const OrderStatusMenuItem = React.memo(
     ]
 
     return (
-      <div title="" className={classNames.isFormedWrapper}>
+      <div title="" className={styles.isFormedWrapper}>
         {checkboxes.map(item => (
-          <div key={item.name} className={classNames.isFormedSubWrapper}>
+          <div key={item.name} className={styles.isFormedSubWrapper}>
             <Typography title={item.label}>{item.label}</Typography>
 
             <Checkbox color="primary" name={item.name} checked={item.checked} onChange={onCheckboxChange} />
@@ -359,8 +361,8 @@ export const OrderStatusMenuItem = React.memo(
   }, styles),
 )
 
-export const MyRequestsStatusMenuItem = React.memo(
-  withStyles(({ classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept }) => {
+export const MyRequestsStatusMenuItem = memo(
+  withStyles(({ classes: styles, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept }) => {
     const filterData = Object.keys(MyRequestStatus)
 
     const { currentFilterData } = data
@@ -393,21 +395,21 @@ export const MyRequestsStatusMenuItem = React.memo(
     }, [nameSearchValue])
 
     return (
-      <div title="" className={classNames.shopsDataWrapper}>
-        <div className={classNames.searchInputWrapper}>
+      <div title="" className={styles.shopsDataWrapper}>
+        <div className={styles.searchInputWrapper}>
           <SearchInput
             key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey.Search)}
             onChange={e => {
               setNameSearchValue(e.target.value)
             }}
           />
         </div>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
+        <div className={styles.shopsWrapper}>
+          <div className={styles.shopsBody}>
             <>
-              {itemsForRender.length ? (
+              {itemsForRender?.length ? (
                 <>
                   <DataGridSelectAllFilters
                     choosenItems={choosenItems}
@@ -419,9 +421,9 @@ export const MyRequestsStatusMenuItem = React.memo(
                     const valueChecked = choosenItems.some(item => item === el)
 
                     return (
-                      <div key={index} className={classNames.shop}>
+                      <div key={index} className={styles.shop}>
                         <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                        <div title={value} className={classNames.shopName}>
+                        <div title={value} className={styles.shopName}>
                           {value}
                         </div>
                       </div>
@@ -429,7 +431,7 @@ export const MyRequestsStatusMenuItem = React.memo(
                   })}
                 </>
               ) : (
-                <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                   {t(TranslationKey['No options'])}
                 </Typography>
               )}
@@ -437,9 +439,8 @@ export const MyRequestsStatusMenuItem = React.memo(
           </div>
         </div>
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -449,7 +450,7 @@ export const MyRequestsStatusMenuItem = React.memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -458,8 +459,8 @@ export const MyRequestsStatusMenuItem = React.memo(
   }, styles),
 )
 
-export const FreelanceRequestType = React.memo(
-  withStyles(({ classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept }) => {
+export const FreelanceRequestType = memo(
+  withStyles(({ classes: styles, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept }) => {
     const filterData = Object.values(freelanceRequestType)
 
     const { currentFilterData } = data
@@ -482,9 +483,7 @@ export const FreelanceRequestType = React.memo(
 
     useEffect(() => {
       if (nameSearchValue) {
-        const filter = filterData?.filter(item =>
-          freelanceRequestTypeTranslate(item).toLowerCase().includes(nameSearchValue.toLowerCase()),
-        )
+        const filter = filterData?.filter(item => item.toLowerCase().includes(nameSearchValue.toLowerCase()))
         setItemsForRender(filter)
       } else {
         setItemsForRender(filterData)
@@ -492,21 +491,21 @@ export const FreelanceRequestType = React.memo(
     }, [nameSearchValue])
 
     return (
-      <div title="" className={classNames.shopsDataWrapper}>
-        <div className={classNames.searchInputWrapper}>
+      <div title="" className={styles.shopsDataWrapper}>
+        <div className={styles.searchInputWrapper}>
           <SearchInput
             key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey.Search)}
             onChange={e => {
               setNameSearchValue(e.target.value)
             }}
           />
         </div>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
+        <div className={styles.shopsWrapper}>
+          <div className={styles.shopsBody}>
             <>
-              {itemsForRender.length ? (
+              {itemsForRender?.length ? (
                 <>
                   <DataGridSelectAllFilters
                     choosenItems={choosenItems}
@@ -514,18 +513,18 @@ export const FreelanceRequestType = React.memo(
                     setChoosenItems={setChoosenItems}
                   />
                   {itemsForRender.map((el, index) => {
-                    const value = freelanceRequestTypeTranslate(el) || t(TranslationKey.Empty)
+                    const value = el || t(TranslationKey.Empty)
                     const valueChecked = choosenItems.some(item => item === el)
 
                     return (
                       freelanceRequestType.DEFAULT !== el && (
-                        <div key={index} className={classNames.shop}>
+                        <div key={index} className={styles.shop}>
                           <Checkbox
                             color="primary"
                             checked={valueChecked}
                             onClick={() => onClickItem(freelanceRequestType[el])}
                           />
-                          <div title={value} className={classNames.shopName}>
+                          <div title={value} className={styles.shopName}>
                             {value}
                           </div>
                         </div>
@@ -534,7 +533,7 @@ export const FreelanceRequestType = React.memo(
                   })}
                 </>
               ) : (
-                <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                   {t(TranslationKey['No options'])}
                 </Typography>
               )}
@@ -542,9 +541,8 @@ export const FreelanceRequestType = React.memo(
           </div>
         </div>
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -554,7 +552,7 @@ export const FreelanceRequestType = React.memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -563,23 +561,23 @@ export const FreelanceRequestType = React.memo(
   }, styles),
 )
 
-export const ClientOrderAllStatusesMenuItem = React.memo(
-  withStyles(({ classes: classNames, orderStatusData }) => {
+export const ClientOrderAllStatusesMenuItem = memo(
+  withStyles(({ classes: styles, orderStatusData }) => {
     const { orderStatusDataBase, chosenStatus, onClickOrderStatusData } = orderStatusData
 
     return (
-      <div title="" className={classNames.orderStatusDataWrapper}>
-        <div className={classNames.orderStatusDataBody}>
-          <div className={classNames.orderStatus} onClick={() => onClickOrderStatusData('ALL')}>
+      <div title="" className={styles.orderStatusDataWrapper}>
+        <div className={styles.orderStatusDataBody}>
+          <div className={styles.orderStatus} onClick={() => onClickOrderStatusData('ALL')}>
             <Checkbox color="primary" checked={!chosenStatus?.length} />
-            <div title={t(TranslationKey.All)} className={classNames.orderStatusName}>
+            <div title={t(TranslationKey.All)} className={styles.orderStatusName}>
               {t(TranslationKey.All)}
             </div>
           </div>
           {orderStatusDataBase.map((item, itemIndex) => (
-            <div key={itemIndex} className={classNames.orderStatus} onClick={() => onClickOrderStatusData(item)}>
+            <div key={itemIndex} className={styles.orderStatus} onClick={() => onClickOrderStatusData(item)}>
               <Checkbox color="primary" checked={chosenStatus?.some(status => status === item)} />
-              <div title={OrderStatusTranslate(item)} className={classNames.orderStatusName}>
+              <div title={OrderStatusTranslate(item)} className={styles.orderStatusName}>
                 {OrderStatusTranslate(item)}
               </div>
             </div>
@@ -590,10 +588,10 @@ export const ClientOrderAllStatusesMenuItem = React.memo(
   }, styles),
 )
 
-export const CreatedByMenuItem = React.memo(
+export const CreatedByMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
@@ -647,24 +645,24 @@ export const CreatedByMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div title="" className={classNames.shopsDataWrapper}>
-          <div className={classNames.searchInputWrapper}>
+        <div title="" className={styles.shopsDataWrapper}>
+          <div className={styles.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
               onChange={e => {
                 setNameSearchValue(e.target.value)
               }}
             />
           </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+          <div className={styles.shopsWrapper}>
+            <div className={styles.shopsBody}>
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -676,9 +674,9 @@ export const CreatedByMenuItem = React.memo(
                         const valueChecked = choosenItems.some(item => item?._id === obj?._id)
 
                         return (
-                          <div key={obj?._id} className={classNames.shop}>
+                          <div key={obj?._id} className={styles.shop}>
                             <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
-                            <div title={value} className={classNames.shopName}>
+                            <div title={value} className={styles.shopName}>
                               {value}
                             </div>
                           </div>
@@ -686,7 +684,7 @@ export const CreatedByMenuItem = React.memo(
                       })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
                     </Typography>
                   )}
@@ -695,9 +693,8 @@ export const CreatedByMenuItem = React.memo(
             </div>
           </div>
 
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
 
@@ -709,18 +706,18 @@ export const CreatedByMenuItem = React.memo(
                 }
 
                 if (choosenItems.some(item => data?.createdBy?.filterData?.some(obj => obj?._id === item?._id))) {
-                  // const choosenCreatedBy = choosenItems.filter(item =>
-                  //   data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
-                  // )
-                  // onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
-                  onChangeFullFieldMenuItem([], 'sub')
+                  const choosenCreatedBy = choosenItems.filter(item =>
+                    data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
+                  )
+                  onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
+                  // onChangeFullFieldMenuItem(choosenCreatedBy, 'sub')
                 }
                 onClickAccept()
               }}
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -731,90 +728,103 @@ export const CreatedByMenuItem = React.memo(
   ),
 )
 
-export const ObJectFieldMenuItem = React.memo(
+export const ObJectFieldMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       addNullObj,
       nullObjName,
+      nullObjKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
       rowContent,
       asBlock,
     }) => {
-      const { filterData, currentFilterData } = data
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
       const onClickItem = obj => {
         if (choosenItems.some(item => item._id === obj._id)) {
-          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+          setChoosenItems(choosenItems.filter(item => item._id !== obj._id))
         } else {
           setChoosenItems([...choosenItems, obj])
         }
       }
+
       useEffect(() => {
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
 
+      const filteredDataWithNull = addNullObj
+        ? [{ [nullObjKey]: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }, ...filterData]
+        : filterData
+
+      const sortedData = filteredDataWithNull
+        .filter(el => el)
+        .sort((a, b) => {
+          const isBNull = b._id === 'null'
+          const isANull = a._id === 'null'
+
+          return (
+            Number(isBNull) - Number(isANull) ||
+            Number(choosenItems?.some(item => item._id === b._id)) -
+              Number(choosenItems?.some(item => item._id === a._id))
+          )
+        })
+
       useEffect(() => {
-        setItemsForRender(
-          [...filterData, ...[addNullObj && { name: nullObjName || t(TranslationKey['Without stores']), _id: 'null' }]]
-            .filter(el => el)
-            .sort(
-              (a, b) =>
-                Number(b._id === 'null') - Number(a._id === 'null') ||
-                Number(choosenItems?.some(item => item._id === b._id)) -
-                  Number(choosenItems?.some(item => item._id === a._id)),
-            ),
-        )
+        setItemsForRender(sortedData)
       }, [filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(obj => {
-            return obj && (obj.title || obj.name).toLowerCase().includes(nameSearchValue.toLowerCase())
+          const filter = sortedData?.filter(obj => {
+            const title = obj?.title || obj?.name || ''
+
+            return title?.toLowerCase()?.includes(nameSearchValue?.toLowerCase())
           })
+
           setItemsForRender(filter)
         } else {
-          setItemsForRender(filterData)
+          setItemsForRender(sortedData)
         }
       }, [nameSearchValue])
 
       return (
         <div
           title=""
-          className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}
+          className={cx({ [styles.shopsDataWrapper]: !asBlock, [styles.shopsDataWrapperBlocked]: asBlock })}
         >
-          <div className={classNames.searchInputWrapper}>
+          <div className={styles.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
+              onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+          <div className={styles.shopsWrapper}>
+            <div className={styles.shopsBody}>
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length > 0 ? (
+                  {itemsForRender?.length > 0 ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -827,12 +837,12 @@ export const ObJectFieldMenuItem = React.memo(
 
                         return (
                           obj && (
-                            <div key={obj._id} className={classNames.shop}>
+                            <div key={obj._id} className={styles.shop}>
                               <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
                               {rowContent ? (
                                 rowContent(obj)
                               ) : (
-                                <div title={value} className={classNames.shopName}>
+                                <div title={value} className={styles.shopName}>
                                   {value}
                                 </div>
                               )}
@@ -842,7 +852,7 @@ export const ObJectFieldMenuItem = React.memo(
                       })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
                     </Typography>
                   )}
@@ -850,9 +860,8 @@ export const ObJectFieldMenuItem = React.memo(
               )}
             </div>
           </div>
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -862,7 +871,7 @@ export const ObJectFieldMenuItem = React.memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -873,10 +882,10 @@ export const ObJectFieldMenuItem = React.memo(
   ),
 )
 
-export const IdeaShopsFieldMenuItem = React.memo(
+export const IdeaShopsFieldMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
@@ -907,11 +916,11 @@ export const IdeaShopsFieldMenuItem = React.memo(
       // НУжно переделать
       useEffect(() => {
         setFilterData(getData('filterData'))
-      }, [data?.childProductShopId?.filterData?.length, data?.parentProductShopId?.filterData?.length])
+      }, [data?.childProductShop?.filterData?.length, data?.parentProductShop?.filterData?.length])
       // НУжно переделать
       useEffect(() => {
         setCurrentFilterData(getData('currentFilterData'))
-      }, [data?.childProductShopId?.currentFilterData?.length, data?.parentProductShopId?.currentFilterData?.length])
+      }, [data?.childProductShop?.currentFilterData?.length, data?.parentProductShop?.currentFilterData?.length])
 
       useEffect(() => {
         setChoosenItems(currentFilterData)
@@ -919,7 +928,7 @@ export const IdeaShopsFieldMenuItem = React.memo(
 
       useEffect(() => {
         for (const item of field) {
-          onClickFilterBtn(`${item}`)
+          onClickFilterBtn(item)
         }
       }, [])
 
@@ -950,25 +959,25 @@ export const IdeaShopsFieldMenuItem = React.memo(
       return (
         <div
           title=""
-          className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}
+          className={cx({ [styles.shopsDataWrapper]: !asBlock, [styles.shopsDataWrapperBlocked]: asBlock })}
         >
-          <div className={classNames.searchInputWrapper}>
+          <div className={styles.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
               onChange={e => {
                 setNameSearchValue(e.target.value)
               }}
             />
           </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+          <div className={styles.shopsWrapper}>
+            <div className={styles.shopsBody}>
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -981,12 +990,12 @@ export const IdeaShopsFieldMenuItem = React.memo(
 
                         return (
                           obj && (
-                            <div key={obj._id} className={classNames.shop}>
+                            <div key={obj._id} className={styles.shop}>
                               <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
                               {rowContent ? (
                                 rowContent(obj)
                               ) : (
-                                <div title={value} className={classNames.shopName}>
+                                <div title={value} className={styles.shopName}>
                                   {value}
                                 </div>
                               )}
@@ -996,7 +1005,7 @@ export const IdeaShopsFieldMenuItem = React.memo(
                       })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
                     </Typography>
                   )}
@@ -1004,25 +1013,24 @@ export const IdeaShopsFieldMenuItem = React.memo(
               )}
             </div>
           </div>
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
 
                 // НУжно переделать
                 const parentShops = choosenItems.filter(item =>
-                  data?.parentProductShopId?.filterData?.some(obj => obj?._id === item?._id),
+                  data?.parentProductShop?.filterData?.some(obj => obj?._id === item?._id),
                 )
                 const childShops = choosenItems.filter(item =>
-                  data?.childProductShopId?.filterData?.some(obj => obj?._id === item?._id),
+                  data?.childProductShop?.filterData?.some(obj => obj?._id === item?._id),
                 )
 
                 if (parentShops?.length) {
-                  onChangeFullFieldMenuItem(parentShops, 'parentProductShopId')
+                  onChangeFullFieldMenuItem(parentShops, 'parentProductShop')
                 }
                 if (childShops?.length) {
-                  onChangeFullFieldMenuItem(childShops, 'childProductShopId')
+                  onChangeFullFieldMenuItem(childShops, 'childProductShop')
                 }
 
                 onClickAccept()
@@ -1030,7 +1038,7 @@ export const IdeaShopsFieldMenuItem = React.memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1041,8 +1049,8 @@ export const IdeaShopsFieldMenuItem = React.memo(
   ),
 )
 
-export const BoxestatusMenuItem = React.memo(
-  withStyles(({ classes: classNames, data, onChangeFullFieldMenuItem, onClose, field, onClickAccept }) => {
+export const BoxestatusMenuItem = memo(
+  withStyles(({ classes: styles, data, onChangeFullFieldMenuItem, onClose, field, onClickAccept }) => {
     const { /* filterData, */ currentFilterData } = data
 
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
@@ -1072,11 +1080,11 @@ export const BoxestatusMenuItem = React.memo(
     }, [currentFilterData])
 
     return (
-      <div title="" className={classNames.shopsDataWrapper}>
-        <div className={classNames.orderStatusDataBody}>
-          <div className={classNames.orderStatus} onClick={() => onClickItem('ALL')}>
+      <div title="" className={styles.shopsDataWrapper}>
+        <div className={styles.orderStatusDataBody}>
+          <div className={styles.orderStatus} onClick={() => onClickItem('ALL')}>
             <Checkbox color="primary" checked={choosenItems.length === 4 || !choosenItems.length} />
-            <div className={classNames.orderStatusName}>{t(TranslationKey.All)}</div>
+            <div className={styles.orderStatusName}>{t(TranslationKey.All)}</div>
           </div>
           {[
             BoxStatus.NEW,
@@ -1086,17 +1094,16 @@ export const BoxestatusMenuItem = React.memo(
             BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
             BoxStatus.NEED_TO_UPDATE_THE_TARIFF,
           ].map(item => (
-            <div key={item} className={classNames.orderStatus} onClick={() => onClickItem(item)}>
+            <div key={item} className={styles.orderStatus} onClick={() => onClickItem(item)}>
               <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
-              <div title={t(boxStatusTranslateKey(item))} className={classNames.orderStatusName}>
+              <div title={t(boxStatusTranslateKey(item))} className={styles.orderStatusName}>
                 {t(boxStatusTranslateKey(item))}
               </div>
             </div>
           ))}
         </div>
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -1106,7 +1113,7 @@ export const BoxestatusMenuItem = React.memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -1115,13 +1122,14 @@ export const BoxestatusMenuItem = React.memo(
   }, styles),
 )
 
-export const NormalFieldMenuItem = React.memo(
+export const NormalFieldMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       columnKey,
       onChangeFullFieldMenuItem,
@@ -1130,22 +1138,23 @@ export const NormalFieldMenuItem = React.memo(
       asBlock = false,
     }) => {
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
-      const { filterData, currentFilterData } = data
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState([])
 
       useEffect(() => {
         if (currentFilterData) {
-          setChoosenItems(currentFilterData.filter(item => filterData.includes(item)))
+          setChoosenItems(currentFilterData.filter(item => filterData?.includes(item)))
         }
       }, [currentFilterData, filterData])
 
       const onClickItem = str => {
-        if (choosenItems.some(item => item === str)) {
-          setChoosenItems(choosenItems.filter(item => item !== str))
+        if (choosenItems?.some(item => item === str)) {
+          setChoosenItems(choosenItems?.filter(item => item !== str))
         } else {
           setChoosenItems([...choosenItems, str])
         }
@@ -1157,8 +1166,8 @@ export const NormalFieldMenuItem = React.memo(
         if (filterData) {
           setItemsForRender(
             filterData
-              .filter(el => el !== undefined && el !== null)
-              .sort(
+              ?.filter(el => el !== undefined && el !== null)
+              ?.sort(
                 (a, b) =>
                   currentFilterData.length &&
                   Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
@@ -1173,8 +1182,8 @@ export const NormalFieldMenuItem = React.memo(
         if (nameSearchValue) {
           const filter = filterData?.filter(item =>
             String(getStatusByColumnKeyAndStatusKey(item, columnKey))
-              .toLowerCase()
-              .includes(nameSearchValue.toLowerCase()),
+              ?.toLowerCase()
+              ?.includes(nameSearchValue.toLowerCase()),
           )
           setItemsForRender(filter)
         } else {
@@ -1186,18 +1195,17 @@ export const NormalFieldMenuItem = React.memo(
         <div
           title=""
           className={cx({
-            [classNames.universalFilterWrapper]: !asBlock,
-            [classNames.shopsDataWrapperBlocked]: asBlock,
-            [classNames.fullName]: [
-              columnnsKeys.buyer.MY_PRODUCTS_STATUS,
-              columnnsKeys.client.INVENTORY_STATUS,
-            ].includes(columnKey),
+            [styles.universalFilterWrapper]: !asBlock,
+            [styles.shopsDataWrapperBlocked]: asBlock,
+            [styles.fullName]: [columnnsKeys.buyer.MY_PRODUCTS_STATUS, columnnsKeys.client.INVENTORY_STATUS].includes(
+              columnKey,
+            ),
           })}
         >
-          <div className={classNames.universalFilterSearchInputWrapper}>
+          <div className={styles.universalFilterSearchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
               onChange={e => {
                 setNameSearchValue(e.target.value)
@@ -1205,12 +1213,12 @@ export const NormalFieldMenuItem = React.memo(
             />
           </div>
 
-          <div className={classNames.universalFilterBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+          <div className={styles.universalFilterBody}>
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
-                {itemsForRender.length ? (
+                {itemsForRender?.length ? (
                   <>
                     <DataGridSelectAllFilters
                       choosenItems={choosenItems}
@@ -1222,7 +1230,7 @@ export const NormalFieldMenuItem = React.memo(
                       const valueChecked = choosenItems.some(item => item === el)
 
                       return (
-                        <div key={index} className={classNames.shop}>
+                        <div key={index} className={styles.shop}>
                           <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
                           <MultilineTextCell
                             leftAlign
@@ -1230,14 +1238,14 @@ export const NormalFieldMenuItem = React.memo(
                             text={value}
                             maxLength={value?.length}
                             // color={colorByStatus(el)}
-                            customTextClass={classNames.statusText}
+                            customTextClass={styles.statusText}
                           />
                         </div>
                       )
                     })}
                   </>
                 ) : (
-                  <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                  <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                     {t(TranslationKey['No options'])}
                   </Typography>
                 )}
@@ -1245,9 +1253,8 @@ export const NormalFieldMenuItem = React.memo(
             )}
           </div>
 
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -1257,7 +1264,7 @@ export const NormalFieldMenuItem = React.memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1268,14 +1275,13 @@ export const NormalFieldMenuItem = React.memo(
   ),
 )
 
-export const PriorityMenuItem = React.memo(
+export const PriorityMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
-      filterRequestStatus,
       columnKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -1289,7 +1295,7 @@ export const PriorityMenuItem = React.memo(
       const urgentPriority = isOrder ? [40] : [30]
       const withoutPriority = isOrder ? [30] : [10, 20]
 
-      const { filterData, currentFilterData } = data
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1308,21 +1314,21 @@ export const PriorityMenuItem = React.memo(
       const shopName = isOrder ? 'Urgent' : 'Urgent request'
 
       return (
-        <div title="" className={classNames.shopsDataWrapper}>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              <div className={classNames.shop}>
+        <div title="" className={styles.shopsDataWrapper}>
+          <div className={styles.shopsWrapper}>
+            <div className={styles.shopsBody}>
+              <div className={styles.shop}>
                 <Checkbox
                   color="primary"
                   checked={choosenItems.some(item => urgentPriority.includes(Number(item)))}
                   onClick={() => onClickItem(urgentPriority)}
                 />
-                <div title={shopName} className={classNames.shopName}>
+                <div title={shopName} className={styles.shopName}>
                   {t(TranslationKey[`${shopName}`])} <img src="/assets/icons/fire.svg" />
                 </div>
               </div>
 
-              <div className={classNames.shop}>
+              <div className={styles.shop}>
                 <Checkbox
                   color="primary"
                   checked={choosenItems.some(item => withoutPriority.includes(Number(item)))}
@@ -1330,16 +1336,15 @@ export const PriorityMenuItem = React.memo(
                     onClickItem(withoutPriority)
                   }}
                 />
-                <div title={'Without Priority'} className={classNames.shopName}>
+                <div title={'Without Priority'} className={styles.shopName}>
                   {t(TranslationKey['Without Priority'])}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -1349,7 +1354,7 @@ export const PriorityMenuItem = React.memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1360,10 +1365,10 @@ export const PriorityMenuItem = React.memo(
   ),
 )
 
-export const FreelancerToWorkConfirmationMenuItem = React.memo(
+export const FreelancerToWorkConfirmationMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
@@ -1377,7 +1382,7 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
         onClickFilterBtn(field)
       }, [])
 
-      const { filterData, currentFilterData } = data
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1394,36 +1399,35 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
       }, [currentFilterData])
 
       return (
-        <div title="" className={classNames.shopsDataWrapper}>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              <div className={classNames.shop}>
+        <div title="" className={styles.shopsDataWrapper}>
+          <div className={styles.shopsWrapper}>
+            <div className={styles.shopsBody}>
+              <div className={styles.shop}>
                 <Checkbox
                   color="primary"
                   checked={choosenItems.some(item => item === true)}
                   onClick={() => onClickItem(true)}
                 />
-                <div title={t(TranslationKey.Yes)} className={classNames.shopName}>
+                <div title={t(TranslationKey.Yes)} className={styles.shopName}>
                   {t(TranslationKey.Yes)}
                 </div>
               </div>
 
-              <div className={classNames.shop}>
+              <div className={styles.shop}>
                 <Checkbox
                   color="primary"
                   checked={choosenItems.some(item => item === false)}
                   onClick={() => onClickItem(false)}
                 />
-                <div title={t(TranslationKey.No)} className={classNames.shopName}>
+                <div title={t(TranslationKey.No)} className={styles.shopName}>
                   {t(TranslationKey.No)}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -1433,7 +1437,7 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1444,13 +1448,16 @@ export const FreelancerToWorkConfirmationMenuItem = React.memo(
   ),
 )
 
-export const ProductMenuItem = React.memo(
+export const ProductMenuItem = memo(
   withStyles(props => {
     const {
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
+      table,
+      withoutTitle,
+      skuOption,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -1463,6 +1470,8 @@ export const ProductMenuItem = React.memo(
         return 'parentProduct' + option.charAt(0).toUpperCase() + option.slice(1)
       } else if (field && field.includes('child')) {
         return 'childProduct' + option.charAt(0).toUpperCase() + option.slice(1)
+      } else if (field && field.includes('inventory')) {
+        return 'inventory' + option.charAt(0).toUpperCase() + option.slice(1)
       } else {
         return option
       }
@@ -1471,23 +1480,26 @@ export const ProductMenuItem = React.memo(
     const [currentOption, setCurrentOption] = useState(
       data.amazonTitle?.currentFilterData?.length
         ? 'amazonTitle'
-        : !withoutSku && data.skuByClient?.currentFilterData?.length
+        : !withoutSku && data?.skuByClient?.currentFilterData?.length
         ? 'skuByClient'
+        : data.sku?.currentFilterData?.length
+        ? 'sku'
         : 'asin',
     )
-    // const { filterData } = data[currentOption]
+
     const { currentFilterData, filterData } = data[getCurrentField(currentOption)]
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     useEffect(() => {
-      onClickFilterBtn(getCurrentField(currentOption))
+      onClickFilterBtn(getCurrentField(currentOption), table)
     }, [currentOption])
 
     useEffect(() => {
       setChoosenItems(currentFilterData)
     }, [currentFilterData])
+
     useEffect(() => {
       setItemsForRender(
         filterData
@@ -1527,65 +1539,67 @@ export const ProductMenuItem = React.memo(
     }
 
     return (
-      <div title="" className={classNames.shopsDataWrapper}>
+      <div title="" className={styles.shopsDataWrapper}>
         <div>
-          <FormControl className={classNames.formControl}>
-            <FormLabel title={t(TranslationKey['Search by'])} className={classNames.radioLable}>
+          <FormControl className={styles.formControl}>
+            <FormLabel title={t(TranslationKey['Search by'])} className={styles.radioLable}>
               {t(TranslationKey['Search by']) + ':'}
             </FormLabel>
             <RadioGroup
               row
               className={cx({
-                [classNames.radioGroup]: !withoutSku,
-                [classNames.radioGroupTwoItems]: withoutSku,
+                [styles.radioGroup]: !withoutSku && !withoutTitle,
+                [styles.radioGroupTwoItems]: withoutSku || withoutTitle,
               })}
               value={currentOption}
               onChange={handleCategory}
             >
               <FormControlLabel
                 title={t(TranslationKey.ASIN)}
-                className={classNames.radioOption}
+                className={styles.radioOption}
                 value="asin"
-                control={<Radio className={classNames.radioControl} />}
+                control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.ASIN)}
               />
               {!withoutSku && (
                 <FormControlLabel
                   title={t(TranslationKey.SKU)}
-                  className={classNames.radioOption}
-                  value="skuByClient"
-                  control={<Radio className={classNames.radioControl} />}
+                  className={styles.radioOption}
+                  value={skuOption ? 'sku' : 'skuByClient'}
+                  control={<Radio className={styles.radioControl} />}
                   label={t(TranslationKey.SKU)}
                 />
               )}
-              <FormControlLabel
-                title={t(TranslationKey.Title)}
-                className={classNames.radioOption}
-                value="amazonTitle"
-                control={<Radio className={classNames.radioControl} />}
-                label={t(TranslationKey.Title)}
-              />
+              {!withoutTitle && (
+                <FormControlLabel
+                  title={t(TranslationKey.Title)}
+                  className={styles.radioOption}
+                  value="amazonTitle"
+                  control={<Radio className={styles.radioControl} />}
+                  label={t(TranslationKey.Title)}
+                />
+              )}
             </RadioGroup>
           </FormControl>
         </div>
 
-        <div className={classNames.searchInputWrapper}>
+        <div className={styles.searchInputWrapper}>
           <SearchInput
             key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey.Search)}
             onChange={e => {
               setNameSearchValue(e.target.value)
             }}
           />
         </div>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+        <div className={styles.shopsWrapper}>
+          <div className={styles.shopsBody}>
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
-                {itemsForRender.length ? (
+                {itemsForRender?.length ? (
                   <>
                     <DataGridSelectAllFilters
                       choosenItems={choosenItems}
@@ -1597,9 +1611,9 @@ export const ProductMenuItem = React.memo(
                       const valueChecked = choosenItems?.some(item => item === el)
 
                       return (
-                        <div key={index} className={classNames.shop}>
+                        <div key={index} className={styles.shop}>
                           <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                          <div title={value} className={classNames.shopName}>
+                          <div title={value} className={styles.shopName}>
                             {value}
                           </div>
                         </div>
@@ -1607,7 +1621,7 @@ export const ProductMenuItem = React.memo(
                     })}
                   </>
                 ) : (
-                  <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                  <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                     {t(TranslationKey['No options'])}
                   </Typography>
                 )}
@@ -1615,11 +1629,9 @@ export const ProductMenuItem = React.memo(
             )}
           </div>
         </div>
-        <div className={classNames.buttonsWrapper}>
-          <Button variant="contained" onClick={applyFilters}>
-            {t(TranslationKey.Accept)}
-          </Button>
-          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+        <div className={styles.buttonsWrapper}>
+          <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -1628,10 +1640,10 @@ export const ProductMenuItem = React.memo(
   }, styles),
 )
 
-export const OrderOrItemMenuItem = React.memo(
+export const OrderOrItemMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       filterRequestStatus,
@@ -1652,7 +1664,8 @@ export const OrderOrItemMenuItem = React.memo(
         }
       }, [currentOption])
 
-      const { filterData, currentFilterData } = data[currentOption]
+      const filterData = data[currentOption]?.filterData
+      const currentFilterData = data[currentOption]?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1673,8 +1686,8 @@ export const OrderOrItemMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el)
-            .sort(
+            ?.filter(el => el)
+            ?.sort(
               (a, b) => Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
             ),
         )
@@ -1690,51 +1703,51 @@ export const OrderOrItemMenuItem = React.memo(
       }, [nameSearchValue])
 
       return (
-        <div title="" className={classNames.shopsDataWrapper}>
+        <div title="" className={styles.shopsDataWrapper}>
           <div>
-            <FormControl className={classNames.formControl}>
-              <FormLabel className={classNames.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
+            <FormControl className={styles.formControl}>
+              <FormLabel className={styles.radioLable}>{t(TranslationKey['Search by']) + ':'}</FormLabel>
               <RadioGroup
                 row
-                className={classNames.radioGroupTwoItems}
+                className={styles.radioGroupTwoItems}
                 value={currentOption}
                 onChange={e => setCurrentOption(e.target.value)}
               >
                 <FormControlLabel
                   title={t(TranslationKey['№Order'])}
-                  className={classNames.radioOption}
+                  className={styles.radioOption}
                   value="id"
-                  control={<Radio className={classNames.radioControl} />}
+                  control={<Radio className={styles.radioControl} />}
                   label={t(TranslationKey['№Order'])}
                 />
                 <FormControlLabel
                   title={'№Item'}
-                  className={classNames.radioOption}
+                  className={styles.radioOption}
                   value="item"
-                  control={<Radio className={classNames.radioControl} />}
+                  control={<Radio className={styles.radioControl} />}
                   label={'№Item'}
                 />
               </RadioGroup>
             </FormControl>
           </div>
 
-          <div className={classNames.searchInputWrapper}>
+          <div className={styles.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
               onChange={e => {
                 setNameSearchValue(e.target.value)
               }}
             />
           </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+          <div className={styles.shopsWrapper}>
+            <div className={styles.shopsBody}>
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -1753,9 +1766,9 @@ export const OrderOrItemMenuItem = React.memo(
                           const valueChecked = choosenItems?.some(item => item === el)
 
                           return (
-                            <div key={index} className={classNames.shop}>
+                            <div key={index} className={styles.shop}>
                               <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={value} className={classNames.shopName}>
+                              <div title={value} className={styles.shopName}>
                                 {value}
                               </div>
                             </div>
@@ -1763,7 +1776,7 @@ export const OrderOrItemMenuItem = React.memo(
                         })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
                     </Typography>
                   )}
@@ -1771,9 +1784,8 @@ export const OrderOrItemMenuItem = React.memo(
               )}
             </div>
           </div>
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, currentOption)
@@ -1783,7 +1795,7 @@ export const OrderOrItemMenuItem = React.memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -1794,10 +1806,10 @@ export const OrderOrItemMenuItem = React.memo(
   ),
 )
 
-export const DestinationMenuItem = React.memo(
+export const DestinationMenuItem = memo(
   withStyles(props => {
     const {
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       filterRequestStatus,
@@ -1809,7 +1821,10 @@ export const DestinationMenuItem = React.memo(
     const [currentOption, setCurrentOption] = useState(
       data.logicsTariffId.currentFilterData.length ? 'logicsTariffId' : 'destinationId',
     )
-    const { filterData, currentFilterData } = data[currentOption]
+
+    const filterData = data[currentOption]?.filterData
+    const currentFilterData = data[currentOption]?.currentFilterData
+
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -1825,8 +1840,8 @@ export const DestinationMenuItem = React.memo(
     useEffect(() => {
       setItemsForRender(
         filterData
-          .filter(el => el)
-          .sort(
+          ?.filter(el => el)
+          ?.sort(
             (a, b) =>
               Number(choosenItems?.some(item => item?._id === b?._id)) -
               Number(choosenItems?.some(item => item?._id === a?._id)),
@@ -1863,48 +1878,48 @@ export const DestinationMenuItem = React.memo(
     }
 
     return (
-      <div title="" className={classNames.shopsDataWrapper}>
+      <div title="" className={styles.shopsDataWrapper}>
         <div>
-          <FormControl className={classNames.formControl}>
-            <FormLabel title={t(TranslationKey['Search by'])} className={classNames.radioLable}>
+          <FormControl className={styles.formControl}>
+            <FormLabel title={t(TranslationKey['Search by'])} className={styles.radioLable}>
               {t(TranslationKey['Search by']) + ':'}
             </FormLabel>
-            <RadioGroup row className={classNames.radioGroupTwoItems} value={currentOption} onChange={handleCategory}>
+            <RadioGroup row className={styles.radioGroupTwoItems} value={currentOption} onChange={handleCategory}>
               <FormControlLabel
                 title={t(TranslationKey.Destination)}
-                className={classNames.radioOption}
+                className={styles.radioOption}
                 value="destinationId"
-                control={<Radio className={classNames.radioControl} />}
+                control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Destination)}
               />
               <FormControlLabel
                 title={t(TranslationKey.Tariff)}
-                className={classNames.radioOption}
+                className={styles.radioOption}
                 value="logicsTariffId"
-                control={<Radio className={classNames.radioControl} />}
+                control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Tariff)}
               />
             </RadioGroup>
           </FormControl>
         </div>
 
-        <div className={classNames.searchInputWrapper}>
+        <div className={styles.searchInputWrapper}>
           <SearchInput
             key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey.Search)}
             onChange={e => {
               setNameSearchValue(e.target.value)
             }}
           />
         </div>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+        <div className={styles.shopsWrapper}>
+          <div className={styles.shopsBody}>
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
-                {itemsForRender.length ? (
+                {itemsForRender?.length ? (
                   <>
                     <DataGridSelectAllFilters
                       choosenItems={choosenItems}
@@ -1916,9 +1931,9 @@ export const DestinationMenuItem = React.memo(
                       const valueChecked = choosenItems.some(item => item?._id === obj?._id)
 
                       return (
-                        <div key={obj?._id} className={classNames.shop}>
+                        <div key={obj?._id} className={styles.shop}>
                           <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
-                          <div title={value} className={classNames.shopName}>
+                          <div title={value} className={styles.shopName}>
                             {value}
                           </div>
                         </div>
@@ -1926,7 +1941,7 @@ export const DestinationMenuItem = React.memo(
                     })}
                   </>
                 ) : (
-                  <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                  <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                     {t(TranslationKey['No options'])}
                   </Typography>
                 )}
@@ -1934,11 +1949,9 @@ export const DestinationMenuItem = React.memo(
             )}
           </div>
         </div>
-        <div className={classNames.buttonsWrapper}>
-          <Button variant="contained" onClick={applyFilters}>
-            {t(TranslationKey.Accept)}
-          </Button>
-          <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+        <div className={styles.buttonsWrapper}>
+          <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -1947,13 +1960,14 @@ export const DestinationMenuItem = React.memo(
   }, styles),
 )
 
-export const FromToDateMenuItem = React.memo(
+export const FromToDateMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -1964,10 +1978,11 @@ export const FromToDateMenuItem = React.memo(
       const [toDate, setToDate] = useState(null)
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
-      const { filterData, currentFilterData } = data
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -1988,8 +2003,8 @@ export const FromToDateMenuItem = React.memo(
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el)
-            .sort(
+            ?.filter(el => el)
+            ?.sort(
               (a, b) =>
                 Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
                 compareDesc(parseISO(a), parseISO(b)),
@@ -2010,41 +2025,41 @@ export const FromToDateMenuItem = React.memo(
       }, [nameSearchValue, fromDate, toDate])
 
       return (
-        <div title="" className={classNames.shopsDataWrapper}>
-          <div className={classNames.fromToDatesWrapper}>
+        <div title="" className={styles.shopsDataWrapper}>
+          <div className={styles.fromToDatesWrapper}>
             {headerControls && <div>{headerControls()}</div>}
-            <div className={classNames.fromToDatesSubWrapper}>
-              <Typography title={t(TranslationKey.From)} className={classNames.fromToText}>
+            <div className={styles.fromToDatesSubWrapper}>
+              <Typography title={t(TranslationKey.From)} className={styles.fromToText}>
                 {t(TranslationKey.From)}
               </Typography>
-              <NewDatePicker className={classNames.dateInput} value={fromDate} onChange={setFromDate} />
+              <NewDatePicker className={styles.dateInput} value={fromDate} onChange={setFromDate} />
             </div>
-            <div className={classNames.fromToDatesSubWrapper}>
-              <Typography title={t(TranslationKey.To)} className={classNames.fromToText}>
+            <div className={styles.fromToDatesSubWrapper}>
+              <Typography title={t(TranslationKey.To)} className={styles.fromToText}>
                 {t(TranslationKey.To)}
               </Typography>
 
-              <NewDatePicker className={classNames.dateInput} value={toDate} onChange={setToDate} />
+              <NewDatePicker className={styles.dateInput} value={toDate} onChange={setToDate} />
             </div>
           </div>
 
-          <div className={classNames.searchInputWrapper}>
+          <div className={styles.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
               onChange={e => {
                 setNameSearchValue(e.target.value)
               }}
             />
           </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+          <div className={styles.shopsWrapper}>
+            <div className={styles.shopsBody}>
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -2062,9 +2077,9 @@ export const FromToDateMenuItem = React.memo(
                           const value = formatNormDateTime(el) || t(TranslationKey.Empty)
                           const valueChecked = choosenItems?.some(item => item === el)
                           return (
-                            <div key={index} className={classNames.shop}>
+                            <div key={index} className={styles.shop}>
                               <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={value} className={classNames.shopName}>
+                              <div title={value} className={styles.shopName}>
                                 {value}
                               </div>
                             </div>
@@ -2072,7 +2087,7 @@ export const FromToDateMenuItem = React.memo(
                         })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
                     </Typography>
                   )}
@@ -2080,9 +2095,8 @@ export const FromToDateMenuItem = React.memo(
               )}
             </div>
           </div>
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -2092,7 +2106,7 @@ export const FromToDateMenuItem = React.memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -2103,9 +2117,9 @@ export const FromToDateMenuItem = React.memo(
   ),
 )
 
-export const DateDetailsMenuItem = React.memo(
+export const DateDetailsMenuItem = memo(
   withStyles(
-    ({ classes: classNames, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
+    ({ classes: styles, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
       const [searchType, setSearchType] = useState('days')
       const [searchFrom, setSearchFrom] = useState('')
       const [searchTo, setSearchTo] = useState('')
@@ -2153,12 +2167,12 @@ export const DateDetailsMenuItem = React.memo(
       }
 
       return (
-        <div title="" className={classNames.dateDetailsWrapper}>
+        <div title="" className={styles.dateDetailsWrapper}>
           <FormControl>
             <FormLabel
               id="date-details-filter-radio-buttons-group-label"
               title={t(TranslationKey['Search by'])}
-              className={classNames.searchLabel}
+              className={styles.searchLabel}
             >
               {t(TranslationKey['Search by']) + ':'}
             </FormLabel>
@@ -2167,7 +2181,7 @@ export const DateDetailsMenuItem = React.memo(
               value={searchType}
               name="date-details-filter-radio-buttons-group"
               aria-labelledby="date-details-filter-radio-buttons-group-label"
-              className={classNames.radioOptions}
+              className={styles.radioOptions}
               onChange={handleSearchTypeChange}
             >
               <FormControlLabel
@@ -2175,43 +2189,42 @@ export const DateDetailsMenuItem = React.memo(
                 control={<Radio />}
                 title={t(TranslationKey.days)}
                 label={t(TranslationKey.days)}
-                classes={{ label: classNames.radioOptionDate }}
+                classes={{ label: styles.radioOptionDate }}
               />
               <FormControlLabel
                 value="hours"
                 control={<Radio />}
                 title={t(TranslationKey.hours)}
                 label={t(TranslationKey.hours)}
-                classes={{ label: classNames.radioOptionDate }}
+                classes={{ label: styles.radioOptionDate }}
               />
               <FormControlLabel
                 value="minutes"
                 control={<Radio />}
                 title={t(TranslationKey.minutes)}
                 label={t(TranslationKey.minutes)}
-                classes={{ label: classNames.radioOptionDate }}
+                classes={{ label: styles.radioOptionDate }}
               />
             </RadioGroup>
           </FormControl>
 
-          <div className={classNames.inpunts}>
-            <div title={t(TranslationKey.From)} className={classNames.inpuntContainer}>
-              <span className={classNames.radioOptionDate}>{t(TranslationKey.From)}</span>
-              <input type="number" value={searchFrom} className={classNames.inpunt} onChange={handleSearchFromChange} />
+          <div className={styles.inpunts}>
+            <div title={t(TranslationKey.From)} className={styles.inpuntContainer}>
+              <span className={styles.radioOptionDate}>{t(TranslationKey.From)}</span>
+              <input type="number" value={searchFrom} className={styles.inpunt} onChange={handleSearchFromChange} />
             </div>
 
-            <div title={t(TranslationKey.To)} className={classNames.inpuntContainer}>
-              <span className={classNames.radioOptionDate}>{t(TranslationKey.To)}</span>
-              <input type="number" value={searchTo} className={classNames.inpunt} onChange={handleSearchToChange} />
+            <div title={t(TranslationKey.To)} className={styles.inpuntContainer}>
+              <span className={styles.radioOptionDate}>{t(TranslationKey.To)}</span>
+              <input type="number" value={searchTo} className={styles.inpunt} onChange={handleSearchToChange} />
             </div>
           </div>
 
-          <div className={classNames.buttonsWrapper}>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+          <div className={styles.buttonsWrapper}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
             <Button
-              variant="contained"
               disabled={disableButton}
               onClick={e => {
                 onClose(e)
@@ -2229,13 +2242,14 @@ export const DateDetailsMenuItem = React.memo(
   ),
 )
 
-export const NumberFieldMenuItem = React.memo(
+export const NumberFieldMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
 
@@ -2243,18 +2257,15 @@ export const NumberFieldMenuItem = React.memo(
       onClickFilterBtn,
       asBlock = false,
     }) => {
+      const filterData = data?.filterData
+      const currentFilterData = data?.currentFilterData
+
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
       const [isNotFixedValue, setIsNotFixedValue] = useState(false)
-
-      useEffect(() => {
-        onClickFilterBtn(field)
-        setIsNotFixedValue(checkIsNotFixedValue(field))
-      }, [])
-
-      const { filterData, currentFilterData } = data
-
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
+      const [itemsForRender, setItemsForRender] = useState(filterData || [])
+      const [nameSearchValue, setNameSearchValue] = useState('')
 
       const onClickItem = str => {
         if (choosenItems.some(item => item === str)) {
@@ -2264,18 +2275,34 @@ export const NumberFieldMenuItem = React.memo(
         }
       }
 
+      const checkIsNotFixedValue = useCallback(() => {
+        return wholeIntegersList.includes(field)
+      }, [field])
+
+      const inputNumberCheckHandler = (value, isToType) => {
+        const isValidDigit = negativeOrPositiveList.includes(field)
+          ? checkIsPositiveOrNegativeDigit(value)
+          : checkIsPositiveNum(value)
+
+        if (isValidDigit) {
+          isToType ? setToValue(value) : setFromValue(value)
+        }
+      }
+
       useEffect(() => {
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
 
-      const [itemsForRender, setItemsForRender] = useState(filterData || [])
-      const [nameSearchValue, setNameSearchValue] = useState('')
+      useEffect(() => {
+        onClickFilterBtn(field, table)
+        setIsNotFixedValue(checkIsNotFixedValue(field))
+      }, [])
 
       useEffect(() => {
         setItemsForRender(
           filterData
-            .filter(el => el || el === 0 || el === '0')
-            .sort(
+            ?.filter(el => el || el === 0 || el === '0')
+            ?.sort(
               (a, b) =>
                 Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
                 Number(b) - Number(a),
@@ -2293,104 +2320,69 @@ export const NumberFieldMenuItem = React.memo(
         setItemsForRender(filter)
       }, [nameSearchValue, fromValue, toValue])
 
-      const checkIsNotFixedValue = useCallback(() => {
-        const whiteList = [
-          'amount',
-          'productionTerm',
-          'amountInOrders',
-          'stockUSA',
-          'purchaseQuantity',
-          'sentToFbaSum',
-          'reservedSum',
-          'bsr',
-          'fbaFbmStockSum',
-          'reservedSum',
-          'sentToFbaSum',
-          'sumStock',
-          'humanFriendlyId',
-          'ideasVerified',
-          'ideasClosed',
-          'ideasOnCheck',
-          'ideasOnCheck',
-          'ideasClosed',
-          'ideasFinished',
-          'fbaamount',
-          'id',
-          'reworkCounter',
-        ]
-        return whiteList.includes(field)
-      }, [field])
-
       return (
         <div
           title=""
-          className={cx({ [classNames.shopsDataWrapper]: !asBlock, [classNames.shopsDataWrapperBlocked]: asBlock })}
+          className={cx({ [styles.shopsDataWrapper]: !asBlock, [styles.shopsDataWrapperBlocked]: asBlock })}
         >
-          <div className={classNames.numInputsWrapper}>
+          <div className={styles.numInputsWrapper}>
             <Input
               title={t(TranslationKey.From)}
-              className={classNames.numInput}
-              classes={{ input: classNames.numInput }}
+              className={styles.numInput}
+              classes={{ input: styles.numInput }}
               placeholder={t(TranslationKey.From)}
               value={fromValue}
-              onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
+              onChange={e => inputNumberCheckHandler(e.target.value)}
             />
             <Input
               title={t(TranslationKey.To)}
-              className={classNames.numInput}
-              classes={{ input: classNames.numInput }}
+              className={styles.numInput}
+              classes={{ input: styles.numInput }}
               placeholder={t(TranslationKey.To)}
               value={toValue}
-              onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}
+              onChange={e => inputNumberCheckHandler(e.target.value, true)}
             />
           </div>
 
-          <div className={classNames.searchInputWrapper}>
+          <div className={styles.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
               onChange={e => {
                 setNameSearchValue(e.target.value)
               }}
             />
           </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+          <div className={styles.shopsWrapper}>
+            <div className={styles.shopsBody}>
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender
-                        // .filter(el => el)
-                        // .sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item === b)) -
-                        //       Number(choosenItems?.some(item => item === a)) || Number(b) - Number(a),
-                        // )
-                        ?.map((el, index) => {
-                          const value = isNotFixedValue ? el : toFixed(el, 2) || 0
-                          const valueChecked = choosenItems?.some(item => item === el)
+                      {itemsForRender?.map((el, index) => {
+                        const value = isNotFixedValue ? el : toFixed(el, 2) || 0
+                        const valueChecked = choosenItems?.some(item => item === el)
 
-                          return (
-                            <div key={index} className={classNames.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={value} className={classNames.shopName}>
-                                {value}
-                              </div>
+                        return (
+                          <div key={index} className={styles.shop}>
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <div title={value} className={styles.shopName}>
+                              {value}
                             </div>
-                          )
-                        })}
+                          </div>
+                        )
+                      })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
                     </Typography>
                   )}
@@ -2398,9 +2390,8 @@ export const NumberFieldMenuItem = React.memo(
               )}
             </div>
           </div>
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -2409,7 +2400,7 @@ export const NumberFieldMenuItem = React.memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -2420,13 +2411,14 @@ export const NumberFieldMenuItem = React.memo(
   ),
 )
 
-export const InStockMenuItem = React.memo(
+export const InStockMenuItem = memo(
   withStyles(
     ({
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onClickAccept,
       onChangeFullFieldMenuItem,
@@ -2436,7 +2428,7 @@ export const InStockMenuItem = React.memo(
       const [toValue, setToValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const newData = {
@@ -2502,15 +2494,15 @@ export const InStockMenuItem = React.memo(
       }, [nameSearchValue, fromValue, toValue, currentOption, choosenItems, data.filterData])
 
       return (
-        <div title="" className={classNames.shopsDataWrapper}>
+        <div title="" className={styles.shopsDataWrapper}>
           <div>
-            <FormControl className={classNames.formControl}>
-              <FormLabel title={t(TranslationKey['Search by'])} className={classNames.radioLable}>
+            <FormControl className={styles.formControl}>
+              <FormLabel title={t(TranslationKey['Search by'])} className={styles.radioLable}>
                 {t(TranslationKey['Search by']) + ':'}
               </FormLabel>
               <RadioGroup
                 row
-                className={classNames.radioGroupTwoItems}
+                className={styles.radioGroupTwoItems}
                 value={currentOption}
                 onChange={e => {
                   setCurrentOption(e.target.value)
@@ -2520,9 +2512,9 @@ export const InStockMenuItem = React.memo(
                 {storekepeers.map((el, index) => (
                   <FormControlLabel
                     key={index}
-                    className={classNames.radioOption}
+                    className={styles.radioOption}
                     value={el}
-                    control={<Radio className={classNames.radioControl} />}
+                    control={<Radio className={styles.radioControl} />}
                     label={el}
                   />
                 ))}
@@ -2530,42 +2522,42 @@ export const InStockMenuItem = React.memo(
             </FormControl>
           </div>
 
-          <div className={classNames.numInputsWrapper}>
+          <div className={styles.numInputsWrapper}>
             <Input
               title={t(TranslationKey.From)}
-              className={classNames.numInput}
-              classes={{ input: classNames.numInput }}
+              className={styles.numInput}
+              classes={{ input: styles.numInput }}
               placeholder={t(TranslationKey.From)}
               value={fromValue}
               onChange={e => checkIsPositiveNum(e.target.value) && setFromValue(e.target.value)}
             />
             <Input
               title={t(TranslationKey.To)}
-              className={classNames.numInput}
-              classes={{ input: classNames.numInput }}
+              className={styles.numInput}
+              classes={{ input: styles.numInput }}
               placeholder={t(TranslationKey.To)}
               value={toValue}
               onChange={e => checkIsPositiveNum(e.target.value) && setToValue(e.target.value)}
             />
           </div>
 
-          <div className={classNames.searchInputWrapper}>
+          <div className={styles.searchInputWrapper}>
             <SearchInput
               key={'client_warehouse_search_input'}
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
               onChange={e => {
                 setNameSearchValue(e.target.value)
               }}
             />
           </div>
-          <div className={classNames.shopsWrapper}>
-            <div className={classNames.shopsBody}>
-              {filterRequestStatus === loadingStatuses.isLoading ? (
+          <div className={styles.shopsWrapper}>
+            <div className={styles.shopsBody}>
+              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
-                  {itemsForRender.length ? (
+                  {itemsForRender?.length ? (
                     <>
                       <DataGridSelectAllFilters
                         choosenItems={choosenItems}
@@ -2585,9 +2577,9 @@ export const InStockMenuItem = React.memo(
                           const valueChecked = choosenItems?.some(item => item._id === el._id)
 
                           return (
-                            <div key={index} className={classNames.shop}>
+                            <div key={index} className={styles.shop}>
                               <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={el.amountInBoxes} className={classNames.shopName}>
+                              <div title={el.amountInBoxes} className={styles.shopName}>
                                 {value}
                               </div>
                             </div>
@@ -2595,7 +2587,7 @@ export const InStockMenuItem = React.memo(
                         })}
                     </>
                   ) : (
-                    <Typography title={t(TranslationKey['No options'])} className={classNames.noOptionText}>
+                    <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
                       {t(TranslationKey['No options'])}
                     </Typography>
                   )}
@@ -2603,9 +2595,8 @@ export const InStockMenuItem = React.memo(
               )}
             </div>
           </div>
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              variant="contained"
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, 'boxAmounts')
@@ -2614,7 +2605,7 @@ export const InStockMenuItem = React.memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}
             </Button>
           </div>
@@ -2625,13 +2616,14 @@ export const InStockMenuItem = React.memo(
   ),
 )
 
-export const RedFlagsCellMenuItem = React.memo(
+export const RedFlagsCellMenuItem = memo(
   withStyles(props => {
     const {
-      classes: classNames,
+      classes: styles,
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
       onClickAccept,
@@ -2643,14 +2635,15 @@ export const RedFlagsCellMenuItem = React.memo(
         addNullObj
         data={data}
         field={field}
+        table={table}
         filterRequestStatus={filterRequestStatus}
         columnKey={columnnsKeys}
         rowContent={obj => (
-          <div className={classNames.redFlagsCell}>
+          <div className={styles.redFlagsCell}>
             {obj.iconImage && (
-              <img src={getAmazonImageUrl(obj.iconImage)} alt={obj.title} className={classNames.redFlagIcon} />
+              <img src={getAmazonImageUrl(obj.iconImage)} alt={obj.title} className={styles.redFlagIcon} />
             )}
-            <div title={obj.title || t(TranslationKey.Empty)} className={classNames.shopName}>
+            <div title={obj.title || t(TranslationKey.Empty)} className={styles.shopName}>
               {obj.title || t(TranslationKey.Empty)}
             </div>
           </div>
@@ -2664,10 +2657,10 @@ export const RedFlagsCellMenuItem = React.memo(
   }, styles),
 )
 
-export const OnListingCellMenuItem = React.memo(
-  withStyles(({ classes: classNames, data, onClose }) => {
+export const OnListingCellMenuItem = memo(
+  withStyles(({ classes: styles, data, onClose }) => {
     // const {
-    //   classes: classNames,
+    //   classes: styles,
     //   onClose,
     //   data,
     //   field,
@@ -2679,10 +2672,10 @@ export const OnListingCellMenuItem = React.memo(
     // } = props;
 
     return (
-      <div title="" className={classNames.shopsDataWrapper}>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
-            <div className={classNames.shop}>
+      <div title="" className={styles.shopsDataWrapper}>
+        <div className={styles.shopsWrapper}>
+          <div className={styles.shopsBody}>
+            <div className={styles.shop}>
               <Checkbox
                 color="primary"
                 checked={data.onListingFiltersData.onListing}
@@ -2698,7 +2691,7 @@ export const OnListingCellMenuItem = React.memo(
               <Typography title={t(TranslationKey.Yes)}>{t(TranslationKey.Yes)}</Typography>
             </div>
 
-            <div className={classNames.shop}>
+            <div className={styles.shop}>
               <Checkbox
                 color="primary"
                 checked={data.onListingFiltersData.notOnListing}
@@ -2715,9 +2708,8 @@ export const OnListingCellMenuItem = React.memo(
             </div>
           </div>
         </div>
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               onClose(e)
             }}
@@ -2730,8 +2722,8 @@ export const OnListingCellMenuItem = React.memo(
   }, styles),
 )
 
-export const YesNoCellMenuItem = React.memo(
-  withStyles(({ classes: classNames, data, onClose, field }) => {
+export const YesNoCellMenuItem = memo(
+  withStyles(({ classes: styles, data, onClose, field, yesCustomText, noCustomText }) => {
     const filterData = data[`${field}YesNoFilterData`]
     const [condition, setCondition] = useState({
       yes: filterData.yes,
@@ -2739,10 +2731,10 @@ export const YesNoCellMenuItem = React.memo(
     })
 
     return (
-      <div title="" className={classNames.shopsDataWrapper}>
-        <div className={classNames.shopsWrapper}>
-          <div className={classNames.shopsBody}>
-            <div className={classNames.shop}>
+      <div title="" className={styles.shopsDataWrapper}>
+        <div className={styles.shopsWrapper}>
+          <div className={styles.shopsBody}>
+            <div className={styles.shop}>
               <Checkbox
                 color="primary"
                 checked={condition.yes}
@@ -2761,10 +2753,10 @@ export const YesNoCellMenuItem = React.memo(
                 }}
               />
 
-              <Typography title={t(TranslationKey.Yes)}>{t(TranslationKey.Yes)}</Typography>
+              <Typography title={yesCustomText}>{yesCustomText}</Typography>
             </div>
 
-            <div className={classNames.shop}>
+            <div className={styles.shop}>
               <Checkbox
                 color="primary"
                 checked={condition.no}
@@ -2783,13 +2775,12 @@ export const YesNoCellMenuItem = React.memo(
                 }}
               />
 
-              <Typography title={t(TranslationKey.No)}>{t(TranslationKey.No)}</Typography>
+              <Typography title={noCustomText}>{noCustomText}</Typography>
             </div>
           </div>
         </div>
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               filterData.handleFilters(condition.yes, condition.no)
               onClose(e)
@@ -2818,10 +2809,10 @@ const batchShippingDateTabs = [
   },
 ]
 
-export const BatchShippingDateCellMenuItem = React.memo(
+export const BatchShippingDateCellMenuItem = memo(
   withStyles(props => {
     const {
-      classes: classNames,
+      classes: styles,
       data,
       field,
       filterRequestStatus,
@@ -2842,10 +2833,10 @@ export const BatchShippingDateCellMenuItem = React.memo(
         field={currentTab}
         filterRequestStatus={filterRequestStatus}
         headerControls={() => (
-          <FormControl className={classNames.formControl}>
+          <FormControl className={styles.formControl}>
             <RadioGroup
               row
-              className={cx(classNames.radioGroup, classNames.formedRadioGroup)}
+              className={cx(styles.radioGroup, styles.formedRadioGroup)}
               value={currentTab}
               onChange={(event, value) => setCurrentTab(value)}
             >
@@ -2853,9 +2844,9 @@ export const BatchShippingDateCellMenuItem = React.memo(
                 <FormControlLabel
                   key={index}
                   title={el.label}
-                  className={classNames.radioOption}
+                  className={styles.radioOption}
                   value={el.value}
-                  control={<Radio className={classNames.radioControl} />}
+                  control={<Radio className={styles.radioControl} />}
                   label={el.label}
                 />
               ))}
@@ -2882,10 +2873,10 @@ const batchTrackingTabs = [
   },
 ]
 
-export const BatchTrackingCellMenuItem = React.memo(
+export const BatchTrackingCellMenuItem = memo(
   withStyles(props => {
     const {
-      classes: classNames,
+      classes: styles,
       data,
       field,
       filterRequestStatus,
@@ -2896,33 +2887,27 @@ export const BatchTrackingCellMenuItem = React.memo(
     } = props
     const [currentTab, setCurrentTab] = useState(field)
 
-    useEffect(() => {
-      onClickFilterBtn(currentTab)
-    }, [currentTab])
-
     return (
-      <div title="" className={classNames.shopsDataWrapper}>
-        <div>
-          <FormControl className={classNames.formControl}>
-            <RadioGroup
-              row
-              className={cx(classNames.radioGroupTwoItems)}
-              value={currentTab}
-              onChange={event => setCurrentTab(event.target.value)}
-            >
-              {batchTrackingTabs.map((el, index) => (
-                <FormControlLabel
-                  key={index}
-                  title={el.label}
-                  className={classNames.radioOption}
-                  value={el.value}
-                  control={<Radio className={classNames.radioControl} />}
-                  label={el.label}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
-        </div>
+      <div>
+        <FormControl className={cx(styles.formControl, styles.batchTrackingFormWrapper)}>
+          <RadioGroup
+            row
+            className={cx(styles.radioGroupTwoItems)}
+            value={currentTab}
+            onChange={event => setCurrentTab(event.target.value)}
+          >
+            {batchTrackingTabs.map((el, index) => (
+              <FormControlLabel
+                key={index}
+                title={el.label}
+                className={styles.radioOption}
+                value={el.value}
+                control={<Radio className={styles.radioControl} />}
+                label={el.label}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
 
         {currentTab === batchTrackingTabs[0].value && (
           <NormalFieldMenuItem
@@ -2953,7 +2938,7 @@ export const BatchTrackingCellMenuItem = React.memo(
   }, styles),
 )
 
-export const NumberWithTabsMenuItem = React.memo(
+export const NumberWithTabsMenuItem = memo(
   withStyles(
     ({
       classes: styles,
@@ -3023,7 +3008,7 @@ const toPayCellTabs = [
   },
 ]
 
-export const ToPayCellMenuItem = React.memo(
+export const ToPayCellMenuItem = memo(
   withStyles(
     ({
       classes: styles,
@@ -3071,7 +3056,7 @@ export const ToPayCellMenuItem = React.memo(
   ),
 )
 
-export const SecondsCellMenuItem = React.memo(
+export const SecondsCellMenuItem = memo(
   withStyles((props, context) => {
     const {
       classes: styles,
@@ -3085,7 +3070,8 @@ export const SecondsCellMenuItem = React.memo(
       onClickFilterBtn,
     } = props
 
-    const { filterData, currentFilterData } = data
+    const filterData = data?.filterData
+    const currentFilterData = data?.currentFilterData
 
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
@@ -3102,8 +3088,8 @@ export const SecondsCellMenuItem = React.memo(
     useEffect(() => {
       setItemsForRender(
         filterData
-          .filter(el => el || el === 0 || el === '0')
-          .sort(
+          ?.filter(el => el || el === 0 || el === '0')
+          ?.sort(
             (a, b) =>
               Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)) ||
               Number(b) - Number(a),
@@ -3123,11 +3109,11 @@ export const SecondsCellMenuItem = React.memo(
       <div title="" className={styles.shopsDataWrapper}>
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
-            {filterRequestStatus === loadingStatuses.isLoading ? (
+            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
-                {itemsForRender.length ? (
+                {itemsForRender?.length ? (
                   <>
                     <DataGridSelectAllFilters
                       choosenItems={choosenItems}
@@ -3154,7 +3140,6 @@ export const SecondsCellMenuItem = React.memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button
-            variant="contained"
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -3163,7 +3148,7 @@ export const SecondsCellMenuItem = React.memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant="text" className={styles.cancelBtn} onClick={onClose}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

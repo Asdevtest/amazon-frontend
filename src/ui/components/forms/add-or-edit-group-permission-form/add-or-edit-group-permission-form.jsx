@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, Input, MenuItem, Select, Tooltip, Typography } from '@mui/material'
@@ -10,20 +10,20 @@ import ListSubheader from '@mui/material/ListSubheader'
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-group-permission-form.style'
+import { useStyles } from './add-or-edit-group-permission-form.style'
 
 import { AddOrEditSinglePermissionForm } from '../add-or-edit-single-permission-form'
 
 export const AddOrEditGroupPermissionForm = observer(
   ({ onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions, existingGroupPermissions }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const objectSinglePermissions = singlePermissions.reduce(
       (prev, item) => ({ ...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item] }),
@@ -133,17 +133,17 @@ export const AddOrEditGroupPermissionForm = observer(
     const renderMenuItem = per => (
       <MenuItem key={per._id} value={per._id}>
         <Checkbox checked={formFields.permissions.includes(per._id)} />
-        <ListItemText className={classNames.standartText} primary={`${per.title}`} />
+        <ListItemText className={styles.standartText} primary={`${per.title}`} />
       </MenuItem>
     )
 
     return (
-      <div className={classNames.root}>
-        <Typography variant="h5" className={classNames.mainTitle}>
+      <div className={styles.root}>
+        <Typography variant="h5" className={styles.mainTitle}>
           {isEdit ? t(TranslationKey['Change permissions group']) : t(TranslationKey['New Permission Group'])}
         </Typography>
 
-        <div className={classNames.form}>
+        <div className={styles.form}>
           <Field
             label={t(TranslationKey.Role)}
             error={
@@ -154,7 +154,7 @@ export const AddOrEditGroupPermissionForm = observer(
               <Select
                 variant="filled"
                 value={formFields.role}
-                className={classNames.standartText}
+                className={styles.standartText}
                 input={<Input fullWidth />}
                 onChange={onChangeField('role')}
               >
@@ -193,7 +193,7 @@ export const AddOrEditGroupPermissionForm = observer(
             multiline
             minRows={4}
             maxRows={4}
-            className={classNames.descriptionField}
+            className={styles.descriptionField}
             label={t(TranslationKey.Description)}
             placeholder={t(TranslationKey.Description) + '...'}
             value={formFields.description}
@@ -208,33 +208,31 @@ export const AddOrEditGroupPermissionForm = observer(
           />
 
           <Field
-            containerClasses={classNames.field}
+            containerClasses={styles.field}
             label={t(TranslationKey.Permissions)}
             error={
               isWrongPermissionsSelect &&
               t(TranslationKey['The selected permissions and the current role do not match!'])
             }
             inputComponent={
-              <div className={classNames.allowPermissions}>
+              <div className={styles.allowPermissions}>
                 <div>
-                  <Typography className={classNames.permissionsSubTitle}>
+                  <Typography className={styles.permissionsSubTitle}>
                     {t(TranslationKey['Existing permissions:'])}
                   </Typography>
 
                   {curPermissions.map((el, index) => (
                     <Tooltip key={index} title={renderPermissionInfo(el)}>
-                      <Typography className={classNames.singlePermission}>{`${el.title}`}</Typography>
+                      <Typography className={styles.singlePermission}>{`${el.title}`}</Typography>
                     </Tooltip>
                   ))}
 
-                  <div className={classNames.selectWrapper}>
-                    <Typography className={classNames.selectChoose}>
-                      {t(TranslationKey['Select available:'])}
-                    </Typography>
+                  <div className={styles.selectWrapper}>
+                    <Typography className={styles.selectChoose}>{t(TranslationKey['Select available:'])}</Typography>
                     <Select
                       multiple
                       open={openSinglePermissions}
-                      className={classNames.permissionSelect}
+                      className={styles.permissionSelect}
                       value={formFields.permissions}
                       renderValue={() => t(TranslationKey.Choose)}
                       MenuProps={{
@@ -249,19 +247,19 @@ export const AddOrEditGroupPermissionForm = observer(
                       onChange={handleSelectPermissionChange}
                     >
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] && (
-                        <ListSubheader className={classNames.listSubheader}>{UserRole.ADMIN}</ListSubheader>
+                        <ListSubheader className={styles.listSubheader}>{UserRole.ADMIN}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.ADMIN]].map(per => renderMenuItem(per))}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] && (
-                        <ListSubheader className={classNames.listSubheader}>{UserRole.CLIENT}</ListSubheader>
+                        <ListSubheader className={styles.listSubheader}>{UserRole.CLIENT}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.CLIENT]].map(per => renderMenuItem(per))}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] && (
-                        <ListSubheader className={classNames.listSubheader}>{UserRole.SUPERVISOR}</ListSubheader>
+                        <ListSubheader className={styles.listSubheader}>{UserRole.SUPERVISOR}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.SUPERVISOR]].map(per =>
@@ -269,7 +267,7 @@ export const AddOrEditGroupPermissionForm = observer(
                         )}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] && (
-                        <ListSubheader className={classNames.listSubheader}>{UserRole.RESEARCHER}</ListSubheader>
+                        <ListSubheader className={styles.listSubheader}>{UserRole.RESEARCHER}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.RESEARCHER]].map(per =>
@@ -277,13 +275,13 @@ export const AddOrEditGroupPermissionForm = observer(
                         )}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] && (
-                        <ListSubheader className={classNames.listSubheader}>{UserRole.BUYER}</ListSubheader>
+                        <ListSubheader className={styles.listSubheader}>{UserRole.BUYER}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.BUYER]].map(per => renderMenuItem(per))}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] && (
-                        <ListSubheader className={classNames.listSubheader}>{UserRole.STOREKEEPER}</ListSubheader>
+                        <ListSubheader className={styles.listSubheader}>{UserRole.STOREKEEPER}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.STOREKEEPER]].map(per =>
@@ -291,17 +289,15 @@ export const AddOrEditGroupPermissionForm = observer(
                         )}
 
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]] && (
-                        <ListSubheader className={classNames.listSubheader}>{UserRole.FREELANCER}</ListSubheader>
+                        <ListSubheader className={styles.listSubheader}>{UserRole.FREELANCER}</ListSubheader>
                       )}
                       {objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]] &&
                         objectSinglePermissions[mapUserRoleEnumToKey[UserRole.FREELANCER]].map(per =>
                           renderMenuItem(per),
                         )}
-                      <div className={classNames.selectModalBtnsWrapper}>
+                      <div className={styles.selectModalBtnsWrapper}>
                         <Button
-                          className={classNames.button}
-                          color="primary"
-                          variant="contained"
+                          className={styles.button}
                           onClick={() => setOpenSinglePermissions(!openSinglePermissions)}
                         >
                           {t(TranslationKey.Close)}
@@ -309,9 +305,7 @@ export const AddOrEditGroupPermissionForm = observer(
 
                         <Button
                           disabled={!curPermissions.length}
-                          className={[classNames.button, classNames.resetBtn]}
-                          color="primary"
-                          variant="default"
+                          className={[styles.button, styles.resetBtn]}
                           onClick={() => onChangeField('permissions')({ target: { value: [] } })}
                         >
                           {t(TranslationKey.reset)}
@@ -322,14 +316,14 @@ export const AddOrEditGroupPermissionForm = observer(
                 </div>
 
                 <div>
-                  <Typography className={classNames.permissionsSubTitle}>
+                  <Typography className={styles.permissionsSubTitle}>
                     {t(TranslationKey['Permissions will be created:'])}
                   </Typography>
 
                   {newSinglePermission.map((el, index) => (
                     <Tooltip key={index} title={renderPermissionInfo(el)}>
-                      <div className={classNames.newSinglePermissionWrapper}>
-                        <Typography className={classNames.singlePermission}>{`${el.title} (ключ: ${el.key}) (роль: ${
+                      <div className={styles.newSinglePermissionWrapper}>
+                        <Typography className={styles.singlePermission}>{`${el.title} (ключ: ${el.key}) (роль: ${
                           UserRoleCodeMap[el.role]
                         })`}</Typography>
 
@@ -342,8 +336,6 @@ export const AddOrEditGroupPermissionForm = observer(
 
                   <Button
                     disableElevation
-                    color="primary"
-                    variant="contained"
                     onClick={() => setShowAddOrEditSinglePermissionModal(!showAddOrEditSinglePermissionModal)}
                   >
                     {t(TranslationKey['Create New'])}
@@ -354,24 +346,15 @@ export const AddOrEditGroupPermissionForm = observer(
           />
         </div>
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
-            disableElevation
             disabled={disableSubmitBtn}
-            color="primary"
-            variant="contained"
             onClick={() => onSubmit(formFields, newSinglePermission, permissionToEdit._id)}
           >
             {isEdit ? t(TranslationKey['Edit a group']) : t(TranslationKey['Create a group'])}
           </Button>
 
-          <Button
-            disableElevation
-            className={classNames.button}
-            color="primary"
-            variant="contained"
-            onClick={() => onCloseModal()}
-          >
+          <Button className={styles.button} onClick={() => onCloseModal()}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

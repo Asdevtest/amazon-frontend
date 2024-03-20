@@ -1,18 +1,20 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   userInfoWrapper: {
     marginBottom: theme.spacing(5),
-
     padding: '40px 50px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-
     boxShadow: '0px 2px 8px 2px rgba(0, 0, 0, 0.05)',
   },
+
   userInfoLeftWrapper: {
     display: 'flex',
     gap: '25px',
   },
+
   cardImg: {
     width: '145px',
     height: '145px',
@@ -29,7 +31,6 @@ export const styles = theme => ({
     width: '156px',
     display: 'flex',
     justifyContent: 'center',
-    gap: '15px',
     whiteSpace: 'nowrap',
   },
 
@@ -42,8 +43,8 @@ export const styles = theme => ({
   },
 
   icon: {
-    width: 15,
-    height: 15,
+    width: '16px !important',
+    height: '16px !important',
   },
 
   withdrawBtn: {
@@ -55,4 +56,4 @@ export const styles = theme => ({
     alignItems: 'center',
     gap: 20,
   },
-})
+}))

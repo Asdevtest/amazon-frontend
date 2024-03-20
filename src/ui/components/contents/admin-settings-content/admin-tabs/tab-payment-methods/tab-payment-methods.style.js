@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     width: 620,
     display: 'flex',
@@ -106,7 +106,9 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'pointer',
   },
 
-  actionIcon: { position: 'relative' },
+  actionIcon: {
+    position: 'relative',
+  },
 
   paymentMethodLabel: {
     maxWidth: 66,
@@ -164,13 +166,5 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
-  },
-
-  button: {
-    minWidth: '123px !important',
-  },
-
-  buttonAdd: {
-    minWidth: '112px !important',
   },
 }))

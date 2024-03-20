@@ -1,5 +1,4 @@
-/* eslint-disable import/no-unresolved */
-import { IDestinationVariationApproximateCalculations } from '../../typings/destination'
+import { IDestinationVariationApproximateCalculations } from '@typings/shared/destinations'
 
 export const getGroupDataByDestinationId = (
   destinationVariations: Array<IDestinationVariationApproximateCalculations>,

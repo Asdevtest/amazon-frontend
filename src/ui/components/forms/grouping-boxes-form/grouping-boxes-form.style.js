@@ -105,7 +105,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   newBoxesWrapper: {
-    marginTop: 40,
+    marginTop: 41,
     display: 'flex',
     flexDirection: 'column',
     width: '100%',

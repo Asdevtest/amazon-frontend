@@ -4,11 +4,11 @@ import { FC, memo } from 'react'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { IStorekeeper } from '@typings/storekeeper'
+import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 
 import { useStyles } from './action-buttons.style'
 
@@ -25,6 +25,7 @@ interface ActionButtonsProps {
   onClickGroupingBtn: () => void
   onClickReturnBoxesToStockBtn: () => void
   onClickCurrentTariffsBtn: () => void
+  onClickWarehouseOrderButton: () => void
 }
 
 export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
@@ -42,6 +43,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
     onClickCurrentTariffsBtn,
     onClickRequestToSendBatch,
     onClickReturnBoxesToStockBtn,
+    onClickWarehouseOrderButton,
   } = props
 
   const disable = selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
@@ -89,6 +91,10 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
           onClick={onClickReturnBoxesToStockBtn}
         >
           {t(TranslationKey['Return to stock'])}
+        </Button>
+
+        <Button disabled={selectedBoxes.length !== 1} onClick={onClickWarehouseOrderButton}>
+          {t(TranslationKey['Warehouse and orders'])}
         </Button>
       </div>
 

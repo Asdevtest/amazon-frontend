@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   ChangeChipCell,
   ChangeInputCell,
+  DeadlineCell,
   FormedCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -13,14 +14,15 @@ import {
   OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
+  RedFlagsCell,
   ShortBoxDimensionsCell,
   WarehouseDestinationAndTariffCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
-import { formatDate, formatNormDateTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign, trimBarcode } from '@utils/text'
+import { formatNormDateTime } from '@utils/date-time'
+import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientBoxesViewColumns = (
@@ -145,34 +147,30 @@ export const clientBoxesViewColumns = (
 
     width: 300,
     renderCell: params => {
-      return params.row.originalData ? (
-        params.row.originalData?.items.length > 1 ? (
-          <OrderManyItemsCell
-            box={params.row.originalData}
-            error={
-              !findTariffInStorekeepersData(
-                getStorekeepersData(),
-                params.row.originalData.storekeeper?._id,
-                params.row.originalData.logicsTariff?._id,
-              ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-            }
-          />
-        ) : (
-          <OrderCell
-            box={params.row.originalData}
-            product={params.row.originalData?.items[0]?.product}
-            superbox={params.row.originalData?.amount > 1 && params.row.originalData?.amount}
-            error={
-              !findTariffInStorekeepersData(
-                getStorekeepersData(),
-                params.row.originalData?.storekeeper?._id,
-                params.row.originalData?.logicsTariff?._id,
-              ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-            }
-          />
-        )
+      return params.row.originalData?.items.length > 1 ? (
+        <OrderManyItemsCell
+          box={params.row.originalData}
+          error={
+            !findTariffInStorekeepersData(
+              getStorekeepersData(),
+              params.row.originalData.storekeeper?._id,
+              params.row.originalData.logicsTariff?._id,
+            ) && t(TranslationKey['The tariff is invalid or has been removed!'])
+          }
+        />
       ) : (
-        ''
+        <OrderCell
+          box={params.row.originalData}
+          product={params.row.originalData?.items[0]?.product}
+          superbox={params.row.originalData?.amount > 1 && params.row.originalData?.amount}
+          error={
+            !findTariffInStorekeepersData(
+              getStorekeepersData(),
+              params.row.originalData?.storekeeper?._id,
+              params.row.originalData?.logicsTariff?._id,
+            ) && t(TranslationKey['The tariff is invalid or has been removed!'])
+          }
+        />
       )
     },
     valueGetter: params =>
@@ -228,7 +226,7 @@ export const clientBoxesViewColumns = (
     renderCell: params =>
       params.row.originalData ? <MultilineTextCell text={params.value * params.row.originalData?.amount} /> : '',
     type: 'number',
-    width: 90,
+    width: 95,
     sortable: false,
 
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -291,25 +289,17 @@ export const clientBoxesViewColumns = (
 
   {
     field: 'deadline',
-    headerName: 'Deadline',
+    headerName: t(TranslationKey.Deadline),
     renderHeader: params => (
       <MultilineTextHeaderCell
-        text={'Deadline'}
+        text={t(TranslationKey.Deadline)}
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
         isFilterActive={getColumnMenuSettings()?.Deadline?.currentFilterData?.length}
       />
     ),
-
-    renderCell: params => (
-      <MultilineTextCell
-        withLineBreaks
-        tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-        color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-        text={params.value ? formatDate(params.value) : ''}
-      />
-    ),
+    renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
     valueFormatter: params => (params.value ? formatNormDateTime(params.value) : ''),
-    width: 120,
+    width: 100,
   },
 
   {
@@ -402,27 +392,30 @@ export const clientBoxesViewColumns = (
   {
     field: 'prepId',
     headerName: 'PREP ID',
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={'PREP ID'}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+    renderHeader: () => <MultilineTextHeaderCell text={'PREP ID'} />,
+
+    renderCell: params => (
+      <ChangeInputCell
+        isString
+        maxLength={25}
+        rowId={params.row.originalData._id}
+        text={params.value}
+        onClickSubmit={handlers.onClickSavePrepId}
       />
     ),
-
-    renderCell: params => {
-      return (
-        <ChangeInputCell
-          maxLength={25}
-          rowId={params.row.originalData._id}
-          text={params.value}
-          onClickSubmit={handlers.onClickSavePrepId}
-        />
-      )
-    },
     width: 240,
 
     columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderCell: params => <RedFlagsCell flags={params.row?.originalData?.items?.[0]?.product?.redFlags} />,
+    valueGetter: ({ row }) => row?.originalData?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
+    width: 130,
+    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
   {

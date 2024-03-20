@@ -1,15 +1,17 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { styles } from './buyer-ideas-notifications-view.style'
 
@@ -17,20 +19,20 @@ import { BuyerIdeasNotificationsViewModel } from './buyer-ideas-notifications-vi
 
 export const BuyerIdeasNotificationsViewRaw = props => {
   const [viewModel] = useState(() => new BuyerIdeasNotificationsViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <Button variant="outlined" className={classNames.archiveHandler} onClick={viewModel.handleArchive}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.archiveHandler} onClick={viewModel.handleArchive}>
           {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
         </Button>
 
-        <div className={classNames.tableWrapper}>
+        <div className={styles.tableWrapper}>
           <CustomDataGrid
             useResizeContainer
             localeText={getLocalizationByLanguageTag()}
@@ -54,17 +56,17 @@ export const BuyerIdeasNotificationsViewRaw = props => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

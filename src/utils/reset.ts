@@ -11,9 +11,9 @@ export const resetAccessTokenByTime = (
   if (!currentAccessToken) return
 
   const decoded = jwtDecode(currentAccessToken)
-  const currentTimeInSeconds = Math.floor(Date.now() / 1000)
   const expValue = decoded.exp || 0
-  const delayInSeconds = expValue - currentTimeInSeconds
+  const iatValue = decoded.iat || 0
+  const delayInSeconds = expValue - iatValue
 
   setTimeout(async () => {
     const userModelData = SettingsModel.loadValue('UserModel')

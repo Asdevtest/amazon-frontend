@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
 
@@ -9,7 +9,7 @@ interface TaskPriorityCellProps {
   disabled?: boolean
 }
 
-export const TaskPriorityCell: FC<TaskPriorityCellProps> = React.memo(props => {
+export const TaskPriorityCell: FC<TaskPriorityCellProps> = memo(props => {
   const { curPriority, onChangePriority, taskId, disabled } = props
 
   return (

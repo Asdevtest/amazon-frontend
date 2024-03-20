@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import Checkbox from '@mui/material/Checkbox'
 
@@ -8,7 +8,7 @@ import { getGroupDataByDestinationId } from '@utils/array'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IDestinationVariationApproximateCalculations } from '@typings/destination'
+import { IDestinationVariationApproximateCalculations } from '@typings/shared/destinations'
 
 import { useStyles } from './destination-variations-spanning-cell.style'
 
@@ -22,7 +22,7 @@ interface DestinationVariationsSpanningCellProps {
   isRemovedDestinationRestriction?: boolean
 }
 
-export const DestinationVariationsSpanningCell: FC<DestinationVariationsSpanningCellProps> = React.memo(props => {
+export const DestinationVariationsSpanningCell: FC<DestinationVariationsSpanningCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const {

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { toFixedWithDollarSign } from '@utils/text'
 
@@ -10,7 +10,7 @@ interface ToFixedWithDollarSignCellProps {
   leftAlign?: boolean
 }
 
-export const ToFixedWithDollarSignCell: FC<ToFixedWithDollarSignCellProps> = React.memo(({ value, fix, leftAlign }) => {
+export const ToFixedWithDollarSignCell: FC<ToFixedWithDollarSignCellProps> = memo(({ value, fix, leftAlign }) => {
   const { classes: styles, cx } = useStyles()
 
   return (

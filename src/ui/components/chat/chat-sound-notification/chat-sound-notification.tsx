@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { SoundOffIcon, SoundOnIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './chat-sound-notification.styles'
+import { useStyles } from './chat-sound-notification.style'
 
 interface Props {
   isMuteChat: boolean
@@ -10,13 +10,13 @@ interface Props {
 }
 
 export const ChatSoundNotification: FC<Props> = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const { isMuteChat, onToggleMuteChat } = props
 
   return isMuteChat ? (
-    <SoundOffIcon className={classNames.soundOffIcon} onClick={onToggleMuteChat} />
+    <SoundOffIcon className={styles.soundOffIcon} onClick={onToggleMuteChat} />
   ) : (
-    <SoundOnIcon className={classNames.soundOnIcon} onClick={onToggleMuteChat} />
+    <SoundOnIcon className={styles.soundOnIcon} onClick={onToggleMuteChat} />
   )
 }

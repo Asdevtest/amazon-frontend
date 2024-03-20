@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   orderContainer: {
     width: '100%',
   },
@@ -53,17 +53,24 @@ export const useClassNames = makeStyles()(theme => ({
 
   commentsWrapper: {
     marginTop: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   commentsTitle: {
     color: theme.palette.text.general,
     fontSize: '16px',
-    fontWeight: '400',
     lineHeight: '19px',
-    marginBottom: '20px',
   },
 
   textField: {
     marginBottom: '40px',
+  },
+
+  editorWrapper: {
+    minHeight: '150px !important',
+    maxHeight: '150px !important',
+    width: 480,
   },
 }))

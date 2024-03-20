@@ -27,7 +27,7 @@ import { AnotherProfileViewModel } from './another-user-profile-view.model'
 
 export const AnotherUserProfileViewRaw = props => {
   const [viewModel] = useState(() => new AnotherProfileViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -37,9 +37,9 @@ export const AnotherUserProfileViewRaw = props => {
     <>
       <div>
         {!viewModel.user &&
-          (viewModel.requestStatus === loadingStatuses.success ||
-            viewModel.requestStatus === loadingStatuses.failed) && (
-            <Typography variant="h4" className={classNames.noDataText}>
+          (viewModel.requestStatus === loadingStatuses.SUCCESS ||
+            viewModel.requestStatus === loadingStatuses.FAILED) && (
+            <Typography variant="h4" className={styles.noDataText}>
               {t(TranslationKey['No data']) + '...'}
             </Typography>
           )}
@@ -65,7 +65,7 @@ export const AnotherUserProfileViewRaw = props => {
           mapUserRoleEnumToKey[UserRole.BUYER],
         ].includes(viewModel.user.role) ? (
           <>
-            <Typography variant="h6" className={classNames.title}>
+            <Typography variant="h6" className={styles.title}>
               {t(TranslationKey['Active offers on the commodity exchange'])}
             </Typography>
 
@@ -92,10 +92,10 @@ export const AnotherUserProfileViewRaw = props => {
               }}
               density={viewModel.densityModel}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
               onSortModelChange={viewModel.onChangeSortingModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onChangePaginationModelChange}
+              onPaginationModelChange={viewModel.onPaginationModelChange}
               onFilterModelChange={viewModel.onChangeFilterModel}
             />
           </>
@@ -130,40 +130,46 @@ export const AnotherUserProfileViewRaw = props => {
         />
       </Modal>
 
-      <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        title={viewModel.confirmModalSettings.confirmTitle}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel.showWarningModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        title={viewModel.showWarningModalText}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
-      />
+      {viewModel.showWarningModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showWarningModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+          title={viewModel.showWarningModalText}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        />
+      ) : null}
 
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={t(TranslationKey['Order successfully created!'])}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={t(TranslationKey['Order successfully created!'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
-      {viewModel.showConfirmWorkResultFormModal && (
+      {viewModel.showConfirmWorkResultFormModal ? (
         <RequestProposalAcceptOrRejectResultForm
+          // @ts-ignore
           openModal={viewModel.showConfirmWorkResultFormModal}
           title={t(TranslationKey['Leave a review'])}
           rateLabel={t(TranslationKey['Rate the user'])}
@@ -173,7 +179,7 @@ export const AnotherUserProfileViewRaw = props => {
           onSubmit={viewModel.onAcceptReview}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
-      )}
+      ) : null}
     </>
   )
 }

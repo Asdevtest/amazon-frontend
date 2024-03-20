@@ -35,6 +35,10 @@ export class IntegrationsModel {
   columnsModel = productIntegrationsColumns()
   columnVisibilityModel = {}
 
+  get currentData() {
+    return this.sellerBoardData
+  }
+
   constructor({ history, productId }) {
     this.history = history
 
@@ -69,14 +73,14 @@ export class IntegrationsModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await Promise.all([this.getProductById(), this.getProductsWithSkuById()])
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -103,7 +107,7 @@ export class IntegrationsModel {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
       runInAction(() => {
-        this.sellerBoardDailyData = addIdDataConverter(result)
+        this.sellerBoardDailyData = addIdDataConverter(result?.rows)
       })
     } catch (error) {
       console.log(error)
@@ -165,7 +169,7 @@ export class IntegrationsModel {
     }
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

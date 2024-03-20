@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   checkIsAbsoluteUrl,
   checkIsAdmin,
@@ -22,7 +21,6 @@ import {
   isNotUndefined,
   isNull,
   isUndefined,
-  validateEmail,
 } from '@utils/checks'
 
 describe('Test isNotUndefined(value)', () => {

@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { useStyles } from './trash-cell.style'
 
@@ -10,7 +10,7 @@ interface TrashCellProps {
   onClick: () => void
 }
 
-export const TrashCell: FC<TrashCellProps> = React.memo(({ onClick, tooltipText, isFirstRow }) => {
+export const TrashCell: FC<TrashCellProps> = memo(({ onClick, tooltipText, isFirstRow }) => {
   const { classes: styles } = useStyles()
 
   return (

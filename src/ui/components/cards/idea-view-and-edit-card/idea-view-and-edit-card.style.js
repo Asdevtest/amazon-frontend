@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -76,13 +76,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   labelWithMargin: {
     marginBottom: '10px',
-  },
-
-  photoCarouselWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 343,
   },
 
   photoWrapper: {
@@ -409,7 +402,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    // width: '247px',
 
     gap: 10,
   },
@@ -537,5 +529,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   approximateCalculationButton: {
     width: '100%',
+  },
+
+  gallery: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 }))

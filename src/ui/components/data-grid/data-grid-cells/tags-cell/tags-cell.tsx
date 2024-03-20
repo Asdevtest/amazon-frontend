@@ -1,34 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
 
 import { MAX_LENGTH_TITLE } from '@constants/text'
 
+import { IItemWithTitle } from '@hooks/use-select'
+
 import { useStyles } from './tags-cell.style'
 
 interface TagsCellProps {
-  tags: string[]
+  tags: IItemWithTitle[]
+  onClickTag: (tag: IItemWithTitle) => void
 }
 
-export const TagsCell: FC<TagsCellProps> = React.memo(({ tags }) => {
-  const { classes: styles } = useStyles()
+export const TagsCell: FC<TagsCellProps> = memo(({ tags, onClickTag }) => {
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.tags}>
-      {tags?.map((el: any, index: number) => {
+      {tags?.map((el, index: number) => {
         const createTagText = `#${el.title}`
         const isValidTextLength = createTagText?.length <= MAX_LENGTH_TITLE
 
         return (
-          <React.Fragment key={el._id}>
+          <button key={el._id} onClick={() => onClickTag?.(el)}>
             <Tooltip title={!isValidTextLength ? createTagText : ''}>
-              <p className={styles.tagItem}>
+              <p className={cx(styles.tagItem, { [styles.activeButton]: !!onClickTag })}>
                 {createTagText}
                 {index !== tags.length - 1 && ', '}
               </p>
             </Tooltip>
-          </React.Fragment>
+          </button>
         )
       })}
     </div>

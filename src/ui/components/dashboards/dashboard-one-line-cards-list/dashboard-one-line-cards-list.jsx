@@ -1,21 +1,17 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { CircularProgress, Typography } from '@mui/material'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
-import { useClassNames } from '@components/dashboards/dashboard-one-line-cards-list/dashboard-one-line-cards-list.style'
-import { Button } from '@components/shared/buttons/button'
+import { useStyles } from '@components/dashboards/dashboard-one-line-cards-list/dashboard-one-line-cards-list.style'
 import { InventoryIcon } from '@components/shared/svg-icons'
 
-import { t } from '@utils/translations'
+export const DashboardOneLineCardsList = props => {
+  const { config, valuesData, onClickViewMore } = props
 
-export const DashboardOneLineCardsList = ({ config, valuesData, onClickViewMore, onClickAddProduct, isClient }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
+
   const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -26,21 +22,15 @@ export const DashboardOneLineCardsList = ({ config, valuesData, onClickViewMore,
   }, [window.innerWidth])
 
   return (
-    <div className={classNames.cardListWrapper}>
-      <div className={classNames.cardHeaderWrapper}>
+    <div className={styles.cardListWrapper}>
+      <div className={styles.cardHeaderWrapper}>
         <div>
-          <Typography className={classNames.cardListTitle}>{config.title}</Typography>
-          <Typography className={classNames.cardListSubTitle}>{config.subTitle}</Typography>
+          <Typography className={styles.cardListTitle}>{config.title}</Typography>
+          <Typography className={styles.cardListSubTitle}>{config.subTitle}</Typography>
         </div>
-        {isClient ? (
-          <Button success className={classNames.addButton} onClick={() => onClickAddProduct(config.route)}>
-            <img src="/assets/icons/white-plus.svg" className={classNames.iconBtn} />
-            {t(TranslationKey['Add product'])}
-          </Button>
-        ) : null}
       </div>
 
-      <div className={classNames.cardsWrapper}>
+      <div className={styles.cardsWrapper}>
         <Swiper
           navigation={config.items.length > 4 || window.innerWidth > 768}
           slidesPerView={
@@ -48,24 +38,24 @@ export const DashboardOneLineCardsList = ({ config, valuesData, onClickViewMore,
           }
           spaceBetween={40}
           modules={[Navigation]}
-          className={classNames.swiper}
+          className={styles.swiper}
         >
           {config.items.map(item => (
             <SwiperSlide key={item.dataKey}>
               <div
-                className={cx(classNames.cardWrapper, {
-                  [classNames.cardErrorWrapper]: item.isNegative,
+                className={cx(styles.cardWrapper, {
+                  [styles.cardErrorWrapper]: item.isNegative,
                 })}
                 onClick={() => onClickViewMore(item.route, item.dataGridFilter)}
               >
-                <InventoryIcon classes={{ root: classNames.icon }} />
-                <div className={classNames.cardSubWrapper}>
-                  <Typography className={classNames.cardSubTitle}>{item.title}</Typography>
+                <InventoryIcon classes={{ root: styles.icon }} />
+                <div className={styles.cardSubWrapper}>
+                  <Typography className={styles.cardSubTitle}>{item.title}</Typography>
 
                   {valuesData[item.dataKey] === 0 || valuesData[item.dataKey] === '-' || !valuesData[item.dataKey] ? (
-                    <Typography className={classNames.cardValueTitle}>{0}</Typography>
+                    <Typography className={styles.cardValueTitle}>{0}</Typography>
                   ) : valuesData[item.dataKey] ? (
-                    <Typography className={classNames.cardValueTitle}>{valuesData[item.dataKey]}</Typography>
+                    <Typography className={styles.cardValueTitle}>{valuesData[item.dataKey]}</Typography>
                   ) : (
                     <CircularProgress color="primary" thickness={2} />
                   )}

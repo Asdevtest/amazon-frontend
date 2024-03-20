@@ -1,4 +1,4 @@
-export const tableProductViewMode = {
-  EXTENDED: 'EXTENDED',
-  ABBREVIATED: 'ABBREVIATED',
+export enum tableProductViewMode {
+  EXTENDED = 'EXTENDED',
+  ABBREVIATED = 'ABBREVIATED',
 }

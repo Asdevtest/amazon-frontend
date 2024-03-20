@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/* eslint-disable prettier/prettier */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -16,12 +12,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
@@ -32,7 +28,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IDestination, IDestinationStorekeeper } from '@typings/destination'
+import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -56,7 +52,7 @@ interface BoxProps {
   onChangeField: (value: any, field: string, guid: string) => void
 }
 
-export const Box: FC<BoxProps> = React.memo(props => {
+export const Box: FC<BoxProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
     showCheckbox,
@@ -152,7 +148,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
               <div key={orderIndex} className={styles.order}>
                 <img className={styles.img} src={getAmazonImageUrl(order.product.images[0])} />
                 <div>
-                  <AsinOrSkuLink withCopyValue withAttributeTitle={'asin'} asin={order.product.asin} />
+                  <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order.product.asin} />
 
                   <p className={styles.title}>{getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}</p>
                 </div>
@@ -170,7 +166,7 @@ export const Box: FC<BoxProps> = React.memo(props => {
               </div>
               {isMasterBox ? (
                 <p className={styles.subTitle}>{`${t(TranslationKey['Units in a box'])} ${box.items[0].amount}`}</p>
-              ) : undefined}
+              ) : null}
             </div>
           ))}
           {showFullCard ? (
@@ -363,17 +359,20 @@ export const Box: FC<BoxProps> = React.memo(props => {
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => setShowConfirmModal(false)}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings?.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-        onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => setShowConfirmModal(false)}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+        />
+      ) : null}
     </div>
   )
 })

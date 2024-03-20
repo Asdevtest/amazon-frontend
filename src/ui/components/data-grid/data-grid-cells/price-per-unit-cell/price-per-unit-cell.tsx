@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { toFixedWithDollarSign } from '@utils/text'
 
@@ -9,14 +9,14 @@ interface PricePerUnitCellProps {
   item: any
 }
 
-export const PricePerUnitCell: FC<PricePerUnitCellProps> = React.memo(({ item }) => {
+export const PricePerUnitCell: FC<PricePerUnitCellProps> = memo(({ item }) => {
   const { classes: styles } = useStyles()
 
   return (
     <div className={styles.pricesWrapper}>
       {item.items.map((el: any, index: number) => (
         <p key={index} className={styles.multilineText}>
-          {toFixedWithDollarSign(el.order.totalPrice / el.order.amount, 2)}
+          {toFixedWithDollarSign(el.order?.totalPrice / el.order?.amount, 2)}
         </p>
       ))}
     </div>

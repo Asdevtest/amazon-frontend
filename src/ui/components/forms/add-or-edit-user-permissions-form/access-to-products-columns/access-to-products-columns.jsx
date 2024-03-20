@@ -1,6 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ProductAsinCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ProductAsinCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 

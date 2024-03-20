@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Link } from '@mui/material'
 
@@ -13,13 +13,13 @@ interface InStockCellProps {
   onClickInStock: (boxId: string, storekeeper: any) => void
 }
 
-export const InStockCell: FC<InStockCellProps> = React.memo(props => {
+export const InStockCell: FC<InStockCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { boxAmounts, boxId, onClickInStock } = props
 
   return (
     <div className={styles.inStockWrapper}>
-      {!!boxAmounts.length &&
+      {!!boxAmounts?.length &&
         boxAmounts
           ?.sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
           ?.map(el => (

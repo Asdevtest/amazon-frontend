@@ -1,8 +1,7 @@
-import React, { FC } from 'react'
+import { ChangeInputCommentCell } from '..'
+import { FC, memo } from 'react'
 
 import { useStyles } from './comment-users-cell.style'
-
-import { ChangeInputCommentCell } from '../data-grid-cells'
 
 interface CommentUsersCellProps {
   handler: (id: string, comment?: string) => void
@@ -10,7 +9,7 @@ interface CommentUsersCellProps {
   maxLength?: number
 }
 
-export const CommentUsersCell: FC<CommentUsersCellProps> = React.memo(({ handler, comment, maxLength }) => {
+export const CommentUsersCell: FC<CommentUsersCellProps> = memo(({ handler, comment, maxLength }) => {
   const { classes: styles } = useStyles()
 
   return (

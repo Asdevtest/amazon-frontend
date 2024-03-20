@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-export const styles = theme => ({
+export const styles = () => ({
   technicalBtn: {
     padding: '0 20px',
     marginBottom: 30,

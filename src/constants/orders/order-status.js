@@ -87,6 +87,8 @@ export const OrderStatusTranslate = (status, isClient) => {
       return t(TranslationKey['Partially paid'])
     case OrderStatus.SHIPPED:
       return t(TranslationKey.Shipped)
+    default:
+      return TranslationKey['No status']
   }
 }
 
@@ -261,14 +263,8 @@ export const OrderStatusText = ({ className, status, isClient }) => {
     }
   }
 
-  const colorStatus = colorByStatus()
-
   return (
-    <Text
-      tooltipInfoContent={t(TranslationKey['Current order status'])}
-      className={className}
-      style={{ color: colorStatus }}
-    >
+    <Text tooltipInfoContent={t(TranslationKey['Current order status'])} className={className} color={colorByStatus()}>
       {OrderStatusTranslate(status, isClient)}
     </Text>
   )

@@ -11,7 +11,7 @@ import { TabPanel } from '@components/shared/tab-panel'
 import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './product-wrapper.style'
+import { useStyles } from './product-wrapper.style'
 
 import { Freelance } from '../freelance-tab-view'
 import { Integrations } from '../integrations'
@@ -52,7 +52,6 @@ export const ProductWrapper = memo(
     imagesForLoad,
     showProgress,
     progressValue,
-    alertFailedText,
     product,
     productVariations,
     navigateToProduct,
@@ -61,11 +60,7 @@ export const ProductWrapper = memo(
     productBase,
     userRole,
     modal,
-    handleSupplierButtons,
-    selectedSupplier,
     formFieldsValidationErrors,
-    platformSettings,
-    onClickSupplier,
     onClickSetProductStatusBtn,
     onChangeField,
     actionStatus,
@@ -83,8 +78,11 @@ export const ProductWrapper = memo(
     onClickNextButton,
     loadMorePermissionsDataHadler,
     onClickSubmitSearch,
+    onClickSaveSupplierBtn,
+    onSaveForceProductData,
+    onRemoveSupplier,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
 
@@ -99,7 +97,7 @@ export const ProductWrapper = memo(
     return (
       <>
         {SettingsModel.languageTag && (
-          <div className={classNames.mainWrapper}>
+          <div className={styles.mainWrapper}>
             <CustomSwitcher
               fullWidth
               switchMode="medium"
@@ -144,13 +142,11 @@ export const ProductWrapper = memo(
             <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
                 languageTag={SettingsModel.languageTag}
-                platformSettings={platformSettings}
                 modal={modal}
                 user={user}
                 imagesForLoad={imagesForLoad}
                 showProgress={showProgress}
                 progressValue={progressValue}
-                alertFailedText={alertFailedText}
                 curUserRole={curUserRole}
                 product={product}
                 productVariations={productVariations}
@@ -158,7 +154,6 @@ export const ProductWrapper = memo(
                 unbindProductHandler={unbindProductHandler}
                 shops={shops}
                 productBase={productBase}
-                selectedSupplier={selectedSupplier}
                 actionStatus={actionStatus}
                 acceptMessage={acceptMessage}
                 showAcceptMessage={showAcceptMessage}
@@ -173,11 +168,12 @@ export const ProductWrapper = memo(
                 onClickGetProductsToBind={onClickGetProductsToBind}
                 onChangeField={onChangeField}
                 onClickSetProductStatusBtn={onClickSetProductStatusBtn}
-                onClickSupplierBtns={handleSupplierButtons}
-                onClickSupplier={onClickSupplier}
                 onClickParseProductData={onClickParseProductData}
                 onChangeImagesForLoad={onChangeImagesForLoad}
                 onClickHsCode={onClickHsCode}
+                onClickSaveSupplierBtn={onClickSaveSupplierBtn}
+                onSaveForceProductData={onSaveForceProductData}
+                onRemoveSupplier={onRemoveSupplier}
               />
               {!checkIsResearcher(curUserRole) && (
                 <BottomCard
@@ -199,12 +195,8 @@ export const ProductWrapper = memo(
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
-              <Integrations modal={modal} productId={product._id} />
+              <Integrations userRole={curUserRole} modal={modal} productId={product._id} />
             </TabPanel>
-
-            {/* <TabPanel value={tabIndex} index={tabsValues.LISTING}>
-        <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
-      </TabPanel> */}
 
             <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
               <Freelance modal={modal} productId={product._id} />

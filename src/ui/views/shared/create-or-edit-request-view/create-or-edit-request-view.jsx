@@ -1,13 +1,15 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { t } from '@utils/translations'
 
@@ -15,15 +17,9 @@ import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.model'
 
-export const CreateOrEditRequestView = observer(props => {
+export const CreateOrEditRequestView = observer(({ history }) => {
   const mainContentRef = useRef()
-  const [viewModel] = useState(
-    () =>
-      new CreateOrEditRequestViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+  const [viewModel] = useState(() => new CreateOrEditRequestViewModel({ history }))
   const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   useEffect(() => {
@@ -32,61 +28,74 @@ export const CreateOrEditRequestView = observer(props => {
   }, [])
 
   return (
-    <React.Fragment>
-      <div ref={mainContentRef}>
-        <CreateOrEditRequestContent
-          mainContentRef={mainContentRef}
-          executor={viewModel.executor}
-          choosenAnnouncements={viewModel.choosenAnnouncements}
-          permissionsData={useProductsPermissions.permissionsData}
-          masterUsersData={viewModel.masterUsersData}
-          announcements={viewModel.announcements}
-          platformSettingsData={viewModel.platformSettingsData}
-          progressValue={viewModel.progressValue}
-          showProgress={viewModel.showProgress}
-          requestToEdit={viewModel.requestToEdit}
-          history={props.history}
-          checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
-          createRequestForIdeaData={viewModel.createRequestForIdeaData}
-          getMasterUsersData={viewModel.getMasterUsersData}
-          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
-          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
-          onClickExistingRequest={viewModel.onClickExistingRequest}
-          onCreateSubmit={viewModel.onSubmitCreateRequest}
-          onEditSubmit={viewModel.onSubmitEditRequest}
-          onClickChoosePerformer={viewModel.onClickChoosePerformer}
-          onClickThumbnail={viewModel.onClickThumbnail}
-        />
+    <>
+      <div ref={mainContentRef} style={{ height: '100%' }}>
+        {viewModel.requestStatus === loadingStatuses.IS_LOADING ? (
+          <CircularProgressWithLabel />
+        ) : (
+          <CreateOrEditRequestContent
+            mainContentRef={mainContentRef}
+            specs={viewModel.specs}
+            executor={viewModel.executor}
+            choosenAnnouncements={viewModel.choosenAnnouncements}
+            permissionsData={useProductsPermissions.permissionsData}
+            masterUsersData={viewModel.masterUsersData}
+            announcements={viewModel.announcements}
+            platformSettingsData={viewModel.platformSettingsData}
+            progressValue={viewModel.progressValue}
+            showProgress={viewModel.showProgress}
+            requestToEdit={viewModel.requestToEdit}
+            showGalleryModal={viewModel.showGalleryModal}
+            productMedia={viewModel.productMedia}
+            checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
+            createRequestForIdeaData={viewModel.createRequestForIdeaData}
+            getMasterUsersData={viewModel.getMasterUsersData}
+            loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+            onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
+            onClickExistingRequest={viewModel.onClickExistingRequest}
+            onCreateSubmit={viewModel.onSubmitCreateRequest}
+            onEditSubmit={viewModel.onSubmitEditRequest}
+            onClickChoosePerformer={viewModel.onClickChoosePerformer}
+            onClickThumbnail={viewModel.onClickThumbnail}
+            onClickAddMediaFromProduct={viewModel.onClickAddMediaFromProduct}
+            onTriggerGalleryModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
+          />
+        )}
       </div>
 
-      {viewModel.showImageModal && (
-        <ImageModal
-          showPreviews
+      {viewModel.showImageModal ? (
+        <SlideshowGalleryModal
           files={viewModel.bigImagesOptions.images}
-          handleCurrentFileIndex={index =>
+          currentFileIndex={viewModel.bigImagesOptions.imgIndex}
+          openModal={viewModel.showImageModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+          onCurrentFileIndex={index =>
             viewModel.setBigImagesOptions({
               ...viewModel.bigImagesOptions,
               imgIndex: index,
             })
           }
-          currentFileIndex={viewModel.bigImagesOptions.imgIndex}
-          isOpenModal={viewModel.showImageModal}
-          handleOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
         />
-      )}
+      ) : null}
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.message}
-        smallMessage={viewModel.confirmModalSettings.smallMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
-        onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
-      />
-    </React.Fragment>
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => {
+            viewModel.onTriggerOpenModal('showConfirmModal')
+            viewModel.goBack()
+          }}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          smallMessage={viewModel.confirmModalSettings.smallMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+        />
+      ) : null}
+    </>
   )
 })

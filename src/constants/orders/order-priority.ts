@@ -1,4 +1,4 @@
-export const orderPriority = {
-  urgentPriority: 40,
-  normalPriority: 30,
+export enum OrderPriority {
+  URGENT_PRIORITY = 40,
+  NORMAL_PRIORITY = 30,
 }

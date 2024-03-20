@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
@@ -18,26 +18,21 @@ import { BuyerSearchSupplierForIdeaModel } from './buyer-search-supplier-for-ide
 
 export const BuyerSearchSupplierForIdeaViewRaw = props => {
   const [viewModel] = useState(() => new BuyerSearchSupplierForIdeaModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.btnsWrapper}>
-          <Button
-            color="primary"
-            variant="contained"
-            disabled={viewModel.selectedRowIds.length === 0}
-            onClick={viewModel.onPickupSomeItems}
-          >
+        <div className={styles.btnsWrapper}>
+          <Button disabled={viewModel.selectedRowIds.length === 0} onClick={viewModel.onPickupSomeItems}>
             {t(TranslationKey['Take on the work of the selected'])}
           </Button>
         </div>
-        <div className={classNames.datagridWrapper}>
+        <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
@@ -60,24 +55,25 @@ export const BuyerSearchSupplierForIdeaViewRaw = props => {
             rows={viewModel.getCurrentData()}
             rowHeight={100}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
           />
         </div>
       </div>
 
-      <WarningInfoModal
-        openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-        title={t(TranslationKey['Taken to Work'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showInfoModal')
-        }}
-      />
-    </React.Fragment>
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+          title={t(TranslationKey['Taken to Work'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        />
+      ) : null}
+    </>
   )
 }
 

@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { OrderCell, OrderManyItemsCell, SuperboxQtyCell } from '..'
+import { FC, memo } from 'react'
 
 import { useStyles } from './order-boxes-cell.style'
-
-import { OrderCell, OrderManyItemsCell, SuperboxQtyCell } from '../data-grid-cells'
 
 interface OrderBoxesCellProps {
   superbox: number
@@ -15,7 +14,7 @@ interface OrderBoxesCellProps {
   withQuantity?: boolean
 }
 
-export const OrderBoxesCell: FC<OrderBoxesCellProps> = React.memo(props => {
+export const OrderBoxesCell: FC<OrderBoxesCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { superbox, superboxQty, qty, box, product, withoutSku, withQuantity } = props
 

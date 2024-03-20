@@ -1,18 +1,18 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { formatDateMonthYearWithoutFormatISO } from '@utils/date-time'
 
-import { useClassNames } from './shop-wrapper.style'
+import { useStyles } from './shop-wrapper.style'
 
 import { BarChartsCard } from './bar-charts-card/bar-charts-card'
 import { BottomCard } from './bottom-card'
 import { TopCard } from './top-card'
 
 export const ShopWrapper = observer(({ userInfo, shopInfo, onClickEditBtn }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const [updatedShopInfo, setUpdatedShopInfo] = useState(shopInfo)
 
   useEffect(() => {
@@ -20,9 +20,9 @@ export const ShopWrapper = observer(({ userInfo, shopInfo, onClickEditBtn }) => 
   }, [SettingsModel.languageTag])
 
   return (
-    <div className={classNames.shopWrapper}>
+    <div className={styles.shopWrapper}>
       <TopCard userInfo={userInfo} data={updatedShopInfo} onClickEditBtn={onClickEditBtn} />
-      <div className={classNames.chartsWrapper}>
+      <div className={styles.chartsWrapper}>
         <BarChartsCard
           isRevenue
           data={updatedShopInfo.statistics

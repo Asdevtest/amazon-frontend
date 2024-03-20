@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -26,7 +26,7 @@ interface NewBoxesProps {
   setDestinationsFavouritesItem: any
 }
 
-export const NewBoxes: FC<NewBoxesProps> = React.memo(props => {
+export const NewBoxes: FC<NewBoxesProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
     showCheckbox,

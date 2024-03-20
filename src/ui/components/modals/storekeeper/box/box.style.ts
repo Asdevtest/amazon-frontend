@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 527,
     backgroundColor: theme.palette.background.second,
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
-    borderRadius: '4px',
+    borderRadius: '7px',
     padding: '20px 17px',
   },
 
@@ -77,7 +77,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   storekeeperDisableBtn: {
-    borderRadius: '4px',
     padding: '6px 7px',
     backgroundColor: theme.palette.input.customDisabled,
   },
@@ -105,7 +104,7 @@ export const useStyles = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
-    borderRadius: '8px',
+    borderRadius: '7px',
     width: 230,
     height: '40px',
   },
@@ -161,7 +160,6 @@ export const useStyles = makeStyles()(theme => ({
 
   editBtnYellow: {
     border: '2px solid #F5CF00',
-    borderRadius: 4,
   },
 
   incomingBtnWrapper: {

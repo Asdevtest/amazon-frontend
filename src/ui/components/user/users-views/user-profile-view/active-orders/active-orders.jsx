@@ -1,22 +1,19 @@
-import { cx } from '@emotion/css'
-import React from 'react'
-
 import { Paper, Tab, Table, TableBody, TableContainer, TableHead, Tabs, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './active-orders.style'
+import { useStyles } from './active-orders.style'
 
 import { ExchangeProductItem } from './exchange-product-item'
 
 export const ActiveOrders = ({ tabExchange, setTabExchange, productList, handlerClickButtonPrivateLabel }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const renderProductList =
     productList.length === 0 ? (
-      <Typography className={(classNames.text, classNames.noActiveOffers)}>
+      <Typography className={(styles.text, styles.noActiveOffers)}>
         {t(TranslationKey['No active offers found'])}
       </Typography>
     ) : (
@@ -38,8 +35,8 @@ export const ActiveOrders = ({ tabExchange, setTabExchange, productList, handler
     )
 
   return (
-    <React.Fragment>
-      <Typography variant="h6" className={classNames.mainTitle}>
+    <>
+      <Typography variant="h6" className={styles.mainTitle}>
         {t(TranslationKey['Active offers on the commodity exchange'])}
       </Typography>
       <Paper>
@@ -47,23 +44,23 @@ export const ActiveOrders = ({ tabExchange, setTabExchange, productList, handler
           value={tabExchange}
           aria-label="label tabs"
           classes={{
-            flexContainer: classNames.tabsHeadContainer,
-            indicator: classNames.tabsIndicator,
+            flexContainer: styles.tabsHeadContainer,
+            indicator: styles.tabsIndicator,
           }}
           onChange={(e, newValue) => setTabExchange(newValue)}
         >
           <Tab
-            className={cx(classNames.text, {
-              [classNames.selected]: tabExchange === 0,
+            className={cx(styles.text, {
+              [styles.selected]: tabExchange === 0,
             })}
             index={0}
             label={t(TranslationKey['Buy products from this user'])}
           />
         </Tabs>
-        <div className={classNames.tabContent} role="tabpanel" hidden={tabExchange !== 0}>
-          <div className={classNames.offersWrapper}>{renderProductList}</div>
+        <div className={styles.tabContent} role="tabpanel" hidden={tabExchange !== 0}>
+          <div className={styles.offersWrapper}>{renderProductList}</div>
         </div>
       </Paper>
-    </React.Fragment>
+    </>
   )
 }

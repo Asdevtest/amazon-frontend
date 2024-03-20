@@ -5,11 +5,12 @@ import { IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
 import { PlusIcon } from '@components/shared/svg-icons'
 
+import { checkIsValidBoxSize } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { shortAsin, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -18,6 +19,8 @@ import { useStyles } from './table-row.style'
 
 export const TableBodyBoxRow = memo(({ item, handlers }) => {
   const { classes: styles, cx } = useStyles()
+
+  const buttonTextWithCounter = `${t(TranslationKey.Photos)} ${item.tmpImages.length || ''}`
 
   return (
     <TableRow className={styles.row}>
@@ -35,7 +38,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
                   {el?.product?.asin ? (
                     <a
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noreferrer noopener"
                       href={`https://www.amazon.com/dp/${el?.product?.asin}`}
                       className={styles.normalizeLink}
                     >
@@ -97,7 +100,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
+                  [styles.error]: checkIsValidBoxSize(item.lengthCmWarehouse),
                 }),
                 input: styles.input,
               }}
@@ -112,7 +115,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
+                  [styles.error]: checkIsValidBoxSize(item.widthCmWarehouse),
                 }),
                 input: styles.input,
               }}
@@ -126,7 +129,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
-                  [styles.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
+                  [styles.error]: checkIsValidBoxSize(item.heightCmWarehouse),
                 }),
                 input: styles.input,
               }}
@@ -167,9 +170,10 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
           value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
         />
       </TableCell>
-
       <TableCell>
-        <Button onClick={() => handlers.onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
+        <Button className={styles.photosButton} onClick={() => handlers.onAddImages(item._id)}>
+          {buttonTextWithCounter}
+        </Button>
       </TableCell>
 
       <TableCell>

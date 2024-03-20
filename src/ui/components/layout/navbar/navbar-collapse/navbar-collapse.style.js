@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   listItemText: {
-    marginRight: 5,
+    marginRight: 25,
     fontSize: 13,
     fontWeight: 500,
   },
@@ -17,7 +17,8 @@ export const useStyles = makeStyles()(theme => ({
 
   badgeContainer: {
     display: 'flex',
-    width: '56px',
+    maxWidth: 56,
+    minWidth: 56,
     paddingLeft: '5px',
     justifyContent: 'center',
     alignItems: 'center',

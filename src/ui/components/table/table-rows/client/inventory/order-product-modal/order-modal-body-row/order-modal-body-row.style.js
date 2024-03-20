@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   img: {
     height: '64px',
     width: '64px',
@@ -9,15 +9,6 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '0 16px',
     objectFit: 'contain',
     objectPosition: 'center',
-  },
-
-  asinCell: {
-    padding: '12px 0px',
-    height: '88px',
-    scope: 'row',
-  },
-  asinCellContainer: {
-    display: 'inline-flex',
   },
 
   barcodeChip: {
@@ -54,13 +45,8 @@ export const useClassNames = makeStyles()(theme => ({
     color: 'red',
   },
 
-  storekeeperBtn: {
-    width: '100%',
-    height: '32px',
-  },
-
   datePickerWrapper: {
-    width: 150,
+    width: '100%',
   },
 
   commentInput: {
@@ -89,7 +75,23 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   standartText: {
-    color: `${theme.palette.text.general} !important`,
+    color: theme.palette.text.general,
+  },
+
+  button: {
+    height: '40px',
+    width: '130px',
+    flexDirection: 'column',
+    margin: '0px',
+
+    p: {
+      fontSize: 12,
+      color: 'currentcolor',
+      width: '100%',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
   },
 
   row: {
@@ -150,7 +152,9 @@ export const useClassNames = makeStyles()(theme => ({
   cell: {
     padding: '0 5px',
   },
-
+  deleteCell: {
+    padding: '0',
+  },
   error: {
     lineHeight: 0,
     fontSize: 12,
@@ -167,7 +171,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   priceVariationsCell: {
-    minWidth: 130,
+    maxWidth: 130,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

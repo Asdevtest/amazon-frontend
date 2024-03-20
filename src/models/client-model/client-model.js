@@ -1,5 +1,3 @@
-// import axios from 'axios'
-// import {BACKEND_API_URL} from '@constants/env'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { filterNullValues } from '@utils/object'
@@ -29,7 +27,7 @@ class ClientModelStatic {
   }
 
   getProductsMyFilteredByShopIdWithPag = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagGet(filterNullValues(data))
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagV2Get(filterNullValues(data))
     return response.data
   }
 
@@ -209,13 +207,36 @@ class ClientModelStatic {
     return response.data
   }
 
-  updateShops = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsUpdateStoreDataPatch({ body: data })
+  updateShops = async (body, queue) => {
+    const response = await restApiService.clientApi.apiV1ClientsUpdateStoreDataPatch({ body, queue })
     return response.data
   }
 
   patchProductTransparency = async (guid, body) => {
     const response = await restApiService.clientApi.apiV1ClientsProductsGuidTransparencyPatch({ guid, body })
+    return response.data
+  }
+
+  getProductsInfoForOrders = async productIds => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsInfoForOrdersGet({ productIds })
+    return response.data
+  }
+
+  getProductById = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsDataGuidGet({ guid })
+    return response.data
+  }
+
+  getProductMediaById = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsMediaGuidGet({ guid })
+    return response.data
+  }
+
+  updateSeoFilesInProduct = async (guid, latestSeoFiles) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidUpdateSeoFilesPatch({
+      guid,
+      body: { latestSeoFiles },
+    })
     return response.data
   }
 }

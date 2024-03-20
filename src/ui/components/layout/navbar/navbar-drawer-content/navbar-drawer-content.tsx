@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { FC, memo, useEffect, useState } from 'react'
+import { FC, Fragment, memo, useEffect, useState } from 'react'
 
 import { List, Typography } from '@mui/material'
 
@@ -9,8 +8,6 @@ import { navBarActiveCategory } from '@constants/navigation/navbar-active-catego
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
-
-import { UserInfoSchema } from '@services/rest-api-service/codegen'
 
 import { NavbarCategory } from '@components/layout/navbar'
 import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
@@ -24,10 +21,10 @@ import { Feedback } from '@components/shared/svg-icons'
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { NavbarConfigTypes } from '@typings/navbar-config'
-import { IUser } from '@typings/user'
+import { IInfoCounters } from '@typings/shared/info-counters'
+import { NavbarConfigTypes } from '@typings/shared/navbar-config'
 
-import { useStyles } from './navbar-drawer-content.styles'
+import { useStyles } from './navbar-drawer-content.style'
 
 import { getCategoryBadge } from './navbar-drawer-content.helper'
 
@@ -37,7 +34,7 @@ interface NavbarDrawerContentProps {
   confirmModalSettings: NavbarModel['confirmModalSettings']
   alertShieldSettings: NavbarModel['alertShieldSettings']
   curNavbar: NavbarConfigTypes.RootObject
-  userInfo: UserInfoSchema
+  userInfo: IInfoCounters
   activeCategory: string
   unreadMessages: ChatMessageContract[]
   onClickVersion: NavbarModel['onClickVersion']
@@ -104,7 +101,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
       <List className={styles.categoriesWrapper}>
         {filteredCategories.map((category: NavbarConfigTypes.Route, index: number) =>
           category.checkHideBlock(userInfo) ? (
-            <React.Fragment key={index}>
+            <Fragment key={index}>
               <NavbarCategory
                 // @ts-ignore
                 classes=""
@@ -112,7 +109,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
                 shortNavbar={shortNavbar}
                 userInfo={userInfo}
                 category={category}
-                badge={getCategoryBadge(category, userInfo as unknown as IUser) || 0}
+                badge={getCategoryBadge(category, userInfo) || 0}
                 onToggleModal={onToggleModal}
               />
 
@@ -127,7 +124,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
                   userInfo={userInfo}
                 />
               )}
-            </React.Fragment>
+            </Fragment>
           ) : null,
         )}
       </List>
@@ -135,7 +132,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
       <div className={styles.bottomCategories}>
         {filteredBottomCategories.map((category: NavbarConfigTypes.Route, index: number) =>
           category.checkHideBlock(userInfo) ? (
-            <React.Fragment key={index}>
+            <Fragment key={index}>
               <NavbarCategory
                 // @ts-ignore
                 classes=""
@@ -146,7 +143,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
                 badge={category.route?.includes('/messages') && unreadMessages}
                 onToggleModal={onToggleModal}
               />
-            </React.Fragment>
+            </Fragment>
           ) : null,
         )}
 
@@ -168,35 +165,41 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
         </Typography>
       </div>
 
-      <FeedBackModal
-        openModal={showFeedbackModal}
-        setOpenModal={() => onTriggerOpenModal('showFeedbackModal')}
-        onSubmit={sendFeedbackAboutPlatform}
-        onClose={() => onTriggerOpenModal('showFeedbackModal')}
-      />
+      {showFeedbackModal ? (
+        <FeedBackModal
+          // @ts-ignore
+          openModal={showFeedbackModal}
+          onSubmit={sendFeedbackAboutPlatform}
+          onClose={() => onTriggerOpenModal('showFeedbackModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        isWarning={false}
-        openModal={showWarningModal}
-        setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-        title={t(TranslationKey['Your feedback has been sent and will be reviewed shortly'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          onTriggerOpenModal('showWarningModal')
-        }}
-      />
+      {showWarningModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={false}
+          openModal={showWarningModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+          title={t(TranslationKey['Your feedback has been sent and will be reviewed shortly'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => onTriggerOpenModal('showWarningModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        isWarning={confirmModalSettings?.isWarning}
-        title={confirmModalSettings.confirmTitle}
-        message={confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          isWarning={confirmModalSettings?.isWarning}
+          title={confirmModalSettings.confirmTitle}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
       {alertShieldSettings.alertShieldMessage && (
         <AlertShield

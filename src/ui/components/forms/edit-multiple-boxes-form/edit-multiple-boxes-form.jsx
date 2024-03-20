@@ -1,35 +1,35 @@
 /* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import DoneIcon from '@mui/icons-material/Done'
-import { Checkbox, Chip, Typography } from '@mui/material'
+import { Checkbox, Typography } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsStorekeeper } from '@utils/checks'
-import { trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
-import { useClassNames } from './edit-multiple-boxes-form.style'
+import { useStyles } from './edit-multiple-boxes-form.style'
 
 import { NewBoxes } from './new-boxes/new-boxes'
 
@@ -45,7 +45,7 @@ export const EditMultipleBoxesForm = observer(
     destinationsFavourites,
     setDestinationsFavouritesItem,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
@@ -177,7 +177,7 @@ export const EditMultipleBoxesForm = observer(
       }
     }
 
-    const setShippingLabel = () => value => {
+    const setShippingLabel = value => {
       onChangeSharedFields({ target: { value } }, 'tmpShippingLabel')
     }
 
@@ -360,25 +360,25 @@ export const EditMultipleBoxesForm = observer(
     const disabledApplyBtn = !visibleBoxes.length
 
     return (
-      <div className={classNames.root}>
-        <div className={classNames.modalTitleWrapper}>
-          <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing boxes'])}</Typography>
+      <div className={styles.root}>
+        <div className={styles.modalTitleWrapper}>
+          <Typography className={styles.modalTitle}>{t(TranslationKey['Editing boxes'])}</Typography>
           <BoxEdit />
         </div>
 
-        <div className={classNames.boxesWrapper}>
-          <div className={classNames.currentBox}>
-            <div className={classNames.currentBoxTitle}>
-              <Typography className={classNames.sectionTitle}>{t(TranslationKey['Shared options'])}</Typography>
+        <div className={styles.boxesWrapper}>
+          <div className={styles.currentBox}>
+            <div className={styles.currentBoxTitle}>
+              <Typography className={styles.sectionTitle}>{t(TranslationKey['Shared options'])}</Typography>
             </div>
 
-            <div className={classNames.sharedItemSubWrapper}>
+            <div className={styles.sharedItemSubWrapper}>
               <div>
                 <Field
-                  containerClasses={classNames.field}
+                  containerClasses={styles.field}
                   tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
                   label={t(TranslationKey.Destination)}
-                  labelClasses={classNames.label}
+                  labelClasses={styles.label}
                   inputComponent={
                     <WithSearchSelect
                       width={230}
@@ -403,8 +403,8 @@ export const EditMultipleBoxesForm = observer(
 
                 <Button
                   disabled={disabledApplyBtn}
-                  className={cx(classNames.applyButton, {
-                    [classNames.applyButtonClicked]: applyBtnsClicked.destinationId,
+                  className={cx(styles.applyButton, {
+                    [styles.applyButtonClicked]: applyBtnsClicked.destinationId,
                   })}
                   onClick={() => onApplySharedValuesToAllBoxes('destinationId')}
                 >
@@ -414,16 +414,13 @@ export const EditMultipleBoxesForm = observer(
 
               <div>
                 <Field
-                  containerClasses={classNames.field}
+                  containerClasses={styles.field}
                   tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
                   label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
-                  labelClasses={classNames.label}
+                  labelClasses={styles.label}
                   inputComponent={
                     <Button
-                      className={cx({
-                        [classNames.storekeeperBtn]: !sharedFields.logicsTariffId,
-                        [classNames.storekeeperBtnDefault]: sharedFields.logicsTariffId,
-                      })}
+                      className={styles.button}
                       onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                     >
                       {sharedFields.logicsTariffId
@@ -439,8 +436,8 @@ export const EditMultipleBoxesForm = observer(
 
                 <Button
                   disabled={disabledApplyBtn}
-                  className={cx(classNames.applyButton, {
-                    [classNames.applyButtonClicked]: applyBtnsClicked.logicsTariffId,
+                  className={cx(styles.applyButton, {
+                    [styles.applyButtonClicked]: applyBtnsClicked.logicsTariffId,
                   })}
                   onClick={() => onApplySharedValuesToAllBoxes('logicsTariffId')}
                 >
@@ -452,9 +449,9 @@ export const EditMultipleBoxesForm = observer(
                 <Field
                   inputProps={{ maxLength: 255 }}
                   tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-                  containerClasses={classNames.field}
-                  labelClasses={classNames.label}
-                  className={classNames.fieldInput}
+                  containerClasses={styles.field}
+                  labelClasses={styles.label}
+                  className={styles.fieldInput}
                   label={t(TranslationKey['FBA Shipment'])}
                   value={sharedFields.fbaShipment}
                   onChange={e => onChangeSharedFields(e, 'fbaShipment')}
@@ -462,8 +459,8 @@ export const EditMultipleBoxesForm = observer(
 
                 <Button
                   disabled={disabledApplyBtn}
-                  className={cx(classNames.applyButton, {
-                    [classNames.applyButtonClicked]: applyBtnsClicked.fbaShipment,
+                  className={cx(styles.applyButton, {
+                    [styles.applyButtonClicked]: applyBtnsClicked.fbaShipment,
                   })}
                   onClick={() => onApplySharedValuesToAllBoxes('fbaShipment')}
                 >
@@ -475,34 +472,21 @@ export const EditMultipleBoxesForm = observer(
                 <Field
                   label={t(TranslationKey['Shipping label']) + ':'}
                   tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
-                  labelClasses={classNames.label}
+                  labelClasses={styles.label}
                   inputComponent={
-                    <Chip
-                      classes={{
-                        root: classNames.barcodeChip,
-                        clickable: classNames.barcodeChipHover,
-                        deletable: classNames.barcodeChipHover,
-                        deleteIcon: classNames.barcodeChipIcon,
-                        label: classNames.barcodeChiplabel,
-                      }}
-                      className={cx({ [classNames.barcodeChipExists]: sharedFields.shippingLabel })}
-                      size="small"
-                      label={
-                        sharedFields.tmpShippingLabel?.length
-                          ? t(TranslationKey['File added'])
-                          : sharedFields.shippingLabel
-                          ? trimBarcode(sharedFields.shippingLabel)
-                          : t(TranslationKey['Set Shipping Label'])
-                      }
-                      onClick={() => onClickShippingLabel()}
-                      onDelete={!sharedFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                    <ChangeChipCell
+                      isChipOutTable
+                      text={!sharedFields.tmpShippingLabel?.length && t(TranslationKey['Set Shipping Label'])}
+                      value={sharedFields?.tmpShippingLabel?.[0]?.file?.name || sharedFields?.tmpShippingLabel?.[0]}
+                      onClickChip={onClickShippingLabel}
+                      onDeleteChip={!sharedFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
                     />
                   }
                 />
                 <Button
                   disabled={disabledApplyBtn}
-                  className={cx(classNames.applyButton, {
-                    [classNames.applyButtonClicked]: applyBtnsClicked.tmpShippingLabel,
+                  className={cx(styles.applyButton, {
+                    [styles.applyButtonClicked]: applyBtnsClicked.tmpShippingLabel,
                   })}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpShippingLabel')}
                 >
@@ -512,7 +496,7 @@ export const EditMultipleBoxesForm = observer(
 
               <div>
                 <Field
-                  labelClasses={classNames.label}
+                  labelClasses={styles.label}
                   label={t(TranslationKey.BarCode)}
                   inputComponent={
                     <ChangeChipCell
@@ -526,8 +510,8 @@ export const EditMultipleBoxesForm = observer(
                 />
                 <Button
                   disabled={disabledApplyBtn}
-                  className={cx(classNames.applyButton, {
-                    [classNames.applyButtonClicked]: applyBtnsClicked.tmpBarCode,
+                  className={cx(styles.applyButton, {
+                    [styles.applyButtonClicked]: applyBtnsClicked.tmpBarCode,
                   })}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpBarCode')}
                 >
@@ -537,7 +521,7 @@ export const EditMultipleBoxesForm = observer(
 
               <div>
                 <Field
-                  labelClasses={classNames.label}
+                  labelClasses={styles.label}
                   label={t(TranslationKey['Transparency codes'])}
                   inputComponent={
                     <ChangeChipCell
@@ -556,8 +540,8 @@ export const EditMultipleBoxesForm = observer(
                 />
                 <Button
                   disabled={disabledApplyBtn}
-                  className={cx(classNames.applyButton, {
-                    [classNames.applyButtonClicked]: applyBtnsClicked.tmpTransparencyFile,
+                  className={cx(styles.applyButton, {
+                    [styles.applyButtonClicked]: applyBtnsClicked.tmpTransparencyFile,
                   })}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
                 >
@@ -569,23 +553,23 @@ export const EditMultipleBoxesForm = observer(
                 <div>
                   <Field
                     oneLine
-                    labelClasses={classNames.label}
+                    labelClasses={styles.label}
                     label={t(TranslationKey['Shipping label was glued to the warehouse'])}
                     inputComponent={
-                      <div className={classNames.checkboxWrapper}>
+                      <div className={styles.checkboxWrapper}>
                         <Checkbox
                           color="primary"
                           checked={sharedFields.isShippingLabelAttachedByStorekeeper}
                           onChange={e => onChangeSharedFields(e, 'isShippingLabelAttachedByStorekeeper')}
                         />
-                        {/* <Typography className={classNames.checkboxLabel}>{t(TranslationKey.FBA)}</Typography> */}
+                        {/* <Typography className={styles.checkboxLabel}>{t(TranslationKey.FBA)}</Typography> */}
                       </div>
                     }
                   />
                   <Button
                     disabled={disabledApplyBtn}
-                    className={cx(classNames.applyButton, {
-                      [classNames.applyButtonClicked]: applyBtnsClicked.isShippingLabelAttachedByStorekeeper,
+                    className={cx(styles.applyButton, {
+                      [styles.applyButtonClicked]: applyBtnsClicked.isShippingLabelAttachedByStorekeeper,
                     })}
                     onClick={() => onApplySharedValuesToAllBoxes('isShippingLabelAttachedByStorekeeper')}
                   >
@@ -598,9 +582,9 @@ export const EditMultipleBoxesForm = observer(
                 <div>
                   <Field
                     oneLine
-                    labelClasses={classNames.label}
+                    labelClasses={styles.label}
                     tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
-                    containerClasses={classNames.checkboxContainer}
+                    containerClasses={styles.checkboxContainer}
                     label={t(TranslationKey['The barcode is glued by the supplier'])}
                     inputComponent={
                       <Checkbox
@@ -611,11 +595,11 @@ export const EditMultipleBoxesForm = observer(
                   />
                   <Field
                     oneLine
-                    labelClasses={classNames.label}
+                    labelClasses={styles.label}
                     tooltipInfoContent={t(
                       TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
                     )}
-                    containerClasses={classNames.checkboxContainer}
+                    containerClasses={styles.checkboxContainer}
                     label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
                     inputComponent={
                       <Checkbox
@@ -627,8 +611,8 @@ export const EditMultipleBoxesForm = observer(
 
                   <Field
                     oneLine
-                    labelClasses={classNames.label}
-                    containerClasses={classNames.checkboxContainer}
+                    labelClasses={styles.label}
+                    containerClasses={styles.checkboxContainer}
                     label={t(TranslationKey['Transparency codes glued by the supplier'])}
                     inputComponent={
                       <Checkbox
@@ -640,8 +624,8 @@ export const EditMultipleBoxesForm = observer(
 
                   <Field
                     oneLine
-                    labelClasses={classNames.label}
-                    containerClasses={classNames.checkboxContainer}
+                    labelClasses={styles.label}
+                    containerClasses={styles.checkboxContainer}
                     label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
                     inputComponent={
                       <Checkbox
@@ -653,8 +637,8 @@ export const EditMultipleBoxesForm = observer(
 
                   <Button
                     disabled={disabledApplyBtn}
-                    className={cx(classNames.applyButton, {
-                      [classNames.applyButtonClicked]: applyBtnsClicked.isBarcodeLabelAttached,
+                    className={cx(styles.applyButton, {
+                      [styles.applyButtonClicked]: applyBtnsClicked.isBarcodeLabelAttached,
                     })}
                     onClick={() => onApplySharedValuesToAllBoxes('isBarcodeLabelAttached')}
                   >
@@ -681,15 +665,15 @@ export const EditMultipleBoxesForm = observer(
           />
         </div>
 
-        <div className={classNames.buttonsWrapper}>
-          <Button disabled={disabledSubmitBtn} className={classNames.button} onClick={onClickSubmit}>
+        <div className={styles.buttonsWrapper}>
+          <Button disabled={disabledSubmitBtn} className={styles.button} onClick={onClickSubmit}>
             {t(TranslationKey.Edit)}
           </Button>
 
           <Button
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={cx(classNames.button, classNames.cancelButton)}
+            className={cx(styles.button, styles.cancelButton)}
             onClick={onCloseModal}
           >
             {t(TranslationKey.Cancel)}
@@ -704,7 +688,7 @@ export const EditMultipleBoxesForm = observer(
             tmpShippingLabel={sharedFields.tmpShippingLabel}
             item={sharedFields}
             onClickSaveShippingLabel={shippingLabel => {
-              setShippingLabel()(shippingLabel)
+              setShippingLabel(shippingLabel)
               setShowSetShippingLabelModal(!showSetShippingLabelModal)
             }}
             onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
@@ -735,7 +719,7 @@ export const EditMultipleBoxesForm = observer(
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             tmpCode={sharedFields?.tmpBarCode}
-            item={sharedFields}
+            barCode={sharedFields?.barCode}
             onClickSaveBarcode={data => onClickSaveBarcode(sharedFields)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
@@ -755,17 +739,20 @@ export const EditMultipleBoxesForm = observer(
           />
         </Modal>
 
-        <ConfirmationModal
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => setShowConfirmModal(false)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(false)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </div>
     )
   },

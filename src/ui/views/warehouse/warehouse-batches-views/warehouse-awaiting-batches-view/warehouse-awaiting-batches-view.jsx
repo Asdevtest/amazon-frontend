@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 
@@ -12,7 +11,7 @@ import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -21,13 +20,15 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './warehouse-awaiting-batches-view.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './warehouse-awaiting-batches-view.style'
 
 import { WarehouseAwaitingBatchesViewModel } from './warehouse-awaiting-batches-view.model'
 
-export const WarehouseAwaitingBatchesViewRaw = props => {
+export const WarehouseAwaitingBatchesView = observer(props => {
+  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel({ history: props.history }))
-  const { classes: classNames } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -41,10 +42,10 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
       .join(', ')
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.btnsWrapper}>
-          <div className={classNames.leftBtnsWrapper}>
+        <div className={styles.btnsWrapper}>
+          <div className={styles.leftBtnsWrapper}>
             <Button
               disabled={
                 !viewModel.selectedBatches.length ||
@@ -58,9 +59,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
                   t(TranslationKey['Selected lot contains a box for which you need to confirm the price change']))
               }
               tooltipInfoContent={t(TranslationKey['After confirmation it will be impossible to return the batch'])}
-              color="primary"
-              variant="contained"
-              className={classNames.batchBtn}
+              className={styles.batchBtn}
               onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
             >
               {t(TranslationKey['Confirm send to batch'])}
@@ -68,37 +67,37 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
 
             <Button
               disabled={viewModel.selectedBatches.length !== 1}
-              className={classNames.editBtn}
+              className={styles.editBtn}
               tooltipInfoContent={t(TranslationKey['Add/remove a box or files to a batch'])}
-              color="primary"
-              variant="contained"
               onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
             >
               {t(TranslationKey['Edit batch'])}
             </Button>
           </div>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={viewModel.nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])} // В ОТРАВЛ
             onSubmit={viewModel.onSearchSubmit}
           />
 
           <Button
-            success
+            styleType={ButtonStyle.SUCCESS}
             tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
-            className={classNames.createBtn}
+            className={styles.createBtn}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
           >
             <AddIcon />
             {t(TranslationKey['Create a batch'])}
           </Button>
         </div>
-        <div className={classNames.datagridWrapper}>
+        <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
             useResizeContainer
             disableRowSelectionOnClick
+            sortingMode="client"
+            paginationMode="client"
             localeText={getLocalizationByLanguageTag()}
             rowSelectionModel={viewModel.selectedBatches}
             rowCount={viewModel.rowCount}
@@ -110,7 +109,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             getRowHeight={() => 'auto'}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -131,7 +130,7 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
             }}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
             onRowSelectionModelChange={viewModel.onSelectionModel}
@@ -147,12 +146,13 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          batchToEdit={viewModel.getCurrentData().find(batch => batch.id === viewModel.selectedBatches.slice()[0])}
+          batchToEdit={viewModel.curBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
           onSubmit={viewModel.onSubmitAddOrEditBatch}
         />
       </Modal>
+
       <Modal
         openModal={viewModel.showEditHSCodeModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
@@ -163,41 +163,49 @@ export const WarehouseAwaitingBatchesViewRaw = props => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
-      <ConfirmationModal
-        isWarning={viewModel.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={`${t(TranslationKey['Send batch'])} ${selectedBatchesString}?`}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
-      <BatchInfoModal
-        volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-        openModal={viewModel.showBatchInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
-        batch={viewModel.curBatch}
-        userInfo={viewModel.userInfo}
-        patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
-        onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-        onClickHsCode={viewModel.onClickHsCode}
-      />
-      <WarningInfoModal
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
-      />
+
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={`${t(TranslationKey['Send batch'])} ${selectedBatchesString}?`}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+
+      {viewModel.showBatchInfoModal ? (
+        <BatchInfoModal
+          // @ts-ignore
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          openModal={viewModel.showBatchInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+          batch={viewModel.curBatch}
+          userInfo={viewModel.userInfo}
+          patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
+          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
+        />
+      ) : null}
+
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        />
+      ) : null}
 
       {viewModel.showCircularProgress ? <CircularProgressWithLabel /> : null}
-    </React.Fragment>
+    </>
   )
-}
-
-export const WarehouseAwaitingBatchesView = withStyles(observer(WarehouseAwaitingBatchesViewRaw), styles)
+})

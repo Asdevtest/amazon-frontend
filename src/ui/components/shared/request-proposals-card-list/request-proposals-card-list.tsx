@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import InboxIcon from '@mui/icons-material/Inbox'
 import { Paper } from '@mui/material'
@@ -10,19 +9,25 @@ import { OwnerRequestProposalsCard } from '@components/cards/owner-request-propo
 
 import { t } from '@utils/translations'
 
+import { ICustomProposal } from '@typings/models/proposals/custom-proposal'
+import { IRequest } from '@typings/models/requests/request'
+import { IFullUser } from '@typings/shared/full-user'
+
 import { useStyles } from './request-proposals-card-list.style'
 
 interface RequestProposalsCardListProps {
-  requestProposals: any
-  request: any
-  userInfo: any
-  onClickContactWithExecutor?: any
-  onClickOrderProposal?: any
-  onClickRejectProposal: any
-  onClickReview: any
+  requestProposals: ICustomProposal[]
+  request: IRequest
+  userInfo: IFullUser
+  onClickRejectProposal: () => void
+  onClickReview: () => void
+  onSendInForRework: () => void
+  onClickContactWithExecutor?: () => void
+  onClickOrderProposal?: () => void
+  onReceiveCustomProposal?: () => void
 }
 
-export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = React.memo(props => {
+export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const {
@@ -33,6 +38,8 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = React
     onClickOrderProposal,
     onClickRejectProposal,
     onClickReview,
+    onSendInForRework,
+    onReceiveCustomProposal,
   } = props
 
   return (
@@ -40,7 +47,7 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = React
       {requestProposals?.length ? (
         <div className={styles.proposalsWrapper}>
           <p className={styles.proposalsTitle}>{t(TranslationKey['Proposals for the request'])}</p>
-          {requestProposals.map((item: any) => (
+          {requestProposals.map((item: ICustomProposal) => (
             <div key={item?.proposal?._id} className={styles.proposalAndChatWrapper}>
               <Paper>
                 <OwnerRequestProposalsCard
@@ -51,6 +58,8 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = React
                   onClickOrderProposal={onClickOrderProposal}
                   onClickRejectProposal={onClickRejectProposal}
                   onClickReview={onClickReview}
+                  onSendInForRework={onSendInForRework}
+                  onReceiveCustomProposal={onReceiveCustomProposal}
                 />
               </Paper>
             </div>

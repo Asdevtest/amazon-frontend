@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 
 import Alert from '@mui/material/Alert'
 
-import { useClassNames } from './alert-shield.style'
+import { useStyles } from './alert-shield.style'
 
 interface AlertShieldProps {
   acceptMessage?: string
@@ -13,20 +13,20 @@ interface AlertShieldProps {
 }
 
 export const AlertShield: FC<AlertShieldProps> = memo(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const { acceptMessage, showAcceptMessage, alertShieldWrapperStyle, error = false, ...rest } = props
 
   return (
     <div
-      className={cx(classNames.acceptMessageWrapper, alertShieldWrapperStyle, {
-        [classNames.fadeInAnimation]: !!showAcceptMessage && !!acceptMessage,
-        [classNames.fadeOutAnimation]: !showAcceptMessage && !!acceptMessage,
+      className={cx(styles.acceptMessageWrapper, alertShieldWrapperStyle, {
+        [styles.fadeInAnimation]: !!showAcceptMessage && !!acceptMessage,
+        [styles.fadeOutAnimation]: !showAcceptMessage && !!acceptMessage,
       })}
     >
       <Alert
         severity={error ? 'error' : 'success'}
-        classes={{ root: classNames.alertRoot, icon: classNames.alertIcon }}
+        classes={{ root: styles.alertRoot, icon: styles.alertIcon }}
         {...rest}
       >
         {acceptMessage}

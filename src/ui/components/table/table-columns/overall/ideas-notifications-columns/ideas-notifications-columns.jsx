@@ -2,15 +2,17 @@ import { colorByIdeaStatus, ideaStatusByCode } from '@constants/statuses/idea-st
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   ProductAsinCell,
   ShortDateCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const ideasNotificationsViewColumns = handlers => [
   {
@@ -30,9 +32,11 @@ export const ideasNotificationsViewColumns = handlers => [
 
     width: 200,
     renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickViewBtn(params?.row?.product?._id)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickViewBtn(params?.row?.product?._id)}
       />
     ),
     filterable: false,

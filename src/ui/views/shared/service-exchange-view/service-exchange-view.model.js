@@ -1,19 +1,26 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { SettingsModel } from '@models/settings-model'
+import { UserModel } from '@models/user-model'
+
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { objectToUrlQs } from '@utils/text'
+
+import { Specs } from '@typings/enums/specs'
+
+import { filterFields, searchFields } from './service-exchange-view.constants'
 
 export class ServiceExchangeViewModel {
   history = undefined
 
   announcements = []
-  currentData = []
 
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+  selectedSpec = Specs.DEFAULT
 
   showImageModal = false
 
@@ -21,71 +28,149 @@ export class ServiceExchangeViewModel {
   sortMode = tableSortMode.DESK
 
   bigImagesOptions = {}
+  nameSearchValue = ''
+  rowCount = 0
+  columnMenuSettings = {
+    ...dataGridFiltersInitializer(filterFields),
+  }
 
-  nameSearchValue = undefined
+  options = {
+    offset: 0,
+    limit: 12,
+    filters: this.getFilter(),
+  }
+
+  get currentData() {
+    return this.announcements
+  }
 
   constructor({ history }) {
     this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.announcements,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
-      () => this.nameSearchValue,
-      () => (this.currentData = this.getCurrentData()),
-    )
   }
 
-  async loadData() {
+  loadData() {
     try {
-      await this.getVacAnnouncementsData()
+      this.getSpecs()
+
+      this.getNotYoursAnnouncements()
     } catch (error) {
       console.log(error)
     }
   }
 
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.announcements).filter(
-        el =>
-          el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.description.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.createdBy.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.announcements)
-    }
-  }
-
-  async getVacAnnouncementsData() {
+  async getSpecs() {
     try {
-      const result = await AnnouncementsModel.getVacAnnouncements(
-        Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-          ? null
-          : this.selectedTaskType,
-      )
+      const response = await UserModel.getSpecs(false)
+
       runInAction(() => {
-        this.announcements = result
+        this.specs = response
       })
     } catch (error) {
       console.log(error)
     }
   }
 
+  /* async getVacAnnouncementsData() {
+    try {
+      const result = await AnnouncementsModel.getVacAnnouncements({
+        filters: this.getFilter(),
+      })
+
+      runInAction(() => {
+        this.announcements = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  } */
+
+  async getNotYoursAnnouncements() {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      const result = await AnnouncementsModel.getNotYoursAnnouncements(this.options)
+
+      runInAction(() => {
+        this.announcements = result.rows
+        this.rowCount = result.count
+      })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
+    }
+  }
+
+  async loadMoreDataHadler() {
+    if (this.requestStatus === loadingStatuses.IS_LOADING) {
+      return
+    }
+
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      this.options.offset += this.options.limit
+
+      if (this.options.offset >= this.rowCount) {
+        this.setRequestStatus(loadingStatuses.SUCCESS)
+
+        return
+      }
+
+      const result = await AnnouncementsModel.getNotYoursAnnouncements(this.options)
+
+      runInAction(() => {
+        this.announcements = [...this.announcements, ...result.rows]
+      })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
+    }
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    this.columnMenuSettings[field].currentFilterData = value
+  }
+
+  getFilter(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, searchFields),
+    )
+  }
+
+  onClickSpec(specType) {
+    this.selectedSpec = specType
+
+    // spec - for "_id:string", specType - for "type:number"
+    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+
+    this.options.offset = 0
+    this.options.filters = this.getFilter()
+
+    this.getNotYoursAnnouncements()
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+    this.options.offset = 0
+    this.options.filters = this.getFilter()
+
+    this.getNotYoursAnnouncements()
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
   onClickOrderBtn(data) {
     this.history.push(
       `/client/freelance/my-requests/create-request?announcementId=${data?._id}&executorId=${data?.createdBy?._id}`,
     )
-  }
-
-  async onClickTaskType(taskType) {
-    this.selectedTaskType = taskType
-
-    await this.getVacAnnouncementsData()
   }
 
   onChangeViewMode(value) {
@@ -112,9 +197,5 @@ export class ServiceExchangeViewModel {
 
   onTriggerOpenModal(modalState) {
     this[modalState] = !this[modalState]
-  }
-
-  onSearchChange(e) {
-    this.nameSearchValue = e.target.value
   }
 }

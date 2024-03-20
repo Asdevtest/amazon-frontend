@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -7,35 +6,32 @@ import { InterconnectedProducts } from '@components/shared/interconnected-produc
 
 import { t } from '@utils/translations'
 
-import { IProductVariation } from '@typings/product'
+import { useStyles } from './product-variations-form.style'
 
-import { useClassNames } from './product-variations-form.styles'
+interface IProduct {
+  childProducts: IProduct[]
+  parentProduct: IProduct
+  _id: string
+  asin: string
+  skuByClient: string
+  images: string[]
+  shopId: string
+  amazonTitle: string
+}
 
 interface ProductVariationsFormProps {
-  product: {
-    childProducts: Array<IProductVariation>
-    parentProduct: IProductVariation
-
-    _id: string
-    asin: string
-    skuByClient: string
-    images: string[]
-    shopId: string
-    amazonTitle: string
-  }
+  product: IProduct
   onClickShowProduct: () => void
 }
 
-export const ProductVariationsForm: FC<ProductVariationsFormProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
-
-  const { product, onClickShowProduct } = props
+export const ProductVariationsForm: FC<ProductVariationsFormProps> = memo(({ product, onClickShowProduct }) => {
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.root}>
-      <p className={classNames.title}>{t(TranslationKey['Interconnected products'])}</p>
+    <div className={styles.root}>
+      <p className={styles.title}>{t(TranslationKey['Interconnected products'])}</p>
 
-      <div className={classNames.interconnectedProductsBodyWrapper}>
+      <div className={styles.interconnectedProductsBodyWrapper}>
         {product?.parentProduct ? (
           <InterconnectedProducts
             isParent

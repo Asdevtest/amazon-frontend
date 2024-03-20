@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 
@@ -16,7 +16,7 @@ interface ActualCostWithDeliveryProps {
   finalWeight: number
 }
 
-export const ActualCostWithDelivery: FC<ActualCostWithDeliveryProps> = React.memo(props => {
+export const ActualCostWithDelivery: FC<ActualCostWithDeliveryProps> = memo(props => {
   const { classes: styles } = useStyles()
   const {
     actualShippingCost,

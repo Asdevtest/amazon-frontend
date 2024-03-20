@@ -42,8 +42,13 @@ export const OwnerGeneralRequestInfo = props => {
 
   const isDisplayingMarkAsCompletedButton =
     (request?.request.createdBy?._id === userInfo?._id || request?.request.sub?._id === userInfo?._id) &&
-    (request?.request.status === RequestStatus.EXPIRED || request?.request.status === RequestStatus.IN_PROCESS) &&
+    (request?.request.status === RequestStatus.EXPIRED ||
+      request?.request.status === RequestStatus.IN_PROCESS ||
+      request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS) &&
     requestProposals.some(({ proposal }) => proposal.status === RequestStatus.ACCEPTED_BY_CLIENT)
+
+  const disableMarkAsCompletedButton =
+    request?.request?.createdBy?._id !== userInfo?._id && request?.request?.sub?._id !== userInfo?._id
 
   return (
     <div className={styles.root}>
@@ -61,7 +66,7 @@ export const OwnerGeneralRequestInfo = props => {
       {request?.request && (
         <RequestTerms
           withoutConfirmation={request?.request?.withoutConfirmation}
-          typeTask={request?.request?.typeTask}
+          spec={request?.request?.spec}
           timeoutAt={request?.request?.timeoutAt}
           newProductPrice={newProductPrice}
           priceAmazon={request?.request?.priceAmazon}
@@ -76,6 +81,7 @@ export const OwnerGeneralRequestInfo = props => {
 
       <ActionButtons
         id={request.request._id}
+        disableMarkAsCompletedButton={disableMarkAsCompletedButton}
         uploadedToListing={request?.request.uploadedToListing}
         isDisplayingMarkAsCompletedButton={isDisplayingMarkAsCompletedButton}
         status={request?.request?.status}

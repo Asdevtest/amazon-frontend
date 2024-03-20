@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 
@@ -13,7 +13,7 @@ interface TaskDescriptionCellProps {
   task: any
 }
 
-export const TaskDescriptionCell: FC<TaskDescriptionCellProps> = React.memo(({ task }) => {
+export const TaskDescriptionCell: FC<TaskDescriptionCellProps> = memo(({ task }) => {
   const { classes: styles, cx } = useStyles()
   const renderProductImages = (product: any, key: any, box?: any) => (
     <div key={key && key} className={styles.imgWrapper}>

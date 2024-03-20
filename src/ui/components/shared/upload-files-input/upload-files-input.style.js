@@ -36,6 +36,9 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     gap: 20,
+    [theme.breakpoints.down(480)]: {
+      flexDirection: 'column',
+    },
   },
 
   label: {
@@ -46,13 +49,19 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    [theme.breakpoints.down(480)]: {
+      flexDirection: 'column',
+    },
   },
 
   loadImageInput: {
     height: '40px',
     borderRadius: '7px',
     width: 'calc(100% - 192px)',
-    border: `1px solid #424250`,
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
 
   loadImageInputSmall: {
@@ -61,11 +70,20 @@ export const useStyles = makeStyles()(theme => ({
 
   inputColor: {
     color: `${theme.palette.text.general} !important`,
+    [theme.breakpoints.down(768)]: {
+      height: 68,
+    },
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
 
   loadBtn: {
     width: '172px',
     color: '#fff',
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
 
   attachFiles: {
@@ -82,7 +100,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
     background: theme.palette.background.second,
     border: ` 3px dashed rgba(${theme.palette.primary.mainRgb}, .7)`,
-    borderRadius: '7px',
+    borderRadius: '20px',
     transition: '0.3s ease',
     cursor: 'pointer',
 
@@ -99,6 +117,9 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       height: 68,
     },
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+    },
   },
 
   dragingOnDropBtn: {
@@ -107,13 +128,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   minimizedDragAndDropBtn: {
-    maxWidth: '185px',
     height: 40,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 20,
     color: theme.palette.primary.main,
+    [theme.breakpoints.down(480)]: {
+      width: '100%',
+      maxWidth: '100%',
+    },
   },
 
   oneLineDADBtn: {
@@ -136,6 +160,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
 
+    button: {
+      whiteSpace: 'nowrap',
+    },
+
     [theme.breakpoints.down(1024)]: {
       gap: 5,
     },
@@ -143,7 +171,6 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonSecondary: {
     background: 'none',
-    color: theme.palette.text.second,
     border: `1px solid ${theme.palette.primary.main}`,
 
     '&:hover': {
@@ -269,35 +296,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
   },
 
-  preloaderContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  preloaderWrapper: {
     width: 55,
-    position: 'relative',
-    cursor: 'pointer',
-    borderRadius: 7,
-  },
-
-  preloaderContainerTooltip: {
-    width: 300,
-  },
-
-  preloader: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: 'rgb(0, 0, 0, 0.5)',
-  },
-
-  preloaderIcon: {
-    width: '18px !important',
-    height: '18px !important',
-    color: '#fff',
   },
 }))

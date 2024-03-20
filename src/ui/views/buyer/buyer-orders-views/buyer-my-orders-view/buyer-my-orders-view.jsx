@@ -29,7 +29,7 @@ import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 import { PaymentAllSuppliers } from './payment-all-suppliers/payment-all-suppliers'
 
 export const BuyerMyOrdersView = observer(({ history }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history }))
 
@@ -42,17 +42,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
     history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
     styles.attentionRow
 
-  const validOrderPayments =
-    viewModel.currentOrder && viewModel.currentOrder?.orderSupplier?.paymentMethods?.length
-      ? viewModel.currentOrder?.orderSupplier?.paymentMethods.filter(
-          method => !viewModel.currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-      : viewModel.paymentMethods.filter(
-          method => !viewModel.currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-
-  const payments = viewModel.currentOrder && [...viewModel.currentOrder.payments, ...validOrderPayments]
-
   const isNoPaidedOrders = viewModel.orderStatusDataBase.some(
     status =>
       Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
@@ -61,14 +50,9 @@ export const BuyerMyOrdersView = observer(({ history }) => {
 
   return (
     <>
-      <div
-        className={cx(styles.headerWrapper, {
-          [styles.headerWrapperCenter]:
-            !viewModel.paymentAmount?.totalPriceInYuan &&
-            !viewModel.paymentAmount?.totalPriceInUSD &&
-            !viewModel.paymentAmount?.partialPaymentAmountRmb,
-        })}
-      >
+      <div className={styles.headerWrapper}>
+        <div className={styles.searchInput} />
+
         <SearchInput
           inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
@@ -78,7 +62,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         <PaymentAllSuppliers
           paymentAmount={viewModel.paymentAmount}
           isNoPaidedOrders={isNoPaidedOrders}
-          yuanToDollarRate={viewModel.yuanToDollarRate}
+          yuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
         />
       </div>
 
@@ -114,7 +98,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -135,13 +119,10 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         <EditOrderModal
           platformSettings={viewModel.platformSettings}
           paymentMethods={viewModel.paymentMethods}
-          imagesForLoad={viewModel.imagesForLoad}
           hsCodeData={viewModel.hsCodeData}
           userInfo={viewModel.userInfo}
           updateSupplierData={viewModel.updateSupplierData}
           pathnameNotPaid={viewModel.pathnameNotPaid}
-          yuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           photosToLoad={viewModel.photosToLoad}
           requestStatus={viewModel.requestStatus}
           boxes={viewModel.curBoxesOfOrder}
@@ -152,7 +133,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           setPhotosToLoad={viewModel.setPhotosToLoad}
           setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           setUpdateSupplierData={viewModel.setUpdateSupplierData}
-          onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
           onClickUpdataSupplierData={viewModel.onClickUpdataSupplierData}
           onClickSaveWithoutUpdateSupData={viewModel.onClickSaveWithoutUpdateSupData}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
@@ -164,62 +144,80 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={viewModel.confirmModalSettings.title}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel.showNoDimensionsErrorModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
-        title={t(TranslationKey['The fields must be filled in to create the box!'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
-      />
+      {viewModel.showNoDimensionsErrorModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showNoDimensionsErrorModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
+          title={t(TranslationKey['The fields must be filled in to create the box!'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel.showWarningNewBoxesModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
-        title={t(TranslationKey['Creating new boxes. Be careful!'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
-      />
+      {viewModel.showWarningNewBoxesModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showWarningNewBoxesModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
+          title={t(TranslationKey['Creating new boxes. Be careful!'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-      />
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel.showOrderPriceMismatchModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
-        title={t(
-          TranslationKey[
-            'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
-          ],
-        )}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
-      />
+      {viewModel.showOrderPriceMismatchModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showOrderPriceMismatchModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
+          title={t(
+            TranslationKey[
+              'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
+            ],
+          )}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
+        />
+      ) : null}
 
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={viewModel.showSuccessModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.showSuccessModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}
@@ -239,7 +237,8 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       >
         <PaymentMethodsForm
           readOnly={Number(viewModel.currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
-          payments={payments}
+          orderPayments={viewModel.currentOrder?.payments}
+          allPayments={viewModel.paymentMethods}
           onClickSaveButton={state => viewModel.saveOrderPayment(viewModel.currentOrder, state)}
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
         />
@@ -252,14 +251,14 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         <BoxViewForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 
-      {viewModel.requestStatus === loadingStatuses.isLoading && (
+      {viewModel.requestStatus === loadingStatuses.IS_LOADING && (
         <CircularProgressWithLabel wrapperClassName={styles.loadingCircle} />
       )}
     </>

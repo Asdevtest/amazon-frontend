@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -17,12 +17,12 @@ import { SearchInput } from '@components/shared/search-input'
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './client-buy-shops-deals.style'
+import { useStyles } from './client-buy-shops-deals.style'
 
 import { ClientBuyShopsDealsModel } from './client-buy-shops-deals.model'
 
 export const ClientBuyShopsDeals = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const model = useRef(new ClientBuyShopsDealsModel({ history }))
 
@@ -47,18 +47,18 @@ export const ClientBuyShopsDeals = observer(() => {
     <>
       {SettingsModel.languageTag && (
         <>
-          <div className={classNames.tablePanelWrapper}>
+          <div className={styles.tablePanelWrapper}>
             <div></div>
 
             <SearchInput
               placeholder={t(TranslationKey.search)}
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               value={nameSearchValue}
               onChange={onChangeNameSearchValue}
             />
 
-            <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-              <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+            <div className={styles.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+              <Typography className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
               {sortMode === tableSortMode.DESK ? (
                 <ArrowDropDownIcon color="primary" />
@@ -75,9 +75,9 @@ export const ClientBuyShopsDeals = observer(() => {
               ))}
             </div>
           ) : (
-            <div className={classNames.emptyTableWrapper}>
+            <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={classNames.emptyTableText}>
+              <Typography variant="h5" className={styles.emptyTableText}>
                 {t(TranslationKey['No deals yet'])}
               </Typography>
             </div>

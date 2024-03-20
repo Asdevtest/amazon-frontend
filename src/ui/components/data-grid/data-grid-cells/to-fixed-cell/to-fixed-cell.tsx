@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { toFixed } from '@utils/text'
 
@@ -9,7 +9,7 @@ export interface ToFixedCellProps {
   fix?: number
 }
 
-export const ToFixedCell: FC<ToFixedCellProps> = React.memo(({ value, fix }) => {
+export const ToFixedCell: FC<ToFixedCellProps> = memo(({ value, fix }) => {
   const { classes: styles } = useStyles()
 
   return (

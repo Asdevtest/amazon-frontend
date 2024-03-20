@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import ClearIcon from '@mui/icons-material/Clear'
 import DoneIcon from '@mui/icons-material/Done'
@@ -25,7 +25,7 @@ interface ChangeInputCommentCellProps {
   rowsCount?: number
 }
 
-export const ChangeInputCommentCell: FC<ChangeInputCommentCellProps> = React.memo(props => {
+export const ChangeInputCommentCell: FC<ChangeInputCommentCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const {
     onClickSubmit,

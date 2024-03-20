@@ -1,10 +1,9 @@
-import { cx } from '@emotion/css'
 import { memo, useEffect, useState } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { BigPlusIcon } from '@components/shared/svg-icons'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
@@ -12,12 +11,14 @@ import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/enums/button-style'
+
 import { useStyles } from './grouping-boxes-form.style'
 
 import { Box } from './box/box'
 
 export const GroupingBoxesForm = memo(props => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const { destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes } = props
 
@@ -236,7 +237,7 @@ export const GroupingBoxesForm = memo(props => {
         </Button>
 
         <Button
-          variant="text"
+          variant={ButtonVariant.OUTLINED}
           tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
           className={cx(styles.button, styles.cancelButton)}
           onClick={onCloseModal}

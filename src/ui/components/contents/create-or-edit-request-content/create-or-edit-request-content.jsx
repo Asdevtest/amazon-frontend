@@ -1,35 +1,21 @@
 import dayjs from 'dayjs'
 import { memo, useEffect, useRef, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import CircleIcon from '@mui/icons-material/Circle'
-import {
-  Checkbox,
-  Input,
-  InputAdornment,
-  Link,
-  List,
-  ListItem,
-  ListItemText,
-  MenuItem,
-  Select,
-  Typography,
-} from '@mui/material'
+import { Checkbox, Link, MenuItem, Select } from '@mui/material'
 
+import { MAX_COMMENT_LEGTH } from '@constants/requests/request'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
 import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-modal'
+import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/date-picker'
@@ -40,14 +26,18 @@ import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
+import { CustomPlusIcon, FireIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateForShowWithoutParseISO } from '@utils/date-time'
-import { replaceCommaByDot, toFixed } from '@utils/text'
+import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { Specs } from '@typings/enums/specs'
 
 import { useStyles } from './create-or-edit-request-content.style'
 
@@ -59,16 +49,18 @@ const stepVariant = {
 export const CreateOrEditRequestContent = memo(props => {
   const {
     announcements,
+    specs,
     permissionsData,
     masterUsersData,
     choosenAnnouncements,
     executor,
     requestToEdit,
-    history,
     platformSettingsData,
     showProgress,
     progressValue,
     mainContentRef,
+    showGalleryModal,
+    productMedia,
     checkRequestByTypeExists,
     createRequestForIdeaData,
     getMasterUsersData,
@@ -79,8 +71,11 @@ export const CreateOrEditRequestContent = memo(props => {
     onClickThumbnail,
     onCreateSubmit,
     onEditSubmit,
+    onClickAddMediaFromProduct,
+    onTriggerGalleryModal,
   } = props
   const { classes: styles, cx } = useStyles()
+  const history = useHistory()
 
   const mainContentRefElement = mainContentRef.current
 
@@ -89,17 +84,13 @@ export const CreateOrEditRequestContent = memo(props => {
   const [showScrollUp, setShowScrollUp] = useState(false)
   const [showScrollDown, setShowScrollDown] = useState(false)
   const [showCheckRequestByTypeExists, setShowCheckRequestByTypeExists] = useState(false)
-
   const [announcementsData, setAnnouncementsData] = useState([])
-
-  const [announcement, setAnnouncement] = useState(choosenAnnouncements || undefined)
+  const [announcement, setAnnouncement] = useState(choosenAnnouncements)
   const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || executor || undefined)
 
   const [openModal, setOpenModal] = useState(false)
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
-
-  const [clearСonditionsText, setСonditionsClearText] = useState('')
 
   const handleScroll = () => {
     const scrollTop = mainContentRefElement.scrollTop
@@ -142,10 +133,10 @@ export const CreateOrEditRequestContent = memo(props => {
   const createImagesArray = () => {
     if (requestToEdit?.request?.media?.length) {
       return requestToEdit?.request?.media?.map(el => ({
-        file: el?.fileLink,
-        comment: el?.commentByClient,
-        commentByPerformer: el?.commentByPerformer,
-        _id: el?._id,
+        fileLink: el.fileLink,
+        commentByPerformer: el.commentByPerformer,
+        commentByClient: el.commentByClient,
+        _id: el._id,
       }))
     } else {
       return []
@@ -158,11 +149,9 @@ export const CreateOrEditRequestContent = memo(props => {
     setImages(createImagesArray())
   }, [requestToEdit])
 
-  const showScrollArrows = curStep === stepVariant.STEP_ONE && (showScrollUp || showScrollDown)
-
   useEffect(() => {
     if (requestToEdit) {
-      onClickChoosePerformer(requestToEdit?.request.typeTask)
+      onClickChoosePerformer(requestToEdit?.request?.spec?.type)
     }
   }, [])
 
@@ -188,7 +177,7 @@ export const CreateOrEditRequestContent = memo(props => {
       needCheckBySupervisor: requestToEdit?.request?.needCheckBySupervisor || false,
       restrictMoreThanOneProposalFromOneAssignee:
         requestToEdit?.request?.restrictMoreThanOneProposalFromOneAssignee || false,
-      typeTask: requestToEdit?.request?.typeTask || choosenAnnouncements?.type || null,
+      specId: requestToEdit?.request?.spec?._id || choosenAnnouncements?.spec?._id || '',
       asin: requestToEdit
         ? requestToEdit?.request?.asin
         : createRequestForIdeaData
@@ -222,18 +211,33 @@ export const CreateOrEditRequestContent = memo(props => {
 
   const [formFields, setFormFields] = useState(getSourceFormFields())
 
-  const [requestIds, setRequestIds] = useState([])
-
   useEffect(() => {
     setFormFields(getSourceFormFields())
-  }, [])
+  }, [requestToEdit])
+
+  const [currentSpec, setCurrentSpec] = useState(null)
+
+  useEffect(() => {
+    const findCurrentSpec = specs?.find(spec => spec?._id === formFields.request.specId)
+
+    if (findCurrentSpec) {
+      getMasterUsersData(findCurrentSpec.type)
+      setCurrentSpec(findCurrentSpec)
+    }
+  }, [formFields.request.specId, specs])
+
+  const [requestIds, setRequestIds] = useState([])
 
   useEffect(() => {
     setAnnouncement(choosenAnnouncements)
 
-    const newFormFields = { ...formFields }
-    newFormFields.request.typeTask = choosenAnnouncements?.type || null
-    setFormFields(newFormFields)
+    setFormFields(prevFormFields => ({
+      ...prevFormFields,
+      request: {
+        ...prevFormFields.request,
+        specId: choosenAnnouncements?.spec?._id || '',
+      },
+    }))
   }, [choosenAnnouncements])
 
   useEffect(() => {
@@ -242,12 +246,6 @@ export const CreateOrEditRequestContent = memo(props => {
     }
     setFormFields(getSourceFormFields())
   }, [choosenAnnouncements, requestToEdit])
-
-  useEffect(() => {
-    if (formFields.request.typeTask) {
-      getMasterUsersData(formFields.request.typeTask)
-    }
-  }, [formFields.request.typeTask])
 
   const [deadlineError, setDeadlineError] = useState(false)
 
@@ -296,7 +294,7 @@ export const CreateOrEditRequestContent = memo(props => {
       } else if (['announcementId'].includes(fieldName)) {
         newFormFields[section][fieldName] = event
         setOpenModal(false)
-      } else if (['typeTask'].includes(fieldName)) {
+      } else if (['specId'].includes(fieldName)) {
         newFormFields.request.needCheckBySupervisor = false
         newFormFields.request.restrictMoreThanOneProposalFromOneAssignee = false
         newFormFields.request.announcementId = ''
@@ -332,11 +330,12 @@ export const CreateOrEditRequestContent = memo(props => {
   const isDeadlineError = formFields.request.timeoutAt < new Date()
 
   const [withPublish, setWithPublish] = useState({ withPublish: false })
+
   const onSuccessSubmit = withPublish => {
     if (isDeadlineError) {
       setDeadlineError(!deadlineError)
     } else {
-      if (curStep === stepVariant.STEP_ONE) {
+      if (isFirstStep) {
         setCurStep(stepVariant.STEP_TWO)
       } else {
         onCreateSubmit(formFields, images, withPublish, announcement)
@@ -345,9 +344,11 @@ export const CreateOrEditRequestContent = memo(props => {
   }
 
   const onClickCreate = async ({ withPublish }) => {
-    await setWithPublish(withPublish)
-    const result = await checkRequestByTypeExists(formFields.request.typeTask, formFields.request.productId)
-    if (result.length) {
+    setWithPublish(withPublish)
+
+    const result = await checkRequestByTypeExists(formFields.request.productId, currentSpec?.type)
+
+    if (result?.length) {
       setRequestIds(result)
       setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)
     } else {
@@ -356,7 +357,7 @@ export const CreateOrEditRequestContent = memo(props => {
   }
 
   const onClickBackBtn = () => {
-    if (curStep === stepVariant.STEP_ONE) {
+    if (isFirstStep) {
       if (createRequestForIdeaData?.productId) {
         history.push('/client/freelance/my-requests')
       } else {
@@ -378,73 +379,71 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.timeLimitInMinutes ||
     !formFields.request.price ||
     !formFields.request.timeoutAt ||
-    !formFields.details.conditions ||
-    clearСonditionsText.length >= 6000 ||
-    !clearСonditionsText.length ||
-    !formFields.request.typeTask ||
+    formFields.details.conditions.length >= MAX_COMMENT_LEGTH ||
+    !parseTextString(formFields.details.conditions).length ||
+    !formFields.request.specId ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
 
   const minDate = dayjs().add(1, 'day')
+  const isFirstStep = curStep === stepVariant.STEP_ONE
+  const isSecondStep = curStep === stepVariant.STEP_TWO
+  const showScrollArrows = isFirstStep && (showScrollUp || showScrollDown)
 
   return (
-    <div ref={componentRef} className={styles.mainWrapper}>
-      <div className={styles.mainSubWrapper}>
-        {showScrollArrows && (
-          <ScrollToTopOrBottom
-            showScrollUp={showScrollUp}
-            showScrollDown={showScrollDown}
-            customStyles={{ bottom: '180px', right: '55px' }}
-            сomponentWillScroll={componentRef}
-          />
-        )}
-        <div className={styles.headerWrapper}>
-          <Typography className={cx(styles.mainTitle, { [styles.mainTitleStapTwo]: curStep === stepVariant.STEP_TWO })}>
-            {curStep === stepVariant.STEP_TWO
-              ? t(TranslationKey['The request is ready'])
-              : t(TranslationKey['We will find a reliable performer for you'])}
-          </Typography>
-
-          {curStep === stepVariant.STEP_TWO ? (
-            <Typography className={styles.mainSubStepTwoTitle}>
-              {t(TranslationKey["All that's left is to check the data"])}
-            </Typography>
-          ) : (
-            <Typography className={styles.mainSubTitle}>
-              {t(TranslationKey['By getting to know your needs, we will select the best performer for your task.'])}
-            </Typography>
+    <>
+      <div ref={componentRef} className={styles.mainWrapper}>
+        <div>
+          {showScrollArrows && (
+            <ScrollToTopOrBottom
+              showScrollUp={showScrollUp}
+              showScrollDown={showScrollDown}
+              customStyles={{ bottom: '180px', right: '55px' }}
+              сomponentWillScroll={componentRef}
+            />
           )}
-        </div>
 
-        <div className={styles.mainContentWrapper}>
-          {curStep === stepVariant.STEP_ONE && (
-            <div className={styles.mainSubRightWrapper}>
-              <div className={styles.middleWrapper}>
+          <div className={cx(styles.header, { [styles.headerColumn]: isSecondStep })}>
+            <p className={styles.title}>
+              {isSecondStep
+                ? t(TranslationKey['The request is ready'])
+                : t(TranslationKey['We will find a reliable performer for you'])}
+            </p>
+
+            <p className={styles.subTitle}>
+              {isSecondStep
+                ? t(TranslationKey["All that's left is to check the data"])
+                : t(TranslationKey['By getting to know your needs, we will select the best performer for your task.'])}
+            </p>
+          </div>
+
+          {isFirstStep && (
+            <div className={styles.stepWrapper}>
+              <div className={styles.stepContent}>
                 <Field
                   tooltipInfoContent={t(TranslationKey['Future request title'])}
                   inputProps={{ maxLength: 100 }}
                   placeholder={t(TranslationKey['Request title'])}
                   label={t(TranslationKey['Request title']) + '*'}
-                  className={styles.nameField}
-                  containerClasses={styles.nameFieldContainer}
-                  labelClasses={styles.spanLabelSmall}
+                  className={styles.field}
+                  containerClasses={styles.fieldContainer}
+                  labelClasses={styles.label}
                   value={formFields.request.title}
                   onChange={onChangeField('request')('title')}
                 />
 
-                <div className={styles.nameFieldWrapper}>
+                <div className={styles.fields}>
                   <Field
                     label={t(TranslationKey['Difficulty level'])}
-                    labelClasses={styles.spanLabelSmall}
+                    labelClasses={styles.label}
+                    containerClasses={styles.fieldContainer}
                     tooltipInfoContent={t(TranslationKey['Difficulty level'])}
-                    containerClasses={styles.difficultylevelContainer}
                     inputComponent={
                       <Select
                         displayEmpty
                         value={formFields.request.taskComplexity}
-                        className={styles.requestTypeField}
-                        input={<Input startAdornment={<InputAdornment position="start" />} />}
+                        className={styles.field}
                         onChange={onChangeField('request')('taskComplexity')}
                       >
                         <MenuItem disabled value={null}>
@@ -463,9 +462,8 @@ export const CreateOrEditRequestContent = memo(props => {
                   <Field
                     tooltipInfoContent={t(TranslationKey['Select a product card for the order'])}
                     label={t(TranslationKey.ASIN) + '*'}
-                    labelClasses={styles.spanLabelSmall}
-                    containerClasses={styles.asinContainer}
-                    className={styles.nameField}
+                    labelClasses={styles.label}
+                    containerClasses={styles.fieldContainer}
                     inputComponent={
                       <WithSearchSelect
                         grayBorder
@@ -474,9 +472,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         chosenItemNoHover
                         CustomButton={componentProps => <SelectProductButton {...componentProps} />}
                         data={permissionsData || []}
-                        width={'100%'}
-                        customSubMainWrapper={styles.customSubMainWrapperAsin}
-                        customSearchInput={styles.customSearchInput}
+                        width="100%"
                         selectedItemName={
                           formFields?.request?.asin ||
                           (formFields?.request?.asin === '' && t(TranslationKey.Missing)) ||
@@ -494,52 +490,48 @@ export const CreateOrEditRequestContent = memo(props => {
 
                   <Field
                     label={t(TranslationKey['Request type']) + '*'}
-                    labelClasses={styles.spanLabelSmall}
+                    labelClasses={styles.label}
+                    containerClasses={styles.fieldContainer}
                     tooltipInfoContent={t(TranslationKey['Current request type'])}
-                    containerClasses={styles.requestTypeContainer}
                     inputComponent={
                       <Select
                         displayEmpty
-                        value={formFields.request.typeTask + '' ?? null}
-                        className={styles.requestTypeField}
-                        input={<Input startAdornment={<InputAdornment position="start" />} />}
-                        onChange={onChangeField('request')('typeTask')}
+                        value={formFields.request.specId || ''}
+                        className={cx(styles.field, styles.requestTypeField)}
+                        onChange={onChangeField('request')('specId')}
                       >
-                        <MenuItem disabled value={null}>
+                        <MenuItem disabled value="">
                           {t(TranslationKey['Select from the list'])}
                         </MenuItem>
 
-                        {Object.keys(freelanceRequestTypeByCode)
-                          .filter(el => String(el) !== String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]))
-                          .map((taskType, taskIndex) => (
-                            <MenuItem key={taskIndex} value={taskType}>
-                              {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                            </MenuItem>
-                          ))}
+                        {specs.map(spec => (
+                          <MenuItem key={spec._id} value={spec?._id} className={styles.capitalize}>
+                            {spec?.title}
+                          </MenuItem>
+                        ))}
                       </Select>
                     }
                   />
                 </div>
 
-                {`${formFields?.request?.typeTask}` ===
-                  `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` && (
-                  <div className={styles.bloggerFieldsWrapper}>
+                {currentSpec?.type === Specs.BLOGGER && (
+                  <div className={styles.fields}>
                     <Field
-                      className={styles.nameField}
-                      containerClasses={styles.bloggerFieldContainer}
+                      className={styles.field}
                       inputProps={{ maxLength: 8 }}
                       label={t(TranslationKey['Price on Amazon']) + ', $'}
-                      labelClasses={styles.spanLabelSmall}
+                      labelClasses={styles.label}
+                      containerClasses={styles.fieldContainer}
                       value={formFields.request.priceAmazon}
                       onChange={onChangeField('request')('priceAmazon')}
                     />
 
                     <Field
-                      className={styles.nameField}
-                      containerClasses={styles.bloggerFieldContainer}
+                      className={styles.field}
+                      containerClasses={styles.fieldContainer}
                       inputProps={{ maxLength: 8 }}
                       label={t(TranslationKey['Discounted price']) + ', $'}
-                      labelClasses={styles.spanLabelSmall}
+                      labelClasses={styles.label}
                       value={toFixed(formFields.request.discountedPrice, 2)}
                       onChange={e => {
                         if (
@@ -552,11 +544,11 @@ export const CreateOrEditRequestContent = memo(props => {
                     />
 
                     <Field
-                      className={styles.nameField}
-                      containerClasses={styles.bloggerFieldContainer}
+                      className={styles.field}
+                      containerClasses={styles.fieldContainer}
                       inputProps={{ maxLength: 8 }}
                       label={t(TranslationKey['CashBack Percentage']) + ', %'}
-                      labelClasses={styles.spanLabelSmall}
+                      labelClasses={styles.label}
                       value={toFixed(formFields.request.cashBackInPercent, 2)}
                       onChange={e => {
                         if (Number(e.target.value) <= 100 && formFields.request.priceAmazon) {
@@ -567,668 +559,607 @@ export const CreateOrEditRequestContent = memo(props => {
                   </div>
                 )}
 
-                <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput
-                    minimized
-                    fullWidth
-                    withComment
-                    images={images}
-                    setImages={setImages}
-                    maxNumber={50}
-                    maxHeight={160}
-                    addFilesButtonTitle={t(TranslationKey['Add file'])}
-                  />
+                <UploadFilesInput
+                  minimized
+                  fullWidth
+                  withComment
+                  images={images}
+                  setImages={setImages}
+                  maxNumber={50}
+                  maxHeight={120}
+                  addFilesButtonTitle={t(TranslationKey['Add file'])}
+                />
+
+                <div className={styles.defaultMarginTop}>
+                  <Button
+                    disabled={!formFields.request?.productId}
+                    onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
+                  >
+                    <CustomPlusIcon />
+                    {t(TranslationKey['Add from product'])}
+                  </Button>
                 </div>
 
-                <div className={styles.descriptionFieldWrapper}>
-                  <CustomTextEditor
-                    verticalResize
-                    conditions={formFields.details.conditions}
-                    textToCheck={setСonditionsClearText}
-                    changeConditions={onChangeField('details')('conditions')}
-                  />
-                </div>
+                <CustomTextEditor
+                  title={t(TranslationKey['Describe your task']) + '*'}
+                  placeholder={t(TranslationKey['Task description'])}
+                  maxLength={MAX_COMMENT_LEGTH}
+                  value={formFields.details.conditions}
+                  editorClassName={styles.editor}
+                  editorWrapperClassName={styles.editorWrapper}
+                  onChange={onChangeField('details')('conditions')}
+                />
               </div>
 
-              <div className={styles.rightWrapper}>
-                <div>
-                  <div className={styles.dateAndTimeWrapper}>
-                    <Field
-                      containerClasses={styles.dateAndTimeContainer}
-                      tooltipInfoContent={t(TranslationKey['Indicate the date by which proposals may be received'])}
-                      label={`${t(TranslationKey['When do you want results?'])}*`}
-                      labelClasses={styles.spanLabelSmall}
-                      inputComponent={
-                        <div>
-                          <NewDatePicker
-                            disablePast
-                            minDate={minDate}
-                            className={styles.dateField}
-                            value={formFields.request.timeoutAt}
-                            onChange={e => {
-                              onChangeField('request')('timeoutAt')(e)
-                            }}
-                          />
-                          {deadlineError && (
-                            <span className={styles.deadlineErrorText}>
-                              {t(TranslationKey['The deadline cannot be earlier than the current date'])}
-                            </span>
-                          )}
-                        </div>
-                      }
-                    />
-                    <Field
-                      containerClasses={styles.dateAndTimeContainer}
-                      tooltipInfoContent={t(TranslationKey['Indicate the time until which offers may be received'])}
-                      label={`${t(TranslationKey['What time do you want the result?'])}*`}
-                      labelClasses={styles.spanLabelSmall}
-                      inputComponent={
-                        <div>
-                          <DatePickerTime
-                            className={styles.dateField}
-                            value={formFields.request.timeoutAt}
-                            onChange={onChangeField('request')('timeoutAt')}
-                          />
-                          {deadlineError && (
-                            <span className={styles.deadlineErrorText}>
-                              {t(TranslationKey['The deadline cannot be earlier than the current date'])}
-                            </span>
-                          )}
-                        </div>
-                      }
-                    />
-                  </div>
-
-                  <div className={styles.priceAndAmountWrapper}>
-                    <Field
-                      tooltipInfoContent={t(TranslationKey['How many proposals are you willing to consider'])}
-                      inputProps={{ maxLength: 8 }}
-                      label={`${t(TranslationKey['Enter the number of proposals'])} *`}
-                      labelClasses={styles.spanLabelSmall}
-                      value={formFields.request.maxAmountOfProposals}
-                      onChange={onChangeField('request')('maxAmountOfProposals')}
-                    />
-
-                    <Field
-                      error={
-                        formFields?.request?.price &&
-                        platformSettingsData?.requestMinAmountPriceOfProposal > formFields.request.price &&
-                        `${t(TranslationKey['The price should be greater than'])} ${
-                          platformSettingsData?.requestMinAmountPriceOfProposal
-                        } $`
-                      }
-                      tooltipInfoContent={t(TranslationKey['The price you are willing to pay for the result'])}
-                      inputProps={{ maxLength: 8 }}
-                      label={`${t(TranslationKey['Enter the offer price'])}`}
-                      labelClasses={styles.spanLabelSmall}
-                      value={formFields.request.price}
-                      onChange={onChangeField('request')('price')}
-                    />
-                  </div>
-
-                  <div className={styles.checkboxAndButtonWrapper}>
-                    <div className={styles.checkboxProposalWrapper}>
-                      <div className={styles.checkboxWrapper} onClick={onChangeField('request')('withoutConfirmation')}>
-                        <Checkbox color="primary" checked={formFields.request.withoutConfirmation} />
-                        <Text
-                          tooltipPosition={'corner'}
-                          tooltipInfoContent={t(
-                            TranslationKey['Allow the performer to take the request for work without confirmation'],
-                          )}
-                        >
-                          {t(TranslationKey['Allow the performer to take the request for work without confirmation'])}
-                        </Text>
-                      </div>
-                    </div>
-
-                    <div className={styles.checkboxProposalWrapper}>
-                      <div
-                        className={styles.checkboxWrapper}
-                        onClick={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
-                      >
-                        <Checkbox
-                          color="primary"
-                          checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+              <div className={styles.stepContent}>
+                <div className={styles.fields}>
+                  <Field
+                    tooltipInfoContent={t(TranslationKey['Indicate the date by which proposals may be received'])}
+                    label={`${t(TranslationKey['When do you want results?'])}*`}
+                    labelClasses={styles.label}
+                    containerClasses={styles.fieldContainer}
+                    inputComponent={
+                      <div>
+                        <NewDatePicker
+                          disablePast
+                          minDate={minDate}
+                          className={cx(styles.field, styles.datePicker)}
+                          value={formFields.request.timeoutAt}
+                          onChange={e => onChangeField('request')('timeoutAt')(e)}
                         />
-                        <Text
-                          tooltipPosition={'corner'}
-                          tooltipInfoContent={t(
-                            TranslationKey['After providing the result, the same performer may make a new proposal'],
-                          )}
-                        >
-                          {t(TranslationKey['Prohibit multiple performances by the same performer'])}
-                        </Text>
+                        {deadlineError && (
+                          <span className={styles.deadlineErrorText}>
+                            {t(TranslationKey['The deadline cannot be earlier than the current date'])}
+                          </span>
+                        )}
                       </div>
-                    </div>
+                    }
+                  />
+                  <Field
+                    tooltipInfoContent={t(TranslationKey['Indicate the time until which offers may be received'])}
+                    label={`${t(TranslationKey['What time do you want the result?'])}*`}
+                    labelClasses={styles.label}
+                    containerClasses={styles.fieldContainer}
+                    inputComponent={
+                      <div>
+                        <DatePickerTime
+                          className={cx(styles.field, styles.datePicker)}
+                          value={formFields.request.timeoutAt}
+                          onChange={onChangeField('request')('timeoutAt')}
+                        />
+                        {deadlineError && (
+                          <span className={styles.deadlineErrorText}>
+                            {t(TranslationKey['The deadline cannot be earlier than the current date'])}
+                          </span>
+                        )}
+                      </div>
+                    }
+                  />
+                </div>
+
+                <div className={styles.fields}>
+                  <Field
+                    tooltipInfoContent={t(TranslationKey['How many proposals are you willing to consider'])}
+                    inputProps={{ maxLength: 8 }}
+                    label={`${t(TranslationKey['Enter the number of proposals'])} *`}
+                    labelClasses={styles.label}
+                    className={styles.field}
+                    containerClasses={styles.fieldContainer}
+                    value={formFields.request.maxAmountOfProposals}
+                    onChange={onChangeField('request')('maxAmountOfProposals')}
+                  />
+
+                  <Field
+                    error={
+                      formFields?.request?.price &&
+                      platformSettingsData?.requestMinAmountPriceOfProposal > formFields.request.price &&
+                      `${t(TranslationKey['The price should be greater than'])} ${
+                        platformSettingsData?.requestMinAmountPriceOfProposal
+                      } $`
+                    }
+                    tooltipInfoContent={t(TranslationKey['The price you are willing to pay for the result'])}
+                    inputProps={{ maxLength: 8 }}
+                    label={`${t(TranslationKey['Enter the offer price'])}`}
+                    labelClasses={styles.label}
+                    className={styles.field}
+                    containerClasses={styles.fieldContainer}
+                    value={formFields.request.price}
+                    onChange={onChangeField('request')('price')}
+                  />
+                </div>
+
+                <div className={styles.fields}>
+                  <div className={styles.checkbox}>
+                    <Checkbox
+                      color="primary"
+                      checked={formFields.request.withoutConfirmation}
+                      onChange={onChangeField('request')('withoutConfirmation')}
+                    />
+                    <Text
+                      tooltipPosition={'corner'}
+                      className={styles.subTitle}
+                      tooltipInfoContent={t(
+                        TranslationKey['Allow the performer to take the request for work without confirmation'],
+                      )}
+                    >
+                      {t(TranslationKey['Allow the performer to take the request for work without confirmation'])}
+                    </Text>
                   </div>
 
-                  <div className={cx(styles.checkboxAndButtonWrapper, styles.checkboxAndButtonWrapperMarginTop)}>
-                    <div className={styles.checkboxProposalWrapper}>
-                      <div
-                        className={styles.checkboxWrapper}
-                        onClick={() => {
-                          if (formFields.request.priority === 20) {
-                            onChangeField('request')('priority')({ target: { value: 30 } })
-                          } else {
-                            onChangeField('request')('priority')({ target: { value: 20 } })
-                          }
-                        }}
-                      >
-                        <Checkbox color="primary" checked={formFields.request.priority === 30} />
-                        <Text className={styles.priorityText} tooltipPosition={'corner'}>
-                          {t(TranslationKey['Set urgent priority'])}
-                          <img src="/assets/icons/fire.svg" />
-                        </Text>
-                      </div>
-                    </div>
+                  <div className={styles.checkbox}>
+                    <Checkbox
+                      color="primary"
+                      checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                      onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                    />
+                    <Text
+                      tooltipPosition={'corner'}
+                      className={styles.subTitle}
+                      tooltipInfoContent={t(
+                        TranslationKey['After providing the result, the same performer may make a new proposal'],
+                      )}
+                    >
+                      {t(TranslationKey['Prohibit multiple performances by the same performer'])}
+                    </Text>
                   </div>
+                </div>
 
-                  <div className={cx(styles.checkboxAndButtonWrapper, styles.checkboxAndButtonWrapperMarginTop)}>
-                    <Field
-                      label={t(TranslationKey.Performer)}
-                      labelClasses={styles.spanLabelSmall}
-                      containerClasses={styles.executorContainer}
-                      className={styles.nameField}
-                      inputComponent={
-                        announcement?._id ? (
-                          <div className={styles.executorWrapper}>
-                            <MasterUserItem
-                              id={chosenExecutor?._id}
-                              name={chosenExecutor?.name}
-                              rating={chosenExecutor?.rating}
-                            />
+                <div className={styles.fields}>
+                  <div className={cx(styles.checkbox, styles.defaultMarginTop)}>
+                    <Checkbox
+                      color="primary"
+                      checked={formFields.request.priority === 30}
+                      onChange={() => {
+                        if (formFields.request.priority === 20) {
+                          onChangeField('request')('priority')({ target: { value: 30 } })
+                        } else {
+                          onChangeField('request')('priority')({ target: { value: 20 } })
+                        }
+                      }}
+                    />
+                    <Text className={styles.subTitle} tooltipPosition={'corner'}>
+                      {t(TranslationKey['Set urgent priority'])}
+                    </Text>
+                    <FireIcon className={styles.fireIcon} />
+                  </div>
+                </div>
 
-                            <Button
-                              disabled={!formFields?.request?.typeTask}
-                              variant={'contained'}
-                              className={styles.changePerformerBtn}
-                              onClick={async () => {
-                                await onClickChoosePerformer(formFields.request.typeTask)
-                                setOpenModal(true)
-                              }}
-                            >
-                              {t(TranslationKey['Change announcement'])}
-                            </Button>
-                          </div>
-                        ) : (
-                          <WithSearchSelect
-                            darkIcon
-                            grayBorder
-                            masterUserSelect
-                            blackSelectedItem
-                            chosenItemNoHover
-                            width={372}
-                            disabled={!formFields?.request?.typeTask}
-                            data={masterUsersData}
-                            searchOnlyFields={['name']}
-                            customSubMainWrapper={styles.customSubMainWrapper}
-                            customSearchInput={styles.customSearchInput}
-                            selectedItemName={
-                              chosenExecutor ? (
-                                <MasterUserItem
-                                  id={chosenExecutor?._id}
-                                  name={chosenExecutor?.name}
-                                  rating={chosenExecutor?.rating}
-                                />
-                              ) : (
-                                t(TranslationKey['Choose an executor'])
-                              )
-                            }
-                            onClickSelect={el => {
-                              onChangeField('request')('executorId')(el)
-                              setAnnouncement(undefined)
-                            }}
-                            onClickNotChosen={() => {
-                              onChangeField('request')('executorId')(undefined)
-                              setAnnouncement(undefined)
-                            }}
+                <div className={cx(styles.fields, styles.defaultMarginTop)}>
+                  <Field
+                    label={t(TranslationKey.Performer)}
+                    labelClasses={styles.label}
+                    className={styles.field}
+                    containerClasses={styles.fieldContainer}
+                    inputComponent={
+                      announcement?._id ? (
+                        <div className={styles.executorWrapper}>
+                          <MasterUserItem
+                            id={chosenExecutor?._id}
+                            name={chosenExecutor?.name}
+                            rating={chosenExecutor?.rating}
                           />
-                        )
-                      }
-                    />
 
-                    <Field
-                      containerClasses={styles.executorContainer}
-                      label={`${t(TranslationKey.Announcement)}`}
-                      labelClasses={styles.spanLabelSmall}
-                      inputComponent={
-                        <div className={styles.performerAndButtonWrapper}>
-                          {announcement?.title && (
-                            <p className={styles.performerDescriptionText}>{announcement?.title}</p>
-                          )}
-
-                          {!announcement?._id && (
-                            <Button
-                              disabled={!formFields?.request?.typeTask}
-                              variant={'contained'}
-                              className={styles.changePerformerBtn}
-                              onClick={async () => {
-                                await onClickChoosePerformer(formFields.request.typeTask)
-                                setOpenModal(true)
-                              }}
-                            >
-                              {t(TranslationKey['Select announcement'])}
-                            </Button>
-                          )}
+                          <Button
+                            disabled={!formFields.request.specId}
+                            className={styles.buttonSelect}
+                            onClick={async () => {
+                              await onClickChoosePerformer(currentSpec?.type)
+                              setOpenModal(true)
+                            }}
+                          >
+                            {t(TranslationKey['Change announcement'])}
+                          </Button>
                         </div>
-                      }
-                    />
-                  </div>
+                      ) : (
+                        <WithSearchSelect
+                          darkIcon
+                          grayBorder
+                          masterUserSelect
+                          blackSelectedItem
+                          chosenItemNoHover
+                          width="100%"
+                          disabled={!formFields.request.specId}
+                          data={masterUsersData}
+                          searchOnlyFields={['name']}
+                          customItemsWrapper={styles.customItemsWrapper}
+                          selectedItemName={
+                            chosenExecutor ? (
+                              <MasterUserItem
+                                id={chosenExecutor?._id}
+                                name={chosenExecutor?.name}
+                                rating={chosenExecutor?.rating}
+                              />
+                            ) : (
+                              t(TranslationKey['Choose an executor'])
+                            )
+                          }
+                          onClickSelect={el => {
+                            onChangeField('request')('executorId')(el)
+                            setAnnouncement(undefined)
+                          }}
+                          onClickNotChosen={() => {
+                            onChangeField('request')('executorId')(undefined)
+                            setAnnouncement(undefined)
+                          }}
+                        />
+                      )
+                    }
+                  />
+
+                  <Field
+                    label={t(TranslationKey.Announcement)}
+                    labelClasses={styles.label}
+                    className={styles.field}
+                    containerClasses={styles.fieldContainer}
+                    inputComponent={
+                      <div className={styles.executorWrapper}>
+                        {announcement?.title && (
+                          <p className={styles.performerDescriptionText}>{announcement?.title}</p>
+                        )}
+
+                        {!announcement?._id && (
+                          <Button
+                            disabled={!formFields?.request?.specId}
+                            onClick={async () => {
+                              await onClickChoosePerformer(currentSpec?.type)
+                              setOpenModal(true)
+                            }}
+                          >
+                            {t(TranslationKey['Select announcement'])}
+                          </Button>
+                        )}
+                      </div>
+                    }
+                  />
                 </div>
               </div>
             </div>
           )}
 
-          {curStep === stepVariant.STEP_TWO && (
-            <div className={styles.mainTwoStepWrapper}>
-              <div className={styles.mainSubRightTwoStepWrapper}>
-                <div className={styles.adviceWrapper}>
-                  <Typography className={styles.adviceTitle}>{t(TranslationKey['Choosing a performer:'])}</Typography>
+          {isSecondStep && (
+            <div className={styles.stepWrapper}>
+              <div className={styles.advices}>
+                <p className={styles.text}>{t(TranslationKey['Choosing a performer:'])}</p>
 
-                  <List>
-                    <ListItem className={styles.adviceListItem}>
-                      <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
-
-                      <ListItemText className={styles.adviceListItemText}>
-                        {t(TranslationKey['Read the reviews about the performer'])}
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem className={styles.adviceListItem}>
-                      <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
-
-                      <ListItemText className={styles.adviceListItemText}>
-                        {t(
-                          TranslationKey[
-                            'Do not confirm the result of the work until you are sure that it is complete'
-                          ],
-                        )}
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem className={styles.adviceListItem}>
-                      <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
-
-                      <ListItemText className={styles.adviceListItemText}>
-                        {t(
-                          TranslationKey[
-                            'Try to study market prices and choose a performer and choose relevant terms and conditions'
-                          ],
-                        )}
-                      </ListItemText>
-                    </ListItem>
-                  </List>
-                  <div className={styles.trainingTextWrapper}>
-                    <Typography className={styles.trainingText}>
-                      {t(TranslationKey['You can also take a free'])}
-                      <Link className={styles.trainingLink}>{t(TranslationKey.Training)}</Link>
-                      {t(TranslationKey['on our freelance exchange.'])}
-                    </Typography>
-                  </div>
+                <div className={styles.advice}>
+                  <div className={styles.point} />
+                  <p className={styles.text}>{t(TranslationKey['Read the reviews about the performer'])}</p>
                 </div>
 
-                <div className={styles.middleStepTwoMainWrapper}>
-                  <div className={styles.middleStepTwoWrapper}>
-                    <div className={styles.middleStepTwoSubWrapper}>
-                      <div className={styles.titleAndAsinWrapper}>
+                <div className={styles.advice}>
+                  <div className={styles.point} />
+                  <p className={styles.text}>
+                    {t(TranslationKey['Do not confirm the result of the work until you are sure that it is complete'])}
+                  </p>
+                </div>
+
+                <div className={styles.advice}>
+                  <div className={styles.point} />
+                  <p className={styles.text}>
+                    {t(
+                      TranslationKey[
+                        'Try to study market prices and choose a performer and choose relevant terms and conditions'
+                      ],
+                    )}
+                  </p>
+                </div>
+
+                <p className={styles.text}>
+                  {t(TranslationKey['You can also take a free'])}
+                  <Link className={styles.link}>{t(TranslationKey.Training)}</Link>
+                  {t(TranslationKey['on our freelance exchange.'])}
+                </p>
+              </div>
+
+              <div className={styles.fieldsDataWrapper}>
+                <div className={styles.middleStepTwoWrapper}>
+                  <div className={styles.middleStepTwoSubWrapper}>
+                    <div className={styles.titleAndAsinWrapper}>
+                      <Field
+                        label={t(TranslationKey.Title)}
+                        className={styles.field}
+                        labelClasses={styles.label}
+                        containerClasses={styles.fieldContainer}
+                        inputComponent={<p className={cx(styles.resultText)}>{formFields.request.title}</p>}
+                      />
+
+                      {formFields?.request?.asin && (
                         <Field
-                          label={t(TranslationKey.Title)}
-                          labelClasses={styles.spanLabel}
-                          containerClasses={styles.titleContainer}
+                          label={t(TranslationKey.ASIN)}
+                          className={styles.field}
+                          labelClasses={styles.label}
+                          containerClasses={styles.fieldContainer}
                           inputComponent={
-                            <Typography className={cx(styles.twoStepFieldResult, styles.requestTitle)}>
-                              {formFields.request.title}
-                            </Typography>
+                            <AsinOrSkuLink
+                              withCopyValue
+                              link={formFields?.request?.asin}
+                              textStyles={styles.copyAsinlinkSpan}
+                            />
                           }
                         />
-                        {formFields?.request?.asin && (
-                          <Field
-                            label={t(TranslationKey.ASIN)}
-                            labelClasses={cx(styles.spanLabel, styles.fitContentContainer)}
-                            containerClasses={styles.asinContainerStapTwo}
-                            inputComponent={
-                              <AsinOrSkuLink
-                                withCopyValue
-                                asin={formFields?.request?.asin}
-                                textStyles={styles.copyAsinlinkSpan}
-                                missingValueTextStyles={styles.copyAsinlinkSpan}
-                              />
-                            }
-                          />
-                        )}
-                      </div>
-
-                      <Typography className={styles.imagesTitle}>{t(TranslationKey.Files)}</Typography>
-                      <PhotoAndFilesSlider
-                        column
-                        smallSlider
-                        files={images.map(el => el.file)}
-                        imagesTitles={images.map(el => el.comment)}
-                      />
+                      )}
                     </div>
 
-                    <div className={styles.rightTwoStepMainWrapper}>
-                      <div className={styles.rightTwoStepWrapper}>
-                        {`${formFields?.request?.typeTask}` ===
-                          `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
-                        formFields.request.priceAmazon &&
-                        formFields.request.priceAmazon !== '0' ? (
-                          <div className={styles.infoColumn}>
-                            {`${formFields?.request?.typeTask}` ===
-                              `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
-                            formFields?.request?.priceAmazon &&
-                            formFields?.request?.priceAmazon !== '0' ? (
-                              <Field
-                                label={t(TranslationKey['Price per product'])}
-                                labelClasses={styles.spanLabel}
-                                containerClasses={styles.fitContentContainer}
-                                inputComponent={
-                                  <div className={styles.pricesWrapper}>
-                                    {formFields.request.discountedPrice && formFields.request.cashBackInPercent ? (
-                                      <Typography
-                                        className={cx(styles.twoStepFieldResult, {
-                                          [styles.newPrice]:
-                                            formFields.request.discountedPrice && formFields.request.cashBackInPercent,
-                                        })}
-                                      >
-                                        {'$ ' + toFixed(+formFields.request.discountedPrice, 2)}
-                                      </Typography>
-                                    ) : null}
+                    <Field
+                      label={t(TranslationKey.Files)}
+                      labelClasses={styles.label}
+                      className={styles.field}
+                      containerClasses={styles.fieldContainer}
+                      inputComponent={
+                        <PhotoAndFilesSlider
+                          smallSlider
+                          customSlideHeight={98}
+                          files={images.map(el => el.fileLink)}
+                          imagesTitles={images.map(el => el.commentByClient)}
+                        />
+                      }
+                    />
+                  </div>
 
-                                    <Typography
-                                      className={cx(styles.twoStepFieldResult, {
-                                        [styles.oldPrice]:
+                  <div className={styles.middleStepTwoSubWrapper}>
+                    <div className={styles.middleStepTwoWrapper}>
+                      {currentSpec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
+                      formFields.request.priceAmazon &&
+                      formFields.request.priceAmazon !== '0' ? (
+                        <div className={styles.infoColumn}>
+                          {currentSpec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
+                          formFields?.request?.priceAmazon &&
+                          formFields?.request?.priceAmazon !== '0' ? (
+                            <Field
+                              label={t(TranslationKey['Price per product'])}
+                              className={styles.field}
+                              labelClasses={styles.slabel}
+                              containerClasses={styles.fieldContainer}
+                              inputComponent={
+                                <div className={styles.pricesWrapper}>
+                                  {formFields.request.discountedPrice && formFields.request.cashBackInPercent ? (
+                                    <p
+                                      className={cx(styles.resultText, styles.twoStepFieldResult, {
+                                        [styles.newPrice]:
                                           formFields.request.discountedPrice && formFields.request.cashBackInPercent,
                                       })}
                                     >
-                                      {'$ ' + toFixed(+formFields.request.priceAmazon, 2)}
-                                    </Typography>
-                                  </div>
-                                }
-                              />
-                            ) : null}
+                                      {'$ ' + toFixed(+formFields.request.discountedPrice, 2)}
+                                    </p>
+                                  ) : null}
 
-                            {`${formFields?.request?.typeTask}` ===
-                              `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}` &&
-                            formFields.request.cashBackInPercent &&
-                            formFields?.request?.cashBackInPercent ? (
-                              <Field
-                                label={t(TranslationKey.CashBack)}
-                                containerClasses={styles.fitContentContainer}
-                                labelClasses={styles.spanLabel}
-                                inputComponent={
-                                  <Typography className={styles.twoStepFieldResult}>
-                                    {toFixed(formFields.request.cashBackInPercent, 0) + ' %'}
-                                  </Typography>
-                                }
-                              />
-                            ) : null}
-                          </div>
-                        ) : null}
+                                  <p
+                                    className={cx(styles.resultText, styles.twoStepFieldResult, {
+                                      [styles.oldPrice]:
+                                        formFields.request.discountedPrice && formFields.request.cashBackInPercent,
+                                    })}
+                                  >
+                                    {'$ ' + toFixed(+formFields.request.priceAmazon, 2)}
+                                  </p>
+                                </div>
+                              }
+                            />
+                          ) : null}
 
-                        <div className={styles.infoColumn}>
-                          <Field
-                            label={t(TranslationKey['Request type'])}
-                            containerClasses={styles.fitContentContainer}
-                            labelClasses={styles.spanLabel}
-                            inputComponent={
-                              <Typography className={styles.twoStepFieldResult}>
-                                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[formFields.request.typeTask])}
-                              </Typography>
-                            }
-                          />
-
-                          <Field
-                            label={t(TranslationKey['Number of proposals'])}
-                            labelClasses={styles.spanLabel}
-                            containerClasses={styles.fitContentContainer}
-                            inputComponent={
-                              <Typography className={styles.twoStepFieldResult}>
-                                {formFields.request.maxAmountOfProposals}
-                              </Typography>
-                            }
-                          />
+                          {currentSpec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER] &&
+                          formFields.request.cashBackInPercent &&
+                          formFields?.request?.cashBackInPercent ? (
+                            <Field
+                              label={t(TranslationKey.CashBack)}
+                              className={styles.field}
+                              labelClasses={styles.label}
+                              containerClasses={styles.fieldContainer}
+                              inputComponent={
+                                <p className={styles.resultText}>
+                                  {toFixed(formFields.request.cashBackInPercent, 0) + ' %'}
+                                </p>
+                              }
+                            />
+                          ) : null}
                         </div>
+                      ) : null}
 
-                        <div className={styles.infoColumn}>
-                          <Field
-                            label={t(TranslationKey['Request price']) + ', $'}
-                            labelClasses={styles.spanLabel}
-                            containerClasses={styles.fitContentContainer}
-                            inputComponent={
-                              <Typography className={styles.twoStepFieldResult}>
-                                {formFields.request.price + '$'}
-                              </Typography>
-                            }
-                          />
+                      <div className={styles.infoColumn}>
+                        <Field
+                          label={t(TranslationKey['Request type'])}
+                          className={styles.field}
+                          containerClasses={styles.fieldContainer}
+                          labelClasses={styles.label}
+                          inputComponent={<p className={styles.resultText}>{currentSpec?.title}</p>}
+                        />
 
-                          <Field
-                            label={t(TranslationKey['Deadline for the request'])}
-                            containerClasses={styles.fitContentContainer}
-                            labelClasses={styles.spanLabel}
-                            inputComponent={
-                              <Typography className={styles.twoStepFieldResult}>
-                                {formFields.request.timeoutAt &&
-                                  formatDateForShowWithoutParseISO(formFields.request.timeoutAt)}
-                              </Typography>
-                            }
-                          />
-                        </div>
+                        <Field
+                          label={t(TranslationKey['Number of proposals'])}
+                          className={styles.field}
+                          containerClasses={styles.fieldContainer}
+                          labelClasses={styles.label}
+                          inputComponent={
+                            <p className={styles.resultText}>{formFields.request.maxAmountOfProposals}</p>
+                          }
+                        />
                       </div>
-                      <div className={styles.infoTextWrapper}>
-                        {announcement?._id ? (
-                          <div className={styles.performerWrapperStepTwo}>
-                            <Typography className={styles.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
 
-                            <MasterUserItem
-                              id={chosenExecutor?._id}
-                              name={chosenExecutor?.name}
-                              rating={chosenExecutor?.rating}
-                            />
+                      <div className={styles.infoColumn}>
+                        <Field
+                          label={t(TranslationKey['Request price']) + ', $'}
+                          className={styles.field}
+                          containerClasses={styles.fieldContainer}
+                          labelClasses={styles.label}
+                          inputComponent={<p className={styles.resultText}>{formFields.request.price + '$'}</p>}
+                        />
 
-                            <Typography className={styles.performerDescriptionText}>
-                              {announcement?.description}
-                            </Typography>
-                          </div>
-                        ) : chosenExecutor ? (
-                          <div className={styles.performerWrapperStepTwo}>
-                            <Typography className={styles.spanLabelSmall}>{t(TranslationKey.Performer)}</Typography>
-
-                            <MasterUserItem
-                              id={chosenExecutor?._id}
-                              name={chosenExecutor?.name}
-                              rating={chosenExecutor?.rating}
-                            />
-                          </div>
-                        ) : null}
-
-                        {formFields.request.needCheckBySupervisor && (
-                          <div className={styles.selectedCheckbox}>
-                            <Checkbox checked disabled color="primary" />
-                            <Typography className={styles.restrictMoreThanOneProposal}>
-                              {t(TranslationKey['A supervisor check is necessary'])}
-                            </Typography>
-                          </div>
-                        )}
-
-                        {formFields.request.restrictMoreThanOneProposalFromOneAssignee && (
-                          <div className={styles.selectedCheckbox}>
-                            <Checkbox checked disabled color="primary" />
-                            <Typography className={styles.restrictMoreThanOneProposal}>
-                              {t(TranslationKey['Multiple performances by the same performer are prohibited'])}
-                            </Typography>
-                          </div>
-                        )}
-
-                        {formFields.request.withoutConfirmation && (
-                          <div className={styles.selectedCheckbox}>
-                            <Checkbox checked disabled color="primary" />
-                            <Typography className={styles.restrictMoreThanOneProposal}>
-                              {t(
-                                TranslationKey['Allow the performer to take the request for work without confirmation'],
-                              )}
-                            </Typography>
-                          </div>
-                        )}
+                        <Field
+                          label={t(TranslationKey['Deadline for the request'])}
+                          className={styles.field}
+                          labelClasses={styles.label}
+                          containerClasses={styles.fieldContainer}
+                          inputComponent={
+                            <p className={styles.resultText}>
+                              {formFields.request.timeoutAt &&
+                                formatDateForShowWithoutParseISO(formFields.request.timeoutAt)}
+                            </p>
+                          }
+                        />
                       </div>
                     </div>
-                  </div>
 
-                  <div className={styles.performerDescriptionWrapperTextStepTwo}>
-                    <Typography className={styles.spanLabel}>
-                      {t(TranslationKey['Description of your request'])}
-                    </Typography>
+                    <div className={styles.infoTextWrapper}>
+                      {announcement?._id ? (
+                        <div className={styles.performerWrapperStepTwo}>
+                          <Field
+                            label={t(TranslationKey.Performer)}
+                            labelClasses={styles.label}
+                            className={styles.field}
+                            containerClasses={styles.fieldContainer}
+                            inputComponent={
+                              <MasterUserItem
+                                id={chosenExecutor?._id}
+                                name={chosenExecutor?.name}
+                                rating={chosenExecutor?.rating}
+                              />
+                            }
+                          />
 
-                    <CustomTextEditor
-                      readOnly
-                      conditions={formFields.details.conditions}
-                      editorMaxHeight={styles.editorMaxHeight}
-                    />
+                          <p className={styles.performerDescriptionText}>{announcement?.description}</p>
+                        </div>
+                      ) : chosenExecutor ? (
+                        <Field
+                          label={t(TranslationKey.Performer)}
+                          labelClasses={styles.label}
+                          className={styles.field}
+                          containerClasses={styles.fieldContainer}
+                          inputComponent={
+                            <MasterUserItem
+                              id={chosenExecutor?._id}
+                              name={chosenExecutor?.name}
+                              rating={chosenExecutor?.rating}
+                            />
+                          }
+                        />
+                      ) : null}
+
+                      {formFields.request.needCheckBySupervisor && (
+                        <div className={styles.checkbox}>
+                          <Checkbox checked disabled color="primary" />
+                          <p className={styles.subTitle}>{t(TranslationKey['A supervisor check is necessary'])}</p>
+                        </div>
+                      )}
+
+                      {formFields.request.restrictMoreThanOneProposalFromOneAssignee && (
+                        <div className={styles.checkbox}>
+                          <Checkbox checked disabled color="primary" />
+                          <p className={styles.subTitle}>
+                            {t(TranslationKey['Multiple performances by the same performer are prohibited'])}
+                          </p>
+                        </div>
+                      )}
+
+                      {formFields.request.withoutConfirmation && (
+                        <div className={styles.checkbox}>
+                          <Checkbox checked disabled color="primary" />
+                          <p className={styles.subTitle}>
+                            {t(TranslationKey['Allow the performer to take the request for work without confirmation'])}
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
+                </div>
+
+                <div>
+                  <p className={styles.label}>{t(TranslationKey['Description of your request'])}</p>
+
+                  <CustomTextEditor
+                    readOnly
+                    value={formFields.details.conditions}
+                    editorClassName={styles.editorClassName}
+                  />
                 </div>
               </div>
             </div>
           )}
         </div>
-        {curStep === stepVariant.STEP_ONE &&
-          (requestToEdit ? (
-            <div className={styles.footerWrapper}>
-              <div className={styles.footerRightWrapper}>
-                <div className={styles.buttonsWrapper}>
-                  <Button variant={'text'} className={styles.backBtn} onClick={onClickBackBtn}>
-                    {t(TranslationKey.Cancel)}
-                  </Button>
 
-                  <Button
-                    success
-                    disabled={disableSubmit}
-                    className={styles.successBtn}
-                    onClick={() => onEditSubmit(formFields, images, announcement)}
-                  >
-                    {t(TranslationKey.Edit)}
-                  </Button>
-                </div>
+        <div className={styles.buttonsWrapper}>
+          <div className={styles.buttons} />
+          <div className={styles.steps}>
+            <div className={styles.stepPagination}>
+              <div className={styles.stepPaginationStartBar}></div>
+              <div className={styles.stepPaginationBar}>
+                <div className={styles.step} style={{ width: isFirstStep ? '50%' : '100%' }}></div>
               </div>
+              <div
+                className={styles.stepPaginationEndBar}
+                style={{ backgroundColor: isSecondStep ? '#00B746' : '#c4c4c4' }}
+              ></div>
             </div>
-          ) : (
-            <div className={styles.footerWrapper}>
-              <div className={styles.footerRightWrapper}>
-                <div className={styles.buttonsWrapper}>
-                  <Button
-                    tooltipInfoContent={
-                      curStep === stepVariant.STEP_TWO
-                        ? t(TranslationKey['Back to Step 1'])
-                        : t(TranslationKey['Cancel request creation'])
-                    }
-                    variant={'text'}
-                    className={styles.backBtn}
-                    onClick={onClickBackBtn}
-                  >
-                    {curStep === stepVariant.STEP_TWO ? t(TranslationKey['Back to editing']) : t(TranslationKey.Cancel)}
-                  </Button>
+            <p className={styles.stepTitle}>
+              {isFirstStep ? `${t(TranslationKey.Step)} 1` : `${t(TranslationKey.Step)} 2`}
+            </p>
+          </div>
 
-                  <Button
-                    success
-                    tooltipInfoContent={
-                      curStep === stepVariant.STEP_TWO
-                        ? t(TranslationKey['Creates a completed request'])
-                        : t(TranslationKey['Go to Step 2'])
-                    }
-                    disabled={disableSubmit}
-                    className={styles.successBtn}
-                    onClick={onSuccessSubmit}
-                  >
-                    {curStep === stepVariant.STEP_TWO ? (
-                      t(TranslationKey['Create a request'])
-                    ) : (
-                      <div className={styles.successBtnTextWrapper}>
-                        <Typography>{t(TranslationKey.Next)}</Typography>
-                        <img
-                          src="/assets/icons/right-arrow.svg"
-                          className={cx(styles.successBtnArrow, {
-                            [styles.disablesBtnArrow]: disableSubmit,
-                          })}
-                        />
-                      </div>
-                    )}
-                  </Button>
-                </div>
-              </div>
-            </div>
-          ))}
+          <div className={styles.buttons}>
+            <Button
+              tooltipInfoContent={
+                isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
+              }
+              variant={ButtonVariant.OUTLINED}
+              onClick={onClickBackBtn}
+            >
+              {isSecondStep ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
+            </Button>
 
-        {curStep === stepVariant.STEP_TWO && (
-          <div className={styles.footerWrapper}>
-            <div className={styles.footerRightWrapper}>
-              <div className={styles.buttonsWrapper}>
+            {requestToEdit ? (
+              <Button
+                styleType={ButtonStyle.SUCCESS}
+                tooltipInfoContent={
+                  isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
+                }
+                disabled={disableSubmit}
+                onClick={() => (isSecondStep ? onEditSubmit(formFields, images, announcement) : onSuccessSubmit())}
+              >
+                {isSecondStep ? (
+                  t(TranslationKey.Edit)
+                ) : (
+                  <>
+                    {t(TranslationKey.Next)}
+                    <img src="/assets/icons/right-arrow.svg" className={cx({ [styles.arrowIcon]: disableSubmit })} />
+                  </>
+                )}
+              </Button>
+            ) : (
+              <>
                 <Button
+                  styleType={ButtonStyle.SUCCESS}
                   tooltipInfoContent={
-                    curStep === stepVariant.STEP_TWO
-                      ? t(TranslationKey['Back to Step 1'])
-                      : t(TranslationKey['Cancel request creation'])
-                  }
-                  variant={'text'}
-                  className={styles.backBtn}
-                  onClick={onClickBackBtn}
-                >
-                  {curStep === stepVariant.STEP_TWO ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
-                </Button>
-
-                <Button
-                  success
-                  tooltipInfoContent={
-                    curStep === stepVariant.STEP_TWO
-                      ? t(TranslationKey['Creates a completed request'])
-                      : t(TranslationKey['Go to Step 2'])
+                    isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                   }
                   disabled={disableSubmit}
-                  className={styles.successBtn}
-                  onClick={() => onClickCreate({ withPublish: false })}
+                  onClick={() => (isSecondStep ? onClickCreate({ withPublish: false }) : onSuccessSubmit())}
                 >
-                  {curStep === stepVariant.STEP_TWO ? (
+                  {isSecondStep ? (
                     t(TranslationKey['Create a request'])
                   ) : (
-                    <div className={styles.successBtnTextWrapper}>
-                      <Typography>{t(TranslationKey.Next)}</Typography>
-                      <img
-                        src="/assets/icons/right-arrow.svg"
-                        className={cx(styles.successBtnArrow, {
-                          [styles.disablesBtnArrow]: disableSubmit,
-                        })}
-                      />
-                    </div>
+                    <>
+                      {t(TranslationKey.Next)}
+                      <img src="/assets/icons/right-arrow.svg" className={cx({ [styles.arrowIcon]: disableSubmit })} />
+                    </>
                   )}
                 </Button>
 
-                {curStep === stepVariant.STEP_TWO && (
+                {isSecondStep ? (
                   <Button
-                    success
+                    styleType={ButtonStyle.SUCCESS}
                     disabled={disableSubmit}
-                    className={styles.successBtn}
                     onClick={() => onClickCreate({ withPublish: true })}
                   >
                     {t(TranslationKey['Create and publish a request'])}
                   </Button>
-                )}
-              </div>
-            </div>
+                ) : null}
+              </>
+            )}
           </div>
-        )}
-      </div>
-      <div className={styles.steps}>
-        <div className={styles.stepPagination}>
-          <div className={styles.stepPaginationStartBar}></div>
-          <div className={styles.stepPaginationBar}>
-            <div className={styles.step} style={{ width: curStep === stepVariant.STEP_ONE ? '50%' : '100%' }}></div>
-          </div>
-          <div
-            className={styles.stepPaginationEndBar}
-            style={{ backgroundColor: curStep === stepVariant.STEP_TWO ? '#00B746' : '#c4c4c4' }}
-          ></div>
         </div>
-        <Typography className={styles.stepTitle}>
-          {curStep === stepVariant.STEP_ONE ? `${t(TranslationKey.Step)} 1` : `${t(TranslationKey.Step)} 2`}
-        </Typography>
       </div>
-      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+
+      {showProgress && (
+        <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
+      )}
 
       <Modal openModal={openModal} setOpenModal={() => setOpenModal(!openModal)}>
         <ChoiceOfPerformerModal
@@ -1263,12 +1194,22 @@ export const CreateOrEditRequestContent = memo(props => {
         <CheckRequestByTypeExists
           requestsData={requestIds}
           asin={formFields?.request?.asin}
-          type={formFields.request.typeTask}
+          specTitle={currentSpec?.title}
           onClickRequest={onClickExistingRequest}
           onClickContinue={() => onCreateSubmit(formFields, images, withPublish, announcement)}
           onClickCancel={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
         />
       </Modal>
-    </div>
+
+      {showGalleryModal ? (
+        <GalleryRequestModal
+          data={productMedia}
+          openModal={showGalleryModal}
+          mediaFiles={images}
+          onChangeMediaFiles={setImages}
+          onOpenModal={onTriggerGalleryModal}
+        />
+      ) : null}
+    </>
   )
 })

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,11 +11,11 @@ import { t } from '@utils/translations'
 
 import { CreateOrEditProposalViewModel } from './create-or-edit-proposal-view.model'
 
-export const CreateOrEditProposalView = observer(({ history, location }) => {
-  const [viewModel] = useState(() => new CreateOrEditProposalViewModel({ history, location }))
+export const CreateOrEditProposalView = observer(({ history }) => {
+  const [viewModel] = useState(() => new CreateOrEditProposalViewModel({ history }))
 
   return (
-    <React.Fragment>
+    <>
       <CreateOrEditProposalContent
         progressValue={viewModel.progressValue}
         showProgress={viewModel.showProgress}
@@ -26,28 +26,34 @@ export const CreateOrEditProposalView = observer(({ history, location }) => {
         onEditSubmit={viewModel.onSubmitEditProposal}
       />
 
-      <TwoVerticalChoicesModal
-        openModal={viewModel.showResultModal}
-        setOpenModal={() => {
-          viewModel.onTriggerOpenModal('showResultModal')
-          viewModel.onClickResultModal({ goBack: true })
-        }}
-        title={viewModel.infoModalText}
-        topBtnText={t(TranslationKey['Go to request'])}
-        bottomBtnText={t(TranslationKey['To vacant requests'])}
-        thirdBtnText={t(TranslationKey['To the list of proposals'])}
-        onClickTopBtn={() => viewModel.goToMyRequest()}
-        onClickBottomBtn={() => viewModel.onClickResultModal({ goBack: true })}
-        onClickThirdBtn={() => viewModel.onClickResultModal({ goBack: false })}
-      />
+      {viewModel.showResultModal ? (
+        <TwoVerticalChoicesModal
+          // @ts-ignore
+          openModal={viewModel.showResultModal}
+          setOpenModal={() => {
+            viewModel.onTriggerOpenModal('showResultModal')
+            viewModel.onClickResultModal({ goBack: true })
+          }}
+          title={viewModel.infoModalText}
+          topBtnText={t(TranslationKey['Go to request'])}
+          bottomBtnText={t(TranslationKey['To vacant requests'])}
+          thirdBtnText={t(TranslationKey['To the list of proposals'])}
+          onClickTopBtn={() => viewModel.goToMyRequest()}
+          onClickBottomBtn={() => viewModel.onClickResultModal({ goBack: true })}
+          onClickThirdBtn={() => viewModel.onClickResultModal({ goBack: false })}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel.showInfoModal}
-        setOpenModal={viewModel.onClickOkInfoModal}
-        title={viewModel.infoModalText}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={viewModel.onClickOkInfoModal}
-      />
-    </React.Fragment>
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showInfoModal}
+          setOpenModal={viewModel.onClickOkInfoModal}
+          title={viewModel.infoModalText}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={viewModel.onClickOkInfoModal}
+        />
+      ) : null}
+    </>
   )
 })

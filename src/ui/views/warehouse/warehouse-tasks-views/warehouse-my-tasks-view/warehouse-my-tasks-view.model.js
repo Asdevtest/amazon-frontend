@@ -74,11 +74,15 @@ export class WarehouseMyTasksViewModel {
 
   tmpDataForCancelTask = {}
 
-  constructor({ history, location }) {
+  get currentData() {
+    return this.tasksMy
+  }
+
+  constructor({ history }) {
     this.history = history
 
-    if (location.state?.task) {
-      this.onClickResolveBtn(location.state?.task)
+    if (history.location.state?.task) {
+      this.onClickResolveBtn(history.location.state?.task)
 
       const state = { ...history.location.state }
       delete state.task
@@ -154,20 +158,16 @@ export class WarehouseMyTasksViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.success)
+          this.setRequestStatus(loadingStatuses.SUCCESS)
         }
       })
     })
-  }
-
-  getCurrentData() {
-    return toJS(this.tasksMy)
   }
 
   onClickOperationTypeBtn(type) {
@@ -186,10 +186,10 @@ export class WarehouseMyTasksViewModel {
     this.nameSearchValue = e.target.value
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getTasksMy()
+      this.getTasksMy()
     } catch (error) {
       console.log(error)
     }
@@ -216,7 +216,7 @@ export class WarehouseMyTasksViewModel {
 
   async getTasksMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -259,13 +259,13 @@ export class WarehouseMyTasksViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.tasksMy = []
       })
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -280,11 +280,10 @@ export class WarehouseMyTasksViewModel {
   async setBoxBarcodeAttached(id, box) {
     try {
       const barcodesAttachedData = box.items.map(item => ({
-        orderId: item.order._id,
-        isBarCodeAttachedByTheStorekeeper: item.isBarCodeAttachedByTheStorekeeper,
-        isBarCodeAlreadyAttachedByTheSupplier: item.isBarCodeAlreadyAttachedByTheSupplier,
+        orderId: item?.order?._id,
+        isBarCodeAttachedByTheStorekeeper: item?.isBarCodeAttachedByTheStorekeeper,
+        isBarCodeAlreadyAttachedByTheSupplier: item?.isBarCodeAlreadyAttachedByTheSupplier,
       }))
-
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
     } catch (error) {
       console.log(error)
@@ -295,13 +294,18 @@ export class WarehouseMyTasksViewModel {
     try {
       if (data.tmpImages.length > 0) {
         await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'imagesOfBox' })
-
         data = { ...data, images: [...this.imagesOfBox] }
       }
 
+      const boxItems = data.items.map(item => ({
+        orderId: item?.order?._id,
+        isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper,
+        isTransparencyFileAlreadyAttachedByTheSupplier: item?.isTransparencyFileAlreadyAttachedByTheSupplier,
+      }))
+
       const updateBoxData = {
         ...getObjectFilteredByKeyArrayWhiteList(
-          data,
+          { ...data, items: boxItems },
           [
             'lengthCmWarehouse',
             'widthCmWarehouse',
@@ -310,6 +314,7 @@ export class WarehouseMyTasksViewModel {
             'isShippingLabelAttachedByStorekeeper',
             'isBarCodeAttachedByTheStorekeeper',
             'images',
+            'items',
           ],
           false,
           (key, value) => {
@@ -348,7 +353,7 @@ export class WarehouseMyTasksViewModel {
 
   async onClickSolveTask({ task, newBoxes, operationType, comment, photos }) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       for (let i = 0; i < newBoxes.length; i++) {
         const box = getObjectFilteredByKeyArrayBlackList(
@@ -445,13 +450,13 @@ export class WarehouseMyTasksViewModel {
       }
 
       await this.updateTask(this.selectedTask._id, comment)
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       this.onTriggerEditTaskModal()
 
       await Promise.all([UserModel.getUserInfo(), this.getTasksMy()])
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

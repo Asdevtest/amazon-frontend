@@ -4,7 +4,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { FeedbackModel } from '@models/feedback-model'
-import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { FreelancerFreelanceColumns } from '@components/table/table-columns/freelancer/freelancer-freelance-columns'
@@ -54,10 +53,6 @@ export class ServiceDetailsViewModel {
 
   get user() {
     return UserModel.userInfo
-  }
-
-  get languageTag() {
-    return SettingsModel.languageTag || {}
   }
 
   constructor({ history }) {
@@ -160,7 +155,7 @@ export class ServiceDetailsViewModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })

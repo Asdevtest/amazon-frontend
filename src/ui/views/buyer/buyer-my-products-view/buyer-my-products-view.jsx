@@ -1,6 +1,6 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { ProductStatus } from '@constants/product/product-status'
@@ -26,43 +26,38 @@ const attentionStatuses = [
 ]
 
 export const BuyerMyProductsViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new BuyerMyProductsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  const { classes: classNames } = props
+  const { classes: styles, history } = props
+
+  const [viewModel] = useState(() => new BuyerMyProductsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   const ideasSheldStyle = params =>
-    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && classNames.ideaRowGreen) ||
-    (!!params.row.originalData.ideasOnCheck && classNames.ideaRowYellow)
+    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && styles.ideaRowGreen) ||
+    (!!params.row.originalData.ideasOnCheck && styles.ideaRowYellow)
 
   const getRowClassName = params =>
     cx(ideasSheldStyle(params), {
-      [classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention),
-      [classNames.attentionRowShort]:
+      [styles.attentionRow]: attentionStatuses.includes(params.row.statusForAttention),
+      [styles.attentionRowShort]:
         (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified) ||
         !!params.row.originalData.ideasOnCheck,
     })
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.headerWrapper}>
+        <div className={styles.headerWrapper}>
           <SearchInput
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div className={classNames.dataGridWrapper}>
+        <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             useResizeContainer
             checkboxSelection
@@ -78,7 +73,7 @@ export const BuyerMyProductsViewRaw = props => {
             rowHeight={160}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -98,7 +93,7 @@ export const BuyerMyProductsViewRaw = props => {
             }}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
@@ -115,7 +110,7 @@ export const BuyerMyProductsViewRaw = props => {
           />
         )}
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

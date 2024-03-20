@@ -1,16 +1,27 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   destinationAndTariffWrapper: {
-    padding: '20px 0',
+    padding: '10px 0',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
   storekeeperBtn: {
-    height: 'auto',
-    width: 160,
-    marginTop: 10,
-    whiteSpace: 'normal',
-    color: '#fff',
-    background: theme.palette.primary.main,
+    width: 180,
+    padding: '0 15px',
+    fontSize: 12,
+    lineHeight: '16px',
+  },
+
+  tafiffText: {
+    width: '100%',
+    maxWidth: 'max-content',
+    overflow: 'hidden',
+    wordBreak: 'break-all',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
   },
 }))

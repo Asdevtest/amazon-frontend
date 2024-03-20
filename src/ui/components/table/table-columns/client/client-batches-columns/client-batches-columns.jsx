@@ -10,10 +10,10 @@ import {
   ToFixedWithKgSignCell,
   UserLinkCell,
   WarehouseTariffDatesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-custom-components/data-grid-select-view-product-batch'
 
-import { getFullTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
@@ -25,17 +25,15 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
         component={
           <DataGridSelectViewProductBatch
             changeViewModeHandler={rowHandlers?.changeViewModeHandler}
-            selectedViewMode={getProductViewMode()}
-            rootStyles={{ marginLeft: 15 }}
+            selectedViewMode={getProductViewMode}
+            rootStyles={{ marginLeft: 15, marginRight: 15 }}
           />
         }
       />
     ),
     headerName: t(TranslationKey.Product),
     width: 420,
-    renderCell: params => (
-      <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode()} />
-    ),
+    renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode} />,
     filterable: false,
     sortable: false,
 
@@ -57,7 +55,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.row?.boxes?.[0]?.destination?.name} />,
     width: 130,
     sortable: false,
 
@@ -65,17 +63,17 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
   },
 
   {
-    field: 'amount',
+    field: 'quantityBoxes',
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
-    renderCell: params => (
-      <MultilineTextCell text={params.row.originalData.boxes.reduce((ac, cur) => (ac += cur.amount), 0)} />
-    ),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 70,
     filterable: false,
     sortable: false,
+
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -95,9 +93,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
-    ),
+    renderCell: ({ row }) => <UserLinkCell blackText name={row?.storekeeper?.name} userId={row?.storekeeper?._id} />,
     width: 150,
     sortable: false,
 
@@ -110,7 +106,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
     renderCell: params => {
-      return <MultilineTextCell text={getFullTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />
+      return <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />
     },
     width: 160,
     sortable: false,
@@ -160,20 +156,6 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     type: 'number',
     width: 110,
     sortable: false,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-
-  {
-    field: 'totalPrice',
-    headerName: t(TranslationKey['Total price']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
-
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-
-    type: 'number',
-    width: 120,
-    sortable: false,
-
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 

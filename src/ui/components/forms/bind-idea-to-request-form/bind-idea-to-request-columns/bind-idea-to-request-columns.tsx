@@ -1,60 +1,55 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { GridCellParams } from '@mui/x-data-grid'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineRequestStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
-export const bindIdeaToRequestColumns = () => [
+export const bindIdeaToRequestColumns = [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.row.humanFriendlyId} />,
+    filterable: false,
+    sortable: false,
     width: 70,
-    // @ts-ignore
-    renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.value} />,
   },
 
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-    width: 161,
-    // @ts-ignore
-    renderCell: (params: GridCellParams) => <MultilineRequestStatusCell leftAlign status={params.value} />,
+    renderCell: (params: GridCellParams) => <MultilineRequestStatusCell status={params.row.status} />,
+    filterable: false,
+    sortable: false,
+    width: 120,
   },
 
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-    width: 228,
-    // @ts-ignore
-    renderCell: (params: GridCellParams) => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: (params: GridCellParams) => (
+      <MultilineTextCell leftAlign twoLines maxLength={60} text={params.row.title} />
+    ),
+    filterable: false,
+    sortable: false,
+    width: 260,
   },
 
   {
-    field: 'typeTask',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
-    // @ts-ignore
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
+    renderCell: (params: GridCellParams) => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    filterable: false,
+    sortable: false,
     width: 110,
-    renderCell: (params: GridCellParams) => (
-      <MultilineTextCell
-        // @ts-ignore
-        leftAlign
-        text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value as number])}
-      />
-    ),
   },
 ]

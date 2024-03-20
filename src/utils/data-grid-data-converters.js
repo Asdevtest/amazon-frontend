@@ -24,7 +24,7 @@ import {
   getTariffRateForBoxOrOrder,
   roundSafely,
 } from './calculation'
-import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, toFixed } from './text'
+import { getNewTariffTextForBoxOrOrder, toFixed } from './text'
 import { t } from './translations'
 
 export const addIdDataConverter = data =>
@@ -82,7 +82,7 @@ export const myRequestsDataConverter = (data, shopsData) =>
     atWorkProposals: item?.countProposalsByStatuses?.atWorkProposals,
     verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
     waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
-    typeTask: item?.typeTask,
+    spec: item?.spec,
     uploadedToListing: item?.uploadedToListing,
     taskComplexity: item?.taskComplexity,
     shopId: shopsData?.find(el => el._id === item?.product?.shopId)?.name || '',
@@ -271,7 +271,7 @@ export const clientProductsDataConverter = data =>
     id: item._id,
   }))
 
-export const clientInventoryDataConverter = (data, shopsData) =>
+export const clientInventoryDataConverter = data =>
   data.map(item => ({
     originalData: item,
 
@@ -316,8 +316,6 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     ideasOnCheck: item.ideasOnCheck,
     ideasFinished: item.ideasFinished,
     ideasClosed: item.ideasClosed,
-
-    shopId: shopsData?.find(el => el._id === item.shopId)?.name || '',
   }))
 
 export const clientCustomRequestsDataConverter = data =>
@@ -401,7 +399,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
 
-    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
     status: item.status,
@@ -513,7 +511,7 @@ export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item._id,
 
     destination: item.boxes[0].destination?.name,
-    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
+    tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
     humanFriendlyId: item.humanFriendlyId,
     storekeeper: item.storekeeper?.name,
 
@@ -580,38 +578,18 @@ export const warehouseFinancesDataConverter = data =>
 export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
+    ...item,
+
     id: item._id,
-    _id: item._id,
 
-    destination: item.boxes[0].destination?.name,
     tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
-    humanFriendlyId: item.humanFriendlyId,
-
-    title: item.title,
-
-    updatedAt: item.updatedAt,
-
-    storekeeper: item.storekeeper?.name,
 
     volumeWeight: item.boxes.reduce(
       (prev, box) => (prev = prev + calcVolumeWeightForBox(box, volumeWeightCoefficient)),
       0,
     ),
 
-    // finalWeight: item.boxes.reduce(
-    //   (prev, box) => (prev = prev + calcFinalWeightForBox(box, volumeWeightCoefficient)),
-    //   0,
-    // ),
-    finalWeight: item.finalWeight,
-
-    totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
-    // totalPrice: getTariffRateForBoxOrOrder(item) * item.finalWeight,
-
-    // deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
-
     deliveryTotalPrice: getTariffRateForBoxOrOrder(item.boxes[0]) * item.finalWeight,
-    arrivalDate: item?.arrivalDate,
-    trackingNumber: item?.trackingNumber,
   }))
 
 export const warehouseTasksDataConverter = data =>
@@ -752,7 +730,6 @@ export const adminOrdersDataConverter = data =>
 export const adminTasksDataConverter = data =>
   data.map(item => ({
     originalData: item,
-
     id: item._id,
     operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
     status: mapTaskStatusKeyToEnum[item.status],
@@ -910,7 +887,7 @@ export const SourceFilesDataConverter = data =>
     sourceFile: item?.sourceFile,
     comments: item?.comments,
     proposal: item?.proposal,
-    typeTask: item?.typeTask,
+    spec: item?.spec,
     productId: item?.productId,
 
     performer: item?.createdBy,
@@ -1069,7 +1046,7 @@ export const notificationDataConverter = data =>
             ...item?.data?.items?.[0]?.product,
             humanFriendlyId: item?.data?.humanFriendlyId,
           },
-
+    sub: item.type === NotificationType.Proposal ? item?.data?.[0]?.sub : undefined,
     type: item?.type,
   }))
 
@@ -1079,7 +1056,7 @@ export const myProposalsDataConverter = data =>
     title: item.request.title,
     product: item.request.product,
     priority: item.request.priority,
-    typeTask: item.request.typeTask,
+    spec: item.request.spec,
     timeoutAt: item.request.timeoutAt,
     taskComplexity: item.request.taskComplexity,
     status: item.status,

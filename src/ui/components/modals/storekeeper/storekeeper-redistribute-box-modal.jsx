@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
@@ -7,12 +6,14 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxSplit } from '@components/shared/boxes/box-split'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './storekeeper-redistribute-box-modal.style'
+import { ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './storekeeper-redistribute-box-modal.style'
 
 import { Box } from './box/box'
 import { NewBoxes } from './new-boxes/new-boxes'
@@ -34,7 +35,7 @@ export const StorekeeperRedistributeBox = observer(
     onTriggerShowEditBoxModalR,
     volumeWeightCoefficient,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const onClickEditBox = box => {
       onEditBox(box)
@@ -172,7 +173,7 @@ export const StorekeeperRedistributeBox = observer(
 
     const disabledSubmitBtn =
       totalProductsAmount !== 0 ||
-      requestStatus === loadingStatuses.isLoading ||
+      requestStatus === loadingStatuses.IS_LOADING ||
       filterEmptyBoxes(newBoxes).length < 2 ||
       filterEmptyBoxes(newBoxes).some(
         el =>
@@ -193,17 +194,17 @@ export const StorekeeperRedistributeBox = observer(
       )
 
     return (
-      <div className={classNames.wrapper}>
-        <div className={classNames.modalTitleWrapper}>
-          <p className={classNames.modalTitle}>{t(TranslationKey['Box redistributing'])}</p>
+      <div className={styles.wrapper}>
+        <div className={styles.modalTitleWrapper}>
+          <p className={styles.modalTitle}>{t(TranslationKey['Box redistributing'])}</p>
           <BoxSplit />
         </div>
 
-        <div className={classNames.boxesWrapper}>
-          <div className={classNames.currentBox}>
-            <div className={classNames.currentBoxTitle}>
-              <p className={classNames.sectionTitle}>{t(TranslationKey.Redistribute)}</p>
-              <p className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${currentBox?.humanFriendlyId}`}</p>
+        <div className={styles.boxesWrapper}>
+          <div className={styles.currentBox}>
+            <div className={styles.currentBoxTitle}>
+              <p className={styles.sectionTitle}>{t(TranslationKey.Redistribute)}</p>
+              <p className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${currentBox?.humanFriendlyId}`}</p>
             </div>
 
             <Box
@@ -243,11 +244,11 @@ export const StorekeeperRedistributeBox = observer(
           />
         </div>
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
             tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
             disabled={totalProductsAmount < 1 && isMasterBox}
-            className={classNames.button}
+            className={styles.button}
             onClick={() => {
               setNewBoxes(newBoxes.concat(getEmptyBox()))
             }}
@@ -257,16 +258,16 @@ export const StorekeeperRedistributeBox = observer(
           <Button
             tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
             disabled={disabledSubmitBtn}
-            className={classNames.button}
+            className={styles.button}
             onClick={onClickRedistributeBtn}
           >
             {t(TranslationKey.Redistribute)}
           </Button>
 
           <Button
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={cx(classNames.button, classNames.cancelButton)}
+            className={cx(styles.button, styles.cancelButton)}
             onClick={() => {
               onTriggerOpenModal('showRedistributeBoxModal')
             }}

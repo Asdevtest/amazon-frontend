@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  modalCardsWrapper: {
+  payments: {
     display: 'flex',
     flexWrap: 'wrap',
     gap: 25,

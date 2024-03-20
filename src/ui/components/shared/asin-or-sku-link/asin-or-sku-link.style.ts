@@ -6,33 +6,30 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     gap: 5,
-  },
 
-  normalizeLink: {
-    textDecoration: 'none',
-    transition: '.3s ease',
-
-    '&:hover': {
-      opacity: '.7',
-    },
-  },
-
-  valueText: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.general,
+  },
+
+  title: {
+    color: theme.palette.text.second,
+  },
+
+  text: {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    color: theme.palette.text.general,
   },
 
-  asinValueText: {
+  link: {
+    textDecoration: 'none',
     color: theme.palette.primary.main,
-  },
+    transition: '.3s ease',
+    opacity: 1,
 
-  attributeTitle: {
-    fontSize: 14,
-    lineHeight: '19px',
-    color: theme.palette.text.second,
+    '&:hover': {
+      opacity: 0.8,
+    },
   },
 }))

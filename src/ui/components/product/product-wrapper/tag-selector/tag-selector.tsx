@@ -1,14 +1,15 @@
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
-import CloseIcon from '@mui/icons-material/Close'
 import { Autocomplete } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { GeneralModel } from '@models/general-model'
 
-import { useStyles } from './tag-selector.styles'
+import { Button } from '@components/shared/button'
+import { CustomPlusIcon } from '@components/shared/svg-icons'
+import { TagItem } from '@components/shared/tag-item'
 
-import { Option } from './option'
+import { useStyles } from './tag-selector.style'
 
 interface Tag {
   _id: string
@@ -94,7 +95,7 @@ export const TagSelector: FC<TagSelectorProps> = memo(props => {
             )}
             renderOption={(_, option) => (
               <li {..._}>
-                <Option prefix={prefix} option={option.title} />
+                <TagItem prefix={prefix} option={option.title} />
               </li>
             )}
             value={selectValue}
@@ -103,26 +104,26 @@ export const TagSelector: FC<TagSelectorProps> = memo(props => {
               setSelectValue(typeof value === 'string' ? ({ title: value } as Tag) : value)
             }}
           />
-          <button
+
+          <Button
+            iconButton
             className={styles.addBtn}
             disabled={!textValue?.length || selectedTags.some(el => el.title === textValue)}
             onClick={handleAddTags}
           >
-            <img src="/assets/icons/addTag.svg" alt="add tag to products tags" />
-          </button>
+            <CustomPlusIcon />
+          </Button>
         </div>
       )}
 
       <div className={styles.tagList}>
         {selectedTags.map(el => (
-          <div key={el._id} className={styles.tagListItem}>
-            <Option prefix={prefix} option={el.title} />
-            {isEditMode && (
-              <button className={styles.removeTeg} onClick={() => handleRemoveTags(el)}>
-                <CloseIcon fontSize="inherit" />
-              </button>
-            )}
-          </div>
+          <TagItem
+            key={el._id}
+            prefix={prefix}
+            option={el.title}
+            onClickRemove={isEditMode ? () => handleRemoveTags(el) : undefined}
+          />
         ))}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Link } from '@mui/material'
 
@@ -10,7 +10,7 @@ interface ActiveBarcodeCellProps {
   barCode: string
 }
 
-export const ActiveBarcodeCell: FC<ActiveBarcodeCellProps> = React.memo(({ barCode }) => {
+export const ActiveBarcodeCell: FC<ActiveBarcodeCellProps> = memo(({ barCode }) => {
   const { classes: styles } = useStyles()
 
   return (

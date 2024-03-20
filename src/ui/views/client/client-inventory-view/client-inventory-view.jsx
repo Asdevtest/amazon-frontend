@@ -1,14 +1,13 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { SelectedButtonValueConfig } from '@constants/configs/buttons'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 
 import { AddOwnProductForm } from '@components/forms/add-own-product-form'
-import { AddSupplierToIdeaFromInventoryForm } from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { GetFilesForm } from '@components/forms/get-files-form'
@@ -28,28 +27,33 @@ import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-st
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
-import { ArchiveIcon } from '@components/shared/svg-icons'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { useStyles } from './client-inventory-view.style'
 
-import { clickableCells, disableDoubleClickOnCells, disableSelectionCells } from './client-inventory-view.constants'
+import {
+  TAGS,
+  clickableCells,
+  disableDoubleClickOnCells,
+  disableSelectionCells,
+} from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
+import { Header } from './components'
 
-export const ClientInventoryView = observer(({ history, location }) => {
+export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ClientInventoryViewModel({ history, location }))
+
+  const [viewModel] = useState(() => new ClientInventoryViewModel())
+  viewModel.initHistory()
+
   const [useProductsPermissions] = useState(
     () =>
       new UseProductsPermissions(ClientModel.getProductPermissionsData, {
@@ -64,155 +68,30 @@ export const ClientInventoryView = observer(({ history, location }) => {
   const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
 
   const getRowClassName = params =>
-    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && styles.ideaRowGreen) ||
-    (!!params.row.originalData.ideasOnCheck && styles.ideaRowYellow)
+    (!params.row.ideasOnCheck && !!params.row.ideasVerified && styles.ideaRowGreen) ||
+    (!!params.row.ideasOnCheck && styles.ideaRowYellow)
 
   return (
     <>
-      <div className={styles.header}>
-        <div className={styles.buttons}>
-          <SearchInput
-            key={'client_inventory_search_input'}
-            inputClasses={styles.searchInput}
-            placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
-
-          {!viewModel.isArchive && (
-            <div className={styles.btnsWrapper}>
-              <Button
-                success
-                tooltipInfoContent={t(TranslationKey['To order selected products'])}
-                variant="contained"
-                disabled={viewModel.selectedRowIds.length === 0}
-                onClick={viewModel.onClickOrderBtn}
-              >
-                {t(TranslationKey['To order'])}
-              </Button>
-
-              <Button
-                success
-                disabled={viewModel.selectedRowIds.length > 1}
-                variant="contained"
-                className={styles.actionButtonWithPlus}
-                onClick={viewModel.onClickProductLaunch}
-              >
-                <img src="/assets/icons/white-plus.svg" className={styles.icon} />
-                {t(TranslationKey['Product launch'])}
-              </Button>
-
-              <Button
-                tooltipInfoContent={t(
-                  TranslationKey['Bind the selected product from the inventory to an item from the store'],
-                )}
-                disabled={viewModel.selectedRowIds.length !== 1}
-                onClick={viewModel.onClickBindInventoryGoodsToStockBtn}
-              >
-                {t(TranslationKey['Bind an product from Amazon'])}
-              </Button>
-
-              <Button
-                tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
-                disabled={!viewModel.selectedRowIds.length}
-                onClick={viewModel.onClickAddSupplierBtn}
-              >
-                {t(TranslationKey['Supplier search'])}
-              </Button>
-
-              <Button disabled={!viewModel.selectedRowIds.length} onClick={viewModel.onClickParseProductsBtn}>
-                {'Parse all'}
-              </Button>
-
-              <Button
-                tooltipInfoContent={t(TranslationKey['Product batches data'])}
-                disabled={viewModel.selectedRowIds.length !== 1}
-                onClick={viewModel.onClickProductLotDataBtn}
-              >
-                {t(TranslationKey['Product batches data'])}
-              </Button>
-            </div>
-          )}
-        </div>
-
-        <div className={styles.buttons}>
-          {!viewModel.isArchive && (
-            <div className={styles.btnsWrapper}>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
-                variant="outlined"
-                className={styles.openArchiveBtn}
-                onClick={viewModel.onTriggerArchive}
-              >
-                {t(TranslationKey['Open archive'])}
-              </Button>
-
-              <Button
-                success
-                tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
-                className={styles.actionButtonWithPlus}
-                onClick={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
-              >
-                <img src="/assets/icons/white-plus.svg" className={styles.icon} />
-                {t(TranslationKey['Add product'])}
-              </Button>
-            </div>
-          )}
-
-          {!viewModel.isArchive && (
-            <div className={styles.btnsWrapper}>
-              <Button
-                tooltipInfoContent={t(
-                  TranslationKey['Delete the selected product (the product is moved to the archive)'],
-                )}
-                disabled={!viewModel.selectedRowIds.length}
-                variant="outlined"
-                className={styles.archiveAddBtn}
-                onClick={viewModel.onClickTriggerArchOrResetProducts}
-              >
-                {<ArchiveIcon />}
-                {t(TranslationKey.Archiving)}
-              </Button>
-
-              <Button
-                success
-                className={styles.actionButtonWithPlus}
-                onClick={() => viewModel.onTriggerOpenModal('showAddSuppliersModal')}
-              >
-                <img src="/assets/icons/white-plus.svg" className={styles.icon} />
-                {t(TranslationKey['Add a supplier list'])}
-              </Button>
-            </div>
-          )}
-
-          {viewModel.isArchive && (
-            <div className={styles.btnsWrapper}>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
-                disabled={!viewModel.selectedRowIds.length}
-                variant="contained"
-                onClick={viewModel.onClickTriggerArchOrResetProducts}
-              >
-                {t(TranslationKey['Return to inventory'])}
-              </Button>
-
-              <Button
-                tooltipInfoContent={t(TranslationKey['Return to inventory with a list of items'])}
-                variant="outlined"
-                className={styles.openArchiveBtn}
-                onClick={viewModel.onTriggerArchive}
-              >
-                {t(TranslationKey['Open inventory'])}
-              </Button>
-            </div>
-          )}
-        </div>
-      </div>
+      <Header
+        isArchive={viewModel.isArchive}
+        selectedRows={viewModel.selectedRows}
+        onClickTriggerArchOrResetProducts={viewModel.onClickTriggerArchOrResetProducts}
+        onTriggerOpenModal={viewModel.onTriggerOpenModal}
+        onTriggerArchive={viewModel.onTriggerArchive}
+        onClickProductLotDataBtn={viewModel.onClickProductLotDataBtn}
+        onClickParseProductsBtn={viewModel.onClickParseProductsBtn}
+        onClickAddSupplierBtn={viewModel.onClickAddSupplierBtn}
+        onClickBindInventoryGoodsToStockBtn={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
+        onClickProductLaunch={viewModel.onClickProductLaunch}
+        onClickOrderBtn={viewModel.onClickOrderBtn}
+        onSearchSubmit={viewModel.onSearchSubmit}
+      />
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
-          localeText={getLocalizationByLanguageTag()}
           getCellClassName={getCellClassName}
           getRowClassName={getRowClassName}
           rowCount={viewModel.rowCount}
@@ -220,9 +99,9 @@ export const ClientInventoryView = observer(({ history, location }) => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          columnHeaderHeight={65}
+          rows={viewModel.tableData}
           getRowHeight={() => 'auto'}
+          getRowId={row => row._id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -230,25 +109,47 @@ export const ClientInventoryView = observer(({ history, location }) => {
             columnMenu: viewModel.columnMenuSettings,
 
             toolbar: {
+              presetsSettings: {
+                presetsData: viewModel.presetsData,
+                onClickResetPresets: viewModel.resetPresetsHandler,
+                onClickSavePresets: viewModel.savePresetsHandler,
+              },
+
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
+
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
+
+              tagSearchSettings: {
+                tagList: viewModel.columnMenuSettings?.tags?.filterData,
+                activeTags: viewModel.columnMenuSettings?.tags?.currentFilterData,
+                isLoading: viewModel.columnMenuSettings?.filterRequestStatus === loadingStatuses.IS_LOADING,
+                getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn(TAGS, DataGridFilterTables.PRODUCTS),
+                setActiveProductsTag: viewModel.setActiveProductsTag,
+              },
             },
           }}
-          rowSelectionModel={viewModel.selectedRowIds}
+          rowSelectionModel={viewModel.selectedRows}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onCellClick={(params, event) => {
             if (disableSelectionCells.includes(params.field)) {
@@ -262,7 +163,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
             }
           }}
           onRowClick={params => viewModel.onClickProductModal(params.row)}
-          onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?.originalData?._id)}
+          onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?._id)}
         />
       </div>
 
@@ -278,7 +179,6 @@ export const ClientInventoryView = observer(({ history, location }) => {
       </Modal>
 
       <Modal
-        noPadding
         dialogClassName={styles.modalDialogContext}
         openModal={viewModel.showProductLaunch}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
@@ -294,23 +194,24 @@ export const ClientInventoryView = observer(({ history, location }) => {
         />
       </Modal>
 
-      {viewModel.showIdeaModal && (
+      {viewModel.showIdeaModal ? (
         <IdeaCardsModal
+          // @ts-ignore
           isCreate
           product={viewModel.selectedProductToLaunch}
           productId={viewModel.selectedProductToLaunch?._id}
           openModal={viewModel.showIdeaModal}
-          updateData={viewModel.getProductsMy}
+          updateData={viewModel.getMainTableData}
           setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
         />
-      )}
+      ) : null}
 
       {viewModel.productCardModal && (
         <ProductCardModal
-          history={viewModel.history}
+          history={history}
           openModal={viewModel.productCardModal}
-          setOpenModal={() => viewModel.onClickProductModal()}
-          updateDataHandler={() => viewModel.getProductsMy()}
+          setOpenModal={() => viewModel.onTriggerOpenModal('productCardModal')}
+          updateDataHandler={viewModel.getMainTableData}
           onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
       )}
@@ -341,27 +242,11 @@ export const ClientInventoryView = observer(({ history, location }) => {
       </Modal>
 
       <Modal
-        openModal={viewModel.showAddSupplierToIdeaFromInventoryModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
-      >
-        <AddSupplierToIdeaFromInventoryForm
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          product={viewModel.currentData
-            .filter(product => viewModel.selectedRowIds.includes(product.id))
-            .map(prod => prod.originalData)}
-          ideas={viewModel.ideasData}
-          onClose={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
-          onSubmit={viewModel.createSupplierSearchRequest}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showSetBarcodeModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
       >
         <SetBarcodeModal
-          item={viewModel.selectedProduct}
+          barCode={viewModel.selectedProduct?.barCode}
           onClickSaveBarcode={viewModel.onClickSaveBarcode}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
         />
@@ -414,39 +299,17 @@ export const ClientInventoryView = observer(({ history, location }) => {
       </Modal>
 
       <Modal
-        missClickModalOn
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
-      >
-        <AddOrEditSupplierModalContent
-          outsideProduct
-          paymentMethods={viewModel.paymentMethods}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          title={t(TranslationKey['Add a new supplier'])}
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
-          onClickPrevButton={viewModel.onClickPrevButton}
-          onClickSaveBtn={viewModel.onSubmitSaveSupplier}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showSelectionSupplierModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
       >
         <SelectionSupplierModal
           product={
-            viewModel.selectedProductToLaunch ||
-            viewModel.currentData.find(el => el.originalData._id === viewModel.selectedRowId)
+            viewModel.selectedProductToLaunch || viewModel.tableData.find(el => el._id === viewModel.selectedRowId)
           }
           title={viewModel.selectedProductToLaunch && t(TranslationKey['Send product card for supplier search'])}
-          buttonValue={viewModel.selectedProductToLaunch && SelectedButtonValueConfig.SEND_REQUEST}
           onClickFinalAddSupplierButton={viewModel.onClickAddSupplierButton}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
           onSubmitSeekSupplier={viewModel.onSubmitCalculateSeekSupplier}
-          onClickSeekSupplierToIdea={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
         />
       </Modal>
 
@@ -462,9 +325,8 @@ export const ClientInventoryView = observer(({ history, location }) => {
           storekeepers={viewModel.storekeepers}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          selectedProductsData={viewModel.currentData
-            .filter(product => viewModel.selectedRowIds.includes(product.id))
-            .map(prod => prod.originalData)}
+          selectedProductsData={viewModel.dataForOrderModal}
+          // selectedProductsData={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product._id))}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
@@ -476,7 +338,7 @@ export const ClientInventoryView = observer(({ history, location }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
         <BindInventoryGoodsToStockForm
-          product={viewModel.currentData.find(item => viewModel.selectedRowIds.includes(item.id))?.originalData}
+          product={viewModel.tableData.find(item => viewModel.selectedRows.includes(item._id))}
           stockData={viewModel.sellerBoardDailyData}
           updateStockData={viewModel.getStockGoodsByFilters}
           onSubmit={viewModel.onSubmitBindStockGoods}
@@ -506,37 +368,42 @@ export const ClientInventoryView = observer(({ history, location }) => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={viewModel.successModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.successModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-        title={viewModel.showInfoModalTitle}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showInfoModal')
-        }}
-      />
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+          title={viewModel.showInfoModalTitle}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        title={viewModel.confirmModalSettings.confirmTitle}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
       {viewModel.showProductVariationsForm && (
         <Modal
@@ -560,6 +427,21 @@ export const ClientInventoryView = observer(({ history, location }) => {
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
       {viewModel.showProgress && <CircularProgressWithLabel />}
+
+      <Modal
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+      >
+        <AddOrEditSupplierModalContent
+          // @ts-ignore
+          paymentMethods={viewModel.paymentMethods}
+          requestStatus={viewModel.requestStatus}
+          platformSettings={viewModel.platformSettings}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
+          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+        />
+      </Modal>
     </>
   )
 })

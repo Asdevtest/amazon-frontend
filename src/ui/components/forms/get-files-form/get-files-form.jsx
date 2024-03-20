@@ -2,18 +2,18 @@ import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './get-files-form.style'
+import { useStyles } from './get-files-form.style'
 
 export const GetFilesForm = ({ receivedFiles, onClose }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.root}>
-      <Typography className={classNames.modalText}>{t(TranslationKey['Received files'])}</Typography>
+    <div className={styles.root}>
+      <Typography className={styles.modalText}>{t(TranslationKey['Received files'])}</Typography>
 
       <Link href={receivedFiles} download="file.xlsx" target="_blank">
         {t(TranslationKey.download)}

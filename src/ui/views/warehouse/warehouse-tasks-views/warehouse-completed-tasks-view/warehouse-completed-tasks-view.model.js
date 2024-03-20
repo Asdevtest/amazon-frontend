@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
@@ -22,7 +22,6 @@ export class WarehouseCompletedViewModel {
   completedTasksBase = []
   curOpenedTask = {}
 
-  currentData = []
   selectedTasks = []
 
   curTaskType = null
@@ -46,15 +45,14 @@ export class WarehouseCompletedViewModel {
 
   showTaskInfoModal = false
 
+  get currentData() {
+    return this.completedTasks
+  }
+
   constructor({ history }) {
     this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.completedTasks,
-      () => (this.currentData = this.getCurrentData()),
-    )
   }
 
   onChangeFilterModel(model) {
@@ -124,10 +122,6 @@ export class WarehouseCompletedViewModel {
     this.getCompletedTasksPagMy()
   }
 
-  getCurrentData() {
-    return toJS(this.completedTasks)
-  }
-
   onChangeNameSearchValue(e) {
     this.nameSearchValue = e.target.value
   }
@@ -137,22 +131,22 @@ export class WarehouseCompletedViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.success)
+          this.setRequestStatus(loadingStatuses.SUCCESS)
         }
       })
     })
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getCompletedTasksPagMy()
+      this.getCompletedTasksPagMy()
     } catch (error) {
       console.log(error)
     }
@@ -160,7 +154,7 @@ export class WarehouseCompletedViewModel {
 
   async getCompletedTasksPagMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -201,14 +195,14 @@ export class WarehouseCompletedViewModel {
           this.completedTasksBase.map(el => ({ ...el, beforeBoxes: el.boxesBefore })),
         )
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.batches = []
         this.completedTasks = []
       })
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 

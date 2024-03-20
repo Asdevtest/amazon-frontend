@@ -1,3 +1,5 @@
+export const TAGS = 'tags'
+
 export const fieldsOfProductAllowedToUpdate = [
   'dirdecision',
   'researcherFine',
@@ -37,6 +39,25 @@ export const fieldsOfProductAllowedToCreate = [
   'asin',
 ]
 
+export const defaultHiddenColumns = [
+  'stockUSA',
+  'strategyStatus',
+  'fbafee',
+  'profit',
+  'amazon',
+  'createdAt',
+  'updatedAt',
+]
+
+export const additionalFilterFields = [
+  'inventoryAsin',
+  'inventorySku',
+  'asin',
+  'skuByClient',
+  'amazonTitle',
+  'purchaseQuantity',
+]
+
 export const filtersFields = [
   'shopId',
   'asin',
@@ -67,9 +88,7 @@ export const filtersFields = [
   'transparency',
 ]
 
-export const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
-
-export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA']
+export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA', 'tags']
 
 export const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
 

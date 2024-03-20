@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import ClearIcon from '@mui/icons-material/Clear'
 import DoneIcon from '@mui/icons-material/Done'
@@ -15,7 +15,7 @@ interface DatePickerCellProps {
   disabled?: boolean
 }
 
-export const DatePickerCell: FC<DatePickerCellProps> = React.memo(props => {
+export const DatePickerCell: FC<DatePickerCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { id, arrivalDate, onClickSaveArrivalDate, disabled } = props
 

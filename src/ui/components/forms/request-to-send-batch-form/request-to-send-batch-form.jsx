@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
@@ -6,12 +5,14 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-to-send-batch-form.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './request-to-send-batch-form.style'
 
 import { RequestToSendBatchesGroupBoxes } from './request-to-send-batch-group-boxes'
 
@@ -27,7 +28,7 @@ export const RequestToSendBatchForm = observer(
     closeModal,
     setCurrentOpenedBox,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     useEffect(() => {
       if (!selectedBoxes.length) {
         closeModal()
@@ -87,6 +88,10 @@ export const RequestToSendBatchForm = observer(
       setSubmitIsClicked(false)
     }
 
+    const isHasTransparencyDoesntHasImages = boxesMy.some(box =>
+      box.items.some(item => item?.product?.transparency && !box?.images?.length),
+    )
+
     const disabledSubmit =
       boxesWithPriceRequest.length < 1 ||
       boxesWithPriceRequest.some(
@@ -103,22 +108,23 @@ export const RequestToSendBatchForm = observer(
       submitIsClicked ||
       boxesMy.some(
         box =>
-          !box.shippingLabel ||
+          (!box.shippingLabel && !box.destination?.storekeeperId) ||
           box.items.some(
             item =>
               (!item?.transparencyFile ||
-                !item?.isTransparencyFileAlreadyAttachedByTheSupplier ||
-                !item?.isTransparencyFileAttachedByTheStorekeeper) &&
+                (!item?.isTransparencyFileAlreadyAttachedByTheSupplier &&
+                  !item?.isTransparencyFileAttachedByTheStorekeeper)) &&
               item?.product?.transparency,
           ),
-      )
+      ) ||
+      isHasTransparencyDoesntHasImages
 
     return (
-      <div className={classNames.content}>
-        <Typography className={classNames.modalTitle} variant="h5">
+      <div className={styles.content}>
+        <Typography className={styles.modalTitle} variant="h5">
           {t(TranslationKey['Sending boxes'])}
         </Typography>
-        <div className={classNames.boxesWrapper}>
+        <div className={styles.boxesWrapper}>
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
             <div key={i}>
               <RequestToSendBatchesGroupBoxes
@@ -133,10 +139,10 @@ export const RequestToSendBatchForm = observer(
             </div>
           ))}
         </div>
-        <div className={classNames.warningWrapper}>
+        <div className={styles.warningWrapper}>
           <Typography
             variant="subtitle1"
-            className={cx(classNames.warningText, { [classNames.noWarningText]: !disabledSubmit })}
+            className={cx(styles.warningText, { [styles.noWarningText]: !disabledSubmit })}
           >
             {'*' +
               t(
@@ -147,7 +153,17 @@ export const RequestToSendBatchForm = observer(
           </Typography>
         </div>
 
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
+          {isHasTransparencyDoesntHasImages ? (
+            <p className={styles.warningText}>
+              {t(
+                TranslationKey[
+                  'Attention, it is necessary to add a photo of the product with glued transparency to the box'
+                ],
+              )}
+            </p>
+          ) : null}
+
           <Button
             disabled={disabledSubmit}
             tooltipAttentionContent={t(
@@ -157,7 +173,11 @@ export const RequestToSendBatchForm = observer(
           >
             {t(TranslationKey.Send)}
           </Button>
-          <Button danger tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={closeModal}>
+          <Button
+            styleType={ButtonStyle.DANGER}
+            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
+            onClick={closeModal}
+          >
             {t(TranslationKey.Close)}
           </Button>
         </div>

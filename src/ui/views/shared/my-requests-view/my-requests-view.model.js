@@ -4,10 +4,11 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 import { RequestSubType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { FeedbackModel } from '@models/feedback-model'
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
@@ -49,7 +50,8 @@ export class MyRequestsViewModel {
   curProposal = undefined
 
   showRequestDesignerResultClientModal = false
-  showRequestStandartResultModal = false
+  showConfirmWorkResultFormModal = false
+  showMainRequestResultModal = false
   showRequestResultModal = false
 
   nameSearchValue = ''
@@ -86,10 +88,6 @@ export class MyRequestsViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
   }
@@ -115,6 +113,10 @@ export class MyRequestsViewModel {
     () => this.onHover,
   )
 
+  acceptProposalResultSetting = {
+    onSubmit: () => {},
+  }
+
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
@@ -135,6 +137,10 @@ export class MyRequestsViewModel {
     filterRequestStatus: undefined,
 
     ...dataGridFiltersInitializer(filtersFields),
+  }
+
+  get currentData() {
+    return this.searchRequests
   }
 
   constructor({ history }) {
@@ -178,16 +184,12 @@ export class MyRequestsViewModel {
     }
   }
 
-  get currentData() {
-    return this.searchRequests
-  }
-
   onChangeFilterModel(model) {
     this.filterModel = model
     this.setDataGridState()
   }
 
-  onChangePaginationModel(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
     this.getCustomRequests()
     this.setDataGridState()
@@ -256,13 +258,7 @@ export class MyRequestsViewModel {
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onClickResetFilters() {
@@ -302,6 +298,7 @@ export class MyRequestsViewModel {
   async getShops() {
     try {
       const response = await ShopModel.getMyShopNames()
+
       runInAction(() => {
         this.shopsData = response
       })
@@ -373,7 +370,7 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const listingFilters = this.columnMenuSettings?.onListingFiltersData
       const additionalFilters =
         listingFilters?.notOnListing && listingFilters?.onListing
@@ -397,9 +394,9 @@ export class MyRequestsViewModel {
         this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
         this.rowCount = result.count
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -449,7 +446,7 @@ export class MyRequestsViewModel {
 
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await RequestModel.patchRequestsUploadedToListing({
         requestIds: [id],
@@ -468,9 +465,9 @@ export class MyRequestsViewModel {
         }
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -520,15 +517,12 @@ export class MyRequestsViewModel {
 
   async getRequestDetail(id) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       const response = await RequestModel.getCustomRequestById(id)
 
       runInAction(() => {
         this.currentRequestDetails = response
       })
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
@@ -555,13 +549,6 @@ export class MyRequestsViewModel {
 
       const proposal = result?.sort((a, b) => new Date(b?.proposal?.updatedAt) - new Date(a?.proposal?.updatedAt))?.[0]
 
-      if (!proposal) {
-        runInAction(() => {
-          this.curProposal = undefined
-        })
-        return
-      }
-
       runInAction(() => {
         this.curProposal = proposal
       })
@@ -575,7 +562,7 @@ export class MyRequestsViewModel {
 
   async handleClickResultBtn(request) {
     try {
-      switch (freelanceRequestTypeByCode[request.typeTask]) {
+      switch (request.spec?.title) {
         case freelanceRequestType.DESIGNER:
           this.onTriggerOpenModal('showRequestDesignerResultClientModal')
           break
@@ -584,12 +571,8 @@ export class MyRequestsViewModel {
           this.onTriggerOpenModal('showRequestResultModal')
           break
 
-        case freelanceRequestType.SEO:
-          this.onTriggerOpenModal('showRequestStandartResultModal')
-          break
-
         default:
-          this.onTriggerOpenModal('showRequestStandartResultModal')
+          this.onTriggerOpenModal('showMainRequestResultModal')
           break
       }
     } catch (error) {
@@ -671,7 +654,7 @@ export class MyRequestsViewModel {
   }
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatuses.IS_LOADING)
 
     await RequestModel.updateDeadline(
       this.currentRequestDetails.request._id,
@@ -681,7 +664,7 @@ export class MyRequestsViewModel {
     await this.loadData()
     this.onTriggerOpenModal('showRequestDetailModal')
 
-    this.setRequestStatus(loadingStatuses.success)
+    this.setRequestStatus(loadingStatuses.SUCCESS)
   }
 
   onClickAbortBtn() {
@@ -724,5 +707,43 @@ export class MyRequestsViewModel {
     }
 
     this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSendInForRework(id, fields) {
+    try {
+      await RequestProposalModel.requestProposalResultToCorrect(id, fields)
+
+      this.onTriggerOpenModal('showRequestDetailModal')
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onClickProposalResultAccept(proposalId) {
+    this.acceptProposalResultSetting = {
+      onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
+    }
+
+    this.onTriggerOpenModal('showConfirmWorkResultFormModal')
+  }
+
+  async onClickProposalResultAcceptForm(proposalId, data) {
+    try {
+      await RequestProposalModel.requestProposalResultAccept(proposalId, data)
+      await FeedbackModel.sendFeedback(this.curProposal?.proposal?.createdBy?._id, {
+        rating: data.rating,
+        comment: data.review,
+      })
+
+      this.onTriggerOpenModal('showConfirmWorkResultFormModal')
+
+      this.onTriggerOpenModal('showRequestDetailModal')
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

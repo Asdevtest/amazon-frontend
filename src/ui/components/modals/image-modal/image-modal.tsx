@@ -2,38 +2,40 @@ import { FC, memo } from 'react'
 
 import { ImageEditForm } from '@components/forms/image-edit-form'
 import { ZoomModal } from '@components/modals/zoom-modal'
+import { MediaButtonControls } from '@components/shared/media-button-controls'
 import { Modal } from '@components/shared/modal'
 import { Slider } from '@components/shared/photo-and-files-slider/slider'
 import { usePhotoAndFilesSlider } from '@components/shared/photo-and-files-slider/use-photo-and-files-slider'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './image-modal.style'
 
-import { ButtonControls, Comment, ShowPreviews } from './components'
+import { Comment } from './comment'
+import { ShowPreviews } from './show-previews'
 
 interface ImageModalProps {
-  files: Array<string | IUploadFile>
+  files: UploadFileType[]
   currentFileIndex: number
-  handleCurrentFileIndex: (index: number) => void
-  isOpenModal: boolean
-  handleOpenModal: () => void
+  onCurrentFileIndex: (index: number) => void
+  openModal: boolean
+  onOpenModal: () => void
   photosTitles?: string[]
   photosComments?: string[]
   showPreviews?: boolean
   isEditable?: boolean
   withoutMakeMainImage?: boolean
   isRequestResult?: boolean
-  onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
+  onChangeImagesForLoad?: (array: UploadFileType[]) => void
 }
 
 export const ImageModal: FC<ImageModalProps> = memo(props => {
   const {
     files,
     currentFileIndex,
-    handleCurrentFileIndex,
-    isOpenModal,
-    handleOpenModal,
+    onCurrentFileIndex,
+    openModal,
+    onOpenModal,
     photosTitles,
     photosComments,
     showPreviews,
@@ -44,6 +46,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
   } = props
 
   const { classes: styles } = useStyles()
+
   const {
     openImageEditModal,
     onOpenImageEditModal,
@@ -67,10 +70,10 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
 
   return (
     <Modal
-      openModal={isOpenModal}
+      openModal={openModal}
       setOpenModal={() => {
-        handleOpenModal()
-        handleCurrentFileIndex(mediaFileIndex)
+        onOpenModal()
+        onCurrentFileIndex(mediaFileIndex)
         updateImagesForLoad()
       }}
       dialogClassName={styles.modalContainer}
@@ -86,7 +89,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
         />
 
         <div className={styles.body}>
-          {photosTitles?.[mediaFileIndex] && <p className={styles.title}>{photosTitles?.[mediaFileIndex]}</p>}
+          {photosTitles?.[mediaFileIndex] ? <p className={styles.title}>{photosTitles?.[mediaFileIndex]}</p> : null}
 
           <Slider
             controls
@@ -101,7 +104,7 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
 
           <Comment mediaFileIndex={mediaFileIndex} isRequestResult={isRequestResult} photosComments={photosComments} />
 
-          <ButtonControls
+          <MediaButtonControls
             isEditable={isEditable}
             mediaFile={mediaFiles?.[mediaFileIndex]}
             mediaFileIndex={mediaFileIndex}
@@ -116,15 +119,15 @@ export const ImageModal: FC<ImageModalProps> = memo(props => {
         </div>
       </div>
 
-      {openImageZoomModal && (
+      {openImageZoomModal ? (
         <ZoomModal
           mediaFiles={mediaFiles}
           currentMediaFileIndex={mediaFileIndex}
-          isOpenModal={openImageZoomModal}
-          setIsOpenModal={onOpenImageZoomModal}
+          openModal={openImageZoomModal}
+          setOpenModal={onOpenImageZoomModal}
           setCurrentMediaFileIndex={setMediaFileIndex}
         />
-      )}
+      ) : null}
 
       <Modal openModal={openImageEditModal} setOpenModal={onOpenImageEditModal}>
         <ImageEditForm

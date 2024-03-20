@@ -49,8 +49,6 @@ export const PrivateRoutes = observer(() => {
 
   const userInfo = UserModel.userInfo
 
-  const redirectToAuth = <Redirect to={'/auth'} />
-
   const generateAllowedRoutes = () => {
     const allowedRoutes = overallRoutesConfigs?.concat(
       privateRoutesConfigs
@@ -67,9 +65,9 @@ export const PrivateRoutes = observer(() => {
 
     return (
       <>
-        {allowedRoutes.map((route, index) => (
-          <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
-        ))}
+        {allowedRoutes.map((route, index) => {
+          return <Route key={index} component={route.component} exact={route.exact} path={route.routePath} />
+        })}
 
         {notAllowedRoute ? (
           allowedRoutes[0] ? (
@@ -77,18 +75,18 @@ export const PrivateRoutes = observer(() => {
           ) : (
             <Redirect to={'/auth'} />
           )
-        ) : undefined}
+        ) : null}
       </>
     )
   }
 
   if (!UserModel.isHydrated) {
     return <div />
-  } else {
-    if (!UserModel.userInfo) {
-      return <Redirect to={'/auth'} />
-    }
   }
 
-  return !UserModel.isAuthenticated() ? redirectToAuth : <Layout>{generateAllowedRoutes()}</Layout>
+  if (!UserModel.userInfo) {
+    return <Redirect to={'/auth'} />
+  }
+
+  return <Layout>{generateAllowedRoutes()}</Layout>
 })

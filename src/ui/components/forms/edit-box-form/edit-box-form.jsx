@@ -1,7 +1,6 @@
-import { cx } from '@emotion/css'
 import { memo, useEffect, useState } from 'react'
 
-import { Checkbox, Divider, Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
@@ -10,14 +9,15 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -30,7 +30,10 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
+import '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -53,7 +56,7 @@ export const EditBoxForm = memo(
     destinationsFavourites,
     setDestinationsFavouritesItem,
   }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
     const [priority, setPriority] = useState()
     const [priorityReason, setPriorityReason] = useState()
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
@@ -230,7 +233,7 @@ export const EditBoxForm = memo(
 
     const disableSubmit =
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
-      requestStatus === loadingStatuses.isLoading ||
+      requestStatus === loadingStatuses.IS_LOADING ||
       boxFields.storekeeperId === '' ||
       boxFields.logicsTariffId === '' ||
       ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&
@@ -313,165 +316,200 @@ export const EditBoxForm = memo(
 
                 <div className={styles.productsWrapper}>
                   <CustomSlider alignButtons="end">
-                    {boxFields.items.map((item, index) => (
-                      <div key={index} className={styles.productWrapper}>
-                        <div className={styles.leftProductColumn}>
-                          <div className={styles.photoWrapper}>
-                            <PhotoAndFilesSlider withoutFiles files={item.product.images} />
-                          </div>
+                    {boxFields.items.map((item, index) => {
+                      const isTransparencyFileAlreadyAttachedByTheSupplier =
+                        item?.isTransparencyFileAlreadyAttachedByTheSupplier
 
-                          <div>
-                            <Field
-                              containerClasses={styles.field}
-                              tooltipAttentionContent={
-                                !item.barCode && t(TranslationKey['A task will be created for the prep center'])
-                              }
-                              tooltipInfoContent={
-                                !item.barCode && t(TranslationKey['Add a product barcode to the box'])
-                              }
-                              labelClasses={styles.standartLabel}
-                              label={t(TranslationKey.BarCode)}
-                              inputComponent={
-                                <ChangeChipCell
-                                  isChipOutTable
-                                  text={!item.barCode && !item?.tmpBarCode?.[0] && t(TranslationKey['Set Barcode'])}
-                                  value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
-                                  onClickChip={() => onClickBarcode(item)}
-                                  onDoubleClickChip={() => onDoubleClickBarcode(item)}
-                                  onDeleteChip={() => onDeleteBarcode(item.product._id)}
-                                />
-                              }
-                            />
+                      const isTransparencyFileAttachedByTheStorekeeper =
+                        item?.isTransparencyFileAttachedByTheStorekeeper
 
-                            <Field
-                              containerClasses={styles.field}
-                              labelClasses={styles.standartLabel}
-                              label={t(TranslationKey['Transparency codes'])}
-                              inputComponent={
-                                <ChangeChipCell
-                                  isChipOutTable
-                                  text={
-                                    !item.transparencyFile &&
-                                    !item?.tmpTransparencyFile?.[0] &&
-                                    t(TranslationKey.Transparency)
-                                  }
-                                  value={
-                                    item?.tmpTransparencyFile?.[0]?.file?.name ||
-                                    item?.tmpTransparencyFile?.[0] ||
-                                    item.transparencyFile
-                                  }
-                                  onClickChip={() => {
-                                    setFilesConditions({
-                                      tmpFiles: item?.tmpTransparencyFile,
-                                      currentFiles: item.transparencyFile,
-                                      index,
-                                    })
-                                    setShowSetFilesModal(true)
-                                  }}
-                                  onDeleteChip={() => onDeleteTransparencyFile(item.product._id)}
-                                />
-                              }
-                            />
+                      return (
+                        <div key={index} className={styles.productWrapper}>
+                          <div className={styles.leftProductColumn}>
+                            <div className={styles.photoWrapper}>
+                              <PhotoAndFilesSlider withoutFiles files={item.product.images} />
+                            </div>
 
-                            {item.tmpBarCode.length ? (
+                            <div>
                               <Field
-                                oneLine
+                                containerClasses={styles.field}
+                                tooltipAttentionContent={
+                                  !item.barCode && t(TranslationKey['A task will be created for the prep center'])
+                                }
+                                tooltipInfoContent={
+                                  !item.barCode && t(TranslationKey['Add a product barcode to the box'])
+                                }
                                 labelClasses={styles.standartLabel}
-                                containerClasses={styles.checkboxContainer}
-                                tooltipInfoContent={t(
-                                  TranslationKey['The new barcode will be updated at the product in the inventory'],
-                                )}
-                                label={t(TranslationKey['Change in inventory'])}
+                                label={t(TranslationKey.BarCode)}
                                 inputComponent={
-                                  <Checkbox
-                                    color="primary"
-                                    checked={item.changeBarCodInInventory}
-                                    onClick={() =>
-                                      onClickBarcodeInventoryCheckbox(item.product._id, !item.changeBarCodInInventory)
-                                    }
+                                  <ChangeChipCell
+                                    isChipOutTable
+                                    text={!item.barCode && !item?.tmpBarCode?.[0] && t(TranslationKey['Set Barcode'])}
+                                    value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
+                                    onClickChip={() => onClickBarcode(item)}
+                                    onDoubleClickChip={() => onDoubleClickBarcode(item)}
+                                    onDeleteChip={() => onDeleteBarcode(item.product._id)}
                                   />
                                 }
                               />
-                            ) : null}
 
-                            {!item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper ? (
-                              <Typography className={styles.noBarCodeGlued}>
-                                {t(TranslationKey['Not glued!'])}
-                              </Typography>
-                            ) : (
-                              <div>
-                                {item.isBarCodeAlreadyAttachedByTheSupplier ? (
-                                  <Field
-                                    oneLine
-                                    labelClasses={styles.standartLabel}
-                                    tooltipInfoContent={t(
-                                      TranslationKey['The supplier has glued the barcode before shipment'],
-                                    )}
-                                    containerClasses={styles.checkboxContainer}
-                                    label={t(TranslationKey['The barcode is glued by the supplier'])}
-                                    inputComponent={
-                                      <Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />
+                              <Field
+                                containerClasses={styles.field}
+                                labelClasses={styles.standartLabel}
+                                label={t(TranslationKey['Transparency codes'])}
+                                inputComponent={
+                                  <ChangeChipCell
+                                    isChipOutTable
+                                    text={
+                                      !item.transparencyFile &&
+                                      !item?.tmpTransparencyFile?.[0] &&
+                                      t(TranslationKey.Transparency)
                                     }
-                                  />
-                                ) : (
-                                  <Field
-                                    oneLine
-                                    labelClasses={styles.standartLabel}
-                                    tooltipInfoContent={t(
-                                      TranslationKey[
-                                        'The barcode was glued on when the box was accepted at the prep center'
-                                      ],
-                                    )}
-                                    containerClasses={styles.checkboxContainer}
-                                    label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
-                                    inputComponent={
-                                      <Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />
+                                    value={
+                                      item?.tmpTransparencyFile?.[0]?.file?.name ||
+                                      item?.tmpTransparencyFile?.[0] ||
+                                      item.transparencyFile
                                     }
+                                    onClickChip={() => {
+                                      setFilesConditions({
+                                        tmpFiles: item?.tmpTransparencyFile,
+                                        currentFiles: item.transparencyFile,
+                                        index,
+                                      })
+                                      setShowSetFilesModal(true)
+                                    }}
+                                    onDeleteChip={() => onDeleteTransparencyFile(item.product._id)}
                                   />
-                                )}
-                              </div>
-                            )}
+                                }
+                              />
+
+                              {!!item.tmpBarCode.length && (
+                                <Field
+                                  oneLine
+                                  labelClasses={styles.standartLabel}
+                                  tooltipInfoContent={t(
+                                    TranslationKey['The new barcode will be updated at the product in the inventory'],
+                                  )}
+                                  label={t(TranslationKey['Change in inventory'])}
+                                  inputComponent={
+                                    <Checkbox
+                                      color="primary"
+                                      checked={item.changeBarCodInInventory}
+                                      onClick={() =>
+                                        onClickBarcodeInventoryCheckbox(item.product._id, !item.changeBarCodInInventory)
+                                      }
+                                    />
+                                  }
+                                />
+                              )}
+
+                              {!item.isBarCodeAlreadyAttachedByTheSupplier &&
+                              !item.isBarCodeAttachedByTheStorekeeper ? (
+                                <Typography className={styles.noBarCodeGlued}>
+                                  {t(TranslationKey['Not glued!'])}
+                                </Typography>
+                              ) : (
+                                <div>
+                                  {item.isBarCodeAlreadyAttachedByTheSupplier ? (
+                                    <Field
+                                      oneLine
+                                      labelClasses={styles.standartLabel}
+                                      tooltipInfoContent={t(
+                                        TranslationKey['The supplier has glued the barcode before shipment'],
+                                      )}
+                                      label={t(TranslationKey['The barcode is glued by the supplier'])}
+                                      inputComponent={
+                                        <Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />
+                                      }
+                                    />
+                                  ) : (
+                                    <Field
+                                      oneLine
+                                      labelClasses={styles.standartLabel}
+                                      tooltipInfoContent={t(
+                                        TranslationKey[
+                                          'The barcode was glued on when the box was accepted at the prep center'
+                                        ],
+                                      )}
+                                      label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
+                                      inputComponent={
+                                        <Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />
+                                      }
+                                    />
+                                  )}
+                                </div>
+                              )}
+
+                              {!isTransparencyFileAlreadyAttachedByTheSupplier &&
+                              !isTransparencyFileAttachedByTheStorekeeper ? (
+                                <p className={cx({ [styles.noBarCodeGlued]: item.product.transparency })}>
+                                  {`${t(TranslationKey.Transparency)}: ${t(TranslationKey['Not glued!'])}`}
+                                </p>
+                              ) : isTransparencyFileAlreadyAttachedByTheSupplier ? (
+                                <Checkbox
+                                  reverted
+                                  disabled
+                                  checked={isTransparencyFileAlreadyAttachedByTheSupplier}
+                                  className={styles.checkbox}
+                                >
+                                  <p className={styles.standartLabel}>
+                                    {t(TranslationKey['Transparency codes glued by the supplier'])}
+                                  </p>
+                                </Checkbox>
+                              ) : (
+                                <Checkbox
+                                  reverted
+                                  disabled
+                                  checked={isTransparencyFileAttachedByTheStorekeeper}
+                                  className={styles.checkbox}
+                                >
+                                  <p className={styles.standartLabel}>
+                                    {t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                                  </p>
+                                </Checkbox>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className={styles.rightProductColumn}>
+                            <Typography className={styles.amazonTitle}>{item.product.amazonTitle}</Typography>
+
+                            <Field
+                              oneLine
+                              containerClasses={styles.field}
+                              labelClasses={styles.standartLabel}
+                              label={`${t(TranslationKey.ASIN)}:`}
+                              inputComponent={
+                                <div className={styles.asinTextWrapper}>
+                                  <Typography className={styles.asinText}>{item.product.asin}</Typography>{' '}
+                                  {item.product.asin && <CopyValue text={item.product.asin} />}
+                                </div>
+                              }
+                            />
+
+                            <Field
+                              oneLine
+                              disabled
+                              labelClasses={styles.standartLabel}
+                              inputClasses={styles.disabledNumInput}
+                              label={t(TranslationKey['Quantity units of product'])}
+                              value={item.amount}
+                            />
+
+                            <Field
+                              multiline
+                              disabled
+                              minRows={5}
+                              maxRows={5}
+                              labelClasses={styles.standartLabel}
+                              inputClasses={styles.multiline}
+                              label={t(TranslationKey['Comments on order'])}
+                              value={item.order.clientComment}
+                            />
                           </div>
                         </div>
-
-                        <div className={styles.rightProductColumn}>
-                          <Typography className={styles.amazonTitle}>{item.product.amazonTitle}</Typography>
-
-                          <Field
-                            oneLine
-                            containerClasses={styles.field}
-                            labelClasses={styles.standartLabel}
-                            label={`${t(TranslationKey.ASIN)}:`}
-                            inputComponent={
-                              <div className={styles.asinTextWrapper}>
-                                <Typography className={styles.asinText}>{item.product.asin}</Typography>{' '}
-                                {item.product.asin && <CopyValue text={item.product.asin} />}
-                              </div>
-                            }
-                          />
-
-                          <Field
-                            oneLine
-                            disabled
-                            labelClasses={styles.standartLabel}
-                            inputClasses={styles.disabledNumInput}
-                            label={t(TranslationKey['Quantity units of product'])}
-                            value={item.amount}
-                          />
-
-                          <Field
-                            multiline
-                            disabled
-                            minRows={5}
-                            maxRows={5}
-                            labelClasses={styles.standartLabel}
-                            inputClasses={styles.multiline}
-                            label={t(TranslationKey['Comments on order'])}
-                            value={item.order.clientComment}
-                          />
-                        </div>
-                      </div>
-                    ))}
+                      )
+                    })}
                   </CustomSlider>
                 </div>
 
@@ -517,9 +555,6 @@ export const EditBoxForm = memo(
                       error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
                       inputComponent={
                         <Button
-                          disableElevation
-                          color="primary"
-                          // disabled={!boxFields.storekeeperId}
                           className={cx({
                             [styles.storekeeperBtn]: !boxFields.storekeeperId,
                           })}
@@ -714,22 +749,22 @@ export const EditBoxForm = memo(
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelBtn)}
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             onClick={onTriggerOpenModal}
           >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
 
-        {showPhotosModal && (
-          <ImageModal
-            isOpenModal={showPhotosModal}
-            handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        {showPhotosModal ? (
+          <SlideshowGalleryModal
+            openModal={showPhotosModal}
             files={bigImagesOptions.images}
             currentFileIndex={bigImagesOptions.imgIndex}
-            handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
-        )}
+        ) : null}
 
         <Modal
           openModal={showSetShippingLabelModal}
@@ -766,7 +801,7 @@ export const EditBoxForm = memo(
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             tmpCode={curProductToEditBarcode?.tmpBarCode}
-            item={curProductToEditBarcode}
+            barCode={curProductToEditBarcode?.barCode}
             onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
@@ -778,25 +813,25 @@ export const EditBoxForm = memo(
             LabelTitle={t(TranslationKey['Transparency codes'])}
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
-            onClickSave={value => {
-              onClickSaveTransparencyFile(value, filesConditions.index)
-              setShowSetFilesModal(false)
-            }}
+            onClickSave={value => onClickSaveTransparencyFile(value, filesConditions.index)}
             onCloseModal={setShowSetFilesModal}
           />
         </Modal>
 
-        <ConfirmationModal
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => setShowConfirmModal(false)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(false)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </div>
     )
   },

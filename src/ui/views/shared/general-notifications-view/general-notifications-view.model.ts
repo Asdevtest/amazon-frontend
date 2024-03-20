@@ -12,16 +12,16 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
+import { GeneralNotificationsColumns } from '@components/table/table-columns/general-notifications-columns/general-notifications-columns'
+
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { notificationDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
-import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/data-grid'
-import { IProductIdeaNotification } from '@typings/product'
-import { IUser } from '@typings/user'
-
-import { GeneralNotificationsColumns } from '../../../components/table/table-columns/general-notifications-columns/general-notifications-columns'
+import { IProduct } from '@typings/models/products/product'
+import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/shared/data-grid'
+import { IFullUser } from '@typings/shared/full-user'
 
 interface IVariations {
   isArchive: boolean
@@ -30,7 +30,7 @@ interface IVariations {
 
 export class GeneralNotificationsViewModel {
   history: History | undefined = undefined
-  requestStatus = loadingStatuses.success
+  requestStatus = loadingStatuses.SUCCESS
 
   // * Pagination & Sorting & Filtering
 
@@ -65,17 +65,14 @@ export class GeneralNotificationsViewModel {
 
   // * Data for Modals
 
-  currentProduct: IProductIdeaNotification | undefined = undefined
+  currentProduct: IProduct | undefined = undefined
 
   currentIdeaId: string | undefined = undefined
 
   // * Getters
 
-  get userInfo(): IUser | undefined {
+  get userInfo(): IFullUser | undefined {
     return UserModel.userInfo
-  }
-  get languageTag() {
-    return SettingsModel.languageTag
   }
 
   get currentData() {
@@ -95,14 +92,14 @@ export class GeneralNotificationsViewModel {
 
   async onClickReadButton() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       await UserModel.addNotificationsToArchive(this.selectedRowIds)
       await this.getUserNotifications()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -113,7 +110,7 @@ export class GeneralNotificationsViewModel {
 
   async getUserNotifications() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const response = await UserModel.getUsersNotificationsPagMy({
         archive: this.isArchive,
@@ -124,7 +121,6 @@ export class GeneralNotificationsViewModel {
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
-        // storekeeperId: opts.storekeeperId,
         filters: this.getFilter(),
       })
 
@@ -134,9 +130,9 @@ export class GeneralNotificationsViewModel {
         this.rowCount = response.count || 0
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -173,7 +169,7 @@ export class GeneralNotificationsViewModel {
     this.getUserNotifications()
   }
 
-  setRequestStatus(requestStatus: string) {
+  setRequestStatus(requestStatus: loadingStatuses) {
     this.requestStatus = requestStatus
   }
 
@@ -216,7 +212,7 @@ export class GeneralNotificationsViewModel {
           ?.focus()
       }
     } else if (type === 'user') {
-      window.open(`/another-user?${notification?.creator?._id}`)?.focus()
+      window.open(`/another-user?${notification?.sub?._id || notification?.creator?._id}`)?.focus()
     } else if (type === NotificationType.Idea) {
       this.currentProduct = notification.parentProduct
       this.currentIdeaId = notification.ideaId
@@ -231,15 +227,15 @@ export class GeneralNotificationsViewModel {
 
   onClickToChangeNotificationType(notificationType: string | number | null | undefined) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.curNotificationType = notificationType
 
       this.getUserNotifications()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (err) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.error(err)
     }
   }
@@ -258,15 +254,15 @@ export class GeneralNotificationsViewModel {
 
   onSearchSubmit(searchValue: string) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.searchValue = searchValue
 
       this.getUserNotifications()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (err) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.error(err)
     }
   }

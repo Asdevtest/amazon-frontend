@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
@@ -26,48 +25,7 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
-const updateBoxWhiteList = [
-  'shippingLabel',
-  'lengthCmWarehouse',
-  'widthCmWarehouse',
-  'heightCmWarehouse',
-  'weighGrossKgWarehouse',
-  'isShippingLabelAttachedByStorekeeper',
-  'fbaShipment',
-  'images',
-  'destinationId',
-  'items',
-  'storekeeperComment',
-  'logicsTariffId',
-  'variationTariffId',
-  'referenceId',
-  'storekeeperTaskComment',
-  'trackNumberFile',
-  'trackNumberText',
-  'upsTrackNumber',
-  'fbaNumber',
-  'prepId',
-]
-
-const filtersFields = [
-  'humanFriendlyId',
-  'orderIdsItems',
-  'orders',
-  'amount',
-  'warehouse',
-  'client',
-  'batchHumanFriendlyId',
-  'dimansions',
-  'action',
-  'prepId',
-  'id',
-  'item',
-  'asin',
-  'skuByClient',
-  'amazonTitle',
-  'destinationId',
-  'logicsTariffId',
-]
+import { filtersFields, updateBoxWhiteList } from './warehouse-my-warehouse-view.constants'
 
 export class WarehouseMyWarehouseViewModel {
   requestStatus = undefined
@@ -244,20 +202,16 @@ export class WarehouseMyWarehouseViewModel {
     this.selectedBoxes = model
   }
 
-  getCurrentData() {
-    return toJS(this.boxesMy)
-  }
-
   onSearchSubmit(searchValue) {
     this.nameSearchValue = searchValue
 
     this.getBoxesMy()
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getBoxesMy()
+      this.getBoxesMy()
     } catch (error) {
       console.log(error)
     }
@@ -277,33 +231,27 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitChangeBoxFields(data) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: data.trackNumberFile, type: 'uploadedFiles' })
 
       await BoxesModel.editAdditionalInfo(data._id, {
         storekeeperComment: data.storekeeperComment,
         referenceId: data.referenceId,
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
-        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
+        trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
       })
 
       this.getBoxesMy()
 
-      this.onTriggerOpenModal('showBoxViewModal')
-
       runInAction(() => {
         this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
       })
 
       this.onTriggerOpenModal('showSuccessInfoModal')
+
+      this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
       console.log(error)
     }
@@ -338,7 +286,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
       const uploadedShippingLabeles = []
@@ -460,14 +408,14 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showSuccessInfoModal')
 
       this.loadData()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
 
-  async onClickSubmitEditBox({ id, boxData, imagesOfBox, dataToSubmitHsCode, isMultipleEdit }) {
+  async onClickSubmitEditBox({ id, boxData, imagesOfBox, isMultipleEdit }) {
     runInAction(() => {
       this.selectedBoxes = []
       this.uploadedFiles = []
@@ -561,7 +509,7 @@ export class WarehouseMyWarehouseViewModel {
       const requestBox = getObjectFilteredByKeyArrayWhiteList(
         {
           ...boxData,
-          images: this.uploadedImages?.length ? [...boxData.images, ...this.uploadedImages] : boxData.images,
+          images: this.uploadedImages?.length ? this.uploadedImages : boxData.images,
           items: requestBoxItems,
           shippingLabel: this.uploadedFiles?.length
             ? this.uploadedFiles[0]
@@ -710,16 +658,20 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickMergeBtn() {
     try {
-      const isMasterBoxSelected = this.selectedBoxes.some(boxId => {
-        const findBox = this.boxesMy.find(box => box._id === boxId)
-        return findBox?.originalData?.amount && findBox.originalData?.amount > 1
-      })
+      const selectedBoxes = this.boxesMy
+        .filter(box => this.selectedBoxes.includes(box._id))
+        ?.map(box => box.originalData)
 
-      if (isMasterBoxSelected) {
+      const isMasterBoxSelected = selectedBoxes.some(box => box?.amount > 1)
+      const isDifferentClient = selectedBoxes.some(box => box?.client?._id !== selectedBoxes[0]?.client?._id)
+
+      if (isMasterBoxSelected || isDifferentClient) {
         runInAction(() => {
           this.warningInfoModalSettings = {
             isWarning: false,
-            title: t(TranslationKey['Cannot be merged with a Superbox']),
+            title:
+              (isMasterBoxSelected && t(TranslationKey['Cannot be merged with a Superbox'])) ||
+              (isDifferentClient && t(TranslationKey['Cannot be merged with different clients'])),
           }
         })
 
@@ -746,7 +698,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickConfirmSplit(id, updatedBoxes, isMasterBox) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
       })
@@ -833,11 +785,11 @@ export class WarehouseMyWarehouseViewModel {
         this.onModalRedistributeBoxAddNewBox(null)
       }
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       await this.getBoxesMy()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -852,40 +804,29 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickConfirmMerge(boxBody, imagesOfBox) {
+  async onClickConfirmMerge(boxBody) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const selectedIds = this.selectedBoxes
-
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (boxBody.tmpShippingLabel.length) {
-        await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
+      await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
+      boxBody = {
+        ...boxBody,
+        shippingLabel: this.uploadedFiles[0],
       }
 
-      if (imagesOfBox?.length) {
-        await onSubmitPostImages.call(this, {
-          images: imagesOfBox,
-          type: 'uploadedImages',
-          withoutShowProgress: true,
-        })
+      await onSubmitPostImages.call(this, { images: boxBody.images, type: 'uploadedImages' })
+      boxBody = {
+        ...boxBody,
+        images: this.uploadedFiles,
       }
 
-      const newBoxBody = getObjectFilteredByKeyArrayBlackList(
-        {
-          ...boxBody,
-          shippingLabel: this.uploadedFiles.length
-            ? this.uploadedFiles[0]
-            : boxBody.tmpShippingLabel?.[0] || boxBody.shippingLabel,
-          images: this.uploadedImages.length ? boxBody.images.concat(this.uploadedImages) : boxBody.images,
-        },
-        ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
-      )
+      const newBoxBody = getObjectFilteredByKeyArrayBlackList(boxBody, [
+        'tmpShippingLabel',
+        'storekeeperId',
+        'humanFriendlyId',
+      ])
 
-      const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)
+      const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes, newBoxBody)
 
       if (mergeBoxesResult) {
         runInAction(() => {
@@ -906,7 +847,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showMergeBoxModal')
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       await this.getBoxesMy()
 
@@ -917,7 +858,7 @@ export class WarehouseMyWarehouseViewModel {
 
       await this.getBoxesMy()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -1083,13 +1024,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitAddBatch({ boxesIds, filesToAdd, batchFields }) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (filesToAdd.length) {
-        await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
 
       const batchId = await BatchesModel.createBatch({
         title: batchFields.title,
@@ -1098,9 +1033,7 @@ export class WarehouseMyWarehouseViewModel {
         volumeWeightDivide: batchFields.volumeWeightDivide,
       })
 
-      if (filesToAdd.length) {
-        await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
-      }
+      await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
 
       this.loadData()
       this.onTriggerOpenModal('showAddBatchModal')
@@ -1179,7 +1112,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.getFilter(),
@@ -1199,14 +1132,14 @@ export class WarehouseMyWarehouseViewModel {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
         this.boxesMy = warehouseBoxesDataConverter(boxes.rows, result.volumeWeightCoefficient)
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.boxesMy = []
         this.baseBoxesMy = []
       })
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -1246,7 +1179,7 @@ export class WarehouseMyWarehouseViewModel {
         // Будущий чел, исправь это в следующем релизе, году, десятилетии, в общем разберись
         // Удалить currentColumn и поставить на его место аргумент функции, column
         // Костыли зло ┗( T﹏T )┛
-        getTableByColumn(currentColumn, 'boxes'),
+        getTableByColumn(currentColumn, currentColumn === 'redFlags' ? 'products' : 'boxes'),
         currentColumn,
         `storekeepers/pag/boxes?filters=${this.getFilter(column)}`,
       )
@@ -1266,16 +1199,15 @@ export class WarehouseMyWarehouseViewModel {
 
   onChangeUnitsOption(option) {
     this.unitsOption = option
+    this.columnsModel = warehouseBoxesViewColumns(
+      this.rowHandlers,
+      () => this.userInfo,
+      () => this.unitsOption,
+    )
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   getFilter(exclusion) {

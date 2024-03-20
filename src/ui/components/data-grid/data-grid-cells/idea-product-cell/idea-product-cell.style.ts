@@ -5,8 +5,4 @@ export const useStyles = makeStyles()(() => ({
     padding: '10px 0 ',
     width: '100%',
   },
-
-  ideaProductActionButton: {
-    width: '100%',
-  },
 }))

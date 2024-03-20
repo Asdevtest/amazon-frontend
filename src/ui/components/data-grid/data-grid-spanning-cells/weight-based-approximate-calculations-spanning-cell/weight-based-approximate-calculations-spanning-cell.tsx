@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -6,7 +6,7 @@ import { getGroupDataByDestinationId } from '@utils/array'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IDestinationVariationApproximateCalculations } from '@typings/destination'
+import { IDestinationVariationApproximateCalculations } from '@typings/shared/destinations'
 
 import { useStyles } from './weight-based-approximate-calculations-spanning-cell.style'
 
@@ -21,7 +21,7 @@ interface WeightBasedApproximateCalculationsSpanningCellProps {
 }
 
 export const WeightBasedApproximateCalculationsSpanningCell: FC<WeightBasedApproximateCalculationsSpanningCellProps> =
-  React.memo(props => {
+  memo(props => {
     const { classes: styles, cx } = useStyles()
 
     const {

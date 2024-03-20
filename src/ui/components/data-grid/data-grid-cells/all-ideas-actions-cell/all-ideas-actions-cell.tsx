@@ -1,8 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
-
-import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
-
 import {
   AddAsinIdeaActionsCell,
   ClosedIdeaActionsCell,
@@ -10,7 +6,10 @@ import {
   IdeaActionsCell,
   OnCheckingIdeaActionsCell,
   RealizedIdeaActionsCell,
-} from '../data-grid-cells'
+} from '..'
+import { FC, memo } from 'react'
+
+import { ideaStatus, ideaStatusByKey, ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 
 interface AllIdeasActionsCellProps {
   row: any
@@ -27,7 +26,7 @@ interface AllIdeasActionsCellProps {
   }
 }
 
-export const AllIdeasActionsCell: FC<AllIdeasActionsCellProps> = React.memo(({ row, rowHandlers }) => {
+export const AllIdeasActionsCell: FC<AllIdeasActionsCellProps> = memo(({ row, rowHandlers }) => {
   const status = row.status
 
   return (
@@ -38,12 +37,14 @@ export const AllIdeasActionsCell: FC<AllIdeasActionsCellProps> = React.memo(({ r
           onClickReject={() => rowHandlers.onClickReject(row._id)}
         />
       )}
+
       {ideaStatusGroups[ideaStatusGroupsNames.ON_CHECKING].includes(status) && (
         <OnCheckingIdeaActionsCell
           onClickAccept={() => rowHandlers.onClickAcceptOnCheckingStatus(row._id)}
           onClickReject={() => rowHandlers.onClickReject(row._id)}
         />
       )}
+
       {ideaStatusGroups[ideaStatusGroupsNames.SEARCH_SUPPLIERS].includes(status) && (
         <OnCheckingIdeaActionsCell
           isAcceptDisabled={row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
@@ -51,15 +52,19 @@ export const AllIdeasActionsCell: FC<AllIdeasActionsCellProps> = React.memo(({ r
           onClickReject={() => rowHandlers.onClickReject(row._id)}
         />
       )}
+
       {ideaStatusGroups[ideaStatusGroupsNames.CREATE_CARD].includes(status) && (
         <CreateCardIdeaActionsCell row={row} rowHandlers={rowHandlers} />
       )}
+
       {ideaStatusGroups[ideaStatusGroupsNames.ADD_ASIN].includes(status) && (
         <AddAsinIdeaActionsCell rowHandlers={rowHandlers} row={row} />
       )}
+
       {ideaStatusGroups[ideaStatusGroupsNames.REALIZED].includes(status) && (
         <RealizedIdeaActionsCell rowHandlers={rowHandlers} row={row} />
       )}
+
       {ideaStatusGroups[ideaStatusGroupsNames.CLOSED].includes(status) && (
         <ClosedIdeaActionsCell row={row} rowHandlers={rowHandlers} />
       )}

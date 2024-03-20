@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Link } from '@mui/material'
 
@@ -11,7 +11,7 @@ interface SupplierCellProps {
   supplierLink?: string
 }
 
-export const SupplierCell: FC<SupplierCellProps> = React.memo(props => {
+export const SupplierCell: FC<SupplierCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { supplierName, supplierLink } = props
 

@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   input: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: '300px',
@@ -13,10 +13,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
     maxHeight: 'unset',
     padding: '1px',
-  },
-
-  btnWrapperStyle: {
-    height: '100%',
   },
 
   inputClass: {
@@ -49,8 +45,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   submit: {
+    margin: 0,
     height: '100%',
-    padding: '9px 20px 8px 20px',
-    borderRadius: '24px',
   },
 }))

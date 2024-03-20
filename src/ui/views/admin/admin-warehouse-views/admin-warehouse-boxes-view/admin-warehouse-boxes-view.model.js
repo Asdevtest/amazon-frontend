@@ -127,7 +127,7 @@ export class AdminWarehouseBoxesViewModel {
 
   async getBoxes() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const { rows, count } = await BoxesModel.getBoxes({
         filters: this.getFilters(),
@@ -142,10 +142,10 @@ export class AdminWarehouseBoxesViewModel {
         this.rowCount = count
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
 
       runInAction(() => {
         this.boxes = []
@@ -156,7 +156,7 @@ export class AdminWarehouseBoxesViewModel {
 
   async setCurrentOpenedBox(row) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const box = await BoxesModel.getBoxById(row._id)
       const result = await UserModel.getPlatformSettings()
@@ -168,10 +168,10 @@ export class AdminWarehouseBoxesViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -218,7 +218,7 @@ export class AdminWarehouseBoxesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
@@ -235,9 +235,9 @@ export class AdminWarehouseBoxesViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

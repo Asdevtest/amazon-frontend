@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -11,19 +10,20 @@ import { SettingsModel } from '@models/settings-model'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
+import { checkIsAdmin } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './integrations.style'
+import { useStyles } from './integrations.style'
 
 import { IntegrationsModel } from './integrations.model'
 
-export const Integrations = observer(({ productId, modal }) => {
-  const { classes: classNames } = useClassNames()
+export const Integrations = observer(({ productId, modal, userRole }) => {
+  const { classes: styles, cx } = useStyles()
   const history = useHistory()
   const model = useRef(new IntegrationsModel({ history, productId }))
 
@@ -42,7 +42,7 @@ export const Integrations = observer(({ productId, modal }) => {
     requestStatus,
     columnsModel,
     paginationModel,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
 
     onTriggerOpenModal,
     sellerBoardDailyData,
@@ -53,15 +53,18 @@ export const Integrations = observer(({ productId, modal }) => {
     onUnlinkSkuSProduct,
   } = model.current
 
+  const isAdmin = checkIsAdmin(userRole)
+  const isDisabledUnlinkButton = isAdmin || !selectedRowIds.length
+
   return (
-    <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
+    <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
       {SettingsModel.languageTag && (
-        <div className={classNames.addProductBtnsWrapper}>
-          <Button onClick={onClickBindInventoryGoodsToStockBtn}>
+        <div className={styles.addProductBtnsWrapper}>
+          <Button disabled={isAdmin} onClick={onClickBindInventoryGoodsToStockBtn}>
             {t(TranslationKey['Bind an product from Amazon'])}
           </Button>
 
-          <Button disabled={!selectedRowIds.length} onClick={onUnlinkSkuSProduct}>
+          <Button disabled={isDisabledUnlinkButton} onClick={onUnlinkSkuSProduct}>
             {t(TranslationKey['Unlink an product from Amazon'])}
           </Button>
         </div>
@@ -76,6 +79,8 @@ export const Integrations = observer(({ productId, modal }) => {
         paginationModel={paginationModel}
         rows={getCurrentData()}
         rowHeight={100}
+        sortingMode="client"
+        paginationMode="client"
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),
@@ -89,9 +94,9 @@ export const Integrations = observer(({ productId, modal }) => {
           },
         }}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatuses.IS_LOADING}
         rowSelectionModel={selectedRowIds}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onRowSelectionModelChange={onSelectionModel}
       />
 
@@ -107,25 +112,27 @@ export const Integrations = observer(({ productId, modal }) => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={successInfoModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={successInfoModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={showInfoModal}
-        setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-        title={t(TranslationKey["You can't bind"])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          onTriggerOpenModal('showInfoModal')
-        }}
-      />
+      {showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={showInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+          title={t(TranslationKey["You can't bind"])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => onTriggerOpenModal('showInfoModal')}
+        />
+      ) : null}
     </div>
   )
 })

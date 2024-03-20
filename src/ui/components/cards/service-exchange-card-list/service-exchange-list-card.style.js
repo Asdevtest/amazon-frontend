@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   cardWrapper: {
     height: 165,
     width: '100%',
-    padding: '20px 20px 20px 0',
+    padding: 20,
     display: 'flex',
     justifyContent: 'space-between',
     boxShadow: theme.palette.boxShadow.paper,
@@ -12,12 +12,8 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 7,
   },
 
-  photosWrapper: {
-    padding: '10px 50px',
-  },
-
   titleAndDescriptionWrapper: {
-    width: 275,
+    width: 320,
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -60,9 +56,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   detailDescription: {
+    maxWidth: 95,
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
+    textTransform: 'capitalize',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 
   detailsAndButtonWrapper: {
@@ -101,6 +102,7 @@ export const useStyles = makeStyles()(theme => ({
   detailsSubWrapperAll: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 5,
   },
 
   serviceTypeWrapper: {

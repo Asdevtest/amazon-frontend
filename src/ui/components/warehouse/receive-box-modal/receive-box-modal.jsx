@@ -3,15 +3,18 @@ import { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import { Divider, Typography } from '@mui/material'
 
+import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddFilesForm } from '@components/forms/add-files-form'
 import { CheckQuantityForm } from '@components/forms/check-quantity-form'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './receive-box-modal.style'
 
@@ -194,8 +197,17 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
 
   const isSomeBoxHasntImage = newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
 
-  const disableSubmit = newBoxes.some(box => box.amount === '') || isSomeBoxHasntImage
+  const isSomeBoxesHasCorrectSizes = newBoxes.some(
+    box =>
+      box.heightCmWarehouse > maxLengthInputInSizeBox ||
+      box.lengthCmWarehouse > maxLengthInputInSizeBox ||
+      box.widthCmWarehouse > maxLengthInputInSizeBox,
+  )
 
+  const disableSubmit =
+    newBoxes.some(box => box.amount === '') ||
+    (isSomeBoxHasntImage && !receiveNotFromBuyer) ||
+    isSomeBoxesHasCorrectSizes
   return (
     <div className={styles.root}>
       <div className={styles.modalHeaderWrapper}>
@@ -256,7 +268,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         )}
 
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
           className={styles.button}
           onClick={() => {
@@ -270,20 +282,25 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={cx(styles.button, styles.cancelButton)}
+          onClick={setOpenModal}
+        >
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
 
-      <WarningInfoModal
-        openModal={showNoDimensionsErrorModal}
-        setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
-        title={t(TranslationKey['Enter the dimensions of all the boxes'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)
-        }}
-      />
+      {showNoDimensionsErrorModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={showNoDimensionsErrorModal}
+          setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
+          title={t(TranslationKey['Enter the dimensions of all the boxes'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
+        />
+      ) : null}
 
       <Modal
         openModal={showAddImagesModal}

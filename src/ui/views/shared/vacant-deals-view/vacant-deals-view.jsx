@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -21,7 +21,7 @@ import { VacantDealsViewModel } from './vacant-deals-view.model'
 
 export const VacantDealsViewRaw = props => {
   const [viewModel] = useState(() => new VacantDealsViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -38,11 +38,11 @@ export const VacantDealsViewRaw = props => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-            <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+        <div className={styles.tablePanelWrapper}>
+          <div className={styles.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
+            <Typography className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
             {viewModel.sortMode === tableSortMode.DESK ? (
               <ArrowDropDownIcon color="primary" />
@@ -51,7 +51,7 @@ export const VacantDealsViewRaw = props => {
             )}
           </div>
         </div>
-        <div className={classNames.vacantDealsWrapper}>
+        <div className={styles.vacantDealsWrapper}>
           {getSortedData(viewModel.sortMode).length ? (
             <>
               {getSortedData(viewModel.sortMode).map((deal, index) =>
@@ -66,9 +66,9 @@ export const VacantDealsViewRaw = props => {
               )}
             </>
           ) : (
-            <div className={classNames.emptyTableWrapper}>
+            <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={classNames.emptyTableText}>
+              <Typography variant="h5" className={styles.emptyTableText}>
                 {t(TranslationKey['No deals yet'])}
               </Typography>
             </div>
@@ -76,17 +76,20 @@ export const VacantDealsViewRaw = props => {
         </div>
       </div>
 
-      <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Taking the deal check to work?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => viewModel.onClickGetToWork(viewModel.proposalId, viewModel.requestId)}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
-    </React.Fragment>
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Taking the deal check to work?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => viewModel.onClickGetToWork(viewModel.proposalId, viewModel.requestId)}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+    </>
   )
 }
 

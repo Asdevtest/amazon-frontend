@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { useStyles } from './multiline-text-align-left-header-cell.style'
 
@@ -6,7 +6,7 @@ interface MultilineTextAlignLeftHeaderCellProps {
   text: string
 }
 
-export const MultilineTextAlignLeftHeaderCell: FC<MultilineTextAlignLeftHeaderCellProps> = React.memo(({ text }) => {
+export const MultilineTextAlignLeftHeaderCell: FC<MultilineTextAlignLeftHeaderCellProps> = memo(({ text }) => {
   const { classes: styles } = useStyles()
 
   return (

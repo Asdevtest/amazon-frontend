@@ -1,14 +1,13 @@
+import { OpenInNewTabCell } from '..'
 import { FC, memo } from 'react'
 
-import { orderPriority } from '@constants/orders/order-priority'
+import { OrderPriority } from '@constants/orders/order-priority'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { requestPriority } from '@constants/requests/request-priority'
 
 import { ClockIcon, FireIcon, TruckIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from './priority-and-china-deliver-cell.style'
-
-import { OpenInNewTabCell } from '../data-grid-cells'
 
 interface PriorityAndChinaDeliverCellProps {
   priority: number
@@ -25,7 +24,7 @@ export const PriorityAndChinaDeliverCell: FC<PriorityAndChinaDeliverCellProps> =
   const isPendingOrder =
     Number(status) <= Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT as keyof typeof OrderStatusByKey])
   const isUrgent =
-    Number(priority) === orderPriority.urgentPriority ||
+    Number(priority) === OrderPriority.URGENT_PRIORITY ||
     (isRequest && Number(priority) === requestPriority.urgentPriority)
 
   return (

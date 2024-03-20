@@ -10,7 +10,7 @@ const hypnoEye = keyframes`
   }
 `
 
-export const useClassNames = makeStyles()((theme, props) => ({
+export const useStyles = makeStyles()((theme, props) => ({
   chip: {
     fontSize: '15px',
     fontWeight: '600',

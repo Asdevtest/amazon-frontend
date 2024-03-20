@@ -14,4 +14,10 @@ export const canceledStatus = [
   OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
 ]
 
+export const statusesForChecking = [
+  OrderStatusByKey[OrderStatus.FORMED],
+  OrderStatusByKey[OrderStatus.PENDING],
+  OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT],
+]
+
 export const completedStatus = [OrderStatusByKey[OrderStatus.IN_STOCK], OrderStatusByKey[OrderStatus.VERIFY_RECEIPT]]

@@ -8,8 +8,8 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { IDestination } from '@typings/destination'
-import { IStorekeeper } from '@typings/storekeeper'
+import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
+import { IDestination } from '@typings/shared/destinations'
 
 import { useStyles } from './view-header.style'
 
@@ -35,6 +35,7 @@ interface ViewHeaderProps {
   onClickEditBtn: () => void
   onClickGroupingBtn: () => void
   onClickReturnBoxesToStockBtn: () => void
+  onClickWarehouseOrderButton: () => void
 }
 
 export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
@@ -59,6 +60,7 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
     onClickEditBtn,
     onClickGroupingBtn,
     onClickReturnBoxesToStockBtn,
+    onClickWarehouseOrderButton,
   } = props
 
   return (
@@ -116,6 +118,7 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
         onClickGroupingBtn={onClickGroupingBtn}
         onClickReturnBoxesToStockBtn={onClickReturnBoxesToStockBtn}
         onClickCurrentTariffsBtn={onClickCurrentTariffsBtn}
+        onClickWarehouseOrderButton={onClickWarehouseOrderButton}
       />
     </div>
   )

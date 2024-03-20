@@ -6,7 +6,7 @@ import { ImageModal } from '@components/modals/image-modal/image-modal'
 
 import { t } from '@utils/translations'
 
-import { IUploadFile } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './photo-and-files-slider.style'
 
@@ -16,8 +16,8 @@ import { Slider } from './slider'
 import { WIDTH_INCREASE_FACTOR } from './slider/slider.constants'
 import { usePhotoAndFilesSlider } from './use-photo-and-files-slider'
 
-interface Props {
-  files: Array<string | IUploadFile>
+interface PhotoAndFilesSliderProps {
+  files: UploadFileType[]
   column?: boolean
   withoutPhotos?: boolean
   withoutFiles?: boolean
@@ -37,7 +37,7 @@ interface Props {
   photosComments?: string[]
   withoutMakeMainImage?: boolean
   mainClasses?: string
-  onChangeImagesForLoad?: (array: Array<string | IUploadFile>) => void
+  onChangeImagesForLoad?: (array: UploadFileType[]) => void
 }
 
 /**
@@ -66,7 +66,7 @@ interface Props {
  * @param {Function} onChangeImagesForLoad - Method to change the array of transferred files from outside the component.
  * @returns {HTMLElement} Return custom slider for photos and documents.
  */
-export const PhotoAndFilesSlider: FC<Props> = memo(props => {
+export const PhotoAndFilesSlider: FC<PhotoAndFilesSliderProps> = memo(props => {
   const {
     files,
     column = false,
@@ -106,6 +106,7 @@ export const PhotoAndFilesSlider: FC<Props> = memo(props => {
   } = usePhotoAndFilesSlider(files, onChangeImagesForLoad)
 
   const customSlideWidth = customSlideHeight && customSlideHeight * WIDTH_INCREASE_FACTOR
+  const imageModalFiles = withAllFiles ? files : [...mediaFiles, ...documents]
 
   return (
     <>
@@ -158,8 +159,8 @@ export const PhotoAndFilesSlider: FC<Props> = memo(props => {
           {withAllFiles ? (
             <Slider
               slides={files}
-              currentIndex={documentIndex}
-              setCurrentIndex={setDocumentIndex}
+              currentIndex={mediaFileIndex}
+              setCurrentIndex={setMediaFileIndex}
               smallSlider={smallSlider}
               mediumSlider={mediumSlider}
               bigSlider={bigSlider}
@@ -203,21 +204,22 @@ export const PhotoAndFilesSlider: FC<Props> = memo(props => {
         </div>
       )}
 
-      {openImageModal && (
+      {openImageModal ? (
         <ImageModal
-          files={mediaFiles}
+          files={withAllFiles ? files : imageModalFiles}
           currentFileIndex={mediaFileIndex}
-          handleCurrentFileIndex={setMediaFileIndex}
-          isOpenModal={openImageModal}
-          handleOpenModal={onOpenImageModal}
+          openModal={openImageModal}
           photosTitles={photosTitles}
           photosComments={photosComments}
           showPreviews={showPreviews}
           isEditable={isEditable}
+          isRequestResult={withAllFiles}
           withoutMakeMainImage={withoutMakeMainImage}
           onChangeImagesForLoad={onChangeImagesForLoad}
+          onOpenModal={onOpenImageModal}
+          onCurrentFileIndex={setMediaFileIndex}
         />
-      )}
+      ) : null}
     </>
   )
 })

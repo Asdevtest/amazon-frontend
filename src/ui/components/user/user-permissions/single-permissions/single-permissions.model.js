@@ -17,7 +17,6 @@ import { t } from '@utils/translations'
 export class SinglePermissionsModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   singlePermissions = []
 
@@ -60,18 +59,15 @@ export class SinglePermissionsModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -89,14 +85,12 @@ export class SinglePermissionsModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_SINGLE_PERMISSIONS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
@@ -117,25 +111,23 @@ export class SinglePermissionsModel {
     this.rowSelectionModel = model
   }
 
-  getCurrentData() {
-    return toJS(this.singlePermissions)
+  get currentData() {
+    return this.singlePermissions
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getSinglePermissions()
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.getSinglePermissions()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
 
   async getSinglePermissions() {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       const result = await PermissionsModel.getSinglePermissions()
 
       runInAction(() => {
@@ -143,9 +135,13 @@ export class SinglePermissionsModel {
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.payments = []
+      runInAction(() => {
+        this.payments = []
+      })
       console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -157,7 +153,6 @@ export class SinglePermissionsModel {
       this.getSinglePermissions()
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -166,7 +161,6 @@ export class SinglePermissionsModel {
       await PermissionsModel.createSinglePermission(data)
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -183,7 +177,6 @@ export class SinglePermissionsModel {
       await PermissionsModel.updateSinglePermission(permissionId, allowData)
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -195,7 +188,6 @@ export class SinglePermissionsModel {
       this.getSinglePermissions()
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 
@@ -253,7 +245,6 @@ export class SinglePermissionsModel {
       this.getSinglePermissions()
     } catch (error) {
       console.log(error)
-      this.error = error
     }
   }
 

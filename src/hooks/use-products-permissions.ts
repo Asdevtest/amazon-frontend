@@ -45,7 +45,7 @@ export class UseProductsPermissions {
   permissionsData: IPermissionsData[] = []
 
   isCanLoadMore = true
-  requestStatus = loadingStatuses.success
+  requestStatus = loadingStatuses.SUCCESS
 
   constructor(callback: ICallback, options?: IOptions) {
     makeAutoObservable(this)
@@ -66,7 +66,7 @@ export class UseProductsPermissions {
     if (!this.callback) return
 
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.requestStatus = loadingStatuses.IS_LOADING
 
       this.setOptions(options)
 
@@ -76,17 +76,17 @@ export class UseProductsPermissions {
         this.permissionsData = result.rows
       })
 
-      this.requestStatus = loadingStatuses.success
+      this.requestStatus = loadingStatuses.SUCCESS
     } catch (error) {
       throw new Error(`${error}`)
     }
   }
 
   async loadMoreDataHadler() {
-    if (!this.callback || !this.isCanLoadMore || this.requestStatus !== loadingStatuses.success) return
+    if (!this.callback || !this.isCanLoadMore || this.requestStatus !== loadingStatuses.SUCCESS) return
 
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.requestStatus = loadingStatuses.IS_LOADING
 
       this.options.offset += this.options.limit
       const result = await this.callback(this.options)
@@ -99,16 +99,16 @@ export class UseProductsPermissions {
         this.isCanLoadMore = false
       }
 
-      this.requestStatus = loadingStatuses.success
+      this.requestStatus = loadingStatuses.SUCCESS
     } catch (error) {
       throw new Error(`${error}`)
     }
   }
 
   async onClickSubmitSearch(searchValue: string) {
-    if (!this.callback || this.requestStatus !== loadingStatuses.success) return
+    if (!this.callback || this.requestStatus !== loadingStatuses.SUCCESS) return
     try {
-      this.requestStatus = loadingStatuses.isLoading
+      this.requestStatus = loadingStatuses.IS_LOADING
 
       this.isCanLoadMore = true
       this.setOptions({
@@ -118,7 +118,7 @@ export class UseProductsPermissions {
 
       await this.getPermissionsData()
 
-      this.requestStatus = loadingStatuses.success
+      this.requestStatus = loadingStatuses.SUCCESS
     } catch (error) {
       throw new Error(`${error}`)
     }

@@ -2,17 +2,17 @@ import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 
 import { toFixed } from '@utils/text'
 
-import { IDestination, IDestinationStorekeeper } from '@typings/destination'
+import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 type regionOfDeliveryNameType = 'west' | 'central' | 'east'
 
 export const useGetDestinationTariffInfo = (
   destinations: IDestination[],
   storekeepers: IDestinationStorekeeper[],
-  destinationId: string,
-  storekeeperId: string,
-  logicsTariffId: string,
-  variationTariffId: string,
+  destinationId: string | null,
+  storekeeperId: string | null,
+  logicsTariffId: string | null,
+  variationTariffId: string | null,
 ) => {
   const curDestination = destinations?.find(el => el._id === destinationId)
   const firstNumOfCode = curDestination?.zipCode[0]

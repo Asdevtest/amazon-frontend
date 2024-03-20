@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Avatar, Rating } from '@mui/material'
 
@@ -16,7 +16,7 @@ interface UserCellProps {
   rating: number
 }
 
-export const UserCell: FC<UserCellProps> = React.memo(props => {
+export const UserCell: FC<UserCellProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { userId, name, email, rating } = props
 

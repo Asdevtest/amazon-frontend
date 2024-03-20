@@ -1,10 +1,10 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeObservable, reaction, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
-import { RequestStatus } from '@constants/requests/request-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier } from '@constants/white-list'
@@ -12,61 +12,52 @@ import { creatSupplier } from '@constants/white-list'
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
-import { GeneralModel } from '@models/general-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
 import { OtherModel } from '@models/other-model'
 import { ProductModel } from '@models/product-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 import { SettingsModel } from '@models/settings-model'
-import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
-import { clientInventoryColumns } from '@components/table/table-columns/client/client-inventory-columns'
-
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
-import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
-import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
+import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { clientInventoryColumns } from './client-inventory-columns'
 import {
+  TAGS,
+  additionalFilterFields,
+  defaultHiddenColumns,
   fieldsOfProductAllowedToCreate,
   fieldsOfProductAllowedToUpdate,
-  filtersFields,
 } from './client-inventory-view.constants'
+import { observerConfig } from './model-observer.config'
 
-const defaultHiddenColumns = ['stockUSA', 'strategyStatus', 'fbafee', 'profit', 'amazon']
-
-export class ClientInventoryViewModel {
-  history = undefined
-  requestStatus = undefined
+export class ClientInventoryViewModel extends DataGridFilterTableModel {
   error = undefined
-
   product = undefined
   ordersDataStateToSubmit = undefined
 
-  baseNoConvertedProducts = undefined
-  productsMy = []
-  withoutProduct = false
-  withProduct = false
-  user = undefined
-  orders = []
-  ideasData = []
-  selectedRowIds = []
   sellerBoardDailyData = []
   storekeepers = []
   destinations = []
-  shopsData = []
-  ideaId = ''
+  ideaId = undefined
   isArchive = false
+
   batchesData = []
+
+  presetsData = []
+  productsTags = []
+  activeProductsTags = []
 
   receivedFiles = undefined
 
@@ -76,31 +67,25 @@ export class ClientInventoryViewModel {
 
   curProduct = undefined
 
-  // isNeedPurchaseFilter = null
-
-  currentSearchValue = ''
-
   productsToLaunch = []
   productVariations = []
   selectedProductToLaunch = undefined
 
+  dataForOrderModal = []
+
   existingProducts = []
+  selectedProduct = undefined
 
   selectedRowId = undefined
-  yuanToDollarRate = undefined
   platformSettings = undefined
 
   showOrderModal = false
   showSuccessModal = false
-
   showCheckPendingOrderFormModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
-  showAddOrEditSupplierModal = false
-  selectedProduct = undefined
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
-  showAddSupplierToIdeaFromInventoryModal = false
   showInfoModal = false
   showConfirmModal = false
   showSetChipValueModal = false
@@ -116,13 +101,13 @@ export class ClientInventoryViewModel {
   showProductLaunch = false
   showIdeaModal = false
   showProductVariationsForm = false
+  showAddOrEditSupplierModal = false
 
   successModalText = ''
   confirmMessage = ''
   showInfoModalTitle = ''
   currentBarcode = ''
   currentHscode = ''
-  isModalOpen = false
 
   isTransfer = false
 
@@ -131,144 +116,24 @@ export class ClientInventoryViewModel {
     alertShieldMessage: '',
   }
 
-  transparencyYesNoFilterData = {
-    yes: true,
-    no: true,
-    handleFilters: (yes, no) => this.onHandleOrderedFilter(yes, no),
-  }
-
-  onHandleOrderedFilter = (yes, no) => {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        transparencyYesNoFilterData: {
-          ...this.columnMenuSettings.transparencyYesNoFilterData,
-          yes,
-          no,
-        },
-      }
-      this.getProductsMy()
-    })
-  }
-
-  columnMenuSettings = {
-    onClickFilterBtn: field => this.onClickFilterBtn(field),
-    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: () => {
-      this.getProductsMy()
-      this.getDataGridState()
-    },
-
-    filterRequestStatus: undefined,
-
-    transparencyYesNoFilterData: this.transparencyYesNoFilterData,
-
-    isNeedPurchaseFilterData: {
-      isNeedPurchaseFilter: true,
-      isNotNeedPurchaseFilter: true,
-      onChangeIsNeedPurchaseFilter: (value, value2) => this.onChangeIsNeedPurchaseFilter(value, value2),
-    },
-
-    isHaveBarCodeFilterData: {
-      isHaveBarCodeFilter: null,
-      onChangeIsHaveBarCodeFilter: value => this.onChangeIsHaveBarCodeFilter(value),
-    },
-
-    ...dataGridFiltersInitializer(filtersFields),
-  }
-
-  barCodeHandlers = {
-    onClickBarcode: item => this.onClickBarcode(item),
-    onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
-    onDeleteBarcode: item => this.onDeleteBarcode(item),
-    showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
-  }
-
-  hsCodeHandlers = {
-    onClickHsCode: item => this.onClickHsCode(item),
-    onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
-    onDeleteHsCode: item => this.onDeleteHsCode(item),
-    showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
-  }
-
-  fourMonthesStockHandlers = {
-    onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
-  }
-
-  stockUsHandlers = {
-    onClickSaveStockUs: (item, value) => this.onClickSaveStockUs(item, value),
-  }
-
-  otherHandlers = {
-    onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
-    onClickInTransfer: productId => this.onClickInTransfer(productId),
-    onClickOrderCell: productId => this.onClickOrderCell(productId),
-    onClickShowProduct: row => this.onClickShowProduct(row),
-    onClickVariationButton: id => this.onClickVariationButton(id),
-  }
-
-  confirmModalSettings = {
-    isWarning: false,
-    confirmTitle: '',
-    confirmMessage: '',
-    onClickConfirm: () => {},
-  }
-
-  currentData = []
-
   readyImages = []
   progressValue = 0
   showProgress = false
 
-  rowCount = 0
-  sortModel = []
-  filterModel = { items: [] }
-  densityModel = 'compact'
-  columnsModel = clientInventoryColumns(
-    this.barCodeHandlers,
-    this.hsCodeHandlers,
-    this.fourMonthesStockHandlers,
-    this.stockUsHandlers,
-    this.otherHandlers,
-    () => this.columnMenuSettings,
-  )
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
+  getCustomSortFields = []
 
   get userInfo() {
     return UserModel.userInfo
   }
 
   get isSomeFilterOn() {
-    return filtersFields.some(
-      el =>
-        this.columnMenuSettings[el]?.currentFilterData.length ||
-        !(
-          this.columnMenuSettings?.transparencyYesNoFilterData.yes &&
-          this.columnMenuSettings?.transparencyYesNoFilterData.no
-        ),
-    )
-  }
-
-  constructor({ history, location }) {
-    this.history = history
-
-    const url = new URL(window.location.href)
-    this.isArchive = url.searchParams.get('isArchive')
-
-    if (location.state) {
-      this.isModalOpen = location.state.isModalOpen
-
-      const state = { ...history.location.state }
-      delete state.isModalOpen
-      history.replace({ ...history.location, state })
-    }
-
-    makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.productsMy,
-      () => (this.currentData = this.getCurrentData()),
+    return (
+      this.filtersFields.some(el => this.columnMenuSettings?.[el]?.currentFilterData?.length) ||
+      !(
+        this.columnMenuSettings?.transparencyYesNoFilterData?.yes &&
+        this.columnMenuSettings?.transparencyYesNoFilterData?.no
+      ) ||
+      !(this.columnMenuSettings?.childrenYesNoFilterData?.yes && this.columnMenuSettings?.childrenYesNoFilterData?.no)
     )
   }
 
@@ -276,29 +141,219 @@ export class ClientInventoryViewModel {
     return SettingsModel.destinationsFavourites
   }
 
+  constructor() {
+    const additionalPropertiesColumnMenuSettings = {
+      transparencyYesNoFilterData: {
+        yes: true,
+        no: true,
+        handleFilters: (yes, no) => {
+          runInAction(() => {
+            this.columnMenuSettings = {
+              ...this.columnMenuSettings,
+              transparencyYesNoFilterData: {
+                ...this.columnMenuSettings.transparencyYesNoFilterData,
+                yes,
+                no,
+              },
+            }
+            this.getMainTableData()
+          })
+        },
+      },
+
+      childrenYesNoFilterData: {
+        yes: true,
+        no: true,
+        handleFilters: (yes, no) => {
+          runInAction(() => {
+            this.columnMenuSettings = {
+              ...this.columnMenuSettings,
+              childrenYesNoFilterData: {
+                ...this.columnMenuSettings.childrenYesNoFilterData,
+                yes,
+                no,
+              },
+            }
+            this.getMainTableData()
+          })
+        },
+      },
+
+      isNeedPurchaseFilterData: {
+        isNeedPurchaseFilter: true,
+        isNotNeedPurchaseFilter: true,
+        onChangeIsNeedPurchaseFilter: (isNotNeedPurchaseFilter, isNeedPurchaseFilter) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isNeedPurchaseFilterData: {
+              ...this.columnMenuSettings.isNeedPurchaseFilterData,
+              isNeedPurchaseFilter,
+              isNotNeedPurchaseFilter,
+            },
+          }
+
+          this.getMainTableData()
+        },
+      },
+
+      isHaveBarCodeFilterData: {
+        isHaveBarCodeFilter: null,
+        onChangeIsHaveBarCodeFilter: value => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isHaveBarCodeFilterData: {
+              ...this.columnMenuSettings.isHaveBarCodeFilterData,
+              isHaveBarCodeFilter: value,
+            },
+          }
+
+          this.getMainTableData()
+        },
+      },
+    }
+
+    const barCodeHandlers = {
+      onClickBarcode: item => this.onClickBarcode(item),
+      onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
+      onDeleteBarcode: item => this.onDeleteBarcode(item),
+      showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
+    }
+
+    const hsCodeHandlers = {
+      onClickHsCode: item => this.onClickHsCode(item),
+      onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
+      onDeleteHsCode: item => this.onDeleteHsCode(item),
+      showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
+    }
+
+    const fourMonthesStockHandlers = {
+      onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
+    }
+
+    const stockUsHandlers = {
+      onClickSaveStockUs: (item, value) => this.onClickSaveStockUs(item, value),
+    }
+
+    const otherHandlers = {
+      onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
+      onClickInTransfer: productId => this.onClickInTransfer(productId),
+      onClickOrderCell: productId => this.onClickOrderCell(productId),
+      onClickShowProduct: row => this.onClickShowProduct(row),
+      onClickVariationButton: id => this.onClickVariationButton(id),
+      onClickTag: tag => this.setActiveProductsTagFromTable(tag),
+    }
+
+    const defaultGetDataMethodOptions = () => ({
+      preset: true,
+      noCache: true,
+    })
+
+    const additionalPropertiesGetFilters = () => {
+      const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
+      const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
+      const purchaseQuantityAboveZero = !(isNeedPurchaseFilter && isNotNeedPurchaseFilter)
+
+      return {
+        ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+          barCode: {
+            [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true,
+          },
+        }),
+
+        ...(this.columnMenuSettings.transparencyYesNoFilterData.yes &&
+        this.columnMenuSettings.transparencyYesNoFilterData.no
+          ? {}
+          : {
+              transparency: { $eq: this.columnMenuSettings.transparencyYesNoFilterData.yes },
+            }),
+
+        ...(this.columnMenuSettings.childrenYesNoFilterData.yes && this.columnMenuSettings.childrenYesNoFilterData.no
+          ? {}
+          : {
+              isChild: { $eq: this.columnMenuSettings.childrenYesNoFilterData.yes },
+            }),
+
+        ...(purchaseQuantityAboveZero && {
+          purchaseQuantityAboveZero: { $eq: isNeedPurchaseFilter },
+        }),
+
+        ...(this.isArchive && {
+          archive: { $eq: true },
+        }),
+      }
+    }
+
+    const columns = clientInventoryColumns(
+      barCodeHandlers,
+      hsCodeHandlers,
+      fourMonthesStockHandlers,
+      stockUsHandlers,
+      otherHandlers,
+    )
+    const filtersFields = getFilterFields(columns, additionalFilterFields)
+
+    super(
+      ClientModel.getProductsMyFilteredByShopIdWithPag,
+      columns,
+      filtersFields,
+      'clients/products/my_with_pag_v2?',
+      ['asin', 'amazonTitle', 'skuByClient'],
+      DataGridTablesKeys.CLIENT_INVENTORY,
+      defaultGetDataMethodOptions,
+      additionalPropertiesColumnMenuSettings,
+      additionalPropertiesGetFilters,
+    )
+
+    this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
+
+    defaultHiddenColumns.forEach(el => {
+      this.columnVisibilityModel[el] = false
+    })
+
+    const url = new URL(window.location.href)
+    this.isArchive = url.searchParams.get('isArchive')
+
+    this.getPlatformSettings()
+
+    makeObservable(this, observerConfig)
+
+    const getValidColumns = () => {
+      const activeFields = this.presetsData.reduce((acc, el) => {
+        if (el?._id) {
+          acc[el.table] = []
+          for (const field of el.fields) {
+            if (field?.checked) {
+              acc[el.table].push(field?.field)
+            }
+          }
+        }
+
+        return acc
+      }, {})
+
+      const newColumns = clientInventoryColumns(
+        barCodeHandlers,
+        hsCodeHandlers,
+        fourMonthesStockHandlers,
+        stockUsHandlers,
+        otherHandlers,
+        activeFields,
+      )
+      const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
+
+      this.columnsModel = newColumns
+      this.filtersFields = newFiltersFields
+      this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
+    }
+
+    reaction(
+      () => this.presetsData,
+      () => getValidColumns(),
+    )
+  }
+
   setDestinationsFavouritesItem(item) {
     SettingsModel.setDestinationsFavouritesItem(item)
-  }
-
-  onChangeFilterModel(model) {
-    this.filterModel = model
-
-    this.setDataGridState()
-    this.getProductsMy()
-  }
-
-  onChangePaginationModel(model) {
-    this.paginationModel = model
-
-    this.setDataGridState()
-    this.getProductsMy()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-
-    this.setDataGridState()
-    this.getProductsMy()
   }
 
   onClickShowProduct(id) {
@@ -314,8 +369,8 @@ export class ClientInventoryViewModel {
 
     if (row) {
       this.isArchive
-        ? this.history.push(`/client/inventory?product-id=${row.originalData._id}&isArchive=true`)
-        : this.history.push(`/client/inventory?product-id=${row.originalData._id}`)
+        ? this.history.push(`/client/inventory?product-id=${row._id}&isArchive=true`)
+        : this.history.push(`/client/inventory?product-id=${row._id}`)
     } else {
       this.isArchive ? this.history.push(`/client/inventory?isArchive=true`) : this.history.push(`/client/inventory`)
     }
@@ -338,88 +393,32 @@ export class ClientInventoryViewModel {
   }
 
   onClickOrderCell(productId) {
-    const win = window.open(
-      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-tab=orders`,
-      '_blank',
-    )
-
-    win.focus()
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    if (productId) {
+      this.isArchive
+        ? this.history.push(`/client/inventory?product-id=${productId}&isArchive=true&show-tab=orders`)
+        : this.history.push(`/client/inventory?product-id=${productId}&show-tab=orders`)
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_INVENTORY)
-  }
-
-  getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_INVENTORY]
-
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-
-      defaultHiddenColumns.forEach(el => {
-        this.columnVisibilityModel[el] = false
-      })
-    })
+    this.onTriggerOpenModal('productCardModal')
   }
 
   async onClickVariationButton(id) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       const result = await ProductModel.getProductsVariationsByGuid(id)
+
       runInAction(() => {
         this.productVariations = result
       })
 
       this.onTriggerOpenModal('showProductVariationsForm')
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
   }
 
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-
-    this.setDataGridState()
-    this.getProductsMy()
-  }
-
-  onSelectionModel(model) {
-    this.selectedRowIds = model
-  }
-
-  getCurrentData() {
-    return toJS(this.productsMy)
-  }
-
-  onSearchSubmit(searchValue) {
-    this.currentSearchValue = searchValue
-
-    this.getProductsMy()
-  }
-
   async uploadTemplateFile(file) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.showProgress = true
       })
@@ -437,16 +436,16 @@ export class ClientInventoryViewModel {
       })
 
       this.onTriggerOpenModal('showGetFilesModal')
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
 
   checkIsNoEditProductSelected() {
-    return this.selectedRowIds.some(prodId => {
-      const findProduct = this.productsMy.find(prod => prod._id === prodId)
+    return this.selectedRows.some(prodId => {
+      const findProduct = this.tableData.find(prod => prod._id === prodId)
 
       return [
         ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
@@ -455,7 +454,7 @@ export class ClientInventoryViewModel {
         ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
         ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
         ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-      ].includes(ProductStatusByCode[findProduct?.originalData.status])
+      ].includes(ProductStatusByCode[findProduct?.status])
     })
   }
 
@@ -481,40 +480,236 @@ export class ClientInventoryViewModel {
 
   async onSubmitTriggerArchOrResetProducts() {
     try {
-      for (let i = 0; i < this.selectedRowIds.length; i++) {
-        const productId = this.selectedRowIds[i]
+      for (let i = 0; i < this.selectedRows.length; i++) {
+        const productId = this.selectedRows[i]
 
         await ClientModel.updateProduct(productId, { archive: this.isArchive ? false : true })
       }
 
       this.onTriggerOpenModal('showConfirmModal')
-      await this.loadData()
+      await this.getMainTableData()
     } catch (error) {
       console.log(error)
     }
   }
 
   onTriggerArchive() {
-    this.selectedRowIds = []
+    this.selectedRows = []
 
     this.isArchive ? this.history.push('/client/inventory') : this.history.push('/client/inventory?isArchive=true')
     this.isArchive = this.isArchive ? false : true
 
-    this.loadData()
+    this.getMainTableData()
   }
 
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
+
+      runInAction(() => {
+        this.paymentMethods = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async loadData() {
     try {
       this.getDataGridState()
-      await this.getShops()
-      await this.getProductsMy()
-      this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
+      this.getPresets()
+      this.getMainTableData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
+    }
+  }
+
+  setActiveProductsTag(tags) {
+    this.columnMenuSettings?.onChangeFullFieldMenuItem(tags, TAGS)
+    this.columnMenuSettings?.onClickAccept()
+  }
+
+  setActiveProductsTagFromTable(tag) {
+    const index = this.columnMenuSettings?.tags?.currentFilterData?.findIndex(
+      currentTag => currentTag?._id === tag?._id,
+    )
+
+    const newTags = [...this.columnMenuSettings.tags.currentFilterData]
+
+    if (index > -1) {
+      newTags.splice(index, 1)
+    } else {
+      newTags.push(tag)
+    }
+
+    this.setActiveProductsTag(newTags)
+  }
+
+  async getPresets() {
+    try {
+      const currentPresets = await this.getCurrentPresets()
+      const allPresets = await this.getAllPresets()
+
+      const presetsData = []
+
+      if (currentPresets) {
+        for (const preset of allPresets) {
+          const presetData = {}
+          const existPreset = currentPresets.find(currentPreset => currentPreset?.table === preset?.table)
+
+          if (existPreset) {
+            presetData._id = existPreset?._id
+            presetData.table = existPreset?.table
+
+            const existFields = existPreset?.fields?.map(field => ({
+              field,
+              checked: true,
+              name: formatCamelCaseString(field),
+            }))
+
+            const notExistFields = preset?.fields
+              ?.filter(field => !existPreset?.fields?.includes(field))
+              ?.map(field => ({
+                field,
+                checked: false,
+                name: formatCamelCaseString(field),
+              }))
+
+            presetData.fields = [...existFields, ...notExistFields]
+          } else {
+            presetData._id = undefined
+            presetData.table = preset?.table
+            presetData.fields = preset?.fields?.map(field => ({
+              field,
+              checked: false,
+              name: formatCamelCaseString(field),
+            }))
+          }
+
+          presetsData.push(presetData)
+        }
+      } else {
+        for (const preset of allPresets) {
+          const presetData = {}
+
+          presetData.fields = preset?.fields?.map(field => ({
+            field,
+            checked: false,
+            name: formatCamelCaseString(field),
+          }))
+          presetData.table = preset?.table
+          presetData._id = undefined
+
+          presetsData.push(presetData)
+        }
+      }
+
+      runInAction(() => {
+        this.presetsData = presetsData
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getAllPresets() {
+    try {
+      const result = await OtherModel.getPresets()
+
+      return result
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getCurrentPresets() {
+    try {
+      const result = await UserModel.getUsersPresets()
+      return result
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async resetPresetsHandler() {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      for await (const preset of this.presetsData) {
+        if (!preset?._id) {
+          continue
+        }
+
+        await UserModel.deleteUsersPresetsByGuid(preset?._id)
+
+        preset.fields = preset?.fields?.map(field => ({
+          ...field,
+          checked: false,
+        }))
+        preset._id = undefined
+      }
+
+      await this.getMainTableData()
+      runInAction(() => {
+        this.presetsData = [...this.presetsData]
+      })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
+    }
+  }
+
+  async savePresetsHandler(presetsData) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      for await (const preset of presetsData) {
+        const presetId = preset?._id
+        const presetTable = preset?.table
+        const presetEndpoint = 'clients/products/my_with_pag_v2'
+        const fields = preset?.fields?.filter(field => field?.checked)?.map(field => field?.field)
+
+        if (!presetId) {
+          if (!fields?.length) {
+            continue
+          }
+
+          const body = {
+            endpoint: presetEndpoint,
+            table: presetTable,
+            fields,
+          }
+
+          const response = await UserModel.postUsersPresets(body)
+
+          preset._id = response.guid
+        } else {
+          if (!fields?.length) {
+            await UserModel.deleteUsersPresetsByGuid(presetId)
+            preset._id = undefined
+          } else {
+            const body = {
+              endpoint: presetEndpoint,
+              table: presetTable,
+              fields,
+            }
+
+            await UserModel.patchUsersPresetsByGuid(presetId, body)
+          }
+        }
+      }
+
+      await this.getMainTableData()
+      runInAction(() => {
+        this.presetsData = [...this.presetsData]
+      })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -527,15 +722,15 @@ export class ClientInventoryViewModel {
         this.productsToLaunch = result.rows
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
 
   async onClickProductLaunch() {
     try {
-      const result = this.currentData?.find(
-        product => product?.originalData?._id === this.selectedRowIds?.[0] && !product?.originalData?.parentProductId,
+      const result = this.tableData?.find(
+        product => product?._id === this.selectedRows?.[0] && !product?.parentProductId,
       )
       runInAction(() => (this.selectedProductToLaunch = result))
 
@@ -549,9 +744,9 @@ export class ClientInventoryViewModel {
   }
 
   async onClickNextButton(chosenProduct) {
-    runInAction(() => (this.selectedProductToLaunch = chosenProduct?.originalData || chosenProduct))
+    runInAction(() => (this.selectedProductToLaunch = chosenProduct))
 
-    if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
+    if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.buyer?._id) {
       this.confirmModalSettings = {
         isWarning: true,
         confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
@@ -570,19 +765,15 @@ export class ClientInventoryViewModel {
 
   async onClickOrderBtn() {
     try {
-      runInAction(() => {
-        this.showCircularProgressModal = true
-      })
-
       const resultArray = []
 
-      for await (const id of this.selectedRowIds) {
+      for await (const id of this.selectedRows) {
         await OrderModel.checkPendingOrderByProductGuid(id).then(result => {
           if (result?.length) {
-            const currentProduct = this.currentData.find(product => product?.originalData?._id === id)
+            const currentProduct = this.tableData.find(product => product?._id === id)
 
             const resultObject = {
-              asin: currentProduct?.originalData?.asin,
+              asin: currentProduct?.asin,
               orders: result,
             }
 
@@ -610,16 +801,16 @@ export class ClientInventoryViewModel {
   }
 
   async onClickContinueBtn() {
-    const [storekeepers, destinations, result] = await Promise.all([
+    const [storekeepers, destinations, dataForOrder] = await Promise.all([
       StorekeeperModel.getStorekeepers(),
       ClientModel.getDestinations(),
-      UserModel.getPlatformSettings(),
+      ClientModel.getProductsInfoForOrders(this.selectedRows.join(',')),
     ])
 
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
-      this.platformSettings = result
+      this.dataForOrderModal = dataForOrder
     })
 
     this.onTriggerOpenModal('showOrderModal')
@@ -629,215 +820,20 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async getShops() {
+  async getPlatformSettings() {
     try {
-      const result = await ShopModel.getMyShopNames()
+      const response = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.shopsData = addIdDataConverter(result)
+        this.platformSettings = response
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   onClickPrevButton = () => {
-    this.onTriggerOpenModal('showAddOrEditSupplierModal')
     this.onTriggerOpenModal('showSelectionSupplierModal')
-  }
-
-  async getIdeas() {
-    try {
-      const result = await IdeaModel.getIdeas(this.selectedRowIds.slice()[0])
-
-      runInAction(() => {
-        this.ideasData = [...result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))]
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  onChangeIsNeedPurchaseFilter(isNotNeedPurchaseFilter, isNeedPurchaseFilter) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      isNeedPurchaseFilterData: {
-        ...this.columnMenuSettings.isNeedPurchaseFilterData,
-        isNeedPurchaseFilter,
-        isNotNeedPurchaseFilter,
-      },
-    }
-
-    this.getProductsMy()
-  }
-
-  onChangeIsHaveBarCodeFilter(value) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      isHaveBarCodeFilterData: {
-        ...this.columnMenuSettings.isHaveBarCodeFilterData,
-        isHaveBarCodeFilter: value,
-      },
-    }
-
-    this.getProductsMy()
-  }
-
-  setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      filterRequestStatus: requestStatus,
-    }
-  }
-
-  async onClickFilterBtn(column) {
-    try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
-
-      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
-      const shopFilter =
-        this.columnMenuSettings.shopId.currentFilterData.length > 0 && column !== 'shopId' ? curShops : null
-
-      const purchaseQuantityAboveZero =
-        this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
-        this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-          ? ''
-          : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
-
-      const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column, 'products'),
-        column,
-
-        `clients/products/my_with_pag?filters=${this.getFilters(column)}${
-          shopFilter ? `;&[shopId][$eq]=${shopFilter}` : ''
-        }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
-      )
-
-      if (this.columnMenuSettings[column]) {
-        runInAction(() => {
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [column]: { ...this.columnMenuSettings[column], filterData: data },
-          }
-        })
-      }
-      this.setFilterRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
-
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
-  }
-
-  onClickResetFilters() {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      transparencyYesNoFilterData: {
-        ...this.columnMenuSettings.transparencyYesNoFilterData,
-        yes: true,
-        no: true,
-      },
-      ...dataGridFiltersInitializer(filtersFields),
-    }
-
-    this.getProductsMy()
-    this.getDataGridState()
-  }
-
-  getFilters(exclusion) {
-    const transparency =
-      this.columnMenuSettings.transparencyYesNoFilterData.yes && this.columnMenuSettings.transparencyYesNoFilterData.no
-        ? null
-        : this.columnMenuSettings.transparencyYesNoFilterData.yes
-
-    return objectToUrlQs(
-      dataGridFiltersConverter(
-        this.columnMenuSettings,
-        this.currentSearchValue,
-        exclusion,
-        filtersFields,
-        ['asin', 'amazonTitle', 'skuByClient'],
-        {
-          ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
-            barCode: {
-              [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true,
-            },
-          }),
-          ...(transparency !== null && {
-            transparency: { $eq: transparency },
-          }),
-
-          ...(this.isArchive && {
-            archive: { $eq: true },
-          }),
-        },
-      ),
-    )
-  }
-
-  async getProductsMy() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
-
-      const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
-      const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-
-      const purchaseQuantityAboveZero = isNeedPurchaseFilter && isNotNeedPurchaseFilter ? null : isNeedPurchaseFilter
-
-      const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-        filters: this.getFilters(),
-
-        shopId: this.columnMenuSettings.shopId.currentFilterData.length > 0 ? curShops : null,
-
-        purchaseQuantityAboveZero,
-
-        limit: this.paginationModel.pageSize,
-        offset: this.paginationModel.page * this.paginationModel.pageSize,
-
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-      })
-
-      runInAction(() => {
-        this.baseNoConvertedProducts = result
-        this.rowCount = result.count
-        this.productsMy = clientInventoryDataConverter(result.rows, this.shopsData)
-      })
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-      runInAction(() => {
-        this.rowCount = 0
-
-        this.productsMy = []
-        this.baseNoConvertedProducts = []
-      })
-
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
-    }
   }
 
   async onClickSaveHsCode(hsCode) {
@@ -852,7 +848,7 @@ export class ClientInventoryViewModel {
     ])
 
     this.onTriggerOpenModal('showEditHSCodeModal')
-    await this.loadData()
+    await this.getMainTableData()
 
     runInAction(() => {
       this.selectedProduct = undefined
@@ -860,10 +856,6 @@ export class ClientInventoryViewModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
@@ -872,10 +864,8 @@ export class ClientInventoryViewModel {
       barCode: this.uploadedFiles?.[0] || tmpBarCode?.[0],
     })
 
-    const noProductBaseUpdate = true
-    this.getProductsMy(noProductBaseUpdate)
+    this.getMainTableData()
 
-    this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
       this.selectedProduct = undefined
     })
@@ -883,7 +873,7 @@ export class ClientInventoryViewModel {
 
   async onSaveProductData(productId, updateProductData) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const updateProductDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         toJS(updateProductData),
@@ -892,11 +882,11 @@ export class ClientInventoryViewModel {
       )
 
       await ClientModel.updateProduct(productId, updateProductDataFiltered)
-      await this.loadData()
-      this.setRequestStatus(loadingStatuses.success)
+      await this.getMainTableData()
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message
@@ -911,17 +901,26 @@ export class ClientInventoryViewModel {
   }
 
   async onClickHsCode(item) {
-    this.setSelectedProduct(item)
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
+    try {
+      this.setSelectedProduct(item)
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
+      const response = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
+
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickSaveFourMonthesStockValue(productId, fourMonthesStock) {
     try {
       await ClientModel.updateProductFourMonthesStock(productId, { fourMonthesStock })
 
-      this.getProductsMy()
+      this.getMainTableData()
     } catch (error) {
       console.log(error)
     }
@@ -940,7 +939,7 @@ export class ClientInventoryViewModel {
         stockUSA: value,
       })
 
-      this.getProductsMy()
+      this.getMainTableData()
     } catch (error) {
       console.log(error)
     }
@@ -966,7 +965,7 @@ export class ClientInventoryViewModel {
 
   async onSubmitOrderProductModal() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.error = undefined
         this.showProgress = true
@@ -1001,34 +1000,14 @@ export class ClientInventoryViewModel {
       })
 
       if (!this.error) {
-        runInAction(() => {
-          this.alertShieldSettings = {
-            showAlertShield: true,
-            alertShieldMessage: t(TranslationKey['The order has been created']),
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              ...this.alertShieldSettings,
-              showAlertShield: false,
-            }
-
-            setTimeout(() => {
-              this.alertShieldSettings = {
-                showAlertShield: false,
-                alertShieldMessage: '',
-              }
-            }, 1000)
-          }, 3000)
-        })
+        toast.success(t(TranslationKey['The order has been created']))
       }
 
-      const noProductBaseUpdate = true
-      await this.getProductsMy(noProductBaseUpdate)
+      await this.getMainTableData()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1052,16 +1031,10 @@ export class ClientInventoryViewModel {
       } else {
         await ClientModel.createOrder(requestData)
       }
-
-      await this.updateUserInfo()
     } catch (error) {
       console.log(error)
 
-      runInAction(() => {
-        this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
-        this.error = error
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(`${t(TranslationKey["You can't order"])} "${error.body.message}"`)
     }
   }
 
@@ -1076,46 +1049,35 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async createSupplierSearchRequest(curId, ideaData, data) {
+  async onSubmitSaveSupplier({ supplier, makeMainSupplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      if (curId) {
-        await IdeaModel.createSupplierSearchRequestForIdea(curId, data)
-        await IdeaModel.editSupplierSearchRequestStatus(curId, {
-          requestStatus: RequestStatus.READY_TO_VERIFY_BY_SUPERVISOR,
-        })
-      } else {
-        await this.createIdea(ideaData)
-        await IdeaModel.createSupplierSearchRequestForIdea(this.ideaId, data)
-        await IdeaModel.editSupplierSearchRequestStatus(this.ideaId, {
-          requestStatus: RequestStatus.READY_TO_VERIFY_BY_SUPERVISOR,
-        })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onSubmitSaveSupplier({ supplier, photosOfSupplier, addMore, makeMainSupplier }) {
-    try {
-      runInAction(() => {
-        this.readyImages = []
-      })
-
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-      }
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
       }
 
-      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
+      }
+
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier, undefined, undefined, true)
       const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
       await ProductModel.addSuppliersToProduct(this.selectedRowId, [createSupplierResult.guid])
 
       if (makeMainSupplier) {
@@ -1127,14 +1089,11 @@ export class ClientInventoryViewModel {
       runInAction(() => {
         this.successModalText = t(TranslationKey['Supplier added'])
       })
+
       this.onTriggerOpenModal('showSuccessModal')
 
-      await this.loadData()
-
-      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
+      await this.getMainTableData()
     } catch (error) {
-      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
-
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1147,12 +1106,7 @@ export class ClientInventoryViewModel {
 
   async onClickAddSupplierButton() {
     try {
-      const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getSuppliersPaymentMethods()])
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.platformSettings = result
-      })
+      this.getSuppliersPaymentMethods()
 
       this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
@@ -1174,9 +1128,9 @@ export class ClientInventoryViewModel {
         this.showCircularProgressModal = true
       })
 
-      await SellerBoardModel.refreshProducts(this.selectedRowIds)
+      await SellerBoardModel.refreshProducts(this.selectedRows)
 
-      await this.loadData()
+      await this.getMainTableData()
 
       runInAction(() => {
         this.successModalText = t(TranslationKey['Products will be updated soon'])
@@ -1209,8 +1163,8 @@ export class ClientInventoryViewModel {
         return
       }
 
-      if (this.selectedRowIds.length > 1) {
-        const result = await ClientModel.calculatePriceToSeekSomeSuppliers(this.selectedRowIds)
+      if (this.selectedRows.length > 1) {
+        const result = await ClientModel.calculatePriceToSeekSomeSuppliers(this.selectedRows)
         runInAction(() => {
           this.confirmMessage = this.confirmModalSettings = {
             isWarning: false,
@@ -1226,11 +1180,10 @@ export class ClientInventoryViewModel {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
         runInAction(() => {
-          this.selectedRowId = this.selectedRowIds[0]
+          this.selectedRowId = this.selectedRows[0]
         })
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
-      this.getIdeas()
     } catch (error) {
       console.log(error)
     }
@@ -1244,7 +1197,7 @@ export class ClientInventoryViewModel {
 
         this.batchesData = result
 
-        this.curProduct = this.currentData.filter(product => productId === product.id).map(prod => prod.originalData)
+        this.curProduct = this.tableData.filter(product => productId === product._id)
       })
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
@@ -1254,14 +1207,12 @@ export class ClientInventoryViewModel {
 
   async onClickProductLotDataBtn() {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], false)
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRows[0], false)
       runInAction(() => {
         this.isTransfer = false
         this.batchesData = result
 
-        this.curProduct = this.currentData
-          .filter(product => this.selectedRowIds.includes(product.id))
-          .map(prod => prod.originalData)
+        this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product._id))
       })
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
@@ -1271,7 +1222,7 @@ export class ClientInventoryViewModel {
 
   async onClickToggleArchiveProductLotData(isArchive) {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], isArchive)
+      const result = await BatchesModel.getBatchesbyProduct(this.selectedRows[0], isArchive)
       runInAction(() => {
         this.batchesData = result
       })
@@ -1312,9 +1263,9 @@ export class ClientInventoryViewModel {
 
   async onSubmitSeekSomeSuppliers() {
     try {
-      await ClientModel.sendProductToSeekSomeSuppliers(this.selectedRowIds)
+      await ClientModel.sendProductToSeekSomeSuppliers(this.selectedRows)
 
-      await this.loadData()
+      await this.getMainTableData()
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -1329,12 +1280,10 @@ export class ClientInventoryViewModel {
         priceForClient: priceForSeekSupplier,
       })
 
-      await this.loadData()
-
-      this.onTriggerOpenModal('showConfirmModal')
-      this.onTriggerOpenModal('showSelectionSupplierModal')
+      await this.getMainTableData()
     } catch (error) {
       console.log(error)
+    } finally {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
     }
@@ -1470,10 +1419,7 @@ export class ClientInventoryViewModel {
         this.successModalText = t(TranslationKey['Product added'])
       })
       this.onTriggerOpenModal('showSuccessModal')
-      const noProductBaseUpdate = true
-      await this.getProductsMy(noProductBaseUpdate)
-
-      // this.onTriggerOpenModal('showSendOwnProductModal')
+      await this.getMainTableData()
     } catch (error) {
       runInAction(() => {
         this.showCircularProgressModal = false
@@ -1483,10 +1429,6 @@ export class ClientInventoryViewModel {
         this.error = error
       })
     }
-  }
-
-  async updateUserInfo() {
-    await UserModel.getUserInfo()
   }
 
   onDoubleClickBarcode = item => {
@@ -1501,34 +1443,30 @@ export class ClientInventoryViewModel {
 
   async onDeleteBarcode(product) {
     try {
-      await ClientModel.updateProductBarCode(product._id, { barCode: null })
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      await this.loadData()
+      await ClientModel.updateProductBarCode(product._id, { barCode: null })
+      await this.getMainTableData()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
+
       console.log(error)
     }
   }
 
   async onDeleteHsCode(product) {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       await ProductModel.editProductsHsCods([{ productId: product._id, hsCode: '' }])
+      await this.getMainTableData()
 
-      await this.loadData()
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
-    }
-  }
-
-  async onClickBindInventoryGoodsToStockBtn() {
-    try {
-      this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
-    } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -1537,7 +1475,7 @@ export class ClientInventoryViewModel {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
       runInAction(() => {
-        this.sellerBoardDailyData = addIdDataConverter(result)
+        this.sellerBoardDailyData = addIdDataConverter(result?.rows)
       })
     } catch (error) {
       console.log(error)
@@ -1564,7 +1502,7 @@ export class ClientInventoryViewModel {
       })
       this.onTriggerOpenModal('showSuccessModal')
 
-      await this.loadData()
+      await this.getMainTableData()
     } catch (error) {
       runInAction(() => {
         this.showInfoModalTitle = t(TranslationKey["You can't bind"])
@@ -1575,17 +1513,49 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onChangeCurPage(e) {
-    this.curPage = e
-
-    this.getProductsMy()
-  }
-
-  onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
-  }
-
   setSelectedProduct(item) {
     this.selectedProduct = item
+  }
+
+  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      supplier = {
+        ...supplier,
+        amount: parseFloat(supplier?.amount) || '',
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
+        minlot: parseInt(supplier?.minlot) || '',
+        price: parseFloat(supplier?.price) || '',
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
+      }
+
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
+      await ProductModel.addSuppliersToProduct(this.selectedRows[0], [createSupplierResult.guid])
+
+      await this.loadData()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
+    }
   }
 }

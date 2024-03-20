@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { getTariffRateForBoxOrOrder } from '@utils/calculation'
 import { toFixedWithDollarSign } from '@utils/text'
@@ -11,7 +11,7 @@ interface FinalPricePerUnitCellProps {
   boxFinalWeight: number
 }
 
-export const FinalPricePerUnitCell: FC<FinalPricePerUnitCellProps> = React.memo(({ box, boxFinalWeight }) => {
+export const FinalPricePerUnitCell: FC<FinalPricePerUnitCellProps> = memo(({ box, boxFinalWeight }) => {
   const { classes: styles } = useStyles()
 
   return (
@@ -19,7 +19,7 @@ export const FinalPricePerUnitCell: FC<FinalPricePerUnitCellProps> = React.memo(
       {box.items.map((el: any, index: number) => (
         <p key={index} className={styles.multilineText}>
           {toFixedWithDollarSign(
-            el.order.totalPrice / el.order.amount + (boxFinalWeight * getTariffRateForBoxOrOrder(box)) / el.amount,
+            el.order?.totalPrice / el.order?.amount + (boxFinalWeight * getTariffRateForBoxOrOrder(box)) / el.amount,
 
             2,
           )}

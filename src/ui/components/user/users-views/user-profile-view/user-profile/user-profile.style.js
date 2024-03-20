@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   avatar: {
     height: '140px',
     width: '140px',
@@ -67,6 +67,7 @@ export const useClassNames = makeStyles()(theme => ({
   role: {
     marginLeft: '10px',
     color: theme.palette.text.general,
+    textTransform: 'capitalize',
   },
 
   ratingWrapper: {
@@ -104,8 +105,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   changeBtn: {
     marginTop: '5px',
-    height: '20px',
-    color: '#fff',
+
     [theme.breakpoints.down(768)]: {
       width: '260px',
       height: 40,
@@ -163,12 +163,5 @@ export const useClassNames = makeStyles()(theme => ({
     paddingTop: 20,
     width: 'fit-content',
     marginLeft: 'auto !important',
-  },
-
-  leaveReviewBtn: {
-    color: '#fff',
-    height: 40,
-    borderRadius: 7,
-    padding: '10px 20px',
   },
 }))

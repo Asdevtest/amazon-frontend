@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { PrivateLabelCard } from '@components/cards/private-label-card'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { PrivateLabelCard } from '@components/private-label-card'
 import { Modal } from '@components/shared/modal'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -20,7 +20,7 @@ import { ClientExchangePrivateLabelViewModel } from './client-exchange-private-l
 
 export const ClientExchangePrivateLabelViewRaw = props => {
   const [viewModel] = useState(() => new ClientExchangePrivateLabelViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -30,21 +30,21 @@ export const ClientExchangePrivateLabelViewRaw = props => {
     const { productsVacant, setProductToPay } = viewModel
 
     return productsVacant.map((item, index) => (
-      <div key={`product_${item._id}_${index}`} className={classNames.cardWrapper}>
+      <div key={`product_${item._id}_${index}`} className={styles.cardWrapper}>
         <PrivateLabelCard item={item} index={index} setProductToPay={setProductToPay} />
       </div>
     ))
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <div className={classNames.mb5}>
-          <div className={classNames.cardsWrapper}>
+        <div className={styles.mb5}>
+          <div className={styles.cardsWrapper}>
             {viewModel.productsVacant.length > 0 ? (
               renderProductsVacant()
             ) : (
-              <Typography className={classNames.noRows}>{t(TranslationKey['No suggestions'])}</Typography>
+              <Typography className={styles.noRows}>{t(TranslationKey['No suggestions'])}</Typography>
             )}
           </div>
         </div>
@@ -55,6 +55,7 @@ export const ClientExchangePrivateLabelViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmPayModal')}
       >
         <SelectShopsModal
+          isNotDisabled
           title={t(TranslationKey['You buy a product card, are you sure?'])}
           message={`${t(TranslationKey['You will be charged'])} (${
             viewModel.productToPay && toFixedWithDollarSign(viewModel.productToPay.priceForClient, 2)
@@ -66,16 +67,17 @@ export const ClientExchangePrivateLabelViewRaw = props => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={t(TranslationKey['Product paid'])}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
-      />
-    </React.Fragment>
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={t(TranslationKey['Product paid'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
+    </>
   )
 }
 

@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   root: {
     [theme.breakpoints.down(768)]: {
       width: '100%',
@@ -110,4 +112,4 @@ export const styles = theme => ({
     position: 'absolute',
     right: 0,
   },
-})
+}))

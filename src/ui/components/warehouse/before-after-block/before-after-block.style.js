@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 import { tooltipClasses } from '@mui/material/Tooltip'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   boxWrapper: {
     padding: '20px 30px',
     margin: '0 2px',
@@ -40,6 +40,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   divider: {
     gridColumn: '2 / 3',
+    margin: '0 auto',
   },
 
   currentBox: {

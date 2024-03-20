@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -11,13 +11,15 @@ import {
 } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
-import { useEditTaskPriorityModalStyles } from '@components/warehouse/edit-task-priority-modal/edit-task-priority-modal.styles'
+import { useEditTaskPriorityModalStyles } from '@components/warehouse/edit-task-priority-modal/edit-task-priority-modal.style'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 interface EditTaskPriorityModalProps {
   data: {
@@ -79,14 +81,14 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
             className={styles.reasonInput}
             value={reason}
             inputProps={{ maxLength: 250 }}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setReason(event.target.value)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setReason(event.target.value)}
           />
         }
       />
 
       <div className={styles.controls}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={
             Number(curPriority) ===
               mapTaskPriorityStatusEnumToKey[
@@ -100,7 +102,7 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.cancel} onClick={handleClose}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancel} onClick={handleClose}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

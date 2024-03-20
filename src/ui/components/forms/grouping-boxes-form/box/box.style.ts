@@ -22,8 +22,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartText: {
-    flexGrow: 1,
-
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -258,5 +256,11 @@ export const useStyles = makeStyles()(theme => ({
 
   icon: {
     padding: 4,
+  },
+
+  fieldWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '50%',
   },
 }))

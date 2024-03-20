@@ -5,15 +5,10 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
-  },
-
-  button: {
-    marginRight: '10px',
   },
 
   isDraftRow: {
-    opacity: '.5',
+    opacity: 0.5,
   },
 
   searchInput: {
@@ -21,8 +16,9 @@ export const useStyles = makeStyles()(theme => ({
     width: 400,
     height: 36,
   },
+
   datagridWrapper: {
-    marginTop: '20px',
+    marginTop: 20,
     height: '82vh',
     width: '100%',
   },

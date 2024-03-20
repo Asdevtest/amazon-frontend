@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { useStyles } from './superbox-qty-cell.style'
 
@@ -7,7 +7,7 @@ interface SuperboxQtyCellProps {
   superbox: number
 }
 
-export const SuperboxQtyCell: FC<SuperboxQtyCellProps> = React.memo(({ qty, superbox }) => {
+export const SuperboxQtyCell: FC<SuperboxQtyCellProps> = memo(({ qty, superbox }) => {
   const { classes: styles } = useStyles()
 
   return (

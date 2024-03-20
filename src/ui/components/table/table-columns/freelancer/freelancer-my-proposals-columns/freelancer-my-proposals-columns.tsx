@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GridCellParams } from '@mui/x-data-grid'
 
@@ -11,25 +9,24 @@ import {
   difficultyLevelByCode,
   difficultyLevelTranslate,
 } from '@constants/statuses/difficulty-level'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   FreelancerMyProposalsActionsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductAsinCell,
   ShortDateCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
 interface IHandlers {
   onClickDeleteButton: (proposalId: string, proposalStatus: string) => void
   onClickEditButton: (requestId: string, proposalId: string) => void
-  onClickResultButton: (requestId: string, proposalId: string) => void
+  onClickResultButton: (proposalId: string) => void
   onClickOpenButton: (request: any) => void
 }
 
@@ -83,7 +80,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
-    width: 140,
+    width: 120,
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -91,11 +88,19 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    renderCell: (params: GridCellParams) => (
-      // @ts-ignore
-      <OrderCell withoutSku imageSize={'small'} product={params.row.originalData.request.product} />
-    ),
-    width: 280,
+    renderCell: (params: GridCellParams) => {
+      const product = params.row?.product
+
+      return (
+        <ProductAsinCell
+          image={product?.images?.[0]}
+          amazonTitle={product?.amazonTitle}
+          asin={product?.asin}
+          skuByClient={product?.skuByClient}
+        />
+      )
+    },
+    width: 250,
     columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
 
@@ -112,9 +117,35 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     // @ts-ignore
     renderCell: (params: GridCellParams) => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 62,
+    width: 60,
 
     columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'shop',
+    headerName: t(TranslationKey.Shop),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+
+    renderCell: (params: GridCellParams) => (
+      <MultilineTextCell maxLength={20} text={params.row.product?.shop?.name || t(TranslationKey.Missing)} />
+    ),
+    width: 100,
+
+    columnKey: columnnsKeys.shared.OBJECT,
+  },
+
+  {
+    field: 'announcement',
+    headerName: t(TranslationKey.Announcement),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Announcement)} />,
+
+    renderCell: (params: GridCellParams) => (
+      <MultilineTextCell text={params.row?.originalData?.request?.announcement?.title || t(TranslationKey.Missing)} />
+    ),
+    width: 115,
+
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -132,17 +163,13 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   },
 
   {
-    field: 'typeTask',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-    renderCell: (params: GridCellParams) => (
-      <MultilineTextCell text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value as number])} />
-    ),
-    type: 'number',
-    width: 86,
+    renderCell: (params: GridCellParams) => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    width: 110,
     sortable: false,
-
-    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
@@ -151,7 +178,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     // @ts-ignore
     renderCell: (params: GridCellParams) => <ShortDateCell value={params.value} />,
-    width: 110,
+    width: 80,
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -162,7 +189,7 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
     renderCell: (params: GridCellParams) => (
       <MultilineTextCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
     ),
-    width: 160,
+    width: 110,
     columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
   },
 
@@ -190,15 +217,6 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
   },
 
   {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: (params: GridCellParams) => <ShortDateCell value={params?.row?.originalData?.updatedAt} />,
-    width: 100,
-    columnKey: columnnsKeys.shared.DATE,
-  },
-
-  {
     field: 'actions',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
@@ -211,13 +229,20 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
         onClickEditButton={() =>
           handlers.onClickEditButton(params.row.originalData?.request?._id, params.row.originalData?._id)
         }
-        onClickResultButton={() =>
-          handlers.onClickResultButton(params.row.originalData.request?._id, params.row.originalData._id)
-        }
+        onClickResultButton={() => handlers.onClickResultButton(params.row.originalData._id)}
       />
     ),
-    width: 220,
+    width: 240,
     sortable: false,
     filterable: false,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderCell: (params: GridCellParams) => <ShortDateCell value={params?.row?.originalData?.updatedAt} />,
+    width: 100,
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]

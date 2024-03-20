@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
     minHeight: 750,
@@ -210,7 +210,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
+    textTransform: 'capitalize',
     color: theme.palette.text.second,
 
     marginBottom: 5,
@@ -310,7 +310,7 @@ export const useClassNames = makeStyles()(theme => ({
     minWidth: 100,
   },
 
-  editorMaxHeight: {
+  editorClassName: {
     maxHeight: '340px !important',
   },
 }))

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { useStyles } from './scrolling-cell.style'
 
@@ -7,7 +7,7 @@ interface ScrollingCellProps {
   fontSize?: number
 }
 
-export const ScrollingCell: FC<ScrollingCellProps> = React.memo(({ value, fontSize }) => {
+export const ScrollingCell: FC<ScrollingCellProps> = memo(({ value, fontSize }) => {
   const { classes: styles } = useStyles()
   return (
     <p style={{ fontSize }} className={styles.scrollingValue}>

@@ -1,7 +1,6 @@
 import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from 'date-fns'
 import QueryString from 'qs'
 
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { NotificationType } from '@constants/keys/notifications'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
@@ -9,8 +8,9 @@ import { ProductStatusByCode, productStatusTranslateKey } from '@constants/produ
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
+import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
+import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_MINUTES, ONE_HOUR_IN_SECONDS, ONE_MINUTES_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsAbsoluteUrl } from '@utils/checks'
@@ -26,7 +26,7 @@ export const getModelNameWithotPostfix = modelName =>
 
 export const trimBarcode = value => (value && value.length >= 8 ? String(value.substr(-8)) : value)
 
-export const toFixed = (int, x) => (int && typeof int === 'number' ? int.toFixed(x) : int)
+export const toFixed = (int, x = 2) => (int && typeof int === 'number' ? int.toFixed(x) : int)
 
 export const getFloatOrZero = str => (str ? parseFloat(str) || 0 : 0)
 
@@ -88,11 +88,11 @@ export const minsToTime = mins => {
 }
 
 export const secondsToTime = secs => {
-  if (secs >= 60) {
-    const days = Math.floor(secs / 86400)
-    const hours = Math.floor((secs % 86400) / 3600)
-    const minutes = Math.floor((secs % 3600) / 60)
-    const seconds = Math.floor(secs % 60)
+  if (secs >= ONE_MINUTES_IN_SECONDS) {
+    const days = Math.floor(secs / ONE_DAY_IN_SECONDS)
+    const hours = Math.floor((secs % ONE_DAY_IN_SECONDS) / ONE_HOUR_IN_SECONDS)
+    const minutes = Math.floor((secs % ONE_HOUR_IN_SECONDS) / ONE_HOUR_IN_MINUTES)
+    const seconds = Math.floor(secs % ONE_MINUTES_IN_SECONDS)
 
     return {
       days,
@@ -110,40 +110,19 @@ export const secondsToTime = secs => {
   }
 }
 
-export const getFullTariffTextForBoxOrOrder = box => {
-  if (!box || (!box.destination && !box.logicsTariff)) {
-    return t(TranslationKey['Not available'])
-  }
-
-  const firstNumOfCode = box.destination?.zipCode?.[0] || null
-
-  const regionOfDeliveryName =
-    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  return `${box.logicsTariff?.name || ''}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-    box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
-      ? ' / ' + box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate + '$'
-      : ''
-  }`
-}
-
 export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
-  if (!box || (!box.destination && !box.logicsTariff)) {
+  if (!box || !box.logicsTariff) {
     return t(TranslationKey['Not available'])
   }
 
-  const firstNumOfCode = box.destination?.zipCode?.[0] || null
+  const rate = box?.variationTariff?.pricePerKgUsd
 
-  const regionOfDeliveryName =
-    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const rate = box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
-
-  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixed(rate, 2) + '$' : ''}`
+  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixedWithDollarSign(rate, 2) : ''}`
 }
 
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
 export const shortAsin = value => getShortenStringIfLongerThanCount(value, 10)
+export const shortLink = value => getShortenStringIfLongerThanCount(value, 12)
 
 export const timeToDeadlineInHoursAndMins = ({ date, withSeconds, now }) => {
   const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)
@@ -208,9 +187,17 @@ export const getTableByColumn = (column, hint) => {
       'deliveryTotalPrice',
       'partialPaymentAmountRmb',
       'batchHumanFriendlyId',
+      'proposalSub',
+      'quantityBoxes',
+      'updatedAt',
     ].includes(column)
   ) {
-    if (['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate'].includes(column) && hint === 'batches') {
+    if (
+      ['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate', 'quantityBoxes', 'updatedAt'].includes(
+        column,
+      ) &&
+      hint === 'batches'
+    ) {
       return 'batches'
     }
 
@@ -222,7 +209,7 @@ export const getTableByColumn = (column, hint) => {
       return 'orders'
     }
 
-    if (['buyerComment'].includes(column) && hint === 'ideas') {
+    if (['buyerComment', 'createdBy', 'sub'].includes(column) && hint === 'ideas') {
       return 'ideas'
     }
 
@@ -251,6 +238,8 @@ export const getTableByColumn = (column, hint) => {
       'childProductSkuByClient',
       'childProductAsin',
       'shopId',
+      'shop',
+      'announcement',
       'strategyStatus',
       'amountInOrders',
       'stockUSA',
@@ -274,8 +263,8 @@ export const getTableByColumn = (column, hint) => {
       'fbaamount',
       'client',
       'buyer',
-      'childProductShopId',
-      'parentProductShopId',
+      'childProductShop',
+      'parentProductShop',
       'supervisor',
       'margin',
       'checkedBy',
@@ -289,7 +278,7 @@ export const getTableByColumn = (column, hint) => {
   ) {
     if (['buyer', 'createdAt', 'updatedAt'].includes(column) && hint === 'orders') {
       return 'orders'
-    } else if (['childProductShopId', 'parentProductShopId'].includes(column) && hint === 'ideas') {
+    } else if (['childProductShop', 'parentProductShop'].includes(column) && hint === 'ideas') {
       return 'products'
     } else if (
       [
@@ -307,9 +296,24 @@ export const getTableByColumn = (column, hint) => {
       return 'ideas'
     } else if (['createdAt', 'updatedAt', 'trackNumberText', 'client'].includes(column) && hint === 'boxes') {
       return 'boxes'
+    } else if (['announcement'].includes(column) && hint === 'requests') {
+      return 'requests'
     }
     return 'products'
-  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy', 'taskComplexity'].includes(column)) {
+  } else if (
+    [
+      'status',
+      'updatedAt',
+      'createdAt',
+      'tags',
+      'redFlags',
+      'createdBy',
+      'taskComplexity',
+      'reasonReject',
+      'createdBy',
+      'sub',
+    ].includes(column)
+  ) {
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'boxes') {
@@ -326,7 +330,7 @@ export const getTableByColumn = (column, hint) => {
   } else if (
     [
       'title',
-      'typeTask',
+      'spec',
       'price',
       'timeoutAt',
       // 'createdBy',
@@ -389,7 +393,7 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
       return MyRequestStatusTranslate(status)
 
     case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
-      return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
+      return freelanceRequestTypeByCode[status]
 
     case columnnsKeys.client.ORDERS_STATUS:
       return OrderStatusTranslate(OrderStatusByCode[status])
@@ -455,7 +459,36 @@ export const getHumanFriendlyNotificationType = type => {
     case NotificationType.Proposal:
       return t(TranslationKey.Proposal)
 
+    case NotificationType.Shop:
+      return t(TranslationKey.Shop)
+
     default:
       break
   }
+}
+
+export const parseTextString = textValue => {
+  try {
+    if (textValue.startsWith('{"blocks":')) {
+      const parsedData = JSON.parse(textValue)
+
+      const texts = parsedData?.blocks?.map(block => block?.text)
+
+      return texts.join(' ')
+    } else {
+      return textValue
+    }
+  } catch (error) {
+    return textValue
+  }
+}
+
+export const formatCamelCaseString = str =>
+  str.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b\w/g, c => c.toUpperCase())
+
+export const addHttpsPrefix = url => {
+  if (!url.startsWith('https://')) {
+    url = 'https://' + url
+  }
+  return url
 }

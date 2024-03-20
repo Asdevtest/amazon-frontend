@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
-import { useClassNames } from './custom-switcher.style'
+import { useStyles } from './custom-switcher.style'
 
 import { BulbIcon } from '../svg-icons'
 
@@ -13,7 +13,7 @@ export interface ISwitcherSettings {
 
 interface CustomSwitcherProps {
   fullWidth?: boolean
-  switchMode?: 'small' | 'medium' | 'big' | 'header'
+  switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header'
   switcherSettings: ISwitcherSettings[]
   condition: string | number | null | undefined
   customCondition?: (vale: string | number | null | undefined | Object) => boolean
@@ -21,9 +21,9 @@ interface CustomSwitcherProps {
 }
 
 export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
-  const { classes: classNames, cx } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const {
-    switchMode = 'small',
+    switchMode = 'default',
     condition,
     switcherSettings,
     fullWidth,
@@ -39,27 +39,29 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
 
   return (
     <div
-      className={cx(classNames.switcherWrapper, {
-        [classNames.fullWidthWrapper]: fullWidth,
-        [classNames.headerStylesSwitcherWrapper]: switchMode === 'header',
-        [classNames.mediumGapWrapper]: switchMode === 'medium',
+      className={cx(styles.switcherWrapper, {
+        [styles.fullWidthWrapper]: fullWidth,
+        [styles.headerStylesSwitcherWrapper]: switchMode === 'header',
+        [styles.mediumGapWrapper]: switchMode === 'medium',
       })}
     >
       {switchOptionsToRender.map((option, optionIndex) => (
         <div
           key={optionIndex}
-          className={cx(classNames.optionWrapper, {
-            [classNames.headerOptionWrapper]: switchMode === 'header',
-            [classNames.mediumOptionWrapper]: switchMode === 'medium' || switchMode === 'big',
+          className={cx(styles.optionWrapper, {
+            [styles.headerOptionWrapper]: switchMode === 'header',
+            [styles.mediumOptionWrapper]: switchMode === 'medium' || switchMode === 'big',
+            [styles.smallOptionWrapper]: switchMode === 'small',
           })}
         >
           <button
-            className={cx(classNames.switcherOption, {
-              [classNames.mediumOptionStyles]: switchMode === 'medium',
-              [classNames.bigOptionStyles]: switchMode === 'big',
-              [classNames.headerOptionStyles]: switchMode === 'header',
-              [classNames.activeOption]: condition === option.value || customCondition?.(option.value),
-              [classNames.headerActiveOptionStyles]:
+            className={cx(styles.switcherOption, {
+              [styles.mediumOptionStyles]: switchMode === 'medium',
+              [styles.bigOptionStyles]: switchMode === 'big',
+              [styles.smallOptionStyles]: switchMode === 'small',
+              [styles.headerOptionStyles]: switchMode === 'header',
+              [styles.activeOption]: condition === option.value || customCondition?.(option.value),
+              [styles.headerActiveOptionStyles]:
                 switchMode === 'header' && (condition === option.value || customCondition?.(option.value)),
             })}
             onClick={() => {
@@ -71,7 +73,7 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
             {!!option.label && option.label()}
 
             {!!option?.icon &&
-              (typeof option?.icon === 'boolean' ? <BulbIcon className={classNames.icon} /> : option?.icon)}
+              (typeof option?.icon === 'boolean' ? <BulbIcon className={styles.icon} /> : option?.icon)}
           </button>
         </div>
       ))}

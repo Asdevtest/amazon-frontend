@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -16,12 +15,13 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './orders.style'
+import { useStyles } from './orders.style'
 
+import { statusesForChecking } from './orders.constant'
 import { OrdersModel } from './orders.model'
 
 export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const history = useHistory()
   const model = useRef(new OrdersModel({ history, productId, showAtProcessOrders }))
 
@@ -49,10 +49,11 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
     onDoubleClickBarcode,
     setDataGridState,
     isSomeFilterOn,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
     onColumnVisibilityModelChange,
     columnVisibilityModel,
     onClickResetFilters,
+    isPendingOrdering,
   } = model.current
 
   useEffect(() => {
@@ -60,13 +61,15 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   }, [])
 
   return (
-    <div className={cx(classNames.mainWrapper, { [classNames.modalWrapper]: modal })}>
+    <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
       <CustomDataGrid
         useResizeContainer
         localeText={getLocalizationByLanguageTag()}
         columnVisibilityModel={model.current.columnVisibilityModel}
         paginationModel={paginationModel}
         rows={getCurrentData()}
+        sortingMode="client"
+        paginationMode="client"
         rowHeight={100}
         slotProps={{
           baseTooltip: {
@@ -86,15 +89,15 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
           },
         }}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
-        onPaginationModelChange={onChangePaginationModelChange}
+        loading={requestStatus === loadingStatuses.IS_LOADING}
+        onPaginationModelChange={onPaginationModelChange}
         onRowDoubleClick={e => onClickTableRow(e.row)}
         onStateChange={setDataGridState}
       />
 
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
         <SetBarcodeModal
-          item={selectedProduct}
+          barCode={selectedProduct?.barCode}
           onClickSaveBarcode={onClickSaveBarcode}
           onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
         />
@@ -103,6 +106,8 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
           isSetDeadline
+          isPendingOrdering={isPendingOrdering}
+          statusesForChecking={statusesForChecking}
           reorderOrdersData={[reorderOrder]}
           platformSettings={platformSettings}
           destinations={destinations}
@@ -113,27 +118,31 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={successModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={successModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        isWarning={confirmModalSettings?.isWarning}
-        title={confirmModalSettings.confirmTitle}
-        message={confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          isWarning={confirmModalSettings?.isWarning}
+          title={confirmModalSettings.confirmTitle}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </div>
   )
 })

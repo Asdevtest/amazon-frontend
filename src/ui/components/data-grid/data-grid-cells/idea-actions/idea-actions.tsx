@@ -1,10 +1,12 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './idea-actions.style'
 
@@ -13,13 +15,15 @@ interface IdeaActionsProps {
   onClickToCheck: () => void
 }
 
-export const IdeaActionsCell: FC<IdeaActionsProps> = React.memo(({ onClickReject, onClickToCheck }) => {
+export const IdeaActionsCell: FC<IdeaActionsProps> = memo(({ onClickReject, onClickToCheck }) => {
   const { classes: styles } = useStyles()
 
   return (
     <div className={styles.ideaActions}>
-      <Button onClick={onClickToCheck}>{t(TranslationKey['To check'])}</Button>
-      <Button danger onClick={onClickReject}>
+      <Button isTableButton fullWidth onClick={onClickToCheck}>
+        {t(TranslationKey['To check'])}
+      </Button>
+      <Button isTableButton fullWidth styleType={ButtonStyle.DANGER} onClick={onClickReject}>
         {t(TranslationKey.Reject)}
       </Button>
     </div>

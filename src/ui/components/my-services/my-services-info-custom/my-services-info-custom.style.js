@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     borderRadius: '4px',
@@ -35,7 +35,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: 640,
-    height: 140,
     padding: 20,
     border: `1px solid rgba(0,0,0, .1)`,
     borderRadius: 4,
@@ -44,8 +43,8 @@ export const useClassNames = makeStyles()(theme => ({
   blockInfoWrapper: {
     display: 'flex',
     width: 103,
+    gap: '15px',
     flexDirection: 'column',
-    justifyContent: 'space-between',
   },
   blockInfoWrapperLast: {
     width: 'fit-content',
@@ -135,6 +134,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   announcementTitle: {
     fontSize: 16,
+    whiteSpace: 'pre-wrap',
+    display: '-webkit-box',
+    WebkitBoxOrient: 'vertical',
   },
   announcementBlock: {
     display: 'flex',

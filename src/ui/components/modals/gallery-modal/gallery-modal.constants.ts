@@ -1,0 +1,5 @@
+export const VISIBLE_MEDIA_FILES_COUNT = 18
+export const VISIBLE_FILES_COUNT = 10
+export const FIRST_SLIDE = 1
+export const DEFAULT_SLIDE_HEIGHT = 100
+export const DIFFERENCE_BETWEEN_INDEXES = 1

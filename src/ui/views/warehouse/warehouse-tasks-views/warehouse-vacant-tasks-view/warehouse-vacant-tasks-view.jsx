@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -9,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -27,7 +26,7 @@ import { useStyles } from './warehouse-vacant-tasks-view.style'
 import { WarehouseVacantViewModel } from './warehouse-vacant-tasks-view.model'
 
 export const WarehouseVacantTasksView = observer(({ history }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new WarehouseVacantViewModel({ history }))
 
   useEffect(() => {
@@ -44,7 +43,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
       TaskOperationType.RECEIVE
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.headerWrapper}>
           <TaskPrioritySelector
@@ -54,7 +53,6 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
 
           {window.innerWidth < 1282 && (
             <Button
-              variant="contained"
               disabled={!viewModel.selectedTasks.length}
               className={styles.pickupOrdersButton}
               onClick={viewModel.onClickPickupManyTasksBtn}
@@ -129,7 +127,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -163,15 +161,18 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
         />
       </Modal>
 
-      <TwoVerticalChoicesModal
-        openModal={viewModel.showTwoVerticalChoicesModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
-        title={t(TranslationKey['Task picked up'])}
-        topBtnText={t(TranslationKey['Go to task'])}
-        bottomBtnText={t(TranslationKey['Continue to work with new tasks'])}
-        onClickTopBtn={() => viewModel.goToMyTasks()}
-        onClickBottomBtn={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
-      />
+      {viewModel.showTwoVerticalChoicesModal ? (
+        <TwoVerticalChoicesModal
+          // @ts-ignore
+          openModal={viewModel.showTwoVerticalChoicesModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
+          title={t(TranslationKey['Task picked up'])}
+          topBtnText={t(TranslationKey['Go to task'])}
+          bottomBtnText={t(TranslationKey['Continue to work with new tasks'])}
+          onClickTopBtn={() => viewModel.goToMyTasks()}
+          onClickBottomBtn={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
+        />
+      ) : null}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield
@@ -180,21 +181,24 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
         />
       )}
 
-      <ConfirmationModal
-        isWarning
-        withComment
-        commentTitleText={t(TranslationKey['Cancel task'])}
-        commentLabelText={t(TranslationKey['Reason for canceling the task'])}
-        openModal={viewModel.showConfirmModal}
-        title={t(TranslationKey['Confirm action'])}
-        message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        commentCancelBtnText={t(TranslationKey.Cancel)}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
-    </React.Fragment>
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning
+          withComment
+          commentTitleText={t(TranslationKey['Cancel task'])}
+          commentLabelText={t(TranslationKey['Reason for canceling the task'])}
+          openModal={viewModel.showConfirmModal}
+          title={t(TranslationKey['Confirm action'])}
+          message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          commentCancelBtnText={t(TranslationKey.Cancel)}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+    </>
   )
 })

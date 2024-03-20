@@ -111,4 +111,7 @@ export const styles = theme => ({
     width: 80,
     whiteSpace: 'pre-wrap',
   },
+  tableCellProduct: {
+    minWidth: 260,
+  },
 })

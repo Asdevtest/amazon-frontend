@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 import ImageUploading from 'react-images-uploading-alex76457-version'
+import { v4 as uuid } from 'uuid'
 
 import AddIcon from '@material-ui/icons/Add'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
@@ -12,7 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
@@ -20,9 +21,13 @@ import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { isString } from '@typings/guards'
+
 import { useStyles } from './upload-files-input.style'
 
 import { VideoPlayer } from '../video-player'
+import { VideoPreloader } from '../video-player/video-preloader'
 
 import { maxSizeInBytes, regExpUriChecking } from './upload-files-input.constants'
 
@@ -42,7 +47,6 @@ export const UploadFilesInput = observer(props => {
     withComment = false,
     maxHeight = undefined,
     сontainerStyles = '',
-    filesLength = undefined,
     imageListWrapperStyles = undefined,
     minimized = false,
     isNotShowActionsBtns = false,
@@ -67,7 +71,7 @@ export const UploadFilesInput = observer(props => {
 
     if (linkIsValid) {
       if (withComment) {
-        setImages([...images, { file: linkInput, comment: '', _id: `${Date.now()}` }])
+        setImages([...images, { fileLink: linkInput, commentByClient: '', commentByPerformer: '', _id: uuid() }])
       } else {
         setImages([...images, linkInput])
       }
@@ -77,13 +81,14 @@ export const UploadFilesInput = observer(props => {
     }
   }
 
-  const onChange = (imageList /* , addUpdateIndex  тут можно индекс получить*/) => {
+  const onChange = imageList => {
     if (withComment) {
       setImages(
         imageList.map((el, i) => ({
-          file: el,
-          comment: images[i]?.comment || '',
-          _id: images[i]?._id || `${Date.now()}${i}`,
+          fileLink: el,
+          commentByClient: images[i]?.commentByClient || '',
+          commentByPerformer: images[i]?.commentByPerformer || '',
+          _id: images[i]?._id || uuid(),
         })),
       )
     } else {
@@ -114,7 +119,7 @@ export const UploadFilesInput = observer(props => {
           ...images,
           ...readyFilesArr
             .slice(0, filesAlowLength)
-            .map((el, i) => ({ file: el, comment: '', _id: `${Date.now()}${i}` })),
+            .map(el => ({ fileLink: el, commentByClient: '', commentByPerformer: '', _id: uuid() })),
         ])
       } else {
         setImages([...images, ...readyFilesArr.slice(0, filesAlowLength)])
@@ -122,11 +127,11 @@ export const UploadFilesInput = observer(props => {
     }
   }
 
-  const renderImageInfo = (img, imgName) => (
+  const renderImageInfo = (img, imgName, isCurrentFileVideoType) => (
     <div className={styles.tooltipWrapper}>
-      {isVideoType(img) ? (
+      {isCurrentFileVideoType ? (
         <div className={cx(styles.preloaderContainer, styles.preloaderContainerTooltip)}>
-          <VideoPlayer videoSource={img} height="200px" />
+          <VideoPlayer videoSource={img} height={200} />
           <div className={styles.preloader}>
             <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
           </div>
@@ -145,7 +150,7 @@ export const UploadFilesInput = observer(props => {
   )
 
   const onChangeComment = index => e => {
-    setImages(() => images.map((el, i) => (i === index ? { ...el, comment: e.target.value } : el)))
+    setImages(() => images.map((el, i) => (i === index ? { ...el, commentByClient: e.target.value } : el)))
   }
 
   const onClickImageRemove = index => {
@@ -156,14 +161,20 @@ export const UploadFilesInput = observer(props => {
 
   const [showImages, setShowImages] = useState(true)
 
-  const isVideoType = slide => checkIsVideoLink(typeof slide === 'string' ? slide : slide?.file?.name)
+  const isVideoType = slide => {
+    if (isString(slide)) {
+      return checkIsVideoLink(slide)
+    } else {
+      return checkIsVideoLink(slide?.file?.name) || checkIsVideoLink(slide?.file?.type)
+    }
+  }
 
   return (
     SettingsModel.languageTag && (
       <ImageUploading
         multiple
         acceptType={acceptType}
-        value={withComment ? images?.map(el => el?.file) : images}
+        value={withComment ? images?.map(el => el?.fileLink) : images}
         maxNumber={maxNumber}
         dataURLKey="data_url"
         maxFileSize={maxSizeInBytes}
@@ -206,7 +217,6 @@ export const UploadFilesInput = observer(props => {
                         />
 
                         <Button
-                          disableElevation
                           tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])}
                           disabled={linkInput === '' || images?.length >= maxNumber}
                           className={styles.loadBtn}
@@ -241,7 +251,7 @@ export const UploadFilesInput = observer(props => {
                     </>
                   )}
                   {!minimized && t(TranslationKey['Click or Drop here'])}
-                  <input className={styles.pasteInput} defaultValue={''} onPaste={onPasteFiles} />
+                  <input className={styles.pasteInput} defaultValue="" onPaste={onPasteFiles} />
                 </button>
               </div>
 
@@ -249,19 +259,22 @@ export const UploadFilesInput = observer(props => {
                 <div className={styles.actionBtnsWrapper}>
                   <Button
                     disabled={images?.length === 0}
-                    className={styles.buttonSecondary}
+                    variant={ButtonVariant.OUTLINED}
                     onClick={() => setShowImages(!showImages)}
                   >
                     {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
                   </Button>
                   <p className={styles.imagesCount}>
-                    <span className={styles.imagesCountSpan}>{`${images?.length ?? 0}/${
-                      maxNumber - ((filesLength && filesLength) || 0)
-                    }`}</span>
+                    <span className={styles.imagesCountSpan}>{`${images?.length ?? 0}/${maxNumber || 0}`}</span>
 
                     {t(TranslationKey.files)}
                   </p>
-                  <Button disabled={images?.length === 0} className={styles.buttonSecondary} onClick={onImageRemoveAll}>
+                  <Button
+                    disabled={images?.length === 0}
+                    styleType={ButtonStyle.DANGER}
+                    variant={ButtonVariant.OUTLINED}
+                    onClick={onImageRemoveAll}
+                  >
                     {t(TranslationKey['Remove all'])}
                   </Button>
                 </div>
@@ -276,22 +289,22 @@ export const UploadFilesInput = observer(props => {
                 style={maxHeight && { maxHeight }}
               >
                 {imageList.map((image, index) => {
-                  const currentImage = typeof image === 'string' ? getAmazonImageUrl(image, true) : image?.data_url
-                  const currentName = typeof image === 'string' ? image : image?.file.name
+                  const currentImage = isString(image) ? getAmazonImageUrl(image, true) : image?.data_url
+                  const currentName = isString(image) ? image : image?.file.name
+                  const isCurrentFileVideoType = isVideoType(image)
 
                   return (
                     <div key={index} className={styles.imageLinkListItem}>
                       <Tooltip
-                        title={renderImageInfo(currentImage, currentName)}
+                        title={renderImageInfo(currentImage, currentName, isCurrentFileVideoType)}
                         classes={{ popper: styles.imgTooltip }}
                       >
-                        {isVideoType(currentImage) ? (
-                          <div className={styles.preloaderContainer}>
-                            <VideoPlayer videoSource={currentImage} height="55px" />
-                            <div className={styles.preloader}>
-                              <PlayCircleFilledWhiteOutlinedIcon className={styles.preloaderIcon} />
-                            </div>
-                          </div>
+                        {isCurrentFileVideoType ? (
+                          <VideoPreloader
+                            videoSource={currentImage}
+                            height={55}
+                            wrapperClassName={styles.preloaderWrapper}
+                          />
                         ) : (
                           <Avatar className={styles.image} src={currentImage} alt={currentName} variant="square" />
                         )}
@@ -311,7 +324,7 @@ export const UploadFilesInput = observer(props => {
                           variant="filled"
                           className={styles.imageObjInput}
                           classes={{ input: styles.subImageObjInput }}
-                          value={images[index]?.comment}
+                          value={images[index]?.commentByClient}
                           onChange={onChangeComment(index)}
                         />
                       )}

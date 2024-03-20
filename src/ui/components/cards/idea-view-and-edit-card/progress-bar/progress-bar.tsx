@@ -1,6 +1,5 @@
-import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
-import { FC, useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC, memo, useEffect, useState } from 'react'
 
 import Tooltip from '@mui/material/Tooltip'
 
@@ -8,7 +7,7 @@ import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 
 import { minsToTime } from '@utils/text'
 
-import { useClassNames } from './progress-bar.styles'
+import { useStyles } from './progress-bar.style'
 
 import { progressBarSettings } from './progress-bar-settings'
 
@@ -23,9 +22,10 @@ interface IProgressBarSettings {
   intervalName: string
 }
 
-export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+export const IdeaProgressBar: FC<IdeaProgressBarProps> = memo(props => {
   const { showStatusDuration, currentStatus, ideaData } = props
+
+  const { classes: styles, cx } = useStyles()
 
   const getInterval = (settingItem: IProgressBarSettings) =>
     settingItem?.intervalName === 'intervalStatusSearchFoundNotFound'
@@ -77,13 +77,13 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
     )
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       {!!statusesToRender?.length &&
         statusesToRender.map((settingItem, settingItemIndex) => {
           const textContent = (
             <p
-              className={cx(classNames.settingItemTitle, {
-                [classNames.settingItemActiveTitle]: checkIsActiveBarSetting(settingItem),
+              className={cx(styles.settingItemTitle, {
+                [styles.settingItemActiveTitle]: checkIsActiveBarSetting(settingItem),
               })}
             >
               {settingItem?.title()}
@@ -95,14 +95,13 @@ export const IdeaProgressBar: FC<IdeaProgressBarProps> = observer(props => {
           return (
             <div
               key={settingItemIndex}
-              className={cx(classNames.settingItem, {
-                [classNames.activeItem]: checkIsActiveBarSetting(settingItem),
-                [classNames.lastActiveItem]: checkIsLastActiveBarSetting(settingItem),
-                [classNames.withoutBorderRadius]: checkIsLastActiveBarSetting(settingItem) && settingItemIndex !== 0,
-                [classNames.withoutBorderRadiusRight]:
-                  checkIsLastActiveBarSetting(settingItem) && settingItemIndex === 0,
-                [classNames.finalStatus]: currentStatus === ideaStatusByKey[ideaStatus.VERIFIED],
-                [classNames.rejectedStatus]: checkIsRejectedOrClosedStatus(settingItem),
+              className={cx(styles.settingItem, {
+                [styles.activeItem]: checkIsActiveBarSetting(settingItem),
+                [styles.lastActiveItem]: checkIsLastActiveBarSetting(settingItem),
+                [styles.withoutBorderRadius]: checkIsLastActiveBarSetting(settingItem) && settingItemIndex !== 0,
+                [styles.withoutBorderRadiusRight]: checkIsLastActiveBarSetting(settingItem) && settingItemIndex === 0,
+                [styles.finalStatus]: currentStatus === ideaStatusByKey[ideaStatus.VERIFIED],
+                [styles.rejectedStatus]: checkIsRejectedOrClosedStatus(settingItem),
               })}
             >
               {tooltipContent ? (

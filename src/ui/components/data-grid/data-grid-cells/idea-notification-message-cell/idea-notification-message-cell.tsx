@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { NotificationIdeaStatus, NotificationType } from '@constants/keys/notifications'
 import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
@@ -14,7 +14,7 @@ interface IdeaNotificationMessageCellProps {
   navigateToHandler: (notification: any, type: string) => void
 }
 
-export const IdeaNotificationMessageCell: FC<IdeaNotificationMessageCellProps> = React.memo(
+export const IdeaNotificationMessageCell: FC<IdeaNotificationMessageCellProps> = memo(
   ({ navigateToHandler, notification }) => {
     const { classes: styles } = useStyles()
 
@@ -34,7 +34,7 @@ export const IdeaNotificationMessageCell: FC<IdeaNotificationMessageCellProps> =
     return (
       <p>
         <a className={styles.notificationId} onClick={() => navigateToHandler(notification, 'user')}>
-          {notification?.creator?.name}
+          {notification?.sub?.name || notification?.creator?.name}
         </a>
         {` ${getIdeaMessageTextToRender()} `}
         <a className={styles.notificationId} onClick={() => navigateToHandler(notification, NotificationType.Idea)}>

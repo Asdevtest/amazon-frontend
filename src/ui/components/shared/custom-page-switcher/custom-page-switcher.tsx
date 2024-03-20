@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
@@ -14,70 +13,71 @@ import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './custom-page-switcher.styles'
+import { IPaginationModel } from '@typings/shared/data-grid'
 
-import { PaginationModel } from '../../../../typings/pagination-model'
+import { useStyles } from './custom-page-switcher.style'
+
 import { Field } from '../field'
 
 interface CustomPageSwitcherProps {
-  paginationModel: PaginationModel
+  paginationModel: IPaginationModel
   rowCount: number
   pageSizeOptions: Array<number>
-  onChangePaginationModelChange: (model: PaginationModel) => void
+  onPaginationModelChange: (model: IPaginationModel) => void
 }
 
 export const CustomPageSwitcher: FC<CustomPageSwitcherProps> = observer(props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
-  const { pageSizeOptions, rowCount, paginationModel, onChangePaginationModelChange } = props
+  const { pageSizeOptions, rowCount, paginationModel, onPaginationModelChange } = props
 
   const humanFriendlyPageCount = paginationModel.page + 1
   const morePagesAvailable = rowCount > humanFriendlyPageCount * paginationModel.pageSize
   const isFistPage = paginationModel.page === 0
 
   const changeCurrentPage = (page: number): void => {
-    onChangePaginationModelChange({ ...paginationModel, page: paginationModel.page + page })
+    onPaginationModelChange({ ...paginationModel, page: paginationModel.page + page })
   }
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       <Field
         label={t(TranslationKey['On page'])}
-        labelClasses={classNames.fieldLabel}
-        containerClasses={classNames.fieldContainer}
+        labelClasses={styles.fieldLabel}
+        containerClasses={styles.fieldContainer}
         inputComponent={
           <Select
             variant="filled"
             value={paginationModel.pageSize}
-            classes={{ select: classNames.selectStyles }}
-            input={<Input classes={{ root: classNames.rootInput }} />}
-            onChange={value => onChangePaginationModelChange({ page: 0, pageSize: Number(value.target.value) })}
+            classes={{ select: styles.selectStyles }}
+            input={<Input classes={{ root: styles.rootInput }} />}
+            onChange={value => onPaginationModelChange({ page: 0, pageSize: Number(value.target.value) })}
           >
             {pageSizeOptions.map((pageOption: number, pageOptionIndex: number) => (
               <MenuItem key={pageOptionIndex} value={pageOption}>
-                <Typography className={classNames.switcherText}>{pageOption}</Typography>
+                <Typography className={styles.switcherText}>{pageOption}</Typography>
               </MenuItem>
             ))}
           </Select>
         }
       />
 
-      <div className={classNames.switcherControlWrapper}>
-        <Typography className={classNames.switcherText}>
+      <div className={styles.switcherControlWrapper}>
+        <Typography className={styles.switcherText}>
           {`${paginationModel.page ? paginationModel.page * paginationModel.pageSize + 1 : 1}–${
             morePagesAvailable ? humanFriendlyPageCount * paginationModel.pageSize : rowCount
           } ${t(TranslationKey.of)} ${rowCount}`}
         </Typography>
 
         <NavigateBeforeIcon
-          className={cx(classNames.navigation, { [classNames.disabledNavigation]: isFistPage })}
+          className={cx(styles.navigation, { [styles.disabledNavigation]: isFistPage })}
           onClick={() => {
             if (!isFistPage) changeCurrentPage(-1)
           }}
         />
 
         <NavigateNextIcon
-          className={cx(classNames.navigation, { [classNames.disabledNavigation]: !morePagesAvailable })}
+          className={cx(styles.navigation, { [styles.disabledNavigation]: !morePagesAvailable })}
           onClick={() => {
             if (morePagesAvailable) changeCurrentPage(1)
           }}

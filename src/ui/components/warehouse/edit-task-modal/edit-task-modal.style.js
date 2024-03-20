@@ -87,6 +87,7 @@ export const useStyles = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     gap: '20px',
 
     [theme.breakpoints.down(768)]: {
@@ -323,5 +324,9 @@ export const useStyles = makeStyles()(theme => ({
   modalSubHeader: {
     display: 'flex',
     alignItems: 'center',
+  },
+
+  errorText: {
+    color: theme.palette.text.red,
   },
 }))

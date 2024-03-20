@@ -3,9 +3,10 @@ import { FC, memo } from 'react'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
-import { useStyles } from './arrow.style'
+import { Arrows } from '@typings/enums/arrows'
+import { ArrowsType } from '@typings/types/arrows'
 
-import { Arrows, ArrowsType } from '../../slider.type'
+import { useStyles } from './arrow.style'
 
 interface ArrowProps {
   direction: string
@@ -32,7 +33,10 @@ export const Arrow: FC<ArrowProps> = memo(props => {
         [styles.mediumArrow]: mediumSlider,
         [styles.bigArrow]: bigSlider,
       })}
-      onClick={() => onClick(isLeftArrow ? Arrows.LEFT : Arrows.RIGHT)}
+      onClick={e => {
+        e.stopPropagation()
+        onClick(isLeftArrow ? Arrows.LEFT : Arrows.RIGHT)
+      }}
     >
       <ArrowIcon
         className={cx(styles.arrowIcon, {

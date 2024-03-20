@@ -79,7 +79,7 @@ export class SourceFilesViewModel {
     this.filterModel = model
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
   }
 
@@ -97,13 +97,13 @@ export class SourceFilesViewModel {
 
   loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.getSourceFiles()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -128,7 +128,7 @@ export class SourceFilesViewModel {
 
       this.getSourceFiles()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -146,8 +146,8 @@ export class SourceFilesViewModel {
 
   async removeSourceData(row) {
     try {
-      if (row.originalData._id) {
-        await RequestProposalModel.deleteFreelanceSourceFilesByGuid(row.originalData._id)
+      if (row?._id) {
+        await RequestProposalModel.deleteFreelanceSourceFilesByGuid(row?._id)
 
         runInAction(() => {
           this.editField = undefined
@@ -158,7 +158,7 @@ export class SourceFilesViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -173,7 +173,7 @@ export class SourceFilesViewModel {
 
   async getSourceFiles() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await RequestProposalModel.getFreelanceSourceFiles()
 
@@ -182,9 +182,9 @@ export class SourceFilesViewModel {
         this.rowCount = this.sourceFiles.length
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

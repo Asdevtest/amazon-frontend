@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { useEffect, useState } from 'react'
 
 import { Chip, Typography } from '@mui/material'
@@ -16,7 +15,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
@@ -31,6 +30,8 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeepe
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -55,7 +56,7 @@ export const MergeBoxesModal = ({
   setDestinationsFavouritesItem,
   volumeWeightCoefficient,
 }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const isStorekeeper = checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])
 
@@ -125,9 +126,10 @@ export const MergeBoxesModal = ({
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
         weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
+        images: imagesOfBox,
       }
     } else {
-      return { ...boxBody, destinationId: boxBody.destinationId || null }
+      return { ...boxBody, destinationId: boxBody.destinationId || null, images: imagesOfBox }
     }
   }
 
@@ -179,7 +181,6 @@ export const MergeBoxesModal = ({
 
         onClickCancelBtn: () => {
           setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId: null })
-          setDestinationId(null)
 
           setShowConfirmModal(false)
           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
@@ -188,17 +189,42 @@ export const MergeBoxesModal = ({
 
       setShowConfirmModal(true)
     } else {
-      setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId })
-      setDestinationId(destinationId)
+      if (!boxBody?.destinationId) {
+        setConfirmModalSettings({
+          isWarning: false,
+          title: t(TranslationKey.Attention),
+          confirmMessage: t(TranslationKey['Wish to set a destination?']),
 
-      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+          onClickConfirm: () => {
+            setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
+            setDestinationId(destinationId)
+
+            setShowConfirmModal(false)
+            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+          },
+
+          onClickCancelBtn: () => {
+            setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId: null })
+
+            setShowConfirmModal(false)
+            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+          },
+        })
+
+        setShowConfirmModal(true)
+      } else {
+        setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId })
+        setDestinationId(destinationId)
+
+        setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+      }
     }
   }
 
   const isDifferentStorekeepers = selectedBoxes.some(el => el.storekeeper._id !== selectedBoxes[0]?.storekeeper._id)
 
   const disabledSubmit =
-    requestStatus === loadingStatuses.isLoading ||
+    requestStatus === loadingStatuses.IS_LOADING ||
     boxBody.logicsTariffId === '' ||
     selectedBoxes.length < 2 ||
     (boxBody.shippingLabel?.length < 5 && boxBody.shippingLabel?.length > 0) ||
@@ -207,7 +233,8 @@ export const MergeBoxesModal = ({
       !boxBody.fbaShipment &&
       !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper) ||
     (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length) ||
-    selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
+    selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK) ||
+    !boxBody.logicsTariffId
 
   const disabledSubmitStorekeeper =
     disabledSubmit ||
@@ -215,7 +242,8 @@ export const MergeBoxesModal = ({
     !boxBody.lengthCmWarehouse ||
     !boxBody.widthCmWarehouse ||
     !boxBody.heightCmWarehouse ||
-    !boxBody.weighGrossKgWarehouse
+    !boxBody.weighGrossKgWarehouse ||
+    !boxBody.logicsTariffId
 
   const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
     destinations,
@@ -418,7 +446,6 @@ export const MergeBoxesModal = ({
               />
             </div>
 
-            {/* Рендерится если это сторкипер */}
             {isStorekeeper && (
               <Field
                 containerClasses={styles.blockOfNewBoxContainer}
@@ -452,9 +479,7 @@ export const MergeBoxesModal = ({
                       setFormField={setFormField}
                     />
 
-                    <div className={styles.imageFileInputWrapper}>
-                      <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
-                    </div>
+                    <UploadFilesInput fullWidth images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
                   </div>
                 }
               />
@@ -462,7 +487,6 @@ export const MergeBoxesModal = ({
           </div>
         </div>
 
-        {/* Рендерится не у сторкипера  */}
         {!isStorekeeper && (
           <div>
             <PriorityForm
@@ -497,7 +521,6 @@ export const MergeBoxesModal = ({
         <div className={styles.buttonsWrapper}>
           <Button
             tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
-            // Проверка для дизейбла
             disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
             className={styles.button}
             onClick={() => onSubmit(getBoxDataToSubmit(), comment, priority, priorityReason)}
@@ -506,8 +529,8 @@ export const MergeBoxesModal = ({
           </Button>
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            disabled={requestStatus === loadingStatuses.isLoading}
-            variant="text"
+            disabled={requestStatus === loadingStatuses.IS_LOADING}
+            variant={ButtonVariant.OUTLINED}
             className={cx(styles.button, styles.cancelButton)}
             onClick={onCloseBoxesModal}
           >
@@ -548,17 +571,20 @@ export const MergeBoxesModal = ({
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => setShowConfirmModal(false)}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings?.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-        onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => setShowConfirmModal(false)}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+        />
+      ) : null}
     </div>
   )
 }

@@ -3,7 +3,7 @@ export const filtersFields = [
   'updatedAt',
   'status',
   'title',
-  'typeTask',
+  'spec',
   'price',
   'timeoutAt',
   'asin',
@@ -11,4 +11,5 @@ export const filtersFields = [
   'amazonTitle',
   'createdBy',
   'subUsers',
+  'specType',
 ]

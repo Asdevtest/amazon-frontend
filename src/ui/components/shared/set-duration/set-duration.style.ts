@@ -1,10 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: 5,
   },
 
   inputsWrapper: {
@@ -26,6 +25,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   input: {
+    height: 24,
     display: 'flex',
     width: 40,
     border: 'none',
@@ -48,6 +48,10 @@ export const useClassNames = makeStyles()(theme => ({
       height: 1,
       width: 30,
       background: theme.palette.text.second,
+    },
+
+    '&.Mui-focused': {
+      border: `none`,
     },
   },
 }))

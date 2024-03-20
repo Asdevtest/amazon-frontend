@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react'
-import React from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Typography } from '@mui/material'
@@ -8,12 +7,12 @@ import { styles } from './moderator-my-products-view.style'
 
 export const ModeratorMyProductsViewRaw = props => {
   // const [viewModel] = useState(() => new ModeratorMyProductsViewModel({ history: props.history }));
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <Typography className={classNames.inProcess}>{'В разработке...'}</Typography>
+        <Typography className={styles.inProcess}>{'В разработке...'}</Typography>
         {/* <CustomDataGrid
                 useResizeContainer
                 localeText={getLocalizationByLanguageTag()}
@@ -27,7 +26,7 @@ export const ModeratorMyProductsViewRaw = props => {
                 rowHeight={100}
                 density={densityModel}
                 columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
+                loading={requestStatus === loadingStatuses.IS_LOADING}
                 onRowSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
                 }}
@@ -39,7 +38,7 @@ export const ModeratorMyProductsViewRaw = props => {
                 onFilterModelChange={model => onChangeFilterModel(model)}
               /> */}
       </div>
-    </React.Fragment>
+    </>
   )
 }
 

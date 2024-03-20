@@ -1,25 +1,24 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 
 import { Typography } from '@mui/material'
 
-import { useClassNames } from './request-proposals-details-custom.style'
+import { useStyles } from './request-proposals-details-custom.style'
 
 import { RequestProposalsDetailsCustomItem } from './request-proposals-details-custom-item'
 
 export const RequestProposalsDetailsCustom = observer(({ requestProposals }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   return (
-    <div className={classNames.root}>
-      <div className={classNames.titleWrapper}>
+    <div className={styles.root}>
+      <div className={styles.titleWrapper}>
         <Typography variant="h5">Предложения</Typography>
       </div>
-      <div className={classNames.requestProposalsWrappper}>
+      <div className={styles.requestProposalsWrappper}>
         {requestProposals.length ? (
           requestProposals.map((requestProposal, index) => (
             <div
               key={`requestProposal_${requestProposal._id}`}
-              className={cx(classNames.requestProposalWrapper, { [classNames.requestProposalWrapperNotFirst]: index })}
+              className={cx(styles.requestProposalWrapper, { [styles.requestProposalWrapperNotFirst]: index })}
             >
               <RequestProposalsDetailsCustomItem requestProposal={requestProposal} />
             </div>

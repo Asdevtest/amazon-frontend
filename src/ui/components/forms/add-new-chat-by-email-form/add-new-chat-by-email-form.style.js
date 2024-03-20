@@ -5,8 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 600,
     display: 'flex',
     flexDirection: 'column',
-    gap: 30,
-    padding: 15,
+    gap: 10,
 
     [theme.breakpoints.down(768)]: {
       width: 'auto',
@@ -29,6 +28,10 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.second,
+  },
+
+  menuList: {
+    maxHeight: '250px',
   },
 
   option: {

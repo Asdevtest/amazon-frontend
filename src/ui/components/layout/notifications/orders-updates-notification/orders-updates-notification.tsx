@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { History } from 'history'
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { Avatar, Typography } from '@mui/material'
 
@@ -11,7 +11,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { OrdersUpdatesNotificationRow } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-row'
 import { OrdersUpdatesNotificationItem } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-types'
-import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.styles'
+import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.style'
 
 import { t } from '@utils/translations'
 

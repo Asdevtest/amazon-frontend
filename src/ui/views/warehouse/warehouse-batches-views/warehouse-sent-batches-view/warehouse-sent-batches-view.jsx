@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -8,13 +8,15 @@ import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './warehouse-sent-batches-view.style'
 
@@ -29,10 +31,14 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className={styles.headerWrapper}>
-          <Button variant="outlined" className={styles.openArchiveBtn} onClick={viewModel.onTriggerArchive}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={styles.openArchiveBtn}
+            onClick={viewModel.onTriggerArchive}
+          >
             {viewModel.isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Open archive'])}
           </Button>
 
@@ -61,7 +67,7 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
             getRowHeight={() => 'auto'}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),
@@ -83,7 +89,7 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
           />
@@ -101,39 +107,46 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={viewModel.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey.Send) + '*'}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey.Send) + '*'}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <BatchInfoModal
-        volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-        openModal={viewModel.showBatchInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
-        batch={viewModel.curBatch}
-        userInfo={viewModel.userInfo}
-        patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
-        onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-        onClickHsCode={viewModel.onClickHsCode}
-      />
+      {viewModel.showBatchInfoModal ? (
+        <BatchInfoModal
+          // @ts-ignore
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          openModal={viewModel.showBatchInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+          batch={viewModel.curBatch}
+          userInfo={viewModel.userInfo}
+          patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
+          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
-      />
-    </React.Fragment>
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        />
+      ) : null}
+    </>
   )
 })

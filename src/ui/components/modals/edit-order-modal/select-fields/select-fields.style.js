@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   nativeSelect: {
     width: '210px',
   },
@@ -21,7 +21,9 @@ export const useClassNames = makeStyles()(theme => ({
   deliveredGoodsSuccessWrapper: {
     border: `2px solid #388E3C !important`,
   },
-
+  noFlex: {
+    display: 'block',
+  },
   deliveredGoodsSuccessText: {
     color: '#388E3C',
   },
@@ -88,10 +90,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '21px',
   },
 
-  imageFileInputWrapper: {
-    width: '500px',
-  },
-
   onLineWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -139,22 +137,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   greenLabel: {
     color: '#00B746',
-  },
-
-  normalPaymentText: {
-    width: 'fit-content',
-    color: theme.palette.primary.main,
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
-    whiteSpace: 'nowrap',
-  },
-
-  whiteNormalPaymentText: {
-    color: '#fff',
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
   },
 
   input: {
@@ -279,27 +261,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   supplierPaymentButtonWrapper: {
     width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'end',
-  },
-
-  supplierPaymentButton: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-    marginBottom: '20px',
-    color: '#fff',
-    gap: 5,
-  },
-
-  noPaymentButton: {
-    gap: 5,
+    marginBottom: 20,
   },
 
   formItem: {
@@ -317,27 +279,14 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  carouselImage: {
-    height: '100% !important',
-    maxHeight: '254px !important',
-    width: '100% !important',
-    objectFit: 'contain',
-
-    transition: '.2s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
   paymentsBlock: {
     marginTop: 25,
   },
+
   labelClass: {
     fontSize: 14,
     fontWeight: 400,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
   },
 
@@ -374,6 +323,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   supplierPaymentButtonBtnWrapperStyle: {
+    width: '100%',
+  },
+
+  gallery: {
+    marginTop: 20,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  documentButton: {
     width: '100%',
   },
 }))

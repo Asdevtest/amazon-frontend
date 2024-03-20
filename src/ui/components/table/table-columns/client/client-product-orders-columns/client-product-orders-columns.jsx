@@ -13,21 +13,22 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
+  DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NormalActionBtnCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
-  SuccessActionBtnCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
-import { formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
   {
@@ -41,9 +42,9 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
   {
     field: 'priorityAndChinaDelivery',
-    headerName: 'priorityAndChinaDelivery',
+    headerName: t(TranslationKey.Priority),
     renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
-    width: 60,
+    width: 90,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
         priority={params.row.originalData.priority}
@@ -97,21 +98,21 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
-    renderCell: params => (
-      <>
-        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-          <NormalActionBtnCell
-            bTnText={t(TranslationKey['Repeat order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
-          />
-        ) : (
-          <SuccessActionBtnCell
-            bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData, true)}
-          />
-        )}
-      </>
-    ),
+    renderCell: params => {
+      const isRepeatOrder =
+        Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
+      const currentStyle = isRepeatOrder ? ButtonStyle.PRIMARY : ButtonStyle.SUCCESS
+      const currentText = isRepeatOrder ? t(TranslationKey['Repeat order']) : t(TranslationKey['To order'])
+
+      return (
+        <ActionButtonsCell
+          isFirstButton
+          firstButtonElement={currentText}
+          firstButtonStyle={currentStyle}
+          onClickFirstButton={() => handlers.onClickReorder(params.row.originalData, !isRepeatOrder)}
+        />
+      )
+    },
     filterable: false,
     sortable: false,
   },
@@ -174,21 +175,15 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
   {
     field: 'deadline',
-    headerName: 'Deadline',
-    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
-
+    headerName: t(TranslationKey.Deadline),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params =>
       params.row.originalData.status < 20 ? (
-        <MultilineTextCell
-          withLineBreaks
-          tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-          color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-          text={params.value ? formatDate(params.value) : ''}
-        />
+        <DeadlineCell deadline={params.row.deadline} />
       ) : (
         <MultilineTextCell text={'-'} />
       ),
-    width: 200,
+    width: 100,
   },
 
   {

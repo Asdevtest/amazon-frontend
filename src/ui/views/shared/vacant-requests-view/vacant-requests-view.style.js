@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 10,
   },
 
   searchInput: {
@@ -16,6 +16,8 @@ export const useStyles = makeStyles()(theme => ({
   tablePanelSubWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 10,
     gap: 30,
   },
 
@@ -40,10 +42,6 @@ export const useStyles = makeStyles()(theme => ({
   dataGridWrapper: {
     height: '80vh',
     width: '100%',
-  },
-
-  taskTypeWrapper: {
-    display: 'flex',
   },
 
   emptyTableWrapper: {

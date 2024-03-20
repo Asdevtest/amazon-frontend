@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, memo } from 'react'
-
-import { NotificationType } from '@constants/keys/notifications'
-
 import {
   BoxNotificationMessageCell,
   IdeaNotificationMessageCell,
   OrderNotificationMessageCell,
   RequestNotificationMessageCell,
-} from '../data-grid-cells'
+  ShopNotificationMessageCell,
+} from '..'
+import { FC, memo } from 'react'
+
+import { NotificationType } from '@constants/keys/notifications'
 
 interface NotificationMessageCellProps {
   notificationType: NotificationType
@@ -32,6 +32,8 @@ export const NotificationMessageCell: FC<NotificationMessageCellProps> = memo(
       {[NotificationType.Request, NotificationType.Proposal].includes(notificationType) && (
         <RequestNotificationMessageCell notification={notification} />
       )}
+
+      {notificationType === NotificationType.Shop && <ShopNotificationMessageCell notification={notification} />}
     </>
   ),
 )

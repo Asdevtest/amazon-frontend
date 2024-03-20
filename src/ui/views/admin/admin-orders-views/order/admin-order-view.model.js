@@ -13,13 +13,7 @@ export class AdminOrderViewModel {
   requestStatus = undefined
   error = undefined
 
-  selectedSupplier = undefined
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
-
   platformSettings = undefined
-
-  showAddOrEditSupplierModal = false
 
   orderBoxes = []
   orderId = undefined
@@ -32,33 +26,33 @@ export class AdminOrderViewModel {
   constructor({ history }) {
     const url = new URL(window.location.href)
 
-    runInAction(() => {
-      this.history = history
-      this.orderId = url.searchParams.get('orderId')
-    })
+    this.history = history
+    this.orderId = url.searchParams.get('orderId')
+
+    this.getPlatformSettings()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const [order, boxes, storekeepers, destinations, platformSettings] = await Promise.all([
-        this.getOrderById(),
-        this.getBoxesOfOrder(this.orderId),
+      this.getOrderById()
+      this.getBoxesOfOrder(this.orderId)
+
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
       ])
 
       runInAction(() => {
         this.destinations = destinations
         this.storekeepers = storekeepers
-        this.platformSettings = platformSettings
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -77,16 +71,6 @@ export class AdminOrderViewModel {
     }
   }
 
-  onChangeSelectedSupplier(supplier) {
-    runInAction(() => {
-      if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-        this.selectedSupplier = undefined
-      } else {
-        this.selectedSupplier = supplier
-      }
-    })
-  }
-
   async getStorekeepers() {
     try {
       const result = await StorekeeperModel.getStorekeepers()
@@ -99,31 +83,10 @@ export class AdminOrderViewModel {
     }
   }
 
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        const [result, _] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
-      }
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async getBoxesOfOrder(orderId) {
     try {
       const result = await BoxesModel.getBoxesOfOrder(orderId)
+
       runInAction(() => {
         this.orderBoxes = result
       })
@@ -133,8 +96,18 @@ export class AdminOrderViewModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
+  }
+
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

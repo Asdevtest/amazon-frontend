@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { cx } from '@emotion/css'
 import { FC, ReactNode, useEffect, useState } from 'react'
 
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
@@ -10,7 +9,7 @@ import { RIGHT_BLOCK_WIDTH } from '@constants/configs/sizes-settings'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { useClassNames } from './custom-slider.style'
+import { useStyles } from './custom-slider.style'
 
 interface CustomSliderProps {
   children: Array<ReactNode>
@@ -36,7 +35,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
     isHideCounter,
     isModal = false,
   } = props
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const [clides, setClides] = useState<ReactNode[]>([])
   const [offset, setOffset] = useState(index ? -RIGHT_BLOCK_WIDTH * index : 0)
 
@@ -104,23 +103,23 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
   }
 
   return (
-    <div className={classNames.mainContainer}>
+    <div className={styles.mainContainer}>
       {view === 'simple' && !!children?.length && (
-        <div className={classNames.headerCarouselDocumentsWrapper}>
-          <div className={cx(classNames.buttonDocumentsWrapper, { [classNames.modal]: isModal })}>
+        <div className={styles.headerCarouselDocumentsWrapper}>
+          <div className={cx(styles.buttonDocumentsWrapper, { [styles.modal]: isModal })}>
             {alignButtons === 'center' && (
               <ArrowLeftIcon
                 style={{
                   width: arrowSize,
                   height: arrowSize,
                 }}
-                className={cx(classNames.arrowIcon, { [classNames.arrowDisabledIcon]: isFirstSlide })}
+                className={cx(styles.arrowIcon, { [styles.arrowDisabledIcon]: isFirstSlide })}
                 onClick={handleLeftArrowClick}
               />
             )}
 
-            <div className={classNames.window}>
-              <div className={classNames.allClides} style={{ transform: `translateX(${offset}%)` }}>
+            <div className={styles.window}>
+              <div className={styles.allClides} style={{ transform: `translateX(${offset}%)` }}>
                 {clides}
               </div>
             </div>
@@ -130,22 +129,22 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
                   width: arrowSize,
                   height: arrowSize,
                 }}
-                className={cx(classNames.arrowIcon, {
-                  [classNames.arrowDisabledIcon]: isLastSlide,
+                className={cx(styles.arrowIcon, {
+                  [styles.arrowDisabledIcon]: isLastSlide,
                 })}
                 onClick={handleRightArrowClick}
               />
             )}
           </div>
           {alignButtons === 'center' ? (
-            <div className={classNames.numberOfFiles}>
+            <div className={styles.numberOfFiles}>
               {!isHideCounter && <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>}
             </div>
           ) : (
-            <div className={classNames.numberOfFilesFlex}>
+            <div className={styles.numberOfFilesFlex}>
               <ArrowLeftIcon
                 style={{ width: arrowSize, height: arrowSize }}
-                className={cx(classNames.arrowIcon, { [classNames.arrowDisabledIcon]: isFirstSlide })}
+                className={cx(styles.arrowIcon, { [styles.arrowDisabledIcon]: isFirstSlide })}
                 onClick={handleLeftArrowClick}
               />
               <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
@@ -154,8 +153,8 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
                   width: arrowSize,
                   height: arrowSize,
                 }}
-                className={cx(classNames.arrowIcon, {
-                  [classNames.arrowDisabledIcon]: isLastSlide,
+                className={cx(styles.arrowIcon, {
+                  [styles.arrowDisabledIcon]: isLastSlide,
                 })}
                 onClick={handleRightArrowClick}
               />
@@ -165,19 +164,19 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
       )}
       {view === 'complex' && children?.length !== 0 && (
         <div>
-          <div className={classNames.headerCarouselWrapper}>
-            <div className={classNames.buttonWrapper}>
+          <div className={styles.headerCarouselWrapper}>
+            <div className={styles.buttonWrapper}>
               <ArrowLeftIcon
                 style={{ width: arrowSize, height: arrowSize }}
-                className={cx(classNames.arrowIcon, { [classNames.arrowDisabledIcon]: isFirstSlide })}
+                className={cx(styles.arrowIcon, { [styles.arrowDisabledIcon]: isFirstSlide })}
                 onClick={handleLeftArrowClick}
               />
-              <Typography className={classNames.proposalCount}>{`${title} №${slideCount}`}</Typography>
+              <Typography className={styles.proposalCount}>{`${title} №${slideCount}`}</Typography>
 
               <ArrowRightIcon
                 style={{ width: arrowSize, height: arrowSize }}
-                className={cx(classNames.arrowIcon, {
-                  [classNames.arrowDisabledIcon]: isLastSlide,
+                className={cx(styles.arrowIcon, {
+                  [styles.arrowDisabledIcon]: isLastSlide,
                 })}
                 onClick={handleRightArrowClick}
               />
@@ -186,8 +185,8 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
             <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
           </div>
 
-          <div className={classNames.window}>
-            <div className={classNames.allPages} style={{ transform: `translateX(${offset}%)` }}>
+          <div className={styles.window}>
+            <div className={styles.allPages} style={{ transform: `translateX(${offset}%)` }}>
               {clides}
             </div>
           </div>

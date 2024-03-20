@@ -1,12 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     marginTop: 29,
     padding: '20px 0',
     display: 'flex',
     justifyContent: 'space-between',
-    gap: 40,
+    gap: 20,
     borderTop: `1px solid #E0E0E0`,
     borderBottom: `1px solid #E0E0E0`,
   },
@@ -30,10 +30,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   photos: {
-    width: 246,
-    height: '100%',
+    width: 260,
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'center',
   },
 
@@ -70,15 +68,8 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'flex-start',
   },
 
-  fields: {
-    width: 234,
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 20,
-  },
-
   field: {
-    width: '100px !important',
+    width: '130px !important',
     margin: '0 !important',
   },
 
@@ -99,7 +90,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 30,
+    gap: 10,
   },
 
   checkboxContainer: {
@@ -123,7 +114,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   trackNumberBtn: {
-    width: '100%',
+    width: 'max-content',
   },
 
   trackNumberPhoto: {

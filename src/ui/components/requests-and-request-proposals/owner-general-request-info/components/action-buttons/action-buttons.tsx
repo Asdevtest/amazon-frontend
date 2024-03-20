@@ -3,10 +3,12 @@ import { FC, memo } from 'react'
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './action-buttons.style'
 
@@ -16,6 +18,7 @@ interface ActionButtonsProps {
   isDisplayingMarkAsCompletedButton: boolean
   status: string
   requestIsNotDraftAndPublished: boolean
+  disableMarkAsCompletedButton: boolean
   onToggleUploadedToListing: (id: string, uploadedToListing: boolean) => void
   onClickMarkAsCompletedBtn: () => void
   onClickCancelBtn: () => void
@@ -32,6 +35,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
     id,
     uploadedToListing,
     isDisplayingMarkAsCompletedButton,
+    disableMarkAsCompletedButton,
     status,
     requestIsNotDraftAndPublished,
     onToggleUploadedToListing,
@@ -45,12 +49,26 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
 
   return (
     <div className={styles.btnsBlockWrapper}>
-      <Button border className={styles.listingButton} onClick={() => onToggleUploadedToListing(id, uploadedToListing)}>
-        <Checkbox color="primary" checked={uploadedToListing} className={styles.listingCheckbox} />
+      <Button
+        variant={ButtonVariant.OUTLINED}
+        className={styles.listingButton}
+        onClick={() => onToggleUploadedToListing(id, uploadedToListing)}
+      >
+        <Checkbox
+          color="primary"
+          checked={uploadedToListing}
+          className={styles.listingCheckbox}
+          onClick={() => onToggleUploadedToListing(id, uploadedToListing)}
+        />
         <p className={cx(styles.listingText)}>{t(TranslationKey['Uploaded by on listing'])}</p>
       </Button>
       {isDisplayingMarkAsCompletedButton && (
-        <Button success className={styles.publishBtn} onClick={onClickMarkAsCompletedBtn}>
+        <Button
+          disabled={disableMarkAsCompletedButton}
+          styleType={ButtonStyle.SUCCESS}
+          className={styles.publishBtn}
+          onClick={onClickMarkAsCompletedBtn}
+        >
           {t(TranslationKey['Mark as completed'])}
         </Button>
       )}
@@ -58,7 +76,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         <div className={styles.btnsWrapper}>
           <div className={styles.btnsRow}>
             <Button
-              danger
+              styleType={ButtonStyle.DANGER}
               tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
               className={styles.deleteBtn}
               onClick={onClickCancelBtn}
@@ -68,7 +86,6 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
 
             <Button
               tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-              color="primary"
               className={styles.editBtn}
               onClick={onClickEditBtn}
             >
@@ -76,7 +93,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
             </Button>
           </div>
           <Button
-            success
+            styleType={ButtonStyle.SUCCESS}
             tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
             className={styles.publishBtn}
             onClick={onClickPublishBtn}
@@ -92,7 +109,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
               <div className={styles.btnsRow}>
                 {requestIsNotDraftAndPublished && (
                   <Button
-                    danger
+                    styleType={ButtonStyle.DANGER}
                     tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
                     className={styles.deleteBtn}
                     onClick={onClickCancelBtn}
@@ -104,7 +121,6 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
                 {status === RequestStatus.PUBLISHED && (
                   <Button
                     tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-                    color="primary"
                     className={cx(styles.editBtn, {
                       [styles.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
                     })}
@@ -120,14 +136,12 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
           {(status === RequestStatus.IN_PROCESS ||
             status === RequestStatus.EXPIRED ||
             status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED) && (
-            <>
-              <Button className={styles.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
-                {t(TranslationKey['Change request terms'])}
-              </Button>
-            </>
+            <Button className={styles.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
+              {t(TranslationKey['Change request terms'])}
+            </Button>
           )}
 
-          {status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && status !== RequestStatus.EXPIRED && (
+          {status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED /* && status !== RequestStatus.EXPIRED */ && (
             <div className={cx(styles.btnsRow, styles.btnsRowIsLast)}>
               <Button
                 tooltipInfoContent={
@@ -135,12 +149,10 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
                     ? t(TranslationKey['Removes the visibility of the request on the exchange'])
                     : ''
                 }
-                color="primary"
-                btnWrapperStyle={styles.buttonWrapperFullWidth}
                 className={cx(styles.button, {
                   [styles.stopBtn]: status !== RequestStatus.FORBID_NEW_PROPOSALS,
                 })}
-                onClick={status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
+                onClick={status !== RequestStatus.FORBID_NEW_PROPOSALS ? onClickAbortBtn : onClickPublishBtn}
               >
                 {status === RequestStatus.FORBID_NEW_PROPOSALS
                   ? t(TranslationKey['Resume accepting proposals'])

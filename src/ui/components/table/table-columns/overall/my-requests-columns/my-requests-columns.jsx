@@ -4,7 +4,6 @@ import {
   difficultyLevelByCode,
   difficultyLevelTranslate,
 } from '@constants/statuses/difficulty-level'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -17,7 +16,7 @@ import {
   ProductAsinCell,
   ShortDateCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -158,15 +157,9 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Status)}
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    renderCell: params => <MultilineRequestStatusCell /* languageTag={languageTag} */ status={params.value} />,
+    renderCell: params => <MultilineRequestStatusCell status={params.value} />,
     width: 120,
     filterable: false,
     sortable: false,
@@ -225,13 +218,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   {
     field: 'subUsers',
     headerName: t(TranslationKey['Access to product']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        isShowIconOnHover={getOnHover() && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-        text={t(TranslationKey['Access to product'])}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
 
     renderCell: params => <ManyUserLinkCell usersData={params.row.originalData?.product?.subUsers} />,
     width: 187,
@@ -269,7 +256,7 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
   },
 
   {
-    field: 'typeTask',
+    field: 'spec',
     headerName: t(TranslationKey['Request type']),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -278,12 +265,9 @@ export const myRequestsViewColumns = (rowHandlers, getColumnMenuSettings, getOnH
         isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
       />
     ),
-
-    renderCell: params => (
-      <MultilineTextCell leftAlign text={freelanceRequestTypeTranslate(freelanceRequestTypeByCode[params.value])} />
-    ),
-    width: 90,
-    columnKey: columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
+    renderCell: params => <MultilineTextCell threeLines text={params.row.spec?.title} />,
+    width: 110,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {

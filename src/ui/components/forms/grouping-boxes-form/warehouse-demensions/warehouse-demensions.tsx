@@ -11,12 +11,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IOrderBox } from '@typings/order-box'
+import { IBox } from '@typings/models/boxes/box'
 
 import { useStyles } from './warehouse-demensions.style'
 
 interface WarehouseDemensionsProps {
-  orderBox: IOrderBox
+  orderBox: IBox
   sizeSetting: string
 }
 

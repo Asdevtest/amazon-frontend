@@ -1,32 +1,32 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
 import { useStyles } from './set-barcode-modal.style'
 
 interface SetBarcodeModalProps {
+  tmpCode: string[]
   onClickSaveBarcode: (files: string[]) => void
   onCloseModal: () => void
-  tmpCode: string[]
-  item: any
+  barCode?: string
   title?: string
   maxNumber?: number
 }
 
 export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
-  const { onClickSaveBarcode, onCloseModal, tmpCode, item, title, maxNumber } = props
-  const { classes: styles } = useStyles()
+  const { onClickSaveBarcode, onCloseModal, tmpCode, barCode = '', title = '', maxNumber = 1 } = props
 
-  const [files, setFiles] = useState(tmpCode?.length ? tmpCode : [])
+  const { classes: styles, cx } = useStyles()
 
-  const barCode = item?.barCode || ''
+  const [files, setFiles] = useState<string[]>(tmpCode?.length ? tmpCode : [])
 
   return (
     <div className={styles.modalWrapper}>
@@ -43,18 +43,26 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
         />
       )}
 
-      <UploadFilesInput images={files} setImages={setFiles} maxNumber={maxNumber || 1} />
+      <UploadFilesInput images={files} setImages={setFiles} maxNumber={maxNumber} />
 
-      <div className={styles.saveBox}>
+      <div className={styles.buttons}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={!files.length && !tmpCode?.length}
-          className={styles.saveBtn}
-          onClick={() => onClickSaveBarcode(files)}
+          className={styles.button}
+          onClick={() => {
+            onClickSaveBarcode(files)
+            onCloseModal()
+          }}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.closeBtn} onClick={onCloseModal}>
+
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={cx(styles.button, styles.closeButton)}
+          onClick={onCloseModal}
+        >
           {t(TranslationKey.Close)}
         </Button>
       </div>

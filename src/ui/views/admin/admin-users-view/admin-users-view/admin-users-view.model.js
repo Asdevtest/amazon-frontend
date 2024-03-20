@@ -102,21 +102,21 @@ export class AdminUsersViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       this.getDataGridState()
 
       await Promise.all([this.getUsers(), this.getGroupPermissions(), this.getSinglePermissions()])
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
 
   async getUsers() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       const result = await AdministratorModel.getUsers()
 
@@ -127,9 +127,9 @@ export class AdminUsersViewModel {
         this.rowCount = usersData?.length
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -160,7 +160,7 @@ export class AdminUsersViewModel {
 
   async submitEditUserForm(data, sourceData) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
 
       this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
         name: this.changeNameAndEmail.name,
@@ -188,7 +188,7 @@ export class AdminUsersViewModel {
         await this.finalStepSubmitEditUserForm()
       }
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }
@@ -196,7 +196,7 @@ export class AdminUsersViewModel {
   async finalStepSubmitEditUserForm() {
     try {
       await AdministratorModel.updateUser(this.rowSelectionModel, this.submitEditData)
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatuses.SUCCESS)
 
       this.onTriggerOpenModal('showEditUserModal')
 

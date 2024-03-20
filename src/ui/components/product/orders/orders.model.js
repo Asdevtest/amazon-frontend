@@ -1,8 +1,9 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { OrderModel } from '@models/order-model'
@@ -17,6 +18,7 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { getActiveStatuses } from './helpers/get-active-statuses'
 import { canceledStatus, completedStatus, selectedStatus } from './orders.constant'
 
 export class OrdersModel {
@@ -63,12 +65,14 @@ export class OrdersModel {
   columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.isSomeFilterOn)
   columnVisibilityModel = {}
 
-  constructor({ history, productId }) {
-    runInAction(() => {
-      this.history = history
+  isCheckedStatusByFilter = {}
 
-      this.productId = productId
-    })
+  constructor({ history, productId, showAtProcessOrders }) {
+    this.history = history
+
+    this.productId = productId
+
+    this.isCheckedStatusByFilter = getActiveStatuses(showAtProcessOrders)
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -78,16 +82,7 @@ export class OrdersModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
-  }
-
-  isCheckedStatusByFilter = {
-    [chosenStatusesByFilter.ALL]: true,
-    [chosenStatusesByFilter.AT_PROCESS]: true,
-    [chosenStatusesByFilter.CANCELED]: true,
-    [chosenStatusesByFilter.COMPLETED]: true,
+    this.columnVisibilityModel = model
   }
 
   get orderStatusData() {
@@ -132,10 +127,8 @@ export class OrdersModel {
     }
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.loadData()
   }
@@ -160,10 +153,8 @@ export class OrdersModel {
   getCurrentData() {
     const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
 
-    let filteredOrders = toJS(this.orders)
-
     if (!this.isCheckedStatusByFilter[ALL]) {
-      filteredOrders = filteredOrders.filter(el => {
+      return this.orders.filter(el => {
         const { status } = el.originalData
 
         return (
@@ -174,33 +165,34 @@ export class OrdersModel {
       })
     }
 
-    return toJS(filteredOrders)
+    return this.orders
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getOrdersByProductId()
-      this.setRequestStatus(loadingStatuses.success)
+      this.getOrdersByProductId()
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
     }
   }
 
   async getOrdersByProductId() {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
       const result = await ClientModel.getOrdersByProductId(this.productId)
 
       runInAction(() => {
         this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
       runInAction(() => {
         this.orders = []
         this.error = error
       })
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -238,18 +230,21 @@ export class OrdersModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    this.uploadedFiles = []
+    try {
+      if (tmpBarCode.length) {
+        await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
+      }
 
-    if (tmpBarCode.length) {
-      await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
+      await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
+
+      this.onTriggerOpenModal('showSetBarcodeModal')
+
+      runInAction(() => {
+        this.selectedProduct = undefined
+      })
+    } catch (error) {
+      console.error(error)
     }
-
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
-
-    this.onTriggerOpenModal('showSetBarcodeModal')
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
   }
 
   async updateUserInfo() {
@@ -289,9 +284,8 @@ export class OrdersModel {
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
-        const product = this.ordersDataStateToSubmit[i]
-
-        this.uploadedFiles = []
+        let product = this.ordersDataStateToSubmit[i]
+        let uploadedTransparencyFiles = []
 
         if (product.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: product.tmpBarCode, type: 'uploadedFiles' })
@@ -301,7 +295,30 @@ export class OrdersModel {
           await ClientModel.updateProductBarCode(product.productId, { barCode: null })
         }
 
-        if (this.isPendingOrdering) {
+        if (product.tmpTransparencyFile.length) {
+          uploadedTransparencyFiles = await onSubmitPostImages.call(this, {
+            images: product.tmpTransparencyFile,
+            type: 'uploadedFiles',
+          })
+
+          product = {
+            ...product,
+            transparencyFile: uploadedTransparencyFiles[0],
+          }
+        }
+
+        if (product.tmpIsPendingOrder) {
+          const requestData = getObjectFilteredByKeyArrayBlackList(product, [
+            'barCode',
+            'tmpBarCode',
+            'tmpIsPendingOrder',
+            '_id',
+            'tmpTransparencyFile',
+            'transparency',
+          ])
+
+          await ClientModel.createFormedOrder(requestData)
+        } else if (this.isPendingOrdering) {
           const dataToRequest = getObjectFilteredByKeyArrayWhiteList(product, [
             'amount',
             'orderSupplierId',
@@ -316,14 +333,13 @@ export class OrdersModel {
             'destinationId',
             'storekeeperId',
             'logicsTariffId',
+            'transparencyFile',
           ])
           await OrderModel.changeOrderData(product._id, dataToRequest)
           await ClientModel.updateOrderStatusToReadyToProcess(product._id)
         } else {
-          await this.createOrder(product)
+          await this.createOrder(getObjectFilteredByKeyArrayWhiteList(product, createOrderRequestWhiteList))
         }
-
-        // await this.createOrder(product)
       }
 
       if (!this.error) {
@@ -333,9 +349,6 @@ export class OrdersModel {
         this.onTriggerOpenModal('showSuccessModal')
       }
       this.onTriggerOpenModal('showConfirmModal')
-      // this.onTriggerOpenModal('showOrderModal')
-      // const noProductBaseUpdate = true
-      // await this.getProductsMy(noProductBaseUpdate)
 
       this.loadData()
     } catch (error) {

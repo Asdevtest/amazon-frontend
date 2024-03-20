@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-export const styles = theme => ({
+export const styles = () => ({
   inProcess: {
     fontSize: '40px',
   },

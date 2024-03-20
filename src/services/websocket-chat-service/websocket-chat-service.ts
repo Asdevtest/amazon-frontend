@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Manager, Socket } from 'socket.io-client'
 
 import { BACKEND_WEBSOCKET_CHAT_URL } from '@constants/keys/env'
@@ -14,6 +13,7 @@ import {
   ChatMessageDataAddUsersToGroupChat,
   ChatMessageUsers,
   FindChatMessageRequestParams,
+  NewInfoGroupChatParams,
   RemoveUsersFromGroupChatParams,
   SendMessageRequestParams,
   TypingMessageRequestParams,
@@ -165,15 +165,15 @@ export class WebsocketChatService {
     })
   }
 
-  public async patchInfoGroupChat(params: patchInfoGroupChatParams): Promise<{}> {
-    return new Promise((/* resolve, reject*/) => {
-      this.socket.emit(
-        EentToEmit.PATCH_CHAT_INFO,
-        params,
-        //   () => {
-        //   resolve(this.getChats())
-        // }
-      )
+  public async patchInfoGroupChat(params: patchInfoGroupChatParams): Promise<patchInfoGroupChatParams> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(EentToEmit.PATCH_CHAT_INFO, params, (data: WebsocketChatResponse<NewInfoGroupChatParams>) => {
+        if (!data.success || !data.data) {
+          reject(data.error)
+        } else {
+          resolve(data?.data?.updatedData)
+        }
+      })
     })
   }
 

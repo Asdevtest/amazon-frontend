@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { Typography } from '@mui/material'
 
@@ -14,13 +13,14 @@ import { AuthForm } from '@components/forms/auth-form'
 
 import { t } from '@utils/translations'
 
-import { styles } from './auth-view.style'
+import { useStyles } from './auth-view.style'
 
 import { AuthViewModel } from './auth-view.model'
 
-export const AuthViewRaw = props => {
-  const [viewModel] = useState(() => new AuthViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const AuthView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new AuthViewModel({ history }))
 
   useEffect(() => {
     viewModel.onLoadPage()
@@ -31,11 +31,11 @@ export const AuthViewRaw = props => {
   }
 
   const onClickRedirect = () => {
-    props.history.push('/registration')
+    history.push('/registration')
   }
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       <AuthPageBanner />
 
       <AuthFormWrapper
@@ -54,11 +54,12 @@ export const AuthViewRaw = props => {
             password: viewModel.password,
             remember: viewModel.remember,
           }}
+          disableLoginButton={viewModel.disableLoginButton}
           onChangeFormField={onChangeFormField}
           onSubmit={viewModel.onSubmitForm}
         />
         {SettingsModel.languageTag && (
-          <Typography className={classNames.error}>
+          <Typography className={styles.error}>
             {viewModel.error &&
               ((viewModel.error.body?.statusCode === 404 && t(TranslationKey['User not found'])) ||
                 (viewModel.error.body?.message === 'User blocked by administrator' &&
@@ -72,6 +73,4 @@ export const AuthViewRaw = props => {
       </AuthFormWrapper>
     </div>
   )
-}
-
-export const AuthView = withStyles(observer(AuthViewRaw), styles)
+})

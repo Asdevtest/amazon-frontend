@@ -16,7 +16,8 @@ import {
   ProductAsinCell,
   ShortDateCell,
   SmallRowImageCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  UserLinkCell,
+} from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 
@@ -74,13 +75,13 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
     ),
-    width: 240,
+    width: 150,
     sortable: false,
     filterable: false,
   },
 
   {
-    field: ['parentProductShopId', 'childProductShopId'],
+    field: 'parentProductShop',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -113,7 +114,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <IdeaSupplierCell
         suppliers={params.value}
-        onClickAddSupplier={() => rowHandlers.onClickSelectSupplier(params.row)}
+        onClickAddSupplier={() => rowHandlers.onClickAddSupplierButton(params.row._id)}
       />
     ),
     width: 176,
@@ -223,6 +224,26 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     width: 250,
     sortable: false,
     columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
+    field: 'createdBy',
+    headerName: t(TranslationKey['Created by']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+
+    renderCell: ({ row }) => (
+      <UserLinkCell
+        blackText
+        name={row.sub?.name || row.createdBy?.name}
+        userId={row.sub?._id || row?.createdBy?._id}
+      />
+    ),
+    width: 130,
+
+    filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
   },
 
   {

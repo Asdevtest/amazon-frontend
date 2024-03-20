@@ -1,15 +1,15 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './client-tasks-action-btns-cell.style'
 
@@ -21,7 +21,7 @@ interface ClientTasksActionBtnsCellProps {
   }
 }
 
-export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = React.memo(({ row, handlers }) => {
+export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = memo(({ row, handlers }) => {
   const { classes: styles } = useStyles()
 
   const checkIfTaskCouldBeCanceled = (status: string) => {
@@ -33,12 +33,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = Rea
   }
 
   const renderTaskInfoBtn = () => (
-    <Button
-      variant="contained"
-      color="primary"
-      className={styles.infoBtn}
-      onClick={() => handlers.onClickTaskInfo(row)}
-    >
+    <Button className={styles.infoBtn} onClick={() => handlers.onClickTaskInfo(row)}>
       {t(TranslationKey.Details)}
     </Button>
   )
@@ -52,7 +47,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = Rea
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                danger
+                styleType={ButtonStyle.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
               >
@@ -67,7 +62,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = Rea
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                danger
+                styleType={ButtonStyle.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
               >
@@ -77,15 +72,15 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = Rea
           </>
         )
       case TaskOperationType.RECEIVE:
-        return <React.Fragment>{renderTaskInfoBtn()}</React.Fragment>
+        return <>{renderTaskInfoBtn()}</>
       case TaskOperationType.EDIT_BY_STOREKEEPER:
       case TaskOperationType.EDIT:
         return (
-          <React.Fragment>
+          <>
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                danger
+                styleType={ButtonStyle.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => {
                   handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
@@ -94,7 +89,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = Rea
                 {t(TranslationKey.Cancel)}
               </Button>
             )}
-          </React.Fragment>
+          </>
         )
     }
   }

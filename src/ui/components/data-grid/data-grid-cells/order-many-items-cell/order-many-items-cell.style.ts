@@ -1,109 +1,66 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  manyItemsOrderWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '5px',
-    background: theme.palette.background.general,
-  },
-
   tooltip: {
+    maxHeight: 300,
+    overflow: 'auto',
     margin: '0 !important',
     background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
     border: `1px solid ${theme.palette.background.second}`,
+    borderRadius: 10,
   },
 
-  order: {
-    width: '100%',
+  mainWrapper: {
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     gap: 10,
-    padding: '10px 0',
   },
 
-  orderImg: {
-    height: 64,
-    width: 64,
+  items: {
+    padding: 10,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: 10,
+  },
+
+  item: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    gap: 3,
+  },
+
+  itemImage: {
+    height: 32,
+    width: 32,
     objectFit: 'contain',
-    objectPosition: 'center',
     borderRadius: 4,
   },
 
-  orderImageBig: {
-    height: 100,
-    width: 100,
+  itemText: {
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.primary.main,
   },
 
-  manyItemsOrderTitle: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    fontWeight: 500,
-    maxHeight: 19,
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    display: '-webkit-box',
-    WebkitLineClamp: 1,
-    WebkitBoxOrient: 'vertical',
+  itemTextPoints: {
+    fontSize: 18,
+    lineHeight: '25px',
   },
 
-  needPay: {
-    color: 'red',
-    fontWeight: 'bold',
-    width: 'fit-content',
+  error: {
+    fontSize: 12,
+    lineHeight: '16px',
+    fontWeight: 600,
+    color: theme.palette.text.red,
   },
 
-  orderCellError: {
-    color: 'red',
-    fontWeight: 'bold',
-    marginLeft: '15px',
-  },
-
-  manyItemsMainWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-  },
-
-  manyItemsMainWrapperTooltip: {
-    paddingTop: 10,
-    maxHeight: 260,
-    overflow: 'auto',
-    background: theme.palette.background.general,
-  },
-
-  manyItemsImagesWrapper: {
-    height: '75px',
-    border: '1px solid rgba(0, 123, 255, 0.5)',
-    borderRadius: '10px',
-    gap: '3px',
-    padding: '3px',
-    display: 'flex',
-    alignItems: 'center',
-    marginRight: '5px',
-    width: 'min-content',
-  },
-
-  manyItemsImgWrapper: {
+  tooltipWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    gap: '2px',
-    whiteSpace: 'nowrap',
-  },
-
-  ordersImg: {
-    width: '30px',
-    height: '30px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-  },
-
-  imgNum: {
-    fontWeight: 600,
-    fontSize: 14,
-    color: theme.palette.primary.main,
+    gap: 5,
   },
 }))

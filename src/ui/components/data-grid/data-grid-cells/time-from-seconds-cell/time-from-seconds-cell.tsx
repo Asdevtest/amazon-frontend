@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { CSSProperties, FC } from 'react'
+import { MultilineTextCell } from '..'
+import { CSSProperties, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -8,14 +8,12 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './time-from-seconds-cell.style'
 
-import { MultilineTextCell } from '../data-grid-cells'
-
 interface TimeFromSecondsCellProps {
   seconds: number
   color?: CSSProperties
 }
 
-export const TimeFromSecondsCell: FC<TimeFromSecondsCellProps> = React.memo(({ seconds, color }) => {
+export const TimeFromSecondsCell: FC<TimeFromSecondsCellProps> = memo(({ seconds, color }) => {
   const { classes: styles } = useStyles()
 
   const time = secondsToTime(seconds)

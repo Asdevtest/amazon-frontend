@@ -6,4 +6,8 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     gap: '10px',
   },
+
+  reverted: {
+    flexDirection: 'row-reverse',
+  },
 }))

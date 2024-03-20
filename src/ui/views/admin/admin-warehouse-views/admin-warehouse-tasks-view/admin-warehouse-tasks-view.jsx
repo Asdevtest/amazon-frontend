@@ -29,8 +29,6 @@ export const AdminWarehouseTasksView = observer(() => {
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
-          sortingMode="server"
-          paginationMode="server"
           localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -58,7 +56,7 @@ export const AdminWarehouseTasksView = observer(() => {
             },
           }}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}

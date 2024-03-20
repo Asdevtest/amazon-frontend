@@ -1,11 +1,10 @@
-import { cx } from '@emotion/css'
 import { CSSProperties, FC } from 'react'
 
 import { tableProductViewMode } from '@constants/keys/table-product-view'
 
 import { AbbreviatedViewIcon, ExtendedViewIcon } from '@components/shared/svg-icons'
 
-import { useClassNames } from './data-grid-select-view-product-batch.style'
+import { useStyles } from './data-grid-select-view-product-batch.style'
 
 interface DataGridSelectViewProductBatchProps {
   selectedViewMode: string
@@ -14,7 +13,7 @@ interface DataGridSelectViewProductBatchProps {
 }
 
 export const DataGridSelectViewProductBatch: FC<DataGridSelectViewProductBatchProps> = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const { selectedViewMode, changeViewModeHandler, rootStyles } = props
 
@@ -25,17 +24,17 @@ export const DataGridSelectViewProductBatch: FC<DataGridSelectViewProductBatchPr
   }
 
   return (
-    <div className={classNames.root} style={rootStyles}>
+    <div className={styles.root} style={rootStyles}>
       <ExtendedViewIcon
-        className={cx(classNames.icon, {
-          [classNames.activeViewMode]: selectedViewMode === tableProductViewMode.EXTENDED,
+        className={cx(styles.icon, {
+          [styles.activeViewMode]: selectedViewMode === tableProductViewMode.EXTENDED,
         })}
         onClick={() => onClickViewIcon(tableProductViewMode.EXTENDED)}
       />
 
       <AbbreviatedViewIcon
-        className={cx(classNames.icon, {
-          [classNames.activeViewMode]: selectedViewMode === tableProductViewMode.ABBREVIATED,
+        className={cx(styles.icon, {
+          [styles.activeViewMode]: selectedViewMode === tableProductViewMode.ABBREVIATED,
         })}
         onClick={() => onClickViewIcon(tableProductViewMode.ABBREVIATED)}
       />

@@ -27,7 +27,7 @@ const fadeOut = keyframes`
   }
 `
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   acceptMessageWrapper: {
     position: 'absolute',
     top: 0,

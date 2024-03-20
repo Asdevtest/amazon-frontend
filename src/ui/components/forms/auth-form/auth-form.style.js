@@ -1,27 +1,33 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   formFields: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
+
   field: {
     flexBasis: '100%',
     position: 'relative',
   },
+
   checkboxWrapper: {
     display: 'flex',
     alignItems: 'center',
   },
+
   checkbox: {
     marginLeft: '-12px',
   },
+
   label: {
     fontSize: '14px',
     cursor: 'pointer',
-
     color: theme.palette.text.general,
   },
+
   formFooter: {
     alignItems: 'center',
     display: 'flex',
@@ -76,13 +82,13 @@ export const styles = theme => ({
 
   input: {
     height: '34px',
-
     backgroundColor: 'inherit',
     color: theme.palette.text.general,
   },
+
   labelField: {
     fontSize: '14px',
     color: theme.palette.text.second,
     lineHeight: '19px',
   },
-})
+}))

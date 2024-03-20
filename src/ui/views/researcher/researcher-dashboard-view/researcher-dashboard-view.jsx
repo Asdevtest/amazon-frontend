@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Paper, Typography } from '@mui/material'
@@ -23,7 +23,7 @@ import { ResearcherDashboardViewModel } from './researcher-dashboard-view.model'
 
 export const ResearcherDashboardViewRaw = props => {
   const [viewModel] = useState(() => new ResearcherDashboardViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -35,11 +35,11 @@ export const ResearcherDashboardViewRaw = props => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
-        <Paper className={classNames.userInfoWrapper}>
-          <div className={classNames.userInfoLeftWrapper}>
-            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
+        <Paper className={styles.userInfoWrapper}>
+          <div className={styles.userInfoLeftWrapper}>
+            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
             {!checkIsResearcher(UserRoleCodeMap[viewModel.userInfo.role]) && (
               <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
@@ -49,7 +49,7 @@ export const ResearcherDashboardViewRaw = props => {
           <DashboardButtons user={viewModel.userInfo} routes={researcherButtonsRoutes} />
 
           {viewModel.userInfo.masterUser && (
-            <div className={classNames.masterUserWrapper}>
+            <div className={styles.masterUserWrapper}>
               <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
               <UserLink
@@ -69,7 +69,7 @@ export const ResearcherDashboardViewRaw = props => {
           />
         ))}
       </div>
-    </React.Fragment>
+    </>
   )
 }
 
