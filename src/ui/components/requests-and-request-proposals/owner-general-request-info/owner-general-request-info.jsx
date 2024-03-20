@@ -50,8 +50,6 @@ export const OwnerGeneralRequestInfo = props => {
   const disableMarkAsCompletedButton =
     request?.request?.createdBy?._id !== userInfo?._id && request?.request?.sub?._id !== userInfo?._id
 
-  console.log('request :>> ', request)
-
   return (
     <div className={styles.root}>
       <RequestInformation

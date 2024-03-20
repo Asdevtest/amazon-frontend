@@ -33,7 +33,10 @@ export const Arrow: FC<ArrowProps> = memo(props => {
         [styles.mediumArrow]: mediumSlider,
         [styles.bigArrow]: bigSlider,
       })}
-      onClick={() => onClick(isLeftArrow ? Arrows.LEFT : Arrows.RIGHT)}
+      onClick={e => {
+        e.stopPropagation()
+        onClick(isLeftArrow ? Arrows.LEFT : Arrows.RIGHT)
+      }}
     >
       <ArrowIcon
         className={cx(styles.arrowIcon, {
