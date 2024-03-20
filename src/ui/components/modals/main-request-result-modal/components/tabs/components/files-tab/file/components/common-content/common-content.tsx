@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 import { IMediaRework } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
 import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { SlideByType } from '@components/shared/slide-by-type'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { useStyles } from './common-content.style'
 

@@ -17,7 +17,6 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { NoPhotoIcon } from '@components/shared/svg-icons'
 
@@ -199,12 +198,7 @@ export const BoxInfoTab = memo(props => {
 
               <div className={styles.trackNumberPhoto}>
                 {formFields?.trackNumberFile?.length ? (
-                  <PhotoAndFilesSlider
-                    showPreviews
-                    withAllFiles
-                    customSlideHeight={76}
-                    files={formFields?.trackNumberFile}
-                  />
+                  <SlideshowGallery slidesToShow={2} files={formFields?.trackNumberFile} />
                 ) : (
                   <p className={styles.text}>{`${t(TranslationKey['no photo track number'])}...`}</p>
                 )}

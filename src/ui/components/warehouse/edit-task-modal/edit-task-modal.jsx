@@ -17,7 +17,7 @@ import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { BoxArrow } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -264,9 +264,7 @@ export const EditTaskModal = memo(
                 />
               </div>
             ) : (
-              <div className={styles.imageAndFileInputWrapper}>
-                <PhotoAndFilesSlider customSlideHeight={140} files={task.images} />
-              </div>
+              <SlideshowGallery slidesToShow={2} files={task.images} />
             )}
           </div>
 

@@ -4,7 +4,7 @@ import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFil
 
 import { useStyles } from './video-preloader.style'
 
-import { VideoPlayer } from '../video-player'
+import { VideoPlayer } from '../video-player/video-player'
 
 interface VideoPreloaderProps {
   videoSource: string
@@ -32,13 +32,7 @@ export const VideoPreloader: FC<VideoPreloaderProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   return (
-    <div
-      className={cx(styles.wrapper, wrapperClassName)}
-      onClick={e => {
-        e.stopPropagation()
-        onClick?.()
-      }}
-    >
+    <div className={cx(styles.wrapper, wrapperClassName)} onClick={onClick}>
       <VideoPlayer videoSource={videoSource} height={height} />
       <div className={cx(styles.preloader, preloaderClassName)}>
         <PlayCircleFilledWhiteOutlinedIcon className={cx(styles.preloaderIcon, iconPlayClassName)} />

@@ -19,8 +19,8 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SearchInput } from '@components/shared/search-input'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { DownloadIcon } from '@components/shared/svg-icons'
 
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
@@ -391,13 +391,8 @@ export const BatchInfoModal = observer(
           </div>
 
           <div className={styles.filesAndButtonWrapper}>
-            <div className={styles.filesSubWrapper}>
-              <PhotoAndFilesSlider
-                smallSlider
-                column={window.innerWidth < 768}
-                files={currentBatch?.attachedDocuments}
-              />
-            </div>
+            <SlideshowGallery slidesToShow={2} files={currentBatch?.attachedDocuments} />
+
             <div className={styles.buttonsWrapper}>
               <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download the batch file'])}

@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DEFAULT_SLIDE_HEIGHT } from '@components/modals/gallery-modal/gallery-modal.constants'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Checkbox } from '@components/shared/checkbox'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'

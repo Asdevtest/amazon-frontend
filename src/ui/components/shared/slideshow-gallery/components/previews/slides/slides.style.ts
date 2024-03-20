@@ -52,16 +52,6 @@ export const useStyles = makeStyles()(theme => ({
     objectFit: 'cover', // 'contain' - correct aspect ratio option
   },
 
-  document: {
-    height: '75%',
-    width: '75%',
-  },
-
-  fileIcon: {
-    height: '100% !important',
-    width: '100% !important',
-  },
-
   linkText: {
     display: 'none',
   },

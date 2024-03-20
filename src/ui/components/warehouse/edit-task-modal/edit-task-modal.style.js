@@ -210,16 +210,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  imageAndFileInputWrapper: {
-    width: '690px',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      minWidth: '280px',
-      display: 'flex',
-      justifyContent: 'center',
-    },
-  },
-
   successBtn: {
     width: '183px',
     height: '40px',

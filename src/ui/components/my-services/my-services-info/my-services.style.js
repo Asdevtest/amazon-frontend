@@ -113,13 +113,6 @@ export const useStyles = makeStyles()(theme => ({
     maxHeight: 'none',
   },
 
-  photosWrapper: {
-    width: 410,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   detailsButton: {
     color: theme.palette.primary.main,
   },

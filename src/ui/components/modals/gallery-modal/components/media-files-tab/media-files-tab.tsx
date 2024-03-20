@@ -3,7 +3,7 @@ import { FC, memo, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'

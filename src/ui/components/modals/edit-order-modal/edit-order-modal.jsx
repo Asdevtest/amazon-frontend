@@ -33,7 +33,7 @@ import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { SaveIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
@@ -798,7 +798,7 @@ export const EditOrderModal = memo(
 
                 <div className={styles.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
-                    <PhotoAndFilesSlider withAllFiles customSlideHeight={85} files={trackNumber.files} />
+                    <SlideshowGallery slidesToShow={2} files={trackNumber.files} />
                   ) : (
                     <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                   )}

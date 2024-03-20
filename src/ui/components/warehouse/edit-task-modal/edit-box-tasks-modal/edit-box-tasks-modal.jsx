@@ -13,7 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
@@ -273,8 +273,9 @@ export const EditBoxTasksModal = props => {
         <Typography className={styles.photoAndFilesTitle}>
           {t(TranslationKey['Photos and documents of the box']) + ': '}
         </Typography>
-        <PhotoAndFilesSlider
-          smallSlider
+
+        <SlideshowGallery
+          slidesToShow={2}
           files={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
         />
       </div>

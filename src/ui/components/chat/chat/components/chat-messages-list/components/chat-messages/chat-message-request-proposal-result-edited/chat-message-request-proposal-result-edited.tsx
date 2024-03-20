@@ -6,12 +6,10 @@ import { ChatMessageDataProposalResultEditedContract } from '@models/chat-model/
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 import { t } from '@utils/translations'
-
-import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useStyles } from './chat-message-request-proposal-result-edited.style'
 
@@ -22,7 +20,6 @@ interface Props {
 
 export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isShowChatInfo }) => {
   const { classes: styles, cx } = useStyles()
-  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const files = message.data?.edited?.media?.map(el => (typeof el === 'object' ? el.fileLink : el))
 
@@ -37,11 +34,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isS
       <p className={styles.descriptionText}>{message.data.edited.result}</p>
 
       <div className={cx(styles.resultWrapper, { [styles.resultWrapperShowChatInfo]: isShowChatInfo })}>
-        <PhotoAndFilesSlider
-          smallSlider={!isMobileResolution}
-          column={isShowChatInfo || isMobileResolution}
-          files={files || []}
-        />
+        <SlideshowGallery slidesToShow={2} files={files || []} />
 
         <div className={cx(styles.infoWrapper, { [styles.infoWrapperShowChatInfo]: isShowChatInfo })}>
           <Field
@@ -52,6 +45,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({ message, isS
               <p className={styles.infoItem}>{`24 ${t(TranslationKey.hour)} 00 ${t(TranslationKey.minute)}`}</p>
             }
           />
+          S
         </div>
       </div>
     </div>

@@ -62,10 +62,6 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: '12px',
   },
 
-  carouselWrapper: {
-    width: '200px',
-  },
-
   label: {
     width: '142px',
   },

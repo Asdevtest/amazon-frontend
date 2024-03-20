@@ -22,10 +22,10 @@ import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/da
 import { Field } from '@components/shared/field'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { CustomPlusIcon, FireIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -884,14 +884,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       labelClasses={styles.label}
                       className={styles.field}
                       containerClasses={styles.fieldContainer}
-                      inputComponent={
-                        <PhotoAndFilesSlider
-                          smallSlider
-                          customSlideHeight={98}
-                          files={images.map(el => el.fileLink)}
-                          imagesTitles={images.map(el => el.commentByClient)}
-                        />
-                      }
+                      inputComponent={<SlideshowGallery slidesToShow={2} files={images} />}
                     />
                   </div>
 

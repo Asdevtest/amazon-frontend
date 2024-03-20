@@ -165,15 +165,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 16,
     lineHeight: '22px',
   },
-  filesSubWrapper: {
-    height: '100%',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      minWidth: '280px',
-      display: 'flex',
-      justifyContent: 'center',
-    },
-  },
   tableWrapper: {
     height: 400,
     width: '100%',

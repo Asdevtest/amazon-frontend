@@ -10,8 +10,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   middleSizeWrapper: {
-    width: 54,
-    height: 60,
+    width: 50,
+    height: 55,
+  },
+
+  bigSizeWrapper: {
+    width: 130,
+    height: 140,
   },
 
   hover: {
@@ -31,8 +36,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   middleSizeIcon: {
-    width: '50px !important',
-    height: '60px !important',
+    width: '47px !important',
+    height: '55px !important',
+  },
+
+  bigSizeIcon: {
+    width: '120px !important',
+    height: '140px !important',
   },
 
   fileExtension: {
@@ -50,8 +60,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   middleSizeFileExtension: {
-    width: 54,
-    fontSize: 18,
-    lineHeight: '25px',
+    width: 50,
+    fontSize: 16,
+    lineHeight: '22px',
+  },
+
+  bigSizeFileExtension: {
+    width: 130,
+    fontSize: 36,
+    lineHeight: '50px',
   },
 }))
