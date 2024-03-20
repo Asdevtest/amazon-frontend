@@ -29,13 +29,19 @@ export const ProductVariationsCell: FC<ProductVariationsCellProps> = memo(
             placement="top"
             classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
           >
-            <div className={styles.iconWrapper} onClick={onClickVariationButton}>
+            <button
+              className={styles.iconWrapper}
+              onClick={e => {
+                e.stopPropagation()
+                onClickVariationButton()
+              }}
+            >
               {isParentProduct ? (
                 <ParentProductIcon className={styles.shareLinkIcon} />
               ) : (
                 <VariationProductIcon className={styles.shareLinkIcon} />
               )}
-            </div>
+            </button>
           </Tooltip>
         ) : null}
       </div>

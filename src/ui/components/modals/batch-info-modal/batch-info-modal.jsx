@@ -27,7 +27,6 @@ import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-vie
 
 import {
   calcActualBatchWeight,
-  calcPriceForBox,
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
@@ -273,11 +272,8 @@ export const BatchInfoModal = observer(
                 containerClasses={cx(styles.sumField, styles.dividerField)}
                 inputClasses={[styles.infoField, styles.dividerField]}
                 labelClasses={styles.subFieldLabel}
-                label={t(TranslationKey['Total price'])}
-                value={toFixed(
-                  currentBatch?.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
-                  2,
-                )}
+                label={`${t(TranslationKey['Total price'])} (${t(TranslationKey.China)})`}
+                value={currentBatch?.totalPriceFromOrderSupplier}
                 placeholder={'0'}
               />
 

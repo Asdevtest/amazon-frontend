@@ -669,12 +669,14 @@ export class SuppliersAndIdeasModel {
         await SupplierModel.updateSupplier(supplier?._id, supplierUpdateData)
       } else {
         if (!itemId) {
+          await onSubmitPostImages.call(this, { images: ideaFormFields.media, type: 'readyImages' })
+
           const submitData = {
             ...ideaFormFields,
             title: ideaFormFields.productName || '',
-            media: [],
-            price: 0,
-            quantity: 0,
+            media: this.readyImages,
+            price: ideaFormFields.price || 0,
+            quantity: Math.floor(ideaFormFields.quantity) || 0,
           }
 
           const createdIdeaId = await this.createIdea(
