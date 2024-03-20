@@ -177,6 +177,7 @@ export class VacantRequestsViewModel {
         'title',
         'humanFriendlyId',
         'asin',
+        'skuByClient',
       ]),
     )
   }

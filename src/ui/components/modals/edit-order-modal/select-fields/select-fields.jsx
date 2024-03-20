@@ -569,7 +569,13 @@ export const SelectFields = ({
           ) : null}
         </div>
 
-        <UploadFilesInput fullWidth images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
+        {order.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] ? (
+          <div className={styles.imageFileInputWrapper}>
+            <SlideshowGallery files={photosToLoad} />
+          </div>
+        ) : (
+          <UploadFilesInput fullWidth images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
+        )}
       </Grid>
 
       {showProgress && (

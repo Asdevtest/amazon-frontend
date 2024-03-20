@@ -335,4 +335,9 @@ export const useStyles = makeStyles()(theme => ({
   documentButton: {
     width: '100%',
   },
+
+  imageFileInputWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }))
