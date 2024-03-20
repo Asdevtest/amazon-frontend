@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { useEffect, useState } from 'react'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -10,15 +9,14 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { useStyles } from './custom-request-details.style'
 
 export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [showDetails, setShowDetails] = useState(isOpen)
 
@@ -27,12 +25,6 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)
   }
-
-  const requestMedia = request?.request?.media?.filter(el => checkIsMediaFileLink(el.fileLink))
-  const requestPhotos = requestMedia?.map(el => el.fileLink)
-  const requestTitles = requestMedia?.map(el => el.commentByPerformer)
-  const requestComments = requestMedia?.map(el => el.commentByClient)
-  const requestDocuments = request?.request?.media.map(el => el.fileLink)
 
   return (
     <div className={styles.root}>
@@ -47,21 +39,9 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
               <Typography className={styles.conditionsLabel}>{t(TranslationKey.Files)}</Typography>
 
               <div className={styles.conditionsPhotosWraper}>
-                <Typography className={styles.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
-                <PhotoAndFilesSlider
-                  withoutFiles
-                  showPreviews
-                  files={requestPhotos}
-                  photosTitles={requestTitles}
-                  photosComments={requestComments}
-                />
-              </div>
+                <Typography className={styles.conditionsSubLabel}>{t(TranslationKey.Files)}</Typography>
 
-              <div>
-                <Typography className={cx(styles.conditionsSubLabel, styles.filesLabel)}>
-                  {t(TranslationKey.Files)}
-                </Typography>
-                <PhotoAndFilesSlider withoutPhotos files={requestDocuments} />
+                <SlideshowGallery files={request?.request?.media} />
               </div>
             </div>
 

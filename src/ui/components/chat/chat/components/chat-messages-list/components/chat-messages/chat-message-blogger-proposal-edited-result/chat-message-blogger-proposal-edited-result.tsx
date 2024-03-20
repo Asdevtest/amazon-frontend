@@ -7,15 +7,13 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { formatDateOnlyTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
-
-import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useStyles } from './chat-message-blogger-proposal-edited-result.style'
 
@@ -26,7 +24,6 @@ interface Props {
 
 export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isShowChatInfo }) => {
   const { classes: styles, cx } = useStyles()
-  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
@@ -44,11 +41,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
         <p className={styles.descriptionText}>{message.data.proposal.details.result}</p>
 
         <div className={cx(styles.infosWrapper, { [styles.infosWrapperShowChatInfo]: isShowChatInfo })}>
-          <PhotoAndFilesSlider
-            smallSlider={!isMobileResolution}
-            column={isShowChatInfo || isMobileResolution}
-            files={files || []}
-          />
+          <SlideshowGallery slidesToShow={2} files={files || []} />
 
           <div className={styles.infosSubWrapper}>
             <div className={cx(styles.fieldsRow, { [styles.fieldsRowShowChatInfo]: isShowChatInfo })}>
@@ -79,7 +72,6 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
                 }
               />
             </div>
-
             <Field
               labelClasses={styles.fieldLabel}
               containerClasses={styles.fieldContainer}
@@ -111,6 +103,7 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
                 </>
               }
             />
+            lS
           </div>
         </div>
       </div>

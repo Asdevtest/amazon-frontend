@@ -181,10 +181,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  filesWrapper: {
-    width: '70%',
-    minHeight: '100px',
-  },
   timeOnReviewWrapper: {
     width: '200px',
     display: 'flex',

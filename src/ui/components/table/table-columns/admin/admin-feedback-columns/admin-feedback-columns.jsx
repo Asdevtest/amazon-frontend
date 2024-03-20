@@ -7,7 +7,7 @@ import {
   NormDateCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { t } from '@utils/translations'
 
@@ -46,7 +46,7 @@ export const adminFeedbackViewColumns = handlers => [
     field: 'media',
     headerName: t(TranslationKey.Files),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: params => <PhotoAndFilesSlider showPreviews smallSlider files={params.value} />,
+    renderCell: params => <SlideshowGallery slidesToShow={1} files={params.value} />,
     width: 300,
     align: 'center',
     filterable: false,

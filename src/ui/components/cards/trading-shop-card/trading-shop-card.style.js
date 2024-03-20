@@ -22,13 +22,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'end',
   },
 
-  photoWrapper: {
-    // display: 'flex',
-    width: '23%',
-    height: 290,
-    marginRight: 15,
-  },
-
   subWrapper: {
     width: '77%',
   },

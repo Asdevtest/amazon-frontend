@@ -27,11 +27,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  fileIcon: {
-    width: '30px !important',
-    height: '40px !important',
-  },
-
   info: {
     display: 'flex',
     flexDirection: 'column',

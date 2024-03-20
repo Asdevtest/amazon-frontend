@@ -129,24 +129,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  rightSideWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    gap: 20,
-
-    [theme.breakpoints.down(1280)]: {
-      width: '100%',
-    },
-  },
-
-  rightSideWrapperShowChatInfo: {
-    [theme.breakpoints.down(1750)]: {
-      width: '100%',
-    },
-  },
-
   buttonsWrapper: {
     width: '100%',
     display: 'flex',

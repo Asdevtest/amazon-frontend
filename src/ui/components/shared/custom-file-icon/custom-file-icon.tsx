@@ -9,11 +9,13 @@ import { useStyles } from './custom-file-icon.style'
 interface CustomFileIconProps {
   fileExtension: string
   middleSize?: boolean
+  bigSize?: boolean
   onClick?: () => void
 }
 
 export const CustomFileIcon: FC<CustomFileIconProps> = memo(props => {
-  const { fileExtension, middleSize, onClick } = props
+  const { fileExtension, middleSize, bigSize, onClick } = props
+
   const { classes: styles, theme, cx } = useStyles()
 
   const getExtensionColor = (extension: string) => {
@@ -37,14 +39,23 @@ export const CustomFileIcon: FC<CustomFileIconProps> = memo(props => {
 
   return (
     <button
-      className={cx(styles.wrapper, { [styles.hover]: !!onClick, [styles.middleSizeWrapper]: middleSize })}
+      className={cx(styles.wrapper, {
+        [styles.hover]: !!onClick,
+        [styles.middleSizeWrapper]: middleSize,
+        [styles.bigSizeWrapper]: bigSize,
+      })}
       onClick={onClick ? onClick : undefined}
     >
-      <EmptyFileIcon className={cx(styles.icon, { [styles.middleSizeIcon]: middleSize })} />
+      <EmptyFileIcon
+        className={cx(styles.icon, { [styles.middleSizeIcon]: middleSize, [styles.bigSizeIcon]: bigSize })}
+      />
 
       <p
         style={{ background: getExtensionColor(fileExtension) }}
-        className={cx(styles.fileExtension, { [styles.middleSizeFileExtension]: middleSize })}
+        className={cx(styles.fileExtension, {
+          [styles.middleSizeFileExtension]: middleSize,
+          [styles.bigSizeFileExtension]: bigSize,
+        })}
       >
         {fileExtension}
       </p>

@@ -1,10 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  photosWrapper: {
-    height: '211px',
-  },
-
   shopInfoTopWrapper: {
     display: 'grid',
     gridTemplateColumns: '333px 1fr',

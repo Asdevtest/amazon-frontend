@@ -1,7 +1,7 @@
 import { FC, memo, useEffect, useState } from 'react'
 
-import { FileIcon } from '@components/shared/file-icon'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { CustomFileIcon } from '@components/shared/custom-file-icon'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -33,7 +33,7 @@ export const ChatMessageFile: FC<ChatMessageFileProps> = memo(({ src }) => {
         ) : checkIsImageLink(src) ? (
           <img src={getAmazonImageUrl(src)} alt="message_file_icon" />
         ) : (
-          recreatedFile.type && <FileIcon fileExtension={recreatedFile.type} className={styles.fileIcon} />
+          recreatedFile.type && <CustomFileIcon fileExtension={recreatedFile.type} />
         )}
       </div>
 

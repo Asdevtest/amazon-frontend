@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { LinesChart } from '@components/shared/charts/lines-chart/lines-chart'
 import { Field } from '@components/shared/field/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -35,9 +35,8 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
   return (
     <div>
       <div className={styles.shopInfoTopWrapper}>
-        <div className={styles.photosWrapper}>
-          <PhotoAndFilesSlider withoutFiles files={data.files} />
-        </div>
+        <SlideshowGallery slidesToShow={3} files={data.files} />
+
         <div className={styles.rightSideWrapper}>
           <div className={styles.rightSideHeader}>
             <Typography className={styles.shopTitle}>{data.title}</Typography>

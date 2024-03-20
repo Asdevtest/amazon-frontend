@@ -1,12 +1,12 @@
 import { Dispatch, FC, SetStateAction, memo } from 'react'
 
-import { FileIcon } from '@components/shared/file-icon'
+import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { getCustomHeightSubjectToQuantitySlides } from '@components/shared/slideshow-gallery/helpers/get-custom-height'
 import {
   DEFAULT_PREVIEWS_SLIDE_HEIGHT,
   PREVIEWS_SLIDE_HEIGHT_IN_MODAL,
 } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { UploadFileType } from '@typings/shared/upload-file'
 
@@ -75,10 +75,9 @@ export const Slides: FC<SlidesProps> = memo(props => {
                 href={documentLink}
                 target="_blank"
                 rel="noreferrer noopener"
-                className={styles.document}
                 onClick={e => e.preventDefault()} // fix follow the link to the previews
               >
-                <FileIcon fileExtension={fileExtension} className={styles.fileIcon} />
+                <CustomFileIcon middleSize={isModalSize} fileExtension={fileExtension} />
                 <span className={styles.linkText}>{documentLink}</span>
               </a>
             )}

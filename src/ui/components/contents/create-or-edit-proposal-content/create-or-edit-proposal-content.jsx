@@ -10,8 +10,8 @@ import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SetDuration } from '@components/shared/set-duration'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserLink } from '@components/user/user-link'
 
@@ -229,9 +229,7 @@ export const CreateOrEditProposalContent = memo(props => {
           </div>
         </div>
 
-        {request?.details?.linksToMediaFiles?.length > 0 ? (
-          <PhotoAndFilesSlider smallSlider showPreviews files={request?.details?.linksToMediaFiles} />
-        ) : null}
+        <SlideshowGallery slidesToShow={2} files={request?.details?.linksToMediaFiles || []} />
       </div>
 
       <div className={styles.mainRightWrapper}>
