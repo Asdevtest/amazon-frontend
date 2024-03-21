@@ -547,14 +547,7 @@ export class MyRequestsViewModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(id)
 
-      console.log(
-        ' result',
-        result.map(el => new Date(el.proposal.updatedAt)),
-      )
-
       const proposal = result?.sort((a, b) => new Date(b?.proposal?.updatedAt) - new Date(a?.proposal?.updatedAt))?.[0]
-
-      console.log('proposal', new Date(proposal.proposal.updatedAt))
 
       runInAction(() => {
         this.curProposal = proposal
