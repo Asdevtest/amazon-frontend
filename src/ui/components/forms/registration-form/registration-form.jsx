@@ -132,7 +132,7 @@ export const RegistrationForm = memo(props => {
               label={t(TranslationKey.Name)}
               placeholder={t(TranslationKey.Name)}
               error={
-                checkValidationNameOrEmail.nameIsUnique === false &&
+                checkValidationNameOrEmail?.nameIsUnique === false &&
                 t(TranslationKey['A user with this name already exists'])
               }
               value={formFields.name}

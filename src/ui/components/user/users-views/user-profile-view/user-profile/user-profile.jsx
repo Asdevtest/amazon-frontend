@@ -1,12 +1,10 @@
-import { observer } from 'mobx-react'
+import { memo } from 'react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
-import { Avatar, Box, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Rating } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/button'
 import { PurchaseHistory } from '@components/user/users-views/user-profile-view/purchase-history'
@@ -22,137 +20,112 @@ import { useStyles } from './user-profile.style'
 import { Info } from './info'
 import { Tested } from './tested'
 
-export const UserProfile = observer(
-  ({
+export const UserProfile = memo(props => {
+  const {
     isAnotherUser,
     user,
     curUser,
     headerInfoData,
     onClickChangeAvatar,
     onClickChangeUserInfo,
-    tabReview,
     tabHistory,
     setTabHistory,
-    setTabReview,
     onClickWriteBtn,
     reviews,
     onClickReview,
-  }) => {
-    const { classes: styles } = useStyles()
+  } = props
 
-    return (
-      <>
-        {SettingsModel.languageTag && (
-          <Paper className={styles.paper}>
-            <div>
-              <Box className={styles.mainBox}>
-                <Box className={styles.sendOrderBox}>
-                  {isAnotherUser ? (
-                    <Avatar src={getUserAvatarSrc(user._id)} className={styles.avatar} />
-                  ) : (
-                    <div className={styles.avatarWrapper} onClick={onClickChangeAvatar}>
-                      <Avatar src={getUserAvatarSrc(user._id)} className={styles.avatar} />
+  const { classes: styles } = useStyles()
 
-                      <AutorenewIcon color="primary" fontSize="large" className={styles.icon} />
-                    </div>
-                  )}
-                </Box>
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.flexColumnContainer}>
+        <div className={styles.userInfoConatiner}>
+          <div className={styles.avatarWrapper} onClick={() => (!isAnotherUser ? onClickChangeAvatar() : undefined)}>
+            <Avatar src={getUserAvatarSrc(user._id)} className={styles.avatar} />
 
-                <Box flexGrow={1}>
-                  <Typography className={styles.username}>{user?.name}</Typography>
-
-                  {checkIsAdmin(UserRoleCodeMap[curUser?.role]) || !isAnotherUser ? (
-                    <Typography className={styles.userEmail}>{user?.email}</Typography>
-                  ) : null}
-
-                  <div className={styles.ratingWrapper}>
-                    <Typography className={styles.standartText}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
-
-                    <Rating readOnly className={styles.userRating} value={user?.rating} />
-                  </div>
-                  <div className={styles.userButtonsWrapper}>
-                    {isAnotherUser && (
-                      <Button className={styles.writeBtn} onClick={() => onClickWriteBtn(user._id)}>
-                        {t(TranslationKey.Write)}
-                      </Button>
-                    )}
-
-                    {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                      <Button className={styles.changeBtn} onClick={onClickChangeUserInfo}>
-                        {t(TranslationKey.Edit)}
-                      </Button>
-                    )}
-                  </div>
-                </Box>
-              </Box>
-              <div className={styles.userButtonsMobileWrapper}>
-                {isAnotherUser && (
-                  <Button className={styles.writeBtn} onClick={() => onClickWriteBtn(user._id)}>
-                    {t(TranslationKey.Write)}
-                  </Button>
-                )}
-
-                {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                  <Button className={styles.changeBtn} onClick={onClickChangeUserInfo}>
-                    {t(TranslationKey.Edit)}
-                  </Button>
-                )}
+            {!isAnotherUser ? (
+              <div className={styles.autorenewWrapper}>
+                <AutorenewIcon color="primary" fontSize="large" />
               </div>
-              {!isAnotherUser && (
-                <div className={styles.rolesWrapper}>
-                  <Typography variant="h6" className={styles.standartText}>
-                    {t(TranslationKey.Roles)}
-                  </Typography>
+            ) : null}
+          </div>
 
-                  {user?.allowedRoles.length && !user?.masterUser ? (
-                    <div className={styles.roles}>
-                      {user?.allowedRoles.map(spec => (
-                        <Typography key={spec?._id} className={styles.role}>
-                          {UserRoleCodeMap[spec]}
-                        </Typography>
-                      ))}
-                    </div>
-                  ) : (
-                    <Typography className={styles.role}>{UserRoleCodeMap[user?.role]}</Typography>
-                  )}
-                </div>
-              )}
+          <div className={styles.userInfo}>
+            <p className={styles.username}>{user?.name}</p>
 
-              {!!user?.allowedSpec?.length && (
-                <div className={styles.rolesWrapper}>
-                  <Typography variant="h6" className={styles.standartText}>
-                    {t(TranslationKey.Specialties)}
-                  </Typography>
-                  <div className={styles.roles}>
-                    {user?.allowedSpec?.map(spec => (
-                      <Typography key={spec?._id} className={styles.role}>
-                        {spec?.title}
-                      </Typography>
-                    ))}
-                  </div>
-                </div>
-              )}
+            {checkIsAdmin(UserRoleCodeMap[curUser?.role]) || !isAnotherUser ? (
+              <p className={styles.userEmail}>{user?.email}</p>
+            ) : null}
 
-              <Info headerInfoData={headerInfoData} />
+            <div className={styles.ratingWrapper}>
+              <p>{`Rating ${toFixed(user?.rating, 1)}`}</p>
 
-              {isAnotherUser || user.allowedRoles?.includes(mapUserRoleEnumToKey[UserRole.RESEARCHER]) ? (
-                <Tested user={user} />
-              ) : null}
+              <Rating readOnly className={styles.userRating} value={user?.rating} />
             </div>
 
-            <div className={styles.rightSideWrapper}>
-              <Reviews tabReview={tabReview} setTabReview={setTabReview} reviews={reviews} />
+            <div className={styles.userInfoButtons}>
               {isAnotherUser && (
-                <div className={styles.leaveReviewBtnWrapper}>
-                  <Button onClick={onClickReview}>{t(TranslationKey['Leave a review'])}</Button>
-                </div>
+                <Button className={styles.userInfoButton} onClick={() => onClickWriteBtn(user._id)}>
+                  {t(TranslationKey.Write)}
+                </Button>
               )}
 
-              {!isAnotherUser && <PurchaseHistory user={user} tabHistory={tabHistory} setTabHistory={setTabHistory} />}
+              {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
+                <Button className={styles.userInfoButton} onClick={onClickChangeUserInfo}>
+                  {t(TranslationKey.Edit)}
+                </Button>
+              )}
             </div>
-          </Paper>
+          </div>
+        </div>
+
+        {!isAnotherUser && (
+          <div className={styles.flexColumnContainer}>
+            <p className={styles.title}>{t(TranslationKey.Roles)}</p>
+
+            {user?.allowedRoles.length && !user?.masterUser ? (
+              <div className={styles.roles}>
+                {user?.allowedRoles.map(spec => (
+                  <p key={spec?._id}>{UserRoleCodeMap[spec]}</p>
+                ))}
+              </div>
+            ) : (
+              <p>{UserRoleCodeMap[user?.role]}</p>
+            )}
+          </div>
         )}
-      </>
-    )
-  },
-)
+
+        {user?.allowedSpec?.length > 0 && (
+          <div className={styles.flexColumnContainer}>
+            <p className={styles.title}>{t(TranslationKey.Specialties)}</p>
+
+            <div className={styles.roles}>
+              {user?.allowedSpec?.map(spec => (
+                <p key={spec?._id}>{spec?.title}</p>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <Info headerInfoData={headerInfoData} />
+
+        {isAnotherUser || user.allowedRoles?.includes(mapUserRoleEnumToKey[UserRole.RESEARCHER]) ? (
+          <Tested user={user} />
+        ) : null}
+      </div>
+
+      <div className={styles.rightSideWrapper}>
+        <Reviews reviews={reviews} />
+
+        {isAnotherUser && (
+          <div className={styles.leaveReviewBtnWrapper}>
+            <Button onClick={onClickReview}>{t(TranslationKey['Leave a review'])}</Button>
+          </div>
+        )}
+
+        {!isAnotherUser && <PurchaseHistory user={user} tabHistory={tabHistory} setTabHistory={setTabHistory} />}
+      </div>
+    </div>
+  )
+})

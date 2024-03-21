@@ -22,34 +22,21 @@ import { dataURLtoFile } from '@utils/upload-files'
 export class ProfileViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
-
-  get user() {
-    return UserModel.userInfo
-  }
 
   showAvatarEditModal = false
   showUserInfoModal = false
-
-  checkValidationNameOrEmail = {}
-
-  productsVacant = []
-
-  isUniqueProfileData = true
-  wrongPassword = undefined
-
-  warningInfoModalTitle = ''
-
-  productList = []
-  tabExchange = 0
-  tabHistory = 0
-  tabReview = 0
-  selectedUser = undefined
   showTabModal = false
   showInfoModal = false
   showConfirmWorkResultFormModal = false
-  reviews = []
 
+  checkValidationNameOrEmail = undefined
+  productsVacant = []
+  isUniqueProfileData = true
+  wrongPassword = undefined
+  warningInfoModalTitle = ''
+  tabHistory = 0
+  selectedUser = undefined
+  reviews = []
   headerInfoData = {
     investorsCount: 255,
     goodsFound: 875,
@@ -60,19 +47,27 @@ export class ProfileViewModel {
     youBlocked: 14,
     accountCreateAt: 11,
   }
+  activeSessions = []
+  userInfoEditFormFlag = true
 
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = vacByUserIdExchangeColumns()
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
+  get currentData() {
+    return this.productsVacant
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -90,55 +85,36 @@ export class ProfileViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.PROFILE_VAC_PRODUCTS]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
-
+    this.filterModel = model
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
+    this.paginationModel = model
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
     this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
-
+    this.sortModel = sortModel
     this.setDataGridState()
-  }
-
-  getCurrentData() {
-    return toJS(this.productsVacant)
   }
 
   async loadData() {
@@ -160,7 +136,7 @@ export class ProfileViewModel {
 
   async getProductsVacant() {
     try {
-      const result = await ProductModel.getVacProductByUserId(this.user._id)
+      const result = await ProductModel.getVacProductByUserId(this.userInfo._id)
 
       runInAction(() => {
         this.productsVacant = clientProductsDataConverter(result).sort(
@@ -171,43 +147,9 @@ export class ProfileViewModel {
       console.log(error)
       runInAction(() => {
         this.productsVacant = []
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
       })
     }
   }
-
-  onClickChangeAvatar() {
-    this.onTriggerOpenModal('showAvatarEditModal')
-  }
-
-  onClickChangeUserInfo() {
-    this.onTriggerOpenModal('showUserInfoModal')
-  }
-
-  // async onSubmitUserInfoEdit(data) {
-  //   try {
-  //     this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
-  //       name: data.name,
-  //       email: data.email,
-  //     })
-
-  //     if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
-  //       return
-  //     } else {
-  //       await UserModel.changeUserInfo(data)
-
-  //       await UserModel.getUserInfo()
-
-  //       this.onTriggerOpenModal('showUserInfoModal')
-  //     }
-  //   } catch (error) {
-  //     runInAction(() => {
-  //       this.error = error
-  //     })
-  //   }
-  // }
 
   async onSubmitUserInfoEdit(data) {
     try {
@@ -233,9 +175,7 @@ export class ProfileViewModel {
         return
       }
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.log(error)
     }
   }
 
@@ -247,8 +187,6 @@ export class ProfileViewModel {
 
   async changeUserPassword(data) {
     try {
-      this.error = undefined
-
       await UserModel.changeUserPassword({
         oldPassword: data.oldPassword,
         newPassword: data.password,
@@ -257,11 +195,8 @@ export class ProfileViewModel {
       await UserModel.getUserInfo()
     } catch (error) {
       runInAction(() => {
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
-        if (this.error === 'Wrong password') {
-          this.wrongPassword = this.error
+        if (error.body && error.body.message === 'Wrong password') {
+          this.wrongPassword = error.body.message
         }
       })
     }
@@ -291,14 +226,12 @@ export class ProfileViewModel {
         })
       }
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.log(error)
     }
   }
 
   async onSubmitAvatarEdit(imageData) {
-    const file = dataURLtoFile(imageData, this.user._id)
+    const file = dataURLtoFile(imageData, this.userInfo._id)
 
     const formData = new FormData()
     formData.append('filename', file)
@@ -314,51 +247,25 @@ export class ProfileViewModel {
 
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.log(error)
     }
   }
 
-  onTriggerShowTabModal() {
-    runInAction(() => {
-      this.showTabModal = !this.showTabModal
-    })
-  }
-
-  onChangeTabReview(e, value) {
-    runInAction(() => {
-      this.tabReview = value
-    })
-  }
-
-  onChangeTabHistory(e, value) {
-    runInAction(() => {
-      this.tabHistory = value
-    })
-  }
-
-  onChangeTabExchange(e, value) {
-    runInAction(() => {
-      this.tabExchange = value
-    })
+  onChangeTabHistory(value) {
+    this.tabHistory = value
   }
 
   onClickButtonPrivateLabel(item) {
-    runInAction(() => {
-      this.selectedUser = item
-    })
-    this.onTriggerShowTabModal()
+    this.selectedUser = item
+    this.onTriggerOpenModal('showTabModal')
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   resetProfileDataValidation() {
-    this.checkValidationNameOrEmail = {}
+    this.checkValidationNameOrEmail = undefined
   }
 
   async getReviews() {
@@ -370,18 +277,50 @@ export class ProfileViewModel {
       })
     } catch (error) {
       console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
   async onAcceptReview(review) {
-    await FeedbackModel.sendFeedback(this.user._id, {
+    await FeedbackModel.sendFeedback(this.userInfo._id, {
       rating: review.rating,
       comment: review.review,
     })
     await this.getReviews()
     this.onTriggerOpenModal('showConfirmWorkResultFormModal')
+  }
+
+  async getActiveSessions() {
+    try {
+      const responce = await UserModel.getActiveSessions()
+
+      runInAction(() => {
+        this.activeSessions = responce
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async logoutSession(sessionCreatedAt) {
+    try {
+      await UserModel.logoutSession(sessionCreatedAt)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onToggleUserInfoEditFormFlag(e) {
+    e.preventDefault()
+    this.onTriggerOpenModal('userInfoEditFormFlag')
+
+    if (!this.userInfoEditFormFlag) {
+      this.getActiveSessions()
+    }
+  }
+
+  async onLogoutSession(sessionCreatedAt) {
+    await this.logoutSession(sessionCreatedAt)
+
+    this.getActiveSessions()
   }
 }

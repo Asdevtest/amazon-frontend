@@ -2217,5 +2217,9 @@ export enum TranslationKey {
   'Access is denied' = 'Access is denied',
   'Parent' = 'Parent',
   'China' = 'China',
+  'Active sessions' = 'Active sessions',
+  'No active sessions' = 'No active sessions',
+  'Browser not found' = 'Browser not found',
+  'Close the access' = 'Close the access',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
