@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   logo: {
-    width: '30px',
+    width: '40px',
     height: '40px',
 
     'img, > div': {

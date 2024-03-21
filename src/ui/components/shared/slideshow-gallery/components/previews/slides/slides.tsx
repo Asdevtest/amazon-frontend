@@ -5,6 +5,7 @@ import { getCustomHeightSubjectToQuantitySlides } from '@components/shared/slide
 import {
   DEFAULT_PREVIEWS_SLIDE_HEIGHT,
   PREVIEWS_SLIDE_HEIGHT_IN_MODAL,
+  REDUCTION_FACTOR,
 } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
 import { VideoPreloader } from '@components/shared/video-preloader'
 
@@ -75,9 +76,10 @@ export const Slides: FC<SlidesProps> = memo(props => {
                 href={documentLink}
                 target="_blank"
                 rel="noreferrer noopener"
+                className={styles.document}
                 onClick={e => e.preventDefault()} // fix follow the link to the previews
               >
-                <CustomFileIcon middleSize={isModalSize} fileExtension={fileExtension} />
+                <CustomFileIcon fileExtension={fileExtension} height={`${finalVideoHeight * REDUCTION_FACTOR}px`} />
                 <span className={styles.linkText}>{documentLink}</span>
               </a>
             )}

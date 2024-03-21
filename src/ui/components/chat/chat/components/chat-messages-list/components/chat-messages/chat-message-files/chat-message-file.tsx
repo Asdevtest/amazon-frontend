@@ -33,7 +33,7 @@ export const ChatMessageFile: FC<ChatMessageFileProps> = memo(({ src }) => {
         ) : checkIsImageLink(src) ? (
           <img src={getAmazonImageUrl(src)} alt="message_file_icon" />
         ) : (
-          recreatedFile.type && <CustomFileIcon fileExtension={recreatedFile.type} />
+          recreatedFile.type && <CustomFileIcon fileExtension={recreatedFile.type} height="40px" />
         )}
       </div>
 

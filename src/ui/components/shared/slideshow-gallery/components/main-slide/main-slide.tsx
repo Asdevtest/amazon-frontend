@@ -69,7 +69,7 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
         }
         FileComponent={({ documentLink, fileExtension }) => (
           <a href={documentLink} target="_blank" rel="noreferrer noopener" className={styles.document}>
-            <CustomFileIcon bigSize fileExtension={fileExtension} />
+            <CustomFileIcon fileExtension={fileExtension} height="100%" />
             <span className={styles.linkText}>{documentLink}</span>
           </a>
         )}
