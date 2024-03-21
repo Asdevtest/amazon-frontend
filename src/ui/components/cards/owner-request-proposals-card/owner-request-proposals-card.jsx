@@ -120,7 +120,7 @@ export const OwnerRequestProposalsCard = ({
               <Typography className={styles.proposalDescription}>{item.proposal.comment}</Typography>
             </div>
 
-            <SlideshowGallery files={item.proposal.linksToMediaFiles} />
+            <SlideshowGallery slidesToShow={2} files={item.proposal.linksToMediaFiles} />
           </div>
         </div>
       </div>

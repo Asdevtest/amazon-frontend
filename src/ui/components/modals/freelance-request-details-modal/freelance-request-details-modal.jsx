@@ -105,7 +105,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
             <div className={styles.category}>
               <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
 
-              <SlideshowGallery files={requestMedia} slidesToShow={2} />
+              <SlideshowGallery files={requestMedia} slidesToShow={3} />
             </div>
           </div>
 
