@@ -46,7 +46,7 @@ export const adminBoxesViewColumns = () => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={String(params.value)} />,
     width: 60,
     columnKey: columnnsKeys.shared.STRING,
   },
@@ -99,7 +99,12 @@ export const adminBoxesViewColumns = () => [
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-    renderCell: params => <MultilineTextCell text={params.row.originalData.amount} />,
+    renderCell: params =>
+      params.row.originalData ? (
+        <MultilineTextCell text={String(params.value * params.row.originalData?.amount)} />
+      ) : (
+        ''
+      ),
     width: 100,
     columnKey: columnnsKeys.shared.QUANTITY,
   },
