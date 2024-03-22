@@ -19,14 +19,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  error: {
-    border: `1px solid ${theme.palette.text.red}`,
-
-    '&.Mui-focused': {
-      border: `1px solid ${theme.palette.text.red}`,
-    },
-  },
-
   input: {
     padding: 5,
     fontSize: 14,
