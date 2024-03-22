@@ -17,10 +17,7 @@ interface ActiveSessionsProps {
 
 export const ActiveSessions: FC<ActiveSessionsProps> = memo(({ activeSessions, onLogoutSession }) => {
   const { classes: styles, cx } = useStyles()
-  console.log(
-    'activeSessions',
-    activeSessions.map(session => session.device),
-  )
+
   return (
     <div className={cx(styles.wrapper, { [styles.noActiveSessions]: activeSessions.length === 0 })}>
       {activeSessions.length > 0 ? (
