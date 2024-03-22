@@ -2214,5 +2214,9 @@
   "SEO file": "SEO-файл",
   "Access is denied": "Доступ ограничен",
   "Parent": "Родитель",
-  "China": "Китай"
+  "China": "Китай",
+  "Active sessions": "Активные сессии",
+  "No active sessions": "Нет активных сессий",
+  "Browser not found": "Браузер не найден",
+  "Close the access": "Закрыть доступ"
 }
