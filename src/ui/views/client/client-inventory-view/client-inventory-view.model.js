@@ -420,27 +420,47 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async onClickGetChildProducts(id, isDelete) {
     try {
       if (isDelete) {
-        this.tableData = this.tableData.filter(product => product?.hierarchy[0] !== id || product?._id === id)
+        this.tableData = this.tableData.filter(product => product?.hierarchy[0] !== id || product?.id === id)
       } else {
         this.setRequestStatus(loadingStatuses.IS_LOADING)
         const result = await ProductModel.getProductsVariationsByGuid(id, true, true)
 
-        if (!result?.childProducts?.length) {
+        if (!result?.childProducts?.length && !result?.parentProduct) {
           toast?.error(t(TranslationKey['No data']))
           this.setRequestStatus(loadingStatuses.SUCCESS)
           return
         }
 
-        const modRes = result?.childProducts?.map(child => ({
-          ...child,
-          id: child?._id,
-          hierarchy: [id, child?._id],
-        }))
+        const newTableData = []
 
-        this.tableData = [...this.tableData, ...modRes]
+        if (result?.childProducts?.length) {
+          const postfix = '-child'
+
+          for (const child of result.childProducts) {
+            newTableData.push({
+              ...child,
+              id: child?._id + postfix,
+              hierarchy: [id, child?._id + postfix],
+              isTreeRow: true,
+            })
+          }
+        }
+
+        if (result?.parentProduct) {
+          const postfix = '-child'
+
+          newTableData.push({
+            ...result?.parentProduct,
+            id: result?.parentProduct?._id + postfix,
+            hierarchy: [id, result?.parentProduct?._id + postfix],
+            isTreeRow: true,
+          })
+        }
+
+        this.tableData = [...this.tableData, ...newTableData]
         this.setRequestStatus(loadingStatuses.SUCCESS)
 
-        return !!modRes?.length
+        return !!newTableData?.length
       }
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)

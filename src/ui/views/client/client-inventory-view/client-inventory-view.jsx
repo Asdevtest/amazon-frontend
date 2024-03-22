@@ -34,7 +34,6 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { hierarchyDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
