@@ -7,8 +7,6 @@ import { t } from '@utils/translations'
 export const getBrowserAndVersion = (userAgent: string): string => {
   const browser = Bowser.getParser(userAgent).getBrowser()
 
-  console.log('browser', browser)
-
   if (!browser) {
     return t(TranslationKey['Browser not found'])
   }
