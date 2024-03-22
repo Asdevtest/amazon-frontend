@@ -15,6 +15,7 @@ export const observerConfig = {
   _columnsModel: observable,
   _defaultGetDataMethodOptions: observable,
   _unserverSearchValue: observable,
+  _dataModefierMethod: observable,
 
   requestStatus: computed,
   rowCount: computed,
@@ -27,6 +28,7 @@ export const observerConfig = {
   columnsModel: computed,
   defaultGetDataMethodOptions: computed,
   unserverSearchValue: computed,
+  dataModefierMethod: computed,
 
   setDataGridState: action.bound,
   getDataGridState: action.bound,

@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 
+import { groupingColDef } from '@components/data-grid/data-grid-cells/tree-data-grouping-cell/grouping-col-def'
 import { AddOwnProductForm } from '@components/forms/add-own-product-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
@@ -33,6 +34,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
+import { hierarchyDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
@@ -93,7 +95,8 @@ export const ClientInventoryView = observer(({ history }) => {
           treeData
           checkboxSelection
           disableRowSelectionOnClick
-          getTreeDataPath={row => [row?.amazonTitle]}
+          getTreeDataPath={row => row?.hierarchy}
+          groupingColDef={groupingColDef(viewModel.onClickGetChildProducts)}
           getCellClassName={getCellClassName}
           getRowClassName={getRowClassName}
           rowCount={viewModel.rowCount}
@@ -103,7 +106,6 @@ export const ClientInventoryView = observer(({ history }) => {
           paginationModel={viewModel.paginationModel}
           rows={viewModel.tableData}
           getRowHeight={() => 'auto'}
-          getRowId={row => row._id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

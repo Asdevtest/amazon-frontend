@@ -117,14 +117,31 @@ export class DataGridTableModel extends ModalsModel {
   set columnsModel(columnsModel: GridColDef[]) {
     this._columnsModel = columnsModel
   }
-  constructor(
-    getMainDataMethod: (...args: any) => any,
-    columnsModel: GridColDef[],
-    tableKey?: string,
-    defaultGetDataMethodOptions?: any,
-  ) {
+
+  _dataModefierMethod?: any
+  get dataModefierMethod() {
+    return this._dataModefierMethod
+  }
+  set dataModefierMethod(dataModefierMethod: any) {
+    this._dataModefierMethod = dataModefierMethod
+  }
+
+  constructor({
+    getMainDataMethod,
+    columnsModel,
+    tableKey,
+    defaultGetDataMethodOptions,
+    dataModefierMethod,
+  }: {
+    getMainDataMethod: (...args: any) => any
+    columnsModel: GridColDef[]
+    tableKey?: string
+    defaultGetDataMethodOptions?: any
+    dataModefierMethod?: (...args: any) => any
+  }) {
     super()
 
+    this.dataModefierMethod = dataModefierMethod
     this._getMainDataMethod = getMainDataMethod
     this._columnsModel = columnsModel
     this._tableKey = tableKey
@@ -203,7 +220,7 @@ export class DataGridTableModel extends ModalsModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const result = await this.getMainDataMethod(options || this.defaultGetDataMethodOptions?.())
+      const result = await this?.getMainDataMethod(options || this.defaultGetDataMethodOptions?.())
 
       runInAction(() => {
         this.tableData = result?.rows || result

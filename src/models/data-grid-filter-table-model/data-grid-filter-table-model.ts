@@ -74,18 +74,30 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this._additionalPropertiesGetFilters = additionalProperties
   }
 
-  constructor(
-    getMainDataMethod: (...args: any) => any,
-    columnsModel: GridColDef[],
-    filtersFields: string[],
-    mainMethodURL: string,
-    fieldsForSearch?: string[],
-    tableKey?: string,
-    defaultGetDataMethodOptions?: any,
-    additionalPropertiesColumnMenuSettings?: any,
-    additionalPropertiesGetFilters?: any,
-  ) {
-    super(getMainDataMethod, columnsModel, tableKey, defaultGetDataMethodOptions)
+  constructor({
+    getMainDataMethod,
+    columnsModel,
+    filtersFields,
+    mainMethodURL,
+    fieldsForSearch,
+    tableKey,
+    defaultGetDataMethodOptions,
+    additionalPropertiesColumnMenuSettings,
+    additionalPropertiesGetFilters,
+    dataModefierMethod,
+  }: {
+    getMainDataMethod: (...args: any) => any
+    columnsModel: GridColDef[]
+    filtersFields: string[]
+    mainMethodURL: string
+    fieldsForSearch?: string[]
+    tableKey?: string
+    defaultGetDataMethodOptions?: any
+    additionalPropertiesColumnMenuSettings?: any
+    additionalPropertiesGetFilters?: any
+    dataModefierMethod?: (...args: any) => any
+  }) {
+    super({ getMainDataMethod, columnsModel, tableKey, defaultGetDataMethodOptions, dataModefierMethod })
 
     this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)
     this._filtersFields = filtersFields
@@ -187,6 +199,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
           ...this.defaultGetDataMethodOptions?.(),
         },
       )
+
+      if (this.dataModefierMethod) {
+        result.rows = this.dataModefierMethod(result.rows)
+      }
 
       runInAction(() => {
         this.tableData = result?.rows || result

@@ -1070,7 +1070,7 @@ export const ArrowUpIcon = props => (
     fill="none"
     style={{ fill: 'none' }}
   >
-    <path d="M15 8L8 1L1 8" stroke="#656565" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M15 8L8 1L1 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </SvgIcon>
 )
 
@@ -1084,7 +1084,13 @@ export const ArrowDownIcon = props => (
     fill="none"
     style={{ fill: 'none' }}
   >
-    <path d="M15 1.5L8 8.5L1 1.5" stroke="#656565" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M15 1.5L8 8.5L1 1.5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </SvgIcon>
 )
 

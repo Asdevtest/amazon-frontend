@@ -37,7 +37,10 @@ export class ShopsViewModel extends DataGridTableModel {
       onClickSeeShopReport: (currentReport, row) => this.onClickSeeShopReport(currentReport, row),
     }
 
-    super(ShopModel.getMyShops, shopsColumns(rowHandlers))
+    super({
+      getMainDataMethod: ShopModel.getMyShops,
+      columnsModel: shopsColumns(rowHandlers),
+    })
 
     this.getMainTableData()
 

@@ -115,4 +115,5 @@ export const observerConfig = {
   loadData: action.bound,
   setActiveProductsTag: action.bound,
   onClickSaveSupplierBtn: action.bound,
+  onClickGetChildProducts: action.bound,
 }

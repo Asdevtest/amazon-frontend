@@ -24,7 +24,7 @@ import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { addIdDataConverter, hierarchyDataConverter } from '@utils/data-grid-data-converters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
@@ -292,17 +292,18 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     )
     const filtersFields = getFilterFields(columns, additionalFilterFields)
 
-    super(
-      ClientModel.getProductsMyFilteredByShopIdWithPag,
-      columns,
+    super({
+      getMainDataMethod: ClientModel.getProductsMyFilteredByShopIdWithPag,
+      columnsModel: columns,
       filtersFields,
-      'clients/products/my_with_pag_v2?',
-      ['asin', 'amazonTitle', 'skuByClient'],
-      DataGridTablesKeys.CLIENT_INVENTORY,
+      mainMethodURL: 'clients/products/my_with_pag_v2?',
+      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
+      tableKey: DataGridTablesKeys.CLIENT_INVENTORY,
       defaultGetDataMethodOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
-    )
+      dataModefierMethod: hierarchyDataConverter,
+    })
 
     this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
 
@@ -404,7 +405,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onClickVariationButton(id) {
     try {
-      const result = await ProductModel.getProductsVariationsByGuid(id, true, true)
+      const result = await ProductModel.getProductsVariationsByGuid(id)
 
       runInAction(() => {
         this.productVariations = result
@@ -412,6 +413,37 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showProductVariationsForm')
     } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickGetChildProducts(id, isDelete) {
+    try {
+      if (isDelete) {
+        this.tableData = this.tableData.filter(product => product?.hierarchy[0] !== id || product?._id === id)
+      } else {
+        this.setRequestStatus(loadingStatuses.IS_LOADING)
+        const result = await ProductModel.getProductsVariationsByGuid(id, true, true)
+
+        if (!result?.childProducts?.length) {
+          toast?.error(t(TranslationKey['No data']))
+          this.setRequestStatus(loadingStatuses.SUCCESS)
+          return
+        }
+
+        const modRes = result?.childProducts?.map(child => ({
+          ...child,
+          id: child?._id,
+          hierarchy: [id, child?._id],
+        }))
+
+        this.tableData = [...this.tableData, ...modRes]
+        this.setRequestStatus(loadingStatuses.SUCCESS)
+
+        return !!modRes?.length
+      }
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
   }

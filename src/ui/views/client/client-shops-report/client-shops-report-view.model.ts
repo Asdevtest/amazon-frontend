@@ -70,7 +70,14 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
       getClassParams(currentTabsValues)
 
-    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, fieldsForSearch, tableKey)
+    super({
+      getMainDataMethod,
+      columnsModel: columnsModel(),
+      filtersFields,
+      mainMethodURL,
+      fieldsForSearch,
+      tableKey,
+    })
 
     this.getDataGridState()
 
@@ -93,8 +100,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.paginationModel = paginationModelInitialValue
     this.filterModel = filterModelInitialValue
     this.fieldsForSearch = fieldsForSearch
-
-    this.getTableData()
   }
 
   initUserSettings() {
