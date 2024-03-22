@@ -52,6 +52,14 @@ export const useStyles = makeStyles()(theme => ({
     objectFit: 'cover', // 'contain' - correct aspect ratio option
   },
 
+  document: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   linkText: {
     display: 'none',
   },

@@ -38,7 +38,7 @@ export const ImageErrorContent: FC<ImageErrorContentProps> = memo(({ files, file
     if (checkIsDocument) {
       return (
         <a href={files?.[fileIndex]} target="_blank" rel="noreferrer noopener" className={styles.document}>
-          <CustomFileIcon bigSize fileExtension={documentExtension} />
+          <CustomFileIcon fileExtension={documentExtension} height="400px" />
           <span className={styles.linkText}>{documentLink}</span>
         </a>
       )

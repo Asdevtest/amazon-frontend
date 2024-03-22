@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useRef, useState } from 'react'
 
 import { EmptyFileIcon } from '@components/shared/svg-icons'
 
@@ -6,17 +6,22 @@ import { FileExtensions } from '@typings/enums/file-extensions'
 
 import { useStyles } from './custom-file-icon.style'
 
+import { DEFAULT_BUTTON_HEIGHT, FONT_SIZE_SCALE } from './custom-file-icon.constants'
+
 interface CustomFileIconProps {
   fileExtension: string
   middleSize?: boolean
   bigSize?: boolean
+  height?: string
   onClick?: () => void
 }
 
 export const CustomFileIcon: FC<CustomFileIconProps> = memo(props => {
-  const { fileExtension, middleSize, bigSize, onClick } = props
+  const { fileExtension, height = DEFAULT_BUTTON_HEIGHT, onClick } = props
 
   const { classes: styles, theme, cx } = useStyles()
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
+  const [extensionSize, setExtensionSize] = useState(0)
 
   const getExtensionColor = (extension: string) => {
     switch (extension) {
@@ -37,25 +42,26 @@ export const CustomFileIcon: FC<CustomFileIconProps> = memo(props => {
     }
   }
 
+  useEffect(() => {
+    if (buttonRef.current) {
+      setExtensionSize(buttonRef.current.clientHeight / FONT_SIZE_SCALE)
+    }
+  }, [fileExtension])
+
   return (
     <button
+      ref={buttonRef}
       className={cx(styles.wrapper, {
         [styles.hover]: !!onClick,
-        [styles.middleSizeWrapper]: middleSize,
-        [styles.bigSizeWrapper]: bigSize,
       })}
+      style={{ height, width: height }}
       onClick={onClick ? onClick : undefined}
     >
-      <EmptyFileIcon
-        className={cx(styles.icon, { [styles.middleSizeIcon]: middleSize, [styles.bigSizeIcon]: bigSize })}
-      />
+      <EmptyFileIcon className={styles.icon} />
 
       <p
-        style={{ background: getExtensionColor(fileExtension) }}
-        className={cx(styles.fileExtension, {
-          [styles.middleSizeFileExtension]: middleSize,
-          [styles.bigSizeFileExtension]: bigSize,
-        })}
+        style={{ fontSize: extensionSize, background: getExtensionColor(fileExtension) }}
+        className={styles.fileExtension}
       >
         {fileExtension}
       </p>
