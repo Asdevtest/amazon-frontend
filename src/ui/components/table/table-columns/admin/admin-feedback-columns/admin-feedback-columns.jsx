@@ -2,12 +2,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
+  FilesCell,
   MultilineTextAlignLeftCell,
   MultilineTextHeaderCell,
   NormDateCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { t } from '@utils/translations'
 
@@ -39,18 +39,20 @@ export const adminFeedbackViewColumns = handlers => [
     headerName: t(TranslationKey.Reviews),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reviews)} />,
     renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
-    width: 700,
+    flex: 1,
   },
 
   {
-    field: 'media',
+    field: 'files',
     headerName: t(TranslationKey.Files),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: params => <SlideshowGallery slidesToShow={1} files={params.value} />,
-    width: 300,
-    align: 'center',
+    renderCell: params => (
+      <FilesCell filesLength={params.value?.length} onClickCell={() => handlers.onClickFilesCell(params.value)} />
+    ),
     filterable: false,
     sortable: false,
+    width: 80,
+    align: 'center',
   },
 
   {

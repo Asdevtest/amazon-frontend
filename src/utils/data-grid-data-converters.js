@@ -58,7 +58,7 @@ export const feedBackDataConverter = data =>
     id: item._id,
     _id: item._id,
 
-    media: item.media,
+    files: item.media,
     text: item.text,
     userName: item.user.name,
     updatedAt: item.updatedAt,
