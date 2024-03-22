@@ -745,7 +745,7 @@ export const adminBoxesDataConverter = data =>
     id: item._id,
     _id: item._id,
 
-    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
+    amount: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
     amazonPrice: calcPriceForBox(item),
 

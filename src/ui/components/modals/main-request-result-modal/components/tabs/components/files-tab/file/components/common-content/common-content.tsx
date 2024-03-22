@@ -26,7 +26,7 @@ export const CommonContent: FC<CommonContentProps> = memo(props => {
         mediaFileIndex={fileIndex}
         ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.image} />}
         VideoComponent={({ videoSource }) => <VideoPreloader videoSource={videoSource} />}
-        FileComponent={({ fileExtension }) => <CustomFileIcon middleSize fileExtension={fileExtension} />}
+        FileComponent={({ fileExtension }) => <CustomFileIcon fileExtension={fileExtension} height="75%" />}
       />
     </div>
   )

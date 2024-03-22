@@ -299,7 +299,7 @@ export const UploadFilesInput = observer(props => {
                   return (
                     <div key={index} className={styles.imageLinkListItem}>
                       {isDocumentFileType ? (
-                        <CustomFileIcon middleSize fileExtension={documentExtension} />
+                        <CustomFileIcon fileExtension={documentExtension} height="55px" />
                       ) : (
                         <Tooltip
                           title={renderImageInfo(currentImage, currentName, isCurrentFileVideoType)}

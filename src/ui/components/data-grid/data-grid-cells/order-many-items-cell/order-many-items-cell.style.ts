@@ -12,6 +12,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainWrapper: {
+    padding: '10px 0',
     display: 'flex',
     alignItems: 'center',
     gap: 10,

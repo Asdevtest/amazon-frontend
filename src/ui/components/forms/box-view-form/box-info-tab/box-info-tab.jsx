@@ -198,7 +198,7 @@ export const BoxInfoTab = memo(props => {
 
               <div className={styles.trackNumberPhoto}>
                 {formFields?.trackNumberFile?.length ? (
-                  <SlideshowGallery slidesToShow={2} files={formFields?.trackNumberFile} />
+                  <SlideshowGallery hiddenPreviews slidesToShow={1} files={formFields?.trackNumberFile} />
                 ) : (
                   <p className={styles.text}>{`${t(TranslationKey['no photo track number'])}...`}</p>
                 )}
