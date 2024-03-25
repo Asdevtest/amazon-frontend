@@ -122,7 +122,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -138,7 +138,7 @@ export class ClientWarehouseTasksViewModel {
         this.storekeepersData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -156,7 +156,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -254,7 +254,7 @@ export class ClientWarehouseTasksViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -269,7 +269,7 @@ export class ClientWarehouseTasksViewModel {
 
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -350,7 +350,7 @@ export class ClientWarehouseTasksViewModel {
       })
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.tasksMy = []
       })
@@ -373,7 +373,7 @@ export class ClientWarehouseTasksViewModel {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -436,7 +436,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -490,7 +490,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -500,7 +500,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -510,7 +510,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -520,7 +520,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

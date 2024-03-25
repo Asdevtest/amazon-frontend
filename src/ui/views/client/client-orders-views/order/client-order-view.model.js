@@ -89,7 +89,7 @@ export class ClientOrderViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -101,7 +101,7 @@ export class ClientOrderViewModel {
       })
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -113,7 +113,7 @@ export class ClientOrderViewModel {
       })
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -134,7 +134,7 @@ export class ClientOrderViewModel {
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -148,7 +148,7 @@ export class ClientOrderViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -188,10 +188,6 @@ export class ClientOrderViewModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
@@ -228,10 +224,6 @@ export class ClientOrderViewModel {
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
         const orderObject = this.ordersDataStateToSubmit[i]
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
@@ -277,7 +269,7 @@ export class ClientOrderViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -290,16 +282,12 @@ export class ClientOrderViewModel {
         this.order = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onSubmitSaveOrder({ data }) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (data.tmpBarCode.length) {
         await onSubmitPostImages.call(this, { images: data.tmpBarCode, type: 'uploadedFiles' })
 
@@ -351,7 +339,7 @@ export class ClientOrderViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -382,7 +370,7 @@ export class ClientOrderViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -393,7 +381,7 @@ export class ClientOrderViewModel {
         this.orderBoxes = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -414,7 +402,7 @@ export class ClientOrderViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       await this.getOrderById()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

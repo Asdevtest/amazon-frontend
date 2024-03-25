@@ -106,7 +106,7 @@ export class LogisticsTariffsModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -193,7 +193,7 @@ export class LogisticsTariffsModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -225,7 +225,7 @@ export class LogisticsTariffsModel {
       //   })
       // }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -244,7 +244,7 @@ export class LogisticsTariffsModel {
       this.onTriggerOpenModal('showAddOrEditDestinationModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -260,7 +260,7 @@ export class LogisticsTariffsModel {
       })
     } catch (error) {
       this.logisticsTariffs = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -270,7 +270,7 @@ export class LogisticsTariffsModel {
 
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -310,7 +310,7 @@ export class LogisticsTariffsModel {
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -350,7 +350,7 @@ export class LogisticsTariffsModel {
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -360,7 +360,7 @@ export class LogisticsTariffsModel {
 
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -398,7 +398,7 @@ export class LogisticsTariffsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

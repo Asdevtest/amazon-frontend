@@ -139,7 +139,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -195,7 +195,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.tableData = []
       this.rowCount = 0
       this.setRequestStatus(loadingStatuses.FAILED)

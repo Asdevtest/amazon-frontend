@@ -45,7 +45,7 @@ export class FreelancerDashboardViewModel {
       await this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -61,7 +61,7 @@ export class FreelancerDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

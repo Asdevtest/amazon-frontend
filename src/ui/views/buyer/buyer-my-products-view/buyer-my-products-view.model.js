@@ -125,7 +125,7 @@ export class BuyerMyProductsViewModel {
 
       BuyerModel.updateProduct(productId, { fbafee: result.amazonFee })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -208,7 +208,7 @@ export class BuyerMyProductsViewModel {
       this.getDataGridState()
       this.getProductsMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -234,7 +234,7 @@ export class BuyerMyProductsViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.baseNoConvertedProducts = []
         this.productsMy = []
@@ -286,7 +286,7 @@ export class BuyerMyProductsViewModel {
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
 
-      console.log(error)
+      console.error(error)
     }
   }
 

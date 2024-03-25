@@ -133,7 +133,7 @@ export class VacantRequestsViewModel {
 
       this.getRequestsVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -163,7 +163,7 @@ export class VacantRequestsViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.requests = []
@@ -210,7 +210,7 @@ export class VacantRequestsViewModel {
       runInAction(() => {
         this.columnMenuSettings.filterRequestStatus = loadingStatuses.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -324,7 +324,7 @@ export class VacantRequestsViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -134,7 +134,7 @@ export class BuyerFreeOrdersViewModel {
       this.getDataGridState()
       await this.getOrdersVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -155,7 +155,7 @@ export class BuyerFreeOrdersViewModel {
       runInAction(() => {
         this.ordersVacant = []
       })
-      console.log(error)
+      console.error(error)
 
       this.setRequestStatus(loadingStatuses.FAILED)
     }
@@ -201,7 +201,7 @@ export class BuyerFreeOrdersViewModel {
       this.onTriggerOpenModal('showWarningModal')
 
       this.loadData()
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -225,7 +225,7 @@ export class BuyerFreeOrdersViewModel {
       UserModel.getUsersInfoCounters()
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

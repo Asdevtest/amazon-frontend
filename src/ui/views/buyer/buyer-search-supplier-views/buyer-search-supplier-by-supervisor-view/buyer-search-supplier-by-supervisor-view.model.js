@@ -71,7 +71,7 @@ export class BuyerSearchSupplierBySupervisorModel {
       runInAction(() => {
         this.requestStatus = loadingStatuses.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -84,7 +84,7 @@ export class BuyerSearchSupplierBySupervisorModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.productsVacant = []
@@ -106,7 +106,7 @@ export class BuyerSearchSupplierBySupervisorModel {
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -121,7 +121,7 @@ export class BuyerSearchSupplierBySupervisorModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
   setRequestStatus(requestStatus) {

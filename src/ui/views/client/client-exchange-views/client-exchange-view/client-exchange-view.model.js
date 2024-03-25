@@ -168,7 +168,7 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -189,7 +189,7 @@ export class ClientExchangeViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productsVacant = []
       })
@@ -205,7 +205,7 @@ export class ClientExchangeViewModel {
         this.selectedProduct = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -232,16 +232,12 @@ export class ClientExchangeViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async createOrder(orderObject) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (orderObject.tmpBarCode.length) {
         await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
       } else if (!orderObject.barCode) {
@@ -280,7 +276,7 @@ export class ClientExchangeViewModel {
       })
       await this.updateUserInfo()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -305,7 +301,7 @@ export class ClientExchangeViewModel {
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -324,7 +320,7 @@ export class ClientExchangeViewModel {
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -349,7 +345,7 @@ export class ClientExchangeViewModel {
       })
       this.onTriggerOpenModal('showWarningModal')
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -369,7 +365,7 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

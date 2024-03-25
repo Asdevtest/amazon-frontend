@@ -270,7 +270,7 @@ export class ClientInStockBoxesViewModel {
         this.destinations = destinations
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -387,7 +387,7 @@ export class ClientInStockBoxesViewModel {
 
       this.getDataGridState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -417,7 +417,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -452,7 +452,7 @@ export class ClientInStockBoxesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.onTriggerOpenModal('showConfirmModal')
 
@@ -493,7 +493,7 @@ export class ClientInStockBoxesViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -506,7 +506,7 @@ export class ClientInStockBoxesViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -526,10 +526,6 @@ export class ClientInStockBoxesViewModel {
   }
 
   async onClickSaveShippingLabel(tmpShippingLabel) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpShippingLabel.length) {
       await onSubmitPostImages.call(this, { images: tmpShippingLabel, type: 'uploadedFiles' })
     }
@@ -612,7 +608,7 @@ export class ClientInStockBoxesViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -678,7 +674,7 @@ export class ClientInStockBoxesViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -728,7 +724,7 @@ export class ClientInStockBoxesViewModel {
 
       this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -764,7 +760,7 @@ export class ClientInStockBoxesViewModel {
 
       this.getDataGridState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -778,7 +774,7 @@ export class ClientInStockBoxesViewModel {
       this.getShops()
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -841,10 +837,6 @@ export class ClientInStockBoxesViewModel {
         const resBoxes = []
 
         for (let i = 0; i < updatedBoxes.length; i++) {
-          runInAction(() => {
-            this.uploadedFiles = []
-          })
-
           if (updatedBoxes[i].tmpShippingLabel.length) {
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
@@ -909,7 +901,7 @@ export class ClientInStockBoxesViewModel {
       }
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -989,7 +981,7 @@ export class ClientInStockBoxesViewModel {
         this.onTriggerOpenModal('showEditMultipleBoxesModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1005,7 +997,7 @@ export class ClientInStockBoxesViewModel {
     try {
       await ClientModel.updateProductBarCode(id, { barCode: data })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1019,7 +1011,7 @@ export class ClientInStockBoxesViewModel {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1042,10 +1034,6 @@ export class ClientInStockBoxesViewModel {
         const isMultipleEdit = true
 
         if (newBox.tmpShippingLabel?.length) {
-          runInAction(() => {
-            this.uploadedFiles = []
-          })
-
           const findUploadedShippingLabel = uploadedShippingLabeles.find(
             el => el.strKey === JSON.stringify(newBox.tmpShippingLabel[0]),
           )
@@ -1148,7 +1136,7 @@ export class ClientInStockBoxesViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1157,7 +1145,7 @@ export class ClientInStockBoxesViewModel {
       await BoxesModel.editBoxAtClient(id, boxData)
       await this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1213,7 +1201,7 @@ export class ClientInStockBoxesViewModel {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1222,7 +1210,6 @@ export class ClientInStockBoxesViewModel {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
-        this.uploadedFiles = []
       })
 
       if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
@@ -1381,7 +1368,7 @@ export class ClientInStockBoxesViewModel {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
 
       if (!isMultipleEdit) {
         this.loadData()
@@ -1462,7 +1449,7 @@ export class ClientInStockBoxesViewModel {
       })
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1495,7 +1482,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
 
@@ -1519,7 +1506,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1542,7 +1529,7 @@ export class ClientInStockBoxesViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1567,7 +1554,7 @@ export class ClientInStockBoxesViewModel {
 
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1577,7 +1564,7 @@ export class ClientInStockBoxesViewModel {
 
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1588,7 +1575,7 @@ export class ClientInStockBoxesViewModel {
       await this.getBoxesMy()
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1598,7 +1585,7 @@ export class ClientInStockBoxesViewModel {
 
       await this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1670,7 +1657,7 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1681,7 +1668,7 @@ export class ClientInStockBoxesViewModel {
         this.shopsData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1739,7 +1726,7 @@ export class ClientInStockBoxesViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.boxesMy = []
@@ -1757,7 +1744,7 @@ export class ClientInStockBoxesViewModel {
     try {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1803,7 +1790,7 @@ export class ClientInStockBoxesViewModel {
       this.triggerRequestToSendBatchModal()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1834,7 +1821,7 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showWarningInfoModal')
 
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1866,7 +1853,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showMergeBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1880,7 +1867,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showRedistributeBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1945,7 +1932,7 @@ export class ClientInStockBoxesViewModel {
         this.currentBatch = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.currentBatch = undefined
       })
@@ -1974,7 +1961,7 @@ export class ClientInStockBoxesViewModel {
         this.order = resolve
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1986,7 +1973,7 @@ export class ClientInStockBoxesViewModel {
         this.productBatches = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productBatches = undefined
       })
@@ -2003,7 +1990,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -2036,7 +2023,7 @@ export class ClientInStockBoxesViewModel {
     try {
       await ClientModel.cancelOrder(orderId)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -2071,7 +2058,7 @@ export class ClientInStockBoxesViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -2095,7 +2082,7 @@ export class ClientInStockBoxesViewModel {
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -2123,10 +2110,6 @@ export class ClientInStockBoxesViewModel {
       for (let i = 0; i < ordersDataState.length; i++) {
         let orderObject = ordersDataState[i]
         let uploadedTransparencyFiles = []
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
@@ -2181,7 +2164,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showMyOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -2204,7 +2187,7 @@ export class ClientInStockBoxesViewModel {
 
       await this.updateUserInfo()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -2263,7 +2246,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

@@ -35,7 +35,7 @@ export class ModeratorAppealsViewModel {
     try {
       await this.getDealsVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -50,7 +50,7 @@ export class ModeratorAppealsViewModel {
         this.deals = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -61,7 +61,7 @@ export class ModeratorAppealsViewModel {
       })
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -74,7 +74,7 @@ export class ModeratorAppealsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
+      console.error(error)
     }
   }
 

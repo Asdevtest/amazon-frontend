@@ -46,7 +46,7 @@ export class ServicesDetailCustomViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -58,7 +58,7 @@ export class ServicesDetailCustomViewModel {
         this.request = requestData
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -69,7 +69,7 @@ export class ServicesDetailCustomViewModel {
         this.announcementData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -103,7 +103,7 @@ export class ServicesDetailCustomViewModel {
         this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

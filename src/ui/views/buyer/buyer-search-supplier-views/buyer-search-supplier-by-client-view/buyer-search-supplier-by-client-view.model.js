@@ -70,7 +70,7 @@ export class BuyerSearchSupplierByClientModel {
       runInAction(() => {
         this.requestStatus = loadingStatuses.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -93,7 +93,7 @@ export class BuyerSearchSupplierByClientModel {
       runInAction(() => {
         this.productsVacant = []
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -111,7 +111,7 @@ export class BuyerSearchSupplierByClientModel {
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -126,7 +126,7 @@ export class BuyerSearchSupplierByClientModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

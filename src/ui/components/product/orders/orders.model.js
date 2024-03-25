@@ -174,7 +174,7 @@ export class OrdersModel {
     try {
       this.getOrdersByProductId()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -189,7 +189,7 @@ export class OrdersModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.orders = []
       })
@@ -214,7 +214,7 @@ export class OrdersModel {
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -265,7 +265,7 @@ export class OrdersModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
       this.onTriggerOpenModal('showInfoModal')
@@ -347,7 +347,7 @@ export class OrdersModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

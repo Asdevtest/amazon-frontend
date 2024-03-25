@@ -74,7 +74,7 @@ export class DealsOnReviewModel {
     try {
       await this.getDealsVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -89,7 +89,7 @@ export class DealsOnReviewModel {
         this.deals = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -101,7 +101,7 @@ export class DealsOnReviewModel {
       })
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
+      console.error(error)
     }
   }
 

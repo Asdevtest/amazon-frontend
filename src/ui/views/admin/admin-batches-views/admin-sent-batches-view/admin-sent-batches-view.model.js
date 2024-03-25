@@ -151,7 +151,7 @@ export class AdminSentBatchesViewModel {
       await this.getBatches()
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -167,7 +167,7 @@ export class AdminSentBatchesViewModel {
         this.batches = warehouseBatchesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -177,7 +177,7 @@ export class AdminSentBatchesViewModel {
 
       this.onTriggerOpenModal('showBatchInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -197,7 +197,7 @@ export class AdminSentBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

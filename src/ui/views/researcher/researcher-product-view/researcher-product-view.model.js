@@ -106,7 +106,7 @@ export class ResearcherProductViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -122,7 +122,7 @@ export class ResearcherProductViewModel {
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -282,7 +282,7 @@ export class ResearcherProductViewModel {
         this.onTriggerOpenModal('showWarningModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
 
       if (isValidationErrors(error)) {
@@ -349,7 +349,7 @@ export class ResearcherProductViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -424,7 +424,7 @@ export class ResearcherProductViewModel {
       this.onTriggerOpenModal('showWarningModal')
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
 
       this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
@@ -459,7 +459,7 @@ export class ResearcherProductViewModel {
       !editingСontinues && this.history.push('/researcher/products')
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -500,7 +500,7 @@ export class ResearcherProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -511,7 +511,7 @@ export class ResearcherProductViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
       this.history.goBack()
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }

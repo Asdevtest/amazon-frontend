@@ -150,7 +150,7 @@ export class WarehouseCompletedViewModel {
       this.getDataGridState()
       this.getCompletedTasksPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -203,7 +203,7 @@ export class WarehouseCompletedViewModel {
         this.batches = []
         this.completedTasks = []
       })
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -224,7 +224,7 @@ export class WarehouseCompletedViewModel {
 
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

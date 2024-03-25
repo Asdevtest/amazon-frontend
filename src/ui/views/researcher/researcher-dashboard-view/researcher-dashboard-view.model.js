@@ -46,7 +46,7 @@ export class ResearcherDashboardViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -71,7 +71,7 @@ export class ResearcherDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

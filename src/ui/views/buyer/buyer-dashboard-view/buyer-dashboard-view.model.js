@@ -48,7 +48,7 @@ export class BuyerDashboardViewModel {
       runInAction(() => {
         this.requestStatus = loadingStatuses.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -99,7 +99,7 @@ export class BuyerDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

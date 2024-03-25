@@ -203,7 +203,7 @@ export class WarehouseAwaitingBatchesViewModel {
       this.getDataGridState()
       await this.getBatchesPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -234,7 +234,7 @@ export class WarehouseAwaitingBatchesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -294,7 +294,7 @@ export class WarehouseAwaitingBatchesViewModel {
       })
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.batches = []
@@ -329,7 +329,7 @@ export class WarehouseAwaitingBatchesViewModel {
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     } finally {
       runInAction(() => {
         this.showCircularProgress = false
@@ -373,7 +373,7 @@ export class WarehouseAwaitingBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -389,7 +389,7 @@ export class WarehouseAwaitingBatchesViewModel {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -405,7 +405,7 @@ export class WarehouseAwaitingBatchesViewModel {
     try {
       await BatchesModel.confirmSentToBatch(batchId)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -413,7 +413,7 @@ export class WarehouseAwaitingBatchesViewModel {
     try {
       await StorekeeperModel.confirmSendToStorekeeper(batchId)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -438,7 +438,7 @@ export class WarehouseAwaitingBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -479,7 +479,7 @@ export class WarehouseAwaitingBatchesViewModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

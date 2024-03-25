@@ -153,7 +153,7 @@ export class WarehouseCanceledTasksViewModel {
       this.getDataGridState()
       this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -167,7 +167,7 @@ export class WarehouseCanceledTasksViewModel {
 
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -213,7 +213,7 @@ export class WarehouseCanceledTasksViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.tasksMy = []
       })

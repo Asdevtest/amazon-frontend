@@ -138,7 +138,7 @@ export class ClientIdeasNotificationsViewModel {
       await this.getIdeas()
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -151,7 +151,7 @@ export class ClientIdeasNotificationsViewModel {
         this.ideas = ideaNoticeDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.ideas = []
       })

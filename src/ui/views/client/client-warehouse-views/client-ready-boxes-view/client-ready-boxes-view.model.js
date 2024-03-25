@@ -184,7 +184,7 @@ export class ClientReadyBoxesViewModel {
         this.selectedBoxes = []
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -205,7 +205,7 @@ export class ClientReadyBoxesViewModel {
       })
       this.getDataGridState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -219,7 +219,7 @@ export class ClientReadyBoxesViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -251,7 +251,7 @@ export class ClientReadyBoxesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -290,7 +290,7 @@ export class ClientReadyBoxesViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -308,7 +308,7 @@ export class ClientReadyBoxesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.onTriggerOpenModal('showConfirmModal')
 
@@ -340,7 +340,7 @@ export class ClientReadyBoxesViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.boxesMy = []
       })

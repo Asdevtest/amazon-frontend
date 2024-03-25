@@ -72,7 +72,7 @@ export class BuyerSearchSupplierForIdeaModel {
       runInAction(() => {
         this.requestStatus = loadingStatuses.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -93,7 +93,7 @@ export class BuyerSearchSupplierForIdeaModel {
       runInAction(() => {
         this.supplierSearchRequestsVacant = []
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -111,7 +111,7 @@ export class BuyerSearchSupplierForIdeaModel {
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -126,7 +126,7 @@ export class BuyerSearchSupplierForIdeaModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -94,7 +94,7 @@ export class CreateOrEditRequestViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -107,7 +107,7 @@ export class CreateOrEditRequestViewModel {
         this.masterUsersData = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -117,7 +117,7 @@ export class CreateOrEditRequestViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -191,7 +191,7 @@ export class CreateOrEditRequestViewModel {
         this.pushSuccess()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       if (error?.response?.error?.url?.includes('calculate_request_cost')) {
         this.pushSuccess()
@@ -244,7 +244,7 @@ export class CreateOrEditRequestViewModel {
         acceptMessage: this.acceptMessage,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.showAcceptMessage = true
@@ -278,7 +278,7 @@ export class CreateOrEditRequestViewModel {
         this.announcements = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -291,7 +291,7 @@ export class CreateOrEditRequestViewModel {
           this.requestToEdit = result
         })
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
   }
@@ -308,7 +308,7 @@ export class CreateOrEditRequestViewModel {
           this.executor = result?.createdBy
         })
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
   }
@@ -319,7 +319,7 @@ export class CreateOrEditRequestViewModel {
 
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -345,7 +345,7 @@ export class CreateOrEditRequestViewModel {
         this.specs = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -363,7 +363,7 @@ export class CreateOrEditRequestViewModel {
         this.productMedia = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

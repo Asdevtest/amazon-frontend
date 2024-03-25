@@ -178,7 +178,7 @@ export class AdminExchangeViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -206,7 +206,7 @@ export class AdminExchangeViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.currentProductsData = []
       })
@@ -318,7 +318,7 @@ export class AdminExchangeViewModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

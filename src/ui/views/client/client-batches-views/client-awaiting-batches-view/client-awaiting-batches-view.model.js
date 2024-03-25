@@ -173,7 +173,7 @@ export class ClientAwaitingBatchesViewModel {
         this.selectedProduct = undefined
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -187,7 +187,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.onTriggerOpenModal('showEditHSCodeModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -201,7 +201,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -232,7 +232,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.getDataGridState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -250,7 +250,7 @@ export class ClientAwaitingBatchesViewModel {
       this.getDataGridState()
       this.getBatchesPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -280,7 +280,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -304,7 +304,7 @@ export class ClientAwaitingBatchesViewModel {
       runInAction(() => {
         this.batches = []
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -326,7 +326,7 @@ export class ClientAwaitingBatchesViewModel {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -336,7 +336,7 @@ export class ClientAwaitingBatchesViewModel {
 
       await BatchesModel.removeBoxFromBatch(batch._id, boxesToRemoveIds)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -353,7 +353,7 @@ export class ClientAwaitingBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -382,7 +382,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -394,7 +394,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.setCurrentOpenedBatch(id, true)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -434,7 +434,7 @@ export class ClientAwaitingBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -478,7 +478,7 @@ export class ClientAwaitingBatchesViewModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

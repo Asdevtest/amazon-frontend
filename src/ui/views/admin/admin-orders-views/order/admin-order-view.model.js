@@ -53,7 +53,7 @@ export class AdminOrderViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -67,7 +67,7 @@ export class AdminOrderViewModel {
         this.order = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -79,7 +79,7 @@ export class AdminOrderViewModel {
         this.storekeepersData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -91,7 +91,7 @@ export class AdminOrderViewModel {
         this.orderBoxes = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -44,7 +44,7 @@ export class CreateOrEditTradingShopViewModel {
         this.infoModalText = t(TranslationKey['An request has been created'])
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The request was not created'])
@@ -68,7 +68,7 @@ export class CreateOrEditTradingShopViewModel {
         this.infoModalText = t(TranslationKey['The request has been changed'])
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The request has not been changed'])

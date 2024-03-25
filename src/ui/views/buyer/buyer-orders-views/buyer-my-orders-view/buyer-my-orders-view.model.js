@@ -202,7 +202,7 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -380,7 +380,7 @@ export class BuyerMyOrdersViewModel {
         }))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -433,7 +433,7 @@ export class BuyerMyOrdersViewModel {
         this.selectedOrder = orderData
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -492,7 +492,7 @@ export class BuyerMyOrdersViewModel {
         this.selectedOrder = orderData
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -596,7 +596,7 @@ export class BuyerMyOrdersViewModel {
       this.getBuyersOrdersPaymentByStatus()
       this.getSuppliersPaymentMethods()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -612,7 +612,7 @@ export class BuyerMyOrdersViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -623,7 +623,7 @@ export class BuyerMyOrdersViewModel {
         this.curBoxesOfOrder = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).reverse()
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.curBoxesOfOrder = []
@@ -645,7 +645,7 @@ export class BuyerMyOrdersViewModel {
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -659,7 +659,7 @@ export class BuyerMyOrdersViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -673,7 +673,7 @@ export class BuyerMyOrdersViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -698,7 +698,7 @@ export class BuyerMyOrdersViewModel {
 
         this.loadData()
       } catch (error) {
-        console.log(error)
+        console.error(error)
         this.setRequestStatus(loadingStatuses.FAILED)
       }
     }
@@ -845,7 +845,7 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -871,7 +871,7 @@ export class BuyerMyOrdersViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -892,7 +892,7 @@ export class BuyerMyOrdersViewModel {
         ...updateOrderDataFiltered,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -958,7 +958,7 @@ export class BuyerMyOrdersViewModel {
 
       await this.getBoxesOfOrder(order._id)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1005,7 +1005,7 @@ export class BuyerMyOrdersViewModel {
       })
       return
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1045,7 +1045,7 @@ export class BuyerMyOrdersViewModel {
         this.baseNoConvertedOrders = []
         this.ordersMy = []
       })
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -152,7 +152,7 @@ export class AdminAwaitingBatchesViewModel {
       await this.getBatches()
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -170,7 +170,7 @@ export class AdminAwaitingBatchesViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.batches = []
       })
@@ -189,7 +189,7 @@ export class AdminAwaitingBatchesViewModel {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

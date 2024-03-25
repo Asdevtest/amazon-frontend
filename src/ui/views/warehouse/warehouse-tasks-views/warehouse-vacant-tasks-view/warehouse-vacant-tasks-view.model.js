@@ -178,7 +178,7 @@ export class WarehouseVacantViewModel {
 
       this.getTasksVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -194,7 +194,7 @@ export class WarehouseVacantViewModel {
       })
       this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -227,7 +227,7 @@ export class WarehouseVacantViewModel {
         }, 3000)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -241,7 +241,7 @@ export class WarehouseVacantViewModel {
 
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -263,7 +263,7 @@ export class WarehouseVacantViewModel {
 
       await this.getTasksVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -275,7 +275,7 @@ export class WarehouseVacantViewModel {
 
       await this.getTasksVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -326,7 +326,7 @@ export class WarehouseVacantViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.tasksVacant = []
       })
@@ -346,7 +346,7 @@ export class WarehouseVacantViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -378,7 +378,7 @@ export class WarehouseVacantViewModel {
 
       this.getTasksVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

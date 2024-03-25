@@ -56,7 +56,7 @@ export class SupervisorDashboardViewModel {
       runInAction(() => {
         this.requestStatus = loadingStatuses.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -85,7 +85,7 @@ export class SupervisorDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -104,7 +104,7 @@ export class SupervisorDashboardViewModel {
         this.productsVacant = result.filter(el => el.icomment !== '')
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

@@ -66,7 +66,7 @@ export class ListingModel {
 
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -109,7 +109,7 @@ export class ListingModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -135,7 +135,7 @@ export class ListingModel {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -151,7 +151,7 @@ export class ListingModel {
         listingImages: updateProductData.listingImages.concat(this.imagesToLoad),
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -164,7 +164,7 @@ export class ListingModel {
       })
     } catch (error) {
       this.payments = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -186,7 +186,7 @@ export class ListingModel {
       })
     } catch (error) {
       this.payments = []
-      console.log(error)
+      console.error(error)
     }
   }
 

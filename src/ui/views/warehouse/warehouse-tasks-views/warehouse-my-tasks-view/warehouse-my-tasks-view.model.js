@@ -193,7 +193,7 @@ export class WarehouseMyTasksViewModel {
       this.getDataGridState()
       this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -263,7 +263,7 @@ export class WarehouseMyTasksViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.tasksMy = []
       })
@@ -288,7 +288,7 @@ export class WarehouseMyTasksViewModel {
       }))
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -333,7 +333,7 @@ export class WarehouseMyTasksViewModel {
 
       await BoxesModel.updateBox(id, updateBoxData)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -341,7 +341,7 @@ export class WarehouseMyTasksViewModel {
     try {
       await StorekeeperModel.updateStatusInOrder(id, data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -349,7 +349,7 @@ export class WarehouseMyTasksViewModel {
     try {
       await StorekeeperModel.resolveTask(taskId, { additionalBoxes: newBoxes })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -459,7 +459,7 @@ export class WarehouseMyTasksViewModel {
       await Promise.all([UserModel.getUserInfo(), this.getTasksMy()])
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -476,7 +476,7 @@ export class WarehouseMyTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -488,7 +488,7 @@ export class WarehouseMyTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -504,7 +504,7 @@ export class WarehouseMyTasksViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -536,7 +536,7 @@ export class WarehouseMyTasksViewModel {
 
       this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -551,7 +551,7 @@ export class WarehouseMyTasksViewModel {
       this.onSelectTask(response)
       this.onTriggerEditTaskModal()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

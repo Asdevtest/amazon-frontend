@@ -192,7 +192,7 @@ export class ClientOrdersViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -319,7 +319,7 @@ export class ClientOrdersViewModel {
       await this.getShops()
       await this.getOrders()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -331,7 +331,7 @@ export class ClientOrdersViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -417,7 +417,7 @@ export class ClientOrdersViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -436,7 +436,7 @@ export class ClientOrdersViewModel {
     try {
       await ClientModel.cancelOrder(orderId)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -450,7 +450,7 @@ export class ClientOrdersViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -462,7 +462,7 @@ export class ClientOrdersViewModel {
         this.productBatches = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productBatches = undefined
       })
@@ -500,7 +500,7 @@ export class ClientOrdersViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -526,7 +526,7 @@ export class ClientOrdersViewModel {
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -570,7 +570,7 @@ export class ClientOrdersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
 
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.baseNoConvertedOrders = []
@@ -586,10 +586,6 @@ export class ClientOrdersViewModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
@@ -622,7 +618,7 @@ export class ClientOrdersViewModel {
 
       await this.updateUserInfo()
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
@@ -640,10 +636,6 @@ export class ClientOrdersViewModel {
       for (let i = 0; i < ordersDataState.length; i++) {
         let orderObject = ordersDataState[i]
         let uploadedTransparencyFiles = []
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
@@ -701,7 +693,7 @@ export class ClientOrdersViewModel {
 
       this.showMyOrderModal = false
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -735,7 +727,7 @@ export class ClientOrdersViewModel {
         this.order = resolve
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -761,7 +753,7 @@ export class ClientOrdersViewModel {
         this.currentBatch = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.currentBatch = undefined
       })
@@ -793,7 +785,7 @@ export class ClientOrdersViewModel {
         this.productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.selectedWarehouseOrderProduct = undefined
@@ -813,7 +805,7 @@ export class ClientOrdersViewModel {
         this.destinations = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -825,7 +817,7 @@ export class ClientOrdersViewModel {
         this.storekeepers = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -898,7 +890,7 @@ export class ClientOrdersViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -912,7 +904,7 @@ export class ClientOrdersViewModel {
 
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

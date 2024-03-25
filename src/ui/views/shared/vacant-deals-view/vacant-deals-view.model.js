@@ -80,7 +80,7 @@ export class VacantDealsViewModel {
     try {
       await this.getDealsVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -95,7 +95,7 @@ export class VacantDealsViewModel {
         this.deals = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -107,7 +107,7 @@ export class VacantDealsViewModel {
       })
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -121,7 +121,7 @@ export class VacantDealsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
+      console.error(error)
     }
   }
 

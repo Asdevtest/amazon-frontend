@@ -142,7 +142,7 @@ export class SuppliersAndIdeasModel {
 
       this.getStorekeepers()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -182,7 +182,7 @@ export class SuppliersAndIdeasModel {
         this.curIdea = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -210,7 +210,7 @@ export class SuppliersAndIdeasModel {
 
       return res.guid
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -236,7 +236,7 @@ export class SuppliersAndIdeasModel {
         this.onTriggerOpenModal('showSuccessModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -320,7 +320,7 @@ export class SuppliersAndIdeasModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -368,7 +368,7 @@ export class SuppliersAndIdeasModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -401,7 +401,7 @@ export class SuppliersAndIdeasModel {
         this.onTriggerOpenModal('showMainRequestResultModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -476,7 +476,7 @@ export class SuppliersAndIdeasModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -556,7 +556,7 @@ export class SuppliersAndIdeasModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -588,7 +588,7 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -625,7 +625,7 @@ export class SuppliersAndIdeasModel {
         this.storekeepers = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -706,7 +706,7 @@ export class SuppliersAndIdeasModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -717,7 +717,7 @@ export class SuppliersAndIdeasModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -746,10 +746,6 @@ export class SuppliersAndIdeasModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
@@ -808,7 +804,7 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -829,7 +825,7 @@ export class SuppliersAndIdeasModel {
         await ClientModel.createOrder(requestData)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
@@ -880,7 +876,7 @@ export class SuppliersAndIdeasModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -898,7 +894,7 @@ export class SuppliersAndIdeasModel {
     } catch (error) {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
-      console.log(error)
+      console.error(error)
     }
   }
 }

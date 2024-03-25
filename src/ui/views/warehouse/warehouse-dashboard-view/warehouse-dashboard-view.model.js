@@ -46,7 +46,7 @@ export class WarehouseDashboardViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -65,7 +65,7 @@ export class WarehouseDashboardViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -80,7 +80,7 @@ export class WarehouseDashboardViewModel {
       this.onTriggerOpenModal('showAddOrEditDestinationModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -104,7 +104,7 @@ export class WarehouseDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

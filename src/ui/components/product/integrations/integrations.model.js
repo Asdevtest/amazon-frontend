@@ -63,7 +63,7 @@ export class IntegrationsModel {
     try {
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -75,7 +75,7 @@ export class IntegrationsModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -88,7 +88,7 @@ export class IntegrationsModel {
         this.product = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -106,7 +106,7 @@ export class IntegrationsModel {
         this.sellerBoardDailyData = addIdDataConverter(result?.rows)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       if (isRecCall) {
         this.getStockGoodsByFilters()
       } else {
@@ -127,7 +127,7 @@ export class IntegrationsModel {
       this.onTriggerOpenModal('showSuccessModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -143,7 +143,7 @@ export class IntegrationsModel {
     } catch (error) {
       this.onTriggerOpenModal('showInfoModal')
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -155,7 +155,7 @@ export class IntegrationsModel {
         this.sellerBoardData = stockReportDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.sellerBoardData = []

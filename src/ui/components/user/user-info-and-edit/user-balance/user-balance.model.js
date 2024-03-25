@@ -97,7 +97,7 @@ export class UserBalanceModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -131,7 +131,7 @@ export class UserBalanceModel {
         this.payments = financesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -143,7 +143,7 @@ export class UserBalanceModel {
         this.user = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -160,7 +160,7 @@ export class UserBalanceModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 }

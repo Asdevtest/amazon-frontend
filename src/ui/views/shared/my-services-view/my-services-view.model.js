@@ -112,7 +112,7 @@ export class MyServicesViewModel {
     try {
       this.getMyAnnouncementsData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -132,7 +132,7 @@ export class MyServicesViewModel {
         this.announcements = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

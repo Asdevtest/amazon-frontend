@@ -178,7 +178,7 @@ export class SupervisorProductsViewModel {
       this.getDataGridState()
       this.getProductsMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -210,7 +210,7 @@ export class SupervisorProductsViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -269,7 +269,7 @@ export class SupervisorProductsViewModel {
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
 
-      console.log(error)
+      console.error(error)
     }
   }
 

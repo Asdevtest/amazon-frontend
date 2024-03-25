@@ -182,7 +182,7 @@ export class AnotherProfileViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -202,7 +202,7 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -239,7 +239,7 @@ export class AnotherProfileViewModel {
       this.showWarningModalText = t(TranslationKey["You can't buy the product"])
       this.onTriggerOpenModal('showWarningModal')
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -257,7 +257,7 @@ export class AnotherProfileViewModel {
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -269,7 +269,7 @@ export class AnotherProfileViewModel {
         this.reviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -309,7 +309,7 @@ export class AnotherProfileViewModel {
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -341,7 +341,7 @@ export class AnotherProfileViewModel {
         this.selectedProduct = {}
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -392,7 +392,7 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -406,7 +406,7 @@ export class AnotherProfileViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productsVacant = []
       })
@@ -421,7 +421,7 @@ export class AnotherProfileViewModel {
         this.user = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

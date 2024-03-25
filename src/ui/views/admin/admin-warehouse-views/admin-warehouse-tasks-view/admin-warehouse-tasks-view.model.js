@@ -47,7 +47,7 @@ export class AdminWarehouseTasksViewModel {
 
       this.getTasks()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -126,7 +126,7 @@ export class AdminWarehouseTasksViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.tasksVacant = []
@@ -149,7 +149,7 @@ export class AdminWarehouseTasksViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }

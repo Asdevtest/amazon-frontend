@@ -151,7 +151,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -188,7 +188,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
         this.storekeepersData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -203,7 +203,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
       await this.getStorekeepers()
       this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -219,7 +219,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -291,7 +291,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
       await this.getBoxes()
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -306,7 +306,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.boxes = []
       })
@@ -323,7 +323,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

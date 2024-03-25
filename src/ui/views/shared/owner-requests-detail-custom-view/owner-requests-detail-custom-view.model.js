@@ -200,7 +200,7 @@ export class OwnerRequestDetailCustomViewModel {
       await this.getCustomProposalsForRequestCur()
       await this.getAnnouncementsByGuid(this.request?.request?.announcementId)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -240,7 +240,7 @@ export class OwnerRequestDetailCustomViewModel {
         this.request = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -321,7 +321,7 @@ export class OwnerRequestDetailCustomViewModel {
       })
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -353,7 +353,7 @@ export class OwnerRequestDetailCustomViewModel {
         this.requestProposals = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -367,7 +367,7 @@ export class OwnerRequestDetailCustomViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -379,7 +379,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -406,7 +406,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -417,7 +417,7 @@ export class OwnerRequestDetailCustomViewModel {
         this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -473,7 +473,7 @@ export class OwnerRequestDetailCustomViewModel {
       this.getCustomRequestCur()
       this.getCustomProposalsForRequestCur()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -497,7 +497,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -516,7 +516,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -532,7 +532,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests`)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -555,7 +555,7 @@ export class OwnerRequestDetailCustomViewModel {
       this.getCustomRequestCur()
       this.getCustomProposalsForRequestCur()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -576,7 +576,7 @@ export class OwnerRequestDetailCustomViewModel {
       this.onTriggerOpenModal('showRequestForm')
       this.getCustomRequestById()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -594,7 +594,7 @@ export class OwnerRequestDetailCustomViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

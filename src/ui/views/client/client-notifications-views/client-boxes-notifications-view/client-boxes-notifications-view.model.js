@@ -210,7 +210,7 @@ export class ClientBoxesNotificationsViewModel {
       await this.getBoxes()
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -240,7 +240,7 @@ export class ClientBoxesNotificationsViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -256,7 +256,7 @@ export class ClientBoxesNotificationsViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.boxes = []
       })
@@ -273,7 +273,7 @@ export class ClientBoxesNotificationsViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

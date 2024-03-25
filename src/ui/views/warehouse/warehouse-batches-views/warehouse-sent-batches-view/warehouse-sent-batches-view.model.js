@@ -195,7 +195,7 @@ export class WarehouseSentBatchesViewModel {
       this.getDataGridState()
       await this.getBatchesPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -226,7 +226,7 @@ export class WarehouseSentBatchesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -265,7 +265,7 @@ export class WarehouseSentBatchesViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.batches = []
@@ -296,7 +296,7 @@ export class WarehouseSentBatchesViewModel {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -324,7 +324,7 @@ export class WarehouseSentBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -369,7 +369,7 @@ export class WarehouseSentBatchesViewModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

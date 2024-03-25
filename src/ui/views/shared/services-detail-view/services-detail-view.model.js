@@ -83,7 +83,7 @@ export class ServiceDetailsViewModel {
     try {
       await this.getAnnouncementsDataByGuid()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -96,7 +96,7 @@ export class ServiceDetailsViewModel {
         })
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -110,7 +110,7 @@ export class ServiceDetailsViewModel {
       }
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -119,7 +119,7 @@ export class ServiceDetailsViewModel {
       await AnnouncementsModel.deleteAnnouncementsByGuid(this.announcementId)
       this.history.push(`/freelancer/freelance/my-services`)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -187,7 +187,7 @@ export class ServiceDetailsViewModel {
         this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

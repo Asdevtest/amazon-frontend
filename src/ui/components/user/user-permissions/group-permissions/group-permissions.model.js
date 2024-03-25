@@ -133,7 +133,7 @@ export class GroupPermissionsModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -148,7 +148,7 @@ export class GroupPermissionsModel {
       })
     } catch (error) {
       this.payments = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -160,7 +160,7 @@ export class GroupPermissionsModel {
       })
     } catch (error) {
       this.payments = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -170,7 +170,7 @@ export class GroupPermissionsModel {
 
       this.newPermissionIds = [...this.newPermissionIds, newPermissionId.guid]
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -182,7 +182,7 @@ export class GroupPermissionsModel {
         await this.createSinglePermission(perm)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -199,7 +199,7 @@ export class GroupPermissionsModel {
       this.getGroupPermissions()
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -207,7 +207,7 @@ export class GroupPermissionsModel {
     try {
       await PermissionsModel.createGroupPermission(data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -217,7 +217,7 @@ export class GroupPermissionsModel {
 
       await PermissionsModel.updateGroupPermission(permissionId, allowData)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -234,7 +234,7 @@ export class GroupPermissionsModel {
       this.getGroupPermissions()
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -293,7 +293,7 @@ export class GroupPermissionsModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.getGroupPermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

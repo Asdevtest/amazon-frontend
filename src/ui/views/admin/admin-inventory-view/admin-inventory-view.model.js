@@ -196,7 +196,7 @@ export class AdminInventoryViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
 
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.products = []
@@ -315,7 +315,7 @@ export class AdminInventoryViewModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

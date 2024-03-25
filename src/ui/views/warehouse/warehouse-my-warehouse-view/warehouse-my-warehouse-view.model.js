@@ -216,7 +216,7 @@ export class WarehouseMyWarehouseViewModel {
       this.getDataGridState()
       this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -228,7 +228,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -256,7 +256,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -300,10 +300,6 @@ export class WarehouseMyWarehouseViewModel {
         const sourceBox = selectedBoxes[i]
 
         if (newBox.tmpShippingLabel?.length) {
-          runInAction(() => {
-            this.uploadedFiles = []
-          })
-
           const findUploadedShippingLabel = uploadedShippingLabeles.find(
             el => el.strKey === JSON.stringify(newBox.tmpShippingLabel[0]),
           )
@@ -414,16 +410,14 @@ export class WarehouseMyWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickSubmitEditBox({ id, boxData, imagesOfBox, isMultipleEdit }) {
     runInAction(() => {
       this.selectedBoxes = []
-      this.uploadedFiles = []
       this.uploadedTrackNumber = []
-      this.uploadedImages = []
     })
 
     if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
@@ -536,7 +530,7 @@ export class WarehouseMyWarehouseViewModel {
         this.onTriggerOpenModal('showSuccessInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       if (error.message === Errors.INVALID_IMAGE) {
         runInAction(() => {
@@ -581,7 +575,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showEditBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -593,7 +587,7 @@ export class WarehouseMyWarehouseViewModel {
         this.batches = warehouseBatchesDataConverter(batches, this.platformSettings?.volumeWeightCoefficient)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -606,7 +600,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -619,7 +613,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -643,7 +637,7 @@ export class WarehouseMyWarehouseViewModel {
         this.onTriggerOpenModal('showEditMultipleBoxesModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -683,7 +677,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showMergeBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -707,10 +701,6 @@ export class WarehouseMyWarehouseViewModel {
         const resBoxes = []
 
         for (let i = 0; i < updatedBoxes.length; i++) {
-          runInAction(() => {
-            this.uploadedFiles = []
-          })
-
           if (updatedBoxes[i].tmpShippingLabel.length) {
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
@@ -781,7 +771,7 @@ export class WarehouseMyWarehouseViewModel {
       await this.getBoxesMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -791,7 +781,7 @@ export class WarehouseMyWarehouseViewModel {
       await this.getBoxesMy()
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -848,7 +838,7 @@ export class WarehouseMyWarehouseViewModel {
       })
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -857,7 +847,7 @@ export class WarehouseMyWarehouseViewModel {
       const result = await BoxesModel.mergeBoxes(ids, boxBody)
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -883,7 +873,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showRedistributeBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -920,7 +910,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.onTriggerOpenModal('showGroupingBoxesModal')
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -974,7 +964,7 @@ export class WarehouseMyWarehouseViewModel {
       })
       this.onTriggerShowEditBoxModal()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1005,7 +995,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerShowEditBoxModal()
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1026,7 +1016,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showAddBatchModal')
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1036,7 +1026,7 @@ export class WarehouseMyWarehouseViewModel {
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1050,7 +1040,7 @@ export class WarehouseMyWarehouseViewModel {
       this.loadData()
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1064,7 +1054,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1080,7 +1070,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showAddBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1113,7 +1103,7 @@ export class WarehouseMyWarehouseViewModel {
       })
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.boxesMy = []
         this.baseBoxesMy = []
@@ -1172,7 +1162,7 @@ export class WarehouseMyWarehouseViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
