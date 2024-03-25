@@ -28,6 +28,20 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './owner-request-proposals-card.style'
 
+export const showDesignerResultBtnStatuses = [
+  RequestProposalStatus.READY_TO_VERIFY,
+  RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
+  RequestProposalStatus.TO_CORRECT,
+  RequestProposalStatus.CORRECTED,
+
+  RequestProposalStatus.ACCEPTED_BY_CLIENT,
+  RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+  RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+
+  RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+  RequestProposalStatus.PROPOSAL_EDITED,
+]
+
 export const OwnerRequestProposalsCard = ({
   item,
   request,
@@ -54,20 +68,6 @@ export const OwnerRequestProposalsCard = ({
       setShowMainRequestResultModal(!showMainRequestResultModal)
     }
   }
-
-  const showDesignerResultBtnStatuses = [
-    RequestProposalStatus.READY_TO_VERIFY,
-    RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
-    RequestProposalStatus.TO_CORRECT,
-    RequestProposalStatus.CORRECTED,
-
-    RequestProposalStatus.ACCEPTED_BY_CLIENT,
-    RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
-    RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-
-    RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
-    RequestProposalStatus.PROPOSAL_EDITED,
-  ]
 
   const statusesReworkAndReceiveButtons = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED]
 
