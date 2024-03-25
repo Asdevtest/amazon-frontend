@@ -19,21 +19,14 @@ import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/shared/patform-settings'
-import { UploadFileType } from '@typings/shared/upload-file'
 
 interface ISuppliersOrderColumn {
   orderCreatedAt: string
   orderSupplierId: string
-  onClickFilesCell: (files?: UploadFileType[]) => void
   platformSettings?: IPlatformSettings
 }
 
-export const suppliersOrderColumn = ({
-  orderCreatedAt,
-  orderSupplierId,
-  platformSettings,
-  onClickFilesCell,
-}: ISuppliersOrderColumn) => [
+export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platformSettings }: ISuppliersOrderColumn) => [
   {
     field: 'supplier',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
@@ -136,9 +129,7 @@ export const suppliersOrderColumn = ({
   {
     field: 'files',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: ({ row }: GridRowModel) => (
-      <FilesCell filesLength={row.images?.length} onClickCell={() => onClickFilesCell(row.images)} />
-    ),
+    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} />,
     filterable: false,
     sortable: false,
     width: 80,

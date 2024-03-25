@@ -46,9 +46,7 @@ export const adminFeedbackViewColumns = handlers => [
     field: 'files',
     headerName: t(TranslationKey.Files),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: params => (
-      <FilesCell filesLength={params.value?.length} onClickCell={() => handlers.onClickFilesCell(params.value)} />
-    ),
+    renderCell: params => <FilesCell files={params.value} />,
     filterable: false,
     sortable: false,
     width: 80,
