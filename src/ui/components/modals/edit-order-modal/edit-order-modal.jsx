@@ -33,7 +33,7 @@ import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { SaveIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
@@ -187,7 +187,6 @@ export const EditOrderModal = memo(
 
     const [orderPayments, setOrderPayments] = useState(orderFields.payments)
     const [photosToLoad, setPhotosToLoad] = useState(orderFields.images)
-    const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
     const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
 
     const renderHeadRow = () => (
@@ -294,7 +293,6 @@ export const EditOrderModal = memo(
       hsCode,
       trackNumber: trackNumber.text || trackNumber.files.length ? trackNumber : null,
       commentToWarehouse,
-      paymentDetailsPhotosToLoad,
       editPaymentDetailsPhotos,
       orderPayments,
     })
@@ -443,11 +441,6 @@ export const EditOrderModal = memo(
         case 'SUBMIT':
           return onSubmitSaveOrder(getDataForSaveOrder())
       }
-    }
-
-    const onClickSavePaymentDetails = (loadedFiles, editedFiles) => {
-      setPaymentDetailsPhotosToLoad(loadedFiles)
-      setEditPaymentDetailsPhotos(editedFiles)
     }
 
     const disableSubmit =
@@ -666,7 +659,7 @@ export const EditOrderModal = memo(
           <SelectFields
             orderPayments={orderPayments}
             userInfo={userInfo}
-            paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
+            editPaymentDetailsPhotos={editPaymentDetailsPhotos}
             hsCode={hsCode}
             setHsCode={setHsCode}
             yuanToDollarRate={platformSettings?.yuanToDollarRate}
@@ -705,6 +698,7 @@ export const EditOrderModal = memo(
 
           <ListSuppliers
             formFields={orderFields}
+            defaultSupplierId={order?.orderSupplier?._id}
             checkIsPlanningPrice={checkIsPlanningPrice}
             onClickSaveSupplier={onClickSaveSupplierBtn}
             onSaveProduct={handleSaveProduct}
@@ -804,7 +798,7 @@ export const EditOrderModal = memo(
 
                 <div className={styles.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
-                    <PhotoAndFilesSlider withAllFiles customSlideHeight={85} files={trackNumber.files} />
+                    <SlideshowGallery slidesToShow={2} files={trackNumber.files} />
                   ) : (
                     <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                   )}
@@ -873,38 +867,42 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        <ConfirmationModal
-          // @ts-ignore
-          openModal={showConfirmModal}
-          setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
-          title={t(TranslationKey['Attention. Are you sure?'])}
-          message={confirmModalMessageByMode(confirmModalMode)}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            confirmModalActionByMode(confirmModalMode)
-            setShowConfirmModal(!showConfirmModal)
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
+            title={t(TranslationKey['Attention. Are you sure?'])}
+            message={confirmModalMessageByMode(confirmModalMode)}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={() => {
+              confirmModalActionByMode(confirmModalMode)
+              setShowConfirmModal(!showConfirmModal)
 
-            if (Number(tmpNewOrderFieldsState.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
-              setPaymentMethodsModal(!paymentMethodsModal)
-            }
-          }}
-          onClickCancelBtn={() => {
-            if (confirmModalMode === confirmModalModes.STATUS) {
-              setTmpNewOrderFieldsState(prevState => ({ ...prevState, status: '' }))
-            }
-            setShowConfirmModal(!showConfirmModal)
-          }}
-        />
+              if (Number(tmpNewOrderFieldsState.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
+                setPaymentMethodsModal(!paymentMethodsModal)
+              }
+            }}
+            onClickCancelBtn={() => {
+              if (confirmModalMode === confirmModalModes.STATUS) {
+                setTmpNewOrderFieldsState(prevState => ({ ...prevState, status: '' }))
+              }
+              setShowConfirmModal(!showConfirmModal)
+            }}
+          />
+        ) : null}
 
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={showWarningInfoModal}
-          setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
-          title={t(TranslationKey['PAY ATTENTION!!!'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => setShowWarningInfoModal(!showWarningInfoModal)}
-        />
+        {showWarningInfoModal ? (
+          <WarningInfoModal
+            // @ts-ignore
+            openModal={showWarningInfoModal}
+            setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
+            title={t(TranslationKey['PAY ATTENTION!!!'])}
+            btnText={t(TranslationKey.Ok)}
+            onClickBtn={() => setShowWarningInfoModal(!showWarningInfoModal)}
+          />
+        ) : null}
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
@@ -916,13 +914,15 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        <SlideshowGalleryModal
-          files={bigImagesOptions.images}
-          currentFileIndex={bigImagesOptions.imgIndex}
-          openModal={showPhotosModal}
-          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
+        {showPhotosModal ? (
+          <SlideshowGalleryModal
+            files={bigImagesOptions.images}
+            currentFileIndex={bigImagesOptions.imgIndex}
+            openModal={showPhotosModal}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          />
+        ) : null}
 
         <Modal
           openModal={showCheckQuantityModal}
@@ -952,10 +952,8 @@ export const EditOrderModal = memo(
           setOpenModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
         >
           <SupplierPaymentForm
-            uploadedFiles={paymentDetailsPhotosToLoad}
             editPaymentDetailsPhotos={editPaymentDetailsPhotos}
             setEditPaymentDetailsPhotos={setEditPaymentDetailsPhotos}
-            onClickSaveButton={onClickSavePaymentDetails}
             onCloseModal={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
         </Modal>

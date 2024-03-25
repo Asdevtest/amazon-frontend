@@ -6,6 +6,8 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
 
+import { useImageValidation } from '@hooks/use-image-validation'
+
 interface SlideByTypeProps {
   mediaFile: UploadFileType
   mediaFileIndex: number
@@ -24,7 +26,7 @@ export const SlideByType: FC<SlideByTypeProps> = memo(props => {
   const documentLink = isString(mediaFile) ? getAmazonImageUrl(mediaFile) : '/'
 
   if (checkIsImageLink(mediaFileToCheck)) {
-    return <ImageComponent src={displayedMediaFile} alt={`Slide ${mediaFileIndex}`} />
+    return <ImageComponent src={useImageValidation(displayedMediaFile)} alt={`Slide ${mediaFileIndex}`} />
   } else if (checkIsVideoLink(mediaFileToCheck)) {
     return <VideoComponent videoSource={displayedMediaFile} />
   } else if (checkIsDocumentLink(mediaFileToCheck)) {

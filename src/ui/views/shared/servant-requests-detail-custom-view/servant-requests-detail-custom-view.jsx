@@ -136,15 +136,17 @@ export const RequestDetailCustomView = observer(({ history }) => {
         ) : null}
       </div>
 
-      <WarningInfoModal
-        // @ts-ignore
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-      />
+      {viewModel.showWarningModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        />
+      ) : null}
 
       <Modal
         missClickModalOn
@@ -161,21 +163,25 @@ export const RequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      <MainRequestResultModal
-        customProposal={findRequestProposalForCurChat}
-        userInfo={viewModel.userInfo}
-        openModal={viewModel.showMainRequestResultModal}
-        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
-        onEditCustomProposal={viewModel.onSendResultAfterRework}
-      />
+      {viewModel.showMainRequestResultModal ? (
+        <MainRequestResultModal
+          customProposal={findRequestProposalForCurChat}
+          userInfo={viewModel.userInfo}
+          openModal={viewModel.showMainRequestResultModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+          onEditCustomProposal={viewModel.onSendResultAfterRework}
+        />
+      ) : null}
 
-      <RequestResultModal
-        // @ts-ignore
-        request={viewModel.request}
-        openModal={viewModel.showRequestResultModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
-        onClickSendAsResult={viewModel.onClickSendAsResult}
-      />
+      {viewModel.showRequestResultModal ? (
+        <RequestResultModal
+          // @ts-ignore
+          request={viewModel.request}
+          openModal={viewModel.showRequestResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+          onClickSendAsResult={viewModel.onClickSendAsResult}
+        />
+      ) : null}
 
       <Modal
         missClickModalOn
@@ -189,18 +195,20 @@ export const RequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Reject the deal'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.onClickCancelRequestProposal}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Reject the deal'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.onClickCancelRequestProposal}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
       {viewModel.showProgress && <CircularProgressWithLabel />}
     </>

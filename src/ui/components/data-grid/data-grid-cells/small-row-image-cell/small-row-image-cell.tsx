@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'

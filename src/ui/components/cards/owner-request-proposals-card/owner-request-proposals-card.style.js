@@ -144,15 +144,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  photoWrapper: {
-    marginLeft: '60px',
-    width: '391px',
-    height: '152px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
   cardContentWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

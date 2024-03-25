@@ -1,5 +1,5 @@
 import isEqual from 'lodash.isequal'
-import { FC, memo, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import { Modal } from '@components/shared/modal'
 
@@ -53,10 +53,6 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
     isPendingOrdering,
   } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles } = useStyles()
 
   const getInitialOrderState = (): IOrderWithAdditionalFields => ({
@@ -68,7 +64,12 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
     deadline: order?.deadline || null,
     tmpBarCode: [],
   })
+
   const [formFields, setFormFields] = useState<IOrderWithAdditionalFields>(getInitialOrderState())
+
+  useEffect(() => {
+    setFormFields(getInitialOrderState())
+  }, [order])
 
   const isOrderEditable = formFields?.status <= OrderStatus.READY_FOR_BUYOUT
   const stateComparison = isEqual(getInitialOrderState(), formFields)

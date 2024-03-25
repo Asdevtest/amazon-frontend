@@ -1,14 +1,17 @@
-import { Dispatch, FC, SetStateAction, memo, useEffect, useRef } from 'react'
+import { Dispatch, FC, SetStateAction, memo } from 'react'
 
-import { FileIcon } from '@components/shared/file-icon'
+import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { getCustomHeightSubjectToQuantitySlides } from '@components/shared/slideshow-gallery/helpers/get-custom-height'
 import {
   DEFAULT_PREVIEWS_SLIDE_HEIGHT,
   PREVIEWS_SLIDE_HEIGHT_IN_MODAL,
+  REDUCTION_FACTOR,
 } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { UploadFileType } from '@typings/shared/upload-file'
+
+import { useScrollToFile } from '@hooks/use-scroll-to-file'
 
 import { useStyles } from './slides.style'
 
@@ -41,26 +44,8 @@ export const Slides: FC<SlidesProps> = memo(props => {
     isModalSize,
   )
   const finalVideoHeight = isModalSize ? PREVIEWS_SLIDE_HEIGHT_IN_MODAL : DEFAULT_PREVIEWS_SLIDE_HEIGHT
-  const activeSlideRef = useRef<HTMLDivElement | null>(null)
 
-  useEffect(() => {
-    const childElement = activeSlideRef.current
-
-    if (!childElement) return
-
-    const parentElement = childElement?.parentElement
-
-    if (!parentElement) return
-
-    const parentRect = parentElement.getBoundingClientRect()
-    const childRect = childElement.getBoundingClientRect()
-
-    const offset = (parentRect.height - childRect.height) / 2
-
-    const top = childRect.top - parentRect.top + parentElement.scrollTop - offset
-
-    parentElement?.scrollTo({ top })
-  }, [currentMediaFileIndex])
+  const activeSlideRef = useScrollToFile(currentMediaFileIndex)
 
   return (
     <div
@@ -94,7 +79,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
                 className={styles.document}
                 onClick={e => e.preventDefault()} // fix follow the link to the previews
               >
-                <FileIcon fileExtension={fileExtension} className={styles.fileIcon} />
+                <CustomFileIcon fileExtension={fileExtension} height={`${finalVideoHeight * REDUCTION_FACTOR}px`} />
                 <span className={styles.linkText}>{documentLink}</span>
               </a>
             )}

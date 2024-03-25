@@ -2,7 +2,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -31,7 +31,7 @@ export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
         containerClasses={styles.filesWrapper}
         labelClasses={styles.label}
         label={t(TranslationKey.Files)}
-        inputComponent={<PhotoAndFilesSlider alignLeft smallSlider showPreviews files={feedback.media} />}
+        inputComponent={<SlideshowGallery slidesToShow={2} files={feedback.media} />}
       />
 
       <div className={styles.buttonsWrapper}>

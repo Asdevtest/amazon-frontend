@@ -7,13 +7,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatMessageDataProposalStatusChangedContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { formatDateTimeHourAndMinutes, formatNormDateTime } from '@utils/date-time'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useStyles } from './chat-message-proposal-status-changed.style'
 
@@ -26,7 +24,6 @@ interface Props {
 
 export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowChatInfo }) => {
   const { classes: styles, cx } = useStyles()
-  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   if (message.data.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
     return (
@@ -53,14 +50,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowCha
 
             {message?.data?.reason ? <p className={styles.reasonText}>{message?.data?.reason}</p> : null}
 
-            {message.data?.linksToMediaFiles?.length > 0 && (
-              <PhotoAndFilesSlider
-                alignLeft
-                smallSlider
-                column={isShowChatInfo || isMobileResolution}
-                files={message.data.linksToMediaFiles}
-              />
-            )}
+            <SlideshowGallery slidesToShow={2} files={message.data.linksToMediaFiles || []} />
 
             <div className={cx(styles.footerWrapper, { [styles.footerWrapperShowChatInfo]: isShowChatInfo })}>
               <div className={styles.labelValueBlockWrapper}>

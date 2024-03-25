@@ -394,10 +394,6 @@ export class ResearcherProductViewModel {
         const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, amazonResult.price)
         this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
 
-        if (!sellerCentralResult.amazonFee) {
-          throw new Error('fbafee <= 0')
-        }
-
         runInAction(() => {
           if (Object.keys(sellerCentralResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})

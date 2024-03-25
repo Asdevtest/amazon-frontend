@@ -21,6 +21,7 @@ export const LinkWithCopy: FC<LinkWithCopyProps> = memo(props => {
         rel="noreferrer noopener"
         href={url}
         className={cx(styles.normalizeLink, { [styles.mediumSizeLinkText]: linkTextSize === 'medium' })}
+        onClick={e => e.stopPropagation()}
       >
         {title}
       </a>

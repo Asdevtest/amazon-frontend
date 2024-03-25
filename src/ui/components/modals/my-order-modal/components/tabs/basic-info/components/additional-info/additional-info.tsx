@@ -60,18 +60,20 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={onToggleConfirmModal}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings?.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-        onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={onToggleConfirmModal}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+        />
+      ) : null}
     </>
   )
 })

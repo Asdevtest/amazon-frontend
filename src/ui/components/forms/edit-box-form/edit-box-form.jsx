@@ -24,9 +24,9 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
@@ -326,9 +326,7 @@ export const EditBoxForm = memo(
                       return (
                         <div key={index} className={styles.productWrapper}>
                           <div className={styles.leftProductColumn}>
-                            <div className={styles.photoWrapper}>
-                              <PhotoAndFilesSlider withoutFiles files={item.product.images} />
-                            </div>
+                            <SlideshowGallery slidesToShow={2} files={item.product.images} />
 
                             <div>
                               <Field
@@ -671,7 +669,8 @@ export const EditBoxForm = memo(
                   <Typography className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoAndFilesSlider withoutFiles files={boxFields.images} />
+
+                  <SlideshowGallery slidesToShow={2} files={boxFields.images} />
                 </div>
 
                 <div className={styles.commentsWrapper}>
@@ -756,13 +755,15 @@ export const EditBoxForm = memo(
           </Button>
         </div>
 
-        <SlideshowGalleryModal
-          openModal={showPhotosModal}
-          files={bigImagesOptions.images}
-          currentFileIndex={bigImagesOptions.imgIndex}
-          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
+        {showPhotosModal ? (
+          <SlideshowGalleryModal
+            openModal={showPhotosModal}
+            files={bigImagesOptions.images}
+            currentFileIndex={bigImagesOptions.imgIndex}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          />
+        ) : null}
 
         <Modal
           openModal={showSetShippingLabelModal}
@@ -816,18 +817,20 @@ export const EditBoxForm = memo(
           />
         </Modal>
 
-        <ConfirmationModal
-          // @ts-ignore
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => setShowConfirmModal(false)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(false)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </div>
     )
   },

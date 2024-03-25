@@ -184,12 +184,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   clientComment: {
-    fontSize: 16,
-    lineHeight: '22px',
+    fontSize: 14,
+    lineHeight: '19px',
     color: '#DF0C0C',
-    wordBreak: 'break-word',
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 2,

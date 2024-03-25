@@ -53,7 +53,7 @@ export const VacantRequestsView = observer(({ history }) => {
         />
 
         <SearchInput
-          placeholder={t(TranslationKey['Search by Title, ASIN, ID'])}
+          placeholder={t(TranslationKey['Search by Title, ASIN, SKU, ID'])}
           inputClasses={styles.searchInput}
           value={viewModel.nameSearchValue}
           onSubmit={viewModel.onSearchSubmit}
@@ -156,15 +156,17 @@ export const VacantRequestsView = observer(({ history }) => {
         )
       )}
 
-      <FreelanceRequestDetailsModal
-        // @ts-ignore
-        openModal={viewModel.showRequestDetailModal}
-        request={viewModel.currentRequestDetails?.request}
-        details={viewModel.currentRequestDetails?.details}
-        handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
-        onClickSuggest={viewModel.onClickSuggest}
-        onClickOpenNewTab={viewModel.onClickOpenInNewTab}
-      />
+      {viewModel.showRequestDetailModal ? (
+        <FreelanceRequestDetailsModal
+          // @ts-ignore
+          openModal={viewModel.showRequestDetailModal}
+          request={viewModel.currentRequestDetails?.request}
+          details={viewModel.currentRequestDetails?.details}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+          onClickSuggest={viewModel.onClickSuggest}
+          onClickOpenNewTab={viewModel.onClickOpenInNewTab}
+        />
+      ) : null}
     </>
   )
 })

@@ -58,7 +58,7 @@ export const feedBackDataConverter = data =>
     id: item._id,
     _id: item._id,
 
-    media: item.media,
+    files: item.media,
     text: item.text,
     userName: item.user.name,
     updatedAt: item.updatedAt,
@@ -745,7 +745,7 @@ export const adminBoxesDataConverter = data =>
     id: item._id,
     _id: item._id,
 
-    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
+    amount: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
     amazonPrice: calcPriceForBox(item),
 

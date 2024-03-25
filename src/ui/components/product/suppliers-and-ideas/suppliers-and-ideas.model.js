@@ -33,7 +33,6 @@ export class SuppliersAndIdeasModel {
 
   curIdea = undefined
   ideaForReject = undefined
-  ideaIdToCreateSupplier = undefined
   currentProduct = undefined
   productToOrder = undefined
   currentProposal = undefined
@@ -55,8 +54,6 @@ export class SuppliersAndIdeasModel {
   dataToCreateProduct = undefined
 
   successModalTitle = ''
-
-  forceUpdateCallBack = undefined
 
   readyFiles = []
   progressValue = 0
@@ -225,7 +222,14 @@ export class SuppliersAndIdeasModel {
         runInAction(() => {
           this.successModalSettings = {
             modalTitle: t(TranslationKey['Idea edited']),
-            onClickSuccessBtn: () => this.onTriggerOpenModal('showSuccessModal'),
+            onClickSuccessBtn: () => {
+              if (this.isModalView) {
+                this.closeModalHandler()
+              } else {
+                this.onTriggerOpenModal('showSuccessModal')
+              }
+              this.updateData()
+            },
           }
         })
 
@@ -300,11 +304,9 @@ export class SuppliersAndIdeasModel {
         )
 
         await this.getIdea(createdIdeaId)
-
-        this.loadData()
       }
 
-      if (isForceUpdate) {
+      /* if (isForceUpdate) {
         runInAction(() => {
           this.inCreate = false
           this.inEdit = true
@@ -314,22 +316,7 @@ export class SuppliersAndIdeasModel {
           this.inCreate = false
           this.inEdit = false
         })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSaveIcon(formFields, isForceUpdate) {
-    try {
-      const submitDataWhite = getObjectFilteredByKeyArrayWhiteList(
-        {
-          ...formFields,
-        },
-        ['status'],
-      )
-
-      await this.editIdea(formFields._id, submitDataWhite, isForceUpdate)
+      } */
 
       this.loadData()
     } catch (error) {
@@ -642,7 +629,7 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, ideaFormFields, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
@@ -670,14 +657,6 @@ export class SuppliersAndIdeasModel {
         imageUnit: this.readyImages,
       }
 
-      if (this.forceUpdateCallBack && this.inCreate) {
-        await this.forceUpdateCallBack()
-
-        runInAction(() => {
-          this.inCreate = undefined
-        })
-      }
-
       if (supplier?._id) {
         const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
           supplier,
@@ -688,19 +667,42 @@ export class SuppliersAndIdeasModel {
         )
         await SupplierModel.updateSupplier(supplier?._id, supplierUpdateData)
       } else {
+        if (!itemId) {
+          await onSubmitPostImages.call(this, { images: ideaFormFields.media, type: 'readyImages' })
+
+          const submitData = {
+            ...ideaFormFields,
+            title: ideaFormFields.productName || '',
+            media: this.readyImages,
+            price: ideaFormFields.price || 0,
+            quantity: Math.floor(ideaFormFields.quantity) || 0,
+          }
+
+          const createdIdeaId = await this.createIdea(
+            getObjectFilteredByKeyArrayWhiteList({ ...submitData, parentProductId: this.productId }, IdeaCreate),
+            true,
+          )
+
+          if (createdIdeaId) {
+            runInAction(() => {
+              this.currentIdeaId = createdIdeaId
+            })
+          }
+        }
+
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await IdeaModel.addSuppliersToIdea(itemId || this.ideaIdToCreateSupplier, {
+        await IdeaModel.addSuppliersToIdea(itemId || this.currentIdeaId, {
           suppliersIds: [createSupplierResult?.guid],
         })
+
+        await this.getIdea(itemId || this.currentIdeaId)
       }
 
-      if (itemId) {
-        this.getIdea(itemId)
-      } else {
-        this.loadData()
-      }
+      runInAction(() => {
+        this.currentIdeaId = undefined
+      })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
@@ -711,10 +713,6 @@ export class SuppliersAndIdeasModel {
 
   async onRemoveSupplier(supplierId, itemId) {
     try {
-      if (this.forceUpdateCallBack) {
-        await this.forceUpdateCallBack()
-      }
-
       await IdeaModel.removeSupplierFromIdea(itemId, { suppliersId: supplierId })
 
       this.loadData()

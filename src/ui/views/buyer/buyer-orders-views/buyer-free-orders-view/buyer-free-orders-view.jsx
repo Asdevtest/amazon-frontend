@@ -76,27 +76,31 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
         </div>
       </div>
 
-      <TwoVerticalChoicesModal
-        // @ts-ignore
-        tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
-        tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
-        openModal={viewModel.showTwoVerticalChoicesModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
-        title={t(TranslationKey['Order picked up'])}
-        topBtnText={t(TranslationKey['Go to order'])}
-        bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
-        onClickTopBtn={() => viewModel.goToMyOrders()}
-        onClickBottomBtn={viewModel.onClickContinueWorkButton}
-      />
+      {viewModel.showTwoVerticalChoicesModal ? (
+        <TwoVerticalChoicesModal
+          // @ts-ignore
+          tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
+          tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
+          openModal={viewModel.showTwoVerticalChoicesModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
+          title={t(TranslationKey['Order picked up'])}
+          topBtnText={t(TranslationKey['Go to order'])}
+          bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
+          onClickTopBtn={() => viewModel.goToMyOrders()}
+          onClickBottomBtn={viewModel.onClickContinueWorkButton}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={viewModel.showWarningModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        title={viewModel.warningTitle}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-      />
+      {viewModel.showWarningModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showWarningModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
+          title={viewModel.warningTitle}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
+        />
+      ) : null}
     </>
   )
 })

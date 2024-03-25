@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DEFAULT_SLIDE_HEIGHT } from '@components/modals/gallery-modal/gallery-modal.constants'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Checkbox } from '@components/shared/checkbox'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -13,9 +13,9 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './request-media-files-tab.style'
 
-import { IState } from '../../../gallery-request-modal/gallery-request-modal.type'
-import { getSupplierTitleByObjectkey } from '../../../gallery-request-modal/helpers/get-supplier-title-by-object-key'
-import { hasNonEmptyStringArray } from '../../../gallery-request-modal/helpers/has-non-empty-string-array'
+import { IState } from '../../gallery-request-modal.type'
+import { getSupplierTitleByObjectkey } from '../../helpers/get-supplier-title-by-object-key'
+import { hasNonEmptyStringArray } from '../../helpers/has-non-empty-string-array'
 
 interface RequestMediaFilesTabProps {
   data: IState | undefined
@@ -91,13 +91,15 @@ export const RequestMediaFilesTab: FC<RequestMediaFilesTabProps> = memo(props =>
         )}
       </div>
 
-      <SlideshowGalleryModal
-        files={totalFiles}
-        currentFileIndex={currentSlideIndex}
-        openModal={showImageModal}
-        onOpenModal={() => setShowImageModal(!showImageModal)}
-        onCurrentFileIndex={setCurrentSlideIndex}
-      />
+      {showImageModal ? (
+        <SlideshowGalleryModal
+          files={totalFiles}
+          currentFileIndex={currentSlideIndex}
+          openModal={showImageModal}
+          onOpenModal={() => setShowImageModal(!showImageModal)}
+          onCurrentFileIndex={setCurrentSlideIndex}
+        />
+      ) : null}
     </>
   )
 })

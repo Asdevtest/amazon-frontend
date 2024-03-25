@@ -68,13 +68,15 @@ export const AdminAwaitingBatchesViewRaw = props => {
         />
       </div>
 
-      <BatchInfoModal
-        // @ts-ignore
-        batch={viewModel.curBatch}
-        volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-        openModal={viewModel.showBatchInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
-      />
+      {viewModel.showBatchInfoModal ? (
+        <BatchInfoModal
+          // @ts-ignore
+          batch={viewModel.curBatch}
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          openModal={viewModel.showBatchInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+        />
+      ) : null}
     </>
   )
 }

@@ -1,8 +1,8 @@
 import { FC, memo } from 'react'
 
-import { FileIcon } from '@components/shared/file-icon'
+import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { VideoPlayer } from '@components/shared/video-player'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
 
@@ -69,7 +69,7 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
         }
         FileComponent={({ documentLink, fileExtension }) => (
           <a href={documentLink} target="_blank" rel="noreferrer noopener" className={styles.document}>
-            <FileIcon fileExtension={fileExtension} className={styles.fileIcon} />
+            <CustomFileIcon fileExtension={fileExtension} height="100%" />
             <span className={styles.linkText}>{documentLink}</span>
           </a>
         )}

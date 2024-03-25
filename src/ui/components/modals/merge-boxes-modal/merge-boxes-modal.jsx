@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Chip, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
@@ -13,6 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
 import { Button } from '@components/shared/button'
@@ -126,9 +127,10 @@ export const MergeBoxesModal = ({
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
         weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
+        images: imagesOfBox,
       }
     } else {
-      return { ...boxBody, destinationId: boxBody.destinationId || null }
+      return { ...boxBody, destinationId: boxBody.destinationId || null, images: imagesOfBox }
     }
   }
 
@@ -421,25 +423,12 @@ export const MergeBoxesModal = ({
                 tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                 labelClasses={styles.label}
                 inputComponent={
-                  <Chip
-                    classes={{
-                      root: styles.barcodeChip,
-                      clickable: styles.barcodeChipHover,
-                      deletable: styles.barcodeChipHover,
-                      deleteIcon: styles.barcodeChipIcon,
-                      label: styles.barcodeChiplabel,
-                    }}
-                    className={cx({ [styles.barcodeChipExists]: boxBody.shippingLabel })}
-                    size="small"
-                    label={
-                      boxBody.tmpShippingLabel?.length
-                        ? t(TranslationKey['File added'])
-                        : boxBody.shippingLabel
-                        ? boxBody.shippingLabel
-                        : t(TranslationKey['Set Shipping Label'])
-                    }
-                    onClick={() => onClickShippingLabel()}
-                    onDelete={!boxBody.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                  <ChangeChipCell
+                    isChipOutTable
+                    text={!boxBody.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''}
+                    value={boxBody?.tmpShippingLabel?.[0]?.file?.name || boxBody?.tmpShippingLabel?.[0]}
+                    onClickChip={onClickShippingLabel}
+                    onDeleteChip={!boxBody.shippingLabel ? undefined : () => onDeleteShippingLabel()}
                   />
                 }
               />
@@ -478,9 +467,7 @@ export const MergeBoxesModal = ({
                       setFormField={setFormField}
                     />
 
-                    <div className={styles.imageFileInputWrapper}>
-                      <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
-                    </div>
+                    <UploadFilesInput fullWidth images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
                   </div>
                 }
               />
@@ -572,18 +559,20 @@ export const MergeBoxesModal = ({
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => setShowConfirmModal(false)}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings?.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-        onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => setShowConfirmModal(false)}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+        />
+      ) : null}
     </div>
   )
 }

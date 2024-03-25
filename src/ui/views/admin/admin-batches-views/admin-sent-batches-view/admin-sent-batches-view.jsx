@@ -69,26 +69,30 @@ export const AdminSentBatchesViewRaw = props => {
         />
       </div>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={'confirmMessage'}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={'confirmMessage'}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <BatchInfoModal
-        // @ts-ignore
-        volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-        openModal={viewModel.showBatchInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
-        batch={viewModel.curBatch}
-      />
+      {viewModel.showBatchInfoModal ? (
+        <BatchInfoModal
+          // @ts-ignore
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          openModal={viewModel.showBatchInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+          batch={viewModel.curBatch}
+        />
+      ) : null}
     </>
   )
 }

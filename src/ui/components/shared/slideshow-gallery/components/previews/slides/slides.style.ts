@@ -53,13 +53,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   document: {
-    height: '75%',
-    width: '75%',
-  },
-
-  fileIcon: {
-    height: '100% !important',
-    width: '100% !important',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   linkText: {

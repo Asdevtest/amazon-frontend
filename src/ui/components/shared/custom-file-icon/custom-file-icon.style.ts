@@ -3,15 +3,10 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     position: 'relative',
-    width: 28,
-    height: 28,
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  middleSizeWrapper: {
-    width: 54,
-    height: 60,
+    cursor: 'default',
   },
 
   hover: {
@@ -25,33 +20,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   icon: {
-    width: '24px !important',
-    height: '28px !important',
-    color: theme.palette.fileIcons.icon,
-  },
-
-  middleSizeIcon: {
-    width: '50px !important',
-    height: '60px !important',
+    fill: theme.palette.fileIcons.icon,
   },
 
   fileExtension: {
     position: 'absolute',
     bottom: '15%',
-    width: 28,
-    padding: '1px 0',
-    fontSize: 9,
-    lineHeight: '10px',
+    width: '100%',
     textAlign: 'center',
     textTransform: 'uppercase',
     color: theme.palette.background.second,
-    background: theme.palette.fileIcons.file,
     borderRadius: 2,
-  },
-
-  middleSizeFileExtension: {
-    width: 54,
-    fontSize: 18,
-    lineHeight: '25px',
   },
 }))

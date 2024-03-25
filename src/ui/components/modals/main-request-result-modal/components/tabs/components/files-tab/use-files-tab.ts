@@ -199,6 +199,21 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
     }
   }
 
+  const handleReorderMediaFiles = (fromIndex: number, toIndex: number) => {
+    if (!isClient) {
+      setFields(prevFields => {
+        const media = [...prevFields.media]
+        const removed = media.splice(fromIndex, 1)[0]
+        media.splice(toIndex, 0, removed)
+
+        return {
+          ...prevFields,
+          media,
+        }
+      })
+    }
+  }
+
   return {
     showCommentModal,
     showSlideshowGalleryModal,
@@ -223,5 +238,6 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
     onChangeFileName: handleChangeFileName,
     onUploadFile: handleUploadFile,
     onUpdateSeoIFilesInProduct: handleUpdateSeoIFilesInProduct,
+    onReorderMediaFiles: handleReorderMediaFiles,
   }
 }

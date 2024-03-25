@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
@@ -24,6 +23,7 @@ import { SelectionSupplierModal } from '@components/modals/selection-supplier-mo
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -148,25 +148,26 @@ export const ClientIdeasView = observer(({ history }) => {
         <SelectionSupplierModal
           product={viewModel.currentProduct}
           title={t(TranslationKey['Send product card for supplier search'])}
-          buttonValue={SelectedButtonValueConfig.SEND_REQUEST}
           onSubmitSeekSupplier={viewModel.onSubmitCalculateSeekSupplier}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
         />
       </Modal>
 
-      <IdeaCardsModal
-        // @ts-ignore
-        isCreate={viewModel.isIdeaCreate}
-        openModal={viewModel.showIdeaModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
-        updateData={() => {
-          viewModel.getIdeaList()
-          UserModel.getUsersInfoCounters()
-        }}
-        product={viewModel.currentProduct}
-        productId={viewModel.productId}
-        currentIdeaId={viewModel.currentIdeaId}
-      />
+      {viewModel.showIdeaModal ? (
+        <IdeaCardsModal
+          // @ts-ignore
+          isCreate={viewModel.isIdeaCreate}
+          openModal={viewModel.showIdeaModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
+          updateData={() => {
+            viewModel.getIdeaList()
+            UserModel.getUsersInfoCounters()
+          }}
+          product={viewModel.currentProduct}
+          productId={viewModel.productId}
+          currentIdeaId={viewModel.currentIdeaId}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showBarcodeOrHscodeModal}
@@ -209,27 +210,31 @@ export const ClientIdeasView = observer(({ history }) => {
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={viewModel.successModalTitle}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.successModalTitle}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showRequestDesignerResultModal}
@@ -244,21 +249,25 @@ export const ClientIdeasView = observer(({ history }) => {
         />
       </Modal>
 
-      <MainRequestResultModal
-        readOnly
-        customProposal={viewModel.currentProposal}
-        userInfo={viewModel.userInfo}
-        openModal={viewModel.showMainRequestResultModal}
-        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
-      />
+      {viewModel.showMainRequestResultModal ? (
+        <MainRequestResultModal
+          readOnly
+          customProposal={viewModel.currentProposal}
+          userInfo={viewModel.userInfo}
+          openModal={viewModel.showMainRequestResultModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+        />
+      ) : null}
 
-      <RequestResultModal
-        // @ts-ignore
-        request={viewModel.currentRequest}
-        proposal={viewModel.currentProposal}
-        openModal={viewModel.showRequestBloggerResultModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestBloggerResultModal')}
-      />
+      {viewModel.showRequestBloggerResultModal ? (
+        <RequestResultModal
+          // @ts-ignore
+          request={viewModel.currentRequest}
+          proposal={viewModel.currentProposal}
+          openModal={viewModel.showRequestBloggerResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestBloggerResultModal')}
+        />
+      ) : null}
 
       <Modal
         missClickModalOn
@@ -278,15 +287,17 @@ export const ClientIdeasView = observer(({ history }) => {
         />
       </Modal>
 
-      <CommentsModal
-        required
-        readOnly={false}
-        maxLength={MAX_DEFAULT_INPUT_VALUE}
-        title={t(TranslationKey['Reason for rejection'])}
-        openModal={viewModel.showCommentsModal}
-        onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
-        onChangeField={viewModel.setRejectStatusHandler}
-      />
+      {viewModel.showCommentsModal ? (
+        <CommentsModal
+          required
+          readOnly={false}
+          maxLength={MAX_DEFAULT_INPUT_VALUE}
+          title={t(TranslationKey['Reason for rejection'])}
+          openModal={viewModel.showCommentsModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
+          onChangeField={viewModel.setRejectStatusHandler}
+        />
+      ) : null}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield
@@ -294,6 +305,21 @@ export const ClientIdeasView = observer(({ history }) => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
+
+      <Modal
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+      >
+        <AddOrEditSupplierModalContent
+          // @ts-ignore
+          paymentMethods={viewModel.paymentMethods}
+          requestStatus={viewModel.requestStatus}
+          platformSettings={viewModel.platformSettings}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
+          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+        />
+      </Modal>
     </>
   )
 })

@@ -20,16 +20,13 @@ import { useMainRequestResultModal } from './use-main-request-result-modal'
 export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(props => {
   const { customProposal, openModal, onOpenModal, readOnly } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   const {
     isClient,
     fields,
     setFields,
+    showResultError,
     showConfirmModal,
     onToggleShowConfirmModal,
     onResultValue,
@@ -39,12 +36,6 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
   } = useMainRequestResultModal(props)
 
   const clientOrReadOnly = isClient || props.readOnly
-  const isResultFieldEmpty = fields?.result?.trim()?.length === 0
-  const disabledSendResultButton =
-    (isResultFieldEmpty ||
-      (fields?.publicationLinks || []).some(link => link?.trim()?.length === 0) ||
-      fields?.media?.some(file => !file?.fileLink)) &&
-    !isClient
 
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={onOpenModal}>
@@ -62,7 +53,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
           minRows={9}
           maxRows={9}
           value={fields?.result}
-          error={isResultFieldEmpty}
+          error={showResultError}
           placeholder={`${t(TranslationKey['Request result'])}...`}
           inputClasses={cx(styles.field, { [styles.notFocuced]: clientOrReadOnly })}
           inputProps={{ maxLength: MAX_DEFAULT_COMMENT_LEGTH }}
@@ -83,7 +74,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
         {!readOnly ? (
           <Footer
             isClient={isClient}
-            disabledSendResultButton={disabledSendResultButton}
+            disabledSendResultButton={showResultError}
             onEditCustomProposal={onEditCustomProposal}
             onReceiveCustomProposal={onReceiveCustomProposal}
             onToggleShowConfirmModal={onToggleShowConfirmModal}
@@ -91,16 +82,18 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
         ) : null}
       </div>
 
-      <ConfirmationModal
-        // @ts-ignore
-        openModal={showConfirmModal}
-        setOpenModal={onToggleShowConfirmModal}
-        message={t(TranslationKey['Are you sure you want to send the result for rework?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={onClickSuccessConfirm}
-        onClickCancelBtn={onToggleShowConfirmModal}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showConfirmModal}
+          setOpenModal={onToggleShowConfirmModal}
+          message={t(TranslationKey['Are you sure you want to send the result for rework?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={onClickSuccessConfirm}
+          onClickCancelBtn={onToggleShowConfirmModal}
+        />
+      ) : null}
     </Modal>
   )
 })

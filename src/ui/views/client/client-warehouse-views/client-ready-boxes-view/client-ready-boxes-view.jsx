@@ -177,28 +177,32 @@ export const ClientReadyBoxesViewRaw = props => {
         />
       </Modal>
 
-      <WarningInfoModal
-        // @ts-ignore
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-      />
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Are you sure you want to return the boxes to the warehouse?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.returnBoxesToStock}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Are you sure you want to return the boxes to the warehouse?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.returnBoxesToStock}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </>
   )
 }

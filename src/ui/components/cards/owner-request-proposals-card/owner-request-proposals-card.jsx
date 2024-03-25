@@ -17,7 +17,7 @@ import { MainRequestResultModal } from '@components/modals/main-request-result-m
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -120,9 +120,7 @@ export const OwnerRequestProposalsCard = ({
               <Typography className={styles.proposalDescription}>{item.proposal.comment}</Typography>
             </div>
 
-            <div className={styles.photoWrapper}>
-              <PhotoAndFilesSlider withoutFiles files={item.proposal.linksToMediaFiles} />
-            </div>
+            <SlideshowGallery slidesToShow={2} files={item.proposal.linksToMediaFiles} />
           </div>
         </div>
       </div>
@@ -210,23 +208,27 @@ export const OwnerRequestProposalsCard = ({
         />
       </Modal>
 
-      <MainRequestResultModal
-        readOnly={!statusesReworkAndReceiveButtons.includes(item.proposal.status)}
-        customProposal={item}
-        userInfo={userInfo}
-        openModal={showMainRequestResultModal}
-        onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
-        onEditCustomProposal={onSendInForRework}
-        onReceiveCustomProposal={() => onReceiveCustomProposal(item.proposal._id)}
-      />
+      {showMainRequestResultModal ? (
+        <MainRequestResultModal
+          readOnly={!statusesReworkAndReceiveButtons.includes(item.proposal.status)}
+          customProposal={item}
+          userInfo={userInfo}
+          openModal={showMainRequestResultModal}
+          onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
+          onEditCustomProposal={onSendInForRework}
+          onReceiveCustomProposal={() => onReceiveCustomProposal(item.proposal._id)}
+        />
+      ) : null}
 
-      <RequestResultModal
-        // @ts-ignore
-        request={request}
-        proposal={item}
-        openModal={showRequestResultModal}
-        setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
-      />
+      {showRequestResultModal ? (
+        <RequestResultModal
+          // @ts-ignore
+          request={request}
+          proposal={item}
+          openModal={showRequestResultModal}
+          setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
+        />
+      ) : null}
     </div>
   )
 }

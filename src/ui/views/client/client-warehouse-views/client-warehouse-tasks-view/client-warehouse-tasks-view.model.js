@@ -76,7 +76,10 @@ export class ClientWarehouseTasksViewModel {
     type: [],
   }
 
-  currentPriority = null
+  selectedPriority = undefined
+  selectedStatus = undefined
+  selectedStorekeeper = undefined
+  selectedType = undefined
 
   showEditPriorityData = false
 
@@ -105,8 +108,8 @@ export class ClientWarehouseTasksViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  handleActivePriority(newPriority) {
-    this.currentPriority = newPriority
+  setFilters(filterCategory, filterValue) {
+    this[filterCategory] = filterValue
 
     this.getTasksMy()
   }
@@ -334,10 +337,10 @@ export class ClientWarehouseTasksViewModel {
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
 
-        storekeeperId: this.activeFilters.storekeeper.map(el => el._id).join(',') || undefined,
-        priority: this.activeFilters.priority.join(','),
-        status: this.activeFilters.status.join(','),
-        operationType: this.activeFilters.type.join(','),
+        storekeeperId: this.selectedStorekeeper,
+        priority: this.selectedPriority,
+        status: this.selectedStatus,
+        operationType: this.selectedType,
       })
 
       runInAction(() => {

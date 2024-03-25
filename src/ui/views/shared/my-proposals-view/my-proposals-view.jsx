@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { RequestDesignerResultForm } from '@components/forms/request-designer-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
@@ -20,7 +21,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './my-proposals-view.style'
 
-import { customSwitcherSettings, searchInputPlaceholder } from './my-proposals-view.constants'
+import { customSwitcherSettings } from './my-proposals-view.constants'
 import { MyProposalsViewModel } from './my-proposals-view.model'
 
 export const MyProposalsView = observer(({ history }) => {
@@ -44,13 +45,10 @@ export const MyProposalsView = observer(({ history }) => {
 
           <SearchInput
             inputClasses={styles.searchInput}
-            placeholder={searchInputPlaceholder}
+            placeholder={t(TranslationKey['Search by Title, ASIN, SKU, ID'])}
             value={viewModel.currentSearchValue}
             onSubmit={viewModel.onChangeSearchValue}
           />
-
-          <div />
-          <div />
         </div>
 
         <CustomSwitcher
@@ -101,18 +99,33 @@ export const MyProposalsView = observer(({ history }) => {
         </div>
       </div>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={viewModel.confirmModalSettings.confirmTitle}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+
+      <Modal
+        openModal={viewModel.showRequestDesignerResultClientModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+      >
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={viewModel.userInfo}
+          request={viewModel.currentRequest}
+          proposal={viewModel.currentProposal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+        />
+      </Modal>
 
       <Modal
         openModal={viewModel.showRequestDesignerResultModal}
@@ -125,30 +138,36 @@ export const MyProposalsView = observer(({ history }) => {
         />
       </Modal>
 
-      <MainRequestResultModal
-        readOnly
-        customProposal={viewModel.currentProposal}
-        userInfo={viewModel.userInfo}
-        openModal={viewModel.showMainRequestResultModal}
-        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
-      />
+      {viewModel.showMainRequestResultModal ? (
+        <MainRequestResultModal
+          readOnly
+          customProposal={viewModel.currentProposal}
+          userInfo={viewModel.userInfo}
+          openModal={viewModel.showMainRequestResultModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+        />
+      ) : null}
 
-      <RequestResultModal
-        // @ts-ignore
-        request={viewModel.currentRequest}
-        proposal={viewModel.currentProposal}
-        openModal={viewModel.showRequestResultModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
-      />
+      {viewModel.showRequestResultModal ? (
+        <RequestResultModal
+          // @ts-ignore
+          request={viewModel.currentRequest}
+          proposal={viewModel.currentProposal}
+          openModal={viewModel.showRequestResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+        />
+      ) : null}
 
-      <FreelanceRequestDetailsModal
-        // @ts-ignore
-        openModal={viewModel.showRequestDetailModal}
-        request={viewModel.currentRequest?.request}
-        details={viewModel.currentRequest?.details}
-        handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
-        onClickOpenNewTab={viewModel.onClickOpenBtn}
-      />
+      {viewModel.showRequestDetailModal ? (
+        <FreelanceRequestDetailsModal
+          // @ts-ignore
+          openModal={viewModel.showRequestDetailModal}
+          request={viewModel.currentRequest?.request}
+          details={viewModel.currentRequest?.details}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+          onClickOpenNewTab={viewModel.onClickOpenBtn}
+        />
+      ) : null}
     </>
   )
 })

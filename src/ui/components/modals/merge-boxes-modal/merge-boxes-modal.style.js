@@ -71,34 +71,6 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
-  barcodeChip: {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    fontSize: '13px',
-    borderRadius: '8px',
-    width: 230,
-    height: '40px',
-  },
-  barcodeChipHover: {
-    '&:hover, &:focus': {
-      backgroundColor: theme.palette.primary.main,
-    },
-  },
-  barcodeChipIcon: {
-    color: 'rgba(255,255,255,0.26)',
-    '&:hover, &:focus': {
-      color: 'rgba(255,255,255,0.46)',
-    },
-  },
-  barcodeChiplabel: {
-    width: '300px',
-    textAlign: 'center',
-  },
-
-  barcodeChipExists: {
-    backgroundcolor: theme.palette.text.general,
-  },
-
   mainWrapper: {
     display: 'flex',
     gap: '40px',

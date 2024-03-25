@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -45,13 +45,15 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
         )}
       </div>
 
-      <SlideshowGalleryModal
-        openModal={isShowImagePreview}
-        files={images}
-        currentFileIndex={selectedImage}
-        onOpenModal={() => setIsShowImagePreview(!isShowImagePreview)}
-        onCurrentFileIndex={setSelectedImage}
-      />
+      {isShowImagePreview ? (
+        <SlideshowGalleryModal
+          openModal={isShowImagePreview}
+          files={images}
+          currentFileIndex={selectedImage}
+          onOpenModal={() => setIsShowImagePreview(!isShowImagePreview)}
+          onCurrentFileIndex={setSelectedImage}
+        />
+      ) : null}
     </>
   )
 }

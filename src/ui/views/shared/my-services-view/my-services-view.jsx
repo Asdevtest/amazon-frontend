@@ -91,11 +91,13 @@ export const MyServicesView = observer(({ history }) => {
         </div>
       )}
 
-      <SlideshowGalleryModal
-        openModal={viewModel.showImageModal}
-        files={viewModel.service?.linksToMediaFiles}
-        onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-      />
+      {viewModel.showImageModal ? (
+        <SlideshowGalleryModal
+          openModal={viewModel.showImageModal}
+          files={viewModel.service?.linksToMediaFiles}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+        />
+      ) : null}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield

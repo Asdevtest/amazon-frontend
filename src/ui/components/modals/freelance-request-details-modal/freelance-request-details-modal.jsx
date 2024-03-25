@@ -44,10 +44,6 @@ export const FreelanceRequestDetailsModal = memo(props => {
     onClickResultBtn,
   } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   const requestMedia = request?.media?.map(el => ({
@@ -109,7 +105,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
             <div className={styles.category}>
               <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
 
-              <SlideshowGallery files={requestMedia} slidesToShow={2} />
+              <SlideshowGallery files={requestMedia} slidesToShow={3} />
             </div>
           </div>
 

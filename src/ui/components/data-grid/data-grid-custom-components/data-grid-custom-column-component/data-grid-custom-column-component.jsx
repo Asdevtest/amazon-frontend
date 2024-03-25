@@ -230,11 +230,8 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <IdeaShopsFieldMenuItem
-          addNullObj={[columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS, columnnsKeys.client.INVENTORY_SHOPS].includes(
-            currentColumn.columnKey,
-          )}
           data={props}
-          field={currentColumn.field}
+          field={['parentProductShop', 'childProductShop']}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
@@ -549,9 +546,19 @@ export const DataGridCustomColumnMenuComponent = props => {
   if (currentColumn.columnKey === columnnsKeys.shared.YES_NO) {
     const { ...rest } = other
 
+    const menuItemSettings = {
+      yesCustomText: t(TranslationKey.Yes),
+      noCustomText: t(TranslationKey.No),
+    }
+
+    if (currentColumn.field === 'children') {
+      menuItemSettings.yesCustomText = t(TranslationKey.Variation)
+      menuItemSettings.noCustomText = t(TranslationKey.Parent)
+    }
+
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...rest}>
-        <YesNoCellMenuItem data={props} field={currentColumn.field} onClose={hideMenu} />
+        <YesNoCellMenuItem data={props} {...menuItemSettings} field={currentColumn.field} onClose={hideMenu} />
       </GridColumnMenuContainer>
     )
   }

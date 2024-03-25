@@ -5,13 +5,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatMessageDataCreatedNewProposalProposalDescriptionContract } from '@models/chat-model/contracts/chat-message-data.contract'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
 import { useStyles } from './chat-message-proposal.style'
 
@@ -19,13 +17,11 @@ import { LabelValuePairBlock } from '../label-value-pair-block'
 
 interface Props {
   message: ChatMessageContract<ChatMessageDataCreatedNewProposalProposalDescriptionContract>
-
   isShowChatInfo?: boolean
 }
 
 export const ChatMessageProposal: FC<Props> = ({ message, isShowChatInfo }) => {
   const { classes: styles, cx } = useStyles()
-  const { isMobileResolution } = useCreateBreakpointResolutions()
 
   return (
     <div className={styles.root}>
@@ -55,13 +51,7 @@ export const ChatMessageProposal: FC<Props> = ({ message, isShowChatInfo }) => {
           </div>
         </div>
 
-        <div className={cx(styles.rightSideWrapper, { [styles.rightSideWrapperShowChatInfo]: isShowChatInfo })}>
-          <PhotoAndFilesSlider
-            smallSlider={!isMobileResolution}
-            column={isShowChatInfo || isMobileResolution}
-            files={message.images}
-          />
-        </div>
+        <SlideshowGallery slidesToShow={2} files={message.images} />
       </div>
     </div>
   )

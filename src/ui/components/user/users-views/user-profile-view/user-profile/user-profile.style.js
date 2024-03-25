@@ -1,167 +1,122 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  avatar: {
-    height: '140px',
-    width: '140px',
-    borderRadius: '50%',
-    objectFit: 'cover',
-    [theme.breakpoints.down(768)]: {
-      height: '91px',
-      width: '91px',
-    },
-  },
-  username: {
-    color: theme.palette.text.general,
-    fontSize: '23px',
-    fontWeight: 500,
-    [theme.breakpoints.down(768)]: {
-      fontSize: '12px',
-      fontWeight: 600,
-    },
-  },
-  text: {
-    color: theme.palette.text.second,
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
+export const useStyles = makeStyles()(() => ({
+  wrapper: {
+    padding: 20,
+    display: 'flex',
+    gap: 20,
   },
 
-  paper: {
-    padding: '24px',
-    display: 'flex',
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-  },
-  mainBox: {
-    display: 'flex',
-  },
-  sendOrderBox: {
-    marginRight: '24px',
+  flexColumnContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    gap: 20,
   },
 
-  normalBox: {
+  userInfoConatiner: {
     display: 'flex',
-    margin: '12px 0',
-    gap: '16px',
-  },
-
-  rightSideWrapper: {
-    width: '100%',
-  },
-
-  rolesWrapper: {
-    marginTop: '20px',
-  },
-
-  roles: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-
-  role: {
-    marginLeft: '10px',
-    color: theme.palette.text.general,
-    textTransform: 'capitalize',
-  },
-
-  ratingWrapper: {
-    display: 'flex',
-    marginTop: '10px',
-  },
-
-  userRating: {
-    marginLeft: '15px',
-    opacity: '1 !important', // undisabled style
-
-    [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      fontWeight: 600,
-    },
-  },
-
-  userEmail: {
-    fontWeight: 'bold',
-    marginTop: '10px',
-    color: theme.palette.text.general,
-    [theme.breakpoints.down(768)]: {
-      fontSize: '12px',
-      fontWeight: 600,
-    },
-  },
-
-  standartText: {
-    color: theme.palette.text.general,
-    [theme.breakpoints.down(768)]: {
-      fontSize: '12px',
-      fontWeight: 600,
-    },
-  },
-
-  changeBtn: {
-    marginTop: '5px',
-
-    [theme.breakpoints.down(768)]: {
-      width: '260px',
-      height: 40,
-    },
+    gap: 20,
   },
 
   avatarWrapper: {
     position: 'relative',
     cursor: 'pointer',
-    '&:hover > :not(:last-child)': {
-      transition: '0.6s ease-out',
-      opacity: '0.2',
-    },
-
-    '&:hover > :last-child': {
-      visibility: 'visible',
-      transform: 'rotate(90deg)',
-      transition: '0.6s ease',
-    },
+    height: 140,
+    width: 140,
   },
 
-  icon: {
+  avatar: {
+    height: '100%',
+    width: '100%',
+    borderRadius: '50%',
+    objectFit: 'cover',
+  },
+
+  autorenewWrapper: {
     position: 'absolute',
-    top: 'calc(50% - 12px)',
-    left: 'calc(50% - 15px)',
-    visibility: 'hidden',
-  },
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: '100%',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
 
-  writeBtn: {
-    marginTop: 20,
-    color: '#fff',
+    svg: {
+      opacity: 0,
+    },
 
-    [theme.breakpoints.down(768)]: {
-      width: '260px',
-      height: 40,
+    '&:hover': {
+      background: 'rgba(0, 0, 0, 0.5)',
+      transition: '0.3s ease',
+
+      svg: {
+        opacity: 1,
+        transform: 'rotate(90deg)',
+        transition: '0.3s ease',
+      },
     },
   },
 
-  userButtonsWrapper: {
-    display: 'block',
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
+  userInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 10,
   },
-  userButtonsMobileWrapper: {
-    display: 'none',
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: 30,
-    },
+
+  username: {
+    fontSize: 22,
+    lineHeight: '30px',
+    fontWeight: 500,
+  },
+
+  userEmail: {
+    fontWeight: 600,
+  },
+
+  ratingWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  userRating: {
+    fontSize: '16px',
+  },
+
+  userInfoButtons: {
+    display: 'flex',
+    gap: 10,
+  },
+
+  userInfoButton: {
+    height: 30,
+  },
+
+  roles: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 5,
+  },
+
+  title: {
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
+  },
+
+  rightSideWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   leaveReviewBtnWrapper: {
-    paddingTop: 20,
-    width: 'fit-content',
-    marginLeft: 'auto !important',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }))

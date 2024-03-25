@@ -238,15 +238,17 @@ export const MessagesView = observer(({ history }) => {
         />
       </Modal>
 
-      <WarningInfoModal
-        // @ts-ignore
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-      />
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        />
+      ) : null}
     </div>
   )
 })

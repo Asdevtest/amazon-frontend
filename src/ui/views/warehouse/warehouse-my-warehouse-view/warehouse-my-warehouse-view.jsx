@@ -228,14 +228,16 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={viewModel.showSuccessInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-        title={viewModel.modalEditSuccessMessage}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-      />
+      {viewModel.showSuccessInfoModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
+          title={viewModel.modalEditSuccessMessage}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
+        />
+      ) : null}
 
       <Modal
         missClickModalOn
@@ -308,15 +310,17 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         />
       </Modal>
 
-      <WarningInfoModal
-        // @ts-ignore
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-      />
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        />
+      ) : null}
     </>
   )
 })

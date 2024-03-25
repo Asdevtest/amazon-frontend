@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -9,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ClientModel } from '@models/client-model'
 
 import { AddOwnProductForm } from '@components/forms/add-own-product-form'
-import { AddSupplierToIdeaFromInventoryForm } from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { GetFilesForm } from '@components/forms/get-files-form'
@@ -29,6 +27,7 @@ import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-st
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -71,8 +70,6 @@ export const ClientInventoryView = observer(({ history }) => {
   const getRowClassName = params =>
     (!params.row.ideasOnCheck && !!params.row.ideasVerified && styles.ideaRowGreen) ||
     (!!params.row.ideasOnCheck && styles.ideaRowYellow)
-
-  console.log('viewModel.columnMenuSettings?.tags :>> ', viewModel.columnMenuSettings)
 
   return (
     <>
@@ -182,7 +179,6 @@ export const ClientInventoryView = observer(({ history }) => {
       </Modal>
 
       <Modal
-        noPadding
         dialogClassName={styles.modalDialogContext}
         openModal={viewModel.showProductLaunch}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
@@ -198,15 +194,17 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       </Modal>
 
-      <IdeaCardsModal
-        // @ts-ignore
-        isCreate
-        product={viewModel.selectedProductToLaunch}
-        productId={viewModel.selectedProductToLaunch?._id}
-        openModal={viewModel.showIdeaModal}
-        updateData={viewModel.getMainTableData}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
-      />
+      {viewModel.showIdeaModal ? (
+        <IdeaCardsModal
+          // @ts-ignore
+          isCreate
+          product={viewModel.selectedProductToLaunch}
+          productId={viewModel.selectedProductToLaunch?._id}
+          openModal={viewModel.showIdeaModal}
+          updateData={viewModel.getMainTableData}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
+        />
+      ) : null}
 
       {viewModel.productCardModal && (
         <ProductCardModal
@@ -240,20 +238,6 @@ export const ClientInventoryView = observer(({ history }) => {
           onClickPandingOrder={viewModel.onClickPandingOrder}
           onClickContinueBtn={viewModel.onClickContinueBtn}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
-        />
-      </Modal>
-
-      <Modal
-        openModal={viewModel.showAddSupplierToIdeaFromInventoryModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
-      >
-        <AddSupplierToIdeaFromInventoryForm
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          product={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product._id))}
-          ideas={viewModel.ideasData}
-          onClose={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
-          onSubmit={viewModel.createSupplierSearchRequest}
         />
       </Modal>
 
@@ -323,11 +307,9 @@ export const ClientInventoryView = observer(({ history }) => {
             viewModel.selectedProductToLaunch || viewModel.tableData.find(el => el._id === viewModel.selectedRowId)
           }
           title={viewModel.selectedProductToLaunch && t(TranslationKey['Send product card for supplier search'])}
-          buttonValue={viewModel.selectedProductToLaunch && SelectedButtonValueConfig.SEND_REQUEST}
           onClickFinalAddSupplierButton={viewModel.onClickAddSupplierButton}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
           onSubmitSeekSupplier={viewModel.onSubmitCalculateSeekSupplier}
-          onClickSeekSupplierToIdea={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
         />
       </Modal>
 
@@ -386,36 +368,42 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={viewModel.successModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.successModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-        title={viewModel.showInfoModalTitle}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
-      />
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+          title={viewModel.showInfoModalTitle}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        // @ts-ignore
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        title={viewModel.confirmModalSettings.confirmTitle}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
       {viewModel.showProductVariationsForm && (
         <Modal
@@ -439,6 +427,21 @@ export const ClientInventoryView = observer(({ history }) => {
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
       {viewModel.showProgress && <CircularProgressWithLabel />}
+
+      <Modal
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+      >
+        <AddOrEditSupplierModalContent
+          // @ts-ignore
+          paymentMethods={viewModel.paymentMethods}
+          requestStatus={viewModel.requestStatus}
+          platformSettings={viewModel.platformSettings}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
+          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+        />
+      </Modal>
     </>
   )
 })

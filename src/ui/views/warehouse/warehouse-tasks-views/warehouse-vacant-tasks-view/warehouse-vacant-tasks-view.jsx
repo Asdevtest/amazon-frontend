@@ -161,16 +161,18 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
         />
       </Modal>
 
-      <TwoVerticalChoicesModal
-        // @ts-ignore
-        openModal={viewModel.showTwoVerticalChoicesModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
-        title={t(TranslationKey['Task picked up'])}
-        topBtnText={t(TranslationKey['Go to task'])}
-        bottomBtnText={t(TranslationKey['Continue to work with new tasks'])}
-        onClickTopBtn={() => viewModel.goToMyTasks()}
-        onClickBottomBtn={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
-      />
+      {viewModel.showTwoVerticalChoicesModal ? (
+        <TwoVerticalChoicesModal
+          // @ts-ignore
+          openModal={viewModel.showTwoVerticalChoicesModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
+          title={t(TranslationKey['Task picked up'])}
+          topBtnText={t(TranslationKey['Go to task'])}
+          bottomBtnText={t(TranslationKey['Continue to work with new tasks'])}
+          onClickTopBtn={() => viewModel.goToMyTasks()}
+          onClickBottomBtn={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
+        />
+      ) : null}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield
@@ -179,22 +181,24 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
         />
       )}
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning
-        withComment
-        commentTitleText={t(TranslationKey['Cancel task'])}
-        commentLabelText={t(TranslationKey['Reason for canceling the task'])}
-        openModal={viewModel.showConfirmModal}
-        title={t(TranslationKey['Confirm action'])}
-        message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        commentCancelBtnText={t(TranslationKey.Cancel)}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning
+          withComment
+          commentTitleText={t(TranslationKey['Cancel task'])}
+          commentLabelText={t(TranslationKey['Reason for canceling the task'])}
+          openModal={viewModel.showConfirmModal}
+          title={t(TranslationKey['Confirm action'])}
+          message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          commentCancelBtnText={t(TranslationKey.Cancel)}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </>
   )
 })

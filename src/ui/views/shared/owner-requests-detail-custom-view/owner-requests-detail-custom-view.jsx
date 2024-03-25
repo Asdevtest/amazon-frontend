@@ -205,15 +205,17 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      <MainRequestResultModal
-        readOnly={!statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
-        customProposal={findRequestProposalForCurChat}
-        userInfo={viewModel.userInfo}
-        openModal={viewModel.showMainRequestResultModal}
-        onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
-        onEditCustomProposal={viewModel.onSendInForRework}
-        onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
-      />
+      {viewModel.showMainRequestResultModal ? (
+        <MainRequestResultModal
+          readOnly={!statusesReworkAndReceiveButtons.includes(statusForCurrentChat)}
+          customProposal={findRequestProposalForCurChat}
+          userInfo={viewModel.userInfo}
+          openModal={viewModel.showMainRequestResultModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+          onEditCustomProposal={viewModel.onSendInForRework}
+          onReceiveCustomProposal={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showResultToCorrectFormModal}
@@ -255,45 +257,51 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
         />
       </Modal>
 
-      <RequestProposalAcceptOrRejectResultForm
-        // @ts-ignore
-        openModal={viewModel.showConfirmWorkResultFormModal}
-        title={t(TranslationKey['Confirm acceptance of the work result'])}
-        rateLabel={t(TranslationKey['Rate the performer'])}
-        reviewLabel={t(TranslationKey["Review of the performer's work"])}
-        confirmButtonText={t(TranslationKey.Confirm)}
-        cancelBtnText={t(TranslationKey.Reject)}
-        onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
-        onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-      />
+      {viewModel.showConfirmWorkResultFormModal ? (
+        <RequestProposalAcceptOrRejectResultForm
+          // @ts-ignore
+          openModal={viewModel.showConfirmWorkResultFormModal}
+          title={t(TranslationKey['Confirm acceptance of the work result'])}
+          rateLabel={t(TranslationKey['Rate the performer'])}
+          reviewLabel={t(TranslationKey["Review of the performer's work"])}
+          confirmButtonText={t(TranslationKey.Confirm)}
+          cancelBtnText={t(TranslationKey.Reject)}
+          onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
+          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.message}
-        smallMessage={viewModel.confirmModalSettings.smallMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          smallMessage={viewModel.confirmModalSettings.smallMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        // @ts-ignore
-        withComment
-        asCommentModalDefault
-        openModal={viewModel.showConfirmWithCommentModal}
-        setOpenModal={viewModel.onClickAbortBtn}
-        title={t(TranslationKey['Suspend the acceptance of proposals?'])}
-        commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
-        successBtnText={t(TranslationKey.Ok)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.onSubmitAbortRequest}
-        onClickCancelBtn={viewModel.onClickAbortBtn}
-      />
+      {viewModel.showConfirmWithCommentModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          withComment
+          asCommentModalDefault
+          openModal={viewModel.showConfirmWithCommentModal}
+          setOpenModal={viewModel.onClickAbortBtn}
+          title={t(TranslationKey['Suspend the acceptance of proposals?'])}
+          commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
+          successBtnText={t(TranslationKey.Ok)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.onSubmitAbortRequest}
+          onClickCancelBtn={viewModel.onClickAbortBtn}
+        />
+      ) : null}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield

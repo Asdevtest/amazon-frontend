@@ -118,27 +118,31 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        // @ts-ignore
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={successModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={successModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        // @ts-ignore
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        isWarning={confirmModalSettings?.isWarning}
-        title={confirmModalSettings.confirmTitle}
-        message={confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          isWarning={confirmModalSettings?.isWarning}
+          title={confirmModalSettings.confirmTitle}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </div>
   )
 })

@@ -4,14 +4,13 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Checkbox, Divider, Paper, Tooltip, Typography } from '@mui/material'
 
-import
-  {
-    getConversion,
-    getWeightSizesType,
-    inchesCoefficient,
-    poundsWeightCoefficient,
-    unitsOfChangeOptions,
-  } from '@constants/configs/sizes-settings'
+import {
+  getConversion,
+  getWeightSizesType,
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,7 +23,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { BoxArrow } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
@@ -338,8 +337,9 @@ const Box = memo(props => {
                     box.tmpImages?.length - box.images.length
                   })`}</Typography>
                 ) : null}
-                <PhotoAndFilesSlider
-                  smallSlider
+
+                <SlideshowGallery
+                  slidesToShow={2}
                   files={isNewBox && box.tmpImages?.length ? box.tmpImages : box.images}
                 />
               </div>
@@ -348,7 +348,7 @@ const Box = memo(props => {
                 <Typography className={styles.photoAndFilesTitle}>{`${t(
                   TranslationKey['Photos and order documents'],
                 )}:`}</Typography>
-                <PhotoAndFilesSlider smallSlider files={box.items[0].order.images} />
+                <SlideshowGallery slidesToShow={2} files={box.items[0].order.images} />
               </div>
             </div>
           </div>
@@ -398,7 +398,7 @@ const Box = memo(props => {
 
               <div className={styles.trackNumberPhotoWrapper}>
                 {box.trackNumberFile.length ? (
-                  <PhotoAndFilesSlider smallSlider files={box.trackNumberFile} />
+                  <SlideshowGallery slidesToShow={2} files={box.trackNumberFile} />
                 ) : (
                   <Typography className={styles.trackNumberNoPhotoText}>
                     {`${t(TranslationKey['no photo track number'])}...`}
@@ -466,13 +466,15 @@ const Box = memo(props => {
         </div>
       )}
 
-      <SlideshowGalleryModal
-        openModal={showPhotosModal}
-        files={bigImagesOptions.images}
-        currentFileIndex={bigImagesOptions.imgIndex}
-        onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-      />
+      {showPhotosModal ? (
+        <SlideshowGalleryModal
+          openModal={showPhotosModal}
+          files={bigImagesOptions.images}
+          currentFileIndex={bigImagesOptions.imgIndex}
+          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        />
+      ) : null}
     </div>
   )
 })

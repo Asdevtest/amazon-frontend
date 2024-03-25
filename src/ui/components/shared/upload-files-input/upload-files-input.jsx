@@ -17,7 +17,7 @@ import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
-import { checkIsVideoLink } from '@utils/checks'
+import { checkIsDocumentLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
@@ -26,8 +26,9 @@ import { isString } from '@typings/guards'
 
 import { useStyles } from './upload-files-input.style'
 
+import { CustomFileIcon } from '../custom-file-icon'
 import { VideoPlayer } from '../video-player'
-import { VideoPreloader } from '../video-player/video-preloader'
+import { VideoPreloader } from '../video-preloader'
 
 import { maxSizeInBytes, regExpUriChecking } from './upload-files-input.constants'
 
@@ -292,23 +293,29 @@ export const UploadFilesInput = observer(props => {
                   const currentImage = isString(image) ? getAmazonImageUrl(image, true) : image?.data_url
                   const currentName = isString(image) ? image : image?.file.name
                   const isCurrentFileVideoType = isVideoType(image)
+                  const isDocumentFileType = checkIsDocumentLink(currentName)
+                  const documentExtension = currentName?.split('.')?.slice(-1)?.[0]
 
                   return (
                     <div key={index} className={styles.imageLinkListItem}>
-                      <Tooltip
-                        title={renderImageInfo(currentImage, currentName, isCurrentFileVideoType)}
-                        classes={{ popper: styles.imgTooltip }}
-                      >
-                        {isCurrentFileVideoType ? (
-                          <VideoPreloader
-                            videoSource={currentImage}
-                            height={55}
-                            wrapperClassName={styles.preloaderWrapper}
-                          />
-                        ) : (
-                          <Avatar className={styles.image} src={currentImage} alt={currentName} variant="square" />
-                        )}
-                      </Tooltip>
+                      {isDocumentFileType ? (
+                        <CustomFileIcon fileExtension={documentExtension} height="55px" />
+                      ) : (
+                        <Tooltip
+                          title={renderImageInfo(currentImage, currentName, isCurrentFileVideoType)}
+                          classes={{ popper: styles.imgTooltip }}
+                        >
+                          {isCurrentFileVideoType ? (
+                            <VideoPreloader
+                              videoSource={currentImage}
+                              height={55}
+                              wrapperClassName={styles.preloaderWrapper}
+                            />
+                          ) : (
+                            <Avatar className={styles.image} src={currentImage} alt={currentName} variant="square" />
+                          )}
+                        </Tooltip>
+                      )}
 
                       {withComment && (
                         <Input

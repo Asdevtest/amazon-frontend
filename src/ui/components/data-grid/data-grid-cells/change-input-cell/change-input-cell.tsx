@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, KeyboardEvent, memo, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEvent, memo, useEffect, useState } from 'react'
 
 import ClearIcon from '@mui/icons-material/Clear'
 import DoneIcon from '@mui/icons-material/Done'
@@ -25,6 +25,7 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const [value, setValue] = useState(text ?? '')
+
   const [isShow, setIsShow] = useState(false)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,9 +52,13 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
     onClickSubmit(rowId, value)
   }
 
-  const disabledSave =
-    value !== '' && (!isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50)))
-  const inputError = value === '' || !disabledSave
+  useEffect(() => {
+    setValue(text)
+  }, [text])
+
+  const disabledSave = !isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50))
+
+  const inputError = !!text && !value
 
   return (
     <Input
@@ -66,7 +71,7 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
         <>
           {isShow ? <DoneIcon className={styles.doneIcon} /> : null}
 
-          {text !== Number(value) && !isShow ? (
+          {text !== value && !isShow ? (
             <div className={styles.icons}>
               <button disabled={!disabledSave} className={styles.button} onClick={handleSave}>
                 <SaveIcon className={styles.saveIcon} />

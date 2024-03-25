@@ -34,7 +34,7 @@ import {
   checkIsValidProposalStatusToShowResoult,
 } from '@utils/checks'
 import { objectDeepCompare } from '@utils/object'
-import { clearEverythingExceptNumbers, toFixed } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
@@ -147,7 +147,7 @@ export const IdeaViewAndEditCard = observer(
     const getFullIdea = () => ({
       ...curIdea,
       status: curIdea?.status,
-      media: curIdea?.linksToMediaFiles?.length ? [...curIdea.linksToMediaFiles] : [],
+      media: curIdea?.linksToMediaFiles?.length ? curIdea.linksToMediaFiles : [],
       comments: curIdea?.comments || '',
       buyerComment: curIdea?.buyerComment || '',
       productName: curIdea?.productName || '',
@@ -218,10 +218,11 @@ export const IdeaViewAndEditCard = observer(
     }, [curIdea?._id, inEdit])
 
     useEffect(() => {
-      if (!isCurrentIdea) {
+      if (!isCurrentIdea && !inCreate) {
         setFormFields(getShortIdea())
       } else {
         setFormFields(getFullIdea())
+        setShowFullCard(true)
       }
     }, [curIdea, idea, languageTag])
 
@@ -264,6 +265,7 @@ export const IdeaViewAndEditCard = observer(
           (sizeSetting === unitsOfChangeOptions.US
             ? roundSafely(formFields?.length * inchesCoefficient)
             : formFields?.length) || 0,
+        media: images,
       }
 
       return res
@@ -543,7 +545,11 @@ export const IdeaViewAndEditCard = observer(
                             {formFields?.productLinks?.length ? (
                               formFields?.productLinks?.map((el, index) => (
                                 <div key={index} className={styles.linkWrapper}>
-                                  <Link target="_blank" href={el} className={styles.linkTextWrapper}>
+                                  <Link
+                                    target="_blank"
+                                    href={checkAndMakeAbsoluteUrl(el)}
+                                    className={styles.linkTextWrapper}
+                                  >
                                     <Typography className={styles.linkText}>{`${index + 1}. ${el}`}</Typography>
                                   </Link>
 
@@ -683,7 +689,10 @@ export const IdeaViewAndEditCard = observer(
             {formFields ? (
               <ListSuppliers
                 formFields={formFields}
-                onClickSaveSupplier={onClickSaveSupplierBtn}
+                isNotProductNameForIdea={formFields?.productName.length === 0} // for disable add supplier button
+                onClickSaveSupplier={({ ...rest }) =>
+                  onClickSaveSupplierBtn({ ...rest, ideaFormFields: calculateFieldsToSubmit() })
+                }
                 onRemoveSupplier={onRemoveSupplier}
                 // onSaveProduct={onClickSupplierBtns}
               />

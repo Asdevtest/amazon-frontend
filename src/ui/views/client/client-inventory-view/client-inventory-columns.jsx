@@ -18,6 +18,7 @@ import {
   MultilineTextHeaderCell,
   OrderIdAndAmountCountCell,
   ProductAsinCell,
+  ProductVariationsCell,
   RedFlagsCell,
   SelectRowCell,
   ShortDateCell,
@@ -45,17 +46,27 @@ export const clientInventoryColumns = (
       renderCell: params => (
         <SelectRowCell
           checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
-          showVariationButton={params.row?.parentProductId || params.row?.hasChildren}
-          isParentProduct={!params.row?.parentProductId && params.row?.hasChildren}
           onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?._id)}
-          onClickVariationButton={() =>
-            otherHandlers.onClickVariationButton(params.row?.parentProductId || params.row?._id)
-          }
         />
       ),
-      width: 120,
+      width: 80,
       disableCustomSort: true,
       hide: true,
+    },
+
+    {
+      field: 'children',
+      headerName: t(TranslationKey.Variation),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Variation)} />,
+      renderCell: ({ row }) => (
+        <ProductVariationsCell
+          showVariationButton={row?.parentProductId || row?.hasChildren}
+          isParentProduct={!row?.parentProductId && row?.hasChildren}
+          onClickVariationButton={() => otherHandlers.onClickVariationButton(row?.parentProductId || row?._id)}
+        />
+      ),
+      width: 90,
+      columnKey: columnnsKeys.shared.YES_NO,
     },
 
     {
@@ -214,6 +225,7 @@ export const clientInventoryColumns = (
       headerName: t(TranslationKey['Stock cost']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock cost'])} />,
       renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
+      valueGetter: ({ row }) => toFixed(row?.stockCost, 2),
       width: 120,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -285,6 +297,7 @@ export const clientInventoryColumns = (
       headerName: t(TranslationKey['Red flags']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
       renderCell: params => <RedFlagsCell flags={params.row?.redFlags} />,
+      valueGetter: ({ row }) => row?.redFlags?.map(el => el?.title).join(', '),
       width: 130,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.RED_FLAGS,
@@ -401,6 +414,7 @@ export const clientInventoryColumns = (
       headerName: t(TranslationKey['Access to product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
       renderCell: params => <ManyUserLinkCell usersData={params.row?.subUsers} />,
+      valueGetter: ({ row }) => row?.subUsers?.map(el => el?.name).join(', '),
       width: 187,
       filterable: false,
       disableCustomSort: true,
@@ -412,6 +426,7 @@ export const clientInventoryColumns = (
       headerName: t(TranslationKey['Comment of SB']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comment of SB'])} />,
       renderCell: params => <CommentOfSbCell productsInWarehouse={params.row?.productsInWarehouse} />,
+      valueGetter: ({ row }) => row?.productsInWarehouse?.map(el => el?.comment || '').join(', '),
       width: 400,
       disableColumnMenu: true,
       filterable: false,
@@ -423,6 +438,7 @@ export const clientInventoryColumns = (
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+      valueGetter: ({ row }) => row?.clientComment,
       width: 400,
       disableCustomSort: true,
       filterable: false,
@@ -442,7 +458,7 @@ export const clientInventoryColumns = (
             field: table,
             headerName: `${formedTableName} product`,
             renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
-
+            valueGetter: ({ row }) => row?.[table]?.asin,
             renderCell: ({ row }) => {
               const product = row?.[table]
 

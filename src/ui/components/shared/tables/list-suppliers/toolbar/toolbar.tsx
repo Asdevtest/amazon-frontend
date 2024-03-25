@@ -33,12 +33,14 @@ interface ToolbarProps {
   orderStatus: number
   isSupplerSelected: boolean
   isCurrentSupplierSelected: boolean
-  onSupplierApproximateCalculationsModal: () => void
   onSupplierActions: (mode: ModalModes) => void
+  onSupplierApproximateCalculationsModal: () => void
   readOnly?: boolean
   userInfo?: IFullUser
   supplier?: ISupplier
+  isDefaultSupplier?: boolean
   checkIsPlanningPrice?: boolean
+  isNotProductNameForIdea?: boolean
 }
 
 export const Toolbar: FC<ToolbarProps> = memo(props => {
@@ -47,15 +49,67 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     orderStatus,
     isSupplerSelected,
     isCurrentSupplierSelected,
-    onSupplierApproximateCalculationsModal,
     onSupplierActions,
+    onSupplierApproximateCalculationsModal,
     readOnly,
     userInfo,
     supplier,
+    isDefaultSupplier,
     checkIsPlanningPrice,
+    isNotProductNameForIdea,
   } = props
 
   const { classes: styles } = useStyles()
+
+  const isSelectedOwner =
+    userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id
+
+  const showViewCalculationButton =
+    isSupplerSelected &&
+    !!userInfo &&
+    (checkIsClient(UserRoleCodeMap[userInfo?.role]) ||
+      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
+      checkIsSupervisor(UserRoleCodeMap[userInfo?.role])) &&
+    !ideaValidStatuses.includes(status)
+
+  const showAddSupplierButton =
+    !readOnly &&
+    !!userInfo &&
+    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
+        [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
+      ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
+        ideaValidStatuses.includes(status)) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && !orderStatus) ||
+      ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) && !status))
+
+  const showEditSupplierButton =
+    !readOnly &&
+    isSupplerSelected &&
+    !!userInfo &&
+    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
+        [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
+      ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
+        ideaValidStatuses.includes(status) &&
+        isSelectedOwner) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && isSelectedOwner && !orderStatus))
+
+  const showToggleCurrentSupplierButton =
+    !readOnly &&
+    isSupplerSelected &&
+    !!userInfo &&
+    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && buyerValidProductStatuses.includes(status)) ||
+      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
+        [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)))
+
+  const showRemoveCurrentSupplierButton =
+    !readOnly &&
+    isSupplerSelected &&
+    !!userInfo &&
+    (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
+    (status === ProductStatus.BUYER_PICKED_PRODUCT || (ideaValidStatuses.includes(status) && isSelectedOwner))
 
   const boxPropertiesIsFullAndMainsValues =
     supplier?.boxProperties?.amountInBox &&
@@ -67,71 +121,30 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     supplier?.minlot &&
     supplier?.priceInYuan &&
     supplier?.price
-  const showViewCalculationButton =
-    !readOnly &&
-    isSupplerSelected &&
-    !!userInfo &&
-    (checkIsClient(UserRoleCodeMap[userInfo?.role]) ||
-      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
-      checkIsSupervisor(UserRoleCodeMap[userInfo?.role])) &&
-    !ideaValidStatuses.includes(status)
-  const showVisibleButton = isSupplerSelected
-  const showAddSupplierButton =
-    !readOnly &&
-    !!userInfo &&
-    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
-      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
-        [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
-      ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
-        ideaValidStatuses.includes(status) &&
-        (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)))
-  const showEditSupplierButton =
-    !readOnly &&
-    isSupplerSelected &&
-    !!userInfo &&
-    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
-      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
-        [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
-      ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
-        ideaValidStatuses.includes(status) &&
-        (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)))
-  const showToggleCurrentSupplierButton =
-    !readOnly &&
-    isSupplerSelected &&
-    !!userInfo &&
-    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
-      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) && buyerValidProductStatuses.includes(status)) ||
-      (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
-        [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)))
-  const showRemoveCurrentSupplierButton =
-    !readOnly &&
-    isSupplerSelected &&
-    !!userInfo &&
-    (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
-    (status === ProductStatus.BUYER_PICKED_PRODUCT ||
-      (ideaValidStatuses.includes(status) &&
-        (userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id)))
-
-  const isPendingOrderAndNotCurrentSupplierSelected =
+  const isPendingOrderAndNotDefaultSupplier =
     userInfo &&
     checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
-    !isCurrentSupplierSelected &&
+    !isDefaultSupplier &&
     orderStatus === OrderStatus.PENDING
   const isAtProcessOrder =
     userInfo &&
     checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
     orderStatus === OrderStatus.AT_PROCESS &&
     checkIsPlanningPrice
+  const disabledAddSupplierButtonWhenCreateIdea =
+    userInfo &&
+    (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
+    isNotProductNameForIdea
   const disabledEditSupplierButton =
     !supplier ||
     supplier?.name === ACCESS_DENIED ||
-    isPendingOrderAndNotCurrentSupplierSelected ||
     isAtProcessOrder ||
+    isPendingOrderAndNotDefaultSupplier ||
     (userInfo &&
       checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
       userInfo?._id !== supplier?.createdBy?._id &&
       userInfo?.masterUser?._id !== supplier?.createdBy?._id)
-  const tooltipAttentionContentEditSupplierButton = isPendingOrderAndNotCurrentSupplierSelected
+  const tooltipAttentionContentEditSupplierButton = isPendingOrderAndNotDefaultSupplier
     ? t(TranslationKey['Editing is unavailable due to change of current supplier'])
     : ''
 
@@ -157,7 +170,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             variant={ButtonVariant.OUTLINED}
             // tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
             className={styles.button}
-            disabled={isAtProcessOrder}
+            disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea}
             onClick={() => onSupplierActions(ModalModes.ADD)}
           >
             <AddIcon className={styles.icon} />
@@ -178,7 +191,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           </Button>
         ) : null}
 
-        {showVisibleButton ? (
+        {isSupplerSelected ? (
           <Button
             variant={ButtonVariant.OUTLINED}
             className={styles.button}

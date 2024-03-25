@@ -127,14 +127,16 @@ export const TabMain = memo(props => {
         <AsinProxyCheckerForm user={user} onSubmit={setUpdatedProxy} onClose={onClickToggleProxyModal} />
       </Modal>
 
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={showInfoModal}
-        setOpenModal={onClickToggleInfoModal}
-        title={infoModalText}
-        btnText={t(TranslationKey.Close)}
-        onClickBtn={onClickToggleInfoModal}
-      />
+      {showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={showInfoModal}
+          setOpenModal={onClickToggleInfoModal}
+          title={infoModalText}
+          btnText={t(TranslationKey.Close)}
+          onClickBtn={onClickToggleInfoModal}
+        />
+      ) : null}
     </>
   )
 })

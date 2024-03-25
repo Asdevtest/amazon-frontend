@@ -1,5 +1,6 @@
 import { toJS } from 'mobx'
-import { memo, useEffect, useState } from 'react'
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -18,15 +19,14 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SearchInput } from '@components/shared/search-input'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { DownloadIcon } from '@components/shared/svg-icons'
 
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
 import {
   calcActualBatchWeight,
-  calcPriceForBox,
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
@@ -41,7 +41,7 @@ import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
 
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
-export const BatchInfoModal = memo(
+export const BatchInfoModal = observer(
   ({
     openModal,
     setOpenModal,
@@ -52,10 +52,6 @@ export const BatchInfoModal = memo(
     patchActualShippingCostBatch,
     history,
   }) => {
-    if (!openModal) {
-      return null
-    }
-
     const { classes: styles, cx } = useStyles()
 
     const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
@@ -276,11 +272,8 @@ export const BatchInfoModal = memo(
                 containerClasses={cx(styles.sumField, styles.dividerField)}
                 inputClasses={[styles.infoField, styles.dividerField]}
                 labelClasses={styles.subFieldLabel}
-                label={t(TranslationKey['Total price'])}
-                value={toFixed(
-                  currentBatch?.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
-                  2,
-                )}
+                label={`${t(TranslationKey['Total price'])} (${t(TranslationKey.China)})`}
+                value={currentBatch?.totalPriceFromOrderSupplier}
                 placeholder={'0'}
               />
 
@@ -394,13 +387,8 @@ export const BatchInfoModal = memo(
           </div>
 
           <div className={styles.filesAndButtonWrapper}>
-            <div className={styles.filesSubWrapper}>
-              <PhotoAndFilesSlider
-                smallSlider
-                column={window.innerWidth < 768}
-                files={currentBatch?.attachedDocuments}
-              />
-            </div>
+            <SlideshowGallery slidesToShow={2} files={currentBatch?.attachedDocuments} />
+
             <div className={styles.buttonsWrapper}>
               <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download the batch file'])}
@@ -433,13 +421,15 @@ export const BatchInfoModal = memo(
             />
           </Modal>
 
-          <SlideshowGalleryModal
-            openModal={showPhotosModal}
-            files={currentBatch?.attachedDocuments}
-            currentFileIndex={curImageIndex}
-            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            onCurrentFileIndex={index => setCurImageIndex(index)}
-          />
+          {showPhotosModal ? (
+            <SlideshowGalleryModal
+              openModal={showPhotosModal}
+              files={currentBatch?.attachedDocuments}
+              currentFileIndex={curImageIndex}
+              onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+              onCurrentFileIndex={index => setCurImageIndex(index)}
+            />
+          ) : null}
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

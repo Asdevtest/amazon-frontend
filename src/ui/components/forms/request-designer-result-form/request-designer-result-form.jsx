@@ -23,6 +23,8 @@ import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
 
+import { useScrollToFile } from '@hooks/use-scroll-to-file'
+
 import { useStyles } from './request-designer-result-form.style'
 
 const reorder = (list, startIndex, endIndex) => {
@@ -197,11 +199,9 @@ const Slot = ({
           />
         </div>
 
-        <div className={styles.imageObjSubWrapper}>
-          <Typography className={cx(styles.clientComment)}>
-            {getShortenStringIfLongerThanCount(slot?.commentByClient, 30)}
-          </Typography>
-        </div>
+        <Typography title={slot?.commentByClient || ''} className={styles.clientComment}>
+          {getShortenStringIfLongerThanCount(slot?.commentByClient, 30)}
+        </Typography>
       </div>
     </div>
   )
@@ -312,7 +312,9 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
     }
   }
 
-  const disableSubmit = imagesData.some(el => !el.fileLink)
+  const disableSubmit = imagesData.some(el => !el.fileLink) || imagesData.length === 0
+
+  const lastFileRef = useScrollToFile(imagesData)
 
   return (
     <>
@@ -412,21 +414,22 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
         <div className={styles.bodyWrapper}>
           <DndProvider backend={HTML5Backend}>
             {imagesData.map((slot, index) => (
-              <Slot
-                key={slot._id}
-                slot={slot}
-                index={index}
-                setCurImageIndex={setCurImageIndex}
-                imagesData={imagesData}
-                setImagesData={setImagesData}
-                setShowImageModal={setShowImageModal}
-                showImageModal={showImageModal}
-                isRework={isRework}
-                onPasteFiles={onPasteFiles}
-                onUploadFile={onUploadFile}
-                onClickRemoveItem={onClickRemoveItem}
-                onChangeImageFileds={onChangeImageFileds}
-              />
+              <div key={slot._id} ref={index === imagesData.length - 1 ? lastFileRef : null}>
+                <Slot
+                  slot={slot}
+                  index={index}
+                  setCurImageIndex={setCurImageIndex}
+                  imagesData={imagesData}
+                  setImagesData={setImagesData}
+                  setShowImageModal={setShowImageModal}
+                  showImageModal={showImageModal}
+                  isRework={isRework}
+                  onPasteFiles={onPasteFiles}
+                  onUploadFile={onUploadFile}
+                  onClickRemoveItem={onClickRemoveItem}
+                  onChangeImageFileds={onChangeImageFileds}
+                />
+              </div>
             ))}
           </DndProvider>
         </div>
@@ -469,15 +472,17 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
         </div>
       </div>
 
-      <SlideshowGalleryModal
-        isEditable={isRework}
-        openModal={showImageModal}
-        files={imagesData}
-        currentFileIndex={curImageIndex}
-        onOpenModal={() => setShowImageModal(!showImageModal)}
-        onCurrentFileIndex={index => setCurImageIndex(index)}
-        onChangeImagesForLoad={setImagesData}
-      />
+      {showImageModal ? (
+        <SlideshowGalleryModal
+          isEditable={isRework}
+          openModal={showImageModal}
+          files={imagesData}
+          currentFileIndex={curImageIndex}
+          onOpenModal={() => setShowImageModal(!showImageModal)}
+          onCurrentFileIndex={index => setCurImageIndex(index)}
+          onChangeImagesForLoad={setImagesData}
+        />
+      ) : null}
     </>
   )
 }

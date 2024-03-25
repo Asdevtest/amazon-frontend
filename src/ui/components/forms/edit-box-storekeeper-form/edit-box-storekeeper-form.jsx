@@ -21,8 +21,8 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
@@ -429,131 +429,125 @@ export const EditBoxStorekeeperForm = memo(
                     {boxFields.items.map((item, index) => (
                       <div key={index} className={styles.productWrapper}>
                         <div className={styles.leftProductColumn}>
-                          <PhotoAndFilesSlider withoutFiles mediumSlider files={item.product.images} />
+                          <SlideshowGallery slidesToShow={2} files={item.product.images} />
 
-                          <>
+                          <Field
+                            containerClasses={styles.field}
+                            tooltipInfoContent={!item.barCode && t(TranslationKey['Add a product barcode to the box'])}
+                            labelClasses={styles.standartLabel}
+                            label={t(TranslationKey.BarCode)}
+                            inputComponent={
+                              <ChangeChipCell
+                                isChipOutTable
+                                text={!item.barCode && !item?.tmpBarCode?.length && t(TranslationKey['Set Barcode'])}
+                                value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
+                                onClickChip={() => onClickBarcode(item)}
+                                onDoubleClickChip={() => onDoubleClickBarcode(item)}
+                                onDeleteChip={() => onDeleteBarcode(item.product._id)}
+                              />
+                            }
+                          />
+
+                          <Field
+                            containerClasses={styles.field}
+                            labelClasses={styles.standartLabel}
+                            label={t(TranslationKey['Transparency codes'])}
+                            inputComponent={
+                              <ChangeChipCell
+                                isChipOutTable
+                                text={
+                                  !item.transparencyFile &&
+                                  !item?.tmpTransparencyFile?.length &&
+                                  t(TranslationKey.Transparency)
+                                }
+                                value={
+                                  item?.tmpTransparencyFile?.[0]?.file?.name ||
+                                  item?.tmpTransparencyFile?.[0] ||
+                                  item.transparencyFile
+                                }
+                                onClickChip={() => {
+                                  setFilesConditions({
+                                    tmpFiles: item?.tmpTransparencyFile,
+                                    currentFiles: item.transparencyFile,
+                                    index,
+                                  })
+                                  setShowSetFilesModal(true)
+                                }}
+                                onDeleteChip={() => onDeleteTransparencyFile(index)}
+                              />
+                            }
+                          />
+
+                          <div>
                             <Field
-                              containerClasses={styles.field}
-                              tooltipInfoContent={
-                                !item.barCode && t(TranslationKey['Add a product barcode to the box'])
-                              }
+                              oneLine
                               labelClasses={styles.standartLabel}
-                              label={t(TranslationKey.BarCode)}
+                              tooltipInfoContent={t(
+                                TranslationKey['The supplier has glued the barcode before shipment'],
+                              )}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['The barcode is glued by the supplier'])}
                               inputComponent={
-                                <ChangeChipCell
-                                  isChipOutTable
-                                  text={!item.barCode && !item?.tmpBarCode?.length && t(TranslationKey['Set Barcode'])}
-                                  value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
-                                  onClickChip={() => onClickBarcode(item)}
-                                  onDoubleClickChip={() => onDoubleClickBarcode(item)}
-                                  onDeleteChip={() => onDeleteBarcode(item.product._id)}
+                                <Checkbox
+                                  checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+                                  onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
+                                />
+                              }
+                            />
+                            <Field
+                              oneLine
+                              labelClasses={styles.standartLabel}
+                              tooltipInfoContent={t(
+                                TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
+                              )}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
+                              inputComponent={
+                                <Checkbox
+                                  checked={item.isBarCodeAttachedByTheStorekeeper}
+                                  onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
                                 />
                               }
                             />
 
                             <Field
-                              containerClasses={styles.field}
+                              oneLine
                               labelClasses={styles.standartLabel}
-                              label={t(TranslationKey['Transparency codes'])}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['Transparency codes glued by the supplier'])}
                               inputComponent={
-                                <ChangeChipCell
-                                  isChipOutTable
-                                  text={
-                                    !item.transparencyFile &&
-                                    !item?.tmpTransparencyFile?.length &&
-                                    t(TranslationKey.Transparency)
-                                  }
-                                  value={
-                                    item?.tmpTransparencyFile?.[0]?.file?.name ||
-                                    item?.tmpTransparencyFile?.[0] ||
-                                    item.transparencyFile
-                                  }
-                                  onClickChip={() => {
-                                    setFilesConditions({
-                                      tmpFiles: item?.tmpTransparencyFile,
-                                      currentFiles: item.transparencyFile,
+                                <Checkbox
+                                  checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
+                                  onChange={e =>
+                                    onClickGluedTransparency(
+                                      'isTransparencyFileAlreadyAttachedByTheSupplier',
                                       index,
-                                    })
-                                    setShowSetFilesModal(true)
-                                  }}
-                                  onDeleteChip={() => onDeleteTransparencyFile(index)}
+                                      e.target.checked,
+                                    )
+                                  }
                                 />
                               }
                             />
 
-                            <div>
-                              <Field
-                                oneLine
-                                labelClasses={styles.standartLabel}
-                                tooltipInfoContent={t(
-                                  TranslationKey['The supplier has glued the barcode before shipment'],
-                                )}
-                                containerClasses={styles.checkboxContainer}
-                                label={t(TranslationKey['The barcode is glued by the supplier'])}
-                                inputComponent={
-                                  <Checkbox
-                                    checked={item.isBarCodeAlreadyAttachedByTheSupplier}
-                                    onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
-                                  />
-                                }
-                              />
-                              <Field
-                                oneLine
-                                labelClasses={styles.standartLabel}
-                                tooltipInfoContent={t(
-                                  TranslationKey[
-                                    'The barcode was glued on when the box was accepted at the prep center'
-                                  ],
-                                )}
-                                containerClasses={styles.checkboxContainer}
-                                label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
-                                inputComponent={
-                                  <Checkbox
-                                    checked={item.isBarCodeAttachedByTheStorekeeper}
-                                    onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
-                                  />
-                                }
-                              />
-
-                              <Field
-                                oneLine
-                                labelClasses={styles.standartLabel}
-                                containerClasses={styles.checkboxContainer}
-                                label={t(TranslationKey['Transparency codes glued by the supplier'])}
-                                inputComponent={
-                                  <Checkbox
-                                    checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
-                                    onChange={e =>
-                                      onClickGluedTransparency(
-                                        'isTransparencyFileAlreadyAttachedByTheSupplier',
-                                        index,
-                                        e.target.checked,
-                                      )
-                                    }
-                                  />
-                                }
-                              />
-
-                              <Field
-                                oneLine
-                                labelClasses={styles.standartLabel}
-                                containerClasses={styles.checkboxContainer}
-                                label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
-                                inputComponent={
-                                  <Checkbox
-                                    checked={item.isTransparencyFileAttachedByTheStorekeeper}
-                                    onChange={e =>
-                                      onClickGluedTransparency(
-                                        'isTransparencyFileAttachedByTheStorekeeper',
-                                        index,
-                                        e.target.checked,
-                                      )
-                                    }
-                                  />
-                                }
-                              />
-                            </div>
-                          </>
+                            <Field
+                              oneLine
+                              labelClasses={styles.standartLabel}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                              inputComponent={
+                                <Checkbox
+                                  checked={item.isTransparencyFileAttachedByTheStorekeeper}
+                                  onChange={e =>
+                                    onClickGluedTransparency(
+                                      'isTransparencyFileAttachedByTheStorekeeper',
+                                      index,
+                                      e.target.checked,
+                                    )
+                                  }
+                                />
+                              }
+                            />
+                          </div>
                         </div>
 
                         <div className={styles.rightProductColumn}>
@@ -770,9 +764,8 @@ export const EditBoxStorekeeperForm = memo(
                     <div className={styles.field}>
                       <div className={styles.trackNumberPhotoWrapper}>
                         {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
-                          <PhotoAndFilesSlider
-                            withoutFiles
-                            customSlideHeight={96}
+                          <SlideshowGallery
+                            slidesToShow={2}
                             files={
                               boxFields.trackNumberFile.length
                                 ? boxFields.trackNumberFile
@@ -830,7 +823,7 @@ export const EditBoxStorekeeperForm = memo(
                   <Typography className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoAndFilesSlider smallSlider showPreviews files={boxFields.images} />
+                  <SlideshowGallery slidesToShow={2} files={boxFields.images} />
                 </div>
 
                 <div className={styles.commentsWrapper}>
@@ -905,13 +898,15 @@ export const EditBoxStorekeeperForm = memo(
           </Button>
         </div>
 
-        <SlideshowGalleryModal
-          openModal={showPhotosModal}
-          files={bigImagesOptions.images}
-          currentFileIndex={bigImagesOptions.imgIndex}
-          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
+        {showPhotosModal ? (
+          <SlideshowGalleryModal
+            openModal={showPhotosModal}
+            files={bigImagesOptions.images}
+            currentFileIndex={bigImagesOptions.imgIndex}
+            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          />
+        ) : null}
 
         <Modal
           openModal={showSetShippingLabelModal}
@@ -969,18 +964,20 @@ export const EditBoxStorekeeperForm = memo(
           />
         </Modal>
 
-        <ConfirmationModal
-          // @ts-ignore
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => setShowConfirmModal(false)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(false)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </div>
     )
   },

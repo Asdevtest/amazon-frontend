@@ -288,14 +288,16 @@ export const RequestDesignerResultClientForm = memo(props => {
         </div>
       </div>
 
-      <SlideshowGalleryModal
-        openModal={showImageModal}
-        files={imagesData}
-        currentFileIndex={curImageIndex}
-        onOpenModal={() => setShowImageModal(!showImageModal)}
-        onCurrentFileIndex={index => setCurImageIndex(index)}
-        onChangeImagesForLoad={setImagesData}
-      />
+      {showImageModal ? (
+        <SlideshowGalleryModal
+          openModal={showImageModal}
+          files={imagesData}
+          currentFileIndex={curImageIndex}
+          onOpenModal={() => setShowImageModal(!showImageModal)}
+          onCurrentFileIndex={index => setCurImageIndex(index)}
+          onChangeImagesForLoad={setImagesData}
+        />
+      ) : null}
     </>
   )
 })

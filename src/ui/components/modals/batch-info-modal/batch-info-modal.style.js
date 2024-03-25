@@ -84,7 +84,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    gap: 30,
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       gap: 5,
@@ -165,15 +164,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 16,
     lineHeight: '22px',
-  },
-  filesSubWrapper: {
-    height: '100%',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      minWidth: '280px',
-      display: 'flex',
-      justifyContent: 'center',
-    },
   },
   tableWrapper: {
     height: 400,

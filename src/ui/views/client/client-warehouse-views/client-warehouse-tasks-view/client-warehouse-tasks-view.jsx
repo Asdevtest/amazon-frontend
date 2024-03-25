@@ -1,18 +1,8 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { Checkbox, Typography } from '@mui/material'
-
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import {
-  TaskOperationType,
-  mapTaskOperationTypeEnumToKey,
-  mapTaskOperationTypeKeyToEnum,
-  mapTaskOperationTypeToLabel,
-  taskOperationTypeTranslate,
-} from '@constants/task/task-operation-type'
-import { mapTaskPriorityStatusEnum, taskPriorityStatusTranslate } from '@constants/task/task-priority-status'
-import { TaskStatusTranslate, mapTaskStatusKeyToEnum } from '@constants/task/task-status'
+import { TaskOperationType, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -20,9 +10,9 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { DownloadIcon } from '@components/shared/svg-icons'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
@@ -30,11 +20,10 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 import { useStyles } from './client-warehouse-tasks-view.style'
 
 import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
+import { getPriorityConfig, getStatusConfig, getStorekeepersConfig, getTypeConfig } from './helpers/get-configs'
 
 export const ClientWarehouseTasksView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
@@ -60,212 +49,85 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
 
   return (
     <>
-      <div>
-        <div className={styles.headerWrapper}>
-          <SearchInput
-            value={viewModel.nameSearchValue}
-            inputClasses={styles.searchInput}
-            placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
-        </div>
+      <div className={styles.headerWrapper}>
+        <div className={styles.downloadBtn} />
 
-        <div className={styles.controls}>
-          <div className={styles.filters}>
-            <WithSearchSelect
-              isCloseAfterClickSubmit
-              notCloseOneClick
-              isFlat
-              checkbox
-              getRowValue={el => taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[Number(el)])}
-              selectedItemName={t(TranslationKey['All priorities'])}
-              data={Object.keys(mapTaskPriorityStatusEnum).reverse()}
-              currentShops={viewModel.activeFilters.priority}
-              firstItems={
-                <Button
-                  className={styles.filterBtn}
-                  styleType={ButtonStyle.TRANSPARENT}
-                  onClick={() => {
-                    viewModel.selectFilterForField(
-                      'priority',
-                      Object.keys(mapTaskPriorityStatusEnum).length === viewModel.activeFilters.priority.length
-                        ? []
-                        : Object.keys(mapTaskPriorityStatusEnum),
-                    )
-                  }}
-                >
-                  <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
-                    <>
-                      <Checkbox
-                        checked={
-                          Object.keys(mapTaskPriorityStatusEnum).length === viewModel.activeFilters.priority.length
-                        }
-                        color="primary"
-                      />
-                      <Typography className={styles.fieldName}>{t(TranslationKey['All priorities'])}</Typography>
-                    </>
-                  </div>
-                </Button>
-              }
-              onClickSelect={el => viewModel.selectFilterForField('priority', el)}
-              onClickSubmitBtn={viewModel.getTasksMy}
-            />
+        <SearchInput
+          value={viewModel.nameSearchValue}
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by ASIN, Order ID, Item'])}
+          onSubmit={viewModel.onSearchSubmit}
+        />
 
-            <WithSearchSelect
-              isCloseAfterClickSubmit
-              notCloseOneClick
-              isFlat
-              checkbox
-              getRowValue={el => TaskStatusTranslate(mapTaskStatusKeyToEnum[el])}
-              selectedItemName={t(TranslationKey['All statuses'])}
-              data={Object.keys(mapTaskStatusKeyToEnum)}
-              currentShops={viewModel.activeFilters.status}
-              firstItems={
-                <Button
-                  className={styles.filterBtn}
-                  styleType={ButtonStyle.TRANSPARENT}
-                  onClick={() => {
-                    viewModel.selectFilterForField(
-                      'status',
-                      Object.keys(mapTaskStatusKeyToEnum).length === viewModel.activeFilters.status.length
-                        ? []
-                        : Object.keys(mapTaskStatusKeyToEnum),
-                    )
-                  }}
-                >
-                  <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
-                    <>
-                      <Checkbox
-                        checked={Object.keys(mapTaskStatusKeyToEnum).length === viewModel.activeFilters.status.length}
-                        color="primary"
-                      />
-                      <Typography className={styles.fieldName}>{t(TranslationKey['All statuses'])}</Typography>
-                    </>
-                  </div>
-                </Button>
-              }
-              onClickSelect={el => viewModel.selectFilterForField('status', el)}
-              onClickSubmitBtn={viewModel.getTasksMy}
-            />
+        <Button сlassName={styles.downloadBtn} disabled={isDisabledDownload} onClick={viewModel.onClickReportBtn}>
+          {t(TranslationKey['Download task file'])}
+          <DownloadIcon className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: isDisabledDownload })} />
+        </Button>
+      </div>
 
-            <WithSearchSelect
-              isCloseAfterClickSubmit
-              checkbox
-              notCloseOneClick
-              selectedItemName={t(TranslationKey['All warehouses'])}
-              data={viewModel.storekeepersData}
-              searchFields={['name']}
-              currentShops={viewModel.activeFilters.storekeeper}
-              firstItems={
-                <Button
-                  className={styles.filterBtn}
-                  styleType={ButtonStyle.TRANSPARENT}
-                  onClick={() => {
-                    viewModel.selectFilterForField(
-                      'storekeeper',
-                      viewModel.storekeepersData.length === viewModel.activeFilters.storekeeper.length
-                        ? []
-                        : viewModel.storekeepersData,
-                    )
-                  }}
-                >
-                  <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
-                    <>
-                      <Checkbox
-                        checked={viewModel.storekeepersData.length === viewModel.activeFilters.storekeeper.length}
-                        color="primary"
-                      />
-                      <Typography className={styles.fieldName}>{t(TranslationKey['All warehouses'])}</Typography>
-                    </>
-                  </div>
-                </Button>
-              }
-              onClickSelect={el => viewModel.selectFilterForField('storekeeper', el, '_id')}
-              onClickSubmitBtn={viewModel.getTasksMy}
-            />
+      <div className={styles.filters}>
+        <CustomSwitcher
+          switchMode={'medium'}
+          condition={viewModel.selectedPriority}
+          switcherSettings={getPriorityConfig()}
+          changeConditionHandler={el => viewModel.setFilters('selectedPriority', el)}
+        />
 
-            <WithSearchSelect
-              isCloseAfterClickSubmit
-              notCloseOneClick
-              isFlat
-              checkbox
-              getRowValue={el => taskOperationTypeTranslate(mapTaskOperationTypeEnumToKey[el])}
-              selectedItemName={t(TranslationKey['All tasks'])}
-              data={Object.keys(mapTaskOperationTypeKeyToEnum)}
-              currentShops={viewModel.activeFilters.type}
-              firstItems={
-                <Button
-                  className={styles.filterBtn}
-                  styleType={ButtonStyle.TRANSPARENT}
-                  onClick={() => {
-                    viewModel.selectFilterForField(
-                      'type',
-                      Object.keys(mapTaskOperationTypeKeyToEnum).length === viewModel.activeFilters.type.length
-                        ? []
-                        : Object.keys(mapTaskOperationTypeKeyToEnum),
-                    )
-                  }}
-                >
-                  <div className={cx(styles.fieldNamesWrapper, styles.fieldNamesWrapperWithCheckbox)}>
-                    <Checkbox
-                      checked={
-                        Object.keys(mapTaskOperationTypeKeyToEnum).length === viewModel.activeFilters.type.length
-                      }
-                      color="primary"
-                    />
-                    <Typography className={styles.fieldName}>{t(TranslationKey['All tasks'])}</Typography>
-                  </div>
-                </Button>
-              }
-              onClickSelect={el => viewModel.selectFilterForField('type', el)}
-              onClickSubmitBtn={viewModel.getTasksMy}
-            />
-          </div>
+        <CustomSwitcher
+          switchMode={'medium'}
+          condition={viewModel.selectedStatus}
+          switcherSettings={getStatusConfig()}
+          changeConditionHandler={el => viewModel.setFilters('selectedStatus', el)}
+        />
 
-          <Button
-            disabled={isDisabledDownload}
-            className={styles.pickupOrdersButton}
-            onClick={viewModel.onClickReportBtn}
-          >
-            {t(TranslationKey['Download task file'])}
-            <DownloadIcon className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: isDisabledDownload })} />
-          </Button>
-        </div>
+        <CustomSwitcher
+          switchMode={'medium'}
+          condition={viewModel.selectedType}
+          switcherSettings={getTypeConfig()}
+          changeConditionHandler={el => viewModel.setFilters('selectedType', el)}
+        />
 
-        <div className={styles.tasksWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.currentData}
-            getRowHeight={() => 'auto'}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+        <CustomSwitcher
+          switchMode={'medium'}
+          condition={viewModel.selectedStorekeeper}
+          switcherSettings={getStorekeepersConfig(viewModel.storekeepersData)}
+          changeConditionHandler={el => viewModel.setFilters('selectedStorekeeper', el)}
+        />
+      </div>
+
+      <div className={styles.tasksWrapper}>
+        <CustomDataGrid
+          checkboxSelection
+          disableRowSelectionOnClick
+          localeText={getLocalizationByLanguageTag()}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.getCurrentTaskData()}
+          getRowHeight={() => 'auto'}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
+
+            toolbar: {
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-              columnMenu: viewModel.columnMenuSettings,
-
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
-            columns={viewModel.columnsModel}
-            rowCount={viewModel.rowsCount}
-            onRowHover={viewModel.onHover}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-          />
-        </div>
+            },
+          }}
+          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          columns={viewModel.columnsModel}
+          rowCount={viewModel.rowsCount}
+          onRowHover={viewModel.onHover}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+        />
       </div>
 
       <Modal
@@ -291,43 +153,49 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        withComment
-        isWarning
-        asCommentModalDefault
-        openModal={viewModel.showConfirmWithCommentModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
-        title={t(TranslationKey.Attention)}
-        commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.onClickCancelAfterConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
-      />
+      {viewModel.showConfirmWithCommentModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          withComment
+          isWarning
+          asCommentModalDefault
+          openModal={viewModel.showConfirmWithCommentModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
+          title={t(TranslationKey.Attention)}
+          commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.onClickCancelAfterConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-      />
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        />
+      ) : null}
 
       {viewModel.showProgress && <CircularProgressWithLabel />}
     </>

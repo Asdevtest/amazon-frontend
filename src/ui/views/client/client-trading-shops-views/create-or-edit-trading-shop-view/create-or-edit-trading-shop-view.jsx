@@ -15,25 +15,25 @@ export const CreateOrEditTradingShopView = observer(({ history }) => {
 
   return (
     <>
-      <div>
-        <CreateOrEditTradingShopContent
-          progressValue={viewModel.progressValue}
-          showProgress={viewModel.showProgress}
-          requestToEdit={viewModel.requestToEdit}
-          history={history}
-          onCreateSubmit={viewModel.onSubmitCreateShopSell}
-          onEditSubmit={viewModel.onSubmitEditRequest}
-        />
-      </div>
-
-      <WarningInfoModal
-        // @ts-ignore
-        openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-        title={viewModel.infoModalText}
-        btnText={t(TranslationKey.Close)}
-        onClickBtn={viewModel.onClickOkInfoModal}
+      <CreateOrEditTradingShopContent
+        progressValue={viewModel.progressValue}
+        showProgress={viewModel.showProgress}
+        requestToEdit={viewModel.requestToEdit}
+        history={history}
+        onCreateSubmit={viewModel.onSubmitCreateShopSell}
+        onEditSubmit={viewModel.onSubmitEditRequest}
       />
+
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
+          title={viewModel.infoModalText}
+          btnText={t(TranslationKey.Close)}
+          onClickBtn={viewModel.onClickOkInfoModal}
+        />
+      ) : null}
     </>
   )
 })

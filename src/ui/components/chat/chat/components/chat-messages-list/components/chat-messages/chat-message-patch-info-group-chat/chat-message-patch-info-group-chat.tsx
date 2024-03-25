@@ -87,13 +87,15 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
         ) : null}
       </div>
 
-      <SlideshowGalleryModal
-        files={bigImagesOptions.images}
-        currentFileIndex={bigImagesOptions.imgIndex}
-        openModal={showPhotosModal}
-        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        onCurrentFileIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
-      />
+      {showPhotosModal ? (
+        <SlideshowGalleryModal
+          files={bigImagesOptions.images}
+          currentFileIndex={bigImagesOptions.imgIndex}
+          openModal={showPhotosModal}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          onCurrentFileIndex={index => setBigImagesOptions({ ...bigImagesOptions, imgIndex: index })}
+        />
+      ) : null}
     </div>
   )
 }

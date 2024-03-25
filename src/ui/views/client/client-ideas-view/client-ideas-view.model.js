@@ -49,7 +49,6 @@ export class ClientIdeasViewModel {
   showBarcodeOrHscodeModal = false
   showSetBarcodeModal = false
   productCardModal = false
-
   showIdeaModal = false
   showBindingModal = false
   showConfirmModal = false
@@ -61,6 +60,7 @@ export class ClientIdeasViewModel {
   showOrderModal = false
   showSelectionSupplierModal = false
   showCommentsModal = false
+  showAddOrEditSupplierModal = false
 
   // * Data
 
@@ -90,6 +90,7 @@ export class ClientIdeasViewModel {
   // * Modal data
 
   selectedIdea = undefined
+  selectedIdeaId = undefined
   currentProduct = undefined
   requestsForProduct = []
   productsToLaunch = []
@@ -133,6 +134,7 @@ export class ClientIdeasViewModel {
     onClickParseProductData: idea => this.onClickParseProductData(idea),
     onClickToOrder: id => this.onClickToOrder(id),
     onClickRequestId: id => this.onClickRequestId(id),
+    onClickAddSupplierButton: id => this.onClickAddSupplierButton(id),
 
     barCodeHandlers: {
       onClickBarcode: item => this.onClickBarcode(item),
@@ -161,12 +163,16 @@ export class ClientIdeasViewModel {
     return UserModel.userInfo
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   get currentData() {
     return this.ideaList
   }
 
-  get platformSettings() {
-    return UserModel.platformSettings
+  get destinationsFavourites() {
+    return SettingsModel.destinationsFavourites
   }
 
   constructor({ history }) {
@@ -782,8 +788,14 @@ export class ClientIdeasViewModel {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await IdeaModel.addSuppliersToIdea(itemId, { suppliersIds: [createSupplierResult.guid] })
+        await IdeaModel.addSuppliersToIdea(itemId || this.selectedIdeaId, {
+          suppliersIds: [createSupplierResult.guid],
+        })
       }
+
+      runInAction(() => {
+        this.selectedIdeaId = undefined
+      })
 
       this.loadData()
 
@@ -1086,7 +1098,13 @@ export class ClientIdeasViewModel {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  get destinationsFavourites() {
-    return SettingsModel.destinationsFavourites
+  async onClickAddSupplierButton(id) {
+    runInAction(() => {
+      this.selectedIdeaId = id
+    })
+
+    await this.getSuppliersPaymentMethods()
+
+    this.onTriggerOpenModal('showAddOrEditSupplierModal')
   }
 }

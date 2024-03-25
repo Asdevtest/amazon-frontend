@@ -28,14 +28,25 @@ import { Toolbar } from './toolbar'
 interface ListSuppliersProps {
   formFields: IOrderWithAdditionalFields | IProduct
   readOnly?: boolean
+  defaultSupplierId?: string
   checkIsPlanningPrice?: boolean
-  onClickSaveSupplier?: () => void // can be transferred inside the table model
+  isNotProductNameForIdea?: boolean
   onSaveProduct?: () => void
   onRemoveSupplier?: () => void // can be transferred inside the table model
+  onClickSaveSupplier?: () => void // can be transferred inside the table model
 }
 
 export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
-  const { formFields, readOnly, checkIsPlanningPrice, onClickSaveSupplier, onSaveProduct, onRemoveSupplier } = props
+  const {
+    formFields,
+    readOnly,
+    defaultSupplierId,
+    checkIsPlanningPrice,
+    isNotProductNameForIdea,
+    onClickSaveSupplier,
+    onSaveProduct,
+    onRemoveSupplier,
+  } = props
 
   const { classes: styles } = useStyles()
 
@@ -49,6 +60,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   useEffect(() => {
     viewModel.updateSuppliers(extractProduct(formFields))
 
+    // if an order arrives
     if ('product' in formFields) {
       setOrderStatus(formFields?.status)
     }
@@ -64,6 +76,8 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   })
   const isCurrentSupplierSelected =
     (orderSupplier?._id || extractProduct(formFields).currentSupplierId) === viewModel.selectionModel[0]
+  const isDefaultSupplier =
+    !!orderStatus && defaultSupplierId === (orderSupplier?._id || extractProduct(formFields).currentSupplierId)
 
   return (
     <>
@@ -91,6 +105,8 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
                 <Toolbar
                   readOnly={readOnly}
                   userInfo={viewModel.userInfo}
+                  isNotProductNameForIdea={isNotProductNameForIdea}
+                  isDefaultSupplier={isDefaultSupplier}
                   isSupplerSelected={viewModel.selectionModel.length > 0}
                   isCurrentSupplierSelected={isCurrentSupplierSelected}
                   status={extractProduct(formFields)?.status}
@@ -108,11 +124,13 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         />
       </div>
 
-      <GalleryModal
-        files={viewModel.galleryFiles}
-        openModal={viewModel.showGalleryModal}
-        onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
-      />
+      {viewModel.showGalleryModal ? (
+        <GalleryModal
+          files={viewModel.galleryFiles}
+          openModal={viewModel.showGalleryModal}
+          onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
+        />
+      ) : null}
 
       <Modal
         openModal={viewModel.showAddOrEditSupplierModal}
@@ -147,17 +165,19 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
-        message={viewModel.confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
-        onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
+          onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+        />
+      ) : null}
     </>
   )
 })

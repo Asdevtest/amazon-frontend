@@ -31,7 +31,6 @@ export class ListSuppliersModel {
   product: IProduct | undefined = undefined
   suppliers: ISupplier[] = []
   currentSupplier: ISupplier | undefined = undefined
-  orderSupplier: ISupplier | undefined = undefined
   galleryFiles: UploadFileType[] = []
   paymentMethods: IPaymentMethod[] = []
   storekeepers: IDestinationStorekeeper[] = []
@@ -68,7 +67,13 @@ export class ListSuppliersModel {
     onRemoveSupplier?: (supplierId: string, itemId?: string) => void,
   ) {
     this.product = product
-    this.orderSupplier = orderSupplier
+
+    if (orderSupplier) {
+      this.currentSupplier = orderSupplier
+    } else {
+      this.currentSupplier = product?.currentSupplier
+    }
+
     this.onSaveProduct = onSaveProduct
     this.onRemoveSupplier = onRemoveSupplier
 
@@ -110,6 +115,7 @@ export class ListSuppliersModel {
   onRowSelectionModelChange(model: GridRowSelectionModel) {
     if (this.selectionModel[0] === model[0]) {
       this.selectionModel = []
+      this.currentSupplier = undefined
     } else {
       this.selectionModel = model
     }
@@ -117,7 +123,7 @@ export class ListSuppliersModel {
 
   onGetSuppliers() {
     if (this.product) {
-      const currentSupplierId: string | undefined = this.orderSupplier?._id || this.product?.currentSupplier?._id
+      const currentSupplierId: string | undefined = this.currentSupplier?._id
 
       const foundCurrentSupplier = this.product?.suppliers?.find(
         (supplier: ISupplier) => supplier._id === currentSupplierId,
@@ -129,19 +135,15 @@ export class ListSuppliersModel {
         ? [foundCurrentSupplier, ...filteringSuppliers]
         : this.product?.suppliers
 
-      this.suppliers = resultSuppliers?.map((supplier: ISupplier) => ({ ...supplier, id: supplier._id }))
+      this.suppliers = resultSuppliers?.map((supplier: ISupplier) => ({ ...supplier, id: supplier._id })) || []
     }
   }
 
   onGetCurrentSupplier() {
-    if (this.orderSupplier) {
-      this.currentSupplier = this.orderSupplier
-    } else {
-      const foundCurrentSupplier = this.suppliers.find((supplier: ISupplier) => supplier._id === this.selectionModel[0])
+    const foundCurrentSupplier = this.suppliers.find((supplier: ISupplier) => supplier._id === this.selectionModel[0])
 
-      if (foundCurrentSupplier) {
-        this.currentSupplier = foundCurrentSupplier
-      }
+    if (foundCurrentSupplier) {
+      this.currentSupplier = foundCurrentSupplier
     }
   }
 

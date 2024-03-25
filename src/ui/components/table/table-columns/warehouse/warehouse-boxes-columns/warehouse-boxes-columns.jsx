@@ -10,13 +10,16 @@ import {
   OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
+  RedFlagsCell,
   ShortBoxDimensionsCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
+import { calcFinalWeightForBox } from '@utils/calculation'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => [
@@ -46,8 +49,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     field: 'orders',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-
-    width: 320,
+    valueGetter: ({ row }) => row.originalData.items?.map(item => item?.product?.asin).join(', '),
     renderCell: params => {
       return params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} />
@@ -60,6 +62,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
         />
       )
     },
+    width: 320,
     filterable: false,
     sortable: false,
 
@@ -73,7 +76,6 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
       <MultilineTextHeaderCell text={`Shipping label / Barcode / ${t(TranslationKey['Transparency codes'])}`} />
     ),
 
-    width: 250,
     renderCell: params => (
       <DownloadAndPrintFilesCell
         files={[
@@ -104,6 +106,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     ),
     filterable: false,
     sortable: false,
+    width: 280,
 
     // columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
@@ -123,7 +126,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     field: 'destinationId',
     headerName: t(TranslationKey['Destination and tariff']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
-
+    valueGetter: ({ row }) => `${row.warehouse || ''} / ${row.logicsTariff || ''}`,
     renderCell: params => (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%' }}>
         <MultilineTextCell text={params.row.warehouse} />
@@ -151,7 +154,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     field: 'batchHumanFriendlyId',
     headerName: t(TranslationKey.Batch),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
-
+    valueGetter: ({ row }) => row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch']),
     renderCell: params => (
       <MultilineTextCell
         text={params.row?.originalData?.batch?.humanFriendlyId || t(TranslationKey['Outside Batch'])}
@@ -169,20 +172,23 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
       <MultilineTextHeaderCell
         text={t(TranslationKey.Dimensions)}
         component={
-          <div>
-            <CustomSwitcher
-              condition={getUnitsOption()}
-              switcherSettings={[
-                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-              ]}
-              changeConditionHandler={handlers.onChangeUnitsOption}
-            />
-          </div>
+          <CustomSwitcher
+            condition={getUnitsOption()}
+            switcherSettings={[
+              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+            ]}
+            changeConditionHandler={handlers.onChangeUnitsOption}
+          />
         }
       />
     ),
+    valueGetter: ({ row }) => {
+      const box = row.originalData
 
+      const boxFinalWeight = toFixed(calcFinalWeightForBox(box, row.volumeWeightCoefficient), 2)
+      return `L:${box?.lengthCmWarehouse}, W:${box?.widthCmWarehouse}, H:${box?.heightCmWarehouse}, FW:${boxFinalWeight}`
+    },
     renderCell: params => (
       <ShortBoxDimensionsCell
         isShipping
@@ -233,5 +239,15 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     width: 240,
 
     columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderCell: params => <RedFlagsCell flags={params.row?.originalData?.items?.[0]?.product?.redFlags} />,
+    valueGetter: ({ row }) => row?.originalData?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
+    width: 130,
+    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 ]

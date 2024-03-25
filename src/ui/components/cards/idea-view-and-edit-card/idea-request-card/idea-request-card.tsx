@@ -52,7 +52,13 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
           </div>
           <div className={styles.categoryContainer}>
             <p className={styles.categoryText}>{`${t(TranslationKey.ID)}:`}</p>
-            <button className={cx(styles.categoryTitle, styles.linkStyles)} onClick={onClickRequestId}>
+            <button
+              className={cx(styles.categoryTitle, styles.linkStyles)}
+              onClick={e => {
+                e.stopPropagation()
+                onClickRequestId()
+              }}
+            >
               {requestId}
             </button>
           </div>
@@ -69,7 +75,13 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
           </div>
         </div>
 
-        <ClearIcon className={styles.clearIcon} onClick={onClickUnbindButton} />
+        <ClearIcon
+          className={styles.clearIcon}
+          onClick={e => {
+            e.stopPropagation()
+            onClickUnbindButton()
+          }}
+        />
       </div>
 
       <div className={styles.resultWrapper}>

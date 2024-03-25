@@ -90,10 +90,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '21px',
   },
 
-  imageFileInputWrapper: {
-    width: '500px',
-  },
-
   onLineWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -338,5 +334,10 @@ export const useStyles = makeStyles()(theme => ({
 
   documentButton: {
     width: '100%',
+  },
+
+  imageFileInputWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 }))

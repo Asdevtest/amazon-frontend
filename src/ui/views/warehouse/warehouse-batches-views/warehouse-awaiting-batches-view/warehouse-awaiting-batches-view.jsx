@@ -164,40 +164,46 @@ export const WarehouseAwaitingBatchesView = observer(props => {
         />
       </Modal>
 
-      <ConfirmationModal
-        // @ts-ignore
-        isWarning={viewModel.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={`${t(TranslationKey['Send batch'])} ${selectedBatchesString}?`}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={`${t(TranslationKey['Send batch'])} ${selectedBatchesString}?`}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.onClickConfirmSendToBatchBtn}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <BatchInfoModal
-        // @ts-ignore
-        volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-        openModal={viewModel.showBatchInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
-        batch={viewModel.curBatch}
-        userInfo={viewModel.userInfo}
-        patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
-        onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-        onClickHsCode={viewModel.onClickHsCode}
-      />
+      {viewModel.showBatchInfoModal ? (
+        <BatchInfoModal
+          // @ts-ignore
+          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          openModal={viewModel.showBatchInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
+          batch={viewModel.curBatch}
+          userInfo={viewModel.userInfo}
+          patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
+          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
+          onClickHsCode={viewModel.onClickHsCode}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        // @ts-ignore
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-      />
+      {viewModel.showWarningInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={viewModel.warningInfoModalSettings.isWarning}
+          openModal={viewModel.showWarningInfoModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+          title={viewModel.warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
+        />
+      ) : null}
 
       {viewModel.showCircularProgress ? <CircularProgressWithLabel /> : null}
     </>

@@ -36,23 +36,18 @@ export const useStyles = makeStyles()(() => ({
     width: '75%',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     transition: 'opacity 0.3s ease-in-out',
 
     '&:hover': {
-      svg: {
-        opacity: 0.5,
+      button: {
+        opacity: 0.3,
       },
 
       span: {
         opacity: 1,
       },
     },
-  },
-
-  fileIcon: {
-    height: '100% !important',
-    width: '100% !important',
-    opacity: 1,
   },
 
   linkText: {

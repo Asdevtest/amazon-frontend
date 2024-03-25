@@ -19,7 +19,7 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
@@ -81,7 +81,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: ['parentProductShop', 'childProductShop'],
+    field: 'parentProductShop',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -114,7 +114,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <IdeaSupplierCell
         suppliers={params.value}
-        onClickAddSupplier={() => rowHandlers.onClickSelectSupplier(params.row)}
+        onClickAddSupplier={() => rowHandlers.onClickAddSupplierButton(params.row._id)}
       />
     ),
     width: 176,
@@ -195,9 +195,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
     headerName: t(TranslationKey.Files),
 
-    renderCell: params => (
-      <PhotoAndFilesSlider isHideCounter smallSlider files={params.row.originalData?.suppliers[0]?.images} />
-    ),
+    renderCell: params => <SlideshowGallery slidesToShow={1} files={params.row.originalData?.suppliers[0]?.images} />,
     width: 300,
     align: 'center',
     sortable: false,

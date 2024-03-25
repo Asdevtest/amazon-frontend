@@ -15,10 +15,6 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { useStyles } from './user-money-transfer-modal.style'
 
 export const UserMoneyTransferModal = memo(({ openModal, setOpenModal, isWithdraw }) => {
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles } = useStyles()
 
   return (

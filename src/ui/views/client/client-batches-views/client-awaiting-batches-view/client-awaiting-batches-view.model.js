@@ -400,9 +400,7 @@ export class ClientAwaitingBatchesViewModel {
 
   async onSubmitAddOrEditBatch({ boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields }) {
     try {
-      if (filesToAdd.length) {
-        await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
 
       if (!batchToEdit) {
         const batchId = await BatchesModel.createBatch({
@@ -412,9 +410,7 @@ export class ClientAwaitingBatchesViewModel {
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
 
-        if (filesToAdd.length) {
-          await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
-        }
+        await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
       } else {
         const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
         const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
@@ -432,14 +428,7 @@ export class ClientAwaitingBatchesViewModel {
           await BatchesModel.removeBoxFromBatch(batchToEdit._id, boxesToRemoveIds)
         }
 
-        if (filesToAdd.length) {
-          await BatchesModel.editAttachedDocuments(
-            batchToEdit._id,
-            batchToEdit.originalData.attachedDocuments
-              ? [...batchToEdit.originalData.attachedDocuments, ...this.uploadedFiles]
-              : [...this.uploadedFiles],
-          )
-        }
+        await BatchesModel.editAttachedDocuments(batchToEdit._id, this.uploadedFiles)
       }
 
       this.loadData()

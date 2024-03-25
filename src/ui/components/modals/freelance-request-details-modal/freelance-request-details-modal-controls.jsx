@@ -35,19 +35,23 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
   const showMarkAsCompletedButtton =
     isAcceptedProposals && request?.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED
+
   const showChangeRequestTermsButton =
     request?.status === RequestStatus.IN_PROCESS ||
     request?.status === RequestStatus.EXPIRED ||
     request?.status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED
+
   const showAcceptingProposalsButton =
     request?.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED &&
     // request?.status !== RequestStatus.EXPIRED &&
     request?.status !== RequestStatus.DRAFT
+
   const showMainActionsButton =
     request && (request?.status === RequestStatus.DRAFT || request?.status === RequestStatus.PUBLISHED)
+
   const showPublishButton = request?.status === RequestStatus.DRAFT
 
-  const disableMarkAsCompletedButton = request?.createdBy?._id !== userInfo?._id
+  const disableMarkAsCompletedButton = request?.createdBy?._id !== userInfo?._id && request?.sub?._id !== userInfo?._id
 
   return (
     <div className={styles.suggestDeal}>

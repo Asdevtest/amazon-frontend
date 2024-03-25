@@ -157,7 +157,7 @@ export const clientIntegrationsReportReturnsColumns = () => [
     field: 'updatedAt',
     headerName: 'Updated At',
     renderHeader: () => <MultilineTextHeaderCell text="Updated At" />,
-    renderCell: (params: GridRenderCellParams) => <NormDateCell dateWithoutTime value={params.value} />,
+    renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
     width: 118,
 
     table: DataGridFilterTables.INVENTORY_RETURNS,

@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { FileIcon } from '@components/shared/file-icon'
+import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { VideoPlayer } from '@components/shared/video-player'
 
 import { checkIsDocumentLink, checkIsVideoLink } from '@utils/checks'
@@ -38,7 +38,7 @@ export const ImageErrorContent: FC<ImageErrorContentProps> = memo(({ files, file
     if (checkIsDocument) {
       return (
         <a href={files?.[fileIndex]} target="_blank" rel="noreferrer noopener" className={styles.document}>
-          <FileIcon fileExtension={documentExtension} className={styles.fileIcon} />
+          <CustomFileIcon fileExtension={documentExtension} height="400px" />
           <span className={styles.linkText}>{documentLink}</span>
         </a>
       )

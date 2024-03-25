@@ -1,4 +1,5 @@
-import { ChangeEvent, FC, memo } from 'react'
+import { ChangeEvent, FC, RefAttributes, forwardRef, memo } from 'react'
+import { useDrag, useDrop } from 'react-dnd'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,6 +13,7 @@ import { useStyles } from './file.style'
 
 import { ClientCommentSection, FreelancerCommentSection } from './components'
 import { CommonContent } from './components/common-content'
+import { DragObject } from './file.type'
 
 interface FileProps {
   isClient: boolean
@@ -24,75 +26,94 @@ interface FileProps {
   onDeleteFile: (fileIndex: number) => void
   onChangeFileName: (fileIndex: number, fileName: string) => void
   onUploadFile: (fileIndex: number, file: ChangeEvent<HTMLInputElement>) => void
+  onReorderMediaFiles: (fromIndex: number, toIndex: number) => void
   readOnly?: boolean
 }
 
-export const File: FC<FileProps> = memo(props => {
-  const {
-    isClient,
-    file,
-    fileIndex,
-    checked,
-    onCheckFile,
-    onToggleImageModal,
-    onToggleCommentModal,
-    onDeleteFile,
-    onChangeFileName,
-    onUploadFile,
-    readOnly,
-  } = props
+export const File: FC<FileProps & RefAttributes<HTMLDivElement | null>> = memo(
+  forwardRef((props, ref) => {
+    const {
+      isClient,
+      file,
+      fileIndex,
+      checked,
+      onCheckFile,
+      onToggleImageModal,
+      onToggleCommentModal,
+      onDeleteFile,
+      onChangeFileName,
+      onUploadFile,
+      onReorderMediaFiles,
+      readOnly,
+    } = props
 
-  const { classes: styles, cx } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
-  const clientOrReadOnly = isClient || readOnly
-  const commonContent = <CommonContent file={file} fileIndex={fileIndex} onToggleImageModal={onToggleImageModal} />
+    const clientOrReadOnly = isClient || readOnly
+    const commonContent = <CommonContent file={file} fileIndex={fileIndex} onToggleImageModal={onToggleImageModal} />
 
-  return (
-    <div className={styles.fileContainer}>
-      {clientOrReadOnly ? (
-        <Checkbox
-          stopPropagation
-          checked={checked}
-          className={styles.checkbox}
-          wrapperClassName={styles.checkboxWrapper}
-          onChange={() => onCheckFile(file)}
-        />
-      ) : (
-        <button
-          className={cx(styles.checkboxWrapper, styles.checkbox, styles.button)}
-          onClick={() => onDeleteFile(fileIndex)}
-        >
-          ✕
-        </button>
-      )}
+    const [, drag] = useDrag({
+      item: { fromIndex: fileIndex },
+      type: 'file',
+    })
+    const [, drop] = useDrop(() => ({
+      accept: 'file',
+      drop: ({ fromIndex }: DragObject) => {
+        onReorderMediaFiles(fromIndex, fileIndex)
+      },
+    }))
 
-      {clientOrReadOnly ? (
-        commonContent
-      ) : file.fileLink ? (
-        commonContent
-      ) : (
-        <button className={styles.file}>
-          <CustomPlusIcon className={cx(styles.icon, styles.plusIcon)} />
-          <span className={styles.commentText}>{t(TranslationKey.Upload)}</span>
-          <input
-            multiple
-            type="file"
-            className={styles.pasteInput}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => onUploadFile(fileIndex, e)}
-          />
-        </button>
-      )}
+    return (
+      <div ref={ref} className={styles.fileContainer}>
+        <div ref={drop}>
+          <div ref={drag}>
+            {clientOrReadOnly ? (
+              <Checkbox
+                stopPropagation
+                checked={checked}
+                className={styles.checkbox}
+                wrapperClassName={styles.checkboxWrapper}
+                onChange={() => onCheckFile(file)}
+              />
+            ) : (
+              <button
+                className={cx(styles.checkboxWrapper, styles.checkbox, styles.button)}
+                onClick={() => onDeleteFile(fileIndex)}
+              >
+                ✕
+              </button>
+            )}
 
-      <FreelancerCommentSection isClient={isClient} file={file} onToggleCommentModal={onToggleCommentModal} />
+            {clientOrReadOnly ? (
+              commonContent
+            ) : file.fileLink ? (
+              commonContent
+            ) : (
+              <button className={styles.file}>
+                <CustomPlusIcon className={cx(styles.icon, styles.plusIcon)} />
+                <span className={styles.commentText}>{t(TranslationKey.Upload)}</span>
+                <input
+                  multiple
+                  type="file"
+                  className={styles.pasteInput}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => onUploadFile(fileIndex, e)}
+                />
+              </button>
+            )}
 
-      <ClientCommentSection
-        readOnly={readOnly}
-        isClient={isClient}
-        file={file}
-        fileIndex={fileIndex}
-        onToggleCommentModal={onToggleCommentModal}
-        onChangeFileName={onChangeFileName}
-      />
-    </div>
-  )
-})
+            <FreelancerCommentSection isClient={isClient} file={file} onToggleCommentModal={onToggleCommentModal} />
+
+            <ClientCommentSection
+              readOnly={readOnly}
+              isClient={isClient}
+              file={file}
+              fileIndex={fileIndex}
+              onToggleCommentModal={onToggleCommentModal}
+              onChangeFileName={onChangeFileName}
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }),
+)

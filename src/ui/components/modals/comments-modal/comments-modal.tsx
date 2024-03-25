@@ -34,10 +34,6 @@ export const CommentsModal: FC<CommentsModalProps> = memo(props => {
     onChangeField,
   } = props
 
-  if (!openModal) {
-    return null
-  }
-
   const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')

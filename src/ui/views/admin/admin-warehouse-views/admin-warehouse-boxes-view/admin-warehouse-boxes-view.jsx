@@ -9,7 +9,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { useStyles } from './admin-warehouse-boxes-view.style'
@@ -38,14 +37,12 @@ export const AdminWarehouseBoxesView = observer(() => {
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rowCount={viewModel.rowCount}
           rows={viewModel.currentData}
-          density={viewModel.densityModel}
           getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {

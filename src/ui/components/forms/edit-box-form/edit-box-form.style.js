@@ -137,15 +137,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
   },
 
-  photoWrapper: {
-    width: '250px',
-    height: 200,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-
   boxPhotoWrapper: {
     marginTop: 30,
     width: '250px',

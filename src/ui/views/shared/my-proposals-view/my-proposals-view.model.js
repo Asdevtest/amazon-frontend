@@ -81,6 +81,7 @@ export class MyProposalsViewModel {
   showRequestDetailModal = false
   showConfirmModal = false
   showRequestDesignerResultModal = false
+  showRequestDesignerResultClientModal = false
   showMainRequestResultModal = false
   showRequestResultModal = false
   selectedProposal = undefined
@@ -293,7 +294,15 @@ export class MyProposalsViewModel {
   async onClickResultBtn(proposalId) {
     await this.getProposalById(proposalId)
 
-    if (this.currentProposal?.request.spec?.title === freelanceRequestType.DESIGNER) {
+    if (
+      executedStatuses.includes(this.currentProposal?.proposal?.status) &&
+      this.currentProposal?.request.spec?.title === freelanceRequestType.DESIGNER
+    ) {
+      this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+    } else if (
+      inTheWorkStatuses.includes(this.currentProposal?.proposal?.status) &&
+      this.currentProposal?.request.spec?.title === freelanceRequestType.DESIGNER
+    ) {
       this.onTriggerOpenModal('showRequestDesignerResultModal')
     } else if (this.currentProposal?.request.spec?.title === freelanceRequestType.BLOGGER) {
       this.onTriggerOpenModal('showRequestResultModal')
@@ -313,6 +322,7 @@ export class MyProposalsViewModel {
         'asin',
         'title',
         'humanFriendlyId',
+        'skuByClient',
       ]),
     )
   }
