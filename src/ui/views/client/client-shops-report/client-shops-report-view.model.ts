@@ -2,7 +2,6 @@
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,6 +17,8 @@ import { ShopModel } from '@models/shop-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { getClassParams } from './helpers/get-class-params'
 import { observerConfig } from './observer.config'

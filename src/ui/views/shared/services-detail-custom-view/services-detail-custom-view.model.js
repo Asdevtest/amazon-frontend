@@ -1,12 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { AnnouncementsModel } from '@models/announcements-model'
 import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
 
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class ServicesDetailCustomViewModel {
   history = undefined

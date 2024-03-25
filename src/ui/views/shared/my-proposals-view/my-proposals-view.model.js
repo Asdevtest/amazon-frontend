@@ -4,7 +4,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,6 +21,7 @@ import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
 import { executedStatuses, filtersFields, inTheWorkStatuses, switcherConditions } from './my-proposals-view.constants'

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 interface ICallback {
   (options: IOptions): any

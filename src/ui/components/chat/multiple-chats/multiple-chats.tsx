@@ -2,7 +2,6 @@ import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
 import { ReactElement, forwardRef } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
@@ -17,6 +16,7 @@ import { NoSelectedChat } from '@components/shared/svg-icons'
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'

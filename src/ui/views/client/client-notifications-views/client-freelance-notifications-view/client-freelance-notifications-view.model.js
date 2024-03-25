@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
@@ -10,6 +9,8 @@ import { UserModel } from '@models/user-model'
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { clientFreelanceNotificationsColumns } from '@components/table/table-columns/client/client-freelance-notifications-columns'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class ClientFreelanceNotificationsViewModel {
   history = undefined

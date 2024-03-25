@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditGroupPermissionForm } from '@components/forms/add-or-edit-group-permission-form'
@@ -15,6 +14,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './group-permissions.style'
 

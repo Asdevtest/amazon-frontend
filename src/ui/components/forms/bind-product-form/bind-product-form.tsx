@@ -12,7 +12,7 @@ import { SelectProductButton } from '@components/shared/selects/with-search-sele
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
-import { ProductVariation } from '@typings/enums/product-variation'
+import { ProductVariation } from '@typings/enums/product/product-variation'
 import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './bind-product-form.style'

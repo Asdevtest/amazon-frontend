@@ -3,7 +3,6 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { StorekeeperModel } from '@models/storekeeper-model'
@@ -12,6 +11,7 @@ import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
 import { IProduct } from '@typings/models/products/product'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { IDestinationStorekeeper } from '@typings/shared/destinations'

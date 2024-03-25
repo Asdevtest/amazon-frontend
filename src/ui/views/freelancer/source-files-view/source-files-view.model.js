@@ -1,6 +1,5 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestProposalModel } from '@models/request-proposal'
@@ -10,6 +9,8 @@ import { sourceFilesColumns } from '@components/table/table-columns/freelancer/s
 import { SourceFilesDataConverter } from '@utils/data-grid-data-converters'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class SourceFilesViewModel {
   history = undefined

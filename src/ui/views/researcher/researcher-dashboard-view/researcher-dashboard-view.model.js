@@ -1,10 +1,11 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { ResearcherDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { DashboardModel } from '@models/dashboard-model'
 import { UserModel } from '@models/user-model'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class ResearcherDashboardViewModel {
   history = undefined

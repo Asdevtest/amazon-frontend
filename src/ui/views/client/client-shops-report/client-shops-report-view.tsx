@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,6 +14,8 @@ import { Modal } from '@components/shared/modal'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-shops-report-view.style'
 

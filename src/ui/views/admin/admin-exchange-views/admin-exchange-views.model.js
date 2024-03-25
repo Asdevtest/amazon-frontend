@@ -1,7 +1,6 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ActiveSubCategoryTablesKeys } from '@constants/table/active-sub-category-tables-keys'
 import {
   AdminExchangeStatusesCategories,
@@ -16,6 +15,8 @@ import { adminExchangeColumns } from '@components/table/table-columns/admin/admi
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 const filtersFields = [
   'asin',

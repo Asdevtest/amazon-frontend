@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ResearcherAddProductForm } from '@components/forms/reasearcher-add-product-form'
@@ -9,6 +8,8 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './researcher-products-view.style'
 

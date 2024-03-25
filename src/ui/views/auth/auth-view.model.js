@@ -2,7 +2,6 @@ import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { privateRoutesConfigs } from '@constants/navigation/routes'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -10,6 +9,8 @@ import { UserModel } from '@models/user-model'
 
 import { getObjectKeys } from '@utils/object'
 import { setI18nConfig, t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class AuthViewModel {
   history = undefined

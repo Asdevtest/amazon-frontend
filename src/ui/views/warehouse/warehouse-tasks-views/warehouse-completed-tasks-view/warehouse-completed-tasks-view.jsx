@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,6 +16,8 @@ import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-completed-tasks-view.style'
 

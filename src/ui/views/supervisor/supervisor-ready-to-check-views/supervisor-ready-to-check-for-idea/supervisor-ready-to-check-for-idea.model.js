@@ -1,13 +1,13 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { SupervisorModel } from '@models/supervisor-model'
 
 import { depersonalizedPickColumns } from '@components/table/table-columns/depersonalized-pick-columns'
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class SupervisorReadyToCheckForIdeaViewModel {
   history = undefined

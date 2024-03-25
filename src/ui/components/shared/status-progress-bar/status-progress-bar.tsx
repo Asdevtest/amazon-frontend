@@ -4,7 +4,7 @@ import { OrderStatusTranslate, orderColorByStatus } from '@constants/orders/orde
 
 import { toFixed } from '@utils/text'
 
-import { OrderStatus } from '@typings/enums/order-status'
+import { OrderStatus } from '@typings/enums/order/order-status'
 
 import { useStyles } from './status-progress-bar.style'
 

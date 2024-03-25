@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class WarehouseManagementViewModel {
   history = undefined

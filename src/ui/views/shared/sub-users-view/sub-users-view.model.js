@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
@@ -21,6 +20,8 @@ import { checkIsClient, checkIsFreelancer } from '@utils/checks'
 import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class SubUsersViewModel {
   history = undefined

@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -17,6 +16,8 @@ import { warehouseVacantTasksViewColumns } from '@components/table/table-columns
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class WarehouseVacantViewModel {
   history = undefined

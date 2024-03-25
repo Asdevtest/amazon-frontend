@@ -2,7 +2,6 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
@@ -17,6 +16,8 @@ import { getLocalToUTCDate, sortObjectsArrayByFiledDateWithParseISO } from '@uti
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined

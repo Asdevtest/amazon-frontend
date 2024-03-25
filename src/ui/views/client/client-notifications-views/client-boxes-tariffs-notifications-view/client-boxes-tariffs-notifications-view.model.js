@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
@@ -20,6 +19,8 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class ClientBoxesTariffsNotificationsViewModel {
   history = undefined

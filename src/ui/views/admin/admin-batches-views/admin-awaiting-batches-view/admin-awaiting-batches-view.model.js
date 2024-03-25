@@ -2,7 +2,6 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { BatchesModel } from '@models/batches-model'
 import { SettingsModel } from '@models/settings-model'
@@ -12,6 +11,8 @@ import { adminBatchesViewColumns } from '@components/table/table-columns/admin/a
 
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class AdminAwaitingBatchesViewModel {
   history = undefined

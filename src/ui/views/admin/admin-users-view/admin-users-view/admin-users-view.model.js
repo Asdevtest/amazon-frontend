@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { PermissionsModel } from '@models/permissions-model'
@@ -11,6 +10,8 @@ import { UserModel } from '@models/user-model'
 import { adminUsersViewColumns } from '@components/table/table-columns/admin/users-columns'
 
 import { adminUsersDataConverter } from '@utils/data-grid-data-converters'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class AdminUsersViewModel {
   history = undefined

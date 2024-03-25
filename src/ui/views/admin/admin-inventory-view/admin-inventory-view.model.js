@@ -2,7 +2,6 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { GeneralModel } from '@models/general-model'
@@ -12,6 +11,8 @@ import { exchangeInventoryColumns } from '@components/table/table-columns/admin/
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 const statuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],

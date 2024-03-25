@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
@@ -12,6 +11,8 @@ import { ideasNotificationsViewColumns } from '@components/table/table-columns/o
 
 import { ideaNoticeDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class BuyerIdeasNotificationsViewModel {
   history = undefined

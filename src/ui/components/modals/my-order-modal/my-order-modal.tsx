@@ -3,7 +3,7 @@ import { FC, memo, useEffect, useState } from 'react'
 
 import { Modal } from '@components/shared/modal'
 
-import { OrderStatus } from '@typings/enums/order-status'
+import { OrderStatus } from '@typings/enums/order/order-status'
 import { IOrder } from '@typings/models/orders/order'
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 import { IPlatformSettings } from '@typings/shared/patform-settings'

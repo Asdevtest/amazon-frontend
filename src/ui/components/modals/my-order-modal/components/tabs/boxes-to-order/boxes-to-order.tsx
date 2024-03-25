@@ -3,7 +3,6 @@ import { FC, useState } from 'react'
 
 import { GridRowModel, GridRowParams } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxViewForm } from '@components/forms/box-view-form'
@@ -16,6 +15,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './boxes-to-order.style'

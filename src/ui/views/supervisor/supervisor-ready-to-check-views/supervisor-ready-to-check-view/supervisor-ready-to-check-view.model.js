@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { SettingsModel } from '@models/settings-model'
 import { SupervisorModel } from '@models/supervisor-model'
@@ -11,6 +10,8 @@ import { depersonalizedPickColumns } from '@components/table/table-columns/deper
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class SupervisorReadyToCheckViewModel {
   history = undefined

@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditShopForm } from '@components/forms/add-or-edit-shop-form'
@@ -10,6 +9,8 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-shops-view.style'
 

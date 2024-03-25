@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -12,6 +11,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { styles } from './buyer-ideas-notifications-view.style'
 

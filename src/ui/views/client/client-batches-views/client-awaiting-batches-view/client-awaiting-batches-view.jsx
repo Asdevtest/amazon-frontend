@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
@@ -15,6 +14,8 @@ import { HeaderTable } from '@components/table/header-table/header-table'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-awaiting-batches-view.style'
 

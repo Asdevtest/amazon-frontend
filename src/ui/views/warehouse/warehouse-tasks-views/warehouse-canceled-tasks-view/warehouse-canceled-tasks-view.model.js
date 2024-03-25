@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { OtherModel } from '@models/other-model'
@@ -13,6 +12,8 @@ import { warehouseCanceledTasksViewColumns } from '@components/table/table-colum
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
 import { objectToUrlQs } from '@utils/text'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class WarehouseCanceledTasksViewModel {
   history = undefined

@@ -4,7 +4,6 @@ import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode, ProductStatusByKey } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
@@ -26,6 +25,8 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import {
   confirmMessageByProductStatus,

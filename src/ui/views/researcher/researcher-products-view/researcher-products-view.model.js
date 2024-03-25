@@ -3,7 +3,6 @@ import { action, makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ResearcherModel } from '@models/researcher-model'
 import { SettingsModel } from '@models/settings-model'
@@ -18,6 +17,8 @@ import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 import { getNewObjectWithDefaultValue } from '@utils/object'
 import { t } from '@utils/translations'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 const formFieldsDefault = {
   amazonLink: '',

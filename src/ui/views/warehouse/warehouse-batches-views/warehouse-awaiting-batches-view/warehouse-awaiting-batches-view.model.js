@@ -3,7 +3,6 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
@@ -21,6 +20,8 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 const filtersFields = [
   'asin',

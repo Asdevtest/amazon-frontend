@@ -5,7 +5,6 @@ import { withStyles } from 'tss-react/mui'
 import { Typography } from '@mui/material'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
@@ -20,6 +19,8 @@ import { UserProfile } from '@components/user/users-views/user-profile-view/user
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { styles } from './another-user-profile-view.style'
 

@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { FeedbackModel } from '@models/feedback-model'
@@ -18,6 +17,8 @@ import { clientProductsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { dataURLtoFile } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class ProfileViewModel {
   history = undefined

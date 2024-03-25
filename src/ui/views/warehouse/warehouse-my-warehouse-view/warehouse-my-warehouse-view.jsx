@@ -3,7 +3,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
@@ -25,6 +24,8 @@ import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-bo
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-my-warehouse-view.style'
 

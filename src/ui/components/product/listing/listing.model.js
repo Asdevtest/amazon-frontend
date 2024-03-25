@@ -1,7 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { BoxesModel } from '@models/boxes-model'
 import { OtherModel } from '@models/other-model'
 import { ProductModel } from '@models/product-model'
@@ -11,6 +9,8 @@ import { UserModel } from '@models/user-model'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 const fieldsOfProductAllowedToUpdate = [
   'listingName',

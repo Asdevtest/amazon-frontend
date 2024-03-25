@@ -1,7 +1,6 @@
 import { makeObservable } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -11,6 +10,8 @@ import { ShopModel } from '@models/shop-model'
 import { shopsColumns } from '@components/table/table-columns/shops-columns'
 
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { observerConfig } from './model-config'
 

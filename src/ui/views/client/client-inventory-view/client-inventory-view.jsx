@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -34,6 +33,8 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 

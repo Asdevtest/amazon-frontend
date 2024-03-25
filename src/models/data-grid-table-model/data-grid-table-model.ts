@@ -11,10 +11,10 @@ import {
   GridSortModel,
 } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { ModalsModel } from '@models/model-with-modals'
 import { SettingsModel } from '@models/settings-model'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { filterModelInitialValue, paginationModelInitialValue, sortModelInitialValue } from './model-config'
 import { observerConfig } from './observer-config'

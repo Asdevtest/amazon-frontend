@@ -3,7 +3,6 @@ import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
@@ -28,7 +27,8 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { ProductVariation } from '@typings/enums/product-variation'
+import { loadingStatuses } from '@typings/enums/loading-status'
+import { ProductVariation } from '@typings/enums/product/product-variation'
 
 import { fieldsOfProductAllowedToUpdate, formFieldsDefault } from './client-product-view.constants'
 

@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import { operationTypes } from '@constants/keys/operation-types'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxSplit } from '@components/shared/boxes/box-split'
@@ -12,6 +11,7 @@ import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './storekeeper-redistribute-box-modal.style'
 

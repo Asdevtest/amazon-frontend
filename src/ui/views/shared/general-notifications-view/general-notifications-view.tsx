@@ -4,7 +4,6 @@ import { FC, useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { NotificationTypes } from '@constants/notifications/notification-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserModel } from '@models/user-model'
@@ -20,6 +19,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './general-notifications-view.style'
 

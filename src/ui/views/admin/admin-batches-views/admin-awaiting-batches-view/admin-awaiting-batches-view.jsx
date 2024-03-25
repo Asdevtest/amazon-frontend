@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
@@ -11,6 +10,8 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { styles } from './admin-awaiting-batches-view.style'
 

@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
@@ -20,6 +19,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './sub-users-view.style'
 

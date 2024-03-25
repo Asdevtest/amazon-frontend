@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { OtherModel } from '@models/other-model'
@@ -11,6 +10,8 @@ import { financesViewColumns } from '@components/table/table-columns/admin/finan
 
 import { financesDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class UserBalanceModel {
   history = undefined

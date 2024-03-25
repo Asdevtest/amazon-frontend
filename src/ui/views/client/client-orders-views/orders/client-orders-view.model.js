@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
@@ -27,6 +26,8 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { filtersFields } from './client-orders-view.constants'
 

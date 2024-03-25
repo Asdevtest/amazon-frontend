@@ -1,11 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { SupervisorDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { DashboardModel } from '@models/dashboard-model'
 import { SupervisorModel } from '@models/supervisor-model'
 import { UserModel } from '@models/user-model'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class SupervisorDashboardViewModel {
   history = undefined

@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
@@ -11,6 +10,7 @@ import { ProductModel } from '@models/product-model'
 
 import { t } from '@utils/translations'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
 import { IProduct } from '@typings/models/products/product'
 
 import { roles } from './management-tab-view-constants'

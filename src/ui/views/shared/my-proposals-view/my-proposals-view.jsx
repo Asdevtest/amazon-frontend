@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
@@ -18,6 +17,8 @@ import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-ty
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './my-proposals-view.style'
 

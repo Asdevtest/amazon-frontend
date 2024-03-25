@@ -4,7 +4,6 @@ import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { operationTypes } from '@constants/keys/operation-types'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -29,6 +28,8 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
 

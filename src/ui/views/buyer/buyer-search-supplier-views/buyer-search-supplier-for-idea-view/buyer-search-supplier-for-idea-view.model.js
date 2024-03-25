@@ -1,7 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { BuyerModel } from '@models/buyer-model'
 import { IdeaModel } from '@models/ideas-model'
 
@@ -9,6 +7,8 @@ import { buyerSearchSuppliersViewColumns } from '@components/table/table-columns
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class BuyerSearchSupplierForIdeaModel {
   history = undefined

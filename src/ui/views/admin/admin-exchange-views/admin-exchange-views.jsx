@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { AdminExchangeStatusesCategories, adminExchangeBtnsConfig } from '@constants/table/tables-filter-btns-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,6 +11,8 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { styles } from './admin-exchange-views.style'
 

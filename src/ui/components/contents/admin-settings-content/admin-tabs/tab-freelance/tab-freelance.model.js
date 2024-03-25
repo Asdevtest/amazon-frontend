@@ -1,13 +1,14 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { tabFreelanceColumns } from './tab-freelance.column'
 

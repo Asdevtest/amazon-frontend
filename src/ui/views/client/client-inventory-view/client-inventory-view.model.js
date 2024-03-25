@@ -5,7 +5,6 @@ import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier } from '@constants/white-list'
 
@@ -31,6 +30,8 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { clientInventoryColumns } from './client-inventory-columns'
 import {

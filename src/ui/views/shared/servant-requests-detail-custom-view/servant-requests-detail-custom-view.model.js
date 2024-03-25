@@ -3,7 +3,6 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ChatModel } from '@models/chat-model'
 import { RequestModel } from '@models/request-model'
@@ -13,6 +12,7 @@ import { UserModel } from '@models/user-model'
 
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
 import { isString } from '@typings/guards'
 
 export class RequestDetailCustomViewModel {

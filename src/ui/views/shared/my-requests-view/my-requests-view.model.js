@@ -3,9 +3,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
-import { RequestSubType } from '@constants/requests/request-type'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { FeedbackModel } from '@models/feedback-model'
@@ -23,6 +21,9 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { getLocalToUTCDate } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
+import { RequestSubType } from '@typings/enums/request/request-type'
 
 import { allowStatuses, filtersFields } from './my-requests-view.constants'
 

@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
@@ -15,6 +14,8 @@ import { buyerFreeOrdersViewColumns } from '@components/table/table-columns/buye
 import { buyerVacantOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class BuyerFreeOrdersViewModel {
   history = undefined

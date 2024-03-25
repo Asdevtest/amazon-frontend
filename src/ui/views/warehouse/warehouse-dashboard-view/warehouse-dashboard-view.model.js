@@ -1,12 +1,13 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { WarehouseDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ClientModel } from '@models/client-model'
 import { DashboardModel } from '@models/dashboard-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class WarehouseDashboardViewModel {
   history = undefined

@@ -1,8 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestSubType } from '@constants/requests/request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -17,6 +15,8 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
+import { RequestSubType } from '@typings/enums/request/request-type'
 import { Specs } from '@typings/enums/specs'
 
 import { defaultHiddenColumns, filtersFields } from './vacant-requests-view.constants'

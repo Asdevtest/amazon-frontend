@@ -1,14 +1,14 @@
 import { transformAndValidate } from 'class-transformer-validator'
 import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 import { UserRegistrationContract } from '@models/user-model/user-model.contracts'
 
 import { getObjectKeys } from '@utils/object'
 import { setI18nConfig } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 const delayRedirectToAuthTime = 1000
 

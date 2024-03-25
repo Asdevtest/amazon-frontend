@@ -13,8 +13,6 @@ import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import { chatsType } from '@constants/keys/chats'
-import { PaginationDirection } from '@constants/pagination/pagination-direction'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -29,6 +27,8 @@ import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared
 import { checkIsExternalVideoLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
+import { PaginationDirection } from '@typings/enums/pagination-direction'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'

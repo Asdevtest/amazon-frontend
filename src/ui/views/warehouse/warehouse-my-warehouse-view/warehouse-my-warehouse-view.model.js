@@ -4,7 +4,6 @@ import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { Errors } from '@constants/errors'
 import { BatchStatus } from '@constants/statuses/batch-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
@@ -24,6 +23,8 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { filtersFields, updateBoxWhiteList } from './warehouse-my-warehouse-view.constants'
 

@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -14,6 +13,8 @@ import { clientOrdersNotificationsDataConverter } from '@utils/data-grid-data-co
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class ClientOrdersNotificationsViewModel {
   history = undefined

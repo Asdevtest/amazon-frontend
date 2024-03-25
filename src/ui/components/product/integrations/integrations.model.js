@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
@@ -10,6 +9,8 @@ import { productIntegrationsColumns } from '@components/table/table-columns/prod
 
 import { addIdDataConverter, stockReportDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class IntegrationsModel {
   history = undefined

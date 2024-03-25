@@ -3,13 +3,13 @@ import { makeObservable, runInAction } from 'mobx'
 
 import { GridColDef } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { GeneralModel } from '@models/general-model'
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { observerConfig } from './observer-config'
 

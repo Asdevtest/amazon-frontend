@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { SettingsModel } from '@models/settings-model'
@@ -9,6 +8,8 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { adminTasksViewColumns } from '@components/table/table-columns/admin/tasks-columns'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class AdminWarehouseTasksViewModel {
   requestStatus = undefined

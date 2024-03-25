@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { IdeaCreate, IdeaPatch, creatSupplier, createProductByClient, patchSuppliers } from '@constants/white-list'
 
@@ -24,6 +23,8 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class SuppliersAndIdeasModel {
   history = undefined

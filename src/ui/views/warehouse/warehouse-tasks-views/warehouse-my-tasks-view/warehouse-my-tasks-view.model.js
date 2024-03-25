@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
@@ -21,6 +20,8 @@ import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class WarehouseMyTasksViewModel {
   history = undefined

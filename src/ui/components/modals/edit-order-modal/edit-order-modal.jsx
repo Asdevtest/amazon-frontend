@@ -14,7 +14,6 @@ import {
   buyerOrderModalSubmitDisabledOrderStatuses,
   getOrderStatusOptionByCode,
 } from '@constants/orders/order-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -47,6 +46,7 @@ import { clearEverythingExceptNumbers, timeToDeadlineInHoursAndMins, toFixed } f
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './edit-order-modal.style'
 

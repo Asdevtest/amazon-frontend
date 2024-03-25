@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,6 +19,8 @@ import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 const filtersFields = ['operationType', 'status', 'storekeeper', 'priority']
 

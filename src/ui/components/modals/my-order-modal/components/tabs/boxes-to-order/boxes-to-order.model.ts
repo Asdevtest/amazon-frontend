@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { GridPaginationModel } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
@@ -16,6 +15,7 @@ import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
 import { IBox } from '@typings/models/boxes/box'
 import { IHSCode } from '@typings/shared/hs-code'
 import { IPlatformSettings } from '@typings/shared/patform-settings'

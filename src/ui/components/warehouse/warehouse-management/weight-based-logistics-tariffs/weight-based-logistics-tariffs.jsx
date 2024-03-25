@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
@@ -18,6 +17,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './weight-based-logistics-tariffs.style'
 

@@ -1,12 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class AdminOrderViewModel {
   history = undefined

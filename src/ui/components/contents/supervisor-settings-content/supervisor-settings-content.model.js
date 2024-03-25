@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
@@ -12,6 +11,8 @@ import { UserModel } from '@models/user-model'
 import { supervisorSettingsViewColumns } from '@components/table/table-columns/supervisor/supervisor-settings-columns/supervisor-settings-columns'
 
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class SupervisorSettingsContentModel {
   history = undefined

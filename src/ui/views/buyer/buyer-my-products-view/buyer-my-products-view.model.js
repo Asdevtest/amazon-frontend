@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { BuyerModel } from '@models/buyer-model'
 import { GeneralModel } from '@models/general-model'
@@ -14,6 +13,8 @@ import { buyerProductsViewColumns } from '@components/table/table-columns/buyer/
 import { buyerProductsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 const filtersFields = [
   'shopId',

@@ -5,9 +5,7 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { GridFilterModel } from '@mui/x-data-grid'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { NotificationType } from '@constants/keys/notifications'
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
@@ -19,6 +17,8 @@ import { notificationDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
+import { Notification } from '@typings/enums/notification'
 import { IProduct } from '@typings/models/products/product'
 import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/shared/data-grid'
 import { IFullUser } from '@typings/shared/full-user'
@@ -191,7 +191,7 @@ export class GeneralNotificationsViewModel {
   navigateToHandler(notification: any, type: string) {
     if (!this.userInfo) return
 
-    if (type === NotificationType.Order) {
+    if (type === Notification.Order) {
       if (checkIsClient(UserRoleCodeMap[this.userInfo?.role])) {
         window
           .open(
@@ -213,7 +213,7 @@ export class GeneralNotificationsViewModel {
       }
     } else if (type === 'user') {
       window.open(`/another-user?${notification?.sub?._id || notification?.creator?._id}`)?.focus()
-    } else if (type === NotificationType.Idea) {
+    } else if (type === Notification.Idea) {
       this.currentProduct = notification.parentProduct
       this.currentIdeaId = notification.ideaId
 

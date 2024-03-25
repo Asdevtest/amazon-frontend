@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -11,6 +10,7 @@ import { UserModel } from '@models/user-model'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
+import { loadingStatuses } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
 import { filterFields, searchFields } from './service-exchange-view.constants'

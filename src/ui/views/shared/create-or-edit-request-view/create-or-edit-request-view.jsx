@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -12,6 +11,8 @@ import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-moda
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 

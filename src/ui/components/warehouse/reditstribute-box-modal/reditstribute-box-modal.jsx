@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 import { operationTypes } from '@constants/keys/operation-types'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,6 +16,7 @@ import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './reditstribute-box-modal.style'
 

@@ -6,7 +6,6 @@ import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -33,6 +32,7 @@ import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 

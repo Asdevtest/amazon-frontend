@@ -1,7 +1,6 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { chatsType } from '@constants/keys/chats'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -11,6 +10,8 @@ import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 import { dataURLtoFile, onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class MessagesViewModel {
   history = undefined

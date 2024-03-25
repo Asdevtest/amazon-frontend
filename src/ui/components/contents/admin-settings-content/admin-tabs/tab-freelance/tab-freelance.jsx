@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TextForm } from '@components/forms/text-form'
@@ -13,6 +12,8 @@ import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './tab-freelance.style'
 

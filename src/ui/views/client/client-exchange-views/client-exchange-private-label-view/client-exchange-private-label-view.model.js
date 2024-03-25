@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ClientModel } from '@models/client-model'
 import { ShopModel } from '@models/shop-model'
@@ -10,6 +9,8 @@ import { UserModel } from '@models/user-model'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 export class ClientExchangePrivateLabelViewModel {
   history = undefined

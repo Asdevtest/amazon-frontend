@@ -9,7 +9,6 @@ import {
   mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
 } from '@constants/product/product-strategy-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -22,6 +21,7 @@ import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { styles } from './reasearcher-add-product-form.style'
 

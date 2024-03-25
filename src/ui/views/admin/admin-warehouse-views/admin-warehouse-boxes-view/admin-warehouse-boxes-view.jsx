@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxViewForm } from '@components/forms/box-view-form'
@@ -10,6 +9,8 @@ import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
+
+import { loadingStatuses } from '@typings/enums/loading-status'
 
 import { useStyles } from './admin-warehouse-boxes-view.style'
 
