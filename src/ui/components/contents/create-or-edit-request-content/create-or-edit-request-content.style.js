@@ -314,6 +314,10 @@ export const useStyles = makeStyles()(theme => ({
     maxHeight: 160,
   },
 
+  editorClassName: {
+    height: 255,
+  },
+
   customItemsWrapper: {
     padding: '0 10px',
   },
