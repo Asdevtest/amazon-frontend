@@ -7,7 +7,7 @@ import { DashboardModel } from '@models/dashboard-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class WarehouseDashboardViewModel {
   history = undefined
@@ -40,14 +40,14 @@ export class WarehouseDashboardViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.getDashboardElementCount()
 
       this.getDestinations()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }

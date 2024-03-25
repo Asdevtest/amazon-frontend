@@ -11,7 +11,7 @@ import { adminUsersViewColumns } from '@components/table/table-columns/admin/use
 
 import { adminUsersDataConverter } from '@utils/data-grid-data-converters'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AdminUsersViewModel {
   history = undefined
@@ -103,21 +103,21 @@ export class AdminUsersViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
       await Promise.all([this.getUsers(), this.getGroupPermissions(), this.getSinglePermissions()])
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
 
   async getUsers() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await AdministratorModel.getUsers()
 
@@ -128,9 +128,9 @@ export class AdminUsersViewModel {
         this.rowCount = usersData?.length
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
@@ -161,7 +161,7 @@ export class AdminUsersViewModel {
 
   async submitEditUserForm(data, sourceData) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
         name: this.changeNameAndEmail.name,
@@ -189,7 +189,7 @@ export class AdminUsersViewModel {
         await this.finalStepSubmitEditUserForm()
       }
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
@@ -197,7 +197,7 @@ export class AdminUsersViewModel {
   async finalStepSubmitEditUserForm() {
     try {
       await AdministratorModel.updateUser(this.rowSelectionModel, this.submitEditData)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.onTriggerOpenModal('showEditUserModal')
 

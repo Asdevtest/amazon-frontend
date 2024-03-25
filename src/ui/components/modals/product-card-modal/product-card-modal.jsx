@@ -24,7 +24,7 @@ import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } fro
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 import { ProductVariation } from '@typings/enums/product/product-variation'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
@@ -166,7 +166,7 @@ export const ProductCardModal = observer(props => {
           />
         )}
 
-        {viewModel?.requestStatus === loadingStatuses.IS_LOADING && <CircularProgressWithLabel />}
+        {viewModel?.requestStatus === loadingStatus.IS_LOADING && <CircularProgressWithLabel />}
       </div>
 
       {viewModel?.product && currentTab === 'MAIN_INFO' && (

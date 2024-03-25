@@ -19,7 +19,7 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields } from './warehouse-sent-batches-view.constants'
 
@@ -279,14 +279,14 @@ export class WarehouseSentBatchesViewModel {
         this.batches = warehouseBatchesDataConverter(result.rows, result.volumeWeightCoefficient)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
 
       runInAction(() => {
         this.batches = []
       })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -369,7 +369,7 @@ export class WarehouseSentBatchesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'batches'),
@@ -387,9 +387,9 @@ export class WarehouseSentBatchesViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }

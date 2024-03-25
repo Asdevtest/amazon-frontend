@@ -11,7 +11,7 @@ import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 import { IProduct } from '@typings/models/products/product'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { IDestinationStorekeeper } from '@typings/shared/destinations'
@@ -23,7 +23,7 @@ import { UploadFileType } from '@typings/shared/upload-file'
 import { ModalModes, ModalNames } from './list-suppliers.type'
 
 export class ListSuppliersModel {
-  requestStatus: loadingStatuses = loadingStatuses.SUCCESS
+  requestStatus: loadingStatus = loadingStatus.SUCCESS
 
   paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
   selectionModel: GridRowSelectionModel = []
@@ -267,7 +267,7 @@ export class ListSuppliersModel {
     this.onGetSuppliers()
   }
 
-  setRequestStatus(requestStatus: loadingStatuses) {
+  setRequestStatus(requestStatus: loadingStatus) {
     this.requestStatus = requestStatus
   }
 

@@ -17,7 +17,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './top-card.style'
 
@@ -185,7 +185,7 @@ export const TopCard = memo(
             <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
           )}
 
-          {actionStatus === loadingStatuses.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}
+          {actionStatus === loadingStatus.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}
         </div>
 
         {showBindProductModal && (

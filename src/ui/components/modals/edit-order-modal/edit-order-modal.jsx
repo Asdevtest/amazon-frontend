@@ -46,7 +46,7 @@ import { clearEverythingExceptNumbers, timeToDeadlineInHoursAndMins, toFixed } f
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './edit-order-modal.style'
 
@@ -444,7 +444,7 @@ export const EditOrderModal = memo(
     }
 
     const disableSubmit =
-      requestStatus === loadingStatuses.IS_LOADING ||
+      requestStatus === loadingStatus.IS_LOADING ||
       buyerOrderModalSubmitDisabledOrderStatuses.includes(order.status + '') ||
       !orderFields.orderSupplier ||
       !orderFields?.yuanToDollarRate ||

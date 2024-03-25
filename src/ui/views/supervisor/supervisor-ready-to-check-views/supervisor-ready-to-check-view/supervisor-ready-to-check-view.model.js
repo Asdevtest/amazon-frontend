@@ -11,7 +11,7 @@ import { depersonalizedPickColumns } from '@components/table/table-columns/deper
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SupervisorReadyToCheckViewModel {
   history = undefined
@@ -86,7 +86,7 @@ export class SupervisorReadyToCheckViewModel {
 
   async getProductsReadyToCheck() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await SupervisorModel.getProductsVacant()
 
@@ -98,10 +98,10 @@ export class SupervisorReadyToCheckViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.productsReadyToCheck = []

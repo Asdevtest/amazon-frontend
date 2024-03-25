@@ -11,7 +11,7 @@ import { financesViewColumns } from '@components/table/table-columns/admin/finan
 import { financesDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class UserBalanceModel {
   history = undefined
@@ -91,14 +91,14 @@ export class UserBalanceModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
       await Promise.all([this.getUserInfo(this.userId), this.getBalanceHistory(this.userId)])
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
@@ -151,7 +151,7 @@ export class UserBalanceModel {
 
   async makePayment(data) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.error = undefined
 
       await AdministratorModel.makePayment(data)
@@ -160,9 +160,9 @@ export class UserBalanceModel {
 
       await this.getBalanceHistory(data.recipientId)
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
       this.error = error?.body?.message || error
     }

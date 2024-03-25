@@ -12,7 +12,7 @@ import { exchangeInventoryColumns } from '@components/table/table-columns/admin/
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 const statuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -175,7 +175,7 @@ export class AdminInventoryViewModel {
 
   async getProducts() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await AdministratorModel.getProductsPag({
         status: statuses.join(),
@@ -194,9 +194,9 @@ export class AdminInventoryViewModel {
         this.products = result.rows
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       console.log(error)
       if (error.body && error.body.message) {
@@ -303,7 +303,7 @@ export class AdminInventoryViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
@@ -318,9 +318,9 @@ export class AdminInventoryViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
       console.log(error)
       runInAction(() => {
         this.error = error

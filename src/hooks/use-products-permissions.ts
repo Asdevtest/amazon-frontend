@@ -4,7 +4,7 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 interface ICallback {
   (options: IOptions): any
@@ -45,7 +45,7 @@ export class UseProductsPermissions {
   permissionsData: IPermissionsData[] = []
 
   isCanLoadMore = true
-  requestStatus = loadingStatuses.SUCCESS
+  requestStatus = loadingStatus.SUCCESS
 
   constructor(callback: ICallback, options?: IOptions) {
     makeAutoObservable(this)
@@ -66,7 +66,7 @@ export class UseProductsPermissions {
     if (!this.callback) return
 
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.requestStatus = loadingStatus.IS_LOADING
 
       this.setOptions(options)
 
@@ -76,17 +76,17 @@ export class UseProductsPermissions {
         this.permissionsData = result.rows
       })
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.requestStatus = loadingStatus.SUCCESS
     } catch (error) {
       throw new Error(`${error}`)
     }
   }
 
   async loadMoreDataHadler() {
-    if (!this.callback || !this.isCanLoadMore || this.requestStatus !== loadingStatuses.SUCCESS) return
+    if (!this.callback || !this.isCanLoadMore || this.requestStatus !== loadingStatus.SUCCESS) return
 
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.requestStatus = loadingStatus.IS_LOADING
 
       this.options.offset += this.options.limit
       const result = await this.callback(this.options)
@@ -99,16 +99,16 @@ export class UseProductsPermissions {
         this.isCanLoadMore = false
       }
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.requestStatus = loadingStatus.SUCCESS
     } catch (error) {
       throw new Error(`${error}`)
     }
   }
 
   async onClickSubmitSearch(searchValue: string) {
-    if (!this.callback || this.requestStatus !== loadingStatuses.SUCCESS) return
+    if (!this.callback || this.requestStatus !== loadingStatus.SUCCESS) return
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      this.requestStatus = loadingStatus.IS_LOADING
 
       this.isCanLoadMore = true
       this.setOptions({
@@ -118,7 +118,7 @@ export class UseProductsPermissions {
 
       await this.getPermissionsData()
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.requestStatus = loadingStatus.SUCCESS
     } catch (error) {
       throw new Error(`${error}`)
     }

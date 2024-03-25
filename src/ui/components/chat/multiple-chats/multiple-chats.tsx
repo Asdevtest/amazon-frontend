@@ -16,7 +16,7 @@ import { NoSelectedChat } from '@components/shared/svg-icons'
 import { isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
@@ -57,8 +57,8 @@ interface MultipleChatsProps {
   typingUsers?: OnTypingMessageResponse[]
   messagesFound?: ChatMessageContract[]
   searchPhrase?: string
-  requestStatus: loadingStatuses
-  onChangeRequestStatus: (status: loadingStatuses) => void
+  requestStatus: loadingStatus
+  onChangeRequestStatus: (status: loadingStatus) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
   onSubmitMessage: (message: string, files: UploadFileType[], chat: string, replyMessageId: string | null) => void

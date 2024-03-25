@@ -13,7 +13,7 @@ import { AdminContentModal } from '@components/user/users-views/sub-users-view/a
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './admin-users-view.style'
 
@@ -52,7 +52,7 @@ export const AdminUsersViewRaw = ({ classes: styles, history }) => {
           rows={viewModel.getCurrentData()}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

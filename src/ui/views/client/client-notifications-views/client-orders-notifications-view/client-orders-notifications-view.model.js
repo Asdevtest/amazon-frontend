@@ -14,7 +14,7 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ClientOrdersNotificationsViewModel {
   history = undefined
@@ -145,7 +145,7 @@ export class ClientOrdersNotificationsViewModel {
 
   async getOrders() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await ClientModel.getOrders(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE])
 
@@ -157,10 +157,10 @@ export class ClientOrdersNotificationsViewModel {
         this.rowCount = result.length
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.baseNoConvertedOrders = []
@@ -178,31 +178,31 @@ export class ClientOrdersNotificationsViewModel {
 
   async onClickConfirmOrderPriceChangeBtn(order) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.orderConfirmPriceChange(order._id)
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onClickRejectOrderPriceChangeBtn(order) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.cancelOrder(order._id)
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
     }
   }
 }

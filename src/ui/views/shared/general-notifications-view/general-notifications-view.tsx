@@ -19,7 +19,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './general-notifications-view.style'
 
@@ -127,7 +127,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
           density="compact"
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

@@ -7,7 +7,7 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './header.style'
 
@@ -26,7 +26,7 @@ export const Header: FC<HeaderProps> = memo(props => {
   const { selectedRows, requestStatus, unserverSearchValue, onClickAddBtn, updateShops, onChangeUnserverSearchValue } =
     props
 
-  const disableUpdateButton = !selectedRows.length || requestStatus === loadingStatuses.IS_LOADING
+  const disableUpdateButton = !selectedRows.length || requestStatus === loadingStatus.IS_LOADING
 
   return (
     <div className={styles.headerWrapper}>

@@ -7,7 +7,6 @@ import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -32,7 +31,8 @@ import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -225,7 +225,7 @@ export const MergeBoxesModal = ({
   const isDifferentStorekeepers = selectedBoxes.some(el => el.storekeeper._id !== selectedBoxes[0]?.storekeeper._id)
 
   const disabledSubmit =
-    requestStatus === loadingStatuses.IS_LOADING ||
+    requestStatus === loadingStatus.IS_LOADING ||
     boxBody.logicsTariffId === '' ||
     selectedBoxes.length < 2 ||
     (boxBody.shippingLabel?.length < 5 && boxBody.shippingLabel?.length > 0) ||
@@ -517,7 +517,7 @@ export const MergeBoxesModal = ({
           </Button>
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            disabled={requestStatus === loadingStatuses.IS_LOADING}
+            disabled={requestStatus === loadingStatus.IS_LOADING}
             variant={ButtonVariant.OUTLINED}
             className={cx(styles.button, styles.cancelButton)}
             onClick={onCloseBoxesModal}

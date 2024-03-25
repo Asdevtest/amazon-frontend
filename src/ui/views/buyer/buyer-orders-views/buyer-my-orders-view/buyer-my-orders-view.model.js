@@ -25,7 +25,7 @@ import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields, updateOrderKeys } from './buyer-my-orders-view.constants'
 
@@ -179,7 +179,7 @@ export class BuyerMyOrdersViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
 
@@ -198,9 +198,9 @@ export class BuyerMyOrdersViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
 
       console.log(error)
     }
@@ -711,7 +711,7 @@ export class BuyerMyOrdersViewModel {
         this.loadData()
       } catch (error) {
         console.log(error)
-        this.setRequestStatus(loadingStatuses.FAILED)
+        this.setRequestStatus(loadingStatus.FAILED)
       }
     }
   }
@@ -728,7 +728,7 @@ export class BuyerMyOrdersViewModel {
     orderPayments,
   }) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
@@ -853,9 +853,9 @@ export class BuyerMyOrdersViewModel {
 
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       console.log(error)
     }

@@ -7,7 +7,7 @@ import { buyerSearchSuppliersViewColumns } from '@components/table/table-columns
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class BuyerSearchSupplierBySupervisorModel {
   history = undefined
@@ -60,16 +60,16 @@ export class BuyerSearchSupplierBySupervisorModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.IS_LOADING
+        this.requestStatus = loadingStatus.IS_LOADING
       })
       await this.getProductsVacant()
       // this.updateProductsHead()
       runInAction(() => {
-        this.requestStatus = loadingStatuses.SUCCESS
+        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.FAILED
+        this.requestStatus = loadingStatus.FAILED
       })
       console.log(error)
     }

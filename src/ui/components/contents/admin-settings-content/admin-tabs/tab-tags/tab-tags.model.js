@@ -10,7 +10,7 @@ import { SettingsModel } from '@models/settings-model'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { tagsColumns } from './tags-columns'
 
@@ -71,7 +71,7 @@ export class AdminSettingsTagsModel {
 
   async getTags() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const resolve = await GeneralModel.getTagList()
 
@@ -79,11 +79,11 @@ export class AdminSettingsTagsModel {
         this.tags = addIdDataConverter(resolve)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
       this.tags = []
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

@@ -10,7 +10,7 @@ import { UserModel } from '@models/user-model'
 import { getObjectKeys } from '@utils/object'
 import { setI18nConfig, t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AuthViewModel {
   history = undefined
@@ -37,7 +37,7 @@ export class AuthViewModel {
   }
 
   get disableLoginButton() {
-    return this.requestStatus === loadingStatuses.IS_LOADING
+    return this.requestStatus === loadingStatus.IS_LOADING
   }
 
   constructor({ history }) {
@@ -76,7 +76,7 @@ export class AuthViewModel {
 
   async onSubmitForm() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       runInAction(() => {
         this.error = undefined
@@ -98,13 +98,13 @@ export class AuthViewModel {
         })
       }
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.error = error
       })
 
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

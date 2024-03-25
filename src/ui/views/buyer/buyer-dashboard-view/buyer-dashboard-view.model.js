@@ -5,7 +5,7 @@ import { BuyerDashboardCardDataKey } from '@constants/navigation/dashboard-confi
 import { DashboardModel } from '@models/dashboard-model'
 import { UserModel } from '@models/user-model'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class BuyerDashboardViewModel {
   history = undefined
@@ -38,17 +38,17 @@ export class BuyerDashboardViewModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.IS_LOADING
+        this.requestStatus = loadingStatus.IS_LOADING
       })
 
       this.getDashboardElementCount()
 
       runInAction(() => {
-        this.requestStatus = loadingStatuses.SUCCESS
+        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.FAILED
+        this.requestStatus = loadingStatus.FAILED
       })
       console.log(error)
     }

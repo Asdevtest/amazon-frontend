@@ -14,7 +14,7 @@ import { adminFeedbackViewColumns } from '@components/table/table-columns/admin/
 import { feedBackDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AdminFeedbackViewModel {
   history = undefined
@@ -130,7 +130,7 @@ export class AdminFeedbackViewModel {
 
   async getFeedbackList() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await AdministratorModel.getFeedback()
 
@@ -139,10 +139,10 @@ export class AdminFeedbackViewModel {
         this.rowCount = this.feedbackList.length
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

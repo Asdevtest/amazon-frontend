@@ -13,7 +13,7 @@ import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/a
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './user-balance.style'
 
@@ -89,7 +89,7 @@ export const UserBalance = observer(({ userId }) => {
           }}
           density={densityModel}
           columns={columnsModel}
-          loading={requestStatus === loadingStatuses.IS_LOADING}
+          loading={requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
           onPaginationModelChange={model.current.onPaginationModelChange}
           onFilterModelChange={onChangeFilterModel}

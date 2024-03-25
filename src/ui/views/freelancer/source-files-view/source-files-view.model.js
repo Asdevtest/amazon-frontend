@@ -10,7 +10,7 @@ import { SourceFilesDataConverter } from '@utils/data-grid-data-converters'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SourceFilesViewModel {
   history = undefined
@@ -98,13 +98,13 @@ export class SourceFilesViewModel {
 
   loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.getSourceFiles()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
@@ -129,7 +129,7 @@ export class SourceFilesViewModel {
 
       this.getSourceFiles()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
@@ -159,7 +159,7 @@ export class SourceFilesViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
@@ -174,7 +174,7 @@ export class SourceFilesViewModel {
 
   async getSourceFiles() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await RequestProposalModel.getFreelanceSourceFiles()
 
@@ -183,9 +183,9 @@ export class SourceFilesViewModel {
         this.rowCount = this.sourceFiles.length
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }

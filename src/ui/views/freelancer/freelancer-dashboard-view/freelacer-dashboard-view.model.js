@@ -5,7 +5,7 @@ import { FreelancerDashboardCardDataKey } from '@constants/navigation/dashboard-
 import { DashboardModel } from '@models/dashboard-model'
 import { UserModel } from '@models/user-model'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class FreelancerDashboardViewModel {
   history = undefined
@@ -42,11 +42,11 @@ export class FreelancerDashboardViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDashboardElementCount()
-      await this.setRequestStatus(loadingStatuses.SUCCESS)
+      await this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }

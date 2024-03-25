@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-goods-to-inventory-form'
@@ -15,7 +14,8 @@ import { Modal } from '@components/shared/modal'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
+import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 import { useStyles } from './client-shops-report-view.style'
 
@@ -83,7 +83,7 @@ export const ClientShopsReportView = observer(() => {
           density={viewModel.densityModel}
           rows={viewModel.tableData}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           rowSelectionModel={viewModel.selectedRows}
           getRowId={({ _id }: { _id: string }) => _id}
           onRowSelectionModelChange={viewModel.onSelectionModel}

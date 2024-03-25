@@ -6,7 +6,7 @@ import { RequestModel } from '@models/request-model'
 
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ServicesDetailCustomViewModel {
   history = undefined
@@ -41,12 +41,12 @@ export class ServicesDetailCustomViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getCustomRequestById()
       this.getAnnouncementsDataById()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }

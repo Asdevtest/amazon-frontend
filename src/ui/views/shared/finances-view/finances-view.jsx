@@ -8,7 +8,7 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './finances-view.style'
 
@@ -57,7 +57,7 @@ export const FinancesView = observer(({ history }) => {
         }}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
-        loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+        loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
         onSortModelChange={viewModel.onChangeSortingModel}
         onFilterModelChange={viewModel.onChangeFilterModel}
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

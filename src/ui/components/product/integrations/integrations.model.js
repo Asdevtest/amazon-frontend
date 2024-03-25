@@ -10,7 +10,7 @@ import { productIntegrationsColumns } from '@components/table/table-columns/prod
 import { addIdDataConverter, stockReportDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class IntegrationsModel {
   history = undefined
@@ -74,14 +74,14 @@ export class IntegrationsModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await Promise.all([this.getProductById(), this.getProductsWithSkuById()])
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

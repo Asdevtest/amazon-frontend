@@ -21,7 +21,7 @@ import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-gr
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SubUsersViewModel {
   history = undefined
@@ -111,15 +111,15 @@ export class SubUsersViewModel {
 
   async onClickSaveComment(id, comment) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await UserModel.patchSubNote(id, comment)
 
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
@@ -194,7 +194,7 @@ export class SubUsersViewModel {
 
   async getUsers() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const response = await UserModel.getMySubUsers()
 
@@ -202,10 +202,10 @@ export class SubUsersViewModel {
         this.subUsersData = addIdDataConverter(response).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -235,7 +235,7 @@ export class SubUsersViewModel {
 
   async onClickEditBtn(row) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       runInAction(() => {
         this.selectedSubUser = row
@@ -294,10 +294,10 @@ export class SubUsersViewModel {
 
       this.onTriggerOpenModal('showPermissionModal')
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

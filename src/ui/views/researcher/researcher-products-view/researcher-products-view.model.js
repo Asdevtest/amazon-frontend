@@ -18,7 +18,7 @@ import { getNewObjectWithDefaultValue } from '@utils/object'
 import { t } from '@utils/translations'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 const formFieldsDefault = {
   amazonLink: '',
@@ -218,18 +218,18 @@ export class ResearcherProductsViewModel {
 
   async createProduct(product) {
     try {
-      this.setActionStatus(loadingStatuses.IS_LOADING)
+      this.setActionStatus(loadingStatus.IS_LOADING)
 
       const response = await ResearcherModel.createProduct(product)
 
-      this.setActionStatus(loadingStatuses.SUCCESS)
+      this.setActionStatus(loadingStatus.SUCCESS)
       runInAction(() => {
         this.formFields = formFieldsDefault
         this.newProductId = response.guid
       })
       await this.loadData()
     } catch (error) {
-      this.setActionStatus(loadingStatuses.FAILED)
+      this.setActionStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -258,7 +258,7 @@ export class ResearcherProductsViewModel {
 
   async getPropductsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const result = await ResearcherModel.getProductsVacant()
 
       runInAction(() => {
@@ -267,26 +267,26 @@ export class ResearcherProductsViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
 
   async checkProductExists() {
     try {
-      this.setActionStatus(loadingStatuses.IS_LOADING)
+      this.setActionStatus(loadingStatus.IS_LOADING)
       const checkProductExistResult = await ResearcherModel.checkProductExists(
         this.formFields.productCode,
         this.formFields.strategyStatus,
       )
 
-      this.setActionStatus(loadingStatuses.SUCCESS)
+      this.setActionStatus(loadingStatus.SUCCESS)
       return checkProductExistResult
     } catch (error) {
       console.log(error)
-      this.setActionStatus(loadingStatuses.FAILED)
+      this.setActionStatus(loadingStatus.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message

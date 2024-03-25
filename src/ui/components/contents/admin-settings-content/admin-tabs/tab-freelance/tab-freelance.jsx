@@ -13,7 +13,7 @@ import { Modal } from '@components/shared/modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './tab-freelance.style'
 
@@ -103,7 +103,7 @@ export const TabFreelance = observer(props => {
               getRowHeight={() => 'auto'}
               getRowId={row => row._id}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+              loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
               slots={{}}
               sx={{
                 '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,

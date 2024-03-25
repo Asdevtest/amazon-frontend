@@ -10,7 +10,7 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { clientFreelanceNotificationsColumns } from '@components/table/table-columns/client/client-freelance-notifications-columns'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ClientFreelanceNotificationsViewModel {
   history = undefined
@@ -51,7 +51,7 @@ export class ClientFreelanceNotificationsViewModel {
 
   async getNotifications() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
 
       runInAction(() => {
@@ -65,10 +65,10 @@ export class ClientFreelanceNotificationsViewModel {
         })
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

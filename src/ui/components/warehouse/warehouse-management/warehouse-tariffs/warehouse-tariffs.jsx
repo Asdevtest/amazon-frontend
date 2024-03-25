@@ -14,7 +14,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-tariffs.style'
 
@@ -88,7 +88,7 @@ export const WarehouseTariffs = observer(() => {
         }}
         density={densityModel}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.IS_LOADING}
+        loading={requestStatus === loadingStatus.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
         onPaginationModelChange={onPaginationModelChange}
         onFilterModelChange={onChangeFilterModel}

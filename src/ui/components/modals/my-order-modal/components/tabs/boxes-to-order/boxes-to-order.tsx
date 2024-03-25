@@ -15,7 +15,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './boxes-to-order.style'
@@ -48,7 +48,7 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(({ formFields, platf
           getRowId={(row: GridRowModel) => row._id}
           columns={boxesToOrderColumn(platformSettings, viewModel.onClickFilesCell)}
           paginationModel={viewModel.paginationModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           sx={{
             '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
             '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,

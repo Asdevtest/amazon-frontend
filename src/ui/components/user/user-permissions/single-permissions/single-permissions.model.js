@@ -13,7 +13,7 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SinglePermissionsModel {
   history = undefined
@@ -127,7 +127,7 @@ export class SinglePermissionsModel {
 
   async getSinglePermissions() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await PermissionsModel.getSinglePermissions()
 
@@ -136,13 +136,13 @@ export class SinglePermissionsModel {
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.payments = []
       })
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

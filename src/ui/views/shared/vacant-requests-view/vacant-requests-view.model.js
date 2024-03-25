@@ -15,7 +15,7 @@ import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 import { RequestSubType } from '@typings/enums/request/request-type'
 import { Specs } from '@typings/enums/specs'
 
@@ -139,7 +139,7 @@ export class VacantRequestsViewModel {
 
   async getRequestsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await RequestModel.getRequests({
         kind: RequestSubType.VACANT,
@@ -160,9 +160,9 @@ export class VacantRequestsViewModel {
         this.rowCount = result.count
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
 
       runInAction(() => {
@@ -185,7 +185,7 @@ export class VacantRequestsViewModel {
   async onClickFilterBtn(column) {
     try {
       runInAction(() => {
-        this.columnMenuSettings.filterRequestStatus = loadingStatuses.IS_LOADING
+        this.columnMenuSettings.filterRequestStatus = loadingStatus.IS_LOADING
       })
 
       const data = await GeneralModel.getDataForColumn(
@@ -204,11 +204,11 @@ export class VacantRequestsViewModel {
       }
 
       runInAction(() => {
-        this.columnMenuSettings.filterRequestStatus = loadingStatuses.SUCCESS
+        this.columnMenuSettings.filterRequestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.columnMenuSettings.filterRequestStatus = loadingStatuses.FAILED
+        this.columnMenuSettings.filterRequestStatus = loadingStatus.FAILED
       })
       console.log(error)
     }
@@ -313,7 +313,7 @@ export class VacantRequestsViewModel {
 
   async getRequestDetail(id) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const response = await RequestModel.getCustomRequestById(id)
 
@@ -321,9 +321,9 @@ export class VacantRequestsViewModel {
         this.currentRequestDetails = response
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }

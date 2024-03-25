@@ -17,7 +17,7 @@ import { checkIsAdmin } from '@utils/checks'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './integrations.style'
 
@@ -95,7 +95,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
           },
         }}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.IS_LOADING}
+        loading={requestStatus === loadingStatus.IS_LOADING}
         rowSelectionModel={selectedRowIds}
         onPaginationModelChange={onPaginationModelChange}
         onRowSelectionModelChange={onSelectionModel}

@@ -12,7 +12,7 @@ import { destinationsColumns } from '@components/table/table-columns/admin/desti
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AdminDestinationsViewModel {
   history = undefined
@@ -120,7 +120,7 @@ export class AdminDestinationsViewModel {
 
   async getDestinations() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await ClientModel.getDestinations()
 
@@ -128,14 +128,14 @@ export class AdminDestinationsViewModel {
         this.destinations = addIdDataConverter(result)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.destinations = []
       })
       console.log(error)
 
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

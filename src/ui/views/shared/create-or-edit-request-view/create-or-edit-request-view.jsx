@@ -12,7 +12,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
@@ -31,7 +31,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
   return (
     <>
       <div ref={mainContentRef} style={{ height: '100%' }}>
-        {viewModel.requestStatus === loadingStatuses.IS_LOADING ? (
+        {viewModel.requestStatus === loadingStatus.IS_LOADING ? (
           <CircularProgressWithLabel />
         ) : (
           <CreateOrEditRequestContent

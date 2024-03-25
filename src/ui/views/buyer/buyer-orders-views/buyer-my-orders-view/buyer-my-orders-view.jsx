@@ -21,7 +21,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './buyer-my-orders-view.style'
 
@@ -99,7 +99,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -259,7 +259,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.requestStatus === loadingStatuses.IS_LOADING && (
+      {viewModel.requestStatus === loadingStatus.IS_LOADING && (
         <CircularProgressWithLabel wrapperClassName={styles.loadingCircle} />
       )}
     </>

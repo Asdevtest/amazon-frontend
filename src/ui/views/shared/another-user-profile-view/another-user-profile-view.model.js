@@ -26,7 +26,7 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AnotherProfileViewModel {
   history = undefined
@@ -191,7 +191,7 @@ export class AnotherProfileViewModel {
 
   async onSaveProductData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.updateProduct(
         this.selectedProduct._id,
@@ -202,9 +202,9 @@ export class AnotherProfileViewModel {
           ['suppliers'],
         ),
       )
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
@@ -317,7 +317,7 @@ export class AnotherProfileViewModel {
 
   async onLaunchPrivateLabel() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const requestProduct = getObjectFilteredByKeyArrayBlackList({ ...this.ordersDataStateToSubmit }, [
         'tmpResearcherName',
@@ -326,7 +326,7 @@ export class AnotherProfileViewModel {
       ])
 
       await this.createOrder(requestProduct)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.onTriggerOpenModal('showOrderModal')
       this.onTriggerOpenModal('showSuccessModal')
@@ -335,7 +335,7 @@ export class AnotherProfileViewModel {
 
       this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
       runInAction(() => {
         if (error.body && error.body.message) {
@@ -427,7 +427,7 @@ export class AnotherProfileViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await this.getUserById()
 
@@ -441,9 +441,9 @@ export class AnotherProfileViewModel {
 
       await Promise.all(this.getDataGridState(), this.getReviews())
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }

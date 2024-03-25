@@ -21,7 +21,7 @@ import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './reasearcher-add-product-form.style'
 
@@ -74,7 +74,7 @@ export const ResearcherAddProductFormRaw = observer(
                 ) : null}
               </Alert>
             ) : null}
-            {!errorMsg && actionStatus === loadingStatuses.SUCCESS ? (
+            {!errorMsg && actionStatus === loadingStatus.SUCCESS ? (
               <Alert className={styles.alert} elevation={5} severity="success">
                 {t(TranslationKey['Operation complete'])}
               </Alert>

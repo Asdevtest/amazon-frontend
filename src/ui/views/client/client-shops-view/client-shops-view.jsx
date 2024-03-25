@@ -10,7 +10,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-shops-view.style'
 
@@ -63,7 +63,7 @@ export const ClientShopsView = observer(() => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           rowSelectionModel={viewModel.selectedRows}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={(model, details) => viewModel.onChangeSortingModel(model, details, true)}

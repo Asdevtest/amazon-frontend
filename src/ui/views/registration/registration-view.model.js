@@ -8,7 +8,7 @@ import { UserRegistrationContract } from '@models/user-model/user-model.contract
 import { getObjectKeys } from '@utils/object'
 import { setI18nConfig } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 const delayRedirectToAuthTime = 1000
 
@@ -34,7 +34,7 @@ export class RegistrationViewModel {
   }
 
   get disableRegisterButton() {
-    return this.requestStatus === loadingStatuses.IS_LOADING
+    return this.requestStatus === loadingStatus.IS_LOADING
   }
 
   constructor({ history }) {
@@ -60,7 +60,7 @@ export class RegistrationViewModel {
 
   async onSubmitForm() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await UserModel.isCheckUniqueUser({ name: this.name, email: this.email.toLowerCase() })
 
@@ -76,13 +76,13 @@ export class RegistrationViewModel {
 
       this.onTriggerOpenModal('showSuccessRegistrationModal')
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       setTimeout(() => {
         this.history.push('/auth')
       }, delayRedirectToAuthTime)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

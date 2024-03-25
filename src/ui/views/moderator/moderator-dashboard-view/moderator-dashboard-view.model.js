@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 // import {FreelancerDashboardCardDataKey} from '@constants/dashboard-configs'
-// import {loadingStatuses} from '@constants/loading-statuses'
+// import {loadingStatus} from '@constants/loading-statuses'
 // import {OtherModel} from '@models/other-model'
 // import {ResearcherModel} from '@models/researcher-model'
 import { UserModel } from '@models/user-model'
@@ -62,11 +62,11 @@ export class ModeratorDashboardViewModel {
 
   // async loadData() {
   //   try {
-  //     this.setRequestStatus(loadingStatuses.IS_LOADING)
+  //     this.setRequestStatus(loadingStatus.IS_LOADING)
   //     await this.getPayments()
-  //     await this.setRequestStatus(loadingStatuses.SUCCESS)
+  //     await this.setRequestStatus(loadingStatus.SUCCESS)
   //   } catch (error) {
-  //     this.setRequestStatus(loadingStatuses.FAILED)
+  //     this.setRequestStatus(loadingStatus.FAILED)
   //     console.log(error)
   //   }
   // }

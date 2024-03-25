@@ -32,7 +32,7 @@ import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { loadingStatuses } from '@typings/enums/loading-status'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-in-stock-boxes-view.style'
 
@@ -119,7 +119,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onColumnHeaderEnter={params => {
             viewModel.onHoverColumnField(params.field)
           }}
