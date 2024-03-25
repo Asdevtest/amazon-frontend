@@ -19,32 +19,43 @@ export class AdminFeedbackViewModel {
   history = undefined
   requestStatus = undefined
 
-  selectedFeedback = undefined
-
   showReplyFeedbackModal = false
+  showGalleryModal = false
 
+  selectedFeedback = undefined
   nameSearchValue = ''
-  isWarning = false
   feedbackList = []
+  galleryFiles = []
 
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
-  densityModel = 'compact'
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
   rowHandlers = {
     onClickOpenFeedbackBtn: item => this.onClickOpenFeedbackBtn(item),
+    onClickFilesCell: files => this.onClickFilesCell(files),
   }
   columnsModel = adminFeedbackViewColumns(this.rowHandlers)
 
-  get curUser() {
+  get userInfo() {
     return UserModel.userInfo
   }
 
   get simpleChats() {
-    return ChatModel.simpleChats || []
+    return ChatModel.simpleChats
+  }
+
+  get currentData() {
+    if (this.nameSearchValue) {
+      return this.feedbackList.filter(
+        el =>
+          el.originalData.user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.originalData.user.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return this.feedbackList
+    }
   }
 
   constructor({ history }) {
@@ -71,31 +82,26 @@ export class AdminFeedbackViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_FEEDBACK]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
   }
 
   onColumnVisibilityModel(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
   }
 
@@ -105,7 +111,6 @@ export class AdminFeedbackViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
   }
 
@@ -113,42 +118,30 @@ export class AdminFeedbackViewModel {
     this.selectedBatches = model
   }
 
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.feedbackList).filter(
-        el =>
-          el.originalData.user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.originalData.user.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.feedbackList)
-    }
-  }
-
   loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       this.getDataGridState()
       this.getFeedbackList()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
   async getFeedbackList() {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       const result = await AdministratorModel.getFeedback()
 
       runInAction(() => {
         this.feedbackList = feedBackDataConverter(result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')))
         this.rowCount = this.feedbackList.length
       })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -164,7 +157,7 @@ export class AdminFeedbackViewModel {
         await ChatsModel.createSimpleChatByUserId(anotherUserId)
       }
 
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/messages`, {
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/messages`, {
         anotherUserId,
       })
     } catch (e) {
@@ -174,5 +167,15 @@ export class AdminFeedbackViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
+  }
+
+  onClickFilesCell = files => {
+    if (files && files.length > 0) {
+      this.galleryFiles = files
+    } else {
+      this.galleryFiles = []
+    }
+
+    this.onTriggerOpenModal('showGalleryModal')
   }
 }

@@ -5,11 +5,11 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
+import { GalleryModal } from '@components/modals/gallery-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { useStyles } from './admin-feedback-view.style'
@@ -40,10 +40,9 @@ export const AdminFeedbackView = observer(({ history }) => {
           useResizeContainer
           sortingMode="client"
           paginationMode="client"
-          localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}
           getRowHeight={() => 'auto'}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           slotProps={{
             baseTooltip: {
@@ -57,7 +56,6 @@ export const AdminFeedbackView = observer(({ history }) => {
               },
             },
           }}
-          density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -79,6 +77,14 @@ export const AdminFeedbackView = observer(({ history }) => {
             onSubmit={viewModel.onClickWriteBtn}
           />
         </Modal>
+
+        {viewModel.showGalleryModal ? (
+          <GalleryModal
+            files={viewModel.galleryFiles}
+            openModal={viewModel.showGalleryModal}
+            onOpenModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
+          />
+        ) : null}
       </div>
     </>
   )
