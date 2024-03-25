@@ -62,7 +62,6 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowCha
                   bgColor="green"
                 />
               </div>
-              S
             </div>
           </div>
         )

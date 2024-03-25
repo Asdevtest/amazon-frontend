@@ -1,4 +1,6 @@
 import { FC, memo } from 'react'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -48,6 +50,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     onChangeFileName,
     onUploadFile,
     onUpdateSeoIFilesInProduct,
+    onReorderMediaFiles,
   } = useFilesTab(props)
 
   const handleCheckedFile = (fileId: string | null) => filesForDownload.some(({ _id }) => _id === fileId)
@@ -60,29 +63,32 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
   const disabledUpdateSeoFilesInProductButton = filesForDownload.length !== ONLY_ONE_SEO_FILE
   const errorUpdateSeoFilesInProduct = filesForDownload.length > ONLY_ONE_SEO_FILE
 
-  const lastFileRef = useScrollToFile(files)
+  const lastFileRef = useScrollToFile(files.length)
 
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.files}>
-          {files.map((file, index) => (
-            <File
-              key={index}
-              ref={index === files.length - 1 ? lastFileRef : null}
-              readOnly={props.readOnly}
-              isClient={props.isClient}
-              file={file}
-              fileIndex={index}
-              checked={handleCheckedFile(file._id)}
-              onCheckFile={onCheckFile}
-              onToggleImageModal={onToggleImageModal}
-              onToggleCommentModal={onToggleCommentModal}
-              onDeleteFile={onDeleteFile}
-              onChangeFileName={onChangeFileName}
-              onUploadFile={onUploadFile}
-            />
-          ))}
+          <DndProvider backend={HTML5Backend}>
+            {files.map((file, index) => (
+              <File
+                key={index}
+                ref={index === files.length - 1 ? lastFileRef : null}
+                readOnly={props.readOnly}
+                isClient={props.isClient}
+                file={file}
+                fileIndex={index}
+                checked={handleCheckedFile(file._id)}
+                onCheckFile={onCheckFile}
+                onToggleImageModal={onToggleImageModal}
+                onToggleCommentModal={onToggleCommentModal}
+                onDeleteFile={onDeleteFile}
+                onChangeFileName={onChangeFileName}
+                onUploadFile={onUploadFile}
+                onReorderMediaFiles={onReorderMediaFiles}
+              />
+            ))}
+          </DndProvider>
         </div>
 
         {props.isClient || props.readOnly ? (
