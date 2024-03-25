@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { Typography } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -30,26 +29,27 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
     <div className={styles.root}>
       <Accordion classes={{ root: styles.accordion }} expanded={showDetails} onChange={onClickToShowDetails}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={styles.title}>{t(TranslationKey['Detailed application description'])}</Typography>
+          <p className={styles.title}>{t(TranslationKey['Detailed application description'])}</p>
         </AccordionSummary>
 
         <AccordionDetails classes={{ root: styles.details }} style={{ padding: 0 }}>
           <div className={styles.mainWrapper}>
             <div className={styles.filesWrapper}>
-              <Typography className={styles.conditionsLabel}>{t(TranslationKey.Files)}</Typography>
+              <p className={styles.title}>{t(TranslationKey.Files)}</p>
 
-              <div className={styles.conditionsPhotosWraper}>
-                <Typography className={styles.conditionsSubLabel}>{t(TranslationKey.Files)}</Typography>
-
-                <SlideshowGallery files={request?.request?.media} />
-              </div>
+              <SlideshowGallery slidesToShow={2} files={request?.request?.media} />
             </div>
 
-            <div className={styles.conditionsFieldWrapper}>
-              <Typography className={styles.conditionsLabel}>{t(TranslationKey.Description)}</Typography>
+            <div className={styles.filesWrapper}>
+              <p className={styles.title}>{t(TranslationKey.Description)}</p>
 
               {request?.details?.conditions ? (
-                <CustomTextEditor readOnly value={request?.details?.conditions} editorClassName={styles.textEditor} />
+                <CustomTextEditor
+                  readOnly
+                  value={request?.details?.conditions}
+                  editorClassName={styles.textEditor}
+                  editorWrapperClassName={styles.editorWrapper}
+                />
               ) : null}
             </div>
           </div>
