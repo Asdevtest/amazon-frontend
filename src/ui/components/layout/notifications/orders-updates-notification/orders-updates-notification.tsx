@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { History } from 'history'
-import { FC, memo } from 'react'
+import { FC } from 'react'
 
 import { Avatar, Typography } from '@mui/material'
 
