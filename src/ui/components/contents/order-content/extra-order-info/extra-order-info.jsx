@@ -26,21 +26,21 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
             {t(TranslationKey['Order photos']) + ':'}
           </Text>
 
-          <SlideshowGallery slidesToShow={2} files={order?.images} />
+          <SlideshowGallery hiddenPreviews slidesToShow={1} files={order?.images} />
         </div>
         <div className={styles.photoWrapper}>
           <Text containerClasses={styles.subTitleWrapper} className={styles.subTitle}>
             {t(TranslationKey['Photos of current supplier']) + ':'}
           </Text>
 
-          <SlideshowGallery slidesToShow={2} files={order.orderSupplier?.images} />
+          <SlideshowGallery hiddenPreviews slidesToShow={1} files={order.orderSupplier?.images} />
         </div>
         <div className={styles.photoWrapper}>
           <Text containerClasses={styles.subTitleWrapper} className={styles.subTitle}>
             {t(TranslationKey['Supplier payment']) + ':'}
           </Text>
 
-          <SlideshowGallery slidesToShow={2} files={order?.paymentDetails} />
+          <SlideshowGallery hiddenPreviews slidesToShow={1} files={order?.paymentDetails} />
         </div>
       </div>
 
