@@ -17,7 +17,7 @@ interface FilesCellProps {
   files: UploadFileType[]
 }
 
-export const FilesCell: FC<FilesCellProps> = memo(({ files = [] }) => {
+export const FilesCell: FC<FilesCellProps> = memo(({ files }) => {
   const { classes: styles } = useStyles()
 
   const [showGalleryModal, setShowGalleryModal] = useState(false)
@@ -27,7 +27,7 @@ export const FilesCell: FC<FilesCellProps> = memo(({ files = [] }) => {
   return (
     <>
       <div className={styles.wrapper}>
-        {files.length > 0 ? (
+        {files?.length > 0 ? (
           <Button
             styleType={ButtonStyle.PRIMARY}
             variant={ButtonVariant.OUTLINED}
@@ -42,7 +42,7 @@ export const FilesCell: FC<FilesCellProps> = memo(({ files = [] }) => {
       </div>
 
       {showGalleryModal ? (
-        <GalleryModal files={files} openModal={showGalleryModal} onOpenModal={handleToggleGalleryModal} />
+        <GalleryModal files={files || []} openModal={showGalleryModal} onOpenModal={handleToggleGalleryModal} />
       ) : null}
     </>
   )

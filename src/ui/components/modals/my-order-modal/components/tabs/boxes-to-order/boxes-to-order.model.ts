@@ -93,10 +93,6 @@ export class BoxesToOrderModel {
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
-
-      runInAction(() => {
-        this.boxes = []
-      })
     }
   }
 
@@ -109,10 +105,6 @@ export class BoxesToOrderModel {
       })
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.currentBox = undefined
-      })
     }
   }
 
@@ -161,10 +153,6 @@ export class BoxesToOrderModel {
       this.onToggleModal(ModalNames.EDIT_HS_CODE)
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.hsCodeData = undefined
-      })
     }
   }
 
