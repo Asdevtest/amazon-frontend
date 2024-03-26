@@ -65,11 +65,6 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
 
   const lastFileRef = useScrollToFile(files.length)
 
-  console.log(
-    'files',
-    files.map(file => file.index),
-  )
-
   return (
     <>
       <div className={styles.wrapper}>
