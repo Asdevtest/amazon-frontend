@@ -70,7 +70,7 @@ export class BuyerSearchSupplierByClientModel {
       runInAction(() => {
         this.requestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -96,12 +96,7 @@ export class BuyerSearchSupplierByClientModel {
       runInAction(() => {
         this.productsVacant = []
       })
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -119,12 +114,7 @@ export class BuyerSearchSupplierByClientModel {
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -139,12 +129,7 @@ export class BuyerSearchSupplierByClientModel {
         })
       }
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 

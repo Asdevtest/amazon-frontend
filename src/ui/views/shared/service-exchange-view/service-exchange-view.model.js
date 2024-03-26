@@ -56,7 +56,7 @@ export class ServiceExchangeViewModel {
 
       this.getNotYoursAnnouncements()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -68,7 +68,7 @@ export class ServiceExchangeViewModel {
         this.specs = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -82,7 +82,7 @@ export class ServiceExchangeViewModel {
         this.announcements = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   } */
 

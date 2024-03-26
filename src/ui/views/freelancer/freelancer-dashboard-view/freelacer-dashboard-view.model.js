@@ -10,7 +10,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class FreelancerDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   balance = UserModel.userInfo?.balance
   productsVacant = []
@@ -63,10 +62,7 @@ export class FreelancerDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

@@ -105,7 +105,7 @@ export class SupervisorProductViewModel {
       await this.getProductById()
       await this.getProductsVariations()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -309,7 +309,7 @@ export class SupervisorProductViewModel {
           })
         })
       } else {
-        console.log(error)
+        console.error(error)
       }
     }
   }

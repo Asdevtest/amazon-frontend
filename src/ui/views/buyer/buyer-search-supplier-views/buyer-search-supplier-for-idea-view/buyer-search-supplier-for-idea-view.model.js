@@ -72,7 +72,7 @@ export class BuyerSearchSupplierForIdeaModel {
       runInAction(() => {
         this.requestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -96,12 +96,7 @@ export class BuyerSearchSupplierForIdeaModel {
       runInAction(() => {
         this.supplierSearchRequestsVacant = []
       })
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -119,12 +114,7 @@ export class BuyerSearchSupplierForIdeaModel {
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -139,12 +129,7 @@ export class BuyerSearchSupplierForIdeaModel {
         })
       }
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 

@@ -28,8 +28,8 @@ import { useStyles } from './create-or-edit-proposal-content.style'
 
 export const CreateOrEditProposalContent = memo(props => {
   const { onCreateSubmit, onEditSubmit, request, showProgress, progressValue, proposalToEdit, onClickBackBtn } = props
-  const { classes: styles, cx } = useStyles()
 
+  const { classes: styles, cx } = useStyles()
   const [images, setImages] = useState([])
 
   useEffect(() => {
@@ -229,7 +229,7 @@ export const CreateOrEditProposalContent = memo(props => {
           </div>
         </div>
 
-        <SlideshowGallery slidesToShow={2} files={request?.details?.linksToMediaFiles || []} />
+        <SlideshowGallery slidesToShow={2} files={request?.request?.media || []} />
       </div>
 
       <div className={styles.mainRightWrapper}>

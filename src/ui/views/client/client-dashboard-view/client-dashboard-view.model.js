@@ -10,7 +10,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class ClientDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   dashboardData = {
     [ClientDashboardCardDataKey.IN_INVENTORY]: '',
@@ -92,7 +91,7 @@ export class ClientDashboardViewModel {
       runInAction(() => {
         this.requestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -121,10 +120,7 @@ export class ClientDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

@@ -137,7 +137,7 @@ export class SupervisorSettingsContentModel {
 
       this.loadData(tabIndex)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -148,7 +148,7 @@ export class SupervisorSettingsContentModel {
         this.asins = result.filter(item => item.strategy === mapProductStrategyStatusEnumToKey[tabIndex].toString())
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -159,7 +159,7 @@ export class SupervisorSettingsContentModel {
       this.onTriggerOpenModal('showEditAsinCheckerModal')
       this.loadData(tabIndex)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -170,7 +170,7 @@ export class SupervisorSettingsContentModel {
 
       this.loadData(tabIndex)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -182,7 +182,7 @@ export class SupervisorSettingsContentModel {
 
       this.loadData(tabIndex)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

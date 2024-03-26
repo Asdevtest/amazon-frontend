@@ -71,15 +71,12 @@ export class BuyerSearchSupplierBySupervisorModel {
       runInAction(() => {
         this.requestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getProductsVacant() {
     try {
-      runInAction(() => {
-        this.error = undefined
-      })
       const result = await BuyerModel.getProductsVacant()
       runInAction(() => {
         this.productsVacant = depersonalizedPickDataConverter(
@@ -87,16 +84,11 @@ export class BuyerSearchSupplierBySupervisorModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.productsVacant = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -114,12 +106,7 @@ export class BuyerSearchSupplierBySupervisorModel {
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -134,12 +121,7 @@ export class BuyerSearchSupplierBySupervisorModel {
         })
       }
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
   setRequestStatus(requestStatus) {

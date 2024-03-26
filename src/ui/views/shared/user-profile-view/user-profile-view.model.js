@@ -145,7 +145,7 @@ export class ProfileViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productsVacant = []
       })
@@ -176,7 +176,7 @@ export class ProfileViewModel {
         return
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -227,7 +227,7 @@ export class ProfileViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -248,7 +248,7 @@ export class ProfileViewModel {
 
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -277,7 +277,7 @@ export class ProfileViewModel {
         this.reviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -298,7 +298,7 @@ export class ProfileViewModel {
         this.activeSessions = responce
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -306,7 +306,7 @@ export class ProfileViewModel {
     try {
       await UserModel.logoutSession(sessionCreatedAt)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

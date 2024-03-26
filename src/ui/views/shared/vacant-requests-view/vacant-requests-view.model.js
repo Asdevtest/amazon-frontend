@@ -133,7 +133,7 @@ export class VacantRequestsViewModel {
 
       this.getRequestsVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -210,7 +210,7 @@ export class VacantRequestsViewModel {
       runInAction(() => {
         this.columnMenuSettings.filterRequestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -11,7 +11,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class SupervisorDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   producatsMy = []
@@ -58,7 +57,7 @@ export class SupervisorDashboardViewModel {
       runInAction(() => {
         this.requestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -87,10 +86,7 @@ export class SupervisorDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -109,10 +105,7 @@ export class SupervisorDashboardViewModel {
         this.productsVacant = result.filter(el => el.icomment !== '')
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 }

@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
@@ -19,14 +19,10 @@ export class AdminAwaitingBatchesViewModel {
   requestStatus = undefined
   error = undefined
 
-  volumeWeightCoefficient = undefined
-
   nameSearchValue = ''
 
   batches = []
   batchesData = []
-
-  currentData = []
 
   selectedBatches = []
   curBatch = {}
@@ -44,17 +40,17 @@ export class AdminAwaitingBatchesViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
+  get currentData() {
+    return this.batches
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.batches,
-      () =>
-        runInAction(() => {
-          this.currentData = toJS(this.batches)
-        }),
-    )
   }
 
   setDataGridState() {
@@ -164,26 +160,19 @@ export class AdminAwaitingBatchesViewModel {
 
   async getBatches() {
     try {
-      const [batches, result] = await Promise.all([
-        BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
-        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient).sort(
+        this.batches = warehouseBatchesDataConverter(response, this.platformSettings?.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
-        this.batchesData = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient).sort(
+        this.batchesData = warehouseBatchesDataConverter(response, this.platformSettings?.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
-        this.error = error
-
         this.batches = []
       })
     }
@@ -192,24 +181,16 @@ export class AdminAwaitingBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-      })
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

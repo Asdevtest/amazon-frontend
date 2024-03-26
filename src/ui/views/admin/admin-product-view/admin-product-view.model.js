@@ -56,7 +56,7 @@ export class AdminProductViewModel {
     try {
       this.getProductById()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -69,7 +69,7 @@ export class AdminProductViewModel {
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

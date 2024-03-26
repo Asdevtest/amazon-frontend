@@ -227,7 +227,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       }
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       if (isRecCall) {
         this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -267,7 +267,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
         }
       })
       this.onTriggerOpenModal('showWarningInfoModal')
-      console.log(error)
+      console.error(error)
     }
   }
 

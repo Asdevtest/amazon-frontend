@@ -130,7 +130,7 @@ export const WarehouseMyTasksView = observer(({ history }) => {
       >
         <EditTaskModal
           requestStatus={viewModel.requestStatus}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           task={viewModel.selectedTask}
           showEditBoxModal={viewModel.showEditBoxModal}
           progressValue={viewModel.progressValue}

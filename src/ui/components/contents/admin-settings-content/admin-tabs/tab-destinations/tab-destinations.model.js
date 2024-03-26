@@ -55,7 +55,7 @@ export class AdminSettingsDestinationsModel {
 
       this.getDestinations()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -171,7 +171,7 @@ export class AdminSettingsDestinationsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -183,7 +183,7 @@ export class AdminSettingsDestinationsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -195,7 +195,7 @@ export class AdminSettingsDestinationsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

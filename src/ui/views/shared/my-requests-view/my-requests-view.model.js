@@ -292,7 +292,7 @@ export class MyRequestsViewModel {
       await this.getShops()
       await this.getCustomRequests()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -304,7 +304,7 @@ export class MyRequestsViewModel {
         this.shopsData = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -326,7 +326,7 @@ export class MyRequestsViewModel {
       this.onTriggerOpenModal('showRequestForm')
       this.getCustomRequests()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -337,7 +337,7 @@ export class MyRequestsViewModel {
       this.onTriggerOpenModal('showRequestForm')
       this.getCustomRequests()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -345,7 +345,7 @@ export class MyRequestsViewModel {
     try {
       await RequestModel.editRequest(requestId, data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -359,7 +359,7 @@ export class MyRequestsViewModel {
     try {
       await RequestModel.createRequest(data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -441,7 +441,7 @@ export class MyRequestsViewModel {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -524,7 +524,7 @@ export class MyRequestsViewModel {
         this.currentRequestDetails = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -554,7 +554,7 @@ export class MyRequestsViewModel {
         this.curProposal = proposal
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.curProposal = undefined
       })
@@ -577,7 +577,7 @@ export class MyRequestsViewModel {
           break
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -603,7 +603,7 @@ export class MyRequestsViewModel {
 
       await this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -626,7 +626,7 @@ export class MyRequestsViewModel {
 
       await this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -650,7 +650,7 @@ export class MyRequestsViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -681,7 +681,7 @@ export class MyRequestsViewModel {
 
       await this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -691,7 +691,7 @@ export class MyRequestsViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

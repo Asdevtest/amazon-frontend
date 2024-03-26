@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
@@ -18,16 +18,12 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class AdminSentBatchesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   nameSearchValue = ''
-
-  currentData = []
 
   batchesData = []
   batches = []
   selectedBatches = []
-  volumeWeightCoefficient = undefined
 
   curBatch = {}
   showConfirmModal = false
@@ -42,16 +38,18 @@ export class AdminSentBatchesViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
-    makeAutoObservable(this, undefined, { autoBind: true })
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
 
-    reaction(
-      () => this.batches,
-      () => (this.currentData = toJS(this.batches)),
-    )
+  get currentData() {
+    return this.batches
+  }
+
+  constructor({ history }) {
+    this.history = history
+
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onSearchSubmit(searchValue) {
@@ -170,30 +168,17 @@ export class AdminSentBatchesViewModel {
         this.batches = warehouseBatchesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
-  async setCurrentOpenedBatch(row) {
+  setCurrentOpenedBatch(row) {
     try {
-      runInAction(() => {
-        this.curBatch = row
-      })
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
+      this.curBatch = row
 
       this.onTriggerOpenModal('showBatchInfoModal')
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -213,7 +198,7 @@ export class AdminSentBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

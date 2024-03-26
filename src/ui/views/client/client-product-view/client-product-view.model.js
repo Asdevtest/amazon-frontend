@@ -204,7 +204,7 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -313,7 +313,7 @@ export class ClientProductViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -379,7 +379,7 @@ export class ClientProductViewModel {
         this.history.goBack()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -398,7 +398,7 @@ export class ClientProductViewModel {
         this.history.goBack()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -527,7 +527,7 @@ export class ClientProductViewModel {
         this.paymentMethods = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -640,7 +640,7 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -650,7 +650,7 @@ export class ClientProductViewModel {
         transparency: this.product.transparency,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

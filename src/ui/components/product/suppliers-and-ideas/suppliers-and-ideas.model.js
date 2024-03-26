@@ -29,7 +29,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class SuppliersAndIdeasModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   currentIdeaId = undefined
 
@@ -144,7 +143,7 @@ export class SuppliersAndIdeasModel {
 
       this.getStorekeepers()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -184,7 +183,7 @@ export class SuppliersAndIdeasModel {
         this.curIdea = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -212,7 +211,7 @@ export class SuppliersAndIdeasModel {
 
       return res.guid
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -238,7 +237,7 @@ export class SuppliersAndIdeasModel {
         this.onTriggerOpenModal('showSuccessModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -322,7 +321,7 @@ export class SuppliersAndIdeasModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -370,7 +369,7 @@ export class SuppliersAndIdeasModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -403,7 +402,7 @@ export class SuppliersAndIdeasModel {
         this.onTriggerOpenModal('showMainRequestResultModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -478,7 +477,7 @@ export class SuppliersAndIdeasModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -558,7 +557,7 @@ export class SuppliersAndIdeasModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -627,7 +626,7 @@ export class SuppliersAndIdeasModel {
         this.storekeepers = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -719,7 +718,7 @@ export class SuppliersAndIdeasModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -748,10 +747,6 @@ export class SuppliersAndIdeasModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
@@ -796,10 +791,6 @@ export class SuppliersAndIdeasModel {
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
         const orderObject = this.ordersDataStateToSubmit[i]
 
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
-
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
 
@@ -811,27 +802,6 @@ export class SuppliersAndIdeasModel {
         await this.createOrder(orderObject)
       }
 
-      if (!this.error) {
-        runInAction(() => {
-          this.alertShieldSettings = {
-            showAlertShield: true,
-            alertShieldMessage: t(TranslationKey['The order has been created']),
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              ...this.alertShieldSettings,
-              showAlertShield: false,
-            }
-            setTimeout(() => {
-              this.alertShieldSettings = {
-                showAlertShield: false,
-                alertShieldMessage: '',
-              }
-            }, 1000)
-          }, 3000)
-        })
-      }
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
       this.setRequestStatus(loadingStatus.SUCCESS)
@@ -861,11 +831,10 @@ export class SuppliersAndIdeasModel {
         await ClientModel.createOrder(requestData)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
-        this.error = error
       })
       this.onTriggerOpenModal('showInfoModal')
     }
@@ -913,7 +882,7 @@ export class SuppliersAndIdeasModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -931,7 +900,7 @@ export class SuppliersAndIdeasModel {
     } catch (error) {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
-      console.log(error)
+      console.error(error)
     }
   }
 }

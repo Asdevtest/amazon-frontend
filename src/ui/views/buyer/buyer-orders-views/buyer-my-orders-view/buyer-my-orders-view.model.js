@@ -54,7 +54,6 @@ export class BuyerMyOrdersViewModel {
 
   paymentAmount = undefined
 
-  platformSettings = undefined
   nameSearchValue = ''
 
   showBarcodeModal = false
@@ -144,6 +143,10 @@ export class BuyerMyOrdersViewModel {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     this.history = history
 
@@ -171,8 +174,6 @@ export class BuyerMyOrdersViewModel {
     if (history.location?.state?.dataGridFilter) {
       this.startFilterModel = history.location.state.dataGridFilter
     }
-
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -202,7 +203,7 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       this.setFilterRequestStatus(loadingStatus.FAILED)
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -380,7 +381,7 @@ export class BuyerMyOrdersViewModel {
         }))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -433,7 +434,7 @@ export class BuyerMyOrdersViewModel {
         this.selectedOrder = orderData
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -468,7 +469,7 @@ export class BuyerMyOrdersViewModel {
       supplier = {
         ...supplier,
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        yuanRate: this.yuanToDollarRate,
+        yuanRate: this.platformSettings?.yuanToDollarRate,
         amount: orderFields.amount,
         price: orderFields.price,
         priceInYuan: orderFields.priceInYuan,
@@ -492,7 +493,7 @@ export class BuyerMyOrdersViewModel {
         this.selectedOrder = orderData
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -596,7 +597,7 @@ export class BuyerMyOrdersViewModel {
       this.getBuyersOrdersPaymentByStatus()
       this.getSuppliersPaymentMethods()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -612,7 +613,7 @@ export class BuyerMyOrdersViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -623,23 +624,11 @@ export class BuyerMyOrdersViewModel {
         this.curBoxesOfOrder = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).reverse()
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.curBoxesOfOrder = []
       })
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = result
-      })
-    } catch (error) {
-      console.log(error)
     }
   }
 
@@ -657,7 +646,7 @@ export class BuyerMyOrdersViewModel {
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -671,7 +660,7 @@ export class BuyerMyOrdersViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -685,7 +674,7 @@ export class BuyerMyOrdersViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -857,7 +846,7 @@ export class BuyerMyOrdersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -883,7 +872,7 @@ export class BuyerMyOrdersViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -904,7 +893,7 @@ export class BuyerMyOrdersViewModel {
         ...updateOrderDataFiltered,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -970,7 +959,7 @@ export class BuyerMyOrdersViewModel {
 
       await this.getBoxesOfOrder(order._id)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1017,7 +1006,7 @@ export class BuyerMyOrdersViewModel {
       })
       return
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1057,7 +1046,7 @@ export class BuyerMyOrdersViewModel {
         this.baseNoConvertedOrders = []
         this.ordersMy = []
       })
-      console.log(error)
+      console.error(error)
     }
   }
 

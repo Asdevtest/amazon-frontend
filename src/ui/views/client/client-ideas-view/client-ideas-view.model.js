@@ -352,7 +352,7 @@ export class ClientIdeasViewModel {
       this.getIdeaList()
       this.getShopList()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -379,7 +379,7 @@ export class ClientIdeasViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.setRequestStatus(loadingStatus.FAILED)
     }
@@ -397,7 +397,7 @@ export class ClientIdeasViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.setRequestStatus(loadingStatus.FAILED)
     }
@@ -446,7 +446,7 @@ export class ClientIdeasViewModel {
         this.paymentMethods = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -458,7 +458,7 @@ export class ClientIdeasViewModel {
         this.storekeepers = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -482,7 +482,7 @@ export class ClientIdeasViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.setRequestStatus(loadingStatus.FAILED)
     }
@@ -579,7 +579,7 @@ export class ClientIdeasViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -610,7 +610,7 @@ export class ClientIdeasViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -671,7 +671,7 @@ export class ClientIdeasViewModel {
         this.onTriggerOpenModal('showSuccessModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -737,7 +737,7 @@ export class ClientIdeasViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -870,7 +870,7 @@ export class ClientIdeasViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.setRequestStatus(loadingStatus.FAILED)
     }
@@ -905,7 +905,7 @@ export class ClientIdeasViewModel {
       this.currentIdeaId = undefined
       this.onTriggerOpenModal('showProductLaunch')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -952,7 +952,7 @@ export class ClientIdeasViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -970,7 +970,7 @@ export class ClientIdeasViewModel {
     } catch (error) {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -993,7 +993,7 @@ export class ClientIdeasViewModel {
         this.onTriggerOpenModal('showMainRequestResultModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1082,7 +1082,7 @@ export class ClientIdeasViewModel {
         await ClientModel.createOrder(requestData)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`

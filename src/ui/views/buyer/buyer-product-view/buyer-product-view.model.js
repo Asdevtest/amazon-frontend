@@ -98,7 +98,7 @@ export class BuyerProductViewModel {
       await this.getProductById()
       await this.getProductsVariations()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -283,7 +283,7 @@ export class BuyerProductViewModel {
 
       this.onTriggerOpenModal('showEditHSCodeModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -338,7 +338,7 @@ export class BuyerProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

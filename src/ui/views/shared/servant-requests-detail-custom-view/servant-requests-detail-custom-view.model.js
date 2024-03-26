@@ -225,7 +225,7 @@ export class RequestDetailCustomViewModel {
         this.request = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -243,7 +243,7 @@ export class RequestDetailCustomViewModel {
         this.requestProposals = []
       })
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -328,7 +328,7 @@ export class RequestDetailCustomViewModel {
 
       this.getRequestProposals()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -343,7 +343,7 @@ export class RequestDetailCustomViewModel {
       await RequestProposalModel.onClickReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
       await this.getRequestProposals()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -360,7 +360,7 @@ export class RequestDetailCustomViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

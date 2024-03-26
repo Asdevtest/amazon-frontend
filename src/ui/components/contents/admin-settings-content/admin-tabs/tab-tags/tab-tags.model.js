@@ -61,7 +61,7 @@ export class AdminSettingsTagsModel {
 
       this.getTags()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -81,7 +81,7 @@ export class AdminSettingsTagsModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.tags = []
       this.setRequestStatus(loadingStatus.FAILED)
     }
@@ -195,7 +195,7 @@ export class AdminSettingsTagsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -207,7 +207,7 @@ export class AdminSettingsTagsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -219,7 +219,7 @@ export class AdminSettingsTagsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -231,7 +231,7 @@ export class AdminSettingsTagsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

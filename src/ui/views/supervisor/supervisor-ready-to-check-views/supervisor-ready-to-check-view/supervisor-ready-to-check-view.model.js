@@ -80,7 +80,7 @@ export class SupervisorReadyToCheckViewModel {
 
       await this.getProductsReadyToCheck()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -124,7 +124,7 @@ export class SupervisorReadyToCheckViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -139,7 +139,7 @@ export class SupervisorReadyToCheckViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

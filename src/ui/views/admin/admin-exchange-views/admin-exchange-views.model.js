@@ -41,7 +41,6 @@ const filtersFields = [
 export class AdminExchangeViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productCardModal = false
 
@@ -210,7 +209,6 @@ export class AdminExchangeViewModel {
       this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
       runInAction(() => {
-        this.error = error
         this.currentProductsData = []
       })
     }

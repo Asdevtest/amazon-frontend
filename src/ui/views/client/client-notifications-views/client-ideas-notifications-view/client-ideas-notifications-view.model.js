@@ -18,7 +18,6 @@ export class ClientIdeasNotificationsViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-  error = undefined
   loadingStatus = undefined
 
   ideas = []
@@ -158,9 +157,8 @@ export class ClientIdeasNotificationsViewModel {
         this.ideas = ideaNoticeDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
-        this.error = error
         this.ideas = []
       })
     }

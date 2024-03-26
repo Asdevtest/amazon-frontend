@@ -20,7 +20,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class ClientOrderViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   orderId = undefined
   orderBoxes = []
@@ -28,7 +27,6 @@ export class ClientOrderViewModel {
   curBox = undefined
   showBoxViewModal = false
 
-  platformSettings = undefined
   storekeepers = []
   destinations = []
   selectedProduct = undefined
@@ -67,13 +65,15 @@ export class ClientOrderViewModel {
     return SettingsModel.destinationsFavourites
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     this.history = history
 
     const url = new URL(window.location.href)
     this.orderId = url.searchParams.get('orderId')
-
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -135,7 +135,7 @@ export class ClientOrderViewModel {
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -149,7 +149,7 @@ export class ClientOrderViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -189,10 +189,6 @@ export class ClientOrderViewModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
@@ -225,17 +221,10 @@ export class ClientOrderViewModel {
 
   async onSubmitOrderProductModal() {
     try {
-      runInAction(() => {
-        this.error = undefined
-      })
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
         const orderObject = this.ordersDataStateToSubmit[i]
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
@@ -275,24 +264,13 @@ export class ClientOrderViewModel {
         ])
       }
 
-      if (!this.error) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title: t(TranslationKey['The order has been created']),
-          }
-        })
+      await this.getOrderById()
 
-        await this.getOrderById()
+      this.onTriggerOpenModal('showWarningInfoModal')
 
-        this.onTriggerOpenModal('showWarningInfoModal')
-      }
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -305,16 +283,12 @@ export class ClientOrderViewModel {
         this.order = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onSubmitSaveOrder({ data }) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (data.tmpBarCode.length) {
         await onSubmitPostImages.call(this, { images: data.tmpBarCode, type: 'uploadedFiles' })
 
@@ -366,7 +340,7 @@ export class ClientOrderViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -397,19 +371,7 @@ export class ClientOrderViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = result
-      })
-    } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -420,7 +382,7 @@ export class ClientOrderViewModel {
         this.orderBoxes = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -441,7 +403,7 @@ export class ClientOrderViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       await this.getOrderById()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

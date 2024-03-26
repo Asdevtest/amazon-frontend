@@ -139,7 +139,7 @@ export class ClientOrdersNotificationsViewModel {
 
       this.getOrders()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

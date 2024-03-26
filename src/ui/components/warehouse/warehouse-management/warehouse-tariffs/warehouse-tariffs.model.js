@@ -16,7 +16,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class WarehouseTariffModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   warehouseTariffs = []
   tariffToEdit = undefined
@@ -140,7 +139,7 @@ export class WarehouseTariffModel {
       })
     } catch (error) {
       this.warehouseTariffs = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -157,8 +156,7 @@ export class WarehouseTariffModel {
       this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -169,8 +167,7 @@ export class WarehouseTariffModel {
       this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -215,8 +212,7 @@ export class WarehouseTariffModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 

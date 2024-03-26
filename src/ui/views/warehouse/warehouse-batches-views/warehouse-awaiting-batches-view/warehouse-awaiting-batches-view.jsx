@@ -145,7 +145,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
         <AddOrEditBatchForm
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           batchToEdit={viewModel.curBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
@@ -182,7 +182,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
       {viewModel.showBatchInfoModal ? (
         <BatchInfoModal
           // @ts-ignore
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           openModal={viewModel.showBatchInfoModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
           batch={viewModel.curBatch}

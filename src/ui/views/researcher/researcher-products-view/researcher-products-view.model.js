@@ -146,7 +146,7 @@ export class ResearcherProductsViewModel {
       this.getDataGridState()
       await this.getPropductsVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

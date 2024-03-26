@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
-import { GalleryModal } from '@components/modals/gallery-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -78,14 +77,6 @@ export const AdminFeedbackView = observer(({ history }) => {
             onSubmit={viewModel.onClickWriteBtn}
           />
         </Modal>
-
-        {viewModel.showGalleryModal ? (
-          <GalleryModal
-            files={viewModel.galleryFiles}
-            openModal={viewModel.showGalleryModal}
-            onOpenModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
-          />
-        ) : null}
       </div>
     </>
   )

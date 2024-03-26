@@ -32,8 +32,6 @@ export class WarehouseMyTasksViewModel {
   imagesOfTask = []
   imagesOfBox = []
 
-  volumeWeightCoefficient = undefined
-
   selectedTasks = []
 
   nameSearchValue = ''
@@ -77,6 +75,10 @@ export class WarehouseMyTasksViewModel {
 
   get currentData() {
     return this.tasksMy
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -192,7 +194,7 @@ export class WarehouseMyTasksViewModel {
       this.getDataGridState()
       this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -262,7 +264,7 @@ export class WarehouseMyTasksViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.tasksMy = []
       })
@@ -287,7 +289,7 @@ export class WarehouseMyTasksViewModel {
       }))
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -332,7 +334,7 @@ export class WarehouseMyTasksViewModel {
 
       await BoxesModel.updateBox(id, updateBoxData)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -340,7 +342,7 @@ export class WarehouseMyTasksViewModel {
     try {
       await StorekeeperModel.updateStatusInOrder(id, data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -348,7 +350,7 @@ export class WarehouseMyTasksViewModel {
     try {
       await StorekeeperModel.resolveTask(taskId, { additionalBoxes: newBoxes })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -475,7 +477,7 @@ export class WarehouseMyTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -487,7 +489,7 @@ export class WarehouseMyTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -503,7 +505,7 @@ export class WarehouseMyTasksViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -535,7 +537,7 @@ export class WarehouseMyTasksViewModel {
 
       this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -545,19 +547,12 @@ export class WarehouseMyTasksViewModel {
 
   async onClickResolveBtn(itemId) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(itemId),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(itemId)
 
-      runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-      })
-
-      this.onSelectTask(task)
+      this.onSelectTask(response)
       this.onTriggerEditTaskModal()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

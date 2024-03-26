@@ -22,10 +22,7 @@ export class LogisticsTariffsModel {
   error = undefined
 
   isArchive = false
-  yuanToDollarRate = undefined
   storekeeperDestination = undefined
-
-  currentData = []
 
   logisticsTariffs = []
   tariffToEdit = undefined
@@ -67,22 +64,21 @@ export class LogisticsTariffsModel {
     return SettingsModel.destinationsFavourites
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
+  get currentData() {
+    return this.logisticsTariffs
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.isArchive,
-      () => {
-        this.loadData()
-      },
-    )
-
-    reaction(
-      () => this.logisticsTariffs,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () => this.loadData(),
     )
   }
 
@@ -111,8 +107,7 @@ export class LogisticsTariffsModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -186,10 +181,6 @@ export class LogisticsTariffsModel {
     this.rowSelectionModel = model
   }
 
-  getCurrentData() {
-    return toJS(this.logisticsTariffs)
-  }
-
   async loadData() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
@@ -235,7 +226,7 @@ export class LogisticsTariffsModel {
       //   })
       // }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -254,7 +245,7 @@ export class LogisticsTariffsModel {
       this.onTriggerOpenModal('showAddOrEditDestinationModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -270,7 +261,7 @@ export class LogisticsTariffsModel {
       })
     } catch (error) {
       this.logisticsTariffs = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -278,13 +269,9 @@ export class LogisticsTariffsModel {
     try {
       this.tariffToEdit = row
 
-      const result = await UserModel.getPlatformSettings()
-
-      this.yuanToDollarRate = result.yuanToDollarRate
-
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -324,8 +311,7 @@ export class LogisticsTariffsModel {
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -365,8 +351,7 @@ export class LogisticsTariffsModel {
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -374,14 +359,9 @@ export class LogisticsTariffsModel {
     try {
       this.tariffToEdit = undefined
 
-      const result = await UserModel.getPlatformSettings()
-
-      this.yuanToDollarRate = result.yuanToDollarRate
-
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -419,8 +399,7 @@ export class LogisticsTariffsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 

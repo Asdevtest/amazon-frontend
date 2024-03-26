@@ -143,7 +143,7 @@ export class AdminUsersViewModel {
         this.groupPermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -155,7 +155,7 @@ export class AdminUsersViewModel {
         this.singlePermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -207,7 +207,7 @@ export class AdminUsersViewModel {
         this.changeNameAndEmail = { email: '', name: '' }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -236,7 +236,7 @@ export class AdminUsersViewModel {
         this.showEditUserModal = !this.showEditUserModal
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -245,7 +245,7 @@ export class AdminUsersViewModel {
       const result = await AdministratorModel.getUsersById(userData._id)
       this.history.push('/admin/users/user', { user: result })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

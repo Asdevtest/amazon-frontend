@@ -16,7 +16,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class UserBalanceModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   userId = undefined
   user = {}
@@ -133,7 +132,7 @@ export class UserBalanceModel {
         this.payments = financesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -145,7 +144,7 @@ export class UserBalanceModel {
         this.user = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

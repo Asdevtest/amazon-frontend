@@ -25,7 +25,6 @@ import { canceledStatus, completedStatus, selectedStatus } from './orders.consta
 export class OrdersModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productId = undefined
 
@@ -48,7 +47,6 @@ export class OrdersModel {
 
   storekeepers = []
   destinations = []
-  platformSettings = undefined
 
   paginationModel = { page: 0, pageSize: 15 }
 
@@ -67,6 +65,10 @@ export class OrdersModel {
   columnVisibilityModel = {}
 
   isCheckedStatusByFilter = {}
+
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
 
   constructor({ history, productId, showAtProcessOrders }) {
     this.history = history
@@ -173,7 +175,7 @@ export class OrdersModel {
     try {
       this.getOrdersByProductId()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -188,10 +190,9 @@ export class OrdersModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.orders = []
-        this.error = error
       })
       this.setRequestStatus(loadingStatus.FAILED)
     }
@@ -199,28 +200,22 @@ export class OrdersModel {
 
   async onClickReorder(item, isPendingOrder) {
     try {
-      const [storekeepers, destinations, result, order] = await Promise.all([
+      const [storekeepers, destinations, order] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
         ClientModel.getOrderById(item._id),
       ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
-
         this.destinations = destinations
-
-        this.platformSettings = result
-
         this.reorderOrder = order
-
         this.isPendingOrdering = !!isPendingOrder
       })
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -271,17 +266,15 @@ export class OrdersModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
       this.onTriggerOpenModal('showInfoModal')
-      this.error = error
     }
   }
 
   async onSubmitOrderProductModal() {
     try {
-      this.error = undefined
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
@@ -343,18 +336,19 @@ export class OrdersModel {
         }
       }
 
-      if (!this.error) {
+      runInAction(() => {
         this.successModalText = this.isPendingOrdering
           ? t(TranslationKey['The order has been updated'])
           : t(TranslationKey['The order has been created'])
-        this.onTriggerOpenModal('showSuccessModal')
-      }
+      })
+
+      this.onTriggerOpenModal('showSuccessModal')
+
       this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 

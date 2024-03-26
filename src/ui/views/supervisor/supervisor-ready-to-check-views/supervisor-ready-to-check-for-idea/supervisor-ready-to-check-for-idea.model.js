@@ -51,7 +51,7 @@ export class SupervisorReadyToCheckForIdeaViewModel {
     try {
       await this.getProductsReadyToCheck()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -96,7 +96,7 @@ export class SupervisorReadyToCheckForIdeaViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -111,7 +111,7 @@ export class SupervisorReadyToCheckForIdeaViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

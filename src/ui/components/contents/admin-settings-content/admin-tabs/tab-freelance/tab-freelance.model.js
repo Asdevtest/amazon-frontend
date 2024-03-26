@@ -86,7 +86,7 @@ export class AdminSettingsFreelanceModel {
 
       toast.success(t(TranslationKey['Specialty successfully created.']))
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       toast.error(t(TranslationKey['Specialty not created, something went wrong ...']))
     }
@@ -103,7 +103,7 @@ export class AdminSettingsFreelanceModel {
         this.onChangeSpecById(_id)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       toast.error(t(TranslationKey['Specialty not changed, something went wrong ...']))
     }
@@ -132,7 +132,7 @@ export class AdminSettingsFreelanceModel {
 
       this.getSpecs()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   } */
 

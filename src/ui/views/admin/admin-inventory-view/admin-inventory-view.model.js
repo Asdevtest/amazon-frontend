@@ -55,7 +55,6 @@ const filtersFields = [
 export class AdminInventoryViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productCardModal = false
 
@@ -198,12 +197,8 @@ export class AdminInventoryViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
 
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
+
       runInAction(() => {
         this.products = []
       })

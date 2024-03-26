@@ -102,7 +102,7 @@ export class FinancesViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -112,7 +112,7 @@ export class FinancesViewModel {
 
       this.getPayments()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -10,7 +10,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class ResearcherDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   paymentsMy = []
@@ -73,10 +72,7 @@ export class ResearcherDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

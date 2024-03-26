@@ -123,7 +123,7 @@ export class AdminWarehouseBoxesViewModel {
 
       this.getBoxes()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -161,7 +161,7 @@ export class AdminWarehouseBoxesViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
