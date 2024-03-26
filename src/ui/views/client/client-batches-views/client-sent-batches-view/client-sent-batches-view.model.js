@@ -28,7 +28,6 @@ import { filtersFields } from './client-sent-batches-view.constants'
 export class ClientSentBatchesViewModel {
   history = undefined
   requestStatus = undefined
-
   nameSearchValue = ''
   batches = []
   selectedBatches = []
@@ -85,7 +84,6 @@ export class ClientSentBatchesViewModel {
   get currentData() {
     return this.batches
   }
-
   get platformSettings() {
     return UserModel.platformSettings
   }
@@ -152,7 +150,7 @@ export class ClientSentBatchesViewModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
