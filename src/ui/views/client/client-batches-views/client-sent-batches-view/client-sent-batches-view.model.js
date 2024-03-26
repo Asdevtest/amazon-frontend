@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { tableProductViewMode } from '@constants/keys/table-product-view'
@@ -32,28 +32,18 @@ export class ClientSentBatchesViewModel {
   nameSearchValue = ''
   batches = []
   selectedBatches = []
-  curBatch = {}
-
-  currentData = []
-
+  curBatch = undefined
   currentStorekeeperId = undefined
-
   storekeepersData = []
-
   isArchive = false
-
-  hsCodeData = {}
-  showEditHSCodeModal = false
-
-  showBatchInfoModal = false
-
-  showWarningInfoModal = false
-
-  showConfirmModal = false
-
-  languageTag = undefined
-
+  hsCodeData = undefined
   productViewMode = tableProductViewMode.EXTENDED
+  uploadedFiles = []
+
+  showEditHSCodeModal = false
+  showBatchInfoModal = false
+  showWarningInfoModal = false
+  showConfirmModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -61,28 +51,20 @@ export class ClientSentBatchesViewModel {
     confirmMessage: '',
     onClickConfirm: () => {},
   }
-
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
   }
 
-  uploadedFiles = []
-
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
-  densityModel = 'compact'
-
   rowHandlers = {
     changeViewModeHandler: value => this.changeViewModeHandler(value),
   }
-
   columnsModel = clientBatchesViewColumns(this.rowHandlers, this.productViewMode)
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
@@ -100,6 +82,9 @@ export class ClientSentBatchesViewModel {
   get userInfo() {
     return UserModel.userInfo
   }
+  get currentData() {
+    return this.batches
+  }
 
   constructor({ history }) {
     this.history = history
@@ -109,11 +94,6 @@ export class ClientSentBatchesViewModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.batches,
-      () => (this.currentData = this.getCurrentData()),
-    )
   }
 
   onTriggerArchive() {
@@ -126,7 +106,7 @@ export class ClientSentBatchesViewModel {
 
   onClickTriggerArchOrResetProducts() {
     this.confirmModalSettings = {
-      isWarning: this.isArchive ? false : true,
+      isWarning: !this.isArchive,
       confirmTitle: this.isArchive ? t(TranslationKey['Return to actual batches']) : t(TranslationKey['Move a batch']),
       confirmMessage: this.isArchive
         ? t(TranslationKey['After confirmation, the batch will be moved to the actual batches. Continue?'])
@@ -140,12 +120,13 @@ export class ClientSentBatchesViewModel {
   async onSubmitTriggerArchOrResetProducts() {
     try {
       await BatchesModel.editUpdateBatches({
-        batchIds: [...this.selectedBatches],
-        archive: this.isArchive ? false : true,
+        batchIds: this.selectedBatches,
+        archive: !this.isArchive,
       })
 
+      this.loadData()
+
       this.onTriggerOpenModal('showConfirmModal')
-      await this.loadData()
     } catch (error) {
       console.log(error)
     }
@@ -165,33 +146,28 @@ export class ClientSentBatchesViewModel {
   getDataGridState() {
     const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BATCHES]
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
     this.getBatchesPagMy()
   }
@@ -202,7 +178,6 @@ export class ClientSentBatchesViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
     this.getBatchesPagMy()
   }
@@ -235,13 +210,15 @@ export class ClientSentBatchesViewModel {
   }
 
   async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+    try {
+      const response = await ProductModel.getProductsHsCodeByGuid(id)
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
-  }
+      this.hsCodeData = response
 
-  getCurrentData() {
-    return toJS(this.batches)
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async getStorekeepers() {
@@ -252,11 +229,7 @@ export class ClientSentBatchesViewModel {
 
       runInAction(() => {
         this.storekeepersData = result
-
-        this.currentStorekeeperId = this.currentStorekeeperId || undefined // result.filter(storekeeper => storekeeper.boxesCount !== 0).sort((a, b) => a.name?.localeCompare(b.name))[0]
       })
-
-      this.getDataGridState()
     } catch (error) {
       console.log(error)
     }
@@ -269,18 +242,13 @@ export class ClientSentBatchesViewModel {
     this.getBatchesPagMy()
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       this.getDataGridState()
       this.getStorekeepers()
       this.getBatchesPagMy()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -316,17 +284,15 @@ export class ClientSentBatchesViewModel {
 
   async getBatchesPagMy() {
     try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
-
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-
         archive: this.isArchive,
-
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-
         filters: this.getFilter(),
         storekeeperId: this.currentStorekeeperId,
       })
@@ -340,11 +306,12 @@ export class ClientSentBatchesViewModel {
 
         this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
       })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      runInAction(() => {
-        this.batches = []
-      })
       console.log(error)
+
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -427,20 +394,11 @@ export class ClientSentBatchesViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      filterRequestStatus: requestStatus,
-    }
+    this.columnMenuSettings.filterRequestStatus = requestStatus
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onClickResetFilters() {

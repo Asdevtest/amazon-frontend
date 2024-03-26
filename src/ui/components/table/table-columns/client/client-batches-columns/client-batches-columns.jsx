@@ -19,6 +19,7 @@ import { t } from '@utils/translations'
 export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
   {
     field: 'asin',
+    headerName: t(TranslationKey.Product),
     renderHeader: () => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Product)}
@@ -31,12 +32,10 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
         }
       />
     ),
-    headerName: t(TranslationKey.Product),
-    width: 420,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} productViewMode={getProductViewMode} />,
+    width: 420,
     filterable: false,
     sortable: false,
-
     columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
 
@@ -44,10 +43,8 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     field: 'title',
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
-
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
-
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -58,7 +55,6 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     renderCell: params => <MultilineTextCell text={params.row?.boxes?.[0]?.destination?.name} />,
     width: 130,
     sortable: false,
-
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -66,13 +62,11 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     field: 'quantityBoxes',
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
-
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 70,
     filterable: false,
     sortable: false,
-
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -80,11 +74,9 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 80,
-
     columnKey: columnnsKeys.shared.STRING,
   },
 
@@ -92,11 +84,11 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     field: 'storekeeper',
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-
-    renderCell: ({ row }) => <UserLinkCell blackText name={row?.storekeeper?.name} userId={row?.storekeeper?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.row?.storekeeper?.name} userId={params.row?.storekeeper?._id} />
+    ),
     width: 150,
     sortable: false,
-
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -104,13 +96,9 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-
-    renderCell: params => {
-      return <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />
-    },
+    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />,
     width: 160,
     sortable: false,
-
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -128,10 +116,9 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
         trackingNumber={params.row?.originalData?.trackingNumber}
       />
     ),
-    width: 198,
+    width: 200,
     filterable: false,
     sortable: false,
-
     columnKey: columnnsKeys.shared.BATCHES_TRACKING,
   },
 
@@ -140,10 +127,8 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.finalWeight} fix={2} />,
-
     type: 'number',
     width: 100,
-
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -152,7 +137,6 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     headerName: t(TranslationKey['Delivery cost']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-
     type: 'number',
     width: 110,
     sortable: false,
@@ -163,7 +147,6 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     field: 'cls',
     headerName: t(TranslationKey['Shipping dates']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Shipping dates'])} />,
-
     renderCell: params => (
       <WarehouseTariffDatesCell
         cls={params.row.originalData.boxes[0].logicsTariff?.cls}
@@ -171,11 +154,9 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
         eta={params.row.originalData.boxes[0].logicsTariff?.eta}
       />
     ),
-
     width: 350,
     filterable: false,
     sortable: false,
-
     columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
   },
 
@@ -184,9 +165,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 130,
-    // type: 'date',
-
+    width: 115,
     columnKey: columnnsKeys.shared.DATE,
   },
 ]
