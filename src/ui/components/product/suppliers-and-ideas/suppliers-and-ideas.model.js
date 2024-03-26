@@ -589,7 +589,7 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -707,7 +707,7 @@ export class SuppliersAndIdeasModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -807,7 +807,7 @@ export class SuppliersAndIdeasModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.error = error
       })

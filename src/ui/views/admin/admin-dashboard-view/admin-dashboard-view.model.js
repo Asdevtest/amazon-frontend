@@ -41,7 +41,7 @@ export class AdminDashboardViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

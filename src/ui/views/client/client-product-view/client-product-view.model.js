@@ -138,7 +138,7 @@ export class ClientProductViewModel {
         this.productsToBind = result.rows
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -160,7 +160,7 @@ export class ClientProductViewModel {
       this.loadData()
       this.onTriggerOpenModal('showBindProductModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -177,7 +177,7 @@ export class ClientProductViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -230,7 +230,7 @@ export class ClientProductViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -455,7 +455,7 @@ export class ClientProductViewModel {
       await this.onSaveProductData()
       updateDataHandler && (await updateDataHandler())
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -515,7 +515,7 @@ export class ClientProductViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -597,7 +597,7 @@ export class ClientProductViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -721,7 +721,7 @@ export class ClientProductViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {

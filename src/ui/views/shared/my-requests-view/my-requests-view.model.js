@@ -398,7 +398,7 @@ export class MyRequestsViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -469,7 +469,7 @@ export class MyRequestsViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -138,7 +138,7 @@ export class AdminFeedbackViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }

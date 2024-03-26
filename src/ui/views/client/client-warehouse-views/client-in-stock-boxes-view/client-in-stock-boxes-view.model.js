@@ -775,7 +775,7 @@ export class ClientInStockBoxesViewModel {
       this.getShops()
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -902,7 +902,7 @@ export class ClientInStockBoxesViewModel {
       }
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1137,7 +1137,7 @@ export class ClientInStockBoxesViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1369,7 +1369,7 @@ export class ClientInStockBoxesViewModel {
       !isMultipleEdit && this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       !isMultipleEdit && this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
 
       if (!isMultipleEdit) {
         this.loadData()
@@ -1450,7 +1450,7 @@ export class ClientInStockBoxesViewModel {
       })
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1791,7 +1791,7 @@ export class ClientInStockBoxesViewModel {
       this.triggerRequestToSendBatchModal()
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1822,7 +1822,7 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showWarningInfoModal')
 
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -2059,7 +2059,7 @@ export class ClientInStockBoxesViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

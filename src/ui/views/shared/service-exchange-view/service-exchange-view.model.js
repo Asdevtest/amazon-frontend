@@ -99,7 +99,7 @@ export class ServiceExchangeViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -128,7 +128,7 @@ export class ServiceExchangeViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }

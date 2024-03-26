@@ -699,7 +699,7 @@ export class BuyerMyOrdersViewModel {
 
         this.loadData()
       } catch (error) {
-        console.log(error)
+        console.error(error)
         this.setRequestStatus(loadingStatus.FAILED)
       }
     }

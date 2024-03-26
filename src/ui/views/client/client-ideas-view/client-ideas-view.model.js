@@ -336,7 +336,7 @@ export class ClientIdeasViewModel {
       this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -423,7 +423,7 @@ export class ClientIdeasViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -434,7 +434,7 @@ export class ClientIdeasViewModel {
       this.productsToLaunch = result.rows
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -802,7 +802,7 @@ export class ClientIdeasViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -1061,7 +1061,7 @@ export class ClientIdeasViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

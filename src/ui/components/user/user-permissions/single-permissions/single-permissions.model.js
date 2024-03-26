@@ -141,7 +141,7 @@ export class SinglePermissionsModel {
       runInAction(() => {
         this.payments = []
       })
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }

@@ -163,7 +163,7 @@ export class AdminOrdersAllViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.currentOrdersData = []
@@ -250,7 +250,7 @@ export class AdminOrdersAllViewModel {
       this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

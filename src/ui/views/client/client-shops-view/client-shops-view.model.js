@@ -97,7 +97,7 @@ export class ShopsViewModel extends DataGridTableModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
 
       toast.error(t(TranslationKey['Something went wrong']))
     }
@@ -112,7 +112,7 @@ export class ShopsViewModel extends DataGridTableModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

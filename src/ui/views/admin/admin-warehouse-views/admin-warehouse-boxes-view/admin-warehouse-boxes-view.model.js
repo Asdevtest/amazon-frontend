@@ -146,7 +146,7 @@ export class AdminWarehouseBoxesViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -228,7 +228,7 @@ export class AdminWarehouseBoxesViewModel {
       this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

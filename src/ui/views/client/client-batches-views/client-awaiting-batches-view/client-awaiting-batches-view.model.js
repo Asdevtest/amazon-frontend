@@ -479,7 +479,7 @@ export class ClientAwaitingBatchesViewModel {
       this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

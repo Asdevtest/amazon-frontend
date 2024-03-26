@@ -283,7 +283,7 @@ export class ResearcherProductViewModel {
         this.onTriggerOpenModal('showWarningModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
       if (isValidationErrors(error)) {
@@ -350,7 +350,7 @@ export class ResearcherProductViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -425,7 +425,7 @@ export class ResearcherProductViewModel {
       this.onTriggerOpenModal('showWarningModal')
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
       this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
@@ -460,7 +460,7 @@ export class ResearcherProductViewModel {
       !editingСontinues && this.history.push('/researcher/products')
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -512,7 +512,7 @@ export class ResearcherProductViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
       this.history.goBack()
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }

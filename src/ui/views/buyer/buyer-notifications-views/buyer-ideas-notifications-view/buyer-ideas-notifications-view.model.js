@@ -130,7 +130,7 @@ export class BuyerIdeasNotificationsViewModel {
       await this.getIdeas()
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {

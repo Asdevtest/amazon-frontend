@@ -169,7 +169,7 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -302,7 +302,7 @@ export class ClientExchangeViewModel {
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message
@@ -371,7 +371,7 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

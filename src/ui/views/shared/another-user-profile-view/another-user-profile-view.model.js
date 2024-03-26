@@ -203,7 +203,7 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -310,7 +310,7 @@ export class AnotherProfileViewModel {
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         if (error.body && error.body.message) {
           this.error = error.body.message
@@ -398,7 +398,7 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

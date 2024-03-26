@@ -100,7 +100,7 @@ export class SupervisorReadyToCheckViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {

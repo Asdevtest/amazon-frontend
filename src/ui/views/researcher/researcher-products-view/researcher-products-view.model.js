@@ -270,7 +270,7 @@ export class ResearcherProductsViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -285,7 +285,7 @@ export class ResearcherProductsViewModel {
       this.setActionStatus(loadingStatus.SUCCESS)
       return checkProductExistResult
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setActionStatus(loadingStatus.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {

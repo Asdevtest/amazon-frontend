@@ -121,7 +121,7 @@ export class SupervisorProductViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -141,7 +141,7 @@ export class SupervisorProductViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -299,7 +299,7 @@ export class SupervisorProductViewModel {
         this.onTriggerOpenModal('showWarningModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
       if (isValidationErrors(error)) {
@@ -352,7 +352,7 @@ export class SupervisorProductViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -439,7 +439,7 @@ export class SupervisorProductViewModel {
       this.onTriggerOpenModal('showWarningModal')
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {

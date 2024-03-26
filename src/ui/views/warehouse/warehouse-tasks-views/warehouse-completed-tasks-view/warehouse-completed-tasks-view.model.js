@@ -204,7 +204,7 @@ export class WarehouseCompletedViewModel {
         this.batches = []
         this.completedTasks = []
       })
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }

@@ -235,7 +235,7 @@ export class BuyerMyProductsViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.baseNoConvertedProducts = []
         this.productsMy = []
