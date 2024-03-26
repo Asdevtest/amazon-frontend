@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
@@ -21,6 +20,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-awaiting-batches-view.style'
 
@@ -109,7 +109,7 @@ export const WarehouseAwaitingBatchesView = observer(props => {
             getRowHeight={() => 'auto'}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

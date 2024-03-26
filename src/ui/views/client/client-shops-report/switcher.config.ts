@@ -1,7 +1,8 @@
-import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
+
+import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 export const switcherConfig = [
   { label: () => 'PPC-Organic by Weeks', value: ShopReportsTabsValues.PPC },

@@ -26,7 +26,7 @@ export const ModeratorMyProductsViewRaw = props => {
                 rowHeight={100}
                 density={densityModel}
                 columns={columnsModel}
-                loading={requestStatus === loadingStatuses.IS_LOADING}
+                loading={requestStatus === loadingStatus.IS_LOADING}
                 onRowSelectionModelChange={newSelection => {
                   onSelectionModel(newSelection[0])
                 }}

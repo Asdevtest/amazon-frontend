@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
@@ -17,11 +16,12 @@ import { objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
-  requestStatus = loadingStatuses.IS_LOADING // for first render
+  requestStatus = loadingStatus.IS_LOADING // for first render
 
   acceptMessage = null
   showAcceptMessage = false
@@ -86,16 +86,16 @@ export class CreateOrEditRequestViewModel {
   async loadData() {
     try {
       // status change is required for loading
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await this.getCustomRequestCur()
       this.getAnnouncementData()
       this.getSpecs()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

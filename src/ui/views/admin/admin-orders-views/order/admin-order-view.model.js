@@ -1,12 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AdminOrderViewModel {
   history = undefined
@@ -36,7 +36,7 @@ export class AdminOrderViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.getOrderById()
       this.getBoxesOfOrder(this.orderId)
@@ -50,9 +50,9 @@ export class AdminOrderViewModel {
         this.destinations = destinations
         this.storekeepers = storekeepers
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

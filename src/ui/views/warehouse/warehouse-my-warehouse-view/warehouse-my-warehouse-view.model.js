@@ -4,7 +4,6 @@ import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { Errors } from '@constants/errors'
 import { BatchStatus } from '@constants/statuses/batch-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
@@ -24,6 +23,8 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields, updateBoxWhiteList } from './warehouse-my-warehouse-view.constants'
 
@@ -289,7 +290,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
       const uploadedShippingLabeles = []
@@ -407,9 +408,9 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showSuccessInfoModal')
 
       this.loadData()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -683,7 +684,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickConfirmSplit(id, updatedBoxes, isMasterBox) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
       })
@@ -766,11 +767,11 @@ export class WarehouseMyWarehouseViewModel {
         this.onModalRedistributeBoxAddNewBox(null)
       }
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       await this.getBoxesMy()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -787,7 +788,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickConfirmMerge(boxBody) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
       boxBody = {
@@ -828,7 +829,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showMergeBoxModal')
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       await this.getBoxesMy()
 
@@ -837,7 +838,7 @@ export class WarehouseMyWarehouseViewModel {
         this.tmpClientComment = ''
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -1084,7 +1085,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.getFilter(),
@@ -1101,14 +1102,14 @@ export class WarehouseMyWarehouseViewModel {
         this.baseBoxesMy = boxes.rows
         this.boxesMy = warehouseBoxesDataConverter(boxes.rows, this.platformSettings?.volumeWeightCoefficient)
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
       runInAction(() => {
         this.boxesMy = []
         this.baseBoxesMy = []
       })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

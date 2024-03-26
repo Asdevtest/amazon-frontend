@@ -1,10 +1,11 @@
 import { darkTheme, lightTheme } from '@constants/theme/mui-theme'
-import { UiTheme } from '@constants/theme/mui-theme.type'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { objectFlip } from '@utils/object'
 import { t } from '@utils/translations'
+
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { TranslationKey } from '../translations/translation-key'
 

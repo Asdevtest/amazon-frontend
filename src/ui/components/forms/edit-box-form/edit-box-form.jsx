@@ -5,7 +5,6 @@ import { Divider, Typography } from '@mui/material'
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -34,6 +33,7 @@ import '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -233,7 +233,7 @@ export const EditBoxForm = memo(
 
     const disableSubmit =
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
-      requestStatus === loadingStatuses.IS_LOADING ||
+      requestStatus === loadingStatus.IS_LOADING ||
       boxFields.storekeeperId === '' ||
       boxFields.logicsTariffId === '' ||
       ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&

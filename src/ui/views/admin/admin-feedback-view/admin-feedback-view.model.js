@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { ChatModel } from '@models/chat-model'
@@ -14,6 +13,8 @@ import { adminFeedbackViewColumns } from '@components/table/table-columns/admin/
 
 import { feedBackDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AdminFeedbackViewModel {
   history = undefined
@@ -126,7 +127,7 @@ export class AdminFeedbackViewModel {
 
   async getFeedbackList() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await AdministratorModel.getFeedback()
 
@@ -135,10 +136,10 @@ export class AdminFeedbackViewModel {
         this.rowCount = this.feedbackList.length
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

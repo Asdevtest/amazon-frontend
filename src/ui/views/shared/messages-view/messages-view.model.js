@@ -1,7 +1,6 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { chatsType } from '@constants/keys/chats'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -12,9 +11,11 @@ import { UserModel } from '@models/user-model'
 import { t } from '@utils/translations'
 import { dataURLtoFile, onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class MessagesViewModel {
   history = undefined
-  requestStatus = loadingStatuses.SUCCESS
+  requestStatus = loadingStatus.SUCCESS
 
   showConfirmModal = false
   showAddNewChatByEmailModal = false
@@ -290,7 +291,7 @@ export class MessagesViewModel {
       return
     }
 
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
 
     const res = await ChatModel.FindChatMessage({ chatId, text: value })
 
@@ -300,12 +301,12 @@ export class MessagesViewModel {
 
     this.onChangeCurFoundedMessage(res?.length - 1)
 
-    this.setRequestStatus(loadingStatuses.SUCCESS)
+    this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ChatModel.sendMessage({
         chatId,
@@ -319,7 +320,7 @@ export class MessagesViewModel {
         ...(replyMessageId && { replyMessageId }),
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.warn('onSubmitMessage error ', error)
     }

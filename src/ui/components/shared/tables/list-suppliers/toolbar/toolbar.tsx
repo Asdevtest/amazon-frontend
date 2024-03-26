@@ -17,8 +17,8 @@ import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
-import { OrderStatus } from '@typings/enums/order-status'
-import { ProductStatus } from '@typings/enums/product-status'
+import { OrderStatus } from '@typings/enums/order/order-status'
+import { ProductStatus } from '@typings/enums/product/product-status'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { IFullUser } from '@typings/shared/full-user'
 

@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { BuyerModel } from '@models/buyer-model'
 import { GeneralModel } from '@models/general-model'
@@ -14,6 +13,8 @@ import { buyerProductsViewColumns } from '@components/table/table-columns/buyer/
 import { buyerProductsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 const filtersFields = [
   'shopId',
@@ -214,7 +215,7 @@ export class BuyerMyProductsViewModel {
 
   async getProductsMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await BuyerModel.getProductsMyPag({
         filters: this.getFilter(),
@@ -231,9 +232,9 @@ export class BuyerMyProductsViewModel {
         this.baseNoConvertedProducts = result.rows
         this.productsMy = buyerProductsDataConverter(result.rows)
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
       runInAction(() => {
         this.baseNoConvertedProducts = []
@@ -268,7 +269,7 @@ export class BuyerMyProductsViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
@@ -282,9 +283,9 @@ export class BuyerMyProductsViewModel {
           [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
 
       console.error(error)
     }

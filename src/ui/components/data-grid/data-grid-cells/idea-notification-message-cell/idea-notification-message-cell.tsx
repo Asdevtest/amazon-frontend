@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
-import { NotificationIdeaStatus, NotificationType } from '@constants/keys/notifications'
 import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
+
+import { Notification, NotificationIdeaStatus } from '@typings/enums/notification'
 
 import { useStyles } from './idea-notification-message-cell.style'
 
@@ -37,7 +38,7 @@ export const IdeaNotificationMessageCell: FC<IdeaNotificationMessageCellProps> =
           {notification?.sub?.name || notification?.creator?.name}
         </a>
         {` ${getIdeaMessageTextToRender()} `}
-        <a className={styles.notificationId} onClick={() => navigateToHandler(notification, NotificationType.Idea)}>
+        <a className={styles.notificationId} onClick={() => navigateToHandler(notification, Notification.Idea)}>
           {notification?.productName}
         </a>
         {notification.type === NotificationIdeaStatus.StatusChange && (

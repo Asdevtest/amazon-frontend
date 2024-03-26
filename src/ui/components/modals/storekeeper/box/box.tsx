@@ -6,7 +6,6 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -26,6 +25,7 @@ import { checkIsPositiveNum } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { UiTheme } from '@typings/enums/ui-theme'
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'

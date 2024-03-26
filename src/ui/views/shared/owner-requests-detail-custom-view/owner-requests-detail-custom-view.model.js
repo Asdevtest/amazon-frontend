@@ -2,7 +2,6 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
@@ -17,6 +16,8 @@ import { getLocalToUTCDate, sortObjectsArrayByFiledDateWithParseISO } from '@uti
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
@@ -582,7 +583,7 @@ export class OwnerRequestDetailCustomViewModel {
 
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await RequestModel.patchRequestsUploadedToListing({
         requestIds: [id],
@@ -591,9 +592,9 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -611,13 +612,13 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     await RequestModel.updateDeadline(this.requestId, getLocalToUTCDate(timeoutAt), maxAmountOfProposals)
 
     this.getCustomRequestCur()
     this.getCustomProposalsForRequestCur()
 
-    this.setRequestStatus(loadingStatuses.SUCCESS)
+    this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
   async onSendInForRework(id, fields) {
