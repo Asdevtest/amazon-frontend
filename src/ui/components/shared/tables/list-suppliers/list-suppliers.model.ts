@@ -18,7 +18,6 @@ import { IDestinationStorekeeper } from '@typings/shared/destinations'
 import { IFullUser } from '@typings/shared/full-user'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { IPaymentMethod } from '@typings/shared/payment-method'
-import { UploadFileType } from '@typings/shared/upload-file'
 
 import { ModalModes, ModalNames } from './list-suppliers.type'
 
@@ -31,12 +30,10 @@ export class ListSuppliersModel {
   product: IProduct | undefined = undefined
   suppliers: ISupplier[] = []
   currentSupplier: ISupplier | undefined = undefined
-  galleryFiles: UploadFileType[] = []
   paymentMethods: IPaymentMethod[] = []
   storekeepers: IDestinationStorekeeper[] = []
 
   supplierModalReadOnly = false
-  showGalleryModal = false
   showAddOrEditSupplierModal = false
   showSupplierApproximateCalculationsModal = false
   showConfirmModal = false
@@ -145,16 +142,6 @@ export class ListSuppliersModel {
     if (foundCurrentSupplier) {
       this.currentSupplier = foundCurrentSupplier
     }
-  }
-
-  onClickFilesCell = (files?: UploadFileType[]) => {
-    if (files && files.length > 0) {
-      this.galleryFiles = files
-    } else {
-      this.galleryFiles = []
-    }
-
-    this.onToggleModal(ModalNames.GALLERY)
   }
 
   async getPaymentMethods() {

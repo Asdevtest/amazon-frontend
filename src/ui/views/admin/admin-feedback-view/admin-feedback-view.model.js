@@ -20,12 +20,10 @@ export class AdminFeedbackViewModel {
   requestStatus = undefined
 
   showReplyFeedbackModal = false
-  showGalleryModal = false
 
   selectedFeedback = undefined
   nameSearchValue = ''
   feedbackList = []
-  galleryFiles = []
 
   rowCount = 0
   sortModel = []
@@ -34,7 +32,6 @@ export class AdminFeedbackViewModel {
   columnVisibilityModel = {}
   rowHandlers = {
     onClickOpenFeedbackBtn: item => this.onClickOpenFeedbackBtn(item),
-    onClickFilesCell: files => this.onClickFilesCell(files),
   }
   columnsModel = adminFeedbackViewColumns(this.rowHandlers)
 
@@ -167,15 +164,5 @@ export class AdminFeedbackViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  onClickFilesCell = files => {
-    if (files && files.length > 0) {
-      this.galleryFiles = files
-    } else {
-      this.galleryFiles = []
-    }
-
-    this.onTriggerOpenModal('showGalleryModal')
   }
 }

@@ -37,11 +37,9 @@ export class BoxesToOrderModel {
   order: IOrderWithAdditionalFields | undefined = undefined
   boxes: IOrderBoxSupplemented[] = []
   currentBox: IBox | undefined = undefined
-  galleryFiles: UploadFileType[] = []
   hsCodeData: IHSCode | undefined = undefined
   platformSettings: IPlatformSettings | undefined = undefined
 
-  showGalleryModal = false
   showBoxModal = false
   showWarningInfoModal = false
   showEditHSCodeModal = false
@@ -150,16 +148,6 @@ export class BoxesToOrderModel {
     } catch (error) {
       console.error(error)
     }
-  }
-
-  onClickFilesCell = (files?: UploadFileType[]) => {
-    if (files && files.length > 0) {
-      this.galleryFiles = files
-    } else {
-      this.galleryFiles = []
-    }
-
-    this.onToggleModal(ModalNames.GALLERY)
   }
 
   async onClickHsCode(id: string) {
