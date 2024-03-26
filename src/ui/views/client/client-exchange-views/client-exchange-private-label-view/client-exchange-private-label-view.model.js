@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ClientModel } from '@models/client-model'
 import { ShopModel } from '@models/shop-model'
@@ -10,6 +9,8 @@ import { UserModel } from '@models/user-model'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ClientExchangePrivateLabelViewModel {
   history = undefined
@@ -33,13 +34,13 @@ export class ClientExchangePrivateLabelViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await Promise.all([this.getProductsVacant(), this.getShops()])
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -94,7 +95,7 @@ export class ClientExchangePrivateLabelViewModel {
 
   async onSaveProductData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.updateProduct(
         this.productToPay._id,
@@ -105,9 +106,9 @@ export class ClientExchangePrivateLabelViewModel {
           ['suppliers'],
         ),
       )
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

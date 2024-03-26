@@ -1,4 +1,3 @@
-import { NotificationType } from '@constants/keys/notifications'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
@@ -13,6 +12,8 @@ import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { Notification } from '@typings/enums/notification'
 
 import {
   calcFinalWeightForBox,
@@ -1010,12 +1011,12 @@ export const notificationDataConverter = data =>
     originalData: item,
     id: item?._id,
     product:
-      item.type === NotificationType.Idea
+      item.type === Notification.Idea
         ? {
             ...item?.data?.[0]?.parentProduct,
             title: item?.data?.[0]?.productName,
           }
-        : item.type === NotificationType.Order
+        : item.type === Notification.Order
         ? item?.data?.[0]?.product
           ? {
               ...item?.data?.[0]?.product,
@@ -1030,13 +1031,13 @@ export const notificationDataConverter = data =>
               ...item?.data?.vacOrders?.[0]?.product,
               humanFriendlyId: item?.data?.vacOrders?.[0]?.id,
             }
-        : item.type === NotificationType.Proposal
+        : item.type === Notification.Proposal
         ? {
             ...item?.data?.[0]?.request?.product,
             humanFriendlyId: item?.data?.[0]?.request?.humanFriendlyId,
             title: item?.data?.[0]?.request?.title,
           }
-        : item.type === NotificationType.Request
+        : item.type === Notification.Request
         ? {
             ...item?.data?.[0]?.product,
             humanFriendlyId: item?.data?.[0]?.humanFriendlyId,
@@ -1046,7 +1047,7 @@ export const notificationDataConverter = data =>
             ...item?.data?.items?.[0]?.product,
             humanFriendlyId: item?.data?.humanFriendlyId,
           },
-    sub: item.type === NotificationType.Proposal ? item?.data?.[0]?.sub : undefined,
+    sub: item.type === Notification.Proposal ? item?.data?.[0]?.sub : undefined,
     type: item?.type,
   }))
 

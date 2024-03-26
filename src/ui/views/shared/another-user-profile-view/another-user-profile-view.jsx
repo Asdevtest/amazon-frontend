@@ -5,7 +5,6 @@ import { withStyles } from 'tss-react/mui'
 import { Typography } from '@mui/material'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
@@ -20,6 +19,8 @@ import { UserProfile } from '@components/user/users-views/user-profile-view/user
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './another-user-profile-view.style'
 
@@ -37,8 +38,7 @@ export const AnotherUserProfileViewRaw = props => {
     <>
       <div>
         {!viewModel.user &&
-          (viewModel.requestStatus === loadingStatuses.SUCCESS ||
-            viewModel.requestStatus === loadingStatuses.FAILED) && (
+          (viewModel.requestStatus === loadingStatus.SUCCESS || viewModel.requestStatus === loadingStatus.FAILED) && (
             <Typography variant="h4" className={styles.noDataText}>
               {t(TranslationKey['No data']) + '...'}
             </Typography>
@@ -92,7 +92,7 @@ export const AnotherUserProfileViewRaw = props => {
               }}
               density={viewModel.densityModel}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+              loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
               onSortModelChange={viewModel.onChangeSortingModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
               onPaginationModelChange={viewModel.onPaginationModelChange}

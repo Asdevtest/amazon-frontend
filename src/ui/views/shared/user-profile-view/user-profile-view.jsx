@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
@@ -16,6 +15,8 @@ import { ContentModal } from '@components/user/users-views/user-profile-view/con
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './user-profile-view.style'
 
@@ -70,7 +71,7 @@ export const UserProfileView = observer(({ history }) => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
             onPaginationModelChange={viewModel.onPaginationModelChange}

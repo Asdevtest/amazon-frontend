@@ -1,5 +1,5 @@
-import { IdeaStatus } from '@typings/enums/idea-status'
-import { ProductStatus } from '@typings/enums/product-status'
+import { IdeaStatus } from '@typings/enums/idea/idea-status'
+import { ProductStatus } from '@typings/enums/product/product-status'
 
 export const clientValidProductStatuses = [
   ProductStatus.NEW_PRODUCT,

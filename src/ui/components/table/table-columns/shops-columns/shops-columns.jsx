@@ -1,4 +1,3 @@
-import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -12,6 +11,7 @@ import {
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 export const shopsColumns = handlers => [
   {

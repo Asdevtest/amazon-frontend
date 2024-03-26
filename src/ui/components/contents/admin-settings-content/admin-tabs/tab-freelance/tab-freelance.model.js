@@ -1,13 +1,14 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { tabFreelanceColumns } from './tab-freelance.column'
 
@@ -59,7 +60,7 @@ export class AdminSettingsFreelanceModel {
 
   async getSpecs() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const response = await UserModel.getSpecs() // there is a request body(archive?:boolean)
 
@@ -67,10 +68,10 @@ export class AdminSettingsFreelanceModel {
         this.specs = response.map(spec => ({ ...spec, isEditSpec: false })).toSorted((a, b) => a.archive - b.archive)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.specs = []

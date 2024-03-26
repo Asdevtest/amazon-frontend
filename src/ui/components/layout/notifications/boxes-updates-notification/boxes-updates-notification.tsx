@@ -4,7 +4,6 @@ import { FC } from 'react'
 
 import { Avatar, Link, Typography } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -12,6 +11,8 @@ import { SettingsModel } from '@models/settings-model'
 import { useBoxNotificationStyles } from '@components/layout/notifications/boxes-updates-notification/boxes-updates-notification.style'
 
 import { t } from '@utils/translations'
+
+import { UiTheme } from '@typings/enums/ui-theme'
 
 export interface BoxProduct {
   _id: string

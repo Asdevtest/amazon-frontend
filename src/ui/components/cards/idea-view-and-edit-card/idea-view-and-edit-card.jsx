@@ -8,7 +8,6 @@ import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { RequestSwitherType } from '@constants/requests/request-type.ts'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -38,6 +37,7 @@ import { checkAndMakeAbsoluteUrl, clearEverythingExceptNumbers, toFixed } from '
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { RequestSwitherType } from '@typings/enums/request/request-type'
 
 import { useStyles } from './idea-view-and-edit-card.style'
 

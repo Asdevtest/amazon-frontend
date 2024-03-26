@@ -8,7 +8,6 @@ import { ThemeProvider } from '@mui/material/styles'
 
 import { changeSystemTheme } from '@constants/theme/change-system-theme'
 import { darkTheme, globalStyles, lightTheme } from '@constants/theme/mui-theme'
-import { UiTheme } from '@constants/theme/mui-theme.type'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -16,6 +15,8 @@ import { ToastifyProvider } from '@components/layout/navigation/toastify/toastif
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { HintsContextProvider } from '@contexts/hints-context'
+
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { PrivateRoutes } from './private-routes'
 import { generatePublicRoutes } from './public-routes'

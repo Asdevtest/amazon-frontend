@@ -12,13 +12,14 @@ import { DatePicker as NewestDatePicker, TimePicker } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
-import { LanguageKey } from '@constants/translations/language-key'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { t } from '@utils/translations'
+
+import { LanguageKey } from '@typings/enums/language-key'
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { useStyles } from './date-picker.style'
 

@@ -3,7 +3,6 @@ import { FC, useState } from 'react'
 
 import { GridRowModel, GridRowParams } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxViewForm } from '@components/forms/box-view-form'
@@ -15,6 +14,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './boxes-to-order.style'
@@ -47,7 +47,7 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(({ formFields, platf
           getRowId={(row: GridRowModel) => row._id}
           columns={boxesToOrderColumn(platformSettings)}
           paginationModel={viewModel.paginationModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           sx={{
             '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
             '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,

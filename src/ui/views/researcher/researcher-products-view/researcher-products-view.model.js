@@ -3,7 +3,6 @@ import { action, makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ResearcherModel } from '@models/researcher-model'
 import { SettingsModel } from '@models/settings-model'
@@ -18,6 +17,8 @@ import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 import { getNewObjectWithDefaultValue } from '@utils/object'
 import { t } from '@utils/translations'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 const formFieldsDefault = {
   amazonLink: '',
@@ -217,18 +218,18 @@ export class ResearcherProductsViewModel {
 
   async createProduct(product) {
     try {
-      this.setActionStatus(loadingStatuses.IS_LOADING)
+      this.setActionStatus(loadingStatus.IS_LOADING)
 
       const response = await ResearcherModel.createProduct(product)
 
-      this.setActionStatus(loadingStatuses.SUCCESS)
+      this.setActionStatus(loadingStatus.SUCCESS)
       runInAction(() => {
         this.formFields = formFieldsDefault
         this.newProductId = response.guid
       })
       await this.loadData()
     } catch (error) {
-      this.setActionStatus(loadingStatuses.FAILED)
+      this.setActionStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -257,7 +258,7 @@ export class ResearcherProductsViewModel {
 
   async getPropductsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const result = await ResearcherModel.getProductsVacant()
 
       runInAction(() => {
@@ -266,26 +267,26 @@ export class ResearcherProductsViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
 
   async checkProductExists() {
     try {
-      this.setActionStatus(loadingStatuses.IS_LOADING)
+      this.setActionStatus(loadingStatus.IS_LOADING)
       const checkProductExistResult = await ResearcherModel.checkProductExists(
         this.formFields.productCode,
         this.formFields.strategyStatus,
       )
 
-      this.setActionStatus(loadingStatuses.SUCCESS)
+      this.setActionStatus(loadingStatus.SUCCESS)
       return checkProductExistResult
     } catch (error) {
       console.error(error)
-      this.setActionStatus(loadingStatuses.FAILED)
+      this.setActionStatus(loadingStatus.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message

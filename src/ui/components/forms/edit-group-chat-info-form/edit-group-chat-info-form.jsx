@@ -3,7 +3,6 @@ import Avatar from 'react-avatar-edit'
 
 import { Avatar as AvatarMui } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -16,6 +15,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { useStyles } from './edit-group-chat-info-form.style'
 

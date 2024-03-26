@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class WarehouseManagementViewModel {
   history = undefined
@@ -20,10 +20,10 @@ export class WarehouseManagementViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

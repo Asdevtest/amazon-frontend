@@ -3,7 +3,6 @@ import { memo, useEffect, useState } from 'react'
 import { Divider, Grid, Typography } from '@mui/material'
 
 import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SupplierModel } from '@models/supplier-model'
@@ -24,6 +23,7 @@ import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './add-or-edit-supplier-modal-content.style'
 
@@ -440,7 +440,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     0 === parseFloat(tmpSupplier.price) ||
     0 === parseInt(tmpSupplier.amount) ||
     0 === parseInt(tmpSupplier.minlot) ||
-    requestStatus === loadingStatuses.IS_LOADING ||
+    requestStatus === loadingStatus.IS_LOADING ||
     ((tmpSupplier.boxProperties?.amountInBox ||
       tmpSupplier.boxProperties?.boxLengthCm ||
       tmpSupplier.boxProperties?.boxWidthCm ||

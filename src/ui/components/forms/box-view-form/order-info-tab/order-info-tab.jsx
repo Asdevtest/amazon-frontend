@@ -1,6 +1,5 @@
 import { memo } from 'react'
 
-import { OrderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
@@ -12,6 +11,8 @@ import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { FireIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
+
+import { OrderPriority } from '@typings/enums/order/order-priority'
 
 import { useStyles } from './order-info-tab.style'
 

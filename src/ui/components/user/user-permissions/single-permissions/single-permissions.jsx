@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditSinglePermissionForm } from '@components/forms/add-or-edit-single-permission-form'
@@ -15,6 +14,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './single-permissions.style'
 
@@ -87,7 +87,7 @@ export const SinglePermissions = observer(() => {
           }}
           density={densityModel}
           columns={columnsModel}
-          loading={requestStatus === loadingStatuses.IS_LOADING}
+          loading={requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
           onPaginationModelChange={onPaginationModelChange}
           onFilterModelChange={onChangeFilterModel}

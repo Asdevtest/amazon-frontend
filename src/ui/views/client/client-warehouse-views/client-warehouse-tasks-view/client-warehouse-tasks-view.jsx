@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,6 +18,8 @@ import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-warehouse-tasks-view.style'
 
@@ -118,7 +119,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
               },
             },
           }}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           columns={viewModel.columnsModel}
           rowCount={viewModel.rowsCount}
           onRowHover={viewModel.onHover}

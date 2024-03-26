@@ -1,6 +1,5 @@
 import { FC, memo } from 'react'
 
-import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -9,6 +8,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 import { useStyles } from './controll-buttons.style'
 

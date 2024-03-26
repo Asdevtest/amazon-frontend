@@ -11,7 +11,7 @@ import { ProductWrapper } from '@components/product/product-wrapper'
 
 import { t } from '@utils/translations'
 
-import { ProductVariation } from '@typings/enums/product-variation'
+import { ProductVariation } from '@typings/enums/product/product-variation'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 

@@ -3,7 +3,6 @@ import { FC, memo } from 'react'
 import { Link } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
-import { PaginationDirection } from '@constants/pagination/pagination-direction'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
@@ -16,6 +15,8 @@ import { ArrowBackIcon } from '@components/shared/svg-icons'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
+
+import { PaginationDirection } from '@typings/enums/pagination-direction'
 
 import { useStyles } from './chat-header.style'
 

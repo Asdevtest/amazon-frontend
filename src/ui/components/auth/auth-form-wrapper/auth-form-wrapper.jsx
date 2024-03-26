@@ -6,7 +6,6 @@ import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import { Divider } from '@mui/material'
 
 import { appVersion } from '@constants/app-version'
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -16,7 +15,9 @@ import { LanguageSelector } from '@components/shared/selectors/language-selector
 
 import { t } from '@utils/translations'
 
-import { useStyles } from './auth-form-wrapper.style.js'
+import { UiTheme } from '@typings/enums/ui-theme'
+
+import { useStyles } from './auth-form-wrapper.style'
 
 export const AuthFormWrapper = memo(props => {
   const {

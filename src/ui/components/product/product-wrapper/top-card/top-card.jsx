@@ -4,7 +4,6 @@ import { docValidTypes } from '@constants/media/doc-types'
 import { imageValidTypes } from '@constants/media/image-types'
 import { videoValidTypes } from '@constants/media/video-types'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindProductForm } from '@components/forms/bind-product-form'
@@ -17,6 +16,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './top-card.style'
 
@@ -184,7 +185,7 @@ export const TopCard = memo(
             <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
           )}
 
-          {actionStatus === loadingStatuses.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}
+          {actionStatus === loadingStatus.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}
         </div>
 
         {showBindProductModal && (

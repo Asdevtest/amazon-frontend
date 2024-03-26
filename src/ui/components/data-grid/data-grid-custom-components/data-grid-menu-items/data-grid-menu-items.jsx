@@ -21,7 +21,6 @@ import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/r
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextCell } from '@components/data-grid/data-grid-cells'
@@ -39,6 +38,7 @@ import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/te
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './data-grid-menu-items.style'
 
@@ -658,7 +658,7 @@ export const CreatedByMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -820,7 +820,7 @@ export const ObJectFieldMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -973,7 +973,7 @@ export const IdeaShopsFieldMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -1214,7 +1214,7 @@ export const NormalFieldMenuItem = memo(
           </div>
 
           <div className={styles.universalFilterBody}>
-            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+            {filterRequestStatus === loadingStatus.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -1595,7 +1595,7 @@ export const ProductMenuItem = memo(
         </div>
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
-            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+            {filterRequestStatus === loadingStatus.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -1743,7 +1743,7 @@ export const OrderOrItemMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -1915,7 +1915,7 @@ export const DestinationMenuItem = memo(
         </div>
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
-            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+            {filterRequestStatus === loadingStatus.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>
@@ -2055,7 +2055,7 @@ export const FromToDateMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -2356,7 +2356,7 @@ export const NumberFieldMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -2553,7 +2553,7 @@ export const InStockMenuItem = memo(
           </div>
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
-              {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+              {filterRequestStatus === loadingStatus.IS_LOADING ? (
                 <CircularProgress />
               ) : (
                 <>
@@ -3109,7 +3109,7 @@ export const SecondsCellMenuItem = memo(
       <div title="" className={styles.shopsDataWrapper}>
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
-            {filterRequestStatus === loadingStatuses.IS_LOADING ? (
+            {filterRequestStatus === loadingStatus.IS_LOADING ? (
               <CircularProgress />
             ) : (
               <>

@@ -5,7 +5,6 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -29,6 +28,7 @@ import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './suppliers-and-ideas.style'
 
@@ -171,7 +171,7 @@ export const SuppliersAndIdeas = observer(props => {
 
       {isModalView && !isCreate && (
         <>
-          {requestStatus === loadingStatuses.IS_LOADING ? (
+          {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
           ) : curIdea ? (
             <IdeaViewAndEditCard
@@ -215,7 +215,7 @@ export const SuppliersAndIdeas = observer(props => {
 
       {!isModalView && !isCreate && (
         <>
-          {requestStatus === loadingStatuses.IS_LOADING ? (
+          {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
           ) : currentData?.length ? (
             currentData.map(idea => (

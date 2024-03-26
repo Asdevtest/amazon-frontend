@@ -3,7 +3,6 @@ import { memo, useEffect, useState } from 'react'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Divider, Typography } from '@mui/material'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -24,6 +23,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
@@ -178,7 +178,7 @@ export const EditTaskModal = memo(
 
     const disableSaveButton =
       !newBoxes.length ||
-      requestStatus === loadingStatuses.IS_LOADING ||
+      requestStatus === loadingStatus.IS_LOADING ||
       !isFilledNewBoxesDimensions ||
       (isSomeBoxHasntImageToRecive && !receiveNotFromBuyer) ||
       isNoChangesBarcodeOrTransparency
