@@ -77,7 +77,7 @@ export class ClientSellShopsAdsModel {
       await this.getShopSells()
       this.getTableModeState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -88,7 +88,7 @@ export class ClientSellShopsAdsModel {
         this.shopSellsData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

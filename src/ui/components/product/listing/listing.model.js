@@ -24,7 +24,6 @@ const fieldsOfProductAllowedToUpdate = [
 export class ListingModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   listingProduct = {}
   payments = []
@@ -67,7 +66,7 @@ export class ListingModel {
 
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -110,7 +109,7 @@ export class ListingModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -136,7 +135,7 @@ export class ListingModel {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -152,7 +151,7 @@ export class ListingModel {
         listingImages: updateProductData.listingImages.concat(this.imagesToLoad),
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -165,7 +164,7 @@ export class ListingModel {
       })
     } catch (error) {
       this.payments = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -187,7 +186,7 @@ export class ListingModel {
       })
     } catch (error) {
       this.payments = []
-      console.log(error)
+      console.error(error)
     }
   }
 

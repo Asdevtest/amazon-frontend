@@ -124,7 +124,7 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
 
         await downloadArchive(filesForDownload, reversedFormatDateWithoutTime(new Date()))
       } catch (error) {
-        console.log(error)
+        console.error(error)
         toast.warning(t(TranslationKey['Failed to download archive. Please try again.']))
       } finally {
         setArchiveButtonInactiveBeforeDownloading(false)
@@ -195,7 +195,7 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
 
       toast.success(t(TranslationKey['Successfully updated']))
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

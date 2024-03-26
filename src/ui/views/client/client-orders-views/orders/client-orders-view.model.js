@@ -86,7 +86,6 @@ export class ClientOrdersViewModel {
 
   storekeepers = []
   destinations = []
-  platformSettings = undefined
 
   onHover = null
 
@@ -110,7 +109,6 @@ export class ClientOrdersViewModel {
   activeProductGuid = undefined
   filterModel = { items: [] }
   densityModel = 'compact'
-  amountLimit = 1000
   columnsModel = clientOrdersViewColumns(
     this.rowHandlers,
     () => this.columnMenuSettings,
@@ -133,6 +131,10 @@ export class ClientOrdersViewModel {
 
   get userInfo() {
     return UserModel.userInfo
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   columnMenuSettings = {
@@ -161,7 +163,6 @@ export class ClientOrdersViewModel {
     this.setDefaultStatuses()
     this.getDestinations()
     this.getStorekeepers()
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -191,10 +192,7 @@ export class ClientOrdersViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -321,7 +319,7 @@ export class ClientOrdersViewModel {
       await this.getShops()
       await this.getOrders()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -333,10 +331,7 @@ export class ClientOrdersViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -398,10 +393,9 @@ export class ClientOrdersViewModel {
         this.reorderOrdersData = []
       })
 
-      const [storekeepers, destinations, result] = await Promise.all([
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
       ])
 
       for (let i = 0; i < this.selectedRowIds.length; i++) {
@@ -417,14 +411,13 @@ export class ClientOrdersViewModel {
       runInAction(() => {
         this.storekeepers = storekeepers
         this.destinations = destinations
-        this.amountLimit = this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -443,7 +436,7 @@ export class ClientOrdersViewModel {
     try {
       await ClientModel.cancelOrder(orderId)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -457,7 +450,7 @@ export class ClientOrdersViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -469,7 +462,7 @@ export class ClientOrdersViewModel {
         this.productBatches = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productBatches = undefined
       })
@@ -507,7 +500,7 @@ export class ClientOrdersViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -533,7 +526,7 @@ export class ClientOrdersViewModel {
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -577,18 +570,12 @@ export class ClientOrdersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
 
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.baseNoConvertedOrders = []
         this.orders = []
       })
-
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -599,10 +586,6 @@ export class ClientOrdersViewModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
@@ -635,15 +618,12 @@ export class ClientOrdersViewModel {
 
       await this.updateUserInfo()
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
       })
       this.onTriggerOpenModal('showInfoModal')
-      runInAction(() => {
-        this.error = error
-      })
     }
   }
 
@@ -653,17 +633,9 @@ export class ClientOrdersViewModel {
 
   async onSubmitOrderProductModal(ordersDataState) {
     try {
-      runInAction(() => {
-        this.error = undefined
-      })
-
       for (let i = 0; i < ordersDataState.length; i++) {
         let orderObject = ordersDataState[i]
         let uploadedTransparencyFiles = []
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
@@ -715,38 +687,13 @@ export class ClientOrdersViewModel {
       this.loadData()
       this.updateUserInfo()
 
-      if (!this.error) {
-        runInAction(() => {
-          this.alertShieldSettings = {
-            showAlertShield: true,
-            alertShieldMessage: t(TranslationKey['The order has been created']),
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              ...this.alertShieldSettings,
-              showAlertShield: false,
-            }
-
-            setTimeout(() => {
-              this.alertShieldSettings = {
-                showAlertShield: false,
-                alertShieldMessage: '',
-              }
-            }, 1000)
-          }, 3000)
-        })
-      }
       this.onTriggerOpenModal('showConfirmModal')
 
       this.onTriggerOpenModal('showOrderModal')
 
       this.showMyOrderModal = false
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -780,7 +727,7 @@ export class ClientOrdersViewModel {
         this.order = resolve
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -806,7 +753,7 @@ export class ClientOrdersViewModel {
         this.currentBatch = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.currentBatch = undefined
       })
@@ -838,7 +785,7 @@ export class ClientOrdersViewModel {
         this.productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.selectedWarehouseOrderProduct = undefined
@@ -858,7 +805,7 @@ export class ClientOrdersViewModel {
         this.destinations = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -870,19 +817,7 @@ export class ClientOrdersViewModel {
         this.storekeepers = response
       })
     } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -955,7 +890,7 @@ export class ClientOrdersViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -969,7 +904,7 @@ export class ClientOrdersViewModel {
 
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -70,7 +70,6 @@ export class ClientInStockBoxesViewModel {
   batchesData = undefined
   existingProducts = undefined
   reorderOrdersData = undefined
-  platformSettings = undefined
   alertShieldSettings = {
     showAlertShield: false,
     alertShieldMessage: '',
@@ -99,8 +98,6 @@ export class ClientInStockBoxesViewModel {
 
   storekeeperFilterData = []
   storekeeperCurrentFilterData = []
-
-  volumeWeightCoefficient = undefined
 
   hsCodeData = {}
 
@@ -235,6 +232,10 @@ export class ClientInStockBoxesViewModel {
       .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     this.history = history
     const url = new URL(window.location.href)
@@ -269,7 +270,7 @@ export class ClientInStockBoxesViewModel {
         this.destinations = destinations
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -386,7 +387,7 @@ export class ClientInStockBoxesViewModel {
 
       this.getDataGridState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -416,7 +417,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -451,7 +452,7 @@ export class ClientInStockBoxesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.onTriggerOpenModal('showConfirmModal')
 
@@ -492,7 +493,7 @@ export class ClientInStockBoxesViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -505,7 +506,7 @@ export class ClientInStockBoxesViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -525,10 +526,6 @@ export class ClientInStockBoxesViewModel {
   }
 
   async onClickSaveShippingLabel(tmpShippingLabel) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpShippingLabel.length) {
       await onSubmitPostImages.call(this, { images: tmpShippingLabel, type: 'uploadedFiles' })
     }
@@ -611,7 +608,7 @@ export class ClientInStockBoxesViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -677,7 +674,7 @@ export class ClientInStockBoxesViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -727,7 +724,7 @@ export class ClientInStockBoxesViewModel {
 
       this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -763,7 +760,7 @@ export class ClientInStockBoxesViewModel {
 
       this.getDataGridState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -777,7 +774,7 @@ export class ClientInStockBoxesViewModel {
       this.getShops()
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -840,10 +837,6 @@ export class ClientInStockBoxesViewModel {
         const resBoxes = []
 
         for (let i = 0; i < updatedBoxes.length; i++) {
-          runInAction(() => {
-            this.uploadedFiles = []
-          })
-
           if (updatedBoxes[i].tmpShippingLabel.length) {
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
@@ -908,7 +901,7 @@ export class ClientInStockBoxesViewModel {
       }
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -942,11 +935,10 @@ export class ClientInStockBoxesViewModel {
         return
       }
 
-      const [destinations, result] = await Promise.all([ClientModel.getDestinations(), UserModel.getPlatformSettings()])
+      const response = await ClientModel.getDestinations()
 
       runInAction(() => {
-        this.destinations = destinations
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.destinations = response
       })
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
@@ -984,18 +976,12 @@ export class ClientInStockBoxesViewModel {
       })
 
       if (this.selectedBoxes.length === 1) {
-        const result = await UserModel.getPlatformSettings()
-
-        runInAction(() => {
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
-
         this.onTriggerOpenModal('showEditBoxModal')
       } else {
         this.onTriggerOpenModal('showEditMultipleBoxesModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1011,7 +997,7 @@ export class ClientInStockBoxesViewModel {
     try {
       await ClientModel.updateProductBarCode(id, { barCode: data })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1025,7 +1011,7 @@ export class ClientInStockBoxesViewModel {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1048,10 +1034,6 @@ export class ClientInStockBoxesViewModel {
         const isMultipleEdit = true
 
         if (newBox.tmpShippingLabel?.length) {
-          runInAction(() => {
-            this.uploadedFiles = []
-          })
-
           const findUploadedShippingLabel = uploadedShippingLabeles.find(
             el => el.strKey === JSON.stringify(newBox.tmpShippingLabel[0]),
           )
@@ -1154,7 +1136,7 @@ export class ClientInStockBoxesViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1163,7 +1145,7 @@ export class ClientInStockBoxesViewModel {
       await BoxesModel.editBoxAtClient(id, boxData)
       await this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1219,7 +1201,7 @@ export class ClientInStockBoxesViewModel {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1228,7 +1210,6 @@ export class ClientInStockBoxesViewModel {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
-        this.uploadedFiles = []
       })
 
       if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
@@ -1387,7 +1368,7 @@ export class ClientInStockBoxesViewModel {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       !isMultipleEdit && this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
 
       if (!isMultipleEdit) {
         this.loadData()
@@ -1468,7 +1449,7 @@ export class ClientInStockBoxesViewModel {
       })
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1501,7 +1482,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
 
@@ -1518,16 +1499,14 @@ export class ClientInStockBoxesViewModel {
   async setCurrentOpenedBox(row) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBox = box
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1550,7 +1529,7 @@ export class ClientInStockBoxesViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1575,7 +1554,7 @@ export class ClientInStockBoxesViewModel {
 
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1585,7 +1564,7 @@ export class ClientInStockBoxesViewModel {
 
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1596,7 +1575,7 @@ export class ClientInStockBoxesViewModel {
       await this.getBoxesMy()
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1606,7 +1585,7 @@ export class ClientInStockBoxesViewModel {
 
       await this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1678,7 +1657,7 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1689,7 +1668,7 @@ export class ClientInStockBoxesViewModel {
         this.shopsData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1735,19 +1714,19 @@ export class ClientInStockBoxesViewModel {
         hasBatch: false,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.baseBoxesMy = result.rows
 
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
         this.rowCount = result.count
 
-        this.boxesMy = clientWarehouseDataConverter(result.rows, res.volumeWeightCoefficient, this.shopsData)
+        this.boxesMy = clientWarehouseDataConverter(
+          result.rows,
+          this.platformSettings?.volumeWeightCoefficient,
+          this.shopsData,
+        )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.boxesMy = []
@@ -1765,7 +1744,7 @@ export class ClientInStockBoxesViewModel {
     try {
       await StorekeeperModel.updateTaskPriority(taskId, priority, reason)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1801,22 +1780,17 @@ export class ClientInStockBoxesViewModel {
         this.selectedBoxes = this.selectedBoxes.filter(el => !boxesWithoutTariffOrDestinationIds.includes(el))
       })
 
-      const [boxesDeliveryCosts, result] = await Promise.all([
-        BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes)),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
 
       runInAction(() => {
-        this.boxesDeliveryCosts = boxesDeliveryCosts
-
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.boxesDeliveryCosts = response
       })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
       this.triggerRequestToSendBatchModal()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1847,7 +1821,7 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showWarningInfoModal')
 
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1879,7 +1853,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showMergeBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1893,7 +1867,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showRedistributeBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1958,7 +1932,7 @@ export class ClientInStockBoxesViewModel {
         this.currentBatch = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.currentBatch = undefined
       })
@@ -1987,7 +1961,7 @@ export class ClientInStockBoxesViewModel {
         this.order = resolve
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1999,7 +1973,7 @@ export class ClientInStockBoxesViewModel {
         this.productBatches = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productBatches = undefined
       })
@@ -2016,7 +1990,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -2049,7 +2023,7 @@ export class ClientInStockBoxesViewModel {
     try {
       await ClientModel.cancelOrder(orderId)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -2084,26 +2058,21 @@ export class ClientInStockBoxesViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickContinueBtn(item) {
     try {
-      const [storekeepers, destinations, result, order] = await Promise.all([
+      const [storekeepers, destinations, order] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
         ClientModel.getOrderById(item._id),
       ])
 
       runInAction(() => {
         this.storekeepersData = storekeepers
-
         this.destinations = destinations
-
-        this.platformSettings = result
-
         this.reorderOrdersData = [order]
       })
 
@@ -2113,7 +2082,7 @@ export class ClientInStockBoxesViewModel {
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -2138,17 +2107,9 @@ export class ClientInStockBoxesViewModel {
 
   async onSubmitOrderProductModal(ordersDataState) {
     try {
-      runInAction(() => {
-        this.error = undefined
-      })
-
       for (let i = 0; i < ordersDataState.length; i++) {
         let orderObject = ordersDataState[i]
         let uploadedTransparencyFiles = []
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
@@ -2197,38 +2158,13 @@ export class ClientInStockBoxesViewModel {
         }
       }
 
-      if (!this.error) {
-        runInAction(() => {
-          this.alertShieldSettings = {
-            showAlertShield: true,
-            alertShieldMessage: t(TranslationKey['The order has been created']),
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              ...this.alertShieldSettings,
-              showAlertShield: false,
-            }
-
-            setTimeout(() => {
-              this.alertShieldSettings = {
-                showAlertShield: false,
-                alertShieldMessage: '',
-              }
-            }, 1000)
-          }, 3000)
-        })
-      }
       this.onTriggerOpenModal('showConfirmModal')
 
       this.onTriggerOpenModal('showOrderModal')
 
       this.onTriggerOpenModal('showMyOrderModal')
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -2251,11 +2187,7 @@ export class ClientInStockBoxesViewModel {
 
       await this.updateUserInfo()
     } catch (error) {
-      console.log(error)
-
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -2314,7 +2246,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

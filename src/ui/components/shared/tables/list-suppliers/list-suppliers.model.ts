@@ -177,7 +177,7 @@ export class ListSuppliersModel {
         this.storekeepers = response as IDestinationStorekeeper[]
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

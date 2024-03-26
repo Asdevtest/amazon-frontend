@@ -165,7 +165,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -197,7 +197,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -226,7 +226,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       }
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       if (isRecCall) {
         this.setRequestStatus(loadingStatuses.IS_LOADING)
 
@@ -266,7 +266,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
         }
       })
       this.onTriggerOpenModal('showWarningInfoModal')
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -282,7 +282,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -301,7 +301,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       this.onTriggerOpenModal('showSelectShopsModal')
       toast.error(t(TranslationKey['Something went wrong']))
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

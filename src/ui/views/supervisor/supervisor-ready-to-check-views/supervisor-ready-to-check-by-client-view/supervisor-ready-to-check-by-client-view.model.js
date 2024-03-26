@@ -81,7 +81,7 @@ export class SupervisorReadyToCheckByClientViewModel {
 
       await this.getProductsReadyToCheck()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -102,7 +102,7 @@ export class SupervisorReadyToCheckByClientViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.productsReadyToCheck = []
@@ -126,7 +126,7 @@ export class SupervisorReadyToCheckByClientViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -141,7 +141,7 @@ export class SupervisorReadyToCheckByClientViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -9,7 +9,6 @@ import { UserModel } from '@models/user-model'
 export class ResearcherDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   paymentsMy = []
@@ -47,7 +46,7 @@ export class ResearcherDashboardViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -72,10 +71,7 @@ export class ResearcherDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

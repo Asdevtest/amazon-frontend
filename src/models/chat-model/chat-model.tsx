@@ -320,7 +320,7 @@ class ChatModelStatic {
         this.loadedFiles.push(fileUrl)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -462,7 +462,7 @@ class ChatModelStatic {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -483,7 +483,7 @@ class ChatModelStatic {
         this[chatType][index].users = this[chatType][index].users.filter(el => !params.users.includes(el._id))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -512,7 +512,7 @@ class ChatModelStatic {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

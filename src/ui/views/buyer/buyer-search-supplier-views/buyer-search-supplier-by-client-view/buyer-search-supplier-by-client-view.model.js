@@ -70,16 +70,13 @@ export class BuyerSearchSupplierByClientModel {
       runInAction(() => {
         this.requestStatus = loadingStatuses.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getProductsVacant() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      runInAction(() => {
-        this.error = undefined
-      })
 
       const isCreatedByClient = true
 
@@ -96,12 +93,7 @@ export class BuyerSearchSupplierByClientModel {
       runInAction(() => {
         this.productsVacant = []
       })
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -119,12 +111,7 @@ export class BuyerSearchSupplierByClientModel {
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -139,12 +126,7 @@ export class BuyerSearchSupplierByClientModel {
         })
       }
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 

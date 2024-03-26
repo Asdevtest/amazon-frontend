@@ -174,7 +174,7 @@ export class MyProposalsViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -234,7 +234,7 @@ export class MyProposalsViewModel {
 
       this.getRequestsProposalsPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -258,7 +258,7 @@ export class MyProposalsViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.requests = []
@@ -275,7 +275,7 @@ export class MyProposalsViewModel {
         this.currentProposal = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -287,7 +287,7 @@ export class MyProposalsViewModel {
         this.currentRequest = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -381,7 +381,7 @@ export class MyProposalsViewModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -450,7 +450,7 @@ export class MyProposalsViewModel {
 
       this.onTriggerOpenModal('showRequestDetailModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -533,7 +533,7 @@ export class MyProposalsViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

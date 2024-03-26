@@ -138,7 +138,7 @@ export class ClientProductViewModel {
         this.productsToBind = result.rows
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -160,7 +160,7 @@ export class ClientProductViewModel {
       this.loadData()
       this.onTriggerOpenModal('showBindProductModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -177,7 +177,7 @@ export class ClientProductViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -204,7 +204,7 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -230,7 +230,7 @@ export class ClientProductViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -313,7 +313,7 @@ export class ClientProductViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -379,7 +379,7 @@ export class ClientProductViewModel {
         this.history.goBack()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -398,7 +398,7 @@ export class ClientProductViewModel {
         this.history.goBack()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -455,7 +455,7 @@ export class ClientProductViewModel {
       await this.onSaveProductData()
       updateDataHandler && (await updateDataHandler())
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -515,7 +515,7 @@ export class ClientProductViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -527,7 +527,7 @@ export class ClientProductViewModel {
         this.paymentMethods = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -597,7 +597,7 @@ export class ClientProductViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -640,7 +640,7 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -650,7 +650,7 @@ export class ClientProductViewModel {
         transparency: this.product.transparency,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -721,7 +721,7 @@ export class ClientProductViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
 
       runInAction(() => {

@@ -17,7 +17,6 @@ export class ClientIdeasNotificationsViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-  error = undefined
   loadingStatus = undefined
 
   ideas = []
@@ -139,13 +138,8 @@ export class ClientIdeasNotificationsViewModel {
       await this.getIdeas()
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -157,9 +151,8 @@ export class ClientIdeasNotificationsViewModel {
         this.ideas = ideaNoticeDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
-        this.error = error
         this.ideas = []
       })
     }

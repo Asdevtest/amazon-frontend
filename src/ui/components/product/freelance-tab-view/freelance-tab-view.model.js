@@ -110,7 +110,7 @@ export class FreelanceModel {
       this.getCustomRequests()
       this.getSpecs()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -140,7 +140,7 @@ export class FreelanceModel {
         this.rowCount = result.count
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.searchRequests = []
@@ -179,7 +179,7 @@ export class FreelanceModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -274,7 +274,7 @@ export class FreelanceModel {
           break
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -304,7 +304,7 @@ export class FreelanceModel {
         this.specs = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

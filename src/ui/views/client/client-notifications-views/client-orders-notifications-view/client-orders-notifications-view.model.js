@@ -138,7 +138,7 @@ export class ClientOrdersNotificationsViewModel {
 
       this.getOrders()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -158,7 +158,7 @@ export class ClientOrdersNotificationsViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
 
       runInAction(() => {
@@ -185,7 +185,7 @@ export class ClientOrdersNotificationsViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -200,7 +200,7 @@ export class ClientOrdersNotificationsViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.IS_LOADING)
     }
   }

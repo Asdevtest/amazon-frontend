@@ -113,7 +113,7 @@ export class AdminDestinationsViewModel {
       this.getDataGridState()
       this.getDestinations()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -132,7 +132,7 @@ export class AdminDestinationsViewModel {
       runInAction(() => {
         this.destinations = []
       })
-      console.log(error)
+      console.error(error)
 
       this.setRequestStatus(loadingStatuses.FAILED)
     }
@@ -152,7 +152,7 @@ export class AdminDestinationsViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -164,7 +164,7 @@ export class AdminDestinationsViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -209,7 +209,7 @@ export class AdminDestinationsViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

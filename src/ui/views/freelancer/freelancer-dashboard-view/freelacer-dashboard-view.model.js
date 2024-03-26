@@ -9,7 +9,6 @@ import { UserModel } from '@models/user-model'
 export class FreelancerDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   balance = UserModel.userInfo?.balance
   productsVacant = []
@@ -46,7 +45,7 @@ export class FreelancerDashboardViewModel {
       await this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -62,10 +61,7 @@ export class FreelancerDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

@@ -123,7 +123,7 @@ export class AdminFeedbackViewModel {
       this.getDataGridState()
       this.getFeedbackList()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -140,7 +140,7 @@ export class AdminFeedbackViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }

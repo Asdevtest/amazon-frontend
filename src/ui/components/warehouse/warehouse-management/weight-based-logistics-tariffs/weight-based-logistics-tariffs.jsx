@@ -31,8 +31,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
   const {
     isArchive,
     storekeeperDestination,
-
-    yuanToDollarRate,
+    platformSettings,
     tariffToEdit,
     requestStatus,
     sortModel,
@@ -40,7 +39,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     densityModel,
     columnsModel,
     destinationData,
-
     columnVisibilityModel,
     paginationModel,
     showAddOrEditLogisticTariffModal,
@@ -53,10 +51,8 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     setDestinationsFavouritesItem,
     onTriggerOpenModal,
     onClickAddBtn,
-
     onChangeSortingModel,
     onChangeFilterModel,
-
     onSubmitCreateTariff,
     onSubmitEditTariff,
     onSubmitChangeDestination,
@@ -161,7 +157,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         setOpenModal={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
       >
         <AddOrEditWeightBasedLogisticsTariffForm
-          sourceYuanToDollarRate={yuanToDollarRate}
+          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
           tariffToEdit={tariffToEdit}
           logisticsTariffsData={logisticsTariffs}
           destinationData={destinationData}

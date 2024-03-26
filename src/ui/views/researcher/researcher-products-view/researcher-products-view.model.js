@@ -145,7 +145,7 @@ export class ResearcherProductsViewModel {
       this.getDataGridState()
       await this.getPropductsVacant()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -269,7 +269,7 @@ export class ResearcherProductsViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -284,7 +284,7 @@ export class ResearcherProductsViewModel {
       this.setActionStatus(loadingStatuses.SUCCESS)
       return checkProductExistResult
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setActionStatus(loadingStatuses.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {

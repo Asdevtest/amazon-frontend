@@ -15,7 +15,6 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 export class UserBalanceModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   userId = undefined
   user = {}
@@ -98,7 +97,7 @@ export class UserBalanceModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -132,7 +131,7 @@ export class UserBalanceModel {
         this.payments = financesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -144,14 +143,13 @@ export class UserBalanceModel {
         this.user = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async makePayment(data) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      this.error = undefined
 
       await AdministratorModel.makePayment(data)
 
@@ -162,8 +160,7 @@ export class UserBalanceModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-      this.error = error?.body?.message || error
+      console.error(error)
     }
   }
 }

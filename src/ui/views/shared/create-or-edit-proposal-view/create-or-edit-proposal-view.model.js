@@ -70,7 +70,7 @@ export class CreateOrEditProposalViewModel {
       })
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.infoModalText = error.body.message
@@ -93,7 +93,7 @@ export class CreateOrEditProposalViewModel {
 
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(
         () =>
