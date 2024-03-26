@@ -14,7 +14,6 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 export class ClientExchangePrivateLabelViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   selectedProduct = {}
@@ -41,7 +40,7 @@ export class ClientExchangePrivateLabelViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -60,12 +59,7 @@ export class ClientExchangePrivateLabelViewModel {
       runInAction(() => {
         this.productsVacant = []
       })
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -83,12 +77,7 @@ export class ClientExchangePrivateLabelViewModel {
       await ClientModel.createOrder(createorderData)
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -99,10 +88,7 @@ export class ClientExchangePrivateLabelViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -122,7 +108,7 @@ export class ClientExchangePrivateLabelViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -145,12 +131,7 @@ export class ClientExchangePrivateLabelViewModel {
       await this.updateUserInfo()
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 

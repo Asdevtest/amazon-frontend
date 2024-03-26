@@ -40,7 +40,6 @@ const filtersFields = [
 export class AdminExchangeViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productCardModal = false
 
@@ -179,7 +178,7 @@ export class AdminExchangeViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -207,9 +206,8 @@ export class AdminExchangeViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
       runInAction(() => {
-        this.error = error
         this.currentProductsData = []
       })
     }
@@ -320,10 +318,7 @@ export class AdminExchangeViewModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

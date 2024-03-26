@@ -120,7 +120,7 @@ export class SinglePermissionsModel {
       this.getDataGridState()
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -140,7 +140,7 @@ export class SinglePermissionsModel {
       runInAction(() => {
         this.payments = []
       })
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -152,7 +152,7 @@ export class SinglePermissionsModel {
       this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -160,7 +160,7 @@ export class SinglePermissionsModel {
     try {
       await PermissionsModel.createSinglePermission(data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -176,7 +176,7 @@ export class SinglePermissionsModel {
 
       await PermissionsModel.updateSinglePermission(permissionId, allowData)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -187,7 +187,7 @@ export class SinglePermissionsModel {
       this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -244,7 +244,7 @@ export class SinglePermissionsModel {
 
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

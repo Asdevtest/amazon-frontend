@@ -37,7 +37,7 @@ export class AdminSettingsPaymentMethodsModel {
     try {
       this.getPaymentMethods()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -49,7 +49,7 @@ export class AdminSettingsPaymentMethodsModel {
         this.paymentMethods = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -65,7 +65,7 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.infoModalText = t(TranslationKey['Payment method is not saved'])
@@ -87,7 +87,7 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.infoModalText = t(TranslationKey['Payment method is not saved'])
@@ -105,7 +105,7 @@ export class AdminSettingsPaymentMethodsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

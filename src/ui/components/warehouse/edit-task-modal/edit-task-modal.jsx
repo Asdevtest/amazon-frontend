@@ -253,8 +253,9 @@ export const EditTaskModal = memo(
                 onChange={e => setStorekeeperComment(e.target.value)}
               />
             </div>
-            {!readOnly ? (
-              <div className={styles.imageFileInputWrapper}>
+
+            <div className={styles.imageFileInputWrapper}>
+              {!readOnly ? (
                 <UploadFilesInput
                   fullWidth
                   dragAndDropBtnHeight={74}
@@ -262,10 +263,10 @@ export const EditTaskModal = memo(
                   setImages={setPhotosOfTask}
                   maxNumber={50}
                 />
-              </div>
-            ) : (
-              <SlideshowGallery slidesToShow={2} files={task.images} />
-            )}
+              ) : (
+                <SlideshowGallery files={task.images} />
+              )}
+            </div>
           </div>
 
           <Divider orientation="horizontal" className={styles.horizontalDivider} />

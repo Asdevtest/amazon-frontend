@@ -10,7 +10,6 @@ import { UserModel } from '@models/user-model'
 export class SupervisorDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   producatsMy = []
@@ -57,7 +56,7 @@ export class SupervisorDashboardViewModel {
       runInAction(() => {
         this.requestStatus = loadingStatuses.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -86,10 +85,7 @@ export class SupervisorDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -108,10 +104,7 @@ export class SupervisorDashboardViewModel {
         this.productsVacant = result.filter(el => el.icomment !== '')
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 }

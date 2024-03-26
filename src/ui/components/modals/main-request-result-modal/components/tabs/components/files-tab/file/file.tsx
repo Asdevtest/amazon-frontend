@@ -65,25 +65,25 @@ export const File: FC<FileProps & RefAttributes<HTMLDivElement | null>> = memo(
 
     return (
       <div ref={ref} className={styles.fileContainer}>
-        <div ref={drop}>
-          <div ref={drag}>
-            {clientOrReadOnly ? (
-              <Checkbox
-                stopPropagation
-                checked={checked}
-                className={styles.checkbox}
-                wrapperClassName={styles.checkboxWrapper}
-                onChange={() => onCheckFile(file)}
-              />
-            ) : (
-              <button
-                className={cx(styles.checkboxWrapper, styles.checkbox, styles.button)}
-                onClick={() => onDeleteFile(fileIndex)}
-              >
-                ✕
-              </button>
-            )}
+        {clientOrReadOnly ? (
+          <Checkbox
+            stopPropagation
+            checked={checked}
+            className={styles.checkbox}
+            wrapperClassName={styles.checkboxWrapper}
+            onChange={() => onCheckFile(file)}
+          />
+        ) : (
+          <button
+            className={cx(styles.checkboxWrapper, styles.checkbox, styles.button)}
+            onClick={() => onDeleteFile(fileIndex)}
+          >
+            ✕
+          </button>
+        )}
 
+        <div ref={!clientOrReadOnly ? drop : null}>
+          <div ref={!clientOrReadOnly ? drag : null}>
             {clientOrReadOnly ? (
               commonContent
             ) : file.fileLink ? (
@@ -100,19 +100,19 @@ export const File: FC<FileProps & RefAttributes<HTMLDivElement | null>> = memo(
                 />
               </button>
             )}
-
-            <FreelancerCommentSection isClient={isClient} file={file} onToggleCommentModal={onToggleCommentModal} />
-
-            <ClientCommentSection
-              readOnly={readOnly}
-              isClient={isClient}
-              file={file}
-              fileIndex={fileIndex}
-              onToggleCommentModal={onToggleCommentModal}
-              onChangeFileName={onChangeFileName}
-            />
           </div>
         </div>
+
+        <FreelancerCommentSection isClient={isClient} file={file} onToggleCommentModal={onToggleCommentModal} />
+
+        <ClientCommentSection
+          readOnly={readOnly}
+          isClient={isClient}
+          file={file}
+          fileIndex={fileIndex}
+          onToggleCommentModal={onToggleCommentModal}
+          onChangeFileName={onChangeFileName}
+        />
       </div>
     )
   }),

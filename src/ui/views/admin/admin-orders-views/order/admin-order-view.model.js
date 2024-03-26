@@ -13,8 +13,6 @@ export class AdminOrderViewModel {
   requestStatus = undefined
   error = undefined
 
-  platformSettings = undefined
-
   orderBoxes = []
   orderId = undefined
 
@@ -23,13 +21,15 @@ export class AdminOrderViewModel {
 
   order = undefined
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     const url = new URL(window.location.href)
 
     this.history = history
     this.orderId = url.searchParams.get('orderId')
-
-    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -53,7 +53,7 @@ export class AdminOrderViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -67,7 +67,7 @@ export class AdminOrderViewModel {
         this.order = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -79,7 +79,7 @@ export class AdminOrderViewModel {
         this.storekeepersData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -91,23 +91,11 @@ export class AdminOrderViewModel {
         this.orderBoxes = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
   }
 }

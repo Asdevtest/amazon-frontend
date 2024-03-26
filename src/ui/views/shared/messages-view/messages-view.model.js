@@ -133,7 +133,7 @@ export class MessagesViewModel {
       await ChatModel.getSimpleChats()
       this.selectChatHandler()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -147,7 +147,7 @@ export class MessagesViewModel {
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -164,7 +164,7 @@ export class MessagesViewModel {
 
       this.onTriggerOpenModal('showAddUsersToGroupChatModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -178,7 +178,7 @@ export class MessagesViewModel {
 
       await ChatModel.addUsersToGroupChat({ chatId: this.chatSelectedId, users: users.map(el => el._id) })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -186,7 +186,7 @@ export class MessagesViewModel {
     try {
       await ChatModel.removeUsersFromGroupChat({ chatId: this.chatSelectedId, users: usersIds })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -208,7 +208,7 @@ export class MessagesViewModel {
         image: imageIsNeedChange ? this.readyImages[0] : state.preview,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -246,7 +246,7 @@ export class MessagesViewModel {
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

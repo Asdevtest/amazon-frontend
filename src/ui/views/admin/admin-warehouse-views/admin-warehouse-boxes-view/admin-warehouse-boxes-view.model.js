@@ -122,7 +122,7 @@ export class AdminWarehouseBoxesViewModel {
 
       this.getBoxes()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -145,7 +145,7 @@ export class AdminWarehouseBoxesViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -160,7 +160,7 @@ export class AdminWarehouseBoxesViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -227,7 +227,7 @@ export class AdminWarehouseBoxesViewModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

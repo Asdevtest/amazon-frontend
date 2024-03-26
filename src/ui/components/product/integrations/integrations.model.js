@@ -14,7 +14,6 @@ import { t } from '@utils/translations'
 export class IntegrationsModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productId = undefined
   product = undefined
@@ -64,10 +63,7 @@ export class IntegrationsModel {
     try {
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      console.error(error)
     }
   }
 
@@ -79,7 +75,7 @@ export class IntegrationsModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -92,7 +88,7 @@ export class IntegrationsModel {
         this.product = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -110,14 +106,11 @@ export class IntegrationsModel {
         this.sellerBoardDailyData = addIdDataConverter(result?.rows)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       if (isRecCall) {
         this.getStockGoodsByFilters()
       } else {
         this.sellerBoardDailyData = []
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
       }
     }
   }
@@ -134,7 +127,7 @@ export class IntegrationsModel {
       this.onTriggerOpenModal('showSuccessModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -150,7 +143,7 @@ export class IntegrationsModel {
     } catch (error) {
       this.onTriggerOpenModal('showInfoModal')
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -162,17 +155,16 @@ export class IntegrationsModel {
         this.sellerBoardData = stockReportDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
 
-      this.sellerBoardData = []
+      runInAction(() => {
+        this.sellerBoardData = []
+      })
     }
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.loadData()
   }

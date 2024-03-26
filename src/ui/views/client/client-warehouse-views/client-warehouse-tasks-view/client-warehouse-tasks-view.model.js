@@ -31,7 +31,6 @@ export class ClientWarehouseTasksViewModel {
 
   nameSearchValue = ''
 
-  currentData = []
   selectedBoxes = []
 
   showConfirmModal = false
@@ -123,7 +122,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -139,7 +138,7 @@ export class ClientWarehouseTasksViewModel {
         this.storekeepersData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -157,7 +156,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -238,8 +237,12 @@ export class ClientWarehouseTasksViewModel {
     })
   }
 
-  getCurrentTaskData() {
-    return toJS(this.tasksMy)
+  get currentData() {
+    return this.tasksMy
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   async loadData() {
@@ -251,7 +254,7 @@ export class ClientWarehouseTasksViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -260,17 +263,13 @@ export class ClientWarehouseTasksViewModel {
     try {
       const task = await StorekeeperModel.getTaskById(item._id)
 
-      const result = await UserModel.getPlatformSettings()
-
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.curOpenedTask = task
       })
 
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -351,7 +350,7 @@ export class ClientWarehouseTasksViewModel {
       })
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.tasksMy = []
       })
@@ -374,7 +373,7 @@ export class ClientWarehouseTasksViewModel {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -437,7 +436,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -491,7 +490,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -501,7 +500,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -511,7 +510,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -521,7 +520,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

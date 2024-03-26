@@ -82,7 +82,7 @@ class OtherModelStatic {
         URL.revokeObjectURL(href)
       })
       .catch(error => {
-        console.log(error)
+        console.error(error)
       })
   }
 
@@ -109,7 +109,7 @@ class OtherModelStatic {
         URL.revokeObjectURL(href)
       })
       .catch(error => {
-        console.log(error)
+        console.error(error)
       })
   }
 

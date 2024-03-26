@@ -86,6 +86,10 @@ export class ClientSentBatchesViewModel {
     return this.batches
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     this.history = history
 
@@ -128,7 +132,7 @@ export class ClientSentBatchesViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -231,7 +235,7 @@ export class ClientSentBatchesViewModel {
         this.storekeepersData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -248,7 +252,8 @@ export class ClientSentBatchesViewModel {
       this.getStorekeepers()
       this.getBatchesPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -278,7 +283,7 @@ export class ClientSentBatchesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -297,21 +302,17 @@ export class ClientSentBatchesViewModel {
         storekeeperId: this.currentStorekeeperId,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = result.count
-
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
-        this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(result.rows, this.platformSettings?.volumeWeightCoefficient)
       })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
-
-      this.setRequestStatus(loadingStatuses.FAILED)
+      runInAction(() => {
+        this.batches = []
+      })
+      console.error(error)
     }
   }
 
@@ -324,18 +325,16 @@ export class ClientSentBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -389,7 +388,7 @@ export class ClientSentBatchesViewModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

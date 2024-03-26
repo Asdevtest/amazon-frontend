@@ -37,11 +37,9 @@ export class BoxesToOrderModel {
   order: IOrderWithAdditionalFields | undefined = undefined
   boxes: IOrderBoxSupplemented[] = []
   currentBox: IBox | undefined = undefined
-  galleryFiles: UploadFileType[] = []
   hsCodeData: IHSCode | undefined = undefined
   platformSettings: IPlatformSettings | undefined = undefined
 
-  showGalleryModal = false
   showBoxModal = false
   showWarningInfoModal = false
   showEditHSCodeModal = false
@@ -93,7 +91,7 @@ export class BoxesToOrderModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
 
       runInAction(() => {
@@ -110,7 +108,7 @@ export class BoxesToOrderModel {
         this.currentBox = box as unknown as IBox
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.currentBox = undefined
@@ -124,7 +122,7 @@ export class BoxesToOrderModel {
 
       this.onToggleModal(ModalNames.BOX)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -148,18 +146,8 @@ export class BoxesToOrderModel {
 
       this.getBoxesOfOrder()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
-  }
-
-  onClickFilesCell = (files?: UploadFileType[]) => {
-    if (files && files.length > 0) {
-      this.galleryFiles = files
-    } else {
-      this.galleryFiles = []
-    }
-
-    this.onToggleModal(ModalNames.GALLERY)
   }
 
   async onClickHsCode(id: string) {
@@ -172,7 +160,7 @@ export class BoxesToOrderModel {
 
       this.onToggleModal(ModalNames.EDIT_HS_CODE)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.hsCodeData = undefined
@@ -196,7 +184,7 @@ export class BoxesToOrderModel {
 
       this.getBoxesOfOrder()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

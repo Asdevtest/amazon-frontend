@@ -4,6 +4,7 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { showDesignerResultBtnStatuses } from '@components/cards/owner-request-proposals-card/owner-request-proposals-card'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
@@ -126,7 +127,10 @@ export const FreelanceRequestDetailsModal = memo(props => {
 
             {isRequestOwner && (
               <div className={styles.buttonsWrapper}>
-                <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
+                <Button
+                  disabled={!showDesignerResultBtnStatuses.includes(requestProposals.proposal.status)}
+                  onClick={() => onClickResultBtn(request)}
+                >
                   {t(TranslationKey.Result)}
                 </Button>
 

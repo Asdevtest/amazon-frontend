@@ -84,7 +84,7 @@ export class HeaderModel {
         targetRoute: `/${UserRoleCodeMapForRoutes[data.role]}/dashboard`,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

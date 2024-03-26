@@ -119,7 +119,7 @@ export class SubUsersViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -175,7 +175,7 @@ export class SubUsersViewModel {
         this.getShops()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -187,7 +187,7 @@ export class SubUsersViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -203,7 +203,7 @@ export class SubUsersViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -216,7 +216,7 @@ export class SubUsersViewModel {
         this.groupPermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -228,7 +228,7 @@ export class SubUsersViewModel {
         this.singlePermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -295,7 +295,7 @@ export class SubUsersViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -340,7 +340,7 @@ export class SubUsersViewModel {
 
       this.onTriggerOpenModal('showWarningModal')
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -349,7 +349,7 @@ export class SubUsersViewModel {
       await this.setPermissionsForUser(subUserId, { permissions, permissionGroups: [] }, allowedItems, currentSpec)
       this.getUsers()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -366,7 +366,7 @@ export class SubUsersViewModel {
 
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.warningInfoModalSettings = {
           isWarning: true,
@@ -391,7 +391,7 @@ export class SubUsersViewModel {
 
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -402,7 +402,7 @@ export class SubUsersViewModel {
 
       this.onTriggerOpenModal('showAddSubUserModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -413,7 +413,7 @@ export class SubUsersViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -437,7 +437,7 @@ export class SubUsersViewModel {
         this.specs = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

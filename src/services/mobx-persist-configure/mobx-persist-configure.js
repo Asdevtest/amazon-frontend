@@ -4,7 +4,7 @@ const setItem = async (key, value) => {
   try {
     localStorage.setItem(key, value)
   } catch (error) {
-    // console.log(error)
+    // console.error(error)
 
     console.warn('Local Storage is full, Please empty data')
   }

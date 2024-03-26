@@ -104,7 +104,7 @@ export class SupervisorProductViewModel {
       await this.getProductById()
       await this.getProductsVariations()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -120,7 +120,7 @@ export class SupervisorProductViewModel {
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
@@ -140,7 +140,7 @@ export class SupervisorProductViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -298,7 +298,7 @@ export class SupervisorProductViewModel {
         this.onTriggerOpenModal('showWarningModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
 
       if (isValidationErrors(error)) {
@@ -308,7 +308,7 @@ export class SupervisorProductViewModel {
           })
         })
       } else {
-        console.log(error)
+        console.error(error)
       }
     }
   }
@@ -351,7 +351,7 @@ export class SupervisorProductViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -438,7 +438,7 @@ export class SupervisorProductViewModel {
       this.onTriggerOpenModal('showWarningModal')
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.setRequestStatus(loadingStatuses.FAILED)
 
       runInAction(() => {

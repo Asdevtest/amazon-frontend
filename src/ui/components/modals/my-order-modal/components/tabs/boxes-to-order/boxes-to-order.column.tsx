@@ -16,12 +16,8 @@ import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/shared/patform-settings'
-import { UploadFileType } from '@typings/shared/upload-file'
 
-export const boxesToOrderColumn = (
-  platformSettings: IPlatformSettings,
-  onClickFilesCell: (files?: UploadFileType[]) => void,
-) => [
+export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
   {
     field: 'status',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
@@ -66,9 +62,7 @@ export const boxesToOrderColumn = (
   {
     field: 'files',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: ({ row }: GridRowModel) => (
-      <FilesCell filesLength={row.images?.length} onClickCell={() => onClickFilesCell(row.images)} />
-    ),
+    renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} />,
     filterable: false,
     sortable: false,
     width: 100,

@@ -29,7 +29,6 @@ export class WarehouseSentBatchesViewModel {
   nameSearchValue = ''
   batches = []
   selectedBatches = []
-  volumeWeightCoefficient = undefined
 
   hsCodeData = {}
 
@@ -38,7 +37,6 @@ export class WarehouseSentBatchesViewModel {
   isArchive = false
 
   rowCount = 0
-  currentData = []
 
   curBatch = {}
   showConfirmModal = false
@@ -88,26 +86,22 @@ export class WarehouseSentBatchesViewModel {
     return UserModel.userInfo
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
+  get currentData() {
+    return this.batches
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => this.batches,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
-    )
-
-    reaction(
       () => this.isArchive,
-      () => {
-        this.loadData()
-      },
+      () => this.loadData(),
     )
   }
 
@@ -196,16 +190,12 @@ export class WarehouseSentBatchesViewModel {
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
-  getCurrentData() {
-    return toJS(this.batches)
-  }
-
   async loadData() {
     try {
       this.getDataGridState()
       await this.getBatchesPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -236,7 +226,7 @@ export class WarehouseSentBatchesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -268,19 +258,14 @@ export class WarehouseSentBatchesViewModel {
         storekeeperId: null,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = result.count
-
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
         this.batches = warehouseBatchesDataConverter(result.rows, result.volumeWeightCoefficient)
       })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.batches = []
@@ -302,21 +287,16 @@ export class WarehouseSentBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-      })
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -344,7 +324,7 @@ export class WarehouseSentBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -389,7 +369,7 @@ export class WarehouseSentBatchesViewModel {
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

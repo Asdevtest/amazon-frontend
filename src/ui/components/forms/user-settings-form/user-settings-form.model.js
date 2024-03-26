@@ -26,7 +26,7 @@ export class UserSettingsModel {
     try {
       await Promise.all([this.getUserSettingsMy(), this.getUserSettingsAvailable()])
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -48,7 +48,7 @@ export class UserSettingsModel {
         this.userSettings = result.data
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -60,7 +60,7 @@ export class UserSettingsModel {
         this.userSettingsAvailable = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -70,7 +70,7 @@ export class UserSettingsModel {
 
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -80,7 +80,7 @@ export class UserSettingsModel {
 
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

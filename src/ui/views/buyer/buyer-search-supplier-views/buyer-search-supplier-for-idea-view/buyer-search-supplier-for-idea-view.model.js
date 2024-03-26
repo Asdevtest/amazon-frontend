@@ -72,16 +72,13 @@ export class BuyerSearchSupplierForIdeaModel {
       runInAction(() => {
         this.requestStatus = loadingStatuses.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getSupplierSearchRequestsVacant() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      runInAction(() => {
-        this.error = undefined
-      })
 
       const result = await IdeaModel.getSupplierSearchRequests()
       runInAction(() => {
@@ -96,12 +93,7 @@ export class BuyerSearchSupplierForIdeaModel {
       runInAction(() => {
         this.supplierSearchRequestsVacant = []
       })
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -119,12 +111,7 @@ export class BuyerSearchSupplierForIdeaModel {
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -139,12 +126,7 @@ export class BuyerSearchSupplierForIdeaModel {
         })
       }
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 

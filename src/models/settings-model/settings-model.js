@@ -63,7 +63,7 @@ class SettingsModelStatic {
           this.isHydrated = isHydrated
         })
       })
-      .catch(error => console.log(error))
+      .catch(error => console.error(error))
     reaction(
       () => this.isHydrated,
 

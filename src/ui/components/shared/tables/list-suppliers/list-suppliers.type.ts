@@ -1,5 +1,4 @@
 export enum ModalNames {
-  GALLERY = 'showGalleryModal',
   SUPPLIER = 'showAddOrEditSupplierModal',
   CALCULATION = 'showSupplierApproximateCalculationsModal',
   CONFIRM = 'showConfirmModal',

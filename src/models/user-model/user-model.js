@@ -165,7 +165,7 @@ class UserModelStatic {
       const response = await restApiService.userApi.apiV1UsersInfoGuidGet({ guid })
       return response.data
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

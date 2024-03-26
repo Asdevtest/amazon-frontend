@@ -23,14 +23,11 @@ import { onSubmitPostImages } from '@utils/upload-files'
 export class ClientExchangeViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   dataToPay = {}
   storekeepers = []
   shopsData = []
-
-  platformSettings = undefined
 
   destinations = []
 
@@ -72,6 +69,10 @@ export class ClientExchangeViewModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -167,7 +168,7 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -188,15 +189,10 @@ export class ClientExchangeViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productsVacant = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -209,7 +205,7 @@ export class ClientExchangeViewModel {
         this.selectedProduct = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -236,19 +232,12 @@ export class ClientExchangeViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   async createOrder(orderObject) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (orderObject.tmpBarCode.length) {
         await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
       } else if (!orderObject.barCode) {
@@ -287,11 +276,7 @@ export class ClientExchangeViewModel {
       })
       await this.updateUserInfo()
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-      throw new Error('Failed to create order')
+      console.error(error)
     }
   }
 
@@ -316,40 +301,26 @@ export class ClientExchangeViewModel {
       this.loadData()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
   async openCreateOrder() {
     try {
-      const [storekeepers, destinations, result] = await Promise.all([
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
         this.getProductById(this.selectedProduct._id),
       ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
-
         this.destinations = destinations
-
-        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -374,12 +345,7 @@ export class ClientExchangeViewModel {
       })
       this.onTriggerOpenModal('showWarningModal')
 
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -399,7 +365,7 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 

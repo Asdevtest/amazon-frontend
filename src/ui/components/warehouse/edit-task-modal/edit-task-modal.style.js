@@ -200,6 +200,8 @@ export const useStyles = makeStyles()(theme => ({
 
   imageFileInputWrapper: {
     width: '690px',
+    display: 'flex',
+    justifyContent: 'center',
 
     [theme.breakpoints.down(1282)]: {
       width: 550,

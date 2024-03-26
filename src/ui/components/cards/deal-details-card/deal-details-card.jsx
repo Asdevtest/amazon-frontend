@@ -1,5 +1,3 @@
-import Linkify from 'react-linkify-always-blank'
-
 import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
@@ -142,9 +140,8 @@ export const DealDetailsCard = ({
           </div>
           <div className={styles.resultWrapper}>
             <Typography className={styles.result}>{t(TranslationKey.Result)}</Typography>
-            <Linkify>
-              <Typography className={styles.resultDescription}>{curProposal?.details.result}</Typography>
-            </Linkify>
+
+            <Typography className={styles.resultDescription}>{curProposal?.details.result}</Typography>
           </div>
           <div className={styles.filesAndTimeWrapper}>
             <SlideshowGallery slidesToShow={2} files={curProposal?.details?.linksToMediaFiles} />

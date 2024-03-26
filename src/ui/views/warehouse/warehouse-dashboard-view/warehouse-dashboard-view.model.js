@@ -11,7 +11,6 @@ import { UserModel } from '@models/user-model'
 export class WarehouseDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   showAddOrEditDestinationModal = false
 
@@ -47,7 +46,7 @@ export class WarehouseDashboardViewModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -66,7 +65,7 @@ export class WarehouseDashboardViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -81,7 +80,7 @@ export class WarehouseDashboardViewModel {
       this.onTriggerOpenModal('showAddOrEditDestinationModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -105,10 +104,7 @@ export class WarehouseDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

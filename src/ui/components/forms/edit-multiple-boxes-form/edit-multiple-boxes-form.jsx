@@ -545,7 +545,7 @@ export const EditMultipleBoxesForm = observer(
                   })}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
                 >
-                  {applyBtnsClicked.tmpBarCode ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.tmpTransparencyFile ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 

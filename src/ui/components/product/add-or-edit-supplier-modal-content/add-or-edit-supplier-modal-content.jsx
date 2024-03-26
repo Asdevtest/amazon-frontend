@@ -59,7 +59,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         setSupplier(response)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
