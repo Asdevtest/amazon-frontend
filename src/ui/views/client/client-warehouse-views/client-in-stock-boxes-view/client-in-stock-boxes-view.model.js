@@ -4,7 +4,6 @@ import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { operationTypes } from '@constants/keys/operation-types'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -29,6 +28,8 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
 
@@ -735,9 +736,9 @@ export class ClientInStockBoxesViewModel {
   onClickDestinationBtn(curDestinationId) {
     this.curDestinationId = curDestinationId
 
-    this.requestStatus = loadingStatuses.IS_LOADING
+    this.requestStatus = loadingStatus.IS_LOADING
     this.getBoxesMy().then(() => {
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.requestStatus = loadingStatus.SUCCESS
     })
   }
 
@@ -766,16 +767,16 @@ export class ClientInStockBoxesViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
       await this.getStorekeepers()
       this.getBoxesMy()
       this.getDestinations()
       this.getShops()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -811,15 +812,15 @@ export class ClientInStockBoxesViewModel {
   onSearchSubmit(searchValue) {
     this.nameSearchValue = searchValue
 
-    this.requestStatus = loadingStatuses.IS_LOADING
+    this.requestStatus = loadingStatus.IS_LOADING
     this.getBoxesMy().then(() => {
-      this.requestStatus = loadingStatuses.SUCCESS
+      this.requestStatus = loadingStatus.SUCCESS
     })
   }
 
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
       })
@@ -875,7 +876,7 @@ export class ClientInStockBoxesViewModel {
           priority,
           reason,
         })
-        this.setRequestStatus(loadingStatuses.SUCCESS)
+        this.setRequestStatus(loadingStatus.SUCCESS)
 
         if (splitBoxesResult) {
           runInAction(() => {
@@ -900,7 +901,7 @@ export class ClientInStockBoxesViewModel {
         this.onModalRedistributeBoxAddNewBox(null)
       }
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -1017,7 +1018,7 @@ export class ClientInStockBoxesViewModel {
 
   async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
       const uploadedShippingLabeles = []
@@ -1133,9 +1134,9 @@ export class ClientInStockBoxesViewModel {
       this.onTriggerOpenModal('showSuccessInfoModal')
 
       this.loadData()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -1150,7 +1151,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   async patchBoxHandler(id, boxData, acceptAction, spliteAction, notShowConfirmModal) {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
 
     spliteAction &&
       (await BoxesModel.editBoxAtClient(id, {
@@ -1168,7 +1169,7 @@ export class ClientInStockBoxesViewModel {
 
     this.openModalAndClear()
 
-    this.setRequestStatus(loadingStatuses.SUCCESS)
+    this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
   async editTariff(id, boxData, isSelectedDestinationNotValid, isSetCurrentDestination) {
@@ -1207,7 +1208,7 @@ export class ClientInStockBoxesViewModel {
 
   async onEditBoxSubmit(id, boxData, sourceData, isMultipleEdit, priority, priorityReason) {
     try {
-      !isMultipleEdit && this.setRequestStatus(loadingStatuses.IS_LOADING)
+      !isMultipleEdit && this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
       })
@@ -1365,9 +1366,9 @@ export class ClientInStockBoxesViewModel {
       !isMultipleEdit && this.onTriggerOpenModal('showEditBoxModal')
       !isMultipleEdit && this.onTriggerOpenModal('showConfirmModal')
 
-      !isMultipleEdit && this.setRequestStatus(loadingStatuses.SUCCESS)
+      !isMultipleEdit && this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      !isMultipleEdit && this.setRequestStatus(loadingStatuses.FAILED)
+      !isMultipleEdit && this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
 
       if (!isMultipleEdit) {
@@ -1387,7 +1388,7 @@ export class ClientInStockBoxesViewModel {
 
   async onClickMerge(boxBody, comment, priority, priorityReason) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       if (boxBody.tmpShippingLabel.length) {
         await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
@@ -1438,7 +1439,7 @@ export class ClientInStockBoxesViewModel {
         reason: priorityReason,
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       await this.getBoxesMy()
 
@@ -1448,7 +1449,7 @@ export class ClientInStockBoxesViewModel {
         this.tmpClientComment = ''
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -1619,7 +1620,7 @@ export class ClientInStockBoxesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
       const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
@@ -1653,9 +1654,9 @@ export class ClientInStockBoxesViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
 
       console.error(error)
     }
@@ -1750,7 +1751,7 @@ export class ClientInStockBoxesViewModel {
 
   async onClickRequestToSendBatch() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const boxesWithoutTariffOrDestinationIds = this.selectedBoxes.filter(boxId => {
         const findBox = this.boxesMy.find(box => box._id === boxId)
@@ -1771,7 +1772,7 @@ export class ClientInStockBoxesViewModel {
 
         this.onTriggerOpenModal('showWarningInfoModal')
 
-        this.setRequestStatus(loadingStatuses.FAILED)
+        this.setRequestStatus(loadingStatus.FAILED)
 
         return
       }
@@ -1786,17 +1787,17 @@ export class ClientInStockBoxesViewModel {
         this.boxesDeliveryCosts = response
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
       this.triggerRequestToSendBatchModal()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
 
   async onClickSendBoxesToBatch() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const boxesSendToBatch = this.selectedBoxes.filter(
         selectedBoxId => this.boxesDeliveryCosts.find(priceObj => priceObj.guid === selectedBoxId)?.deliveryCost,
       )
@@ -1805,7 +1806,7 @@ export class ClientInStockBoxesViewModel {
         this.showRequestToSendBatchModal = false
         this.selectedBoxes = []
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
       this.updateUserInfo()
       this.loadData()
 
@@ -1820,7 +1821,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
 
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -2034,7 +2035,7 @@ export class ClientInStockBoxesViewModel {
         return
       }
 
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const res = await OrderModel.checkPendingOrderByProductGuid(item?.product?._id)
 
@@ -2055,9 +2056,9 @@ export class ClientInStockBoxesViewModel {
       } else {
         await this.onClickContinueBtn(item)
       }
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

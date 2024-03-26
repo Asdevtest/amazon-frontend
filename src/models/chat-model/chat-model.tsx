@@ -2,7 +2,6 @@ import { plainToInstance } from 'class-transformer'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { PaginationDirection } from '@constants/pagination/pagination-direction'
 import { noticeSound } from '@constants/sounds.js'
 
 import { OtherModel } from '@models/other-model'
@@ -25,6 +24,8 @@ import {
 
 import { getTypeAndIndexOfChat } from '@utils/chat'
 import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-checks'
+
+import { PaginationDirection } from '@typings/enums/pagination-direction'
 
 import { ChatContract, SendMessageRequestParamsContract } from './contracts'
 import { ChatMessageContract, TChatMessageDataUniversal } from './contracts/chat-message.contract'

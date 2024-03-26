@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
@@ -10,6 +9,8 @@ import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './admin-feedback-view.style'
 
@@ -42,7 +43,7 @@ export const AdminFeedbackView = observer(({ history }) => {
           rowCount={viewModel.rowCount}
           getRowHeight={() => 'auto'}
           rows={viewModel.currentData}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

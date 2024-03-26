@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { SettingsModel } from '@models/settings-model'
 import { SupervisorModel } from '@models/supervisor-model'
@@ -10,6 +9,8 @@ import { depersonalizedPickColumns } from '@components/table/table-columns/deper
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SupervisorReadyToCheckByClientViewModel {
   history = undefined
@@ -87,7 +88,7 @@ export class SupervisorReadyToCheckByClientViewModel {
 
   async getProductsReadyToCheck() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const isCreatedByClient = true
 
@@ -99,9 +100,9 @@ export class SupervisorReadyToCheckByClientViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
 
       runInAction(() => {

@@ -3,9 +3,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
-import { RequestSubType } from '@constants/requests/request-type'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { FeedbackModel } from '@models/feedback-model'
@@ -23,6 +21,9 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { getLocalToUTCDate } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
+import { RequestSubType } from '@typings/enums/request/request-type'
 
 import { allowStatuses, filtersFields } from './my-requests-view.constants'
 
@@ -370,7 +371,7 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const listingFilters = this.columnMenuSettings?.onListingFiltersData
       const additionalFilters =
         listingFilters?.notOnListing && listingFilters?.onListing
@@ -394,9 +395,9 @@ export class MyRequestsViewModel {
         this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
         this.rowCount = result.count
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -446,7 +447,7 @@ export class MyRequestsViewModel {
 
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await RequestModel.patchRequestsUploadedToListing({
         requestIds: [id],
@@ -465,9 +466,9 @@ export class MyRequestsViewModel {
         }
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -654,7 +655,7 @@ export class MyRequestsViewModel {
   }
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
 
     await RequestModel.updateDeadline(
       this.currentRequestDetails.request._id,
@@ -664,7 +665,7 @@ export class MyRequestsViewModel {
     await this.loadData()
     this.onTriggerOpenModal('showRequestDetailModal')
 
-    this.setRequestStatus(loadingStatuses.SUCCESS)
+    this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
   onClickAbortBtn() {

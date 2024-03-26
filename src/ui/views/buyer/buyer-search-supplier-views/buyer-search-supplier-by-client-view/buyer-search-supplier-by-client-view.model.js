@@ -1,13 +1,13 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { BuyerModel } from '@models/buyer-model'
 
 import { buyerSearchSuppliersViewColumns } from '@components/table/table-columns/buyer/buyer-seach-suppliers-columns'
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class BuyerSearchSupplierByClientModel {
   history = undefined
@@ -60,15 +60,15 @@ export class BuyerSearchSupplierByClientModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.IS_LOADING
+        this.requestStatus = loadingStatus.IS_LOADING
       })
       await this.getProductsVacant()
       runInAction(() => {
-        this.requestStatus = loadingStatuses.SUCCESS
+        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.FAILED
+        this.requestStatus = loadingStatus.FAILED
       })
       console.error(error)
     }
@@ -76,7 +76,10 @@ export class BuyerSearchSupplierByClientModel {
 
   async getProductsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+      runInAction(() => {
+        this.error = undefined
+      })
 
       const isCreatedByClient = true
 
@@ -86,9 +89,9 @@ export class BuyerSearchSupplierByClientModel {
           result.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt')),
         )
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.productsVacant = []

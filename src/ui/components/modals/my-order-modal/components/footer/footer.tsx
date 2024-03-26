@@ -9,7 +9,7 @@ import { ShareIcon } from '@components/shared/svg-icons'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { OrderStatus } from '@typings/enums/order-status'
+import { OrderStatus } from '@typings/enums/order/order-status'
 
 import { useStyles } from './footer.style'
 

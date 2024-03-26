@@ -3,7 +3,6 @@ import { FC } from 'react'
 
 import { Avatar, Typography } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -14,6 +13,8 @@ import {
   sortObjectsArrayByFiledDateWithParseISOAsc,
 } from '@utils/date-time'
 import { t } from '@utils/translations'
+
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { useStyles } from './order-deadline-notification.style'
 

@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
@@ -12,6 +11,8 @@ import { UserModel } from '@models/user-model'
 import { supervisorSettingsViewColumns } from '@components/table/table-columns/supervisor/supervisor-settings-columns/supervisor-settings-columns'
 
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SupervisorSettingsContentModel {
   history = undefined
@@ -110,12 +111,12 @@ export class SupervisorSettingsContentModel {
     try {
       this.selectedRowIds = []
       await this.getAsins(tabIndex)
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

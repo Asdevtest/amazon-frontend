@@ -2,7 +2,6 @@ import { memo } from 'react'
 
 import { Divider } from '@mui/material'
 
-import { requestPriority } from '@constants/requests/request-priority'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,6 +15,8 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
+
+import { RequestPriority } from '@typings/enums/request/request-priority'
 
 import { useStyles } from './servant-general-request-info.style'
 
@@ -61,7 +62,7 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
           <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={request?.request.product.skuByClient} />
 
           <div className={styles.idTitleWrapper}>
-            {request?.request?.priority === requestPriority.urgentPriority && (
+            {request?.request?.priority === RequestPriority.urgentPriority && (
               <div className={styles.urgentWrapper}>
                 <img src="/assets/icons/fire.svg" className={styles.urgentIconSmall} />
               </div>
@@ -145,7 +146,7 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
                 </p>
               )}
 
-              {request?.request?.priority === requestPriority.urgentPriority && (
+              {request?.request?.priority === RequestPriority.urgentPriority && (
                 <div className={styles.urgentWrapper}>
                   <img src="/assets/icons/fire.svg" className={styles.urgentIcon} />
 

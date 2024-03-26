@@ -2,7 +2,6 @@ import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from
 import QueryString from 'qs'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { NotificationType } from '@constants/keys/notifications'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
@@ -14,6 +13,8 @@ import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_MINUTES, ONE_HOUR_IN_SECONDS, ONE_MINUT
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsAbsoluteUrl } from '@utils/checks'
+
+import { Notification } from '@typings/enums/notification'
 
 import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
@@ -444,22 +445,22 @@ export const imagesWithPreviewRegex = new RegExp(`(https?:\\/\\/.*(?:${imgTypes.
 
 export const getHumanFriendlyNotificationType = type => {
   switch (type) {
-    case NotificationType.Box:
+    case Notification.Box:
       return t(TranslationKey.Box)
 
-    case NotificationType.Order:
+    case Notification.Order:
       return t(TranslationKey.Order)
 
-    case NotificationType.Idea:
+    case Notification.Idea:
       return t(TranslationKey.Idea)
 
-    case NotificationType.Request:
+    case Notification.Request:
       return t(TranslationKey.Request)
 
-    case NotificationType.Proposal:
+    case Notification.Proposal:
       return t(TranslationKey.Proposal)
 
-    case NotificationType.Shop:
+    case Notification.Shop:
       return t(TranslationKey.Shop)
 
     default:

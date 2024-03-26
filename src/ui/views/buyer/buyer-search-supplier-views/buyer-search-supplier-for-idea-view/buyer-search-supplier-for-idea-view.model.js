@@ -1,7 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { BuyerModel } from '@models/buyer-model'
 import { IdeaModel } from '@models/ideas-model'
 
@@ -9,6 +7,8 @@ import { buyerSearchSuppliersViewColumns } from '@components/table/table-columns
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class BuyerSearchSupplierForIdeaModel {
   history = undefined
@@ -62,15 +62,15 @@ export class BuyerSearchSupplierForIdeaModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.IS_LOADING
+        this.requestStatus = loadingStatus.IS_LOADING
       })
       await this.getSupplierSearchRequestsVacant()
       runInAction(() => {
-        this.requestStatus = loadingStatuses.SUCCESS
+        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.FAILED
+        this.requestStatus = loadingStatus.FAILED
       })
       console.error(error)
     }
@@ -78,7 +78,10 @@ export class BuyerSearchSupplierForIdeaModel {
 
   async getSupplierSearchRequestsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+      runInAction(() => {
+        this.error = undefined
+      })
 
       const result = await IdeaModel.getSupplierSearchRequests()
       runInAction(() => {
@@ -86,9 +89,9 @@ export class BuyerSearchSupplierForIdeaModel {
           result.sort(sortObjectsArrayByFiledDateWithParseISO('checkedAt')),
         )
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.supplierSearchRequestsVacant = []

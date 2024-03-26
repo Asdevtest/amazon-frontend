@@ -1,10 +1,11 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { AdminDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 // import { AdministratorModel } from '@models/administrator-model'
 import { UserModel } from '@models/user-model'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AdminDashboardViewModel {
   history = undefined
@@ -35,11 +36,11 @@ export class AdminDashboardViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
