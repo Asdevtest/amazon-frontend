@@ -16,7 +16,6 @@ import { SearchInput } from '@components/shared/search-input'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -49,7 +48,6 @@ export const SubUsersView = observer(({ history }) => {
         <Button
           styleType={ButtonStyle.SUCCESS}
           tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
-          className={styles.addUserButton}
           onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
         >
           <CustomPlusIcon />
@@ -62,7 +60,6 @@ export const SubUsersView = observer(({ history }) => {
           disableEnforceFocus
           useResizeContainer
           disableRowSelectionOnClick
-          localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           sortingMode="client"
@@ -83,7 +80,6 @@ export const SubUsersView = observer(({ history }) => {
               },
             },
           }}
-          density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
@@ -98,7 +94,7 @@ export const SubUsersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
       >
         <LinkSubUserForm
-          closeModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
+          onToggleModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
           onSubmit={viewModel.onSubmitlinkSubUser}
         />
       </Modal>
