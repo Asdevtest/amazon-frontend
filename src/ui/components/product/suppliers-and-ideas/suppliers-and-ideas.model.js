@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { IdeaCreate, IdeaPatch, creatSupplier, createProductByClient, patchSuppliers } from '@constants/white-list'
 
@@ -24,6 +23,8 @@ import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteL
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SuppliersAndIdeasModel {
   history = undefined
@@ -160,7 +161,7 @@ export class SuppliersAndIdeasModel {
 
   async getIdeas() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await IdeaModel.getIdeas(this.productId)
 
@@ -168,9 +169,9 @@ export class SuppliersAndIdeasModel {
         this.ideasData = result
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -579,15 +580,15 @@ export class SuppliersAndIdeasModel {
 
   async setRejectStatusHandler(reasonReject) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       IdeaModel.setStatusToReject(this.ideaForReject, { reasonReject })
 
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -631,7 +632,7 @@ export class SuppliersAndIdeasModel {
 
   async onClickSaveSupplierBtn({ supplier, itemId, ideaFormFields, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       supplier = {
         ...supplier,
@@ -704,10 +705,10 @@ export class SuppliersAndIdeasModel {
         this.currentIdeaId = undefined
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -723,7 +724,7 @@ export class SuppliersAndIdeasModel {
 
   async onClickToOrder(idea) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const destinations = await ClientModel.getDestinations()
 
       const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
@@ -734,9 +735,9 @@ export class SuppliersAndIdeasModel {
       })
 
       this.onTriggerOpenModal('showOrderModal')
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -781,8 +782,10 @@ export class SuppliersAndIdeasModel {
 
   async onSubmitOrderProductModal() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+      runInAction(() => {
+        this.error = undefined
+      })
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
@@ -801,10 +804,13 @@ export class SuppliersAndIdeasModel {
 
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
+      runInAction(() => {
+        this.error = error
+      })
     }
   }
 

@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { OrderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserMiniCell } from '@components/data-grid/data-grid-cells'
@@ -12,6 +11,8 @@ import { Select } from '@components/shared/selects/select'
 import { Switch } from '@components/shared/switch'
 
 import { t } from '@utils/translations'
+
+import { OrderPriority } from '@typings/enums/order/order-priority'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 

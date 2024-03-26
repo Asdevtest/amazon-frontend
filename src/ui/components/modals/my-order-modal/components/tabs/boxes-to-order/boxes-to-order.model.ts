@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { GridPaginationModel } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
@@ -16,6 +15,7 @@ import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { IBox } from '@typings/models/boxes/box'
 import { IHSCode } from '@typings/shared/hs-code'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
@@ -31,7 +31,7 @@ interface IOrderBoxSupplemented extends ApiV1BatchesBoxes {
 }
 
 export class BoxesToOrderModel {
-  requestStatus: loadingStatuses = loadingStatuses.SUCCESS
+  requestStatus: loadingStatus = loadingStatus.SUCCESS
   paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
 
   order: IOrderWithAdditionalFields | undefined = undefined
@@ -61,7 +61,7 @@ export class BoxesToOrderModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  setRequestStatus(requestStatus: loadingStatuses) {
+  setRequestStatus(requestStatus: loadingStatus) {
     this.requestStatus = requestStatus
   }
 
@@ -71,7 +71,7 @@ export class BoxesToOrderModel {
 
   async getBoxesOfOrder() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const response = await BoxesModel.getBoxesOfOrder(this.order?._id)
 
@@ -89,10 +89,10 @@ export class BoxesToOrderModel {
         this.boxes = transformedBoxes
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.boxes = []

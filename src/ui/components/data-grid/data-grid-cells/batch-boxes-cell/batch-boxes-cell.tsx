@@ -4,9 +4,9 @@
 import { ProductInfoAbbreviated, ProductInfoExtended } from '..'
 import { FC, Fragment, memo } from 'react'
 
-import { tableProductViewMode } from '@constants/keys/table-product-view'
-
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+
+import { tableProductViewMode } from '@typings/enums/table-product-view'
 
 import { useStyles } from './batch-boxes-cell.style'
 

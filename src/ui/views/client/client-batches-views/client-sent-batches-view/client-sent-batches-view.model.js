@@ -1,10 +1,8 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { tableProductViewMode } from '@constants/keys/table-product-view'
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
@@ -22,6 +20,9 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatus } from '@typings/enums/loading-status'
+import { tableProductViewMode } from '@typings/enums/table-product-view'
 
 import { filtersFields } from './client-sent-batches-view.constants'
 
@@ -251,7 +252,7 @@ export class ClientSentBatchesViewModel {
       this.getBatchesPagMy()
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -287,7 +288,7 @@ export class ClientSentBatchesViewModel {
 
   async getBatchesPagMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
@@ -305,7 +306,7 @@ export class ClientSentBatchesViewModel {
         this.batches = warehouseBatchesDataConverter(result.rows, this.platformSettings?.volumeWeightCoefficient)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.batches = []
@@ -365,7 +366,7 @@ export class ClientSentBatchesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'batches'),
@@ -383,9 +384,9 @@ export class ClientSentBatchesViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

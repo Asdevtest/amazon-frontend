@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { SettingsModel } from '@models/settings-model'
@@ -9,6 +8,8 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { adminTasksViewColumns } from '@components/table/table-columns/admin/tasks-columns'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AdminWarehouseTasksViewModel {
   requestStatus = undefined
@@ -108,7 +109,7 @@ export class AdminWarehouseTasksViewModel {
 
   async getTasks() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await AdministratorModel.getTasksPag({
         limit: this.paginationModel.pageSize,
@@ -123,9 +124,9 @@ export class AdminWarehouseTasksViewModel {
         this.rowsCount = result.count
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
 
       runInAction(() => {
@@ -137,7 +138,7 @@ export class AdminWarehouseTasksViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const task = await StorekeeperModel.getTaskById(item._id)
 
@@ -147,10 +148,10 @@ export class AdminWarehouseTasksViewModel {
 
       this.onTriggerOpenModal('showTaskInfoModal')
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

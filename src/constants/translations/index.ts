@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { LanguageKey } from './language-key'
+import { LanguageKey } from '@typings/enums/language-key'
+
 import { TranslationKey } from './translation-key'
 
 export const translationGetters = {

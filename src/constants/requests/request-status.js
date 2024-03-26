@@ -1,6 +1,6 @@
-import { UiTheme } from '@constants/theme/mui-theme.type'
-
 import { SettingsModel } from '@models/settings-model'
+
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { RequestProposalStatus } from './request-proposal-status'
 

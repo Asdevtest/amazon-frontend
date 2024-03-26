@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -14,6 +13,8 @@ import { Modal } from '@components/shared/modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './orders.style'
 
@@ -89,7 +90,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
           },
         }}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.IS_LOADING}
+        loading={requestStatus === loadingStatus.IS_LOADING}
         onPaginationModelChange={onPaginationModelChange}
         onRowDoubleClick={e => onClickTableRow(e.row)}
         onStateChange={setDataGridState}

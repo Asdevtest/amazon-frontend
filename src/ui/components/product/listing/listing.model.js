@@ -1,7 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { BoxesModel } from '@models/boxes-model'
 import { OtherModel } from '@models/other-model'
 import { ProductModel } from '@models/product-model'
@@ -11,6 +9,8 @@ import { UserModel } from '@models/user-model'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 const fieldsOfProductAllowedToUpdate = [
   'listingName',
@@ -100,15 +100,15 @@ export class ListingModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await this.getProductById()
 
       await Promise.all([this.getBoxes(), this.getPayments()])
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

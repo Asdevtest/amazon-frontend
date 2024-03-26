@@ -14,7 +14,6 @@ import {
   buyerOrderModalSubmitDisabledOrderStatuses,
   getOrderStatusOptionByCode,
 } from '@constants/orders/order-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -47,6 +46,7 @@ import { clearEverythingExceptNumbers, timeToDeadlineInHoursAndMins, toFixed } f
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './edit-order-modal.style'
 
@@ -444,7 +444,7 @@ export const EditOrderModal = memo(
     }
 
     const disableSubmit =
-      requestStatus === loadingStatuses.IS_LOADING ||
+      requestStatus === loadingStatus.IS_LOADING ||
       buyerOrderModalSubmitDisabledOrderStatuses.includes(order.status + '') ||
       !orderFields.orderSupplier ||
       !orderFields?.yuanToDollarRate ||

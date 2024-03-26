@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
@@ -14,6 +13,7 @@ import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/a
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './user-balance.style'
 
@@ -89,7 +89,7 @@ export const UserBalance = observer(({ userId }) => {
           }}
           density={densityModel}
           columns={columnsModel}
-          loading={requestStatus === loadingStatuses.IS_LOADING}
+          loading={requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
           onPaginationModelChange={model.current.onPaginationModelChange}
           onFilterModelChange={onChangeFilterModel}

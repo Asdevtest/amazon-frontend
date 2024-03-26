@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 
 import { SellerBoardModel } from '@models/seller-board-model'
 
@@ -12,6 +11,8 @@ import { clientLast30DaySellerBoardColumns } from '@components/table/table-colum
 import { clientPPCSalesWeekColumns } from '@components/table/table-columns/client/client-ppc-sales-week-columns'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+
+import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 export const getClassParams = (currentShopReport: ShopReportsTabsValues): any => {
   const fieldsForSearch = ['asin', 'sku']

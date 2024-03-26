@@ -4,7 +4,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,6 +21,7 @@ import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
 import { executedStatuses, filtersFields, inTheWorkStatuses, switcherConditions } from './my-proposals-view.constants'
@@ -240,7 +240,7 @@ export class MyProposalsViewModel {
 
   async getRequestsProposalsPagMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const response = await RequestProposalModel.getRequestProposalsPagMy({
         filters: this.getFilters(),
@@ -255,9 +255,9 @@ export class MyProposalsViewModel {
         this.rowCount = response.count
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
 
       runInAction(() => {
@@ -351,7 +351,7 @@ export class MyProposalsViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         this.getTableByColumn(column),
@@ -378,9 +378,9 @@ export class MyProposalsViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

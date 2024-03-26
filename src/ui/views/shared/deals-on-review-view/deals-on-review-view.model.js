@@ -1,13 +1,14 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestSubType, RequestType } from '@constants/requests/request-type'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
+
+import { RequestSubType, RequestType } from '@typings/enums/request/request-type'
 
 export class DealsOnReviewModel {
   history = undefined

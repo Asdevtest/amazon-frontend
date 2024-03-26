@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
@@ -21,6 +20,8 @@ import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class WarehouseMyTasksViewModel {
   history = undefined
@@ -160,13 +161,13 @@ export class WarehouseMyTasksViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.SUCCESS)
+          this.setRequestStatus(loadingStatus.SUCCESS)
         }
       })
     })
@@ -218,7 +219,7 @@ export class WarehouseMyTasksViewModel {
 
   async getTasksMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -261,13 +262,13 @@ export class WarehouseMyTasksViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
       runInAction(() => {
         this.tasksMy = []
       })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -355,7 +356,7 @@ export class WarehouseMyTasksViewModel {
 
   async onClickSolveTask({ task, newBoxes, operationType, comment, photos }) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       for (let i = 0; i < newBoxes.length; i++) {
         const box = getObjectFilteredByKeyArrayBlackList(
@@ -452,13 +453,13 @@ export class WarehouseMyTasksViewModel {
       }
 
       await this.updateTask(this.selectedTask._id, comment)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.onTriggerEditTaskModal()
 
       await Promise.all([UserModel.getUserInfo(), this.getTasksMy()])
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
