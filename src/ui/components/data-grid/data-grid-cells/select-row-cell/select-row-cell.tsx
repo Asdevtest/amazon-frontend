@@ -1,23 +1,52 @@
 import { OpenInNewTabCell } from '..'
 import { FC, memo } from 'react'
 
+import { ArrowDownIcon, ArrowUpIcon, UnPinIcon } from '@components/shared/svg-icons'
+
 import { useStyles } from './select-row-cell.style'
 
 interface SelectRowCellProps {
   checkboxComponent: JSX.Element
   onClickShareIcon: () => void
+  onClickPinRow: (direction: string, isUnpin?: boolean) => void
+  isPinnedTop: boolean
+  isPinnedBottom: boolean
 }
 
-export const SelectRowCell: FC<SelectRowCellProps> = memo(({ checkboxComponent, onClickShareIcon }) => {
-  const { classes: styles } = useStyles()
+export const SelectRowCell: FC<SelectRowCellProps> = memo(
+  ({ isPinnedTop, isPinnedBottom, onClickPinRow, checkboxComponent, onClickShareIcon }) => {
+    const { classes: styles } = useStyles()
 
-  return (
-    <div className={styles.selectRowCellWrapper}>
-      {checkboxComponent}
+    return (
+      <div className={styles.selectRowCellWrapper}>
+        {checkboxComponent}
 
-      <div className={styles.buttonsWrapper}>
-        <OpenInNewTabCell onClickOpenInNewTab={onClickShareIcon} />
+        <div className={styles.buttonsWrapper}>
+          <OpenInNewTabCell onClickOpenInNewTab={onClickShareIcon} />
+        </div>
+
+        <div className={styles.pinRowWrapper}>
+          <button
+            className={styles.pinButton}
+            onClick={e => {
+              e.stopPropagation()
+              onClickPinRow('top', isPinnedTop)
+            }}
+          >
+            {isPinnedTop ? <UnPinIcon /> : <ArrowUpIcon />}
+          </button>
+
+          <button
+            className={styles.pinButton}
+            onClick={e => {
+              e.stopPropagation()
+              onClickPinRow('bottom', isPinnedBottom)
+            }}
+          >
+            {isPinnedBottom ? <UnPinIcon /> : <ArrowDownIcon />}
+          </button>
+        </div>
       </div>
-    </div>
-  )
-})
+    )
+  },
+)

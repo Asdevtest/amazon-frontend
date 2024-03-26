@@ -241,6 +241,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       onClickShowProduct: row => this.onClickShowProduct(row),
       onClickVariationButton: id => this.onClickVariationButton(id),
       onClickTag: tag => this.setActiveProductsTagFromTable(tag),
+      getPinnedRows: () => this.pinnedRows,
+      onClickPinRow: pinnedRows => this.handlePinRow(pinnedRows),
     }
 
     const defaultGetDataMethodOptions = () => ({
@@ -283,13 +285,13 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       }
     }
 
-    const columns = clientInventoryColumns(
+    const columns = clientInventoryColumns({
       barCodeHandlers,
       hsCodeHandlers,
       fourMonthesStockHandlers,
       stockUsHandlers,
       otherHandlers,
-    )
+    })
     const filtersFields = getFilterFields(columns, additionalFilterFields)
 
     super({
@@ -332,14 +334,15 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         return acc
       }, {})
 
-      const newColumns = clientInventoryColumns(
+      const newColumns = clientInventoryColumns({
         barCodeHandlers,
         hsCodeHandlers,
         fourMonthesStockHandlers,
         stockUsHandlers,
         otherHandlers,
         activeFields,
-      )
+      })
+
       const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
 
       this.columnsModel = newColumns
@@ -432,10 +435,9 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         }
 
         const newTableData = []
+        const postfix = '-child'
 
         if (result?.childProducts?.length) {
-          const postfix = '-child'
-
           for (const child of result.childProducts) {
             newTableData.push({
               ...child,
@@ -447,8 +449,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         }
 
         if (result?.parentProduct) {
-          const postfix = '-child'
-
           newTableData.push({
             ...result?.parentProduct,
             id: result?.parentProduct?._id + postfix,
@@ -457,7 +457,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           })
         }
 
-        this.tableData = [...this.tableData, ...newTableData]
+        this.tableData = this.tableData.concat(newTableData)
         this.setRequestStatus(loadingStatuses.SUCCESS)
 
         return !!newTableData?.length

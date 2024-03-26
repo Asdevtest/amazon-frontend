@@ -1,7 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   selectRowCellWrapper: {
+    position: 'relative',
+    height: '100%',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -23,5 +25,24 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'center',
     width: '100%',
     gap: 5,
+  },
+
+  pinRowWrapper: {
+    position: 'absolute',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+    bottom: '5px',
+    // right: '0',
+    right: '25%',
+    transform: 'translateX(50%)',
+  },
+
+  pinButton: {
+    svg: {
+      width: '9px !important',
+      height: '9px !important',
+      color: theme.palette.primary.main,
+    },
   },
 }))

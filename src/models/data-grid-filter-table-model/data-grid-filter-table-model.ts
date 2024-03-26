@@ -2,6 +2,7 @@
 import { makeObservable, runInAction } from 'mobx'
 
 import { GridColDef } from '@mui/x-data-grid'
+import { GridPinnedColumns } from '@mui/x-data-grid-premium'
 
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
@@ -11,6 +12,7 @@ import { GeneralModel } from '@models/general-model'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
+import { IPinnedRows } from './data-grid-filter-table-model.type'
 import { observerConfig } from './observer-config'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
@@ -74,6 +76,17 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this._additionalPropertiesGetFilters = additionalProperties
   }
 
+  _pinnedRows: IPinnedRows = {
+    top: [],
+    bottom: [],
+  }
+  get pinnedRows() {
+    return this._pinnedRows
+  }
+  set pinnedRows(pinnedRows: IPinnedRows) {
+    this._pinnedRows = pinnedRows
+  }
+
   constructor({
     getMainDataMethod,
     columnsModel,
@@ -117,13 +130,26 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       onClickFilterBtn: (field: string, table: string) => this.onClickFilterBtn(field, table),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),
       onClickAccept: () => this.getMainTableData(),
+      onClickPinButton: (pinnedColumns: GridPinnedColumns) => this.handlePinColumn(pinnedColumns),
 
+      pinnedColumns: {
+        left: [],
+        right: [],
+      },
       filterRequestStatus: loadingStatuses.SUCCESS,
 
       ...additionalProperties,
 
       ...dataGridFiltersInitializer(filtersFields),
     }
+  }
+
+  handlePinRow(pinnedRows: IPinnedRows) {
+    this.pinnedRows = pinnedRows
+  }
+
+  handlePinColumn(pinnedColumns: GridPinnedColumns) {
+    this.columnMenuSettings.pinnedColumns = pinnedColumns
   }
 
   async onClickFilterBtn(column: string, table: string) {

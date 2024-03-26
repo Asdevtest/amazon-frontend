@@ -94,6 +94,8 @@ export const ClientInventoryView = observer(({ history }) => {
           treeData
           checkboxSelection
           disableRowSelectionOnClick
+          pinnedRows={viewModel.pinnedRows}
+          pinnedColumns={viewModel.columnMenuSettings.pinnedColumns}
           getTreeDataPath={row => row?.hierarchy}
           groupingColDef={groupingColDef(viewModel.onClickGetChildProducts)}
           getCellClassName={getCellClassName}

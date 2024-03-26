@@ -32,23 +32,48 @@ import { t } from '@utils/translations'
 import { complexCells } from './cell-types'
 import { getCellType } from './helpers/get-cell-type'
 
-export const clientInventoryColumns = (
+export const clientInventoryColumns = ({
   barCodeHandlers,
   hsCodeHandlers,
   fourMonthesStockHandlers,
   stockUsHandlers,
   otherHandlers,
   additionalFields,
-) => {
+}) => {
   const defaultColumns = [
     {
       ...GRID_CHECKBOX_SELECTION_COL_DEF,
-      renderCell: params => (
-        <SelectRowCell
-          checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
-          onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?._id)}
-        />
-      ),
+      renderCell: params => {
+        const pinnedRows = otherHandlers.getPinnedRows()
+        const isPinnedTop = pinnedRows?.top?.findIndex(item => item?.id && item?.id === params.row?.id) !== -1
+        const isPinnedBottom = pinnedRows?.bottom?.findIndex(item => params.id && item?.id === params.id) !== -1
+
+        return (
+          <SelectRowCell
+            isPinnedTop={isPinnedTop}
+            isPinnedBottom={isPinnedBottom}
+            checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+            onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?._id)}
+            onClickPinRow={(direction, isPinned) => {
+              const newPinnedRows = { ...pinnedRows }
+
+              if (isPinned) {
+                for (const side in newPinnedRows) {
+                  if (side) {
+                    newPinnedRows[side] = newPinnedRows[side].filter(item => item?.id !== params?.row?.id)
+                  }
+                }
+              } else {
+                const sideToUnpin = direction === 'top' ? 'bottom' : 'top'
+
+                newPinnedRows?.[direction]?.push(params?.row)
+                newPinnedRows[sideToUnpin] = newPinnedRows?.[sideToUnpin]?.filter(item => item?.id !== params?.row?.id)
+              }
+              otherHandlers.onClickPinRow(newPinnedRows)
+            }}
+          />
+        )
+      },
       width: 80,
       disableCustomSort: true,
       hide: true,
