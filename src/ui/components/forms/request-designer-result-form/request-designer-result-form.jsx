@@ -5,23 +5,25 @@ import { v4 as uuid } from 'uuid'
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { Accordion, AccordionDetails, AccordionSummary, Avatar, Tooltip, Typography, Zoom } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Button } from '@components/shared/button'
+import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
+import { SlideByType } from '@components/shared/slide-by-type'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { isString } from '@typings/guards'
 
 import { useScrollToFile } from '@hooks/use-scroll-to-file'
 
@@ -50,7 +52,7 @@ const Slot = ({
 }) => {
   const { classes: styles, cx } = useStyles()
 
-  const [{ isDragging }, drag] = useDrag({
+  const [, drag] = useDrag({
     item: { type: 'slot', id: slot?._id, index },
     type: 'slot',
     collect: monitor => ({
@@ -81,128 +83,98 @@ const Slot = ({
     },
   })
 
-  const opacity = isDragging ? 0.4 : 1
+  const mediaFile = isString(slot.fileLink) ? getAmazonImageUrl(slot.fileLink) : slot.fileLink?.data_url
 
   return (
-    <div ref={drop}>
-      <div style={{ opacity }} className={styles.imageObjWrapper}>
-        <Tooltip
-          arrow
-          title={
-            getFileNameFromUrl(typeof slot.fileLink === 'string' ? slot.fileLink : slot.fileLink?.file?.name)?.fullName
-          }
-          placement="right-end"
-          TransitionComponent={Zoom}
-          TransitionProps={{ timeout: 300 }}
+    <div ref={drop} className={styles.imageObjWrapper}>
+      <div ref={drag} className={cx(styles.imageWrapper, { [styles.isHaveImage]: !!slot?.fileLink })}>
+        {index === 0 && <img src="/assets/icons/star-main.svg" className={styles.mainStarIcon} />}
+
+        <div
+          className={styles.removeIconWrapper}
+          onClick={e => {
+            e.stopPropagation()
+
+            onClickRemoveItem(slot)
+          }}
         >
-          <div
-            ref={drag}
-            className={cx(
-              styles.imageWrapper,
+          {slot.fileLink ? (
+            <CrossInRectangleIcon className={styles.removeIcon} />
+          ) : (
+            <CloseOutlinedIcon className={styles.removeIcon} />
+          )}
+        </div>
 
-              { [styles.isHaveImage]: !!slot?.fileLink },
-              { [styles.mainImageWrapper]: index === 0 },
-            )}
-          >
-            {index === 0 && <img src="/assets/icons/star-main.svg" className={styles.mainStarIcon} />}
-
-            <div
-              className={styles.removeIconWrapper}
-              onClick={e => {
-                e.stopPropagation()
-
-                onClickRemoveItem(slot)
-              }}
-            >
-              {slot.fileLink ? (
-                <CrossInRectangleIcon className={styles.removeIcon} />
-              ) : (
-                <CloseOutlinedIcon className={styles.removeIcon} />
-              )}
-            </div>
-            {slot.fileLink ? (
-              <div className={styles.imageListItem}>
-                <Avatar
+        {slot.fileLink ? (
+          <div className={styles.imageListItem}>
+            <SlideByType
+              mediaFile={mediaFile}
+              mediaFileIndex={index}
+              ImageComponent={({ src, alt }) => (
+                <img
+                  src={src}
+                  alt={isRework ? '' : alt}
                   className={styles.image}
-                  classes={{ img: styles.image }}
-                  src={
-                    typeof slot.fileLink === 'string'
-                      ? checkIsMediaFileLink(slot.fileLink)
-                        ? getAmazonImageUrl(slot.fileLink, false)
-                        : '/assets/icons/file.png'
-                      : slot.fileLink?.file?.type.includes('image')
-                      ? slot.fileLink?.data_url
-                      : '/assets/icons/file.png'
-                  }
-                  alt={isRework ? '' : slot.fileLink?.file?.name}
-                  variant="square"
                   onClick={() => {
                     setCurImageIndex(index)
-
-                    if (checkIsMediaFileLink(slot.fileLink?.file?.name || slot.fileLink)) {
-                      setShowImageModal(!showImageModal)
-                    } else {
-                      window.open(slot.fileLink?.data_url || getAmazonImageUrl(slot.fileLink), '__blank')
-                    }
+                    setShowImageModal(!showImageModal)
                   }}
                 />
-              </div>
-            ) : (
-              <div className={styles.imageSubWrapper}>
-                <div className={styles.cameraIconWrapper}>
-                  <PhotoCameraWithPlus className={styles.cameraIcon} />
-                </div>
+              )}
+              VideoComponent={({ videoSource }) => (
+                <VideoPreloader
+                  videoSource={videoSource}
+                  onClick={() => {
+                    setCurImageIndex(index)
+                    setShowImageModal(!showImageModal)
+                  }}
+                />
+              )}
+              FileComponent={({ documentLink, fileExtension }) => (
+                <a href={documentLink} target="_blank" rel="noreferrer noopener" className={styles.document}>
+                  <CustomFileIcon fileExtension={fileExtension} height="100%" />
+                  <span className={styles.linkText}>{documentLink}</span>
+                </a>
+              )}
+            />
+          </div>
+        ) : (
+          <div className={styles.imageSubWrapper}>
+            <div className={styles.cameraIconWrapper}>
+              <PhotoCameraWithPlus className={styles.cameraIcon} />
+            </div>
 
-                <Typography className={cx(styles.imageUploadText)}>{'Upload'}</Typography>
-              </div>
-            )}
+            <Typography className={cx(styles.imageUploadText)}>Upload</Typography>
+
             <input
               multiple
               type="file"
               className={styles.pasteInput}
-              defaultValue={''}
-              // onPaste={e => {
-              //   onPasteFiles(slot._id)(e)
-              // }}
+              defaultValue=""
               onChange={onUploadFile(slot._id)}
-              onClick={e => {
-                setCurImageIndex(index)
-
-                if (slot.fileLink) {
-                  e.preventDefault()
-
-                  if (checkIsMediaFileLink(slot.fileLink?.file?.name || slot.fileLink)) {
-                    setShowImageModal(!showImageModal)
-                  } else {
-                    window.open(slot.fileLink?.data_url || slot.fileLink, '__blank')
-                  }
-                } else {
-                  return e
-                }
-              }}
             />
           </div>
-        </Tooltip>
-
-        <div className={styles.imageObjSubWrapper}>
-          <Typography className={cx(styles.imageObjIndex)}>{index + 1}</Typography>
-
-          <Input
-            multiline
-            inputProps={{ maxLength: 128 }}
-            maxRows={2}
-            variant="filled"
-            className={styles.imageObjInput}
-            classes={{ input: styles.inputComment }}
-            value={slot?.commentByPerformer}
-            onChange={e => onChangeImageFileds('commentByPerformer', slot?._id)(e)}
-          />
-        </div>
-
-        <Typography title={slot?.commentByClient || ''} className={styles.clientComment}>
-          {getShortenStringIfLongerThanCount(slot?.commentByClient, 30)}
-        </Typography>
+        )}
       </div>
+
+      <div className={styles.imageObjSubWrapper}>
+        <Typography className={cx(styles.imageObjIndex)}>{index + 1}</Typography>
+
+        <Input
+          multiline
+          inputProps={{ maxLength: 128 }}
+          maxRows={2}
+          variant="filled"
+          className={styles.imageObjInput}
+          classes={{ input: styles.inputComment }}
+          value={slot?.commentByPerformer}
+          onChange={e => onChangeImageFileds('commentByPerformer', slot?._id)(e)}
+        />
+      </div>
+
+      <Typography title={slot?.commentByClient || ''} className={styles.clientComment}>
+        {getShortenStringIfLongerThanCount(slot?.commentByClient, 30)}
+      </Typography>
     </div>
   )
 }
