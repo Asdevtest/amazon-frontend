@@ -798,7 +798,7 @@ export const EditOrderModal = memo(
 
                 <div className={styles.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
-                    <SlideshowGallery slidesToShow={2} files={trackNumber.files} />
+                    <SlideshowGallery hiddenPreviews slidesToShow={1} files={trackNumber.files} />
                   ) : (
                     <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
                   )}
