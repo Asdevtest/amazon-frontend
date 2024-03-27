@@ -128,7 +128,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
             {isRequestOwner && (
               <div className={styles.buttonsWrapper}>
                 <Button
-                  disabled={!showDesignerResultBtnStatuses.includes(requestProposals.proposal.status)}
+                  disabled={!showDesignerResultBtnStatuses.includes(requestProposals?.proposal?.status)}
                   onClick={() => onClickResultBtn(request)}
                 >
                   {t(TranslationKey.Result)}

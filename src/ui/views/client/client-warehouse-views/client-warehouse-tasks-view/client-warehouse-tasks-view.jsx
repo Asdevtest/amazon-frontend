@@ -103,7 +103,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
           localeText={getLocalizationByLanguageTag()}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentTaskData()}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {
