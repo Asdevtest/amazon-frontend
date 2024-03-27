@@ -562,7 +562,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
             label={t(TranslationKey['Current supplier course'])}
             inputProps={{ maxLength: 8 }}
             containerClasses={styles.rateContainer}
-            labelClasses={cx(styles.rateLabel)}
+            labelClasses={styles.rateLabel}
             inputClasses={styles.courseInput}
             value={tmpSupplier?.yuanRate}
             onChange={onChangeYuanToDollarRate}
