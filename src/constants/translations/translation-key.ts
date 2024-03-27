@@ -2221,5 +2221,6 @@ export enum TranslationKey {
   'No active sessions' = 'No active sessions',
   'Browser not found' = 'Browser not found',
   'Close the access' = 'Close the access',
+  'No user found with this email.' = 'No user found with this email.',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
