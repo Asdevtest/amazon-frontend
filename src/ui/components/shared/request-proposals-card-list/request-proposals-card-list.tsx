@@ -1,7 +1,6 @@
 import { FC, memo } from 'react'
 
 import InboxIcon from '@mui/icons-material/Inbox'
-import { Paper } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -49,19 +48,17 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(
           <p className={styles.proposalsTitle}>{t(TranslationKey['Proposals for the request'])}</p>
           {requestProposals.map((item: ICustomProposal) => (
             <div key={item?.proposal?._id} className={styles.proposalAndChatWrapper}>
-              <Paper>
-                <OwnerRequestProposalsCard
-                  item={item}
-                  request={request}
-                  userInfo={userInfo}
-                  onClickContactWithExecutor={onClickContactWithExecutor}
-                  onClickOrderProposal={onClickOrderProposal}
-                  onClickRejectProposal={onClickRejectProposal}
-                  onClickReview={onClickReview}
-                  onSendInForRework={onSendInForRework}
-                  onReceiveCustomProposal={onReceiveCustomProposal}
-                />
-              </Paper>
+              <OwnerRequestProposalsCard
+                item={item}
+                request={request}
+                userInfo={userInfo}
+                onClickContactWithExecutor={onClickContactWithExecutor}
+                onClickOrderProposal={onClickOrderProposal}
+                onClickRejectProposal={onClickRejectProposal}
+                onClickReview={onClickReview}
+                onSendInForRework={onSendInForRework}
+                onReceiveCustomProposal={onReceiveCustomProposal}
+              />
             </div>
           ))}
         </div>
