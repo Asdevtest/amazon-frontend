@@ -565,7 +565,6 @@ export const CreateOrEditRequestContent = memo(props => {
                   images={images}
                   setImages={setImages}
                   maxNumber={50}
-                  maxHeight={120}
                   addFilesButtonTitle={t(TranslationKey['Add file'])}
                 />
 
