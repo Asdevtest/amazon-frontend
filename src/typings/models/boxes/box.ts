@@ -1,3 +1,5 @@
+import { UploadFileType } from '@typings/shared/upload-file'
+
 import { ICreatedBy } from '../../shared/created-by'
 import { IDestination } from '../../shared/destinations'
 import { IName } from '../../shared/name'
@@ -29,7 +31,7 @@ export interface IBox {
   isShippingLabelAttachedByStorekeeper: boolean
   fbaShipment: string
   fbaNumber: string
-  images: string[]
+  images: UploadFileType[]
   updatedAt: string
   variationTariff: IVariationTariff
   items: IBoxItem[]
