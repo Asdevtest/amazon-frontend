@@ -7,11 +7,12 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
+import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { Field } from '@components/shared/field'
+import { SlideByType } from '@components/shared/slide-by-type'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { formatDateOnlyTime } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -59,10 +60,14 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
                   <div className={styles.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
                 )}
 
-                <img
-                  src={checkIsMediaFileLink(item) ? getAmazonImageUrl(item) : '/assets/icons/file.png'}
-                  alt={`Image ${index}`}
-                  className={styles.image}
+                <SlideByType
+                  mediaFile={item}
+                  mediaFileIndex={index}
+                  ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.image} />}
+                  VideoComponent={({ videoSource }) => (
+                    <VideoPreloader videoSource={videoSource} wrapperClassName={styles.videoPreloader} />
+                  )}
+                  FileComponent={({ fileExtension }) => <CustomFileIcon fileExtension={fileExtension} height="75%" />}
                 />
               </div>
             ))}

@@ -163,12 +163,6 @@ export const useStyles = makeStyles()(theme => ({
     zIndex: 50,
   },
 
-  mainImageWrapper: {
-    position: 'relative',
-    padding: 3,
-    backgroundImage: `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23007BFFFF' strokeWidth='4' strokeDasharray='6%2c 14' strokeDashoffset='90' strokeLinecap='square'/%3e%3c/svg%3e")`,
-  },
-
   imageObjIndex: {
     fontWeight: 700,
     fontSize: 20,
@@ -250,8 +244,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   imageListItem: {
-    width: '100%',
-    height: '100%',
+    width: 161,
+    height: 161,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   imageUploadText: {
@@ -272,13 +269,8 @@ export const useStyles = makeStyles()(theme => ({
   image: {
     width: '100%',
     height: '100%',
-    objectFit: 'contain',
-    background: theme.palette.background.general,
-    transition: '.3s ease',
+    objectFit: 'container',
     cursor: 'pointer',
-    '&: hover': {
-      transform: 'scale(1.05)',
-    },
   },
 
   imagesModalBtn: {
@@ -320,5 +312,34 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     gap: 30,
+  },
+
+  document: {
+    position: 'relative',
+    height: '75%',
+    width: '75%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'opacity 0.3s ease-in-out',
+
+    '&:hover': {
+      button: {
+        opacity: 0.3,
+      },
+
+      span: {
+        opacity: 1,
+      },
+    },
+  },
+
+  linkText: {
+    position: 'absolute',
+    width: '100%',
+    textAlign: 'center',
+    opacity: 0,
+    transition: 'opacity 0.3s ease-in-out',
+    wordBreak: 'break-all',
   },
 }))
