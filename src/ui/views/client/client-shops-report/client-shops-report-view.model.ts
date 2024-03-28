@@ -24,7 +24,7 @@ import { getClassParams } from './helpers/get-class-params'
 import { observerConfig } from './observer.config'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
-  _tabKey = ShopReportsTabsValues.PPC
+  _tabKey = ShopReportsTabsValues.PPC_ORGANIC_BY_DAY
   get tabKey() {
     return this._tabKey
   }
@@ -73,6 +73,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
     super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, fieldsForSearch, tableKey)
 
+    this.tabKey = currentTabsValues
     this.getDataGridState()
 
     makeObservable(this, observerConfig)
