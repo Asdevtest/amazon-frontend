@@ -28,7 +28,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   isDraftRow: {
-    opacity: '.5',
+    opacity: '.8',
   },
 
   tableWrapper: {
