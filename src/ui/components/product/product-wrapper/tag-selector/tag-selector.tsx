@@ -84,8 +84,7 @@ export const TagSelector: FC<TagSelectorProps> = memo(props => {
             renderInput={params => (
               <TextField
                 {...params}
-                style={{ width: '100%' }}
-                label={placeholder}
+                placeholder={placeholder}
                 value={textValue}
                 onInput={(event: ChangeEvent<HTMLInputElement>) => {
                   setTextValue(event.target.value)
