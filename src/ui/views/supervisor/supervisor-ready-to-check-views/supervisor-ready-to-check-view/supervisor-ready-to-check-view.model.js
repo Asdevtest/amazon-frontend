@@ -4,8 +4,8 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import { SettingsModel } from '@models/settings-model'
 import { SupervisorModel } from '@models/supervisor-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { depersonalizedPickColumns } from '@components/table/table-columns/depersonalized-pick-columns'
 
@@ -51,11 +51,11 @@ export class SupervisorReadyToCheckViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

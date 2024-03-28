@@ -12,8 +12,8 @@ import { BoxesModel } from '@models/boxes-model'
 import { BuyerModel } from '@models/buyer-model'
 import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { SupplierModel } from '@models/supplier-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { BuyerReadyForPaymentColumns } from '@components/table/table-columns/buyer/buyer-ready-for-payment-columns'
@@ -509,11 +509,11 @@ export class BuyerMyOrdersViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
+    TableSettingsModel.saveTableSettings(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[this.setDataGridTablesKeys(this.history.location.pathname)]
+    const state = TableSettingsModel.getTableSettings(this.setDataGridTablesKeys(this.history.location.pathname))
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

@@ -11,7 +11,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { FreelancerMyProposalsColumns } from '@components/table/table-columns/freelancer/freelancer-my-proposals-columns'
@@ -186,11 +186,11 @@ export class MyProposalsViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.FREELANCER_MY_PROPOSALS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.FREELANCER_MY_PROPOSALS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.FREELANCER_MY_PROPOSALS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.FREELANCER_MY_PROPOSALS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

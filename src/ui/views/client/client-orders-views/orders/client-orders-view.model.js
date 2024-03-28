@@ -15,6 +15,7 @@ import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { MyOrderModalSwitcherConditions } from '@components/modals/my-order-modal/components/tabs/tabs.type'
@@ -272,11 +273,11 @@ export class ClientOrdersViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, this.getDataGridTableKey(this.history.location.pathname))
+    TableSettingsModel.saveTableSettings(requestState, this.getDataGridTableKey(this.history.location.pathname))
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[this.getDataGridTableKey(this.history.location.pathname)]
+    const state = TableSettingsModel.getTableSettings(this.getDataGridTableKey(this.history.location.pathname))
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

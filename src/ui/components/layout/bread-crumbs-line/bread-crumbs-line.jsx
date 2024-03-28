@@ -6,6 +6,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Typography from '@mui/material/Typography'
 
+import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -30,7 +31,8 @@ export const BreadCrumbsLine = observer(() => {
   const { classes: styles } = useStyles()
   const location = useLocation()
   const history = useHistory()
-  const savedLastCrumbAdditionalText = localStorage.getItem('lastBreadcrumbsText')
+  const breadcrumbsKey = LOCAL_STORAGE_KEYS.LAST_BREADCRUMBS_TEXT
+  const savedLastCrumbAdditionalText = localStorage.getItem(breadcrumbsKey)
   const breadcrumbsAdditionalText = SettingsModel.lastCrumbAdditionalText
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export const BreadCrumbsLine = observer(() => {
 
   useEffect(() => {
     if (breadcrumbsAdditionalText !== undefined) {
-      localStorage.setItem('lastBreadcrumbsText', breadcrumbsAdditionalText)
+      localStorage.setItem(breadcrumbsKey, breadcrumbsAdditionalText)
     }
   }, [breadcrumbsAdditionalText])
 

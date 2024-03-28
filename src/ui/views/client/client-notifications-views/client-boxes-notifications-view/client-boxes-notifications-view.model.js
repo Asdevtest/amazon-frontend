@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { clientBoxesNotificationsViewColumns } from '@components/table/table-columns/client/client-boxes-notifications-columns'
@@ -103,20 +103,18 @@ export class ClientBoxesNotificationsViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onTriggerOpenConfirmModal(row) {

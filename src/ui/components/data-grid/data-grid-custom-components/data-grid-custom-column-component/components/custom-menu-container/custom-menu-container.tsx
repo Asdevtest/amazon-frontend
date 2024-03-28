@@ -12,6 +12,8 @@ interface ICustomMenuContainerProps extends PropsWithChildren, GridColumnMenuPro
 export const CustomMenuContainer: FC<ICustomMenuContainerProps> = memo(({ children, ...props }) => {
   const { hideMenu, colDef, open, pinnedColumns, onClickPinButton } = props
 
+  console.log('pinnedColumns :>> ', pinnedColumns)
+
   return (
     <GridColumnMenuContainer hideMenu={hideMenu} colDef={colDef} open={open}>
       {pinnedColumns ? (

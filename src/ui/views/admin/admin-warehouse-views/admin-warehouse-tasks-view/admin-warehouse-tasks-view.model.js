@@ -4,8 +4,8 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { adminTasksViewColumns } from '@components/table/table-columns/admin/tasks-columns'
@@ -69,11 +69,11 @@ export class AdminWarehouseTasksViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_TASKS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_TASKS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_TASKS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_TASKS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

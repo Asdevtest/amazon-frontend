@@ -5,8 +5,8 @@ import { ProductStatus, ProductStatusByKey, ProductStatusGroups } from '@constan
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { GeneralModel } from '@models/general-model'
-import { SettingsModel } from '@models/settings-model'
 import { SupervisorModel } from '@models/supervisor-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { supervisorProductsViewColumns } from '@components/table/table-columns/supervisor/supervisor-products-columns'
@@ -127,11 +127,11 @@ export class SupervisorProductsViewModel {
       columnVisibilityModel: this.columnVisibilityModel,
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUPERVISOR_PRODUCTS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.SUPERVISOR_PRODUCTS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.SUPERVISOR_PRODUCTS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.SUPERVISOR_PRODUCTS)
 
     if (state) {
       this.sortModel = state.sortModel

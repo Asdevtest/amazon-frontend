@@ -10,8 +10,8 @@ import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { GeneralModel } from '@models/general-model'
 import { OtherModel } from '@models/other-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { clientTasksViewColumns } from '@components/table/table-columns/client/client-tasks-columns'
@@ -194,20 +194,18 @@ export class ClientWarehouseTasksViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {

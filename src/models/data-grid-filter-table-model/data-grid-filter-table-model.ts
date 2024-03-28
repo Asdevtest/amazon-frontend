@@ -8,6 +8,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { GeneralModel } from '@models/general-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
@@ -150,6 +151,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   handlePinColumn(pinnedColumns: GridPinnedColumns) {
     this.columnMenuSettings.pinnedColumns = pinnedColumns
+    this.setDataGridState()
   }
 
   async onClickFilterBtn(column: string, table: string) {
@@ -246,5 +248,39 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   setFilterRequestStatus(requestStatus: loadingStatuses) {
     this.columnMenuSettings.filterRequestStatus = requestStatus
+  }
+
+  setDataGridState() {
+    if (!this._tableKey) return
+
+    const requestState = {
+      sortModel: this.sortModel,
+      filterModel: this.filterModel,
+      paginationModel: this.paginationModel,
+      columnVisibilityModel: this.columnVisibilityModel,
+      pinnedColumns: this.columnMenuSettings?.pinnedColumns,
+    }
+
+    TableSettingsModel.saveTableSettings(requestState, this._tableKey)
+  }
+
+  getDataGridState() {
+    if (!this._tableKey) return
+
+    // @ts-ignore
+    const state = TableSettingsModel.getTableSettings(this._tableKey)
+
+    if (state) {
+      // @ts-ignore
+      this.sortModel = state?.sortModel
+      // @ts-ignore
+      this.filterModel = state?.filterModel
+      // @ts-ignore
+      this.paginationModel = state?.paginationModel
+      // @ts-ignore
+      this.columnVisibilityModel = state?.columnVisibilityModel
+      // @ts-ignore
+      this.columnMenuSettings.pinnedColumns = state?.pinnedColumns
+    }
   }
 }

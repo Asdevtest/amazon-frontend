@@ -72,6 +72,8 @@ export const ClientInventoryView = observer(({ history }) => {
     (!params.row.ideasOnCheck && !!params.row.ideasVerified && styles.ideaRowGreen) ||
     (!!params.row.ideasOnCheck && styles.ideaRowYellow)
 
+  console.log('viewModel.columnMenuSettings :>> ', viewModel.columnMenuSettings)
+
   return (
     <>
       <Header

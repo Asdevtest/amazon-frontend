@@ -4,7 +4,7 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
 import { filterModelInitialValue } from '@models/data-grid-table-model'
 import { OtherModel } from '@models/other-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { financesViewColumns } from '@components/table/table-columns/admin/finances-columns/finances-columns'
 
@@ -74,11 +74,11 @@ export class FinancesViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SHARED_FINANCES)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.SHARED_FINANCES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.SHARED_FINANCES]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.SHARED_FINANCES)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

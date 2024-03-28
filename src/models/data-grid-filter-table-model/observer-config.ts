@@ -31,4 +31,6 @@ export const observerConfig = {
   handlePinRow: action.bound,
 
   getMainTableData: override,
+  setDataGridState: override,
+  getDataGridState: override,
 }

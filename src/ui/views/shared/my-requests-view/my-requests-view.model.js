@@ -12,8 +12,8 @@ import { FeedbackModel } from '@models/feedback-model'
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
-import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { myRequestsViewColumns } from '@components/table/table-columns/overall/my-requests-columns'
@@ -224,11 +224,11 @@ export class MyRequestsViewModel {
       paginationModel: toJS(this.paginationModel),
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.OVERALL_CUSTOM_SEARCH_REQUESTS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

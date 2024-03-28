@@ -9,7 +9,7 @@ import { NotificationType } from '@constants/keys/notifications'
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { GeneralNotificationsColumns } from '@components/table/table-columns/general-notifications-columns/general-notifications-columns'
@@ -145,7 +145,7 @@ export class GeneralNotificationsViewModel {
       columnVisibilityModel: this.columnVisibilityModel,
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.GENERAL_NOTIFICATIONS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.GENERAL_NOTIFICATIONS)
   }
 
   onChangeFilterModel(model: GridFilterModel) {

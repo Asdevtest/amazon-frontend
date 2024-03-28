@@ -15,6 +15,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ModalsModel } from '@models/model-with-modals'
 import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { filterModelInitialValue, paginationModelInitialValue, sortModelInitialValue } from './model-config'
 import { observerConfig } from './observer-config'
@@ -160,12 +161,12 @@ export class DataGridTableModel extends ModalsModel {
       columnVisibilityModel: this.columnVisibilityModel,
     }
 
-    SettingsModel.setDataGridState(requestState, this._tableKey)
+    TableSettingsModel.saveTableSettings(requestState, this._tableKey)
   }
 
   getDataGridState() {
     if (!this._tableKey) return
-    const state = SettingsModel.dataGridState[this._tableKey as keyof typeof SettingsModel.dataGridState]
+    const state = TableSettingsModel.getTableSettings(this._tableKey as keyof typeof SettingsModel.dataGridState)
 
     if (state) {
       // @ts-ignore

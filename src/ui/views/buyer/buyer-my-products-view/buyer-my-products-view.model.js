@@ -6,7 +6,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BuyerModel } from '@models/buyer-model'
 import { GeneralModel } from '@models/general-model'
 import { ResearcherModel } from '@models/researcher-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { buyerProductsViewColumns } from '@components/table/table-columns/buyer/buyer-products-columns'
@@ -161,11 +161,11 @@ export class BuyerMyProductsViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.BUYER_PRODUCTS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.BUYER_PRODUCTS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_PRODUCTS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.BUYER_PRODUCTS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

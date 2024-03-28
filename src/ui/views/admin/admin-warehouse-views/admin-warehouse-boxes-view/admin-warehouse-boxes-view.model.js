@@ -5,7 +5,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { BoxesModel } from '@models/boxes-model'
 import { GeneralModel } from '@models/general-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { adminBoxesViewColumns } from '@components/table/table-columns/admin/boxes-columns'
@@ -98,11 +98,11 @@ export class AdminWarehouseBoxesViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_BOXES)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_BOXES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_BOXES]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_BOXES)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

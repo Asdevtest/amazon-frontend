@@ -6,7 +6,7 @@ import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@const
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ResearcherModel } from '@models/researcher-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { researcherProductsViewColumns } from '@components/table/table-columns/researcher/researcher-products-columns'
@@ -105,11 +105,11 @@ export class ResearcherProductsViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.RESEARCHER_PRODUCTS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.RESEARCHER_PRODUCTS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.RESEARCHER_PRODUCTS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.RESEARCHER_PRODUCTS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

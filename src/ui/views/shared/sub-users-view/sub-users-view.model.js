@@ -9,9 +9,9 @@ import { BuyerModel } from '@models/buyer-model'
 import { ClientModel } from '@models/client-model'
 import { PermissionsModel } from '@models/permissions-model'
 import { ResearcherModel } from '@models/researcher-model'
-import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { SupervisorModel } from '@models/supervisor-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { subUsersColumns } from '@components/table/table-columns/sub-users-columns'
@@ -131,11 +131,11 @@ export class SubUsersViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.OVERALL_SUB_USERS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.OVERALL_SUB_USERS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.OVERALL_SUB_USERS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.OVERALL_SUB_USERS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

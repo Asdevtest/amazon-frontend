@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
 import { filterModelInitialValue } from '@models/data-grid-table-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { buyerFreeOrdersViewColumns } from '@components/table/table-columns/buyer/buyer-fre-orders-columns'
@@ -95,11 +95,11 @@ export class BuyerFreeOrdersViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.BUYER_FREE_ORDERS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.BUYER_FREE_ORDERS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_FREE_ORDERS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.BUYER_FREE_ORDERS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

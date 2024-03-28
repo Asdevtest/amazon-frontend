@@ -5,7 +5,7 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PermissionsModel } from '@models/permissions-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { adminSinglePermissionsColumns } from '@components/table/table-columns/admin/single-permissions-columns'
 
@@ -79,11 +79,11 @@ export class SinglePermissionsModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_SINGLE_PERMISSIONS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_SINGLE_PERMISSIONS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_SINGLE_PERMISSIONS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_SINGLE_PERMISSIONS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

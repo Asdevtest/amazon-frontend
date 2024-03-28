@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ClientModel } from '@models/client-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { WeightBasedLogisticsTariffsColumns } from '@components/table/table-columns/warehouse/weight-based-logistics-tariffs'
@@ -151,20 +152,18 @@ export class LogisticsTariffsModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {

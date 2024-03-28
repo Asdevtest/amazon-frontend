@@ -147,17 +147,15 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         yes: true,
         no: true,
         handleFilters: (yes, no) => {
-          runInAction(() => {
-            this.columnMenuSettings = {
-              ...this.columnMenuSettings,
-              transparencyYesNoFilterData: {
-                ...this.columnMenuSettings.transparencyYesNoFilterData,
-                yes,
-                no,
-              },
-            }
-            this.getMainTableData()
-          })
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            transparencyYesNoFilterData: {
+              ...this.columnMenuSettings.transparencyYesNoFilterData,
+              yes,
+              no,
+            },
+          }
+          this.getMainTableData()
         },
       },
 
@@ -165,17 +163,15 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         yes: true,
         no: true,
         handleFilters: (yes, no) => {
-          runInAction(() => {
-            this.columnMenuSettings = {
-              ...this.columnMenuSettings,
-              childrenYesNoFilterData: {
-                ...this.columnMenuSettings.childrenYesNoFilterData,
-                yes,
-                no,
-              },
-            }
-            this.getMainTableData()
-          })
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            childrenYesNoFilterData: {
+              ...this.columnMenuSettings.childrenYesNoFilterData,
+              yes,
+              no,
+            },
+          }
+          this.getMainTableData()
         },
       },
 
@@ -191,7 +187,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
               isNotNeedPurchaseFilter,
             },
           }
-
           this.getMainTableData()
         },
       },
@@ -206,7 +201,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
               isHaveBarCodeFilter: value,
             },
           }
-
           this.getMainTableData()
         },
       },
@@ -261,24 +255,20 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
             [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true,
           },
         }),
-
         ...(this.columnMenuSettings.transparencyYesNoFilterData.yes &&
         this.columnMenuSettings.transparencyYesNoFilterData.no
           ? {}
           : {
               transparency: { $eq: this.columnMenuSettings.transparencyYesNoFilterData.yes },
             }),
-
         ...(this.columnMenuSettings.childrenYesNoFilterData.yes && this.columnMenuSettings.childrenYesNoFilterData.no
           ? {}
           : {
               isChild: { $eq: this.columnMenuSettings.childrenYesNoFilterData.yes },
             }),
-
         ...(purchaseQuantityAboveZero && {
           purchaseQuantityAboveZero: { $eq: isNeedPurchaseFilter },
         }),
-
         ...(this.isArchive && {
           archive: { $eq: true },
         }),
@@ -312,6 +302,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     defaultHiddenColumns.forEach(el => {
       this.columnVisibilityModel[el] = false
     })
+
+    this.getDataGridState()
 
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive')
@@ -348,6 +340,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.columnsModel = newColumns
       this.filtersFields = newFiltersFields
       this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
+      this.getDataGridState()
     }
 
     reaction(
@@ -568,7 +561,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async loadData() {
     try {
-      this.getDataGridState()
       this.getPresets()
       this.getMainTableData()
     } catch (error) {
