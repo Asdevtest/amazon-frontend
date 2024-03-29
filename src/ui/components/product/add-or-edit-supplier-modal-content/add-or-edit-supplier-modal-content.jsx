@@ -2,7 +2,12 @@ import { memo, useEffect, useState } from 'react'
 
 import { Divider, Grid, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import {
+  inchesCoefficient,
+  poundsWeightCoefficient,
+  unitWeightCoefficient,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -117,6 +122,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
   const handleChange = isUnit => newAlignment => {
     const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
+    const weightMultiplier =
+      newAlignment === unitsOfChangeOptions.US ? 1 / poundsWeightCoefficient : poundsWeightCoefficient
 
     if (isUnit) {
       if (newAlignment !== unitSetting) {
@@ -126,7 +133,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           heightUnit: toFixed(prev?.heightUnit / multiplier || '', 2),
           widthUnit: toFixed(prev?.widthUnit / multiplier || '', 2),
           lengthUnit: toFixed(prev?.lengthUnit / multiplier || '', 2),
-          weighUnit: toFixed(prev?.weighUnit / multiplier || '', 2),
+          weighUnit: toFixed(prev?.weighUnit * weightMultiplier || '', 2),
         }))
 
         setUnitSetting(newAlignment)
@@ -397,7 +404,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
   const unitVolumeWeight = toFixed(
     (tmpSupplier.heightUnit * tmpSupplier.widthUnit * tmpSupplier.lengthUnit) /
-      platformSettings?.volumeWeightCoefficient || '',
+      (unitSetting === unitsOfChangeOptions.EU ? platformSettings?.volumeWeightCoefficient : unitWeightCoefficient),
     2,
   )
 
@@ -763,7 +770,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               length={tmpSupplier.boxProperties.boxLengthCm}
               grossWeigh={tmpSupplier.boxProperties.boxWeighGrossKg}
               optionalWeight={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg / poundsWeightCoefficient || '', 2)}
-              optionalWeightTitle={t(TranslationKey['Weight, Lbs'])}
+              optionalWeightTitle={`${t(TranslationKey.Weight)}, ${t(TranslationKey.lb)}`}
               onChangeSizeMode={handleChange(false)}
               onChangeHeight={onChangeField('boxHeightCm')}
               onChangeWidth={onChangeField('boxWidthCm')}
@@ -826,6 +833,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
           <div className={styles.unitDimensionsWrapper}>
             <Dimensions
+              weighUnit
               title={t(TranslationKey['Package dimensions'])}
               onlyRead={onlyRead}
               sizeMode={unitSetting}
