@@ -10,17 +10,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'start',
     gap: '5px',
     paddingLeft: 5,
-
-    '&:before': {
-      content: '""',
-      backgroundImage: theme.palette.other.ideaProductSheldGreen,
-
-      width: 48,
-      height: 21,
-      posotion: 'absolute',
-      top: 0,
-      left: 0,
-    },
   },
 
   buttonsWrapper: {
@@ -64,7 +53,7 @@ export const useStyles = makeStyles()(theme => ({
 
       width: 48,
       height: 21,
-      posotion: 'absolute',
+      position: 'absolute',
       top: 0,
       left: 0,
     },
@@ -77,7 +66,7 @@ export const useStyles = makeStyles()(theme => ({
 
       width: 48,
       height: 21,
-      posotion: 'absolute',
+      position: 'absolute',
       top: 0,
       left: 0,
     },

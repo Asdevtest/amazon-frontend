@@ -25,10 +25,15 @@ export const SelectRowCell: FC<SelectRowCellProps> = memo(
     checkboxComponent,
     onClickShareIcon,
   }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
     return (
-      <div className={styles.selectRowCellWrapper}>
+      <div
+        className={cx(
+          styles.selectRowCellWrapper,
+          isShowSheldGreen ? styles.ideaRowGreen : isShowSheldYellow ? styles.ideaRowYellow : '',
+        )}
+      >
         {checkboxComponent}
 
         <div className={styles.buttonsWrapper}>
