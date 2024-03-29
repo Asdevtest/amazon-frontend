@@ -221,7 +221,7 @@ export enum TranslationKey {
   'Vacant requests' = 'Vacant requests',
   'My proposals' = 'My proposals',
   'Commodity exchange' = 'Commodity exchange',
-  'Deal exchange' = 'Deal exchange',
+  'Research Exchenge' = 'Research Exchenge',
   'My orders' = 'My orders',
   'Shops' = 'Shops',
   'Notifications' = 'Notifications',
