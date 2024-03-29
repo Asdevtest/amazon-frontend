@@ -4,6 +4,7 @@ import { Divider, Grid, Typography } from '@mui/material'
 
 import {
   inchesCoefficient,
+  poundsCoefficient,
   poundsWeightCoefficient,
   unitWeightCoefficient,
   unitsOfChangeOptions,
@@ -156,12 +157,20 @@ export const AddOrEditSupplierModalContent = memo(props => {
   }
 
   const calculateFieldsToSubmit = () => {
+    const multiplier = unitSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1
+    const weightMultiplier = unitSetting === unitsOfChangeOptions.US ? poundsCoefficient : 1
+
     let res = {
       ...tmpSupplier,
       batchTotalCostInYuan:
         +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
 
       batchTotalCostInDollar: +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
+
+      heightUnit: toFixed(tmpSupplier?.heightUnit * multiplier || '', 2),
+      widthUnit: toFixed(tmpSupplier?.widthUnit * multiplier || '', 2),
+      lengthUnit: toFixed(tmpSupplier?.lengthUnit * multiplier || '', 2),
+      weighUnit: toFixed(tmpSupplier?.weighUnit / weightMultiplier || '', 2),
 
       boxProperties: {
         ...tmpSupplier.boxProperties,
