@@ -18,12 +18,10 @@ import { SlideByType } from '@components/shared/slide-by-type'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
 import { VideoPreloader } from '@components/shared/video-preloader'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
-import { isString } from '@typings/guards'
 
 import { useScrollToFile } from '@hooks/use-scroll-to-file'
 
@@ -83,8 +81,6 @@ const Slot = ({
     },
   })
 
-  const mediaFile = isString(slot.fileLink) ? getAmazonImageUrl(slot.fileLink) : slot.fileLink?.data_url
-
   return (
     <div ref={drop} className={styles.imageObjWrapper}>
       <div ref={drag} className={cx(styles.imageWrapper, { [styles.isHaveImage]: !!slot?.fileLink })}>
@@ -108,7 +104,7 @@ const Slot = ({
         {slot.fileLink ? (
           <div className={styles.imageListItem}>
             <SlideByType
-              mediaFile={mediaFile}
+              mediaFile={slot.fileLink}
               mediaFileIndex={index}
               ImageComponent={({ src, alt }) => (
                 <img
