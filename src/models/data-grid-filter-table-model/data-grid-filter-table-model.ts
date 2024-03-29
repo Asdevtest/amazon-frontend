@@ -14,6 +14,7 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { objectToUrlQs } from '@utils/text'
 
 import { IPinnedRows } from './data-grid-filter-table-model.type'
+import { pinnedRowsInitialValue } from './filter-table-model'
 import { observerConfig } from './observer-config'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
@@ -77,10 +78,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this._additionalPropertiesGetFilters = additionalProperties
   }
 
-  _pinnedRows: IPinnedRows = {
-    top: [],
-    bottom: [],
-  }
+  _pinnedRows: IPinnedRows = pinnedRowsInitialValue
   get pinnedRows() {
     return this._pinnedRows
   }

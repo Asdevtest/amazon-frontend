@@ -13,6 +13,7 @@ import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
+import { pinnedRowsInitialValue } from '@models/data-grid-filter-table-model/filter-table-model'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
 import { OtherModel } from '@models/other-model'
@@ -553,6 +554,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   onTriggerArchive() {
     this.selectedRows = []
+    this.pinnedRows = pinnedRowsInitialValue
 
     this.isArchive ? this.history.push('/client/inventory') : this.history.push('/client/inventory?isArchive=true')
     this.isArchive = this.isArchive ? false : true
