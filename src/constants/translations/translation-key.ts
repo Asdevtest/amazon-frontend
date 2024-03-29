@@ -221,7 +221,7 @@ export enum TranslationKey {
   'Vacant requests' = 'Vacant requests',
   'My proposals' = 'My proposals',
   'Commodity exchange' = 'Commodity exchange',
-  'Deal exchange' = 'Deal exchange',
+  'Research Exchenge' = 'Research Exchenge',
   'My orders' = 'My orders',
   'Shops' = 'Shops',
   'Notifications' = 'Notifications',
@@ -1875,7 +1875,7 @@ export enum TranslationKey {
   'Requests in progress' = 'Requests in progress',
   'Completed requests' = 'Completed requests',
   'EXECUTED_IN_PLURAL_KEY' = 'EXECUTED_IN_PLURAL_KEY',
-  'Search by Title, ASIN, ID' = 'Search by Title, ASIN, ID',
+  'Search by Title, ASIN, SKU, ID' = 'Search by Title, ASIN, SKU, ID',
   'Request result' = 'Request result',
   'Your image recommendations' = 'Your image recommendations',
   'Upload your recommendations for product images.' = 'Upload your recommendations for product images.',
@@ -2216,5 +2216,6 @@ export enum TranslationKey {
   'SEO file' = 'SEO file',
   'Access is denied' = 'Access is denied',
   'Parent' = 'Parent',
+  'China' = 'China',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

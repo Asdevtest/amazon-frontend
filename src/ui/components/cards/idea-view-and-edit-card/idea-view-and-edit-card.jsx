@@ -147,7 +147,7 @@ export const IdeaViewAndEditCard = observer(
     const getFullIdea = () => ({
       ...curIdea,
       status: curIdea?.status,
-      media: curIdea?.linksToMediaFiles?.length ? [...curIdea.linksToMediaFiles] : [],
+      media: curIdea?.linksToMediaFiles?.length ? curIdea.linksToMediaFiles : [],
       comments: curIdea?.comments || '',
       buyerComment: curIdea?.buyerComment || '',
       productName: curIdea?.productName || '',
@@ -265,6 +265,7 @@ export const IdeaViewAndEditCard = observer(
           (sizeSetting === unitsOfChangeOptions.US
             ? roundSafely(formFields?.length * inchesCoefficient)
             : formFields?.length) || 0,
+        media: images,
       }
 
       return res

@@ -223,7 +223,7 @@
   "Vacant requests": "空闲的的请求",
   "My proposals": "我的建议",
   "Commodity exchange": "商品交易所",
-  "Deal exchange": "利润的交易所",
+  "Research Exchenge": "利润的交易所",
   "My orders": "我的订单",
   "Shops": "商店",
   "Notifications": "通知",
@@ -1872,7 +1872,7 @@
   "Requests in progress": "Requests in progress",
   "Completed requests": "Completed requests",
   "EXECUTED_IN_PLURAL_KEY": "Executed",
-  "Search by Title, ASIN, ID": "Search by Title, ASIN, ID",
+  "Search by Title, ASIN, SKU, ID": "Search by Title, ASIN, SKU, ID",
   "Request result": "Request result",
   "Your image recommendations": "Your image recommendations",
   "Upload your recommendations for product images.": "Upload your recommendations for product images.",
@@ -2210,5 +2210,6 @@
   "Select only one SEO file": "Select only one SEO file",
   "SEO file": "SEO file",
   "Access is denied": "Access is denied",
-  "Parent": "Parent"
+  "Parent": "Parent",
+  "China": "China"
 }

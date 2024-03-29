@@ -223,7 +223,7 @@
   "Vacant requests": "Вакантные заявки",
   "My proposals": "Мои предложения",
   "Commodity exchange": "Биржа товаров",
-  "Deal exchange": "Биржа вилок",
+  "Research Exchenge": "Биржа вилок",
   "My orders": "Мои заказы",
   "Shops": "Магазины",
   "Notifications": "Уведомления",
@@ -1873,7 +1873,7 @@
   "Requests in progress": "Заявки в работе",
   "Completed requests": "Исполненные заявки",
   "EXECUTED_IN_PLURAL_KEY": "Исполненные",
-  "Search by Title, ASIN, ID": "Поиск по Названию, ASIN, ID",
+  "Search by Title, ASIN, SKU, ID": "Поиск по Названию, ASIN, SKU, ID",
   "Request result": "Результат заявки",
   "Your image recommendations": "Рекомендации по вашим изображениям",
   "Upload your recommendations for product images.": "Загрузите свои рекомендации по изображениям товаров.",
@@ -2213,5 +2213,6 @@
   "Select only one SEO file": "Выберите только один SEO-файл",
   "SEO file": "SEO-файл",
   "Access is denied": "Доступ ограничен",
-  "Parent": "Родитель"
+  "Parent": "Родитель",
+  "China": "Китай"
 }

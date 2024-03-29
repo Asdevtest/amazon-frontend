@@ -10,6 +10,7 @@ import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
 import { AddOrEditHsCodeInBox } from '@components/forms/add-or-edit-hs-code-in-box-form'
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { EditBoxStorekeeperForm } from '@components/forms/edit-box-storekeeper-form'
+import { EditBoxTasksForm } from '@components/forms/edit-box-tasks-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
 import { MoveBoxToBatchForm } from '@components/forms/move-box-to-batch-form'
@@ -21,7 +22,6 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
-import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-box-tasks-modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
@@ -219,11 +219,11 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         />
       </Modal>
       <Modal openModal={viewModel.showEditBoxModal} setOpenModal={viewModel.onTriggerShowEditBoxModal}>
-        <EditBoxTasksModal
+        <EditBoxTasksForm
           isInStorekeeperWarehouse
+          box={viewModel.curBox}
           volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           setEditModal={viewModel.onTriggerShowEditBoxModal}
-          box={viewModel.curBox}
           storekeeperWarehouseSubmit={viewModel.onSubmitEditBox}
         />
       </Modal>
