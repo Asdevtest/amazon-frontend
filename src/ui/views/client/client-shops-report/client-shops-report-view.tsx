@@ -26,7 +26,7 @@ import { switcherConfig } from './switcher.config'
 export const ClientShopsReportView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC))
+  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY))
   viewModel.initHistory()
 
   useEffect(() => {
