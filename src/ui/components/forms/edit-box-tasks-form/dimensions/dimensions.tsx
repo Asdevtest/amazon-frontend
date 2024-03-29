@@ -6,6 +6,7 @@ import { Field } from '@components/shared/field'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -28,10 +29,14 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
+  const isNormalLength = !Number(box.lengthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.lengthCmWarehouse)
+  const isNormalWidth = !Number(box.widthCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.widthCmWarehouse)
+  const isNormalHeight = !Number(box.heightCmWarehouse) || maxBoxSizeFromOption(sizeSetting, box.heightCmWarehouse)
+
   return (
     <div className={styles.dimensions}>
       <Field
-        error={!Number(box.lengthCmWarehouse)}
+        error={isNormalLength}
         inputProps={{ maxLength: 6 }}
         containerClasses={styles.dimensionContainer}
         labelClasses={styles.label}
@@ -42,7 +47,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
 
       <Field
         inputProps={{ maxLength: 6 }}
-        error={!Number(box.heightCmWarehouse)}
+        error={isNormalHeight}
         containerClasses={styles.dimensionContainer}
         labelClasses={styles.label}
         label={getDimensionLabel(t(TranslationKey.Height), TypeOfDimensions.DIMENSION, sizeSetting)}
@@ -60,7 +65,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
 
       <Field
         inputProps={{ maxLength: 6 }}
-        error={!Number(box.widthCmWarehouse)}
+        error={isNormalWidth}
         containerClasses={styles.dimensionContainer}
         labelClasses={styles.label}
         label={getDimensionLabel(t(TranslationKey.Width), TypeOfDimensions.DIMENSION, sizeSetting)}

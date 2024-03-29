@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   dimensionContainer: {
-    width: 130,
+    width: 170,
     height: 40,
   },
 

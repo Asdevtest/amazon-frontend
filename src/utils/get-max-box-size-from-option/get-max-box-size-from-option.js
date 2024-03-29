@@ -2,11 +2,11 @@ import { inchesCoefficient, maxLengthInputInSizeBox, unitsOfChangeOptions } from
 
 import { toFixed } from '@utils/text'
 
-export const maxBoxSizeFromOption = (sizeSetting, field) => {
+export const maxBoxSizeFromOption = (sizeSetting, fieldValue) => {
   const maxValue =
     sizeSetting === unitsOfChangeOptions.US
       ? toFixed(maxLengthInputInSizeBox / inchesCoefficient)
       : maxLengthInputInSizeBox
 
-  return field > maxValue
+  return Number(fieldValue) > Number(maxValue)
 }

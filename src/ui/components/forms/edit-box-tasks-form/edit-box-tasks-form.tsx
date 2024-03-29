@@ -13,6 +13,7 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -133,7 +134,10 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
     !Number(editingBox.lengthCmWarehouse) ||
     !Number(editingBox.widthCmWarehouse) ||
     !Number(editingBox.heightCmWarehouse) ||
-    !Number(editingBox.weighGrossKgWarehouse)
+    !Number(editingBox.weighGrossKgWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.lengthCmWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.widthCmWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.heightCmWarehouse)
   const weightCoefficient =
     sizeSetting === unitsOfChangeOptions.EU ? volumeWeightCoefficient : volumePoundsWeightCoefficient
 
@@ -161,7 +165,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
         withoutLinks
         fullWidth
         dragAndDropBtnHeight={60}
-        images={box?.images}
+        images={editingBox?.images}
         setImages={setImagesOfBox}
         maxNumber={50}
       />

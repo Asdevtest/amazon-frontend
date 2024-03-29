@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   wrapper: {
     padding: 10,
-    width: 450,
+    width: 570,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
