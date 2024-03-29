@@ -347,6 +347,16 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       () => this.presetsData,
       () => getValidColumns(),
     )
+
+    reaction(
+      () => this.pinnedRows,
+      () => {
+        const validRows = []
+
+        for (const row in this.tableData) {
+        }
+      },
+    )
   }
 
   setDestinationsFavouritesItem(item) {
