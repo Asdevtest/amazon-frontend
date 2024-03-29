@@ -65,8 +65,12 @@ export const clientInventoryColumns = ({
                 }
               } else {
                 const sideToUnpin = direction === 'top' ? 'bottom' : 'top'
+                const rowToPin = {
+                  ...params?.row,
+                  isPinnedRow: true,
+                }
 
-                newPinnedRows?.[direction]?.push(params?.row)
+                newPinnedRows?.[direction]?.push(rowToPin)
                 newPinnedRows[sideToUnpin] = newPinnedRows?.[sideToUnpin]?.filter(item => item?.id !== params?.row?.id)
               }
               otherHandlers.onClickPinRow(newPinnedRows)

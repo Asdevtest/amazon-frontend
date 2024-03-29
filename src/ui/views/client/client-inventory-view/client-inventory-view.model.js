@@ -332,7 +332,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         fourMonthesStockHandlers,
         stockUsHandlers,
         otherHandlers,
-        activeFields,
+        additionalFields: activeFields,
       })
 
       const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)

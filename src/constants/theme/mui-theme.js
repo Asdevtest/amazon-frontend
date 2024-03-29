@@ -459,6 +459,14 @@ export const darkTheme = createTheme({
         columnHeaders: {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
           height: 65,
+
+          '> .MuiDataGrid-pinnedColumnHeaders': {
+            backgroundColor: '#2B2B34',
+          },
+        },
+
+        pinnedRows: {
+          backgroundColor: '#2B2B34',
         },
 
         paper: {
@@ -511,6 +519,10 @@ export const darkTheme = createTheme({
 
         iconSeparator: {
           padding: '0 1px',
+        },
+
+        pinnedColumns: {
+          backgroundColor: '#2B2B34',
         },
       },
     },

@@ -20,7 +20,10 @@ export const TreeDataGroupingCell: FC<TreeDataGroupingCellProps> = memo(props =>
   const apiRef = useGridApiContext()
   const { id, field, rowNode, row } = props
 
-  const showButton = rowNode.parent === 'auto-generated-group-node-root' && (row?.hasChildren || row?.parentProductId)
+  const showButton =
+    rowNode.parent === 'auto-generated-group-node-root' &&
+    (row?.hasChildren || row?.parentProductId) &&
+    !row?.isPinnedRow
 
   const handleClick: ButtonProps['onClick'] = async event => {
     if (rowNode.type === 'group' && rowNode.childrenExpanded) {
