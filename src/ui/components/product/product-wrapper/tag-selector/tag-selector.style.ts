@@ -22,7 +22,7 @@ export const useStyles = makeStyles()(() => ({
       padding: 5,
     },
     '.MuiOutlinedInput-notchedOutline': {
-      borderWidth: '0px !important',
+      borderWidth: '0 !important',
     },
   },
 
