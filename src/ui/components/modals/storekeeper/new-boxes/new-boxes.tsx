@@ -3,11 +3,12 @@ import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { EditBoxTasksForm } from '@components/forms/edit-box-tasks-form'
 import { Modal } from '@components/shared/modal'
-import { EditBoxTasksModal } from '@components/warehouse/edit-task-modal/edit-box-tasks-modal'
 
 import { t } from '@utils/translations'
 
+import { IBox } from '@typings/models/boxes/box'
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useStyles } from './new-boxes.style'
@@ -27,7 +28,7 @@ interface NewBoxesProps {
   setNewBoxes: (box: any) => void
   onClickEditBox: (box: any) => void
   onClickApplyAllBtn: (box: any) => void
-  onTriggerShowEditBoxModalR: (box: any) => void
+  onTriggerShowEditBoxModalR: () => void
   setDestinationsFavouritesItem: (destinationId: string) => void
   onRemoveBox: (boxIndex: string) => void
   onChangeAmountInput: (event: any, guid: string, order: any) => void
@@ -54,7 +55,7 @@ export const NewBoxes: FC<NewBoxesProps> = memo(props => {
     onClickApplyAllBtn,
   } = props
 
-  const [curBox, setCurBox] = useState({})
+  const [curBox, setCurBox] = useState<IBox>(selectedBox)
 
   return (
     <div>
@@ -84,15 +85,12 @@ export const NewBoxes: FC<NewBoxesProps> = memo(props => {
         </div>
       ))}
       <Modal openModal={showEditBoxModalR} setOpenModal={onTriggerShowEditBoxModalR}>
-        <EditBoxTasksModal
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          setEditModal={onTriggerShowEditBoxModalR}
+        <EditBoxTasksForm
           box={curBox}
           newBoxes={newBoxes}
+          volumeWeightCoefficient={volumeWeightCoefficient}
           setNewBoxes={setNewBoxes}
-          isInStorekeeperWarehouse={undefined}
-          operationType={undefined}
-          storekeeperWarehouseSubmit={undefined}
+          setEditModal={onTriggerShowEditBoxModalR}
         />
       </Modal>
     </div>
