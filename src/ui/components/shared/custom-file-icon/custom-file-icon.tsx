@@ -43,10 +43,24 @@ export const CustomFileIcon: FC<CustomFileIconProps> = memo(props => {
   }
 
   useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        if (entry.target === buttonRef.current) {
+          setExtensionSize(entry.contentRect.height / FONT_SIZE_SCALE)
+        }
+      }
+    })
+
     if (buttonRef.current) {
-      setExtensionSize(buttonRef.current.clientHeight / FONT_SIZE_SCALE)
+      resizeObserver.observe(buttonRef.current)
     }
-  }, [fileExtension])
+
+    return () => {
+      if (buttonRef.current) {
+        resizeObserver.unobserve(buttonRef.current)
+      }
+    }
+  }, [])
 
   return (
     <button

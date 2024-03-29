@@ -13,11 +13,8 @@ import { SlideByType } from '@components/shared/slide-by-type'
 import { PencilIcon, PlusIcon } from '@components/shared/svg-icons'
 import { VideoPreloader } from '@components/shared/video-preloader'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { isString } from '@typings/guards'
 
 import { useStyles } from './slot.style'
 
@@ -60,8 +57,6 @@ export const Slot: FC<SlotProps> = memo(props => {
     onClickCommentBtn(item._id)
   }
 
-  const mediaFile = isString(item.fileLink) ? getAmazonImageUrl(item.fileLink) : item.fileLink?.data_url
-
   return (
     <div className={styles.imageObjWrapper}>
       <div className={styles.imageObjSubWrapper}>
@@ -87,7 +82,7 @@ export const Slot: FC<SlotProps> = memo(props => {
 
         <div className={styles.imageListItem}>
           <SlideByType
-            mediaFile={mediaFile}
+            mediaFile={item.fileLink}
             mediaFileIndex={index}
             ImageComponent={({ src, alt }) => (
               <img
