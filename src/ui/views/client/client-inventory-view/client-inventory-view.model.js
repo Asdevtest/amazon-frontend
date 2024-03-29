@@ -295,6 +295,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
       dataModefierMethod: hierarchyDataConverter,
+      saveBaseData: true,
     })
 
     this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
@@ -350,11 +351,13 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     reaction(
       () => this.pinnedRows,
-      () => {
-        const validRows = []
-
-        for (const row in this.tableData) {
-        }
+      async () => {
+        this.tableData = await this.baseTableData?.filter(row => {
+          return (
+            !this.pinnedRows?.bottom?.some(el => el?._id === row?._id) ||
+            !this.pinnedRows?.top?.some(el => el?._id === row?._id)
+          )
+        })
       },
     )
   }

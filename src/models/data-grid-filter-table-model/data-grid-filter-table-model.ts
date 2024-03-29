@@ -88,6 +88,15 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this._pinnedRows = pinnedRows
   }
 
+  _isSaveBaseData = false
+  _baseTableData: any[] = []
+  get baseTableData() {
+    return this._baseTableData
+  }
+  set baseTableData(baseTableData: any[]) {
+    this._baseTableData = baseTableData
+  }
+
   constructor({
     getMainDataMethod,
     columnsModel,
@@ -99,6 +108,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     additionalPropertiesColumnMenuSettings,
     additionalPropertiesGetFilters,
     dataModefierMethod,
+    saveBaseData,
   }: {
     getMainDataMethod: (...args: any) => any
     columnsModel: GridColDef[]
@@ -110,6 +120,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     additionalPropertiesColumnMenuSettings?: any
     additionalPropertiesGetFilters?: any
     dataModefierMethod?: (...args: any) => any
+    saveBaseData?: boolean
   }) {
     super({ getMainDataMethod, columnsModel, tableKey, defaultGetDataMethodOptions, dataModefierMethod })
 
@@ -121,6 +132,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
     if (fieldsForSearch) {
       this._fieldsForSearch = fieldsForSearch
+    }
+
+    if (saveBaseData) {
+      this._isSaveBaseData = saveBaseData
     }
 
     makeObservable(this, observerConfig)
@@ -234,6 +249,11 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
       runInAction(() => {
         this.tableData = result?.rows || result
+
+        if (this._isSaveBaseData) {
+          this.baseTableData = result?.rows || result
+        }
+
         this.rowCount = result?.count || result.length
       })
 

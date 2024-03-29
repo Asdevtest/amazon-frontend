@@ -9,6 +9,8 @@ export const observerConfig = {
   _additionalPropertiesColumnMenuSettings: observable,
   _additionalPropertiesGetFilters: observable,
   _pinnedRows: observable,
+  _isSaveBaseData: observable,
+  _baseTableData: observable,
 
   filtersFields: computed,
   columnMenuSettings: computed,
@@ -19,6 +21,7 @@ export const observerConfig = {
   additionalPropertiesColumnMenuSettings: computed,
   additionalPropertiesGetFilters: computed,
   pinnedRows: computed,
+  baseTableData: computed,
 
   setColumnMenuSettings: action.bound,
   getFilters: action.bound,

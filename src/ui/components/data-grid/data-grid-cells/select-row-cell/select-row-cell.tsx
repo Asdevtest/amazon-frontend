@@ -11,10 +11,20 @@ interface SelectRowCellProps {
   onClickPinRow: (direction: string, isUnpin?: boolean) => void
   isPinnedTop: boolean
   isPinnedBottom: boolean
+  isShowSheldGreen: boolean
+  isShowSheldYellow: boolean
 }
 
 export const SelectRowCell: FC<SelectRowCellProps> = memo(
-  ({ isPinnedTop, isPinnedBottom, onClickPinRow, checkboxComponent, onClickShareIcon }) => {
+  ({
+    isPinnedTop,
+    isPinnedBottom,
+    isShowSheldGreen,
+    isShowSheldYellow,
+    onClickPinRow,
+    checkboxComponent,
+    onClickShareIcon,
+  }) => {
     const { classes: styles } = useStyles()
 
     return (

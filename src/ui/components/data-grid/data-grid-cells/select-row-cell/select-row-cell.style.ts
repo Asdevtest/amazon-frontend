@@ -10,6 +10,17 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'start',
     gap: '5px',
     paddingLeft: 5,
+
+    '&:before': {
+      content: '""',
+      backgroundImage: theme.palette.other.ideaProductSheldGreen,
+
+      width: 48,
+      height: 21,
+      posotion: 'absolute',
+      top: 0,
+      left: 0,
+    },
   },
 
   buttonsWrapper: {
@@ -43,6 +54,32 @@ export const useStyles = makeStyles()(theme => ({
       width: '9px !important',
       height: '9px !important',
       color: theme.palette.primary.main,
+    },
+  },
+
+  ideaRowGreen: {
+    '&:before': {
+      content: '""',
+      backgroundImage: theme.palette.other.ideaProductSheldGreen,
+
+      width: 48,
+      height: 21,
+      posotion: 'absolute',
+      top: 0,
+      left: 0,
+    },
+  },
+
+  ideaRowYellow: {
+    '&:before': {
+      content: '""',
+      backgroundImage: theme.palette.other.ideaProductSheldYellow,
+
+      width: 48,
+      height: 21,
+      posotion: 'absolute',
+      top: 0,
+      left: 0,
     },
   },
 }))

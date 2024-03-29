@@ -47,11 +47,15 @@ export const clientInventoryColumns = ({
         const pinnedRows = otherHandlers.getPinnedRows()
         const isPinnedTop = pinnedRows?.top?.findIndex(item => item?.id && item?.id === params.row?.id) !== -1
         const isPinnedBottom = pinnedRows?.bottom?.findIndex(item => params.id && item?.id === params.id) !== -1
+        const isShowSheldGreen = !params.row.ideasOnCheck && !!params.row.ideasVerified
+        const isShowSheldYellow = !!params.row.ideasOnCheck
 
         return (
           <SelectRowCell
             isPinnedTop={isPinnedTop}
             isPinnedBottom={isPinnedBottom}
+            isShowSheldGreen={isShowSheldGreen}
+            isShowSheldYellow={isShowSheldYellow}
             checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
             onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?._id)}
             onClickPinRow={(direction, isPinned) => {

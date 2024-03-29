@@ -68,10 +68,6 @@ export const ClientInventoryView = observer(({ history }) => {
 
   const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
 
-  const getRowClassName = params =>
-    (!params.row.ideasOnCheck && !!params.row.ideasVerified && styles.ideaRowGreen) ||
-    (!!params.row.ideasOnCheck && styles.ideaRowYellow)
-
   console.log('viewModel.columnMenuSettings :>> ', viewModel.columnMenuSettings)
 
   return (
@@ -101,7 +97,6 @@ export const ClientInventoryView = observer(({ history }) => {
           getTreeDataPath={row => row?.hierarchy}
           groupingColDef={groupingColDef(viewModel.onClickGetChildProducts)}
           getCellClassName={getCellClassName}
-          getRowClassName={getRowClassName}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
