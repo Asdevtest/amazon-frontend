@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { showResultRequestProposalsStatuses } from '@constants/requests/request-proposal-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 
 import { GeneralModel } from '@models/general-model'
@@ -249,7 +250,9 @@ export class FreelanceModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(item._id)
 
-      const proposal = result.find(el => el.proposal.status)
+      const proposal = result
+        ?.filter(proposal => showResultRequestProposalsStatuses.includes(proposal?.proposal?.status))
+        ?.sort((a, b) => new Date(b?.proposal?.updatedAt) - new Date(a?.proposal?.updatedAt))?.[0]
 
       if (!proposal) {
         return

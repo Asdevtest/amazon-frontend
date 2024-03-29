@@ -21,7 +21,6 @@ import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
@@ -102,7 +101,6 @@ export const MyRequestsView = observer(({ history }) => {
 
         <div className={styles.datagridWrapper}>
           <CustomDataGrid
-            localeText={getLocalizationByLanguageTag()}
             getCellClassName={getCellClassName}
             getRowClassName={getRowClassName}
             filterModel={viewModel.filterModel}

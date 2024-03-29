@@ -28,7 +28,7 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './owner-request-proposals-card.style'
 
-export const showDesignerResultBtnStatuses = [
+const showDesignerResultBtnStatuses = [
   RequestProposalStatus.READY_TO_VERIFY,
   RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
   RequestProposalStatus.TO_CORRECT,
