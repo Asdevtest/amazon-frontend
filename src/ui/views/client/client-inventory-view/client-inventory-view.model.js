@@ -361,6 +361,24 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         })
       },
     )
+
+    reaction(
+      () => this.baseTableData,
+      async () => {
+        this.pinnedRows = {
+          top: this.pinnedRows.top?.map(el => {
+            const updatedRow = this.baseTableData?.find(row => row?._id === el?._id)
+
+            return updatedRow
+          }),
+          bottom: this.pinnedRows.bottom?.map(el => {
+            const updatedRow = this.baseTableData?.find(row => row?._id === el?._id)
+
+            return updatedRow
+          }),
+        }
+      },
+    )
   }
 
   setDestinationsFavouritesItem(item) {
@@ -433,7 +451,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.tableData = this.tableData.filter(product => product?.hierarchy[0] !== id || product?.id === id)
       } else {
         this.setRequestStatus(loadingStatuses.IS_LOADING)
-        const result = await ProductModel.getProductsVariationsByGuid(id, true, true)
+        const result = await ProductModel.getProductsVariationsByGuid(id, true, true, this.isArchive)
 
         if (!result?.childProducts?.length && !result?.parentProduct) {
           toast?.error(t(TranslationKey['No data']))

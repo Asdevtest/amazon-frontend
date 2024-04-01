@@ -2217,5 +2217,6 @@ export enum TranslationKey {
   'Access is denied' = 'Access is denied',
   'Parent' = 'Parent',
   'China' = 'China',
+  'Hierarchy' = 'Hierarchy',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

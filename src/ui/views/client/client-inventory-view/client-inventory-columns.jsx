@@ -49,9 +49,11 @@ export const clientInventoryColumns = ({
         const isPinnedBottom = pinnedRows?.bottom?.findIndex(item => params.id && item?.id === params.id) !== -1
         const isShowSheldGreen = !params.row.ideasOnCheck && !!params.row.ideasVerified
         const isShowSheldYellow = !!params.row.ideasOnCheck
+        const isTreeRow = params.row?.isTreeRow
 
         return (
           <SelectRowCell
+            isTreeRow={isTreeRow}
             isPinnedTop={isPinnedTop}
             isPinnedBottom={isPinnedBottom}
             isShowSheldGreen={isShowSheldGreen}

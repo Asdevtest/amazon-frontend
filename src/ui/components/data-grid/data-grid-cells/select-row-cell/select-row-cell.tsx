@@ -13,10 +13,12 @@ interface SelectRowCellProps {
   isPinnedBottom: boolean
   isShowSheldGreen: boolean
   isShowSheldYellow: boolean
+  isTreeRow: boolean
 }
 
 export const SelectRowCell: FC<SelectRowCellProps> = memo(
   ({
+    isTreeRow,
     isPinnedTop,
     isPinnedBottom,
     isShowSheldGreen,
@@ -34,33 +36,35 @@ export const SelectRowCell: FC<SelectRowCellProps> = memo(
           isShowSheldGreen ? styles.ideaRowGreen : isShowSheldYellow ? styles.ideaRowYellow : '',
         )}
       >
-        {checkboxComponent}
+        {isTreeRow ? <div /> : checkboxComponent}
 
         <div className={styles.buttonsWrapper}>
           <OpenInNewTabCell onClickOpenInNewTab={onClickShareIcon} />
         </div>
 
-        <div className={styles.pinRowWrapper}>
-          <button
-            className={styles.pinButton}
-            onClick={e => {
-              e.stopPropagation()
-              onClickPinRow('top', isPinnedTop)
-            }}
-          >
-            {isPinnedTop ? <UnPinIcon /> : <ArrowUpIcon />}
-          </button>
+        {isTreeRow ? null : (
+          <div className={styles.pinRowWrapper}>
+            <button
+              className={styles.pinButton}
+              onClick={e => {
+                e.stopPropagation()
+                onClickPinRow('top', isPinnedTop)
+              }}
+            >
+              {isPinnedTop ? <UnPinIcon /> : <ArrowUpIcon />}
+            </button>
 
-          <button
-            className={styles.pinButton}
-            onClick={e => {
-              e.stopPropagation()
-              onClickPinRow('bottom', isPinnedBottom)
-            }}
-          >
-            {isPinnedBottom ? <UnPinIcon /> : <ArrowDownIcon />}
-          </button>
-        </div>
+            <button
+              className={styles.pinButton}
+              onClick={e => {
+                e.stopPropagation()
+                onClickPinRow('bottom', isPinnedBottom)
+              }}
+            >
+              {isPinnedBottom ? <UnPinIcon /> : <ArrowDownIcon />}
+            </button>
+          </div>
+        )}
       </div>
     )
   },

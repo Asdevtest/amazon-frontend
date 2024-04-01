@@ -53,7 +53,8 @@ export const TreeDataGroupingCell: FC<TreeDataGroupingCellProps> = memo(props =>
     <div className={styles.wrapper}>
       {showButton ? (
         <Button iconButton onClick={handleClick}>
-          {!status.current ? <ArrowDownIcon /> : <ArrowUpIcon />}
+          {/* @ts-ignore */}
+          {status.current && rowNode?.children?.length > 0 ? <ArrowUpIcon /> : <ArrowDownIcon />}
         </Button>
       ) : row?.isTreeRow ? (
         '-'
