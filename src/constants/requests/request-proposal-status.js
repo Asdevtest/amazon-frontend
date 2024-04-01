@@ -204,3 +204,10 @@ export const disabledCancelBtnStatuses = [
   RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
   RequestProposalStatus.EXPIRED,
 ]
+
+export const showResultRequestProposalsStatuses = [
+  RequestProposalStatus.READY_TO_VERIFY,
+  RequestProposalStatus.TO_CORRECT,
+  RequestProposalStatus.CORRECTED,
+  RequestProposalStatus.ACCEPTED_BY_CLIENT,
+]

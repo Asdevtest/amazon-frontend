@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { showResultRequestProposalsStatuses } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,7 +15,6 @@ import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { UserModel } from '@models/user-model'
 
-import { showDesignerResultBtnStatuses } from '@components/cards/owner-request-proposals-card/owner-request-proposals-card'
 import { myRequestsViewColumns } from '@components/table/table-columns/overall/my-requests-columns'
 
 import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
@@ -550,7 +550,7 @@ export class MyRequestsViewModel {
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(id)
 
       const proposal = result
-        ?.filter(proposal => showDesignerResultBtnStatuses.includes(proposal?.proposal?.status))
+        ?.filter(proposal => showResultRequestProposalsStatuses.includes(proposal?.proposal?.status))
         ?.sort((a, b) => new Date(b?.proposal?.updatedAt) - new Date(a?.proposal?.updatedAt))?.[0]
 
       runInAction(() => {
