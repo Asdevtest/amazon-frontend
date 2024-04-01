@@ -816,7 +816,7 @@ export const EditBoxStorekeeperForm = memo(
                 />
 
                 <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput fullWidth images={boxFields.images} setImages={handleChangeImages} maxNumber={50} />
+                  <UploadFilesInput images={boxFields.images} setImages={handleChangeImages} />
                 </div>
 
                 <div className={styles.boxPhotoWrapper}>

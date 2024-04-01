@@ -87,12 +87,11 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
             containerClasses={styles.selectContainer}
             inputComponent={
               <UploadFilesInput
-                withoutTitle
-                fullWidth
+                withoutTitles
                 images={formFields.images}
                 setImages={onChangeField('images')}
                 maxNumber={1}
-                dragAndDropBtnHeight={65}
+                dragAndDropButtonHeight={65}
               />
             }
           />

@@ -558,15 +558,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   </div>
                 )}
 
-                <UploadFilesInput
-                  minimized
-                  fullWidth
-                  withComment
-                  images={images}
-                  setImages={setImages}
-                  maxNumber={50}
-                  addFilesButtonTitle={t(TranslationKey['Add file'])}
-                />
+                <UploadFilesInput minimized withComment images={images} setImages={setImages} />
 
                 <div className={styles.defaultMarginTop}>
                   <Button

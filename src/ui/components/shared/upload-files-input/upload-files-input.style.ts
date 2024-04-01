@@ -1,32 +1,32 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  mainWrapper: {
-    width: 'max-content',
+  wrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
   },
 
-  fullWidth: {
-    width: '100%',
-  },
-
-  oneLineMainWrapper: {
-    flexDirection: 'row',
-  },
-
-  errorText: {
-    fontWeight: 600,
-    color: theme.palette.text.red,
-  },
-
-  controlsWrapper: {
-    width: '100%',
+  minimazed: {
     display: 'flex',
     alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    gap: 20,
+    flexDirection: 'row',
+    gap: 10,
+  },
+
+  linkInputWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: 10,
+  },
+
+  linkInputWrapperMinimazed: {
+    width: '65%',
+  },
+
+  linkInputContainer: {
+    margin: 0,
   },
 
   label: {
@@ -35,44 +35,33 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 5,
   },
 
-  loadInputContainer: {
-    marginBottom: 10,
-  },
-
-  loadInputContainerMinimized: {
-    marginBottom: 0,
-  },
-
-  amazonLinkWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-
-    button: {
-      width: '20%',
-      margin: 0,
-    },
-  },
-
-  loadImageInput: {
-    flexShrink: 1,
-    height: 40,
+  linkInput: {
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 20,
   },
 
-  loadImageInputSmall: {
-    width: '46%',
+  loadButton: {
+    margin: 0,
+    height: 32,
+  },
+
+  uploadInputWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
+  uploadInputWrapperMinimazed: {
+    width: '35%',
   },
 
   attachFiles: {
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.second,
-    marginBottom: 5,
   },
 
-  dragAndDropBtn: {
+  uploadButton: {
     position: 'relative',
     width: '100%',
     height: 80,
@@ -82,28 +71,23 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 20,
     transition: '0.3s ease',
     opacity: 1,
-    cursor: 'pointer',
 
     '&:hover': {
       opacity: 0.8,
     },
   },
 
-  dragingOnDropBtn: {
-    color: theme.palette.primary.main,
-    background: 'rgba(0,255, 0, .3)',
-  },
-
-  minimizedDragAndDropBtn: {
-    height: 40,
+  uploadButtonMinimized: {
+    height: 32,
+    padding: '0 20px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 20,
+    gap: 10,
     color: theme.palette.primary.main,
   },
 
-  pasteInput: {
+  uploadInput: {
     width: '100%',
     height: '100%',
     position: 'absolute',
@@ -114,12 +98,13 @@ export const useStyles = makeStyles()(theme => ({
     cursor: 'pointer',
   },
 
-  actionBtnsWrapper: {
+  buttonsWrapper: {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
 
     button: {
+      height: 32,
       whiteSpace: 'nowrap',
     },
   },
@@ -139,8 +124,8 @@ export const useStyles = makeStyles()(theme => ({
     marginRight: 5,
   },
 
-  imageListWrapper: {
-    width: 380,
+  imagesWrapper: {
+    width: '100%',
     maxHeight: 95,
     overflowY: 'auto',
     display: 'flex',
@@ -148,7 +133,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: 5,
   },
 
-  imageLinkListItem: {
+  imageWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -172,7 +157,7 @@ export const useStyles = makeStyles()(theme => ({
     objectFit: 'cover',
   },
 
-  commentInputContainer: {
+  commentContainer: {
     margin: 0,
     width: 105,
     display: 'flex',
@@ -180,25 +165,31 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  commentInputClasses: {
+  commentClasses: {
     height: 45,
   },
 
-  commentInput: {
+  comment: {
     padding: 5,
     height: 45,
     fontSize: 12,
     lineHeight: '16px',
   },
 
-  actionIconsWrapper: {
+  iconsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: 5,
   },
 
-  actionIcon: {
+  iconButton: {
+    position: 'relative',
+    width: 20,
+    height: 20,
+  },
+
+  icon: {
     cursor: 'pointer',
     transition: '0.3s ease',
     opacity: 1,

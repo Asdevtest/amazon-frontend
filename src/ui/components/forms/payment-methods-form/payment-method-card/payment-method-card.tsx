@@ -88,14 +88,12 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, se
             <SlideshowGallery slidesToShow={2} files={payment?.paymentImages || []} />
           ) : (
             <UploadFilesInput
-              withoutTitle
-              fullWidth
+              withoutTitles
               disabled={readOnly}
-              dragAndDropBtnHeight={40}
+              dragAndDropButtonHeight={40}
               maxHeight={90}
               images={payment.paymentImages}
               setImages={handleChangeImagesForLoad}
-              maxNumber={50}
             />
           )}
         </div>
