@@ -4,7 +4,6 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { showDesignerResultBtnStatuses } from '@components/cards/owner-request-proposals-card/owner-request-proposals-card'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
@@ -127,10 +126,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
 
             {isRequestOwner && (
               <div className={styles.buttonsWrapper}>
-                <Button
-                  disabled={!showDesignerResultBtnStatuses.includes(requestProposals?.proposal?.status)}
-                  onClick={() => onClickResultBtn(request)}
-                >
+                <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
                   {t(TranslationKey.Result)}
                 </Button>
 
@@ -138,11 +134,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
                   variant={ButtonVariant.OUTLINED}
                   onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
                 >
-                  <Checkbox
-                    checked={request?.uploadedToListing}
-                    className={styles.listingButton}
-                    onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
-                  />
+                  <Checkbox checked={request?.uploadedToListing} className={styles.listingButton} />
 
                   <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
                 </Button>

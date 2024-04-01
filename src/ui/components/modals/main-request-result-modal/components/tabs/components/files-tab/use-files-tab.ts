@@ -55,7 +55,7 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
     (fileIndex: number) => {
       if (!isClient) {
         setFields(prevFields => {
-          const media = [...prevFields.media].filter((_, index) => index !== fileIndex)
+          const media = prevFields.media.filter((_, index) => index !== fileIndex)
 
           return {
             ...prevFields,

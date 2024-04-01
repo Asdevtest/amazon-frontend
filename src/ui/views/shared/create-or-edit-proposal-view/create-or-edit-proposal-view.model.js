@@ -15,19 +15,15 @@ export class CreateOrEditProposalViewModel {
   history = undefined
   requestStatus = undefined
 
+  infoModalText = ''
+  uploadedFiles = []
   request = undefined
   proposalToEdit = undefined
+  progressValue = 0
+  showProgress = false
 
   showInfoModal = false
   showResultModal = false
-
-  infoModalText = ''
-
-  uploadedFiles = []
-
-  readyImages = []
-  progressValue = 0
-  showProgress = false
 
   get userInfo() {
     return UserModel.userInfo

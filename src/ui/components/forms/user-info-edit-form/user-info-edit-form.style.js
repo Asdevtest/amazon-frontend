@@ -14,7 +14,6 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 20,
     display: 'flex',
     alignItems: 'center',
-    // justifyContent: 'space-between',
     gap: 20,
   },
 
@@ -28,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
     marginLeft: 'auto',
     lineHeight: '28px',
     fontWeight: 500,
-    color: theme.palette.text.second,
+    color: theme.palette.primary.main,
 
     '&:hover': {
       textDecoration: 'underline',

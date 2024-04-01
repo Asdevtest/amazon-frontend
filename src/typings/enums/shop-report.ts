@@ -5,4 +5,5 @@ export enum ShopReportsTabsValues {
   PPC = 'ppcSalesWeeks',
   INVENTORY_SHIPMENTS = 'inventoryShipments',
   RETURNS = 'returns',
+  PPC_ORGANIC_BY_DAY = 'ppcSalesDays',
 }
