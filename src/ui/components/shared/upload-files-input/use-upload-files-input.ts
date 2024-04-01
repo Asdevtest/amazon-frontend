@@ -116,7 +116,7 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
     setImages(resultFiles)
   }
 
-  const disabledLoadButton = linkInput === '' || images?.length >= maxNumber
+  const disabledLoadButton = linkInput.trim().length === 0 || images?.length >= maxNumber
 
   return {
     currentFileIndex,

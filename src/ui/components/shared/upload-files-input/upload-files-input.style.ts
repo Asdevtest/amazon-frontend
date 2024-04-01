@@ -126,7 +126,7 @@ export const useStyles = makeStyles()(theme => ({
 
   imagesWrapper: {
     width: '100%',
-    maxHeight: 95,
+    height: 95,
     overflowY: 'auto',
     display: 'flex',
     flexWrap: 'wrap',
@@ -159,7 +159,7 @@ export const useStyles = makeStyles()(theme => ({
 
   commentContainer: {
     margin: 0,
-    width: 105,
+    width: 120,
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -184,6 +184,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   iconButton: {
+    display: 'flex',
     position: 'relative',
     width: 20,
     height: 20,

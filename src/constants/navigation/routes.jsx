@@ -1459,12 +1459,12 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
 
-    crumbNameKey: TranslationKey['Deal exchange'],
+    crumbNameKey: TranslationKey['Research Exchenge'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
       activeSubCategory: 0,
-      title: () => t(TranslationKey['Deal exchange']),
+      title: () => t(TranslationKey['Research Exchenge']),
     },
   },
   {
