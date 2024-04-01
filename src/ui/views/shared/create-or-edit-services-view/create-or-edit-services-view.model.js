@@ -39,7 +39,7 @@ export class CreateOrEditServicesViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -47,7 +47,7 @@ export class CreateOrEditServicesViewModel {
     try {
       this.getAnnouncementsDataByGuid()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -69,7 +69,7 @@ export class CreateOrEditServicesViewModel {
         acceptMessage: t(TranslationKey['The service was created']),
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.history.push('/freelancer/freelance/my-services', {
         showAcceptMessage: true,
@@ -97,7 +97,7 @@ export class CreateOrEditServicesViewModel {
         acceptMessage: t(TranslationKey['Service edited']),
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.history.push('/freelancer/freelance/my-services', {
         showAcceptMessage: true,

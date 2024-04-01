@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -21,17 +20,16 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class ClientExchangeViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   dataToPay = {}
   storekeepers = []
   shopsData = []
-
-  platformSettings = undefined
 
   destinations = []
 
@@ -73,6 +71,10 @@ export class ClientExchangeViewModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -158,15 +160,15 @@ export class ClientExchangeViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
       await Promise.all([this.getProductsVacant(), this.getShops()])
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -187,15 +189,10 @@ export class ClientExchangeViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productsVacant = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -208,7 +205,7 @@ export class ClientExchangeViewModel {
         this.selectedProduct = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -235,19 +232,12 @@ export class ClientExchangeViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   async createOrder(orderObject) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (orderObject.tmpBarCode.length) {
         await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
       } else if (!orderObject.barCode) {
@@ -286,17 +276,13 @@ export class ClientExchangeViewModel {
       })
       await this.updateUserInfo()
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-      throw new Error('Failed to create order')
+      console.error(error)
     }
   }
 
   async onLaunchPrivateLabel() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const requestProduct = getObjectFilteredByKeyArrayBlackList({ ...this.ordersDataStateToSubmit }, [
         'tmpResearcherName',
@@ -305,7 +291,7 @@ export class ClientExchangeViewModel {
       ])
 
       await this.createOrder(requestProduct)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.onTriggerOpenModal('showOrderModal')
       this.onTriggerOpenModal('showSuccessModal')
@@ -314,8 +300,8 @@ export class ClientExchangeViewModel {
 
       this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message
@@ -326,29 +312,20 @@ export class ClientExchangeViewModel {
 
   async openCreateOrder() {
     try {
-      const [storekeepers, destinations, result] = await Promise.all([
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
         this.getProductById(this.selectedProduct._id),
       ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
-
         this.destinations = destinations
-
-        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -373,18 +350,13 @@ export class ClientExchangeViewModel {
       })
       this.onTriggerOpenModal('showWarningModal')
 
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
   async onSaveProductData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.updateProduct(
         this.selectedProduct._id,
@@ -395,10 +367,10 @@ export class ClientExchangeViewModel {
           ['suppliers'],
         ),
       )
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 

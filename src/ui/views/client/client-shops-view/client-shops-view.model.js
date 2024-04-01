@@ -1,7 +1,6 @@
 import { makeObservable } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -11,6 +10,8 @@ import { ShopModel } from '@models/shop-model'
 import { shopsColumns } from '@components/table/table-columns/shops-columns'
 
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { observerConfig } from './model-config'
 
@@ -51,7 +52,7 @@ export class ShopsViewModel extends DataGridTableModel {
     try {
       const isMoreThenThree = this.selectedRows?.length > 3
 
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       await ClientModel.updateShops(this.selectedRows, isMoreThenThree)
 
       if (isMoreThenThree) {
@@ -62,13 +63,13 @@ export class ShopsViewModel extends DataGridTableModel {
 
       this.selectedRows = []
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       toast.error(t(TranslationKey['Something went wrong']))
 
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -79,7 +80,7 @@ export class ShopsViewModel extends DataGridTableModel {
 
   async createShop(data, shopId) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       if (!data.reportAccountUrl) {
         delete data.reportAccountUrl
@@ -96,10 +97,10 @@ export class ShopsViewModel extends DataGridTableModel {
       }
 
       this.getMainTableData()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
 
       toast.error(t(TranslationKey['Something went wrong']))
     }
@@ -107,14 +108,14 @@ export class ShopsViewModel extends DataGridTableModel {
 
   async removeShopById() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ShopModel.removeShopById(this.selectedShop._id)
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -125,7 +126,7 @@ export class ShopsViewModel extends DataGridTableModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

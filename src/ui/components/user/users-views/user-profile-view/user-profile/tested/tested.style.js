@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     lineHeight: '140%',
     color: theme.palette.text.general,
-    marginBottom: '26px',
+    marginBottom: '20px',
   },
   checkedStrategyRow: {
     display: 'flex',
@@ -24,9 +24,8 @@ export const useStyles = makeStyles()(theme => ({
     marginRight: '16px',
   },
   paper: {
-    marginTop: '20px',
     width: '470px',
-    marginRight: '16px',
+
     padding: '8px 16px',
     height: 'max-content',
   },

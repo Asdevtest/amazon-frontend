@@ -25,6 +25,8 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
 
   const clientOrReadOnly = isClient || readOnly
 
+  const updateFilesIndex = (media: IMediaRework[]) => media.map((file, index) => ({ ...file, index }))
+
   const handleShowCommentModal = () => {
     setShowCommentModal(!showCommentModal)
     setCurrentEditableFile(undefined)
@@ -42,7 +44,7 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
             fileLink: '',
             commentByClient: '',
             commentByPerformer: '',
-            index: prevFields.media.length + 1,
+            index: prevFields.media.length,
           },
         ],
       }))
@@ -52,10 +54,14 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
   const handleDeleteFile = useCallback(
     (fileIndex: number) => {
       if (!isClient) {
-        setFields(prevFields => ({
-          ...prevFields,
-          media: prevFields.media.filter((_, index) => index !== fileIndex),
-        }))
+        setFields(prevFields => {
+          const media = prevFields.media.filter((_, index) => index !== fileIndex)
+
+          return {
+            ...prevFields,
+            media: updateFilesIndex(media),
+          }
+        })
       }
     },
     [files],
@@ -92,28 +98,25 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
     }))
 
     if (!isClient) {
-      const multipleFilesLoaded =
-        readyFilesArr.length > 1
-          ? readyFilesArr.slice(1).map((el, index) => ({
-              fileLink: el,
-              commentByPerformer: el.file.name,
-              commentByClient: '',
-              _id: null,
-              index: index + 2,
-            }))
-          : []
+      const multipleFilesLoaded: IMediaRework[] =
+        readyFilesArr.map((el, index) => ({
+          _id: null,
+          fileLink: el,
+          commentByPerformer: el.file.name,
+          commentByClient: '',
+          index,
+        })) || []
 
-      setFields(prevFields => ({
-        ...prevFields,
-        media: [
-          ...prevFields.media.map((file, index) =>
-            index === fileIndex
-              ? { ...file, fileLink: readyFilesArr[0], commentByPerformer: readyFilesArr[0]?.file.name }
-              : file,
-          ),
-          ...multipleFilesLoaded,
-        ],
-      }))
+      setFields(prevFields => {
+        const media = [...prevFields.media]
+
+        media.splice(fileIndex, 1, ...multipleFilesLoaded)
+
+        return {
+          ...prevFields,
+          media: updateFilesIndex(media),
+        }
+      })
     }
   }
 
@@ -124,7 +127,7 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
 
         await downloadArchive(filesForDownload, reversedFormatDateWithoutTime(new Date()))
       } catch (error) {
-        console.log(error)
+        console.error(error)
         toast.warning(t(TranslationKey['Failed to download archive. Please try again.']))
       } finally {
         setArchiveButtonInactiveBeforeDownloading(false)
@@ -195,7 +198,28 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
 
       toast.success(t(TranslationKey['Successfully updated']))
     } catch (error) {
-      console.log(error)
+      console.error(error)
+    }
+  }
+
+  const handleReorderMediaFiles = (fromIndex: number, toIndex: number) => {
+    if (!isClient) {
+      setFields(prevFields => {
+        const media = [...prevFields.media]
+        const fromFile = media[fromIndex]
+        const toFile = media[toIndex]
+
+        media[fromIndex] = toFile
+        media[toIndex] = fromFile
+
+        media[fromIndex].index = fromIndex
+        media[toIndex].index = toIndex
+
+        return {
+          ...prevFields,
+          media,
+        }
+      })
     }
   }
 
@@ -223,5 +247,6 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
     onChangeFileName: handleChangeFileName,
     onUploadFile: handleUploadFile,
     onUpdateSeoIFilesInProduct: handleUpdateSeoIFilesInProduct,
+    onReorderMediaFiles: handleReorderMediaFiles,
   }
 }

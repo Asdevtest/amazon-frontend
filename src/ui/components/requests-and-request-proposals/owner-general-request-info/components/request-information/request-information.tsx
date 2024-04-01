@@ -1,6 +1,5 @@
 import { FC, memo } from 'react'
 
-import { requestPriority } from '@constants/requests/request-priority'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,6 +9,7 @@ import { UserLink } from '@components/user/user-link'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
+import { RequestPriority } from '@typings/enums/request/request-priority'
 import { IProposal } from '@typings/models/proposals/proposal'
 import { ICreatedBy } from '@typings/shared/created-by'
 
@@ -36,7 +36,7 @@ export const RequestInformation: FC<RequestInformationProps> = memo(props => {
       <div className={styles.priorityWrapper}>
         <p className={styles.sectionTitle}>{t(TranslationKey['Request information'])}</p>
 
-        {Number(priority) === requestPriority.urgentPriority && (
+        {Number(priority) === RequestPriority.urgentPriority && (
           <div className={styles.prioritySubWrapper}>
             <p className={styles.sectionTitle}>{t(TranslationKey['Urgent request'])}</p>
 

@@ -2,10 +2,11 @@ import i18n, { TranslateOptions } from 'i18n-js'
 import memoize from 'lodash.memoize'
 
 import { translationGetters } from '@constants/translations'
-import { LanguageKey } from '@constants/translations/language-key'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
+
+import { LanguageKey } from '@typings/enums/language-key'
 
 // allow to use dots in translation keys
 i18n.defaultSeparator = '|'

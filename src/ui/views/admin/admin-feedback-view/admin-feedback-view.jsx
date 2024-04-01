@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
@@ -9,8 +8,9 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './admin-feedback-view.style'
 
@@ -40,11 +40,10 @@ export const AdminFeedbackView = observer(({ history }) => {
           useResizeContainer
           sortingMode="client"
           paginationMode="client"
-          localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}
           getRowHeight={() => 'auto'}
-          rows={viewModel.getCurrentData()}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          rows={viewModel.currentData}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -57,7 +56,6 @@ export const AdminFeedbackView = observer(({ history }) => {
               },
             },
           }}
-          density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}

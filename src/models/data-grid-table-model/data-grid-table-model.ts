@@ -11,17 +11,17 @@ import {
   GridSortModel,
 } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { ModalsModel } from '@models/model-with-modals'
 import { SettingsModel } from '@models/settings-model'
 import { TableSettingsModel } from '@models/table-settings'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filterModelInitialValue, paginationModelInitialValue, sortModelInitialValue } from './model-config'
 import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends ModalsModel {
-  _requestStatus: loadingStatuses = loadingStatuses.SUCCESS
+  _requestStatus: loadingStatus = loadingStatus.SUCCESS
 
   _unserverSearchValue = ''
   get unserverSearchValue() {
@@ -49,7 +49,7 @@ export class DataGridTableModel extends ModalsModel {
   get requestStatus() {
     return this._requestStatus
   }
-  set requestStatus(requestStatus: loadingStatuses) {
+  set requestStatus(requestStatus: loadingStatus) {
     this._requestStatus = requestStatus
   }
   get rowCount() {
@@ -219,7 +219,7 @@ export class DataGridTableModel extends ModalsModel {
 
   async getMainTableData(options?: any) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await this?.getMainDataMethod(options || this.defaultGetDataMethodOptions?.())
 
@@ -228,14 +228,14 @@ export class DataGridTableModel extends ModalsModel {
         this.rowCount = result?.count || result.length
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
-  setRequestStatus(requestStatus: loadingStatuses) {
+  setRequestStatus(requestStatus: loadingStatus) {
     this.requestStatus = requestStatus
   }
 

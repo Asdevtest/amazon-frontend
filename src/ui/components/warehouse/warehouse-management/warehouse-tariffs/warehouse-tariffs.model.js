@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { StorekeeperModel } from '@models/storekeeper-model'
@@ -12,10 +11,11 @@ import { warehouseTariffsColumns } from '@components/table/table-columns/warehou
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class WarehouseTariffModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   warehouseTariffs = []
   tariffToEdit = undefined
@@ -115,16 +115,16 @@ export class WarehouseTariffModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await this.getWarehouseTariffs()
 
       this.getDataGridState()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -137,7 +137,7 @@ export class WarehouseTariffModel {
       })
     } catch (error) {
       this.warehouseTariffs = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -154,8 +154,7 @@ export class WarehouseTariffModel {
       this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -166,8 +165,7 @@ export class WarehouseTariffModel {
       this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -212,8 +210,7 @@ export class WarehouseTariffModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 

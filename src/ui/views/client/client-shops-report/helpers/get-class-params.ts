@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 
 import { SellerBoardModel } from '@models/seller-board-model'
 
@@ -10,8 +9,11 @@ import { clientIntegrationsReportReturnsColumns } from '@components/table/table-
 import { clientInventoryReportColumns } from '@components/table/table-columns/client/client-inventory-report'
 import { clientLast30DaySellerBoardColumns } from '@components/table/table-columns/client/client-last-30-day-seller-board-columns copy'
 import { clientPPCSalesWeekColumns } from '@components/table/table-columns/client/client-ppc-sales-week-columns'
+import { ppcSalesDaysColumns } from '@components/table/table-columns/client/ppc-sales-days-columns'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+
+import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 export const getClassParams = (currentShopReport: ShopReportsTabsValues): any => {
   const fieldsForSearch = ['asin', 'sku']
@@ -70,6 +72,15 @@ export const getClassParams = (currentShopReport: ShopReportsTabsValues): any =>
         mainMethodURL: 'integrations/report_returns?',
         tableKey: DataGridTablesKeys.SHOPS_REPORT_RETURNS,
         fieldsForSearch: ['sku'],
+      }
+    case ShopReportsTabsValues.PPC_ORGANIC_BY_DAY:
+      return {
+        getMainDataMethod: SellerBoardModel.getReportPpcSalesDays,
+        columnsModel: ppcSalesDaysColumns,
+        filtersFields: getFilterFields(ppcSalesDaysColumns(), ['sku']),
+        mainMethodURL: 'integrations/report_ppc_sales_days?',
+        tableKey: DataGridTablesKeys.SHOPS_REPORT_PPC_ORGANIC_BY_DAY,
+        fieldsForSearch,
       }
   }
 }

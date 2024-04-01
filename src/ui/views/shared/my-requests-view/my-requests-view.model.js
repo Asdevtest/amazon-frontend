@@ -2,10 +2,9 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { showResultRequestProposalsStatuses } from '@constants/requests/request-proposal-status'
 import { RequestStatus } from '@constants/requests/request-status'
-import { RequestSubType } from '@constants/requests/request-type'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { FeedbackModel } from '@models/feedback-model'
@@ -23,6 +22,9 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { getLocalToUTCDate } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
+import { RequestSubType } from '@typings/enums/request/request-type'
 
 import { allowStatuses, filtersFields } from './my-requests-view.constants'
 
@@ -291,7 +293,7 @@ export class MyRequestsViewModel {
       await this.getShops()
       await this.getCustomRequests()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -303,7 +305,7 @@ export class MyRequestsViewModel {
         this.shopsData = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -325,7 +327,7 @@ export class MyRequestsViewModel {
       this.onTriggerOpenModal('showRequestForm')
       this.getCustomRequests()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -336,7 +338,7 @@ export class MyRequestsViewModel {
       this.onTriggerOpenModal('showRequestForm')
       this.getCustomRequests()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -344,7 +346,7 @@ export class MyRequestsViewModel {
     try {
       await RequestModel.editRequest(requestId, data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -358,7 +360,7 @@ export class MyRequestsViewModel {
     try {
       await RequestModel.createRequest(data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -370,7 +372,7 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const listingFilters = this.columnMenuSettings?.onListingFiltersData
       const additionalFilters =
         listingFilters?.notOnListing && listingFilters?.onListing
@@ -394,10 +396,10 @@ export class MyRequestsViewModel {
         this.searchRequests = myRequestsDataConverter(result.rows, this.shopsData)
         this.rowCount = result.count
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -440,13 +442,13 @@ export class MyRequestsViewModel {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await RequestModel.patchRequestsUploadedToListing({
         requestIds: [id],
@@ -465,10 +467,10 @@ export class MyRequestsViewModel {
         }
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -523,7 +525,7 @@ export class MyRequestsViewModel {
         this.currentRequestDetails = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -547,13 +549,15 @@ export class MyRequestsViewModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(id)
 
-      const proposal = result?.sort((a, b) => new Date(b?.proposal?.updatedAt) - new Date(a?.proposal?.updatedAt))?.[0]
+      const proposal = result
+        ?.filter(proposal => showResultRequestProposalsStatuses.includes(proposal?.proposal?.status))
+        ?.sort((a, b) => new Date(b?.proposal?.updatedAt) - new Date(a?.proposal?.updatedAt))?.[0]
 
       runInAction(() => {
         this.curProposal = proposal
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.curProposal = undefined
       })
@@ -576,7 +580,7 @@ export class MyRequestsViewModel {
           break
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -602,7 +606,7 @@ export class MyRequestsViewModel {
 
       await this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -625,7 +629,7 @@ export class MyRequestsViewModel {
 
       await this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -649,12 +653,12 @@ export class MyRequestsViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
 
     await RequestModel.updateDeadline(
       this.currentRequestDetails.request._id,
@@ -664,7 +668,7 @@ export class MyRequestsViewModel {
     await this.loadData()
     this.onTriggerOpenModal('showRequestDetailModal')
 
-    this.setRequestStatus(loadingStatuses.SUCCESS)
+    this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
   onClickAbortBtn() {
@@ -680,7 +684,7 @@ export class MyRequestsViewModel {
 
       await this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -690,7 +694,7 @@ export class MyRequestsViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

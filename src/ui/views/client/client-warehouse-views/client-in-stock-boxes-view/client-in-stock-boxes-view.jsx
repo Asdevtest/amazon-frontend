@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxViewForm } from '@components/forms/box-view-form'
@@ -32,6 +31,8 @@ import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-in-stock-boxes-view.style'
 
@@ -118,7 +119,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onColumnHeaderEnter={params => {
             viewModel.onHoverColumnField(params.field)
           }}
@@ -143,7 +144,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -201,7 +202,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
       >
         <GroupingBoxesForm
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={viewModel.boxesMy
@@ -247,7 +248,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           closeModal={viewModel.triggerRequestToSendBatchModal}
           boxesDeliveryCosts={viewModel.boxesDeliveryCosts}
           selectedBoxes={viewModel.selectedBoxes}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           boxesMy={viewModel.boxesMy
             .filter(box => viewModel.selectedBoxes.includes(box._id))
             .map(box => box.originalData)}
@@ -278,7 +279,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         <BoxViewForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}

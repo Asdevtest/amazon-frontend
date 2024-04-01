@@ -5,7 +5,6 @@ import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier } from '@constants/white-list'
 
@@ -33,6 +32,8 @@ import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 import { clientInventoryColumns } from './client-inventory-columns'
 import {
   TAGS,
@@ -44,7 +45,6 @@ import {
 import { observerConfig } from './model-observer.config'
 
 export class ClientInventoryViewModel extends DataGridFilterTableModel {
-  error = undefined
   product = undefined
   ordersDataStateToSubmit = undefined
 
@@ -78,8 +78,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   selectedProduct = undefined
 
   selectedRowId = undefined
-  platformSettings = undefined
-
   showOrderModal = false
   showSuccessModal = false
   showCheckPendingOrderFormModal = false
@@ -140,6 +138,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor() {
@@ -310,8 +312,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive')
 
-    this.getPlatformSettings()
-
     makeObservable(this, observerConfig)
 
     const getValidColumns = () => {
@@ -441,7 +441,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showProductVariationsForm')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -495,7 +495,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async uploadTemplateFile(file) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.showProgress = true
       })
@@ -513,10 +513,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
 
       this.onTriggerOpenModal('showGetFilesModal')
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -566,7 +566,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.onTriggerOpenModal('showConfirmModal')
       await this.getMainTableData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -588,7 +588,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.paymentMethods = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -597,8 +597,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.getPresets()
       this.getMainTableData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -686,7 +686,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.presetsData = presetsData
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -696,7 +696,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -705,13 +705,13 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       const result = await UserModel.getUsersPresets()
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async resetPresetsHandler() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       for await (const preset of this.presetsData) {
         if (!preset?._id) {
@@ -732,16 +732,16 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.presetsData = [...this.presetsData]
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   async savePresetsHandler(presetsData) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       for await (const preset of presetsData) {
         const presetId = preset?._id
@@ -784,10 +784,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.presetsData = [...this.presetsData]
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -799,8 +799,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.productsToLaunch = result.rows
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -813,10 +813,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showProductLaunch')
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -869,7 +866,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         await this.onClickContinueBtn()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     } finally {
       runInAction(() => {
         this.showCircularProgressModal = false
@@ -894,18 +891,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     if (this.showCheckPendingOrderFormModal) {
       this.onTriggerOpenModal('showCheckPendingOrderFormModal')
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
-    } catch (error) {
-      console.log(error)
     }
   }
 
@@ -950,7 +935,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onSaveProductData(productId, updateProductData) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const updateProductDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         toJS(updateProductData),
@@ -960,10 +945,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       await ClientModel.updateProduct(productId, updateProductDataFiltered)
       await this.getMainTableData()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message
@@ -989,7 +974,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showEditHSCodeModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -999,7 +984,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.getMainTableData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1018,7 +1003,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.getMainTableData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1042,9 +1027,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onSubmitOrderProductModal() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
-        this.error = undefined
         this.showProgress = true
       })
 
@@ -1076,16 +1060,14 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.showProgress = false
       })
 
-      if (!this.error) {
-        toast.success(t(TranslationKey['The order has been created']))
-      }
+      toast.success(t(TranslationKey['The order has been created']))
 
       await this.getMainTableData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
       runInAction(() => {
         this.error = error
       })
@@ -1109,7 +1091,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         await ClientModel.createOrder(requestData)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       toast.error(`${t(TranslationKey["You can't order"])} "${error.body.message}"`)
     }
@@ -1122,7 +1104,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.ideaId = resId.guid
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1171,9 +1153,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       await this.getMainTableData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
-        this.error = error
         this.showInfoModalTitle = t(TranslationKey.Error)
       })
 
@@ -1187,7 +1168,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1224,7 +1205,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
       this.onTriggerOpenModal('showInfoModal')
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1262,7 +1243,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1278,7 +1259,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1293,7 +1274,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
       this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1304,7 +1285,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.batchesData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.batchesData = []
@@ -1334,7 +1315,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1346,7 +1327,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1359,7 +1340,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       await this.getMainTableData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     } finally {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
@@ -1388,7 +1369,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1414,7 +1395,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1501,10 +1482,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.showCircularProgressModal = false
       })
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -1520,30 +1498,30 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onDeleteBarcode(product) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.updateProductBarCode(product._id, { barCode: null })
       await this.getMainTableData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
 
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onDeleteHsCode(product) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ProductModel.editProductsHsCods([{ productId: product._id, hsCode: '' }])
       await this.getMainTableData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -1555,16 +1533,11 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.sellerBoardDailyData = addIdDataConverter(result?.rows)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       if (isRecCall) {
         this.getStockGoodsByFilters()
       } else {
         this.sellerBoardDailyData = []
-        if (error.body && error.body.message) {
-          runInAction(() => {
-            this.error = error.body.message
-          })
-        }
       }
     }
   }
@@ -1586,7 +1559,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
       this.onTriggerOpenModal('showInfoModal')
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1596,7 +1569,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       supplier = {
         ...supplier,
@@ -1629,10 +1602,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       await this.loadData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 }

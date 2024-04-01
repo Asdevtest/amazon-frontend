@@ -1,37 +1,18 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   header: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-    },
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
-    width: '290px',
-    height: '40px',
-
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-
-  addUserButton: {
-    display: 'flex',
-    gap: 10,
-
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
+    width: 300,
   },
 
   tableWrapper: {
-    marginTop: '20px',
+    marginTop: 20,
     height: '79vh',
     width: '100%',
   },

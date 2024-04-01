@@ -4,7 +4,6 @@ import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { Errors } from '@constants/errors'
 import { BatchStatus } from '@constants/statuses/batch-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
@@ -26,12 +25,13 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 import { filtersFields, updateBoxWhiteList } from './warehouse-my-warehouse-view.constants'
 
 export class WarehouseMyWarehouseViewModel {
   requestStatus = undefined
 
-  volumeWeightCoefficient = undefined
   nameSearchValue = ''
   boxesMy = []
   tasksMy = []
@@ -136,6 +136,10 @@ export class WarehouseMyWarehouseViewModel {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -214,7 +218,7 @@ export class WarehouseMyWarehouseViewModel {
       this.getDataGridState()
       this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -226,7 +230,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -254,7 +258,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -287,7 +291,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
       const uploadedShippingLabeles = []
@@ -298,10 +302,6 @@ export class WarehouseMyWarehouseViewModel {
         const sourceBox = selectedBoxes[i]
 
         if (newBox.tmpShippingLabel?.length) {
-          runInAction(() => {
-            this.uploadedFiles = []
-          })
-
           const findUploadedShippingLabel = uploadedShippingLabeles.find(
             el => el.strKey === JSON.stringify(newBox.tmpShippingLabel[0]),
           )
@@ -409,19 +409,17 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showSuccessInfoModal')
 
       this.loadData()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   async onClickSubmitEditBox({ id, boxData, imagesOfBox, isMultipleEdit }) {
     runInAction(() => {
       this.selectedBoxes = []
-      this.uploadedFiles = []
       this.uploadedTrackNumber = []
-      this.uploadedImages = []
     })
 
     if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
@@ -534,7 +532,7 @@ export class WarehouseMyWarehouseViewModel {
         this.onTriggerOpenModal('showSuccessInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       if (error.message === Errors.INVALID_IMAGE) {
         runInAction(() => {
@@ -577,31 +575,21 @@ export class WarehouseMyWarehouseViewModel {
         this.storekeepersData = storekeepersData
       })
 
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
-
       this.onTriggerOpenModal('showEditBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getDataToMoveBatch() {
     try {
-      const [batches, result] = await Promise.all([
-        BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED),
-        UserModel.getPlatformSettings(),
-      ])
+      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(batches, this.platformSettings?.volumeWeightCoefficient)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -614,7 +602,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -627,7 +615,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -635,12 +623,10 @@ export class WarehouseMyWarehouseViewModel {
     try {
       const destinations = await ClientModel.getDestinations()
       const storekeepersData = await StorekeeperModel.getStorekeepers()
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.destinations = destinations
         this.storekeepersData = storekeepersData
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (this.selectedBoxes.length === 1) {
@@ -653,7 +639,7 @@ export class WarehouseMyWarehouseViewModel {
         this.onTriggerOpenModal('showEditMultipleBoxesModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -693,13 +679,13 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showMergeBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickConfirmSplit(id, updatedBoxes, isMasterBox) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
       })
@@ -717,10 +703,6 @@ export class WarehouseMyWarehouseViewModel {
         const resBoxes = []
 
         for (let i = 0; i < updatedBoxes.length; i++) {
-          runInAction(() => {
-            this.uploadedFiles = []
-          })
-
           if (updatedBoxes[i].tmpShippingLabel.length) {
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
@@ -786,12 +768,12 @@ export class WarehouseMyWarehouseViewModel {
         this.onModalRedistributeBoxAddNewBox(null)
       }
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       await this.getBoxesMy()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -801,13 +783,13 @@ export class WarehouseMyWarehouseViewModel {
       await this.getBoxesMy()
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickConfirmMerge(boxBody) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
       boxBody = {
@@ -848,7 +830,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showMergeBoxModal')
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       await this.getBoxesMy()
 
@@ -857,8 +839,8 @@ export class WarehouseMyWarehouseViewModel {
         this.tmpClientComment = ''
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -867,7 +849,7 @@ export class WarehouseMyWarehouseViewModel {
       const result = await BoxesModel.mergeBoxes(ids, boxBody)
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -893,7 +875,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showRedistributeBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -930,7 +912,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.onTriggerOpenModal('showGroupingBoxesModal')
       runInAction(() => {
         this.warningInfoModalSettings = {
@@ -964,12 +946,10 @@ export class WarehouseMyWarehouseViewModel {
         return
       }
 
-      const [destinations, result] = await Promise.all([ClientModel.getDestinations(), UserModel.getPlatformSettings()])
+      const destinations = await ClientModel.getDestinations()
 
       runInAction(() => {
         this.destinations = destinations
-
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
@@ -986,7 +966,7 @@ export class WarehouseMyWarehouseViewModel {
       })
       this.onTriggerShowEditBoxModal()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1017,7 +997,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerShowEditBoxModal()
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1038,7 +1018,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showAddBatchModal')
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1048,7 +1028,7 @@ export class WarehouseMyWarehouseViewModel {
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1062,42 +1042,37 @@ export class WarehouseMyWarehouseViewModel {
       this.loadData()
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async setCurrentOpenedBox(row) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBox = box
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onSubmitCreateBatch(box) {
     try {
-      const [boxes, result] = await Promise.all([
-        BoxesModel.getBoxesReadyToBatchStorekeeper(),
-        UserModel.getPlatformSettings(),
-      ])
+      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
 
       runInAction(() => {
-        this.boxesData = boxes // clientWarehouseDataConverter(boxes, result.volumeWeightCoefficient)
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.boxesData = boxes
+
         this.sourceBoxForBatch = box
       })
 
       this.onTriggerOpenModal('showAddBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1111,7 +1086,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.getFilter(),
@@ -1123,22 +1098,19 @@ export class WarehouseMyWarehouseViewModel {
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
-      const result = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = boxes.count
         this.baseBoxesMy = boxes.rows
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        this.boxesMy = warehouseBoxesDataConverter(boxes.rows, result.volumeWeightCoefficient)
+        this.boxesMy = warehouseBoxesDataConverter(boxes.rows, this.platformSettings?.volumeWeightCoefficient)
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.boxesMy = []
         this.baseBoxesMy = []
       })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -1192,7 +1164,7 @@ export class WarehouseMyWarehouseViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

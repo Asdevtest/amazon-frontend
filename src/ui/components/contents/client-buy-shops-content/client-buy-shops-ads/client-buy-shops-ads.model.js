@@ -80,7 +80,7 @@ export class ClientBuyShopsAdsModel {
       await this.getShopSells()
       this.getTableModeState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -92,7 +92,7 @@ export class ClientBuyShopsAdsModel {
         this.shopSellsData = result.filter(el => el.owner._id !== this.user._id)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

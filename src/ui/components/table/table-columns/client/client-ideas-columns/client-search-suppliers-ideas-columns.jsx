@@ -9,6 +9,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  FilesCell,
   IdeaSupplierCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
@@ -19,7 +20,6 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
-import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
@@ -195,8 +195,8 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
     headerName: t(TranslationKey.Files),
 
-    renderCell: params => <SlideshowGallery slidesToShow={1} files={params.row.originalData?.suppliers[0]?.images} />,
-    width: 300,
+    renderCell: params => <FilesCell files={params.row.originalData?.suppliers[0]?.images} />,
+    width: 80,
     align: 'center',
     sortable: false,
     filterable: false,

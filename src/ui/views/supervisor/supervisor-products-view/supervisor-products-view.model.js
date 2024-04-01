@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey, ProductStatusGroups } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { GeneralModel } from '@models/general-model'
 import { SupervisorModel } from '@models/supervisor-model'
@@ -15,6 +14,8 @@ import { supervisorProductsDataConverter } from '@utils/data-grid-data-converter
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields } from './supervisor-products-view.comstants'
 
@@ -178,12 +179,12 @@ export class SupervisorProductsViewModel {
       this.getDataGridState()
       this.getProductsMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getProductsMy() {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     try {
       const ordered =
         this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
@@ -207,10 +208,10 @@ export class SupervisorProductsViewModel {
         this.productsMy = supervisorProductsDataConverter(result.rows)
         this.rowCount = result.count
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -245,7 +246,7 @@ export class SupervisorProductsViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
       const ordered =
         this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
           ? null
@@ -265,11 +266,11 @@ export class SupervisorProductsViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
 
-      console.log(error)
+      console.error(error)
     }
   }
 

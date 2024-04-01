@@ -7,7 +7,7 @@ import { DeadlineCell, MultilineTextCell, MultilineTextHeaderCell } from '@compo
 
 import { t } from '@utils/translations'
 
-import { OrderStatus } from '@typings/enums/order-status'
+import { OrderStatus } from '@typings/enums/order/order-status'
 
 export const aboutProductsColumns = [
   {

@@ -6,10 +6,11 @@ import { makePersistable } from 'mobx-persist-store'
 import { appVersion } from '@constants/app-version'
 import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { UiTheme } from '@constants/theme/mui-theme.type'
-import { LanguageKey } from '@constants/translations/language-key'
 
 import { setI18nConfig } from '@utils/translations'
+
+import { LanguageKey } from '@typings/enums/language-key'
+import { UiTheme } from '@typings/enums/ui-theme'
 
 const persistProperties = [
   'dataGridState',
@@ -62,7 +63,7 @@ class SettingsModelStatic {
           this.isHydrated = isHydrated
         })
       })
-      .catch(error => console.log(error))
+      .catch(error => console.error(error))
     reaction(
       () => this.isHydrated,
 

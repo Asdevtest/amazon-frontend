@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -12,6 +11,8 @@ import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-moda
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
@@ -30,7 +31,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
   return (
     <>
       <div ref={mainContentRef} style={{ height: '100%' }}>
-        {viewModel.requestStatus === loadingStatuses.IS_LOADING ? (
+        {viewModel.requestStatus === loadingStatus.IS_LOADING ? (
           <CircularProgressWithLabel />
         ) : (
           <CreateOrEditRequestContent
@@ -41,7 +42,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
             permissionsData={useProductsPermissions.permissionsData}
             masterUsersData={viewModel.masterUsersData}
             announcements={viewModel.announcements}
-            platformSettingsData={viewModel.platformSettingsData}
+            platformSettingsData={viewModel.platformSettings}
             progressValue={viewModel.progressValue}
             showProgress={viewModel.showProgress}
             requestToEdit={viewModel.requestToEdit}

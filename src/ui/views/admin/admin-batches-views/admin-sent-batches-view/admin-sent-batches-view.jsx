@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
@@ -12,6 +11,8 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './admin-sent-batches-view.style'
 
@@ -60,7 +61,7 @@ export const AdminSentBatchesViewRaw = props => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
@@ -87,7 +88,7 @@ export const AdminSentBatchesViewRaw = props => {
       {viewModel.showBatchInfoModal ? (
         <BatchInfoModal
           // @ts-ignore
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           openModal={viewModel.showBatchInfoModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
           batch={viewModel.curBatch}

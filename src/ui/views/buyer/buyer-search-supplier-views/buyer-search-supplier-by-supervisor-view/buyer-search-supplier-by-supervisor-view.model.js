@@ -1,13 +1,13 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { BuyerModel } from '@models/buyer-model'
 
 import { buyerSearchSuppliersViewColumns } from '@components/table/table-columns/buyer/buyer-seach-suppliers-columns'
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class BuyerSearchSupplierBySupervisorModel {
   history = undefined
@@ -60,26 +60,23 @@ export class BuyerSearchSupplierBySupervisorModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.IS_LOADING
+        this.requestStatus = loadingStatus.IS_LOADING
       })
       await this.getProductsVacant()
       // this.updateProductsHead()
       runInAction(() => {
-        this.requestStatus = loadingStatuses.SUCCESS
+        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.FAILED
+        this.requestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getProductsVacant() {
     try {
-      runInAction(() => {
-        this.error = undefined
-      })
       const result = await BuyerModel.getProductsVacant()
       runInAction(() => {
         this.productsVacant = depersonalizedPickDataConverter(
@@ -87,16 +84,11 @@ export class BuyerSearchSupplierBySupervisorModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.productsVacant = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -114,12 +106,7 @@ export class BuyerSearchSupplierBySupervisorModel {
       this.onTriggerOpenModal('showInfoModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -134,12 +121,7 @@ export class BuyerSearchSupplierBySupervisorModel {
         })
       }
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
   setRequestStatus(requestStatus) {

@@ -1,12 +1,8 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
-
-import { Typography } from '@mui/material'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
@@ -18,17 +14,17 @@ import { Modal } from '@components/shared/modal'
 import { ContentModal } from '@components/user/users-views/user-profile-view/content-modal'
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { styles } from './user-profile-view.style'
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { useStyles } from './user-profile-view.style'
 
 import { ProfileViewModel } from './user-profile-view.model'
 
-export const UserProfileViewRaw = props => {
-  const [viewModel] = useState(() => new ProfileViewModel({ history: props.history }))
-
-  const { classes: styles } = props
+export const UserProfileView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new ProfileViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -36,74 +32,57 @@ export const UserProfileViewRaw = props => {
 
   return (
     <>
-      <div>
-        <UserProfile
-          user={viewModel.user}
-          timer={'14 минут'}
-          headerInfoData={viewModel.headerInfoData}
-          tabReview={viewModel.tabReview}
-          tabHistory={viewModel.tabHistory}
-          setTabHistory={viewModel.onChangeTabHistory}
-          setTabReview={viewModel.onChangeTabReview}
-          reviews={viewModel.reviews}
-          onClickChangeAvatar={viewModel.onClickChangeAvatar}
-          onClickChangeUserInfo={viewModel.onClickChangeUserInfo}
-          onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
-        />
+      <UserProfile
+        user={viewModel.userInfo}
+        headerInfoData={viewModel.headerInfoData}
+        tabHistory={viewModel.tabHistory}
+        setTabHistory={viewModel.onChangeTabHistory}
+        reviews={viewModel.reviews}
+        onClickChangeAvatar={() => viewModel.onTriggerOpenModal('showAvatarEditModal')}
+        onClickChangeUserInfo={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
+        onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+      />
 
-        {/* <ActiveOrders
-                tabExchange={tabExchange}
-                setTabExchange={onChangeTabExchange}
-                productList={CLIENT_USER_INITIAL_LIST}
-                handlerClickButtonPrivateLabel={onClickButtonPrivateLabel}
-              /> */}
+      {[mapUserRoleEnumToKey[UserRole.SUPERVISOR], mapUserRoleEnumToKey[UserRole.BUYER]].includes(
+        viewModel.userInfo?.role,
+      ) ? (
+        <>
+          <p className={styles.title}>{t(TranslationKey['Active offers on the commodity exchange'])}</p>
 
-        {[
-          // mapUserRoleEnumToKey[UserRole.RESEARCHER],
-          mapUserRoleEnumToKey[UserRole.SUPERVISOR],
-          mapUserRoleEnumToKey[UserRole.BUYER],
-        ].includes(viewModel.user.role) ? (
-          <>
-            <Typography variant="h6" className={styles.title}>
-              {t(TranslationKey['Active offers on the commodity exchange'])}
-            </Typography>
-
-            <CustomDataGrid
-              useResizeContainer
-              localeText={getLocalizationByLanguageTag()}
-              sortModel={viewModel.sortModel}
-              filterModel={viewModel.filterModel}
-              columnVisibilityModel={viewModel.columnVisibilityModel}
-              paginationModel={viewModel.paginationModel}
-              rows={viewModel.getCurrentData()}
-              rowHeight={100}
-              slotProps={{
-                baseTooltip: {
-                  title: t(TranslationKey.Filter),
+          <CustomDataGrid
+            useResizeContainer
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            rows={viewModel.currentData}
+            rowHeight={100}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
-                toolbar: {
-                  columsBtnSettings: {
-                    columnsModel: viewModel.columnsModel,
-                    columnVisibilityModel: viewModel.columnVisibilityModel,
-                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                  },
-                },
-              }}
-              density={viewModel.densityModel}
-              columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
-              onSortModelChange={viewModel.onChangeSortingModel}
-              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onPaginationModelChange}
-              onFilterModelChange={viewModel.onChangeFilterModel}
-            />
-          </>
-        ) : null}
-      </div>
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+          />
+        </>
+      ) : null}
 
-      <Modal openModal={viewModel.showTabModal} setOpenModal={viewModel.onTriggerShowTabModal}>
+      <Modal openModal={viewModel.showTabModal} setOpenModal={() => viewModel.onTriggerOpenModal('showTabModal')}>
         <ContentModal
-          setOpenModal={viewModel.onTriggerShowTabModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showTabModal')}
           selected={viewModel.selectedUser}
           managersList={CLIENT_USER_MANAGERS_LIST}
         />
@@ -125,10 +104,14 @@ export const UserProfileViewRaw = props => {
       >
         <UserInfoEditForm
           resetProfileDataValidation={viewModel.resetProfileDataValidation}
-          user={viewModel.user}
+          user={viewModel.userInfo}
           clearError={viewModel.clearError}
           wrongPassword={viewModel.wrongPassword}
           checkValidationNameOrEmail={viewModel.checkValidationNameOrEmail}
+          activeSessions={viewModel.activeSessions}
+          userInfoEditFormFlag={viewModel.userInfoEditFormFlag}
+          onToggleUserInfoEditFormFlag={viewModel.onToggleUserInfoEditFormFlag}
+          onLogoutSession={viewModel.onLogoutSession}
           onSubmit={viewModel.onSubmitUserInfoEdit}
           onCloseModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
         />
@@ -160,6 +143,4 @@ export const UserProfileViewRaw = props => {
       ) : null}
     </>
   )
-}
-
-export const UserProfileView = withStyles(observer(UserProfileViewRaw), styles)
+})

@@ -1,8 +1,8 @@
 import { CSSProperties, FC } from 'react'
 
-import { tableProductViewMode } from '@constants/keys/table-product-view'
-
 import { AbbreviatedViewIcon, ExtendedViewIcon } from '@components/shared/svg-icons'
+
+import { tableProductViewMode } from '@typings/enums/table-product-view'
 
 import { useStyles } from './data-grid-select-view-product-batch.style'
 

@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PermissionsModel } from '@models/permissions-model'
@@ -13,6 +12,8 @@ import { adminSinglePermissionsDataConverter } from '@utils/data-grid-data-conve
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SinglePermissionsModel {
   history = undefined
@@ -120,13 +121,13 @@ export class SinglePermissionsModel {
       this.getDataGridState()
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getSinglePermissions() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await PermissionsModel.getSinglePermissions()
 
@@ -135,13 +136,13 @@ export class SinglePermissionsModel {
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.payments = []
       })
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -152,7 +153,7 @@ export class SinglePermissionsModel {
       this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -160,7 +161,7 @@ export class SinglePermissionsModel {
     try {
       await PermissionsModel.createSinglePermission(data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -176,7 +177,7 @@ export class SinglePermissionsModel {
 
       await PermissionsModel.updateSinglePermission(permissionId, allowData)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -187,7 +188,7 @@ export class SinglePermissionsModel {
       this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -244,7 +245,7 @@ export class SinglePermissionsModel {
 
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

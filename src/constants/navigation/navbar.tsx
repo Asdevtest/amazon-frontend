@@ -169,7 +169,7 @@ export const navbarConfig = {
       title: () => t(TranslationKey['Commodity exchange']),
       route: '/client/product-exchange',
       subtitles: [
-        { subtitle: () => t(TranslationKey['Deal exchange']), subRoute: '/client/product-exchange/forks-exchange' },
+        { subtitle: () => t(TranslationKey['Research Exchenge']), subRoute: '/client/product-exchange/forks-exchange' },
         { subtitle: () => 'Private Label', subRoute: '/client/product-exchange/private-label' },
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,

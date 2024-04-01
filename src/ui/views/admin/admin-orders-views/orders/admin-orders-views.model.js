@@ -1,7 +1,6 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { ActiveSubCategoryTablesKeys } from '@constants/table/active-sub-category-tables-keys'
 import {
   AdminOrdersStatusesCategories,
@@ -17,6 +16,8 @@ import { adminOrdersViewColumns } from '@components/table/table-columns/admin/or
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields } from './admin-orders-views.constants'
 
@@ -138,7 +139,7 @@ export class AdminOrdersAllViewModel {
 
   async getOrdersByStatus() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.getDataGridState()
 
@@ -158,10 +159,10 @@ export class AdminOrdersAllViewModel {
         this.rowsCount = result.count
         this.currentOrdersData = result.rows
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
 
       runInAction(() => {
         this.currentOrdersData = []
@@ -226,7 +227,7 @@ export class AdminOrdersAllViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const filters = this.getFilters(column)
       const data = await GeneralModel.getDataForColumn(
@@ -245,10 +246,10 @@ export class AdminOrdersAllViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 

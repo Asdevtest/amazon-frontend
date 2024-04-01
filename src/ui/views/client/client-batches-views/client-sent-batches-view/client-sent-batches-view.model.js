@@ -1,10 +1,8 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { tableProductViewMode } from '@constants/keys/table-product-view'
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
@@ -23,37 +21,29 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+import { tableProductViewMode } from '@typings/enums/table-product-view'
+
 import { filtersFields } from './client-sent-batches-view.constants'
 
 export class ClientSentBatchesViewModel {
   history = undefined
   requestStatus = undefined
-
   nameSearchValue = ''
   batches = []
   selectedBatches = []
-  curBatch = {}
-
-  currentData = []
-
+  curBatch = undefined
   currentStorekeeperId = undefined
-
   storekeepersData = []
-
   isArchive = false
-
-  hsCodeData = {}
-  showEditHSCodeModal = false
-
-  showBatchInfoModal = false
-
-  showWarningInfoModal = false
-
-  showConfirmModal = false
-
-  languageTag = undefined
-
+  hsCodeData = undefined
   productViewMode = tableProductViewMode.EXTENDED
+  uploadedFiles = []
+
+  showEditHSCodeModal = false
+  showBatchInfoModal = false
+  showWarningInfoModal = false
+  showConfirmModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -61,28 +51,20 @@ export class ClientSentBatchesViewModel {
     confirmMessage: '',
     onClickConfirm: () => {},
   }
-
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
   }
 
-  uploadedFiles = []
-
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
-  densityModel = 'compact'
-
   rowHandlers = {
     changeViewModeHandler: value => this.changeViewModeHandler(value),
   }
-
   columnsModel = clientBatchesViewColumns(this.rowHandlers, this.productViewMode)
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
@@ -100,6 +82,12 @@ export class ClientSentBatchesViewModel {
   get userInfo() {
     return UserModel.userInfo
   }
+  get currentData() {
+    return this.batches
+  }
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
 
   constructor({ history }) {
     this.history = history
@@ -109,11 +97,6 @@ export class ClientSentBatchesViewModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.batches,
-      () => (this.currentData = this.getCurrentData()),
-    )
   }
 
   onTriggerArchive() {
@@ -126,7 +109,7 @@ export class ClientSentBatchesViewModel {
 
   onClickTriggerArchOrResetProducts() {
     this.confirmModalSettings = {
-      isWarning: this.isArchive ? false : true,
+      isWarning: !this.isArchive,
       confirmTitle: this.isArchive ? t(TranslationKey['Return to actual batches']) : t(TranslationKey['Move a batch']),
       confirmMessage: this.isArchive
         ? t(TranslationKey['After confirmation, the batch will be moved to the actual batches. Continue?'])
@@ -140,14 +123,15 @@ export class ClientSentBatchesViewModel {
   async onSubmitTriggerArchOrResetProducts() {
     try {
       await BatchesModel.editUpdateBatches({
-        batchIds: [...this.selectedBatches],
-        archive: this.isArchive ? false : true,
+        batchIds: this.selectedBatches,
+        archive: !this.isArchive,
       })
 
+      this.loadData()
+
       this.onTriggerOpenModal('showConfirmModal')
-      await this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -167,7 +151,7 @@ export class ClientSentBatchesViewModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
@@ -175,21 +159,18 @@ export class ClientSentBatchesViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
     this.getBatchesPagMy()
   }
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
     this.getBatchesPagMy()
   }
@@ -200,7 +181,6 @@ export class ClientSentBatchesViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
     this.getBatchesPagMy()
   }
@@ -233,13 +213,15 @@ export class ClientSentBatchesViewModel {
   }
 
   async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+    try {
+      const response = await ProductModel.getProductsHsCodeByGuid(id)
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
-  }
+      this.hsCodeData = response
 
-  getCurrentData() {
-    return toJS(this.batches)
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async getStorekeepers() {
@@ -250,13 +232,9 @@ export class ClientSentBatchesViewModel {
 
       runInAction(() => {
         this.storekeepersData = result
-
-        this.currentStorekeeperId = this.currentStorekeeperId || undefined // result.filter(storekeeper => storekeeper.boxesCount !== 0).sort((a, b) => a.name?.localeCompare(b.name))[0]
       })
-
-      this.getDataGridState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -267,18 +245,14 @@ export class ClientSentBatchesViewModel {
     this.getBatchesPagMy()
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
       this.getDataGridState()
       this.getStorekeepers()
       this.getBatchesPagMy()
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -308,41 +282,36 @@ export class ClientSentBatchesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getBatchesPagMy() {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
-
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-
         archive: this.isArchive,
-
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-
         filters: this.getFilter(),
         storekeeperId: this.currentStorekeeperId,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = result.count
-
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
-        this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(result.rows, this.platformSettings?.volumeWeightCoefficient)
       })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.batches = []
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -355,18 +324,16 @@ export class ClientSentBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -399,7 +366,7 @@ export class ClientSentBatchesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'batches'),
@@ -417,28 +384,19 @@ export class ClientSentBatchesViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      filterRequestStatus: requestStatus,
-    }
+    this.columnMenuSettings.filterRequestStatus = requestStatus
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onClickResetFilters() {

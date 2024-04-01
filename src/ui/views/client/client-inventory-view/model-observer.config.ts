@@ -19,7 +19,6 @@ export const observerConfig = {
   selectedProductToLaunch: observable,
   existingProducts: observable,
   selectedRowId: observable,
-  platformSettings: observable,
   selectedProduct: observable,
   isTransfer: observable,
 
@@ -55,6 +54,7 @@ export const observerConfig = {
 
   userInfo: computed,
   destinationsFavourites: computed,
+  platformSettings: computed,
 
   setSelectedProduct: action.bound,
   onSubmitBindStockGoods: action.bound,

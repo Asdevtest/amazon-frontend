@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
@@ -15,6 +14,8 @@ import { HeaderTable } from '@components/table/header-table/header-table'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-awaiting-batches-view.style'
 
@@ -47,7 +48,7 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -83,7 +84,7 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
           userRole={viewModel.userInfo.role}
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           batchToEdit={viewModel.curBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
@@ -94,7 +95,7 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
       {viewModel.showBatchInfoModal ? (
         <BatchInfoModal
           // @ts-ignore
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           openModal={viewModel.showBatchInfoModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
           batch={viewModel.curBatch}

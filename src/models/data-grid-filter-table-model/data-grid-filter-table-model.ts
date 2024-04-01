@@ -4,14 +4,14 @@ import { makeObservable, runInAction } from 'mobx'
 import { GridColDef } from '@mui/x-data-grid'
 import { GridPinnedColumns } from '@mui/x-data-grid-premium'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { GeneralModel } from '@models/general-model'
 import { TableSettingsModel } from '@models/table-settings'
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { IPinnedRows } from './data-grid-filter-table-model.type'
 import { pinnedRowsInitialValue } from './filter-table-model'
@@ -150,7 +150,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         left: [],
         right: [],
       },
-      filterRequestStatus: loadingStatuses.SUCCESS,
+      filterRequestStatus: loadingStatus.SUCCESS,
 
       ...additionalProperties,
 
@@ -169,7 +169,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   async onClickFilterBtn(column: string, table: string) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         table,
@@ -189,10 +189,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -225,7 +225,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   async getMainTableData(options?: any) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await this.getMainDataMethod(
         options || {
@@ -255,16 +255,16 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         this.rowCount = result?.count || result.length
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.tableData = []
       this.rowCount = 0
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
-  setFilterRequestStatus(requestStatus: loadingStatuses) {
+  setFilterRequestStatus(requestStatus: loadingStatus) {
     this.columnMenuSettings.filterRequestStatus = requestStatus
   }
 

@@ -77,7 +77,7 @@ export const ProductLotDataForm = memo(props => {
       setBatchInfo(result)
       setOpenBatchInfoModal()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

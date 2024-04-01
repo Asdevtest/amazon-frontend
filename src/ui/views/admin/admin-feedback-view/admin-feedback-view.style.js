@@ -1,19 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   headerWrapper: {
     display: 'flex',
     justifyContent: 'center',
   },
 
   searchInput: {
-    width: '290px',
-    height: '40px',
-    border: `1px solid ${theme.palette.primary.main}`,
-
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
+    width: 300,
   },
 
   tableWrapper: {

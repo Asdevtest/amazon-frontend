@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
 
   scroll_Y: {
     padding: '0 20px',
-    height: '68vh',
+    height: '50vh',
     overflowY: 'auto',
   },
 

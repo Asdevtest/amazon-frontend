@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { productStatusButtonsConfigs } from '@constants/product/product-status-buttons-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -25,7 +24,8 @@ import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } fro
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { ProductVariation } from '@typings/enums/product-variation'
+import { loadingStatus } from '@typings/enums/loading-status'
+import { ProductVariation } from '@typings/enums/product/product-variation'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
@@ -166,7 +166,7 @@ export const ProductCardModal = observer(props => {
           />
         )}
 
-        {viewModel?.requestStatus === loadingStatuses.IS_LOADING && <CircularProgressWithLabel />}
+        {viewModel?.requestStatus === loadingStatus.IS_LOADING && <CircularProgressWithLabel />}
       </div>
 
       {viewModel?.product && currentTab === 'MAIN_INFO' && (

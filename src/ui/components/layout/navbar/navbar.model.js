@@ -74,7 +74,7 @@ export class NavbarModel {
 
       // this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

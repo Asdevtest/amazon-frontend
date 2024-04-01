@@ -1,15 +1,15 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { ResearcherDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { DashboardModel } from '@models/dashboard-model'
 import { UserModel } from '@models/user-model'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class ResearcherDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   paymentsMy = []
@@ -40,14 +40,14 @@ export class ResearcherDashboardViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.getDashboardElementCount()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -72,10 +72,7 @@ export class ResearcherDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

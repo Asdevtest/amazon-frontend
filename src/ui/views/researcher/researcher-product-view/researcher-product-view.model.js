@@ -3,7 +3,6 @@ import { action, makeAutoObservable, runInAction, toJS } from 'mobx'
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
@@ -26,6 +25,8 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import {
   confirmMessageByProductStatus,
@@ -106,7 +107,7 @@ export class ResearcherProductViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -122,7 +123,7 @@ export class ResearcherProductViewModel {
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -282,8 +283,8 @@ export class ResearcherProductViewModel {
         this.onTriggerOpenModal('showWarningModal')
       }
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
@@ -300,7 +301,7 @@ export class ResearcherProductViewModel {
 
   async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       supplier = {
         ...supplier,
@@ -347,16 +348,16 @@ export class ResearcherProductViewModel {
 
       this.onSaveForceProductData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onClickParseProductData(product) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
@@ -422,10 +423,10 @@ export class ResearcherProductViewModel {
 
       this.warningModalTitle = t(TranslationKey['Success parse'])
       this.onTriggerOpenModal('showWarningModal')
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
       this.onTriggerOpenModal('showWarningModal')
@@ -438,7 +439,7 @@ export class ResearcherProductViewModel {
 
   async onSaveProductData(editingСontinues) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
@@ -454,12 +455,12 @@ export class ResearcherProductViewModel {
           ['suppliers'],
         ),
       )
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       !editingСontinues && this.history.push('/researcher/products')
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -500,19 +501,19 @@ export class ResearcherProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onDeleteProduct() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       await ResearcherModel.removeProduct(this.product._id)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
       this.history.goBack()
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

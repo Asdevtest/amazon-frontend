@@ -12,7 +12,6 @@ import {
   unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -30,9 +29,11 @@ import { Text } from '@components/shared/text'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { UiTheme } from '@typings/enums/ui-theme'
+
 import { useStyles } from './before-after-block.style'
 
-import { EditBoxTasksModal } from '../edit-task-modal/edit-box-tasks-modal'
+import { EditBoxTasksForm } from '../../forms/edit-box-tasks-form'
 
 import { BoxItemCard } from './box-item-card'
 import { ShortBoxItemCard } from './short-box-item-card'
@@ -564,15 +565,12 @@ const NewBoxes = memo(props => {
       </div>
 
       <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
-        <EditBoxTasksModal
-          isReceive={taskType === TaskOperationType.RECEIVE}
-          primarySizeSuitableCheckbox={taskType === TaskOperationType.RECEIVE || taskType === TaskOperationType.EDIT}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          setEditModal={onTriggerShowEditBoxModal}
+        <EditBoxTasksForm
           box={curBox}
           newBoxes={newBoxes}
+          volumeWeightCoefficient={volumeWeightCoefficient}
           setNewBoxes={setNewBoxes}
-          operationType={taskType}
+          setEditModal={onTriggerShowEditBoxModal}
         />
       </Modal>
     </div>

@@ -30,7 +30,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainTitle: {
-    marginTop: '48px',
     color: theme.palette.text.general,
   },
   subTabWrapper: {

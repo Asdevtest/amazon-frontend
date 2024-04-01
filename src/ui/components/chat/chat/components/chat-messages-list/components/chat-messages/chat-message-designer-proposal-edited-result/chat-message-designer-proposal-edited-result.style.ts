@@ -232,7 +232,6 @@ export const useStyles = makeStyles()(theme => ({
   simpleSpan: {
     fontSize: 14,
     whiteSpace: 'nowrap',
-    fontWeight: '600 !important',
   },
 
   actionButton: {
@@ -243,27 +242,36 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  /* btnsWrapper: {
+  videoPreloader: {
+    cursor: 'default',
+  },
+
+  document: {
+    position: 'relative',
+    height: '75%',
+    width: '75%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'end',
-    marginTop: '48px',
-  }, */
+    justifyContent: 'center',
+    transition: 'opacity 0.3s ease-in-out',
 
-  /* actionBtnWrapperStyleNotFirst: {
-    marginLeft: '42px',
-  }, */
-
-  /* editButton: {
-    width: '200px',
-  }, */
-
-  /* successBtn: {
-    width: '197px',
-    backgroundColor: '#4CAF50',
     '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#4CAF50',
+      button: {
+        opacity: 0.3,
+      },
+
+      span: {
+        opacity: 1,
+      },
     },
-  }, */
+  },
+
+  linkText: {
+    position: 'absolute',
+    width: '100%',
+    textAlign: 'center',
+    opacity: 0,
+    transition: 'opacity 0.3s ease-in-out',
+    wordBreak: 'break-all',
+  },
 }))

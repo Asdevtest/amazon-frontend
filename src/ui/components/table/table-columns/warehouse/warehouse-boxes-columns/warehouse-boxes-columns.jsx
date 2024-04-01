@@ -46,7 +46,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
   },
 
   {
-    field: 'orders',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     valueGetter: ({ row }) => row.originalData.items?.map(item => item?.product?.asin).join(', '),
@@ -64,7 +64,6 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     },
     width: 320,
     filterable: false,
-    sortable: false,
 
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },

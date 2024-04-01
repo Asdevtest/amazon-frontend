@@ -1,15 +1,15 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { ClientDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { DashboardModel } from '@models/dashboard-model'
 import { UserModel } from '@models/user-model'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class ClientDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   dashboardData = {
     [ClientDashboardCardDataKey.IN_INVENTORY]: '',
@@ -79,19 +79,19 @@ export class ClientDashboardViewModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.IS_LOADING
+        this.requestStatus = loadingStatus.IS_LOADING
       })
 
       this.getElementCount()
 
       runInAction(() => {
-        this.requestStatus = loadingStatuses.SUCCESS
+        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.FAILED
+        this.requestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -120,10 +120,7 @@ export class ClientDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

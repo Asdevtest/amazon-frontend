@@ -11,12 +11,15 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { SeparatorIcon } from '../svg-icons'
 
 export const CustomDataGrid = ({ ...restProps }) => {
-  const grid = document.querySelector('.MuiDataGrid-main')
-  const childNodesList = grid?.childNodes
-  const alertElement = childNodesList?.[2]
+  const grids = document.querySelectorAll('.MuiDataGrid-main')
 
-  if (alertElement) {
-    alertElement.style.display = 'none'
+  for (const grid of grids) {
+    const childNodesList = grid?.childNodes
+    const alertElement = childNodesList?.[2]
+
+    if (alertElement) {
+      alertElement.style.display = 'none'
+    }
   }
 
   return (

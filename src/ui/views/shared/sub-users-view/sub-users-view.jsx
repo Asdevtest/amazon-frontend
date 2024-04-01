@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
@@ -16,10 +15,10 @@ import { SearchInput } from '@components/shared/search-input'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsClient, checkIsWithoutProductPermissions } from '@utils/checks'
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './sub-users-view.style'
 
@@ -49,7 +48,6 @@ export const SubUsersView = observer(({ history }) => {
         <Button
           styleType={ButtonStyle.SUCCESS}
           tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
-          className={styles.addUserButton}
           onClick={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
         >
           <CustomPlusIcon />
@@ -62,7 +60,6 @@ export const SubUsersView = observer(({ history }) => {
           disableEnforceFocus
           useResizeContainer
           disableRowSelectionOnClick
-          localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           sortingMode="client"
@@ -83,9 +80,8 @@ export const SubUsersView = observer(({ history }) => {
               },
             },
           }}
-          density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
@@ -98,7 +94,7 @@ export const SubUsersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
       >
         <LinkSubUserForm
-          closeModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
+          onToggleModal={() => viewModel.onTriggerOpenModal('showAddSubUserModal')}
           onSubmit={viewModel.onSubmitlinkSubUser}
         />
       </Modal>

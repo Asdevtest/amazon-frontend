@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PermissionsModel } from '@models/permissions-model'
@@ -14,10 +13,11 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class GroupPermissionsModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   groupPermissions = []
   singlePermissions = []
@@ -123,16 +123,16 @@ export class GroupPermissionsModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
       await Promise.all([this.getGroupPermissions(), this.getSinglePermissions()])
       // this.getDataGridState()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -147,7 +147,7 @@ export class GroupPermissionsModel {
       })
     } catch (error) {
       this.payments = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -159,7 +159,7 @@ export class GroupPermissionsModel {
       })
     } catch (error) {
       this.payments = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -169,8 +169,7 @@ export class GroupPermissionsModel {
 
       this.newPermissionIds = [...this.newPermissionIds, newPermissionId.guid]
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -182,8 +181,7 @@ export class GroupPermissionsModel {
         await this.createSinglePermission(perm)
       }
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -200,8 +198,7 @@ export class GroupPermissionsModel {
       this.getGroupPermissions()
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -209,8 +206,7 @@ export class GroupPermissionsModel {
     try {
       await PermissionsModel.createGroupPermission(data)
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -220,8 +216,7 @@ export class GroupPermissionsModel {
 
       await PermissionsModel.updateGroupPermission(permissionId, allowData)
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -238,8 +233,7 @@ export class GroupPermissionsModel {
       this.getGroupPermissions()
       this.getSinglePermissions()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -298,8 +292,7 @@ export class GroupPermissionsModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.getGroupPermissions()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 

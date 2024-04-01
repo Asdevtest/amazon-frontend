@@ -21,6 +21,9 @@ export const useStyles = makeStyles()(() => ({
       width: 280,
       padding: 5,
     },
+    '.MuiOutlinedInput-notchedOutline': {
+      borderWidth: '0 !important',
+    },
   },
 
   addBtn: {

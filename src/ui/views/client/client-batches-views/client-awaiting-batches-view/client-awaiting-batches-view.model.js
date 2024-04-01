@@ -1,10 +1,8 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { tableProductViewMode } from '@constants/keys/table-product-view'
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
@@ -22,6 +20,9 @@ import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/dat
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatus } from '@typings/enums/loading-status'
+import { tableProductViewMode } from '@typings/enums/table-product-view'
 
 import { filtersFields } from './client-awaiting-batches-view.constants'
 
@@ -50,7 +51,6 @@ export class ClientAwaitingBatchesViewModel {
   showWarningInfoModal = false
 
   boxesData = []
-  volumeWeightCoefficient = undefined
 
   curBox = undefined
   showBoxViewModal = false
@@ -99,6 +99,10 @@ export class ClientAwaitingBatchesViewModel {
 
   get currentData() {
     return this.batches
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -170,7 +174,7 @@ export class ClientAwaitingBatchesViewModel {
         this.selectedProduct = undefined
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -184,7 +188,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.onTriggerOpenModal('showEditHSCodeModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -198,7 +202,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -229,7 +233,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.getDataGridState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -247,7 +251,7 @@ export class ClientAwaitingBatchesViewModel {
       this.getDataGridState()
       this.getBatchesPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -277,7 +281,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -293,20 +297,15 @@ export class ClientAwaitingBatchesViewModel {
         storekeeperId: this.currentStorekeeperId,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = result.count
-
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
-        this.batches = warehouseBatchesDataConverter(result.rows, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(result.rows, this.platformSettings?.volumeWeightCoefficient)
       })
     } catch (error) {
       runInAction(() => {
         this.batches = []
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -319,18 +318,16 @@ export class ClientAwaitingBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -340,7 +337,7 @@ export class ClientAwaitingBatchesViewModel {
 
       await BatchesModel.removeBoxFromBatch(batch._id, boxesToRemoveIds)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -357,7 +354,7 @@ export class ClientAwaitingBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -378,20 +375,15 @@ export class ClientAwaitingBatchesViewModel {
         })
       }
 
-      const [boxes, result] = await Promise.all([
-        BoxesModel.getBoxesReadyToBatchClient(),
-        UserModel.getPlatformSettings(),
-      ])
+      const boxes = await BoxesModel.getBoxesReadyToBatchClient()
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.boxesData = boxes
       })
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -403,7 +395,7 @@ export class ClientAwaitingBatchesViewModel {
 
       this.setCurrentOpenedBatch(id, true)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -443,7 +435,7 @@ export class ClientAwaitingBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -468,7 +460,7 @@ export class ClientAwaitingBatchesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'batches'),
@@ -484,10 +476,10 @@ export class ClientAwaitingBatchesViewModel {
         }
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 

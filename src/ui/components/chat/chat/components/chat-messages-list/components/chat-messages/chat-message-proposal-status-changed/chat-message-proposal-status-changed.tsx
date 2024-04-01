@@ -38,19 +38,21 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowCha
   }
 
   const renderDetails = () => {
-    switch (message.data.status) {
+    switch (message?.data?.status) {
       case RequestProposalStatus.TO_CORRECT:
         return (
           <div className={styles.detailsWrapper}>
             <div className={styles.headerAndTimeWrapper}>
               <p className={styles.titleText}>{t(TranslationKey['Sent for rework'])}</p>
 
-              <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
+              <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message?.createdAt)}</p>
             </div>
 
             {message?.data?.reason ? <p className={styles.reasonText}>{message?.data?.reason}</p> : null}
 
-            <SlideshowGallery slidesToShow={2} files={message.data.linksToMediaFiles || []} />
+            {message?.data?.linksToMediaFiles?.length > 0 ? (
+              <SlideshowGallery slidesToShow={2} files={message?.data?.linksToMediaFiles} />
+            ) : null}
 
             <div className={cx(styles.footerWrapper, { [styles.footerWrapperShowChatInfo]: isShowChatInfo })}>
               <div className={styles.labelValueBlockWrapper}>
@@ -58,11 +60,10 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({ message, isShowCha
 
                 <LabelValuePairBlock
                   label={undefined}
-                  value={minsToTime(message.data.timeLimitInMinutes)}
+                  value={minsToTime(message?.data?.timeLimitInMinutes)}
                   bgColor="green"
                 />
               </div>
-              S
             </div>
           </div>
         )

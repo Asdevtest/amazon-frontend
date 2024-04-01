@@ -1,4 +1,3 @@
-import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -12,6 +11,7 @@ import {
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 export const shopsColumns = handlers => [
   {
@@ -33,9 +33,9 @@ export const shopsColumns = handlers => [
   },
 
   {
-    field: 'PPCOrganicByWeeks',
-    headerName: 'PPC-Organic by Weeks',
-    renderHeader: () => <MultilineTextHeaderCell text="PPC-Organic by Weeks" />,
+    field: 'ppcOrganicByDay',
+    headerName: 'PPC-Organic By Day',
+    renderHeader: () => <MultilineTextHeaderCell text="PPC-Organic By Day" />,
 
     width: 125,
     renderCell: params => (
@@ -44,7 +44,7 @@ export const shopsColumns = handlers => [
         disabledFirstButton={!params?.row?.reportAccountUrl}
         firstButtonElement={t(TranslationKey.View)}
         firstButtonStyle={ButtonStyle.CASUAL}
-        onClickFirstButton={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.PPC, params.row)}
+        onClickFirstButton={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, params.row)}
       />
     ),
   },
@@ -96,6 +96,23 @@ export const shopsColumns = handlers => [
         firstButtonElement={t(TranslationKey.View)}
         firstButtonStyle={ButtonStyle.CASUAL}
         onClickFirstButton={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.RETURNS, params.row)}
+      />
+    ),
+  },
+
+  {
+    field: 'PPCOrganicByWeeks',
+    headerName: 'PPC-Organic by Weeks',
+    renderHeader: () => <MultilineTextHeaderCell text="PPC-Organic by Weeks" />,
+
+    width: 125,
+    renderCell: params => (
+      <ActionButtonsCell
+        isFirstButton
+        disabledFirstButton={!params?.row?.reportAccountUrl}
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.CASUAL}
+        onClickFirstButton={() => handlers.onClickSeeShopReport(ShopReportsTabsValues.PPC, params.row)}
       />
     ),
   },

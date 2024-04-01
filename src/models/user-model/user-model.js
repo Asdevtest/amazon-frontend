@@ -165,7 +165,7 @@ class UserModelStatic {
       const response = await restApiService.userApi.apiV1UsersInfoGuidGet({ guid })
       return response.data
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -272,6 +272,16 @@ class UserModelStatic {
 
   async getSpecs(archive) {
     const response = await restApiService.userApi.apiV1UsersFreelanceSpecsGet({ archive, noCache: true }) // archive = undefined - all elements, archive = false - only not archive elements, archive = true - only archive elements
+    return response.data
+  }
+
+  async getActiveSessions() {
+    const response = await restApiService.userApi.apiV1UsersDevicesGet({ noCache: true })
+    return response.data
+  }
+
+  async logoutSession(sessionCreatedAt) {
+    const response = await restApiService.userApi.apiV1UsersLogoutPost({ body: { sessionCreatedAt } })
     return response.data
   }
 }

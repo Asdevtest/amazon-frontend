@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { SupervisorModel } from '@models/supervisor-model'
 import { TableSettingsModel } from '@models/table-settings'
@@ -10,6 +9,8 @@ import { depersonalizedPickColumns } from '@components/table/table-columns/deper
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SupervisorReadyToCheckByClientViewModel {
   history = undefined
@@ -81,13 +82,13 @@ export class SupervisorReadyToCheckByClientViewModel {
 
       await this.getProductsReadyToCheck()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getProductsReadyToCheck() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const isCreatedByClient = true
 
@@ -99,10 +100,10 @@ export class SupervisorReadyToCheckByClientViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
 
       runInAction(() => {
         this.productsReadyToCheck = []
@@ -126,7 +127,7 @@ export class SupervisorReadyToCheckByClientViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -141,7 +142,7 @@ export class SupervisorReadyToCheckByClientViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

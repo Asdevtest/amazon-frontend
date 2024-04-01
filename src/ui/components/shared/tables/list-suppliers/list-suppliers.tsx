@@ -7,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { GalleryModal } from '@components/modals/gallery-modal'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -72,7 +71,6 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
     orderCreatedAt: 'product' in formFields ? formFields?.createdAt : '',
     orderSupplierId: orderSupplier?._id || '',
     platformSettings: viewModel.platformSettings,
-    onClickFilesCell: viewModel.onClickFilesCell,
   })
   const isCurrentSupplierSelected =
     (orderSupplier?._id || extractProduct(formFields).currentSupplierId) === viewModel.selectionModel[0]
@@ -123,14 +121,6 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           onRowSelectionModelChange={viewModel.onRowSelectionModelChange}
         />
       </div>
-
-      {viewModel.showGalleryModal ? (
-        <GalleryModal
-          files={viewModel.galleryFiles}
-          openModal={viewModel.showGalleryModal}
-          onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
-        />
-      ) : null}
 
       <Modal
         openModal={viewModel.showAddOrEditSupplierModal}

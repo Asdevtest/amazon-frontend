@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { OtherModel } from '@models/other-model'
@@ -14,14 +13,14 @@ import { warehouseCanceledTasksViewColumns } from '@components/table/table-colum
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
 import { objectToUrlQs } from '@utils/text'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class WarehouseCanceledTasksViewModel {
   history = undefined
   requestStatus = undefined
 
   tasksMy = []
   curOpenedTask = {}
-
-  volumeWeightCoefficient = undefined
 
   nameSearchValue = ''
 
@@ -46,6 +45,10 @@ export class WarehouseCanceledTasksViewModel {
 
   get currentData() {
     return this.tasksMy
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -130,13 +133,13 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.SUCCESS)
+          this.setRequestStatus(loadingStatus.SUCCESS)
         }
       })
     })
@@ -151,31 +154,27 @@ export class WarehouseCanceledTasksViewModel {
       this.getDataGridState()
       this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async setCurrentOpenedTask(item) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(item._id),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(item._id)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-
-        this.curOpenedTask = task
+        this.curOpenedTask = response
       })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getTasksMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -213,13 +212,13 @@ export class WarehouseCanceledTasksViewModel {
         this.tasksMy = warehouseTasksDataConverter(result.rows.map(el => ({ ...el, beforeBoxes: el.boxesBefore })))
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.tasksMy = []
       })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

@@ -2,7 +2,6 @@ import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
@@ -20,6 +19,8 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 import { filtersFields } from './warehouse-sent-batches-view.constants'
 
 export class WarehouseSentBatchesViewModel {
@@ -29,7 +30,6 @@ export class WarehouseSentBatchesViewModel {
   nameSearchValue = ''
   batches = []
   selectedBatches = []
-  volumeWeightCoefficient = undefined
 
   hsCodeData = {}
 
@@ -38,7 +38,6 @@ export class WarehouseSentBatchesViewModel {
   isArchive = false
 
   rowCount = 0
-  currentData = []
 
   curBatch = {}
   showConfirmModal = false
@@ -88,26 +87,22 @@ export class WarehouseSentBatchesViewModel {
     return UserModel.userInfo
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
+  get currentData() {
+    return this.batches
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => this.batches,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
-    )
-
-    reaction(
       () => this.isArchive,
-      () => {
-        this.loadData()
-      },
+      () => this.loadData(),
     )
   }
 
@@ -194,16 +189,12 @@ export class WarehouseSentBatchesViewModel {
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
-  getCurrentData() {
-    return toJS(this.batches)
-  }
-
   async loadData() {
     try {
       this.getDataGridState()
       await this.getBatchesPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -234,7 +225,7 @@ export class WarehouseSentBatchesViewModel {
 
       this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -266,24 +257,19 @@ export class WarehouseSentBatchesViewModel {
         storekeeperId: null,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = result.count
-
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
         this.batches = warehouseBatchesDataConverter(result.rows, result.volumeWeightCoefficient)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.batches = []
       })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -300,21 +286,16 @@ export class WarehouseSentBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-      })
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -342,7 +323,7 @@ export class WarehouseSentBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -366,7 +347,7 @@ export class WarehouseSentBatchesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'batches'),
@@ -384,10 +365,10 @@ export class WarehouseSentBatchesViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 

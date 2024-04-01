@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
@@ -17,15 +16,15 @@ import { objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
-  requestStatus = loadingStatuses.IS_LOADING // for first render
+  requestStatus = loadingStatus.IS_LOADING // for first render
 
   acceptMessage = null
   showAcceptMessage = false
-  platformSettingsData = null
   requestToEdit = undefined
   createRequestForIdeaData = undefined
   uploadedFiles = []
@@ -58,6 +57,10 @@ export class CreateOrEditRequestViewModel {
     ...dataGridFiltersInitializer(['specType']),
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
     const url = new URL(window.location.href)
 
@@ -80,32 +83,19 @@ export class CreateOrEditRequestViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async getPlatformSettingsData() {
-    try {
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettingsData = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async loadData() {
     try {
       // status change is required for loading
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await this.getCustomRequestCur()
       this.getAnnouncementData()
-      this.getPlatformSettingsData()
       this.getSpecs()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -117,7 +107,7 @@ export class CreateOrEditRequestViewModel {
         this.masterUsersData = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -127,7 +117,7 @@ export class CreateOrEditRequestViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -201,7 +191,7 @@ export class CreateOrEditRequestViewModel {
         this.pushSuccess()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       if (error?.response?.error?.url?.includes('calculate_request_cost')) {
         this.pushSuccess()
@@ -254,7 +244,7 @@ export class CreateOrEditRequestViewModel {
         acceptMessage: this.acceptMessage,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.showAcceptMessage = true
@@ -288,7 +278,7 @@ export class CreateOrEditRequestViewModel {
         this.announcements = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -301,7 +291,7 @@ export class CreateOrEditRequestViewModel {
           this.requestToEdit = result
         })
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
   }
@@ -318,7 +308,7 @@ export class CreateOrEditRequestViewModel {
           this.executor = result?.createdBy
         })
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
   }
@@ -329,7 +319,7 @@ export class CreateOrEditRequestViewModel {
 
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -355,7 +345,7 @@ export class CreateOrEditRequestViewModel {
         this.specs = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -373,7 +363,7 @@ export class CreateOrEditRequestViewModel {
         this.productMedia = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

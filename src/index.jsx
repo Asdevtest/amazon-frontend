@@ -1,6 +1,5 @@
 import * as Sentry from '@sentry/react'
 import { BrowserTracing } from '@sentry/tracing'
-import React from 'react'
 // import {DndProvider} from 'react-dnd'
 // import {HTML5Backend} from 'react-dnd-html5-backend'
 import ReactDOM from 'react-dom/client'
@@ -19,6 +18,12 @@ Sentry.init({
   // for finer control
   tracesSampleRate: 1.0,
 })
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(() => {
+    console.log('Service Worker Registered')
+  })
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 

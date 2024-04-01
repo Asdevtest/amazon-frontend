@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
@@ -10,6 +9,8 @@ import { TableSettingsModel } from '@models/table-settings'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { tagsColumns } from './tags-columns'
 
@@ -60,7 +61,7 @@ export class AdminSettingsTagsModel {
 
       this.getTags()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -70,7 +71,7 @@ export class AdminSettingsTagsModel {
 
   async getTags() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const resolve = await GeneralModel.getTagList()
 
@@ -78,11 +79,11 @@ export class AdminSettingsTagsModel {
         this.tags = addIdDataConverter(resolve)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.tags = []
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -194,7 +195,7 @@ export class AdminSettingsTagsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -206,7 +207,7 @@ export class AdminSettingsTagsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -218,7 +219,7 @@ export class AdminSettingsTagsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -230,7 +231,7 @@ export class AdminSettingsTagsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -35,6 +34,8 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
@@ -138,7 +139,7 @@ export const ClientInventoryView = observer(({ history }) => {
               tagSearchSettings: {
                 tagList: viewModel.columnMenuSettings?.tags?.filterData,
                 activeTags: viewModel.columnMenuSettings?.tags?.currentFilterData,
-                isLoading: viewModel.columnMenuSettings?.filterRequestStatus === loadingStatuses.IS_LOADING,
+                isLoading: viewModel.columnMenuSettings?.filterRequestStatus === loadingStatus.IS_LOADING,
                 getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn(TAGS, DataGridFilterTables.PRODUCTS),
                 setActiveProductsTag: viewModel.setActiveProductsTag,
               },
@@ -147,7 +148,7 @@ export const ClientInventoryView = observer(({ history }) => {
           rowSelectionModel={viewModel.selectedRows}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

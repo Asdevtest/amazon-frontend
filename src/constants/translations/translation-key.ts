@@ -221,7 +221,7 @@ export enum TranslationKey {
   'Vacant requests' = 'Vacant requests',
   'My proposals' = 'My proposals',
   'Commodity exchange' = 'Commodity exchange',
-  'Deal exchange' = 'Deal exchange',
+  'Research Exchenge' = 'Research Exchenge',
   'My orders' = 'My orders',
   'Shops' = 'Shops',
   'Notifications' = 'Notifications',
@@ -2218,5 +2218,10 @@ export enum TranslationKey {
   'Parent' = 'Parent',
   'China' = 'China',
   'Hierarchy' = 'Hierarchy',
+  'Active sessions' = 'Active sessions',
+  'No active sessions' = 'No active sessions',
+  'Browser not found' = 'Browser not found',
+  'Close the access' = 'Close the access',
+  'No user found with this email.' = 'No user found with this email.',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

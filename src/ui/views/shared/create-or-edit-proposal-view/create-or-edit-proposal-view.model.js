@@ -15,19 +15,15 @@ export class CreateOrEditProposalViewModel {
   history = undefined
   requestStatus = undefined
 
+  infoModalText = ''
+  uploadedFiles = []
   request = undefined
   proposalToEdit = undefined
+  progressValue = 0
+  showProgress = false
 
   showInfoModal = false
   showResultModal = false
-
-  infoModalText = ''
-
-  uploadedFiles = []
-
-  readyImages = []
-  progressValue = 0
-  showProgress = false
 
   get userInfo() {
     return UserModel.userInfo
@@ -70,7 +66,7 @@ export class CreateOrEditProposalViewModel {
       })
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.infoModalText = error.body.message
@@ -93,7 +89,7 @@ export class CreateOrEditProposalViewModel {
 
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(
         () =>

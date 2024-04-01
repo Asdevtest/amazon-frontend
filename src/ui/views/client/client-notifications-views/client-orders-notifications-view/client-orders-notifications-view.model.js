@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -14,6 +13,8 @@ import { clientOrdersNotificationsDataConverter } from '@utils/data-grid-data-co
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ClientOrdersNotificationsViewModel {
   history = undefined
@@ -138,13 +139,13 @@ export class ClientOrdersNotificationsViewModel {
 
       this.getOrders()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getOrders() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await ClientModel.getOrders(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE])
 
@@ -156,10 +157,10 @@ export class ClientOrdersNotificationsViewModel {
         this.rowCount = result.length
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.baseNoConvertedOrders = []
@@ -177,31 +178,31 @@ export class ClientOrdersNotificationsViewModel {
 
   async onClickConfirmOrderPriceChangeBtn(order) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.orderConfirmPriceChange(order._id)
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onClickRejectOrderPriceChangeBtn(order) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.cancelOrder(order._id)
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
     }
   }
 }

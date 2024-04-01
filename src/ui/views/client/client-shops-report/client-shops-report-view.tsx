@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { ShopReportsTabsValues } from '@constants/tabs/shop-report'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-goods-to-inventory-form'
@@ -16,6 +14,9 @@ import { Modal } from '@components/shared/modal'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+import { ShopReportsTabsValues } from '@typings/enums/shop-report'
+
 import { useStyles } from './client-shops-report-view.style'
 
 import { ClientShopsViewModel } from './client-shops-report-view.model'
@@ -25,7 +26,7 @@ import { switcherConfig } from './switcher.config'
 export const ClientShopsReportView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC))
+  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY))
   viewModel.initHistory()
 
   useEffect(() => {
@@ -82,7 +83,7 @@ export const ClientShopsReportView = observer(() => {
           density={viewModel.densityModel}
           rows={viewModel.tableData}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           rowSelectionModel={viewModel.selectedRows}
           getRowId={({ _id }: { _id: string }) => _id}
           onRowSelectionModelChange={viewModel.onSelectionModel}

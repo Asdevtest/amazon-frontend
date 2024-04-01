@@ -3,7 +3,6 @@ import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
@@ -28,7 +27,8 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { ProductVariation } from '@typings/enums/product-variation'
+import { loadingStatus } from '@typings/enums/loading-status'
+import { ProductVariation } from '@typings/enums/product/product-variation'
 
 import { fieldsOfProductAllowedToUpdate, formFieldsDefault } from './client-product-view.constants'
 
@@ -138,8 +138,8 @@ export class ClientProductViewModel {
         this.productsToBind = result.rows
       })
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -160,14 +160,14 @@ export class ClientProductViewModel {
       this.loadData()
       this.onTriggerOpenModal('showBindProductModal')
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async getProductsVariations() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
 
@@ -175,10 +175,10 @@ export class ClientProductViewModel {
         this.productVariations = result
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -204,7 +204,7 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -215,7 +215,7 @@ export class ClientProductViewModel {
 
   async getProductById() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await ProductModel.getProductById(this.productId)
 
@@ -227,10 +227,10 @@ export class ClientProductViewModel {
         updateProductAutoCalculatedFields.call(this)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -313,7 +313,7 @@ export class ClientProductViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -379,7 +379,7 @@ export class ClientProductViewModel {
         this.history.goBack()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -398,7 +398,7 @@ export class ClientProductViewModel {
         this.history.goBack()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -455,14 +455,14 @@ export class ClientProductViewModel {
       await this.onSaveProductData()
       updateDataHandler && (await updateDataHandler())
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onSaveProductData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
@@ -512,10 +512,10 @@ export class ClientProductViewModel {
         this.isValidLink = true
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -527,13 +527,13 @@ export class ClientProductViewModel {
         this.paymentMethods = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       supplier = {
         ...supplier,
@@ -595,10 +595,10 @@ export class ClientProductViewModel {
 
       await this.onSaveForceProductData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -640,7 +640,7 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -650,7 +650,7 @@ export class ClientProductViewModel {
         transparency: this.product.transparency,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -660,7 +660,7 @@ export class ClientProductViewModel {
 
   async onClickParseProductData(product) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
@@ -719,10 +719,10 @@ export class ClientProductViewModel {
 
       toast.success(t(TranslationKey['Success parse']))
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)

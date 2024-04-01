@@ -223,7 +223,7 @@
   "Vacant requests": "空闲的的请求",
   "My proposals": "我的建议",
   "Commodity exchange": "商品交易所",
-  "Deal exchange": "利润的交易所",
+  "Research Exchenge": "利润的交易所",
   "My orders": "我的订单",
   "Shops": "商店",
   "Notifications": "通知",
@@ -2212,5 +2212,10 @@
   "Access is denied": "Access is denied",
   "Parent": "Parent",
   "China": "China",
-  "Hierarchy": "Hierarchy"
+  "Hierarchy": "Hierarchy",
+  "Active sessions": "Active sessions",
+  "No active sessions": "No active sessions",
+  "Browser not found": "Browser not found",
+  "Close the access": "Close the access",
+  "No user found with this email.": "No user found with this email."
 }

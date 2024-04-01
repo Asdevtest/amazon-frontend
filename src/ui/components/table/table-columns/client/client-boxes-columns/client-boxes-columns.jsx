@@ -131,7 +131,7 @@ export const clientBoxesViewColumns = (
   },
 
   {
-    field: 'orders',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -182,7 +182,6 @@ export const clientBoxesViewColumns = (
         .join('\n'),
 
     filterable: false,
-    sortable: false,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
 

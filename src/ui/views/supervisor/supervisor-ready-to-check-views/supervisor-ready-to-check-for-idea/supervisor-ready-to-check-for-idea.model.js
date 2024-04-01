@@ -1,13 +1,13 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-
 import { SupervisorModel } from '@models/supervisor-model'
 
 import { depersonalizedPickColumns } from '@components/table/table-columns/depersonalized-pick-columns'
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SupervisorReadyToCheckForIdeaViewModel {
   history = undefined
@@ -51,13 +51,13 @@ export class SupervisorReadyToCheckForIdeaViewModel {
     try {
       await this.getProductsReadyToCheck()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getProductsReadyToCheck() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const isCreatedByClient = true
 
@@ -69,10 +69,10 @@ export class SupervisorReadyToCheckForIdeaViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.productsReadyToCheck = []
@@ -96,7 +96,7 @@ export class SupervisorReadyToCheckForIdeaViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -111,7 +111,7 @@ export class SupervisorReadyToCheckForIdeaViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -24,6 +24,8 @@ export const volumePoundsWeightCoefficient = 166
 
 export const RIGHT_BLOCK_WIDTH = 100
 
+export const unitWeightCoefficient = 139
+
 export const getConversion = (unitsOptions, coefficient, divider = 1) =>
   unitsOptions === unitsOfChangeOptions.US ? coefficient : divider
 

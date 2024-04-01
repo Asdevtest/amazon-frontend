@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
@@ -19,6 +18,7 @@ import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './supervisor-settings-content.style'
 
@@ -138,7 +138,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.IS_LOADING}
+            loading={requestStatus === loadingStatus.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
@@ -200,7 +200,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.IS_LOADING}
+            loading={requestStatus === loadingStatus.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
@@ -262,7 +262,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.IS_LOADING}
+            loading={requestStatus === loadingStatus.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
@@ -324,7 +324,7 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.IS_LOADING}
+            loading={requestStatus === loadingStatus.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
             onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}

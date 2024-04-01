@@ -3,12 +3,10 @@ import { FC, useState } from 'react'
 
 import { GridRowModel, GridRowParams } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxViewForm } from '@components/forms/box-view-form'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
-import { GalleryModal } from '@components/modals/gallery-modal'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -16,6 +14,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './boxes-to-order.style'
@@ -46,9 +45,9 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(({ formFields, platf
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
           getRowId={(row: GridRowModel) => row._id}
-          columns={boxesToOrderColumn(platformSettings, viewModel.onClickFilesCell)}
+          columns={boxesToOrderColumn(platformSettings)}
           paginationModel={viewModel.paginationModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           sx={{
             '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
             '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
@@ -66,14 +65,6 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(({ formFields, platf
           onRowDoubleClick={(params: GridRowParams) => viewModel.onTriggerBoxModal(params?.row?._id)}
         />
       </div>
-
-      {viewModel.showGalleryModal ? (
-        <GalleryModal
-          files={viewModel.galleryFiles}
-          openModal={viewModel.showGalleryModal}
-          onOpenModal={() => viewModel.onToggleModal(ModalNames.GALLERY)}
-        />
-      ) : null}
 
       <Modal openModal={viewModel.showBoxModal} setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}>
         <BoxViewForm

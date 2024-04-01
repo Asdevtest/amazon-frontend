@@ -46,7 +46,7 @@ export class AdminSettingsModel {
 
       this.getServerProxy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -63,7 +63,7 @@ export class AdminSettingsModel {
         this.prevFormFields = response?.dynamicSettings
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -83,7 +83,7 @@ export class AdminSettingsModel {
         this.isFormFieldsChanged = false
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The settings are not saved.'])
@@ -140,7 +140,7 @@ export class AdminSettingsModel {
         this.serverProxy = resolve
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -156,7 +156,7 @@ export class AdminSettingsModel {
 
       this.getServerProxy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.infoModalText = t(TranslationKey['The proxy servers are not saved.'])

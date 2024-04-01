@@ -4,7 +4,6 @@ import { useState } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, MenuItem, Select, Typography } from '@mui/material'
 
-import { HttpMethod } from '@constants/keys/http-method'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,6 +14,8 @@ import { Input } from '@components/shared/input'
 import { checkIsPositiveNum } from '@utils/checks'
 import { clearSpecialCharacters } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { HttpMethods } from '@typings/enums/http'
 
 import { useStyles } from './add-or-edit-single-permission-form.style'
 
@@ -181,9 +182,9 @@ export const AddOrEditSinglePermissionForm = observer(
                       <MenuItem value={'None'} className={styles.selectOption}>
                         {'none'}
                       </MenuItem>
-                      {Object.keys(HttpMethod).map((http, idx) => (
+                      {Object.keys(HttpMethods).map((http, idx) => (
                         <MenuItem key={idx} value={http} className={styles.selectOption}>
-                          {HttpMethod[http]}
+                          {HttpMethods[http]}
                         </MenuItem>
                       ))}
                     </Select>

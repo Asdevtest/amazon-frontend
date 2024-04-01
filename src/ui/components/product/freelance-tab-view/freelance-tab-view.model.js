@@ -2,9 +2,8 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestSubType } from '@constants/requests/request-type'
+import { showResultRequestProposalsStatuses } from '@constants/requests/request-proposal-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
@@ -18,6 +17,8 @@ import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+import { RequestSubType } from '@typings/enums/request/request-type'
 import { Specs } from '@typings/enums/specs'
 
 import { filtersFields } from './freelance-tab-view.constants'
@@ -110,7 +111,7 @@ export class FreelanceModel {
       this.getCustomRequests()
       this.getSpecs()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -140,7 +141,7 @@ export class FreelanceModel {
         this.rowCount = result.count
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       runInAction(() => {
         this.searchRequests = []
@@ -159,7 +160,7 @@ export class FreelanceModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'requests'),
@@ -176,10 +177,10 @@ export class FreelanceModel {
         })
       }
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -249,7 +250,9 @@ export class FreelanceModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(item._id)
 
-      const proposal = result.find(el => el.proposal.status)
+      const proposal = result
+        ?.filter(proposal => showResultRequestProposalsStatuses.includes(proposal?.proposal?.status))
+        ?.sort((a, b) => new Date(b?.proposal?.updatedAt) - new Date(a?.proposal?.updatedAt))?.[0]
 
       if (!proposal) {
         return
@@ -274,7 +277,7 @@ export class FreelanceModel {
           break
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -304,7 +307,7 @@ export class FreelanceModel {
         this.specs = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

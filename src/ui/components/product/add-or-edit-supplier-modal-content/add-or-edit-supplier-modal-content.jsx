@@ -2,8 +2,13 @@ import { memo, useEffect, useState } from 'react'
 
 import { Divider, Grid, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import {
+  inchesCoefficient,
+  poundsCoefficient,
+  poundsWeightCoefficient,
+  unitWeightCoefficient,
+  unitsOfChangeOptions,
+} from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SupplierModel } from '@models/supplier-model'
@@ -24,6 +29,7 @@ import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './add-or-edit-supplier-modal-content.style'
 
@@ -59,7 +65,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         setSupplier(response)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -117,6 +123,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
   const handleChange = isUnit => newAlignment => {
     const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
+    const weightMultiplier =
+      newAlignment === unitsOfChangeOptions.US ? 1 / poundsWeightCoefficient : poundsWeightCoefficient
 
     if (isUnit) {
       if (newAlignment !== unitSetting) {
@@ -126,7 +134,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           heightUnit: toFixed(prev?.heightUnit / multiplier || '', 2),
           widthUnit: toFixed(prev?.widthUnit / multiplier || '', 2),
           lengthUnit: toFixed(prev?.lengthUnit / multiplier || '', 2),
-          weighUnit: toFixed(prev?.weighUnit / multiplier || '', 2),
+          weighUnit: toFixed(prev?.weighUnit * weightMultiplier || '', 2),
         }))
 
         setUnitSetting(newAlignment)
@@ -149,12 +157,20 @@ export const AddOrEditSupplierModalContent = memo(props => {
   }
 
   const calculateFieldsToSubmit = () => {
+    const multiplier = unitSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1
+    const weightMultiplier = unitSetting === unitsOfChangeOptions.US ? poundsCoefficient : 1
+
     let res = {
       ...tmpSupplier,
       batchTotalCostInYuan:
         +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
 
       batchTotalCostInDollar: +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
+
+      heightUnit: toFixed(tmpSupplier?.heightUnit * multiplier || '', 2),
+      widthUnit: toFixed(tmpSupplier?.widthUnit * multiplier || '', 2),
+      lengthUnit: toFixed(tmpSupplier?.lengthUnit * multiplier || '', 2),
+      weighUnit: toFixed(tmpSupplier?.weighUnit / weightMultiplier || '', 2),
 
       boxProperties: {
         ...tmpSupplier.boxProperties,
@@ -397,7 +413,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
   const unitVolumeWeight = toFixed(
     (tmpSupplier.heightUnit * tmpSupplier.widthUnit * tmpSupplier.lengthUnit) /
-      platformSettings?.volumeWeightCoefficient || '',
+      (unitSetting === unitsOfChangeOptions.EU ? platformSettings?.volumeWeightCoefficient : unitWeightCoefficient),
     2,
   )
 
@@ -440,7 +456,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     0 === parseFloat(tmpSupplier.price) ||
     0 === parseInt(tmpSupplier.amount) ||
     0 === parseInt(tmpSupplier.minlot) ||
-    requestStatus === loadingStatuses.IS_LOADING ||
+    requestStatus === loadingStatus.IS_LOADING ||
     ((tmpSupplier.boxProperties?.amountInBox ||
       tmpSupplier.boxProperties?.boxLengthCm ||
       tmpSupplier.boxProperties?.boxWidthCm ||
@@ -562,7 +578,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
             label={t(TranslationKey['Current supplier course'])}
             inputProps={{ maxLength: 8 }}
             containerClasses={styles.rateContainer}
-            labelClasses={cx(styles.rateLabel)}
+            labelClasses={styles.rateLabel}
             inputClasses={styles.courseInput}
             value={tmpSupplier?.yuanRate}
             onChange={onChangeYuanToDollarRate}
@@ -763,7 +779,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               length={tmpSupplier.boxProperties.boxLengthCm}
               grossWeigh={tmpSupplier.boxProperties.boxWeighGrossKg}
               optionalWeight={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg / poundsWeightCoefficient || '', 2)}
-              optionalWeightTitle={t(TranslationKey['Weight, Lbs'])}
+              optionalWeightTitle={`${t(TranslationKey.Weight)}, ${t(TranslationKey.lb)}`}
               onChangeSizeMode={handleChange(false)}
               onChangeHeight={onChangeField('boxHeightCm')}
               onChangeWidth={onChangeField('boxWidthCm')}
@@ -826,6 +842,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
           <div className={styles.unitDimensionsWrapper}>
             <Dimensions
+              weighUnit
               title={t(TranslationKey['Package dimensions'])}
               onlyRead={onlyRead}
               sizeMode={unitSetting}

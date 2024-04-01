@@ -21,7 +21,7 @@ export const PurchaseHistory = ({ user, tabHistory, setTabHistory }) => {
             flexContainer: styles.tabsHeadContainer,
             indicator: styles.tabsIndicator,
           }}
-          onChange={(e, newValue) => setTabHistory(newValue)}
+          onChange={(_, newValue) => setTabHistory(newValue)}
         >
           <Tab
             className={cx(styles.text, {

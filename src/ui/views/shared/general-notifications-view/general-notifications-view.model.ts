@@ -5,9 +5,7 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { GridFilterModel } from '@mui/x-data-grid'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { NotificationType } from '@constants/keys/notifications'
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
@@ -19,6 +17,8 @@ import { notificationDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+import { Notification } from '@typings/enums/notification'
 import { IProduct } from '@typings/models/products/product'
 import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/shared/data-grid'
 import { IFullUser } from '@typings/shared/full-user'
@@ -30,7 +30,7 @@ interface IVariations {
 
 export class GeneralNotificationsViewModel {
   history: History | undefined = undefined
-  requestStatus = loadingStatuses.SUCCESS
+  requestStatus = loadingStatus.SUCCESS
 
   // * Pagination & Sorting & Filtering
 
@@ -92,15 +92,15 @@ export class GeneralNotificationsViewModel {
 
   async onClickReadButton() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await UserModel.addNotificationsToArchive(this.selectedRowIds)
       await this.getUserNotifications()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -110,7 +110,7 @@ export class GeneralNotificationsViewModel {
 
   async getUserNotifications() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const response = await UserModel.getUsersNotificationsPagMy({
         archive: this.isArchive,
@@ -130,10 +130,10 @@ export class GeneralNotificationsViewModel {
         this.rowCount = response.count || 0
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -169,7 +169,7 @@ export class GeneralNotificationsViewModel {
     this.getUserNotifications()
   }
 
-  setRequestStatus(requestStatus: loadingStatuses) {
+  setRequestStatus(requestStatus: loadingStatus) {
     this.requestStatus = requestStatus
   }
 
@@ -191,7 +191,7 @@ export class GeneralNotificationsViewModel {
   navigateToHandler(notification: any, type: string) {
     if (!this.userInfo) return
 
-    if (type === NotificationType.Order) {
+    if (type === Notification.Order) {
       if (checkIsClient(UserRoleCodeMap[this.userInfo?.role])) {
         window
           .open(
@@ -213,7 +213,7 @@ export class GeneralNotificationsViewModel {
       }
     } else if (type === 'user') {
       window.open(`/another-user?${notification?.sub?._id || notification?.creator?._id}`)?.focus()
-    } else if (type === NotificationType.Idea) {
+    } else if (type === Notification.Idea) {
       this.currentProduct = notification.parentProduct
       this.currentIdeaId = notification.ideaId
 
@@ -227,15 +227,15 @@ export class GeneralNotificationsViewModel {
 
   onClickToChangeNotificationType(notificationType: string | number | null | undefined) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.curNotificationType = notificationType
 
       this.getUserNotifications()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (err) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(err)
     }
   }
@@ -254,15 +254,15 @@ export class GeneralNotificationsViewModel {
 
   onSearchSubmit(searchValue: string) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.searchValue = searchValue
 
       this.getUserNotifications()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (err) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(err)
     }
   }

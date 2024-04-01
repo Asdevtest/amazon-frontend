@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { PermissionsModel } from '@models/permissions-model'
@@ -11,6 +10,8 @@ import { UserModel } from '@models/user-model'
 import { adminUsersViewColumns } from '@components/table/table-columns/admin/users-columns'
 
 import { adminUsersDataConverter } from '@utils/data-grid-data-converters'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AdminUsersViewModel {
   history = undefined
@@ -100,21 +101,21 @@ export class AdminUsersViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
       await Promise.all([this.getUsers(), this.getGroupPermissions(), this.getSinglePermissions()])
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   async getUsers() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await AdministratorModel.getUsers()
 
@@ -125,10 +126,10 @@ export class AdminUsersViewModel {
         this.rowCount = usersData?.length
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -140,7 +141,7 @@ export class AdminUsersViewModel {
         this.groupPermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -152,13 +153,13 @@ export class AdminUsersViewModel {
         this.singlePermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async submitEditUserForm(data, sourceData) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
         name: this.changeNameAndEmail.name,
@@ -186,15 +187,15 @@ export class AdminUsersViewModel {
         await this.finalStepSubmitEditUserForm()
       }
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   async finalStepSubmitEditUserForm() {
     try {
       await AdministratorModel.updateUser(this.rowSelectionModel, this.submitEditData)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.onTriggerOpenModal('showEditUserModal')
 
@@ -204,7 +205,7 @@ export class AdminUsersViewModel {
         this.changeNameAndEmail = { email: '', name: '' }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -233,7 +234,7 @@ export class AdminUsersViewModel {
         this.showEditUserModal = !this.showEditUserModal
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -242,7 +243,7 @@ export class AdminUsersViewModel {
       const result = await AdministratorModel.getUsersById(userData._id)
       this.history.push('/admin/users/user', { user: result })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { OtherModel } from '@models/other-model'
@@ -13,6 +12,8 @@ import { warehouseCompletedTasksViewColumns } from '@components/table/table-colu
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
 import { objectToUrlQs } from '@utils/text'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class WarehouseCompletedViewModel {
   history = undefined
@@ -26,8 +27,6 @@ export class WarehouseCompletedViewModel {
 
   curTaskType = null
   curTaskPriority = null
-
-  volumeWeightCoefficient = undefined
 
   nameSearchValue = ''
 
@@ -47,6 +46,10 @@ export class WarehouseCompletedViewModel {
 
   get currentData() {
     return this.completedTasks
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor({ history }) {
@@ -129,13 +132,13 @@ export class WarehouseCompletedViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.SUCCESS)
+          this.setRequestStatus(loadingStatus.SUCCESS)
         }
       })
     })
@@ -146,13 +149,13 @@ export class WarehouseCompletedViewModel {
       this.getDataGridState()
       this.getCompletedTasksPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getCompletedTasksPagMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -193,14 +196,14 @@ export class WarehouseCompletedViewModel {
           this.completedTasksBase.map(el => ({ ...el, beforeBoxes: el.boxesBefore })),
         )
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.batches = []
         this.completedTasks = []
       })
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -212,19 +215,15 @@ export class WarehouseCompletedViewModel {
 
   async setCurrentOpenedTask(item) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(item._id),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(item._id)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-
-        this.curOpenedTask = task
+        this.curOpenedTask = response
       })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

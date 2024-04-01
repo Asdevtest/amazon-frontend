@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { GridPaginationModel } from '@mui/x-data-grid'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
@@ -16,6 +15,7 @@ import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { IBox } from '@typings/models/boxes/box'
 import { IHSCode } from '@typings/shared/hs-code'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
@@ -31,17 +31,15 @@ interface IOrderBoxSupplemented extends ApiV1BatchesBoxes {
 }
 
 export class BoxesToOrderModel {
-  requestStatus: loadingStatuses = loadingStatuses.SUCCESS
+  requestStatus: loadingStatus = loadingStatus.SUCCESS
   paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
 
   order: IOrderWithAdditionalFields | undefined = undefined
   boxes: IOrderBoxSupplemented[] = []
   currentBox: IBox | undefined = undefined
-  galleryFiles: UploadFileType[] = []
   hsCodeData: IHSCode | undefined = undefined
   platformSettings: IPlatformSettings | undefined = undefined
 
-  showGalleryModal = false
   showBoxModal = false
   showWarningInfoModal = false
   showEditHSCodeModal = false
@@ -63,7 +61,7 @@ export class BoxesToOrderModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  setRequestStatus(requestStatus: loadingStatuses) {
+  setRequestStatus(requestStatus: loadingStatus) {
     this.requestStatus = requestStatus
   }
 
@@ -73,7 +71,7 @@ export class BoxesToOrderModel {
 
   async getBoxesOfOrder() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const response = await BoxesModel.getBoxesOfOrder(this.order?._id)
 
@@ -91,14 +89,10 @@ export class BoxesToOrderModel {
         this.boxes = transformedBoxes
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
-
-      runInAction(() => {
-        this.boxes = []
-      })
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -110,11 +104,7 @@ export class BoxesToOrderModel {
         this.currentBox = box as unknown as IBox
       })
     } catch (error) {
-      console.log(error)
-
-      runInAction(() => {
-        this.currentBox = undefined
-      })
+      console.error(error)
     }
   }
 
@@ -124,7 +114,7 @@ export class BoxesToOrderModel {
 
       this.onToggleModal(ModalNames.BOX)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -148,18 +138,8 @@ export class BoxesToOrderModel {
 
       this.getBoxesOfOrder()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
-  }
-
-  onClickFilesCell = (files?: UploadFileType[]) => {
-    if (files && files.length > 0) {
-      this.galleryFiles = files
-    } else {
-      this.galleryFiles = []
-    }
-
-    this.onToggleModal(ModalNames.GALLERY)
   }
 
   async onClickHsCode(id: string) {
@@ -172,11 +152,7 @@ export class BoxesToOrderModel {
 
       this.onToggleModal(ModalNames.EDIT_HS_CODE)
     } catch (error) {
-      console.log(error)
-
-      runInAction(() => {
-        this.hsCodeData = undefined
-      })
+      console.error(error)
     }
   }
 
@@ -196,7 +172,7 @@ export class BoxesToOrderModel {
 
       this.getBoxesOfOrder()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

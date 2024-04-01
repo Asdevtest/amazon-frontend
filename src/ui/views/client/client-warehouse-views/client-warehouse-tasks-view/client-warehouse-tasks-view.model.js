@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,6 +20,8 @@ import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 const filtersFields = ['operationType', 'status', 'storekeeper', 'priority']
 
 export class ClientWarehouseTasksViewModel {
@@ -31,7 +32,6 @@ export class ClientWarehouseTasksViewModel {
 
   nameSearchValue = ''
 
-  currentData = []
   selectedBoxes = []
 
   showConfirmModal = false
@@ -123,7 +123,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -139,7 +139,7 @@ export class ClientWarehouseTasksViewModel {
         this.storekeepersData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -157,7 +157,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -224,33 +224,37 @@ export class ClientWarehouseTasksViewModel {
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.IS_LOADING)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     this.selectedBoxes.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedBoxes.length - 1) {
-          this.setRequestStatus(loadingStatuses.SUCCESS)
+          this.setRequestStatus(loadingStatus.SUCCESS)
         }
       })
     })
   }
 
-  getCurrentTaskData() {
-    return toJS(this.tasksMy)
+  get currentData() {
+    return this.tasksMy
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
       await Promise.all([this.getStorekeepers(), this.getTasksMy()])
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -258,17 +262,13 @@ export class ClientWarehouseTasksViewModel {
     try {
       const task = await StorekeeperModel.getTaskById(item._id)
 
-      const result = await UserModel.getPlatformSettings()
-
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-
         this.curOpenedTask = task
       })
 
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -327,7 +327,7 @@ export class ClientWarehouseTasksViewModel {
 
   async getTasksMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const result = await ClientModel.getTasks({
         filters: this.getFilter(),
         limit: this.paginationModel.pageSize,
@@ -347,9 +347,9 @@ export class ClientWarehouseTasksViewModel {
 
         this.tasksMy = warehouseTasksDataConverter(result.rows).sort(sortObjectsArrayByFiledDate('updatedAt'))
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.tasksMy = []
       })
@@ -372,7 +372,7 @@ export class ClientWarehouseTasksViewModel {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -435,7 +435,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -489,7 +489,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -499,7 +499,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -509,7 +509,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -519,7 +519,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }
