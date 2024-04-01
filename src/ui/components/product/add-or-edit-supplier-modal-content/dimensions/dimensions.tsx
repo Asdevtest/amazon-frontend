@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, memo } from 'react'
 
+import { getDimensionsSizesType, getWeightSizesType } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -26,6 +27,7 @@ interface DimensionsProps {
   onChangeWidth: (value: ChangeEvent<HTMLInputElement>) => void
   onChangeLength: (value: ChangeEvent<HTMLInputElement>) => void
   onChangeWeighGross: (value: ChangeEvent<HTMLInputElement>) => void
+  weighUnit?: boolean
 }
 
 export const Dimensions: FC<DimensionsProps> = memo(props => {
@@ -46,7 +48,11 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
     onChangeWidth,
     onChangeLength,
     onChangeWeighGross,
+    weighUnit,
   } = props
+
+  const linearUnits = getDimensionsSizesType(sizeMode)
+  const weightUnits = getWeightSizesType(sizeMode)
 
   return (
     <div className={styles.sizesWrapper}>
@@ -64,7 +70,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
         <div className={styles.sizesBottomWrapper}>
           <Field
             disabled={onlyRead}
-            label={t(TranslationKey.Height)}
+            label={`${t(TranslationKey.Height)}, ${linearUnits}`}
             inputProps={{ maxLength: 6 }}
             containerClasses={styles.sizeContainer}
             labelClasses={cx(styles.rateLabel)}
@@ -75,7 +81,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
 
           <Field
             disabled={onlyRead}
-            label={t(TranslationKey.Width)}
+            label={`${t(TranslationKey.Width)}, ${linearUnits}`}
             inputProps={{ maxLength: 6 }}
             containerClasses={styles.sizeContainer}
             labelClasses={cx(styles.rateLabel)}
@@ -86,7 +92,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
 
           <Field
             disabled={onlyRead}
-            label={t(TranslationKey.Length)}
+            label={`${t(TranslationKey.Length)}, ${linearUnits}`}
             inputProps={{ maxLength: 6 }}
             containerClasses={styles.sizeContainer}
             labelClasses={cx(styles.rateLabel)}
@@ -100,7 +106,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
       <div className={styles.sizesRightWrapper}>
         <Field
           disabled
-          label={optionalWeightTitle}
+          label={weighUnit ? `${optionalWeightTitle}, ${weightUnits}` : optionalWeightTitle}
           inputProps={{ maxLength: 10 }}
           containerClasses={styles.shortContainer}
           labelClasses={styles.normalLabel}
@@ -109,7 +115,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
 
         <Field
           disabled={onlyRead}
-          label={t(TranslationKey['Weight, kg'])}
+          label={weighUnit ? `${t(TranslationKey.Weight)}, ${weightUnits}` : t(TranslationKey['Weight, kg'])}
           inputProps={{ maxLength: 10 }}
           containerClasses={styles.shortContainer}
           labelClasses={styles.normalLabel}
