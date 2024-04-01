@@ -51,7 +51,7 @@ export const useSlideshowGalleryModal = ({
         ? media
         : files.map((file, index) => ({
             ...file,
-            image: media[index],
+            fileLink: media[index],
             // only change media files
           }))
 
