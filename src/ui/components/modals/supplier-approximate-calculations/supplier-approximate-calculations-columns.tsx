@@ -2,12 +2,10 @@ import { GridColDef } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  CustomDestinationsCell,
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { ApproximateCell } from '@components/data-grid/data-grid-cells/approximate-cell/approximate-cell'
 
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const SupplierApproximateCalculationsColumns = (): GridColDef[] => [
@@ -16,7 +14,7 @@ export const SupplierApproximateCalculationsColumns = (): GridColDef[] => [
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
     width: 160,
-    renderCell: params => <MultilineTextCell text={params.row.originalData.name} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
     filterable: false,
     sortable: false,
   },
@@ -26,9 +24,7 @@ export const SupplierApproximateCalculationsColumns = (): GridColDef[] => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-    renderCell: params => (
-      <CustomDestinationsCell destinations={params.row.destinationVariations} field="destinationName" />
-    ),
+    renderCell: params => <ApproximateCell destinations={params.row.destinationVariations} field="destinationName" />,
     minWidth: 140,
     align: 'center',
     filterable: false,
@@ -36,23 +32,34 @@ export const SupplierApproximateCalculationsColumns = (): GridColDef[] => [
   },
 
   {
-    field: 'weight',
-    headerName: t(TranslationKey['Weight, kg']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Weight, kg'])} />,
-    renderCell: params => <CustomDestinationsCell destinations={params.row.destinationVariations} field="weight" />,
-    minWidth: 150,
+    field: 'minWeight',
+    headerName: t(TranslationKey['Min. weight, kg']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
+    renderCell: params => <ApproximateCell destinations={params.row.destinationVariations} field="minWeight" />,
+    width: 100,
     align: 'center',
     filterable: false,
     sortable: false,
   },
 
   {
-    field: 'costDeliveryToChina',
+    field: 'maxWeight',
+    headerName: t(TranslationKey['Max. weight, kg']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Max. weight, kg'])} />,
+    renderCell: params => <ApproximateCell destinations={params.row.destinationVariations} field="maxWeight" />,
+    width: 100,
+    align: 'center',
+    filterable: false,
+    sortable: false,
+  },
+
+  {
+    field: 'costUnitWithDeliveryToChina',
     headerName: t(TranslationKey['Cost per unit with delivery to China']),
     renderHeader: () => (
       <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit with delivery to China']) + ', $'} />
     ),
-    renderCell: params => <MultilineTextCell text={params.row.costDeliveryToChina} />,
+    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
     width: 130,
     align: 'center',
     filterable: false,
@@ -60,11 +67,22 @@ export const SupplierApproximateCalculationsColumns = (): GridColDef[] => [
   },
 
   {
-    field: 'costDeliveryToUsa',
+    field: 'pricePerKgUsd',
+    headerName: t(TranslationKey['price per unit']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['price per unit']) + ', $'} />,
+    renderCell: params => <ApproximateCell destinations={params.row.destinationVariations} field="pricePerKgUsd" />,
+    width: 130,
+    align: 'center',
+    filterable: false,
+    sortable: false,
+  },
+
+  {
+    field: 'costUnitWithDeliveryToUsa',
     headerName: t(TranslationKey['Cost of per unit in the U.S.']) + ', $',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of per unit in the U.S.']) + ', $'} />,
     renderCell: params => (
-      <CustomDestinationsCell destinations={params.row.destinationVariations} field="costDeliveryToUsa" />
+      <ApproximateCell destinations={params.row.destinationVariations} field="costUnitWithDeliveryToUsa" />
     ),
     width: 130,
     align: 'center',
@@ -76,7 +94,7 @@ export const SupplierApproximateCalculationsColumns = (): GridColDef[] => [
     field: 'roi',
     headerName: t(TranslationKey['ROI calculation']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ROI calculation'])} />,
-    renderCell: params => <CustomDestinationsCell destinations={params.row.destinationVariations} field="roi" />,
+    renderCell: params => <ApproximateCell destinations={params.row.destinationVariations} field="roi" />,
     width: 140,
     align: 'center',
     filterable: false,

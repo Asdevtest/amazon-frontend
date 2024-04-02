@@ -1,11 +1,13 @@
 import { makeObservable, runInAction } from 'mobx'
-import { toast } from 'react-toastify'
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+
 import { observerConfig } from './observer-config'
 import { SupplierApproximateCalculationsColumns } from './supplier-approximate-calculations-columns'
+import { additionalFilterFields } from './supplier-approximate-calculations.constants'
 
 export class SupplierApproximateCalculationsModel extends DataGridFilterTableModel {
   _storekeepers = []
@@ -32,15 +34,25 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this._productId = productId
   }
 
-  constructor(productId?: string) {
-    super(StorekeeperModel.getStorekeepersTariffsWithCalculations, SupplierApproximateCalculationsColumns(), [], '')
+  constructor(supplierId: string) {
+    const columns = SupplierApproximateCalculationsColumns()
 
-    if (productId) {
-      this.productId = productId
-    } else {
-      const url = new URL(window.location.href)
-      this.productId = url.searchParams.get('product-id') || ''
-    }
+    const productId = new URL(window.location.href).searchParams.get('product-id') || ''
+
+    const defaultGetDataMethodOptions = () => ({
+      guid: productId,
+      supplierId,
+    })
+
+    super(
+      StorekeeperModel.getStorekeepersTariffsWithCalculations,
+      columns,
+      getFilterFields(columns, additionalFilterFields),
+      `storekeepers/tariffs_with_calculations/${productId}`,
+      undefined,
+      undefined,
+      defaultGetDataMethodOptions,
+    )
 
     this.getStorekeepersData()
 
@@ -51,8 +63,6 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     try {
       const result = await StorekeeperModel.getStorekeepers({ withoutTariffs: true })
 
-      console.log('result :>> ', result)
-
       runInAction(() => {
         this.storekeepers = result
           // @ts-ignore
@@ -61,9 +71,17 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
             label: () => storekeeper.name || '',
             value: storekeeper._id,
           }))
+
+        this.setCurrentStorekeeper(this.storekeepers[0]?.value)
       })
     } catch (error) {
       console.log('error :>> ', error)
     }
+  }
+
+  async setCurrentStorekeeper(storekeeperId: string) {
+    this.currentStorekeeperId = storekeeperId
+    this.onChangeFullFieldMenuItem([storekeeperId], 'storekeeper')
+    this.getMainTableData()
   }
 }

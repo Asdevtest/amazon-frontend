@@ -10,4 +10,5 @@ export const observerConfig = {
   currentStorekeeperId: computed,
 
   getStorekeepersData: action.bound,
+  setCurrentStorekeeper: action.bound,
 }

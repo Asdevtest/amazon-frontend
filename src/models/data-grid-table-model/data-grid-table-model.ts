@@ -16,7 +16,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { filterModelInitialValue, paginationModelInitialValue, sortModelInitialValue } from './model-config'
+import { filterModelInitialValue, paginationModelInitialValue } from './model-config'
 import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends ModalsModel {
@@ -32,15 +32,15 @@ export class DataGridTableModel extends ModalsModel {
 
   _densityModel = 'compact'
   _rowCount = 0
-  _sortModel: GridSortModel = sortModelInitialValue
+  _sortModel: any = undefined
   _paginationModel: GridPaginationModel = paginationModelInitialValue
   _filterModel: GridFilterModel = filterModelInitialValue
   _columnVisibilityModel: GridColumnVisibilityModel = {}
   _selectedRows: string[] = []
   _tableKey: string | undefined = undefined
 
-  _getMainDataMethod: (...args: any) => any
-  _columnsModel: GridColDef[]
+  _getMainDataMethod: any
+  _columnsModel: GridColDef[] = []
   _tableData: any[] = []
 
   _defaultGetDataMethodOptions: any
@@ -125,8 +125,8 @@ export class DataGridTableModel extends ModalsModel {
   ) {
     super()
 
-    this._getMainDataMethod = getMainDataMethod
-    this._columnsModel = columnsModel
+    this.getMainDataMethod = getMainDataMethod
+    this.columnsModel = columnsModel
     this._tableKey = tableKey
     this.defaultGetDataMethodOptions = defaultGetDataMethodOptions
 
