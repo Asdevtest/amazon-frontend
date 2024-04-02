@@ -137,6 +137,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       }
 
       this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      return data
     } catch (error) {
       this.setFilterRequestStatus(loadingStatuses.FAILED)
       console.log(error)
