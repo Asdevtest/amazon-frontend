@@ -54,9 +54,7 @@ export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, p
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
-      {showProgress && (
-        <CircularProgressWithLabel value={progressValue} title={`${t(TranslationKey['Loading data'])}...`} />
-      )}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
 }

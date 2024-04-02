@@ -282,9 +282,7 @@ export const CreateOrEditProposalContent = memo(props => {
         </div>
       </div>
 
-      {showProgress && (
-        <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
-      )}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
 })

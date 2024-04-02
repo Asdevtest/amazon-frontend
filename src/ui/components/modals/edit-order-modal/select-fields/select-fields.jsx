@@ -27,6 +27,8 @@ import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './select-fields.style'
 
+import { showSlideshowStatuses } from './select-fields.constants'
+
 export const SelectFields = ({
   editPaymentDetailsPhotos,
   yuanToDollarRate,
@@ -552,9 +554,9 @@ export const SelectFields = ({
           ) : null}
         </div>
 
-        {order.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] ? (
+        {showSlideshowStatuses.includes(order.status) ? (
           <div className={styles.imageFileInputWrapper}>
-            <SlideshowGallery files={photosToLoad} />
+            <SlideshowGallery slidesToShow={3} files={photosToLoad} />
           </div>
         ) : (
           <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} />

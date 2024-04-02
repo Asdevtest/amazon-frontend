@@ -115,7 +115,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           viewModel.setUpdateSupplierData(false)
           viewModel.onTriggerOpenModal('showOrderModal')
         }}
-        dialogClassName={styles.dialogClassName}
       >
         <EditOrderModal
           platformSettings={viewModel.platformSettings}
@@ -259,9 +258,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.requestStatus === loadingStatus.IS_LOADING && (
-        <CircularProgressWithLabel wrapperClassName={styles.loadingCircle} />
-      )}
+      {viewModel.requestStatus === loadingStatus.IS_LOADING && <CircularProgressWithLabel />}
     </>
   )
 })
