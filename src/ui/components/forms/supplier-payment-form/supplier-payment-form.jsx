@@ -28,7 +28,7 @@ export const SupplierPaymentForm = memo(props => {
     <div className={styles.wrapper}>
       <p className={styles.title}>{t(TranslationKey['Add payment to supplier'])}</p>
 
-      <UploadFilesInput fullWidth images={files} setImages={setFiles} maxNumber={50} />
+      <UploadFilesInput images={files} setImages={setFiles} />
 
       <diiv className={styles.buttons}>
         <Button

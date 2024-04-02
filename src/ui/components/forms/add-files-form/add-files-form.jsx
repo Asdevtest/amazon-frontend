@@ -37,7 +37,7 @@ export const AddFilesForm = ({ item, allItemsArray, setAllItemsArray, onCloseMod
       <Box className={styles.boxCode}>
         <Typography className={styles.modalText}>{t(TranslationKey['Add files'])}</Typography>
         <div className={styles.imageFileInputWrapper}>
-          <UploadFilesInput withoutTitle images={editingItem.tmpImages} setImages={setImagesOfItem} maxNumber={50} />
+          <UploadFilesInput withoutTitles images={editingItem.tmpImages} setImages={setImagesOfItem} />
         </div>
       </Box>
 

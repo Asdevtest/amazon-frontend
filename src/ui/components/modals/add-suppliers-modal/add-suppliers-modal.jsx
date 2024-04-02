@@ -39,7 +39,8 @@ export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, p
         </div>
       </div>
 
-      <UploadFilesInput images={images} setImages={setImages} maxNumber={1} acceptType={['xlsx']} />
+      <UploadFilesInput images={images} setImages={setImages} maxNumber={1} />
+
       <div className={styles.buttonsWrapper}>
         <Button
           styleType={ButtonStyle.SUCCESS}

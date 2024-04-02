@@ -125,7 +125,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
         </div>
       </div>
       <div className={styles.uploadFilesInput}>
-        <UploadFilesInput fullWidth images={images} setImages={setImages} maxNumber={50} />
+        <UploadFilesInput images={images} setImages={setImages} />
       </div>
 
       <div className={styles.btnWrapper}>

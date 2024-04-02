@@ -256,13 +256,7 @@ export const EditTaskModal = memo(
 
             <div className={styles.imageFileInputWrapper}>
               {!readOnly ? (
-                <UploadFilesInput
-                  fullWidth
-                  dragAndDropBtnHeight={74}
-                  images={photosOfTask}
-                  setImages={setPhotosOfTask}
-                  maxNumber={50}
-                />
+                <UploadFilesInput images={photosOfTask} setImages={setPhotosOfTask} dragAndDropButtonHeight={74} />
               ) : (
                 <SlideshowGallery files={task.images} />
               )}

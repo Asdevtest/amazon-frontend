@@ -664,7 +664,7 @@ export const AddOrEditBatchForm = observer(
             </Button>
           </div>
 
-          <UploadFilesInput oneLine images={filesToAdd} setImages={setfilesToAdd} maxNumber={50} />
+          <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} />
 
           <div className={styles.btnsWrapper}>
             <Button

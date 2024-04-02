@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
+    position: 'relative',
     marginBottom: '20px',
     width: '100%',
 
@@ -31,13 +32,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   errorText: {
-    marginTop: '2px',
-    color: 'red',
-    maxWidth: '100%',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    fontSize: '12px',
+    position: 'absolute',
+    bottom: 6,
+    right: 10,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.red,
   },
 
   successText: {

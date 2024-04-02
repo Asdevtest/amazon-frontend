@@ -262,11 +262,9 @@ export const EditBoxTasksModal = props => {
 
       <UploadFilesInput
         withoutLinks
-        fullWidth
-        dragAndDropBtnHeight={67}
+        dragAndDropButtonHeight={67}
         images={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
         setImages={setImagesOfBox}
-        maxNumber={50}
       />
 
       <div className={styles.photoWrapper}>

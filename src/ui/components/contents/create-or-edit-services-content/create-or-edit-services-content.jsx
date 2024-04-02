@@ -101,12 +101,10 @@ export const CreateOrEditServiceContent = memo(props => {
       />
 
       <UploadFilesInput
-        fullWidth
         minimized
         images={formFields.linksToMediaFiles}
         setImages={onChangeImages('linksToMediaFiles')}
-        maxNumber={50}
-        isNotShowActionsBtns={!formFields.linksToMediaFiles}
+        withoutActionsButtons={!formFields.linksToMediaFiles}
       />
 
       <div className={styles.buttonsWrapper}>
