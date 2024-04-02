@@ -12,7 +12,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { HeaderTable } from '@components/table/header-table/header-table'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -34,10 +33,8 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
       <HeaderTable viewModel={viewModel} />
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          useResizeContainer
           checkboxSelection
           disableRowSelectionOnClick
-          localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           rowSelectionModel={viewModel.selectedBatches}

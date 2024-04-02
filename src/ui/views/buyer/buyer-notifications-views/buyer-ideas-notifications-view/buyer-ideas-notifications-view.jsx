@@ -7,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
@@ -34,8 +33,6 @@ export const BuyerIdeasNotificationsViewRaw = props => {
 
         <div className={styles.tableWrapper}>
           <CustomDataGrid
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}

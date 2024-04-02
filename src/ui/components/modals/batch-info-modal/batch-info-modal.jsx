@@ -30,7 +30,6 @@ import {
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -337,7 +336,6 @@ export const BatchInfoModal = observer(
           <div className={styles.tableWrapper}>
             <CustomDataGrid
               disableRowSelectionOnClick
-              localeText={getLocalizationByLanguageTag()}
               sortingMode="client"
               paginationMode="client"
               columnVisibilityModel={viewModel.columnVisibilityModel}

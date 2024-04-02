@@ -25,70 +25,52 @@ import { loadingStatus } from '@typings/enums/loading-status'
 const filtersFields = ['operationType', 'status', 'storekeeper', 'priority']
 
 export class ClientWarehouseTasksViewModel {
-  history = undefined
   requestStatus = undefined
-
   tasksMy = []
-
   nameSearchValue = ''
-
   selectedBoxes = []
+  showProgress = false
+  modalEditSuccessMessage = ''
+  storekeepersData = []
+  selectedPriority = undefined
+  selectedStatus = undefined
+  selectedStorekeeper = undefined
+  selectedType = undefined
 
   showConfirmModal = false
-
   showConfirmWithCommentModal = false
-
   showTaskInfoModal = false
-
-  showProgress = false
-
   showSuccessInfoModal = false
-
-  modalEditSuccessMessage = ''
-
-  storekeepersData = []
-
   showWarningInfoModal = false
+  showEditPriorityData = false
 
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
   }
-
-  onHover = null
-
   confirmModalSettings = {
     isWarning: false,
     confirmMessage: '',
     onClickConfirm: () => {},
   }
+  editPriorityData = {
+    taskId: null,
+    newPriority: null,
+  }
 
+  onHover = null
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
   activeFilters = {
     priority: [],
     status: [],
     storekeeper: [],
     type: [],
   }
-
-  selectedPriority = undefined
-  selectedStatus = undefined
-  selectedStorekeeper = undefined
-  selectedType = undefined
-
-  showEditPriorityData = false
-
-  editPriorityData = {
-    taskId: null,
-    newPriority: null,
-  }
-
   rowTaskHandlers = {
     onClickTaskInfo: item => this.setCurrentOpenedTask(item),
     onClickCancelBtn: (id, taskId, type) => this.onClickCancelBtn(id, taskId, type),
@@ -96,16 +78,13 @@ export class ClientWarehouseTasksViewModel {
     updateTaskPriority: (taskId, newPriority) => this.startEditTaskPriority(taskId, newPriority),
     updateTaskComment: (taskId, priority, reason) => this.updateTaskComment(taskId, priority, reason),
   }
-
   columnsModel = clientTasksViewColumns(this.rowTaskHandlers)
 
   get userInfo() {
     return UserModel.userInfo
   }
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -135,6 +114,7 @@ export class ClientWarehouseTasksViewModel {
     try {
       this.getDataGridState()
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
+
       runInAction(() => {
         this.storekeepersData = result
       })
@@ -155,7 +135,7 @@ export class ClientWarehouseTasksViewModel {
 
       UserModel.getUserInfo()
 
-      await this.getTasksMy()
+      this.getTasksMy()
     } catch (error) {
       console.error(error)
     }
@@ -251,7 +231,8 @@ export class ClientWarehouseTasksViewModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
-      await Promise.all([this.getStorekeepers(), this.getTasksMy()])
+      this.getStorekeepers()
+      this.getTasksMy()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -434,8 +415,6 @@ export class ClientWarehouseTasksViewModel {
   async cancelTask(taskId, comment) {
     try {
       await ClientModel.cancelTask(taskId, comment)
-
-      await this.getTasksMy()
     } catch (error) {
       console.error(error)
     }
@@ -489,7 +468,7 @@ export class ClientWarehouseTasksViewModel {
 
       await this.cancelTask(this.toCancelData.taskId, { clientComment: comment })
 
-      await this.getTasksMy()
+      this.getTasksMy()
     } catch (error) {
       console.error(error)
     }
@@ -498,8 +477,6 @@ export class ClientWarehouseTasksViewModel {
   async cancelEditBoxes(id) {
     try {
       await BoxesModel.cancelEditBoxes(id)
-
-      await this.getTasksMy()
     } catch (error) {
       console.error(error)
     }
@@ -508,8 +485,6 @@ export class ClientWarehouseTasksViewModel {
   async cancelMergeBoxes(id) {
     try {
       await BoxesModel.cancelMergeBoxes(id)
-
-      await this.getTasksMy()
     } catch (error) {
       console.error(error)
     }
@@ -518,8 +493,6 @@ export class ClientWarehouseTasksViewModel {
   async cancelSplitBoxes(id) {
     try {
       await BoxesModel.cancelSplitBoxes(id)
-
-      await this.getTasksMy()
     } catch (error) {
       console.error(error)
     }

@@ -80,7 +80,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          useResizeContainer
           checkboxSelection
           disableRowSelectionOnClick
           rowCount={viewModel.rowCount}

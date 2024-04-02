@@ -33,7 +33,6 @@ import { PlusIcon } from '@components/shared/svg-icons'
 import { ClientIdeasViewModel } from '@views/client/client-ideas-view/client-ideas-view.model'
 import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.style'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -91,8 +90,6 @@ export const ClientIdeasView = observer(({ history }) => {
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}

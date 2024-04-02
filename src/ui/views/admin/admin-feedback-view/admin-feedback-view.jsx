@@ -37,7 +37,6 @@ export const AdminFeedbackView = observer(({ history }) => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          useResizeContainer
           sortingMode="client"
           paginationMode="client"
           rowCount={viewModel.rowCount}

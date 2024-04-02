@@ -14,7 +14,6 @@ import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { TabPanel } from '@components/shared/tab-panel'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -112,9 +111,7 @@ export const SupervisorSettingsContent = observer(() => {
         <div className={styles.dataGridWrapper}>
           <CustomDataGrid
             checkboxSelection
-            useResizeContainer
             disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
@@ -175,10 +172,8 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={styles.dataGridWrapper}>
           <CustomDataGrid
-            useResizeContainer
             checkboxSelection
             disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
@@ -237,10 +232,8 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={styles.dataGridWrapper}>
           <CustomDataGrid
-            useResizeContainer
             checkboxSelection
             disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
@@ -299,10 +292,8 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={styles.dataGridWrapper}>
           <CustomDataGrid
-            useResizeContainer
             checkboxSelection
             disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
             sortModel={sortModel}
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}

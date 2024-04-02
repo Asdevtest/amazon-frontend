@@ -9,7 +9,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -56,11 +55,9 @@ export const SupervisorProductsView = observer(({ history }) => {
 
       <div className={styles.dataGridWrapper}>
         <CustomDataGrid
-          useResizeContainer
           checkboxSelection
           disableRowSelectionOnClick
           rowCount={viewModel.rowCount}
-          localeText={getLocalizationByLanguageTag()}
           getRowClassName={getRowClassName}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}

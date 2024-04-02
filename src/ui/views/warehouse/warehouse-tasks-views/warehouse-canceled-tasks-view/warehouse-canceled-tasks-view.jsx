@@ -14,7 +14,6 @@ import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-
 import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -71,9 +70,7 @@ export const WarehouseCanceledTasksView = observer(({ history }) => {
         <div className={styles.tableWrapper}>
           <CustomDataGrid
             checkboxSelection
-            useResizeContainer
             disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}

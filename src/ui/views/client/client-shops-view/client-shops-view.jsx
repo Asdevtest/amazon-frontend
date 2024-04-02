@@ -36,7 +36,6 @@ export const ClientShopsView = observer(() => {
 
       <div className={styles.tabledWrapper}>
         <CustomDataGrid
-          useResizeContainer
           checkboxSelection
           disableRowSelectionOnClick
           sortingMode="client"

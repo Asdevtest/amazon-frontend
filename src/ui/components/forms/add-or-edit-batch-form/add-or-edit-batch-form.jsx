@@ -30,7 +30,6 @@ import {
 } from '@utils/calculation'
 import { checkIsClient } from '@utils/checks'
 import { addOrEditBatchDataConverter } from '@utils/data-grid-data-converters'
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -566,7 +565,6 @@ export const AddOrEditBatchForm = observer(
           <div className={styles.tableWrapper}>
             <CustomDataGrid
               checkboxSelection
-              localeText={getLocalizationByLanguageTag()}
               sortingMode="client"
               paginationMode="client"
               columnVisibilityModel={viewModel.columnVisibilityModel}

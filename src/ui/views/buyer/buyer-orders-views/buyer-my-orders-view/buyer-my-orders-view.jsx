@@ -18,7 +18,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -69,8 +68,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
 
       <div className={styles.dataGridWrapper}>
         <CustomDataGrid
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
           getRowClassName={getRowClassName}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}

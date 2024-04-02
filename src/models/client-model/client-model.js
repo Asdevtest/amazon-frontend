@@ -77,7 +77,9 @@ class ClientModelStatic {
   }
 
   getTasks = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet(filterNullValues(data))
+    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet(
+      filterNullValues({ ...data, noCache: true }),
+    )
     return response.data
   }
 

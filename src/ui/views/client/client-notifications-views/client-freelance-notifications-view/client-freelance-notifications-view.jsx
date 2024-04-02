@@ -7,7 +7,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { ClientFreelanceNotificationsViewModel } from '@views/client/client-notifications-views/client-freelance-notifications-view/client-freelance-notifications-view.model'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -26,10 +25,8 @@ export const ClientFreelanceNotificationsView = observer(({ history }) => {
   return (
     <div className={styles.tableWrapper}>
       <CustomDataGrid
-        useResizeContainer
         sortingMode="client"
         paginationMode="client"
-        localeText={getLocalizationByLanguageTag()}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}

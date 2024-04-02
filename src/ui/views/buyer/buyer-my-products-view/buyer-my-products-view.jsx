@@ -10,7 +10,6 @@ import { ProductCardModal } from '@components/modals/product-card-modal/product-
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -60,10 +59,8 @@ export const BuyerMyProductsViewRaw = props => {
 
         <div className={styles.dataGridWrapper}>
           <CustomDataGrid
-            useResizeContainer
             checkboxSelection
             disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}

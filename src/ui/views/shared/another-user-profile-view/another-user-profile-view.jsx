@@ -17,7 +17,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -70,8 +69,6 @@ export const AnotherUserProfileViewRaw = props => {
             </Typography>
 
             <CustomDataGrid
-              useResizeContainer
-              localeText={getLocalizationByLanguageTag()}
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
               columnVisibilityModel={viewModel.columnVisibilityModel}
