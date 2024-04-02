@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
+import { SupplierApproximateCalculations } from '@components/modals/supplier-approximate-calculations'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -141,7 +142,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         />
       </Modal>
 
-      <Modal
+      {/* <Modal
         openModal={viewModel.showSupplierApproximateCalculationsModal}
         setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
       >
@@ -153,7 +154,12 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           storekeepers={viewModel.storekeepers}
           onClose={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
         />
-      </Modal>
+      </Modal> */}
+
+      <SupplierApproximateCalculations
+        openModal={viewModel.showSupplierApproximateCalculationsModal}
+        setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
+      />
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
