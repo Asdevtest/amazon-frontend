@@ -876,12 +876,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
                   ) : null}
                   <UploadFilesInput
                     withoutLinks
-                    fullWidth
                     minimized
                     images={editPhotosOfUnit}
                     setImages={setEditPhotosOfUnit}
-                    dragAndDropBtnHeight={'34px'}
-                    maxNumber={50}
+                    dragAndDropButtonHeight={34}
                   />
                 </div>
               )}
@@ -942,13 +940,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <SlideshowGallery files={editPhotosOfSupplier} onChangeImagesForLoad={setEditPhotosOfSupplier} />
         ) : (
           <div className={styles.imageFileInputWrapper}>
-            <UploadFilesInput
-              fullWidth
-              images={editPhotosOfSupplier}
-              setImages={setEditPhotosOfSupplier}
-              maxNumber={50}
-              className={styles.imageFileInput}
-            />
+            <UploadFilesInput images={editPhotosOfSupplier} setImages={setEditPhotosOfSupplier} />
           </div>
         )}
       </div>

@@ -467,7 +467,7 @@ export const MergeBoxesModal = ({
                       setFormField={setFormField}
                     />
 
-                    <UploadFilesInput fullWidth images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
+                    <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} />
                   </div>
                 }
               />

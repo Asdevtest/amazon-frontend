@@ -170,7 +170,7 @@ export const FirstStep = ({
               label={`${t(TranslationKey['Attach files'])} *`}
               inputComponent={
                 <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput withoutTitle images={images} setImages={setImages} maxNumber={50} />
+                  <UploadFilesInput withoutTitles images={images} setImages={setImages} />
                   {formFields.files?.length ? <SlideshowGallery slidesToShow={2} files={formFields.files} /> : null}
                 </div>
               }

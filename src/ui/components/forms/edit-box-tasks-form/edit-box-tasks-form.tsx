@@ -163,11 +163,9 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
 
       <UploadFilesInput
         withoutLinks
-        fullWidth
-        dragAndDropBtnHeight={60}
+        dragAndDropButtonHeight={60}
         images={editingBox?.images}
         setImages={setImagesOfBox}
-        maxNumber={50}
       />
 
       <div className={styles.buttons}>
