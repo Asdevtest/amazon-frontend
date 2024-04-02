@@ -41,8 +41,6 @@ export const clientInventoryColumns = (
   additionalFields,
   storekeepers,
 ) => {
-  console.log('storekeepers :>> ', storekeepers)
-
   const defaultColumns = [
     {
       ...GRID_CHECKBOX_SELECTION_COL_DEF,
