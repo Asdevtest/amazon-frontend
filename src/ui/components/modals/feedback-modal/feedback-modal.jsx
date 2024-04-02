@@ -61,7 +61,7 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
         </div>
         {showFiles ? (
           <div className={styles.uploadFilesInput}>
-            <UploadFilesInput fullWidth images={images} setImages={setImages} maxNumber={50} />
+            <UploadFilesInput images={images} setImages={setImages} />
           </div>
         ) : null}
 

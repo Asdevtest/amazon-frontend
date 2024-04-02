@@ -267,7 +267,7 @@ export const CreateOrEditProposalContent = memo(props => {
           <p className={styles.spanLabel}>{`(${t(TranslationKey['link to your portfolio, examples of work'])})`}</p>
         </div>
 
-        <UploadFilesInput minimized withoutTitle fullWidth images={images} setImages={setImages} maxNumber={50} />
+        <UploadFilesInput minimized withoutTitles images={images} setImages={setImages} />
 
         <div className={styles.footerWrapper}>
           <Button

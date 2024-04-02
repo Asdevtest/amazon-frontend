@@ -158,7 +158,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
             {userCanEdit && (
               <div>
                 <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
+                  <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} />
                 </div>
               </div>
             )}

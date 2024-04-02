@@ -380,14 +380,7 @@ export const IdeaViewAndEditCard = observer(
               </div>
 
               {!disableFields && (
-                <UploadFilesInput
-                  fullWidth
-                  withoutDragAndDropTitle
-                  dragAndDropBtnHeight={59}
-                  images={images}
-                  setImages={setImages}
-                  maxNumber={50}
-                />
+                <UploadFilesInput withoutTitles dragAndDropButtonHeight={60} images={images} setImages={setImages} />
               )}
 
               {showFullCard && currentUserIsClient && (

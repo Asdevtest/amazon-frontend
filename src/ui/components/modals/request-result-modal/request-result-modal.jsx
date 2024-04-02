@@ -147,13 +147,10 @@ export const RequestResultModal = memo(props => {
           ) : (
             <UploadFilesInput
               withComment
-              fullWidth
               title={t(TranslationKey.Files)}
-              dragAndDropBtnHeight={55}
+              dragAndDropButtonHeight={55}
               images={images}
               setImages={setImages}
-              maxNumber={50}
-              maxHeight={160}
             />
           )}
         </div>

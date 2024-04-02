@@ -557,7 +557,7 @@ export const SelectFields = ({
             <SlideshowGallery files={photosToLoad} />
           </div>
         ) : (
-          <UploadFilesInput fullWidth images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
+          <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} />
         )}
       </Grid>
 
