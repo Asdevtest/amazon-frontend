@@ -1,7 +1,12 @@
 import { makeObservable, runInAction } from 'mobx'
 
+import { GridColDef } from '@mui/x-data-grid-premium'
+
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+
+import { SortSettingsMode } from '@components/data-grid/data-grid-custom-components/sort-settings/sort-settings.type'
+import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
@@ -10,11 +15,11 @@ import { SupplierApproximateCalculationsColumns } from './supplier-approximate-c
 import { additionalFilterFields } from './supplier-approximate-calculations.constants'
 
 export class SupplierApproximateCalculationsModel extends DataGridFilterTableModel {
-  _storekeepers = []
+  _storekeepers: ISwitcherSettings[] = []
   get storekeepers() {
     return this._storekeepers
   }
-  set storekeepers(storekeepers: any) {
+  set storekeepers(storekeepers: ISwitcherSettings[]) {
     this._storekeepers = storekeepers
   }
 
@@ -35,7 +40,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   }
 
   constructor(supplierId: string) {
-    const columns = SupplierApproximateCalculationsColumns()
+    const columns = SupplierApproximateCalculationsColumns() as GridColDef[]
 
     const productId = new URL(window.location.href).searchParams.get('product-id') || ''
 
@@ -48,11 +53,13 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       StorekeeperModel.getStorekeepersTariffsWithCalculations,
       columns,
       getFilterFields(columns, additionalFilterFields),
-      `storekeepers/tariffs_with_calculations/${productId}`,
+      `storekeepers/tariffs_with_calculations/${productId}?`,
       undefined,
       undefined,
       defaultGetDataMethodOptions,
     )
+
+    this.sortModel = [{ field: 'roi', sort: SortSettingsMode.DESC }]
 
     this.getStorekeepersData()
 
@@ -72,7 +79,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
             value: storekeeper._id,
           }))
 
-        this.setCurrentStorekeeper(this.storekeepers[0]?.value)
+        this.setCurrentStorekeeper(this.storekeepers[0]?.value as string)
       })
     } catch (error) {
       console.log('error :>> ', error)
@@ -82,6 +89,12 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   async setCurrentStorekeeper(storekeeperId: string) {
     this.currentStorekeeperId = storekeeperId
     this.onChangeFullFieldMenuItem([storekeeperId], 'storekeeper')
+    this.getMainTableData()
+  }
+
+  onClickResetFilters() {
+    this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
+    this.onChangeFullFieldMenuItem([this.storekeepers[0]?.value], 'storekeeper')
     this.getMainTableData()
   }
 }

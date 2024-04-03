@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx'
+import { action, computed, observable, override } from 'mobx'
 
 export const observerConfig = {
   _storekeepers: observable,
@@ -11,4 +11,6 @@ export const observerConfig = {
 
   getStorekeepersData: action.bound,
   setCurrentStorekeeper: action.bound,
+
+  onClickResetFilters: override,
 }
