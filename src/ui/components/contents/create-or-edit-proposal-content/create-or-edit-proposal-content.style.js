@@ -144,7 +144,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   descriptionField: {
-    height: '200px !important',
+    height: '100%',
     width: '100%',
   },
 
