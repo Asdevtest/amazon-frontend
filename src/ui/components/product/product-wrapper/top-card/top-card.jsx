@@ -173,7 +173,7 @@ export const TopCard = memo(
           )}
 
           {showProgress && (
-            <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
+            <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />
           )}
 
           {actionStatus === loadingStatus.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}

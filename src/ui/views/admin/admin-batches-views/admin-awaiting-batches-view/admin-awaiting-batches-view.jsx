@@ -8,7 +8,6 @@ import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -36,8 +35,6 @@ export const AdminAwaitingBatchesViewRaw = props => {
       </div>
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}

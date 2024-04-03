@@ -10,7 +10,6 @@ import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { AdminContentModal } from '@components/user/users-views/sub-users-view/admin-content-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -39,10 +38,8 @@ export const AdminUsersViewRaw = ({ classes: styles, history }) => {
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          useResizeContainer
           sortingMode="client"
           paginationMode="client"
-          localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}

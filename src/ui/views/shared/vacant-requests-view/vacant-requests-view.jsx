@@ -17,7 +17,6 @@ import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
@@ -111,8 +110,6 @@ export const VacantRequestsView = observer(({ history }) => {
       ) : viewModel.viewMode === tableViewMode.TABLE ? (
         <div className={styles.dataGridWrapper}>
           <CustomDataGrid
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}

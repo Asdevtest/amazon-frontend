@@ -10,7 +10,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -91,11 +90,9 @@ export const TabFreelance = observer(props => {
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
-              // checkboxSelection
               disableColumnMenu
               disableColumnResize
               disableRowSelectionOnClick
-              localeText={getLocalizationByLanguageTag()}
               sortingMode="client"
               paginationMode="client"
               rows={viewModel.specs}

@@ -16,7 +16,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -94,11 +93,9 @@ export const WarehouseAwaitingBatchesView = observer(props => {
         <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
-            useResizeContainer
             disableRowSelectionOnClick
             sortingMode="client"
             paginationMode="client"
-            localeText={getLocalizationByLanguageTag()}
             rowSelectionModel={viewModel.selectedBatches}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}

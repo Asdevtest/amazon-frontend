@@ -16,7 +16,6 @@ import { DownloadIcon } from '@components/shared/svg-icons'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -26,15 +25,15 @@ import { useStyles } from './client-warehouse-tasks-view.style'
 import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
 import { getPriorityConfig, getStatusConfig, getStorekeepersConfig, getTypeConfig } from './helpers/get-configs'
 
-export const ClientWarehouseTasksView = observer(({ history }) => {
+export const ClientWarehouseTasksView = observer(() => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new ClientWarehouseTasksViewModel({ history }))
-
-  const [isDisabledDownload, setIsDisabledDownload] = useState(true)
+  const [viewModel] = useState(() => new ClientWarehouseTasksViewModel())
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
+
+  const [isDisabledDownload, setIsDisabledDownload] = useState(true)
 
   useEffect(() => {
     setIsDisabledDownload(
@@ -68,28 +67,28 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
 
       <div className={styles.filters}>
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={viewModel.selectedPriority}
           switcherSettings={getPriorityConfig()}
           changeConditionHandler={el => viewModel.setFilters('selectedPriority', el)}
         />
 
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={viewModel.selectedStatus}
           switcherSettings={getStatusConfig()}
           changeConditionHandler={el => viewModel.setFilters('selectedStatus', el)}
         />
 
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={viewModel.selectedType}
           switcherSettings={getTypeConfig()}
           changeConditionHandler={el => viewModel.setFilters('selectedType', el)}
         />
 
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={viewModel.selectedStorekeeper}
           switcherSettings={getStorekeepersConfig(viewModel.storekeepersData)}
           changeConditionHandler={el => viewModel.setFilters('selectedStorekeeper', el)}
@@ -100,7 +99,6 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
-          localeText={getLocalizationByLanguageTag()}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}

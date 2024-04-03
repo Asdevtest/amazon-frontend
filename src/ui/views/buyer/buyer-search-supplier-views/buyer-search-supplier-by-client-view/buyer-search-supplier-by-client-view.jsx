@@ -7,7 +7,6 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -39,7 +38,6 @@ export const BuyerSearchSupplierByClientView = observer(props => {
         <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
-            useResizeContainer
             disableRowSelectionOnClick
             sortingMode="client"
             paginationMode="client"
@@ -56,7 +54,6 @@ export const BuyerSearchSupplierByClientView = observer(props => {
                 },
               },
             }}
-            localeText={getLocalizationByLanguageTag()}
             paginationModel={viewModel.paginationModel}
             rows={viewModel.getCurrentData()}
             rowHeight={80}

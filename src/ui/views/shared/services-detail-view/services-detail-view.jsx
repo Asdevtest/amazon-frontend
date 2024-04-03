@@ -9,7 +9,6 @@ import { MyServicesInfo } from '@components/my-services/my-services-info'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -44,8 +43,6 @@ export const ServiceDetailsView = observer(props => {
 
         <div className={styles.dataGridWrapper}>
           <CustomDataGrid
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}

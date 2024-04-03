@@ -13,7 +13,6 @@ import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
@@ -108,8 +107,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
       </div>
 
       <CustomDataGrid
-        useResizeContainer
-        localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
         sortingMode="client"
         paginationMode="client"

@@ -318,7 +318,7 @@ export const CreateOrEditTradingShopContent = ({
         />
       </Modal>
 
-      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
 }

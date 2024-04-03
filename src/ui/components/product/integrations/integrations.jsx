@@ -14,7 +14,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { checkIsAdmin } from '@utils/checks'
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -72,10 +71,8 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
       )}
 
       <CustomDataGrid
-        useResizeContainer
         checkboxSelection
         disableRowSelectionOnClick
-        localeText={getLocalizationByLanguageTag()}
         columnVisibilityModel={model.current.columnVisibilityModel}
         paginationModel={paginationModel}
         rows={getCurrentData()}

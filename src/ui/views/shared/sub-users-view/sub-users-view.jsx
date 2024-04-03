@@ -58,7 +58,6 @@ export const SubUsersView = observer(({ history }) => {
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           disableEnforceFocus
-          useResizeContainer
           disableRowSelectionOnClick
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}

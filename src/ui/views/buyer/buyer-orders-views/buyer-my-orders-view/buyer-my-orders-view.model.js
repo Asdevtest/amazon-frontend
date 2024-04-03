@@ -36,30 +36,27 @@ export class BuyerMyOrdersViewModel {
   orderStatusDataBase = []
   chosenStatus = []
   filteredStatus = []
-
   paymentMethods = []
-
   ordersMy = []
   baseNoConvertedOrders = []
-
-  get currentData() {
-    return this.ordersMy
-  }
-
   isReadyForPayment = undefined
-
   curBoxesOfOrder = []
-
   createBoxesResult = []
-
   paymentAmount = undefined
-
   nameSearchValue = ''
+  selectedOrder = undefined
+  barcode = ''
+  currentOrder = undefined
+  updateSupplierData = false
+  hsCodeData = undefined
+  curBox = undefined
+  dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
+  progressValue = 0
+  showProgress = false
+  readyImages = []
 
   showBarcodeModal = false
   showOrderModal = false
-  selectedOrder = undefined
-  barcode = ''
   showNoDimensionsErrorModal = false
   showWarningNewBoxesModal = false
   showSuccessModal = false
@@ -67,27 +64,14 @@ export class BuyerMyOrdersViewModel {
   showConfirmModal = false
   showWarningInfoModal = false
   showPaymentMethodsModal = false
-
-  currentOrder = undefined
-
-  updateSupplierData = false
-
-  hsCodeData = {}
-
   showEditHSCodeModal = false
-
   showSuccessModalText = ''
-
-  curBox = undefined
   showBoxViewModal = false
-
-  dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
 
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
   }
-
   confirmModalSettings = {
     title: '',
     isWarning: false,
@@ -98,21 +82,14 @@ export class BuyerMyOrdersViewModel {
   rowHandlers = {
     onClickPaymentMethodsCell: row => this.onClickPaymentMethodsCell(row),
   }
-
   rowCount = 0
   sortModel = []
   startFilterModel = undefined
   filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, false)
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
-  progressValue = 0
-  showProgress = false
-  readyImages = []
-
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
@@ -125,6 +102,10 @@ export class BuyerMyOrdersViewModel {
     filterRequestStatus: undefined,
 
     ...dataGridFiltersInitializer(filtersFields),
+  }
+
+  get currentData() {
+    return this.ordersMy
   }
 
   get userInfo() {
@@ -220,20 +201,11 @@ export class BuyerMyOrdersViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      filterRequestStatus: requestStatus,
-    }
+    this.columnMenuSettings.filterRequestStatus = requestStatus
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onClickResetFilters() {
