@@ -310,7 +310,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     this.getDataGridState()
 
     const url = new URL(window.location.href)
-    this.isArchive = url.searchParams.get('isArchive')
+    this.isArchive = url.searchParams.get('isArchive') || false
 
     makeObservable(this, observerConfig)
 
