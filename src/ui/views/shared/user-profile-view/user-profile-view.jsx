@@ -50,7 +50,6 @@ export const UserProfileView = observer(({ history }) => {
           <p className={styles.title}>{t(TranslationKey['Active offers on the commodity exchange'])}</p>
 
           <CustomDataGrid
-            useResizeContainer
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}

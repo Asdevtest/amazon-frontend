@@ -67,7 +67,6 @@ export const UserBalance = observer(({ userId }) => {
       </div>
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          useResizeContainer
           getRowClassName={getRowClassName}
           sortModel={sortModel}
           filterModel={filterModel}

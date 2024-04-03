@@ -18,7 +18,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -75,10 +74,8 @@ export const ClientOrdersView = observer(history => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          useResizeContainer
           disableRowSelectionOnClick
           checkboxSelection={viewModel.isPendingOrdering}
-          localeText={getLocalizationByLanguageTag()}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}

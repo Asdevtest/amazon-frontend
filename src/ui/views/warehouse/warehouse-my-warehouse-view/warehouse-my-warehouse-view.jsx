@@ -22,7 +22,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -69,7 +68,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
-          localeText={getLocalizationByLanguageTag()}
           isRowSelectable={params =>
             params.row.isDraft === false &&
             params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
