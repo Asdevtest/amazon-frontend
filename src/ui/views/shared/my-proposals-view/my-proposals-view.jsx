@@ -49,6 +49,8 @@ export const MyProposalsView = observer(({ history }) => {
             value={viewModel.currentSearchValue}
             onSubmit={viewModel.onChangeSearchValue}
           />
+
+          <div className={styles.searchInput} />
         </div>
 
         <CustomSwitcher
