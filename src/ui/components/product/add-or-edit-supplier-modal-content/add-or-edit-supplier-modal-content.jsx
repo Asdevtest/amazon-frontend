@@ -949,9 +949,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
       {renderFooterModalButtons()}
 
-      {showProgress && (
-        <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
-      )}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
 
       <Modal
         openModal={showSupplierApproximateCalculationsModal}
