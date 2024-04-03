@@ -37,10 +37,10 @@ export const useStyles = makeStyles()(theme => ({
 
   paymentMethodsField: {
     position: 'relative',
-    minWidth: 240,
-    width: '100%',
+    minWidth: 140,
+    width: 'fit-content',
     minHeight: 40,
-    borderRadius: 4,
+    borderRadius: '25px',
     border: `1px solid ${theme.palette.primary.main}`,
 
     '&:before': {

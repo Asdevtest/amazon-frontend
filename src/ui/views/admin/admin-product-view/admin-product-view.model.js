@@ -49,15 +49,9 @@ export class AdminProductViewModel {
     this.history = history
     this.productId = url.searchParams.get('product-id')
 
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
+    this.getProductById()
 
-  loadData() {
-    try {
-      this.getProductById()
-    } catch (error) {
-      console.error(error)
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async getProductById() {

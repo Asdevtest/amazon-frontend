@@ -69,10 +69,7 @@ export const useStyles = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-
-  button: {
-    padding: '10px 25px',
+    alignItems: 'center',
   },
 
   actionsButtonsContainer: {

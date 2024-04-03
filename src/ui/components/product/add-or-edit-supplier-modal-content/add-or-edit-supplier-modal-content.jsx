@@ -867,7 +867,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
                   onChangeImagesForLoad={setEditPhotosOfUnit}
                 />
               ) : (
-                <div>
+                <div style={{ width: '100%' }}>
                   <p className={styles.normalLabel}>{t(TranslationKey['Attach files (dimensions)'])}</p>
                   {isNeedUnitInfo ? (
                     <p className={cx(styles.normalLabel, styles.needAddPhotos)}>
@@ -876,7 +876,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
                   ) : null}
                   <UploadFilesInput
                     withoutLinks
-                    minimized
+                    withoutTitles
                     images={editPhotosOfUnit}
                     setImages={setEditPhotosOfUnit}
                     dragAndDropButtonHeight={34}

@@ -28,7 +28,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   isDraftRow: {
-    opacity: '.8',
+    opacity: '.5',
+    pointerEvents: 'none',
   },
 
   tableWrapper: {

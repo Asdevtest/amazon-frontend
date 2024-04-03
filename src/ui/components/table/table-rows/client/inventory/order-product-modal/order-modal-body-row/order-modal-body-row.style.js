@@ -128,6 +128,17 @@ export const useStyles = makeStyles()(theme => ({
     margin: '0 !important',
   },
 
+  containerFieldCell: {
+    width: '120px !important',
+
+    '> p': {
+      position: 'absolute',
+      fontSize: '12px',
+      bottom: '-5px',
+      transform: 'translateY(100%)',
+    },
+  },
+
   batchWeight: {
     width: '190px !important',
   },
@@ -164,10 +175,6 @@ export const useStyles = makeStyles()(theme => ({
 
   errorSpace: {
     marginTop: 12,
-  },
-
-  errorSpaceInputCell: {
-    marginTop: 18,
   },
 
   priceVariationsCell: {
