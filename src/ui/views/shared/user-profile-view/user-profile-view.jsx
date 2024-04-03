@@ -22,9 +22,9 @@ import { useStyles } from './user-profile-view.style'
 
 import { ProfileViewModel } from './user-profile-view.model'
 
-export const UserProfileView = observer(({ history }) => {
+export const UserProfileView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ProfileViewModel({ history }))
+  const [viewModel] = useState(() => new ProfileViewModel())
 
   useEffect(() => {
     viewModel.loadData()
@@ -99,7 +99,10 @@ export const UserProfileView = observer(({ history }) => {
 
       <Modal
         openModal={viewModel.showUserInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
+        setOpenModal={() => {
+          viewModel.onTriggerOpenModal('showUserInfoModal')
+          viewModel.onTriggerEnterInformation()
+        }}
       >
         <UserInfoEditForm
           resetProfileDataValidation={viewModel.resetProfileDataValidation}
