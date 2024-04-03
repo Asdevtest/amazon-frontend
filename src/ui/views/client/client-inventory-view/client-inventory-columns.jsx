@@ -459,6 +459,7 @@ export const clientInventoryColumns = (
         renderHeader: () => <MultilineTextHeaderCell text={lable} />,
         renderCell: params => (
           <InStockCell
+            isHideStorekeeper
             boxAmounts={params.row?.boxAmounts?.filter(box => box?.storekeeper?._id === storekeeper?._id)}
             boxId={params.row?._id}
             onClickInStock={otherHandlers.onClickInStock}
