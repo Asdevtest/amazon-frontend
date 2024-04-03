@@ -5,7 +5,7 @@ import { GridRowModel, GridRowParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxViewForm } from '@components/forms/box-view-form'
+import { BoxForm } from '@components/forms/box-form'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -66,18 +66,18 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(({ formFields, platf
         />
       </div>
 
-      <Modal openModal={viewModel.showBoxModal} setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}>
-        <BoxViewForm
-          // remove memo from the modal or add types to the modal
-          /* @ts-ignore */
-          userInfo={viewModel.userInfo}
-          box={viewModel.currentBox}
-          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}
-          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
-        />
-      </Modal>
+      {viewModel.currentBox ? (
+        <Modal openModal={viewModel.showBoxModal} setOpenModal={() => viewModel.onToggleModal(ModalNames.BOX)}>
+          <BoxForm
+            userInfo={viewModel.userInfo}
+            box={viewModel.currentBox}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
+            onToggleModal={() => viewModel.onToggleModal(ModalNames.BOX)}
+            onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
+            onClickHsCode={viewModel.onClickHsCode}
+          />
+        </Modal>
+      ) : null}
 
       {viewModel.showWarningInfoModal ? (
         <WarningInfoModal

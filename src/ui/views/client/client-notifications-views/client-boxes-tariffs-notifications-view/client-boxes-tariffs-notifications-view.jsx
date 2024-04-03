@@ -4,7 +4,7 @@ import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxViewForm } from '@components/forms/box-view-form'
+import { BoxForm } from '@components/forms/box-form'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -98,11 +98,11 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxViewForm
+        <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
         />

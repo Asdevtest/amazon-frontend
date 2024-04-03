@@ -6,7 +6,7 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxViewForm } from '@components/forms/box-view-form'
+import { BoxForm } from '@components/forms/box-form'
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -245,11 +245,11 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxViewForm
+        <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
         />

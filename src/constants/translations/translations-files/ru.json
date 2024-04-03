@@ -2219,5 +2219,6 @@
   "No active sessions": "Нет активных сессий",
   "Browser not found": "Браузер не найден",
   "Close the access": "Закрыть доступ",
-  "No user found with this email.": "Пользователь с данной электронной почтой не найден."
+  "No user found with this email.": "Пользователь с данной электронной почтой не найден.",
+  "Storage": "Storage"
 }

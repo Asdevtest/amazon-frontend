@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,10 +13,16 @@ import { FireIcon } from '@components/shared/svg-icons'
 import { t } from '@utils/translations'
 
 import { OrderPriority } from '@typings/enums/order/order-priority'
+import { IBox } from '@typings/models/boxes/box'
 
-import { useStyles } from './order-info-tab.style'
+import { useStyles } from './order.style'
 
-export const OrderInfoTab = memo(({ formFields, onClickHsCode }) => {
+interface OrderProps {
+  formFields: IBox
+  onClickHsCode?: (id: string, flag: boolean) => void
+}
+
+export const Order: FC<OrderProps> = memo(({ formFields, onClickHsCode }) => {
   const { classes: styles, cx } = useStyles()
 
   return (
@@ -69,7 +75,10 @@ export const OrderInfoTab = memo(({ formFields, onClickHsCode }) => {
                   value={item.order?.id}
                 />
 
-                <Button className={styles.button} onClick={() => onClickHsCode(item.product._id, true)}>
+                <Button
+                  className={styles.button}
+                  onClick={() => (onClickHsCode ? onClickHsCode(item.product._id, true) : undefined)}
+                >
                   {t(TranslationKey['HS code'])}
                 </Button>
 

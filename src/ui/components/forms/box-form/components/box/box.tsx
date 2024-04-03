@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { ChangeEvent, FC, memo, useState } from 'react'
 
 import {
   getConversion,
@@ -25,20 +25,34 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useStyles } from './box-info-tab.style'
+import { IBox } from '@typings/models/boxes/box'
 
-export const BoxInfoTab = memo(props => {
+import { useStyles } from './box.style'
+
+interface BoxProps {
+  isEdit: boolean
+  isBuyer: boolean
+  isClient: boolean
+  formFields: IBox
+  volumeWeightCoefficient: number
+  onChangeField: (field: string) => (event: ChangeEvent<HTMLInputElement>) => void
+  onChangeTrackNumberFile: (files: string[]) => void
+  onCalcFinalWeightForBox?: (fields: IBox, coefficient: number) => number
+}
+
+export const Box: FC<BoxProps> = memo(props => {
   const {
     isEdit,
     isBuyer,
     isClient,
     formFields,
     volumeWeightCoefficient,
-    calcFinalWeightForBoxFunction,
+    onCalcFinalWeightForBox,
     onChangeField,
+    onChangeTrackNumberFile,
   } = props
-  const { classes: styles, cx } = useStyles()
 
+  const { classes: styles, cx } = useStyles()
   const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
@@ -47,8 +61,8 @@ export const BoxInfoTab = memo(props => {
   const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
   const weightSizesType = getWeightSizesType(sizeSetting)
   const dimensionsSizesType = getDimensionsSizesType(sizeSetting)
-  const finalWeightForBox = calcFinalWeightForBoxFunction
-    ? calcFinalWeightForBoxFunction(formFields, volumeWeightCoefficient)
+  const finalWeightForBox = onCalcFinalWeightForBox
+    ? onCalcFinalWeightForBox(formFields, volumeWeightCoefficient)
     : calcFinalWeightForBox(formFields, volumeWeightCoefficient)
 
   return (
@@ -69,7 +83,7 @@ export const BoxInfoTab = memo(props => {
                     { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
                     { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
                   ]}
-                  changeConditionHandler={condition => setSizeSetting(condition)}
+                  changeConditionHandler={condition => setSizeSetting(condition as string)}
                 />
               </div>
 
@@ -236,7 +250,7 @@ export const BoxInfoTab = memo(props => {
           title={t(TranslationKey['Track number'])}
           maxNumber={50}
           tmpCode={formFields?.trackNumberFile}
-          onClickSaveBarcode={value => onChangeField('trackNumberFile')({ target: { value } })}
+          onClickSaveBarcode={onChangeTrackNumberFile}
           onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
         />
       </Modal>
