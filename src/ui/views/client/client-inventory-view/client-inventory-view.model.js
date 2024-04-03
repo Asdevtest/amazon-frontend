@@ -450,12 +450,12 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       if (isDelete) {
         this.tableData = this.tableData.filter(product => product?.hierarchy[0] !== id || product?.id === id)
       } else {
-        this.setRequestStatus(loadingStatuses.IS_LOADING)
+        this.setRequestStatus(loadingStatus.IS_LOADING)
         const result = await ProductModel.getProductsVariationsByGuid(id, true, true, this.isArchive)
 
         if (!result?.childProducts?.length && !result?.parentProduct) {
           toast?.error(t(TranslationKey['No data']))
-          this.setRequestStatus(loadingStatuses.SUCCESS)
+          this.setRequestStatus(loadingStatus.SUCCESS)
           return
         }
 
@@ -483,12 +483,12 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         }
 
         this.tableData = this.tableData.concat(newTableData)
-        this.setRequestStatus(loadingStatuses.SUCCESS)
+        this.setRequestStatus(loadingStatus.SUCCESS)
 
         return !!newTableData?.length
       }
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.log(error)
     }
   }
