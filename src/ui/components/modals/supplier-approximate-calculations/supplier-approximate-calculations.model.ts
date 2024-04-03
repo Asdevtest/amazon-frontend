@@ -82,7 +82,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
         this.setCurrentStorekeeper(this.storekeepers[0]?.value as string)
       })
     } catch (error) {
-      console.log('error :>> ', error)
+      console.log(error)
     }
   }
 

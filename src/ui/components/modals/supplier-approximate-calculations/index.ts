@@ -1,1 +1,1 @@
-export { SupplierApproximateCalculations } from './supplier-approximate-calculations'
+export { SupplierApproximateCalculationsModal } from './supplier-approximate-calculations'
