@@ -182,9 +182,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
         </Button>
       </div>
 
-      {showProgress && (
-        <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
-      )}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
 })

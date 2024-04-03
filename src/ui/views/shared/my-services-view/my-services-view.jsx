@@ -45,6 +45,13 @@ export const MyServicesView = observer(({ history }) => {
             />
           </div>
 
+          <SearchInput
+            inputClasses={styles.searchInput}
+            placeholder={t(TranslationKey['Search by Title, Description'])}
+            value={viewModel.nameSearchValue}
+            onChange={viewModel.onSearchSubmit}
+          />
+
           <Button
             styleType={ButtonStyle.SUCCESS}
             className={styles.rightAddingBtn}
@@ -53,13 +60,6 @@ export const MyServicesView = observer(({ history }) => {
             {t(TranslationKey['Create a service'])}
           </Button>
         </div>
-
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by Title, Description'])}
-          value={viewModel.nameSearchValue}
-          onChange={viewModel.onSearchSubmit}
-        />
       </div>
 
       <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>

@@ -11,7 +11,6 @@ import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -64,8 +63,6 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   return (
     <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
       <CustomDataGrid
-        useResizeContainer
-        localeText={getLocalizationByLanguageTag()}
         columnVisibilityModel={model.current.columnVisibilityModel}
         paginationModel={paginationModel}
         rows={getCurrentData()}

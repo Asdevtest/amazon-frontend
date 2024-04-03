@@ -7,7 +7,6 @@ import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -40,7 +39,6 @@ export const SupervisorReadyToCheckView = observer(({ history }) => {
         <div className={styles.datagridWrapper}>
           <CustomDataGrid
             checkboxSelection
-            useResizeContainer
             disableRowSelectionOnClick
             sortingMode="client"
             paginationMode="client"
@@ -58,7 +56,6 @@ export const SupervisorReadyToCheckView = observer(({ history }) => {
               },
             }}
             columnVisibilityModel={viewModel.columnVisibilityModel}
-            localeText={getLocalizationByLanguageTag()}
             rows={viewModel.currentData}
             rowHeight={100}
             columns={viewModel.columnsModel}

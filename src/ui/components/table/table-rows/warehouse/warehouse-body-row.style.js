@@ -9,22 +9,19 @@ export const styles = theme => ({
     borderBottom: '1px solid rgba(217, 222, 229, 1)',
   },
   cellValueNumber: {
-    // width: 60,
-    // textAlign: 'left',
-    // whiteSpace: 'nowrap',
-    // overflow: 'hidden',
-    // textOverflow: 'ellipsis',
+    width: 90,
+    textAlign: 'left',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
+
   centerCell: {
     textAlign: 'center',
   },
 
   row: {
     cursor: 'pointer',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(0.99)',
-    },
   },
   button: {
     width: '100%',
@@ -32,12 +29,6 @@ export const styles = theme => ({
     height: 30,
   },
 
-  textEllipsis: {
-    maxWidth: 150,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
   asinCell: {
     padding: '12px 0px',
     height: '88px',
@@ -112,6 +103,6 @@ export const styles = theme => ({
     whiteSpace: 'pre-wrap',
   },
   tableCellProduct: {
-    minWidth: 260,
+    width: 260,
   },
 })

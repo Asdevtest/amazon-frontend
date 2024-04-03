@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -28,8 +27,6 @@ export const FinancesView = observer(({ history }) => {
   return (
     <div className={styles.tableWrapper}>
       <CustomDataGrid
-        useResizeContainer
-        localeText={getLocalizationByLanguageTag()}
         getRowClassName={getRowClassName}
         sortModel={viewModel.sortModel}
         sortingMode="client"

@@ -14,8 +14,6 @@ export const ModeratorMyProductsViewRaw = props => {
       <div>
         <Typography className={styles.inProcess}>{'В разработке...'}</Typography>
         {/* <CustomDataGrid
-                useResizeContainer
-                localeText={getLocalizationByLanguageTag()}
                 getRowClassName={getRowClassName}
                 sortModel={sortModel}
                 filterModel={filterModel}

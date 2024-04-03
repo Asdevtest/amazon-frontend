@@ -156,10 +156,8 @@ export const Listing = observer(({ productId, onClickBack }) => {
             </div>
 
             {userCanEdit && (
-              <div>
-                <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} />
-                </div>
+              <div className={styles.imageFileInputWrapper}>
+                <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} />
               </div>
             )}
 
@@ -201,7 +199,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
         />
       ) : null}
 
-      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
 })

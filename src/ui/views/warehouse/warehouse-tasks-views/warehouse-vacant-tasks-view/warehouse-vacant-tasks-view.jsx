@@ -17,7 +17,6 @@ import { TaskPrioritySelector } from '@components/shared/task-priority-selector/
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -102,10 +101,8 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
 
         <div className={styles.tableWrapper}>
           <CustomDataGrid
-            useResizeContainer
             checkboxSelection
             disableRowSelectionOnClick
-            localeText={getLocalizationByLanguageTag()}
             getRowClassName={getRowClassName}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}

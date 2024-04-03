@@ -37,7 +37,6 @@ export const AdminWarehouseBoxesView = observer(() => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          useResizeContainer
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}

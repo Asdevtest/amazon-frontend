@@ -27,6 +27,7 @@ export const CustomDataGrid = ({ ...restProps }) => {
       key={SettingsModel.languageTag}
       pagination
       hideFooter
+      useResizeContainer
       disableVirtualization
       sortingMode="server"
       paginationMode="server"

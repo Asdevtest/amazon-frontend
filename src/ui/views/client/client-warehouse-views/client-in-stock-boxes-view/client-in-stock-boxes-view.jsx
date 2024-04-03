@@ -29,7 +29,6 @@ import { Modal } from '@components/shared/modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -84,7 +83,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
-          localeText={getLocalizationByLanguageTag()}
           isRowSelectable={params =>
             params.row.isDraft === false &&
             params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&

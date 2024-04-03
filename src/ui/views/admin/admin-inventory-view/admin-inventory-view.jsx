@@ -8,7 +8,6 @@ import { ProductCardModal } from '@components/modals/product-card-modal/product-
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -38,10 +37,8 @@ export const AdminInventoryViewRaw = props => {
         </div>
         <div className={styles.datagridWrapper}>
           <CustomDataGrid
-            useResizeContainer
             sortingMode="server"
             paginationMode="server"
-            localeText={getLocalizationByLanguageTag()}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             sortModel={viewModel.sortModel}
