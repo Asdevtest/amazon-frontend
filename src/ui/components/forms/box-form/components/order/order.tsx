@@ -19,7 +19,7 @@ import { useStyles } from './order.style'
 
 interface OrderProps {
   formFields: IBox
-  onClickHsCode?: (id: string, flag: boolean) => void
+  onClickHsCode?: (id: string) => void
 }
 
 export const Order: FC<OrderProps> = memo(({ formFields, onClickHsCode }) => {
@@ -77,7 +77,7 @@ export const Order: FC<OrderProps> = memo(({ formFields, onClickHsCode }) => {
 
                 <Button
                   className={styles.button}
-                  onClick={() => (onClickHsCode ? onClickHsCode(item.product._id, true) : undefined)}
+                  onClick={() => (onClickHsCode ? onClickHsCode(item.product._id) : undefined)}
                 >
                   {t(TranslationKey['HS code'])}
                 </Button>

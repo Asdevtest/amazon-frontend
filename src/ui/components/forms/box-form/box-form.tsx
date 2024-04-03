@@ -21,7 +21,7 @@ interface BoxFormProps {
   volumeWeightCoefficient: number
   onToggleModal: () => void
   userInfo?: IFullUser
-  onClickHsCode?: (id: string, flag?: boolean) => void
+  onClickHsCode?: (id: string) => void
   onSubmitChangeFields?: (fields: IBox) => void
   onCalcFinalWeightForBox?: () => number
 }
