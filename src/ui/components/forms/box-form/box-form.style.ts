@@ -14,4 +14,9 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
   },
+
+  switcher: {
+    display: 'flex',
+    gap: 20,
+  },
 }))

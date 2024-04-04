@@ -23,19 +23,10 @@ interface BoxFormProps {
   userInfo?: IFullUser
   onClickHsCode?: (id: string) => void
   onSubmitChangeFields?: (fields: IBox) => void
-  onCalcFinalWeightForBox?: () => number
 }
 
 export const BoxForm: FC<BoxFormProps> = memo(props => {
-  const {
-    box,
-    volumeWeightCoefficient,
-    onToggleModal,
-    userInfo,
-    onClickHsCode,
-    onSubmitChangeFields,
-    onCalcFinalWeightForBox,
-  } = props
+  const { box, volumeWeightCoefficient, onToggleModal, userInfo, onClickHsCode, onSubmitChangeFields } = props
 
   const { classes: styles } = useStyles()
   const [activeTab, setActiveTab] = useState(BoxTabs.BOX_INFO)
@@ -67,15 +58,17 @@ export const BoxForm: FC<BoxFormProps> = memo(props => {
       <Info formFields={formFields} onChangeField={handleChangeField} />
 
       <div className={styles.switcherWrapper}>
-        <CustomSwitcher
-          fullWidth
-          switchMode="medium"
-          condition={activeTab}
-          switcherSettings={switcherSettings}
-          changeConditionHandler={value => setActiveTab(value as BoxTabs)}
-        />
+        <div className={styles.switcher}>
+          <Quantities formFields={formFields} />
 
-        <Quantities formFields={formFields} />
+          <CustomSwitcher
+            fullWidth
+            switchMode="medium"
+            condition={activeTab}
+            switcherSettings={switcherSettings}
+            changeConditionHandler={value => setActiveTab(value as BoxTabs)}
+          />
+        </div>
 
         <TabPanel value={activeTab} index={BoxTabs.BOX_INFO}>
           <Box
@@ -84,7 +77,6 @@ export const BoxForm: FC<BoxFormProps> = memo(props => {
             isClient={isClient}
             formFields={formFields}
             volumeWeightCoefficient={volumeWeightCoefficient}
-            onCalcFinalWeightForBox={onCalcFinalWeightForBox}
             onChangeField={handleChangeField}
             onChangeTrackNumberFile={handleChangeTrackNumberFile}
           />

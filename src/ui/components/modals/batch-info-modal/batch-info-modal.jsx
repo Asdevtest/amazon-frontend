@@ -4,10 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-import {
-  BatchWeightCalculationMethodTranslateKey,
-  getBatchWeightCalculationMethodForBox,
-} from '@constants/statuses/batch-weight-calculations-method'
+import { BatchWeightCalculationMethodTranslateKey } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
@@ -410,10 +407,6 @@ export const BatchInfoModal = observer(
               onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
               onSubmitChangeFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
-              onCalcFinalWeightForBox={getBatchWeightCalculationMethodForBox(
-                currentBatch?.calculationMethod,
-                isActualGreaterTheVolume,
-              )}
             />
           </Modal>
 

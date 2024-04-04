@@ -1,33 +1,19 @@
-import { ChangeEvent, FC, memo, useState } from 'react'
+import { ChangeEvent, FC, memo } from 'react'
 
-import {
-  getConversion,
-  getDimensionsSizesType,
-  getWeightSizesType,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-} from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { Field } from '@components/shared/field'
-import { LabelWithCopy } from '@components/shared/label-with-copy'
-import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { NoPhotoIcon } from '@components/shared/svg-icons'
 
-import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IBox } from '@typings/models/boxes/box'
 
 import { useStyles } from './box.style'
+
+import { Dimensions, Fields, Items, TrackNumber } from './components'
 
 interface BoxProps {
   isEdit: boolean
@@ -37,128 +23,27 @@ interface BoxProps {
   volumeWeightCoefficient: number
   onChangeField: (field: string) => (event: ChangeEvent<HTMLInputElement>) => void
   onChangeTrackNumberFile: (files: string[]) => void
-  onCalcFinalWeightForBox?: (fields: IBox, coefficient: number) => number
 }
 
 export const Box: FC<BoxProps> = memo(props => {
-  const {
-    isEdit,
-    isBuyer,
-    isClient,
-    formFields,
-    volumeWeightCoefficient,
-    onCalcFinalWeightForBox,
-    onChangeField,
-    onChangeTrackNumberFile,
-  } = props
+  const { isEdit, isBuyer, isClient, formFields, volumeWeightCoefficient, onChangeField, onChangeTrackNumberFile } =
+    props
 
   const { classes: styles, cx } = useStyles()
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-  const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-
-  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
-  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
-  const totalWeightConversion = getConversion(sizeSetting, 12 / poundsWeightCoefficient, 12)
-  const weightSizesType = getWeightSizesType(sizeSetting)
-  const dimensionsSizesType = getDimensionsSizesType(sizeSetting)
-  const finalWeightForBox = onCalcFinalWeightForBox
-    ? onCalcFinalWeightForBox(formFields, volumeWeightCoefficient)
-    : calcFinalWeightForBox(formFields, volumeWeightCoefficient)
 
   return (
-    <>
-      <div className={styles.wrapper}>
-        <div className={styles.infosWrapper}>
-          <div className={styles.dimensionsAndPhotosWrapper}>
-            <div className={styles.photos}>
-              <SlideshowGallery files={formFields?.images} slidesToShow={2} />
-            </div>
+    <div className={styles.wrapper}>
+      <div className={styles.flexContainer}>
+        <Items formFields={formFields} />
 
-            <div className={styles.dimensions}>
-              <div className={styles.switcherWrapper}>
-                <p className={cx(styles.text, styles.textSecond)}>{t(TranslationKey['Sizes from storekeeper'])}</p>
-                <CustomSwitcher
-                  condition={sizeSetting}
-                  switcherSettings={[
-                    { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                    { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                  ]}
-                  changeConditionHandler={condition => setSizeSetting(condition as string)}
-                />
-              </div>
+        <div className={cx(styles.info, styles.flexContainer)}>
+          <SlideshowGallery hiddenPreviews files={formFields?.images} slidesToShow={2.5} />
 
-              <p className={styles.text}>
-                {t(TranslationKey.Length) + ': '}
-                {toFixed(formFields?.lengthCmWarehouse / lengthConversion, 2)}
-                {' ' + dimensionsSizesType}
-              </p>
-              <p className={styles.text}>
-                {t(TranslationKey.Width) + ': '}
-                {toFixed(formFields?.widthCmWarehouse / lengthConversion, 2)}
-                {' ' + dimensionsSizesType}
-              </p>
-              <p className={styles.text}>
-                {t(TranslationKey.Height) + ': '}
-                {toFixed(formFields?.heightCmWarehouse / lengthConversion, 2)}
-                {' ' + dimensionsSizesType}
-              </p>
-              <p className={styles.text}>
-                {t(TranslationKey.Weight) + ': '}
-                {toFixed(formFields?.weighGrossKgWarehouse / weightConversion, 2)}
-                {' ' + weightSizesType}
-              </p>
-              <p className={styles.text}>
-                {t(TranslationKey['Volume weight']) + ': '}
-                {toFixed(calcVolumeWeightForBox(formFields, volumeWeightCoefficient) / weightConversion, 2)}
-                {' ' + weightSizesType}
-              </p>
-              <p className={cx(styles.text, styles.twoLines)}>
-                {t(TranslationKey['Final weight']) + ': '}
-                {`${toFixed(finalWeightForBox / weightConversion, 2)} ${weightSizesType} `}
-                <span className={styles.textAlert}>
-                  {finalWeightForBox / weightConversion < totalWeightConversion
-                    ? `< ${toFixed(totalWeightConversion, 2)} ${weightSizesType}`
-                    : ''}
-                </span>
-              </p>
-            </div>
-          </div>
+          <Dimensions formFields={formFields} volumeWeightCoefficient={volumeWeightCoefficient} />
 
-          <div className={styles.fieldsWrapper}>
-            <LabelWithCopy
-              direction="column"
-              labelTitle={t(TranslationKey['Shipping label'])}
-              labelValue={formFields?.shippingLabel}
-              lableLinkTitle={t(TranslationKey.View)}
-            />
-
-            <Field
-              disabled={!isEdit || isBuyer}
-              inputClasses={styles.input}
-              containerClasses={styles.field}
-              labelClasses={cx(styles.text, styles.label)}
-              inputProps={{ maxLength: 250 }}
-              label={t(TranslationKey['Reference id'])}
-              value={formFields?.referenceId || ''}
-              onChange={onChangeField('referenceId')}
-            />
-
-            <Field
-              disabled={!isEdit || isBuyer}
-              inputClasses={styles.input}
-              containerClasses={styles.field}
-              labelClasses={cx(styles.text, styles.label)}
-              inputProps={{ maxLength: 250 }}
-              label={'FBA number'}
-              value={formFields?.fbaNumber || ''}
-              onChange={onChangeField('fbaNumber')}
-            />
-          </div>
-        </div>
-
-        <div className={cx(styles.infosWrapper, { [styles.infosWrapperNoClient]: isClient })}>
-          <div className={styles.flexContainer}>
+          <div className={styles.checkboxes}>
             <div className={styles.checkboxContainer}>
+              <Checkbox disabled className={styles.checkbox} checked={formFields?.isFormed} />
               {formFields?.sub ? (
                 <img
                   src={getUserAvatarSrc(formFields?.sub._id)}
@@ -169,9 +54,16 @@ export const Box: FC<BoxProps> = memo(props => {
               ) : (
                 <NoPhotoIcon className={styles.userIcon} />
               )}
-              <Checkbox disabled className={styles.checkbox} checked={formFields?.isFormed} />
               <p className={styles.text}>{t(TranslationKey.Formed)}</p>
             </div>
+
+            <TrackNumber
+              isClient={isClient}
+              isEdit={isEdit}
+              formFields={formFields}
+              onChangeField={onChangeField}
+              onChangeTrackNumberFile={onChangeTrackNumberFile}
+            />
 
             <div className={styles.checkboxContainer}>
               <Checkbox
@@ -179,81 +71,19 @@ export const Box: FC<BoxProps> = memo(props => {
                 className={styles.checkbox}
                 checked={formFields?.isShippingLabelAttachedByStorekeeper}
               />
-
               <p className={styles.text}>{t(TranslationKey['Shipping label was glued to the warehouse'])}</p>
             </div>
-          </div>
-
-          {!isClient ? (
-            <div className={styles.flexContainer}>
-              <div className={styles.trackNumberFields}>
-                <Field
-                  disabled={!isEdit}
-                  placeholder={t(TranslationKey['Not available'])}
-                  inputClasses={styles.input}
-                  // containerClasses={styles.field}
-                  labelClasses={cx(styles.text, styles.label)}
-                  inputProps={{ maxLength: 250 }}
-                  label={t(TranslationKey['Track number'])}
-                  value={formFields?.trackNumberText || ''}
-                  onChange={onChangeField('trackNumberText')}
-                />
-
-                <Button
-                  disabled={!isEdit}
-                  className={styles.trackNumberBtn}
-                  onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-                >
-                  {formFields?.trackNumberFile?.length
-                    ? t(TranslationKey['File added'])
-                    : t(TranslationKey['Photo track numbers'])}
-                </Button>
-              </div>
-
-              <div className={styles.trackNumberPhoto}>
-                {formFields?.trackNumberFile?.length ? (
-                  <SlideshowGallery hiddenPreviews slidesToShow={1} files={formFields?.trackNumberFile} />
-                ) : (
-                  <p className={styles.text}>{`${t(TranslationKey['no photo track number'])}...`}</p>
-                )}
-              </div>
-            </div>
-          ) : null}
-
-          <div className={styles.flexContainer}>
-            <Field
-              disabled={isClient || isBuyer}
-              placeholder={t(TranslationKey['Not available'])}
-              inputClasses={styles.input}
-              containerClasses={cx(styles.field, styles.bigField)}
-              labelClasses={cx(styles.text, styles.label)}
-              inputProps={{ maxLength: 250 }}
-              label={'UPS Track number'}
-              value={formFields?.upsTrackNumber || ''}
-              onChange={onChangeField('upsTrackNumber')}
-            />
-            <Field
-              disabled
-              placeholder={t(TranslationKey['Not available'])}
-              inputClasses={styles.input}
-              containerClasses={cx(styles.field, styles.bigField)}
-              labelClasses={cx(styles.text, styles.label)}
-              label={t(TranslationKey['FBA Shipment'])}
-              value={formFields?.fbaShipment || ''}
-            />
           </div>
         </div>
       </div>
 
-      <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
-        <SetBarcodeModal
-          title={t(TranslationKey['Track number'])}
-          maxNumber={50}
-          tmpCode={formFields?.trackNumberFile}
-          onClickSaveBarcode={onChangeTrackNumberFile}
-          onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-        />
-      </Modal>
-    </>
+      <Fields
+        formFields={formFields}
+        isClient={isClient}
+        isBuyer={isBuyer}
+        isEdit={isEdit}
+        onChangeField={onChangeField}
+      />
+    </div>
   )
 })
