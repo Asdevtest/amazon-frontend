@@ -2,6 +2,7 @@ import { ChangeEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Input } from '@components/shared/input'
 import { UserLink } from '@components/user/user-link'
 
 import { getNewTariffTextForBoxOrOrder } from '@utils/text'
@@ -16,14 +17,21 @@ interface InfoProps {
   onChangeField: (field: string) => (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Info: FC<InfoProps> = memo(({ formFields }) => {
+export const Info: FC<InfoProps> = memo(({ formFields, onChangeField }) => {
   const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.informationContainer}>
+      <div className={cx(styles.informationContainer, styles.customGap)}>
         <p className={styles.informationTitle}>{t(TranslationKey.Storage)}</p>
-        <p className={styles.informationText}>{t(TranslationKey['Not available'])}</p>
+        <Input
+          className={styles.storageInput}
+          classes={{ input: styles.input }}
+          inputProps={{ maxLength: 64 }}
+          value={formFields?.storage}
+          placeholder={t(TranslationKey['Not available'])}
+          onChange={onChangeField('storage')}
+        />
       </div>
 
       <div className={styles.informationContainer}>

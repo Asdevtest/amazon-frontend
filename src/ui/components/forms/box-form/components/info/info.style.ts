@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(theme => ({
   informationContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 13,
+    gap: 14,
   },
 
   informationContainerMinGap: {
@@ -39,5 +39,23 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.general,
+  },
+
+  storageInput: {
+    width: 200,
+    height: 30,
+    borderRadius: 7,
+    transition: '0.3s ease',
+  },
+
+  input: {
+    padding: '5px 10px',
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
+  },
+
+  customGap: {
+    gap: 8,
   },
 }))

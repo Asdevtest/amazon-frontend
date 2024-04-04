@@ -26,18 +26,6 @@ export const useStyles = makeStyles()(theme => ({
     width: 200,
     height: 30,
     borderRadius: 7,
-    transition: '0.3s ease',
-
-    button: {
-      transition: '0.3s ease',
-      opacity: 0,
-    },
-
-    '&.Mui-focused': {
-      button: {
-        opacity: 1,
-      },
-    },
   },
 
   input: {
@@ -45,10 +33,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.general,
-  },
-
-  clearButton: {
-    padding: 5,
   },
 
   updatedContainer: {

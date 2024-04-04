@@ -82,7 +82,7 @@ export const BoxForm: FC<BoxFormProps> = memo(props => {
           />
         </TabPanel>
         <TabPanel value={activeTab} index={BoxTabs.ORDER_INFO}>
-          <Order formFields={formFields} onClickHsCode={onClickHsCode} />
+          <Order isClient={isClient} formFields={formFields} onClickHsCode={onClickHsCode} />
         </TabPanel>
       </div>
 

@@ -266,6 +266,7 @@ export class ClientAwaitingBatchesViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       await this.loadData()

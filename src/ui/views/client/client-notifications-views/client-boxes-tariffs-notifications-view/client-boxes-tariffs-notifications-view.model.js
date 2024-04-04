@@ -138,6 +138,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       this.loadData()

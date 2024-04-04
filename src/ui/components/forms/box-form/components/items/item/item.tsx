@@ -9,7 +9,7 @@ import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
-import { FireIcon, ShareIcon } from '@components/shared/svg-icons'
+import { FireIcon, ShareIcon, TruckIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -23,12 +23,13 @@ interface ItemProps {
   item: IBoxItem
   quantity: number
   isLastItem: boolean
+  isClient?: boolean
   isOrderInfo?: boolean
   onClickHsCode?: (id: string) => void
 }
 
 export const Item: FC<ItemProps> = memo(props => {
-  const { item, quantity, isLastItem, isOrderInfo, onClickHsCode } = props
+  const { item, isClient, quantity, isLastItem, isOrderInfo, onClickHsCode } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -66,11 +67,14 @@ export const Item: FC<ItemProps> = memo(props => {
 
         {isOrderInfo ? (
           <div className={styles.flexContainer}>
-            {item.order.expressChinaDelivery ? (
-              <img className={styles.icon} src="/assets/icons/truck.svg" alt="express-china-delivery" />
-            ) : null}
+            {!item.order.expressChinaDelivery ? <TruckIcon className={styles.icon} /> : null}
             {isRushOrder ? <FireIcon className={styles.icon} /> : null}
-            <ShareIcon className={cx(styles.icon, styles.blue)} onClick={() => handleClickOpenNewTab(item.order._id)} />
+            {isClient ? (
+              <ShareIcon
+                className={cx(styles.icon, styles.blue)}
+                onClick={() => handleClickOpenNewTab(item.order._id)}
+              />
+            ) : null}
           </div>
         ) : null}
       </div>

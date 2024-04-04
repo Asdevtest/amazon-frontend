@@ -8,12 +8,13 @@ import { Item } from './item'
 
 interface ItemsProps {
   formFields: IBox
+  isClient?: boolean
   isOrderInfo?: boolean
   onClickHsCode?: (id: string) => void
 }
 
 export const Items: FC<ItemsProps> = memo(props => {
-  const { formFields, isOrderInfo, onClickHsCode } = props
+  const { formFields, isClient, isOrderInfo, onClickHsCode } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -27,6 +28,7 @@ export const Items: FC<ItemsProps> = memo(props => {
           <Item
             key={index}
             item={item}
+            isClient={isClient}
             quantity={quantity}
             isLastItem={isLastItem}
             isOrderInfo={isOrderInfo}

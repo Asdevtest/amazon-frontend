@@ -22,11 +22,6 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  const handleClearPrepId = () => {
-    const event = { target: { value: '' } } as ChangeEvent<HTMLInputElement>
-    onChangeField('prepId')(event)
-  }
-
   const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${formFields?.humanFriendlyId}/ prep id:`
 
   return (
@@ -40,14 +35,7 @@ export const Header: FC<HeaderProps> = memo(props => {
           classes={{ input: styles.input }}
           inputProps={{ maxLength: 20 }}
           value={formFields?.prepId}
-          placeholder="PREP ID"
-          endAdornment={
-            formFields?.prepId.length > 0 ? (
-              <button className={styles.clearButton} onClick={handleClearPrepId}>
-                ✕
-              </button>
-            ) : null
-          }
+          placeholder={t(TranslationKey['Not available'])}
           onChange={onChangeField('prepId')}
         />
       </div>

@@ -13,6 +13,7 @@ import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { TruckIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -201,7 +202,7 @@ export const DeliveryParameters = ({
           color="primary"
         />
         <p>{t(TranslationKey['Order express delivery in China'])}</p>
-        <img className={styles.deliveryImg} src="/assets/icons/truck.svg" alt="" />
+        <TruckIcon className={styles.deliveryImg} />
       </div>
 
       <div
