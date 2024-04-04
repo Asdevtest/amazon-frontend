@@ -13,7 +13,9 @@ import { IBox } from '@typings/models/boxes/box'
 
 import { useStyles } from './box.style'
 
-import { Dimensions, Fields, Items, TrackNumber } from './components'
+import { Items } from '../items'
+
+import { Dimensions, Fields, TrackNumber } from './components'
 
 interface BoxProps {
   isEdit: boolean
@@ -37,7 +39,7 @@ export const Box: FC<BoxProps> = memo(props => {
         <Items formFields={formFields} />
 
         <div className={cx(styles.info, styles.flexContainer)}>
-          <SlideshowGallery hiddenPreviews files={formFields?.images} slidesToShow={2.5} />
+          <SlideshowGallery hiddenPreviews files={formFields?.images} slidesToShow={2} />
 
           <Dimensions formFields={formFields} volumeWeightCoefficient={volumeWeightCoefficient} />
 

@@ -35,6 +35,7 @@ export const Fields: FC<FieldsProps> = memo(props => {
       />
       <Field
         disabled={!isEdit || isBuyer}
+        placeholder={t(TranslationKey['Not available'])}
         classes={{ input: styles.input }}
         inputClasses={styles.inputClasses}
         containerClasses={styles.field}
@@ -46,6 +47,7 @@ export const Fields: FC<FieldsProps> = memo(props => {
       />
       <Field
         disabled={!isEdit || isBuyer}
+        placeholder={t(TranslationKey['Not available'])}
         classes={{ input: styles.input }}
         inputClasses={styles.inputClasses}
         containerClasses={styles.field}

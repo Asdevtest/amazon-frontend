@@ -2,31 +2,29 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    marginTop: 10,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
   },
 
   info: {
+    height: 280,
     padding: 10,
     background: theme.palette.background.second,
-    boxShadow: '0 0 4px 4px rgba(0, 0, 0, 0.05)',
     borderRadius: 20,
   },
 
   flexContainer: {
     display: 'flex',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
     gap: 20,
   },
 
   checkboxes: {
-    height: 195,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    gap: 10,
+    gap: 20,
   },
 
   checkboxContainer: {
