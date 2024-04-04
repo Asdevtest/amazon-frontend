@@ -94,15 +94,6 @@ export class ListSuppliersModel {
         }
       },
     )
-
-    reaction(
-      () => this.showSupplierApproximateCalculationsModal,
-      () => {
-        if (this.showSupplierApproximateCalculationsModal) {
-          this.getStorekeepers()
-        }
-      },
-    )
   }
 
   onPaginationModelChange(model: GridPaginationModel) {
