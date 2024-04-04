@@ -78,7 +78,7 @@ export const CreateOrEditServiceContent = memo(props => {
               </MenuItem>
 
               {specs.map(spec => (
-                <MenuItem key={spec._id} value={spec?._id} className={styles.capitalize}>
+                <MenuItem key={spec._id} value={spec?._id}>
                   {spec?.title}
                 </MenuItem>
               ))}
