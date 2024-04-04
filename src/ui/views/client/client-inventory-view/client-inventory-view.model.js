@@ -2,7 +2,6 @@ import { makeObservable, reaction, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
-import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
@@ -142,6 +141,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     return SettingsModel.destinationsFavourites
   }
 
+  meta = undefined
+
   constructor() {
     const additionalPropertiesColumnMenuSettings = {
       transparencyYesNoFilterData: {
@@ -229,6 +230,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const fourMonthesStockHandlers = {
       onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
+      editRecommendationForStockByGuid: (id, recommendedValue) =>
+        this.editRecommendationForStockByGuid(id, recommendedValue),
     }
 
     const stockUsHandlers = {
@@ -284,13 +287,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       }
     }
 
-    // FIXME: crutch
-    const getStorekeepers = async () => {
-      const storekeepers = await this.columnMenuSettings?.onClickFilterBtn('boxAmounts', DataGridFilterTables.PRODUCTS)
-
-      return storekeepers
-    }
-
     const columns = clientInventoryColumns(
       barCodeHandlers,
       hsCodeHandlers,
@@ -339,17 +335,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         return acc
       }, {})
 
-      // FIXME: crutch
-      const storekeepers = await getStorekeepers()
-      const validStorekeepers = storekeepers?.reduce((acc, el) => {
-        if (acc?.[el?.storekeeper?._id]) {
-          return acc
-        } else {
-          acc[el?.storekeeper?._id] = el?.storekeeper
-          return acc
-        }
-      }, {})
-
       const newColumns = clientInventoryColumns(
         barCodeHandlers,
         hsCodeHandlers,
@@ -357,7 +342,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         stockUsHandlers,
         otherHandlers,
         activeFields,
-        Object.values(validStorekeepers),
+        this.meta?.storekeepers,
       )
       const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
 
@@ -369,6 +354,21 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     reaction(
       () => this.presetsData,
       () => getValidColumns(),
+    )
+
+    reaction(
+      () => this.meta?.storekeepers,
+      () => {
+        for (const storekeeper of this.meta.storekeepers) {
+          const currentColumnName = `purchaseQuantity${storekeeper?._id}`
+
+          if (!this.columnVisibilityModel?.[currentColumnName] && !storekeeper?.isUserPreprocessingCenterUSA) {
+            this.columnVisibilityModel[currentColumnName] = false
+          }
+        }
+
+        getValidColumns()
+      },
     )
   }
 
@@ -939,6 +939,16 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async onClickSaveFourMonthesStockValue(productId, fourMonthesStock) {
     try {
       await ClientModel.updateProductFourMonthesStock(productId, { fourMonthesStock })
+
+      this.getMainTableData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async editRecommendationForStockByGuid(id, recommendedValue) {
+    try {
+      await ClientModel.editRecommendationForStockByGuid(id, { recommendedValue })
 
       this.getMainTableData()
     } catch (error) {
@@ -1575,6 +1585,39 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
+    }
+  }
+
+  async getMainTableData(options) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      const result = await this.getMainDataMethod(
+        options || {
+          filters: this.getFilters(),
+
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+          sortField: this.sortModel.length ? this.sortModel?.[0]?.field : 'updatedAt',
+          sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
+
+          ...this.defaultGetDataMethodOptions?.(),
+        },
+      )
+
+      runInAction(() => {
+        this.meta = result?.meta
+        this.tableData = result?.rows || result
+        this.rowCount = result?.count || result.length
+      })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      console.log(error)
+      this.tableData = []
+      this.rowCount = 0
       this.setRequestStatus(loadingStatuses.FAILED)
     }
   }

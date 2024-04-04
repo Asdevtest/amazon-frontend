@@ -235,11 +235,7 @@ export const clientInventoryColumns = (
       field: 'purchaseQuantity',
       headerName: t(TranslationKey['Recommendation for additional purchases']),
       renderHeader: () => (
-        <MultilineTextHeaderCell
-          withIcon
-          isFilterActive
-          text={t(TranslationKey['Recommendation for additional purchases'])}
-        />
+        <MultilineTextHeaderCell text={t(TranslationKey['Recommendation for additional purchases'])} />
       ),
       renderCell: params => (
         <FourMonthesStockCell
@@ -447,12 +443,14 @@ export const clientInventoryColumns = (
     },
   ]
 
-  // FIXME: crutch
   if (storekeepers?.length) {
-    const storekeeperCells = storekeepers.map(storekeeper => {
-      const lable = `In stock (${storekeeper?.name})`
+    const storekeeperCells = []
 
-      return {
+    for (const storekeeper of storekeepers) {
+      const lable = `In stock (${storekeeper?.name})`
+      const lablePurchaseQuantity = `${t(TranslationKey.Repurchase)} (${storekeeper?.name})`
+
+      const storekeeperCell = {
         field: 'boxAmounts' + storekeeper?._id,
         headerName: lable,
         defaultOption: storekeeper?.name,
@@ -472,10 +470,37 @@ export const clientInventoryColumns = (
           return Number(boxAmounts) || 0
         },
         width: 145,
-        disableCustomSort: true,
         columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
       }
-    })
+
+      storekeeperCells.push(storekeeperCell)
+
+      const purchaseQuantityCell = {
+        field: 'purchaseQuantity' + storekeeper?._id,
+        headerName: lablePurchaseQuantity,
+        renderHeader: () => <MultilineTextHeaderCell text={lablePurchaseQuantity} />,
+        renderCell: params => {
+          const currentBoxAmounts = params.row?.boxAmounts?.filter(
+            box => box?.storekeeper?._id === storekeeper?._id,
+          )?.[0]
+
+          return (
+            <FourMonthesStockCell
+              rowId={currentBoxAmounts?._id}
+              value={currentBoxAmounts?.toRefill || 0}
+              fourMonthesStockValue={currentBoxAmounts?.recommendedValue || 0}
+              onClick={fourMonthesStockHandlers.editRecommendationForStockByGuid}
+            />
+          )
+        },
+
+        width: 150,
+        filterable: false,
+        columnKey: columnnsKeys.client.INVENTORY_PURCHASE_QUANTITY,
+      }
+
+      storekeeperCells.push(purchaseQuantityCell)
+    }
 
     defaultColumns.splice(11, 1, ...storekeeperCells)
   }

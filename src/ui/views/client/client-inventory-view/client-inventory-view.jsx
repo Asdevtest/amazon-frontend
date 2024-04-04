@@ -122,7 +122,6 @@ export const ClientInventoryView = observer(({ history }) => {
 
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
-
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
@@ -152,7 +151,11 @@ export const ClientInventoryView = observer(({ history }) => {
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onCellClick={(params, event) => {
-            if (disableSelectionCells.includes(params.field)) {
+            if (
+              disableSelectionCells.includes(params.field) ||
+              params.field?.includes('boxAmounts') ||
+              params.field?.includes('purchaseQuantity')
+            ) {
               event.stopPropagation()
             }
             event.defaultMuiPrevented = disableSelectionCells.includes(params.field)

@@ -50,8 +50,10 @@ export const observerConfig = {
   readyImages: observable,
   progressValue: observable,
   showProgress: observable,
+  meta: observable,
 
   isSomeFilterOn: override,
+  getMainTableData: override,
 
   userInfo: computed,
   destinationsFavourites: computed,
