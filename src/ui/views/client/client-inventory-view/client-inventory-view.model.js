@@ -2,6 +2,7 @@ import { makeObservable, reaction, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
@@ -285,6 +286,13 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       }
     }
 
+    // FIXME: crutch
+    const getStorekeepers = async () => {
+      const storekeepers = await this.columnMenuSettings?.onClickFilterBtn('boxAmounts', DataGridFilterTables.PRODUCTS)
+
+      return storekeepers
+    }
+
     const columns = clientInventoryColumns(
       barCodeHandlers,
       hsCodeHandlers,
@@ -317,7 +325,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     makeObservable(this, observerConfig)
 
-    const getValidColumns = () => {
+    const getValidColumns = async () => {
       const activeFields = this.presetsData.reduce((acc, el) => {
         if (el?._id) {
           acc[el.table] = []
@@ -331,6 +339,17 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         return acc
       }, {})
 
+      // FIXME: crutch
+      const storekeepers = await getStorekeepers()
+      const validStorekeepers = storekeepers?.reduce((acc, el) => {
+        if (acc?.[el?.storekeeper?._id]) {
+          return acc
+        } else {
+          acc[el?.storekeeper?._id] = el?.storekeeper
+          return acc
+        }
+      }, {})
+
       const newColumns = clientInventoryColumns(
         barCodeHandlers,
         hsCodeHandlers,
@@ -338,6 +357,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         stockUsHandlers,
         otherHandlers,
         activeFields,
+        Object.values(validStorekeepers),
       )
       const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
 

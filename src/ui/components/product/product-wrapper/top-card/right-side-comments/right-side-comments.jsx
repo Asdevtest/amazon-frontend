@@ -68,8 +68,8 @@ export const RightSideComments = memo(
             minRows={4}
             maxRows={6}
             label={t(TranslationKey.Researcher)}
-            value={product.icomment}
-            onChange={onChangeField('icomment')}
+            value={product?.icomment}
+            onChange={onChangeField?.('icomment')}
           />
 
           <Field
@@ -83,8 +83,8 @@ export const RightSideComments = memo(
             minRows={4}
             maxRows={6}
             label={t(TranslationKey.Supervisor)}
-            value={product.checkednotes}
-            onChange={onChangeField('checkednotes')}
+            value={product?.checkednotes}
+            onChange={onChangeField?.('checkednotes')}
           />
 
           {!checkIsResearcher(curUserRole) && (
@@ -100,8 +100,8 @@ export const RightSideComments = memo(
                 minRows={4}
                 maxRows={6}
                 label={t(TranslationKey.Buyer)}
-                value={product.buyersComment}
-                onChange={onChangeField('buyersComment')}
+                value={product?.buyersComment}
+                onChange={onChangeField?.('buyersComment')}
               />
 
               <Field
@@ -114,8 +114,8 @@ export const RightSideComments = memo(
                 minRows={4}
                 maxRows={6}
                 label={t(TranslationKey.Client)}
-                value={product.clientComment}
-                onChange={onChangeField('clientComment')}
+                value={product?.clientComment}
+                onChange={onChangeField?.('clientComment')}
               />
             </>
           )}
@@ -133,7 +133,7 @@ export const RightSideComments = memo(
 
               {showActionBtns ? (
                 <div className={styles.buttonsWrapper}>
-                  {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
+                  {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product?.archive) ? (
                     <Button
                       tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
                       className={styles.buttonDelete}
@@ -183,7 +183,7 @@ export const RightSideComments = memo(
                     {checkIsClient(curUserRole) ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
                   </Button>
 
-                  {checkIsClient(curUserRole) && product.archive && (
+                  {checkIsClient(curUserRole) && product?.archive && (
                     <Button className={styles.restoreBtn} onClick={() => handleProductActionButtons('restore')}>
                       {t(TranslationKey.Restore)}
                     </Button>

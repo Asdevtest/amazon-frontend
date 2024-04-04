@@ -251,8 +251,8 @@ export const CreateOrEditProposalContent = memo(props => {
             containerClasses={styles.descriptionConrainer}
             labelClasses={styles.spanLabel}
             inputProps={{ maxLength: 2100 }}
-            minRows={9}
-            maxRows={9}
+            minRows={7}
+            maxRows={7}
             label={t(TranslationKey['Describe your proposal'])}
             value={formFields.comment}
             onChange={onChangeField('comment')}

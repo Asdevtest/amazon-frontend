@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import VisibilityIcon from '@mui/icons-material/Visibility'
 import { Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -13,6 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { SearchInput } from '@components/shared/search-input'
+import { EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -180,8 +180,8 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button disabled={error} className={styles.button} onClick={() => onClickPreviewButton()}>
-          <VisibilityIcon className={styles.icon} />
+        <Button iconButton variant={ButtonVariant.OUTLINED} onClick={onClickPreviewButton}>
+          <EyeIcon />
         </Button>
 
         <div className={styles.actionsButtonsContainer}>

@@ -2419,6 +2419,7 @@ export const InStockMenuItem = memo(
       data,
       field,
       table,
+      defaultOption,
       filterRequestStatus,
       onClickAccept,
       onChangeFullFieldMenuItem,
@@ -2467,17 +2468,8 @@ export const InStockMenuItem = memo(
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
-        setItemsForRender(
-          filterData,
-          // .filter(el => el)
-          // .sort(
-          //   (a, b) =>
-          //     Number(choosenItems?.some(item => item._id === b._id)) -
-          //       Number(choosenItems?.some(item => item._id === a._id)) ||
-          //     Number(b.amountInBoxes) - Number(a.amountInBoxes),
-          // ),
-        )
-        setCurrentOption(data.currentFilterData?.[0]?.storekeeper?.name || storekepeers[0])
+        setItemsForRender(filterData)
+        setCurrentOption(defaultOption || data.currentFilterData?.[0]?.storekeeper?.name || storekepeers[0])
       }, [data.filterData])
 
       useEffect(() => {

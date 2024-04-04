@@ -45,3 +45,17 @@ export interface IDestinationStorekeeper {
   tariffWarehouses: []
   boxesCount: 0
 }
+
+export interface IDestinationVariationWithCalculations {
+  _id: string
+  destination: {
+    _id: string
+    name: string
+    costUnitWithDeliveryToUsa: number
+    roi: number
+  }
+  minWeight: number
+  maxWeight: number
+  pricePerKgRmb: number
+  pricePerKgUsd: number
+}

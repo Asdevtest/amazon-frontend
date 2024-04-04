@@ -448,8 +448,6 @@ export class MyRequestsViewModel {
 
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
       await RequestModel.patchRequestsUploadedToListing({
         requestIds: [id],
         uploadedToListing: !uploadedToListingState,
@@ -466,10 +464,7 @@ export class MyRequestsViewModel {
           },
         }
       })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

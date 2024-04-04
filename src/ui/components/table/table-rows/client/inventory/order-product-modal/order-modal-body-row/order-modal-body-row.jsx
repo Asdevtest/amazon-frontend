@@ -314,17 +314,8 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <Field
-            containerClasses={styles.containerField}
-            inputClasses={cx(styles.amountCell, {
-              [styles.errorSpaceInputCell]:
-                (item.currentSupplier?.multiplicity &&
-                  item.currentSupplier?.boxProperties?.amountInBox &&
-                  (orderState.amount % item.currentSupplier?.boxProperties?.amountInBox !== 0 || !orderState.amount)) ||
-                (item.currentSupplier?.multiplicity &&
-                  item.currentSupplier?.boxProperties?.amountInBox &&
-                  orderState.amount % item.currentSupplier?.boxProperties?.amountInBox === 0 &&
-                  !!orderState.amount),
-            })}
+            containerClasses={cx(styles.containerField, styles.containerFieldCell)}
+            inputClasses={styles.amountCell}
             error={
               item.currentSupplier?.multiplicity &&
               item.currentSupplier?.boxProperties?.amountInBox &&
