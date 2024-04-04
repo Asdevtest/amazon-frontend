@@ -39,6 +39,7 @@ export const clientInventoryColumns = (
   stockUsHandlers,
   otherHandlers,
   additionalFields,
+  storekeepers,
 ) => {
   const defaultColumns = [
     {
@@ -445,6 +446,39 @@ export const clientInventoryColumns = (
       disableColumnMenu: true,
     },
   ]
+
+  // FIXME: crutch
+  if (storekeepers?.length) {
+    const storekeeperCells = storekeepers.map(storekeeper => {
+      const lable = `In stock (${storekeeper?.name})`
+
+      return {
+        field: 'boxAmounts' + storekeeper?._id,
+        headerName: lable,
+        defaultOption: storekeeper?.name,
+        renderHeader: () => <MultilineTextHeaderCell text={lable} />,
+        renderCell: params => (
+          <InStockCell
+            isHideStorekeeper
+            boxAmounts={params.row?.boxAmounts?.filter(box => box?.storekeeper?._id === storekeeper?._id)}
+            boxId={params.row?._id}
+            onClickInStock={otherHandlers.onClickInStock}
+          />
+        ),
+        valueGetter: params => {
+          const boxAmounts = params.row?.boxAmounts?.filter(box => box?.storekeeper?._id === storekeeper?._id)?.[0]
+            ?.amountInBoxes
+
+          return Number(boxAmounts) || 0
+        },
+        width: 145,
+        disableCustomSort: true,
+        columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
+      }
+    })
+
+    defaultColumns.splice(11, 1, ...storekeeperCells)
+  }
 
   if (additionalFields) {
     for (const table in additionalFields) {

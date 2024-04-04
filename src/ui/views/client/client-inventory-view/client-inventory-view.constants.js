@@ -56,6 +56,7 @@ export const additionalFilterFields = [
   'skuByClient',
   'amazonTitle',
   'purchaseQuantity',
+  'boxAmounts',
 ]
 
 export const filtersFields = [

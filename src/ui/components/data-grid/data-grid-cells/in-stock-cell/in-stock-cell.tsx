@@ -11,11 +11,12 @@ interface InStockCellProps {
   boxAmounts: any[]
   boxId: string
   onClickInStock: (boxId: string, storekeeper: any) => void
+  isHideStorekeeper?: boolean
 }
 
 export const InStockCell: FC<InStockCellProps> = memo(props => {
-  const { classes: styles } = useStyles()
-  const { boxAmounts, boxId, onClickInStock } = props
+  const { classes: styles, cx } = useStyles()
+  const { boxAmounts, boxId, onClickInStock, isHideStorekeeper } = props
 
   return (
     <div className={styles.inStockWrapper}>
@@ -23,8 +24,13 @@ export const InStockCell: FC<InStockCellProps> = memo(props => {
         boxAmounts
           ?.sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
           ?.map(el => (
-            <div key={el?._id} className={styles.inStockSubWrapper}>
-              <UserLink maxNameWidth={100} name={el?.storekeeper?.name} userId={el.storekeeper?._id} />
+            <div
+              key={el?._id}
+              className={cx(styles.inStockSubWrapper, { [styles.stockWrapperNoLink]: isHideStorekeeper })}
+            >
+              {!isHideStorekeeper ? (
+                <UserLink maxNameWidth={100} name={el?.storekeeper?.name} userId={el.storekeeper?._id} />
+              ) : null}
 
               <Link
                 target="_blank"

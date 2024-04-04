@@ -6,10 +6,10 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: '5px',
     padding: '10px 0',
+    width: '100%',
   },
 
   tagItem: {
-    maxWidth: 130,
     fontSize: 14,
     textAlign: 'left',
     lineHeight: '19px',
