@@ -50,8 +50,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './edit-order-modal.style'
 
-import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
-
 import { BoxesToCreateTable } from './boxes-to-create-table'
 import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'
@@ -128,8 +126,6 @@ export const EditOrderModal = memo(
       order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
     )
     const [commentToWarehouse, setCommentToWarehouse] = useState('')
-    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [trackNumber, setTrackNumber] = useState({ text: '', files: [] })
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
@@ -913,16 +909,6 @@ export const EditOrderModal = memo(
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
-
-        {showPhotosModal ? (
-          <SlideshowGalleryModal
-            files={bigImagesOptions.images}
-            currentFileIndex={bigImagesOptions.imgIndex}
-            openModal={showPhotosModal}
-            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          />
-        ) : null}
 
         <Modal
           openModal={showCheckQuantityModal}

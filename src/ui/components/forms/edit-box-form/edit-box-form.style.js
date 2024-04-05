@@ -5,16 +5,13 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    paddingRight: 10,
+    padding: 10,
   },
+
   form: {
     borderRadius: '5px',
     display: 'flex',
     gap: 40,
-  },
-
-  cancelBtn: {
-    color: theme.palette.text.general,
   },
 
   commentField: {
@@ -32,12 +29,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
-    marginRight: 5,
-    marginTop: 20,
-  },
-
-  button: {
-    padding: '0 20px',
   },
 
   field: {
@@ -148,15 +139,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 30,
   },
 
-  storekeeperBtn: {
-    height: '32px',
-    width: '230px',
-  },
-
-  storekeeperBtnColored: {
-    color: theme.palette.text.negativeMain,
-  },
-
   sizesTitleWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -172,7 +154,6 @@ export const useStyles = makeStyles()(theme => ({
   shareBoxSubWrapper: {
     display: 'flex',
     gap: 20,
-    // width: 350,
   },
 
   fbaShipmentInput: {
