@@ -973,7 +973,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue) {
     try {
-      await ClientModel.postAddRecommendationForStock(productId, storekeeperId, recommendedValue)
+      await ClientModel.postAddRecommendationForStock(productId, storekeeperId, recommendedValue || 0)
 
       this.getMainTableData()
     } catch (error) {
