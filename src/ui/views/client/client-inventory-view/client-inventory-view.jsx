@@ -223,18 +223,20 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       )}
 
-      <Modal
-        openModal={viewModel.showProductLotDataModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
-      >
-        <ProductLotDataForm
-          userInfo={viewModel.userInfo}
-          isTransfer={viewModel.isTransfer}
-          product={viewModel.curProduct}
-          batchesData={viewModel.batchesData}
-          onClickToggleArchiveProductLotData={viewModel.onClickToggleArchiveProductLotData}
-        />
-      </Modal>
+      {viewModel.showProductLotDataModal && (
+        <Modal
+          openModal={viewModel.showProductLotDataModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
+        >
+          <ProductLotDataForm
+            userInfo={viewModel.userInfo}
+            isTransfer={viewModel.isTransfer}
+            product={viewModel.curProduct}
+            batchesData={viewModel.batchesData}
+            onClickToggleArchiveProductLotData={viewModel.onClickToggleArchiveProductLotData}
+          />
+        </Modal>
+      )}
 
       <Modal
         openModal={viewModel.showCheckPendingOrderFormModal}

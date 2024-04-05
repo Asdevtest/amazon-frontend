@@ -13,6 +13,8 @@ import { SeparatorIcon } from '../svg-icons'
 export const CustomDataGrid = ({ ...restProps }) => {
   const grids = document.querySelectorAll('.MuiDataGrid-main')
 
+  console.log('grids :>> ', grids)
+
   for (const grid of grids) {
     const childNodesList = grid?.childNodes
     const alertElement = childNodesList?.[2]

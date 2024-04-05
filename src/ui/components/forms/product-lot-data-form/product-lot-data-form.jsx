@@ -45,7 +45,7 @@ export const ProductLotDataForm = memo(props => {
     }
   })
 
-  const [batches, setBatches] = useState(data)
+  const [batches, setBatches] = useState([])
 
   const [batchInfo, setBatchInfo] = useState([])
   const [nameSearchValue, setNameSearchValue] = useState('')
@@ -80,6 +80,10 @@ export const ProductLotDataForm = memo(props => {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    setBatches(data)
+  }, [batchesData])
 
   return (
     <div className={styles.productLotDataBlock}>
@@ -119,7 +123,6 @@ export const ProductLotDataForm = memo(props => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          localeText={getLocalizationByLanguageTag()}
           getRowId={batches => batches?._id}
           columns={
             isTransfer
