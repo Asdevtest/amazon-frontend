@@ -954,7 +954,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
