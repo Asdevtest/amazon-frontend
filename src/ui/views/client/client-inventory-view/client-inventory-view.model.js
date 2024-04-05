@@ -1626,7 +1626,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         sortField = 'toRefill'
       } else if (sortField?.includes('boxAmounts')) {
         storekeeperId = sortField?.replace('boxAmounts', '')
-        sortField = 'boxAmounts'
+        sortField = 'amountInBoxes'
       }
 
       const result = await this.getMainDataMethod(
