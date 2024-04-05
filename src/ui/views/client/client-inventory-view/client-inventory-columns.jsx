@@ -214,7 +214,7 @@ export const clientInventoryColumns = (
       field: 'sumStock',
       headerName: t(TranslationKey['Stock sum']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <MultilineTextCell text={Math.round(params.value)} />,
       valueGetter: ({ row }) => toFixed(row?.sumStock, 2),
       width: 120,
       type: 'number',
