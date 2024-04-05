@@ -220,7 +220,7 @@ export class ClientSentBatchesViewModel {
 
       this.onTriggerOpenModal('showEditHSCodeModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
