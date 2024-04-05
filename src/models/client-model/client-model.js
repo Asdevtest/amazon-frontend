@@ -182,6 +182,17 @@ class ClientModelStatic {
     return response.data
   }
 
+  postAddRecommendationForStock = async (productId, storekeeperId, recommendedValue) => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesAddRecommendationForStockPost({
+      body: {
+        productId,
+        storekeeperId,
+        recommendedValue,
+      },
+    })
+    return response.data
+  }
+
   getDestinations = async () => {
     const response = await restApiService.clientApi.apiV1ClientsDestinationGet()
     return response.data

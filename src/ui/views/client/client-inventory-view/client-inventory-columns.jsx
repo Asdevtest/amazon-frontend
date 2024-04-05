@@ -489,10 +489,16 @@ export const clientInventoryColumns = (
             <FourMonthesStockCell
               isNotPepurchase
               title={'For shipping'}
-              rowId={currentBoxAmounts?._id}
+              rowId={storekeeper?._id}
               value={currentBoxAmounts?.toRefill || 0}
               fourMonthesStockValue={currentBoxAmounts?.recommendedValue || 0}
-              onClick={fourMonthesStockHandlers.editRecommendationForStockByGuid}
+              onClick={(storekeeperId, recommendedValue) =>
+                fourMonthesStockHandlers.editRecommendationForStockByGuid(
+                  params?.row?._id,
+                  storekeeperId,
+                  recommendedValue,
+                )
+              }
             />
           )
         },

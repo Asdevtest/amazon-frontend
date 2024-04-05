@@ -247,8 +247,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const fourMonthesStockHandlers = {
       onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
-      editRecommendationForStockByGuid: (id, recommendedValue) =>
-        this.editRecommendationForStockByGuid(id, recommendedValue),
+      editRecommendationForStockByGuid: (productId, storekeeperId, recommendedValue) =>
+        this.editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue),
     }
 
     const stockUsHandlers = {
@@ -971,9 +971,9 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async editRecommendationForStockByGuid(id, recommendedValue) {
+  async editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue) {
     try {
-      await ClientModel.editRecommendationForStockByGuid(id, { recommendedValue })
+      await ClientModel.postAddRecommendationForStock(productId, storekeeperId, recommendedValue)
 
       this.getMainTableData()
     } catch (error) {
