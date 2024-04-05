@@ -71,8 +71,8 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
       setEditingBox(newFormFields)
     }
 
-  const setImagesOfBox = (images: UploadFileType[]) => {
-    setEditingBox((prev: IBox) => ({ ...prev, images }))
+  const setImagesOfBox = (tmpImages: UploadFileType[]) => {
+    setEditingBox((prev: IBox) => ({ ...prev, tmpImages }))
   }
 
   const onSubmit = () => {
@@ -165,7 +165,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
         withoutLinks
         fullWidth
         dragAndDropBtnHeight={60}
-        images={editingBox?.images}
+        images={editingBox?.tmpImages}
         setImages={setImagesOfBox}
         maxNumber={50}
       />
