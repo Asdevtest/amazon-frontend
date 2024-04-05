@@ -167,6 +167,7 @@ export const IsNeedPurchaseFilterMenuItem = memo(
       onClose,
       data,
       table,
+      defaultOption,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -250,8 +251,9 @@ export const IsNeedPurchaseFilterMenuItem = memo(
 
           {currentOption === 'second' && (
             <NumberFieldMenuItem
-              data={data.purchaseQuantity}
-              field={'purchaseQuantity'}
+              data={defaultOption ? data?.toRefill : data?.purchaseQuantity}
+              field={defaultOption ? 'toRefill' : 'purchaseQuantity'}
+              defaultOption={defaultOption}
               table={table}
               filterRequestStatus={filterRequestStatus}
               onClickFilterBtn={onClickFilterBtn}
@@ -2252,13 +2254,16 @@ export const NumberFieldMenuItem = memo(
       table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
-
+      defaultOption,
       onClickAccept,
       onClickFilterBtn,
       asBlock = false,
     }) => {
       const filterData = data?.filterData
       const currentFilterData = data?.currentFilterData
+
+      console.log('field :>> ', field)
+      console.log('data :>> ', data)
 
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
@@ -2294,7 +2299,7 @@ export const NumberFieldMenuItem = memo(
       }, [currentFilterData])
 
       useEffect(() => {
-        onClickFilterBtn(field, table)
+        onClickFilterBtn(field, table, defaultOption ? `;storekeeper[$eq]="${defaultOption}"` : '')
         setIsNotFixedValue(checkIsNotFixedValue(field))
       }, [])
 
@@ -2429,7 +2434,7 @@ export const InStockMenuItem = memo(
       const [toValue, setToValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field, table)
+        onClickFilterBtn(field, table, `;storekeeper[$eq]="${defaultOption}"`)
       }, [])
 
       const newData = {
@@ -2469,7 +2474,7 @@ export const InStockMenuItem = memo(
 
       useEffect(() => {
         setItemsForRender(filterData)
-        setCurrentOption(defaultOption || data.currentFilterData?.[0]?.storekeeper?.name || storekepeers[0])
+        setCurrentOption(data.currentFilterData?.[0]?.storekeeper?.name || storekepeers[0])
       }, [data.filterData])
 
       useEffect(() => {
@@ -2487,33 +2492,6 @@ export const InStockMenuItem = memo(
 
       return (
         <div title="" className={styles.shopsDataWrapper}>
-          <div>
-            <FormControl className={styles.formControl}>
-              <FormLabel title={t(TranslationKey['Search by'])} className={styles.radioLable}>
-                {t(TranslationKey['Search by']) + ':'}
-              </FormLabel>
-              <RadioGroup
-                row
-                className={styles.radioGroupTwoItems}
-                value={currentOption}
-                onChange={e => {
-                  setCurrentOption(e.target.value)
-                  setChoosenItems([])
-                }}
-              >
-                {storekepeers.map((el, index) => (
-                  <FormControlLabel
-                    key={index}
-                    className={styles.radioOption}
-                    value={el}
-                    control={<Radio className={styles.radioControl} />}
-                    label={el}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </div>
-
           <div className={styles.numInputsWrapper}>
             <Input
               title={t(TranslationKey.From)}

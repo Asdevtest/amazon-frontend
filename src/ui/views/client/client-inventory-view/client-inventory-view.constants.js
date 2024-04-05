@@ -57,6 +57,7 @@ export const additionalFilterFields = [
   'amazonTitle',
   'purchaseQuantity',
   'boxAmounts',
+  'toRefill',
 ]
 
 export const filtersFields = [

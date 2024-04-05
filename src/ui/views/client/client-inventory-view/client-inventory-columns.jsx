@@ -448,12 +448,12 @@ export const clientInventoryColumns = (
 
     for (const storekeeper of storekeepers) {
       const lable = `In stock (${storekeeper?.name})`
-      const lablePurchaseQuantity = `${t(TranslationKey.Repurchase)} (${storekeeper?.name})`
+      const lablePurchaseQuantity = `Prep limit (${storekeeper?.name})`
 
       const storekeeperCell = {
         field: 'boxAmounts' + storekeeper?._id,
         headerName: lable,
-        defaultOption: storekeeper?.name,
+        defaultOption: storekeeper?._id,
         renderHeader: () => <MultilineTextHeaderCell text={lable} />,
         renderCell: params => (
           <InStockCell
@@ -476,7 +476,8 @@ export const clientInventoryColumns = (
       storekeeperCells.push(storekeeperCell)
 
       const purchaseQuantityCell = {
-        field: 'purchaseQuantity' + storekeeper?._id,
+        field: 'toRefill' + storekeeper?._id,
+        defaultOption: storekeeper?._id,
         headerName: lablePurchaseQuantity,
         renderHeader: () => <MultilineTextHeaderCell text={lablePurchaseQuantity} />,
         renderCell: params => {
@@ -486,6 +487,8 @@ export const clientInventoryColumns = (
 
           return (
             <FourMonthesStockCell
+              isNotPepurchase
+              title={'For shipping'}
               rowId={currentBoxAmounts?._id}
               value={currentBoxAmounts?.toRefill || 0}
               fourMonthesStockValue={currentBoxAmounts?.recommendedValue || 0}
@@ -493,7 +496,13 @@ export const clientInventoryColumns = (
             />
           )
         },
+        valueGetter: params => {
+          const currentBoxAmounts = params.row?.boxAmounts?.filter(
+            box => box?.storekeeper?._id === storekeeper?._id,
+          )?.[0]
 
+          return Number(currentBoxAmounts?.toRefill) || 0
+        },
         width: 150,
         filterable: false,
         columnKey: columnnsKeys.client.INVENTORY_PURCHASE_QUANTITY,

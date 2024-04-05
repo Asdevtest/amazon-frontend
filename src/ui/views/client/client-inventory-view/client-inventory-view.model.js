@@ -198,6 +198,23 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         },
       },
 
+      isNeedRefillFilterData: {
+        isNeedPurchaseFilter: true,
+        isNotNeedPurchaseFilter: true,
+        onChangeIsNeedPurchaseFilter: (isNotNeedPurchaseFilter, isNeedPurchaseFilter) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isNeedRefillFilterData: {
+              ...this.columnMenuSettings.isNeedRefillFilterData,
+              isNeedPurchaseFilter,
+              isNotNeedPurchaseFilter,
+            },
+          }
+
+          this.getMainTableData()
+        },
+      },
+
       isHaveBarCodeFilterData: {
         isHaveBarCodeFilter: null,
         onChangeIsHaveBarCodeFilter: value => {
@@ -257,6 +274,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
       const purchaseQuantityAboveZero = !(isNeedPurchaseFilter && isNotNeedPurchaseFilter)
 
+      const isNeedRefillFilterData = this.columnMenuSettings.isNeedRefillFilterData.isNeedPurchaseFilter
+      const isNotNeedRefillFilterData = this.columnMenuSettings.isNeedRefillFilterData.isNotNeedPurchaseFilter
+      const isNeedRefillFilter = !(isNeedRefillFilterData && isNotNeedRefillFilterData)
+
       return {
         ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
           barCode: {
@@ -276,6 +297,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           : {
               isChild: { $eq: this.columnMenuSettings.childrenYesNoFilterData.yes },
             }),
+
+        ...(isNeedRefillFilter && {
+          toRefill: isNotNeedRefillFilterData ? { $eq: 0 } : { $gt: 0 },
+        }),
 
         ...(purchaseQuantityAboveZero && {
           purchaseQuantityAboveZero: { $eq: isNeedPurchaseFilter },
@@ -357,7 +382,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     )
 
     reaction(
-      () => this.meta?.storekeepers,
+      () => this.meta?.storekeepers?.length,
       () => {
         for (const storekeeper of this.meta.storekeepers) {
           const currentColumnName = `purchaseQuantity${storekeeper?._id}`
@@ -1593,6 +1618,17 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
+      let storekeeperId
+      let sortField = this.sortModel?.[0]?.field
+
+      if (sortField?.includes('toRefill')) {
+        storekeeperId = sortField?.replace('toRefill', '')
+        sortField = 'toRefill'
+      } else if (sortField?.includes('boxAmounts')) {
+        storekeeperId = sortField?.replace('boxAmounts', '')
+        sortField = 'boxAmounts'
+      }
+
       const result = await this.getMainDataMethod(
         options || {
           filters: this.getFilters(),
@@ -1600,8 +1636,9 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           limit: this.paginationModel.pageSize,
           offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-          sortField: this.sortModel.length ? this.sortModel?.[0]?.field : 'updatedAt',
+          sortField: this.sortModel.length ? sortField : 'updatedAt',
           sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
+          storekeeper: storekeeperId,
 
           ...this.defaultGetDataMethodOptions?.(),
         },

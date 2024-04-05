@@ -154,14 +154,18 @@ export const ClientInventoryView = observer(({ history }) => {
             if (
               disableSelectionCells.includes(params.field) ||
               params.field?.includes('boxAmounts') ||
-              params.field?.includes('purchaseQuantity')
+              params.field?.includes('toRefill')
             ) {
               event.stopPropagation()
             }
             event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
           }}
           onCellDoubleClick={(params, event) => {
-            if (disableDoubleClickOnCells.includes(params.field)) {
+            if (
+              disableDoubleClickOnCells.includes(params.field) ||
+              params.field?.includes('boxAmounts') ||
+              params.field?.includes('toRefill')
+            ) {
               event.stopPropagation()
             }
           }}

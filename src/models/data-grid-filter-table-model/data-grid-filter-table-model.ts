@@ -102,7 +102,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   setColumnMenuSettings(filtersFields: string[], additionalProperties?: any) {
     this.columnMenuSettings = {
-      onClickFilterBtn: (field: string, table: string) => this.onClickFilterBtn(field, table),
+      onClickFilterBtn: (field: string, table: string, searchValue?: string) =>
+        this.onClickFilterBtn(field, table, searchValue),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),
       onClickAccept: () => this.getMainTableData(),
 
@@ -114,7 +115,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     }
   }
 
-  async onClickFilterBtn(column: string, table: string) {
+  async onClickFilterBtn(column: string, table: string, searchValue?: string) {
     try {
       this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
 
@@ -122,7 +123,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         table,
         column,
         // "?" не нужен, т.к. он должен быть в mainMethodURL, на случай если url должна содержать больше свойств
-        `${this.mainMethodURL}filters=${this.getFilters(column)}`,
+        `${this.mainMethodURL}filters=${this.getFilters(column)}${searchValue || ''}`,
       )
 
       if (this.columnMenuSettings[column as keyof typeof this.columnMenuSettings]) {
