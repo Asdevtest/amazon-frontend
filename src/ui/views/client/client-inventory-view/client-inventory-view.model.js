@@ -385,7 +385,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       () => this.meta?.storekeepers?.length,
       () => {
         for (const storekeeper of this.meta.storekeepers) {
-          const currentColumnName = `purchaseQuantity${storekeeper?._id}`
+          const currentColumnName = `toRefill${storekeeper?._id}`
 
           if (!this.columnVisibilityModel?.[currentColumnName] && !storekeeper?.isUserPreprocessingCenterUSA) {
             this.columnVisibilityModel[currentColumnName] = false
