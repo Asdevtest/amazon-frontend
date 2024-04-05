@@ -23,6 +23,9 @@ export const Comments: FC<CommentsProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
+  const clientCommentPlaceholder = isClient && onSubmitChangeFields ? t(TranslationKey['Add comment']) : ''
+  const storekeeperCommentPlaceholder = isStorekeeper && onSubmitChangeFields ? t(TranslationKey['Add comment']) : ''
+
   return (
     <div className={styles.wrapper}>
       <Field
@@ -31,7 +34,7 @@ export const Comments: FC<CommentsProps> = memo(props => {
         minRows={4}
         maxRows={4}
         label={t(TranslationKey['Client comment'])}
-        placeholder={isClient && onSubmitChangeFields ? t(TranslationKey['Add comment']) : ''}
+        placeholder={clientCommentPlaceholder}
         className={styles.commentField}
         labelClasses={styles.label}
         containerClasses={styles.commentFieldContainer}
@@ -45,7 +48,7 @@ export const Comments: FC<CommentsProps> = memo(props => {
         minRows={4}
         maxRows={4}
         label={t(TranslationKey['Storekeeper comment'])}
-        placeholder={isStorekeeper && onSubmitChangeFields ? t(TranslationKey['Add comment']) : ''}
+        placeholder={storekeeperCommentPlaceholder}
         className={styles.commentField}
         labelClasses={styles.label}
         value={formFields?.storekeeperComment || ''}
