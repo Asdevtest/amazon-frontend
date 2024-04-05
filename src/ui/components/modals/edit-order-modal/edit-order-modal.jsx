@@ -33,7 +33,7 @@ import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { SaveIcon } from '@components/shared/svg-icons'
+import { SaveIcon, TruckIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { Text } from '@components/shared/text'
@@ -520,7 +520,7 @@ export const EditOrderModal = memo(
             ) : null}
             {order.expressChinaDelivery ? (
               <div className={styles.rushOrderWrapper}>
-                <img className={styles.rushOrderImg} src="/assets/icons/truck.svg" />
+                <TruckIcon className={styles.rushOrderImg} />
                 <Typography className={styles.rushOrder}>{t(TranslationKey['Express delivery'])}</Typography>
               </div>
             ) : null}

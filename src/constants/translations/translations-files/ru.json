@@ -1951,7 +1951,7 @@
   "Actual shipping cost": "Фактическая стоимость доставки",
   "See comments": "Смотреть комментарии",
   "Weight less than": "Вес меньше",
-  "lb": "фунтов",
+  "lb": "фунт",
   "Temporary session data will be reset": "Будут сброшены временные данные по сессии",
   "To repurchase": "К дозакупке",
   "Quantity of repurchase": "Количество дозакупки",
@@ -2220,5 +2220,6 @@
   "Browser not found": "Браузер не найден",
   "Close the access": "Закрыть доступ",
   "No user found with this email.": "Пользователь с данной электронной почтой не найден.",
+  "Storage": "Storage",
   "Max. weight, kg": "Макс. вес, кг"
 }

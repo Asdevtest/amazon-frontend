@@ -232,6 +232,7 @@ export class ClientBoxesNotificationsViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       this.loadData()

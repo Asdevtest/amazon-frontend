@@ -355,6 +355,7 @@ export class ClientOrderViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       const dataToSubmitHsCode = data.items.map(el => ({ productId: el.product._id, hsCode: el.product.hsCode }))

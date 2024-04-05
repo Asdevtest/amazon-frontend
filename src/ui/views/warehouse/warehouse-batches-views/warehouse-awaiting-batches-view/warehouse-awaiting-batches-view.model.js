@@ -220,6 +220,7 @@ export class WarehouseAwaitingBatchesViewModel {
         trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       await this.loadData()

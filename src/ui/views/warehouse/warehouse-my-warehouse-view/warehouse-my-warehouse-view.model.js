@@ -245,6 +245,7 @@ export class WarehouseMyWarehouseViewModel {
         trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       this.getBoxesMy()

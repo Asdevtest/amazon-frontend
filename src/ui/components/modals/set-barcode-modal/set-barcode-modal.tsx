@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -33,6 +34,8 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
     }
   }, [tmpCode])
 
+  const disableSaveButton = isEqual(files, tmpCode)
+
   return (
     <div className={styles.wrapper}>
       <p className={styles.title}>{title ? title : t(TranslationKey['Add barcode'])}</p>
@@ -53,7 +56,7 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
       <div className={styles.buttons}>
         <Button
           styleType={ButtonStyle.SUCCESS}
-          disabled={files.length === 0}
+          disabled={disableSaveButton}
           onClick={() => {
             onClickSaveBarcode(files)
             onCloseModal()

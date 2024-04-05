@@ -4,16 +4,13 @@ import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-import {
-  BatchWeightCalculationMethodTranslateKey,
-  getBatchWeightCalculationMethodForBox,
-} from '@constants/statuses/batch-weight-calculations-method'
+import { BatchWeightCalculationMethodTranslateKey } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
-import { BoxViewForm } from '@components/forms/box-view-form'
+import { BoxForm } from '@components/forms/box-form'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -403,18 +400,12 @@ export const BatchInfoModal = observer(
             openModal={viewModel.showBoxViewModal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           >
-            <BoxViewForm
-              storekeeper={currentBatch?.storekeeper}
+            <BoxForm
               userInfo={userInfo}
               box={viewModel.curBox}
-              batchHumanFriendlyId={currentBatch?.humanFriendlyId}
-              volumeWeightCoefficient={currentBatch?.volumeWeightDivide}
-              calcFinalWeightForBoxFunction={getBatchWeightCalculationMethodForBox(
-                currentBatch?.calculationMethod,
-                isActualGreaterTheVolume,
-              )}
-              setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-              onSubmitChangeFields={data => onSubmitChangeBoxFields(data)}
+              volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+              onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+              onSubmitChangeFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
             />
           </Modal>

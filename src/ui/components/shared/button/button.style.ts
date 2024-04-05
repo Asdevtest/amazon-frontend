@@ -43,8 +43,6 @@ export const useStyles = makeStyles()(theme => {
       '&:disabled': {
         cursor: 'default',
       },
-
-      margin: '0 3px 3px 0',
     },
 
     transparent: {

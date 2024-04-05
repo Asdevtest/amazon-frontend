@@ -27,10 +27,11 @@ export const AsinOrSkuLink: FC<AsinOrSkuLinkProps> = memo(props => {
   const amazonExternalLink = `https://www.amazon.com/dp/${link}`
   const title =
     (withAttributeTitle === 'asin' && `${t(TranslationKey.ASIN)}:`) ||
-    (withAttributeTitle === 'sku' && `${t(TranslationKey.SKU)}:`)
+    (withAttributeTitle === 'sku' && `${t(TranslationKey.SKU)}:`) ||
+    (withAttributeTitle === 'fnsku' && `FNSKU:`)
 
   const renderLinkAsinOrSku = () =>
-    withAttributeTitle === 'sku' ? (
+    withAttributeTitle && ['sku', 'fnsku'].includes(withAttributeTitle) ? (
       <p className={cx(styles.text, textStyles)}>{shortLink(link)}</p>
     ) : (
       <a

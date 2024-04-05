@@ -235,8 +235,8 @@ export class ClientReadyBoxesViewModel {
         fbaNumber: data.fbaNumber,
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
-
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       this.loadData()
