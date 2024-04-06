@@ -86,12 +86,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   info: {
+    width: 180,
     display: 'flex',
     flexDirection: 'column',
   },
 
   field: {
-    width: 110,
+    width: 100,
     margin: 0,
     gap: 10,
   },
