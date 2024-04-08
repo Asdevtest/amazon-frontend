@@ -1,31 +1,37 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  dapTitle: {
-    color: theme.palette.text.second,
-    fontSize: '12px',
+export const useStyles = makeStyles()(() => ({
+  wrapper: {
+    padding: '10px 0',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
-  dapBtn: {
+  title: {
+    fontWeight: 600,
+  },
+
+  file: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
+  buttons: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  button: {
+    width: 220,
+  },
+
+  text: {
     overflow: 'hidden',
-    textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    width: '200px',
-
-    p: {
-      width: '150px',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-    },
-  },
-
-  printIcon: {
-    color: theme.palette.primary.main,
-  },
-
-  notAddedText: {
-    marginLeft: '25px',
-    width: 'fit-content',
+    textOverflow: 'ellipsis',
   },
 }))
