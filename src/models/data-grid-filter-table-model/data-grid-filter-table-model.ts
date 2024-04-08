@@ -123,6 +123,12 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     super({ getMainDataMethod, columnsModel, tableKey, defaultGetDataMethodOptions, dataModefierMethod })
 
     this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)
+
+    this.columnMenuSettings.pinnedColumns = {
+      left: [],
+      right: [],
+    }
+
     this._filtersFields = filtersFields
     this._mainMethodURL = mainMethodURL
     this._additionalPropertiesColumnMenuSettings = additionalPropertiesColumnMenuSettings
@@ -146,10 +152,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       onClickAccept: () => this.getMainTableData(),
       onClickPinButton: (pinnedColumns: GridPinnedColumns) => this.handlePinColumn(pinnedColumns),
 
-      pinnedColumns: {
-        left: [],
-        right: [],
-      },
+      // pinnedColumns: {
+      //   left: [],
+      //   right: [],
+      // },
       filterRequestStatus: loadingStatus.SUCCESS,
 
       ...additionalProperties,
