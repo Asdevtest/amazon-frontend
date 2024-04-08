@@ -369,12 +369,13 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           top: this.pinnedRows.top?.map(el => {
             const updatedRow = this.baseTableData?.find(row => row?._id === el?._id)
 
-            return updatedRow
+            return { ...updatedRow, isPinnedRow: true }
           }),
+
           bottom: this.pinnedRows.bottom?.map(el => {
             const updatedRow = this.baseTableData?.find(row => row?._id === el?._id)
 
-            return updatedRow
+            return { ...updatedRow, isPinnedRow: true }
           }),
         }
       },
