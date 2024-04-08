@@ -262,7 +262,7 @@ export const OrderContent = ({
         </div>
 
         <div className={styles.suppliersWrapper}>
-          <ListSuppliers readOnly formFields={updatedOrder.product} />
+          <ListSuppliers readOnly formFields={updatedOrder} />
         </div>
 
         <div className={styles.tableWrapper}>
