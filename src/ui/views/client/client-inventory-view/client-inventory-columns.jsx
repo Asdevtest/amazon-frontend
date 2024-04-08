@@ -214,7 +214,7 @@ export const clientInventoryColumns = (
       field: 'sumStock',
       headerName: t(TranslationKey['Stock sum']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <MultilineTextCell text={Math.round(params.value)} />,
       valueGetter: ({ row }) => toFixed(row?.sumStock, 2),
       width: 120,
       type: 'number',
@@ -235,11 +235,7 @@ export const clientInventoryColumns = (
       field: 'purchaseQuantity',
       headerName: t(TranslationKey['Recommendation for additional purchases']),
       renderHeader: () => (
-        <MultilineTextHeaderCell
-          withIcon
-          isFilterActive
-          text={t(TranslationKey['Recommendation for additional purchases'])}
-        />
+        <MultilineTextHeaderCell text={t(TranslationKey['Recommendation for additional purchases'])} />
       ),
       renderCell: params => (
         <FourMonthesStockCell
@@ -447,15 +443,17 @@ export const clientInventoryColumns = (
     },
   ]
 
-  // FIXME: crutch
   if (storekeepers?.length) {
-    const storekeeperCells = storekeepers.map(storekeeper => {
-      const lable = `In stock (${storekeeper?.name})`
+    const storekeeperCells = []
 
-      return {
-        field: 'boxAmounts' + storekeeper?._id,
+    for (const storekeeper of storekeepers) {
+      const lable = `In stock (${storekeeper?.name})`
+      const lablePurchaseQuantity = `Prep limit (${storekeeper?.name})`
+
+      const storekeeperCell = {
+        field: 'amountInBoxes' + storekeeper?._id,
         headerName: lable,
-        defaultOption: storekeeper?.name,
+        defaultOption: storekeeper?._id,
         renderHeader: () => <MultilineTextHeaderCell text={lable} />,
         renderCell: params => (
           <InStockCell
@@ -472,10 +470,52 @@ export const clientInventoryColumns = (
           return Number(boxAmounts) || 0
         },
         width: 145,
-        disableCustomSort: true,
         columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
       }
-    })
+
+      storekeeperCells.push(storekeeperCell)
+
+      const purchaseQuantityCell = {
+        field: 'toRefill' + storekeeper?._id,
+        defaultOption: storekeeper?._id,
+        headerName: lablePurchaseQuantity,
+        renderHeader: () => <MultilineTextHeaderCell text={lablePurchaseQuantity} />,
+        renderCell: params => {
+          const currentBoxAmounts = params.row?.boxAmounts?.filter(
+            box => box?.storekeeper?._id === storekeeper?._id,
+          )?.[0]
+
+          return (
+            <FourMonthesStockCell
+              isNotPepurchase
+              title={'For shipping'}
+              rowId={storekeeper?._id}
+              value={currentBoxAmounts?.toRefill || 0}
+              fourMonthesStockValue={currentBoxAmounts?.recommendedValue || 0}
+              onClick={(storekeeperId, recommendedValue) =>
+                fourMonthesStockHandlers.editRecommendationForStockByGuid(
+                  params?.row?._id,
+                  storekeeperId,
+                  recommendedValue,
+                )
+              }
+            />
+          )
+        },
+        valueGetter: params => {
+          const currentBoxAmounts = params.row?.boxAmounts?.filter(
+            box => box?.storekeeper?._id === storekeeper?._id,
+          )?.[0]
+
+          return Number(currentBoxAmounts?.toRefill) || 0
+        },
+        width: 150,
+        filterable: false,
+        columnKey: columnnsKeys.client.INVENTORY_PURCHASE_QUANTITY,
+      }
+
+      storekeeperCells.push(purchaseQuantityCell)
+    }
 
     defaultColumns.splice(11, 1, ...storekeeperCells)
   }

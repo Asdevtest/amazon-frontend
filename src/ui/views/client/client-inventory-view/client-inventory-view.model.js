@@ -2,7 +2,6 @@ import { makeObservable, reaction, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
-import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
@@ -143,6 +142,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   get platformSettings() {
     return UserModel.platformSettings
   }
+  meta = undefined
 
   constructor() {
     const additionalPropertiesColumnMenuSettings = {
@@ -199,6 +199,23 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         },
       },
 
+      isNeedRefillFilterData: {
+        isNeedPurchaseFilter: true,
+        isNotNeedPurchaseFilter: true,
+        onChangeIsNeedPurchaseFilter: (isNotNeedPurchaseFilter, isNeedPurchaseFilter) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isNeedRefillFilterData: {
+              ...this.columnMenuSettings.isNeedRefillFilterData,
+              isNeedPurchaseFilter,
+              isNotNeedPurchaseFilter,
+            },
+          }
+
+          this.getMainTableData()
+        },
+      },
+
       isHaveBarCodeFilterData: {
         isHaveBarCodeFilter: null,
         onChangeIsHaveBarCodeFilter: value => {
@@ -231,6 +248,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const fourMonthesStockHandlers = {
       onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
+      editRecommendationForStockByGuid: (productId, storekeeperId, recommendedValue) =>
+        this.editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue),
     }
 
     const stockUsHandlers = {
@@ -256,6 +275,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
       const purchaseQuantityAboveZero = !(isNeedPurchaseFilter && isNotNeedPurchaseFilter)
 
+      const isNeedRefillFilterData = this.columnMenuSettings.isNeedRefillFilterData.isNeedPurchaseFilter
+      const isNotNeedRefillFilterData = this.columnMenuSettings.isNeedRefillFilterData.isNotNeedPurchaseFilter
+      const isNeedRefillFilter = !(isNeedRefillFilterData && isNotNeedRefillFilterData)
+
       return {
         ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
           barCode: {
@@ -276,6 +299,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
               isChild: { $eq: this.columnMenuSettings.childrenYesNoFilterData.yes },
             }),
 
+        ...(isNeedRefillFilter && {
+          toRefill: isNotNeedRefillFilterData ? { $eq: 0 } : { $gt: 0 },
+        }),
+
         ...(purchaseQuantityAboveZero && {
           purchaseQuantityAboveZero: { $eq: isNeedPurchaseFilter },
         }),
@@ -284,13 +311,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           archive: { $eq: true },
         }),
       }
-    }
-
-    // FIXME: crutch
-    const getStorekeepers = async () => {
-      const storekeepers = await this.columnMenuSettings?.onClickFilterBtn('boxAmounts', DataGridFilterTables.PRODUCTS)
-
-      return storekeepers
     }
 
     const columns = clientInventoryColumns(
@@ -339,38 +359,41 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         return acc
       }, {})
 
-      // FIXME: crutch
-      const storekeepers = await getStorekeepers()
+      const newColumns = clientInventoryColumns(
+        barCodeHandlers,
+        hsCodeHandlers,
+        fourMonthesStockHandlers,
+        stockUsHandlers,
+        otherHandlers,
+        activeFields,
+        this.meta?.storekeepers,
+      )
 
-      if (storekeepers) {
-        const validStorekeepers = storekeepers?.reduce((acc, el) => {
-          if (acc?.[el?.storekeeper?._id]) {
-            return acc
-          } else {
-            acc[el?.storekeeper?._id] = el?.storekeeper
-            return acc
-          }
-        }, {})
-        const newColumns = clientInventoryColumns(
-          barCodeHandlers,
-          hsCodeHandlers,
-          fourMonthesStockHandlers,
-          stockUsHandlers,
-          otherHandlers,
-          activeFields,
-          Object.values(validStorekeepers),
-        )
+      const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
 
-        const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
-        this.columnsModel = newColumns
-        this.filtersFields = newFiltersFields
-        this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
-      }
+      this.columnsModel = newColumns
+      this.filtersFields = newFiltersFields
+      this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
     }
 
     reaction(
       () => this.presetsData,
       () => getValidColumns(),
+    )
+
+    reaction(
+      () => this.meta?.storekeepers?.length,
+      () => {
+        for (const storekeeper of this.meta.storekeepers) {
+          const currentColumnName = `toRefill${storekeeper?._id}`
+
+          if (!this.columnVisibilityModel?.[currentColumnName] && !storekeeper?.isUserPreprocessingCenterUSA) {
+            this.columnVisibilityModel[currentColumnName] = false
+          }
+        }
+
+        getValidColumns()
+      },
     )
   }
 
@@ -931,6 +954,16 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.getMainTableData()
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  async editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue) {
+    try {
+      await ClientModel.postAddRecommendationForStock(productId, storekeeperId, recommendedValue || 0)
+
+      this.getMainTableData()
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -1551,6 +1584,54 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+    }
+  }
+
+  async getMainTableData(options) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      const toRefill = 'toRefill'
+      const amountInBoxes = 'amountInBoxes'
+
+      let storekeeperId
+      let sortField = this.sortModel?.[0]?.field
+
+      if (sortField?.includes(toRefill)) {
+        storekeeperId = sortField?.replace(toRefill, '')
+        sortField = toRefill
+      } else if (sortField?.includes(amountInBoxes)) {
+        storekeeperId = sortField?.replace(amountInBoxes, '')
+        sortField = amountInBoxes
+      }
+
+      const result = await this.getMainDataMethod(
+        options || {
+          filters: this.getFilters(),
+
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+          sortField: this.sortModel.length ? sortField : 'updatedAt',
+          sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
+          storekeeper: storekeeperId,
+
+          ...this.defaultGetDataMethodOptions?.(),
+        },
+      )
+
+      runInAction(() => {
+        this.meta = result?.meta
+        this.tableData = result?.rows || result
+        this.rowCount = result?.count || result.length
+      })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      console.log(error)
+      this.tableData = []
+      this.rowCount = 0
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }

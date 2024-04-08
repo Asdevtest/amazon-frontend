@@ -176,6 +176,25 @@ class ClientModelStatic {
     return response.data
   }
 
+  editRecommendationForStockByGuid = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesEditRecommendationForStockGuidPatch({
+      guid,
+      body,
+    })
+    return response.data
+  }
+
+  postAddRecommendationForStock = async (productId, storekeeperId, recommendedValue) => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesAddRecommendationForStockPost({
+      body: {
+        productId,
+        storekeeperId,
+        recommendedValue,
+      },
+    })
+    return response.data
+  }
+
   getDestinations = async () => {
     const response = await restApiService.clientApi.apiV1ClientsDestinationGet()
     return response.data

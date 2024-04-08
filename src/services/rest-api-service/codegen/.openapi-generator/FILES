@@ -436,6 +436,10 @@ models/inline-response20075-request.ts
 models/inline-response20075-rows.ts
 models/inline-response20075.ts
 models/inline-response20076.ts
+models/inline-response20077-request-announcement.ts
+models/inline-response20077-request-product.ts
+models/inline-response20077-request.ts
+models/inline-response20077-rows.ts
 models/inline-response20077.ts
 models/inline-response20078.ts
 models/inline-response20079.ts

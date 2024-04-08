@@ -44,7 +44,7 @@ export const ProductLotDataForm = memo(props => {
     }
   })
 
-  const [batches, setBatches] = useState(data)
+  const [batches, setBatches] = useState([])
 
   const [batchInfo, setBatchInfo] = useState([])
   const [nameSearchValue, setNameSearchValue] = useState('')
@@ -79,6 +79,10 @@ export const ProductLotDataForm = memo(props => {
       console.error(error)
     }
   }
+
+  useEffect(() => {
+    setBatches(data)
+  }, [batchesData])
 
   return (
     <div className={styles.productLotDataBlock}>
