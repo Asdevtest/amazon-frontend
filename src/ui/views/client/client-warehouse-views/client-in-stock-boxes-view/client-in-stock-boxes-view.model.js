@@ -700,7 +700,7 @@ export class ClientInStockBoxesViewModel {
         this.selectedBox = { ...this.selectedBox, fbaShipment }
       })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -826,7 +826,7 @@ export class ClientInStockBoxesViewModel {
         this.selectedBoxes = []
       })
 
-      if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
+      if (this.selectedBoxes?.length === updatedBoxes?.length && !isMasterBox) {
         runInAction(() => {
           this.warningInfoModalSettings = {
             isWarning: true,
@@ -838,14 +838,14 @@ export class ClientInStockBoxesViewModel {
       } else {
         const resBoxes = []
 
-        for (let i = 0; i < updatedBoxes.length; i++) {
-          if (updatedBoxes[i].tmpShippingLabel.length) {
+        for (let i = 0; i < updatedBoxes?.length; i++) {
+          if (updatedBoxes[i].tmpShippingLabel?.length) {
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
 
           const boxToPush = {
             boxBody: {
-              shippingLabel: this.uploadedFiles.length
+              shippingLabel: this.uploadedFiles?.length
                 ? this.uploadedFiles[0]
                 : updatedBoxes[i].tmpShippingLabel?.[0] || updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
@@ -945,7 +945,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -1556,8 +1556,6 @@ export class ClientInStockBoxesViewModel {
     try {
       const result = await BoxesModel.editBox(guid, body)
 
-      console.log('result :>> ', result)
-
       return result
     } catch (error) {
       console.error(error)
@@ -1914,7 +1912,7 @@ export class ClientInStockBoxesViewModel {
         this.productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
       }
     } catch (e) {
-      console.log(e)
+      console.error(e)
 
       runInAction(() => {
         this.selectedWarehouseOrderProduct = undefined
