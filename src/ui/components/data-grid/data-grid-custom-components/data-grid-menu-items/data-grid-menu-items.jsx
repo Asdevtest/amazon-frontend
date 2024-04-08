@@ -2262,9 +2262,6 @@ export const NumberFieldMenuItem = memo(
       const filterData = data?.filterData
       const currentFilterData = data?.currentFilterData
 
-      console.log('field :>> ', field)
-      console.log('data :>> ', data)
-
       const [fromValue, setFromValue] = useState('')
       const [toValue, setToValue] = useState('')
       const [isNotFixedValue, setIsNotFixedValue] = useState(false)
