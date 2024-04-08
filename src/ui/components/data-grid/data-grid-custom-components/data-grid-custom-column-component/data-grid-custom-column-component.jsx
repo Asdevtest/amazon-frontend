@@ -504,8 +504,8 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <InStockMenuItem
-          data={props?.boxAmounts}
-          field="boxAmounts"
+          data={props?.amountInBoxes}
+          field={'amountInBoxes'}
           defaultOption={currentColumn?.defaultOption}
           table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}

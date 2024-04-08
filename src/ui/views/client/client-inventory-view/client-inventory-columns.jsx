@@ -451,7 +451,7 @@ export const clientInventoryColumns = (
       const lablePurchaseQuantity = `Prep limit (${storekeeper?.name})`
 
       const storekeeperCell = {
-        field: 'boxAmounts' + storekeeper?._id,
+        field: 'amountInBoxes' + storekeeper?._id,
         headerName: lable,
         defaultOption: storekeeper?._id,
         renderHeader: () => <MultilineTextHeaderCell text={lable} />,

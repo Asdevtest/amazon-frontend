@@ -1618,15 +1618,18 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
+      const toRefill = 'toRefill'
+      const amountInBoxes = 'amountInBoxes'
+
       let storekeeperId
       let sortField = this.sortModel?.[0]?.field
 
-      if (sortField?.includes('toRefill')) {
-        storekeeperId = sortField?.replace('toRefill', '')
-        sortField = 'toRefill'
-      } else if (sortField?.includes('boxAmounts')) {
-        storekeeperId = sortField?.replace('boxAmounts', '')
-        sortField = 'amountInBoxes'
+      if (sortField?.includes(toRefill)) {
+        storekeeperId = sortField?.replace(toRefill, '')
+        sortField = toRefill
+      } else if (sortField?.includes(amountInBoxes)) {
+        storekeeperId = sortField?.replace(amountInBoxes, '')
+        sortField = amountInBoxes
       }
 
       const result = await this.getMainDataMethod(
