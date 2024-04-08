@@ -161,7 +161,7 @@ export const DeliveryParameters = ({
       <Field
         labelClasses={styles.fieldLabel}
         label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
-        error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
+        tooltipAttentionContent={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
         inputComponent={
           <Button
             disabled={!isCanChange}

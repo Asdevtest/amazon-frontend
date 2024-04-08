@@ -33,8 +33,6 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './batch-info-modal.style'
 
-import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
-
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
 export const BatchInfoModal = observer(
@@ -52,7 +50,6 @@ export const BatchInfoModal = observer(
 
     const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
 
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -98,8 +95,6 @@ export const BatchInfoModal = observer(
         setDataToRender(sourceBoxes)
       }
     }, [nameSearchValue, currentBatch])
-
-    const [curImageIndex, setCurImageIndex] = useState(0)
 
     const uploadTemplateFile = async () => {
       setIsFileDownloading(true)
@@ -409,16 +404,6 @@ export const BatchInfoModal = observer(
               onClickHsCode={onClickHsCode}
             />
           </Modal>
-
-          {showPhotosModal ? (
-            <SlideshowGalleryModal
-              openModal={showPhotosModal}
-              files={currentBatch?.attachedDocuments}
-              currentFileIndex={curImageIndex}
-              onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-              onCurrentFileIndex={index => setCurImageIndex(index)}
-            />
-          ) : null}
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

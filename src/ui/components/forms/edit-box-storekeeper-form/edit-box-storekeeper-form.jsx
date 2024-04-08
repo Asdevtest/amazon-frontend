@@ -12,7 +12,6 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
-import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -32,8 +31,6 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -57,8 +54,6 @@ export const EditBoxStorekeeperForm = memo(
     const { classes: styles, cx } = useStyles()
 
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
-    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
     const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -589,7 +584,7 @@ export const EditBoxStorekeeperForm = memo(
                             label={t(TranslationKey['HS code'])}
                             value={item.product.hsCode}
                             inputComponent={
-                              <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
+                              <Button onClick={() => onClickHsCode(item.product._id)}>
                                 {t(TranslationKey['HS code'])}
                               </Button>
                             }
@@ -641,7 +636,6 @@ export const EditBoxStorekeeperForm = memo(
                       tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
                       inputComponent={
                         <Button
-                          className={styles.storekeeperBtn}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
@@ -738,7 +732,6 @@ export const EditBoxStorekeeperForm = memo(
                       />
 
                       <Button
-                        className={styles.trackNumberPhotoBtn}
                         onClick={() => {
                           setBarcodeModalSetting({
                             title: 'Track number',
@@ -871,7 +864,6 @@ export const EditBoxStorekeeperForm = memo(
           <Button
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
-            className={styles.button}
             onClick={() =>
               onSubmit({
                 id: formItem?._id,
@@ -888,25 +880,10 @@ export const EditBoxStorekeeperForm = memo(
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={cx(styles.button, styles.cancelBtn)}
-            variant={ButtonVariant.OUTLINED}
-            onClick={onTriggerOpenModal}
-          >
+          <Button tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={onTriggerOpenModal}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
-
-        {showPhotosModal ? (
-          <SlideshowGalleryModal
-            openModal={showPhotosModal}
-            files={bigImagesOptions.images}
-            currentFileIndex={bigImagesOptions.imgIndex}
-            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          />
-        ) : null}
 
         <Modal
           openModal={showSetShippingLabelModal}
