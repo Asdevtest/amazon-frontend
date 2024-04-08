@@ -55,7 +55,7 @@ export const BoxForm: FC<BoxFormProps> = memo(props => {
     <div className={styles.wrapper}>
       <Header formFields={formFields} disabledPrepId={!(isClient || isStorekeeper)} onChangeField={handleChangeField} />
 
-      <Info formFields={formFields} onChangeField={handleChangeField} />
+      <Info formFields={formFields} isStorekeeper={isStorekeeper} onChangeField={handleChangeField} />
 
       <div className={styles.switcherWrapper}>
         <div className={styles.switcher}>

@@ -19,7 +19,7 @@ import { IProduct } from '@typings/models/products/product'
 import { useStyles } from './list-suppliers.style'
 
 import { extractProduct } from './helpers/extract-product'
-import { suppliersOrderColumn } from './list-suppliers.column'
+import { suppliersOrderColumn } from './list-suppliers.columns'
 import { ListSuppliersModel } from './list-suppliers.model'
 import { ModalNames } from './list-suppliers.type'
 import { Toolbar } from './toolbar'
@@ -52,7 +52,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   const orderSupplier = 'orderSupplier' in formFields ? formFields?.orderSupplier : undefined
 
   const [viewModel] = useState(
-    () => new ListSuppliersModel(extractProduct(formFields), orderSupplier, onSaveProduct, onRemoveSupplier),
+    () => new ListSuppliersModel(extractProduct(formFields), onSaveProduct, onRemoveSupplier),
   ) // extractProduct - converter for getting product from order(everywhere we work directly with the product)
   const [orderStatus, setOrderStatus] = useState(0) // needed for additional conditions in the buyer's order view(everywhere we work directly with the product)
 
@@ -66,16 +66,14 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   }, [formFields])
 
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
-    id === (orderSupplier?._id || extractProduct(formFields).currentSupplierId) && styles.currentSupplierBackground
+    id === extractProduct(formFields).currentSupplierId && styles.currentSupplierBackground
   const listSuppliersColumns = suppliersOrderColumn({
     orderCreatedAt: 'product' in formFields ? formFields?.createdAt : '',
     orderSupplierId: orderSupplier?._id || '',
     platformSettings: viewModel.platformSettings,
   })
-  const isCurrentSupplierSelected =
-    (orderSupplier?._id || extractProduct(formFields).currentSupplierId) === viewModel.selectionModel[0]
-  const isDefaultSupplier =
-    !!orderStatus && defaultSupplierId === (orderSupplier?._id || extractProduct(formFields).currentSupplierId)
+  const isCurrentSupplierSelected = extractProduct(formFields).currentSupplierId === viewModel.selectionModel[0]
+  const isDefaultSupplier = !!orderStatus && defaultSupplierId === extractProduct(formFields).currentSupplierId
 
   return (
     <>
@@ -140,20 +138,6 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           onTriggerShowModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
         />
       </Modal>
-
-      {/* <Modal
-        openModal={viewModel.showSupplierApproximateCalculationsModal}
-        setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
-      >
-        <SupplierApproximateCalculationsForm
-          // @ts-ignore
-          product={extractProduct(formFields)}
-          supplier={viewModel.currentSupplier}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          storekeepers={viewModel.storekeepers}
-          onClose={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
-        />
-      </Modal> */}
 
       {viewModel.showSupplierApproximateCalculationsModal ? (
         <SupplierApproximateCalculationsModal

@@ -10,6 +10,8 @@ import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-swi
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
+import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
+
 import { observerConfig } from './observer-config'
 import { SupplierApproximateCalculationsColumns } from './supplier-approximate-calculations-columns'
 import { additionalFilterFields } from './supplier-approximate-calculations.constants'
@@ -71,8 +73,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       const result = await StorekeeperModel.getStorekeepers({ withoutTariffs: true })
 
       runInAction(() => {
-        this.storekeepers = result
-          // @ts-ignore
+        this.storekeepers = (result as IStorekeeper[])
           .sort((a, b) => a?.name?.localeCompare(b?.name))
           .map(storekeeper => ({
             label: () => storekeeper.name || '',
@@ -82,7 +83,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
         this.setCurrentStorekeeper(this.storekeepers[0]?.value as string)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

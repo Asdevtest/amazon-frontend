@@ -1,17 +1,16 @@
-import DateFnsUtils from '@date-io/date-fns'
 import enLocale from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 import zhLocale from 'date-fns/locale/zh-CN'
 import { useEffect, useState } from 'react'
 
-import { KeyboardDatePicker, KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import EventIcon from '@mui/icons-material/Event'
 import TextField from '@mui/material/TextField'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { DatePicker as NewestDatePicker, TimePicker } from '@mui/x-date-pickers'
+import { ThemeProvider } from '@mui/material/styles'
+import { DatePicker, TimePicker } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
+import { darkTheme, lightTheme } from '@constants/theme/mui-theme'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -52,34 +51,6 @@ const getPlaceholderByLanguageTag = languageTag => {
   }
 }
 
-const lightTheme = createTheme({
-  components: {
-    MuiInputAdornment: {
-      styleOverrides: {
-        root: {
-          paddingRight: 10,
-        },
-      },
-    },
-  },
-})
-
-const darkTheme = createTheme({
-  components: {
-    MuiInputAdornment: {
-      styleOverrides: {
-        root: {
-          paddingRight: 10,
-        },
-      },
-    },
-  },
-
-  palette: {
-    mode: 'dark',
-  },
-})
-
 export const DateMonthYearPicker = ({ value, onChange, ...restProps }) => {
   const { classes: styles } = useStyles()
 
@@ -92,7 +63,7 @@ export const DateMonthYearPicker = ({ value, onChange, ...restProps }) => {
   return (
     <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
-        <NewestDatePicker
+        <DatePicker
           closeOnSelect
           showToolbar={false}
           views={['year', 'month']}
@@ -128,7 +99,7 @@ export const NewDatePicker = ({ value, onChange, variant = 'standard', error = f
   return (
     <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
-        <NewestDatePicker
+        <DatePicker
           closeOnSelect
           showToolbar={false}
           componentsProps={{
@@ -155,49 +126,6 @@ export const NewDatePicker = ({ value, onChange, variant = 'standard', error = f
   )
 }
 
-export const DatePicker = ({ value, onChange }) => {
-  const [local, setLocal] = useState(enLocale)
-
-  useEffect(() => {
-    setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
-  }, [SettingsModel.languageTag])
-
-  return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={local}>
-      <KeyboardDateTimePicker
-        clearable
-        value={value}
-        placeholder="10/10/2018 10:00"
-        // minDate={new Date()}
-        format="dd/MM/yyyy HH:mm"
-        onChange={date => onChange(date)}
-      />
-    </MuiPickersUtilsProvider>
-  )
-}
-
-export const DatePickerDate = ({ value, onChange }) => {
-  const [local, setLocal] = useState(enLocale)
-
-  useEffect(() => {
-    setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
-  }, [SettingsModel.languageTag])
-
-  return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={local}>
-      <KeyboardDatePicker
-        clearable
-        // views={['year', 'month']}
-        value={value}
-        style={{ width: '100%' }}
-        placeholder="10/10/2018"
-        // minDate={new Date()}
-        format="dd/MM/yyyy"
-        onChange={date => onChange(date)}
-      />
-    </MuiPickersUtilsProvider>
-  )
-}
 export const DatePickerTime = ({ value, onChange, ...restProps }) => {
   const { classes: styles } = useStyles()
 
@@ -242,7 +170,7 @@ export const DefaultDatePicker = props => {
   return (
     <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
-        <NewestDatePicker
+        <DatePicker
           disablePast
           closeOnSelect
           showToolbar={false}

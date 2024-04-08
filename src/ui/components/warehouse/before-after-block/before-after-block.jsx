@@ -16,7 +16,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
@@ -59,10 +58,6 @@ const Box = memo(props => {
   } = props
 
   const [showFullCard, setShowFullCard] = useState(true /* && newBoxes[0]?._id === box._id ? true : false*/)
-
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
 
   const onChangeField = (value, field) => {
     const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
@@ -466,16 +461,6 @@ const Box = memo(props => {
           </div>
         </div>
       )}
-
-      {showPhotosModal ? (
-        <SlideshowGalleryModal
-          openModal={showPhotosModal}
-          files={bigImagesOptions.images}
-          currentFileIndex={bigImagesOptions.imgIndex}
-          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        />
-      ) : null}
     </div>
   )
 })

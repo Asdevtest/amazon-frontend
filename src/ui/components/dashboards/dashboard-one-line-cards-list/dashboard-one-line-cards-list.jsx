@@ -24,10 +24,8 @@ export const DashboardOneLineCardsList = props => {
   return (
     <div className={styles.cardListWrapper}>
       <div className={styles.cardHeaderWrapper}>
-        <div>
-          <Typography className={styles.cardListTitle}>{config.title}</Typography>
-          <Typography className={styles.cardListSubTitle}>{config.subTitle}</Typography>
-        </div>
+        <Typography className={styles.cardListTitle}>{config.title}</Typography>
+        <Typography className={styles.cardListSubTitle}>{config.subTitle}</Typography>
       </div>
 
       <div className={styles.cardsWrapper}>
