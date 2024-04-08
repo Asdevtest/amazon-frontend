@@ -41,7 +41,7 @@ export const Info: FC<InfoProps> = memo(props => {
           />
         ) : (
           <Tooltip title={formFields?.storage ? formFields?.storage : ''}>
-            <p className={styles.informationText}>{formFields?.storage}</p>
+            <p className={styles.informationText}>{formFields?.storage || t(TranslationKey['Not available'])}</p>
           </Tooltip>
         )}
       </div>
