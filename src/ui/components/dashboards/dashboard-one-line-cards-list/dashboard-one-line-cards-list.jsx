@@ -3,7 +3,7 @@ import { memo } from 'react'
 import { CircularProgress } from '@mui/material'
 
 import { useStyles } from '@components/dashboards/dashboard-one-line-cards-list/dashboard-one-line-cards-list.style'
-import { SliderComponents } from '@components/shared/slider-components'
+import { ComponentSlider } from '@components/shared/component-slider'
 import { InventoryIcon } from '@components/shared/svg-icons'
 
 export const DashboardOneLineCardsList = memo(props => {
@@ -18,7 +18,7 @@ export const DashboardOneLineCardsList = memo(props => {
         <p className={styles.cardSubTitle}>{config.subTitle}</p>
       </div>
 
-      <SliderComponents
+      <ComponentSlider
         slides={config.items.map(item => (
           <div
             key={item.dataKey}

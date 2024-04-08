@@ -1,16 +1,16 @@
 import { FC, memo, useState } from 'react'
 
-import { useStyles } from './slider-components.style'
+import { useStyles } from './component-slider.style'
 
 import { ArrowLeftIcon, ArrowRightIcon } from '../svg-icons'
 
-interface SliderComponentsProps {
+interface ComponentSliderProps {
   slides: JSX.Element[]
   customGap?: number
   quantitySlides?: number
 }
 
-export const SliderComponents: FC<SliderComponentsProps> = memo(props => {
+export const ComponentSlider: FC<ComponentSliderProps> = memo(props => {
   const { slides, customGap = 20, quantitySlides = 4 } = props
 
   const { classes: styles } = useStyles()
