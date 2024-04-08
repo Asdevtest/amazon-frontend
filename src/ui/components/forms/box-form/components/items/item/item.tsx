@@ -49,8 +49,6 @@ export const Item: FC<ItemProps> = memo(props => {
     ? t(TranslationKey['BarCode is glued by supplier'])
     : t(TranslationKey['BarCode is glued by storekeeper'])
 
-  console.log('onClickHsCode(item.product._id)', onClickHsCode, item.product._id)
-
   return (
     <div
       className={cx(styles.wrapper, {
