@@ -120,12 +120,7 @@ export const WarehouseMyTasksView = observer(({ history }) => {
         />
       </Modal>
 
-      <Modal
-        missClickModalOn
-        dialogClassName={styles.resolveTaskModalContent}
-        openModal={viewModel.showEditTaskModal}
-        setOpenModal={viewModel.onTriggerEditTaskModal}
-      >
+      <Modal missClickModalOn openModal={viewModel.showEditTaskModal} setOpenModal={viewModel.onTriggerEditTaskModal}>
         <EditTaskModal
           requestStatus={viewModel.requestStatus}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}

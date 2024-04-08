@@ -49,6 +49,8 @@ export const Item: FC<ItemProps> = memo(props => {
     ? t(TranslationKey['BarCode is glued by supplier'])
     : t(TranslationKey['BarCode is glued by storekeeper'])
 
+  console.log('onClickHsCode(item.product._id)', onClickHsCode, item.product._id)
+
   return (
     <div
       className={cx(styles.wrapper, {
@@ -67,7 +69,7 @@ export const Item: FC<ItemProps> = memo(props => {
 
         {isOrderInfo ? (
           <div className={styles.flexContainer}>
-            {!item.order.expressChinaDelivery ? <TruckIcon className={styles.icon} /> : null}
+            {item.order.expressChinaDelivery ? <TruckIcon className={styles.icon} /> : null}
             {isRushOrder ? <FireIcon className={styles.icon} /> : null}
             {isClient ? (
               <ShareIcon
@@ -116,14 +118,6 @@ export const Item: FC<ItemProps> = memo(props => {
               placeholder={t(TranslationKey['Not available'])}
             />
 
-            <LabelWithCopy
-              direction="column"
-              labelWrapperStyles={styles.barCode}
-              labelTitle={t(TranslationKey.BarCode)}
-              labelValue={item.barCode}
-              lableLinkTitle={t(TranslationKey.View)}
-            />
-
             <Button
               className={styles.button}
               onClick={() => (onClickHsCode ? onClickHsCode(item.product._id) : undefined)}
@@ -131,10 +125,13 @@ export const Item: FC<ItemProps> = memo(props => {
               {t(TranslationKey['HS code'])}
             </Button>
 
-            <div className={styles.checkboxContainer}>
-              <Checkbox disabled className={styles.checkbox} checked={barcodeChecked} />
-              <p className={styles.text}>{barcodeCheckedText}</p>
-            </div>
+            {item.barCode ? (
+              <div className={styles.checkboxContainer}>
+                <Checkbox disabled className={styles.checkbox} checked={barcodeChecked} />
+                <p className={styles.text}>{barcodeCheckedText}</p>
+                <LabelWithCopy labelValue={item.barCode} lableLinkTitle={t(TranslationKey.View)} />
+              </div>
+            ) : null}
           </>
         ) : null}
       </div>

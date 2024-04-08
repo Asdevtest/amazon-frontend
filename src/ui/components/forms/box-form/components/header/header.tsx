@@ -33,7 +33,7 @@ export const Header: FC<HeaderProps> = memo(props => {
           disabled={disabledPrepId}
           className={styles.boxAndPrepIdInput}
           classes={{ input: styles.input }}
-          inputProps={{ maxLength: 20 }}
+          inputProps={{ maxLength: 25 }}
           value={formFields?.prepId}
           placeholder={t(TranslationKey['Not available'])}
           onChange={onChangeField('prepId')}
