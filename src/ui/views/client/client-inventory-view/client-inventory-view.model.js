@@ -341,29 +341,31 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       // FIXME: crutch
       const storekeepers = await getStorekeepers()
-      const validStorekeepers = storekeepers?.reduce((acc, el) => {
-        if (acc?.[el?.storekeeper?._id]) {
-          return acc
-        } else {
-          acc[el?.storekeeper?._id] = el?.storekeeper
-          return acc
-        }
-      }, {})
 
-      const newColumns = clientInventoryColumns(
-        barCodeHandlers,
-        hsCodeHandlers,
-        fourMonthesStockHandlers,
-        stockUsHandlers,
-        otherHandlers,
-        activeFields,
-        Object.values(validStorekeepers),
-      )
-      const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
+      if (storekeepers) {
+        const validStorekeepers = storekeepers?.reduce((acc, el) => {
+          if (acc?.[el?.storekeeper?._id]) {
+            return acc
+          } else {
+            acc[el?.storekeeper?._id] = el?.storekeeper
+            return acc
+          }
+        }, {})
+        const newColumns = clientInventoryColumns(
+          barCodeHandlers,
+          hsCodeHandlers,
+          fourMonthesStockHandlers,
+          stockUsHandlers,
+          otherHandlers,
+          activeFields,
+          Object.values(validStorekeepers),
+        )
 
-      this.columnsModel = newColumns
-      this.filtersFields = newFiltersFields
-      this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
+        const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
+        this.columnsModel = newColumns
+        this.filtersFields = newFiltersFields
+        this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
+      }
     }
 
     reaction(
@@ -646,6 +648,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async getCurrentPresets() {
     try {
       const result = await UserModel.getUsersPresets()
+
       return result
     } catch (error) {
       console.error(error)
