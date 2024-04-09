@@ -9,4 +9,5 @@ export enum DataGridFilterTables {
   INVENTORY_RETURNS = 'inventoryReturns',
 
   PRODUCTS = 'products',
+  SUPPLIERS = 'suppliers',
 }
