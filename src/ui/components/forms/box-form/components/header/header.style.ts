@@ -23,7 +23,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   boxAndPrepIdInput: {
-    width: 200,
+    width: 220,
     height: 30,
     borderRadius: 7,
   },

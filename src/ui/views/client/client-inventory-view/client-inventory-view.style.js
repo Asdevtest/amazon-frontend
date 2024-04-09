@@ -44,8 +44,4 @@ export const useStyles = makeStyles()(theme => ({
       marginRight: '-48px',
     },
   },
-
-  modalDialogContext: {
-    padding: 0,
-  },
 }))

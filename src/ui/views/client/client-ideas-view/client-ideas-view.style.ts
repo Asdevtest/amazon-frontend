@@ -27,10 +27,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  modalDialogContext: {
-    padding: 0,
-  },
-
   deadlineBorder: {
     position: 'relative',
 

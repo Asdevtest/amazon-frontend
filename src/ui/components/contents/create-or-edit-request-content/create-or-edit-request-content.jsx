@@ -1170,7 +1170,6 @@ export const CreateOrEditRequestContent = memo(props => {
       <Modal
         openModal={showCheckRequestByTypeExists}
         setOpenModal={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
-        dialogClassName={styles.dialogClassName}
       >
         <CheckRequestByTypeExists
           requestsData={requestIds}

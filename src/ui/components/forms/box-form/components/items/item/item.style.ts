@@ -115,12 +115,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
   },
 
-  barCode: {
-    width: 100,
-    marginBottom: 6,
-    gap: 10,
-  },
-
   button: {
     height: 30,
     margin: 0,
@@ -129,7 +123,7 @@ export const useStyles = makeStyles()(theme => ({
   checkboxContainer: {
     display: 'flex',
     alignItems: 'center',
-    gap: 5,
+    gap: 10,
   },
 
   checkbox: {

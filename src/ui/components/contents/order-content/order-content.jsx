@@ -292,7 +292,7 @@ export const OrderContent = ({
           )}
         </div>
 
-        <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
+        <Modal openModal={showSetBarcodeModal} setOpenModal={triggerBarcodeModal}>
           <SetBarcodeModal
             tmpCode={formFields.tmpBarCode}
             barCode={formFields.product?.barCode}
