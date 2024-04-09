@@ -84,15 +84,15 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
             onToggleFile={onToggleFile}
           />
         </TabPanel>
-      </div>
 
-      <Buttons
-        disabled={!allFilesToAdd.length}
-        onClick={() => {
-          onChangeMediaFiles(allFilesToAdd)
-          onOpenModal()
-        }}
-      />
+        <Buttons
+          disabled={!allFilesToAdd.length}
+          onClick={() => {
+            onChangeMediaFiles(allFilesToAdd)
+            onOpenModal()
+          }}
+        />
+      </div>
     </Modal>
   )
 })
