@@ -7,6 +7,8 @@ import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { BatchStatus } from '@constants/statuses/batch-status'
+import { BoxStatus } from '@constants/statuses/box-status'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
@@ -115,7 +117,12 @@ export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
     return t(TranslationKey['Not available'])
   }
 
-  const rate = box?.variationTariff?.pricePerKgUsd
+  const lastRateStatuses = [BatchStatus.HAS_DISPATCHED, BoxStatus.IN_BATCH_ON_THE_WAY, BoxStatus.FINISH_PREP_CENTR_USA]
+
+  const rate =
+    lastRateStatuses.includes(box.status) && box?.lastRateTariff
+      ? box?.lastRateTariff
+      : box?.variationTariff?.pricePerKgUsd
 
   return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixedWithDollarSign(rate, 2) : ''}`
 }
