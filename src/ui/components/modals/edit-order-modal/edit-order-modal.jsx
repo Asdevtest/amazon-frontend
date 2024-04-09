@@ -849,7 +849,6 @@ export const EditOrderModal = memo(
         <Modal
           openModal={collapseCreateOrEditBoxBlock}
           setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-          dialogClassName={styles.dialogClassName}
         >
           <CreateBoxForm
             isEdit={isEdit}

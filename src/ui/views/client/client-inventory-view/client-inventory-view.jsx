@@ -187,7 +187,6 @@ export const ClientInventoryView = observer(({ history }) => {
       </Modal>
 
       <Modal
-        dialogClassName={styles.modalDialogContext}
         openModal={viewModel.showProductLaunch}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >

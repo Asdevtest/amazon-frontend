@@ -534,16 +534,14 @@ export class BuyerMyOrdersViewModel {
     })
   }
 
-  async onClickHsCode(id, showModal) {
+  async onClickHsCode(id) {
     const response = await ProductModel.getProductsHsCodeByGuid(id)
 
     runInAction(() => {
       this.hsCodeData = response
     })
 
-    if (showModal) {
-      this.onTriggerOpenModal('showEditHSCodeModal')
-    }
+    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   async setColumnsModel() {
@@ -607,8 +605,6 @@ export class BuyerMyOrdersViewModel {
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
-
-      await this.onClickHsCode(orderData.product._id)
 
       runInAction(() => {
         this.selectedOrder = orderData

@@ -45,8 +45,8 @@ export const supervisorSettingsViewColumns = handlers => [
         firstButtonStyle={ButtonStyle.PRIMARY}
         secondButtonElement={<CrossIcon />}
         secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
-        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
+        onClickFirstButton={() => handlers.onClickEditBtn(params.row)}
+        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
     filterable: false,

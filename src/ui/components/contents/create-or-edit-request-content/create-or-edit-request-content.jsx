@@ -372,6 +372,7 @@ export const CreateOrEditRequestContent = memo(props => {
     }
   }
 
+  const isNeedSeoInfo = currentSpec?.type === Specs.SEO && images.length === 0
   const disableSubmit =
     !formFields.request.title ||
     formFields.request.title.length > 100 ||
@@ -384,7 +385,8 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.specId ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
-    platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
+    platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price ||
+    isNeedSeoInfo
   const minDate = dayjs().add(1, 'day')
   const isFirstStep = curStep === stepVariant.STEP_ONE
   const isSecondStep = curStep === stepVariant.STEP_TWO
@@ -559,6 +561,10 @@ export const CreateOrEditRequestContent = memo(props => {
                 )}
 
                 <UploadFilesInput minimized withComment images={images} setImages={setImages} />
+
+                {isNeedSeoInfo ? (
+                  <p className={styles.seoInfoText}>{t(TranslationKey['Add at least 1 file'])}</p>
+                ) : null}
 
                 <div className={styles.defaultMarginTop}>
                   <Button
@@ -1170,7 +1176,6 @@ export const CreateOrEditRequestContent = memo(props => {
       <Modal
         openModal={showCheckRequestByTypeExists}
         setOpenModal={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
-        dialogClassName={styles.dialogClassName}
       >
         <CheckRequestByTypeExists
           requestsData={requestIds}
