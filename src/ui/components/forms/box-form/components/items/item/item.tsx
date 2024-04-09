@@ -45,9 +45,14 @@ export const Item: FC<ItemProps> = memo(props => {
 
   const isRushOrder = Number(item.order.priority) === OrderPriority.URGENT_PRIORITY
   const barcodeChecked = item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper
-  const barcodeCheckedText = item.isBarCodeAlreadyAttachedByTheSupplier
+  const barcodeText = item.isBarCodeAlreadyAttachedByTheSupplier
     ? t(TranslationKey['BarCode is glued by supplier'])
     : t(TranslationKey['BarCode is glued by storekeeper'])
+  const transparencyChecked =
+    item.isTransparencyFileAttachedByTheStorekeeper || item.isTransparencyFileAlreadyAttachedByTheSupplier
+  const transparencyText = item.isTransparencyFileAttachedByTheStorekeeper
+    ? t(TranslationKey['Transparency codes are glued by storekeeper'])
+    : t(TranslationKey['Transparency codes glued by the supplier'])
 
   return (
     <div
@@ -123,13 +128,23 @@ export const Item: FC<ItemProps> = memo(props => {
               {t(TranslationKey['HS code'])}
             </Button>
 
-            {item.barCode ? (
-              <div className={styles.checkboxContainer}>
-                <Checkbox disabled className={styles.checkbox} checked={barcodeChecked} />
-                <p className={styles.text}>{barcodeCheckedText}</p>
-                <LabelWithCopy labelValue={item.barCode} lableLinkTitle={t(TranslationKey.View)} />
-              </div>
-            ) : null}
+            <div>
+              {item.barCode ? (
+                <div className={styles.checkboxContainer}>
+                  <Checkbox disabled className={styles.checkbox} checked={barcodeChecked} />
+                  <p className={styles.text}>{barcodeText}</p>
+                  <LabelWithCopy labelValue={item.barCode} lableLinkTitle={t(TranslationKey.View)} />
+                </div>
+              ) : null}
+
+              {item.transparencyFile ? (
+                <div className={styles.checkboxContainer}>
+                  <Checkbox disabled className={styles.checkbox} checked={transparencyChecked} />
+                  <p className={styles.text}>{transparencyText}</p>
+                  <LabelWithCopy labelValue={item.transparencyFile} lableLinkTitle={t(TranslationKey.View)} />
+                </div>
+              ) : null}
+            </div>
           </>
         ) : null}
       </div>

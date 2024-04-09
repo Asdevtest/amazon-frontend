@@ -62,7 +62,7 @@ export const useStyles = makeStyles()(theme => ({
   product: {
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    gap: 10,
   },
 
   item: {
