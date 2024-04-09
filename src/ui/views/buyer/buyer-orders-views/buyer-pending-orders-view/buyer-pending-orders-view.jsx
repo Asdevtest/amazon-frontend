@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -91,6 +92,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           progressValue={viewModel.progressValue}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
+          onSaveOrderItem={viewModel.onSaveOrderItem}
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
         />
       </Modal>
@@ -107,6 +109,17 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={viewModel.onSubmitCancelOrder}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.showSuccessModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         />
       ) : null}
     </>

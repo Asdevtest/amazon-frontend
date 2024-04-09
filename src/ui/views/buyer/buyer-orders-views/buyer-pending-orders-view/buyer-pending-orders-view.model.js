@@ -3,6 +3,7 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BoxesModel } from '@models/boxes-model'
@@ -52,6 +53,7 @@ export class BuyerMyOrdersViewModel {
   selectedOrder = undefined
   barcode = ''
   showConfirmModal = false
+  showSuccessModal = false
 
   paymentMethods = []
 
@@ -208,6 +210,19 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+    }
+  }
+
+  async onSaveOrderItem(orderId, orderItem) {
+    try {
+      await BuyerModel.changeOrderItem(orderId, orderItem)
+      runInAction(() => {
+        this.showSuccessModalText = t(TranslationKey['Data saved successfully'])
+      })
+      this.onTriggerOpenModal('showSuccessModal')
+      this.loadData()
+    } catch (error) {
       console.error(error)
     }
   }
