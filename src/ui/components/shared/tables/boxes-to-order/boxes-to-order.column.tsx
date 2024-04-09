@@ -31,7 +31,6 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     filterable: false,
     sortable: false,
     width: 105,
-    height: 40,
   },
 
   {
@@ -40,7 +39,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={formatNormDateTime(row.updatedAt)} />,
     filterable: false,
     sortable: false,
-    width: 100,
+    width: 95,
   },
 
   {
@@ -65,7 +64,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} />,
     filterable: false,
     sortable: false,
-    width: 100,
+    width: 60,
     align: 'center',
   },
 
@@ -82,7 +81,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     },
     filterable: false,
     sortable: false,
-    width: 100,
+    width: 90,
   },
 
   {
@@ -91,7 +90,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.destination?.name} />,
     filterable: false,
     sortable: false,
-    width: 130,
+    width: 100,
   },
 
   {
@@ -131,7 +130,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     ),
     filterable: false,
     sortable: false,
-    width: 100,
+    width: 90,
   },
 
   {
@@ -144,6 +143,6 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     ),
     filterable: false,
     sortable: false,
-    width: 100,
+    width: 90,
   },
 ]

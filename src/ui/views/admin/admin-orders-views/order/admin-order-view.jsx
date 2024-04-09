@@ -24,8 +24,6 @@ export const AdminOrderView = observer(({ history }) => {
       storekeepers={viewModel.storekeepers}
       destinations={viewModel.destinations}
       order={viewModel.order}
-      boxes={viewModel.orderBoxes}
-      history={viewModel.history}
     />
   ) : null
 })
