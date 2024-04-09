@@ -3,7 +3,7 @@ import { memo, useEffect, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -254,7 +254,7 @@ export const EditBoxStorekeeperForm = memo(
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * inchesCoefficient, 2),
         }
       } else {
         return { ...boxFields, destinationId: boxFields.destinationId || null }
