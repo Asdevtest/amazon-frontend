@@ -9,7 +9,7 @@ import { UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/button'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -121,7 +121,7 @@ export const DeliveryParameters = ({
           labelClasses={styles.fieldLabel}
           inputComponent={
             <div className={styles.deadlineWrapper}>
-              <NewDatePicker
+              <DatePicker
                 disablePast
                 disabled={!isCanChange}
                 minDate={minDate}

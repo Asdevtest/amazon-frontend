@@ -17,7 +17,6 @@
     "translations:check": "npx ts-node scripts/translations-check"
   },
   "dependencies": {
-    "@date-io/date-fns": "1.x",
     "@emoji-mart/data": "^1.0.6",
     "@emoji-mart/react": "^1.0.1",
     "@emotion/css": "^11.10.0",
