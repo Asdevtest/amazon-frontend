@@ -2221,5 +2221,6 @@
   "Close the access": "Закрыть доступ",
   "No user found with this email.": "Пользователь с данной электронной почтой не найден.",
   "Storage": "Storage",
-  "Max. weight, kg": "Макс. вес, кг"
+  "Max. weight, kg": "Макс. вес, кг",
+  "Add at least 1 file": "Добавить не менее 1 файла"
 }

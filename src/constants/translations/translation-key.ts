@@ -2224,5 +2224,6 @@ export enum TranslationKey {
   'No user found with this email.' = 'No user found with this email.',
   'Storage' = 'Storage',
   'Max. weight, kg' = 'Max. weight, kg',
+  'Add at least 1 file' = 'Add at least 1 file',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
