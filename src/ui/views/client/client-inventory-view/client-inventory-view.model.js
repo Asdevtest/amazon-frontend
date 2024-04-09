@@ -1,5 +1,6 @@
 import { makeObservable, reaction, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
+import { v4 as uuid } from 'uuid'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -473,14 +474,14 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         }
 
         const newTableData = []
-        const postfix = '-child'
+        const postfix = uuid()
 
         if (result?.childProducts?.length) {
           for (const child of result.childProducts) {
             newTableData.push({
               ...child,
-              id: child?._id + postfix,
-              hierarchy: [id, child?._id + postfix],
+              id: postfix,
+              hierarchy: [id, postfix],
               isTreeRow: true,
             })
           }
@@ -489,14 +490,17 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         if (result?.parentProduct) {
           newTableData.push({
             ...result?.parentProduct,
-            id: result?.parentProduct?._id + postfix,
-            hierarchy: [id, result?.parentProduct?._id + postfix],
+            id: postfix,
+            hierarchy: [id, postfix],
             isTreeRow: true,
           })
         }
 
         this.tableData = this.tableData.concat(newTableData)
         this.setRequestStatus(loadingStatus.SUCCESS)
+
+        console.log('newTableData :>> ', newTableData)
+        console.log(' this.tableData :>> ', this.tableData)
 
         return !!newTableData?.length
       }
