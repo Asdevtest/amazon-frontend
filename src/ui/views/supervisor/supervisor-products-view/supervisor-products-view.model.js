@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 
 import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
@@ -17,15 +16,15 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { ProductStatusGroups, filtersFields } from './supervisor-products-view.constants'
+import { filtersFields } from './supervisor-products-view.constants'
 
 export class SupervisorProductsViewModel {
   history = undefined
   requestStatus = undefined
 
   nameSearchValue = ''
-  currentFilterStatus = ProductStatusByKey[ProductStatus.DEFAULT]
-  currentStatusGroup = ProductStatusGroups.allProducts
+  currentFilterStatus = ''
+  currentStatusGroup = ''
   baseProducts = []
   productsMy = []
 

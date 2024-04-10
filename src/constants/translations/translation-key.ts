@@ -2225,5 +2225,9 @@ export enum TranslationKey {
   'Storage' = 'Storage',
   'Max. weight, kg' = 'Max. weight, kg',
   'Add at least 1 file' = 'Add at least 1 file',
+  "Buyer's product in progress" = "Buyer's product in progress",
+  'Search for supplier from client' = 'Search for supplier from client',
+  'Product check from a researcher' = 'Product check from a researcher',
+  'Temporarily delayed' = 'Temporarily delayed',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
