@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, memo, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,15 +9,16 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './set-files-modal.style'
 
 interface SetTransparencyProps {
-  tmpFiles: string[]
+  tmpFiles: UploadFileType[]
   currentFiles: string
   onCloseModal: (condition: boolean) => void
-  onClickSave: (files: string[]) => void
+  onClickSave: (files: UploadFileType[]) => void
   modalTitle?: string
   LabelTitle?: string
   maxNumberOfiles?: number
@@ -25,13 +26,19 @@ interface SetTransparencyProps {
 
 export const SetFilesModal: FC<SetTransparencyProps> = memo(props => {
   const { onClickSave, onCloseModal, tmpFiles, currentFiles, modalTitle, LabelTitle, maxNumberOfiles } = props
-  const { classes: styles } = useStyles()
 
-  const [files, setFiles] = useState(tmpFiles?.length ? tmpFiles : [])
+  const { classes: styles } = useStyles()
+  const [files, setFiles] = useState<UploadFileType[]>([])
+
+  useEffect(() => {
+    if (tmpFiles.length > 0) {
+      setFiles(tmpFiles)
+    }
+  }, [tmpFiles])
 
   return (
-    <div className={styles.modalWrapper}>
-      <p className={styles.modalTitle}>{modalTitle ? modalTitle : t(TranslationKey['Add barcode'])}</p>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{modalTitle ? modalTitle : t(TranslationKey['Add barcode'])}</p>
 
       {currentFiles && (
         <LabelWithCopy
@@ -46,16 +53,15 @@ export const SetFilesModal: FC<SetTransparencyProps> = memo(props => {
 
       <UploadFilesInput images={files} setImages={setFiles} maxNumber={maxNumberOfiles || 1} />
 
-      <div className={styles.saveBox}>
+      <div className={styles.buttons}>
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={!files.length && !tmpFiles?.length}
-          className={styles.saveBtn}
           onClick={() => onClickSave(files)}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={() => onCloseModal(false)}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={() => onCloseModal(false)}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

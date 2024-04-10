@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -186,9 +187,9 @@ export class ClientOrderViewModel {
 
       await this.getOrderById()
 
-      this.onTriggerOpenModal('showWarningInfoModal')
-
       this.onTriggerOpenModal('showConfirmModal')
+
+      toast.success(t(TranslationKey['Order successfully created!']))
     } catch (error) {
       console.error(error)
     }
