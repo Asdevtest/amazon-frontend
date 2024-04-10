@@ -28,9 +28,10 @@ interface BoxesToOrderProps {
   platformSettings: IPlatformSettings
 }
 
-export const BoxesToOrder: FC<BoxesToOrderProps> = observer(({ formFields, platformSettings }) => {
-  const { classes: styles } = useStyles()
+export const BoxesToOrder: FC<BoxesToOrderProps> = observer(props => {
+  const { formFields, platformSettings } = props
 
+  const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new BoxesToOrderModel(formFields))
 
   return (

@@ -6,9 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { OrderContent } from '@components/contents/order-content'
-import { BoxForm } from '@components/forms/box-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
@@ -34,21 +32,16 @@ export const ClientOrderView = observer(({ history }) => {
     <>
       {viewModel.order ? (
         <OrderContent
-          isClient
           storekeepers={viewModel.storekeepers}
           destinations={viewModel.destinations}
           userInfo={viewModel.userInfo}
           platformSettings={viewModel.platformSettings}
           order={viewModel.order}
-          boxes={viewModel.orderBoxes}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickCancelOrder={viewModel.onClickCancelOrder}
-          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
           onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
           onClickReorder={viewModel.onClickReorder}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       ) : null}
 
@@ -68,17 +61,6 @@ export const ClientOrderView = observer(({ history }) => {
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
-        />
-      </Modal>
-
-      <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
 
@@ -119,20 +101,6 @@ export const ClientOrderView = observer(({ history }) => {
           onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       ) : null}
-
-      <Modal
-        openModal={viewModel.showBoxViewModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-      >
-        <BoxForm
-          userInfo={viewModel.userInfo}
-          box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
-        />
-      </Modal>
     </>
   )
 })

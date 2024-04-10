@@ -64,6 +64,5 @@ export interface IBox {
   weightFinalAccountingKgWarehouse: number
   volumeWeightKgWarehouse: number
   storage: string
-  // TODO: local field, remove in future
-  tmpImages: UploadFileType[]
+  tmpImages: UploadFileType[] // local field, remove in future
 }
