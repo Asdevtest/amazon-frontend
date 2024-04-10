@@ -18,20 +18,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '16px',
   },
-  iconBtnAccept: {
-    backgroundColor: 'rgba(30, 220, 30, 1)',
-  },
-  iconBtnAcceptRevoke: {
-    backgroundColor: 'rgba(224, 32, 32, 1)',
-  },
-
-  iconBtn: {
-    maxHeight: 40,
-    maxWidth: 40,
-    color: '#fff',
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: 4,
-  },
 
   InfoWrapper: {
     width: '100%',
@@ -82,10 +68,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalWrapper: {
-    padding: 30,
-    maxWidth: 1200,
+    padding: 10,
+    width: 1200,
   },
-  paper: {},
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
 
   buttonsBox: {
     marginTop: 20,
@@ -94,25 +84,11 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'end',
     gap: '10px',
   },
-  saveBtn: { width: '190px', height: '40px' },
-  tableWrapper: {
-    marginTop: '15px',
-  },
-  noBoxesText: {
-    color: theme.palette.text.general,
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
-    marginBottom: '24px',
-  },
+
   deadlineWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 5,
-  },
-
-  hidden: {
-    display: 'none',
   },
 
   label: {
@@ -137,10 +113,6 @@ export const useStyles = makeStyles()(theme => ({
   inputField: {
     width: 225,
     height: 40,
-  },
-
-  trackNumberPhotoBtn: {
-    width: 225,
   },
 
   trackNumberPhotoWrapper: {
@@ -184,19 +156,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'end',
   },
 
-  addBoxButton: {
-    width: '229px',
-    height: '40px',
-  },
-
-  fieldLabel: {
-    margin: 0,
-  },
-  cancelBtn: {
-    height: '40px',
-    width: '190px',
-    color: theme.palette.text.general,
-  },
   amazonTitle: {
     width: '310px',
     color: theme.palette.text.general,
@@ -240,11 +199,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'start',
     justifyContent: 'space-between',
     marginBottom: '30px',
-  },
-
-  tableTitleContainer: {
-    marginTop: '30px',
-    marginBottom: '10px',
   },
 
   tableTitle: {
@@ -308,33 +262,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: 0,
   },
 
-  inputWrapper: {
-    height: 'auto',
-  },
-  supplierButtonWrapper: {
-    display: 'flex',
-    gap: '10px',
-    alignItems: 'center',
-  },
-  supplierButtonText: {
-    width: '98px',
-    fontSize: '12px',
-    lineHeight: '14px',
-    fontWeight: '400',
-    color: theme.palette.text.second,
-  },
-  supplierCheckboxWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    cursor: 'pointer',
-  },
-
-  supplierCheckboxWrapperDisabled: {
-    cursor: 'unset',
-  },
-
   checkboxTitle: {
     fontWeight: 400,
     fontSize: 14,
@@ -342,12 +269,7 @@ export const useStyles = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
-  seeCommentsButton: {
-    display: 'flex',
-    padding: '0 38px',
 
-    gap: 20,
-  },
   seeCommentsText: {
     fontWeight: 400,
     fontSize: 14,

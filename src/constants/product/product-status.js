@@ -133,7 +133,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey.All
 
     case ProductStatus.RESEARCHER_CREATED_PRODUCT:
-      return TranslationKey['Product on check with Supervisor']
+      return TranslationKey['Check of goods from resercher']
 
     case ProductStatus.RESEARCHER_FOUND_SUPPLIER:
       return TranslationKey['Researcher found supplier']
@@ -178,7 +178,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey['Created by Client']
 
     case ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR:
-      return TranslationKey['Product on check with Supervisor']
+      return TranslationKey['Finding a supplier from a client']
 
     case ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH:
       return TranslationKey['Is in search of a Buyer']
@@ -218,7 +218,7 @@ export const translateStatusForResearcher = status => {
       return TranslationKey['New product']
 
     case ProductStatus.RESEARCHER_CREATED_PRODUCT:
-      return TranslationKey['Product on check with Supervisor']
+      return TranslationKey['Check of goods from resercher']
 
     case ProductStatus.RESEARCHER_FOUND_SUPPLIER:
       return TranslationKey['Researcher found supplier']

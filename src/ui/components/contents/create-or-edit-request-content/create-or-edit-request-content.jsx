@@ -18,7 +18,7 @@ import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker, TimePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
@@ -596,7 +596,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     containerClasses={styles.fieldContainer}
                     inputComponent={
                       <div>
-                        <NewDatePicker
+                        <DatePicker
                           disablePast
                           minDate={minDate}
                           className={cx(styles.field, styles.datePicker)}
@@ -618,7 +618,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     containerClasses={styles.fieldContainer}
                     inputComponent={
                       <div>
-                        <DatePickerTime
+                        <TimePicker
                           className={cx(styles.field, styles.datePicker)}
                           value={formFields.request.timeoutAt}
                           onChange={onChangeField('request')('timeoutAt')}

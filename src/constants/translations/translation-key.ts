@@ -2224,6 +2224,8 @@ export enum TranslationKey {
   'No user found with this email.' = 'No user found with this email.',
   'Storage' = 'Storage',
   'Max. weight, kg' = 'Max. weight, kg',
+  'Check of goods from resercher' = 'Check of goods from resercher',
+  'Finding a supplier from a client' = 'Finding a supplier from a client',
   'Add at least 1 file' = 'Add at least 1 file',
   "Buyer's product in progress" = "Buyer's product in progress",
   'Search for supplier from client' = 'Search for supplier from client',
