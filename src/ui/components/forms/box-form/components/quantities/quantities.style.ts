@@ -2,7 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    width: 400,
+    minWidth: 'max-content',
+    maxWidth: 360,
     display: 'flex',
     alignItems: 'center',
     gap: 20,
