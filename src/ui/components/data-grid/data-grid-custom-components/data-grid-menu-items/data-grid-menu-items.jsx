@@ -27,7 +27,7 @@ import { MultilineTextCell } from '@components/data-grid/data-grid-cells'
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Input } from '@components/shared/input'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -167,6 +167,7 @@ export const IsNeedPurchaseFilterMenuItem = memo(
       onClose,
       data,
       table,
+      defaultOption,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -250,8 +251,9 @@ export const IsNeedPurchaseFilterMenuItem = memo(
 
           {currentOption === 'second' && (
             <NumberFieldMenuItem
-              data={data.purchaseQuantity}
-              field={'purchaseQuantity'}
+              data={defaultOption ? data?.toRefill : data?.purchaseQuantity}
+              field={defaultOption ? 'toRefill' : 'purchaseQuantity'}
+              defaultOption={defaultOption}
               table={table}
               filterRequestStatus={filterRequestStatus}
               onClickFilterBtn={onClickFilterBtn}
@@ -2032,14 +2034,14 @@ export const FromToDateMenuItem = memo(
               <Typography title={t(TranslationKey.From)} className={styles.fromToText}>
                 {t(TranslationKey.From)}
               </Typography>
-              <NewDatePicker className={styles.dateInput} value={fromDate} onChange={setFromDate} />
+              <DatePicker className={styles.dateInput} value={fromDate} onChange={setFromDate} />
             </div>
             <div className={styles.fromToDatesSubWrapper}>
               <Typography title={t(TranslationKey.To)} className={styles.fromToText}>
                 {t(TranslationKey.To)}
               </Typography>
 
-              <NewDatePicker className={styles.dateInput} value={toDate} onChange={setToDate} />
+              <DatePicker className={styles.dateInput} value={toDate} onChange={setToDate} />
             </div>
           </div>
 
@@ -2252,7 +2254,7 @@ export const NumberFieldMenuItem = memo(
       table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
-
+      defaultOption,
       onClickAccept,
       onClickFilterBtn,
       asBlock = false,
@@ -2294,7 +2296,7 @@ export const NumberFieldMenuItem = memo(
       }, [currentFilterData])
 
       useEffect(() => {
-        onClickFilterBtn(field, table)
+        onClickFilterBtn(field, table, defaultOption ? `;storekeeper[$eq]="${defaultOption}"` : '')
         setIsNotFixedValue(checkIsNotFixedValue(field))
       }, [])
 
@@ -2429,29 +2431,16 @@ export const InStockMenuItem = memo(
       const [toValue, setToValue] = useState('')
 
       useEffect(() => {
-        onClickFilterBtn(field, table)
+        onClickFilterBtn(field, table, `;storekeeper[$eq]="${defaultOption}"`)
       }, [])
 
-      const newData = {
-        ...data,
-        filterData: data.filterData
-          .slice()
-          .filter(el => el)
-          .sort(
-            (a, b) =>
-              Number(data.currentFilterData?.some(item => item._id === b._id)) -
-                Number(data.currentFilterData?.some(item => item._id === a._id)) ||
-              Number(b.amountInBoxes) - Number(a.amountInBoxes),
-          ),
-      }
-
-      const { filterData, currentFilterData } = newData
+      const { filterData, currentFilterData } = data
 
       const [choosenItems, setChoosenItems] = useState(currentFilterData)
 
       const onClickItem = obj => {
-        if (choosenItems.some(item => item._id === obj._id)) {
-          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+        if (choosenItems.some(item => item === obj)) {
+          setChoosenItems(choosenItems.slice().filter(item => item !== obj))
         } else {
           setChoosenItems([...choosenItems, obj])
         }
@@ -2460,60 +2449,25 @@ export const InStockMenuItem = memo(
         setChoosenItems(currentFilterData)
       }, [currentFilterData])
 
-      const storekepeers = Array.from(new Set(filterData.map(el => el.storekeeper.name)))
-
-      const [currentOption, setCurrentOption] = useState(null)
-
       const [itemsForRender, setItemsForRender] = useState(filterData || [])
       const [nameSearchValue, setNameSearchValue] = useState('')
 
       useEffect(() => {
         setItemsForRender(filterData)
-        setCurrentOption(defaultOption || data.currentFilterData?.[0]?.storekeeper?.name || storekepeers[0])
       }, [data.filterData])
 
       useEffect(() => {
         const filter = filterData?.filter(
           item =>
-            (nameSearchValue
-              ? String(item.amountInBoxes).toLowerCase().includes(nameSearchValue?.toLowerCase())
-              : true) &&
-            (fromValue || fromValue === 0 ? Number(item.amountInBoxes) >= Number(fromValue) : true) &&
-            (toValue || toValue === 0 ? Number(item.amountInBoxes) <= Number(toValue) : true) &&
-            item.storekeeper.name === currentOption,
+            (nameSearchValue ? String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
+            (fromValue || fromValue === 0 ? Number(item) >= Number(fromValue) : true) &&
+            (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true),
         )
         setItemsForRender(filter)
-      }, [nameSearchValue, fromValue, toValue, currentOption, choosenItems, data.filterData])
+      }, [nameSearchValue, fromValue, toValue, choosenItems, data.filterData])
 
       return (
         <div title="" className={styles.shopsDataWrapper}>
-          <div>
-            <FormControl className={styles.formControl}>
-              <FormLabel title={t(TranslationKey['Search by'])} className={styles.radioLable}>
-                {t(TranslationKey['Search by']) + ':'}
-              </FormLabel>
-              <RadioGroup
-                row
-                className={styles.radioGroupTwoItems}
-                value={currentOption}
-                onChange={e => {
-                  setCurrentOption(e.target.value)
-                  setChoosenItems([])
-                }}
-              >
-                {storekepeers.map((el, index) => (
-                  <FormControlLabel
-                    key={index}
-                    className={styles.radioOption}
-                    value={el}
-                    control={<Radio className={styles.radioControl} />}
-                    label={el}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </div>
-
           <div className={styles.numInputsWrapper}>
             <Input
               title={t(TranslationKey.From)}
@@ -2556,27 +2510,18 @@ export const InStockMenuItem = memo(
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender
-                        // .filter(el => el)
-                        // .sort(
-                        // (a, b) =>
-                        // Number(choosenItems?.some(item => item._id === b._id)) -
-                        //   Number(choosenItems?.some(item => item._id === a._id)) ||
-                        // Number(b.amountInBoxes) - Number(a.amountInBoxes),
-                        // )
-                        ?.map((el, index) => {
-                          const value = el.amountInBoxes /* || t(TranslationKey.Empty) */
-                          const valueChecked = choosenItems?.some(item => item._id === el._id)
+                      {itemsForRender?.map((el, index) => {
+                        const valueChecked = choosenItems?.some(item => item === el)
 
-                          return (
-                            <div key={index} className={styles.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={el.amountInBoxes} className={styles.shopName}>
-                                {value}
-                              </div>
+                        return (
+                          <div key={index} className={styles.shop}>
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <div title={el} className={styles.shopName}>
+                              {el}
                             </div>
-                          )
-                        })}
+                          </div>
+                        )
+                      })}
                     </>
                   ) : (
                     <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
@@ -2591,7 +2536,7 @@ export const InStockMenuItem = memo(
             <Button
               onClick={e => {
                 onClose(e)
-                onChangeFullFieldMenuItem(choosenItems, 'boxAmounts')
+                onChangeFullFieldMenuItem(choosenItems, 'amountInBoxes')
                 onClickAccept()
               }}
             >

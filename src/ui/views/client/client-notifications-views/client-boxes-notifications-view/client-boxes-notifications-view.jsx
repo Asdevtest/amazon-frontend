@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxViewForm } from '@components/forms/box-view-form'
+import { BoxForm } from '@components/forms/box-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -15,22 +15,29 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { styles } from './client-boxes-notifications-view.style'
+import { useStyles } from './client-boxes-notifications-view.style'
 
 import { ClientBoxesNotificationsViewModel } from './client-boxes-notifications-view.model'
 
-export const ClientBoxesNotificationsViewRaw = props => {
+export const ClientBoxesNotificationsView = observer(props => {
+  const { classes: styles } = useStyles()
+
   const [viewModel] = useState(() => new ClientBoxesNotificationsViewModel({ history: props.history }))
-  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <>
+    <div className={styles.container}>
+      <Button disabled={viewModel.selectedRowIds?.length <= 1} onClick={viewModel.handleChangePriceFewBoxes}>
+        {t(TranslationKey.Confirm)}
+      </Button>
+
       <div className={styles.tableWrapper}>
         <CustomDataGrid
+          checkboxSelection
+          disableRowSelectionOnClick
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -54,6 +61,8 @@ export const ClientBoxesNotificationsViewRaw = props => {
               },
             },
           }}
+          rowSelectionModel={viewModel.selectedRowIds}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
@@ -81,11 +90,11 @@ export const ClientBoxesNotificationsViewRaw = props => {
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxViewForm
+        <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
         />
@@ -113,8 +122,6 @@ export const ClientBoxesNotificationsViewRaw = props => {
           onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       ) : null}
-    </>
+    </div>
   )
-}
-
-export const ClientBoxesNotificationsView = withStyles(observer(ClientBoxesNotificationsViewRaw), styles)
+})

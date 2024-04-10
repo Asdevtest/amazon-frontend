@@ -46,7 +46,6 @@ export const DataGridCustomColumnMenuComponent = props => {
     onClickFilterBtn,
     onChangeFullFieldMenuItem,
     onClickAccept,
-    isNeedPurchaseFilterData,
     isHaveBarCodeFilterData,
     ...other
   } = props
@@ -76,8 +75,11 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <IsNeedPurchaseFilterMenuItem
-          isNeedPurchaseFilterData={isNeedPurchaseFilterData}
+          isNeedPurchaseFilterData={
+            currentColumn?.field === 'purchaseQuantity' ? props.isNeedPurchaseFilterData : props.isNeedRefillFilterData
+          }
           data={props}
+          defaultOption={currentColumn?.defaultOption}
           table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
@@ -502,8 +504,8 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
         <InStockMenuItem
-          data={props?.boxAmounts}
-          field="boxAmounts"
+          data={props?.amountInBoxes}
+          field={'amountInBoxes'}
           defaultOption={currentColumn?.defaultOption}
           table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}

@@ -456,7 +456,7 @@ export class ClientWarehouseTasksViewModel {
         this.onTriggerOpenModal('showConfirmWithCommentModal')
       }
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 

@@ -43,8 +43,6 @@ export const useStyles = makeStyles()(theme => {
       '&:disabled': {
         cursor: 'default',
       },
-
-      margin: '0 3px 3px 0',
     },
 
     transparent: {
@@ -256,19 +254,21 @@ export const useStyles = makeStyles()(theme => {
 
       '&:hover': {
         border: `1px solid ${primaryHoverColor}`,
-        backgroundColor: `${primaryHoverBackground}`,
+        backgroundColor: `${primaryHoverBackground} !important`,
 
         '> svg': {
-          color: `${primaryHoverColor}`,
+          fill: `${primaryHoverBackground} !important`,
+          color: `${primaryHoverColor} !important`,
         },
       },
 
       '&:disabled': {
-        border: `1px solid ${primaryDisabledColor}`,
-        backgroundColor: backgroundGeneral,
+        border: `1px solid ${primaryDisabledColor} !important`,
+        backgroundColor: `${backgroundGeneral}  !important`,
 
         '> svg': {
-          color: primaryDisabledColor,
+          fill: `transparent !important`,
+          color: `${primaryDisabledColor} !important`,
         },
       },
     },

@@ -129,7 +129,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           </div>
         </div>
 
-        <div className={cx(styles.blockInfoWrapper, styles.blockInfoWrapperLast)}>
+        <div className={styles.blockInfoWrapper}>
           <div className={styles.blockInfoCell}>
             <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</p>
             {price && <p className={cx(styles.price, styles.blockInfoCellText)}>{toFixedWithDollarSign(price, 2)}</p>}

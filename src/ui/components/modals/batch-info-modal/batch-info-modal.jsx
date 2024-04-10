@@ -4,16 +4,13 @@ import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-import {
-  BatchWeightCalculationMethodTranslateKey,
-  getBatchWeightCalculationMethodForBox,
-} from '@constants/statuses/batch-weight-calculations-method'
+import { BatchWeightCalculationMethodTranslateKey } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
-import { BoxViewForm } from '@components/forms/box-view-form'
+import { BoxForm } from '@components/forms/box-form'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -36,8 +33,6 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './batch-info-modal.style'
 
-import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
-
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
 export const BatchInfoModal = observer(
@@ -55,7 +50,6 @@ export const BatchInfoModal = observer(
 
     const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
 
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -101,8 +95,6 @@ export const BatchInfoModal = observer(
         setDataToRender(sourceBoxes)
       }
     }, [nameSearchValue, currentBatch])
-
-    const [curImageIndex, setCurImageIndex] = useState(0)
 
     const uploadTemplateFile = async () => {
       setIsFileDownloading(true)
@@ -403,31 +395,15 @@ export const BatchInfoModal = observer(
             openModal={viewModel.showBoxViewModal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           >
-            <BoxViewForm
-              storekeeper={currentBatch?.storekeeper}
+            <BoxForm
               userInfo={userInfo}
               box={viewModel.curBox}
-              batchHumanFriendlyId={currentBatch?.humanFriendlyId}
-              volumeWeightCoefficient={currentBatch?.volumeWeightDivide}
-              calcFinalWeightForBoxFunction={getBatchWeightCalculationMethodForBox(
-                currentBatch?.calculationMethod,
-                isActualGreaterTheVolume,
-              )}
-              setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-              onSubmitChangeFields={data => onSubmitChangeBoxFields(data)}
+              volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+              onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+              onSubmitChangeFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
             />
           </Modal>
-
-          {showPhotosModal ? (
-            <SlideshowGalleryModal
-              openModal={showPhotosModal}
-              files={currentBatch?.attachedDocuments}
-              currentFileIndex={curImageIndex}
-              onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-              onCurrentFileIndex={index => setCurImageIndex(index)}
-            />
-          ) : null}
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

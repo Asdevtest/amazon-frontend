@@ -13,11 +13,12 @@ import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkee
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/button'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { TruckIcon } from '@components/shared/svg-icons'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
@@ -452,7 +453,7 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <div className={styles.datePickerWrapper}>
-            <NewDatePicker
+            <DatePicker
               disablePast
               // error={!isValid(parsedDeadline) || isPast(parsedDeadline)}
               minDate={minDate}
@@ -573,7 +574,7 @@ export const OrderModalBodyRow = ({
                 <Typography className={styles.sumText}>
                   {t(TranslationKey['Order express delivery in China'])}
                 </Typography>
-                <img className={styles.deliveryImg} src="/assets/icons/truck.svg" alt="" />
+                <TruckIcon className={styles.deliveryImg} />
               </div>
             </div>
           </div>

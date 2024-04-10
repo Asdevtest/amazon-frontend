@@ -23,8 +23,6 @@ export const StorekeeperRedistributeBox = observer(
     destinations,
     storekeepers,
     requestStatus,
-    // addNewBoxModal,
-    // setAddNewBoxModal,
     selectedBox,
     onRedistribute,
     onTriggerOpenModal,

@@ -35,7 +35,6 @@ export const clientBoxesNotificationsViewColumns = handlers => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
-    // type: 'date',
   },
 
   {
@@ -54,7 +53,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 325,
+    width: 150,
     renderCell: params => (
       <ActionButtonsCell
         isFirstButton
@@ -76,7 +75,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
-    width: 400,
+    width: 270,
     renderCell: params => {
       return params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} />

@@ -159,7 +159,7 @@ export class AdminFeedbackViewModel {
         anotherUserId,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 

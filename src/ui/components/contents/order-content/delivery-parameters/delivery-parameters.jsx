@@ -9,10 +9,11 @@ import { UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/button'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { TruckIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -120,7 +121,7 @@ export const DeliveryParameters = ({
           labelClasses={styles.fieldLabel}
           inputComponent={
             <div className={styles.deadlineWrapper}>
-              <NewDatePicker
+              <DatePicker
                 disablePast
                 disabled={!isCanChange}
                 minDate={minDate}
@@ -160,7 +161,7 @@ export const DeliveryParameters = ({
       <Field
         labelClasses={styles.fieldLabel}
         label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
-        error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
+        tooltipAttentionContent={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
         inputComponent={
           <Button
             disabled={!isCanChange}
@@ -201,7 +202,7 @@ export const DeliveryParameters = ({
           color="primary"
         />
         <p>{t(TranslationKey['Order express delivery in China'])}</p>
-        <img className={styles.deliveryImg} src="/assets/icons/truck.svg" alt="" />
+        <TruckIcon className={styles.deliveryImg} />
       </div>
 
       <div

@@ -18,7 +18,7 @@ import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker, TimePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
@@ -372,6 +372,7 @@ export const CreateOrEditRequestContent = memo(props => {
     }
   }
 
+  const isNeedSeoInfo = currentSpec?.type === Specs.SEO && images.length === 0
   const disableSubmit =
     !formFields.request.title ||
     formFields.request.title.length > 100 ||
@@ -384,7 +385,8 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.specId ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
-    platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
+    platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price ||
+    isNeedSeoInfo
   const minDate = dayjs().add(1, 'day')
   const isFirstStep = curStep === stepVariant.STEP_ONE
   const isSecondStep = curStep === stepVariant.STEP_TWO
@@ -560,6 +562,10 @@ export const CreateOrEditRequestContent = memo(props => {
 
                 <UploadFilesInput minimized withComment images={images} setImages={setImages} />
 
+                {isNeedSeoInfo ? (
+                  <p className={styles.seoInfoText}>{t(TranslationKey['Add at least 1 file'])}</p>
+                ) : null}
+
                 <div className={styles.defaultMarginTop}>
                   <Button
                     disabled={!formFields.request?.productId}
@@ -590,7 +596,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     containerClasses={styles.fieldContainer}
                     inputComponent={
                       <div>
-                        <NewDatePicker
+                        <DatePicker
                           disablePast
                           minDate={minDate}
                           className={cx(styles.field, styles.datePicker)}
@@ -612,7 +618,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     containerClasses={styles.fieldContainer}
                     inputComponent={
                       <div>
-                        <DatePickerTime
+                        <TimePicker
                           className={cx(styles.field, styles.datePicker)}
                           value={formFields.request.timeoutAt}
                           onChange={onChangeField('request')('timeoutAt')}
@@ -1170,7 +1176,6 @@ export const CreateOrEditRequestContent = memo(props => {
       <Modal
         openModal={showCheckRequestByTypeExists}
         setOpenModal={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
-        dialogClassName={styles.dialogClassName}
       >
         <CheckRequestByTypeExists
           requestsData={requestIds}

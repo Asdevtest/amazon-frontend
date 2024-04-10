@@ -12,21 +12,23 @@ interface FourMonthesStockCellProps {
   value: string
   fourMonthesStockValue: string
   onClick: (rowId: string, value: string | number) => void
+  title?: string
   disabled?: boolean
+  isNotPepurchase?: boolean
 }
 
 export const FourMonthesStockCell: FC<FourMonthesStockCellProps> = memo(props => {
-  const { rowId, value, fourMonthesStockValue, onClick, disabled = false } = props
+  const { title, rowId, value, fourMonthesStockValue, isNotPepurchase, onClick, disabled = false } = props
 
   const { classes: styles } = useStyles()
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>{`${t(TranslationKey['To repurchase'])}: ${value}`}</p>
+      <p className={styles.title}>{`${title || t(TranslationKey['To repurchase'])}: ${value}`}</p>
 
       <ChangeInputCell
         isInteger
-        isPepurchase
+        isPepurchase={!isNotPepurchase}
         disabled={disabled}
         rowId={rowId}
         text={fourMonthesStockValue}

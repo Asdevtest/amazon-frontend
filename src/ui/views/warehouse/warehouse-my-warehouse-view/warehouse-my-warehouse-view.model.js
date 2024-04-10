@@ -245,6 +245,7 @@ export class WarehouseMyWarehouseViewModel {
         trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       this.getBoxesMy()
@@ -953,7 +954,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
