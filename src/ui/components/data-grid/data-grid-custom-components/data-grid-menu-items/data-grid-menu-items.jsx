@@ -175,8 +175,10 @@ export const IsNeedPurchaseFilterMenuItem = memo(
     }) => {
       const [currentOption, setCurrentOption] = useState('first')
 
-      const firstOptionTitle = defaultOption ? 'For shipping' : t(TranslationKey.Repurchase)
-      const secondOptionTitle = defaultOption ? 'Quantity to shipping' : t(TranslationKey['Quantity of repurchase'])
+      const firstOptionTitle = defaultOption ? t(TranslationKey['For shipping']) : t(TranslationKey.Repurchase)
+      const secondOptionTitle = defaultOption
+        ? t(TranslationKey['Quantity to shipping'])
+        : t(TranslationKey['Quantity of repurchase'])
 
       const isSomeFilterActive =
         !isNeedPurchaseFilterData.isNeedPurchaseFilter || !isNeedPurchaseFilterData.isNotNeedPurchaseFilter

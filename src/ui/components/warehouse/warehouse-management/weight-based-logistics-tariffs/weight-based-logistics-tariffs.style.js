@@ -47,14 +47,4 @@ export const useStyles = makeStyles()(theme => ({
   address: {
     color: theme.palette.text.second,
   },
-
-  placeAddBtn: {
-    width: '159px',
-    height: '40px',
-    marginLeft: 30,
-    [theme.breakpoints.down(768)]: {
-      width: '91px',
-      marginLeft: 0,
-    },
-  },
 }))

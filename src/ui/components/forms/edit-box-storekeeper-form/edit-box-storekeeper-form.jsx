@@ -3,7 +3,7 @@ import { memo, useEffect, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
-import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -227,13 +227,14 @@ export const EditBoxStorekeeperForm = memo(
     const handleChange = newAlignment => {
       if (newAlignment !== sizeSetting) {
         const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
+        const weightMultiplier = newAlignment === unitsOfChangeOptions.US ? poundsCoefficient : 1 / poundsCoefficient
 
         setBoxFields({
           ...boxFields,
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / multiplier, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / multiplier, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / multiplier, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / multiplier, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * weightMultiplier, 2),
         })
 
         setSizeSetting(newAlignment)
@@ -254,7 +255,7 @@ export const EditBoxStorekeeperForm = memo(
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * inchesCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / poundsCoefficient, 2),
         }
       } else {
         return { ...boxFields, destinationId: boxFields.destinationId || null }

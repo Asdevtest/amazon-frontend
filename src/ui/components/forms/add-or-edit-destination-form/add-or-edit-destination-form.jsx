@@ -16,7 +16,7 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { useStyles } from './add-or-edit-destination-form.style'
 
 export const AddOrEditDestinationForm = observer(
-  ({ onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit }) => {
+  ({ onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit, onClickAddBtn }) => {
     const { classes: styles } = useStyles()
 
     const sourceFormFields = {
@@ -147,14 +147,25 @@ export const AddOrEditDestinationForm = observer(
           />
         </div>
 
-        <div className={styles.btnsWrapper}>
-          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
-            {t(TranslationKey.Save)}
+        <div className={styles.footerWrapper}>
+          <Button
+            styleType={ButtonStyle.SUCCESS}
+            tooltipInfoContent={t(TranslationKey['Add a new rate'])}
+            className={styles.placeAddBtn}
+            onClick={onClickAddBtn}
+          >
+            {t(TranslationKey.Add)}
           </Button>
 
-          <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
-            {t(TranslationKey.Cancel)}
-          </Button>
+          <div className={styles.btnsWrapper}>
+            <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
+              {t(TranslationKey.Save)}
+            </Button>
+
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
         </div>
       </div>
     )
