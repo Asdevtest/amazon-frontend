@@ -28,8 +28,8 @@ export enum UserInfoStatusKeys {
   SUPPLIER_PRICE_DOES_NOT_FIT = 'supplierPriceDoesNotFit',
   SUPPLIER_WAS_NOT_FOUND = 'supplierWasNotFound',
   VAC_FROM_CLIENT = 'vacFromClient',
-  // 'Product check from a researcher' - waiting for back to add
-  // 'Temporarily delayed' - waiting for back to add
+  CHECKING_PRODUCT_FROM_RESEARCHER = 'checkingProductFromResearcher',
+  TEMPORARILY_DELAYED = 'temporarilyDelayed ',
 }
 
 export const filterStatusConfig = [
@@ -101,12 +101,12 @@ export const filterStatusConfig = [
   {
     label: TranslationKey['Product check from a researcher'],
     value: [ProductStatus.RESEARCHER_CREATED_PRODUCT],
-    userInfoKey: '', // waiting for back to add
+    userInfoKey: UserInfoStatusKeys.CHECKING_PRODUCT_FROM_RESEARCHER,
   },
   {
     label: TranslationKey['Temporarily delayed'],
     value: [ProductStatus.TEMPORARILY_DALAYED],
-    userInfoKey: '', // waiting for back to add
+    userInfoKey: UserInfoStatusKeys.TEMPORARILY_DELAYED,
   },
 ]
 
