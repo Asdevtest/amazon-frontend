@@ -15,7 +15,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './supervisor-products-view.style'
 
-import { attentionStatuses, statusesList } from './statuses'
+import { attentionStatuses, statusConfig } from './supervisor-products-view.constants'
 import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 
 export const SupervisorProductsView = observer(({ history }) => {
@@ -29,9 +29,9 @@ export const SupervisorProductsView = observer(({ history }) => {
 
   const getRowClassName = params => attentionStatuses.includes(params.row.statusForAttention) && styles.attentionRow
 
-  const switcherSettingsConfig = statusesList.map(el => ({
+  const switcherSettingsConfig = statusConfig.map(el => ({
     icon: <span className={styles.badge}>{viewModel.userInfo[el.userInfoKey]}</span>,
-    label: () => t(productStatusTranslateKey(ProductStatusByCode[el.status])),
+    label: () => t(productStatusTranslateKey(ProductStatusByCode[el.status[0]])),
     value: el.userInfoKey,
   }))
 
@@ -83,7 +83,6 @@ export const SupervisorProductsView = observer(({ history }) => {
               },
             },
           }}
-          density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.isLoading}
           onSortModelChange={viewModel.onChangeSortingModel}

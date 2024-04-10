@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { ProductStatus, ProductStatusByKey, ProductStatusGroups } from '@constants/product/product-status'
+import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 
 import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
@@ -17,43 +17,35 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { filtersFields } from './supervisor-products-view.comstants'
+import { ProductStatusGroups, filtersFields } from './supervisor-products-view.constants'
 
 export class SupervisorProductsViewModel {
   history = undefined
   requestStatus = undefined
 
   nameSearchValue = ''
-
   currentFilterStatus = ProductStatusByKey[ProductStatus.DEFAULT]
   currentStatusGroup = ProductStatusGroups.allProducts
-
   baseProducts = []
   productsMy = []
+
+  productCardModal = false
 
   sortModel = []
   startFilterModel = undefined
   filterModel = { items: [] }
-  densityModel = 'compact'
-  showAsinCheckerModal = false
   paginationModel = { page: 0, pageSize: 15 }
   rowCount = 0
   columnVisibilityModel = {}
-
-  productCardModal = false
-
   rowHandlers = {
     onClickShowProduct: id => this.onClickTableRow(id),
   }
-
   columnsModel = supervisorProductsViewColumns(this.rowHandlers)
-
   orderedYesNoFilterData = {
     yes: true,
     no: true,
     handleFilters: (yes, no) => this.onHandleOrderedFilter(yes, no),
   }
-
   onHandleOrderedFilter = (yes, no) => {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
@@ -66,14 +58,11 @@ export class SupervisorProductsViewModel {
 
     this.loadData()
   }
-
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => this.loadData(),
-
     orderedYesNoFilterData: this.orderedYesNoFilterData,
-
     ...dataGridFiltersInitializer(filtersFields),
   }
 
@@ -101,21 +90,18 @@ export class SupervisorProductsViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
     this.getProductsMy()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
     this.getProductsMy()
   }
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
     this.getProductsMy()
   }
@@ -142,7 +128,6 @@ export class SupervisorProductsViewModel {
             items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
           }
         : state.filterModel
-
       this.paginationModel = state.paginationModel
       this.columnVisibilityModel = state.columnVisibilityModel
     }
@@ -150,7 +135,6 @@ export class SupervisorProductsViewModel {
 
   onSearchSubmit(searchValue) {
     this.nameSearchValue = searchValue
-
     this.getProductsMy()
   }
 
@@ -193,13 +177,9 @@ export class SupervisorProductsViewModel {
 
       const result = await SupervisorModel.getProductsMyPag({
         filters: this.getFilters() + `${ordered !== null ? `;ordered[$eq]=${ordered}` : ''}`,
-
         statusGroup: this.currentStatusGroup,
-
         limit: this.paginationModel.pageSize,
-
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
@@ -237,7 +217,6 @@ export class SupervisorProductsViewModel {
   onClickResetFilters() {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
-
       ...dataGridFiltersInitializer(filtersFields),
     }
 
