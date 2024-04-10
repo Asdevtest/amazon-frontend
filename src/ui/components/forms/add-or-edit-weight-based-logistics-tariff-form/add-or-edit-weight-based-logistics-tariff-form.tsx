@@ -12,7 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -451,7 +451,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     [styles.deadlineError]: checkDateByDeadline(formFields.cls),
                   })}
                 >
-                  <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
+                  <DatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
                   {!!formFields.cls && checkDateByDeadline(formFields.cls) && (
                     <p className={styles.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
@@ -471,7 +471,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     [styles.deadlineError]: checkDateByDeadline(formFields.etd),
                   })}
                 >
-                  <NewDatePicker disablePast value={formFields.etd} onChange={onChangeField('etd')} />
+                  <DatePicker disablePast value={formFields.etd} onChange={onChangeField('etd')} />
 
                   {!!formFields.etd && checkDateByDeadline(formFields.etd) && (
                     <p className={styles.deadlineErrorText}>
@@ -492,7 +492,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     [styles.deadlineError]: checkDateByDeadline(formFields.eta),
                   })}
                 >
-                  <NewDatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
+                  <DatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
                   {!!formFields.eta && checkDateByDeadline(formFields.eta) && (
                     <p className={styles.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}

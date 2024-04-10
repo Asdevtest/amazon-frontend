@@ -3,7 +3,7 @@ import { ChangeEvent, FC, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
@@ -34,9 +34,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
       <Field
         labelClasses={styles.label}
         label={t(TranslationKey['When do you want results?'])}
-        inputComponent={
-          <NewDatePicker disablePast minDate={minDate} value={date} onChange={(e: string) => setDate(e)} />
-        }
+        inputComponent={<DatePicker disablePast minDate={minDate} value={date} onChange={(e: string) => setDate(e)} />}
       />
       <Field
         labelClasses={styles.label}

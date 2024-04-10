@@ -7,7 +7,7 @@ import { Divider, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DateMonthYearPicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -126,8 +126,9 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
 
                   <div className={styles.indicatorPaper}>
                     <div className={styles.dateIndicatorWrapper}>
-                      <DateMonthYearPicker
+                      <DatePicker
                         disabled={formFields.statistics.length >= 12}
+                        views={['year', 'month']}
                         value={dateLine}
                         onChange={setDateLine}
                       />
@@ -152,10 +153,7 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
 
                     {formFields.statistics.map((indicator, index) => (
                       <div key={index} className={styles.dateIndicatorWrapper}>
-                        <DateMonthYearPicker
-                          value={indicator.month}
-                          onChange={onChangeStatisticsField(index, 'month')}
-                        />
+                        <DatePicker value={indicator.month} onChange={onChangeStatisticsField(index, 'month')} />
 
                         <div className={styles.actionDelButton} onClick={() => removeIndicator(index)}>
                           {'-'}
