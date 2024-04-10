@@ -35,7 +35,7 @@ export enum UserInfoStatusKeys {
 export const filterStatusConfig = [
   {
     label: TranslationKey.All,
-    value: [ProductStatus.DEFAULT],
+    value: [],
     userInfoKey: UserInfoStatusKeys.ALL_PRODUCTS,
   },
   {

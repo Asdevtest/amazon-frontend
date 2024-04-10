@@ -23,10 +23,9 @@ export class SupervisorProductsViewModel {
   requestStatus = undefined
 
   nameSearchValue = ''
-  currentFilterStatus = ''
-  currentStatusGroup = ''
   baseProducts = []
   productsMy = []
+  switcherFilterStatuses = []
 
   productCardModal = false
 
@@ -65,16 +64,6 @@ export class SupervisorProductsViewModel {
     ...dataGridFiltersInitializer(filtersFields),
   }
 
-  constructor({ history }) {
-    this.history = history
-
-    if (history.location?.state?.dataGridFilter) {
-      this.startFilterModel = history.location.state.dataGridFilter
-    }
-
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
-
   get userInfo() {
     return UserModel.userInfo
   }
@@ -85,6 +74,16 @@ export class SupervisorProductsViewModel {
 
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  constructor({ history }) {
+    this.history = history
+
+    if (history.location?.state?.dataGridFilter) {
+      this.startFilterModel = history.location.state.dataGridFilter
+    }
+
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
@@ -137,8 +136,8 @@ export class SupervisorProductsViewModel {
     this.getProductsMy()
   }
 
-  onClickStatusFilterButton(status) {
-    this.currentStatusGroup = status
+  onClickStatusFilterButton(statuses) {
+    this.switcherFilterStatuses = statuses
     this.getProductsMy()
   }
 
@@ -148,7 +147,6 @@ export class SupervisorProductsViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
     this.getProductsMy()
   }
@@ -167,15 +165,11 @@ export class SupervisorProductsViewModel {
   }
 
   async getProductsMy() {
-    this.setRequestStatus(loadingStatus.IS_LOADING)
     try {
-      const ordered =
-        this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
-          ? null
-          : this.columnMenuSettings.orderedYesNoFilterData.yes
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await SupervisorModel.getProductsMyPag({
-        filters: this.getFilters() + `${ordered !== null ? `;ordered[$eq]=${ordered}` : ''}`,
+        filters: this.getFilters(),
         statusGroup: this.currentStatusGroup,
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
@@ -204,12 +198,27 @@ export class SupervisorProductsViewModel {
   }
 
   getFilters(exclusion) {
+    const ordered =
+      this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
+        ? null
+        : this.columnMenuSettings.orderedYesNoFilterData.yes
+
     return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
-        'asin',
-        'amazonTitle',
-        'skuByClient',
-      ]),
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.nameSearchValue,
+        exclusion,
+        filtersFields,
+        ['asin', 'amazonTitle', 'skuByClient'],
+        {
+          ...(this.switcherFilterStatuses.length > 0 && {
+            status: { $eq: this.switcherFilterStatuses.join(',') },
+          }),
+          ...(ordered !== null && {
+            ordered: { $eq: ordered },
+          }),
+        },
+      ),
     )
   }
 
@@ -225,16 +234,11 @@ export class SupervisorProductsViewModel {
   async onClickFilterBtn(column) {
     try {
       this.setFilterRequestStatus(loadingStatus.IS_LOADING)
-      const ordered =
-        this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
-          ? null
-          : this.columnMenuSettings.orderedYesNoFilterData.yes
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
-        `supervisors/products/pag/my?filters=${this.getFilters(column)}&statusGroup=${this.currentStatusGroup}` +
-          `${ordered !== null ? `;ordered[$eq]=${ordered}` : ''}`,
+        `supervisors/products/pag/my?filters=${this.getFilters(column)}`,
       )
 
       if (this.columnMenuSettings[column]) {

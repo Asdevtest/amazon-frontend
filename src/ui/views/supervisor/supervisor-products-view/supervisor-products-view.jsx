@@ -40,7 +40,7 @@ export const SupervisorProductsView = observer(({ history }) => {
     <>
       <CustomSwitcher
         switchMode="medium"
-        condition={viewModel.currentStatusGroup}
+        condition={viewModel.switcherFilterStatuses}
         switcherSettings={customSwitcherConfig}
         changeConditionHandler={viewModel.onClickStatusFilterButton}
       />
