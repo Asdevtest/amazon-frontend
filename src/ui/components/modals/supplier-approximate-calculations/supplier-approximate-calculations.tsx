@@ -70,6 +70,12 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
                     columnVisibilityModel: viewModel?.columnVisibilityModel,
                     onColumnVisibilityModelChange: viewModel?.onColumnVisibilityModelChange,
                   },
+
+                  sortSettings: {
+                    sortModel: viewModel.sortModel,
+                    columnsModel: viewModel.columnsModel,
+                    onSortModelChange: viewModel.onChangeSortingModel,
+                  },
                 },
               }}
               rowSelectionModel={viewModel?.selectedRows}
