@@ -41,10 +41,8 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this._productId = productId
   }
 
-  constructor(supplierId: string) {
+  constructor(supplierId: string, productId: string) {
     const columns = SupplierApproximateCalculationsColumns() as GridColDef[]
-
-    const productId = new URL(window.location.href).searchParams.get('product-id') || ''
 
     const defaultGetDataMethodOptions = () => ({
       guid: productId,

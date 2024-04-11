@@ -46,7 +46,7 @@ export const SupplierApproximateCalculationsColumns = () => [
     renderCell: (params: GridValidRowModel) => (
       <ApproximateCell destinations={params.row.destinationVariations} field="minWeight" />
     ),
-    width: 100,
+    width: 120,
     align: 'center',
     filterable: false,
     sortable: false,
@@ -61,7 +61,22 @@ export const SupplierApproximateCalculationsColumns = () => [
     renderCell: (params: GridValidRowModel) => (
       <ApproximateCell destinations={params.row.destinationVariations} field="maxWeight" />
     ),
-    width: 100,
+    width: 120,
+    align: 'center',
+    filterable: false,
+    sortable: false,
+    table: DataGridFilterTables.STOREKEEPERS,
+    columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'pricePerKgUsd',
+    headerName: t(TranslationKey['Price per kg']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per kg']) + ', $'} />,
+    renderCell: (params: GridValidRowModel) => (
+      <ApproximateCell destinations={params.row.destinationVariations} field="pricePerKgUsd" />
+    ),
+    width: 130,
     align: 'center',
     filterable: false,
     sortable: false,
@@ -76,22 +91,7 @@ export const SupplierApproximateCalculationsColumns = () => [
       <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit with delivery to China']) + ', $'} />
     ),
     renderCell: (params: GridValidRowModel) => <MultilineTextCell text={toFixed(params.value, 2)} />,
-    width: 130,
-    align: 'center',
-    filterable: false,
-    sortable: false,
-    table: DataGridFilterTables.STOREKEEPERS,
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-
-  {
-    field: 'pricePerKgUsd',
-    headerName: t(TranslationKey['price per unit']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['price per unit']) + ', $'} />,
-    renderCell: (params: GridValidRowModel) => (
-      <ApproximateCell destinations={params.row.destinationVariations} field="pricePerKgUsd" />
-    ),
-    width: 130,
+    width: 150,
     align: 'center',
     filterable: false,
     sortable: false,
