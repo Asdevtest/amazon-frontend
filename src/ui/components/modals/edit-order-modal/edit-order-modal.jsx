@@ -868,7 +868,6 @@ export const EditOrderModal = memo(
             onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
             onSubmit={({ refundValue }) => {
               setTmpNewOrderFieldsState({ ...tmpNewOrderFieldsState, tmpRefundToClient: refundValue })
-
               setConfirmModalMode(confirmModalModes.STATUS)
               setShowConfirmModal(!showConfirmModal)
               setShowCheckQuantityModal(!showCheckQuantityModal)
