@@ -11,6 +11,11 @@ class GeneralModelStatic {
     return response.data
   }
 
+  getPagTagList = async options => {
+    const response = await restApiService.generalApi.apiV1GeneralTagsPagGet(options)
+    return response.data
+  }
+
   createTag = async title => {
     const response = await restApiService.generalApi.apiV1GeneralTagsPost({ body: { title } })
     return response.data
