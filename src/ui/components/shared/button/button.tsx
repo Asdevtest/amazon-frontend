@@ -60,8 +60,6 @@ export const Button: FC<ButtonProps> = memo(props => {
   const tooltipPositionStyle =
     isNeedTooltip && tooltipPosition === TooltipPositions.CENTER ? styles.tooltipsCenterWrapper : styles.tooltipsWrapper
 
-  const isNotIconAndOutlined = !iconButton && isOutlined
-
   return (
     <button
       title={defaultButtonTooltip || ''}
@@ -83,9 +81,9 @@ export const Button: FC<ButtonProps> = memo(props => {
           [styles.casual]: styleType === ButtonStyle.CASUAL,
           [styles.default]: styleType === ButtonStyle.DEFAULT,
 
-          [styles.primary]: styleType === ButtonStyle.PRIMARY && isNotIconAndOutlined,
-          [styles.danger]: styleType === ButtonStyle.DANGER && isNotIconAndOutlined,
-          [styles.success]: styleType === ButtonStyle.SUCCESS && isNotIconAndOutlined,
+          [styles.primary]: styleType === ButtonStyle.PRIMARY && !iconButton,
+          [styles.danger]: styleType === ButtonStyle.DANGER && !iconButton,
+          [styles.success]: styleType === ButtonStyle.SUCCESS && !iconButton,
 
           [styles.outlinedPrimary]: styleType === ButtonStyle.PRIMARY && isOutlined,
           [styles.outlinedSuccess]: styleType === ButtonStyle.SUCCESS && isOutlined,
