@@ -11,6 +11,7 @@ export const observerConfig = {
   _pinnedRows: observable,
   _isSaveBaseData: observable,
   _baseTableData: observable,
+  _pinnedColumns: observable,
 
   filtersFields: computed,
   columnMenuSettings: computed,
@@ -22,6 +23,7 @@ export const observerConfig = {
   additionalPropertiesGetFilters: computed,
   pinnedRows: computed,
   baseTableData: computed,
+  pinnedColumns: computed,
 
   setColumnMenuSettings: action.bound,
   getFilters: action.bound,

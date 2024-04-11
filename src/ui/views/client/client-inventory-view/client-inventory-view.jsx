@@ -69,8 +69,6 @@ export const ClientInventoryView = observer(({ history }) => {
 
   const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
 
-  console.log('viewModel.columnMenuSettings :>> ', viewModel.columnMenuSettings)
-
   return (
     <>
       <Header
@@ -94,7 +92,7 @@ export const ClientInventoryView = observer(({ history }) => {
           checkboxSelection
           disableRowSelectionOnClick
           pinnedRows={viewModel.pinnedRows}
-          pinnedColumns={viewModel.columnMenuSettings.pinnedColumns}
+          pinnedColumns={viewModel.pinnedColumns}
           getTreeDataPath={row => row?.hierarchy}
           groupingColDef={groupingColDef(viewModel.onClickGetChildProducts)}
           getCellClassName={getCellClassName}
@@ -109,7 +107,11 @@ export const ClientInventoryView = observer(({ history }) => {
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-            columnMenu: viewModel.columnMenuSettings,
+            columnMenu: {
+              ...viewModel.columnMenuSettings,
+              pinnedColumns: viewModel.pinnedColumns,
+              onClickPinButton: viewModel.handlePinColumn,
+            },
 
             toolbar: {
               presetsSettings: {

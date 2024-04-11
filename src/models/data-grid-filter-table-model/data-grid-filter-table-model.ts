@@ -78,6 +78,17 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this._additionalPropertiesGetFilters = additionalProperties
   }
 
+  _pinnedColumns: GridPinnedColumns = {
+    left: [],
+    right: [],
+  }
+  get pinnedColumns() {
+    return this._pinnedColumns
+  }
+  set pinnedColumns(pinnedColumns: GridPinnedColumns) {
+    this._pinnedColumns = pinnedColumns
+  }
+
   _pinnedRows: IPinnedRows = pinnedRowsInitialValue
   get pinnedRows() {
     return this._pinnedRows
@@ -124,7 +135,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
     this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)
 
-    this.columnMenuSettings.pinnedColumns = {
+    this._pinnedColumns = {
       left: [],
       right: [],
     }
@@ -150,12 +161,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       onClickFilterBtn: (field: string, table: string) => this.onClickFilterBtn(field, table),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),
       onClickAccept: () => this.getMainTableData(),
-      onClickPinButton: (pinnedColumns: GridPinnedColumns) => this.handlePinColumn(pinnedColumns),
 
-      // pinnedColumns: {
-      //   left: [],
-      //   right: [],
-      // },
       filterRequestStatus: loadingStatus.SUCCESS,
 
       ...additionalProperties,
@@ -169,7 +175,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   handlePinColumn(pinnedColumns: GridPinnedColumns) {
-    this.columnMenuSettings.pinnedColumns = pinnedColumns
+    console.log('pinnedColumns :>> ', pinnedColumns)
+    this.pinnedColumns = pinnedColumns
     this.setDataGridState()
   }
 
@@ -282,7 +289,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       filterModel: this.filterModel,
       paginationModel: this.paginationModel,
       columnVisibilityModel: this.columnVisibilityModel,
-      pinnedColumns: this.columnMenuSettings?.pinnedColumns,
+      pinnedColumns: this.pinnedColumns,
     }
 
     TableSettingsModel.saveTableSettings(requestState, this._tableKey)
@@ -304,7 +311,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       // @ts-ignore
       this.columnVisibilityModel = state?.columnVisibilityModel
       // @ts-ignore
-      this.columnMenuSettings.pinnedColumns = state?.pinnedColumns
+      this.pinnedColumns = state?.pinnedColumns
     }
   }
 }
