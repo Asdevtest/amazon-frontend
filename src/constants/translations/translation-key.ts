@@ -2227,4 +2227,9 @@ export enum TranslationKey {
   'Check of goods from resercher' = 'Check of goods from resercher',
   'Finding a supplier from a client' = 'Finding a supplier from a client',
   'Add at least 1 file' = 'Add at least 1 file',
+  "Buyer's product in progress" = "Buyer's product in progress",
+  'Search for supplier from client' = 'Search for supplier from client',
+  'Product check from a researcher' = 'Product check from a researcher',
+  'Temporarily delayed' = 'Temporarily delayed',
+  // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
