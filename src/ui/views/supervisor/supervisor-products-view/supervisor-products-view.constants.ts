@@ -15,7 +15,7 @@ export const warningStatuses = [
   ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
   ProductStatus.RESEARCHER_CREATED_PRODUCT,
 ]
-export const errorStatuses = [ProductStatus.TEMPORARILY_DALAYED]
+export const errorStatuses = [ProductStatus.TEMPORARILY_DELAYED]
 
 export enum UserInfoStatusKeys {
   ALL_PRODUCTS = 'allProducts',
@@ -105,7 +105,7 @@ export const filterStatusConfig = [
   },
   {
     label: TranslationKey['Temporarily delayed'],
-    value: [ProductStatus.TEMPORARILY_DALAYED],
+    value: [ProductStatus.TEMPORARILY_DELAYED],
     userInfoKey: UserInfoStatusKeys.TEMPORARILY_DELAYED,
   },
 ]
