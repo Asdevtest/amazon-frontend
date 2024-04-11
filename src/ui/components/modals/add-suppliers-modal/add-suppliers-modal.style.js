@@ -1,7 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  root: {
+  wrapper: {
     width: 400,
     padding: 10,
     display: 'flex',
