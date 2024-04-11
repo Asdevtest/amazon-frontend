@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -10,33 +8,25 @@ import { Field } from '@components/shared/field'
 import { checkIsPositiveNum, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './check-quantity-form.style'
 
-export const CheckQuantityForm = ({
-  title,
-  description,
-  acceptText,
-  onClose,
-  onSubmit,
-  comparisonQuantity,
-  withRefund,
-  maxRefundNumber,
-}) => {
-  const { classes: styles, cx } = useStyles()
+export const CheckQuantityForm = props => {
+  const { title, description, acceptText, onClose, onSubmit, withRefund, maxRefundNumber } = props
+  const { classes: styles } = useStyles()
 
   const [quantityValue, setQuantityValue] = useState('')
+  const [valueIsEntered, setValueIsEntered] = useState(false)
+  const [refundValue, setRefundValue] = useState('')
 
   const onChangeQuantityValue = e => {
     if (checkIsPositiveNum(e.target.value)) {
-      setQuantityValue(e.target.value ? parseInt(e.target.value) : '')
+      setQuantityValue(e.target.value)
 
       setValueIsEntered(true)
     }
   }
-
-  const [refundValue, setRefundValue] = useState('')
 
   const onChangeRefundValue = e => {
     if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) && e.target.value <= maxRefundNumber) {
@@ -44,58 +34,58 @@ export const CheckQuantityForm = ({
     }
   }
 
-  const [valueIsEntered, setValueIsEntered] = useState(false)
-
-  const isBadValue = Number(quantityValue) !== Number(comparisonQuantity)
-
   return (
-    <div className={styles.root}>
-      <Typography className={styles.modalText}>{title}</Typography>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{title}</p>
 
-      <Typography className={styles.normalText}>{description}</Typography>
+      <div className={styles.flexContainer}>
+        <p className={styles.text}>{description}</p>
 
-      <Field
-        inputProps={{ maxLength: 10 }}
-        containerClasses={styles.inputContainer}
-        inputClasses={styles.input}
-        classes={{ input: styles.input }}
-        error={isBadValue && valueIsEntered && t(TranslationKey['Incorrect value'])}
-        value={quantityValue}
-        onChange={onChangeQuantityValue}
-      />
+        <Field
+          inputProps={{ maxLength: 10 }}
+          containerClasses={styles.inputContainer}
+          inputClasses={styles.input}
+          classes={{ input: styles.input }}
+          placeholder="0.00"
+          value={quantityValue}
+          onChange={onChangeQuantityValue}
+        />
+
+        <p className={styles.textRed}>{valueIsEntered && t(TranslationKey['Incorrect value'])}</p>
+      </div>
 
       {withRefund && (
-        <>
-          <Typography className={styles.normalText}>
-            {t(TranslationKey['Enter the amount of the refund to the Client']) + ', $'}
-          </Typography>
+        <div className={styles.flexContainer}>
+          <p>{t(TranslationKey['Enter the amount of the refund to the Client']) + ', $:'}</p>
 
           <Field
             inputProps={{ maxLength: 8 }}
             containerClasses={styles.inputContainer}
             inputClasses={styles.input}
             classes={{ input: styles.input }}
-            placeholder={'0.00'}
+            placeholder="0.00"
             value={refundValue}
             onChange={onChangeRefundValue}
           />
-        </>
+        </div>
       )}
 
-      <Typography className={styles.normalText}>{acceptText}</Typography>
+      <div className={styles.flexContainer}>
+        <p>{acceptText}</p>
 
-      <div className={styles.buttonsWrapper}>
-        <Button
-          disabled={isBadValue || !valueIsEntered || !quantityValue}
-          className={styles.button}
-          onClick={() => onSubmit({ refundValue })}
-        >
-          {t(TranslationKey.Yes)}
-        </Button>
+        <div className={styles.buttons}>
+          <Button
+            styleType={ButtonStyle.SUCCESS}
+            disabled={!valueIsEntered || !quantityValue}
+            onClick={() => onSubmit({ refundValue })}
+          >
+            {t(TranslationKey.Yes)}
+          </Button>
 
-        <Button variant={ButtonVariant.OUTLINED} className={cx(styles.closeButton, styles.button)} onClick={onClose}>
-          {t(TranslationKey.No)}
-        </Button>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+            {t(TranslationKey.No)}
+          </Button>
+        </div>
       </div>
     </div>
   )

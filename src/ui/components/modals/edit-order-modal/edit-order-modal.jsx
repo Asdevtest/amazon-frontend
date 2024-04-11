@@ -89,7 +89,7 @@ export const EditOrderModal = memo(
     userInfo,
     requestStatus,
     order,
-    boxes,
+    hsCodeData,
     onTriggerOpenModal,
     modalHeadCells,
     onSubmitSaveOrder,
@@ -121,19 +121,6 @@ export const EditOrderModal = memo(
     const [trackNumber, setTrackNumber] = useState({ text: '', files: [] })
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
-
-    const deliveredGoodsCount =
-      boxes
-        ?.filter(el => !el.isDraft)
-        ?.reduce(
-          (acc, cur) =>
-            acc +
-            cur.items
-              .filter(item => item.product._id === order.product._id && item.order.id === order.id)
-              .reduce((acc, cur) => (acc += cur.amount), 0) *
-              cur.amount,
-          0,
-        ) || 0
 
     const initialState = {
       ...order,
@@ -172,12 +159,18 @@ export const EditOrderModal = memo(
 
     const [hsCode, setHsCode] = useState({
       _id: '',
+      chinaTitle: '',
+      hsCode: '',
+      material: '',
+      productUsage: '',
       productId: '',
-      chinaTitle: null,
-      hsCode: null,
-      material: null,
-      productUsage: null,
     })
+
+    useEffect(() => {
+      if (hsCodeData) {
+        setHsCode(hsCodeData)
+      }
+    }, [hsCodeData])
 
     const [orderPayments, setOrderPayments] = useState(orderFields.payments)
     const [photosToLoad, setPhotosToLoad] = useState(orderFields.images)
@@ -359,10 +352,7 @@ export const EditOrderModal = memo(
 
         setOrderFields(initialState)
 
-        if (
-          e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
-          deliveredGoodsCount < orderFields.amount
-        ) {
+        if (e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) {
           setShowCheckQuantityModal(!showCheckQuantityModal)
         } else {
           setConfirmModalMode(confirmModalModes.STATUS)
@@ -646,9 +636,7 @@ export const EditOrderModal = memo(
             checkIsPlanningPrice={checkIsPlanningPrice}
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}
             isPendingOrder={isPendingOrder}
-            updateSupplierData={updateSupplierData}
             usePriceInDollars={usePriceInDollars}
-            deliveredGoodsCount={deliveredGoodsCount}
             disableSubmit={disableSubmit}
             photosToLoad={photosToLoad}
             order={order}
@@ -864,11 +852,9 @@ export const EditOrderModal = memo(
             title={t(TranslationKey['Setting the stock status'])}
             description={t(TranslationKey['Enter the amount of goods that came into the warehouse']) + ':'}
             acceptText={t(TranslationKey.Continue) + '?'}
-            comparisonQuantity={deliveredGoodsCount}
             onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
             onSubmit={({ refundValue }) => {
               setTmpNewOrderFieldsState({ ...tmpNewOrderFieldsState, tmpRefundToClient: refundValue })
-
               setConfirmModalMode(confirmModalModes.STATUS)
               setShowConfirmModal(!showConfirmModal)
               setShowCheckQuantityModal(!showCheckQuantityModal)

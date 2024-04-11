@@ -17,7 +17,7 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { IBox } from '@typings/models/boxes/box'
 import { UploadFileType } from '@typings/shared/upload-file'
 
@@ -173,7 +173,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant={ButtonVariant.OUTLINED} onClick={setEditModal}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={setEditModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>
