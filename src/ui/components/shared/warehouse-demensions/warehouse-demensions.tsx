@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, memo } from 'react'
 
-import { unitWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { unitsOfChangeOptions, volumePoundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
@@ -36,7 +36,7 @@ export const WarehouseDemensions: FC<WarehouseDemensionsProps> = memo(
 
     const volumeWeight = calcVolumeWeightForBox(
       orderBox,
-      sizeSetting === unitsOfChangeOptions.EU ? volumeWeightCoefficient : unitWeightCoefficient,
+      sizeSetting === unitsOfChangeOptions.EU ? volumeWeightCoefficient : volumePoundsWeightCoefficient,
     )
 
     const finalWeight = Math.max(volumeWeight, orderBox.weighGrossKgWarehouse)
