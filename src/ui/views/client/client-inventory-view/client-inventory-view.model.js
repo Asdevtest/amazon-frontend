@@ -963,7 +963,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.getMainTableData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1629,7 +1629,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.tableData = []
       this.rowCount = 0
       this.setRequestStatus(loadingStatus.FAILED)

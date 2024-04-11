@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { GridPaginationModel } from '@mui/x-data-grid'
 
@@ -14,9 +15,12 @@ import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my
 
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { isBuyer, isClient } from '@typings/guards/roles'
 import { IBox } from '@typings/models/boxes/box'
+import { IFullUser } from '@typings/shared/full-user'
 import { IHSCode } from '@typings/shared/hs-code'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -39,17 +43,12 @@ export class BoxesToOrderModel {
   currentBox: IBox | undefined = undefined
   hsCodeData: IHSCode | undefined = undefined
   platformSettings: IPlatformSettings | undefined = undefined
+  uploadedFiles: UploadFileType[] = []
 
   showBoxModal = false
-  showWarningInfoModal = false
   showEditHSCodeModal = false
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
-
-  get userInfo() {
+  get userInfo(): IFullUser | undefined {
     return UserModel.userInfo
   }
 
@@ -120,21 +119,24 @@ export class BoxesToOrderModel {
 
   async onSubmitChangeBoxFields(box: IBox) {
     try {
+      // @ts-ignore
+      await onSubmitPostImages.call(this, { images: box.trackNumberFile, type: 'uploadedFiles' })
+
       await BoxesModel.editAdditionalInfo(box._id, {
-        clientComment: box.clientComment,
-        referenceId: box.referenceId,
-        fbaNumber: box.fbaNumber,
-        prepId: box.prepId,
+        ...(isClient(this.userInfo?.role) && {
+          clientComment: box.clientComment,
+          referenceId: box.referenceId,
+          fbaNumber: box.fbaNumber,
+          prepId: box.prepId,
+          storage: box.storage,
+        }),
+        ...(isBuyer(this.userInfo?.role) && {
+          trackNumberText: box.trackNumberText,
+          trackNumberFile: this.uploadedFiles,
+        }),
       })
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
-
-      this.onToggleModal(ModalNames.WARNING_INFO)
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       this.getBoxesOfOrder()
     } catch (error) {
