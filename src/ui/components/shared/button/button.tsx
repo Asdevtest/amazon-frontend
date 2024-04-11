@@ -81,9 +81,9 @@ export const Button: FC<ButtonProps> = memo(props => {
           [styles.casual]: styleType === ButtonStyle.CASUAL,
           [styles.default]: styleType === ButtonStyle.DEFAULT,
 
-          [styles.primary]: styleType === ButtonStyle.PRIMARY && !isOutlined,
-          [styles.danger]: styleType === ButtonStyle.DANGER && !isOutlined,
-          [styles.success]: styleType === ButtonStyle.SUCCESS && !isOutlined,
+          [styles.primary]: styleType === ButtonStyle.PRIMARY && !iconButton,
+          [styles.danger]: styleType === ButtonStyle.DANGER && !iconButton,
+          [styles.success]: styleType === ButtonStyle.SUCCESS && !iconButton,
 
           [styles.outlinedPrimary]: styleType === ButtonStyle.PRIMARY && isOutlined,
           [styles.outlinedSuccess]: styleType === ButtonStyle.SUCCESS && isOutlined,
