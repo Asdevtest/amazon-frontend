@@ -7,7 +7,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './supplier-payment-form.style'
 
@@ -41,7 +41,7 @@ export const SupplierPaymentForm = memo(props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button fullWidth variant={ButtonVariant.OUTLINED} onClick={onCloseModal}>
+        <Button fullWidth styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </diiv>
