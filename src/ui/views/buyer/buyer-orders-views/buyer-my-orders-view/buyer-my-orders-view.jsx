@@ -9,8 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -116,16 +114,12 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           paymentMethods={viewModel.paymentMethods}
           userInfo={viewModel.userInfo}
           updateSupplierData={viewModel.updateSupplierData}
-          pathnameNotPaid={viewModel.pathnameNotPaid}
-          photosToLoad={viewModel.photosToLoad}
           requestStatus={viewModel.requestStatus}
-          boxes={viewModel.curBoxesOfOrder}
           order={viewModel.selectedOrder}
+          hsCodeData={viewModel.hsCodeData}
           modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS()}
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
-          setPhotosToLoad={viewModel.setPhotosToLoad}
-          setUpdateSupplierData={viewModel.setUpdateSupplierData}
           onClickUpdataSupplierData={viewModel.onClickUpdataSupplierData}
           onClickSaveWithoutUpdateSupData={viewModel.onClickSaveWithoutUpdateSupData}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
@@ -147,32 +141,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showOrderPriceMismatchModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showOrderPriceMismatchModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
-          title={t(
-            TranslationKey[
-              'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
-            ],
-          )}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
-        />
-      ) : null}
-
-      {viewModel.showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-          title={viewModel.showSuccessModalText}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
         />
       ) : null}
 

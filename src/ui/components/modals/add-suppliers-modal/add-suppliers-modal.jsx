@@ -30,7 +30,7 @@ export const AddSuppliersModal = memo(props => {
   }
 
   return (
-    <div className={styles.root}>
+    <div className={styles.wrapper}>
       <p className={styles.title}>{t(TranslationKey['Adding a list of suppliers'])}</p>
 
       <div className={styles.flexContainer}>

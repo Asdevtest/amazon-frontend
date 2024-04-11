@@ -32,6 +32,7 @@ export const ClientOrderView = observer(({ history }) => {
     <>
       {viewModel.order ? (
         <OrderContent
+          isClient
           storekeepers={viewModel.storekeepers}
           destinations={viewModel.destinations}
           userInfo={viewModel.userInfo}

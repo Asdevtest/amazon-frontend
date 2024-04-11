@@ -1,7 +1,5 @@
 import { FC, memo } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -19,26 +17,23 @@ export const CommentsForm: FC<CommentsFormProps> = memo(({ comments, onCloseModa
   const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.root}>
-      <div className={styles.сommentsTitleWrapper}>
-        <Typography className={styles.сommentsTitle}>{t(TranslationKey['Comments on order'])}</Typography>
-      </div>
-      <div className={styles.сommentsTextWrapper}>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{t(TranslationKey['Comments on order'])}</p>
+
+      <div className={styles.сomments}>
         {comments?.length ? (
           comments.map((comment, index) => (
-            <Typography key={index} className={styles.сommentsText}>
+            <p key={index} className={styles.text}>
               {comment}
-            </Typography>
+            </p>
           ))
         ) : (
-          <Typography className={styles.сommentsText}>{t(TranslationKey.Missing)}</Typography>
+          <p className={styles.text}>{t(TranslationKey.Missing)}</p>
         )}
       </div>
 
-      <div className={styles.buttonsWrapper}>
-        <Button className={styles.okButton} onClick={onCloseModal}>
-          {t(TranslationKey.Ok)}
-        </Button>
+      <div className={styles.buttons}>
+        <Button onClick={onCloseModal}>{t(TranslationKey.Ok)}</Button>
       </div>
     </div>
   )

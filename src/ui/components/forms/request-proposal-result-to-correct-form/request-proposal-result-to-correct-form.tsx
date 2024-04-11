@@ -70,33 +70,31 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
   }, [totalTimeInMinute, images])
 
   return (
-    <div className={styles.root}>
-      <div className={styles.modalHeader}>
-        <p className={styles.modalTitle}>{t(TranslationKey['Send in for rework'])}</p>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <p className={styles.title}>{t(TranslationKey['Send in for rework'])}</p>
         <p className={styles.label}>{t(TranslationKey['No more than 5 times'])}</p>
       </div>
 
-      <div className={styles.reasonWrapper}>
-        <Field
-          multiline
-          className={styles.reasonInput}
-          inputProps={{ maxLength: 1100 }}
-          minRows={6}
-          maxRows={6}
-          label={t(TranslationKey['Reason for rework']) + '*'}
-          labelClasses={styles.label}
-          value={formFields.reason}
-          onChange={onChangeField('reason')}
-        />
-      </div>
+      <Field
+        multiline
+        className={styles.reasonInput}
+        inputProps={{ maxLength: 1100 }}
+        minRows={6}
+        maxRows={6}
+        label={t(TranslationKey['Reason for rework']) + '*'}
+        labelClasses={styles.label}
+        value={formFields.reason}
+        onChange={onChangeField('reason')}
+      />
 
       <div className={styles.totalTime}>
-        <p className={styles.time}>{t(TranslationKey['Time for rework']) + '*'}</p>
+        <p className={styles.label}>{t(TranslationKey['Time for rework']) + '*'}</p>
         <div className={styles.inputsWrapper}>
           <div className={styles.inputWrapper}>
             <Field
               oneLine
-              placeholder={'00'}
+              placeholder="00"
               value={hour}
               containerClasses={styles.inputField}
               inputClasses={styles.input}
@@ -111,7 +109,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
           <div className={styles.inputWrapper}>
             <Field
               oneLine
-              placeholder={'00'}
+              placeholder="00"
               value={minute}
               containerClasses={styles.inputField}
               inputClasses={styles.input}
@@ -124,13 +122,11 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
           </div>
         </div>
       </div>
-      <div className={styles.uploadFilesInput}>
-        <UploadFilesInput images={images} setImages={setImages} />
-      </div>
+
+      <UploadFilesInput images={images} setImages={setImages} />
 
       <div className={styles.btnWrapper}>
         <Button
-          className={styles.btnSubmit}
           disabled={!formFields.reason || totalTimeInMinute === '0'}
           onClick={() => onPressSubmitForm(formFields, images)}
         >

@@ -250,7 +250,8 @@ export const OrderProductModal = memo(props => {
 
   const disabledSubmit =
     orderState.some((order, index) => {
-      const isDeadlineTodayOrTomorrow = isPast(order.deadline) || isToday(order.deadline) || isTomorrow(order.deadline)
+      const isDeadlineTodayOrTomorrow =
+        isPast(new Date(order.deadline)) || isToday(new Date(order.deadline)) || isTomorrow(new Date(order.deadline))
 
       return (
         (productsForRender[index].currentSupplier &&
