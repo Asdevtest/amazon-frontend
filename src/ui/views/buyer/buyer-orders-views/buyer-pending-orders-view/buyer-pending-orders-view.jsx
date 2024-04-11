@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -69,8 +67,8 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
         />
       </div>
 
@@ -85,8 +83,8 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           paymentMethods={viewModel.paymentMethods}
           userInfo={viewModel.userInfo}
           requestStatus={viewModel.requestStatus}
-          boxes={viewModel.curBoxesOfOrder}
           order={viewModel.selectedOrder}
+          hsCodeData={viewModel.hsCodeData}
           modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS()}
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
@@ -96,32 +94,6 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
         />
       </Modal>
-
-      {viewModel.showConfirmModal ? (
-        <ConfirmationModal
-          // @ts-ignore
-          isWarning
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey['Attention. Are you sure?'])}
-          message={t(TranslationKey['Are you sure you want to cancel the order?'])}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.onSubmitCancelOrder}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-          title={viewModel.showSuccessModalText}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
     </>
   )
 })

@@ -42,7 +42,6 @@ export const SelectFields = ({
   showProgress,
   progressValue,
   setPhotosToLoad,
-  deliveredGoodsCount,
   hsCode,
   setHsCode,
   checkIsPlanningPrice,
@@ -70,39 +69,6 @@ export const SelectFields = ({
           </div>
 
           <div>
-            {Number(orderFields.status) >= Number(OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) && (
-              <Field
-                label={t(TranslationKey['Quantity of goods delivered'])}
-                labelClasses={styles.label}
-                inputComponent={
-                  <div
-                    className={cx(styles.deliveredGoodsWrapper, {
-                      [styles.deliveredGoodsSuccessWrapper]: deliveredGoodsCount >= order.amount,
-                    })}
-                  >
-                    <div className={styles.deliveredGoodsSubWrapper}>
-                      <Typography
-                        className={cx(styles.deliveredGoodsLeftText, {
-                          [styles.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
-                        })}
-                      >
-                        {deliveredGoodsCount}
-                      </Typography>
-                      <Typography className={styles.deliveredGoodsMiddleText}>{t(TranslationKey['out of'])}</Typography>
-                      <Typography
-                        className={cx(styles.deliveredGoodsRightText, {
-                          [styles.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
-                        })}
-                      >
-                        {order.amount}
-                      </Typography>
-                    </div>
-                    {deliveredGoodsCount < order.amount && <img src="/assets/icons/attention.svg" />}
-                  </div>
-                }
-              />
-            )}
-
             <Field
               disabled
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}

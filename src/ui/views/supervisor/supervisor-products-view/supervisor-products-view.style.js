@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: 320,
+    width: 360,
   },
 
   dataGridWrapper: {

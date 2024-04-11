@@ -5,49 +5,8 @@ export const useStyles = makeStyles()(theme => ({
     width: '210px',
   },
 
-  deliveredGoodsWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 32,
-    width: 208,
-    background: theme.palette.input.customDisabled,
-    borderRadius: 4,
-    padding: '0 8px',
-
-    border: '2px solid red',
-  },
-
-  deliveredGoodsSuccessWrapper: {
-    border: `2px solid #388E3C !important`,
-  },
   noFlex: {
     display: 'block',
-  },
-  deliveredGoodsSuccessText: {
-    color: '#388E3C',
-  },
-
-  deliveredGoodsSubWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-  },
-
-  deliveredGoodsLeftText: {
-    color: 'red',
-    fontSize: 18,
-    fontWeight: 600,
-  },
-
-  deliveredGoodsMiddleText: {
-    color: theme.palette.text.general,
-  },
-
-  deliveredGoodsRightText: {
-    color: theme.palette.primary.main,
-    fontSize: 18,
-    fontWeight: 600,
   },
 
   commentInput: {
