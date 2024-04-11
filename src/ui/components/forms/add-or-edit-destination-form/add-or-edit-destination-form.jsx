@@ -54,8 +54,8 @@ export const AddOrEditDestinationForm = observer(
       formFields.city === '' ||
       formFields.state === '' ||
       formFields.zipCode === '' ||
-      !/^[0-9]{5}$/.test(formFields.zipCode)
-    formFields.city === '' || formFields.state === ''
+      formFields.city === '' ||
+      formFields.state === ''
 
     return (
       <div className={styles.root}>
@@ -135,12 +135,7 @@ export const AddOrEditDestinationForm = observer(
           <Field
             label={t(TranslationKey['ZIP code'])}
             labelClasses={styles.label}
-            inputProps={{ maxLength: 255 }}
-            error={
-              formFields.zipCode &&
-              !/^[0-9]{5}$/.test(formFields.zipCode) &&
-              t(TranslationKey['numeric format, example:']) + ' 90001'
-            }
+            inputProps={{ maxLength: 64 }}
             value={formFields.zipCode}
             placeholder={t(TranslationKey['ZIP code']) + '...'}
             onChange={onChangeField('zipCode')}
