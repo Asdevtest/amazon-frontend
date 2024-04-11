@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx'
 import { GeneralModel } from '@models/general-model'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { ITagList } from '@typings/models/generals/tag-list'
 
 export class EditProductTagModel {
   requestStatus: loadingStatus = loadingStatus.SUCCESS
@@ -12,10 +13,16 @@ export class EditProductTagModel {
   offset: number = 0
   limit: number = 100
 
-  tags: any[] = []
+  tags: ITagList[] = []
+  selectedTags: ITagList[] = []
 
-  constructor(productId: string) {
+  get allTags() {
+    return this.tags
+  }
+
+  constructor(productId: string, selectedTags: ITagList[]) {
     this.productId = productId
+    this.selectedTags = selectedTags
 
     makeAutoObservable(this)
   }
@@ -28,6 +35,16 @@ export class EditProductTagModel {
       })
     } catch (e) {
       console.error(e)
+    }
+  }
+
+  setSeletedTag(tag: ITagList) {
+    const tagIndex = this.selectedTags.findIndex(el => el._id === tag._id)
+
+    if (tagIndex === -1) {
+      this.selectedTags.push(tag)
+    } else {
+      this.selectedTags.splice(tagIndex, 1)
     }
   }
 }
