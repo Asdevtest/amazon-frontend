@@ -257,7 +257,7 @@ export const useStyles = makeStyles()(theme => {
         backgroundColor: `${primaryHoverBackground} !important`,
 
         '> svg': {
-          fill: `${primaryHoverBackground} !important`,
+          // fill: `${primaryHoverBackground} !important`,
           color: `${primaryHoverColor} !important`,
         },
       },
@@ -267,7 +267,7 @@ export const useStyles = makeStyles()(theme => {
         backgroundColor: `${backgroundGeneral}  !important`,
 
         '> svg': {
-          fill: `transparent !important`,
+          // fill: `transparent !important`,
           color: `${primaryDisabledColor} !important`,
         },
       },
