@@ -24,8 +24,6 @@ export class BuyerFreeOrdersViewModel {
   curOrder = undefined
 
   ordersVacant = []
-  showBarcodeModal = false
-  showOrderModal = false
   showTwoVerticalChoicesModal = false
 
   warningTitle = ''
@@ -233,10 +231,6 @@ export class BuyerFreeOrdersViewModel {
   onClickContinueWorkButton() {
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     this.loadData()
-  }
-
-  onTriggerShowOrderModal() {
-    this.showOrderModal = !this.showOrderModal
   }
 
   onTriggerOpenModal(modal) {

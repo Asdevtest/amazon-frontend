@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
@@ -19,7 +20,6 @@ import { BuyerReadyForPaymentColumns } from '@components/table/table-columns/buy
 
 import { buyerMyOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -40,7 +40,6 @@ export class BuyerMyOrdersViewModel {
   ordersMy = []
   baseNoConvertedOrders = []
   isReadyForPayment = undefined
-  curBoxesOfOrder = []
   createBoxesResult = []
   paymentAmount = undefined
   nameSearchValue = ''
@@ -52,11 +51,9 @@ export class BuyerMyOrdersViewModel {
   progressValue = 0
   showProgress = false
   readyImages = []
-  showSuccessModalText = ''
+  hsCodeData = undefined
 
   showOrderModal = false
-  showSuccessModal = false
-  showOrderPriceMismatchModal = false
   showConfirmModal = false
   showPaymentMethodsModal = false
 
@@ -538,30 +535,11 @@ export class BuyerMyOrdersViewModel {
     try {
       await BuyerModel.changeOrderItem(orderId, orderItem)
 
-      runInAction(() => {
-        this.showSuccessModalText = t(TranslationKey['Data saved successfully'])
-      })
-
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       this.loadData()
     } catch (error) {
       console.error(error)
-    }
-  }
-
-  async getBoxesOfOrder(orderId) {
-    try {
-      const result = await BoxesModel.getBoxesOfOrder(orderId)
-      runInAction(() => {
-        this.curBoxesOfOrder = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).reverse()
-      })
-    } catch (error) {
-      console.error(error)
-
-      runInAction(() => {
-        this.curBoxesOfOrder = []
-      })
     }
   }
 
@@ -573,7 +551,7 @@ export class BuyerMyOrdersViewModel {
         this.selectedOrder = orderData
       })
 
-      this.getBoxesOfOrder(orderId)
+      await this.onClickHsCode(orderData.product._id)
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
@@ -639,7 +617,13 @@ export class BuyerMyOrdersViewModel {
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
       if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(orderFields.totalPrice, 2)) {
-        this.onTriggerOpenModal('showOrderPriceMismatchModal')
+        toast.warning(
+          t(
+            TranslationKey[
+              'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
+            ],
+          ),
+        )
       }
 
       orderFields = {
@@ -649,14 +633,12 @@ export class BuyerMyOrdersViewModel {
       }
 
       await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
-
       orderFields = {
         ...orderFields,
         images: this.readyImages,
       }
 
       await onSubmitPostImages.call(this, { images: editPaymentDetailsPhotos, type: 'readyImages' })
-
       orderFields = {
         ...orderFields,
         paymentDetails: this.readyImages,
@@ -842,11 +824,7 @@ export class BuyerMyOrdersViewModel {
             : mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
       })
 
-      runInAction(() => {
-        this.showSuccessModalText = t(TranslationKey['A task was created for the warehouse: "Receive a box"'])
-      })
-
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['A task was created for the warehouse: "Receive a box"']))
 
       await this.getBoxesOfOrder(order._id)
     } catch (error) {
@@ -961,5 +939,17 @@ export class BuyerMyOrdersViewModel {
 
   onLeaveColumnField() {
     this.onHover = null
+  }
+
+  async onClickHsCode(productId) {
+    try {
+      const response = await ProductModel.getProductsHsCodeByGuid(productId)
+
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

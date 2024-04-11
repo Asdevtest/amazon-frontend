@@ -20,7 +20,6 @@ export const CheckQuantityForm = ({
   acceptText,
   onClose,
   onSubmit,
-  comparisonQuantity,
   withRefund,
   maxRefundNumber,
 }) => {
@@ -46,8 +45,6 @@ export const CheckQuantityForm = ({
 
   const [valueIsEntered, setValueIsEntered] = useState(false)
 
-  const isBadValue = Number(quantityValue) !== Number(comparisonQuantity)
-
   return (
     <div className={styles.root}>
       <Typography className={styles.modalText}>{title}</Typography>
@@ -59,7 +56,7 @@ export const CheckQuantityForm = ({
         containerClasses={styles.inputContainer}
         inputClasses={styles.input}
         classes={{ input: styles.input }}
-        error={isBadValue && valueIsEntered && t(TranslationKey['Incorrect value'])}
+        error={valueIsEntered && t(TranslationKey['Incorrect value'])}
         value={quantityValue}
         onChange={onChangeQuantityValue}
       />
@@ -86,7 +83,7 @@ export const CheckQuantityForm = ({
 
       <div className={styles.buttonsWrapper}>
         <Button
-          disabled={isBadValue || !valueIsEntered || !quantityValue}
+          disabled={!valueIsEntered || !quantityValue}
           className={styles.button}
           onClick={() => onSubmit({ refundValue })}
         >
