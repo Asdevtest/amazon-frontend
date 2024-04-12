@@ -61,6 +61,11 @@ class ProductModelStatic {
     const response = await restApiService.product.apiV1ProductsParentPatch({ body })
     return response.data
   }
+
+  getProductTagsByGuid = async guid => {
+    const response = await restApiService.product.apiV1ProductsGuidTagsGet({ guid })
+    return response.data
+  }
 }
 
 export const ProductModel = new ProductModelStatic()

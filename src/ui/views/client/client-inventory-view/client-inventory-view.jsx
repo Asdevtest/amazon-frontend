@@ -16,6 +16,7 @@ import { ProductVariationsForm } from '@components/forms/product-variations-form
 import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
@@ -451,6 +452,14 @@ export const ClientInventoryView = observer(({ history }) => {
           onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
         />
       </Modal>
+
+      {viewModel.showEditProductTagsModal ? (
+        <EditProductTags
+          openModal={viewModel.showEditProductTagsModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
+          productId={viewModel.selectedRowId}
+        />
+      ) : null}
     </>
   )
 })

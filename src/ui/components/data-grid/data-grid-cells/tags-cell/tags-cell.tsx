@@ -40,7 +40,7 @@ export const TagsCell: FC<TagsCellProps> = memo(({ tags, onClickTag, onClickEdit
       </div>
 
       {onClickEdit ? (
-        <Button iconButton>
+        <Button iconButton onClick={onClickEdit}>
           <EditIcon />
         </Button>
       ) : null}
