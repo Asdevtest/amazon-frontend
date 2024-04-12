@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useRef } from 'react'
+import { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,14 +18,15 @@ import { SupplierApproximateCalculationsModel } from './supplier-approximate-cal
 interface SupplierApproximateCalculationsModalProps {
   openModal: boolean
   currentSupplierId: string
+  productId: string
   setOpenModal: (value: boolean) => void
 }
 
 export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalculationsModalProps> = observer(
-  ({ openModal, currentSupplierId, setOpenModal }) => {
+  ({ openModal, currentSupplierId, productId, setOpenModal }) => {
     const { classes: styles } = useStyles()
 
-    const viewModel = useRef(new SupplierApproximateCalculationsModel(currentSupplierId))
+    const [viewModel] = useState(() => new SupplierApproximateCalculationsModel(currentSupplierId, productId))
 
     return (
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
@@ -35,51 +36,57 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
           <CustomSwitcher
             fullWidth
             switchMode="medium"
-            condition={viewModel?.current?.currentStorekeeperId}
-            switcherSettings={viewModel?.current?.storekeepers}
-            changeConditionHandler={value => viewModel?.current?.setCurrentStorekeeper(value as string)}
+            condition={viewModel?.currentStorekeeperId}
+            switcherSettings={viewModel?.storekeepers}
+            changeConditionHandler={value => viewModel?.setCurrentStorekeeper(value as string)}
           />
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
               disableRowSelectionOnClick
-              rowCount={viewModel?.current.rowCount}
-              sortModel={viewModel?.current.sortModel}
-              filterModel={viewModel?.current.filterModel}
-              columnVisibilityModel={viewModel?.current.columnVisibilityModel}
-              paginationModel={viewModel?.current.paginationModel}
-              rows={viewModel?.current.tableData}
+              rowCount={viewModel?.rowCount}
+              sortModel={viewModel?.sortModel}
+              filterModel={viewModel?.filterModel}
+              columnVisibilityModel={viewModel?.columnVisibilityModel}
+              paginationModel={viewModel?.paginationModel}
+              rows={viewModel?.tableData}
               getRowHeight={() => 'auto'}
               getRowId={({ _id }: { _id: string }) => _id}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),
                 },
-                columnMenu: viewModel?.current.columnMenuSettings,
+                columnMenu: viewModel?.columnMenuSettings,
 
                 toolbar: {
                   resetFiltersBtnSettings: {
-                    onClickResetFilters: viewModel?.current.onClickResetFilters,
-                    isSomeFilterOn: viewModel?.current.isSomeFilterOn,
+                    onClickResetFilters: viewModel?.onClickResetFilters,
+                    isSomeFilterOn: viewModel?.isSomeFilterOn,
                   },
 
                   columsBtnSettings: {
-                    columnsModel: viewModel?.current.columnsModel,
+                    columnsModel: viewModel?.columnsModel,
 
-                    columnVisibilityModel: viewModel?.current.columnVisibilityModel,
-                    onColumnVisibilityModelChange: viewModel?.current.onColumnVisibilityModelChange,
+                    columnVisibilityModel: viewModel?.columnVisibilityModel,
+                    onColumnVisibilityModelChange: viewModel?.onColumnVisibilityModelChange,
+                  },
+
+                  sortSettings: {
+                    sortModel: viewModel.sortModel,
+                    columnsModel: viewModel.columnsModel,
+                    onSortModelChange: viewModel.onChangeSortingModel,
                   },
                 },
               }}
-              rowSelectionModel={viewModel?.current.selectedRows}
-              density={viewModel?.current.densityModel}
-              columns={viewModel?.current.columnsModel}
-              loading={viewModel?.current.requestStatus === loadingStatus.IS_LOADING}
-              onRowSelectionModelChange={viewModel?.current.onSelectionModel}
-              onSortModelChange={viewModel?.current.onChangeSortingModel}
-              onColumnVisibilityModelChange={viewModel?.current.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel?.current.onPaginationModelChange}
-              onFilterModelChange={viewModel?.current.onChangeFilterModel}
+              rowSelectionModel={viewModel?.selectedRows}
+              density={viewModel?.densityModel}
+              columns={viewModel?.columnsModel}
+              loading={viewModel?.requestStatus === loadingStatus.IS_LOADING}
+              onRowSelectionModelChange={viewModel?.onSelectionModel}
+              onSortModelChange={viewModel?.onChangeSortingModel}
+              onColumnVisibilityModelChange={viewModel?.onColumnVisibilityModelChange}
+              onPaginationModelChange={viewModel?.onPaginationModelChange}
+              onFilterModelChange={viewModel?.onChangeFilterModel}
             />
           </div>
         </div>

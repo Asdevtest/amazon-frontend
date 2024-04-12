@@ -1236,9 +1236,8 @@ export const CustomPlusIcon = props => (
     width="12"
     height="12"
     viewBox="0 0 12 12"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={{ width: 12, height: 12 }}
+    style={{ width: 12, height: 12, fill: 'currentColor' }}
   >
     <rect x="5" y="0" width="2" height="12" />
     <rect x="0" y="5" height="2" width="12" />
