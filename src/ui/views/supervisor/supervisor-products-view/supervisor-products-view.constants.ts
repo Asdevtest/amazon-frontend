@@ -29,7 +29,7 @@ export enum UserInfoStatusKeys {
   SUPPLIER_WAS_NOT_FOUND = 'supplierWasNotFound',
   VAC_FROM_CLIENT = 'vacFromClient',
   CHECKING_PRODUCT_FROM_RESEARCHER = 'checkingProductFromResearcher',
-  TEMPORARILY_DELAYED = 'temporarilyDelayed ',
+  TEMPORARILY_DELAYED = 'temporarilyDelayed',
 }
 
 export const filterStatusConfig = [

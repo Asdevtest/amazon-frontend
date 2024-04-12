@@ -132,8 +132,6 @@ export const ProductCardModal = observer(props => {
             handleProductActionButtons={viewModel?.handleProductActionButtons}
             formFieldsValidationErrors={viewModel?.formFieldsValidationErrors}
             setCurrentTab={tab => setCurrentTab(tab)}
-            acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-            showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
             productVariations={viewModel.productVariations}
             navigateToProduct={viewModel.navigateToProduct}
             unbindProductHandler={viewModel.unbindProductHandler}
