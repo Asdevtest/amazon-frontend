@@ -71,11 +71,6 @@ export class SupervisorProductViewModel {
 
   setOpenModal = undefined
 
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
-
   confirmModalSettings = {
     isWarning: false,
     message: '',
@@ -318,9 +313,7 @@ export class SupervisorProductViewModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      if (this.imagesForLoad?.length) {
-        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-      }
+      await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
 
       const statusesToClearBuyer = [
         ProductStatus.BUYER_FOUND_SUPPLIER,
@@ -343,11 +336,21 @@ export class SupervisorProductViewModel {
         buyerId: checkToBuyerNeedClear ? null : this.product.buyer?._id,
       }
 
-      await SupervisorModel.updateProduct(this.product._id, dataToUpdate)
+      if (dataToUpdate.status === ProductStatusByKey[ProductStatus.TEMPORARILY_DELAYED]) {
+        await SupervisorModel.changeProductStatus(this.product._id, {
+          status: dataToUpdate.status,
+        })
+      } else {
+        await SupervisorModel.updateProduct(this.product._id, dataToUpdate)
+      }
+
+      this.setOpenModal()
 
       this.loadData()
 
       updateDataHandler && (await updateDataHandler())
+
+      UserModel.getUsersInfoCounters()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {

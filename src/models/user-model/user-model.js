@@ -138,7 +138,7 @@ class UserModelStatic {
 
   async getUsersInfoCounters() {
     try {
-      const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
+      const response = await restApiService.userApi.apiV1UsersInfoCountersGet({ noCache: true })
 
       runInAction(() => {
         this.userInfo = { ...this.userInfo, ...response.data }

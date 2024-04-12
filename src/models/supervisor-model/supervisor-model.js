@@ -33,8 +33,11 @@ class SupervisorModelStatic {
     return response.data
   }
 
-  updateProductListing = async (guid, body) => {
-    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsListingGuidPatch({ guid, body })
+  changeProductStatus = async (guid, body) => {
+    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsGuidTemporarilyRejectedPatch({
+      guid,
+      body,
+    })
     return response.data
   }
 }

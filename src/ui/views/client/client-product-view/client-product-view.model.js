@@ -38,11 +38,6 @@ export class ClientProductViewModel {
   acceptMessage = ''
   updateDataHandler = undefined
 
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
-
   get currentData() {
     return this.product
   }
@@ -482,35 +477,6 @@ export class ClientProductViewModel {
         ),
       )
       this.getProductById()
-
-      runInAction(() => {
-        this.alertShieldSettings = {
-          showAlertShield: true,
-          alertShieldMessage: this.isValidLink
-            ? t(TranslationKey['Data was successfully saved'])
-            : t(
-                TranslationKey[
-                  'Data has been successfully saved, but some of the entered links may be invalid and were not uploaded.'
-                ],
-              ),
-        }
-
-        setTimeout(() => {
-          this.alertShieldSettings = {
-            ...this.alertShieldSettings,
-            showAlertShield: false,
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              showAlertShield: false,
-              alertShieldMessage: '',
-            }
-          }, 1000)
-        }, 3000)
-
-        this.isValidLink = true
-      })
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {

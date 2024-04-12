@@ -22,7 +22,7 @@ export const ProductStatus = {
   COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 'COMPLETE_PRICE_WAS_NOT_ACCEPTABLE',
   PURCHASED_PRODUCT: 'PURCHASED_PRODUCT',
   NO_PUBLISHED: 'NO_PUBLISHED',
-
+  TEMPORARILY_DELAYED: 'TEMPORARILY_DELAYED',
   CREATED_BY_CLIENT: 'CREATED_BY_CLIENT',
   FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR: 'FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR',
   FROM_CLIENT_TO_BUYER_FOR_RESEARCH: 'FROM_CLIENT_TO_BUYER_FOR_RESEARCH',
@@ -47,6 +47,7 @@ export const ProductStatusByCode = {
   // Статусы, которые поставит супервайзер по итогам проверки
   15: ProductStatus.CHECKED_BY_SUPERVISOR,
   20: ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP, // Если ставит этот статус - должны заплатить супервайзеру.
+  25: ProductStatus.TEMPORARILY_DELAYED,
   30: ProductStatus.TO_BUYER_FOR_RESEARCH,
   35: ProductStatus.BUYER_PICKED_PRODUCT, // статус проставляется автоматически после того как баер взял товар в работу
   // Статусы которые поставит байер по результатам своей работы.
