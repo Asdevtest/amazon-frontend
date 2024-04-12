@@ -1,8 +1,5 @@
 import { FC, memo } from 'react'
 
-import AutorenewIcon from '@mui/icons-material/Autorenew'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-
 import { docValidTypes } from '@constants/media/doc-types'
 import { imageValidTypes } from '@constants/media/image-types'
 import { videoValidTypes } from '@constants/media/video-types'
@@ -15,22 +12,18 @@ import { Field } from '@components/shared/field'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
-import { isRequestMedia, isUploadFileType } from '@typings/guards'
 
 import { useStyles } from './upload-files-input.style'
 
-import { CustomFileIcon } from '../custom-file-icon'
-import { SlideByType } from '../slide-by-type'
 import { CustomPlusIcon } from '../svg-icons'
-import { VideoPreloader } from '../video-preloader'
 
+import { Files } from './components'
 import { generateAcceptString } from './helpers/generate-accept-string'
 import { UploadFilesInputProps } from './upload-files-input.type'
 import { useUploadFilesInput } from './use-upload-files-input'
 
 export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
   const {
-    setImages,
     maxNumber = 50,
     acceptTypes = [...videoValidTypes, ...docValidTypes, ...imageValidTypes],
     disabled,
@@ -49,7 +42,8 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
   const {
     currentFileIndex,
     disabledLoadButton,
-    images,
+    files,
+    setFiles,
     linkInput,
     linkInputError,
     showImages,
@@ -128,20 +122,20 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
 
         {!withoutActionsButtons ? (
           <div className={styles.buttonsWrapper}>
-            <Button disabled={images?.length === 0} variant={ButtonVariant.OUTLINED} onClick={onShowImages}>
+            <Button disabled={files?.length === 0} variant={ButtonVariant.OUTLINED} onClick={onShowImages}>
               {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
             </Button>
 
             <p className={styles.imagesCount}>
-              <span className={styles.imagesCountSpan}>{`${images?.length || 0}/${maxNumber}`}</span>
+              <span className={styles.imagesCountSpan}>{`${files?.length || 0}/${maxNumber}`}</span>
               {t(TranslationKey.files)}
             </p>
 
             <Button
-              disabled={images?.length === 0}
+              disabled={files?.length === 0}
               styleType={ButtonStyle.DANGER}
               variant={ButtonVariant.OUTLINED}
-              onClick={() => setImages([])}
+              onClick={() => setFiles([])}
             >
               {t(TranslationKey['Remove all'])}
             </Button>
@@ -149,54 +143,15 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
         ) : null}
 
         {showImages ? (
-          <div className={styles.imagesWrapper} style={{ maxHeight }}>
-            {images?.map((image, index) => {
-              return (
-                <div key={index} className={styles.imageWrapper}>
-                  <div className={styles.file} onClick={() => onShowGalleryModal(index)}>
-                    <SlideByType
-                      isPreviews
-                      mediaFile={isUploadFileType(image) ? image : image?.fileLink}
-                      mediaFileIndex={index}
-                      ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.image} />}
-                      VideoComponent={({ videoSource }) => <VideoPreloader videoSource={videoSource} height={45} />}
-                      FileComponent={({ fileExtension }) => (
-                        <CustomFileIcon fileExtension={fileExtension} height="75%" />
-                      )}
-                    />
-                  </div>
-
-                  {withComment && isRequestMedia(image) ? (
-                    <Field
-                      oneLine
-                      multiline
-                      minRows={2}
-                      maxRows={2}
-                      placeholder={index + 1 + '.'}
-                      inputProps={{ maxLength: 64 }}
-                      containerClasses={styles.commentContainer}
-                      inputClasses={styles.commentClasses}
-                      classes={{ input: styles.comment }}
-                      value={image?.commentByClient}
-                      onChange={onChangeComment(index)}
-                    />
-                  ) : null}
-
-                  <div className={styles.iconsWrapper}>
-                    <button className={styles.iconButton}>
-                      <AutorenewIcon className={styles.icon} fontSize="small" />
-
-                      <input type="file" className={styles.uploadInput} onChange={onUploadFile(index)} />
-                    </button>
-
-                    <button className={styles.iconButton} onClick={() => onRemoveFile(index)}>
-                      <HighlightOffIcon className={styles.icon} fontSize="small" />
-                    </button>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+          <Files
+            files={files}
+            maxHeight={maxHeight}
+            withComment={withComment}
+            onRemoveFile={onRemoveFile}
+            onShowGalleryModal={onShowGalleryModal}
+            onChangeComment={onChangeComment}
+            onUploadFile={onUploadFile}
+          />
         ) : null}
       </div>
 
@@ -204,11 +159,11 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
         <SlideshowGalleryModal
           isEditable
           withoutMakeMainImage={!withComment}
-          files={images}
+          files={files}
           currentFileIndex={currentFileIndex}
           openModal={showGalleryModal}
           onOpenModal={onShowGalleryModal}
-          onChangeImagesForLoad={setImages}
+          onChangeImagesForLoad={setFiles}
         />
       ) : null}
     </>

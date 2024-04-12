@@ -4,7 +4,7 @@ import { FIRST_SLIDE } from '@components/shared/slideshow-gallery/slideshow-gall
 
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { isArrayOfRequestMedia, isArrayOfUploadFileType, isString, isUploadFileType } from '@typings/guards'
+import { isArrayOfRequestMedia, isString, isUploadFileType } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { SlideshowGalleryModalProps } from './slideshow-gallery-modal.type'
@@ -47,13 +47,13 @@ export const useSlideshowGalleryModal = ({
 
   const updateImagesForLoad = (media: UploadFileType[]) => {
     if (onChangeImagesForLoad) {
-      const updatedFiles = isArrayOfUploadFileType(files)
-        ? media
-        : files.map((file, index) => ({
+      const updatedFiles = isArrayOfRequestMedia(files)
+        ? files.map((file, index) => ({
             ...file,
             fileLink: media[index],
             // only change media files
           }))
+        : media
 
       onChangeImagesForLoad(updatedFiles)
     }
