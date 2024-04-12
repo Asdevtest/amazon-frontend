@@ -430,10 +430,10 @@ export class ClientAwaitingBatchesViewModel {
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
 
-        if (newBoxesIds.length) {
+        if (newBoxesIds?.length) {
           await BatchesModel.addBoxToBatch(batchToEdit._id, newBoxesIds)
         }
-        if (boxesToRemoveIds.length) {
+        if (boxesToRemoveIds?.length) {
           await BatchesModel.removeBoxFromBatch(batchToEdit._id, boxesToRemoveIds)
         }
 
