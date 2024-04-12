@@ -2230,5 +2230,7 @@
   "Finding a supplier from a client": "Поиск поставщика от клиента",
   "Add at least 1 file": "Добавить не менее 1 файла",
   "For shipping": "Для доставки",
-  "Quantity to shipping": "Количество для доставки"
+  "Quantity to shipping": "Количество для доставки",
+  "Patch notes": "Обновления",
+  "Add a patch note": "Добавить обновление"
 }

@@ -284,6 +284,11 @@ class UserModelStatic {
     const response = await restApiService.userApi.apiV1UsersLogoutPost({ body: { sessionCreatedAt } })
     return response.data
   }
+
+  async getPatchNotes() {
+    const response = await restApiService.userApi.apiV1UsersPatchNotesGet({ noCache: true })
+    return response.data
+  }
 }
 
 export const UserModel = new UserModelStatic()

@@ -294,6 +294,9 @@ const ModeratorDashboardView = lazy(() =>
 const ModeratorMyProductsView = lazy(() =>
   import('@views/moderator/moderator-my-products-view').then(module => ({ default: module.ModeratorMyProductsView })),
 )
+const ModeratorUpdatedView = lazy(() =>
+  import('@views/moderator/moderator-updated-view').then(module => ({ default: module.ModeratorUpdatedView })),
+)
 const ModeratorSettingsView = lazy(() =>
   import('@views/moderator/moderator-settings-view').then(module => ({ default: module.ModeratorSettingsView })),
 )
@@ -3076,6 +3079,20 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
       title: () => t(TranslationKey['My products']),
+    },
+  },
+
+  {
+    routePath: '/moderator/updated',
+    component: ModeratorUpdatedView,
+    exact: false,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Updated,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_UPDATED,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Updated),
     },
   },
 

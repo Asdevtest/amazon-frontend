@@ -2233,5 +2233,7 @@ export enum TranslationKey {
   'Temporarily delayed' = 'Temporarily delayed',
   'For shipping' = 'For shipping',
   'Quantity to shipping' = 'Quantity to shipping',
+  'Patch notes' = 'Patch notes',
+  'Add a patch note' = 'Add a patch note',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

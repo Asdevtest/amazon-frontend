@@ -11,6 +11,7 @@ import {
   IdeasIcon,
   InventoryIcon,
   Message,
+  ModeratorUpdatedIcon,
   MyBatchesIcon,
   MyFinanceIcon,
   MyNotificationsIcon,
@@ -1136,6 +1137,14 @@ export const navbarConfig = {
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
         user?.permissions?.some(item => item.key === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
+    },
+    {
+      icon: ModeratorUpdatedIcon,
+      title: () => t(TranslationKey.Updated),
+      route: '/moderator/updated',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_UPDATED,
+      checkHideBlock: () => true,
     },
 
     {
