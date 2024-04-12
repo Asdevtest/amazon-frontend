@@ -28,7 +28,7 @@ interface TagSelectorProps {
 
 export const TagSelector: FC<TagSelectorProps> = memo(props => {
   const { currentTags, getTags, handleSaveTags, isEditMode, prefix = '', placeholder = 'Input' } = props
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [tagList, setTagList] = useState<Tag[]>([])
   const [selectedTags, setSelectedTags] = useState<Tag[]>(currentTags)
@@ -86,6 +86,7 @@ export const TagSelector: FC<TagSelectorProps> = memo(props => {
               <TextField
                 {...params}
                 placeholder={placeholder}
+                classes={{ root: cx({ [styles.disableHover]: !textValue }) }}
                 value={textValue}
                 onInput={(event: ChangeEvent<HTMLInputElement>) => {
                   setTextValue(event.target.value)
