@@ -320,6 +320,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           title={t(TranslationKey['Confirmation of goods quantity'])}
           description={t(TranslationKey['Enter the amount of goods that came into the warehouse']) + ':'}
           acceptText={t(TranslationKey.Save) + '?'}
+          deliveredQuantity={actuallyAssembled}
           onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
           onSubmit={onClickRedistributeBtn}
         />
