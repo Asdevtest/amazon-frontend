@@ -60,7 +60,7 @@ export const Button: FC<ButtonProps> = memo(props => {
   const tooltipPositionStyle =
     isNeedTooltip && tooltipPosition === TooltipPositions.CENTER ? styles.tooltipsCenterWrapper : styles.tooltipsWrapper
 
-  const isNotIconAndOutlined = !iconButton && isOutlined
+  const isNotIconAndOutlined = !iconButton && !isOutlined
 
   return (
     <button
