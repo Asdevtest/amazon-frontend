@@ -279,6 +279,17 @@ export const clientInventoryColumns = (
     },
 
     {
+      field: 'currentSupplierProductionTerm',
+      headerName: t(TranslationKey['Production time']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
+      renderCell: params => <MultilineTextCell text={params.row.currentSupplier?.productionTerm} />,
+      valueGetter: params => params.row.currentSupplier?.productionTerm,
+      width: 120,
+      sortable: false,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+
+    {
       field: 'tags',
       headerName: t(TranslationKey.Tags),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
@@ -560,6 +571,10 @@ export const clientInventoryColumns = (
   }
 
   for (const column of defaultColumns) {
+    if (column.table) {
+      continue
+    }
+
     column.table = DataGridFilterTables.PRODUCTS
     column.sortable = false
   }

@@ -2231,5 +2231,7 @@ export enum TranslationKey {
   'Search for supplier from client' = 'Search for supplier from client',
   'Product check from a researcher' = 'Product check from a researcher',
   'Temporarily delayed' = 'Temporarily delayed',
+  'For shipping' = 'For shipping',
+  'Quantity to shipping' = 'Quantity to shipping',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

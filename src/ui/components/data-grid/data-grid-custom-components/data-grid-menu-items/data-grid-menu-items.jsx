@@ -175,6 +175,11 @@ export const IsNeedPurchaseFilterMenuItem = memo(
     }) => {
       const [currentOption, setCurrentOption] = useState('first')
 
+      const firstOptionTitle = defaultOption ? t(TranslationKey['For shipping']) : t(TranslationKey.Repurchase)
+      const secondOptionTitle = defaultOption
+        ? t(TranslationKey['Quantity to shipping'])
+        : t(TranslationKey['Quantity of repurchase'])
+
       const isSomeFilterActive =
         !isNeedPurchaseFilterData.isNeedPurchaseFilter || !isNeedPurchaseFilterData.isNotNeedPurchaseFilter
 
@@ -192,18 +197,18 @@ export const IsNeedPurchaseFilterMenuItem = memo(
             <FormControl className={styles.formControl}>
               <RadioGroup row className={styles.radioGroup} value={currentOption} onChange={handleCategory}>
                 <FormControlLabel
-                  title={t(TranslationKey.Repurchase)}
+                  title={firstOptionTitle}
                   className={styles.radioOption}
                   value="first"
                   control={<Radio className={styles.radioControl} />}
-                  label={t(TranslationKey.Repurchase)}
+                  label={firstOptionTitle}
                 />
                 <FormControlLabel
-                  title={t(TranslationKey['Quantity of repurchase'])}
+                  title={secondOptionTitle}
                   className={styles.radioOption}
                   value="second"
                   control={<Radio className={styles.radioControl} />}
-                  label={t(TranslationKey['Quantity of repurchase'])}
+                  label={secondOptionTitle}
                 />
               </RadioGroup>
             </FormControl>

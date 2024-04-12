@@ -18,6 +18,7 @@ import {
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { calcFinalWeightForBox } from '@utils/calculation'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -49,7 +50,15 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    valueGetter: ({ row }) => row.originalData.items?.map(item => item?.product?.asin).join(', '),
+    valueGetter: ({ row }) =>
+      row.originalData.items
+        ?.map(
+          item =>
+            `ASIN: ${item?.product?.asin || t(TranslationKey.Missing)} / SKU: ${
+              item?.product?.skuByClient || t(TranslationKey.Missing)
+            }`,
+        )
+        .join(', '),
     renderCell: params => {
       return params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} />
@@ -103,6 +112,13 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
         ]}
       />
     ),
+    valueGetter: ({ row }) => {
+      const shippingLabelLink = row?.originalData?.shippingLabel
+        ? getAmazonImageUrl(row?.originalData?.shippingLabel, true)
+        : t(TranslationKey.Missing)
+
+      return shippingLabelLink
+    },
     filterable: false,
     sortable: false,
     width: 280,

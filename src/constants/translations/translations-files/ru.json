@@ -2228,5 +2228,7 @@
   "Temporarily delayed": "Временно отклонен",
   "Check of goods from resercher": "Проверка товара от ресерчера",
   "Finding a supplier from a client": "Поиск поставщика от клиента",
-  "Add at least 1 file": "Добавить не менее 1 файла"
+  "Add at least 1 file": "Добавить не менее 1 файла",
+  "For shipping": "Для доставки",
+  "Quantity to shipping": "Количество для доставки"
 }
