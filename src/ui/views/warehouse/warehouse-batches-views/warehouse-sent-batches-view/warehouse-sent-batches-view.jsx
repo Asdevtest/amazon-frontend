@@ -5,11 +5,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
@@ -21,9 +18,9 @@ import { useStyles } from './warehouse-sent-batches-view.style'
 
 import { WarehouseSentBatchesViewModel } from './warehouse-sent-batches-view.model'
 
-export const WarehouseSentBatchesView = observer(({ history }) => {
+export const WarehouseSentBatchesView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new WarehouseSentBatchesViewModel({ history }))
+  const [viewModel] = useState(() => new WarehouseSentBatchesViewModel())
 
   useEffect(() => {
     viewModel.loadData()
@@ -31,78 +28,60 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
 
   return (
     <>
-      <div>
-        <div className={styles.headerWrapper}>
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            className={styles.openArchiveBtn}
-            onClick={viewModel.onTriggerArchive}
-          >
-            {viewModel.isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Open archive'])}
-          </Button>
+      <div className={styles.headerWrapper}>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onTriggerArchive}>
+          {viewModel.isArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey['Open archive'])}
+        </Button>
 
-          <SearchInput
-            inputClasses={styles.searchInput}
-            value={viewModel.nameSearchValue}
-            placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
+        <SearchInput
+          inputClasses={styles.searchInput}
+          value={viewModel.nameSearchValue}
+          placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
+          onSubmit={viewModel.onSearchSubmit}
+        />
 
-          <div />
-        </div>
-
-        <div className={styles.datagridWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            disableRowSelectionOnClick
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.currentData}
-            getRowHeight={() => 'auto'}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              columnMenu: viewModel.columnMenuSettings,
-
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
-          />
-        </div>
+        <div />
       </div>
 
-      <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+      <div className={styles.datagridWrapper}>
+        <CustomDataGrid
+          checkboxSelection
+          disableRowSelectionOnClick
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
+
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+            },
+          }}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
         />
-      </Modal>
+      </div>
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
@@ -130,18 +109,6 @@ export const WarehouseSentBatchesView = observer(({ history }) => {
           patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
           onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
-        />
-      ) : null}
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       ) : null}
     </>
