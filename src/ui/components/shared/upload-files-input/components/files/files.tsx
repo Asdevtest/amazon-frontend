@@ -22,8 +22,6 @@ export const Files: FC<FilesProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  console.log('files', files)
-
   return (
     <div className={styles.wrapper} style={{ maxHeight }}>
       {files.map((file, index) => (
