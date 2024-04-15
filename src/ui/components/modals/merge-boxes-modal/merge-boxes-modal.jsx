@@ -547,7 +547,7 @@ export const MergeBoxesModal = ({
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
-          RemoveDestinationRestriction
+          removeDestinationRestriction
           showCheckbox={showCheckbox}
           destinationsData={destinations}
           storekeepers={storekeepers?.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}

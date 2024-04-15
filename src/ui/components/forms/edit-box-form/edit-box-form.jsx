@@ -764,7 +764,7 @@ export const EditBoxForm = memo(
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
-            RemoveDestinationRestriction
+            removeDestinationRestriction
             showCheckbox={showCheckbox}
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}

@@ -378,7 +378,7 @@ export const Box: FC<BoxProps> = memo(props => {
       >
         <SelectStorekeeperAndTariffForm
           showCheckbox
-          RemoveDestinationRestriction
+          removeDestinationRestriction
           // @ts-ignore
           destinationsData={destinations}
           storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
