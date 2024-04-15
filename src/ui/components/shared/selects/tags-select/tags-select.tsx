@@ -5,6 +5,8 @@ import { CrossIcon, CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { ITagList } from '@typings/models/generals/tag-list'
 
+import { useSelectsServer } from '@hooks/use-selects-server'
+
 import { useStyles } from './tags-select.style'
 
 interface TagsSelectProps {
@@ -13,6 +15,8 @@ interface TagsSelectProps {
 
 export const TagsSelect: FC<TagsSelectProps> = memo(({ tags }) => {
   const { classes: styles } = useStyles()
+
+  const { selectRef } = useSelectsServer()
 
   return (
     <div className={styles.container}>
@@ -30,7 +34,7 @@ export const TagsSelect: FC<TagsSelectProps> = memo(({ tags }) => {
         </div>
       </form>
 
-      <div>{22222}</div>
+      <div ref={selectRef}>{22222}</div>
     </div>
   )
 })

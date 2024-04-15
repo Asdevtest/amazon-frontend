@@ -11,6 +11,7 @@ import { ITagList } from '@typings/models/generals/tag-list'
 
 export class EditProductTagModel {
   requestStatus: loadingStatus = loadingStatus.SUCCESS
+  requestTagsByIdStatus: loadingStatus = loadingStatus.SUCCESS
 
   productId: string = ''
 
@@ -28,8 +29,10 @@ export class EditProductTagModel {
 
   constructor(productId: string) {
     this.productId = productId
-
     makeAutoObservable(this)
+
+    this.getTagsAll()
+    this.getTagsByProductId()
   }
 
   async getTagsAll() {
@@ -49,11 +52,16 @@ export class EditProductTagModel {
 
   async getTagsByProductId() {
     try {
+      this.requestTagsByIdStatus = loadingStatus.IS_LOADING
+
       const result = await ProductModel.getProductTagsByGuid(this.productId)
       runInAction(() => {
         this.selectedTags = result as ITagList[]
       })
+
+      this.requestTagsByIdStatus = loadingStatus.SUCCESS
     } catch (error) {
+      this.requestTagsByIdStatus = loadingStatus.SUCCESS
       console.error(error)
     }
   }

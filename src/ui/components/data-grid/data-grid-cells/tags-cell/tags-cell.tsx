@@ -20,8 +20,8 @@ export const TagsCell: FC<TagsCellProps> = memo(({ tags, onClickTag, onClickEdit
   const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={cx(styles.tagsWrapper, { [styles.editMode]: !!onClickEdit })}>
-      <div className={styles.tags}>
+    <div className={styles.tagsWrapper}>
+      <div className={cx(styles.tags, { [styles.editMode]: !!onClickEdit })}>
         {tags?.map((el, index: number) => {
           const createTagText = `#${el.title}`
 
