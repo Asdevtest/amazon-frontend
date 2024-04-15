@@ -1,3 +1,5 @@
+import { ICreatedBy } from './created-by'
+
 export interface IPatchNotes {
   count: number
   rows: IPatchNote[]
@@ -6,4 +8,9 @@ export interface IPatchNotes {
 export interface IPatchNote {
   _id: string
   title: string
+  author: ICreatedBy
+  createdAt: string
+  description: string
+  role: number
+  updatedAt: string
 }

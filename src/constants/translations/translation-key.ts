@@ -2235,5 +2235,6 @@ export enum TranslationKey {
   'Quantity to shipping' = 'Quantity to shipping',
   'Patch notes' = 'Patch notes',
   'Add a patch note' = 'Add a patch note',
+  'Edit a patch note' = 'Edit a patch note',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

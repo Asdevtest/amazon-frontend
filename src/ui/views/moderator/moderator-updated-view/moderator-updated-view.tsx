@@ -20,9 +20,13 @@ import { ModeratorUpdatedViewModel } from './moderator-updated-view.model'
 import { ModalNames } from './moderator-updated-view.type'
 
 export const ModeratorUpdatedView = observer(() => {
+  const { classes: styles } = useStyles()
+
   const [viewModel] = useState(() => new ModeratorUpdatedViewModel())
 
-  const { classes: styles } = useStyles()
+  const patchNodesModalTitle = viewModel.editPatchNote
+    ? t(TranslationKey['Edit a patch note'])
+    : t(TranslationKey['Add a patch note'])
 
   return (
     <>
@@ -36,9 +40,8 @@ export const ModeratorUpdatedView = observer(() => {
         <CustomDataGrid
           disableColumnMenu
           disableRowSelectionOnClick
-          sortingMode="client"
-          paginationMode="client"
-          rows={viewModel.patchNotes}
+          rowCount={viewModel.rowCount}
+          rows={viewModel.currentData}
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
           getRowId={(row: GridRowModel) => row._id}
@@ -58,8 +61,18 @@ export const ModeratorUpdatedView = observer(() => {
         />
       </div>
 
-      <Modal openModal={viewModel.showPatchNoteModal} setOpenModal={() => viewModel.onToggleModal(ModalNames.PATCH)}>
-        <PatchNoteForm onToggleModal={() => viewModel.onToggleModal(ModalNames.PATCH)} />
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showPatchNoteModal}
+        setOpenModal={() => viewModel.onToggleModal(ModalNames.PATCH)}
+      >
+        <PatchNoteForm
+          title={patchNodesModalTitle}
+          editPatchNote={viewModel.editPatchNote}
+          onToggleModal={() => viewModel.onToggleModal(ModalNames.PATCH)}
+          onCreatePatchNotes={viewModel.createPatchNotes}
+          onUpdatePatchNote={viewModel.updatePatchNote}
+        />
       </Modal>
     </>
   )

@@ -179,6 +179,16 @@ class AdministratorModelStatic {
     })
     return response.data
   }
+
+  createPatchNote = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesPost({ body })
+    return response.data
+  }
+
+  updatePatchNote = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesGuidPatch({ guid, body })
+    return response.data
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()
