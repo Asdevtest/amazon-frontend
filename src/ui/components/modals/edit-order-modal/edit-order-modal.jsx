@@ -766,7 +766,7 @@ export const EditOrderModal = memo(
                   )}
                 </div>
               </div>
-              <div className={styles.fieldWrapper}>
+              <div>
                 <Field
                   multiline
                   minRows={4}
