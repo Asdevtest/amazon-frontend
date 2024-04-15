@@ -474,33 +474,33 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         }
 
         const newTableData = []
-        const postfix = uuid()
 
         if (result?.childProducts?.length) {
           for (const child of result.childProducts) {
+            const productId = uuid()
+
             newTableData.push({
               ...child,
-              id: postfix,
-              hierarchy: [id, postfix],
+              id: productId,
+              hierarchy: [id, productId],
               isTreeRow: true,
             })
           }
         }
 
         if (result?.parentProduct) {
+          const productId = uuid()
+
           newTableData.push({
             ...result?.parentProduct,
-            id: postfix,
-            hierarchy: [id, postfix],
+            id: productId,
+            hierarchy: [id, productId],
             isTreeRow: true,
           })
         }
 
         this.tableData = this.tableData.concat(newTableData)
         this.setRequestStatus(loadingStatus.SUCCESS)
-
-        console.log('newTableData :>> ', newTableData)
-        console.log(' this.tableData :>> ', this.tableData)
 
         return !!newTableData?.length
       }
