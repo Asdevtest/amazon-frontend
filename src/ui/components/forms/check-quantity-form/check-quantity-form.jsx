@@ -13,7 +13,7 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { useStyles } from './check-quantity-form.style'
 
 export const CheckQuantityForm = props => {
-  const { title, description, acceptText, onClose, onSubmit, withRefund, maxRefundNumber } = props
+  const { title, description, acceptText, onClose, onSubmit, withRefund, maxRefundNumber, deliveredQuantity } = props
   const { classes: styles } = useStyles()
 
   const [quantityValue, setQuantityValue] = useState('')
@@ -34,6 +34,8 @@ export const CheckQuantityForm = props => {
     }
   }
 
+  const isBadValue = Number(quantityValue) !== Number(deliveredQuantity)
+
   return (
     <div className={styles.wrapper}>
       <p className={styles.title}>{title}</p>
@@ -51,7 +53,7 @@ export const CheckQuantityForm = props => {
           onChange={onChangeQuantityValue}
         />
 
-        <p className={styles.textRed}>{valueIsEntered && t(TranslationKey['Incorrect value'])}</p>
+        <p className={styles.textRed}>{isBadValue && valueIsEntered && t(TranslationKey['Incorrect value'])}</p>
       </div>
 
       {withRefund && (
@@ -76,7 +78,7 @@ export const CheckQuantityForm = props => {
         <div className={styles.buttons}>
           <Button
             styleType={ButtonStyle.SUCCESS}
-            disabled={!valueIsEntered || !quantityValue}
+            disabled={isBadValue || !valueIsEntered || !quantityValue}
             onClick={() => onSubmit({ refundValue })}
           >
             {t(TranslationKey.Yes)}

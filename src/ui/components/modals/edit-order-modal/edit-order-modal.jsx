@@ -352,7 +352,10 @@ export const EditOrderModal = memo(
 
         setOrderFields(initialState)
 
-        if (e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) {
+        if (
+          e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+          orderFields.deliveredQuantity < orderFields.amount
+        ) {
           setShowCheckQuantityModal(!showCheckQuantityModal)
         } else {
           setConfirmModalMode(confirmModalModes.STATUS)
@@ -640,6 +643,7 @@ export const EditOrderModal = memo(
             disableSubmit={disableSubmit}
             photosToLoad={photosToLoad}
             order={order}
+            deliveredQuantity={orderFields.deliveredQuantity}
             setOrderField={setOrderField}
             orderFields={orderFields}
             showProgress={showProgress}
@@ -851,6 +855,7 @@ export const EditOrderModal = memo(
             maxRefundNumber={orderFields.totalPrice}
             title={t(TranslationKey['Setting the stock status'])}
             description={t(TranslationKey['Enter the amount of goods that came into the warehouse']) + ':'}
+            deliveredQuantity={orderFields.deliveredQuantity}
             acceptText={t(TranslationKey.Continue) + '?'}
             onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
             onSubmit={({ refundValue }) => {
