@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
-import { IPatchNoteToCreate } from '@views/moderator/moderator-updated-view/moderator-updated-view.type'
+import { IPatchNoteToCreate } from '@views/shared/patch-noutes-view/patch-noutes-view.type'
 
 import { t } from '@utils/translations'
 

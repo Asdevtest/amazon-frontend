@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
-import { IPatchNoteToCreate } from '@views/moderator/moderator-updated-view/moderator-updated-view.type'
+import { IPatchNoteToCreate } from '@views/shared/patch-noutes-view/patch-noutes-view.type'
 
 import { t } from '@utils/translations'
 

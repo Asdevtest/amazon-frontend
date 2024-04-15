@@ -11,10 +11,10 @@ import { UserModel } from '@models/user-model'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IPatchNote, IPatchNotes } from '@typings/shared/patch-notes'
 
-import { moderatorUpdatedColumns } from './moderator-updated-view.columns'
-import { IPatchNoteToCreate, ModalNames } from './moderator-updated-view.type'
+import { moderatorUpdatedColumns } from './patch-noutes-view.columns'
+import { IPatchNoteToCreate, ModalNames } from './patch-noutes-view.type'
 
-export class ModeratorUpdatedViewModel {
+export class PatchNoutesViewModel {
   patchNotes: IPatchNote[] = []
   editPatchNote?: IPatchNote = undefined
 

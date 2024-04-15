@@ -1041,6 +1041,15 @@ export const navbarConfig = {
     },
 
     {
+      icon: ModeratorUpdatedIcon,
+      title: () => t(TranslationKey.Updated),
+      route: '/admin/updated',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_UPDATED,
+      checkHideBlock: () => true,
+    },
+
+    {
       icon: MyFinanceIcon,
       title: () => t(TranslationKey.Finances),
       route: '/admin/finances',

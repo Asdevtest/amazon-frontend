@@ -14,15 +14,15 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { useStyles } from './moderator-updated-view.style'
+import { useStyles } from './patch-noutes-view.style'
 
-import { ModeratorUpdatedViewModel } from './moderator-updated-view.model'
-import { ModalNames } from './moderator-updated-view.type'
+import { PatchNoutesViewModel } from './patch-noutes-view.model'
+import { ModalNames } from './patch-noutes-view.type'
 
-export const ModeratorUpdatedView = observer(() => {
+export const PatchNoutesView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ModeratorUpdatedViewModel())
+  const [viewModel] = useState(() => new PatchNoutesViewModel())
 
   const patchNodesModalTitle = viewModel.editPatchNote
     ? t(TranslationKey['Edit a patch note'])
