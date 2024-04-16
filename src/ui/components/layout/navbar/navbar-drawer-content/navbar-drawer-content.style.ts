@@ -18,7 +18,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   bottomCategories: {
-    marginBottom: 15,
+    marginBottom: '5px',
   },
 
   feedBackButton: {

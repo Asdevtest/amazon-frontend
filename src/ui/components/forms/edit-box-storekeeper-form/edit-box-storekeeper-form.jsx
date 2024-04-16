@@ -907,7 +907,7 @@ export const EditBoxStorekeeperForm = memo(
         >
           <SelectStorekeeperAndTariffForm
             showCheckbox
-            RemoveDestinationRestriction
+            removeDestinationRestriction
             storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}

@@ -50,7 +50,7 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
         {/* @ts-ignore */}
         <SelectStorekeeperAndTariffForm
           showCheckbox
-          RemoveDestinationRestriction
+          removeDestinationRestriction
           storekeepers={props.storekeepers}
           curStorekeeperId={props.formFields?.storekeeperId}
           currentDestinationId={props.formFields?.destinationId}

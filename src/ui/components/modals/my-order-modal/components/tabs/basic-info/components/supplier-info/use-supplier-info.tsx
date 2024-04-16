@@ -33,7 +33,7 @@ export const useSupplierInfo = ({
   const { classes: styles, cx } = useStyles()
 
   const [showSetBarCodeModal, setShowSetBarCodeModal] = useState(false)
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
+  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.US)
 
   const handleToggleSetBarCodeModal = () => setShowSetBarCodeModal(!showSetBarCodeModal)
 
@@ -51,8 +51,8 @@ export const useSupplierInfo = ({
     setFormFields(prevFormFields => ({ ...prevFormFields, [field]: files }))
   }
 
-  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
-  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+  const lengthConversion = getConversion(sizeSetting, 1, 1 / inchesCoefficient)
+  const weightConversion = getConversion(sizeSetting, 1, 1 / poundsWeightCoefficient)
   const weightSizesType = getWeightSizesType(sizeSetting)
   const purchasePrice = useMemo(
     () =>
