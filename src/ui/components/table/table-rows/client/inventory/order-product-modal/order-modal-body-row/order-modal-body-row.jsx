@@ -478,7 +478,7 @@ export const OrderModalBodyRow = ({
         >
           <SelectStorekeeperAndTariffForm
             showCheckbox
-            RemoveDestinationRestriction
+            removeDestinationRestriction
             storekeepers={storekeepers}
             curStorekeeperId={item.storekeeperId}
             curTariffId={item.logicsTariffId}

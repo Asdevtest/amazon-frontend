@@ -30,7 +30,7 @@ export const ClientBoxesNotificationsView = observer(props => {
 
   return (
     <div className={styles.container}>
-      <Button disabled={viewModel.selectedRowIds?.length <= 1} onClick={viewModel.handleChangePriceFewBoxes}>
+      <Button disabled={viewModel.selectedRowIds?.length < 1} onClick={viewModel.handleChangePriceFewBoxes}>
         {t(TranslationKey.Confirm)}
       </Button>
 

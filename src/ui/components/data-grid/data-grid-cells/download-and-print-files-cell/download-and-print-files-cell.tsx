@@ -1,11 +1,11 @@
 import { FC, memo } from 'react'
 
-import PrintIcon from '@mui/icons-material/Print'
 import { Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { PrintIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'

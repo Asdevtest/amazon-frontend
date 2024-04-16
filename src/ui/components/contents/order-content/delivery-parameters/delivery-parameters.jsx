@@ -241,7 +241,7 @@ export const DeliveryParameters = ({
       >
         <SelectStorekeeperAndTariffForm
           showCheckbox
-          RemoveDestinationRestriction
+          removeDestinationRestriction
           storekeepers={storekeepers?.filter(el => el?._id === formFields?.storekeeper?._id)}
           curStorekeeperId={formFields.storekeeperId}
           currentDestinationId={formFields?.destinationId}

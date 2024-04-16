@@ -85,6 +85,7 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
         <SelectStorekeeperAndTariffForm
           inNotifications
           showCheckbox
+          removeDestinationRestriction
           storekeepers={viewModel.storekeepersData.filter(el => el._id === viewModel.curBox?.storekeeper._id)}
           curStorekeeperId={viewModel.curBox?.storekeeperId}
           curTariffId={viewModel.curBox?.logicsTariffId}

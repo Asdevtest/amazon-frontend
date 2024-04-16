@@ -700,7 +700,7 @@ export const EditMultipleBoxesForm = observer(
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
         >
           <SelectStorekeeperAndTariffForm
-            RemoveDestinationRestriction
+            removeDestinationRestriction
             showCheckbox={showCheckbox}
             destinationsData={destinations}
             storekeepers={
