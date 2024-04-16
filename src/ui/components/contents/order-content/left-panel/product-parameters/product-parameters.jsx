@@ -2,23 +2,20 @@ import { useState } from 'react'
 
 import { Link, Typography } from '@mui/material'
 
-import {
-  getConversion,
-  getWeightSizesType,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-} from '@constants/configs/sizes-settings'
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { Dimensions } from '@typings/enums/dimensions'
+
+import { useDimensions } from '@hooks/use-dimensions'
 
 import { useStyles } from './product-parameters.style'
 
@@ -33,12 +30,8 @@ export const ProductParameters = ({
 }) => {
   const { classes: styles } = useStyles()
 
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
-  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
-  const weightSizesType = getWeightSizesType(sizeSetting)
-  // const maxDelivery = calcMaxDeliveryForProduct(order?.product)
+  const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+  const { length, width, height, weight, unitsSize } = useDimensions(order.product, sizeSetting)
 
   const OrderParameter = ({ label, value }) => (
     <Field
@@ -95,32 +88,18 @@ export const ProductParameters = ({
         labelClasses={styles.fieldLabel}
         inputComponent={
           <div className={styles.sizesWrapper}>
-            <CustomSwitcher
-              condition={sizeSetting}
-              switcherSettings={[
-                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-              ]}
-              changeConditionHandler={condition => setSizeSetting(condition)}
-            />
+            <SizeSwitcher sizeSetting={sizeSetting} onChangeCondition={setSizeSetting} />
 
             <Typography className={styles.text}>{`
             ${
               order.product.width && order.product.height && order.product.length
-                ? toFixed(order.product.width / lengthConversion, 2) +
-                  ' x ' +
-                  toFixed(order.product.height / lengthConversion, 2) +
-                  ' x ' +
-                  toFixed(order.product.length / lengthConversion, 2)
+                ? `${width} x ${height} x ${length}`
                 : t(TranslationKey['No data'])
             }`}</Typography>
           </div>
         }
       />
-      <OrderParameter
-        label={t(TranslationKey.Weight)}
-        value={`${toFixed(order.product.weight / weightConversion, 2)} ${weightSizesType}`}
-      />
+      <OrderParameter label={t(TranslationKey.Weight)} value={`${weight} ${unitsSize}`} />
       <Field
         oneLine
         label={t(TranslationKey.BarCode)}
