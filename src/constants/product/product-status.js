@@ -117,6 +117,7 @@ export const colorByProductStatus = status => {
       ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
       ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND,
       ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
+      ProductStatus.TEMPORARILY_DELAYED,
     ].includes(status)
   ) {
     return '#FF1616'
@@ -207,6 +208,9 @@ export const productStatusTranslateKey = status => {
 
     case ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE:
       return TranslationKey['Supplier price does not fit (сhecked)']
+
+    case ProductStatus.TEMPORARILY_DELAYED:
+      return TranslationKey['Temporarily delayed']
 
     case ProductStatus.SUPPLIER_FOUND:
       return TranslationKey['Supplier found']

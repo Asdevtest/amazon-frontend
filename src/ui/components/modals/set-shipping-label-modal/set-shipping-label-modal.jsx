@@ -19,7 +19,7 @@ export const SetShippingLabelModal = props => {
   const [files, setFiles] = useState([])
 
   useEffect(() => {
-    if (tmpShippingLabel.length > 0) {
+    if (tmpShippingLabel?.length > 0) {
       setFiles(tmpShippingLabel)
     }
   }, [tmpShippingLabel])
