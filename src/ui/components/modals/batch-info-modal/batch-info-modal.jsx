@@ -398,7 +398,6 @@ export const BatchInfoModal = observer(
             <BoxForm
               userInfo={userInfo}
               box={viewModel.curBox}
-              volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
               onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
               onSubmitChangeFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
