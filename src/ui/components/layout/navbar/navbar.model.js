@@ -1,4 +1,5 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,15 +10,16 @@ import { UserModel } from '@models/user-model'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-export class NavbarModel {
-  showFeedbackModal = false
-  showWarningModal = false
-  showConfirmModal = false
+import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
+import { navbarObserverConfig } from './navbar.config'
+
+export class NavbarModel extends UseProductsPermissions {
+  patchNote = undefined
+
+  showFeedbackModal = false
+  showConfirmModal = false
+  showVersionHistoryModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -38,49 +40,37 @@ export class NavbarModel {
     return ChatModel.unreadMessages
   }
 
+  get patchNotes() {
+    return this.permissionsData
+  }
+
   constructor() {
-    makeAutoObservable(this, undefined, { autoBind: true })
+    super(UserModel.getPatchNotes, {
+      sortType: 'DESC',
+      sortField: '',
+    })
+
+    makeObservable(this, navbarObserverConfig)
+
+    reaction(
+      () => this.showVersionHistoryModal,
+      () => {
+        if (!this.showVersionHistoryModal) {
+          this.patchNote = undefined
+        }
+      },
+    )
   }
 
   async sendFeedbackAboutPlatform(comment, photos) {
     try {
-      this.readyImages = []
-
-      if (photos.length) {
-        await onSubmitPostImages.call(this, { images: photos, type: 'readyImages' })
-      }
+      await onSubmitPostImages.call(this, { images: photos, type: 'readyImages' })
       await OtherModel.sendFeedback({ text: comment, media: this.readyImages })
       this.onTriggerOpenModal('showFeedbackModal')
-
-      runInAction(() => {
-        this.alertShieldSettings = {
-          showAlertShield: true,
-          alertShieldMessage: `${t(TranslationKey['Your message has been sent'])}.
-          ${t(TranslationKey['Thank you for your feedback'])}!`,
-        }
-      })
-
-      setTimeout(() => {
-        this.alertShieldSettings = {
-          ...this.alertShieldSettings,
-          showAlertShield: false,
-        }
-
-        setTimeout(() => {
-          this.resetAlertShieldSettings()
-        }, 1000)
-      }, 3000)
-
-      // this.onTriggerOpenModal('showWarningModal')
+      toast.success(`${t(TranslationKey['Your message has been sent'])}.
+    ${t(TranslationKey['Thank you for your feedback'])}!`)
     } catch (error) {
       console.error(error)
-    }
-  }
-
-  resetAlertShieldSettings() {
-    this.alertShieldSettings = {
-      showAlertShield: false,
-      alertShieldMessage: '',
     }
   }
 
@@ -101,17 +91,38 @@ export class NavbarModel {
     window.location.reload()
   }
 
-  onClickVersion() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey.Attention) + '!',
-        confirmMessage: t(TranslationKey['Temporary session data will be reset']),
-        onClickConfirm: () => this.submitResetLocalStorageAndCach(),
-      }
-    })
+  async getPatchNote(patchNoteId) {
+    try {
+      const response = await UserModel.getPatchNote(patchNoteId)
+
+      runInAction(() => {
+        this.patchNote = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onResetPatchNote() {
+    this.patchNote = undefined
+  }
+
+  async onClickVersion() {
+    await this.getPermissionsData()
+
+    this.onTriggerOpenModal('showVersionHistoryModal')
+  }
+
+  onClickResetVersion() {
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey.Attention) + '!',
+      confirmMessage: t(TranslationKey['Temporary session data will be reset']),
+      onClickConfirm: () => this.submitResetLocalStorageAndCach(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
+    this.onTriggerOpenModal('showVersionHistoryModal')
   }
 
   onTriggerOpenModal(modalState) {
