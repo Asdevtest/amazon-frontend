@@ -21,6 +21,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   title: {
+    width: '90%',
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,

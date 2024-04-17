@@ -33,7 +33,7 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
     selectedPatchNote,
   } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const handleScrollPatchNotes = (e: UIEvent<HTMLElement>) => {
     const element = e.target as HTMLElement
@@ -54,7 +54,7 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
             <ArrowBackIcon />
           </Button>
         ) : null}
-        <p className={styles.title}>{selectedPatchNote ? selectedPatchNote?.title : title}</p>
+        <p className={cx(styles.title, styles.text)}>{selectedPatchNote ? selectedPatchNote?.title : title}</p>
       </div>
 
       <div className={styles.versions} onScroll={handleScrollPatchNotes}>
