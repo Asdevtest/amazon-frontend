@@ -14,28 +14,39 @@ const INCHES_COEFFICIENT = 2.54 // 1 inch = 2.54 cm
 const POUNDS_COEFFICIENT = 0.4536 // 1 lb = 0.4536 kg
 const DEFAULT_VOLUME_WEIGHT_COEFFICIENT = 6000 // if don't get value from UserModel
 
-const getConversion = (dimension: Dimensions, value: number, coefficient: number) => {
-  const result = dimension === Dimensions.EU ? value : value / coefficient
-
-  return toFixed(result)
+export enum Entities {
+  WAREHOUSE = 'warehouse',
+  SUPPLIER = 'supplier',
 }
-const getDimensionsSize = (dimension: Dimensions) =>
-  dimension === Dimensions.EU ? t(TranslationKey.cm) : t(TranslationKey.inches)
-const getUnitsSize = (dimension: Dimensions) =>
-  dimension === Dimensions.EU ? t(TranslationKey.kg) : t(TranslationKey.lb)
 
 interface IDimensions {
   lengthCmWarehouse?: number
   widthCmWarehouse?: number
   heightCmWarehouse?: number
   weighGrossKgWarehouse?: number
+  lengthCmSupplier?: number
+  widthCmSupplier?: number
+  heightCmSupplier?: number
+  weighGrossKgSupplier?: number
   height?: number
   width?: number
   length?: number
   weight?: number
 }
 
-export const useDimensions = (fields: IDimensions, dimension: Dimensions = Dimensions.EU) => {
+interface IUseDimension {
+  data: IDimensions
+  sizeSetting: Dimensions
+  calculationField?: string
+  defaultDimension?: Dimensions
+}
+
+export const useDimensions = ({
+  data,
+  sizeSetting = Dimensions.EU,
+  calculationField,
+  defaultDimension = Dimensions.EU,
+}: IUseDimension) => {
   const [dimensions, setDimensions] = useState({
     length: 0,
     width: 0,
@@ -43,8 +54,8 @@ export const useDimensions = (fields: IDimensions, dimension: Dimensions = Dimen
     weight: 0,
     volumeWeight: 0,
     finalWeight: 0,
-    dimensionsSize: getDimensionsSize(dimension),
-    unitsSize: getUnitsSize(dimension),
+    dimensionsSize: getDimensionsSize(sizeSetting),
+    unitsSize: getUnitsSize(sizeSetting),
   })
 
   useEffect(() => {
@@ -52,22 +63,62 @@ export const useDimensions = (fields: IDimensions, dimension: Dimensions = Dimen
       (UserModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient ||
       DEFAULT_VOLUME_WEIGHT_COEFFICIENT
 
-    const convertedLength = getConversion(dimension, fields.lengthCmWarehouse || fields.length || 0, INCHES_COEFFICIENT)
-    const convertedWidth = getConversion(dimension, fields.widthCmWarehouse || fields.width || 0, INCHES_COEFFICIENT)
-    const convertedHeight = getConversion(dimension, fields.heightCmWarehouse || fields.height || 0, INCHES_COEFFICIENT)
-    const convertedWeight = getConversion(
-      dimension,
-      fields.weighGrossKgWarehouse || fields.weight || 0,
-      POUNDS_COEFFICIENT,
-    )
-    const convertedVolumeWeight = getConversion(
-      dimension,
-      ((fields.lengthCmWarehouse || fields.length || 0) *
-        (fields.widthCmWarehouse || fields.width || 0) *
-        (fields.heightCmWarehouse || fields.height || 0)) /
-        volumeWeightCoefficient,
-      POUNDS_COEFFICIENT,
-    )
+    let convertedLength: number,
+      convertedWidth: number,
+      convertedHeight: number,
+      convertedWeight: number,
+      convertedVolumeWeight: number
+
+    switch (calculationField) {
+      case Entities.WAREHOUSE:
+        convertedLength = getConversion(sizeSetting, defaultDimension, data.lengthCmWarehouse || 0, INCHES_COEFFICIENT)
+        convertedWidth = getConversion(sizeSetting, defaultDimension, data.widthCmWarehouse || 0, INCHES_COEFFICIENT)
+        convertedHeight = getConversion(sizeSetting, defaultDimension, data.heightCmWarehouse || 0, INCHES_COEFFICIENT)
+        convertedWeight = getConversion(
+          sizeSetting,
+          defaultDimension,
+          data.weighGrossKgWarehouse || 0,
+          POUNDS_COEFFICIENT,
+        )
+        convertedVolumeWeight = getConversion(
+          sizeSetting,
+          defaultDimension,
+          ((data.lengthCmWarehouse || 0) * (data.widthCmWarehouse || 0) * (data.heightCmWarehouse || 0)) /
+            volumeWeightCoefficient,
+          POUNDS_COEFFICIENT,
+        )
+        break
+      case Entities.SUPPLIER:
+        convertedLength = getConversion(sizeSetting, defaultDimension, data.lengthCmSupplier || 0, INCHES_COEFFICIENT)
+        convertedWidth = getConversion(sizeSetting, defaultDimension, data.widthCmSupplier || 0, INCHES_COEFFICIENT)
+        convertedHeight = getConversion(sizeSetting, defaultDimension, data.heightCmSupplier || 0, INCHES_COEFFICIENT)
+        convertedWeight = getConversion(
+          sizeSetting,
+          defaultDimension,
+          data.weighGrossKgSupplier || 0,
+          POUNDS_COEFFICIENT,
+        )
+        convertedVolumeWeight = getConversion(
+          sizeSetting,
+          defaultDimension,
+          ((data.lengthCmSupplier || 0) * (data.widthCmSupplier || 0) * (data.heightCmSupplier || 0)) /
+            volumeWeightCoefficient,
+          POUNDS_COEFFICIENT,
+        )
+        break
+      default:
+        convertedLength = getConversion(sizeSetting, defaultDimension, data.length || 0, INCHES_COEFFICIENT)
+        convertedWidth = getConversion(sizeSetting, defaultDimension, data.width || 0, INCHES_COEFFICIENT)
+        convertedHeight = getConversion(sizeSetting, defaultDimension, data.height || 0, INCHES_COEFFICIENT)
+        convertedWeight = getConversion(sizeSetting, defaultDimension, data.weight || 0, POUNDS_COEFFICIENT)
+        convertedVolumeWeight = getConversion(
+          sizeSetting,
+          defaultDimension,
+          ((data.length || 0) * (data.width || 0) * (data.height || 0)) / volumeWeightCoefficient,
+          POUNDS_COEFFICIENT,
+        )
+        break
+    }
 
     setDimensions(prevState => ({
       ...prevState,
@@ -77,10 +128,20 @@ export const useDimensions = (fields: IDimensions, dimension: Dimensions = Dimen
       weight: convertedWeight,
       volumeWeight: convertedVolumeWeight,
       finalWeight: toFixed(Math.max(convertedWeight, convertedVolumeWeight)),
-      dimensionsSize: getDimensionsSize(dimension),
-      unitsSize: getUnitsSize(dimension),
+      dimensionsSize: getDimensionsSize(sizeSetting),
+      unitsSize: getUnitsSize(sizeSetting),
     }))
-  }, [fields, dimension])
+  }, [data, sizeSetting])
 
   return dimensions
 }
+
+const getConversion = (dimension: Dimensions, defaultDimension: Dimensions, value: number, coefficient: number) => {
+  const result = dimension === defaultDimension ? value : value / coefficient
+
+  return toFixed(result)
+}
+const getDimensionsSize = (dimension: Dimensions) =>
+  dimension === Dimensions.EU ? t(TranslationKey.cm) : t(TranslationKey.inches)
+const getUnitsSize = (dimension: Dimensions) =>
+  dimension === Dimensions.EU ? t(TranslationKey.kg) : t(TranslationKey.lb)
