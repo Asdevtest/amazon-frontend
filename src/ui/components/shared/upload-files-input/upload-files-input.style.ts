@@ -27,6 +27,15 @@ export const useStyles = makeStyles()(theme => ({
 
   linkInputContainer: {
     margin: 0,
+
+    '> p': {
+      position: 'absolute',
+      bottom: 6,
+      right: 10,
+      fontSize: 14,
+      lineHeight: '19px',
+      color: theme.palette.text.red,
+    },
   },
 
   label: {
