@@ -151,7 +151,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
           { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
           { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
         ]}
-        changeConditionHandler={condition => handleChange(condition as keyof typeof unitsOfChangeOptions)}
+        changeConditionHandler={condition => handleChange(condition)}
       />
 
       <Dimensions
@@ -164,7 +164,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
       <UploadFilesInput
         withoutLinks
         dragAndDropButtonHeight={60}
-        images={editingBox?.tmpImages}
+        images={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
         setImages={setImagesOfBox}
       />
 
