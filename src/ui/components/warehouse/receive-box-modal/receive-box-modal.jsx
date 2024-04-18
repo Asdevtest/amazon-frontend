@@ -208,6 +208,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
     newBoxes.some(box => box.amount === '') ||
     (isSomeBoxHasntImage && !receiveNotFromBuyer) ||
     isSomeBoxesHasCorrectSizes
+
   return (
     <div className={styles.root}>
       <div className={styles.modalHeaderWrapper}>
@@ -218,9 +219,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
             <Button
               className={styles.addButton}
               tooltipInfoContent={t(TranslationKey['Add a box'])}
-              onClick={() => {
-                setNewBoxes(newBoxes.concat(getEmptyBox()))
-              }}
+              onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
             >
               {t(TranslationKey['New box'])}
               <AddIcon fontSize="small" className={styles.icon} />
@@ -302,11 +301,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         />
       ) : null}
 
-      <Modal
-        openModal={showAddImagesModal}
-        setOpenModal={() => setShowAddImagesModal(!showAddImagesModal)}
-        onCloseModal={() => setShowAddImagesModal(!showAddImagesModal)}
-      >
+      <Modal openModal={showAddImagesModal} setOpenModal={() => setShowAddImagesModal(!showAddImagesModal)}>
         <AddFilesForm
           item={boxForImageEdit}
           allItemsArray={newBoxes}

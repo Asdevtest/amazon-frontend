@@ -21,7 +21,7 @@ export const CheckQuantityForm = props => {
   const [refundValue, setRefundValue] = useState('')
 
   const onChangeQuantityValue = e => {
-    if (checkIsPositiveNum(e.target.value)) {
+    if (checkIsPositiveNum(e.target.value) && /^[+]?\d*$/.test(e.target.value)) {
       setQuantityValue(e.target.value)
 
       setValueIsEntered(true)
@@ -44,11 +44,12 @@ export const CheckQuantityForm = props => {
         <p className={styles.text}>{description}</p>
 
         <Field
+          step={1}
           inputProps={{ maxLength: 10 }}
           containerClasses={styles.inputContainer}
           inputClasses={styles.input}
           classes={{ input: styles.input }}
-          placeholder="0.00"
+          placeholder="0"
           value={quantityValue}
           onChange={onChangeQuantityValue}
         />

@@ -122,6 +122,8 @@ export const EditOrderModal = memo(
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
 
+    console.log('order', order)
+
     const initialState = {
       ...order,
       status: order?.status || undefined,
@@ -153,6 +155,7 @@ export const EditOrderModal = memo(
       partialPaymentAmountRmb: order?.partialPaymentAmountRmb || 0,
       partiallyPaid: order?.partiallyPaid || 0,
       partialPayment: order?.partialPayment || false,
+      deliveredQuantity: order?.deliveredQuantity || 0,
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
