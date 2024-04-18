@@ -287,8 +287,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     valueFormatter: params => formatNormDateTime(params.value),
-    width: 140,
-    // type: 'date',
+    width: 120,
 
     columnKey: columnnsKeys.shared.DATE,
   },

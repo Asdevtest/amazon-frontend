@@ -35,7 +35,7 @@ export const AdminOrdersViews = observer(({ history }) => {
       </div>
       <div className={styles.filterBtnWrapper}>
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={viewModel.activeSubCategory}
           switcherSettings={[...adminOrdersBtnsConfig]}
           changeConditionHandler={viewModel.onChangeSubCategory}

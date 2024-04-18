@@ -39,9 +39,6 @@ export const useStyles = makeStyles()(theme => ({
 
   oneMultilineText: {
     height: 19,
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
@@ -49,10 +46,6 @@ export const useStyles = makeStyles()(theme => ({
 
   twoMultilineText: {
     maxHeight: 38,
-
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
@@ -60,9 +53,6 @@ export const useStyles = makeStyles()(theme => ({
 
   threeMultilineText: {
     maxHeight: 57,
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',

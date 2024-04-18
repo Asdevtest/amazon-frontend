@@ -31,7 +31,11 @@ export const useSupplierInfo = ({
 
   const [showSetBarCodeModal, setShowSetBarCodeModal] = useState(false)
   const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-  const { length, width, height, weight, unitsSize } = useDimensions(formFields.product, sizeSetting)
+  const { length, width, height, weight, unitsSize } = useDimensions({
+    data: formFields.product,
+    sizeSetting,
+    defaultDimension: Dimensions.US,
+  })
 
   const handleToggleSetBarCodeModal = () => setShowSetBarCodeModal(!showSetBarCodeModal)
   const handleChangeField = (field: string) => (event: ChangeEvent<HTMLInputElement>) => {
@@ -120,7 +124,7 @@ export const useSupplierInfo = ({
       text: undefined,
       element: (
         <div className={styles.switcher}>
-          <SizeSwitcher sizeSetting={sizeSetting} onChangeCondition={setSizeSetting} />
+          <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
         </div>
       ),
     },
