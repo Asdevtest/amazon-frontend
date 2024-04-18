@@ -31,7 +31,11 @@ export const ProductParameters = ({
   const { classes: styles } = useStyles()
 
   const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-  const { length, width, height, weight, unitsSize } = useDimensions(order.product, sizeSetting)
+  const { length, width, height, weight, unitsSize } = useDimensions({
+    data: order.product,
+    sizeSetting,
+    defaultDimension: Dimensions.US,
+  })
 
   const OrderParameter = ({ label, value }) => (
     <Field
@@ -88,7 +92,7 @@ export const ProductParameters = ({
         labelClasses={styles.fieldLabel}
         inputComponent={
           <div className={styles.sizesWrapper}>
-            <SizeSwitcher sizeSetting={sizeSetting} onChangeCondition={setSizeSetting} />
+            <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
 
             <Typography className={styles.text}>{`
             ${

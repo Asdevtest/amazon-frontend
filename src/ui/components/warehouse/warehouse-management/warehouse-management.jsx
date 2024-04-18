@@ -17,7 +17,7 @@ export const WarehouseManagement = observer(() => {
   return (
     <>
       <CustomSwitcher
-        switchMode={'medium'}
+        switchMode="medium"
         condition={tabIndex}
         switcherSettings={[
           { label: () => t(TranslationKey['Weight-based logistics tariffs']), value: 0 },

@@ -89,7 +89,7 @@ export const MyRequestsView = observer(({ history }) => {
 
         <CustomSwitcher
           fullWidth
-          switchMode={'big'}
+          switchMode="big"
           condition={viewModel.switcherCondition}
           switcherSettings={[
             { label: () => t(TranslationKey['Requests in progress']), value: 'inProgress' },

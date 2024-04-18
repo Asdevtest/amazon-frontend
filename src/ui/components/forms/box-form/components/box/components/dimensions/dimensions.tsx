@@ -9,7 +9,7 @@ import { t } from '@utils/translations'
 import { Dimensions as DimensionsEnum } from '@typings/enums/dimensions'
 import { IBox } from '@typings/models/boxes/box'
 
-import { useDimensions } from '@hooks/use-dimensions'
+import { Entities, useDimensions } from '@hooks/use-dimensions'
 
 import { useStyles } from './dimensions.style'
 
@@ -20,17 +20,18 @@ interface DimensionsProps {
 export const Dimensions: FC<DimensionsProps> = memo(({ formFields }) => {
   const { classes: styles, cx } = useStyles()
   const [sizeSetting, setSizeSetting] = useState(DimensionsEnum.EU)
-  const { length, width, height, weight, volumeWeight, finalWeight, dimensionsSize, unitsSize } = useDimensions(
-    formFields,
+  const { length, width, height, weight, volumeWeight, finalWeight, dimensionsSize, unitsSize } = useDimensions({
+    data: formFields,
     sizeSetting,
-  )
+    calculationField: Entities.WAREHOUSE,
+  })
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.switcherWrapper}>
         <p className={cx(styles.text, styles.textSecond)}>{t(TranslationKey['Sizes from storekeeper'])}</p>
 
-        <SizeSwitcher<DimensionsEnum> sizeSetting={sizeSetting} onChangeCondition={setSizeSetting} />
+        <SizeSwitcher<DimensionsEnum> condition={sizeSetting} onChangeCondition={setSizeSetting} />
       </div>
 
       <p className={styles.text}>{`${t(TranslationKey.Length)}: ${length} ${dimensionsSize}`}</p>

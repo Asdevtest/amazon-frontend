@@ -37,7 +37,7 @@ export const ClientShopsReportView = observer(() => {
     <div className={styles.root}>
       <CustomSwitcher
         fullWidth
-        switchMode={'big'}
+        switchMode="big"
         condition={viewModel.tabKey}
         switcherSettings={switcherConfig}
         changeConditionHandler={value => viewModel.changeTabHandler(value as ShopReportsTabsValues)}

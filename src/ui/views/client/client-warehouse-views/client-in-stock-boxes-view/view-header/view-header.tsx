@@ -67,7 +67,7 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
     <div className={styles.viewHeaderWrapper}>
       <div className={styles.topHeaderBtnsWrapper}>
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={currentStorekeeperId}
           switcherSettings={[
             ...storekeepersData
@@ -92,7 +92,7 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
       </div>
 
       <CustomSwitcher
-        switchMode={'medium'}
+        switchMode="medium"
         condition={curDestinationId}
         switcherSettings={[
           ...clientDestinations
