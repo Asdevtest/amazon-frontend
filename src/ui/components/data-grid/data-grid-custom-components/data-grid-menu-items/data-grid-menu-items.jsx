@@ -1211,12 +1211,10 @@ export const NormalFieldMenuItem = memo(
         >
           <div className={styles.universalFilterSearchInputWrapper}>
             <SearchInput
-              key={'client_warehouse_search_input'}
+              key="client_warehouse_search_input"
               inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
+              onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>
 

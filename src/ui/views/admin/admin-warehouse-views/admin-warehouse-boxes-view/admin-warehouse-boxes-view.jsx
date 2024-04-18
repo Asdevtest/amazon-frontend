@@ -75,11 +75,7 @@ export const AdminWarehouseBoxesView = observer(() => {
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxForm
-          box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-        />
+        <BoxForm box={viewModel.curBox} onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')} />
       </Modal>
     </>
   )

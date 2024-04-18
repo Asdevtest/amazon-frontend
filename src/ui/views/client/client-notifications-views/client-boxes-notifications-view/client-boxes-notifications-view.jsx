@@ -30,7 +30,7 @@ export const ClientBoxesNotificationsView = observer(props => {
 
   return (
     <div className={styles.container}>
-      <Button disabled={viewModel.selectedRowIds?.length <= 1} onClick={viewModel.handleChangePriceFewBoxes}>
+      <Button disabled={viewModel.selectedRowIds?.length < 1} onClick={viewModel.handleChangePriceFewBoxes}>
         {t(TranslationKey.Confirm)}
       </Button>
 
@@ -93,7 +93,6 @@ export const ClientBoxesNotificationsView = observer(props => {
         <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}

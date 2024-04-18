@@ -6,10 +6,13 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
-    width: '100%',
   },
 
   wrapperRow: {
     flexDirection: 'row',
+  },
+
+  fullWidth: {
+    width: '100%',
   },
 }))

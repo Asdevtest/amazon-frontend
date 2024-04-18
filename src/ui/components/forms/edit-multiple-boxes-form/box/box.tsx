@@ -548,7 +548,7 @@ export const Box: FC<BoxProps> = memo(props => {
         setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
       >
         <SelectStorekeeperAndTariffForm
-          RemoveDestinationRestriction
+          removeDestinationRestriction
           showCheckbox={showCheckbox}
           // @ts-ignore
           destinationsData={destinations}

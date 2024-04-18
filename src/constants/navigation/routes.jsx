@@ -294,6 +294,9 @@ const ModeratorDashboardView = lazy(() =>
 const ModeratorMyProductsView = lazy(() =>
   import('@views/moderator/moderator-my-products-view').then(module => ({ default: module.ModeratorMyProductsView })),
 )
+const PatchNoutesView = lazy(() =>
+  import('@views/shared/patch-noutes-view').then(module => ({ default: module.PatchNoutesView })),
+)
 const ModeratorSettingsView = lazy(() =>
   import('@views/moderator/moderator-settings-view').then(module => ({ default: module.ModeratorSettingsView })),
 )
@@ -2704,6 +2707,20 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/admin/updated',
+    component: PatchNoutesView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Updated,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_UPDATED,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Updated),
+    },
+  },
+
+  {
     routePath: '/freelancer/dashboard',
     component: FreelancerDashboardView,
     exact: false,
@@ -3076,6 +3093,20 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
       title: () => t(TranslationKey['My products']),
+    },
+  },
+
+  {
+    routePath: '/moderator/updated',
+    component: PatchNoutesView,
+    exact: false,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Updated,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_UPDATED,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Updated),
     },
   },
 

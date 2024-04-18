@@ -277,7 +277,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
@@ -309,7 +308,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       <Modal openModal={viewModel.showSelectionStorekeeperAndTariffModal} setOpenModal={viewModel.openModalAndClear}>
         <SelectStorekeeperAndTariffForm
           showCheckbox
-          RemoveDestinationRestriction={!viewModel.isCurrentTarrifsButton}
+          removeDestinationRestriction={!viewModel.isCurrentTarrifsButton}
           storekeepers={
             viewModel.changeItem
               ? viewModel.storekeepersData.filter(el => el._id === viewModel.changeItem?.storekeeper._id)

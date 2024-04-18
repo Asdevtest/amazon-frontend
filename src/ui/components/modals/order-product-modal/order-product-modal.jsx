@@ -74,7 +74,7 @@ export const OrderProductModal = memo(props => {
             ...reorderOrder.product,
 
             amount: reorderOrder.amount,
-
+            clientComment: isPendingOrdering ? reorderOrder.clientComment : '',
             // @refactor: need to create function
             destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
             storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
@@ -94,6 +94,7 @@ export const OrderProductModal = memo(props => {
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
+          clientComment: isPendingOrdering ? product.clientComment : '',
           expressChinaDelivery: false,
           priority: '30',
           deadline: null,
@@ -113,7 +114,7 @@ export const OrderProductModal = memo(props => {
 
           return {
             amount: reorderOrder.amount,
-            clientComment: '',
+            clientComment: isPendingOrdering ? reorderOrder.clientComment : '',
             barCode: reorderOrder?.product?.barCode || '',
             tmpBarCode: [],
 
@@ -143,7 +144,7 @@ export const OrderProductModal = memo(props => {
         })
       : selectedProductsData.map(product => ({
           amount: 1,
-          clientComment: '',
+          clientComment: isPendingOrdering ? product.clientComment : '',
           barCode: product?.barCode || '',
           productId: product._id,
           images: [],

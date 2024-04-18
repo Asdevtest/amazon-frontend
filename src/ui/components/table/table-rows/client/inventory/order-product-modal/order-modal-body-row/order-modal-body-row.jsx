@@ -446,6 +446,7 @@ export const OrderModalBodyRow = ({
             maxRows={3}
             inputProps={{ maxLength: 500 }}
             className={styles.commentInput}
+            value={item?.clientComment}
             classes={{ inputMultiline: styles.inputMultiline }}
             onChange={e => onChangeInput(e, 'clientComment')}
           />
@@ -477,7 +478,7 @@ export const OrderModalBodyRow = ({
         >
           <SelectStorekeeperAndTariffForm
             showCheckbox
-            RemoveDestinationRestriction
+            removeDestinationRestriction
             storekeepers={storekeepers}
             curStorekeeperId={item.storekeeperId}
             curTariffId={item.logicsTariffId}

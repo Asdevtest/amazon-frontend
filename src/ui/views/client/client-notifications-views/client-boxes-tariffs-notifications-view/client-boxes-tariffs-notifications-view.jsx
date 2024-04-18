@@ -85,6 +85,7 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
         <SelectStorekeeperAndTariffForm
           inNotifications
           showCheckbox
+          removeDestinationRestriction
           storekeepers={viewModel.storekeepersData.filter(el => el._id === viewModel.curBox?.storekeeper._id)}
           curStorekeeperId={viewModel.curBox?.storekeeperId}
           curTariffId={viewModel.curBox?.logicsTariffId}
@@ -101,7 +102,6 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
         <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}

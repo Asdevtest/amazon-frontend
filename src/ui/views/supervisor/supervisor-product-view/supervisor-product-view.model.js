@@ -336,13 +336,7 @@ export class SupervisorProductViewModel {
         buyerId: checkToBuyerNeedClear ? null : this.product.buyer?._id,
       }
 
-      if (dataToUpdate.status === ProductStatusByKey[ProductStatus.TEMPORARILY_DELAYED]) {
-        await SupervisorModel.changeProductStatus(this.product._id, {
-          status: dataToUpdate.status,
-        })
-      } else {
-        await SupervisorModel.updateProduct(this.product._id, dataToUpdate)
-      }
+      await SupervisorModel.updateProduct(this.product._id, dataToUpdate)
 
       this.setOpenModal()
 

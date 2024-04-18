@@ -9,8 +9,6 @@ import { BoxesModel } from '@models/boxes-model'
 import { ProductModel } from '@models/product-model'
 import { UserModel } from '@models/user-model'
 
-import { ApiV1BatchesBoxes } from '@services/rest-api-service/codegen'
-
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
@@ -22,12 +20,11 @@ import { isBuyer, isClient } from '@typings/guards/roles'
 import { IBox } from '@typings/models/boxes/box'
 import { IFullUser } from '@typings/shared/full-user'
 import { IHSCode } from '@typings/shared/hs-code'
-import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { ModalNames } from './boxes-to-order.type'
 
-interface IOrderBoxSupplemented extends ApiV1BatchesBoxes {
+interface IOrderBoxSupplemented extends IBox {
   asin: string
   amazonTitle: string
   boxProductPreview: UploadFileType
@@ -42,9 +39,7 @@ export class BoxesToOrderModel {
   boxes: IOrderBoxSupplemented[] = []
   currentBox: IBox | undefined = undefined
   hsCodeData: IHSCode | undefined = undefined
-  platformSettings: IPlatformSettings | undefined = undefined
   uploadedFiles: UploadFileType[] = []
-
   showBoxModal = false
   showEditHSCodeModal = false
 
@@ -74,7 +69,7 @@ export class BoxesToOrderModel {
 
       const response = await BoxesModel.getBoxesOfOrder(this.order?._id)
 
-      const transformedBoxes: IOrderBoxSupplemented[] = response
+      const transformedBoxes = response
         .map(box => ({
           ...box,
           asin: this.order?.product?.asin || '',
@@ -85,7 +80,7 @@ export class BoxesToOrderModel {
         .sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
 
       runInAction(() => {
-        this.boxes = transformedBoxes
+        this.boxes = transformedBoxes as unknown as IOrderBoxSupplemented[]
       })
 
       this.setRequestStatus(loadingStatus.SUCCESS)

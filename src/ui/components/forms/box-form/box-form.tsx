@@ -18,7 +18,6 @@ import { Box, Comments, Footer, Header, Info, Order, Quantities } from './compon
 
 interface BoxFormProps {
   box: IBox
-  volumeWeightCoefficient: number
   onToggleModal: () => void
   userInfo?: IFullUser
   onClickHsCode?: (id: string) => void
@@ -26,7 +25,7 @@ interface BoxFormProps {
 }
 
 export const BoxForm: FC<BoxFormProps> = memo(props => {
-  const { box, volumeWeightCoefficient, onToggleModal, userInfo, onClickHsCode, onSubmitChangeFields } = props
+  const { box, onToggleModal, userInfo, onClickHsCode, onSubmitChangeFields } = props
 
   const { classes: styles } = useStyles()
   const [activeTab, setActiveTab] = useState(BoxTabs.BOX_INFO)
@@ -76,7 +75,6 @@ export const BoxForm: FC<BoxFormProps> = memo(props => {
             isBuyer={isBuyer}
             isClient={isClient}
             formFields={formFields}
-            volumeWeightCoefficient={volumeWeightCoefficient}
             onChangeField={handleChangeField}
             onChangeTrackNumberFile={handleChangeTrackNumberFile}
           />

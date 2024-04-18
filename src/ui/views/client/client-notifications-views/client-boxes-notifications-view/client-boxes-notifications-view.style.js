@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   tableWrapper: {
-    height: '86vh',
+    height: 'calc(100% - 50px)',
     width: '100%',
   },
 }))

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeAutoObservable, runInAction } from 'mobx'
+import { action, computed, makeObservable, observable, runInAction } from 'mobx'
 
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
@@ -48,7 +48,21 @@ export class UseProductsPermissions {
   requestStatus = loadingStatus.SUCCESS
 
   constructor(callback: ICallback, options?: IOptions) {
-    makeAutoObservable(this)
+    makeObservable(this, {
+      callback: observable,
+      options: observable,
+      permissionsData: observable,
+      isCanLoadMore: observable,
+      requestStatus: observable,
+
+      currentPermissionsData: computed,
+      currentRequestStatus: computed,
+
+      getPermissionsData: action.bound,
+      loadMoreDataHadler: action.bound,
+      onClickSubmitSearch: action.bound,
+      setOptions: action.bound,
+    })
 
     this.callback = callback
     this.setOptions(options)

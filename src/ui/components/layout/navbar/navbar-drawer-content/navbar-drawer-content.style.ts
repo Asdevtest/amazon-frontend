@@ -18,7 +18,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   bottomCategories: {
-    marginBottom: 15,
+    marginBottom: '5px',
   },
 
   feedBackButton: {
@@ -53,18 +53,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   appVersion: {
-    color: theme.palette.primary.main,
     marginLeft: 15,
-    display: 'inline-block',
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.primary.main,
     cursor: 'pointer',
     transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
+    opacity: 1,
 
-    [theme.breakpoints.down(1024)]: {
-      fontSize: 14,
-      lineHeight: '19px',
+    '&:hover': {
+      opacity: 0.8,
     },
   },
 

@@ -58,7 +58,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <IsFormedMenuItem
           isFormedData={isFormedData}
           data={props.sub}
-          field={'sub'}
+          field="sub"
           table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           columnKey={currentColumn.columnKey}
