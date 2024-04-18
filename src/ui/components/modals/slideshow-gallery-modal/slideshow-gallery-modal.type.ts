@@ -2,7 +2,7 @@ import { IRequestMedia } from '@typings/models/requests/request-media'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 export interface SlideshowGalleryModalProps {
-  files: (UploadFileType | IRequestMedia)[]
+  files: IRequestMedia[] | UploadFileType[]
   openModal: boolean
   onOpenModal: () => void
   isEditable?: boolean

@@ -7,11 +7,9 @@ import Menu from '@mui/material/Menu'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
 import { PencilIcon, PlusIcon } from '@components/shared/svg-icons'
-import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
@@ -81,36 +79,7 @@ export const Slot: FC<SlotProps> = memo(props => {
         {index === 0 && <img src="/assets/icons/star-main.svg" className={styles.mainStarIcon} />}
 
         <div className={styles.imageListItem}>
-          <SlideByType
-            mediaFile={item.fileLink}
-            mediaFileIndex={index}
-            ImageComponent={({ src, alt }) => (
-              <img
-                src={src}
-                alt={alt}
-                className={styles.image}
-                onClick={() => {
-                  setCurImageIndex(index)
-                  setShowImageModal(!showImageModal)
-                }}
-              />
-            )}
-            VideoComponent={({ videoSource }) => (
-              <VideoPreloader
-                videoSource={videoSource}
-                onClick={() => {
-                  setCurImageIndex(index)
-                  setShowImageModal(!showImageModal)
-                }}
-              />
-            )}
-            FileComponent={({ documentLink, fileExtension }) => (
-              <a href={documentLink} target="_blank" rel="noreferrer noopener" className={styles.document}>
-                <CustomFileIcon fileExtension={fileExtension} height="100%" />
-                <span className={styles.linkText}>{documentLink}</span>
-              </a>
-            )}
-          />
+          <SlideByType mediaFile={item.fileLink} mediaFileIndex={index} />
         </div>
       </div>
 

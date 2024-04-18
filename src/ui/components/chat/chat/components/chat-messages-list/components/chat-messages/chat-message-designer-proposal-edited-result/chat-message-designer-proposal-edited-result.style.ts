@@ -160,12 +160,6 @@ export const useStyles = makeStyles()(theme => ({
     background: 'rgba(0, 0, 0, 0.4)',
   },
 
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain',
-  },
-
   footerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -240,38 +234,5 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(1700)]: {
       padding: '0 30px',
     },
-  },
-
-  videoPreloader: {
-    cursor: 'default',
-  },
-
-  document: {
-    position: 'relative',
-    height: '75%',
-    width: '75%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: 'opacity 0.3s ease-in-out',
-
-    '&:hover': {
-      button: {
-        opacity: 0.3,
-      },
-
-      span: {
-        opacity: 1,
-      },
-    },
-  },
-
-  linkText: {
-    position: 'absolute',
-    width: '100%',
-    textAlign: 'center',
-    opacity: 0,
-    transition: 'opacity 0.3s ease-in-out',
-    wordBreak: 'break-all',
   },
 }))

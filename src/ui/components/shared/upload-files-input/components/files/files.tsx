@@ -8,7 +8,7 @@ import { useStyles } from './files.style'
 import { File } from './file'
 
 export interface FilesProps {
-  files: (UploadFileType | IRequestMedia)[]
+  files: UploadFileType[] | IRequestMedia[]
   onRemoveFile: (fileIndex: number) => void
   onShowGalleryModal: (fileIndex: number) => void
   onChangeComment: (fileIndex: number) => (event: ChangeEvent<HTMLInputElement>) => void

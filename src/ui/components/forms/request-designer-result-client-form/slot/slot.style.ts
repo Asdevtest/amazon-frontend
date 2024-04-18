@@ -69,13 +69,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain',
-    cursor: 'pointer',
-  },
-
   commentBtn: {
     width: 161,
     display: 'flex',
@@ -118,34 +111,5 @@ export const useStyles = makeStyles()(theme => ({
 
   subImageObjInput: {
     overflowY: 'auto',
-  },
-
-  document: {
-    position: 'relative',
-    height: '75%',
-    width: '75%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: 'opacity 0.3s ease-in-out',
-
-    '&:hover': {
-      button: {
-        opacity: 0.3,
-      },
-
-      span: {
-        opacity: 1,
-      },
-    },
-  },
-
-  linkText: {
-    position: 'absolute',
-    width: '100%',
-    textAlign: 'center',
-    opacity: 0,
-    transition: 'opacity 0.3s ease-in-out',
-    wordBreak: 'break-all',
   },
 }))

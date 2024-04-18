@@ -266,13 +266,6 @@ export const useStyles = makeStyles()(theme => ({
     cursor: 'pointer',
   },
 
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'container',
-    cursor: 'pointer',
-  },
-
   imagesModalBtn: {
     width: 40,
     height: 40,
@@ -312,34 +305,5 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     gap: 30,
-  },
-
-  document: {
-    position: 'relative',
-    height: '75%',
-    width: '75%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: 'opacity 0.3s ease-in-out',
-
-    '&:hover': {
-      button: {
-        opacity: 0.3,
-      },
-
-      span: {
-        opacity: 1,
-      },
-    },
-  },
-
-  linkText: {
-    position: 'absolute',
-    width: '100%',
-    textAlign: 'center',
-    opacity: 0,
-    transition: 'opacity 0.3s ease-in-out',
-    wordBreak: 'break-all',
   },
 }))

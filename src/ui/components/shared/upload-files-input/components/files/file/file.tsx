@@ -23,10 +23,12 @@ export const File: FC<FileProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
+  const displayedFile = isUploadFileType(file) ? file : file?.fileLink
+
   return (
     <div className={styles.fileWrapper}>
       <div className={styles.file} onClick={() => onShowGalleryModal(fileIndex)}>
-        <SlideByType isPreviews mediaFile={isUploadFileType(file) ? file : file?.fileLink} mediaFileIndex={fileIndex} />
+        <SlideByType isPreviews mediaFile={displayedFile} mediaFileIndex={fileIndex} />
       </div>
 
       {isRequestMedia(file) ? (
