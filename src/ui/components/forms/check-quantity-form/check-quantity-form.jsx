@@ -44,7 +44,6 @@ export const CheckQuantityForm = props => {
         <p className={styles.text}>{description}</p>
 
         <Field
-          step={1}
           inputProps={{ maxLength: 10 }}
           containerClasses={styles.inputContainer}
           inputClasses={styles.input}

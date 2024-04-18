@@ -122,8 +122,6 @@ export const EditOrderModal = memo(
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
 
-    console.log('order', order)
-
     const initialState = {
       ...order,
       status: order?.status || undefined,
