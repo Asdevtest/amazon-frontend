@@ -3,11 +3,13 @@ import { FC, UIEvent, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { Field } from '@components/shared/field'
 import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { Roles } from '@typings/enums/roles'
 import { IPatchNote } from '@typings/shared/patch-notes'
 
 import { useStyles } from './version-history-form.style'
@@ -58,14 +60,27 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
       </div>
 
       <div className={styles.versions} onScroll={handleScrollPatchNotes}>
-        {selectedPatchNote?.[0] ? (
-          <p>{selectedPatchNote[0]?.description}</p>
-        ) : (
+        {selectedPatchNote ? (
+          selectedPatchNote.map(patchNote => (
+            <Field
+              key={patchNote._id}
+              disabled
+              multiline
+              labelClasses={cx(styles.title, styles.fixLabelMargin)}
+              inputClasses={styles.editor}
+              containerClasses={styles.editorContainer}
+              label={Roles[patchNote.role]}
+              value={patchNote.description}
+            />
+          ))
+        ) : patchNotes.length > 0 ? (
           patchNotes.map(patchNote => (
             <button key={patchNote._id} className={styles.buttonVersion} onClick={() => onViewPatchNote(patchNote._id)}>
               <p className={styles.text}>{patchNote.title}</p>
             </button>
           ))
+        ) : (
+          <p className={styles.noData}>{t(TranslationKey['No data'])}</p>
         )}
       </div>
 

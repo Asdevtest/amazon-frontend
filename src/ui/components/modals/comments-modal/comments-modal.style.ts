@@ -22,7 +22,7 @@ export const useStyles = makeStyles()(theme => ({
   editor: {
     height: 170,
     width: 600,
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: '19px',
 
     textarea: {
