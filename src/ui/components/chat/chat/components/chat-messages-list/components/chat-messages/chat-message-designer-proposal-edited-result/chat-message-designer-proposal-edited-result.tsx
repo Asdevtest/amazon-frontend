@@ -7,10 +7,8 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
-import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { Field } from '@components/shared/field'
 import { SlideByType } from '@components/shared/slide-by-type'
-import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { formatDateOnlyTime } from '@utils/date-time'
 import { minsToTime } from '@utils/text'
@@ -60,15 +58,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
                   <div className={styles.moreImagesWrapper}>{message.data.proposal.media.length - 4}</div>
                 )}
 
-                <SlideByType
-                  mediaFile={item}
-                  mediaFileIndex={index}
-                  ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.image} />}
-                  VideoComponent={({ videoSource }) => (
-                    <VideoPreloader videoSource={videoSource} wrapperClassName={styles.videoPreloader} />
-                  )}
-                  FileComponent={({ fileExtension }) => <CustomFileIcon fileExtension={fileExtension} height="75%" />}
-                />
+                <SlideByType mediaFile={item} mediaFileIndex={index} />
               </div>
             ))}
           </div>

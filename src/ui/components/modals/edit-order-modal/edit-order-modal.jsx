@@ -153,6 +153,7 @@ export const EditOrderModal = memo(
       partialPaymentAmountRmb: order?.partialPaymentAmountRmb || 0,
       partiallyPaid: order?.partiallyPaid || 0,
       partialPayment: order?.partialPayment || false,
+      deliveredQuantity: order?.deliveredQuantity || 0,
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
