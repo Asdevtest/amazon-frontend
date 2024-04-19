@@ -35,11 +35,12 @@ export const useStyles = makeStyles()(theme => ({
     marginTop: '2px',
     color: theme.palette.text.red,
     maxWidth: '100%',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
+    // textOverflow: 'ellipsis',
     fontSize: '12px',
     lineHeight: '16px',
+    wordBreak: 'break-word',
   },
 
   successText: {
