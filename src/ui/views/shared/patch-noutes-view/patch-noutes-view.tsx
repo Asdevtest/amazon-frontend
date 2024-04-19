@@ -69,6 +69,7 @@ export const PatchNoutesView = observer(() => {
         <PatchNoteForm
           title={patchNodesModalTitle}
           editPatchNote={viewModel.editPatchNote}
+          patchNoteVersions={viewModel.patchNoteVersions}
           onToggleModal={() => viewModel.onToggleModal(ModalNames.PATCH)}
           onCreatePatchNotes={viewModel.createPatchNotes}
           onUpdatePatchNote={viewModel.updatePatchNote}

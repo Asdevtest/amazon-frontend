@@ -16,6 +16,7 @@ import { IPatchNoteToCreate, ModalNames } from './patch-noutes-view.type'
 
 export class PatchNoutesViewModel {
   patchNotes: IPatchNote[] = []
+  patchNoteVersions: string[] = []
   editPatchNote?: IPatchNote = undefined
 
   showPatchNoteModal = false
@@ -79,6 +80,18 @@ export class PatchNoutesViewModel {
     }
   }
 
+  async getPatchNoteVersions() {
+    try {
+      const response = await AdministratorModel.getPatchNoteVersions()
+
+      runInAction(() => {
+        this.patchNoteVersions = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async createPatchNotes(data: IPatchNoteToCreate[]) {
     try {
       const dataToSend = data.map(patchNote => ({ ...patchNote, role: Number(patchNote.role) }))
@@ -96,8 +109,8 @@ export class PatchNoutesViewModel {
 
   async updatePatchNote(id: string, data: IPatchNoteToCreate) {
     try {
-      const { title, description, role } = data
-      const dataToSend = { title, description, role: Number(role) }
+      const { title, version, description, role } = data
+      const dataToSend = { title, version, description, role: Number(role) }
 
       await AdministratorModel.updatePatchNote(id, dataToSend)
 
@@ -108,9 +121,15 @@ export class PatchNoutesViewModel {
     }
   }
 
+  async onOpenPatchNoteForm() {
+    await this.getPatchNoteVersions()
+
+    this.onToggleModal(ModalNames.PATCH)
+  }
+
   onToggleEditPatchNote(data: IPatchNote) {
     this.editPatchNote = data
-    this.onToggleModal(ModalNames.PATCH)
+    this.onOpenPatchNoteForm()
   }
 
   setRequestStatus(requestStatus: loadingStatus) {

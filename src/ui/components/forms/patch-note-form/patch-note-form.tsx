@@ -19,6 +19,7 @@ import { EventType } from './patch-note-form.type'
 
 interface PatchNoteFormProps {
   title: string
+  patchNoteVersions: string[]
   onToggleModal: () => void
   onCreatePatchNotes: (data: IPatchNoteToCreate[]) => void
   onUpdatePatchNote: (id: string, data: IPatchNoteToCreate) => void
@@ -26,7 +27,7 @@ interface PatchNoteFormProps {
 }
 
 export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
-  const { title, onToggleModal, onCreatePatchNotes, onUpdatePatchNote, editPatchNote } = props
+  const { title, patchNoteVersions, onToggleModal, onCreatePatchNotes, onUpdatePatchNote, editPatchNote } = props
 
   const { classes: styles } = useStyles()
 
@@ -34,11 +35,13 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
     editPatchNote
       ? {
           title: editPatchNote.title || '',
+          version: editPatchNote.version || '',
           description: editPatchNote.description || '',
           role: String(editPatchNote.role) || '',
         }
       : {
           title: '',
+          version: '',
           description: '',
           role: '',
         }
@@ -73,6 +76,7 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
             key={index}
             patchNote={patchNote}
             patchNoteIndex={index}
+            patchNoteVersions={patchNoteVersions}
             onChangePatchNote={handleChangePatchNote}
           />
         ))}

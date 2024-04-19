@@ -19,7 +19,7 @@ interface VersionHistoryFormProps {
   onResetPatchNote: () => void
   onViewPatchNote: (patchNoteId: string) => void
   onClickResetVersion: () => void
-  selectedPatchNote?: IPatchNote
+  selectedPatchNote?: IPatchNote[]
 }
 
 export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
@@ -54,12 +54,12 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
             <ArrowBackIcon />
           </Button>
         ) : null}
-        <p className={cx(styles.title, styles.text)}>{selectedPatchNote ? selectedPatchNote?.title : title}</p>
+        <p className={cx(styles.title, styles.text)}>{selectedPatchNote ? selectedPatchNote?.[0]?.title : title}</p>
       </div>
 
       <div className={styles.versions} onScroll={handleScrollPatchNotes}>
-        {selectedPatchNote ? (
-          <p>{selectedPatchNote?.description}</p>
+        {selectedPatchNote?.[0] ? (
+          <p>{selectedPatchNote[0]?.description}</p>
         ) : (
           patchNotes.map(patchNote => (
             <button key={patchNote._id} className={styles.buttonVersion} onClick={() => onViewPatchNote(patchNote._id)}>

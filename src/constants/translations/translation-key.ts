@@ -2238,5 +2238,6 @@ export enum TranslationKey {
   'Edit a patch note' = 'Edit a patch note',
   'Version history of releases' = 'Version history of releases',
   'Reset session data' = 'Reset session data',
+  'Version' = 'Version',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

@@ -8,6 +8,7 @@ export interface IPatchNotes {
 export interface IPatchNote {
   _id: string
   title: string
+  version: string
   author: ICreatedBy
   createdAt: string
   description: string

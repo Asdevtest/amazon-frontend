@@ -2,7 +2,6 @@ import { FC, memo } from 'react'
 
 import { MenuItem, Select } from '@mui/material'
 
-import { UserRolePrettyMap } from '@constants/keys/user-roles'
 import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,22 +16,24 @@ import { useStyles } from './patch-note.style'
 
 import { EventType } from '../patch-note-form.type'
 
+import { UserRolesForPatchNote } from './patch-note.constants'
+
 interface PatchNoteProps {
   patchNote: IPatchNoteToCreate
   patchNoteIndex: number
+  patchNoteVersions: string[]
   onChangePatchNote: (patchNoteIndex: number, field: string) => (e: EventType) => void
 }
 
 export const PatchNote: FC<PatchNoteProps> = memo(props => {
-  const { patchNote, patchNoteIndex, onChangePatchNote } = props
+  const { patchNote, patchNoteIndex, patchNoteVersions, onChangePatchNote } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const isEmptyRole = patchNote.role.length === 0
   const isNotFirstPatchNote = patchNoteIndex > 0
 
   return (
-    <div className={cx(styles.wrapper, { [styles.emptySelectValue]: isEmptyRole })}>
+    <div className={cx(styles.wrapper)}>
       <div className={cx(styles.line, { [styles.showLine]: isNotFirstPatchNote })} />
 
       <Field
@@ -46,6 +47,42 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
       />
 
       <Field
+        label={t(TranslationKey.Version)}
+        placeholder={t(TranslationKey.Version)}
+        value={patchNote.version}
+        maxLength={64}
+        labelClasses={styles.fieldLabel}
+        containerClasses={styles.fieldContainer}
+        onChange={onChangePatchNote(patchNoteIndex, 'version')}
+      />
+
+      {/* <Field
+        label={t(TranslationKey.Version)}
+        labelClasses={styles.fieldLabel}
+        containerClasses={styles.fieldContainer}
+        inputComponent={
+          <Select
+            displayEmpty
+            // @ts-ignore
+            value={patchNote.version}
+            input={
+              <Input fullWidth classes={{ input: patchNote.version.length === 0 ? styles.emptySelectValue : '' }} />
+            }
+            onChange={onChangePatchNote(patchNoteIndex, 'version')}
+          >
+            <MenuItem disabled value="">
+              {t(TranslationKey.Version)}
+            </MenuItem>
+            {patchNoteVersions.map((version, index) => (
+              <MenuItem key={index} value={version}>
+                {version}
+              </MenuItem>
+            ))}
+          </Select>
+        }
+      /> */}
+
+      <Field
         label={t(TranslationKey.Role)}
         labelClasses={styles.fieldLabel}
         containerClasses={styles.fieldContainer}
@@ -54,13 +91,13 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
             displayEmpty
             // @ts-ignore
             value={patchNote.role}
-            input={<Input fullWidth />}
+            input={<Input fullWidth classes={{ input: patchNote.role.length === 0 ? styles.emptySelectValue : '' }} />}
             onChange={onChangePatchNote(patchNoteIndex, 'role')}
           >
             <MenuItem disabled value="">
               {t(TranslationKey.Role)}
             </MenuItem>
-            {Object.entries(UserRolePrettyMap).map(([key, value]) => (
+            {Object.entries(UserRolesForPatchNote).map(([key, value]) => (
               <MenuItem key={value} value={key}>
                 {value}
               </MenuItem>

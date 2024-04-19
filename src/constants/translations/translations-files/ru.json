@@ -2235,5 +2235,6 @@
   "Add a patch note": "Добавить обновление",
   "Edit a patch note": "Изменить обновление",
   "Version history of releases": "История обновлений",
-  "Reset session data": "Сбросить данные сеанса"
+  "Reset session data": "Сбросить данные сеанса",
+  "Version": "Версия"
 }
