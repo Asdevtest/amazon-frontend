@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useCallback, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
 import { isRequestMedia } from '@typings/guards'
@@ -13,18 +13,18 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
   const [showGalleryModal, setShowGalleryModal] = useState(false)
   const [currentFileIndex, setCurrentFileIndex] = useState(0)
 
-  const handleShowImages = () => setShowImages(prevState => !prevState)
-  const handleShowGalleryModal = (fileIndex?: number) => {
+  const handleShowImages = useCallback(() => setShowImages(prevState => !prevState), [])
+  const handleShowGalleryModal = useCallback((fileIndex?: number) => {
     if (fileIndex) {
       setCurrentFileIndex(fileIndex)
     }
 
     setShowGalleryModal(prevState => !prevState)
-  }
+  }, [])
 
-  const handleChangeLink = (event: ChangeEvent<HTMLInputElement>) => setLinkInput(event.target.value)
+  const handleChangeLink = useCallback((event: ChangeEvent<HTMLInputElement>) => setLinkInput(event.target.value), [])
 
-  const handleLoadFile = () => {
+  const handleLoadFile = useCallback(() => {
     const linkIsValid = regExpUriChecking.test(linkInput)
 
     if (linkIsValid) {
@@ -42,86 +42,108 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
         setLinkInputError(false)
       }, 3000)
     }
-  }
+  }, [linkInput, images, setImages])
 
-  const handleUploadFiles = async (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event?.target?.files || event?.target?.files?.length === 0) {
-      return
-    }
-
-    event.preventDefault()
-
-    const filesArr: File[] = Array.from(event?.target?.files)
-    const readyFilesArr = filesArr.map((el: File) => ({
-      data_url: URL.createObjectURL(el),
-      file: new File([el], el?.name?.replace(/ /g, ''), {
-        type: el?.type,
-        lastModified: el?.lastModified,
-      }),
-    }))
-    const filesAlowLength = maxNumber - images?.length
-    const resultUploadedFiles = readyFilesArr.slice(0, filesAlowLength)
-    const resultFiles = withComment
-      ? [
-          ...images,
-          ...resultUploadedFiles.map(el => ({
-            fileLink: el,
-            commentByClient: '',
-            commentByPerformer: '',
-            _id: uuid(),
-          })),
-        ]
-      : [...images, ...resultUploadedFiles]
-
-    setImages(resultFiles)
-  }
-
-  const handleUploadFile = (fileIndex: number) => async (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event?.target?.files || event?.target?.files?.length === 0) {
-      return
-    }
-
-    event.preventDefault()
-
-    const filesArr: File[] = Array.from(event?.target?.files)
-    const readyFilesArr = filesArr.map((el: File) => ({
-      data_url: URL.createObjectURL(el),
-      file: new File([el], el?.name?.replace(/ /g, ''), {
-        type: el?.type,
-        lastModified: el?.lastModified,
-      }),
-    }))
-    const resultFiles = images.map((file, index) => {
-      if (isRequestMedia(file) && withComment) {
-        return { ...file, fileLink: index === fileIndex ? readyFilesArr[0] : file.fileLink }
-      } else {
-        return index === fileIndex ? readyFilesArr[0] : file
+  const handleUploadFiles = useCallback(
+    async (event: ChangeEvent<HTMLInputElement>) => {
+      if (!event?.target?.files || event?.target?.files?.length === 0) {
+        return
       }
-    })
 
-    setImages(resultFiles)
-  }
+      event.preventDefault()
 
-  const handleChangeComment = (commentIndex: number) => (event: ChangeEvent<HTMLInputElement>) => {
-    const resultFiles = images.map((file, index) =>
-      index === commentIndex && isRequestMedia(file) ? { ...file, commentByClient: event.target.value } : file,
-    )
+      const filesArr: File[] = Array.from(event?.target?.files)
+      const readyFilesArr = filesArr.map((el: File) => ({
+        data_url: URL.createObjectURL(el),
+        file: new File([el], el?.name?.replace(/ /g, ''), {
+          type: el?.type,
+          lastModified: el?.lastModified,
+        }),
+      }))
+      const filesAlowLength = maxNumber - images?.length
+      const resultUploadedFiles = readyFilesArr.slice(0, filesAlowLength)
+      const resultFiles = withComment
+        ? [
+            ...images,
+            ...resultUploadedFiles.map(el => ({
+              fileLink: el,
+              commentByClient: '',
+              commentByPerformer: '',
+              _id: uuid(),
+            })),
+          ]
+        : [...images, ...resultUploadedFiles]
 
-    setImages(resultFiles)
-  }
+      setImages(resultFiles)
+    },
+    [images, setImages],
+  )
 
-  const handleRemoveFile = (fileIndex: number) => {
-    const resultFiles = images.filter((_, index) => index !== fileIndex)
+  const handleUploadFile = useCallback(
+    (fileIndex: number) => async (event: ChangeEvent<HTMLInputElement>) => {
+      if (!event?.target?.files || event?.target?.files?.length === 0) {
+        return
+      }
 
-    setImages(resultFiles)
-  }
+      event.preventDefault()
+
+      const filesArr: File[] = Array.from(event?.target?.files)
+      const readyFilesArr = filesArr.map((el: File) => ({
+        data_url: URL.createObjectURL(el),
+        file: new File([el], el?.name?.replace(/ /g, ''), {
+          type: el?.type,
+          lastModified: el?.lastModified,
+        }),
+      }))
+      const resultFiles = images.map((file, index) => {
+        if (isRequestMedia(file) && withComment) {
+          return { ...file, fileLink: index === fileIndex ? readyFilesArr[0] : file.fileLink }
+        } else {
+          return index === fileIndex ? readyFilesArr[0] : file
+        }
+      })
+
+      setImages(resultFiles)
+    },
+    [images, setImages],
+  )
+
+  const handleChangeComment = useCallback(
+    (fileIndex: number) => (event: ChangeEvent<HTMLInputElement>) => {
+      // @ts-ignore
+      setImages(prev => {
+        const resultFiles = [...prev]
+        const currentFile = resultFiles[fileIndex]
+
+        if (isRequestMedia(currentFile)) {
+          resultFiles[fileIndex] = { ...currentFile, commentByClient: event.target.value }
+        }
+
+        return resultFiles
+      })
+    },
+    [setImages],
+  )
+
+  const handleRemoveFile = useCallback(
+    (fileIndex: number) => {
+      const resultFiles = images.filter((_, index) => index !== fileIndex)
+
+      setImages(resultFiles)
+    },
+    [images, setImages],
+  )
+
+  const handleRemoveAllFiles = useCallback(() => {
+    setImages([])
+  }, [setImages])
 
   const disabledLoadButton = linkInput.trim().length === 0 || images?.length >= maxNumber
 
   return {
     currentFileIndex,
     disabledLoadButton,
-    images,
+    files: images,
     linkInput,
     linkInputError,
     showImages,
@@ -134,5 +156,6 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
     onShowGalleryModal: handleShowGalleryModal,
     onUploadFile: handleUploadFile,
     onUploadFiles: handleUploadFiles,
+    onRemoveAllFiles: handleRemoveAllFiles,
   }
 }

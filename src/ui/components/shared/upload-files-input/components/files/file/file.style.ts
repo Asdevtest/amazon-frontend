@@ -1,21 +1,21 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
+  fileWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 5,
+  },
+
   file: {
-    height: 109,
-    width: 109,
+    width: 45,
+    height: 45,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 7,
     overflow: 'hidden',
-    borderRadius: 6,
-    boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
     cursor: 'pointer',
-    opacity: 1,
-    transition: 'opacity 0.3s ease-in-out',
-
-    '&:hover': {
-      opacity: 0.8,
-    },
   },
 }))

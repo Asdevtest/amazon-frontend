@@ -4,6 +4,7 @@ export const useStyles = makeStyles()(() => ({
   wrapper: {
     position: 'relative',
     width: '100%',
+    height: '100%',
     cursor: 'pointer',
   },
 
