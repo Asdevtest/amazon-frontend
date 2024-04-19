@@ -28,7 +28,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   versions: {
-    height: 290,
+    height: 280,
     paddingRight: 5,
     overflowY: 'auto',
     display: 'flex',
