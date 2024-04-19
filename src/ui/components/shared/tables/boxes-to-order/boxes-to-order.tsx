@@ -71,7 +71,6 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(props => {
           <BoxForm
             userInfo={viewModel.userInfo}
             box={viewModel.currentBox}
-            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             onToggleModal={() => viewModel.onToggleModal(ModalNames.BOX)}
             onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
             onClickHsCode={viewModel.onClickHsCode}

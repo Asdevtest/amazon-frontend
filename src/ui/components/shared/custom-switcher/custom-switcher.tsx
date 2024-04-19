@@ -16,9 +16,9 @@ interface CustomSwitcherProps {
   fullWidth?: boolean
   switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header'
   switcherSettings: ISwitcherSettings[]
-  condition: string | number | null | undefined
-  customCondition?: (value: string | number | null | undefined | Object) => boolean
-  changeConditionHandler: (condition: string | number | null | undefined) => void
+  condition: any
+  customCondition?: (value: any) => boolean
+  changeConditionHandler: (condition: any) => void
 }
 
 export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {

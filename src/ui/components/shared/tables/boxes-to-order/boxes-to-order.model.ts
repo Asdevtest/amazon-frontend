@@ -20,7 +20,6 @@ import { isBuyer, isClient } from '@typings/guards/roles'
 import { IBox } from '@typings/models/boxes/box'
 import { IFullUser } from '@typings/shared/full-user'
 import { IHSCode } from '@typings/shared/hs-code'
-import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { ModalNames } from './boxes-to-order.type'
@@ -40,9 +39,7 @@ export class BoxesToOrderModel {
   boxes: IOrderBoxSupplemented[] = []
   currentBox: IBox | undefined = undefined
   hsCodeData: IHSCode | undefined = undefined
-  platformSettings: IPlatformSettings | undefined = undefined
   uploadedFiles: UploadFileType[] = []
-
   showBoxModal = false
   showEditHSCodeModal = false
 
