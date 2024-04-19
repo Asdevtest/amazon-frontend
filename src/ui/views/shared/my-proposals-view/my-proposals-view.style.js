@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   dataGridWrapper: {
-    height: '80vh',
+    height: 'calc(100vh - 270px)',
     width: '100%',
   },
 

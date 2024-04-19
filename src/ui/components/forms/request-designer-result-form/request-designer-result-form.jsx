@@ -43,7 +43,6 @@ const Slot = ({
   onPasteFiles,
   onUploadFile,
   onChangeImageFileds,
-  isRework,
   onClickRemoveItem,
 }) => {
   const { classes: styles, cx } = useStyles()
@@ -100,8 +99,14 @@ const Slot = ({
         </div>
 
         {slot.fileLink ? (
-          <div className={styles.imageListItem}>
-            <SlideByType mediaFile={slot.fileLink} mediaFileIndex={index} />
+          <div
+            className={styles.imageListItem}
+            onClick={() => {
+              setCurImageIndex(index)
+              setShowImageModal(!showImageModal)
+            }}
+          >
+            <SlideByType objectFitContain mediaFile={slot.fileLink} mediaFileIndex={index} />
           </div>
         ) : (
           <div className={styles.imageSubWrapper}>
@@ -360,7 +365,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
                   setImagesData={setImagesData}
                   setShowImageModal={setShowImageModal}
                   showImageModal={showImageModal}
-                  isRework={isRework}
                   onPasteFiles={onPasteFiles}
                   onUploadFile={onUploadFile}
                   onClickRemoveItem={onClickRemoveItem}
@@ -411,6 +415,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
 
       {showImageModal ? (
         <SlideshowGalleryModal
+          withoutMakeMainImage
           isEditable={isRework}
           openModal={showImageModal}
           files={imagesData}

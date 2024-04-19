@@ -57,7 +57,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
           })}
           onClick={() => setCurrentMediaFileIndex(index)}
         >
-          <SlideByType isPreviews mediaFile={mediaFile} mediaFileIndex={index} />
+          <SlideByType isPreviews objectFitContain mediaFile={mediaFile} mediaFileIndex={index} />
         </div>
       ))}
     </div>
