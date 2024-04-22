@@ -58,6 +58,17 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
       return updatedPatchNotes
     })
   }
+  const handleChangePatchNoteDescription = (patchNoteIndex: number) => (value: string) => {
+    setPatchNotes(prevPatchNotes => {
+      const updatedPatchNotes = [...prevPatchNotes]
+      updatedPatchNotes[patchNoteIndex] = {
+        ...updatedPatchNotes[patchNoteIndex],
+        description: value,
+      }
+
+      return updatedPatchNotes
+    })
+  }
   const handleAddPatchNote = () => {
     setPatchNotes(prevPatchNotes => [generatePatchNote(), ...prevPatchNotes])
   }
@@ -78,6 +89,7 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
             patchNoteIndex={index}
             patchNoteVersions={patchNoteVersions}
             onChangePatchNote={handleChangePatchNote}
+            onChangePatchNoteDescription={handleChangePatchNoteDescription}
           />
         ))}
       </div>
