@@ -2031,9 +2031,7 @@ export const FromToDateMenuItem = memo(
               key={'client_warehouse_search_input'}
               inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
+              onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>
           <div className={styles.shopsWrapper}>
