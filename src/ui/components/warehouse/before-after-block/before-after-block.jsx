@@ -1,34 +1,31 @@
-import { Fragment, memo, useState } from 'react'
+import { memo, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Checkbox, Divider, Paper, Tooltip, Typography } from '@mui/material'
 
-import {
-  getConversion,
-  getWeightSizesType,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-} from '@constants/configs/sizes-settings'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/button'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { Dimensions } from '@components/shared/dimensions'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { BoxArrow } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
-import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { Dimensions as DimensionsEnum } from '@typings/enums/dimensions'
 import { UiTheme } from '@typings/enums/ui-theme'
+
+import { Entities } from '@hooks/use-dimensions'
 
 import { useStyles } from './before-after-block.style'
 
@@ -52,7 +49,6 @@ const Box = memo(props => {
     setNewBoxes,
     readOnly,
     newBoxes,
-    volumeWeightCoefficient,
     referenceEditingBox,
     onClickApplyAllBtn,
   } = props
@@ -92,23 +88,7 @@ const Box = memo(props => {
     setNewBoxes(updatedNewBoxes)
   }
 
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
-  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
-  const weightSizesType = getWeightSizesType(sizeSetting)
-
-  const volumeWeightWarehouse =
-    ((parseFloat(box.lengthCmWarehouse) || 0) *
-      (parseFloat(box.heightCmWarehouse) || 0) *
-      (parseFloat(box.widthCmWarehouse) || 0)) /
-    volumeWeightCoefficient
-
-  const volumeWeightSupplier =
-    ((parseFloat(box.lengthCmSupplier) || 0) *
-      (parseFloat(box.heightCmSupplier) || 0) *
-      (parseFloat(box.widthCmSupplier) || 0)) /
-    volumeWeightCoefficient
+  const [sizeSetting, setSizeSetting] = useState(DimensionsEnum.EU)
 
   const needAccent =
     (taskType === TaskOperationType.EDIT || taskType === TaskOperationType.EDIT_BY_STOREKEEPER) && isNewBox
@@ -194,131 +174,22 @@ const Box = memo(props => {
             ))}
           </div>
           <div className={cx(styles.boxInfoWrapper)}>
-            <div>
-              <Typography className={styles.categoryTitle}>
+            <div className={styles.demensionsWrapper}>
+              <p>
                 {taskType === TaskOperationType.RECEIVE
                   ? isCurrentBox
                     ? t(TranslationKey['Sizes from buyer']) + ':'
                     : `${t(TranslationKey['Sizes from storekeeper'])}:`
                   : `${t(TranslationKey['Sizes from storekeeper'])}:`}
-              </Typography>
+              </p>
 
-              <div className={styles.sizesSubWrapper}>
-                <CustomSwitcher
-                  condition={sizeSetting}
-                  switcherSettings={[
-                    { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                    { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                  ]}
-                  changeConditionHandler={condition => setSizeSetting(condition)}
-                />
-              </div>
+              <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
 
-              {
-                /* isCurrentBox &&*/ taskType === TaskOperationType.RECEIVE ? (
-                  <div className={styles.demensionsWrapper}>
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey.Length) + ': '}
-
-                      {isCurrentBox
-                        ? toFixed(box.lengthCmSupplier / lengthConversion, 2)
-                        : toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
-                    </Typography>
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey.Width) + ': '}
-                      {isCurrentBox
-                        ? toFixed(box.widthCmSupplier / lengthConversion, 2)
-                        : toFixed(box.widthCmWarehouse / lengthConversion, 2)}
-                    </Typography>
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey.Height) + ': '}
-                      {isCurrentBox
-                        ? toFixed(box.heightCmSupplier / lengthConversion, 2)
-                        : toFixed(box.heightCmWarehouse / lengthConversion, 2)}
-                    </Typography>
-
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey.Weight) + ': '}
-                      {isCurrentBox
-                        ? toFixed(box.weighGrossKgSupplier / weightConversion, 2)
-                        : toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
-                      {' ' + weightSizesType}
-                    </Typography>
-
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey['Volume weight']) + ': '}
-                      {isCurrentBox
-                        ? toFixed(volumeWeightSupplier / weightConversion, 2)
-                        : toFixed(volumeWeightWarehouse / weightConversion, 2)}
-                      {' ' + weightSizesType}
-                    </Typography>
-
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey['Final weight']) + ': '}
-                      {isCurrentBox
-                        ? toFixed(
-                            box.weighGrossKgSupplier > volumeWeightSupplier
-                              ? box.weighGrossKgSupplier / weightConversion
-                              : volumeWeightWarehouse / weightConversion,
-                            2,
-                          )
-                        : toFixed(
-                            box.weighGrossKgWarehouse > volumeWeightSupplier
-                              ? box.weighGrossKgWarehouse / weightConversion
-                              : volumeWeightWarehouse / weightConversion,
-                            2,
-                          )}
-                      {' ' + weightSizesType}
-                    </Typography>
-                  </div>
-                ) : (
-                  <div
-                    className={cx(styles.demensionsWrapper, {
-                      [styles.editAccent]:
-                        isNewBox &&
-                        (taskType === TaskOperationType.EDIT || taskType === TaskOperationType.EDIT_BY_STOREKEEPER) &&
-                        (box.heightCmWarehouse !== referenceEditingBox.heightCmWarehouse ||
-                          box.weighGrossKgWarehouse !== referenceEditingBox.weighGrossKgWarehouse ||
-                          box.widthCmWarehouse !== referenceEditingBox.widthCmWarehouse ||
-                          box.lengthCmWarehouse !== referenceEditingBox.lengthCmWarehouse),
-                    })}
-                  >
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey.Length) + ': '}
-                      {toFixed(box.lengthCmWarehouse / lengthConversion, 2)}
-                    </Typography>
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey.Width) + ': '}
-                      {toFixed(box.widthCmWarehouse / lengthConversion, 2)}
-                    </Typography>
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey.Height) + ': '}
-                      {toFixed(box.heightCmWarehouse / lengthConversion, 2)}
-                    </Typography>
-
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey.Weight) + ': '}
-                      {toFixed(box.weighGrossKgWarehouse / weightConversion, 2)}
-                      {' ' + weightSizesType}
-                    </Typography>
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey['Volume weight']) + ': '}
-                      {toFixed(volumeWeightWarehouse / weightConversion, 2)}
-                      {' ' + weightSizesType}
-                    </Typography>
-                    <Typography className={cx(styles.standartText, styles.mobileDemensions)}>
-                      {t(TranslationKey['Final weight']) + ': '}
-                      {toFixed(
-                        box.weighGrossKgWarehouse > volumeWeightWarehouse
-                          ? box.weighGrossKgWarehouse / weightConversion
-                          : volumeWeightWarehouse / weightConversion,
-                        2,
-                      )}
-                      {' ' + weightSizesType}
-                    </Typography>
-                  </div>
-                )
-              }
+              <Dimensions
+                data={box}
+                sizeSetting={sizeSetting}
+                calculationField={isCurrentBox ? Entities.SUPPLIER : Entities.WAREHOUSE}
+              />
             </div>
 
             <Divider flexItem className={styles.divider} orientation="vertical" />
@@ -531,7 +402,6 @@ const NewBoxes = memo(props => {
             key={boxIndex}
             boxIndex={boxIndex}
             readOnly={readOnly}
-            volumeWeightCoefficient={volumeWeightCoefficient}
             isNewBox={isNewBox}
             referenceEditingBox={referenceEditingBoxes[0]}
             box={box}
@@ -575,7 +445,6 @@ export const BeforeAfterBlock = memo(props => {
     onTriggerShowEditBoxModal,
     setNewBoxes,
     setAmountFieldNewBox,
-    volumeWeightCoefficient,
     onClickOpenModal,
     readOnly,
     onClickApplyAllBtn,
@@ -605,15 +474,7 @@ export const BeforeAfterBlock = memo(props => {
         <div className={styles.newBoxesWrapper}>
           {incomingBoxes &&
             incomingBoxes.map((box, boxIndex) => (
-              <Fragment key={boxIndex}>
-                <Box
-                  isCurrentBox
-                  readOnly={readOnly}
-                  box={box}
-                  taskType={taskType}
-                  volumeWeightCoefficient={volumeWeightCoefficient}
-                />
-              </Fragment>
+              <Box key={boxIndex} isCurrentBox readOnly={readOnly} box={box} taskType={taskType} />
             ))}
         </div>
       </div>
@@ -625,7 +486,6 @@ export const BeforeAfterBlock = memo(props => {
           isNewBox
           readOnly={readOnly}
           isEdit={isEdit}
-          volumeWeightCoefficient={volumeWeightCoefficient}
           referenceEditingBoxes={incomingBoxes}
           newBoxes={desiredBoxes}
           taskType={taskType}

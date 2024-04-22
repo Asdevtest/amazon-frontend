@@ -267,7 +267,6 @@ export const EditTaskModal = memo(
 
           <BeforeAfterBlock
             readOnly={readOnly}
-            volumeWeightCoefficient={volumeWeightCoefficient}
             incomingBoxes={task.boxesBefore}
             desiredBoxes={newBoxes}
             taskType={task.operationType}

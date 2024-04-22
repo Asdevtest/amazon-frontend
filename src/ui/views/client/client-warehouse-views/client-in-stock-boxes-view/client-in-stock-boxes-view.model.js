@@ -1,6 +1,5 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { operationTypes } from '@constants/keys/operation-types'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -29,6 +28,7 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
+import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
@@ -44,7 +44,7 @@ export class ClientInStockBoxesViewModel {
 
   nameSearchValue = ''
 
-  unitsOption = unitsOfChangeOptions.EU
+  unitsOption = Dimensions.EU
 
   curBox = undefined
   showBoxViewModal = false
