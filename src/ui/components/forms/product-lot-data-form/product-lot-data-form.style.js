@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   productLotDataBlock: {
-    width: 1400,
+    width: '90vw',
     padding: 10,
     display: 'flex',
     flexDirection: 'column',

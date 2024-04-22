@@ -51,6 +51,7 @@ export const wholeIntegersList = [
   'quantityBoxes',
   'toRefill',
   'currentSupplierProductionTerm',
+  'minlot',
 ]
 
 export const negativeOrPositiveList = ['roi']
