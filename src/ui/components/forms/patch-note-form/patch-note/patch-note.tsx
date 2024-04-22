@@ -5,6 +5,7 @@ import { MenuItem, Select } from '@mui/material'
 import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
@@ -23,10 +24,11 @@ interface PatchNoteProps {
   patchNoteIndex: number
   patchNoteVersions: string[]
   onChangePatchNote: (patchNoteIndex: number, field: string) => (e: EventType) => void
+  onChangePatchNoteDescription: (patchNoteIndex: number) => (value: string) => void
 }
 
 export const PatchNote: FC<PatchNoteProps> = memo(props => {
-  const { patchNote, patchNoteIndex, patchNoteVersions, onChangePatchNote } = props
+  const { patchNote, patchNoteIndex, /* patchNoteVersions, */ onChangePatchNote, onChangePatchNoteDescription } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -106,7 +108,7 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
         }
       />
 
-      <Field
+      {/* <Field
         multiline
         label={t(TranslationKey.Description)}
         placeholder={t(TranslationKey.Description)}
@@ -117,6 +119,16 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
         inputClasses={styles.field}
         containerClasses={styles.fieldContainer}
         onChange={onChangePatchNote(patchNoteIndex, 'description')}
+      /> */}
+
+      <CustomTextEditor
+        title={t(TranslationKey.Description)}
+        placeholder={t(TranslationKey.Description)}
+        value={patchNote.description}
+        editorClassName={styles.editor}
+        editorWrapperClassName={styles.fieldContainer}
+        editorContainerClassName={styles.editor}
+        onChange={onChangePatchNoteDescription(patchNoteIndex)}
       />
     </div>
   )

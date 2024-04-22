@@ -3,7 +3,7 @@ import { FC, UIEvent, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { Field } from '@components/shared/field'
+import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -62,16 +62,16 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
       <div className={styles.versions} onScroll={handleScrollPatchNotes}>
         {selectedPatchNote ? (
           selectedPatchNote.map(patchNote => (
-            <Field
-              key={patchNote._id}
-              disabled
-              multiline
-              labelClasses={cx(styles.title, styles.fixLabelMargin)}
-              inputClasses={styles.editor}
-              containerClasses={styles.editorContainer}
-              label={Roles[patchNote.role]}
-              value={patchNote.description}
-            />
+            <div key={patchNote._id} className={styles.version}>
+              <p className={cx(styles.title, styles.text)}>{Roles[patchNote.role]}</p>
+              <CustomTextEditor
+                readOnly
+                allHeight
+                value={patchNote.description}
+                placeholder={t(TranslationKey.Description)}
+                editorWrapperClassName={styles.editorContainer}
+              />
+            </div>
           ))
         ) : patchNotes.length > 0 ? (
           patchNotes.map(patchNote => (

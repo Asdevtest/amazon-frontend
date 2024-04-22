@@ -35,4 +35,8 @@ export const useStyles = makeStyles()(theme => ({
   fieldContainer: {
     margin: 0,
   },
+
+  editor: {
+    maxHeight: 154,
+  },
 }))
