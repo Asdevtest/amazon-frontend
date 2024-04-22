@@ -14,11 +14,12 @@ interface IConfirmModalSettings {
   onClickCancelBtn: () => void
 }
 
-interface INewDataOfVariation {
+export interface INewDataOfVariation {
   isSameDestination: boolean
   variationTariffId: string
   destinationId: string
   logicsTariffId: string
+  storekeeperId: string
 }
 
 export const useTariffVariation = (initialDestinationId: string, handleSetState: Dispatch<SetStateAction<IBox>>) => {

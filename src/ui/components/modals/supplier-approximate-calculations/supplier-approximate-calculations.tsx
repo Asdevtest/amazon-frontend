@@ -16,6 +16,8 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IBox } from '@typings/models/boxes/box'
 
+import { INewDataOfVariation } from '@hooks/use-tariff-variation'
+
 import { useStyles } from './supplier-approximate-calculations.style'
 
 import { ProductCard } from './product-card'
@@ -26,147 +28,159 @@ interface SupplierApproximateCalculationsModalProps {
   currentSupplierId?: string
   productId?: string
   setOpenModal: (value: boolean) => void
-  onClickSubmit?: (body: any) => void
+  onClickSubmit?: (body: INewDataOfVariation) => void
   boxId?: string
   box?: IBox
   isTariffsSelect?: boolean
+  isHideCalculation?: boolean
 }
 
-export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalculationsModalProps> = observer(
-  ({ openModal, setOpenModal, currentSupplierId, productId, boxId, isTariffsSelect, box, onClickSubmit }) => {
-    const { classes: styles } = useStyles()
+export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalculationsModalProps> = observer(props => {
+  const {
+    openModal,
+    setOpenModal,
+    currentSupplierId,
+    productId,
+    boxId,
+    isTariffsSelect,
+    box,
+    onClickSubmit,
+    isHideCalculation,
+  } = props
 
-    const [viewModel] = useState(
-      () =>
-        new SupplierApproximateCalculationsModel({
-          supplierId: currentSupplierId,
-          productId,
-          boxId,
-          isTariffsSelect,
-          onClickSubmit,
-          box,
-        }),
-    )
+  const { classes: styles } = useStyles()
 
-    return (
-      <Modal isSecondBackground openModal={openModal} setOpenModal={setOpenModal}>
-        <div className={styles.root}>
-          <div className={styles.headerWrapper}>
-            <p className={styles.title}>{t(TranslationKey['Approximate calculation'])}</p>
+  const [viewModel] = useState(
+    () =>
+      new SupplierApproximateCalculationsModel({
+        supplierId: currentSupplierId,
+        productId,
+        boxId,
+        isTariffsSelect,
+        onClickSubmit,
+        box,
+        isHideCalculation,
+      }),
+  )
 
-            <SearchInput
-              placeholder={`${t(TranslationKey['Search by'])}: ${t(TranslationKey.Tariff)}, ${t(
-                TranslationKey.Destination,
-              )}`}
-              startText={viewModel.currentSearchValue}
-              onSubmit={viewModel.onSearchSubmit}
-            />
-          </div>
+  return (
+    <Modal isSecondBackground openModal={openModal} setOpenModal={setOpenModal}>
+      <div className={styles.root}>
+        <div className={styles.headerWrapper}>
+          <p className={styles.title}>{t(TranslationKey['Approximate calculation'])}</p>
 
-          <CustomSwitcher
-            switchMode="medium"
-            condition={viewModel?.currentStorekeeperId}
-            switcherSettings={viewModel?.storekeepers}
-            changeConditionHandler={value => viewModel?.setCurrentStorekeeper(value as string)}
+          <SearchInput
+            placeholder={`${t(TranslationKey['Search by'])}: ${t(TranslationKey.Tariff)}, ${t(
+              TranslationKey.Destination,
+            )}`}
+            startText={viewModel.currentSearchValue}
+            onSubmit={viewModel.onSearchSubmit}
           />
-
-          {viewModel?.boxItems?.length ? (
-            <div className={styles.productsWrapper}>
-              {viewModel?.boxItems?.map(({ product, order }) => (
-                <ProductCard
-                  key={product._id}
-                  isActive={viewModel?.productId === product?._id}
-                  product={product}
-                  onClickChangeActive={() =>
-                    viewModel?.handleChangeActiveProduct(
-                      product?._id,
-                      order?.orderSupplier?._id || order?.orderSupplierId,
-                    )
-                  }
-                />
-              ))}
-            </div>
-          ) : null}
-
-          <div className={styles.tableWrapper}>
-            <CustomDataGrid
-              disableRowSelectionOnClick
-              rowCount={viewModel?.rowCount}
-              sortModel={viewModel?.sortModel}
-              filterModel={viewModel?.filterModel}
-              columnVisibilityModel={viewModel?.columnVisibilityModel}
-              paginationModel={viewModel?.paginationModel}
-              rows={viewModel?.tableData}
-              getRowHeight={() => 'auto'}
-              getRowId={({ _id }: { _id: string }) => _id}
-              slotProps={{
-                baseTooltip: {
-                  title: t(TranslationKey.Filter),
-                },
-                columnMenu: viewModel?.columnMenuSettings,
-
-                toolbar: {
-                  resetFiltersBtnSettings: {
-                    onClickResetFilters: viewModel?.onClickResetFilters,
-                    isSomeFilterOn: viewModel?.isSomeFilterOn,
-                  },
-
-                  columsBtnSettings: {
-                    columnsModel: viewModel?.columnsModel,
-
-                    columnVisibilityModel: viewModel?.columnVisibilityModel,
-                    onColumnVisibilityModelChange: viewModel?.onColumnVisibilityModelChange,
-                  },
-
-                  sortSettings: {
-                    sortModel: viewModel.sortModel,
-                    columnsModel: viewModel.columnsModel,
-                    onSortModelChange: viewModel.onChangeSortingModel,
-                  },
-
-                  children: (
-                    <>
-                      {isTariffsSelect ? (
-                        <Checkbox
-                          checked={!viewModel.isStrictVariationSelect}
-                          onChange={e => viewModel.handleChangeStrictVariation(!e.target.checked)}
-                        >
-                          {t(TranslationKey['Remove destination restriction'])}
-                        </Checkbox>
-                      ) : null}
-                    </>
-                  ),
-                },
-              }}
-              rowSelectionModel={viewModel?.selectedRows}
-              density={viewModel?.densityModel}
-              columns={viewModel?.columnsModel}
-              loading={viewModel?.requestStatus === loadingStatus.IS_LOADING}
-              onRowSelectionModelChange={viewModel?.onSelectionModel}
-              onSortModelChange={viewModel?.onChangeSortingModel}
-              onColumnVisibilityModelChange={viewModel?.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel?.onPaginationModelChange}
-              onFilterModelChange={viewModel?.onChangeFilterModel}
-            />
-          </div>
-
-          {isTariffsSelect ? (
-            <div className={styles.buttonsWrapper}>
-              <Button disabled={!viewModel?.currentVariationId} onClick={viewModel?.handleSaveVariationTariff}>
-                {t(TranslationKey.Choose)}
-              </Button>
-
-              <Button
-                styleType={ButtonStyle.DANGER}
-                variant={ButtonVariant.OUTLINED}
-                onClick={viewModel?.handleResetVariationTariff}
-              >
-                {t(TranslationKey.reset)}
-              </Button>
-            </div>
-          ) : null}
         </div>
-      </Modal>
-    )
-  },
-)
+
+        <CustomSwitcher
+          switchMode="medium"
+          condition={viewModel?.currentStorekeeperId}
+          switcherSettings={viewModel?.storekeepers}
+          changeConditionHandler={value => viewModel?.setCurrentStorekeeper(value as string)}
+        />
+
+        {viewModel?.boxItems?.length ? (
+          <div className={styles.productsWrapper}>
+            {viewModel?.boxItems?.map(({ product, order }) => (
+              <ProductCard
+                key={product._id}
+                isActive={viewModel?.productId === product?._id}
+                product={product}
+                onClickChangeActive={() =>
+                  viewModel?.handleChangeActiveProduct(
+                    product?._id,
+                    order?.orderSupplier?._id || order?.orderSupplierId,
+                  )
+                }
+              />
+            ))}
+          </div>
+        ) : null}
+
+        <div className={styles.tableWrapper}>
+          <CustomDataGrid
+            disableRowSelectionOnClick
+            rowCount={viewModel?.rowCount}
+            sortModel={viewModel?.sortModel}
+            filterModel={viewModel?.filterModel}
+            columnVisibilityModel={viewModel?.columnVisibilityModel}
+            paginationModel={viewModel?.paginationModel}
+            rows={viewModel?.tableData}
+            getRowHeight={() => 'auto'}
+            getRowId={({ _id }: { _id: string }) => _id}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              columnMenu: viewModel?.columnMenuSettings,
+
+              toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel?.onClickResetFilters,
+                  isSomeFilterOn: viewModel?.isSomeFilterOn,
+                },
+
+                columsBtnSettings: {
+                  columnsModel: viewModel?.columnsModel,
+
+                  columnVisibilityModel: viewModel?.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel?.onColumnVisibilityModelChange,
+                },
+
+                sortSettings: {
+                  sortModel: viewModel.sortModel,
+                  columnsModel: viewModel.columnsModel,
+                  onSortModelChange: viewModel.onChangeSortingModel,
+                },
+
+                children: (
+                  <>
+                    {isTariffsSelect ? (
+                      <Checkbox
+                        checked={!viewModel.isStrictVariationSelect}
+                        onChange={e => viewModel.handleChangeStrictVariation(!e.target.checked)}
+                      >
+                        {t(TranslationKey['Remove destination restriction'])}
+                      </Checkbox>
+                    ) : null}
+                  </>
+                ),
+              },
+            }}
+            rowSelectionModel={viewModel?.selectedRows}
+            density={viewModel?.densityModel}
+            columns={viewModel?.columnsModel}
+            loading={viewModel?.requestStatus === loadingStatus.IS_LOADING}
+            onRowSelectionModelChange={viewModel?.onSelectionModel}
+            onSortModelChange={viewModel?.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel?.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel?.onPaginationModelChange}
+            onFilterModelChange={viewModel?.onChangeFilterModel}
+          />
+        </div>
+
+        {isTariffsSelect ? (
+          <div className={styles.buttonsWrapper}>
+            <Button disabled={!viewModel?.currentVariationId} onClick={viewModel?.handleSaveVariationTariff}>
+              {t(TranslationKey.Choose)}
+            </Button>
+
+            <Button
+              styleType={ButtonStyle.DANGER}
+              variant={ButtonVariant.OUTLINED}
+              onClick={viewModel?.handleResetVariationTariff}
+            >
+              {t(TranslationKey.reset)}
+            </Button>
+          </div>
+        ) : null}
+      </div>
+    </Modal>
+  )
+})

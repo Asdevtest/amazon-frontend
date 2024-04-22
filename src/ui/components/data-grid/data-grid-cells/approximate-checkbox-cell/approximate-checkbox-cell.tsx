@@ -8,9 +8,9 @@ import { useStyles } from './approximate-checkbox-cell.style'
 
 interface ApproximateCheckboxCellProps {
   variations: IDestinationVariationWithCalculations[]
-  currentVariationId: string
-  currentDestinationId: string
-  isStrictVariationSelect: boolean
+  currentVariationId?: string
+  currentDestinationId?: string
+  isStrictVariationSelect?: boolean
   onClickChangeVariation: (variationId: string, destinationId: string, logicsTariffId: string) => void
 }
 

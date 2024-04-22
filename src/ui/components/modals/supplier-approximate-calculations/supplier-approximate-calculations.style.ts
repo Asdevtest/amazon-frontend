@@ -39,6 +39,7 @@ export const useStyles = makeStyles()(theme => ({
     minHeight: 'calc(100% - 280px)',
     flex: 1,
     width: '100%',
+    paddingBottom: '3px',
   },
 
   buttonsWrapper: {

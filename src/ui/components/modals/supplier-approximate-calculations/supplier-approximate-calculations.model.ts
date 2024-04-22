@@ -16,6 +16,8 @@ import { IBox } from '@typings/models/boxes/box'
 import { IBoxItem } from '@typings/models/boxes/box-item'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 
+import { INewDataOfVariation } from '@hooks/use-tariff-variation'
+
 import { observerConfig } from './observer-config'
 import { SupplierApproximateCalculationsColumns } from './supplier-approximate-calculations-columns'
 import { additionalFilterFields } from './supplier-approximate-calculations.constants'
@@ -44,7 +46,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   currentDestinationId: string | undefined = undefined
   currentLogicsTariffId: string | undefined = undefined
 
-  handleSave: ((body: any) => void) | undefined
+  handleSave: ((body: INewDataOfVariation) => void) | undefined
 
   constructor({
     supplierId,
@@ -53,16 +55,19 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     isTariffsSelect,
     onClickSubmit,
     box,
+    isHideCalculation,
   }: {
+    box?: IBox
     supplierId?: string
     productId?: string
-    onClickSubmit?: (body: any) => void
     boxId?: string
     isTariffsSelect?: boolean
-    box?: IBox
+    isHideCalculation?: boolean
+    onClickSubmit?: (body: INewDataOfVariation) => void
   }) {
     const columnHandlers = {
-      isTariffsSelect,
+      isTariffsSelect: !!isTariffsSelect,
+      isHideCalculation: !!isHideCalculation,
       getCurrentVariationId: () => this.currentVariationId,
       getCurrentDestinationId: () => this.currentDestinationId,
       getStrictVariationSelect: () => this.isStrictVariationSelect,
@@ -93,7 +98,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     if (onClickSubmit) {
       this.handleSave = onClickSubmit
     }
-    this.sortModel = [{ field: 'roi', sort: SortSettingsMode.DESC }]
+    this.sortModel = [{ field: isHideCalculation ? 'pricePerKgUsd' : 'roi', sort: SortSettingsMode.DESC }]
 
     if (supplierId) {
       this.supplierId = supplierId
@@ -200,7 +205,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       storekeeperId: this.currentStorekeeperId,
     }
 
-    this.handleSave?.(data)
+    this.handleSave?.(data as INewDataOfVariation)
   }
 
   handleResetVariationTariff() {
@@ -212,7 +217,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       storekeeperId: this.currentStorekeeperId,
     }
 
-    this.handleSave?.(data)
+    this.handleSave?.(data as unknown as INewDataOfVariation)
   }
 
   setActualData(box: IBox) {

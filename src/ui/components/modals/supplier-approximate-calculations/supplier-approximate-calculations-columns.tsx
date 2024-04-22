@@ -16,7 +16,16 @@ import { VariationTariffRoiCell } from '@components/data-grid/data-grid-cells/va
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const SupplierApproximateCalculationsColumns = (columnHandlers: any) => {
+interface columnHandlersProps {
+  isTariffsSelect: boolean
+  isHideCalculation: boolean
+  getCurrentVariationId: () => string | undefined
+  getCurrentDestinationId: () => string | undefined
+  getStrictVariationSelect: () => boolean | undefined
+  onClickChangeVariation: (variationId: string, destinationId: string, logicsTariffId: string) => void
+}
+
+export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHandlersProps) => {
   const columns = [
     {
       field: 'name',
@@ -198,6 +207,11 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: any) => {
 
     // @ts-ignore
     columns?.splice(2, 0, selectColumn)
+  }
+
+  if (columnHandlers.isHideCalculation) {
+    // @ts-ignore
+    return columns?.slice(0, -3)
   }
 
   return columns

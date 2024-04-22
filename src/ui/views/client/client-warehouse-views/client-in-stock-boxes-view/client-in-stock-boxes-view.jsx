@@ -307,7 +307,8 @@ export const ClientInStockBoxesView = observer(({ history }) => {
 
       {viewModel.showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
-          isTariffsSelect
+          isTariffsSelect={viewModel.changeItem}
+          isHideCalculation={!viewModel.changeItem}
           openModal={viewModel.showSelectionStorekeeperAndTariffModal}
           boxId={viewModel.changeItem?._id}
           setOpenModal={viewModel.openModalAndClear}

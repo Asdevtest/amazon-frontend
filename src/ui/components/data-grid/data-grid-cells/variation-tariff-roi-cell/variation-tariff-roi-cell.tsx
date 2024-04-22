@@ -31,7 +31,7 @@ export const VariationTariffRoiCell: FC<VariationTariffRoiCellProps> = memo(({ d
                   [styles.goodRoi]: roi >= 130,
                 })}
               >
-                <p>{toFixed(destination?.destination?.roi, 2)}</p>
+                <p>{roi ? toFixed(roi, 2) : t(TranslationKey.Missing)}</p>
               </div>
             )
           })
