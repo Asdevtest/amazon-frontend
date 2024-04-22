@@ -16,17 +16,10 @@ export const useStyles = makeStyles()(theme => ({
     minHeight: 48,
     flex: 1,
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
 
     margin: '0 -10px',
     borderBottom: `1px solid ${theme.palette.input.customBorder}`,
-  },
-
-  borderRight: {
-    borderRight: `1px solid ${theme.palette.input.customBorder}`,
-  },
-
-  borderLeft: {
-    borderLeft: `1px solid ${theme.palette.input.customBorder}`,
   },
 }))

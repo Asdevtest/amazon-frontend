@@ -36,6 +36,10 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  alternativeBackground: {
+    background: theme.palette.background.second,
+  },
+
   content: {
     maxWidth: '90vw',
     maxHeight: '85vh',

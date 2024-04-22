@@ -53,6 +53,8 @@ export const StorekeeperRedistributeBox = observer(
       images: [],
     })
 
+    
+
     const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
 
     const emptyProducts = currentBox?.items?.map(product => ({ ...product, amount: isMasterBox ? product.amount : 0 }))

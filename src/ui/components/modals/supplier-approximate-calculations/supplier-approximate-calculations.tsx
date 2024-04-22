@@ -3,43 +3,90 @@ import { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Button } from '@components/shared/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
+import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IBox } from '@typings/models/boxes/box'
 
 import { useStyles } from './supplier-approximate-calculations.style'
 
+import { ProductCard } from './product-card'
 import { SupplierApproximateCalculationsModel } from './supplier-approximate-calculations.model'
 
 interface SupplierApproximateCalculationsModalProps {
   openModal: boolean
-  currentSupplierId: string
-  productId: string
+  currentSupplierId?: string
+  productId?: string
   setOpenModal: (value: boolean) => void
+  onClickSubmit?: (body: any) => void
+  boxId?: string
+  box?: IBox
+  isTariffsSelect?: boolean
 }
 
 export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalculationsModalProps> = observer(
-  ({ openModal, currentSupplierId, productId, setOpenModal }) => {
+  ({ openModal, setOpenModal, currentSupplierId, productId, boxId, isTariffsSelect, box, onClickSubmit }) => {
     const { classes: styles } = useStyles()
 
-    const [viewModel] = useState(() => new SupplierApproximateCalculationsModel(currentSupplierId, productId))
+    const [viewModel] = useState(
+      () =>
+        new SupplierApproximateCalculationsModel({
+          supplierId: currentSupplierId,
+          productId,
+          boxId,
+          isTariffsSelect,
+          onClickSubmit,
+          box,
+        }),
+    )
 
     return (
-      <Modal openModal={openModal} setOpenModal={setOpenModal}>
+      <Modal isSecondBackground openModal={openModal} setOpenModal={setOpenModal}>
         <div className={styles.root}>
-          <p className={styles.title}>{t(TranslationKey['Approximate calculation'])}</p>
+          <div className={styles.headerWrapper}>
+            <p className={styles.title}>{t(TranslationKey['Approximate calculation'])}</p>
+
+            <SearchInput
+              placeholder={`${t(TranslationKey['Search by'])}: ${t(TranslationKey.Tariff)}, ${t(
+                TranslationKey.Destination,
+              )}`}
+              startText={viewModel.currentSearchValue}
+              onSubmit={viewModel.onSearchSubmit}
+            />
+          </div>
 
           <CustomSwitcher
-            fullWidth
             switchMode="medium"
             condition={viewModel?.currentStorekeeperId}
             switcherSettings={viewModel?.storekeepers}
             changeConditionHandler={value => viewModel?.setCurrentStorekeeper(value as string)}
           />
+
+          {viewModel?.boxItems?.length ? (
+            <div className={styles.productsWrapper}>
+              {viewModel?.boxItems?.map(({ product, order }) => (
+                <ProductCard
+                  key={product._id}
+                  isActive={viewModel?.productId === product?._id}
+                  product={product}
+                  onClickChangeActive={() =>
+                    viewModel?.handleChangeActiveProduct(
+                      product?._id,
+                      order?.orderSupplier?._id || order?.orderSupplierId,
+                    )
+                  }
+                />
+              ))}
+            </div>
+          ) : null}
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
@@ -76,6 +123,19 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
                     columnsModel: viewModel.columnsModel,
                     onSortModelChange: viewModel.onChangeSortingModel,
                   },
+
+                  children: (
+                    <>
+                      {isTariffsSelect ? (
+                        <Checkbox
+                          checked={!viewModel.isStrictVariationSelect}
+                          onChange={e => viewModel.handleChangeStrictVariation(!e.target.checked)}
+                        >
+                          {t(TranslationKey['Remove destination restriction'])}
+                        </Checkbox>
+                      ) : null}
+                    </>
+                  ),
                 },
               }}
               rowSelectionModel={viewModel?.selectedRows}
@@ -89,6 +149,22 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
               onFilterModelChange={viewModel?.onChangeFilterModel}
             />
           </div>
+
+          {isTariffsSelect ? (
+            <div className={styles.buttonsWrapper}>
+              <Button disabled={!viewModel?.currentVariationId} onClick={viewModel?.handleSaveVariationTariff}>
+                {t(TranslationKey.Choose)}
+              </Button>
+
+              <Button
+                styleType={ButtonStyle.DANGER}
+                variant={ButtonVariant.OUTLINED}
+                onClick={viewModel?.handleResetVariationTariff}
+              >
+                {t(TranslationKey.reset)}
+              </Button>
+            </div>
+          ) : null}
         </div>
       </Modal>
     )

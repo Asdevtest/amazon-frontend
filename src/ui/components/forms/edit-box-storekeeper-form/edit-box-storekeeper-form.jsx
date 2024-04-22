@@ -1,5 +1,5 @@
 import isEqual from 'lodash.isequal'
-import { memo, useEffect, useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
@@ -12,6 +12,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -33,10 +34,9 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './edit-box-storekeeper-form.style'
-
-import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 
 export const EditBoxStorekeeperForm = memo(
   ({
@@ -56,8 +56,6 @@ export const EditBoxStorekeeperForm = memo(
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-    const [showConfirmModal, setShowConfirmModal] = useState(false)
-    const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
     const [showSetFilesModal, setShowSetFilesModal] = useState(false)
     const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
 
@@ -158,11 +156,22 @@ export const EditBoxStorekeeperForm = memo(
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
-    const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
+    const {
+      destinationId,
 
-    useEffect(() => {
-      setDestinationId(boxFields?.destinationId)
-    }, [boxFields?.destinationId])
+      onSubmitSelectStorekeeperAndTariff,
+
+      showConfirmModal,
+      setShowConfirmModal,
+
+      confirmModalSettings,
+
+      handleSetDestination,
+      handleResetDestination,
+
+      showSelectionStorekeeperAndTariffModal,
+      setShowSelectionStorekeeperAndTariffModal,
+    } = useTariffVariation(boxFields.destinationId, setBoxFields)
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
@@ -254,53 +263,6 @@ export const EditBoxStorekeeperForm = memo(
         }
       } else {
         return { ...boxFields, destinationId: boxFields.destinationId || null }
-      }
-    }
-
-    const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
-    const onSubmitSelectStorekeeperAndTariff = (
-      storekeeperId,
-      tariffId,
-      variationTariffId,
-      destinationId,
-      isSelectedDestinationNotValid,
-    ) => {
-      if (isSelectedDestinationNotValid) {
-        setConfirmModalSettings({
-          isWarning: false,
-          title: t(TranslationKey.Attention),
-          confirmMessage: t(TranslationKey['Wish to change a destination?']),
-
-          onClickConfirm: () => {
-            setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
-            setDestinationId(destinationId)
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-          },
-
-          onClickCancelBtn: () => {
-            setBoxFields({
-              ...boxFields,
-              storekeeperId,
-              logicsTariffId: tariffId,
-              variationTariffId,
-              destinationId: null,
-            })
-            setDestinationId(null)
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-          },
-        })
-
-        setShowConfirmModal(true)
-      } else {
-        setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
-        setDestinationId(destinationId)
-
-        setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
       }
     }
 
@@ -623,8 +585,8 @@ export const EditBoxStorekeeperForm = memo(
                               : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
                           }
                           searchFields={['name']}
-                          onClickNotChosen={() => setBoxFields({ ...boxFields, destinationId: null })}
-                          onClickSelect={el => setBoxFields({ ...boxFields, destinationId: el._id })}
+                          onClickNotChosen={handleResetDestination}
+                          onClickSelect={handleSetDestination}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                         />
                       }
@@ -901,21 +863,15 @@ export const EditBoxStorekeeperForm = memo(
           />
         </Modal>
 
-        <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-        >
-          <SelectStorekeeperAndTariffForm
-            showCheckbox
-            removeDestinationRestriction
-            storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
-            curStorekeeperId={boxFields.storekeeperId}
-            curTariffId={boxFields.logicsTariffId}
-            currentDestinationId={boxFields?.destinationId}
-            currentVariationTariffId={boxFields?.variationTariffId}
-            onSubmit={onSubmitSelectStorekeeperAndTariff}
+        {showSelectionStorekeeperAndTariffModal ? (
+          <SupplierApproximateCalculationsModal
+            isTariffsSelect
+            openModal={showSelectionStorekeeperAndTariffModal}
+            setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+            box={boxFields}
+            onClickSubmit={onSubmitSelectStorekeeperAndTariff}
           />
-        </Modal>
+        ) : null}
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal

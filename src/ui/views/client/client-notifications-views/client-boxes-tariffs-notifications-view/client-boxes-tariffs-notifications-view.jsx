@@ -5,9 +5,9 @@ import { withStyles } from 'tss-react/mui'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxForm } from '@components/forms/box-form'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -78,22 +78,15 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
         />
       ) : null}
 
-      <Modal
-        openModal={viewModel.showSelectionStorekeeperAndTariffModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
-      >
-        <SelectStorekeeperAndTariffForm
-          inNotifications
-          showCheckbox
-          removeDestinationRestriction
-          storekeepers={viewModel.storekeepersData.filter(el => el._id === viewModel.curBox?.storekeeper._id)}
-          curStorekeeperId={viewModel.curBox?.storekeeperId}
-          curTariffId={viewModel.curBox?.logicsTariffId}
-          currentDestinationId={viewModel.curBox?.destination?._id}
-          currentVariationTariffId={viewModel.curBox?.variationTariff?._id}
-          onSubmit={viewModel.onClickConfirmTarrifChangeBtn}
+      {viewModel.showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isTariffsSelect
+          openModal={viewModel.showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
+          box={viewModel.curBox}
+          onClickSubmit={viewModel.onClickConfirmTarrifChangeBtn}
         />
-      </Modal>
+      ) : null}
 
       <Modal
         openModal={viewModel.showBoxViewModal}

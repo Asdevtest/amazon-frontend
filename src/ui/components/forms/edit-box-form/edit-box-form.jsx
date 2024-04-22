@@ -1,9 +1,8 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
-import { tariffTypes } from '@constants/keys/tariff-types'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -13,6 +12,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -34,16 +34,14 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './edit-box-form.style'
-
-import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 
 import { WarehouseDemensions } from './warehouse-demensions/warehouse-demensions'
 
 export const EditBoxForm = memo(
   ({
-    showCheckbox,
     formItem,
     onSubmit,
     onTriggerOpenModal,
@@ -64,8 +62,6 @@ export const EditBoxForm = memo(
     const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
 
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-    const [showConfirmModal, setShowConfirmModal] = useState(false)
-    const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
 
     const onClickBarcode = item => {
       setCurProductToEditBarcode(item)
@@ -122,11 +118,22 @@ export const EditBoxForm = memo(
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
-    const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
+    const {
+      destinationId,
 
-    useEffect(() => {
-      setDestinationId(boxFields?.destinationId)
-    }, [boxFields.destinationId])
+      onSubmitSelectStorekeeperAndTariff,
+
+      showConfirmModal,
+      setShowConfirmModal,
+
+      confirmModalSettings,
+
+      handleSetDestination,
+      handleResetDestination,
+
+      showSelectionStorekeeperAndTariffModal,
+      setShowSelectionStorekeeperAndTariffModal,
+    } = useTariffVariation(boxFields.destinationId, setBoxFields)
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
@@ -181,52 +188,6 @@ export const EditBoxForm = memo(
 
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
-    const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
-    const onSubmitSelectStorekeeperAndTariff = (
-      storekeeperId,
-      tariffId,
-      variationTariffId,
-      destinationId,
-      isSelectedDestinationNotValid,
-    ) => {
-      if (isSelectedDestinationNotValid) {
-        setConfirmModalSettings({
-          isWarning: false,
-          title: t(TranslationKey.Attention),
-          confirmMessage: t(TranslationKey['Wish to change a destination?']),
-
-          onClickConfirm: () => {
-            setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
-            setDestinationId(destinationId)
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-          },
-
-          onClickCancelBtn: () => {
-            setBoxFields({
-              ...boxFields,
-              storekeeperId,
-              logicsTariffId: tariffId,
-              variationTariffId,
-              destinationId: null,
-            })
-            setDestinationId(null)
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-          },
-        })
-
-        setShowConfirmModal(true)
-      } else {
-        setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
-        setDestinationId(destinationId)
-        setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-      }
-    }
-
     const disableSubmit =
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
       requestStatus === loadingStatus.IS_LOADING ||
@@ -239,7 +200,7 @@ export const EditBoxForm = memo(
         !priorityReason?.length) ||
       boxFields.status !== BoxStatus.IN_STOCK
 
-    const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
+    const { tariffName, tariffRate } = useGetDestinationTariffInfo(
       destinations,
       storekeepers,
       boxFields.destinationId,
@@ -525,8 +486,7 @@ export const EditBoxForm = memo(
                             t(TranslationKey['Not chosen'])
                           }
                           data={
-                            boxFields.logicsTariffId &&
-                            currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                            boxFields.logicsTariffId && destinationId
                               ? destinations.filter(
                                   el => el?._id === (destinationId || formItem?.variationTariff?.destinationId),
                                 )
@@ -535,8 +495,8 @@ export const EditBoxForm = memo(
                           searchFields={['name']}
                           favourites={destinationsFavourites}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                          onClickNotChosen={() => setBoxFields({ ...boxFields, destinationId: '' })}
-                          onClickSelect={el => setBoxFields({ ...boxFields, destinationId: el._id })}
+                          onClickNotChosen={handleResetDestination}
+                          onClickSelect={handleSetDestination}
                         />
                       }
                     />
@@ -759,22 +719,15 @@ export const EditBoxForm = memo(
           />
         </Modal>
 
-        <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-        >
-          <SelectStorekeeperAndTariffForm
-            removeDestinationRestriction
-            showCheckbox={showCheckbox}
-            storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
-            curStorekeeperId={boxFields.storekeeperId}
-            curTariffId={boxFields.logicsTariffId}
-            destinationsData={destinations}
-            currentDestinationId={boxFields?.destinationId}
-            currentVariationTariffId={boxFields?.variationTariffId}
-            onSubmit={onSubmitSelectStorekeeperAndTariff}
+        {showSelectionStorekeeperAndTariffModal ? (
+          <SupplierApproximateCalculationsModal
+            isTariffsSelect
+            openModal={showSelectionStorekeeperAndTariffModal}
+            setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+            box={boxFields}
+            onClickSubmit={onSubmitSelectStorekeeperAndTariff}
           />
-        </Modal>
+        ) : null}
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal

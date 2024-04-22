@@ -85,7 +85,9 @@ export const lightTheme = createTheme({
         root: {
           backgroundColor: '#fff',
           border: 'none',
-          boxShadow: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
+          margin: '0 3px',
+          // boxShadow: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
+          boxShadow: ' 0px 1px 3px 1px #00000026, 0px 1px 2px 0px #0000004D',
           color: '#001029',
           borderRadius: 20,
         },
@@ -346,6 +348,7 @@ export const lightTheme = createTheme({
       disabled: 'rgba(0, 0, 0, 0.12)',
       activeChat: '#E7F1FF',
       secondary: 'rgba(200, 200, 200, 1)',
+      gray: '#5C6A7A',
     },
 
     customSwitcher: {
@@ -399,6 +402,12 @@ export const lightTheme = createTheme({
       file: '#475467',
       icon: '#E9F0FA',
     },
+
+    roi: {
+      bad: '#FBEEED',
+      normal: '#FDF7E3',
+      good: '#ECF8ED',
+    },
   },
 })
 
@@ -426,7 +435,10 @@ export const darkTheme = createTheme({
         root: {
           backgroundColor: '#2B2B34',
           border: 'none',
-          boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+          // boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+          margin: '0 3px',
+          boxShadow: '0px 2px 2px 0px #1F1F1FCC',
+
           color: '#fff',
           borderRadius: 20,
         },
@@ -815,6 +827,7 @@ export const darkTheme = createTheme({
       disabled: '#a0a0a4',
       activeChat: '#384C68',
       secondary: 'rgb(80, 80, 80, 1)',
+      gray: '#667085',
     },
 
     customSwitcher: {
@@ -868,6 +881,12 @@ export const darkTheme = createTheme({
       zip: '#8B79F9',
       file: '#A2ADBD',
       icon: '#475467',
+    },
+
+    roi: {
+      bad: '#2C2022',
+      normal: '#2F281D',
+      good: '#1C221F',
     },
   },
 })
