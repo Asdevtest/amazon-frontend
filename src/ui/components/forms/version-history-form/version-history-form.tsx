@@ -3,11 +3,13 @@ import { FC, UIEvent, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { Field } from '@components/shared/field'
 import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { Roles } from '@typings/enums/roles'
 import { IPatchNote } from '@typings/shared/patch-notes'
 
 import { useStyles } from './version-history-form.style'
@@ -19,7 +21,7 @@ interface VersionHistoryFormProps {
   onResetPatchNote: () => void
   onViewPatchNote: (patchNoteId: string) => void
   onClickResetVersion: () => void
-  selectedPatchNote?: IPatchNote
+  selectedPatchNote?: IPatchNote[]
 }
 
 export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
@@ -54,18 +56,31 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
             <ArrowBackIcon />
           </Button>
         ) : null}
-        <p className={cx(styles.title, styles.text)}>{selectedPatchNote ? selectedPatchNote?.title : title}</p>
+        <p className={cx(styles.title, styles.text)}>{selectedPatchNote ? selectedPatchNote?.[0]?.title : title}</p>
       </div>
 
       <div className={styles.versions} onScroll={handleScrollPatchNotes}>
         {selectedPatchNote ? (
-          <p>{selectedPatchNote?.description}</p>
-        ) : (
+          selectedPatchNote.map(patchNote => (
+            <Field
+              key={patchNote._id}
+              disabled
+              multiline
+              labelClasses={cx(styles.title, styles.fixLabelMargin)}
+              inputClasses={styles.editor}
+              containerClasses={styles.editorContainer}
+              label={Roles[patchNote.role]}
+              value={patchNote.description}
+            />
+          ))
+        ) : patchNotes.length > 0 ? (
           patchNotes.map(patchNote => (
             <button key={patchNote._id} className={styles.buttonVersion} onClick={() => onViewPatchNote(patchNote._id)}>
               <p className={styles.text}>{patchNote.title}</p>
             </button>
           ))
+        ) : (
+          <p className={styles.noData}>{t(TranslationKey['No data'])}</p>
         )}
       </div>
 

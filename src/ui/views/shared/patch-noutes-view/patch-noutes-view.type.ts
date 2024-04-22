@@ -4,6 +4,7 @@ export enum ModalNames {
 
 export interface IPatchNoteToCreate {
   title: string
+  version: string
   description: string
   role: string
 }

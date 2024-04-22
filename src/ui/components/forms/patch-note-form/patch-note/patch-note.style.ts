@@ -8,9 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   emptySelectValue: {
-    '.MuiSelect-select': {
-      color: `${theme.palette.text.gray} !important`,
-    },
+    color: theme.palette.text.gray,
   },
 
   line: {

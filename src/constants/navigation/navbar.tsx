@@ -1042,7 +1042,7 @@ export const navbarConfig = {
 
     {
       icon: ModeratorUpdatedIcon,
-      title: () => t(TranslationKey.Updated),
+      title: () => t(TranslationKey['Patch notes']),
       route: '/admin/updated',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_UPDATED,
@@ -1149,7 +1149,7 @@ export const navbarConfig = {
     },
     {
       icon: ModeratorUpdatedIcon,
-      title: () => t(TranslationKey.Updated),
+      title: () => t(TranslationKey['Patch notes']),
       route: '/moderator/updated',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_UPDATED,

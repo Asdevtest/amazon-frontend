@@ -2711,12 +2711,12 @@ export const privateRoutesConfigs = [
     component: PatchNoutesView,
     exact: false,
     permission: [UserRole.ADMIN],
-    crumbNameKey: TranslationKey.Updated,
+    crumbNameKey: TranslationKey['Patch notes'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_UPDATED,
       activeSubCategory: '',
-      title: () => t(TranslationKey.Updated),
+      title: () => t(TranslationKey['Patch notes']),
     },
   },
 
@@ -3101,12 +3101,12 @@ export const privateRoutesConfigs = [
     component: PatchNoutesView,
     exact: false,
     permission: [UserRole.MODERATOR],
-    crumbNameKey: TranslationKey.Updated,
+    crumbNameKey: TranslationKey['Patch notes'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_UPDATED,
       activeSubCategory: '',
-      title: () => t(TranslationKey.Updated),
+      title: () => t(TranslationKey['Patch notes']),
     },
   },
 

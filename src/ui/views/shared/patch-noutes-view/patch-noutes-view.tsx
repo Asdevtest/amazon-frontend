@@ -31,9 +31,7 @@ export const PatchNoutesView = observer(() => {
   return (
     <>
       <div className={styles.header}>
-        <Button onClick={() => viewModel.onToggleModal(ModalNames.PATCH)}>
-          {t(TranslationKey['Add a patch note'])}
-        </Button>
+        <Button onClick={viewModel.onOpenPatchNoteForm}>{t(TranslationKey['Add a patch note'])}</Button>
       </div>
 
       <div className={styles.table}>
@@ -69,6 +67,7 @@ export const PatchNoutesView = observer(() => {
         <PatchNoteForm
           title={patchNodesModalTitle}
           editPatchNote={viewModel.editPatchNote}
+          patchNoteVersions={viewModel.patchNoteVersions}
           onToggleModal={() => viewModel.onToggleModal(ModalNames.PATCH)}
           onCreatePatchNotes={viewModel.createPatchNotes}
           onUpdatePatchNote={viewModel.updatePatchNote}
