@@ -106,9 +106,7 @@ export const BatchInfoModal = observer(
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
         <div className={styles.form}>
           <div className={styles.titleWrapper}>
-            <Typography className={styles.modalTitle} variant="h5">
-              {t(TranslationKey['Viewing the batch'])}
-            </Typography>
+            <p className={styles.modalTitle}>{t(TranslationKey['Viewing the batch'])}</p>
 
             <Field
               oneLine
@@ -297,7 +295,6 @@ export const BatchInfoModal = observer(
               labelClasses={cx(styles.subFieldLabel)}
               inputComponent={
                 <ChangeInputCell
-                  isInteger
                   rowId={currentBatch?._id}
                   text={currentBatch?.actualShippingCost}
                   onClickSubmit={(id, cost) => {
@@ -380,14 +377,12 @@ export const BatchInfoModal = observer(
             <SlideshowGallery slidesToShow={2} files={currentBatch?.attachedDocuments} />
 
             <div className={styles.buttonsWrapper}>
-              <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
+              <Button onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download the batch file'])}
                 <DownloadIcon />
               </Button>
 
-              <Button className={styles.actionButton} onClick={setOpenModal}>
-                {t(TranslationKey.Close)}
-              </Button>
+              <Button onClick={setOpenModal}>{t(TranslationKey.Close)}</Button>
             </div>
           </div>
 
@@ -398,7 +393,6 @@ export const BatchInfoModal = observer(
             <BoxForm
               userInfo={userInfo}
               box={viewModel.curBox}
-              volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
               onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
               onSubmitChangeFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}

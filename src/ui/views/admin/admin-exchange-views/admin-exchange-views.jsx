@@ -30,7 +30,7 @@ export const AdminExchangeViewsRaw = props => {
       <div>
         <div className={styles.filterBtnWrapper}>
           <CustomSwitcher
-            switchMode={'medium'}
+            switchMode="medium"
             condition={viewModel.activeCategory}
             switcherSettings={[
               ...adminExchangeBtnsConfig,

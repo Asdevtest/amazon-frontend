@@ -22,14 +22,12 @@ interface BoxProps {
   isBuyer: boolean
   isClient: boolean
   formFields: IBox
-  volumeWeightCoefficient: number
   onChangeField: (field: string) => (event: ChangeEvent<HTMLInputElement>) => void
   onChangeTrackNumberFile: (files: string[]) => void
 }
 
 export const Box: FC<BoxProps> = memo(props => {
-  const { isEdit, isBuyer, isClient, formFields, volumeWeightCoefficient, onChangeField, onChangeTrackNumberFile } =
-    props
+  const { isEdit, isBuyer, isClient, formFields, onChangeField, onChangeTrackNumberFile } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -41,7 +39,7 @@ export const Box: FC<BoxProps> = memo(props => {
         <div className={cx(styles.info, styles.flexContainer)}>
           <SlideshowGallery hiddenPreviews files={formFields?.images} slidesToShow={2} />
 
-          <Dimensions formFields={formFields} volumeWeightCoefficient={volumeWeightCoefficient} />
+          <Dimensions formFields={formFields} />
 
           <div className={styles.checkboxes}>
             <div className={styles.checkboxContainer}>

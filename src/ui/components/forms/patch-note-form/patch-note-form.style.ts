@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   patchNotes: {
-    height: 320,
+    height: 400,
     overflowY: 'auto',
     paddingRight: 5,
     display: 'flex',

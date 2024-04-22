@@ -287,7 +287,7 @@ export const OrderModalBodyRow = ({
             image={item.images[0]}
             amazonTitle={item.amazonTitle}
             asin={item.asin}
-            skuByClient={item.sku}
+            skuByClient={item.skuByClient}
           />
 
           {!item.currentSupplier && (
@@ -321,7 +321,7 @@ export const OrderModalBodyRow = ({
               item.currentSupplier?.multiplicity &&
               item.currentSupplier?.boxProperties?.amountInBox &&
               (orderState.amount % item.currentSupplier?.boxProperties?.amountInBox !== 0 || !orderState.amount) &&
-              ` ${t(TranslationKey['Value is not a multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox}`
+              ` ${t(TranslationKey['Not a multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox}`
             }
             successText={
               item.currentSupplier?.multiplicity &&

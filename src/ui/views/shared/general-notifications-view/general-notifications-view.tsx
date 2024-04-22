@@ -70,7 +70,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
       <div className={styles.actionPanelWrapper}>
         {!isCurrentUserFreelancer ? (
           <CustomSwitcher
-            switchMode={'medium'}
+            switchMode="medium"
             condition={viewModel.curNotificationType}
             switcherSettings={currentSwitcherSettings}
             changeConditionHandler={viewModel.onClickToChangeNotificationType}

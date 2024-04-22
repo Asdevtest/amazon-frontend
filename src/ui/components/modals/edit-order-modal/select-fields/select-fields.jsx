@@ -86,7 +86,7 @@ export const SelectFields = ({
                           [styles.deliveredGoodsSuccessText]: deliveredQuantity >= order.amount,
                         })}
                       >
-                        {deliveredQuantity}
+                        {deliveredQuantity || 0}
                       </Typography>
                       <Typography className={styles.deliveredGoodsMiddleText}>{t(TranslationKey['out of'])}</Typography>
                       <Typography

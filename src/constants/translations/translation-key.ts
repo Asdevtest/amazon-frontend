@@ -1676,7 +1676,7 @@ export enum TranslationKey {
   'Waiting to be processed by a buyer' = 'Waiting to be processed by a buyer',
   'Buyer comments to the order' = 'Buyer comments to the order',
   'Use multiples of items when creating boxes' = 'Use multiples of items when creating boxes',
-  'Value is not a multiple of' = 'Value is not a multiple of',
+  'Not a multiple of' = 'Not a multiple of',
   'Order returns' = 'Order returns',
   'Overdue by' = 'Overdue by',
   's.' = 's.',
@@ -2236,5 +2236,8 @@ export enum TranslationKey {
   'Patch notes' = 'Patch notes',
   'Add a patch note' = 'Add a patch note',
   'Edit a patch note' = 'Edit a patch note',
+  'Version history of releases' = 'Version history of releases',
+  'Reset session data' = 'Reset session data',
+  'Version' = 'Version',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

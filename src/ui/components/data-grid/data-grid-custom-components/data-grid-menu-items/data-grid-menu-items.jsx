@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { cx } from '@emotion/css'
 import { compareDesc, isAfter, parseISO } from 'date-fns'
 import { memo, useCallback, useEffect, useState } from 'react'
@@ -601,9 +600,7 @@ export const CreatedByMenuItem = memo(
       classes: styles,
       onClose,
       data,
-      field,
       filterRequestStatus,
-      columnKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
@@ -1372,17 +1369,7 @@ export const PriorityMenuItem = memo(
 
 export const FreelancerToWorkConfirmationMenuItem = memo(
   withStyles(
-    ({
-      classes: styles,
-      onClose,
-      data,
-      field,
-      filterRequestStatus,
-      columnKey,
-      onChangeFullFieldMenuItem,
-      onClickAccept,
-      onClickFilterBtn,
-    }) => {
+    ({ classes: styles, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
       useEffect(() => {
         onClickFilterBtn(field)
       }, [])
@@ -1759,26 +1746,19 @@ export const OrderOrItemMenuItem = memo(
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender
-                        // .filter(el => el)
-                        // ?.sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item === b)) -
-                        //     Number(choosenItems?.some(item => item === a)),
-                        // )
-                        .map((el, index) => {
-                          const value = el || t(TranslationKey.Empty)
-                          const valueChecked = choosenItems?.some(item => item === el)
+                      {itemsForRender.map((el, index) => {
+                        const value = el || t(TranslationKey.Empty)
+                        const valueChecked = choosenItems?.some(item => item === el)
 
-                          return (
-                            <div key={index} className={styles.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={value} className={styles.shopName}>
-                                {value}
-                              </div>
+                        return (
+                          <div key={index} className={styles.shop}>
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <div title={value} className={styles.shopName}>
+                              {value}
                             </div>
-                          )
-                        })}
+                          </div>
+                        )
+                      })}
                     </>
                   ) : (
                     <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
@@ -1913,9 +1893,7 @@ export const DestinationMenuItem = memo(
             key={'client_warehouse_search_input'}
             inputClasses={styles.searchInput}
             placeholder={t(TranslationKey.Search)}
-            onChange={e => {
-              setNameSearchValue(e.target.value)
-            }}
+            onChange={e => setNameSearchValue(e.target.value)}
           />
         </div>
         <div className={styles.shopsWrapper}>
@@ -2037,14 +2015,14 @@ export const FromToDateMenuItem = memo(
               <Typography title={t(TranslationKey.From)} className={styles.fromToText}>
                 {t(TranslationKey.From)}
               </Typography>
-              <DatePicker className={styles.dateInput} value={fromDate} onChange={setFromDate} />
+              <DatePicker disablePast={false} className={styles.dateInput} value={fromDate} onChange={setFromDate} />
             </div>
             <div className={styles.fromToDatesSubWrapper}>
               <Typography title={t(TranslationKey.To)} className={styles.fromToText}>
                 {t(TranslationKey.To)}
               </Typography>
 
-              <DatePicker className={styles.dateInput} value={toDate} onChange={setToDate} />
+              <DatePicker disablePast={false} className={styles.dateInput} value={toDate} onChange={setToDate} />
             </div>
           </div>
 
@@ -2053,9 +2031,7 @@ export const FromToDateMenuItem = memo(
               key={'client_warehouse_search_input'}
               inputClasses={styles.searchInput}
               placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
+              onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>
           <div className={styles.shopsWrapper}>
@@ -2071,25 +2047,18 @@ export const FromToDateMenuItem = memo(
                         itemsForRender={itemsForRender}
                         setChoosenItems={setChoosenItems}
                       />
-                      {itemsForRender
-                        // .filter(el => el)
-                        // .sort(
-                        //   (a, b) =>
-                        //     Number(choosenItems?.some(item => item === b)) -
-                        //       Number(choosenItems?.some(item => item === a)) || compareDesc(parseISO(a), parseISO(b)),
-                        // )
-                        ?.map((el, index) => {
-                          const value = formatNormDateTime(el) || t(TranslationKey.Empty)
-                          const valueChecked = choosenItems?.some(item => item === el)
-                          return (
-                            <div key={index} className={styles.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
-                              <div title={value} className={styles.shopName}>
-                                {value}
-                              </div>
+                      {itemsForRender?.map((el, index) => {
+                        const value = formatNormDateTime(el) || t(TranslationKey.Empty)
+                        const valueChecked = choosenItems?.some(item => item === el)
+                        return (
+                          <div key={index} className={styles.shop}>
+                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <div title={value} className={styles.shopName}>
+                              {value}
                             </div>
-                          )
-                        })}
+                          </div>
+                        )
+                      })}
                     </>
                   ) : (
                     <Typography title={t(TranslationKey['No options'])} className={styles.noOptionText}>
@@ -2599,18 +2568,6 @@ export const RedFlagsCellMenuItem = memo(
 
 export const OnListingCellMenuItem = memo(
   withStyles(({ classes: styles, data, onClose }) => {
-    // const {
-    //   classes: styles,
-    //   onClose,
-    //   data,
-    //   field,
-    //   filterRequestStatus,
-    //   onChangeFullFieldMenuItem,
-    //   onClickAccept,
-    //   onClickFilterBtn,
-    //   onListingFiltersData
-    // } = props;
-
     return (
       <div title="" className={styles.shopsDataWrapper}>
         <div className={styles.shopsWrapper}>
@@ -2950,16 +2907,7 @@ const toPayCellTabs = [
 
 export const ToPayCellMenuItem = memo(
   withStyles(
-    ({
-      classes: styles,
-      onClose,
-      data,
-      field,
-      filterRequestStatus,
-      onChangeFullFieldMenuItem,
-      onClickAccept,
-      onClickFilterBtn,
-    }) => {
+    ({ onClose, data, field, filterRequestStatus, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
       const isShowTabs = ['/buyer/partially-paid-orders', '/buyer/all-orders'].includes(window.location.pathname)
 
       return (
@@ -2971,9 +2919,7 @@ export const ToPayCellMenuItem = memo(
               tabs={toPayCellTabs}
               onClickFilterBtn={onClickFilterBtn}
               onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
-              onClickAccept={() => {
-                onClickAccept()
-              }}
+              onClickAccept={() => onClickAccept()}
               onClose={onClose}
             />
           )}
@@ -2997,7 +2943,7 @@ export const ToPayCellMenuItem = memo(
 )
 
 export const SecondsCellMenuItem = memo(
-  withStyles((props, context) => {
+  withStyles(props => {
     const {
       classes: styles,
       onClose,

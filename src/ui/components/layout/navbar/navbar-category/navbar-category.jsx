@@ -15,7 +15,7 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './navbar-category.style'
 
-export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, shortNavbar, onToggleModal }) => {
+export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, shortNavbar }) => {
   const { classes: styles, cx } = useStyles()
 
   const [subRoutes, setSubRoutes] = useState([])
@@ -69,7 +69,6 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
       tooltipInfoContent={hints && !shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
       className={styles.menuItem}
       styleType={ButtonStyle.TRANSPARENT}
-      onClick={onToggleModal}
     >
       <MuiListItem
         disableGutters

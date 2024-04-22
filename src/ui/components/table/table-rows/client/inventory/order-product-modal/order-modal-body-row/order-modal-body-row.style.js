@@ -133,8 +133,7 @@ export const useStyles = makeStyles()(theme => ({
 
     '> p': {
       position: 'absolute',
-      fontSize: '12px',
-      bottom: '-5px',
+      bottom: 0,
       transform: 'translateY(100%)',
     },
   },

@@ -14,8 +14,6 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './media-files-tab.style'
 
-import { DEFAULT_SLIDE_HEIGHT } from '../../gallery-modal.constants'
-
 interface MediaFilesTabProps {
   slides: UploadFileType[]
   isTransitioning: boolean
@@ -42,7 +40,7 @@ export const MediaFilesTab: FC<MediaFilesTabProps> = memo(({ slides, isTransitio
             return (
               <div key={index} className={styles.slide} onClick={() => handleChangeCurrentSlideIndex(index)}>
                 {checkIsVideoLink(slide) ? (
-                  <VideoPreloader videoSource={currentVideoSlide} height={DEFAULT_SLIDE_HEIGHT} />
+                  <VideoPreloader videoSource={currentVideoSlide} />
                 ) : (
                   <img src={currentImageSlide} alt={`Slide-${index + 1}`} className={styles.image} />
                 )}

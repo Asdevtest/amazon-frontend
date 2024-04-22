@@ -2,6 +2,8 @@ import { FC, memo, useEffect, useRef, useState } from 'react'
 
 import { EmptyFileIcon } from '@components/shared/svg-icons'
 
+import { checkAndMakeAbsoluteUrl } from '@utils/text'
+
 import { FileExtensions } from '@typings/enums/file-extensions'
 
 import { useStyles } from './custom-file-icon.style'
@@ -10,14 +12,13 @@ import { DEFAULT_BUTTON_HEIGHT, FONT_SIZE_SCALE } from './custom-file-icon.const
 
 interface CustomFileIconProps {
   fileExtension: string
-  middleSize?: boolean
-  bigSize?: boolean
+  link?: string
   height?: string
   onClick?: () => void
 }
 
 export const CustomFileIcon: FC<CustomFileIconProps> = memo(props => {
-  const { fileExtension, height = DEFAULT_BUTTON_HEIGHT, onClick } = props
+  const { fileExtension, link, height = DEFAULT_BUTTON_HEIGHT, onClick } = props
 
   const { classes: styles, theme, cx } = useStyles()
   const buttonRef = useRef<HTMLButtonElement | null>(null)
@@ -66,7 +67,7 @@ export const CustomFileIcon: FC<CustomFileIconProps> = memo(props => {
     <button
       ref={buttonRef}
       className={cx(styles.wrapper, {
-        [styles.hover]: !!onClick,
+        [styles.hover]: !!link,
       })}
       style={{ height, width: height }}
       onClick={onClick ? onClick : undefined}
@@ -79,6 +80,12 @@ export const CustomFileIcon: FC<CustomFileIconProps> = memo(props => {
       >
         {fileExtension}
       </p>
+
+      {link ? (
+        <a href={checkAndMakeAbsoluteUrl(link)} target="_blank" rel="noreferrer noopener" className={styles.link}>
+          {checkAndMakeAbsoluteUrl(link)}
+        </a>
+      ) : null}
     </button>
   )
 })

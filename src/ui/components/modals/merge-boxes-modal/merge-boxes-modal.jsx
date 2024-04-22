@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -147,7 +147,7 @@ export const MergeBoxesModal = ({
         lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
-        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / poundsCoefficient, 2),
         images: imagesOfBox,
       }
     } else {
@@ -235,13 +235,14 @@ export const MergeBoxesModal = ({
   const handleChange = newAlignment => {
     if (newAlignment !== sizeSetting) {
       const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
+      const weightMultiplier = newAlignment === unitsOfChangeOptions.US ? poundsCoefficient : 1 / poundsCoefficient
 
       setBoxBody({
         ...boxBody,
         lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / multiplier, 2),
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / multiplier, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / multiplier, 2),
-        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / multiplier, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * weightMultiplier, 2),
       })
 
       setSizeSetting(newAlignment)

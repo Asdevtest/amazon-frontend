@@ -137,6 +137,15 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   },
 
   {
+    field: 'comment',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell leftAlign threeLines maxLength={60} text={row.comment} />,
+    filterable: false,
+    sortable: false,
+    width: 200,
+  },
+
+  {
     field: 'createdBy',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
     renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.createdBy.name} userId={row.createdBy._id} />,

@@ -289,6 +289,11 @@ class UserModelStatic {
     const response = await restApiService.userApi.apiV1UsersPatchNotesGet({ ...body, noCache: true })
     return response.data
   }
+
+  async getPatchNote(guid) {
+    const response = await restApiService.userApi.apiV1UsersPatchNotesGuidGet({ guid, noCache: true })
+    return response.data
+  }
 }
 
 export const UserModel = new UserModelStatic()

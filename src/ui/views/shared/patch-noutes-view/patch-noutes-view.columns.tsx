@@ -32,6 +32,15 @@ export const moderatorUpdatedColumns = ({ onToggleEditPatchNote }: IModeratorUpd
   },
 
   {
+    field: 'version',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Version)} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell threeLines leftAlign text={row.version} />,
+    filterable: false,
+    sortable: false,
+    width: 160,
+  },
+
+  {
     field: 'description',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
     renderCell: ({ row }: GridRowModel) => (

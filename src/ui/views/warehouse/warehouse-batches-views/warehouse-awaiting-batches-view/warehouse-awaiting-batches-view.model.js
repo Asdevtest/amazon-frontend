@@ -310,6 +310,7 @@ export class WarehouseAwaitingBatchesViewModel {
       runInAction(() => {
         if (setting.isAdding) {
           this.selectedBatches = []
+          this.curBatch = undefined
         }
 
         this.showCircularProgress = true
