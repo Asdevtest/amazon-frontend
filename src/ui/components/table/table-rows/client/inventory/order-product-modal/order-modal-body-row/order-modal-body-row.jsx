@@ -286,7 +286,7 @@ export const OrderModalBodyRow = ({
             image={item.images[0]}
             amazonTitle={item.amazonTitle}
             asin={item.asin}
-            skuByClient={item.sku}
+            skuByClient={item.skuByClient}
           />
 
           {!item.currentSupplier && (
