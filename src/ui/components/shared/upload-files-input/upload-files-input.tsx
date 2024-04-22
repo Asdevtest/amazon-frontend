@@ -100,7 +100,7 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
       {showGalleryModal ? (
         <SlideshowGalleryModal
           isEditable
-          withoutMakeMainImage={!withComment}
+          withoutMakeMainImage={withComment}
           files={files}
           currentFileIndex={currentFileIndex}
           openModal={showGalleryModal}

@@ -78,8 +78,14 @@ export const Slot: FC<SlotProps> = memo(props => {
       >
         {index === 0 && <img src="/assets/icons/star-main.svg" className={styles.mainStarIcon} />}
 
-        <div className={styles.imageListItem}>
-          <SlideByType mediaFile={item.fileLink} mediaFileIndex={index} />
+        <div
+          className={styles.imageListItem}
+          onClick={() => {
+            setCurImageIndex(index)
+            setShowImageModal(!showImageModal)
+          }}
+        >
+          <SlideByType objectFitContain mediaFile={item.fileLink} mediaFileIndex={index} />
         </div>
       </div>
 
