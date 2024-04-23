@@ -210,7 +210,7 @@ export const getTableByColumn = (column, hint) => {
       return 'orders'
     }
 
-    if (['buyerComment', 'createdBy', 'sub'].includes(column) && hint === 'ideas') {
+    if (['buyerComment', 'createdBy', 'sub', 'status', 'updatedAt'].includes(column) && hint === 'ideas') {
       return 'ideas'
     }
 
