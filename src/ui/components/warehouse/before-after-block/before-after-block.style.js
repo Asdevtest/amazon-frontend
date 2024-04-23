@@ -89,25 +89,11 @@ export const useStyles = makeStyles()(theme => ({
       gap: '10px',
     },
   },
-  categoryTitle: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: theme.palette.text.general,
-    fontWeight: '600',
-    marginBottom: '12px',
-  },
+
   demensionsWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     flexDirection: 'column',
-    minWidth: '200px',
-    padding: '5px',
-    marginTop: '10px',
-    height: '220px',
-
-    [theme.breakpoints.down(1282)]: {
-      minWidth: 180,
-    },
+    gap: 10,
   },
   editBtn: {
     width: '183px',
@@ -519,14 +505,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'end',
   },
 
-  sizesSubWrapper: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '10px',
-  },
-
   editAccent: {
     border: '2px solid #F5CF00',
     borderRadius: 4,
@@ -547,12 +525,6 @@ export const useStyles = makeStyles()(theme => ({
       fontSize: '14px',
       lineHeight: '19px',
       color: theme.palette.text.second,
-    },
-  },
-  mobileDemensions: {
-    [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      lineHeight: '19px',
     },
   },
 

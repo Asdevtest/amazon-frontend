@@ -31,7 +31,6 @@ export const StorekeeperRedistributeBox = observer(
     showEditBoxModalR,
     onEditBox,
     onTriggerShowEditBoxModalR,
-    volumeWeightCoefficient,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -223,7 +222,6 @@ export const StorekeeperRedistributeBox = observer(
           </div>
 
           <NewBoxes
-            volumeWeightCoefficient={volumeWeightCoefficient}
             newBoxes={newBoxes}
             isMasterBox={isMasterBox}
             selectedBox={selectedBox}

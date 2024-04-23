@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -16,24 +15,26 @@ import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkee
 import { BoxMerge } from '@components/shared/boxes/box-merge'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
+import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { UiTheme } from '@typings/enums/ui-theme'
 
+import { Entities, useDimensions } from '@hooks/use-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
 import { useStyles } from './merge-boxes-modal.style'
@@ -55,7 +56,6 @@ export const MergeBoxesModal = ({
   onRemoveBoxFromSelected,
   destinationsFavourites,
   setDestinationsFavouritesItem,
-  volumeWeightCoefficient,
 }) => {
   const { classes: styles, cx } = useStyles()
 
@@ -94,6 +94,13 @@ export const MergeBoxesModal = ({
     images: [],
   })
 
+  const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+  const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+    data: boxBody,
+    sizeSetting,
+    calculationField: Entities.WAREHOUSE,
+  })
+
   const [destinationId, setDestinationId] = useState(boxBody?.destinationId)
 
   useEffect(() => {
@@ -119,18 +126,16 @@ export const MergeBoxesModal = ({
 
   const [comment, setComment] = useState('')
   const getBoxDataToSubmit = () => {
-    if (sizeSetting === unitsOfChangeOptions.US) {
-      return {
-        ...boxBody,
-        destinationId: boxBody.destinationId || null,
-        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
-        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
-        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
-        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / poundsCoefficient, 2),
-        images: imagesOfBox,
-      }
-    } else {
-      return { ...boxBody, destinationId: boxBody.destinationId || null, images: imagesOfBox }
+    setSizeSetting(Dimensions.EU)
+
+    return {
+      ...boxBody,
+      destinationId: boxBody.destinationId || null,
+      lengthCmWarehouse: length,
+      widthCmWarehouse: width,
+      heightCmWarehouse: height,
+      weighGrossKgWarehouse: weight,
+      images: imagesOfBox,
     }
   }
 
@@ -275,25 +280,6 @@ export const MergeBoxesModal = ({
       return acc
     }, {}),
   )
-
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-  const handleChange = newAlignment => {
-    if (newAlignment !== sizeSetting) {
-      const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
-      const weightMultiplier = newAlignment === unitsOfChangeOptions.US ? poundsCoefficient : 1 / poundsCoefficient
-
-      setBoxBody({
-        ...boxBody,
-        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / multiplier, 2),
-        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / multiplier, 2),
-        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / multiplier, 2),
-        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * weightMultiplier, 2),
-      })
-
-      setSizeSetting(newAlignment)
-    }
-  }
 
   return (
     <div className={styles.root}>
@@ -449,22 +435,17 @@ export const MergeBoxesModal = ({
                         {t(TranslationKey.Dimensions)}
                       </Text>
 
-                      <div className={styles.customSwitcherWrapper}>
-                        <CustomSwitcher
-                          condition={sizeSetting}
-                          switcherSettings={[
-                            { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                            { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                          ]}
-                          changeConditionHandler={condition => handleChange(condition)}
-                        />
-                      </div>
+                      <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
                     </div>
 
-                    <WarehouseDemensions
-                      orderBox={boxBody}
+                    <WarehouseDimensions
+                      length={length}
+                      width={width}
+                      height={height}
+                      weight={weight}
+                      volumeWeight={volumeWeight}
+                      finalWeight={finalWeight}
                       sizeSetting={sizeSetting}
-                      volumeWeightCoefficient={volumeWeightCoefficient}
                       setFormField={setFormField}
                     />
 
