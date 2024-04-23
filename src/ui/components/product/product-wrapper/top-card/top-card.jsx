@@ -50,8 +50,6 @@ export const TopCard = memo(
     onClickSetProductStatusBtn,
     handleProductActionButtons,
     onChangeImagesForLoad,
-    acceptMessage,
-    showAcceptMessage,
     showBindProductModal,
     productsToBind,
     onTriggerOpenModal,
@@ -154,8 +152,6 @@ export const TopCard = memo(
               curUserRole={curUserRole}
               product={product}
               productBase={productBase}
-              acceptMessage={acceptMessage}
-              showAcceptMessage={showAcceptMessage}
               formFieldsValidationErrors={formFieldsValidationErrors}
               handleProductActionButtons={handleProductActionButtons}
               onClickSetProductStatusBtn={onClickSetProductStatusBtn}

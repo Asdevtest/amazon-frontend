@@ -32,8 +32,6 @@ export class OwnerRequestDetailCustomViewModel {
   currentReviews = []
   currentReviewModalUser = undefined
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
   findRequestProposalForCurChat = undefined
 
   showConfirmModal = false
@@ -64,11 +62,6 @@ export class OwnerRequestDetailCustomViewModel {
   chatIsConnected = false
   scrollToChat = undefined
   showMainRequestResultModal = false
-
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
 
   mesSearchValue = ''
   messagesFound = []
@@ -104,23 +97,14 @@ export class OwnerRequestDetailCustomViewModel {
     const url = new URL(window.location.href)
 
     this.requestId = url.searchParams.get('request-id')
-
     this.scrollToChat = scrollToChat
-    if (history.location.state) {
-      if (history.location.state.chatId) {
-        this.chatSelectedId = history.location.state.chatId
-        this.showChat = true
-      }
 
-      this.alertShieldSettings = {
-        showAlertShield: history?.location?.state?.showAcceptMessage,
-        alertShieldMessage: history?.location?.state?.acceptMessage,
-      }
+    if (history.location.state.chatId) {
+      this.chatSelectedId = history.location.state.chatId
+      this.showChat = true
 
       const state = { ...history.location.state }
       delete state.chatId
-      delete state.acceptMessage
-      delete state.showAcceptMessage
       history.replace({ ...history.location, state })
     }
 
@@ -172,22 +156,6 @@ export class OwnerRequestDetailCustomViewModel {
       }
     } catch (error) {
       console.warn(error)
-    }
-
-    if (this.alertShieldSettings.showAlertShield) {
-      setTimeout(() => {
-        this.alertShieldSettings = {
-          ...this.alertShieldSettings,
-          showAlertShield: false,
-        }
-
-        setTimeout(() => {
-          this.alertShieldSettings = {
-            showAlertShield: false,
-            alertShieldMessage: '',
-          }
-        }, 1000)
-      }, 3000)
     }
   }
 
