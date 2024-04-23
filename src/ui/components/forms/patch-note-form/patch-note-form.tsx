@@ -72,8 +72,17 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
   const handleAddPatchNote = () => {
     setPatchNotes(prevPatchNotes => [generatePatchNote(), ...prevPatchNotes])
   }
-  const handleSubmit = () =>
-    editPatchNote ? onUpdatePatchNote(editPatchNote._id, patchNotes[0]) : onCreatePatchNotes(patchNotes)
+  const handleSubmit = () => {
+    const transmittedPatchNotes = patchNotes.map(patchNote => ({
+      ...patchNote,
+      title: patchNote.title.trim(),
+      version: patchNote.version.trim(),
+    }))
+
+    return editPatchNote
+      ? onUpdatePatchNote(editPatchNote._id, transmittedPatchNotes[0])
+      : onCreatePatchNotes(transmittedPatchNotes)
+  }
 
   const disabledSubmitButton = patchNotes.some(patchNote => Object.values(patchNote).some(field => field.length === 0))
 

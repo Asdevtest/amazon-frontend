@@ -1,5 +1,6 @@
 export enum ModalNames {
   PATCH = 'showPatchNoteModal',
+  CONFIRM = 'showConfirmModal',
 }
 
 export interface IPatchNoteToCreate {

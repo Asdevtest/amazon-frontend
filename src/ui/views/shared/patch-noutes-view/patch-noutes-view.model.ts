@@ -18,16 +18,19 @@ export class PatchNoutesViewModel {
   patchNotes: IPatchNote[] = []
   patchNoteVersions: string[] = []
   editPatchNote?: IPatchNote = undefined
+  selectedPatchNoteId?: string = undefined
 
   showPatchNoteModal = false
+  showConfirmModal = false
 
   rowCount = 0
   requestStatus: loadingStatus = loadingStatus.SUCCESS
   paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
-  rowHandlers = {
+  columnsProps = {
     onToggleEditPatchNote: (row: IPatchNote) => this.onToggleEditPatchNote(row),
+    onClickRemovePatchNote: (id: string) => this.onClickRemovePatchNote(id),
   }
-  columnsModel = moderatorUpdatedColumns(this.rowHandlers)
+  columnsModel = moderatorUpdatedColumns(this.columnsProps)
 
   get currentData() {
     return this.patchNotes
@@ -100,10 +103,11 @@ export class PatchNoutesViewModel {
         await AdministratorModel.createPatchNote(patchNote)
       })
 
-      this.onToggleModal(ModalNames.PATCH)
       this.loadData()
     } catch (error) {
       console.error(error)
+    } finally {
+      this.onToggleModal(ModalNames.PATCH)
     }
   }
 
@@ -114,10 +118,28 @@ export class PatchNoutesViewModel {
 
       await AdministratorModel.updatePatchNote(id, dataToSend)
 
-      this.onToggleModal(ModalNames.PATCH)
       this.loadData()
     } catch (error) {
       console.error(error)
+    } finally {
+      this.onToggleModal(ModalNames.PATCH)
+    }
+  }
+
+  onClickRemovePatchNote(id: string) {
+    this.selectedPatchNoteId = id
+    this.onToggleModal(ModalNames.CONFIRM)
+  }
+
+  async onRemovePatchNote() {
+    try {
+      await AdministratorModel.removePatchNote(this.selectedPatchNoteId)
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.onToggleModal(ModalNames.CONFIRM)
     }
   }
 

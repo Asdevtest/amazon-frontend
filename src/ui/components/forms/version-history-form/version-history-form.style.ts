@@ -30,6 +30,14 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
   },
 
+  appVersion: {
+    minWidth: 'fit-content',
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
+    textAlign: 'right',
+  },
+
   versions: {
     height: 280,
     paddingRight: 5,
