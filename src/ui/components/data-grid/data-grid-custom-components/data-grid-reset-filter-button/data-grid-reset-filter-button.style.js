@@ -1,12 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  mainFilterBtn: {
-    color: theme.palette.primary.main,
-    border: 'none',
-    height: 35,
-  },
-
+export const useStyles = makeStyles()(() => ({
   mainFilterBtnInsert: {
     display: 'flex',
   },

@@ -58,4 +58,5 @@ export interface IDestinationVariationWithCalculations {
   maxWeight: number
   pricePerKgRmb: number
   pricePerKgUsd: number
+  storekeeperTariffLogisticsId: string
 }

@@ -15,14 +15,24 @@ import { getCellValue } from './helpers/get-cell-value'
 interface ApproximateCellProps {
   destinations: IDestinationVariationWithCalculations[]
   field: string
+  borderLeft?: boolean
+  borderRight?: boolean
 }
 
-export const ApproximateCell: FC<ApproximateCellProps> = memo(({ destinations, field }) => {
-  const { classes: styles } = useStyles()
+export const ApproximateCell: FC<ApproximateCellProps> = memo(props => {
+  const { destinations, field, borderLeft, borderRight } = props
+
+  const { classes: styles, cx } = useStyles()
 
   const renderCell = (text: string, index?: number) => (
-    <div key={index} className={styles.destination}>
-      <MultilineTextCell text={text} />
+    <div
+      key={index}
+      className={cx(styles.destination, {
+        [styles.borderLeft]: borderLeft,
+        [styles.borderRight]: borderRight,
+      })}
+    >
+      <MultilineTextCell text={text} maxLength={25} />
     </div>
   )
 

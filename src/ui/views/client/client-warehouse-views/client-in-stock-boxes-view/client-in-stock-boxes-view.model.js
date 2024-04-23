@@ -1175,34 +1175,24 @@ export class ClientInStockBoxesViewModel {
     this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
-  async editTariff(id, boxData, isSelectedDestinationNotValid, isSetCurrentDestination) {
+  async editTariff(boxData) {
     try {
-      if (isSelectedDestinationNotValid) {
+      const boxId = this.changeItem?._id
+
+      if (!boxData?.isSameDestination) {
         runInAction(() => {
           this.confirmModalSettings = {
             isWarning: false,
             title: t(TranslationKey.Attention),
             confirmMessage: t(TranslationKey['Wish to change a destination?']),
-            onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
-            onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, true, false),
+            onClickConfirm: () => this.patchBoxHandler(boxId, boxData, true, false, false),
+            onClickCancelBtn: () => this.patchBoxHandler(boxId, boxData, false, true, false),
           }
         })
+
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        if (!isSetCurrentDestination) {
-          runInAction(() => {
-            this.confirmModalSettings = {
-              isWarning: false,
-              title: t(TranslationKey.Attention),
-              confirmMessage: t(TranslationKey['Wish to set a destination?']),
-              onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
-              onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, false, false),
-            }
-          })
-          this.onTriggerOpenModal('showConfirmModal')
-        } else {
-          this.patchBoxHandler(id, boxData, false, false, true)
-        }
+        this.patchBoxHandler(boxId, boxData, false, false, true)
       }
     } catch (error) {
       console.error(error)
@@ -1404,7 +1394,16 @@ export class ClientInStockBoxesViewModel {
             ? this.uploadedFiles?.[0]
             : boxBody?.tmpShippingLabel?.[0] || boxBody?.shippingLabel,
         },
-        ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
+        [
+          'tmpShippingLabel',
+          'storekeeperId',
+          'humanFriendlyId',
+          'storekeeper',
+          'destination',
+          'logicsTariff',
+          'variationTariff',
+          'items',
+        ],
         undefined,
         undefined,
         true,
@@ -1542,9 +1541,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   async onClickCurrentTariffsBtn() {
-    await this.getStorekeepers()
-    await ClientModel.getDestinations()
-
+    this.changeItem = null
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
 
     runInAction(() => {

@@ -209,12 +209,13 @@ export class ClientBoxesTariffsNotificationsViewModel {
     }
   }
 
-  async onSubmitSelectTariff(tariffId, variationTariffId) {
+  async onSubmitSelectTariff({ destinationId, logicsTariffId, variationTariffId }) {
     try {
       await ClientModel.updateTariffIfTariffWasDeleted({
         boxId: this.curBox._id,
-        logicsTariffId: tariffId,
+        logicsTariffId,
         variationTariffId,
+        destinationId,
       })
 
       this.loadData()
@@ -225,19 +226,17 @@ export class ClientBoxesTariffsNotificationsViewModel {
     }
   }
 
-  async onClickConfirmTarrifChangeBtn(storekeeperId, tariffId, variationTariffId) {
+  async onClickConfirmTarrifChangeBtn(tariffData) {
     try {
       const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, this.platformSettings?.volumeWeightCoefficient)
       const finalSum = curBoxFinalWeight * this.curBox.variationTariff.pricePerKgUsd
-
       runInAction(() => {
         this.confirmModalSettings = {
           isWarning: false,
           message: `${t(TranslationKey['The total cost of shipping the box will be'])}: $${toFixed(finalSum, 2)}`,
-          onClickOkBtn: () => this.onSubmitSelectTariff(tariffId, variationTariffId),
+          onClickOkBtn: () => this.onSubmitSelectTariff(tariffData),
         }
       })
-
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.warn(error)

@@ -10,8 +10,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
-import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { Button } from '@components/shared/button'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
@@ -581,19 +581,12 @@ export const OrderModalBodyRow = ({
           </div>
         </TableCell>
 
-        <Modal
+        <SupplierApproximateCalculationsModal
           openModal={showSupplierApproximateCalculationsModal}
-          setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
-        >
-          <SupplierApproximateCalculationsForm
-            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-            product={item}
-            supplier={item.currentSupplier}
-            storekeepers={storekeepers}
-            destinationData={destinations}
-            onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
-          />
-        </Modal>
+          currentSupplierId={item.currentSupplier?._id}
+          productId={item?._id}
+          setOpenModal={setShowSupplierApproximateCalculationsModal}
+        />
 
         {showConfirmationModal ? (
           <ConfirmationModal

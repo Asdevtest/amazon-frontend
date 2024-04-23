@@ -38,8 +38,8 @@ export const useStyles = makeStyles()(theme => ({
 
     border: `1px solid ${theme.palette.input.customBorder}`,
 
-    padding: '0 25px',
-    borderRadius: '0px 7px 7px 0px',
+    padding: '0 15px',
+    borderRadius: '0px 25px 25px 0px',
   },
 
   menuContainer: {

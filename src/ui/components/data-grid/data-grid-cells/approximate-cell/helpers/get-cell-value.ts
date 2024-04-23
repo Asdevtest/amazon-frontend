@@ -12,6 +12,8 @@ export const getCellValue = (field: string, destination: IDestinationVariationWi
       return toFixed(destination?.destination?.roi, 2)
     case 'pricePerKgUsd':
       return toFixed(destination?.[field], 2)
+    case 'pricePerKgRmb':
+      return toFixed(destination?.[field], 2)
     default:
       // @ts-ignore
       return destination?.[field]
