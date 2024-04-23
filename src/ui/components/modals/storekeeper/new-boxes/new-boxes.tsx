@@ -49,7 +49,6 @@ export const NewBoxes: FC<NewBoxesProps> = memo(props => {
     setDestinationsFavouritesItem,
     showEditBoxModalR,
     onTriggerShowEditBoxModalR,
-    volumeWeightCoefficient,
     onClickEditBox,
     setNewBoxes,
     onClickApplyAllBtn,
@@ -88,7 +87,6 @@ export const NewBoxes: FC<NewBoxesProps> = memo(props => {
         <EditBoxTasksForm
           box={curBox}
           newBoxes={newBoxes}
-          volumeWeightCoefficient={volumeWeightCoefficient}
           setNewBoxes={setNewBoxes}
           setEditModal={onTriggerShowEditBoxModalR}
         />

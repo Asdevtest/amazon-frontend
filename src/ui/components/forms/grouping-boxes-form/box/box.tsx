@@ -6,23 +6,25 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Radio } from '@mui/material'
 
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CopyValue } from '@components/shared/copy-value'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { Dimensions } from '@components/shared/dimensions'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useStyles } from './box.style'
+import { Dimensions as DimensionsEnum } from '@typings/enums/dimensions'
 
-import { WarehouseDemensions } from '../warehouse-demensions/warehouse-demensions'
+import { Entities } from '@hooks/use-dimensions'
+
+import { useStyles } from './box.style'
 
 interface BoxProps {
   isNewBox?: boolean
@@ -50,7 +52,7 @@ export const Box: FC<BoxProps> = memo(props => {
     onClickBasicBoxRadio,
   } = props
 
-  const [sizeSetting, setSizeSetting] = useState<string>(unitsOfChangeOptions.EU)
+  const [sizeSetting, setSizeSetting] = useState(DimensionsEnum.EU)
   const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
 
   useEffect(() => {
@@ -164,23 +166,10 @@ export const Box: FC<BoxProps> = memo(props => {
               <div className={styles.sizesTitleWrapper}>
                 <p className={styles.label}>{t(TranslationKey.Dimensions)}</p>
 
-                <div>
-                  <CustomSwitcher
-                    condition={sizeSetting}
-                    switcherSettings={[
-                      { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                      { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                    ]}
-                    changeConditionHandler={condition => {
-                      if (typeof condition === 'string') {
-                        setSizeSetting(condition)
-                      }
-                    }}
-                  />
-                </div>
+                <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
               </div>
 
-              <WarehouseDemensions orderBox={box} sizeSetting={sizeSetting} />
+              <Dimensions isTotalWeight data={box} sizeSetting={sizeSetting} calculationField={Entities.WAREHOUSE} />
             </div>
             <div className={styles.fieldWrapper}>
               <Field

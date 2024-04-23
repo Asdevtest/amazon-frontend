@@ -123,13 +123,13 @@ export const ProductLotDataForm = memo(props => {
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           getRowId={batches => batches?._id}
+          getRowHeight={() => 'auto'}
           columns={
             isTransfer
               ? productInTransferColumns({ onClickShowBatchBtn })
               : productLotDataFormColumns({ onClickShowBatchBtn })
           }
           rows={batches}
-          rowHeight={80}
         />
       </div>
 
