@@ -11,15 +11,37 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.gray,
   },
 
-  line: {
-    display: 'none',
+  lineContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 5,
   },
 
-  showLine: {
-    display: 'block',
+  line: {
     width: '100%',
     height: 1,
     background: theme.palette.input.customBorder,
+  },
+
+  crossButton: {
+    width: 25,
+    height: 25,
+    padding: 5,
+    fontSize: 15,
+    lineHeight: '15px',
+    color: theme.palette.text.red,
+    opacity: 1,
+    transition: '.3s ease-in-out',
+
+    '&:hover': {
+      opacity: 0.8,
+    },
+
+    '&:disabled': {
+      opacity: 0.5,
+      cursor: 'unset',
+    },
   },
 
   fieldLabel: {
