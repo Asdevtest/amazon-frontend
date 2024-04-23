@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -17,37 +16,27 @@ import { filterFields } from './my-services-view.constants'
 
 export class MyServicesViewModel {
   history = undefined
-  requestStatus = undefined
 
   selectedSpec = Specs.DEFAULT
   announcements = []
-
   nameSearchValue = undefined
-
-  showConfirmModal = false
-  selectedProposal = undefined
-
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
+  archive = false
 
-  showImageModal = false
+  showConfirmModal = false
 
   columnMenuSettings = {
     onClickFilterBtn: () => {},
     onChangeFullFieldMenuItem: () => {},
     onClickAccept: () => {},
 
-    filterRequestStatus: undefined,
-
     ...dataGridFiltersInitializer(filterFields),
+    archive: { currentFilterData: [false] }, // default init value
   }
 
   get userInfo() {
     return UserModel.userInfo
-  }
-
-  get userRole() {
-    return UserRoleCodeMap[this.userInfo.role]
   }
 
   get currentData() {
@@ -65,24 +54,12 @@ export class MyServicesViewModel {
   constructor({ history }) {
     this.history = history
 
+    this.getMyAnnouncements()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  loadData() {
-    try {
-      this.getMyAnnouncementsData()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  getFilter(exclusion) {
-    return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, []),
-    )
-  }
-
-  async getMyAnnouncementsData() {
+  async getMyAnnouncements() {
     try {
       const response = await AnnouncementsModel.getMyAnnouncements({
         filters: this.getFilter(),
@@ -96,7 +73,13 @@ export class MyServicesViewModel {
     }
   }
 
-  onClickCreateServiceBtn() {
+  getFilter(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, []),
+    )
+  }
+
+  onClickCreateService() {
     this.history.push(`/freelancer/freelance/my-services/create-service`)
   }
 
@@ -108,9 +91,17 @@ export class MyServicesViewModel {
     this.selectedSpec = specType
 
     // spec - for "_id:string", specType - for "type:number"
-    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType')
 
-    this.getMyAnnouncementsData()
+    this.getMyAnnouncements()
+  }
+
+  onToggleArchive() {
+    this.archive = !this.archive
+
+    this.onChangeFullFieldMenuItem([this.archive], 'archive')
+
+    this.getMyAnnouncements()
   }
 
   onChangeViewMode(value) {

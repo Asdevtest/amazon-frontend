@@ -1,34 +1,22 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  headerWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 20,
-    marginBottom: 20,
-  },
-
-  tablePanelWrapper: {
-    width: '100%',
+  header: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
-  toggleBtnAndtaskTypeWrapper: {
+  flexContainer: {
     display: 'flex',
     alignItems: 'center',
-    gap: 30,
+    gap: 20,
   },
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
     width: 400,
-  },
-
-  rightAddingBtn: {
-    padding: '0 50px',
   },
 
   emptyTableWrapper: {
@@ -47,6 +35,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   dashboardCardWrapper: {
+    marginTop: 20,
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 390px)',
     gap: 30,
@@ -54,5 +43,9 @@ export const useStyles = makeStyles()(theme => ({
 
   dashboardCardWrapperList: {
     gridTemplateColumns: 'repeat(2, 1fr)',
+  },
+
+  fixWidth: {
+    width: 160,
   },
 }))

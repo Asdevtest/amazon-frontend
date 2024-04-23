@@ -1,1 +1,1 @@
-export const filterFields = ['specType']
+export const filterFields = ['specType', 'archive']
