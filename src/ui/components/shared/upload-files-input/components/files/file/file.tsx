@@ -24,7 +24,7 @@ export const File: FC<FileProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const displayedFile = isUploadFileType(file) ? file : file?.fileLink
-  const isNewFile = isUploadFile(file) || (isString(file) && !file.includes('uploads/'))
+  const isNewFile = isUploadFile(file) || (isString(file) && !file.includes('/uploads/'))
 
   return (
     <div className={styles.fileWrapper}>
