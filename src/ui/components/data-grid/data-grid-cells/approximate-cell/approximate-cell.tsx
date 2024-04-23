@@ -19,7 +19,9 @@ interface ApproximateCellProps {
   borderRight?: boolean
 }
 
-export const ApproximateCell: FC<ApproximateCellProps> = memo(({ destinations, field, borderLeft, borderRight }) => {
+export const ApproximateCell: FC<ApproximateCellProps> = memo(props => {
+  const { destinations, field, borderLeft, borderRight } = props
+
   const { classes: styles, cx } = useStyles()
 
   const renderCell = (text: string, index?: number) => (

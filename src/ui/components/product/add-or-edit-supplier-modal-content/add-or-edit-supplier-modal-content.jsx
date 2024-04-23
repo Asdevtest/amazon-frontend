@@ -950,12 +950,14 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
 
-      <SupplierApproximateCalculationsModal
-        openModal={showSupplierApproximateCalculationsModal}
-        currentSupplierId={tmpSupplier?._id}
-        productId={product?._id}
-        setOpenModal={setShowSupplierApproximateCalculationsModal}
-      />
+      {showSupplierApproximateCalculationsModal ? (
+        <SupplierApproximateCalculationsModal
+          openModal={showSupplierApproximateCalculationsModal}
+          productId={product?._id || ''}
+          currentSupplierId={tmpSupplier?._id || ''}
+          setOpenModal={setShowSupplierApproximateCalculationsModal}
+        />
+      ) : null}
     </div>
   )
 })

@@ -89,7 +89,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       StorekeeperModel.getStorekeepersTariffsWithCalculations,
       columns,
       getFilterFields(columns, additionalFilterFields),
-      `storekeepers/tariffs_with_calculations${productId ? '/' + productId : ''}?`,
+      `storekeepers/tariffs_with_calculations?${productId ? 'productId=' + productId + '&' : ''}`,
       ['name', 'destinationName'],
       undefined,
       defaultGetDataMethodOptions,
@@ -233,6 +233,6 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   }
 
   setMainMethodURL(productId: string) {
-    this.mainMethodURL = `storekeepers/tariffs_with_calculations/${productId}?`
+    this.mainMethodURL = `storekeepers/tariffs_with_calculations?productId=${productId}&`
   }
 }
