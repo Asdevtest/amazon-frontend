@@ -11,7 +11,6 @@ import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-for
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
 import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { RequestToSendBatchForm } from '@components/forms/request-to-send-batch-form'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
@@ -21,6 +20,7 @@ import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal
 import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AlertShield } from '@components/shared/alert-shield'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
@@ -303,44 +303,16 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         />
       </Modal>
 
-      <Modal openModal={viewModel.showSelectionStorekeeperAndTariffModal} setOpenModal={viewModel.openModalAndClear}>
-        <SelectStorekeeperAndTariffForm
-          showCheckbox
-          removeDestinationRestriction={!viewModel.isCurrentTarrifsButton}
-          storekeepers={
-            viewModel.changeItem
-              ? viewModel.storekeepersData.filter(el => el._id === viewModel.changeItem?.storekeeper._id)
-              : viewModel.storekeepersData
-          }
-          curStorekeeperId={viewModel.changeItem?.storekeeper?._id}
-          curTariffId={viewModel.changeItem?.logicsTariff?._id}
-          destinationsData={viewModel.destinations}
-          inNotifications={!viewModel.changeItem}
-          total={!viewModel.changeItem}
-          currentDestinationId={viewModel.changeItem?.destination?._id}
-          currentVariationTariffId={viewModel.changeItem?.variationTariff?._id}
-          onSubmit={(
-            storekeeperId,
-            tariffId,
-            variationTariffId,
-            destinationId,
-            isSelectedDestinationNotValid,
-            isSetCurrentDestination,
-          ) =>
-            viewModel.editTariff(
-              viewModel.changeItem?._id,
-              {
-                logicsTariffId: tariffId,
-                storekeeperId,
-                variationTariffId,
-                destinationId,
-              },
-              isSelectedDestinationNotValid,
-              isSetCurrentDestination,
-            )
-          }
+      {viewModel.showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isTariffsSelect={viewModel.changeItem}
+          isHideCalculation={!viewModel.changeItem}
+          openModal={viewModel.showSelectionStorekeeperAndTariffModal}
+          boxId={viewModel.changeItem?._id}
+          setOpenModal={viewModel.openModalAndClear}
+          onClickSubmit={viewModel.editTariff}
         />
-      </Modal>
+      ) : null}
 
       {viewModel.showProductModal ? (
         <ProductAndBatchModal
