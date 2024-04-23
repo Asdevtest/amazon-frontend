@@ -6,6 +6,7 @@ import { GridRowModel } from '@mui/x-data-grid'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PatchNoteForm } from '@components/forms/patch-note-form'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -73,6 +74,20 @@ export const PatchNoutesView = observer(() => {
           onUpdatePatchNote={viewModel.updatePatchNote}
         />
       </Modal>
+
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Are you sure you want to delete the patch note?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.onRemovePatchNote}
+          onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
+        />
+      ) : null}
     </>
   )
 })
