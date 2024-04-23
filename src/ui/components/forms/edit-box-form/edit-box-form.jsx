@@ -2,7 +2,6 @@ import { memo, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,27 +17,27 @@ import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
+import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import '@utils/text'
 import { t } from '@utils/translations'
 
+import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 
+import { Entities, useDimensions } from '@hooks/use-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './edit-box-form.style'
-
-import { WarehouseDemensions } from './warehouse-demensions/warehouse-demensions'
 
 export const EditBoxForm = memo(
   ({
@@ -46,7 +45,6 @@ export const EditBoxForm = memo(
     onSubmit,
     onTriggerOpenModal,
     requestStatus,
-    volumeWeightCoefficient,
     destinations,
     storekeepers,
     destinationsFavourites,
@@ -96,8 +94,6 @@ export const EditBoxForm = memo(
       widthCmWarehouse: formItem?.widthCmWarehouse || 0,
       heightCmWarehouse: formItem?.heightCmWarehouse || 0,
       weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
-      volumeWeightKgWarehouse: formItem ? calcVolumeWeightForBox(formItem, volumeWeightCoefficient) : 0,
-      weightFinalAccountingKgWarehouse: formItem ? calcFinalWeightForBox(formItem, volumeWeightCoefficient) : 0,
 
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
@@ -118,9 +114,15 @@ export const EditBoxForm = memo(
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
+    const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+    const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+      data: boxFields,
+      sizeSetting,
+      calculationField: Entities.WAREHOUSE,
+    })
+
     const {
       destinationId,
-
       onSubmitSelectStorekeeperAndTariff,
 
       showConfirmModal,
@@ -185,8 +187,6 @@ export const EditBoxForm = memo(
       )
       setBoxFields(newFormFields)
     }
-
-    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
 
     const disableSubmit =
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
@@ -606,19 +606,18 @@ export const EditBoxForm = memo(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <div>
-                    <CustomSwitcher
-                      condition={sizeSetting}
-                      switcherSettings={[
-                        { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                        { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                      ]}
-                      changeConditionHandler={condition => setSizeSetting(condition)}
-                    />
-                  </div>
+                  <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
                 </div>
 
-                <WarehouseDemensions orderBox={boxFields} sizeSetting={sizeSetting} />
+                <WarehouseDimensions
+                  length={length}
+                  width={width}
+                  height={height}
+                  weight={weight}
+                  volumeWeight={volumeWeight}
+                  finalWeight={finalWeight}
+                  sizeSetting={sizeSetting}
+                />
 
                 <div className={styles.boxPhotoWrapper}>
                   <Typography className={styles.standartLabel}>

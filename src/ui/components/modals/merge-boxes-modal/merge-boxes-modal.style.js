@@ -208,7 +208,4 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 5,
   },
-  customSwitcherWrapper: {
-    width: 'fit-content',
-  },
 }))

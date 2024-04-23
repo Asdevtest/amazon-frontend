@@ -13,6 +13,7 @@ import { IPlatformSettings } from '@typings/shared/patform-settings'
 const INCHES_COEFFICIENT = 2.54 // 1 inch = 2.54 cm
 const POUNDS_COEFFICIENT = 0.4536 // 1 lb = 0.4536 kg
 const DEFAULT_VOLUME_WEIGHT_COEFFICIENT = 6000 // if don't get value from UserModel
+const MIN_ALLOW_WEIGHT = 12
 
 export enum Entities {
   WAREHOUSE = 'warehouse',
@@ -54,6 +55,7 @@ export const useDimensions = ({
     weight: 0,
     volumeWeight: 0,
     finalWeight: 0,
+    totalWeight: 0,
     dimensionsSize: getDimensionsSize(sizeSetting),
     unitsSize: getUnitsSize(sizeSetting),
   })
@@ -128,6 +130,7 @@ export const useDimensions = ({
       weight: convertedWeight,
       volumeWeight: convertedVolumeWeight,
       finalWeight: toFixed(Math.max(convertedWeight, convertedVolumeWeight)),
+      totalWeight: toFixed(sizeSetting === Dimensions.EU ? MIN_ALLOW_WEIGHT : MIN_ALLOW_WEIGHT / POUNDS_COEFFICIENT),
       dimensionsSize: getDimensionsSize(sizeSetting),
       unitsSize: getUnitsSize(sizeSetting),
     }))

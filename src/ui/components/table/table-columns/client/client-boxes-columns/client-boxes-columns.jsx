@@ -1,4 +1,3 @@
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,15 +14,17 @@ import {
   OrderManyItemsCell,
   OrdersIdsItemsCell,
   RedFlagsCell,
-  ShortBoxDimensionsCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { Dimensions } from '@components/shared/dimensions'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { Entities } from '@hooks/use-dimensions'
 
 export const clientBoxesViewColumns = (
   handlers,
@@ -357,33 +358,18 @@ export const clientBoxesViewColumns = (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Dimensions)}
         isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        component={
-          <div>
-            <CustomSwitcher
-              condition={getUnitsOption()}
-              switcherSettings={[
-                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-              ]}
-              changeConditionHandler={handlers.onChangeUnitsOption}
-            />
-          </div>
-        }
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+        component={<SizeSwitcher condition={getUnitsOption()} onChangeCondition={handlers.onChangeUnitsOption} />}
       />
     ),
-
-    renderCell: params => {
-      return params.row.originalData ? (
-        <ShortBoxDimensionsCell
-          box={params.row.originalData}
-          volumeWeightCoefficient={params.row.volumeWeightCoefficient}
-          unitsOption={getUnitsOption()}
-        />
-      ) : (
-        ''
-      )
-    },
+    renderCell: params => (
+      <Dimensions
+        isCell
+        isTotalWeight
+        data={params.row.originalData}
+        sizeSetting={getUnitsOption()}
+        calculationField={Entities.WAREHOUSE}
+      />
+    ),
     width: 210,
     sortable: false,
   },

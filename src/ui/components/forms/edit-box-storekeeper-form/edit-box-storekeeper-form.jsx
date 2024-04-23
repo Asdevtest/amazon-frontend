@@ -3,7 +3,6 @@ import { memo, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,22 +16,23 @@ import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
+import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { Dimensions } from '@typings/enums/dimensions'
+
+import { Entities, useDimensions } from '@hooks/use-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
@@ -43,10 +43,8 @@ export const EditBoxStorekeeperForm = memo(
     formItem,
     onSubmit,
     onTriggerOpenModal,
-    volumeWeightCoefficient,
     destinations,
     storekeepers,
-
     destinationsFavourites,
     setDestinationsFavouritesItem,
     onClickHsCode,
@@ -135,8 +133,6 @@ export const EditBoxStorekeeperForm = memo(
       widthCmWarehouse: formItem?.widthCmWarehouse || 0,
       heightCmWarehouse: formItem?.heightCmWarehouse || 0,
       weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
-      volumeWeightKgWarehouse: formItem ? calcVolumeWeightForBox(formItem, volumeWeightCoefficient) : 0,
-      weightFinalAccountingKgWarehouse: formItem ? calcFinalWeightForBox(formItem, volumeWeightCoefficient) : 0,
 
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
@@ -156,9 +152,15 @@ export const EditBoxStorekeeperForm = memo(
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
+    const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+    const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+      data: boxFields,
+      sizeSetting,
+      calculationField: Entities.WAREHOUSE,
+    })
+
     const {
       destinationId,
-
       onSubmitSelectStorekeeperAndTariff,
 
       showConfirmModal,
@@ -226,25 +228,6 @@ export const EditBoxStorekeeperForm = memo(
       setBoxFields(newFormFields)
     }
 
-    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-    const handleChange = newAlignment => {
-      if (newAlignment !== sizeSetting) {
-        const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
-        const weightMultiplier = newAlignment === unitsOfChangeOptions.US ? poundsCoefficient : 1 / poundsCoefficient
-
-        setBoxFields({
-          ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / multiplier, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / multiplier, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / multiplier, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * weightMultiplier, 2),
-        })
-
-        setSizeSetting(newAlignment)
-      }
-    }
-
     const handleChangeImages = files =>
       setBoxFields({
         ...boxFields,
@@ -252,17 +235,15 @@ export const EditBoxStorekeeperForm = memo(
       })
 
     const getBoxDataToSubmit = () => {
-      if (sizeSetting === unitsOfChangeOptions.US) {
-        return {
-          ...boxFields,
-          destinationId: boxFields.destinationId || null,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / poundsCoefficient, 2),
-        }
-      } else {
-        return { ...boxFields, destinationId: boxFields.destinationId || null }
+      setSizeSetting(Dimensions.EU)
+
+      return {
+        ...boxFields,
+        destinationId: boxFields.destinationId || null,
+        lengthCmWarehouse: length,
+        widthCmWarehouse: width,
+        heightCmWarehouse: height,
+        weighGrossKgWarehouse: weight,
       }
     }
 
@@ -307,9 +288,9 @@ export const EditBoxStorekeeperForm = memo(
     const disableSubmit =
       isEqual(boxInitialState, boxFields) ||
       boxFields.storekeeperId === '' ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
+      maxBoxSizeFromOption(sizeSetting, length) ||
+      maxBoxSizeFromOption(sizeSetting, width) ||
+      maxBoxSizeFromOption(sizeSetting, height)
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
@@ -752,22 +733,17 @@ export const EditBoxStorekeeperForm = memo(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <div>
-                    <CustomSwitcher
-                      condition={sizeSetting}
-                      switcherSettings={[
-                        { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                        { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                      ]}
-                      changeConditionHandler={condition => handleChange(condition)}
-                    />
-                  </div>
+                  <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
                 </div>
 
-                <WarehouseDemensions
-                  orderBox={boxFields}
+                <WarehouseDimensions
+                  length={length}
+                  width={width}
+                  height={height}
+                  weight={weight}
+                  volumeWeight={volumeWeight}
+                  finalWeight={finalWeight}
                   sizeSetting={sizeSetting}
-                  volumeWeightCoefficient={volumeWeightCoefficient}
                   setFormField={setFormField}
                 />
 

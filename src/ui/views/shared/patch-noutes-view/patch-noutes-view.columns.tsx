@@ -11,6 +11,7 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { EditIcon } from '@components/shared/svg-icons'
 
+import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -44,7 +45,7 @@ export const moderatorUpdatedColumns = ({ onToggleEditPatchNote }: IModeratorUpd
     field: 'description',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
     renderCell: ({ row }: GridRowModel) => (
-      <MultilineTextCell threeLines leftAlign maxLength={310} text={row.description} />
+      <MultilineTextCell threeLines leftAlign maxLength={310} text={parseTextString(row.description)} />
     ),
     filterable: false,
     sortable: false,

@@ -37,7 +37,7 @@ export const productInTransferColumns = handlers => [
         customTextStyles={colorByBoxStatus(params.value)}
       />
     ),
-    width: 80,
+    width: 120,
   },
 
   {
@@ -46,7 +46,7 @@ export const productInTransferColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
 
     renderCell: params => <MultilineTextCell text={params?.row?.batch?.humanFriendlyId} />,
-    width: 60,
+    width: 100,
   },
 
   {
@@ -66,7 +66,7 @@ export const productInTransferColumns = handlers => [
     ),
 
     renderCell: params => <BoxesAndQuantityCell boxesData={params?.row} />,
-    width: 154,
+    width: 170,
   },
 
   {
@@ -84,7 +84,7 @@ export const productInTransferColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => <MultilineTextCell text={params.row.destination.name} />,
-    width: 100,
+    width: 150,
   },
 
   {
@@ -105,7 +105,7 @@ export const productInTransferColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
     renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
-    width: 80,
+    width: 120,
   },
 
   {
