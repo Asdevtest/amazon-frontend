@@ -68,8 +68,6 @@ export const ProductWrapper = memo(
     setCurrentTab,
     onClickParseProductData,
     onChangeImagesForLoad,
-    acceptMessage,
-    showAcceptMessage,
     showBindProductModal,
     productsToBind,
     onTriggerOpenModal,
@@ -155,8 +153,6 @@ export const ProductWrapper = memo(
                 shops={shops}
                 productBase={productBase}
                 actionStatus={actionStatus}
-                acceptMessage={acceptMessage}
-                showAcceptMessage={showAcceptMessage}
                 showBindProductModal={showBindProductModal}
                 productsToBind={productsToBind}
                 handleProductActionButtons={handleProductActionButtons}

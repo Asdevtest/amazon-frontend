@@ -19,15 +19,6 @@ export class MyServicesViewModel {
   history = undefined
   requestStatus = undefined
 
-  showAcceptMessage = null
-  acceptMessage = null
-
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-    error: false,
-  }
-
   selectedSpec = Specs.DEFAULT
   announcements = []
 
@@ -74,38 +65,7 @@ export class MyServicesViewModel {
   constructor({ history }) {
     this.history = history
 
-    if (history.location.state) {
-      this.alertShieldSettings = {
-        showAlertShield: history.location?.state?.showAcceptMessage,
-        alertShieldMessage: history.location?.state?.acceptMessage,
-        error: history.location?.state?.error,
-      }
-
-      const state = { ...history.location.state }
-      delete state.acceptMessage
-      delete state.showAcceptMessage
-      delete state.error
-      history.replace({ ...history.location, state })
-    }
-
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    if (this.alertShieldSettings.showAlertShield) {
-      setTimeout(() => {
-        this.alertShieldSettings = {
-          ...this.alertShieldSettings,
-          showAlertShield: false,
-        }
-
-        setTimeout(() => {
-          this.alertShieldSettings = {
-            showAlertShield: false,
-            alertShieldMessage: '',
-            error: false,
-          }
-        }, 1000)
-      }, 3000)
-    }
   }
 
   loadData() {

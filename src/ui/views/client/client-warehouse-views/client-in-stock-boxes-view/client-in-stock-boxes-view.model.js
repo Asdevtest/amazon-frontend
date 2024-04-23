@@ -71,10 +71,6 @@ export class ClientInStockBoxesViewModel {
   batchesData = undefined
   existingProducts = undefined
   reorderOrdersData = undefined
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
 
   curDestinationId = undefined
 

@@ -79,11 +79,6 @@ export class SuppliersAndIdeasModel {
   destinations = []
   ordersDataStateToSubmit = undefined
 
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
-
   confirmModalSettings = {
     isWarning: false,
     confirmMessage: '',

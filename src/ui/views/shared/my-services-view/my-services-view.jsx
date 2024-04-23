@@ -7,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
@@ -98,14 +97,6 @@ export const MyServicesView = observer(({ history }) => {
           onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
         />
       ) : null}
-
-      {viewModel.alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings.alertShieldMessage}
-          error={viewModel?.alertShieldSettings.error}
-        />
-      )}
     </>
   )
 })

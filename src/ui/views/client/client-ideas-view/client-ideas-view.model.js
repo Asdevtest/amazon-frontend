@@ -110,11 +110,6 @@ export class ClientIdeasViewModel {
   successModalTitle = ''
   isIdeaCreate = false
 
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
-
   // * Table settings
 
   columnVisibilityModel = {}

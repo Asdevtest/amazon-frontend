@@ -23,8 +23,6 @@ export class CreateOrEditRequestViewModel {
   history = undefined
   requestStatus = loadingStatus.IS_LOADING // for first render
 
-  acceptMessage = null
-  showAcceptMessage = false
   requestToEdit = undefined
   createRequestForIdeaData = undefined
   uploadedFiles = []
@@ -122,16 +120,6 @@ export class CreateOrEditRequestViewModel {
   }
 
   pushSuccess() {
-    this.showAcceptMessage = true
-    this.acceptMessage = t(TranslationKey['An request has been created'])
-
-    this.history.push('/client/freelance/my-requests', {
-      showAcceptMessage: this.showAcceptMessage,
-      acceptMessage: this.acceptMessage,
-    })
-  }
-
-  goBack() {
     this.history.push('/client/freelance/my-requests')
   }
 
@@ -193,15 +181,7 @@ export class CreateOrEditRequestViewModel {
     } catch (error) {
       console.error(error)
 
-      if (error?.response?.error?.url?.includes('calculate_request_cost')) {
-        this.pushSuccess()
-      } else {
-        this.history.push('/client/freelance/my-requests', {
-          showAcceptMessage: true,
-          acceptMessage: t(TranslationKey['The request was not created']),
-          error: true,
-        })
-      }
+      this.pushSuccess()
     }
   }
 
@@ -233,29 +213,10 @@ export class CreateOrEditRequestViewModel {
       }
 
       await RequestModel.editRequest(this.requestToEdit.request._id, dataWithFiles)
-
-      runInAction(() => {
-        this.showAcceptMessage = true
-        this.acceptMessage = t(TranslationKey['The request has been changed'])
-      })
-
-      this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`, {
-        showAcceptMessage: this.showAcceptMessage,
-        acceptMessage: this.acceptMessage,
-      })
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.showAcceptMessage = true
-        this.acceptMessage = t(TranslationKey['The request has not been changed'])
-      })
-
-      this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`, {
-        showAcceptMessage: this.showAcceptMessage,
-        acceptMessage: this.acceptMessage,
-        error: true,
-      })
+    } finally {
+      this.history.push(`/client/freelance/my-requests/custom-request?request-id=${this.requestToEdit.request._id}`)
     }
   }
 

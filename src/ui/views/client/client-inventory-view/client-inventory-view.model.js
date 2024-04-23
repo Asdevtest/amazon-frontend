@@ -109,11 +109,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   isTransfer = false
 
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
-
   readyImages = []
   progressValue = 0
   showProgress = false
