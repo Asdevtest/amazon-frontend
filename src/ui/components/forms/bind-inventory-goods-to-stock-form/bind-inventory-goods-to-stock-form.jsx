@@ -94,8 +94,8 @@ export const BindInventoryGoodsToStockForm = observer(props => {
     <div className={styles.root}>
       <p className={styles.title}>{t(TranslationKey['Bind an product from Amazon'])}</p>
 
-      <div className={styles.filtersWrapper}>
-        <div className={styles.filtersWrapper}>
+      <div className={styles.flexContainer}>
+        <div className={styles.flexContainer}>
           <Button
             variant={ButtonVariant.OUTLINED}
             styleType={chipConfig === chipConfigSettings.RECOMMENDED ? ButtonStyle.PRIMARY : ButtonStyle.CASUAL}
@@ -142,12 +142,14 @@ export const BindInventoryGoodsToStockForm = observer(props => {
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           checkboxSelection
+          disableColumnMenu
+          columnHeaderHeight={40}
           sortingMode="client"
           paginationMode="client"
           rows={stockData}
           rowCount={stockData?.length}
           columns={sourceColumns()}
-          rowHeight={40}
+          getRowHeight={() => 'auto'}
           rowSelectionModel={selectedGoods}
           onRowSelectionModelChange={onSelectionModel}
         />
@@ -166,11 +168,13 @@ export const BindInventoryGoodsToStockForm = observer(props => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
+          disableColumnMenu
+          columnHeaderHeight={40}
           sortingMode="client"
           paginationMode="client"
           rows={chosenGoods || []}
           columns={chosenGoodsColumns({ onClickTrash })}
-          rowHeight={50}
+          rowHeight={40}
         />
       </div>
 
