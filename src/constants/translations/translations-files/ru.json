@@ -2236,5 +2236,11 @@
   "Edit a patch note": "Изменить обновление",
   "Version history of releases": "История обновлений",
   "Reset session data": "Сбросить данные сеанса",
-  "Version": "Версия"
+  "Version": "Версия",
+  "Are you sure you want to delete the patch note?": "Вы уверены, что хотите удалить данное обновление?",
+  "Add role": "Добавить роль",
+  "Patch notes added successfully": "Обновления успешно добавлены",
+  "No patch notes added": "Обновления не добавлены",
+  "Patch notes successfully modified": "Обновление успешно изменено",
+  "Patch notes not changed": "Обновление не изменено"
 }

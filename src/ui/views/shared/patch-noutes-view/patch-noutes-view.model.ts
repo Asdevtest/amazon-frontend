@@ -1,12 +1,16 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { GridPaginationModel } from '@mui/x-data-grid-premium'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
+
+import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IPatchNote, IPatchNotes } from '@typings/shared/patch-notes'
@@ -18,16 +22,19 @@ export class PatchNoutesViewModel {
   patchNotes: IPatchNote[] = []
   patchNoteVersions: string[] = []
   editPatchNote?: IPatchNote = undefined
+  selectedPatchNoteId?: string = undefined
 
   showPatchNoteModal = false
+  showConfirmModal = false
 
   rowCount = 0
   requestStatus: loadingStatus = loadingStatus.SUCCESS
   paginationModel: GridPaginationModel = { page: 0, pageSize: 15 }
-  rowHandlers = {
+  columnsProps = {
     onToggleEditPatchNote: (row: IPatchNote) => this.onToggleEditPatchNote(row),
+    onClickRemovePatchNote: (id: string) => this.onClickRemovePatchNote(id),
   }
-  columnsModel = moderatorUpdatedColumns(this.rowHandlers)
+  columnsModel = moderatorUpdatedColumns(this.columnsProps)
 
   get currentData() {
     return this.patchNotes
@@ -96,14 +103,18 @@ export class PatchNoutesViewModel {
     try {
       const dataToSend = data.map(patchNote => ({ ...patchNote, role: Number(patchNote.role) }))
 
-      dataToSend.forEach(async patchNote => {
+      for (const patchNote of dataToSend) {
         await AdministratorModel.createPatchNote(patchNote)
-      })
+      }
 
-      this.onToggleModal(ModalNames.PATCH)
+      toast.success(t(TranslationKey['Patch notes added successfully']))
+
       this.loadData()
     } catch (error) {
       console.error(error)
+      toast.error(t(TranslationKey['No patch notes added']))
+    } finally {
+      this.onToggleModal(ModalNames.PATCH)
     }
   }
 
@@ -114,10 +125,31 @@ export class PatchNoutesViewModel {
 
       await AdministratorModel.updatePatchNote(id, dataToSend)
 
-      this.onToggleModal(ModalNames.PATCH)
+      toast.success(t(TranslationKey['Patch notes successfully modified']))
+
       this.loadData()
     } catch (error) {
       console.error(error)
+      toast.error(t(TranslationKey['Patch notes not changed']))
+    } finally {
+      this.onToggleModal(ModalNames.PATCH)
+    }
+  }
+
+  onClickRemovePatchNote(id: string) {
+    this.selectedPatchNoteId = id
+    this.onToggleModal(ModalNames.CONFIRM)
+  }
+
+  async onRemovePatchNote() {
+    try {
+      await AdministratorModel.removePatchNote(this.selectedPatchNoteId)
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.onToggleModal(ModalNames.CONFIRM)
     }
   }
 

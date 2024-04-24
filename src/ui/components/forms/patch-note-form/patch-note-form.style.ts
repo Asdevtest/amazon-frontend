@@ -25,6 +25,11 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
+
   addButton: {
     display: 'flex',
     alignItems: 'center',

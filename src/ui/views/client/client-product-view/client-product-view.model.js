@@ -35,7 +35,6 @@ import { fieldsOfProductAllowedToUpdate, formFieldsDefault } from './client-prod
 export class ClientProductViewModel {
   history = undefined
   requestStatus = undefined
-  acceptMessage = ''
   updateDataHandler = undefined
 
   get currentData() {

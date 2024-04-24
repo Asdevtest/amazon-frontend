@@ -19,7 +19,6 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
@@ -88,7 +87,6 @@ export const SuppliersAndIdeas = observer(props => {
     storekeepers,
     showSetBarcodeModal,
     selectedProduct,
-    alertShieldSettings,
     currentRequest,
     showSelectionSupplierModal,
     currentData,
@@ -354,13 +352,6 @@ export const SuppliersAndIdeas = observer(props => {
           onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
         />
       </Modal>
-
-      {alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={alertShieldSettings?.showAlertShield}
-          acceptMessage={alertShieldSettings?.alertShieldMessage}
-        />
-      )}
 
       {showCommentsModal ? (
         <CommentsModal

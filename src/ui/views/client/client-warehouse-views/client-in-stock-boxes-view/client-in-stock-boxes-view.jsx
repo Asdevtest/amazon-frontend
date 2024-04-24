@@ -22,7 +22,6 @@ import { SetShippingLabelModal } from '@components/modals/set-shipping-label-mod
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AlertShield } from '@components/shared/alert-shield'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -393,13 +392,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
         />
       </Modal>
-
-      {viewModel.alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-        />
-      )}
 
       {viewModel.showSuccessInfoModal ? (
         <SuccessInfoModal

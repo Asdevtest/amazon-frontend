@@ -1,5 +1,6 @@
 import { FC, UIEvent, memo } from 'react'
 
+import { appVersion } from '@constants/app-version'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -57,9 +58,10 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
           </Button>
         ) : null}
         <p className={cx(styles.title, styles.text)}>{selectedPatchNote ? selectedPatchNote?.[0]?.title : title}</p>
+        {!selectedPatchNote ? <p className={styles.appVersion}>{appVersion}</p> : null}
       </div>
 
-      <div className={styles.versions} onScroll={handleScrollPatchNotes}>
+      <div className={styles.versions} onScroll={e => (!selectedPatchNote ? handleScrollPatchNotes(e) : undefined)}>
         {selectedPatchNote ? (
           selectedPatchNote.map(patchNote => (
             <div key={patchNote._id} className={styles.version}>

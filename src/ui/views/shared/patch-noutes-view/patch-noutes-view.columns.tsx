@@ -9,7 +9,7 @@ import {
   NormDateCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
-import { EditIcon } from '@components/shared/svg-icons'
+import { DeleteIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
@@ -20,9 +20,13 @@ import { IPatchNote } from '@typings/shared/patch-notes'
 
 interface IModeratorUpdatedColumns {
   onToggleEditPatchNote: (data: IPatchNote) => void
+  onClickRemovePatchNote: (id: string) => void
 }
 
-export const moderatorUpdatedColumns = ({ onToggleEditPatchNote }: IModeratorUpdatedColumns) => [
+export const moderatorUpdatedColumns = ({
+  onToggleEditPatchNote,
+  onClickRemovePatchNote,
+}: IModeratorUpdatedColumns) => [
   {
     field: 'title',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
@@ -98,16 +102,21 @@ export const moderatorUpdatedColumns = ({ onToggleEditPatchNote }: IModeratorUpd
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     renderCell: ({ row }: GridRowModel) => (
       <ActionButtonsCell
-        isFirstButton
+        row
         iconButton
+        isFirstButton
+        isSecondButton
         firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonElement={<DeleteIcon />}
+        secondButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => onToggleEditPatchNote(row)}
+        onClickSecondButton={() => onClickRemovePatchNote(row._id)}
       />
     ),
     filterable: false,
     sortable: false,
-    width: 80,
+    width: 90,
     align: 'center',
   },
 ]

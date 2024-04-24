@@ -1,81 +1,34 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
-import { IPatchNoteToCreate } from '@views/shared/patch-noutes-view/patch-noutes-view.type'
-
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { IPatchNote } from '@typings/shared/patch-notes'
 
 import { useStyles } from './patch-note-form.style'
 
 import { PatchNote } from './patch-note'
-import { EventType } from './patch-note-form.type'
-
-interface PatchNoteFormProps {
-  title: string
-  patchNoteVersions: string[]
-  onToggleModal: () => void
-  onCreatePatchNotes: (data: IPatchNoteToCreate[]) => void
-  onUpdatePatchNote: (id: string, data: IPatchNoteToCreate) => void
-  editPatchNote?: IPatchNote
-}
+import { PatchNoteFormProps } from './patch-note-form.type'
+import { usePatchNoteForm } from './use-patch-note-form'
 
 export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
-  const { title, patchNoteVersions, onToggleModal, onCreatePatchNotes, onUpdatePatchNote, editPatchNote } = props
+  const { title, patchNoteVersions, onToggleModal, editPatchNote } = props
 
   const { classes: styles } = useStyles()
-
-  const generatePatchNote = (): IPatchNoteToCreate =>
-    editPatchNote
-      ? {
-          title: editPatchNote.title || '',
-          version: editPatchNote.version || '',
-          description: editPatchNote.description || '',
-          role: String(editPatchNote.role) || '',
-        }
-      : {
-          title: '',
-          version: '',
-          description: '',
-          role: '',
-        }
-  const [patchNotes, setPatchNotes] = useState<IPatchNoteToCreate[]>([generatePatchNote()])
-
-  const handleChangePatchNote = (patchNoteIndex: number, field: string) => (e: EventType) => {
-    setPatchNotes(prevPatchNotes => {
-      const updatedPatchNotes = [...prevPatchNotes]
-      updatedPatchNotes[patchNoteIndex] = {
-        ...updatedPatchNotes[patchNoteIndex],
-        [field]: e.target.value,
-      }
-
-      return updatedPatchNotes
-    })
-  }
-  const handleChangePatchNoteDescription = (patchNoteIndex: number) => (value: string) => {
-    setPatchNotes(prevPatchNotes => {
-      const updatedPatchNotes = [...prevPatchNotes]
-      updatedPatchNotes[patchNoteIndex] = {
-        ...updatedPatchNotes[patchNoteIndex],
-        description: value,
-      }
-
-      return updatedPatchNotes
-    })
-  }
-  const handleAddPatchNote = () => {
-    setPatchNotes(prevPatchNotes => [generatePatchNote(), ...prevPatchNotes])
-  }
-  const handleSubmit = () =>
-    editPatchNote ? onUpdatePatchNote(editPatchNote._id, patchNotes[0]) : onCreatePatchNotes(patchNotes)
-
-  const disabledSubmitButton = patchNotes.some(patchNote => Object.values(patchNote).some(field => field.length === 0))
+  const {
+    patchNotes,
+    error,
+    disabledSubmitButton,
+    onAddPatchNote,
+    onRemovePatchNote,
+    onChangePatchNote,
+    onChangePatchNoteDescription,
+    onSubmit,
+  } = usePatchNoteForm(props)
 
   return (
     <div className={styles.wrapper}>
@@ -85,27 +38,31 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
         {patchNotes.map((patchNote, index) => (
           <PatchNote
             key={index}
+            error={error}
             patchNote={patchNote}
             patchNoteIndex={index}
             patchNoteVersions={patchNoteVersions}
-            onChangePatchNote={handleChangePatchNote}
-            onChangePatchNoteDescription={handleChangePatchNoteDescription}
+            onRemovePatchNote={onRemovePatchNote}
+            onChangePatchNote={onChangePatchNote}
+            onChangePatchNoteDescription={onChangePatchNoteDescription}
           />
         ))}
       </div>
 
       {!editPatchNote ? (
-        <button disabled={!!editPatchNote} className={styles.addButton} onClick={handleAddPatchNote}>
-          <CustomPlusIcon />
-          <span>{t(TranslationKey['Add a patch note'])}</span>
-        </button>
+        <div className={styles.buttonContainer}>
+          <button disabled={!!editPatchNote} className={styles.addButton} onClick={onAddPatchNote}>
+            <CustomPlusIcon />
+            {t(TranslationKey['Add role'])}
+          </button>
+        </div>
       ) : null}
 
       <div className={styles.buttons}>
         <Button styleType={ButtonStyle.CASUAL} onClick={onToggleModal}>
           {t(TranslationKey.Cancel)}
         </Button>
-        <Button disabled={disabledSubmitButton} onClick={handleSubmit}>
+        <Button disabled={disabledSubmitButton} onClick={onSubmit}>
           {editPatchNote ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </Button>
       </div>

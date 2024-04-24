@@ -46,7 +46,7 @@ export class NavbarModel extends UseProductsPermissions {
 
   constructor() {
     super(UserModel.getPatchNotes, {
-      sortType: 'DESC',
+      sortType: 'ASC',
       sortField: '',
     })
 

@@ -71,11 +71,6 @@ export class ClientOrdersViewModel {
   existingProducts = []
   shopsData = []
 
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
-
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
