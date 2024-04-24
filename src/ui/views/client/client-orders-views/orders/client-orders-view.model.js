@@ -4,6 +4,7 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
@@ -22,7 +23,7 @@ import { clientOrdersViewColumns } from '@components/table/table-columns/client/
 
 import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -602,14 +603,7 @@ export class ClientOrdersViewModel {
 
   async createOrder(orderObject) {
     try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-        '_id',
-        'tmpTransparencyFile',
-        'transparency',
-      ])
+      const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
       if (orderObject.tmpIsPendingOrder) {
         await ClientModel.createFormedOrder(requestData)

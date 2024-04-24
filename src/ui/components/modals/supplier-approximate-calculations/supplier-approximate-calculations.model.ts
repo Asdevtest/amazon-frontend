@@ -56,6 +56,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     onClickSubmit,
     box,
     isHideCalculation,
+    isGetAllStorekeepers,
   }: {
     box?: IBox
     supplierId?: string
@@ -63,6 +64,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     boxId?: string
     isTariffsSelect?: boolean
     isHideCalculation?: boolean
+    isGetAllStorekeepers?: boolean
     onClickSubmit?: (body: INewDataOfVariation) => void
   }) {
     const columnHandlers = {
@@ -89,7 +91,9 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       StorekeeperModel.getStorekeepersTariffsWithCalculations,
       columns,
       getFilterFields(columns, additionalFilterFields),
-      `storekeepers/tariffs_with_calculations?${productId ? 'productId=' + productId + '&' : ''}`,
+      `storekeepers/tariffs_with_calculations?${productId ? 'productId=' + productId + '&' : ''}${
+        supplierId ? 'supplierId=' + supplierId + '&' : ''
+      }`,
       ['name', 'destinationName'],
       undefined,
       defaultGetDataMethodOptions,
@@ -115,6 +119,10 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       this.productId = productId
       this.getStorekeepersData()
     } else {
+      this.getStorekeepersData()
+    }
+
+    if (isGetAllStorekeepers) {
       this.getStorekeepersData()
     }
 
@@ -181,7 +189,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   async handleChangeActiveProduct(productId: string, orderSupplierId: string) {
     this.productId = productId
     this.supplierId = orderSupplierId
-    this.setMainMethodURL(productId)
+    this.setMainMethodURL(productId, orderSupplierId)
     this.getMainTableData()
   }
 
@@ -221,18 +229,21 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   }
 
   setActualData(box: IBox) {
+    const productId = box?.productId || box?.items?.[0]?.product?._id
+    const supplierId = box?.items?.[0]?.order?.orderSupplierId || box?.items?.[0]?.order?.orderSupplier?._id
+
     this.currentVariationId = box?.variationTariff?._id
     this.currentDestinationId = box?.destination?._id
     this.currentLogicsTariffId = box?.variationTariff?.storekeeperTariffLogisticsId || box?.logicsTariff?._id
 
     this.storekeepers = [{ label: () => box?.storekeeper?.name || '', value: box?.storekeeper?._id }]
     this.boxItems = box?.items
-    this.productId = box?.items?.[0]?.product?._id
-    this.supplierId = box?.items?.[0]?.order?.orderSupplierId || box?.items?.[0]?.order?.orderSupplier?._id
-    this.setMainMethodURL(box?.items?.[0]?.product?._id)
+    this.productId = productId
+    this.supplierId = supplierId
+    this.setMainMethodURL(productId, supplierId)
   }
 
-  setMainMethodURL(productId: string) {
-    this.mainMethodURL = `storekeepers/tariffs_with_calculations?productId=${productId}&`
+  setMainMethodURL(productId: string, supplierId: string) {
+    this.mainMethodURL = `storekeepers/tariffs_with_calculations?productId=${productId}&supplierId=${supplierId}&`
   }
 }

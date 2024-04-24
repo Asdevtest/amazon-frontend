@@ -12,10 +12,7 @@ export const getObjectFilteredByKeyArrayWhiteList = (obj, keyArr, skipUndefined,
   Object.keys(obj)
     .filter(key => keyArr.includes(key))
     .reduce((acc, key) => {
-      if (
-        (skipUndefined && isUndefined(obj[key])) ||
-        (!keepNull && isNull(obj[key]) && key !== 'deadline' && key !== 'shopId')
-      ) {
+      if ((skipUndefined && isUndefined(obj[key])) || (!keepNull && isNull(obj[key]))) {
         return acc
       } else {
         acc[key] = valueModifier ? valueModifier(key, obj[key]) : obj[key]

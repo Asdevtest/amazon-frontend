@@ -107,8 +107,8 @@ export class OwnerRequestDetailCustomViewModel {
 
     this.scrollToChat = scrollToChat
     if (history.location.state) {
-      if (history.location.state.chatId) {
-        this.chatSelectedId = history.location.state.chatId
+      if (history?.location?.state?.chatId) {
+        this.chatSelectedId = history?.location?.state?.chatId
         this.showChat = true
       }
 

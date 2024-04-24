@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   tableWrapper: {
-    height: 'calc(100% - 50px)',
+    flex: '1',
     width: '100%',
   },
 }))

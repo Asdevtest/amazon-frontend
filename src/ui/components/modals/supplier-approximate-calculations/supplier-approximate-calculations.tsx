@@ -33,6 +33,7 @@ interface SupplierApproximateCalculationsModalProps {
   box?: IBox
   isTariffsSelect?: boolean
   isHideCalculation?: boolean
+  isGetAllStorekeepers?: boolean
 }
 
 export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalculationsModalProps> = observer(props => {
@@ -46,6 +47,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
     box,
     onClickSubmit,
     isHideCalculation,
+    isGetAllStorekeepers,
   } = props
 
   const { classes: styles } = useStyles()
@@ -60,6 +62,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
         onClickSubmit,
         box,
         isHideCalculation,
+        isGetAllStorekeepers,
       }),
   )
 
