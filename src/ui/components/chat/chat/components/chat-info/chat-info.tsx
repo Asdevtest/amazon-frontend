@@ -70,7 +70,7 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
         switcherSettings={getCustomSwitcherConfig(isGroupChat)}
         changeConditionHandler={value => {
           resetSettings()
-          setCurrentTab(value as TabValue)
+          setCurrentTab(value)
         }}
       />
 

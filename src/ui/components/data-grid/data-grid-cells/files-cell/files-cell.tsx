@@ -4,6 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GalleryModal } from '@components/modals/gallery-modal'
 import { Button } from '@components/shared/button'
+import { Modal } from '@components/shared/modal'
 import { EyeIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -41,9 +42,9 @@ export const FilesCell: FC<FilesCellProps> = memo(({ files }) => {
         )}
       </div>
 
-      {showGalleryModal ? (
-        <GalleryModal files={files || []} openModal={showGalleryModal} onOpenModal={handleToggleGalleryModal} />
-      ) : null}
+      <Modal openModal={showGalleryModal} setOpenModal={handleToggleGalleryModal}>
+        <GalleryModal files={files || []} />
+      </Modal>
     </>
   )
 })

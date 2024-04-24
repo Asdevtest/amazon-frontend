@@ -49,11 +49,7 @@ export const TaskPrioritySelector: FC<TaskPrioritySelectorProps> = props => {
               value: type,
             })),
         ]}
-        changeConditionHandler={value => {
-          if (typeof value === 'string' || value === null) {
-            handleActivePriority(value)
-          }
-        }}
+        changeConditionHandler={handleActivePriority}
       />
     </div>
   )

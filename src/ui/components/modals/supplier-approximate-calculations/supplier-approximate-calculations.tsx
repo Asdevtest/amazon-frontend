@@ -82,7 +82,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
           switchMode="medium"
           condition={viewModel?.currentStorekeeperId}
           switcherSettings={viewModel?.storekeepers}
-          changeConditionHandler={value => viewModel?.setCurrentStorekeeper(value as string)}
+          changeConditionHandler={viewModel?.setCurrentStorekeeper}
         />
 
         {viewModel?.boxItems?.length ? (

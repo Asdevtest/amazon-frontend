@@ -65,7 +65,7 @@ export const BoxForm: FC<BoxFormProps> = memo(props => {
             switchMode="medium"
             condition={activeTab}
             switcherSettings={switcherSettings}
-            changeConditionHandler={value => setActiveTab(value as BoxTabs)}
+            changeConditionHandler={setActiveTab}
           />
         </div>
 

@@ -283,7 +283,7 @@ export const CreateBoxForm = observer(
                 { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
                 { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
               ]}
-              changeConditionHandler={condition => handleChange(condition)}
+              changeConditionHandler={handleChange}
             />
           </div>
 
