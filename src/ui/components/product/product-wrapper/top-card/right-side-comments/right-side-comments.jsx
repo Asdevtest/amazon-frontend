@@ -19,6 +19,8 @@ import {
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './right-side-comments.style'
 
 import { ProductStatusButtons } from './product-status-buttons'
@@ -143,6 +145,7 @@ export const RightSideComments = memo(
                     ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
                   checkIsBuyer(curUserRole) ? null : (
                     <Button
+                      styleType={checkIsClient(curUserRole) ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
                       tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
                       onClick={() => handleProductActionButtons('accept', false)}
                     >
