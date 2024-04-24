@@ -11,13 +11,13 @@ export const cellConfig = [
     tooltipText: t(TranslationKey['CLS (batch closing date)']),
   },
   {
-    param: 'eta',
-    icon: <EtaIcon />,
-    tooltipText: t(TranslationKey['ETA (arrival date)']),
-  },
-  {
     param: 'etd',
     icon: <EtdIcon />,
     tooltipText: t(TranslationKey['ETD (date of shipment)']),
+  },
+  {
+    param: 'eta',
+    icon: <EtaIcon />,
+    tooltipText: t(TranslationKey['ETA (arrival date)']),
   },
 ]

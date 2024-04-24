@@ -21,6 +21,7 @@ import { INewDataOfVariation } from '@hooks/use-tariff-variation'
 import { observerConfig } from './observer-config'
 import { SupplierApproximateCalculationsColumns } from './supplier-approximate-calculations-columns'
 import { additionalFilterFields } from './supplier-approximate-calculations.constants'
+import { IVariationParams } from './supplier-approximate-calculations.type'
 
 export class SupplierApproximateCalculationsModel extends DataGridFilterTableModel {
   _storekeepers: ISwitcherSettings[] = []
@@ -73,8 +74,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       getCurrentVariationId: () => this.currentVariationId,
       getCurrentDestinationId: () => this.currentDestinationId,
       getStrictVariationSelect: () => this.isStrictVariationSelect,
-      onClickChangeVariation: (variationId: string, destinationId: string, logicsTariffId: string) =>
-        this.handleSetVariation(variationId, destinationId, logicsTariffId),
+      onClickChangeVariation: (variationParams: IVariationParams) => this.handleSetVariation(variationParams),
     }
 
     const columns = SupplierApproximateCalculationsColumns(columnHandlers) as GridColDef[]
@@ -197,7 +197,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this.isStrictVariationSelect = isStrictVariationSelect
   }
 
-  handleSetVariation(variationId: string, destinationId: string, logicsTariffId: string) {
+  handleSetVariation({ variationId, destinationId, logicsTariffId }: IVariationParams) {
     this.currentVariationId = variationId
     this.currentDestinationId = destinationId
     this.currentLogicsTariffId = logicsTariffId
@@ -230,7 +230,8 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
 
   setActualData(box: IBox) {
     const productId = box?.productId || box?.items?.[0]?.product?._id
-    const supplierId = box?.items?.[0]?.order?.orderSupplierId || box?.items?.[0]?.order?.orderSupplier?._id
+    const supplierId =
+      box?.orderSupplier?._id || box?.items?.[0]?.order?.orderSupplierId || box?.items?.[0]?.order?.orderSupplier?._id
 
     this.currentVariationId = box?.variationTariff?._id
     this.currentDestinationId = box?.destination?._id

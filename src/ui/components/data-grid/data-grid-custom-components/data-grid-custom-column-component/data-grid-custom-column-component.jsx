@@ -425,6 +425,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <BatchShippingDateCellMenuItem
           data={props}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}

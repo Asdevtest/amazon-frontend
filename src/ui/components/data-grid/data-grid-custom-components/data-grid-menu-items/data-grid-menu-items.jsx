@@ -2712,6 +2712,7 @@ export const BatchShippingDateCellMenuItem = memo(
       classes: styles,
       data,
       field,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -2721,7 +2722,7 @@ export const BatchShippingDateCellMenuItem = memo(
     const [currentTab, setCurrentTab] = useState(field)
 
     useEffect(() => {
-      onClickFilterBtn(currentTab)
+      onClickFilterBtn(currentTab, table)
     }, [currentTab])
 
     return (
