@@ -99,9 +99,11 @@ export class OwnerRequestDetailCustomViewModel {
     this.requestId = url.searchParams.get('request-id')
     this.scrollToChat = scrollToChat
 
-    if (history.location.state.chatId) {
-      this.chatSelectedId = history.location.state.chatId
-      this.showChat = true
+    if (history.location.state) {
+      if (history?.location?.state?.chatId) {
+        this.chatSelectedId = history?.location?.state?.chatId
+        this.showChat = true
+      }
 
       const state = { ...history.location.state }
       delete state.chatId

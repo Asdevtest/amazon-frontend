@@ -34,6 +34,7 @@ export const useTariffVariation = (initialDestinationId: string, handleSetState:
     variationTariffId,
     destinationId,
     logicsTariffId,
+    storekeeperId,
   }: INewDataOfVariation) => {
     if (isSameDestination) {
       handleSetState(prev => ({
@@ -42,7 +43,12 @@ export const useTariffVariation = (initialDestinationId: string, handleSetState:
         logicsTariffId,
         variationTariffId,
         destinationId,
+        storekeeperId,
 
+        storekeeper: {
+          ...prev?.storekeeper,
+          _id: storekeeperId,
+        },
         destination: {
           ...prev?.destination,
           _id: destinationId,
@@ -71,7 +77,12 @@ export const useTariffVariation = (initialDestinationId: string, handleSetState:
             logicsTariffId,
             variationTariffId,
             destinationId,
+            storekeeperId,
 
+            storekeeper: {
+              ...prev?.storekeeper,
+              _id: storekeeperId,
+            },
             destination: {
               ...prev?.destination,
               _id: destinationId,
@@ -98,7 +109,12 @@ export const useTariffVariation = (initialDestinationId: string, handleSetState:
             logicsTariffId,
             variationTariffId,
             destinationId: '',
+            storekeeperId,
 
+            storekeeper: {
+              ...prev?.storekeeper,
+              _id: storekeeperId,
+            },
             destination: {
               ...prev?.destination,
               _id: '',

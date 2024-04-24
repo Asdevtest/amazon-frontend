@@ -617,6 +617,7 @@ export const EditBoxForm = memo(
                   volumeWeight={volumeWeight}
                   finalWeight={finalWeight}
                   sizeSetting={sizeSetting}
+                  setFormField={setFormField}
                 />
 
                 <div className={styles.boxPhotoWrapper}>

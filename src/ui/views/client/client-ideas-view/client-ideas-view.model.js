@@ -6,7 +6,12 @@ import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { creatSupplier, createProductByClient, patchSuppliers } from '@constants/white-list'
+import {
+  creatSupplier,
+  createOrderRequestWhiteList,
+  createProductByClient,
+  patchSuppliers,
+} from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { GeneralModel } from '@models/general-model'
@@ -26,7 +31,7 @@ import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getCurrentSortingDirectionOfColumns } from '@utils/sortings'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -1062,14 +1067,7 @@ export class ClientIdeasViewModel {
 
   async createOrder(orderObject) {
     try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-        'tmpTransparencyFile',
-        'transparency',
-        '_id',
-      ])
+      const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
       if (orderObject.tmpIsPendingOrder) {
         await ClientModel.createFormedOrder(requestData)
