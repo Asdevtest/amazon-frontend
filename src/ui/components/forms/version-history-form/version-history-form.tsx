@@ -61,7 +61,7 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
         {!selectedPatchNote ? <p className={styles.appVersion}>{appVersion}</p> : null}
       </div>
 
-      <div className={styles.versions} onScroll={handleScrollPatchNotes}>
+      <div className={styles.versions} onScroll={e => (!selectedPatchNote ? handleScrollPatchNotes(e) : undefined)}>
         {selectedPatchNote ? (
           selectedPatchNote.map(patchNote => (
             <div key={patchNote._id} className={styles.version}>

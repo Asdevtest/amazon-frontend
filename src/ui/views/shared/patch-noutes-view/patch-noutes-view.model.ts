@@ -1,12 +1,16 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { GridPaginationModel } from '@mui/x-data-grid-premium'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
+
+import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IPatchNote, IPatchNotes } from '@typings/shared/patch-notes'
@@ -99,13 +103,16 @@ export class PatchNoutesViewModel {
     try {
       const dataToSend = data.map(patchNote => ({ ...patchNote, role: Number(patchNote.role) }))
 
-      dataToSend.forEach(async patchNote => {
+      for (const patchNote of dataToSend) {
         await AdministratorModel.createPatchNote(patchNote)
-      })
+      }
+
+      toast.success(t(TranslationKey['Patch notes added successfully']))
 
       this.loadData()
     } catch (error) {
       console.error(error)
+      toast.error(t(TranslationKey['No patch notes added']))
     } finally {
       this.onToggleModal(ModalNames.PATCH)
     }
@@ -118,9 +125,12 @@ export class PatchNoutesViewModel {
 
       await AdministratorModel.updatePatchNote(id, dataToSend)
 
+      toast.success(t(TranslationKey['Patch notes successfully modified']))
+
       this.loadData()
     } catch (error) {
       console.error(error)
+      toast.error(t(TranslationKey['Patch notes not changed']))
     } finally {
       this.onToggleModal(ModalNames.PATCH)
     }

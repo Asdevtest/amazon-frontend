@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   fileWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -17,5 +17,9 @@ export const useStyles = makeStyles()(() => ({
     borderRadius: 7,
     overflow: 'hidden',
     cursor: 'pointer',
+  },
+
+  newFile: {
+    border: `2px dashed ${theme.palette.primary.main}`,
   },
 }))

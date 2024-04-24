@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { SlideByType } from '@components/shared/slide-by-type'
 
-import { isRequestMedia, isUploadFileType } from '@typings/guards'
+import { isRequestMedia, isString, isUploadFile, isUploadFileType } from '@typings/guards'
 import { IRequestMedia } from '@typings/models/requests/request-media'
 import { UploadFileType } from '@typings/shared/upload-file'
 
@@ -21,13 +21,14 @@ interface FileProps extends Omit<FilesProps, 'files' | 'maxHeight'> {
 export const File: FC<FileProps> = memo(props => {
   const { file, fileIndex, withComment, onRemoveFile, onShowGalleryModal, onChangeComment, onUploadFile } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const displayedFile = isUploadFileType(file) ? file : file?.fileLink
+  const isNewFile = isUploadFile(file) || (isString(file) && !file.includes('/uploads/'))
 
   return (
     <div className={styles.fileWrapper}>
-      <div className={styles.file} onClick={() => onShowGalleryModal(fileIndex)}>
+      <div className={cx(styles.file, { [styles.newFile]: isNewFile })} onClick={() => onShowGalleryModal(fileIndex)}>
         <SlideByType isPreviews mediaFile={displayedFile} mediaFileIndex={fileIndex} />
       </div>
 

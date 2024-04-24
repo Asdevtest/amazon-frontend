@@ -2240,5 +2240,10 @@ export enum TranslationKey {
   'Reset session data' = 'Reset session data',
   'Version' = 'Version',
   'Are you sure you want to delete the patch note?' = 'Are you sure you want to delete the patch note?',
+  'Add role' = 'Add role',
+  'Patch notes added successfully' = 'Patch notes added successfully',
+  'No patch notes added' = 'No patch notes added',
+  'Patch notes successfully modified' = 'Patch notes successfully modified',
+  'Patch notes not changed' = 'Patch notes not changed',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

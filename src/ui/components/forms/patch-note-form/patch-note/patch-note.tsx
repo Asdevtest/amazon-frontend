@@ -20,15 +20,25 @@ import { EventType } from '../patch-note-form.type'
 import { UserRolesForPatchNote } from './patch-note.constants'
 
 interface PatchNoteProps {
+  error: boolean
   patchNote: IPatchNoteToCreate
   patchNoteIndex: number
   patchNoteVersions: string[]
+  onRemovePatchNote: (patchNoteIndex: number) => void
   onChangePatchNote: (patchNoteIndex: number, field: string) => (e: EventType) => void
   onChangePatchNoteDescription: (patchNoteIndex: number) => (value: string) => void
 }
 
 export const PatchNote: FC<PatchNoteProps> = memo(props => {
-  const { patchNote, patchNoteIndex, /* patchNoteVersions, */ onChangePatchNote, onChangePatchNoteDescription } = props
+  const {
+    error,
+    patchNote,
+    patchNoteIndex,
+    /* patchNoteVersions, */
+    onRemovePatchNote,
+    onChangePatchNote,
+    onChangePatchNoteDescription,
+  } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -36,27 +46,40 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
 
   return (
     <div className={cx(styles.wrapper)}>
-      <div className={cx(styles.line, { [styles.showLine]: isNotFirstPatchNote })} />
+      {isNotFirstPatchNote ? (
+        <div className={styles.lineContainer}>
+          <div className={styles.line} />
+          <button className={styles.crossButton} onClick={() => onRemovePatchNote(patchNoteIndex)}>
+            ✕
+          </button>
+        </div>
+      ) : null}
 
-      <Field
-        label={t(TranslationKey.Title)}
-        placeholder={t(TranslationKey.Title)}
-        value={patchNote.title}
-        maxLength={MIDDLE_COMMENT_VALUE}
-        labelClasses={styles.fieldLabel}
-        containerClasses={styles.fieldContainer}
-        onChange={onChangePatchNote(patchNoteIndex, 'title')}
-      />
+      {!isNotFirstPatchNote ? (
+        <>
+          <Field
+            label={t(TranslationKey.Title)}
+            placeholder={t(TranslationKey.Title)}
+            value={patchNote.title}
+            error={error}
+            maxLength={MIDDLE_COMMENT_VALUE}
+            labelClasses={styles.fieldLabel}
+            containerClasses={styles.fieldContainer}
+            onChange={onChangePatchNote(patchNoteIndex, 'title')}
+          />
 
-      <Field
-        label={t(TranslationKey.Version)}
-        placeholder={t(TranslationKey.Version)}
-        value={patchNote.version}
-        maxLength={64}
-        labelClasses={styles.fieldLabel}
-        containerClasses={styles.fieldContainer}
-        onChange={onChangePatchNote(patchNoteIndex, 'version')}
-      />
+          <Field
+            label={t(TranslationKey.Version)}
+            placeholder={t(TranslationKey.Version)}
+            value={patchNote.version}
+            error={error}
+            maxLength={64}
+            labelClasses={styles.fieldLabel}
+            containerClasses={styles.fieldContainer}
+            onChange={onChangePatchNote(patchNoteIndex, 'version')}
+          />
+        </>
+      ) : null}
 
       {/* <Field
         label={t(TranslationKey.Version)}
@@ -107,19 +130,6 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
           </Select>
         }
       />
-
-      {/* <Field
-        multiline
-        label={t(TranslationKey.Description)}
-        placeholder={t(TranslationKey.Description)}
-        minRows={5}
-        maxRows={5}
-        value={patchNote.description}
-        labelClasses={styles.fieldLabel}
-        inputClasses={styles.field}
-        containerClasses={styles.fieldContainer}
-        onChange={onChangePatchNote(patchNoteIndex, 'description')}
-      /> */}
 
       <CustomTextEditor
         title={t(TranslationKey.Description)}
