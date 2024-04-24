@@ -62,7 +62,7 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
               switchMode={'medium'}
               condition={switcherValue}
               switcherSettings={switcherConfig}
-              changeConditionHandler={value => setSwitcherValue(value as SwitcherSetting)}
+              changeConditionHandler={setSwitcherValue}
             />
           )}
 

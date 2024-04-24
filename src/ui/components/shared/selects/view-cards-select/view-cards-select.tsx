@@ -55,7 +55,7 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
           value: tableViewMode.LIST,
         },
       ].filter(option => typeof option === 'object')}
-      changeConditionHandler={value => typeof value === 'string' && onChangeViewMode(value)}
+      changeConditionHandler={onChangeViewMode}
     />
   )
 })

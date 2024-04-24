@@ -40,7 +40,7 @@ export const ClientShopsReportView = observer(() => {
         switchMode="big"
         condition={viewModel.tabKey}
         switcherSettings={switcherConfig}
-        changeConditionHandler={value => viewModel.changeTabHandler(value as ShopReportsTabsValues)}
+        changeConditionHandler={viewModel.changeTabHandler}
       />
 
       <ControllButtons
