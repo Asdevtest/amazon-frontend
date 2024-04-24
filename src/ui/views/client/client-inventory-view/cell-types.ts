@@ -42,6 +42,11 @@ export const numberCells = [
   'timeUpdated',
 
   'status',
+
+  'organicCv',
+  'fbaMinLvl',
+  'cog',
+  'unitProfit',
 ]
 
 export const textCells = ['categoryAbc', 'shipmentId', 'referenceId', 'shipTo']

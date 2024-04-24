@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flex: '1 1 auto',
     overflowY: 'auto',
-    background: theme.palette.background.general,
+    background: theme.palette.background.second,
     borderRadius: '0 7px 0 0',
 
     [theme.breakpoints.down(768)]: {

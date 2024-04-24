@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo, useEffect, useState } from 'react'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -19,7 +17,7 @@ import { Input } from '@components/shared/input'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getFullTariffTextForBoxOrOrder } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './box.style'
@@ -184,7 +182,7 @@ export const Box: FC<BoxProps> = memo(props => {
 
               <WarehouseDemensions orderBox={box} sizeSetting={sizeSetting} />
             </div>
-            <div>
+            <div className={styles.fieldWrapper}>
               <Field
                 containerClasses={styles.field}
                 tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
@@ -204,7 +202,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
                 labelClasses={styles.label}
                 inputComponent={
-                  <p className={styles.standartText}>{`${box.storekeeper?.name} / ${getFullTariffTextForBoxOrOrder(
+                  <p className={styles.standartText}>{`${box.storekeeper?.name} / ${getNewTariffTextForBoxOrOrder(
                     box,
                   )}`}</p>
                 }

@@ -5,11 +5,13 @@ import { withStyles } from 'tss-react/mui'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { styles } from './client-ideas-notifications-view.style'
 
@@ -25,7 +27,7 @@ export const ClientIdeasNotificationsViewRaw = props => {
 
   return (
     <>
-      <Button variant="outlined" className={styles.archiveHandler} onClick={viewModel.handleArchive}>
+      <Button variant={ButtonVariant.OUTLINED} className={styles.archiveHandler} onClick={viewModel.handleArchive}>
         {viewModel.isArchived ? t(TranslationKey['New notifications']) : t(TranslationKey['Open archive'])}
       </Button>
 
@@ -57,7 +59,7 @@ export const ClientIdeasNotificationsViewRaw = props => {
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />

@@ -6,10 +6,12 @@ import RotateRightOutlinedIcon from '@mui/icons-material/RotateRightOutlined'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './image-edit-form.style'
 
@@ -92,7 +94,7 @@ export const ImageEditForm = observer(({ item, onSave, setOpenModal }) => {
           <Button disabled={!rotation} onClick={handleSave}>
             {t(TranslationKey.Save)}
           </Button>
-          <Button variant="text" className={styles.cancelBtn} onClick={setOpenModal}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={setOpenModal}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

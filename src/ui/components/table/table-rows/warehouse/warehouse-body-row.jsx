@@ -9,9 +9,9 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ProductAsinCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { Button } from '@components/shared/buttons/button'
+import { ProductAsinCell } from '@components/data-grid/data-grid-cells'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+import { Button } from '@components/shared/button'
 
 import { calcPriceForBox } from '@utils/calculation'
 import { checkIsClient, checkIsMediaFileLink } from '@utils/checks'
@@ -99,9 +99,7 @@ const WarehouseBodyRowRaw = ({
                       boxIndex === 0 && t(TranslationKey['Viewing photos of the box taken at the prep center'])
                     }
                     disabled={!box.images?.length}
-                    color="primary"
                     className={styles.button}
-                    variant="contained"
                     onClick={() => {
                       setCurImages(box.images.filter(img => checkIsMediaFileLink(img)))
                       setShowPhotosModal(!showPhotosModal)
@@ -179,19 +177,19 @@ const WarehouseBodyRowRaw = ({
                 </Table>
               </TableCell>
             </TableRow>
-          ) : undefined}
+          ) : null}
         </Fragment>
       ))}
 
-      {showPhotosModal && (
-        <ImageModal
-          isOpenModal={showPhotosModal}
+      {showPhotosModal ? (
+        <SlideshowGalleryModal
+          openModal={showPhotosModal}
           files={curImages}
           currentFileIndex={curImageIndex}
           onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           onCurrentFileIndex={index => setCurImageIndex(index)}
         />
-      )}
+      ) : null}
     </>
   )
 }

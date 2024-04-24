@@ -35,16 +35,4 @@ export const useStyles = makeStyles()(theme => ({
       },
     },
   },
-
-  videoPlayerCustomWrapper: {
-    position: 'relative',
-    zIndex: 5,
-    maxWidth: 1200,
-  },
-
-  videoPlayerCustom: {
-    video: {
-      maxHeight: '700px !important',
-    },
-  },
 }))

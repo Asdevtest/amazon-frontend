@@ -1,20 +1,21 @@
 import { ChangeEvent, FC, memo } from 'react'
 
+import { unitsOfChangeOptions, volumePoundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
 
-import { calcVolumeWeightForBoxWithoutAmount } from '@utils/calculation'
+import { calcVolumeWeightForBox } from '@utils/calculation'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IOrderBox } from '@typings/order-box'
+import { IBox } from '@typings/models/boxes/box'
 
 import { useStyles } from './warehouse-demensions.style'
 
 interface WarehouseDemensionsProps {
-  orderBox: IOrderBox
+  orderBox: IBox
   volumeWeightCoefficient: number
   setFormField: (fieldName: string) => (value: ChangeEvent<HTMLInputElement>) => void
   sizeSetting: string
@@ -32,6 +33,13 @@ export const WarehouseDemensions: FC<WarehouseDemensionsProps> = memo(
 
     const isNormalHeight =
       !Number(orderBox.heightCmWarehouse) || maxBoxSizeFromOption(sizeSetting, orderBox.heightCmWarehouse)
+
+    const volumeWeight = calcVolumeWeightForBox(
+      orderBox,
+      sizeSetting === unitsOfChangeOptions.EU ? volumeWeightCoefficient : volumePoundsWeightCoefficient,
+    )
+
+    const finalWeight = Math.max(volumeWeight, orderBox.weighGrossKgWarehouse)
 
     return (
       <div className={styles.numberInputFieldsBlocksWrapper}>
@@ -83,7 +91,7 @@ export const WarehouseDemensions: FC<WarehouseDemensionsProps> = memo(
             containerClasses={styles.numberInputField}
             label={t(TranslationKey['Volume weight']) + ': '}
             labelClasses={styles.label}
-            value={toFixed(calcVolumeWeightForBoxWithoutAmount(orderBox, volumeWeightCoefficient), 2)}
+            value={toFixed(volumeWeight, 2)}
           />
 
           <Field
@@ -91,14 +99,7 @@ export const WarehouseDemensions: FC<WarehouseDemensionsProps> = memo(
             containerClasses={styles.numberInputField}
             label={t(TranslationKey['Final weight']) + ': '}
             labelClasses={styles.label}
-            value={toFixed(
-              Math.max(
-                (orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
-                  volumeWeightCoefficient,
-                orderBox.weighGrossKgWarehouse,
-              ),
-              2,
-            )}
+            value={toFixed(finalWeight, 2)}
           />
         </div>
       </div>

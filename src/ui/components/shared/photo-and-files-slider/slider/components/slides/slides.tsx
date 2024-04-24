@@ -7,8 +7,8 @@ import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 import { checkIsMediaFileLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { isString } from '@typings/type-guards'
-import { UploadFileType } from '@typings/upload-file'
+import { isString } from '@typings/guards'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './slides.style'
 
@@ -90,12 +90,15 @@ export const Slides: FC<SlidesProps> = memo(props => {
                     src={currentSlide}
                     alt={`Slide-${index}`}
                     className={styles.slide}
-                    onClick={onPhotosModalToggle}
+                    onClick={e => {
+                      e.stopPropagation()
+                      onPhotosModalToggle?.()
+                    }}
                   />
                 )
               ) : (
                 <div className={styles.documentWrapper}>
-                  <a href={documentLink} target="_blank" rel="noreferrer noopener">
+                  <a href={documentLink} target="_blank" rel="noreferrer noopener" onClick={e => e.stopPropagation()}>
                     <FileIcon fileExtension={elementExtension} className={styles.slide} />
                   </a>
 
@@ -108,6 +111,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
                       [styles.mediumText]: mediumSlider,
                       [styles.bigText]: bigSlider,
                     })}
+                    onClick={e => e.stopPropagation()}
                   >
                     {documentName}
                   </a>

@@ -5,9 +5,11 @@ import { Link, Typography } from '@mui/material'
 // import {useState} from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './check-pending-order-form.style'
 
@@ -51,10 +53,10 @@ export const CheckPendingOrderForm = ({
         ))}
       </div>
       <div className={styles.buttonGroup}>
-        <Button success disabled={submitIsClicked} variant="contained" onClick={onSubmit}>
+        <Button styleType={ButtonStyle.SUCCESS} disabled={submitIsClicked} onClick={onSubmit}>
           {t(TranslationKey.Continue)}
         </Button>
-        <Button variant="text" className={styles.CancelBtn} onClick={onClickCancelBtn}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.CancelBtn} onClick={onClickCancelBtn}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

@@ -1113,7 +1113,9 @@ export class ClientInStockBoxesViewModel {
         }
 
         newBox.items = newBox.items.map(el => {
-          const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
+          const prodInDataToUpdateBarCode = dataToBarCodeChange.find(
+            item => item.productId === el?.product?._id || el?.productId,
+          )
 
           return {
             ...getObjectFilteredByKeyArrayBlackList(el, [
@@ -1122,8 +1124,8 @@ export class ClientInStockBoxesViewModel {
               /* 'tmpBarCode',*/ 'changeBarCodInInventory',
             ]),
             amount: el.amount,
-            orderId: el.order._id,
-            productId: el.product._id,
+            orderId: el?.order?._id || el?.orderId,
+            productId: el?.product?._id || el?.productId,
 
             barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
             isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
@@ -1183,7 +1185,8 @@ export class ClientInStockBoxesViewModel {
 
     !notShowConfirmModal && this.onTriggerOpenModal('showConfirmModal')
     await this.getBoxesMy()
-    this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+
+    this.openModalAndClear()
 
     this.setRequestStatus(loadingStatuses.SUCCESS)
   }
@@ -1240,9 +1243,8 @@ export class ClientInStockBoxesViewModel {
 
       if (
         !boxData.clientTaskComment &&
-        boxData.items.every(
-          item => !item.tmpBarCode?.length && item.tmpBarCode !== '' && !item.tmpTransparencyFile?.length,
-        ) &&
+        boxData.items.every(item => !item.tmpBarCode?.length && item.tmpBarCode !== '') &&
+        boxData.items.every(item => !item.tmpTransparencyFile?.length) &&
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
       ) {
         await BoxesModel.editBoxAtClient(id, {
@@ -1297,12 +1299,15 @@ export class ClientInStockBoxesViewModel {
           const newItems = []
 
           for await (const el of boxData.items) {
-            const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
+            const prodInDataToUpdateBarCode = dataToBarCodeChange.find(
+              item => item.productId === (el?.product?._id || el?.productId),
+            )
+
             let transparencyFile
 
-            if (el.tmpTransparencyFile.length) {
+            if (el?.tmpTransparencyFile?.length) {
               transparencyFile = await onSubmitPostImages.call(this, {
-                images: el.tmpTransparencyFile,
+                images: el?.tmpTransparencyFile,
                 type: 'uploadedTransparencyFiles',
                 withoutShowProgress: true,
               })
@@ -1316,20 +1321,20 @@ export class ClientInStockBoxesViewModel {
                 'changeBarCodInInventory',
                 'tmpTransparencyFile',
               ]),
-              amount: el.amount,
-              orderId: el.order._id,
-              productId: el.product._id,
+              amount: el?.amount,
+              orderId: el?.order?._id || el?.orderId,
+              productId: el?.product?._id || el?.productId,
 
               transparencyFile: transparencyFile?.[0] || el.transparencyFile || '',
               barCode: prodInDataToUpdateBarCode?.newData?.length
-                ? prodInDataToUpdateBarCode?.newData[0]
-                : el.barCode || '',
+                ? prodInDataToUpdateBarCode?.newData?.[0]
+                : el?.barCode || '',
               isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
                 ? false
-                : el.isBarCodeAlreadyAttachedByTheSupplier,
+                : el?.isBarCodeAlreadyAttachedByTheSupplier,
               isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
                 ? false
-                : el.isBarCodeAttachedByTheStorekeeper,
+                : el?.isBarCodeAttachedByTheStorekeeper,
             }
 
             newItems.push(newItem)
@@ -1338,9 +1343,7 @@ export class ClientInStockBoxesViewModel {
           return newItems
         }
 
-        const requestBoxItems = isMultipleEdit
-          ? boxData.items.map(el => getObjectFilteredByKeyArrayBlackList(el, ['tmpBarCode']))
-          : await getNewItems()
+        const requestBoxItems = await getNewItems()
 
         const requestBox = getObjectFilteredByKeyArrayWhiteList(
           {
@@ -1407,12 +1410,6 @@ export class ClientInStockBoxesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const selectedIds = this.selectedBoxes
-
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (boxBody.tmpShippingLabel.length) {
         await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
       }
@@ -1420,9 +1417,9 @@ export class ClientInStockBoxesViewModel {
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
         {
           ...boxBody,
-          shippingLabel: this.uploadedFiles.length
-            ? this.uploadedFiles[0]
-            : boxBody.tmpShippingLabel?.[0] || boxBody.shippingLabel,
+          shippingLabel: this.uploadedFiles?.length
+            ? this.uploadedFiles?.[0]
+            : boxBody?.tmpShippingLabel?.[0] || boxBody?.shippingLabel,
         },
         ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
         undefined,
@@ -1430,7 +1427,7 @@ export class ClientInStockBoxesViewModel {
         true,
       )
 
-      const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)
+      const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes, newBoxBody)
 
       if (mergeBoxesResult) {
         runInAction(() => {
@@ -1455,7 +1452,7 @@ export class ClientInStockBoxesViewModel {
 
       await this.postTask({
         idsData: [mergeBoxesResult.guid],
-        idsBeforeData: [...selectedIds],
+        idsBeforeData: this.selectedBoxes,
         type: operationTypes.MERGE,
         clientComment: comment,
         priority,
@@ -1578,6 +1575,8 @@ export class ClientInStockBoxesViewModel {
     try {
       const result = await BoxesModel.editBox(guid, body)
 
+      console.log('result :>> ', result)
+
       return result
     } catch (error) {
       console.log(error)
@@ -1664,7 +1663,7 @@ export class ClientInStockBoxesViewModel {
         // Будущий чел, исправь это в следующем релизе, году, десятилетии, в общем разберись
         // Удалить currentColumn и поставить на его место аргумент функции, column
         // Костыли зло ┗( T﹏T )┛
-        getTableByColumn(currentColumn, 'boxes'),
+        getTableByColumn(currentColumn, currentColumn === 'redFlags' ? 'products' : 'boxes'),
         currentColumn,
 
         `boxes/pag/clients_light?status=${curStatus}&filters=;${this.getFilter(column)}${

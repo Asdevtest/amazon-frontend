@@ -9,7 +9,6 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { ProductModel } from '@models/product-model'
 import { ResearcherModel } from '@models/researcher-model'
-import { SettingsModel } from '@models/settings-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -47,20 +46,12 @@ export class ResearcherProductViewModel {
   productId = undefined
   product = undefined
   productBase = undefined
-  curUpdateProductData = {}
+  curUpdateProductData = undefined
   imagesForLoad = []
   uploadedImages = []
 
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
-  platformSettings = undefined
-
-  supplierModalReadOnly = false
-
   startParse = false
 
-  selectedSupplier = undefined
-  showAddOrEditSupplierModal = false
   showConfirmModal = false
   showWarningModal = false
 
@@ -87,10 +78,6 @@ export class ResearcherProductViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get currentData() {
     return this.product
   }
@@ -110,12 +97,6 @@ export class ResearcherProductViewModel {
   async loadData() {
     try {
       await this.getProductById()
-
-      const response = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.platformSettings = response
-      })
 
       if (this.startParse) {
         this.onClickParseProductData(this.product)
@@ -142,14 +123,6 @@ export class ResearcherProductViewModel {
       })
     } catch (error) {
       console.log(error)
-    }
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
     }
   }
 
@@ -199,95 +172,11 @@ export class ResearcherProductViewModel {
       }
 
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
-        updateProductAutoCalculatedFields.call(this)
+        runInAction(() => {
+          updateProductAutoCalculatedFields.call(this)
+        })
       }
     })
-
-  async onClickSupplierButtons(actionType) {
-    switch (actionType) {
-      case 'add':
-        runInAction(() => {
-          this.selectedSupplier = undefined
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'view':
-        runInAction(() => {
-          this.supplierModalReadOnly = true
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'edit':
-        runInAction(() => {
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'accept':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
-          this.product = { ...this.product, currentSupplier: this.selectedSupplier }
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'acceptRevoke':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: null }
-          this.product = { ...this.product, currentSupplier: undefined }
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'delete':
-        runInAction(() => {
-          this.confirmModalSettings = {
-            isWarning: true,
-            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-            onClickOkBtn: () => this.onRemoveSupplier(),
-          }
-        })
-
-        this.onTriggerOpenModal('showConfirmModal')
-        break
-    }
-  }
-
-  async onRemoveSupplier() {
-    try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
-
-      if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier?._id) {
-        runInAction(() => {
-          this.product.currentSupplierId = null
-        })
-      }
-
-      this.onSaveForceProductData()
-
-      runInAction(() => {
-        this.product.suppliers
-        this.selectedSupplier = undefined
-      })
-
-      await SupplierModel.removeSupplier(this.selectedSupplier._id)
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-    } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
-    }
-  }
 
   async handleProductActionButtons(actionType, withoutStatus) {
     switch (actionType) {
@@ -379,7 +268,7 @@ export class ResearcherProductViewModel {
           isWarning: false,
           message: withoutStatus
             ? confirmMessageWithoutStatus()
-            : confirmMessageByProductStatus()[this.curUpdateProductData.status],
+            : confirmMessageByProductStatus()[this.curUpdateProductData?.status],
           onClickOkBtn: () => this.onSaveProductData(),
         }
       })
@@ -409,15 +298,9 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      this.clearReadyImages()
-
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
 
       supplier = {
         ...supplier,
@@ -425,39 +308,46 @@ export class ResearcherProductViewModel {
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
         images: this.readyImages,
       }
 
-      this.clearReadyImages()
-
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
-          this.product.currentSupplier = supplier
-          updateProductAutoCalculatedFields.call(this)
+          runInAction(() => {
+            this.product.currentSupplier = supplier
+            updateProductAutoCalculatedFields.call(this)
+          })
         }
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-        await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
-        runInAction(() => {
-          this.product.suppliers.push(createSupplierResult.guid)
-        })
+
+        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
       }
 
       this.onSaveForceProductData()
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
-      this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
@@ -482,20 +372,19 @@ export class ResearcherProductViewModel {
         runInAction(() => {
           if (Object.keys(amazonResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            runInAction(() => {
-              this.product = {
-                ...this.product,
-                ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
-                weight:
-                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                    ? this.product.weight
-                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
 
-                amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
-                amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
-                // fbafee: this.product.fbafee,
-              }
-            })
+            this.product = {
+              ...this.product,
+              ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
+              weight:
+                this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                  ? this.product.weight
+                  : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+              amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
+              amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
+              // fbafee: this.product.fbafee,
+            }
 
             this.imagesForLoad = amazonResult.images
           }
@@ -555,13 +444,8 @@ export class ResearcherProductViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      runInAction(() => {
-        this.uploadedImages = []
-      })
-
       if (this.imagesForLoad?.length) {
         await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-        this.imagesForLoad = []
       }
 
       await ResearcherModel.updateProduct(
@@ -636,37 +520,11 @@ export class ResearcherProductViewModel {
     }
   }
 
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        const result = await UserModel.getPlatformSettings()
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
-      }
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  clearReadyImages() {
-    this.readyImages = []
   }
 }

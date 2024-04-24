@@ -54,7 +54,7 @@ export class WarehouseTariffModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })
@@ -171,12 +171,6 @@ export class WarehouseTariffModel {
       console.log(error)
       this.error = error
     }
-  }
-
-  onClickAddBtn() {
-    this.tariffToEdit = undefined
-
-    this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
   }
 
   onClickCancelBtn() {

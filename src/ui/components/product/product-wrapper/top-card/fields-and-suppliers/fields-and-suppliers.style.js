@@ -63,7 +63,6 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonParseAmazon: {
     whiteSpace: 'nowrap',
-    width: '100%',
   },
   productFieldBox: {
     display: 'flex',
@@ -248,7 +247,7 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(1440)]: {
       width: '100%',
       marginBottom: '20px',
-      marginRight: '10px'
+      marginRight: '10px',
     },
   },
 
@@ -358,9 +357,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   plusIcon: {
-    width: '15px !important',
-    height: '15px !important',
-    color: '#FFFFFF',
+    width: '21px !important',
+    height: '21px !important',
   },
 
   plusButton: {
@@ -375,9 +373,31 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '5px',
   },
 
-  bindProductButton: {
+  flexColumnBlock: {
     display: 'flex',
-    justifyContent: 'center',
-    gap: '9px',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  seoContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    gap: 5,
+  },
+
+  seoField: {
+    margin: 0,
+  },
+
+  downloadButtonContainer: {
+    width: 40,
+    height: 40,
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  downloadButtonIcon: {
+    color: theme.palette.primary.main,
   },
 }))

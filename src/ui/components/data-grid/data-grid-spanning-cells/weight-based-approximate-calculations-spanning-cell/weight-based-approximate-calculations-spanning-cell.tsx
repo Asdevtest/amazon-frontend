@@ -6,7 +6,7 @@ import { getGroupDataByDestinationId } from '@utils/array'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IDestinationVariationApproximateCalculations } from '@typings/destination'
+import { IDestinationVariationApproximateCalculations } from '@typings/shared/destinations'
 
 import { useStyles } from './weight-based-approximate-calculations-spanning-cell.style'
 

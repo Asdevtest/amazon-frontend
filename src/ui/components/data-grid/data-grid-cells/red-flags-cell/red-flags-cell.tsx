@@ -2,12 +2,12 @@ import { FC, memo } from 'react'
 
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 
-import { Flag } from '@typings/flag'
+import { IRedFlag } from '@typings/shared/red-flag'
 
 import { useStyles } from './red-flags-cell.style'
 
 interface RedFlagsCellProps {
-  flags: Flag[]
+  flags: IRedFlag[]
 }
 
 export const RedFlagsCell: FC<RedFlagsCellProps> = memo(({ flags }) => {

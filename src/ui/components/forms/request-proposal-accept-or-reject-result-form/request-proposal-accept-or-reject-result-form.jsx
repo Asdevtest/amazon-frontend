@@ -1,5 +1,4 @@
-import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Rating } from '@material-ui/lab'
 import { Typography } from '@mui/material'
@@ -7,15 +6,17 @@ import { Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
 import { useStyles } from './request-proposal-accept-or-reject-result-form.style'
 
-export const RequestProposalAcceptOrRejectResultForm = observer(
+export const RequestProposalAcceptOrRejectResultForm = memo(
   ({
     isReject,
     isSupervisor,
@@ -29,9 +30,10 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     rejectButtonText,
     openModal,
   }) => {
+    const { classes: styles, cx } = useStyles()
+
     const [formFields, setFormFields] = useState({ review: '', rating: '' })
     const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false)
-    const { classes: styles, cx } = useStyles()
 
     const onChangeField = fieldName => event => {
       setFormFields({
@@ -74,16 +76,14 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
           <div className={styles.btnsWrapper}>
             <Button
               disabled={!formFields.rating}
-              success={!isReject}
-              danger={isReject}
-              color="primary"
+              styleType={isReject ? ButtonStyle.DANGER : ButtonStyle.SUCCESS}
               className={cx(styles.btnSubmit, { [styles.btnLargeSubmit]: isSupervisor })}
               onClick={() => onSubmit(formFields)}
             >
               {isReject ? rejectButtonText : confirmButtonText}
             </Button>
             <Button
-              variant="text"
+              variant={ButtonVariant.OUTLINED}
               className={cx(styles.btnSubmit, styles.cancelSubmit)}
               onClick={() => setIsShowConfirmationModal(true)}
             >
@@ -91,20 +91,23 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
             </Button>
           </div>
 
-          <ConfirmationModal
-            isWarning
-            openModal={isShowConfirmationModal}
-            setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
-            title={t(TranslationKey.Attention)}
-            message={t(TranslationKey['Are you sure you want to close this window?'])}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.Cancel)}
-            onClickSuccessBtn={() => {
-              setIsShowConfirmationModal(false)
-              onClose()
-            }}
-            onClickCancelBtn={() => setIsShowConfirmationModal(false)}
-          />
+          {isShowConfirmationModal ? (
+            <ConfirmationModal
+              // @ts-ignore
+              isWarning
+              openModal={isShowConfirmationModal}
+              setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
+              title={t(TranslationKey.Attention)}
+              message={t(TranslationKey['Are you sure you want to close this window?'])}
+              successBtnText={t(TranslationKey.Yes)}
+              cancelBtnText={t(TranslationKey.Cancel)}
+              onClickSuccessBtn={() => {
+                setIsShowConfirmationModal(false)
+                onClose()
+              }}
+              onClickCancelBtn={() => setIsShowConfirmationModal(false)}
+            />
+          ) : null}
         </div>
       </Modal>
     )

@@ -4,11 +4,13 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
 import { checkIsPositiveNum, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './check-quantity-form.style'
 
@@ -91,7 +93,7 @@ export const CheckQuantityForm = ({
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button variant="text" className={cx(styles.closeButton, styles.button)} onClick={onClose}>
+        <Button variant={ButtonVariant.OUTLINED} className={cx(styles.closeButton, styles.button)} onClick={onClose}>
           {t(TranslationKey.No)}
         </Button>
       </div>

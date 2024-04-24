@@ -1,7 +1,6 @@
 import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from 'date-fns'
 import QueryString from 'qs'
 
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { NotificationType } from '@constants/keys/notifications'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
@@ -111,36 +110,14 @@ export const secondsToTime = secs => {
   }
 }
 
-export const getFullTariffTextForBoxOrOrder = box => {
-  if (!box || (!box.destination && !box.logicsTariff)) {
-    return t(TranslationKey['Not available'])
-  }
-
-  const firstNumOfCode = box.destination?.zipCode?.[0] || null
-
-  const regionOfDeliveryName =
-    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  return `${box.logicsTariff?.name || ''}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-    box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
-      ? ' / ' + box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate + '$'
-      : ''
-  }`
-}
-
 export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
-  if (!box || (!box.destination && !box.logicsTariff)) {
+  if (!box || !box.logicsTariff) {
     return t(TranslationKey['Not available'])
   }
 
-  const firstNumOfCode = box.destination?.zipCode?.[0] || null
+  const rate = box?.lastRateTariff || box?.variationTariff?.pricePerKgUsd
 
-  const regionOfDeliveryName =
-    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const rate = box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
-
-  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixed(rate, 2) + '$' : ''}`
+  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixedWithDollarSign(rate, 2) : ''}`
 }
 
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
@@ -210,9 +187,17 @@ export const getTableByColumn = (column, hint) => {
       'deliveryTotalPrice',
       'partialPaymentAmountRmb',
       'batchHumanFriendlyId',
+      'proposalSub',
+      'quantityBoxes',
+      'updatedAt',
     ].includes(column)
   ) {
-    if (['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate'].includes(column) && hint === 'batches') {
+    if (
+      ['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate', 'quantityBoxes', 'updatedAt'].includes(
+        column,
+      ) &&
+      hint === 'batches'
+    ) {
       return 'batches'
     }
 
@@ -224,7 +209,7 @@ export const getTableByColumn = (column, hint) => {
       return 'orders'
     }
 
-    if (['buyerComment'].includes(column) && hint === 'ideas') {
+    if (['buyerComment', 'createdBy', 'sub'].includes(column) && hint === 'ideas') {
       return 'ideas'
     }
 
@@ -315,7 +300,20 @@ export const getTableByColumn = (column, hint) => {
       return 'requests'
     }
     return 'products'
-  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags', 'createdBy', 'taskComplexity'].includes(column)) {
+  } else if (
+    [
+      'status',
+      'updatedAt',
+      'createdAt',
+      'tags',
+      'redFlags',
+      'createdBy',
+      'taskComplexity',
+      'reasonReject',
+      'createdBy',
+      'sub',
+    ].includes(column)
+  ) {
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'boxes') {
@@ -487,3 +485,10 @@ export const parseTextString = textValue => {
 
 export const formatCamelCaseString = str =>
   str.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b\w/g, c => c.toUpperCase())
+
+export const addHttpsPrefix = url => {
+  if (!url.startsWith('https://')) {
+    url = 'https://' + url
+  }
+  return url
+}

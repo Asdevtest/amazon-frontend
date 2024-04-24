@@ -4,9 +4,11 @@ import { FC, memo } from 'react'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './warehouse-boxes-btns-cell.style'
 
@@ -46,7 +48,7 @@ export const WarehouseBoxesBtnsCell: FC<WarehouseBoxesBtnsCellProps> = memo(({ r
 
       {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={row.isDraft}
           tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
           className={styles.warehouseBoxesBtn}

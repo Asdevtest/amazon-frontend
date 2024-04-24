@@ -33,6 +33,7 @@ export class SubUsersViewModel {
   shopsData = []
   specs = []
   curUserProductPermissions = []
+  curUserShopsPermissions = []
   productPermissionsData = []
 
   modalPermission = false
@@ -95,7 +96,7 @@ export class SubUsersViewModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()
@@ -269,6 +270,13 @@ export class SubUsersViewModel {
         }
       }
 
+      if (checkIsClient(UserRoleCodeMap[this.userInfo.role])) {
+        const result = await PermissionsModel.getPermissionsShopsByGuid(row._id)
+        runInAction(() => {
+          this.curUserShopsPermissions = result
+        })
+      }
+
       const productPermissionsData = await methodByRole()
 
       runInAction(() => {
@@ -298,12 +306,16 @@ export class SubUsersViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async setPermissionsForUser(id, data, allowedProductsIds, currentSpec) {
+  async setPermissionsForUser(id, data, allowedItems, currentSpec) {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
 
       if (!checkIsFreelancer(UserRoleCodeMap[this.userInfo.role])) {
-        await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedProductsIds })
+        await PermissionsModel.setProductsPermissionsForUser({ userId: id, productIds: allowedItems?.selectedProducts })
+      }
+
+      if (checkIsClient(UserRoleCodeMap[this.userInfo.role])) {
+        await PermissionsModel.patchPermissionsShops({ userId: id, shopIds: allowedItems?.selectedShops })
       }
 
       if (currentSpec) {
@@ -332,15 +344,9 @@ export class SubUsersViewModel {
     }
   }
 
-  async onSubmitUserPermissionsForm(permissions, subUserId, allowedProductsIds, currentSpec) {
+  async onSubmitUserPermissionsForm(permissions, subUserId, allowedItems, currentSpec) {
     try {
-      await this.setPermissionsForUser(
-        subUserId,
-        { permissions, permissionGroups: [] },
-        allowedProductsIds,
-        currentSpec,
-      )
-
+      await this.setPermissionsForUser(subUserId, { permissions, permissionGroups: [] }, allowedItems, currentSpec)
       this.getUsers()
     } catch (error) {
       console.log(error)

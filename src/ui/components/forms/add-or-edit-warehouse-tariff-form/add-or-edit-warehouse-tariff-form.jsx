@@ -5,11 +5,13 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-warehouse-tariff-form.style'
 
@@ -103,22 +105,17 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
 
       <div className={styles.btnsWrapper}>
         <Button
-          success
-          disableElevation
+          styleType={ButtonStyle.SUCCESS}
           className={styles.button}
           disabled={disableSubmitBtn}
-          color="primary"
-          variant="contained"
           onClick={onSubmit}
         >
           {t(TranslationKey.Add)}
         </Button>
 
         <Button
-          disableElevation
+          variant={ButtonVariant.OUTLINED}
           className={[styles.button, styles.closeButton]}
-          color="primary"
-          variant="text"
           onClick={() => onCloseModal()}
         >
           {t(TranslationKey.Cancel)}

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeAutoObservable, runInAction } from 'mobx'
 
@@ -13,7 +11,7 @@ import { ProductModel } from '@models/product-model'
 
 import { t } from '@utils/translations'
 
-import { IProduct } from '@typings/product'
+import { IProduct } from '@typings/models/products/product'
 
 import { roles } from './management-tab-view-constants'
 import { DataIdsType, MemberType, Members } from './management-tab-view.types'

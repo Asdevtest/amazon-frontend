@@ -1,10 +1,10 @@
 import { makeObservable, reaction, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
-import { RequestStatus } from '@constants/requests/request-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier } from '@constants/white-list'
@@ -26,7 +26,6 @@ import { UserModel } from '@models/user-model'
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { formatCamelCaseString, toFixed } from '@utils/text'
@@ -35,6 +34,7 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 import { clientInventoryColumns } from './client-inventory-columns'
 import {
+  TAGS,
   additionalFilterFields,
   defaultHiddenColumns,
   fieldsOfProductAllowedToCreate,
@@ -47,7 +47,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   product = undefined
   ordersDataStateToSubmit = undefined
 
-  ideasData = []
   sellerBoardDailyData = []
   storekeepers = []
   destinations = []
@@ -57,6 +56,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   batchesData = []
 
   presetsData = []
+  productsTags = []
+  activeProductsTags = []
 
   receivedFiles = undefined
 
@@ -76,7 +77,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   selectedProduct = undefined
 
   selectedRowId = undefined
-  yuanToDollarRate = undefined
   platformSettings = undefined
 
   showOrderModal = false
@@ -84,10 +84,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showCheckPendingOrderFormModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
-  showAddOrEditSupplierModal = false
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
-  showAddSupplierToIdeaFromInventoryModal = false
   showInfoModal = false
   showConfirmModal = false
   showSetChipValueModal = false
@@ -103,6 +101,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showProductLaunch = false
   showIdeaModal = false
   showProductVariationsForm = false
+  showAddOrEditSupplierModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -121,6 +120,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   progressValue = 0
   showProgress = false
 
+  getCustomSortFields = []
+
   get userInfo() {
     return UserModel.userInfo
   }
@@ -131,13 +132,16 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       !(
         this.columnMenuSettings?.transparencyYesNoFilterData?.yes &&
         this.columnMenuSettings?.transparencyYesNoFilterData?.no
-      )
+      ) ||
+      !(this.columnMenuSettings?.childrenYesNoFilterData?.yes && this.columnMenuSettings?.childrenYesNoFilterData?.no)
     )
   }
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
   }
+
+  meta = undefined
 
   constructor() {
     const additionalPropertiesColumnMenuSettings = {
@@ -159,6 +163,24 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         },
       },
 
+      childrenYesNoFilterData: {
+        yes: true,
+        no: true,
+        handleFilters: (yes, no) => {
+          runInAction(() => {
+            this.columnMenuSettings = {
+              ...this.columnMenuSettings,
+              childrenYesNoFilterData: {
+                ...this.columnMenuSettings.childrenYesNoFilterData,
+                yes,
+                no,
+              },
+            }
+            this.getMainTableData()
+          })
+        },
+      },
+
       isNeedPurchaseFilterData: {
         isNeedPurchaseFilter: true,
         isNotNeedPurchaseFilter: true,
@@ -167,6 +189,23 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
             ...this.columnMenuSettings,
             isNeedPurchaseFilterData: {
               ...this.columnMenuSettings.isNeedPurchaseFilterData,
+              isNeedPurchaseFilter,
+              isNotNeedPurchaseFilter,
+            },
+          }
+
+          this.getMainTableData()
+        },
+      },
+
+      isNeedRefillFilterData: {
+        isNeedPurchaseFilter: true,
+        isNotNeedPurchaseFilter: true,
+        onChangeIsNeedPurchaseFilter: (isNotNeedPurchaseFilter, isNeedPurchaseFilter) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isNeedRefillFilterData: {
+              ...this.columnMenuSettings.isNeedRefillFilterData,
               isNeedPurchaseFilter,
               isNotNeedPurchaseFilter,
             },
@@ -208,6 +247,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const fourMonthesStockHandlers = {
       onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
+      editRecommendationForStockByGuid: (productId, storekeeperId, recommendedValue) =>
+        this.editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue),
     }
 
     const stockUsHandlers = {
@@ -220,6 +261,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       onClickOrderCell: productId => this.onClickOrderCell(productId),
       onClickShowProduct: row => this.onClickShowProduct(row),
       onClickVariationButton: id => this.onClickVariationButton(id),
+      onClickTag: tag => this.setActiveProductsTagFromTable(tag),
     }
 
     const defaultGetDataMethodOptions = () => ({
@@ -231,6 +273,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
       const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
       const purchaseQuantityAboveZero = !(isNeedPurchaseFilter && isNotNeedPurchaseFilter)
+
+      const isNeedRefillFilterData = this.columnMenuSettings.isNeedRefillFilterData.isNeedPurchaseFilter
+      const isNotNeedRefillFilterData = this.columnMenuSettings.isNeedRefillFilterData.isNotNeedPurchaseFilter
+      const isNeedRefillFilter = !(isNeedRefillFilterData && isNotNeedRefillFilterData)
 
       return {
         ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
@@ -245,6 +291,16 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           : {
               transparency: { $eq: this.columnMenuSettings.transparencyYesNoFilterData.yes },
             }),
+
+        ...(this.columnMenuSettings.childrenYesNoFilterData.yes && this.columnMenuSettings.childrenYesNoFilterData.no
+          ? {}
+          : {
+              isChild: { $eq: this.columnMenuSettings.childrenYesNoFilterData.yes },
+            }),
+
+        ...(isNeedRefillFilter && {
+          toRefill: isNotNeedRefillFilterData ? { $eq: 0 } : { $gt: 0 },
+        }),
 
         ...(purchaseQuantityAboveZero && {
           purchaseQuantityAboveZero: { $eq: isNeedPurchaseFilter },
@@ -286,37 +342,57 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive')
 
+    this.getPlatformSettings()
+
     makeObservable(this, observerConfig)
+
+    const getValidColumns = async () => {
+      const activeFields = this.presetsData.reduce((acc, el) => {
+        if (el?._id) {
+          acc[el.table] = []
+          for (const field of el.fields) {
+            if (field?.checked) {
+              acc[el.table].push(field?.field)
+            }
+          }
+        }
+
+        return acc
+      }, {})
+
+      const newColumns = clientInventoryColumns(
+        barCodeHandlers,
+        hsCodeHandlers,
+        fourMonthesStockHandlers,
+        stockUsHandlers,
+        otherHandlers,
+        activeFields,
+        this.meta?.storekeepers,
+      )
+      const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
+
+      this.columnsModel = newColumns
+      this.filtersFields = newFiltersFields
+      this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
+    }
 
     reaction(
       () => this.presetsData,
+      () => getValidColumns(),
+    )
+
+    reaction(
+      () => this.meta?.storekeepers?.length,
       () => {
-        const activeFields = this.presetsData.reduce((acc, el) => {
-          if (el?._id) {
-            acc[el.table] = []
-            for (const field of el.fields) {
-              if (field?.checked) {
-                acc[el.table].push(field?.field)
-              }
-            }
+        for (const storekeeper of this.meta.storekeepers) {
+          const currentColumnName = `toRefill${storekeeper?._id}`
+
+          if (!this.columnVisibilityModel?.[currentColumnName] && !storekeeper?.isUserPreprocessingCenterUSA) {
+            this.columnVisibilityModel[currentColumnName] = false
           }
+        }
 
-          return acc
-        }, {})
-
-        const newColumns = clientInventoryColumns(
-          barCodeHandlers,
-          hsCodeHandlers,
-          fourMonthesStockHandlers,
-          stockUsHandlers,
-          otherHandlers,
-          activeFields,
-        )
-        const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
-
-        this.columnsModel = newColumns
-        this.filtersFields = newFiltersFields
-        this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
+        getValidColumns()
       },
     )
   }
@@ -492,6 +568,27 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
     }
+  }
+
+  setActiveProductsTag(tags) {
+    this.columnMenuSettings?.onChangeFullFieldMenuItem(tags, TAGS)
+    this.columnMenuSettings?.onClickAccept()
+  }
+
+  setActiveProductsTagFromTable(tag) {
+    const index = this.columnMenuSettings?.tags?.currentFilterData?.findIndex(
+      currentTag => currentTag?._id === tag?._id,
+    )
+
+    const newTags = [...this.columnMenuSettings.tags.currentFilterData]
+
+    if (index > -1) {
+      newTags.splice(index, 1)
+    } else {
+      newTags.push(tag)
+    }
+
+    this.setActiveProductsTag(newTags)
   }
 
   async getPresets() {
@@ -749,17 +846,15 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   async onClickContinueBtn() {
-    const [storekeepers, destinations, result, dataForOrder] = await Promise.all([
+    const [storekeepers, destinations, dataForOrder] = await Promise.all([
       StorekeeperModel.getStorekeepers(),
       ClientModel.getDestinations(),
-      UserModel.getPlatformSettings(),
       ClientModel.getProductsInfoForOrders(this.selectedRows.join(',')),
     ])
 
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
-      this.platformSettings = result
       this.dataForOrderModal = dataForOrder
     })
 
@@ -770,21 +865,20 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickPrevButton = () => {
-    this.onTriggerOpenModal('showAddOrEditSupplierModal')
-    this.onTriggerOpenModal('showSelectionSupplierModal')
-  }
-
-  async getIdeas() {
+  async getPlatformSettings() {
     try {
-      const result = await IdeaModel.getIdeas(this.selectedRows?.[0])
+      const response = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.ideasData = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.platformSettings = response
       })
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onClickPrevButton = () => {
+    this.onTriggerOpenModal('showSelectionSupplierModal')
   }
 
   async onClickSaveHsCode(hsCode) {
@@ -807,10 +901,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
@@ -856,15 +946,34 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   async onClickHsCode(item) {
-    this.setSelectedProduct(item)
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
+    try {
+      this.setSelectedProduct(item)
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
+      const response = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
+
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onClickSaveFourMonthesStockValue(productId, fourMonthesStock) {
     try {
       await ClientModel.updateProductFourMonthesStock(productId, { fourMonthesStock })
+
+      this.getMainTableData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue) {
+    try {
+      await ClientModel.postAddRecommendationForStock(productId, storekeeperId, recommendedValue || 0)
 
       this.getMainTableData()
     } catch (error) {
@@ -946,26 +1055,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
 
       if (!this.error) {
-        runInAction(() => {
-          this.alertShieldSettings = {
-            showAlertShield: true,
-            alertShieldMessage: t(TranslationKey['The order has been created']),
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              ...this.alertShieldSettings,
-              showAlertShield: false,
-            }
-
-            setTimeout(() => {
-              this.alertShieldSettings = {
-                showAlertShield: false,
-                alertShieldMessage: '',
-              }
-            }, 1000)
-          }, 3000)
-        })
+        toast.success(t(TranslationKey['The order has been created']))
       }
 
       await this.getMainTableData()
@@ -999,11 +1089,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     } catch (error) {
       console.log(error)
 
-      runInAction(() => {
-        this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
-        this.error = error
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(`${t(TranslationKey["You can't order"])} "${error.body.message}"`)
     }
   }
 
@@ -1018,46 +1104,35 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async createSupplierSearchRequest(curId, ideaData, data) {
+  async onSubmitSaveSupplier({ supplier, makeMainSupplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      if (curId) {
-        await IdeaModel.createSupplierSearchRequestForIdea(curId, data)
-        await IdeaModel.editSupplierSearchRequestStatus(curId, {
-          requestStatus: RequestStatus.READY_TO_VERIFY_BY_SUPERVISOR,
-        })
-      } else {
-        await this.createIdea(ideaData)
-        await IdeaModel.createSupplierSearchRequestForIdea(this.ideaId, data)
-        await IdeaModel.editSupplierSearchRequestStatus(this.ideaId, {
-          requestStatus: RequestStatus.READY_TO_VERIFY_BY_SUPERVISOR,
-        })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onSubmitSaveSupplier({ supplier, photosOfSupplier, addMore, makeMainSupplier }) {
-    try {
-      runInAction(() => {
-        this.readyImages = []
-      })
-
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-      }
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
       }
 
-      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
+      }
+
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier, undefined, undefined, true)
       const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
       await ProductModel.addSuppliersToProduct(this.selectedRowId, [createSupplierResult.guid])
 
       if (makeMainSupplier) {
@@ -1069,14 +1144,11 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.successModalText = t(TranslationKey['Supplier added'])
       })
+
       this.onTriggerOpenModal('showSuccessModal')
 
       await this.getMainTableData()
-
-      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
-      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
-
       console.log(error)
       runInAction(() => {
         this.error = error
@@ -1089,12 +1161,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onClickAddSupplierButton() {
     try {
-      const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getSuppliersPaymentMethods()])
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.platformSettings = result
-      })
+      this.getSuppliersPaymentMethods()
 
       this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
@@ -1172,7 +1239,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         })
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
-      this.getIdeas()
     } catch (error) {
       console.log(error)
     }
@@ -1270,11 +1336,9 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
 
       await this.getMainTableData()
-
-      this.onTriggerOpenModal('showConfirmModal')
-      this.onTriggerOpenModal('showSelectionSupplierModal')
     } catch (error) {
       console.log(error)
+    } finally {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
     }
@@ -1505,8 +1569,96 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   }
 
   setSelectedProduct(item) {
-    runInAction(() => {
-      this.selectedProduct = item
-    })
+    this.selectedProduct = item
+  }
+
+  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      supplier = {
+        ...supplier,
+        amount: parseFloat(supplier?.amount) || '',
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
+        minlot: parseInt(supplier?.minlot) || '',
+        price: parseFloat(supplier?.price) || '',
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
+      }
+
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
+      await ProductModel.addSuppliersToProduct(this.selectedRows[0], [createSupplierResult.guid])
+
+      await this.loadData()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
+    }
+  }
+
+  async getMainTableData(options) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      const toRefill = 'toRefill'
+      const amountInBoxes = 'amountInBoxes'
+
+      let storekeeperId
+      let sortField = this.sortModel?.[0]?.field
+
+      if (sortField?.includes(toRefill)) {
+        storekeeperId = sortField?.replace(toRefill, '')
+        sortField = toRefill
+      } else if (sortField?.includes(amountInBoxes)) {
+        storekeeperId = sortField?.replace(amountInBoxes, '')
+        sortField = amountInBoxes
+      }
+
+      const result = await this.getMainDataMethod(
+        options || {
+          filters: this.getFilters(),
+
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+          sortField: this.sortModel.length ? sortField : 'updatedAt',
+          sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
+          storekeeper: storekeeperId,
+
+          ...this.defaultGetDataMethodOptions?.(),
+        },
+      )
+
+      runInAction(() => {
+        this.meta = result?.meta
+        this.tableData = result?.rows || result
+        this.rowCount = result?.count || result.length
+      })
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      console.log(error)
+      this.tableData = []
+      this.rowCount = 0
+      this.setRequestStatus(loadingStatuses.FAILED)
+    }
   }
 }

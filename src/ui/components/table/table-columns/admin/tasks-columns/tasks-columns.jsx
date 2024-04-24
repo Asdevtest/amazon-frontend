@@ -1,16 +1,18 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateFromUnixCell,
-  NormalActionBtnCell,
   TaskDescriptionCell,
   TaskStatusCell,
   TaskTypeCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const adminTasksViewColumns = handlers => [
   {
@@ -51,9 +53,11 @@ export const adminTasksViewColumns = handlers => [
     width: 190,
     align: 'center',
     renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey.Details)}
-        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey.Details)}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.setCurrentOpenedTask(params.row)}
       />
     ),
     filterable: false,

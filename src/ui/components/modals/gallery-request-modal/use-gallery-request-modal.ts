@@ -1,26 +1,29 @@
 import { useEffect, useState } from 'react'
+import { v4 as uuid } from 'uuid'
+
+import { MAX_DEFAULT_MEDIA_FILES } from '@constants/text'
 
 import { checkIsDocumentLink, checkIsMediaFileLink } from '@utils/checks'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+
+import { IRequestMedia } from '@typings/models/requests/request-media'
 
 import { SwitcherConditions } from '../gallery-modal/gallery-modal.type'
 
-import { IData, IMediaFileWithCommentFromRequest, IState } from './gallery-request-modal.type'
+import { IData, IState } from './gallery-request-modal.type'
 
-export const useGalleryRequestModal = (
-  data: IData,
-  mediaFiles: IMediaFileWithCommentFromRequest[], // correct data type - string[] (solution for creating a request)
-) => {
+export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[], maxNumber?: number) => {
   const [tabValue, setTabValue] = useState<SwitcherConditions>(SwitcherConditions.MEDIA_FILES)
   const [mediaFilesStates, setMediaFilesStates] = useState<IState | undefined>(undefined)
   const [documentsStates, setDocumentsStates] = useState<IState | undefined>(undefined)
-  const [allFilesToAdd, setAllFilesToAdd] = useState<IMediaFileWithCommentFromRequest[]>([]) // correct data type - string[] (solution for creating a request)
+  const [allFilesToAdd, setAllFilesToAdd] = useState<IRequestMedia[]>([])
 
   useEffect(() => {
     const initialMediaFilesStates: IState = {}
     const initialDocumentsStates: IState = {}
 
     const filterAndAssign = (files: string[], personKey: string) => {
-      initialMediaFilesStates[personKey] = files?.filter(file => checkIsMediaFileLink(file)) || []
+      initialMediaFilesStates[personKey] = files?.filter(file => checkIsMediaFileLink(getAmazonImageUrl(file))) || []
       initialDocumentsStates[personKey] = files?.filter(file => checkIsDocumentLink(file)) || []
     }
 
@@ -49,30 +52,27 @@ export const useGalleryRequestModal = (
 
   const handleResetAllFilesToAdd = () => setAllFilesToAdd([])
   const handleToggleFile = (mediaFile: string) => {
-    /* 
-    // correct data type - string[] (solution for creating a request)
-    if (allFilesToAdd?.includes(mediaFile)) {
-      setAllFilesToAdd(allFilesToAdd?.filter(file => file !== mediaFile))
-    } else {
-      setAllFilesToAdd([...allFilesToAdd, mediaFile])
-    }
-    */
-    const findMediaFile = allFilesToAdd.find(fileToAdd => fileToAdd.file === mediaFile)
+    const findMediaFile = allFilesToAdd.find(fileToAdd => fileToAdd.fileLink === mediaFile)
 
     if (findMediaFile) {
-      setAllFilesToAdd(prevFiles => prevFiles.filter(fileToAdd => fileToAdd.file !== mediaFile))
+      setAllFilesToAdd(prevFiles => prevFiles.filter(fileToAdd => fileToAdd.fileLink !== mediaFile))
     } else {
       setAllFilesToAdd(prevFiles => [
         ...prevFiles,
-        { file: mediaFile, comment: '', commentByPerformer: '', _id: String(Date.now()) },
+        { fileLink: mediaFile, commentByPerformer: '', commentByClient: '', _id: uuid() },
       ])
     }
   }
-  /* 
-  // correct data type - string[] (solution for creating a request) 
-  const getCheckboxState = (mediaFile: string) => allFilesToAdd?.includes(mediaFile)
-  */
-  const getCheckboxState = (mediaFile: string) => allFilesToAdd.some(fileToAdd => fileToAdd.file === mediaFile)
+
+  const getCheckboxState = (mediaFile: string) => allFilesToAdd.some(fileToAdd => fileToAdd.fileLink === mediaFile)
+  const getDisabledCheckbox = (mediaFile: string) => {
+    const isFileAdded = allFilesToAdd.some(fileToAdd => fileToAdd.fileLink === mediaFile)
+    const isMaxReached = allFilesToAdd.length >= (maxNumber || MAX_DEFAULT_MEDIA_FILES)
+
+    return isFileAdded ? false : isMaxReached
+  }
+
+  const filesCounter = `${allFilesToAdd.length} / ${maxNumber || MAX_DEFAULT_MEDIA_FILES}`
 
   return {
     tabValue,
@@ -81,9 +81,11 @@ export const useGalleryRequestModal = (
     mediaFilesStates,
     documentsStates,
     allFilesToAdd,
+    filesCounter,
 
     onToggleFile: handleToggleFile,
     onResetAllFilesToAdd: handleResetAllFilesToAdd,
     getCheckboxState,
+    getDisabledCheckbox,
   }
 }

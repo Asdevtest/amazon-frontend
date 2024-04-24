@@ -8,7 +8,7 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
@@ -169,45 +169,21 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
             {userCanEdit ? (
               <div className={styles.buttonsWrapper}>
-                <Button
-                  disableElevation
-                  className={styles.button}
-                  color="primary"
-                  variant="contained"
-                  onClick={onSaveSubmit}
-                >
+                <Button className={styles.button} onClick={onSaveSubmit}>
                   {t(TranslationKey.Save)}
                 </Button>
 
-                <Button
-                  disableElevation
-                  className={styles.button}
-                  color="primary"
-                  variant="contained"
-                  onClick={onCancel}
-                >
+                <Button className={styles.button} onClick={onCancel}>
                   {t(TranslationKey.Cancel)}
                 </Button>
 
-                <Button
-                  disableElevation
-                  className={styles.button}
-                  color="primary"
-                  variant="contained"
-                  onClick={onClickBack}
-                >
+                <Button className={styles.button} onClick={onClickBack}>
                   {t(TranslationKey.Back)}
                 </Button>
               </div>
             ) : (
               <div className={styles.buttonsWrapper}>
-                <Button
-                  disableElevation
-                  className={styles.button}
-                  color="primary"
-                  variant="contained"
-                  onClick={onClickBack ? onClickBack : onCancel}
-                >
+                <Button className={styles.button} onClick={onClickBack ? onClickBack : onCancel}>
                   {t(TranslationKey.Back)}
                 </Button>
               </div>
@@ -218,15 +194,16 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
       <UserBalanceHistory historyData={payments} title={t(TranslationKey.Transactions)} />
 
-      <SuccessInfoModal
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={t(TranslationKey['Data saved successfully'])}
-        successBtnText={'Oк'}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={t(TranslationKey['Data saved successfully'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
     </div>

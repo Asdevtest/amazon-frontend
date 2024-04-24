@@ -3,7 +3,7 @@ import { FC, memo, useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DEFAULT_SLIDE_HEIGHT } from '@components/modals/gallery-modal/gallery-modal.constants'
-import { ImageModal } from '@components/modals/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Checkbox } from '@components/shared/checkbox'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
@@ -13,17 +13,20 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './request-media-files-tab.style'
 
-import { IState } from '../../../gallery-request-modal/gallery-request-modal.type'
-import { getSupplierTitleByObjectkey } from '../../../gallery-request-modal/helpers/get-supplier-title-by-object-key'
-import { hasNonEmptyStringArray } from '../../../gallery-request-modal/helpers/has-non-empty-string-array'
+import { IState } from '../../gallery-request-modal.type'
+import { getSupplierTitleByObjectkey } from '../../helpers/get-supplier-title-by-object-key'
+import { hasNonEmptyStringArray } from '../../helpers/has-non-empty-string-array'
 
-interface ReqestMediaFilesTabProps {
+interface RequestMediaFilesTabProps {
   data: IState | undefined
   getCheckboxState: (file: string) => boolean
+  getDisabledCheckbox: (file: string) => boolean
   onToggleFile: (file: string) => void
 }
 
-export const ReqestMediaFilesTab: FC<ReqestMediaFilesTabProps> = memo(({ data, getCheckboxState, onToggleFile }) => {
+export const RequestMediaFilesTab: FC<RequestMediaFilesTabProps> = memo(props => {
+  const { data, getCheckboxState, getDisabledCheckbox, onToggleFile } = props
+
   const { classes: styles } = useStyles()
 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
@@ -70,9 +73,11 @@ export const ReqestMediaFilesTab: FC<ReqestMediaFilesTabProps> = memo(({ data, g
                       )}
 
                       <Checkbox
+                        stopPropagation
                         checked={getCheckboxState(file)}
+                        disabled={getDisabledCheckbox(file)}
                         className={styles.checkbox}
-                        onClick={e => e.stopPropagation()}
+                        wrapperClassName={styles.checkboxWrapper}
                         onChange={() => onToggleFile(file)}
                       />
                     </div>
@@ -87,11 +92,10 @@ export const ReqestMediaFilesTab: FC<ReqestMediaFilesTabProps> = memo(({ data, g
       </div>
 
       {showImageModal ? (
-        <ImageModal
-          showPreviews
+        <SlideshowGalleryModal
           files={totalFiles}
           currentFileIndex={currentSlideIndex}
-          isOpenModal={showImageModal}
+          openModal={showImageModal}
           onOpenModal={() => setShowImageModal(!showImageModal)}
           onCurrentFileIndex={setCurrentSlideIndex}
         />

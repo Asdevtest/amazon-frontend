@@ -4,9 +4,11 @@ import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './check-request-by-type-exists.style'
 
@@ -62,10 +64,10 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
         </div>
       </div>
       <div className={styles.buttonsWrapper}>
-        <Button success /* disabled={submitIsClicked} */ variant="contained" onClick={onClickContinue}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={onClickContinue}>
           {t(TranslationKey.Continue)}
         </Button>
-        <Button variant="text" className={styles.cancelBtn} onClick={onClickCancel}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClickCancel}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

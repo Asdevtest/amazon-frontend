@@ -5,13 +5,15 @@ import { TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Input } from '@components/shared/input'
 import { Table } from '@components/shared/table'
 import { TableHeadRow } from '@components/table/table-rows/batches-view/table-head-row'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-hs-code-in-box-form.style'
 
@@ -107,11 +109,16 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button success disabled={submitDisabled} className={styles.saveButton} onClick={onClickSubmit}>
+        <Button
+          styleType={ButtonStyle.SUCCESS}
+          disabled={submitDisabled}
+          className={styles.saveButton}
+          onClick={onClickSubmit}
+        >
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button className={styles.closeButton} variant="text" onClick={() => setOpenModal()}>
+        <Button className={styles.closeButton} variant={ButtonVariant.OUTLINED} onClick={() => setOpenModal()}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

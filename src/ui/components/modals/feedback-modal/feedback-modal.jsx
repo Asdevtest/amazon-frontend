@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { FileIcon } from '@components/shared/svg-icons'
@@ -13,9 +13,11 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/enums/button-style'
+
 import { useStyles } from './feedback-modal.style'
 
-export const FeedBackModal = ({ onSubmit, onClose, openModal, setOpenModal }) => {
+export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
   const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')
@@ -64,35 +66,36 @@ export const FeedBackModal = ({ onSubmit, onClose, openModal, setOpenModal }) =>
         ) : null}
 
         <div className={styles.buttonsWrapper}>
-          <Button
-            color="primary"
-            variant="contained"
-            disabled={disabledSubmitButton}
-            className={styles.buttonOk}
-            onClick={onClickSendButton}
-          >
+          <Button disabled={disabledSubmitButton} className={styles.buttonOk} onClick={onClickSendButton}>
             {t(TranslationKey.Send)}
           </Button>
-          <Button variant="text" className={styles.buttonCancel} onClick={() => setIsShowConfirmationModal(true)}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={styles.buttonCancel}
+            onClick={() => setIsShowConfirmationModal(true)}
+          >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
 
-        <ConfirmationModal
-          isWarning
-          openModal={isShowConfirmationModal}
-          setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
-          title={t(TranslationKey.Attention)}
-          successBtnText={t(TranslationKey.Yes)}
-          message={t(TranslationKey['Are you sure you want to close this window?'])}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            onClickCloseButton()
-            setIsShowConfirmationModal(false)
-          }}
-          onClickCancelBtn={() => setIsShowConfirmationModal(false)}
-        />
+        {isShowConfirmationModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning
+            openModal={isShowConfirmationModal}
+            setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
+            title={t(TranslationKey.Attention)}
+            successBtnText={t(TranslationKey.Yes)}
+            message={t(TranslationKey['Are you sure you want to close this window?'])}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={() => {
+              onClickCloseButton()
+              setIsShowConfirmationModal(false)
+            }}
+            onClickCancelBtn={() => setIsShowConfirmationModal(false)}
+          />
+        ) : null}
       </div>
     </Modal>
   )
-}
+})

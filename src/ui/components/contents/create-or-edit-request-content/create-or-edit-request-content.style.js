@@ -1,21 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  wrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 20,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
-
   mainWrapper: {
-    position: 'relative',
-    padding: 30,
-    height: '80vh',
+    padding: 20,
+    height: '100%',
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     background: theme.palette.background.general,
     borderRadius: 20,
   },
@@ -61,7 +53,7 @@ export const useStyles = makeStyles()(theme => ({
   stepWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    gap: 30,
+    gap: 20,
 
     [theme.breakpoints.down(480)]: {
       flexDirection: 'column',
@@ -77,6 +69,14 @@ export const useStyles = makeStyles()(theme => ({
   field: {
     height: 40,
     width: '100%',
+  },
+
+  requestTypeField: {
+    maxWidth: 250,
+  },
+
+  fieldContainer: {
+    marginBottom: 10,
   },
 
   datePicker: {
@@ -114,7 +114,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   defaultMarginTop: {
-    marginTop: 20,
+    marginTop: 10,
   },
 
   fireIcon: {
@@ -170,24 +170,17 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  editorContainer: {
-    div: {
-      marginTop: 0,
-    },
-  },
-
   buttonsWrapper: {
-    position: 'absolute',
-    bottom: 30,
-    right: 30,
     display: 'flex',
+    justifyContent: 'space-between',
     gap: 20,
   },
 
-  button: {
-    padding: '0 20px',
+  buttons: {
+    width: '100%',
     display: 'flex',
-    gap: 10,
+    justifyContent: 'flex-end',
+    gap: 20,
   },
 
   arrowIcon: {
@@ -234,7 +227,6 @@ export const useStyles = makeStyles()(theme => ({
   stepTitle: {
     margin: '0',
     padding: '0',
-    marginTop: 5,
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
@@ -309,15 +301,20 @@ export const useStyles = makeStyles()(theme => ({
     WebkitBoxOrient: 'vertical',
   },
 
-  buttonCancel: {
-    color: theme.palette.text.general,
-  },
-
   buttonSelect: {
     width: 200,
   },
 
-  editorClassName: {
+  editorWrapper: {
+    marginTop: 10,
+  },
+
+  editor: {
+    minHeight: 160,
     maxHeight: 160,
+  },
+
+  customItemsWrapper: {
+    padding: '0 10px',
   },
 }))

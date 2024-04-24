@@ -5,7 +5,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
@@ -14,7 +14,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { isString } from '@typings/type-guards'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { isString } from '@typings/guards'
 
 import { useStyles } from './request-result-modal.style'
 
@@ -100,14 +101,7 @@ export const RequestResultModal = memo(props => {
                   onChange={e => setLink(e.target.value)}
                 />
 
-                <Button
-                  disableElevation
-                  disabled={!link}
-                  className={styles.button}
-                  variant="contained"
-                  color="primary"
-                  onClick={onClickLinkBtn}
-                >
+                <Button disabled={!link} className={styles.button} onClick={onClickLinkBtn}>
                   {t(TranslationKey.Add)}
                 </Button>
               </div>
@@ -158,7 +152,7 @@ export const RequestResultModal = memo(props => {
               dragAndDropBtnHeight={55}
               images={images}
               setImages={setImages}
-              maxNumber={50 - images.length}
+              maxNumber={50}
               maxHeight={160}
             />
           )}
@@ -167,8 +161,7 @@ export const RequestResultModal = memo(props => {
         <div className={styles.buttonsWrapper}>
           {onClickSendAsResult && (
             <Button
-              success
-              disableElevation
+              styleType={ButtonStyle.SUCCESS}
               disabled={disabledSendButton}
               className={styles.button}
               onClick={() => {
@@ -186,8 +179,7 @@ export const RequestResultModal = memo(props => {
           )}
 
           <Button
-            disableElevation
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             className={cx(styles.button, styles.cancelButton)}
             onClick={setOpenModal}
           >

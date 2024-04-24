@@ -6,7 +6,7 @@ import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/stat
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells'
 import { useStyles } from '@components/requests-and-request-proposals/requests/request-terms-list/request-terms-list.style'
 import { Field } from '@components/shared/field'
 

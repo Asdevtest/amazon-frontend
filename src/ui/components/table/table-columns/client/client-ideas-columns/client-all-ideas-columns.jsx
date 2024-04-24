@@ -10,7 +10,8 @@ import {
   ShortDateCell,
   SmallRowImageCell,
   TimeFromSecondsCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  UserLinkCell,
+} from '@components/data-grid/data-grid-cells'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -101,7 +102,7 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: ['parentProductShop', 'childProductShop'],
+    field: 'parentProductShop',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -136,12 +137,23 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
+    field: 'reasonReject',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Reason for rejection'])} />,
+    headerName: t(TranslationKey['Reason for rejection']),
+
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+    width: 250,
+    filterable: false,
+    columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
     field: 'actions',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => <AllIdeasActionsCell row={params.row} rowHandlers={rowHandlers} />,
-    width: 300,
+    width: 150,
     sortable: false,
     filterable: false,
   },
@@ -238,6 +250,26 @@ export const clientAllIdeasColumns = (rowHandlers, shops) => [
     width: 120,
 
     columnKey: columnnsKeys.shared.DATE_DETAILS,
+  },
+
+  {
+    field: 'createdBy',
+    headerName: t(TranslationKey['Created by']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+
+    renderCell: ({ row }) => (
+      <UserLinkCell
+        blackText
+        name={row.sub?.name || row.createdBy?.name}
+        userId={row.sub?._id || row?.createdBy?._id}
+      />
+    ),
+    width: 130,
+
+    filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
   },
 
   {

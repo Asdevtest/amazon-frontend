@@ -5,14 +5,14 @@ import DoneIcon from '@mui/icons-material/Done'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ISpec } from '@typings/spec'
+import { ISpec } from '@typings/shared/spec'
 
 import { useStyles } from './request-terms.style'
 
@@ -44,7 +44,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
   } = props
 
   return (
-    <div className={cx(styles.requestInformationWrapper, styles.secondBlock)}>
+    <div className={styles.requestInformationWrapper}>
       <div className={styles.requestInformationTitleWrapper}>
         <p className={styles.sectionTitle}>{t(TranslationKey['Request terms'])}</p>
 
@@ -68,7 +68,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
         <div className={styles.blockInfoWrapper}>
           <div className={styles.blockInfoCell}>
             <p className={styles.blockInfoCellTitle}>{t(TranslationKey['Request type'])}</p>
-            <p className={cx(styles.blockInfoCellText, styles.capitalize)}>{spec?.title}</p>
+            <p className={styles.blockInfoCellText}>{spec?.title}</p>
           </div>
 
           <div className={styles.blockInfoCell}>

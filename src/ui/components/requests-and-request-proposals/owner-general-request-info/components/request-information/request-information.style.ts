@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   firstBlock: {
-    width: 380,
+    width: 420,
   },
 
   priorityWrapper: {

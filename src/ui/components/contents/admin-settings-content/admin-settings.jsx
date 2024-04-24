@@ -117,23 +117,29 @@ export const AdminSettings = observer(() => {
         <TabTags />
       </TabPanel>
 
-      <WarningInfoModal
-        title={viewModel.infoModalText}
-        btnText={t(TranslationKey.Close)}
-        openModal={viewModel.showInfoModal}
-        setOpenModal={viewModel.onClickToggleInfoModal}
-        onClickBtn={viewModel.onClickToggleInfoModal}
-      />
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          title={viewModel.infoModalText}
+          btnText={t(TranslationKey.Close)}
+          openModal={viewModel.showInfoModal}
+          setOpenModal={viewModel.onClickToggleInfoModal}
+          onClickBtn={viewModel.onClickToggleInfoModal}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={viewModel.onClickToggleConfirmModal}
-        message={viewModel.confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={viewModel.confirmModalSettings.onClickFailed}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={viewModel.onClickToggleConfirmModal}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={viewModel.confirmModalSettings.onClickFailed}
+        />
+      ) : null}
     </>
   )
 })

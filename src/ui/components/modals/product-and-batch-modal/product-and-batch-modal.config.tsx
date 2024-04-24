@@ -5,9 +5,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { IProduct } from '@typings/models/products/product'
+
 import { useStyles } from './product-and-batch-modal.style'
 
-import { IModalConfig, IProductWithOrder, ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
+import { IModalConfig, ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
 
 export const switcherSettings = [
   { label: () => t(TranslationKey['Orders info']), value: ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION },
@@ -15,7 +17,7 @@ export const switcherSettings = [
 ]
 
 export const infoModalConfig = (
-  selectedProduct: IProductWithOrder,
+  selectedProduct: IProduct,
   onClickInTransferModal: (id: string) => void,
 ): IModalConfig[] => {
   const { classes: styles, cx } = useStyles()

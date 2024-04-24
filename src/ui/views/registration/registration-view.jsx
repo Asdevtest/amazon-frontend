@@ -57,21 +57,27 @@ export const RegistrationView = observer(({ history }) => {
         {renderError()}
       </AuthFormWrapper>
 
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessRegistrationModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessRegistrationModal')}
-        title={t(TranslationKey['Successful registration'])}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessRegistrationModal')}
-      />
+      {viewModel.showSuccessRegistrationModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessRegistrationModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessRegistrationModal')}
+          title={t(TranslationKey['Successful registration'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessRegistrationModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel.showErrorRegistrationModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showErrorRegistrationModal')}
-        title={t(TranslationKey['Registration error'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => viewModel.onTriggerOpenModal('showErrorRegistrationModal')}
-      />
+      {viewModel.showErrorRegistrationModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showErrorRegistrationModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showErrorRegistrationModal')}
+          title={t(TranslationKey['Registration error'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => viewModel.onTriggerOpenModal('showErrorRegistrationModal')}
+        />
+      ) : null}
     </div>
   )
 })

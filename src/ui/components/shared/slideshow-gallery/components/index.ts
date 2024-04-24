@@ -1,4 +1,5 @@
+export { SlideByType } from '../../slide-by-type'
 export { EmptyFile } from './empty-file'
+export { Gallery } from './gallery'
 export { MainSlide } from './main-slide'
 export { Previews } from './previews'
-export { GetSlideByType } from './get-slide-by-type'

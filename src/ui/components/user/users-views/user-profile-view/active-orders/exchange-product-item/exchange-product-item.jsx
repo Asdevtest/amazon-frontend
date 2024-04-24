@@ -2,9 +2,11 @@ import { TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './exchange-product-item.style'
 
@@ -48,7 +50,7 @@ export const ExchangeProductItem = ({ product, handlerPrivateLabel, index }) => 
         <Typography className={(styles.text, styles.standartPrice)}>{'$ 499'}</Typography>
       </TableCell>
       <TableCell>
-        <Button success onClick={() => handlerPrivateLabel(index)}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={() => handlerPrivateLabel(index)}>
           {t(TranslationKey.Start)}
         </Button>
       </TableCell>

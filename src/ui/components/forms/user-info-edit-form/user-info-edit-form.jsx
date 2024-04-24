@@ -9,12 +9,14 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 // import {SettingsModel} from '@models/settings-model'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 // import {RegistrationForm} from '../registration-form'
 import { useStyles } from './user-info-edit-form.style'
@@ -341,14 +343,16 @@ export const UserInfoEditForm = observer(
           />
         </div>
 
-        {/* <RegistrationForm isRecoverPassword formFields={{password: ''}} onChangeFormField={onChangeField} /> */}
-
         <div className={styles.btnsWrapper}>
-          <Button disabled={disabledSubmit} className={styles.actionBtn} /* type="submit"*/ onClick={onClickSubmit}>
+          <Button disabled={disabledSubmit} className={styles.actionBtn} onClick={onClickSubmit}>
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button variant="text" className={[styles.actionBtn, styles.cancelBtn]} onClick={onCloseModal}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={[styles.actionBtn, styles.cancelBtn]}
+            onClick={onCloseModal}
+          >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

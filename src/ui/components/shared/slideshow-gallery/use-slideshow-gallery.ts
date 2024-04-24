@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { UploadFileType } from '@typings/upload-file'
+import { isUploadFileType } from '@typings/guards'
+import { IRequestMedia } from '@typings/models/requests/request-media'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { FIRST_SLIDE } from './slideshow-gallery.constants'
 
-export const useSlideshowGallery = (files: UploadFileType[]) => {
+export const useSlideshowGallery = (files: IRequestMedia[] | UploadFileType[]) => {
   const [mediaFiles, setMediaFiles] = useState<UploadFileType[]>([])
   const [currentMediaFileIndex, setCurrentMediaFileIndex] = useState(FIRST_SLIDE)
 
@@ -15,7 +17,9 @@ export const useSlideshowGallery = (files: UploadFileType[]) => {
 
   useEffect(() => {
     if (files) {
-      setMediaFiles(files)
+      const media = files.map(file => (isUploadFileType(file) ? file : file?.fileLink))
+
+      setMediaFiles(media)
     }
   }, [files])
 

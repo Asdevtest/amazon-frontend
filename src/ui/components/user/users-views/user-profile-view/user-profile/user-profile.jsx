@@ -1,13 +1,14 @@
 import { observer } from 'mobx-react'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
-import { Avatar, Box, Button, Paper, Rating, Typography } from '@mui/material'
+import { Avatar, Box, Paper, Rating, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { Button } from '@components/shared/button'
 import { PurchaseHistory } from '@components/user/users-views/user-profile-view/purchase-history'
 import { Reviews } from '@components/user/users-views/user-profile-view/reviews'
 
@@ -71,24 +72,13 @@ export const UserProfile = observer(
                   </div>
                   <div className={styles.userButtonsWrapper}>
                     {isAnotherUser && (
-                      <Button
-                        id="user-profile-change-btn"
-                        variant="contained"
-                        color="primary"
-                        className={styles.writeBtn}
-                        onClick={() => onClickWriteBtn(user._id)}
-                      >
+                      <Button className={styles.writeBtn} onClick={() => onClickWriteBtn(user._id)}>
                         {t(TranslationKey.Write)}
                       </Button>
                     )}
 
                     {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                      <Button
-                        id="user-profile-change-btn"
-                        variant="contained"
-                        className={styles.changeBtn}
-                        onClick={onClickChangeUserInfo}
-                      >
+                      <Button className={styles.changeBtn} onClick={onClickChangeUserInfo}>
                         {t(TranslationKey.Edit)}
                       </Button>
                     )}
@@ -97,25 +87,13 @@ export const UserProfile = observer(
               </Box>
               <div className={styles.userButtonsMobileWrapper}>
                 {isAnotherUser && (
-                  <Button
-                    id="user-profile-change-btn"
-                    variant="contained"
-                    color="primary"
-                    className={styles.writeBtn}
-                    onClick={() => onClickWriteBtn(user._id)}
-                  >
+                  <Button className={styles.writeBtn} onClick={() => onClickWriteBtn(user._id)}>
                     {t(TranslationKey.Write)}
                   </Button>
                 )}
 
                 {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                  <Button
-                    id="user-profile-change-btn"
-                    variant="contained"
-                    color="primary"
-                    className={styles.changeBtn}
-                    onClick={onClickChangeUserInfo}
-                  >
+                  <Button className={styles.changeBtn} onClick={onClickChangeUserInfo}>
                     {t(TranslationKey.Edit)}
                   </Button>
                 )}
@@ -166,9 +144,7 @@ export const UserProfile = observer(
               <Reviews tabReview={tabReview} setTabReview={setTabReview} reviews={reviews} />
               {isAnotherUser && (
                 <div className={styles.leaveReviewBtnWrapper}>
-                  <Button variant="contained" className={styles.leaveReviewBtn} onClick={onClickReview}>
-                    {t(TranslationKey['Leave a review'])}
-                  </Button>
+                  <Button onClick={onClickReview}>{t(TranslationKey['Leave a review'])}</Button>
                 </div>
               )}
 

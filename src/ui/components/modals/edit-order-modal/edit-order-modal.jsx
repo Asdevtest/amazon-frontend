@@ -1,13 +1,8 @@
 import { memo, useEffect, useState } from 'react'
 
-import AddIcon from '@material-ui/icons/Add'
-import AcceptIcon from '@material-ui/icons/Check'
-import AcceptRevokeIcon from '@material-ui/icons/Clear'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import { Box, Checkbox, InputAdornment, MenuItem, Select, TableCell, TableRow, Typography } from '@mui/material'
+import { Box, InputAdornment, MenuItem, Select, TableCell, TableRow, Typography } from '@mui/material'
 
 import {
   OrderStatus,
@@ -32,36 +27,32 @@ import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { SaveIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
+import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { Text } from '@components/shared/text'
 import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, isNotNull } from '@utils/checks'
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import {
-  clearEverythingExceptNumbers,
-  getShortenStringIfLongerThanCount,
-  parseTextString,
-  timeToDeadlineInHoursAndMins,
-  toFixed,
-} from '@utils/text'
+import { clearEverythingExceptNumbers, timeToDeadlineInHoursAndMins, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './edit-order-modal.style'
 
+import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
+
 import { BoxesToCreateTable } from './boxes-to-create-table'
-import { EditOrderSuppliersTable } from './edit-order-suppliers-table'
 import { ProductTable } from './product-table'
 import { SelectFields } from './select-fields'
 
@@ -100,8 +91,6 @@ export const EditOrderModal = memo(
   ({
     platformSettings,
     paymentMethods,
-    imagesForLoad,
-    yuanToDollarRate,
     isPendingOrder,
     userInfo,
     requestStatus,
@@ -113,17 +102,14 @@ export const EditOrderModal = memo(
     showProgress,
     hsCodeData,
     progressValue,
-    volumeWeightCoefficient,
     setCurrentOpenedBox,
     onSaveOrderItem,
     onSubmitChangeBoxFields,
     onClickSaveSupplierBtn,
     onClickHsCode,
     updateSupplierData,
-    setUpdateSupplierData,
     onClickSaveWithoutUpdateSupData,
     onClickUpdataSupplierData,
-    onChangeImagesForLoad,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -134,7 +120,6 @@ export const EditOrderModal = memo(
     const [confirmModalMode, setConfirmModalMode] = useState(confirmModalModes.STATUS)
     const [showCheckQuantityModal, setShowCheckQuantityModal] = useState(false)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-    const [showAddOrEditSupplierModal, setShowAddOrEditSupplierModal] = useState(false)
     const [supplierPaymentModal, setSupplierPaymentModal] = useState(false)
     const [paymentMethodsModal, setPaymentMethodsModal] = useState(false)
     const [commentModal, setCommentModalModal] = useState(false)
@@ -149,7 +134,6 @@ export const EditOrderModal = memo(
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
     const [headCells, setHeadCells] = useState(BUYER_WAREHOUSE_HEAD_CELLS)
-    const [forceReadOnly, setForceReadOnly] = useState(false)
 
     const deliveredGoodsCount =
       boxes
@@ -167,8 +151,8 @@ export const EditOrderModal = memo(
     const initialState = {
       ...order,
       status: order?.status || undefined,
-      clientComment: parseTextString(order?.clientComment) || '',
-      buyerComment: parseTextString(order?.buyerComment) || '',
+      clientComment: order?.clientComment || '',
+      buyerComment: order?.buyerComment || '',
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
         (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||
@@ -185,7 +169,7 @@ export const EditOrderModal = memo(
       trackingNumberChina: order?.trackingNumberChina || '',
       batchPrice: 0,
       totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
-      yuanToDollarRate: order?.yuanToDollarRate || yuanToDollarRate,
+      yuanToDollarRate: order?.yuanToDollarRate || platformSettings?.yuanToDollarRate,
       item: order?.item || 0,
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order?.totalPriceChanged * order?.yuanToDollarRate,
@@ -200,10 +184,9 @@ export const EditOrderModal = memo(
     const [orderFields, setOrderFields] = useState(initialState)
 
     const [hsCode, setHsCode] = useState({ ...hsCodeData })
-    const [selectedSupplier, setSelectedSupplier] = useState(null)
 
     const [orderPayments, setOrderPayments] = useState(orderFields.payments)
-    const [photosToLoad, setPhotosToLoad] = useState([])
+    const [photosToLoad, setPhotosToLoad] = useState(orderFields.images)
     const [paymentDetailsPhotosToLoad, setPaymentDetailsPhotosToLoad] = useState([])
     const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
 
@@ -223,9 +206,11 @@ export const EditOrderModal = memo(
 
     useEffect(() => {
       setOrderFields({ ...orderFields, product: order.product, orderSupplier: order.orderSupplier })
-
-      setSelectedSupplier(null)
     }, [order])
+
+    const handleSaveProduct = product => {
+      setOrderFields(prev => ({ ...prev, product, orderSupplier: product.currentSupplier }))
+    }
 
     useEffect(() => {
       if (isPendingOrder) {
@@ -460,14 +445,6 @@ export const EditOrderModal = memo(
       }
     }
 
-    const onClickSubmitSaveSupplierBtn = requestData => {
-      setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
-
-      const data = { ...requestData, productId: order.product?._id }
-
-      onClickSaveSupplierBtn(data)
-    }
-
     const onClickSavePaymentDetails = (loadedFiles, editedFiles) => {
       setPaymentDetailsPhotosToLoad(loadedFiles)
       setEditPaymentDetailsPhotos(editedFiles)
@@ -482,21 +459,6 @@ export const EditOrderModal = memo(
       (order.status === OrderStatusByKey[OrderStatus.VERIFY_RECEIPT] &&
         orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}` &&
         !boxesForCreation.length)
-
-    const updateSuplierDisable =
-      isPendingOrder ||
-      (orderFields?.orderSupplier?.createdBy?._id !== userInfo?._id &&
-        userInfo?.masterUser?._id !== orderFields?.orderSupplier?.createdBy?._id) ||
-      !orderFields?.orderSupplier
-
-    const isSupplierAcceptRevokeActive = orderFields.orderSupplier?._id === selectedSupplier?._id
-
-    const isOnlyRead =
-      selectedSupplier?.createdBy._id !== userInfo._id &&
-      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id &&
-      isNotNull(selectedSupplier)
-
-    const disableEditInPendingOrder = isPendingOrder && orderFields.orderSupplier?._id !== order.orderSupplier?._id
 
     return (
       <div className={styles.modalWrapper}>
@@ -553,9 +515,7 @@ export const EditOrderModal = memo(
             )}
           </div>
 
-          <Typography className={styles.amazonTitle}>
-            {getShortenStringIfLongerThanCount(order.product.amazonTitle, 130)}
-          </Typography>
+          <p className={styles.amazonTitle}>{order.product.amazonTitle}</p>
 
           <div className={styles.priorityWrapper}>
             <Typography className={styles.priorityTitle}>{`${t(TranslationKey.Priority)}:`}</Typography>
@@ -594,7 +554,6 @@ export const EditOrderModal = memo(
                     Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ||
                     Number(order.status) === Number(OrderStatusByKey[OrderStatus.IN_STOCK]) ||
                     !checkIsPlanningPrice
-                    // orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK]
                   }
                   variant="filled"
                   value={orderFields.status}
@@ -654,7 +613,6 @@ export const EditOrderModal = memo(
                             order.status === OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
                         )
                       }),
-                      // .filter(el => (isPendingOrder ? el <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] : true))
                     ),
                   }).map((statusCode, statusIndex) => (
                     <MenuItem
@@ -707,12 +665,11 @@ export const EditOrderModal = memo(
         <div className={styles.paper}>
           <SelectFields
             orderPayments={orderPayments}
-            imagesForLoad={imagesForLoad}
             userInfo={userInfo}
             paymentDetailsPhotosToLoad={paymentDetailsPhotosToLoad}
             hsCode={hsCode}
             setHsCode={setHsCode}
-            yuanToDollarRate={yuanToDollarRate}
+            yuanToDollarRate={platformSettings?.yuanToDollarRate}
             checkIsPlanningPrice={checkIsPlanningPrice}
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}
             isPendingOrder={isPendingOrder}
@@ -729,7 +686,6 @@ export const EditOrderModal = memo(
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
             setPaymentMethodsModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
-            onChangeImagesForLoad={onChangeImagesForLoad}
             onClickHsCode={onClickHsCode}
             onClickUpdateButton={onClickUpdateButton}
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}
@@ -747,132 +703,12 @@ export const EditOrderModal = memo(
             setOrderField={setOrderField}
           />
 
-          <Text
-            className={styles.tableTitle}
-            containerClasses={styles.tableTitleContainer}
-            tooltipInfoContent={t(TranslationKey['Current supplier through whom the order was placed'])}
-          >
-            {t(TranslationKey.Suppliers)}
-          </Text>
-
-          {((isPendingOrder ||
-            orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
-            orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]) &&
-            Number(order.status) < Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])) ||
-          orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
-          orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ? (
-            <div className={styles.supplierActionsWrapper}>
-              <div className={styles.supplierContainer}>
-                <div className={styles.supplierButtonWrapper}>
-                  <Button
-                    disabled={checkIsPlanningPrice && !isPendingOrder}
-                    tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
-                    className={styles.iconBtn}
-                    onClick={() => {
-                      setSelectedSupplier(null)
-                      setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
-                    }}
-                  >
-                    <AddIcon />
-                  </Button>
-                  <Typography className={styles.supplierButtonText}>{t(TranslationKey['Add supplier'])}</Typography>
-                </div>
-
-                {selectedSupplier ? (
-                  <>
-                    <div className={styles.supplierButtonWrapper}>
-                      {selectedSupplier?.createdBy._id !== userInfo._id &&
-                      userInfo?.masterUser?._id !== selectedSupplier?.createdBy?._id ? (
-                        <></>
-                      ) : (
-                        <>
-                          <Button
-                            tooltipAttentionContent={
-                              disableEditInPendingOrder &&
-                              t(TranslationKey['Editing is unavailable due to change of current supplier'])
-                            }
-                            disabled={(checkIsPlanningPrice && !isPendingOrder) || disableEditInPendingOrder}
-                            className={styles.iconBtn}
-                            onClick={() => setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)}
-                          >
-                            <EditOutlinedIcon />
-                          </Button>
-                          <Typography className={styles.supplierButtonText}>
-                            {t(TranslationKey['Edit a supplier'])}
-                          </Typography>
-                        </>
-                      )}
-
-                      <div className={styles.supplierButtonWrapper}>
-                        <Button
-                          className={styles.iconBtn}
-                          onClick={() => {
-                            setForceReadOnly(true)
-                            setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
-                          }}
-                        >
-                          <VisibilityOutlinedIcon />
-                        </Button>
-                        <Typography className={styles.supplierButtonText}>
-                          {t(TranslationKey['Open the parameters supplier'])}
-                        </Typography>
-                      </div>
-                    </div>
-
-                    <div className={styles.supplierButtonWrapper}>
-                      <Button
-                        danger={isSupplierAcceptRevokeActive}
-                        success={!isSupplierAcceptRevokeActive}
-                        disabled={checkIsPlanningPrice && !isPendingOrder}
-                        className={cx(styles.iconBtn, {
-                          [styles.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                        })}
-                        onClick={() => {
-                          if (isSupplierAcceptRevokeActive) {
-                            setOrderField('orderSupplier')({ target: { value: null } })
-                            !isPendingOrder && setUpdateSupplierData(false)
-                          } else {
-                            setOrderField('orderSupplier')({ target: { value: selectedSupplier } })
-                            !isPendingOrder && setUpdateSupplierData(false)
-                          }
-                        }}
-                      >
-                        {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
-                      </Button>
-                      <Typography className={styles.supplierButtonText}>
-                        {isSupplierAcceptRevokeActive
-                          ? t(TranslationKey['Remove the main supplier status'])
-                          : t(TranslationKey['Make the supplier the main'])}
-                      </Typography>
-                    </div>
-                  </>
-                ) : null}
-              </div>
-              <div
-                className={cx(styles.supplierCheckboxWrapper, {
-                  [styles.supplierCheckboxWrapperDisabled]: updateSuplierDisable,
-                })}
-                onClick={() => {
-                  if (!updateSuplierDisable) {
-                    setUpdateSupplierData(!updateSupplierData)
-                  }
-                }}
-              >
-                <Checkbox disabled={updateSuplierDisable} checked={updateSupplierData} color="primary" />
-                <Typography className={styles.checkboxTitle}>{t(TranslationKey['Update supplier data'])}</Typography>
-              </div>
-            </div>
-          ) : null}
-
-          <EditOrderSuppliersTable
-            platformSettings={platformSettings}
-            productBaseData={order}
-            orderFields={orderFields}
-            isPendingOrder={isPendingOrder}
-            selectedSupplier={orderFields.orderSupplier}
-            curSelectedSupplier={selectedSupplier}
-            suppliers={orderFields.product.suppliers}
-            setSelectedSupplier={setSelectedSupplier}
+          <ListSuppliers
+            formFields={orderFields}
+            defaultSupplierId={order?.orderSupplier?._id}
+            checkIsPlanningPrice={checkIsPlanningPrice}
+            onClickSaveSupplier={onClickSaveSupplierBtn}
+            onSaveProduct={handleSaveProduct}
           />
         </div>
 
@@ -893,7 +729,7 @@ export const EditOrderModal = memo(
             {t(TranslationKey.Save)}
           </Button>
           <Button
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             className={styles.cancelBtn}
             tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
             onClick={() => onTriggerOpenModal('showOrderModal')}
@@ -931,7 +767,7 @@ export const EditOrderModal = memo(
           <>
             <BoxesToCreateTable
               orderGoodsAmount={orderFields?.amount}
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={
                 userInfo._id !== order.orderSupplier.createdBy?._id &&
@@ -1012,7 +848,7 @@ export const EditOrderModal = memo(
               mainProductId={order.product._id}
               userInfo={userInfo}
               setCurrentOpenedBox={setCurrentOpenedBox}
-              volumeWeightCoefficient={volumeWeightCoefficient}
+              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
               onSubmitChangeBoxFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
             />
@@ -1030,7 +866,7 @@ export const EditOrderModal = memo(
             isEdit={isEdit}
             order={order}
             currentSupplier={order.orderSupplier}
-            volumeWeightCoefficient={volumeWeightCoefficient}
+            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             formItem={orderFields}
             boxesForCreation={boxesForCreation}
             setBoxesForCreation={setBoxesForCreation}
@@ -1038,36 +874,42 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        <ConfirmationModal
-          openModal={showConfirmModal}
-          setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
-          title={t(TranslationKey['Attention. Are you sure?'])}
-          message={confirmModalMessageByMode(confirmModalMode)}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            confirmModalActionByMode(confirmModalMode)
-            setShowConfirmModal(!showConfirmModal)
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
+            title={t(TranslationKey['Attention. Are you sure?'])}
+            message={confirmModalMessageByMode(confirmModalMode)}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={() => {
+              confirmModalActionByMode(confirmModalMode)
+              setShowConfirmModal(!showConfirmModal)
 
-            if (Number(tmpNewOrderFieldsState.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
-              setPaymentMethodsModal(!paymentMethodsModal)
-            }
-          }}
-          onClickCancelBtn={() => {
-            if (confirmModalMode === confirmModalModes.STATUS) {
-              setTmpNewOrderFieldsState(prevState => ({ ...prevState, status: '' }))
-            }
-            setShowConfirmModal(!showConfirmModal)
-          }}
-        />
+              if (Number(tmpNewOrderFieldsState.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
+                setPaymentMethodsModal(!paymentMethodsModal)
+              }
+            }}
+            onClickCancelBtn={() => {
+              if (confirmModalMode === confirmModalModes.STATUS) {
+                setTmpNewOrderFieldsState(prevState => ({ ...prevState, status: '' }))
+              }
+              setShowConfirmModal(!showConfirmModal)
+            }}
+          />
+        ) : null}
 
-        <WarningInfoModal
-          openModal={showWarningInfoModal}
-          setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
-          title={t(TranslationKey['PAY ATTENTION!!!'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => setShowWarningInfoModal(!showWarningInfoModal)}
-        />
+        {showWarningInfoModal ? (
+          <WarningInfoModal
+            // @ts-ignore
+            openModal={showWarningInfoModal}
+            setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
+            title={t(TranslationKey['PAY ATTENTION!!!'])}
+            btnText={t(TranslationKey.Ok)}
+            onClickBtn={() => setShowWarningInfoModal(!showWarningInfoModal)}
+          />
+        ) : null}
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
@@ -1079,15 +921,15 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        {showPhotosModal && (
-          <ImageModal
+        {showPhotosModal ? (
+          <SlideshowGalleryModal
             files={bigImagesOptions.images}
             currentFileIndex={bigImagesOptions.imgIndex}
-            isOpenModal={showPhotosModal}
+            openModal={showPhotosModal}
             onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
-        )}
+        ) : null}
 
         <Modal
           openModal={showCheckQuantityModal}
@@ -1138,41 +980,10 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        <Modal
-          missClickModalOn={!isOnlyRead}
-          openModal={showAddOrEditSupplierModal}
-          setOpenModal={() => {
-            setForceReadOnly(false)
-            setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
-          }}
-        >
-          <AddOrEditSupplierModalContent
-            paymentMethods={paymentMethods}
-            requestStatus={requestStatus}
-            sourceYuanToDollarRate={yuanToDollarRate}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            title={t(TranslationKey['Adding and editing a supplier'])}
-            supplier={selectedSupplier}
-            onlyRead={isOnlyRead || forceReadOnly}
-            onClickSaveBtn={onClickSubmitSaveSupplierBtn}
-            onTriggerShowModal={() => {
-              setForceReadOnly(false)
-              setShowAddOrEditSupplierModal(!showAddOrEditSupplierModal)
-            }}
-          />
-        </Modal>
-
-        <Modal
-          openModal={commentModal}
-          setOpenModal={() => {
-            setCommentModalModal(!commentModal)
-          }}
-        >
+        <Modal openModal={commentModal} setOpenModal={() => setCommentModalModal(!commentModal)}>
           <CommentsForm
             comments={orderFields.commentsFromTask}
-            onCloseModal={() => {
-              setCommentModalModal(!commentModal)
-            }}
+            onCloseModal={() => setCommentModalModal(!commentModal)}
           />
         </Modal>
       </div>

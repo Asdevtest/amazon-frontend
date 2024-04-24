@@ -7,6 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
     justifyContent: 'space-between',
     height: '100%',
+    width: '200px',
   },
 
   categoryContainer: {
@@ -17,13 +18,17 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   categoryText: {
-    width: 'max-content',
+    whiteSpace: 'nowrap',
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,
   },
 
   categoryTitle: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    flex: 1,
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.general,
@@ -33,12 +38,14 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',
+    width: '80%',
   },
 
   resultWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+    width: '100%',
   },
 
   resultButton: {
@@ -56,6 +63,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   requestWrapper: {
+    width: '100%',
     display: 'flex',
     gap: '5px',
   },

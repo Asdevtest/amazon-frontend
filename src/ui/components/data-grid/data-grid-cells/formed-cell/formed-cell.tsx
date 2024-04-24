@@ -1,8 +1,7 @@
+import { CheckboxCell, MultilineTextCell } from '..'
 import { FC, memo } from 'react'
 
 import { useStyles } from './formed-cell.style'
-
-import { CheckboxCell, MultilineTextCell } from '../data-grid-cells'
 
 interface ISub {
   name: string

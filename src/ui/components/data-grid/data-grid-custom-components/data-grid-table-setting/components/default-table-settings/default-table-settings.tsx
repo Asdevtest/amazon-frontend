@@ -49,7 +49,7 @@ export const DefaultTableSettings: FC<DefaultTableSettingsProps> = memo(({ colum
           checked={columnVisibilityModel?.[el?.field] !== false}
           onChange={event => onClickChangeVisibility(el.field, event.target.checked)}
         >
-          {el.headerName}
+          {el?.headerName}
         </Checkbox>
       ))}
     </div>

@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TextForm } from '@components/forms/text-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
@@ -80,7 +80,7 @@ export const TabFreelance = observer(props => {
             onChange={e => onChangeField(fieldNameObject.requestTimeLimitInHourForCheckingProposalBySuper, e)}
           />
 
-          <Button disabled={disabledSubmit} className={styles.button} onClick={onSubmit}>
+          <Button disabled={disabledSubmit} onClick={onSubmit}>
             {t(TranslationKey.Save)}
           </Button>
         </div>
@@ -88,7 +88,6 @@ export const TabFreelance = observer(props => {
         <div className={styles.tableContainer}>
           <p className={styles.tableTitle}>{t(TranslationKey.Specialties)}</p>
 
-          {/* uncomment everything if you need delete specs functionality and remove block "<div style={{ height: 40 }} />" */}
           <div className={styles.tableWrapper}>
             <CustomDataGrid
               // checkboxSelection
@@ -103,46 +102,30 @@ export const TabFreelance = observer(props => {
               getRowHeight={() => 'auto'}
               getRowId={row => row._id}
               columns={viewModel.columnsModel}
-              // rowSelectionModel={viewModel.rowSelectionModel}
               loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
               slots={{}}
               sx={{
                 '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,
                 '& .MuiDataGrid-columnHeaderDraggableContainer': styles.columnHeaderTitleContainer,
               }}
-              // onRowSelectionModelChange={viewModel.onSelectionModel}
             />
 
             <div style={{ height: 40 }} />
-            {/* <div className={styles.buttonWrapper}>
-              <Button
-                danger
-                disabled={!viewModel.rowSelectionModel.length}
-                className={styles.button}
-                onClick={e => {
-                  e.stopPropagation()
-                  viewModel.onRemoveSpecs()
-                }}
-              >
-                {t(TranslationKey['Delete selected'])}
-              </Button>
-            </div> */}
           </div>
         </div>
       </div>
 
-      {viewModel.showAddOrEditTextModal ? (
-        <Modal openModal={viewModel.showAddOrEditTextModal} setOpenModal={viewModel.onClickToggleAddOrEditTextModal}>
-          <TextForm
-            title={t(TranslationKey['New specialty'])}
-            onClose={viewModel.onClickToggleAddOrEditTextModal}
-            onSubmit={viewModel.onCreateSpec}
-          />
-        </Modal>
-      ) : null}
+      <Modal openModal={viewModel.showAddOrEditTextModal} setOpenModal={viewModel.onClickToggleAddOrEditTextModal}>
+        <TextForm
+          title={t(TranslationKey['New specialty'])}
+          onClose={viewModel.onClickToggleAddOrEditTextModal}
+          onSubmit={viewModel.onCreateSpec}
+        />
+      </Modal>
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
+          // @ts-ignore
           isWarning={viewModel.confirmModalSettings?.isWarning}
           openModal={viewModel.showConfirmModal}
           setOpenModal={viewModel.onClickToggleConfirmModal}

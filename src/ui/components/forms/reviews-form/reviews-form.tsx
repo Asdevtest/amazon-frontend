@@ -3,21 +3,22 @@ import { FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReviewCard } from '@components/cards/review-card'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { ShortRating } from '@components/shared/short-rating'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { FeedbackType } from '@typings/feedback'
-import { IShortUser } from '@typings/master-user'
+import { ButtonVariant } from '@typings/enums/button-style'
+import { IFeedback } from '@typings/models/feedbacks/feedback'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './reviews-form.style'
 
 interface ReviewsFormProps {
-  reviews: FeedbackType[]
+  reviews: IFeedback[]
   onClickCloseButton: () => void
-  user?: IShortUser
+  user?: ICreatedBy
 }
 
 export const ReviewsForm: FC<ReviewsFormProps> = memo(({ onClickCloseButton, reviews, user }) => {
@@ -39,7 +40,7 @@ export const ReviewsForm: FC<ReviewsFormProps> = memo(({ onClickCloseButton, rev
       </div>
 
       <div className={styles.footerWrapper}>
-        <Button color="primary" variant="outlined" className={styles.closeButton} onClick={onClickCloseButton}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.closeButton} onClick={onClickCloseButton}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

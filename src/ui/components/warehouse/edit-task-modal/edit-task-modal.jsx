@@ -13,7 +13,7 @@ import { OtherModel } from '@models/other-model'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
 import { BoxSplit } from '@components/shared/boxes/box-split'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
@@ -22,6 +22,8 @@ import { BoxArrow } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
@@ -324,7 +326,7 @@ export const EditTaskModal = memo(
 
               <div className={styles.buttons}>
                 <Button
-                  success
+                  styleType={ButtonStyle.SUCCESS}
                   className={styles.successBtn}
                   disabled={disableSaveButton}
                   tooltipInfoContent={t(TranslationKey['Save task data'])}
@@ -340,14 +342,18 @@ export const EditTaskModal = memo(
                 >
                   {t(TranslationKey.Save)}
                 </Button>
-                <Button variant="text" className={styles.cancelButton} onClick={onClickOpenCloseModal}>
+                <Button
+                  variant={ButtonVariant.OUTLINED}
+                  className={styles.cancelButton}
+                  onClick={onClickOpenCloseModal}
+                >
                   {t(TranslationKey.Cancel)}
                 </Button>
               </div>
             </div>
           ) : (
             <div className={styles.buttonWrapper}>
-              <Button className={styles.closeButton} color="primary" onClick={onClickOpenCloseModal}>
+              <Button className={styles.closeButton} onClick={onClickOpenCloseModal}>
                 {t(TranslationKey.Close)}
               </Button>
             </div>

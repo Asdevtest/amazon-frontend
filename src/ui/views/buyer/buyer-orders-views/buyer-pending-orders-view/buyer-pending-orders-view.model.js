@@ -47,11 +47,7 @@ export class BuyerMyOrdersViewModel {
 
   createBoxesResult = []
 
-  volumeWeightCoefficient = undefined
   platformSettings = undefined
-
-  yuanToDollarRate = undefined
-
   nameSearchValue = ''
 
   hsCodeData = {}
@@ -70,8 +66,6 @@ export class BuyerMyOrdersViewModel {
   showWarningInfoModal = false
 
   paymentMethods = []
-
-  imagesForLoad = []
 
   showSuccessModalText = ''
 
@@ -123,6 +117,8 @@ export class BuyerMyOrdersViewModel {
     if (history.location?.state?.dataGridFilter) {
       this.startFilterModel = history.location.state.dataGridFilter
     }
+
+    this.getPlatformSettings()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -215,9 +211,11 @@ export class BuyerMyOrdersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       this.getDataGridState()
       await this.getOrdersMy()
       this.getSuppliersPaymentMethods()
+
       this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
@@ -298,30 +296,12 @@ export class BuyerMyOrdersViewModel {
         this.selectedOrder = orderData
       })
 
-      this.clearImagesForLoad()
-
-      runInAction(() => {
-        this.imagesForLoad = orderData.images
-      })
-
       this.getBoxesOfOrder(orderId)
-
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        this.platformSettings = result
-      })
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onChangeImagesForLoad(value) {
-    this.imagesForLoad = value
   }
 
   async onSubmitCancelOrder() {
@@ -342,36 +322,17 @@ export class BuyerMyOrdersViewModel {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      this.clearReadyImages()
-
-      if (photosToLoad.length) {
-        await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
-      }
+      await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
 
       const orderFieldsToSave = {
         ...orderFields,
         images: this.readyImages,
       }
 
-      this.clearReadyImages()
-
-      if (this.imagesForLoad?.length) {
-        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'readyImages' })
-
-        this.clearImagesForLoad()
-      }
-
-      const orderFieldsToSaveWithImagesForLoad = {
-        ...orderFieldsToSave,
-        images: [...orderFieldsToSave.images, ...this.readyImages],
-      }
-
-      this.clearReadyImages()
-
       if (order.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) {
         await OrderModel.changeOrderComments(order._id, { buyerComment: orderFields.buyerComment })
       } else {
-        await this.onSaveOrder(order, orderFieldsToSaveWithImagesForLoad)
+        await this.onSaveOrder(order, orderFieldsToSave)
 
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`) {
           await OrderModel.orderReadyForBoyout(order._id)
@@ -390,10 +351,11 @@ export class BuyerMyOrdersViewModel {
         ])
       }
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
       this.onTriggerOpenModal('showOrderModal')
 
       this.loadData()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
@@ -402,10 +364,6 @@ export class BuyerMyOrdersViewModel {
 
   async onSubmitChangeBoxFields(data, inModal) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (data.tmpTrackNumberFile?.length) {
         await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
       }
@@ -414,9 +372,6 @@ export class BuyerMyOrdersViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
       })
-
-      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
 
       this.getBoxesOfOrder(this.selectedOrder._id)
 
@@ -466,43 +421,51 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.clearReadyImages()
-
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
         images: this.readyImages,
       }
 
-      this.clearReadyImages()
-
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-        await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
+
+        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
       }
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
+
       runInAction(() => {
         this.selectedOrder = orderData
       })
@@ -517,7 +480,6 @@ export class BuyerMyOrdersViewModel {
     this.getOrdersMy()
   }
 
-  // Убирает и добавляет статусы в массив выбранных статусов
   onClickOrderStatusData(status) {
     if (status) {
       if (status === 'ALL') {
@@ -533,7 +495,6 @@ export class BuyerMyOrdersViewModel {
     this.getOrdersMy()
   }
 
-  // Запускается по дефолту со всеми статусами
   setDefaultStatuses() {
     if (!this.chosenStatus.length) {
       this.filteredStatus = this.orderStatusDataBase
@@ -603,11 +564,15 @@ export class BuyerMyOrdersViewModel {
     this.showBarcodeModal = !this.showBarcodeModal
   }
 
-  clearReadyImages() {
-    this.readyImages = []
-  }
+  async getPlatformSettings() {
+    try {
+      const response = await UserModel.getPlatformSettings()
 
-  clearImagesForLoad() {
-    this.imagesForLoad = []
+      runInAction(() => {
+        this.platformSettings = response
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

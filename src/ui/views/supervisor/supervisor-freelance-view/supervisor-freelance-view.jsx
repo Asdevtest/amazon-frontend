@@ -7,9 +7,11 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { styles } from './supervisor-freelance-view.style'
 
@@ -26,19 +28,14 @@ export const SupervisorFreelanceViewRaw = props => {
           <Typography className={styles.title}>{t(TranslationKey['Choose a section in Freelance'])}</Typography>
 
           <div className={styles.btnsWrapper}>
-            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickVacantDeals}>
+            <Button className={styles.button} styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickVacantDeals}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Vacant deals'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
-            <Button
-              className={styles.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickDealsOnReview}
-            >
+            <Button className={styles.button} styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickDealsOnReview}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Deals on review'])}</Typography>
                 <ArrowRightAltIcon color="primary" />

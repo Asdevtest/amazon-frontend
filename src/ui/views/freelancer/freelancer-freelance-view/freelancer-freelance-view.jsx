@@ -5,9 +5,11 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './freelancer-freelance-view.style'
 
@@ -23,7 +25,7 @@ export const FreelancerFreelanceView = memo(() => {
       <div className={styles.btnsWrapper}>
         {renderData.map(item => (
           <Link key={item.text} to={item.link}>
-            <Button className={styles.button} color="primary" variant="outlined">
+            <Button className={styles.button} color="primary" variant={ButtonVariant.OUTLINED}>
               <p>{t(TranslationKey[item.text])}</p>
               <ArrowRightAltIcon className={styles.primary} />
             </Button>

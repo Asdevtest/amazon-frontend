@@ -4,7 +4,6 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: 5,
   },
 
   inputsWrapper: {
@@ -26,6 +25,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   input: {
+    height: 24,
     display: 'flex',
     width: 40,
     border: 'none',
@@ -48,6 +48,10 @@ export const useStyles = makeStyles()(theme => ({
       height: 1,
       width: 30,
       background: theme.palette.text.second,
+    },
+
+    '&.Mui-focused': {
+      border: `none`,
     },
   },
 }))

@@ -24,7 +24,7 @@ import {
   getTariffRateForBoxOrOrder,
   roundSafely,
 } from './calculation'
-import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder, parseTextString, toFixed } from './text'
+import { getNewTariffTextForBoxOrOrder, toFixed } from './text'
 import { t } from './translations'
 
 export const addIdDataConverter = data =>
@@ -118,7 +118,7 @@ export const researcherProductsDataConverter = data =>
     bsr: item.bsr,
     asin: item.asin,
     id: item._id,
-    supervisorComment: parseTextString(item.checkednotes),
+    supervisorComment: item.checkednotes,
   }))
 
 export const researcherFinancesDataConverter = data =>
@@ -208,8 +208,8 @@ export const buyerMyOrdersDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     amount: item.amount,
-    clientComment: parseTextString(item.clientComment),
-    buyerComment: parseTextString(item.buyerComment),
+    clientComment: item.clientComment,
+    buyerComment: item.buyerComment,
     idAndItem: `${item.id} / ${item.item ? item.item : '-'}`,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
@@ -232,8 +232,8 @@ export const buyerVacantOrdersDataConverter = data =>
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     amount: item.amount,
-    clientComment: parseTextString(item.clientComment),
-    buyerComment: parseTextString(item.buyerComment),
+    clientComment: item.clientComment,
+    buyerComment: item.buyerComment,
 
     ID: item.id,
 
@@ -310,7 +310,7 @@ export const clientInventoryDataConverter = data =>
     transparency: item.transparency,
 
     fourMonthesStock: item.fourMonthesStock,
-    clientComment: parseTextString(item.clientComment),
+    clientComment: item.clientComment,
     stockUSA: item.stockUSA,
 
     ideasOnCheck: item.ideasOnCheck,
@@ -351,7 +351,7 @@ export const depersonalizedPickDataConverter = data =>
 
     number: index + 1,
     checkednotes: item.checkednotes,
-    clientComment: parseTextString(item.clientComment),
+    clientComment: item.clientComment,
     updatedAt: item.updatedAt,
   }))
 
@@ -378,8 +378,8 @@ export const clientOrdersDataConverter = (data, shopsData) =>
     storekeeper: item.storekeeper?.name,
     deadline: item.deadline,
     needsResearch: item.needsResearch,
-    buyerComment: parseTextString(item.buyerComment),
-    clientComment: parseTextString(item.clientComment),
+    buyerComment: item.buyerComment,
+    clientComment: item.clientComment,
     shopId: shopsData?.find(el => el._id === item.product.shopId)?.name || '',
   }))
 
@@ -399,7 +399,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
 
-    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
     status: item.status,
@@ -511,7 +511,7 @@ export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item._id,
 
     destination: item.boxes[0].destination?.name,
-    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
+    tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
     humanFriendlyId: item.humanFriendlyId,
     storekeeper: item.storekeeper?.name,
 
@@ -560,7 +560,7 @@ export const clientOrdersNotificationsDataConverter = data =>
     trackingNumberChina: item.trackingNumberChina,
     totalPriceChanged: item.totalPriceChanged,
     deliveryCostToTheWarehouse: item.deliveryCostToTheWarehouse,
-    buyerComment: parseTextString(item.buyerComment),
+    buyerComment: item.buyerComment,
     asin: item.product.asin,
   }))
 
@@ -578,38 +578,18 @@ export const warehouseFinancesDataConverter = data =>
 export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
+    ...item,
+
     id: item._id,
-    _id: item._id,
 
-    destination: item.boxes[0].destination?.name,
     tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
-    humanFriendlyId: item.humanFriendlyId,
-
-    title: item.title,
-
-    updatedAt: item.updatedAt,
-
-    storekeeper: item.storekeeper?.name,
 
     volumeWeight: item.boxes.reduce(
       (prev, box) => (prev = prev + calcVolumeWeightForBox(box, volumeWeightCoefficient)),
       0,
     ),
 
-    // finalWeight: item.boxes.reduce(
-    //   (prev, box) => (prev = prev + calcFinalWeightForBox(box, volumeWeightCoefficient)),
-    //   0,
-    // ),
-    finalWeight: item.finalWeight,
-
-    totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
-    // totalPrice: getTariffRateForBoxOrOrder(item) * item.finalWeight,
-
-    // deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
-
     deliveryTotalPrice: getTariffRateForBoxOrOrder(item.boxes[0]) * item.finalWeight,
-    arrivalDate: item?.arrivalDate,
-    trackingNumber: item?.trackingNumber,
   }))
 
 export const warehouseTasksDataConverter = data =>

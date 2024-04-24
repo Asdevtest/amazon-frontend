@@ -6,7 +6,7 @@ import { ChatMessageDataDesignerProposalResultEditedContract } from '@models/cha
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
 import { checkIsMediaFileLink } from '@utils/checks'

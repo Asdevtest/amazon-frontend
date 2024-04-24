@@ -9,7 +9,7 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductAsinCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
@@ -126,6 +126,50 @@ export const clientInventoryReportColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
     renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
     width: 90,
+
+    table: DataGridFilterTables.INVENTORY,
+    columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'organicCv',
+    headerName: 'Organic Cv',
+    renderHeader: () => <MultilineTextHeaderCell text="Organic Cv" />,
+    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+    width: 83,
+
+    table: DataGridFilterTables.INVENTORY,
+    columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'fbaMinLvl',
+    headerName: 'Fba Min Lvl',
+    renderHeader: () => <MultilineTextHeaderCell text="Fba Min Lvl" />,
+    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+    width: 83,
+
+    table: DataGridFilterTables.INVENTORY,
+    columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'cog',
+    headerName: 'Cog',
+    renderHeader: () => <MultilineTextHeaderCell text="Cog" />,
+    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+    width: 83,
+
+    table: DataGridFilterTables.INVENTORY,
+    columnKey: columnnsKeys.shared.QUANTITY,
+  },
+
+  {
+    field: 'unitProfit',
+    headerName: 'Unit Profit',
+    renderHeader: () => <MultilineTextHeaderCell text="Unit Profit" />,
+    renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
+    width: 83,
 
     table: DataGridFilterTables.INVENTORY,
     columnKey: columnnsKeys.shared.QUANTITY,

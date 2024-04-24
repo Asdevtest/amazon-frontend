@@ -10,7 +10,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IProduct } from '@typings/product'
+import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './order-cell.style'
 

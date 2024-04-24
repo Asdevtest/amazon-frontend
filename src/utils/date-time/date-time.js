@@ -192,3 +192,13 @@ export const getLocalToUTCDate = date => {
 }
 
 export const formatDateToDefaultInputDate = dateString => format(new Date(dateString), 'yyyy-MM-dd')
+
+export const getMinutesDifferenceFromNow = dateString => {
+  const currentTime = new Date()
+  const inputDate = new Date(dateString)
+
+  const timeDifferenceInMilliseconds = inputDate - currentTime
+  const timeDifferenceInMinutes = Math.floor(timeDifferenceInMilliseconds / (1000 * 60))
+
+  return timeDifferenceInMinutes > 0 ? timeDifferenceInMinutes : 0
+}

@@ -76,14 +76,17 @@ export const ManagementTabView: FC = observer(() => {
         </div>
       )}
 
-      <WarningInfoModal
-        isWarning={false}
-        title={viewModel.infoModalText}
-        btnText={t(TranslationKey.Close)}
-        openModal={viewModel.showInfoModal}
-        setOpenModal={viewModel.onClickToggleInfoModal}
-        onClickBtn={viewModel.onClickToggleInfoModal}
-      />
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          isWarning={false}
+          title={viewModel.infoModalText}
+          btnText={t(TranslationKey.Close)}
+          openModal={viewModel.showInfoModal}
+          setOpenModal={viewModel.onClickToggleInfoModal}
+          onClickBtn={viewModel.onClickToggleInfoModal}
+        />
+      ) : null}
     </>
   )
 })

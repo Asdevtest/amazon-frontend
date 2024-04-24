@@ -32,7 +32,7 @@ export class ClientAwaitingBatchesViewModel {
   nameSearchValue = ''
   batches = []
   selectedBatches = []
-  curBatch = {}
+  curBatch = undefined
 
   hsCodeData = {}
   showEditHSCodeModal = false
@@ -137,7 +137,7 @@ export class ClientAwaitingBatchesViewModel {
     this.getBatchesPagMy()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()
@@ -366,8 +366,17 @@ export class ClientAwaitingBatchesViewModel {
       runInAction(() => {
         if (setting.isAdding) {
           this.selectedBatches = []
+          this.curBatch = undefined
         }
       })
+
+      if (this.selectedBatches?.length) {
+        const batch = await BatchesModel.getBatchesByGuid(this.selectedBatches?.[0])
+
+        runInAction(() => {
+          this.curBatch = batch
+        })
+      }
 
       const [boxes, result] = await Promise.all([
         BoxesModel.getBoxesReadyToBatchClient(),
@@ -400,9 +409,7 @@ export class ClientAwaitingBatchesViewModel {
 
   async onSubmitAddOrEditBatch({ boxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields }) {
     try {
-      if (filesToAdd.length) {
-        await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
 
       if (!batchToEdit) {
         const batchId = await BatchesModel.createBatch({
@@ -412,34 +419,25 @@ export class ClientAwaitingBatchesViewModel {
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
 
-        if (filesToAdd.length) {
-          await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
-        }
+        await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
       } else {
         const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
         const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
 
-        await BatchesModel.changeBatch(batchToEdit.id, {
+        await BatchesModel.changeBatch(batchToEdit._id, {
           title: batchFields.title,
           calculationMethod: batchFields.calculationMethod,
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
 
-        if (newBoxesIds.length) {
-          await BatchesModel.addBoxToBatch(batchToEdit.id, newBoxesIds)
+        if (newBoxesIds?.length) {
+          await BatchesModel.addBoxToBatch(batchToEdit._id, newBoxesIds)
         }
-        if (boxesToRemoveIds.length) {
-          await BatchesModel.removeBoxFromBatch(batchToEdit.id, boxesToRemoveIds)
+        if (boxesToRemoveIds?.length) {
+          await BatchesModel.removeBoxFromBatch(batchToEdit._id, boxesToRemoveIds)
         }
 
-        if (filesToAdd.length) {
-          await BatchesModel.editAttachedDocuments(
-            batchToEdit.id,
-            batchToEdit.originalData.attachedDocuments
-              ? [...batchToEdit.originalData.attachedDocuments, ...this.uploadedFiles]
-              : [...this.uploadedFiles],
-          )
-        }
+        await BatchesModel.editAttachedDocuments(batchToEdit._id, this.uploadedFiles)
       }
 
       this.loadData()

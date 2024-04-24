@@ -8,11 +8,11 @@ import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/mate
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid-cells'
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
@@ -22,6 +22,8 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './order-modal-body-row.style'
 
@@ -72,6 +74,9 @@ export const OrderModalBodyRow = ({
   const tariffRate =
     currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
     currentLogicsTariff?.destinationVariations?.find(el => el._id === item?.variationTariffId)?.pricePerKgUsd
+
+  const currentTariffName = tariffName ? `${tariffName}` : ''
+  const currentTariffRate = tariffRate ? `/ ${tariffRate} $` : ''
 
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
   const weightOfOneBox = item.currentSupplier
@@ -281,7 +286,7 @@ export const OrderModalBodyRow = ({
             image={item.images[0]}
             amazonTitle={item.amazonTitle}
             asin={item.asin}
-            skuByClient={item.sku}
+            skuByClient={item.skuByClient}
           />
 
           {!item.currentSupplier && (
@@ -408,21 +413,19 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <Button
-            variant={item.storekeeperId && 'text'}
-            className={cx(
-              { [styles.storekeeperBtn]: !item.storekeeperId },
-              { [styles.standartText]: item.storekeeperId },
-            )}
+            fullWidth
+            className={styles.button}
+            styleType={item.storekeeperId ? ButtonStyle.DEFAULT : ButtonStyle.PRIMARY}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {item.storekeeperId
-              ? `                
-                ${
-                  item.logicsTariffId
-                    ? `${tariffName}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
-                    : 'none'
-                }`
-              : t(TranslationKey.Select)}
+            {item.storekeeperId ? (
+              <>
+                <p>{currentTariffName}</p>
+                <p>{currentTariffRate}</p>
+              </>
+            ) : (
+              t(TranslationKey.Select)
+            )}
           </Button>
         </TableCell>
 
@@ -434,12 +437,8 @@ export const OrderModalBodyRow = ({
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
             data={
-              // destinations
               item.logicsTariffId && destinationId ? destinations.filter(el => el?._id === destinationId) : destinations
-              // .filter(el => el.storekeeper?._id !== item?.storekeeperId)
-
-              /* .filter(el => !el.storekeeperId)*/
-            } // убираем дестинейшены, которые одновременно и склады
+            }
             favourites={destinationsFavourites}
             searchFields={['name']}
             onClickSetDestinationFavourite={onClickSetDestinationFavourite}
@@ -603,17 +602,20 @@ export const OrderModalBodyRow = ({
           />
         </Modal>
 
-        <ConfirmationModal
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmationModal}
-          setOpenModal={() => setShowConfirmationModal(prev => !prev)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
+        {showConfirmationModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmationModal}
+            setOpenModal={() => setShowConfirmationModal(prev => !prev)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </TableRow>
     </>
   )

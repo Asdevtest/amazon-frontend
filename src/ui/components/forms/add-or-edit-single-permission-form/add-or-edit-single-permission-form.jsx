@@ -8,7 +8,7 @@ import { HttpMethod } from '@constants/keys/http-method'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 
@@ -194,7 +194,7 @@ export const AddOrEditSinglePermissionForm = observer(
                   </div>
                 ))}
 
-                <Button color="primary" variant="contained" onClick={() => addAllowUrl()}>
+                <Button className={styles.addButton} onClick={addAllowUrl}>
                   {'+'}
                 </Button>
               </div>
@@ -204,22 +204,13 @@ export const AddOrEditSinglePermissionForm = observer(
 
         <div className={styles.buttonsWrapper}>
           <Button
-            disableElevation
             disabled={disableSubmitBtn}
-            color="primary"
-            variant="contained"
             onClick={() => onSubmit(formFields, permissionToEdit && permissionToEdit._id)}
           >
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey['Create a permission'])}
           </Button>
 
-          <Button
-            disableElevation
-            className={styles.button}
-            color="primary"
-            variant="contained"
-            onClick={() => onCloseModal()}
-          >
+          <Button className={styles.button} onClick={() => onCloseModal()}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

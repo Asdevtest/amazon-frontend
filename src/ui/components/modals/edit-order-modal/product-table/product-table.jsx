@@ -13,8 +13,11 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './product-table.style'
 
-export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField, checkIsPlanningPrice }) => {
+export const ProductTable = props => {
+  const { modalHeadCells, order, orderFields, setOrderField, checkIsPlanningPrice } = props
+
   const { classes: styles } = useStyles()
+
   return (
     <TableContainer className={styles.tableContainer}>
       <Table className={styles.table}>
@@ -30,11 +33,7 @@ export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField
         <TableBody>
           <TableRow>
             <TableCell>
-              <img
-                className={styles.imgBox}
-                src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
-                alt={order.csCode}
-              />
+              <img className={styles.imgBox} src={getAmazonImageUrl(order.product.images[0])} alt={order.csCode} />
             </TableCell>
             <TableCell>
               <Typography className={styles.amazonTitle}>{order.product.amazonTitle}</Typography>
@@ -52,7 +51,7 @@ export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField
               </Typography>
             </TableCell>
             <TableCell>
-              {order.orderSupplier ? toFixed(order.orderSupplier.price, 2) : `${t(TranslationKey['Not available'])}`}
+              {order.orderSupplier ? toFixed(order.orderSupplier.price, 2) : t(TranslationKey['Not available'])}
             </TableCell>
             <TableCell className={styles.tableCell}>
               {toFixed(order?.orderSupplier?.batchDeliveryCostInDollar / order?.orderSupplier?.amount, 2) ||
@@ -70,9 +69,7 @@ export const ProductTable = ({ modalHeadCells, order, orderFields, setOrderField
                   inputProps={{ maxLength: 5 }}
                   inputClasses={styles.commentInput}
                   value={orderFields.amount}
-                  onChange={e => {
-                    setOrderField('amount')(e)
-                  }}
+                  onChange={e => setOrderField('amount')(e)}
                 />
               </div>
             </TableCell>

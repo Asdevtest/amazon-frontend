@@ -3,14 +3,16 @@ import Rating from '@mui/material/Rating'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
+import { Button } from '@components/shared/button'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './vacant-deals-list-card.style'
 
@@ -85,10 +87,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           <div className={!showDetails ? styles.buttonsWrapper : styles.buttonWrapper}>
             {!showDetails && (
               <Button
-                success
-                // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-                variant="contained"
-                color="primary"
+                styleType={ButtonStyle.SUCCESS}
                 className={styles.actionButton}
                 onClick={() => onClickGetToWorkModal(item._id, item.requestId)}
               >
@@ -96,13 +95,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
               </Button>
             )}
 
-            <Button
-              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-              variant="contained"
-              color="primary"
-              className={styles.actionButton}
-              onClick={() => onClickViewMore(item.requestId, item._id)}
-            >
+            <Button className={styles.actionButton} onClick={() => onClickViewMore(item.requestId, item._id)}>
               {t(TranslationKey['Open a deal'])}
             </Button>
           </div>

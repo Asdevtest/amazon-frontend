@@ -1,3 +1,5 @@
+export const TAGS = 'tags'
+
 export const fieldsOfProductAllowedToUpdate = [
   'dirdecision',
   'researcherFine',
@@ -54,39 +56,11 @@ export const additionalFilterFields = [
   'skuByClient',
   'amazonTitle',
   'purchaseQuantity',
+  'amountInBoxes',
+  'toRefill',
 ]
 
-export const filtersFields = [
-  'shopId',
-  'asin',
-  'skuByClient',
-  'amazonTitle',
-  'strategyStatus',
-  'amountInOrders',
-  'inTransfer',
-  'stockUSA',
-  'boxAmounts',
-  'sumStock',
-  'amazon',
-  'createdAt',
-  'updatedAt',
-  'profit',
-  'fbafee',
-  'status',
-  'reservedSum',
-  'sentToFbaSum',
-  'fbaFbmStockSum',
-  'ideasOnCheck',
-  'stockCost',
-  'purchaseQuantity',
-  'ideasClosed',
-  'ideasFinished',
-  'tags',
-  'redFlags',
-  'transparency',
-]
-
-export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA']
+export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA', 'tags']
 
 export const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
@@ -416,7 +415,7 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditBox({ id, boxData, imagesOfBox, dataToSubmitHsCode, isMultipleEdit }) {
+  async onClickSubmitEditBox({ id, boxData, imagesOfBox, isMultipleEdit }) {
     runInAction(() => {
       this.selectedBoxes = []
       this.uploadedFiles = []
@@ -805,40 +804,29 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickConfirmMerge(boxBody, imagesOfBox) {
+  async onClickConfirmMerge(boxBody) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
 
-      const selectedIds = this.selectedBoxes
-
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (boxBody.tmpShippingLabel.length) {
-        await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
+      await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
+      boxBody = {
+        ...boxBody,
+        shippingLabel: this.uploadedFiles[0],
       }
 
-      if (imagesOfBox?.length) {
-        await onSubmitPostImages.call(this, {
-          images: imagesOfBox,
-          type: 'uploadedImages',
-          withoutShowProgress: true,
-        })
+      await onSubmitPostImages.call(this, { images: boxBody.images, type: 'uploadedFiles' })
+      boxBody = {
+        ...boxBody,
+        images: this.uploadedFiles,
       }
 
-      const newBoxBody = getObjectFilteredByKeyArrayBlackList(
-        {
-          ...boxBody,
-          shippingLabel: this.uploadedFiles.length
-            ? this.uploadedFiles[0]
-            : boxBody.tmpShippingLabel?.[0] || boxBody.shippingLabel,
-          images: this.uploadedImages.length ? boxBody.images.concat(this.uploadedImages) : boxBody.images,
-        },
-        ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
-      )
+      const newBoxBody = getObjectFilteredByKeyArrayBlackList(boxBody, [
+        'tmpShippingLabel',
+        'storekeeperId',
+        'humanFriendlyId',
+      ])
 
-      const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)
+      const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes, newBoxBody)
 
       if (mergeBoxesResult) {
         runInAction(() => {
@@ -867,8 +855,6 @@ export class WarehouseMyWarehouseViewModel {
         this.selectedBoxes = []
         this.tmpClientComment = ''
       })
-
-      await this.getBoxesMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.FAILED)
       console.log(error)
@@ -1036,13 +1022,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitAddBatch({ boxesIds, filesToAdd, batchFields }) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (filesToAdd.length) {
-        await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
-      }
+      await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
 
       const batchId = await BatchesModel.createBatch({
         title: batchFields.title,
@@ -1051,9 +1031,7 @@ export class WarehouseMyWarehouseViewModel {
         volumeWeightDivide: batchFields.volumeWeightDivide,
       })
 
-      if (filesToAdd.length) {
-        await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
-      }
+      await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
 
       this.loadData()
       this.onTriggerOpenModal('showAddBatchModal')
@@ -1199,7 +1177,7 @@ export class WarehouseMyWarehouseViewModel {
         // Будущий чел, исправь это в следующем релизе, году, десятилетии, в общем разберись
         // Удалить currentColumn и поставить на его место аргумент функции, column
         // Костыли зло ┗( T﹏T )┛
-        getTableByColumn(currentColumn, 'boxes'),
+        getTableByColumn(currentColumn, currentColumn === 'redFlags' ? 'products' : 'boxes'),
         currentColumn,
         `storekeepers/pag/boxes?filters=${this.getFilter(column)}`,
       )

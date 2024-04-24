@@ -19,7 +19,7 @@ export const FinalPricePerUnitCell: FC<FinalPricePerUnitCellProps> = memo(({ box
       {box.items.map((el: any, index: number) => (
         <p key={index} className={styles.multilineText}>
           {toFixedWithDollarSign(
-            el.order.totalPrice / el.order.amount + (boxFinalWeight * getTariffRateForBoxOrOrder(box)) / el.amount,
+            el.order?.totalPrice / el.order?.amount + (boxFinalWeight * getTariffRateForBoxOrOrder(box)) / el.amount,
 
             2,
           )}

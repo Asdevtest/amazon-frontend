@@ -17,8 +17,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { Button } from '@components/shared/buttons/button'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
@@ -32,7 +32,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './before-after-block.style'
 
-import { EditBoxTasksModal } from '../edit-task-modal/edit-box-tasks-modal'
+import { EditBoxTasksForm } from '../../forms/edit-box-tasks-form'
 
 import { BoxItemCard } from './box-item-card'
 import { ShortBoxItemCard } from './short-box-item-card'
@@ -465,15 +465,15 @@ const Box = memo(props => {
         </div>
       )}
 
-      {showPhotosModal && (
-        <ImageModal
-          isOpenModal={showPhotosModal}
-          handleOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+      {showPhotosModal ? (
+        <SlideshowGalleryModal
+          openModal={showPhotosModal}
           files={bigImagesOptions.images}
           currentFileIndex={bigImagesOptions.imgIndex}
-          handleCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
+          onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         />
-      )}
+      ) : null}
     </div>
   )
 })
@@ -493,14 +493,7 @@ const ReceiveBoxes = memo(({ taskType, onClickOpenModal }) => {
       </Typography>
 
       {taskType === TaskOperationType.RECEIVE && (
-        <Button
-          disableElevation
-          className={styles.button}
-          // tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-          color="primary"
-          variant="contained"
-          onClick={onClickOpenModal}
-        >
+        <Button className={styles.button} onClick={onClickOpenModal}>
           {t(TranslationKey.Receive)}
         </Button>
       )}
@@ -570,15 +563,12 @@ const NewBoxes = memo(props => {
       </div>
 
       <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
-        <EditBoxTasksModal
-          isReceive={taskType === TaskOperationType.RECEIVE}
-          primarySizeSuitableCheckbox={taskType === TaskOperationType.RECEIVE || taskType === TaskOperationType.EDIT}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          setEditModal={onTriggerShowEditBoxModal}
+        <EditBoxTasksForm
           box={curBox}
           newBoxes={newBoxes}
+          volumeWeightCoefficient={volumeWeightCoefficient}
           setNewBoxes={setNewBoxes}
-          operationType={taskType}
+          setEditModal={onTriggerShowEditBoxModal}
         />
       </Modal>
     </div>

@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { SearchInput } from '@components/shared/search-input'
@@ -11,19 +10,21 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { IService, IShortUser } from '@typings/master-user'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { IAnnoucement } from '@typings/models/announcements/annoucement'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './choice-of-performer-modal.style'
 
 import { AnnouncementCard } from './announcement-card'
 
 export interface ChoiceOfPerformerModalProps {
-  announcements: Array<IService>
-  masterUsersData: Array<IShortUser>
-  chosenExecutor: IShortUser
-  chosenAnnouncement: IService
+  announcements: Array<IAnnoucement>
+  masterUsersData: Array<ICreatedBy>
+  chosenExecutor: ICreatedBy
+  chosenAnnouncement: IAnnoucement
   onClickThumbnail: () => void
-  onClickSelectButton: (selectedService?: IService, chosenExecutor?: IShortUser) => void
+  onClickSelectButton: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
   onClickResetPerformerBtn: () => void
   onClickCloseBtn: () => void
 }
@@ -44,10 +45,10 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
   const actualmasterUsersDataIds = masterUsersData.map(obj => obj._id)
   const [dataToRender, setDataToRender] = useState(announcements)
   const [nameSearchValue, setNameSearchValue] = useState('')
-  const [selectedExecutor, setSelectedExecutor] = useState<IShortUser | undefined>(chosenExecutor)
-  const [selectedService, setSelectedService] = useState<IService | undefined>(chosenAnnouncement)
+  const [selectedExecutor, setSelectedExecutor] = useState<ICreatedBy | undefined>(chosenExecutor)
+  const [selectedService, setSelectedService] = useState<IAnnoucement | undefined>(chosenAnnouncement)
 
-  const selectCardHandler = (value: IService) => {
+  const selectCardHandler = (value: IAnnoucement) => {
     setSelectedService(prev => (prev?._id === value?._id ? undefined : value))
   }
 
@@ -116,7 +117,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
                   t(TranslationKey['Choose an executor'])
                 )
               }
-              onClickSelect={(el: IShortUser) => {
+              onClickSelect={(el: ICreatedBy) => {
                 setSelectedExecutor(el)
                 setSelectedService(undefined)
               }}
@@ -135,7 +136,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         />
 
         <Button
-          danger
+          styleType={ButtonStyle.DANGER}
           onClick={() => {
             onClickResetPerformerBtn()
             onClickCloseBtn()
@@ -160,13 +161,13 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
 
       <div className={styles.footerWrapper}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={!selectedService && !selectedExecutor}
           onClick={() => onClickSelectButton(selectedService, selectedExecutor)}
         >
           {t(TranslationKey.Select)}
         </Button>
-        <Button variant="text" className={styles.cancelButton} onClick={onClickCloseBtn}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelButton} onClick={onClickCloseBtn}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

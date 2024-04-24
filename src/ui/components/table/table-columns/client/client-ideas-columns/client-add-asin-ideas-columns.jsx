@@ -3,13 +3,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   AddAsinIdeaActionsCell,
-  BarcodeCell,
+  ChangeChipCell,
   IdeaRequestsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ProductAsinCell,
   ShortDateCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  UserLinkCell,
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
@@ -49,7 +50,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
   },
 
   {
-    field: ['parentProductShop', 'childProductShop'],
+    field: 'parentProductShop',
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
@@ -89,19 +90,22 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => {
+      const product = params.row.originalData.variation
+        ? params.row?.originalData?.childProduct
+        : params.row?.originalData?.parentProduct
+
       return (
-        <BarcodeCell
+        <ChangeChipCell
           disabled={params.row.originalData.variation && !params.row.originalData.childProduct}
-          product={
-            params.row.originalData.variation
-              ? params.row?.originalData?.childProduct
-              : params.row?.originalData?.parentProduct
-          }
-          handlers={rowHandlers.barCodeHandlers}
+          text={t(TranslationKey.BarCode)}
+          value={product?.barCode}
+          onClickChip={() => rowHandlers.barCodeHandlers.onClickBarcode(product)}
+          onDoubleClickChip={() => rowHandlers.barCodeHandlers.onDoubleClickBarcode(product)}
+          onDeleteChip={!product?.barCode ? undefined : () => rowHandlers.barCodeHandlers.onDeleteBarcode(product)}
         />
       )
     },
-    width: 113,
+    width: 150,
     sortable: false,
     filterable: false,
   },
@@ -125,6 +129,26 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => <ShortDateCell value={params.value} />,
     width: 91,
     columnKey: columnnsKeys.shared.DATE,
+  },
+
+  {
+    field: 'createdBy',
+    headerName: t(TranslationKey['Created by']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+
+    renderCell: ({ row }) => (
+      <UserLinkCell
+        blackText
+        name={row.sub?.name || row.createdBy?.name}
+        userId={row.sub?._id || row?.createdBy?._id}
+      />
+    ),
+    width: 130,
+
+    filterable: false,
+    sortable: false,
+
+    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
   },
 
   {

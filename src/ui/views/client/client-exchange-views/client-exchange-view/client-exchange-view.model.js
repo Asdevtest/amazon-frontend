@@ -118,7 +118,7 @@ export class ClientExchangeViewModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })
@@ -207,9 +207,6 @@ export class ClientExchangeViewModel {
       runInAction(() => {
         this.product = result
         this.selectedProduct = result
-
-        // this.productBase = result
-        // updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
       console.log(error)
@@ -343,8 +340,6 @@ export class ClientExchangeViewModel {
         this.destinations = destinations
 
         this.platformSettings = result
-
-        // this.selectedProduct = { product };
       })
 
       this.onTriggerOpenModal('showOrderModal')

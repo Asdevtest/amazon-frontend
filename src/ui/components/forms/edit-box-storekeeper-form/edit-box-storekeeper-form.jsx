@@ -3,18 +3,18 @@ import { memo, useEffect, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -30,8 +30,10 @@ import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
 import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
-import { parseTextString, toFixed } from '@utils/text'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -150,7 +152,7 @@ export const EditBoxStorekeeperForm = memo(
 
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel || '',
-      clientComment: parseTextString(formItem?.clientComment) || '',
+      clientComment: formItem?.clientComment || '',
       storekeeperTaskComment: '',
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
@@ -225,13 +227,14 @@ export const EditBoxStorekeeperForm = memo(
     const handleChange = newAlignment => {
       if (newAlignment !== sizeSetting) {
         const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
+        const weightMultiplier = newAlignment === unitsOfChangeOptions.US ? poundsCoefficient : 1 / poundsCoefficient
 
         setBoxFields({
           ...boxFields,
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / multiplier, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / multiplier, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / multiplier, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / multiplier, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * weightMultiplier, 2),
         })
 
         setSizeSetting(newAlignment)
@@ -252,7 +255,7 @@ export const EditBoxStorekeeperForm = memo(
           lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
           widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
           heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
+          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / poundsCoefficient, 2),
         }
       } else {
         return { ...boxFields, destinationId: boxFields.destinationId || null }
@@ -593,12 +596,7 @@ export const EditBoxStorekeeperForm = memo(
                             label={t(TranslationKey['HS code'])}
                             value={item.product.hsCode}
                             inputComponent={
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                className={styles.hsCodeBtn}
-                                onClick={() => onClickHsCode(item.product._id)}
-                              >
+                              <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
                                 {t(TranslationKey['HS code'])}
                               </Button>
                             }
@@ -650,7 +648,6 @@ export const EditBoxStorekeeperForm = memo(
                       tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
                       inputComponent={
                         <Button
-                          disableElevation
                           className={styles.storekeeperBtn}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
@@ -827,12 +824,7 @@ export const EditBoxStorekeeperForm = memo(
                 />
 
                 <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput
-                    fullWidth
-                    images={boxFields.images}
-                    setImages={handleChangeImages}
-                    maxNumber={50 - boxFields.images.length}
-                  />
+                  <UploadFilesInput fullWidth images={boxFields.images} setImages={handleChangeImages} maxNumber={50} />
                 </div>
 
                 <div className={styles.boxPhotoWrapper}>
@@ -907,22 +899,22 @@ export const EditBoxStorekeeperForm = memo(
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelBtn)}
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             onClick={onTriggerOpenModal}
           >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
 
-        {showPhotosModal && (
-          <ImageModal
-            isOpenModal={showPhotosModal}
+        {showPhotosModal ? (
+          <SlideshowGalleryModal
+            openModal={showPhotosModal}
             files={bigImagesOptions.images}
             currentFileIndex={bigImagesOptions.imgIndex}
             onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
             onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
           />
-        )}
+        ) : null}
 
         <Modal
           openModal={showSetShippingLabelModal}
@@ -980,17 +972,20 @@ export const EditBoxStorekeeperForm = memo(
           />
         </Modal>
 
-        <ConfirmationModal
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => setShowConfirmModal(false)}
-          title={t(TranslationKey.Attention)}
-          message={confirmModalSettings?.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-        />
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(false)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </div>
     )
   },

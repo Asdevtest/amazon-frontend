@@ -6,7 +6,9 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './data-grid-reset-filter-button.style'
 
@@ -18,7 +20,7 @@ export const DataGridResetFilterButton = memo(props => {
   return (
     <div>
       <Button
-        variant="text"
+        variant={ButtonVariant.OUTLINED}
         className={cx(className, styles.mainFilterBtn)}
         onClick={resetFiltersBtnSettings.onClickResetFilters}
         {...restProps}

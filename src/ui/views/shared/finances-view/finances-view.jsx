@@ -13,9 +13,10 @@ import { useStyles } from './finances-view.style'
 
 import { FinancesViewModel } from './finances-view.model'
 
-export const FinancesView = observer(props => {
+export const FinancesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new FinancesViewModel({ history: props.history, location: props.location }))
+
+  const [viewModel] = useState(() => new FinancesViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -35,7 +36,7 @@ export const FinancesView = observer(props => {
         filterModel={viewModel.filterModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         paginationModel={viewModel.paginationModel}
-        rows={viewModel.getCurrentData()}
+        rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
         slotProps={{
           baseTooltip: {
@@ -59,7 +60,7 @@ export const FinancesView = observer(props => {
         onSortModelChange={viewModel.onChangeSortingModel}
         onFilterModelChange={viewModel.onChangeFilterModel}
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-        onPaginationModelChange={viewModel.onChangePaginationModelChange}
+        onPaginationModelChange={viewModel.onPaginationModelChange}
       />
     </div>
   )

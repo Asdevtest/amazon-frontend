@@ -6,9 +6,11 @@ import { Avatar as AvatarMui, Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './avatar-editor-form.style'
 
@@ -115,20 +117,21 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
           {t(TranslationKey.Load)}
         </Button>
 
-        <Button variant="text" className={styles.cancelBtn} onClick={onCloseModal}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
 
-      <WarningInfoModal
-        openModal={showInfoModal}
-        setOpenModal={() => setShowInfoModal(!showInfoModal)}
-        title={showInfoModalText}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          setShowInfoModal(!showInfoModal)
-        }}
-      />
+      {showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={showInfoModal}
+          setOpenModal={() => setShowInfoModal(!showInfoModal)}
+          title={showInfoModalText}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => setShowInfoModal(!showInfoModal)}
+        />
+      ) : null}
     </div>
   )
 }

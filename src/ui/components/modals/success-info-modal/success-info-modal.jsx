@@ -1,13 +1,17 @@
-import { useEffect } from 'react'
+import { memo, useEffect } from 'react'
 
 import { Typography } from '@mui/material'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './success-info-modal.style'
 
-export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnText, onClickSuccessBtn }) => {
+export const SuccessInfoModal = memo(props => {
+  const { openModal, setOpenModal, title, successBtnText, onClickSuccessBtn } = props
+
   const { classes: styles } = useStyles()
 
   useEffect(() => {
@@ -18,6 +22,7 @@ export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnTex
       }
     }
     document.addEventListener('keydown', listener)
+
     return () => {
       document.removeEventListener('keydown', listener)
     }
@@ -31,10 +36,8 @@ export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnTex
         </Typography>
 
         <Button
-          success
-          disableElevation
+          styleType={ButtonStyle.SUCCESS}
           disabled={!openModal}
-          variant="contained"
           className={styles.button}
           onClick={onClickSuccessBtn}
         >
@@ -43,4 +46,4 @@ export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnTex
       </div>
     </Modal>
   )
-}
+})

@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react'
 
 import Drawer from '@mui/material/Drawer'
 
-import { PositionModalType } from '@typings/positions'
+import { PositionModalType } from '@typings/types/positions'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 

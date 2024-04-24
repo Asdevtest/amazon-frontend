@@ -134,8 +134,4 @@ export class ClientDashboardViewModel {
       this.history.push(route)
     }
   }
-
-  onClickAddProduct(route) {
-    this.history.push(route, { isModalOpen: true })
-  }
 }

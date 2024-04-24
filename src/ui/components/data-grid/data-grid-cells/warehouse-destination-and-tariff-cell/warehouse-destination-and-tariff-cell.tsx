@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
@@ -7,13 +5,13 @@ import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IDestination } from '@typings/destination'
+import { ButtonVariant } from '@typings/enums/button-style'
+import { IDestination } from '@typings/shared/destinations'
 
 import { useStyles } from './warehouse-destination-and-tariff-cell.style'
 
@@ -57,13 +55,17 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
     currentTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate ||
     currentTariff?.destinationVariations?.find((el: any) => el._id === boxesMy?.variationTariff?._id)?.pricePerKgUsd
 
+  const currentTariffName = tariffName ? `${tariffName}` : ''
+  const currentTariffRate = tariffRate ? `/ ${tariffRate} $` : ''
+  const shoWcurrentTariff = currentStorekeeper && (currentTariffName || currentTariffRate)
+
   return (
     <div className={styles.destinationAndTariffWrapper}>
       {/* @ts-ignore */}
       <WithSearchSelect
         // @ts-ignore
         disabled={disabled}
-        width={160}
+        width={180}
         selectedItemName={
           destinations.find(el => el?._id === boxesMy?.destination?._id)?.name || t(TranslationKey['Not chosen'])
         }
@@ -82,23 +84,24 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
         }
         onClickSelect={(el: any) => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
       />
+
       <Button
-        disableElevation
         disabled={disabled}
+        variant={ButtonVariant.OUTLINED}
         className={styles.storekeeperBtn}
-        onClick={(e: any) => {
-          e.stopPropagation()
+        onClick={() => {
           onClickSetTariff(boxesMy)
           setShowSelectionStorekeeperAndTariffModal()
         }}
       >
-        {boxesMy?.storekeeper?._id
-          ? `${
-              boxesMy?.storekeeper?._id
-                ? `${tariffName ? tariffName : 'none'}${tariffRate ? ' / ' + toFixed(tariffRate, 2) + ' $' : ''}`
-                : 'none'
-            }`
-          : t(TranslationKey.Select)}
+        {shoWcurrentTariff ? (
+          <>
+            <p className={styles.tafiffText}>{currentTariffName}</p>
+            <p className={styles.tafiffText}>{currentTariffRate}</p>
+          </>
+        ) : (
+          <p>{t(TranslationKey.Select)}</p>
+        )}
       </Button>
     </div>
   )

@@ -105,8 +105,7 @@ export const useStyles = makeStyles()(theme => ({
 
   changeBtn: {
     marginTop: '5px',
-    height: '20px',
-    color: '#fff',
+
     [theme.breakpoints.down(768)]: {
       width: '260px',
       height: 40,
@@ -164,12 +163,5 @@ export const useStyles = makeStyles()(theme => ({
     paddingTop: 20,
     width: 'fit-content',
     marginLeft: 'auto !important',
-  },
-
-  leaveReviewBtn: {
-    color: '#fff',
-    height: 40,
-    borderRadius: 7,
-    padding: '10px 20px',
   },
 }))

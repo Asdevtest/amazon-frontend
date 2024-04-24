@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import { memo, useState } from 'react'
 
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
@@ -7,9 +6,9 @@ import { Checkbox, Link, Typography } from '@mui/material'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
@@ -19,6 +18,9 @@ import { reversedFormatDateWithoutTime } from '@utils/date-time'
 import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { isString } from '@typings/guards'
 
 import { useStyles } from './request-designer-result-client-form.style'
 
@@ -49,21 +51,17 @@ export const RequestDesignerResultClientForm = memo(props => {
   const noShowActions = isNotClient || proposalIsAccepted || onlyRead
 
   const [showImageModal, setShowImageModal] = useState(false)
-
   const [curImageIndex, setCurImageIndex] = useState(0)
-
   const [comment, setComment] = useState('')
-
   const [imagesForDownload, setImagesForDownload] = useState([])
 
   const mediaToShow = curResultMedia?.length ? curResultMedia : proposal.proposal.media
 
   const sourceImagesData = mediaToShow.map(el => ({
-    image: el.fileLink,
-    comment: el.commentByPerformer,
+    fileLink: el.fileLink,
+    commentByPerformer: el.commentByPerformer,
     commentByClient: el.commentByClient,
-    isEditCommentOpen: false,
-    _id: el._id ?? nanoid(),
+    _id: el._id || null,
   }))
 
   const [imagesData, setImagesData] = useState(sourceImagesData)
@@ -78,8 +76,6 @@ export const RequestDesignerResultClientForm = memo(props => {
 
   const onClickCommentBtn = imageId => {
     const findImage = { ...imagesData.find(el => el._id === imageId) }
-
-    findImage.isEditCommentOpen = !findImage.isEditCommentOpen
 
     setImagesData(() => imagesData.map(el => (el._id === imageId ? findImage : el)))
   }
@@ -102,7 +98,7 @@ export const RequestDesignerResultClientForm = memo(props => {
 
   const onClickAllDownload = () => {
     imagesForDownload.forEach(el =>
-      typeof el.image === 'string' ? downloadFileByLink(el.image) : downloadFile(el.image.file),
+      isString(el.fileLink) ? downloadFileByLink(el.fileLink) : downloadFile(el.fileLink.file),
     )
   }
 
@@ -132,183 +128,176 @@ export const RequestDesignerResultClientForm = memo(props => {
     setArchiveButtonInactiveBeforeDownloading(false)
   }
 
-  /* const filteredImagesData = imagesData.filter(el =>
-    checkIsMediaFileLink(typeof el.image === 'string' ? el.image : el.image?.file.name),
-  ) */
-  const fileLinks = imagesData.map(el => el.image)
-  const photosTitles = imagesData.map(el => el.comment)
-  const photosComments = imagesData.map(el => el.commentByClient)
-
   return (
-    <div className={styles.modalMainWrapper}>
-      <div className={styles.headerWrapper}>
-        <Typography className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
-          request?.request?.humanFriendlyId
-        }`}</Typography>
-
-        <div className={styles.headerRightSubWrapper}>
-          <Field
-            labelClasses={styles.fieldLabel}
-            label={t(TranslationKey['Source Files'])}
-            containerClasses={styles.containerField}
-            inputComponent={
-              proposal?.proposal?.sourceFiles?.[0]?.sourceFile ? (
-                <div className={styles.viewLinkWrapper}>
-                  <Link href={checkAndMakeAbsoluteUrl(proposal.proposal.sourceFiles?.[0]?.sourceFile)} target="_blank">
-                    {t(TranslationKey.View)}
-                  </Link>
-                  <CopyValue text={proposal.proposal.sourceFiles?.[0]?.sourceFile} />
-                </div>
-              ) : (
-                <div className={styles.shippingLabelWrapper}>
-                  <Typography className={styles.miss}>{t(TranslationKey['Not available'])}</Typography>
-                </div>
-              )
-            }
-          />
-
-          <Field
-            labelClasses={styles.fieldLabel}
-            label={t(TranslationKey['Time to check'])}
-            containerClasses={styles.containerField}
-            inputComponent={<Typography className={styles.simpleSpan}>{minsToTime(1440)}</Typography>}
-          />
-          <Field
-            labelClasses={styles.fieldLabel}
-            label={t(TranslationKey['Number of illustrations'])}
-            containerClasses={styles.containerField}
-            inputComponent={<Typography className={styles.simpleSpan}>{mediaToShow.length}</Typography>}
-          />
-          <Field
-            labelClasses={styles.fieldLabel}
-            label={'ASIN'}
-            containerClasses={styles.containerField}
-            inputComponent={
-              <AsinOrSkuLink
-                withCopyValue
-                link={request?.request?.product?.asin || proposal?.request?.asin}
-                textStyles={styles.simpleSpan}
-              />
-            }
-          />
-        </div>
-      </div>
-
-      <div className={styles.bodyWrapper}>
-        {imagesData.map((item, index) => (
-          <Slot
-            key={item._id}
-            item={item}
-            noShowActions={noShowActions}
-            showImageModal={showImageModal}
-            setShowImageModal={setShowImageModal}
-            index={index}
-            setCurImageIndex={setCurImageIndex}
-            imagesForDownload={imagesForDownload}
-            onClickAddDownload={onClickAddDownload}
-            onChangeImageFileds={onChangeImageFileds}
-            onClickCommentBtn={onClickCommentBtn}
-          />
-        ))}
-      </div>
-
-      <div className={styles.footerWrapper}>
-        {!noShowActions && (
-          <>
-            <Field
-              multiline
-              className={styles.heightFieldAuto}
-              labelClasses={styles.fieldLabel}
-              containerClasses={styles.fieldRemarks}
-              inputProps={{ maxLength: 1000 }}
-              minRows={3}
-              maxRows={3}
-              placeholder={t(TranslationKey['Enter remarks'])}
-              label={t(TranslationKey.Remarks)}
-              value={comment}
-              onChange={e => setComment(e.target.value)}
-            />
-
+    <>
+      <div className={styles.modalMainWrapper}>
+        <div className={styles.headerWrapper}>
+          <Typography className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
+            proposal?.request?.humanFriendlyId
+          }`}</Typography>
+          <div className={styles.headerRightSubWrapper}>
             <Field
               labelClasses={styles.fieldLabel}
-              label={t(TranslationKey['Time for rework'])}
-              containerClasses={styles.field}
+              label={t(TranslationKey['Source Files'])}
+              containerClasses={styles.containerField}
               inputComponent={
-                <SetDuration
-                  duration={formFields.execution_time}
-                  setTotalTimeInMinute={onChangeField('execution_time')}
-                />
+                proposal?.proposal?.sourceFiles?.[0]?.sourceFile ? (
+                  <div className={styles.viewLinkWrapper}>
+                    <Link
+                      href={checkAndMakeAbsoluteUrl(proposal.proposal.sourceFiles?.[0]?.sourceFile)}
+                      target="_blank"
+                    >
+                      {t(TranslationKey.View)}
+                    </Link>
+                    <CopyValue text={proposal.proposal.sourceFiles?.[0]?.sourceFile} />
+                  </div>
+                ) : (
+                  <div className={styles.shippingLabelWrapper}>
+                    <Typography className={styles.miss}>{t(TranslationKey['Not available'])}</Typography>
+                  </div>
+                )
               }
             />
-          </>
-        )}
 
-        <div className={styles.downloadsWrapper}>
-          <div className={styles.downloadsCheckWrapper} onClick={onClickAllAddDownload}>
-            <Checkbox color="primary" checked={imagesForDownload.length === imagesData.length} />
-            <Typography>{t(TranslationKey['Select all'])}</Typography>
+            <Field
+              labelClasses={styles.fieldLabel}
+              label={t(TranslationKey['Time to check'])}
+              containerClasses={styles.containerField}
+              inputComponent={<Typography className={styles.simpleSpan}>{minsToTime(1440)}</Typography>}
+            />
+            <Field
+              labelClasses={styles.fieldLabel}
+              label={t(TranslationKey['Number of illustrations'])}
+              containerClasses={styles.containerField}
+              inputComponent={<Typography className={styles.simpleSpan}>{mediaToShow.length}</Typography>}
+            />
+            <Field
+              labelClasses={styles.fieldLabel}
+              label="ASIN"
+              containerClasses={styles.containerField}
+              inputComponent={
+                <AsinOrSkuLink withCopyValue link={proposal?.request?.asin} textStyles={styles.simpleSpan} />
+              }
+            />
+          </div>
+        </div>
+
+        <div className={styles.bodyWrapper}>
+          {imagesData.map((item, index) => (
+            <Slot
+              key={item._id}
+              item={item}
+              noShowActions={noShowActions}
+              showImageModal={showImageModal}
+              setShowImageModal={setShowImageModal}
+              index={index}
+              setCurImageIndex={setCurImageIndex}
+              imagesForDownload={imagesForDownload}
+              onClickAddDownload={onClickAddDownload}
+              onChangeImageFileds={onChangeImageFileds}
+              onClickCommentBtn={onClickCommentBtn}
+            />
+          ))}
+        </div>
+
+        <div className={styles.footerWrapper}>
+          {!noShowActions && (
+            <>
+              <Field
+                multiline
+                className={styles.heightFieldAuto}
+                labelClasses={styles.fieldLabel}
+                containerClasses={styles.fieldRemarks}
+                inputProps={{ maxLength: 1000 }}
+                minRows={3}
+                maxRows={3}
+                placeholder={t(TranslationKey['Enter remarks'])}
+                label={t(TranslationKey.Remarks)}
+                value={comment}
+                onChange={e => setComment(e.target.value)}
+              />
+
+              <Field
+                labelClasses={styles.fieldLabel}
+                label={t(TranslationKey['Time for rework'])}
+                containerClasses={styles.field}
+                inputComponent={
+                  <SetDuration
+                    duration={formFields.execution_time}
+                    setTotalTimeInMinute={onChangeField('execution_time')}
+                  />
+                }
+              />
+            </>
+          )}
+
+          <div className={styles.downloadsWrapper}>
+            <div className={styles.downloadsCheckWrapper} onClick={onClickAllAddDownload}>
+              <Checkbox color="primary" checked={imagesForDownload.length === imagesData.length} />
+              <Typography>{t(TranslationKey['Select all'])}</Typography>
+            </div>
+
+            <Button disabled={!imagesForDownload.length} className={styles.imagesModalBtn} onClick={onClickAllDownload}>
+              <DownloadOutlinedIcon />
+            </Button>
+
+            <Button
+              disabled={!imagesForDownload.length || archiveButtonInactiveBeforeDownloading}
+              className={styles.imagesModalBtn}
+              onClick={onClickDownloadArchive}
+            >
+              <DownloadArchiveIcon />
+            </Button>
           </div>
 
-          <Button disabled={!imagesForDownload.length} className={styles.imagesModalBtn} onClick={onClickAllDownload}>
-            <DownloadOutlinedIcon />
-          </Button>
+          {!noShowActions && (
+            <>
+              <Button
+                // disabled={disableSubmit}
+                className={styles.button}
+                onClick={() =>
+                  onPressSubmitDesignerResultToCorrect({
+                    reason: comment,
+                    timeLimitInMinutes: formFields.execution_time,
+                    imagesData,
+                  })
+                }
+              >
+                {t(TranslationKey['Send in for rework'])}
+              </Button>
+              <Button
+                styleType={ButtonStyle.SUCCESS}
+                className={styles.button}
+                onClick={() => {
+                  onClickProposalResultAccept(proposal.proposal._id)
+                  setOpenModal()
+                }}
+              >
+                {t(TranslationKey.Accept)}
+              </Button>
+            </>
+          )}
 
           <Button
-            disabled={!imagesForDownload.length || archiveButtonInactiveBeforeDownloading}
-            className={styles.imagesModalBtn}
-            onClick={onClickDownloadArchive}
+            variant={ButtonVariant.OUTLINED}
+            className={cx(styles.button, styles.cancelButton)}
+            onClick={setOpenModal}
           >
-            <DownloadArchiveIcon />
+            {t(TranslationKey.Cancel)}
           </Button>
         </div>
-
-        {!noShowActions && (
-          <>
-            <Button
-              // disabled={disableSubmit}
-              className={styles.button}
-              onClick={() =>
-                onPressSubmitDesignerResultToCorrect({
-                  reason: comment,
-                  timeLimitInMinutes: formFields.execution_time,
-                  imagesData,
-                })
-              }
-            >
-              {t(TranslationKey['Send in for rework'])}
-            </Button>
-            <Button
-              success
-              // disabled={disableSubmit}
-              className={styles.button}
-              onClick={() => {
-                onClickProposalResultAccept(proposal.proposal._id)
-                setOpenModal()
-              }}
-            >
-              {t(TranslationKey.Accept)}
-            </Button>
-          </>
-        )}
-
-        <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={setOpenModal}>
-          {t(TranslationKey.Cancel)}
-        </Button>
       </div>
 
-      {showImageModal && (
-        <ImageModal
-          showPreviews
-          isRequestResult
-          isOpenModal={showImageModal}
-          files={fileLinks}
-          photosTitles={photosTitles}
-          photosComments={photosComments}
+      {showImageModal ? (
+        <SlideshowGalleryModal
+          openModal={showImageModal}
+          files={imagesData}
           currentFileIndex={curImageIndex}
           onOpenModal={() => setShowImageModal(!showImageModal)}
           onCurrentFileIndex={index => setCurImageIndex(index)}
+          onChangeImagesForLoad={setImagesData}
         />
-      )}
-    </div>
+      ) : null}
+    </>
   )
 })

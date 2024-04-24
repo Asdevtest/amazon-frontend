@@ -4,7 +4,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   WarehouseTariffDatesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 import { t } from '@utils/translations'

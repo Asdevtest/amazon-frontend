@@ -8,7 +8,7 @@ import { getGroupDataByDestinationId } from '@utils/array'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { IDestinationVariationApproximateCalculations } from '@typings/destination'
+import { IDestinationVariationApproximateCalculations } from '@typings/shared/destinations'
 
 import { useStyles } from './destination-variations-spanning-cell.style'
 

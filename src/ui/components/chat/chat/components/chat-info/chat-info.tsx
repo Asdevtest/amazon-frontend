@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatContract } from '@models/chat-model/contracts'
 
 import { CurrentOpponent } from '@components/chat/multiple-chats'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { CircleSpinner } from '@components/shared/circle-spinner'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
@@ -130,16 +130,15 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
         )}
       </div>
 
-      {isImageModalOpen && (
-        <ImageModal
-          showPreviews
-          isOpenModal={isImageModalOpen}
-          files={files?.map(el => getAmazonImageUrl(el, true)) || []}
+      {isImageModalOpen ? (
+        <SlideshowGalleryModal
+          openModal={isImageModalOpen}
+          files={files || []}
           currentFileIndex={currentImageIndex}
           onOpenModal={() => setIsImageModalOpen(!isImageModalOpen)}
           onCurrentFileIndex={index => setCurrentImageIndex(index)}
         />
-      )}
+      ) : null}
     </div>
   )
 })

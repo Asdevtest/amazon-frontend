@@ -10,14 +10,8 @@ import { t } from '@utils/translations'
 
 import { VacantDealsDetailsViewModel } from './vacant-deals-details-view.model'
 
-export const VacantDealsDetailsView = observer(props => {
-  const [viewModel] = useState(
-    () =>
-      new VacantDealsDetailsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
+export const VacantDealsDetailsView = observer(({ history }) => {
+  const [viewModel] = useState(() => new VacantDealsDetailsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -25,26 +19,27 @@ export const VacantDealsDetailsView = observer(props => {
 
   return (
     <>
-      <div>
-        <DealDetailsCard
-          dealsOnReview
-          proposalId={viewModel.curProposalId}
-          requestProposals={viewModel.requestProposals}
-          requester={viewModel.requester}
-          onClickGetToWorkModal={viewModel.onClickGetToWorkModal}
-        />
-      </div>
-
-      <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Taking the deal check to work?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => viewModel.onClickGetToWork(viewModel.curProposalId, viewModel.requestId)}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+      <DealDetailsCard
+        dealsOnReview
+        proposalId={viewModel.curProposalId}
+        requestProposals={viewModel.requestProposals}
+        requester={viewModel.requester}
+        onClickGetToWorkModal={viewModel.onClickGetToWorkModal}
       />
+
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Taking the deal check to work?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => viewModel.onClickGetToWork(viewModel.curProposalId, viewModel.requestId)}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </>
   )
 })

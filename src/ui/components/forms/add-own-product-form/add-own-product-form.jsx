@@ -6,7 +6,7 @@ import { Checkbox, IconButton } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
@@ -14,6 +14,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-own-product-form.style'
 
@@ -144,11 +146,8 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                   />
 
                   <Button
-                    disableElevation
                     disabled={skuLine === '' || !!formFields.skuByClient}
                     className={styles.defaultBtn}
-                    variant="contained"
-                    color="primary"
                     onClick={onClickSkuBtn}
                   >
                     {t(TranslationKey.Add)}
@@ -178,11 +177,8 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
 
       <div className={styles.btnsWrapper}>
         <Button
-          success
-          disableElevation
+          styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmitBtn}
-          variant="contained"
-          color="primary"
           onClick={() => {
             onSubmit(formFields, images, isNoAsin)
             setSubmitIsClicked(true)

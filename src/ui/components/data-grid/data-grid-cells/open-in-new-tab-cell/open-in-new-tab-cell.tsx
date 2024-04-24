@@ -4,7 +4,7 @@ import { Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ShareLinkIcon } from '@components/shared/svg-icons'
+import { ShareIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -40,7 +40,7 @@ export const OpenInNewTabCell: FC<OpenInNewTabCellProps> = memo(({ onClickOpenIn
       >
         <span>
           {/* Баг в mui. Если не обернуть в div, тултип не отображается. */}
-          <ShareLinkIcon className={styles.shareLinkIcon} />
+          <ShareIcon className={styles.shareLinkIcon} />
         </span>
       </Tooltip>
     </div>

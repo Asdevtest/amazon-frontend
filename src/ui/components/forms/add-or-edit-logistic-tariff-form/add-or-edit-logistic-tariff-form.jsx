@@ -6,7 +6,7 @@ import { Typography } from '@mui/material'
 import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field/field'
@@ -19,6 +19,8 @@ import {
 } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-logistic-tariff-form.style'
 
@@ -443,11 +445,20 @@ export const AddOrEditLogisticTariffForm = observer(
           </div>
 
           <div className={styles.btnsWrapper}>
-            <Button success disabled={disableSubmitBtn} className={styles.button} onClick={onSubmit}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              disabled={disableSubmitBtn}
+              className={styles.button}
+              onClick={onSubmit}
+            >
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button className={cx(styles.button, styles.cancelBtn)} variant="text" onClick={() => onCloseModal()}>
+            <Button
+              className={cx(styles.button, styles.cancelBtn)}
+              variant={ButtonVariant.OUTLINED}
+              onClick={() => onCloseModal()}
+            >
               {t(TranslationKey.Cancel)}
             </Button>
           </div>

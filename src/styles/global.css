@@ -94,11 +94,6 @@ p {
   font-weight: inherit;
 }
 
-ul,
-ul li {
-  list-style: none;
-}
-
 img {
   vertical-align: top;
   max-width: 100%;
@@ -124,6 +119,10 @@ select {
 
 input::-ms-clear {
   display: none;
+}
+input[type='file'],
+input[type='file']::-webkit-file-upload-button {
+  cursor: pointer;
 }
 
 button,

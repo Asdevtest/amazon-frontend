@@ -1,3 +1,4 @@
+import { MultilineTextCell } from '..'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -5,8 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { t } from '@utils/translations'
 
 import { useStyles } from './supplier-with-icons-cell.style'
-
-import { MultilineTextCell } from '../data-grid-cells'
 
 interface SupplierWithIconsCellProps {
   supplierName: string

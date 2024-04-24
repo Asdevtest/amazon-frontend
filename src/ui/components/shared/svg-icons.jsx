@@ -608,7 +608,14 @@ export const CrossInRectangleIcon = props => (
 )
 
 export const EditIcon = props => (
-  <SvgIcon {...props} width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <SvgIcon
+    {...props}
+    width="22"
+    height="23"
+    viewBox="0 0 22 23"
+    style={{ fill: 'none', stroke: 'currentColor' }}
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -808,20 +815,6 @@ export const SoundNotificationIcon = props => (
   </SvgIcon>
 )
 
-export const ShareLinkIcon = props => (
-  <SvgIcon {...props} width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="21" height="21" rx="2" />
-    <path
-      d="M16.2778 9.77778C16.0862 9.77778 15.9025 9.85387 15.7671 9.98931C15.6316 10.1248 15.5556 10.3085 15.5556 10.5V14.8333C15.5556 15.0249 15.4795 15.2086 15.344 15.344C15.2086 15.4795 15.0249 15.5556 14.8333 15.5556H6.16667C5.97512 15.5556 5.79142 15.4795 5.65598 15.344C5.52054 15.2086 5.44444 15.0249 5.44444 14.8333V6.16667C5.44444 5.97512 5.52054 5.79142 5.65598 5.65598C5.79142 5.52054 5.97512 5.44444 6.16667 5.44444H10.5C10.6915 5.44444 10.8752 5.36835 11.0107 5.23291C11.1461 5.09747 11.2222 4.91377 11.2222 4.72222C11.2222 4.53068 11.1461 4.34698 11.0107 4.21153C10.8752 4.07609 10.6915 4 10.5 4H6.16667C5.59203 4 5.04093 4.22827 4.6346 4.6346C4.22827 5.04093 4 5.59203 4 6.16667V14.8333C4 15.408 4.22827 15.9591 4.6346 16.3654C5.04093 16.7717 5.59203 17 6.16667 17H14.8333C15.408 17 15.9591 16.7717 16.3654 16.3654C16.7717 15.9591 17 15.408 17 14.8333V10.5C17 10.3085 16.9239 10.1248 16.7885 9.98931C16.653 9.85387 16.4693 9.77778 16.2778 9.77778Z"
-      fill="white"
-    />
-    <path
-      d="M13.3887 5.44444H14.5298L9.98707 9.98C9.91938 10.0471 9.86565 10.127 9.82898 10.215C9.79232 10.303 9.77344 10.3974 9.77344 10.4928C9.77344 10.5881 9.79232 10.6825 9.82898 10.7705C9.86565 10.8585 9.91938 10.9384 9.98707 11.0056C10.0542 11.0732 10.1341 11.127 10.2221 11.1636C10.3101 11.2003 10.4045 11.2192 10.4998 11.2192C10.5952 11.2192 10.6896 11.2003 10.7776 11.1636C10.8656 11.127 10.9455 11.0732 11.0126 11.0056L15.5554 6.47V7.61111C15.5554 7.80266 15.6315 7.98636 15.7669 8.1218C15.9024 8.25724 16.0861 8.33333 16.2776 8.33333C16.4692 8.33333 16.6529 8.25724 16.7883 8.1218C16.9238 7.98636 16.9998 7.80266 16.9998 7.61111V4.72222C16.9998 4.53068 16.9238 4.34698 16.7883 4.21153C16.6529 4.07609 16.4692 4 16.2776 4H13.3887C13.1972 4 13.0135 4.07609 12.878 4.21153C12.7426 4.34698 12.6665 4.53068 12.6665 4.72222C12.6665 4.91377 12.7426 5.09747 12.878 5.23291C13.0135 5.36835 13.1972 5.44444 13.3887 5.44444Z"
-      fill="white"
-    />
-  </SvgIcon>
-)
-
 export const ArchiveIcon = props => (
   <SvgIcon {...props} width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M19.5911 6.48222L18.3556 4.98889C18.1156 4.68667 17.7511 4.5 17.3333 4.5H6.66667C6.24889 4.5 5.88444 4.68667 5.63556 4.98889L4.40889 6.48222C4.15111 6.78444 4 7.18444 4 7.61111V18.7222C4 19.7 4.8 20.5 5.77778 20.5H18.2222C19.2 20.5 20 19.7 20 18.7222V7.61111C20 7.18444 19.8489 6.78444 19.5911 6.48222ZM12 17.3889L7.11111 12.5H10.2222V10.7222H13.7778V12.5H16.8889L12 17.3889ZM5.88444 6.27778L6.60444 5.38889H17.2711L18.1067 6.27778H5.88444Z" />
@@ -996,8 +989,15 @@ export const XlsxFileTypeIcon = props => (
 )
 
 export const MinusIcon = props => (
-  <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="10" height="3" viewBox="0 0 10 3" fill="none">
-    <path d="M1 1.5H9" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+  <SvgIcon
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="10"
+    height="3"
+    viewBox="0 0 10 3"
+    style={{ fill: 'none', stroke: 'currentColor' }}
+  >
+    <path d="M1 1.5H9" fill="none" strokeWidth="1.5" strokeLinecap="round" />
   </SvgIcon>
 )
 
@@ -1140,12 +1140,17 @@ export const ShareIcon = props => (
     width="20"
     height="20"
     viewBox="0 0 20 20"
-    style={{ fill: 'none' }}
+    style={{ fill: 'none', stroke: 'currentColor' }}
   >
-    <path
-      d="M15 10.8333V15.8333C15 16.2754 14.8244 16.6993 14.5118 17.0118C14.1993 17.3244 13.7754 17.5 13.3333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V6.66667C2.5 6.22464 2.67559 5.80072 2.98816 5.48816C3.30072 5.17559 3.72464 5 4.16667 5H9.16667M12.5 2.5H17.5M17.5 2.5V7.5M17.5 2.5L8.33333 11.6667"
-      strokeWidth="2"
-    />
+    <g id="external-link">
+      <path
+        id="Icon"
+        d="M15 10.8333V15.8333C15 16.2754 14.8244 16.6993 14.5118 17.0118C14.1993 17.3244 13.7754 17.5 13.3333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V6.66667C2.5 6.22464 2.67559 5.80072 2.98816 5.48816C3.30072 5.17559 3.72464 5 4.16667 5H9.16667M12.5 2.5H17.5M17.5 2.5V7.5M17.5 2.5L8.33333 11.6667"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </g>
   </SvgIcon>
 )
 
@@ -1290,6 +1295,55 @@ export const SendArrowIcon = props => (
 
 export const ReturnArrowIcon = props => (
   <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+    <path
+      d="M4.42857 1V6.53846H1L7 13L13 6.53846H9.57143V1H4.42857Z"
+      strokeWidth="1.05"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </SvgIcon>
+)
+
+export const CheckCircleIcon = props => (
+  <SvgIcon {...props} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path
+      d="M14.6673 7.38625V7.99958C14.6665 9.4372 14.201 10.836 13.3402 11.9875C12.4794 13.1389 11.2695 13.9812 9.89089 14.3889C8.51227 14.7965 7.03882 14.7475 5.6903 14.2493C4.34177 13.7511 3.19042 12.8303 2.40796 11.6243C1.6255 10.4183 1.25385 8.99163 1.34844 7.55713C1.44303 6.12263 1.99879 4.75714 2.93284 3.6643C3.86689 2.57146 5.12917 1.80984 6.53144 1.49301C7.93371 1.17619 9.40083 1.32114 10.714 1.90625M14.6673 2.66625L8.00065 9.33958L6.00065 7.33958"
+      strokeWidth="1.33333"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </SvgIcon>
+)
+
+export const ArrowUpOutlineIcon = props => (
+  <SvgIcon
+    {...props}
+    // style={{ fill: 'none', stroke: 'correntColor' }}
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M4.42857 13V7.46154H1L7 1L13 7.46154H9.57143V13H4.42857Z"
+      strokeWidth="1.05"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </SvgIcon>
+)
+
+export const ArrowDownOutlineIcon = props => (
+  <SvgIcon
+    {...props}
+    // style={{ fill: 'none', stroke: 'correntColor' }}
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M4.42857 1V6.53846H1L7 13L13 6.53846H9.57143V1H4.42857Z"
       strokeWidth="1.05"

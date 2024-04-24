@@ -1,13 +1,16 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  EditOrRemoveIconBtnsCell,
+  ActionButtonsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const destinationsColumns = handlers => [
   {
@@ -84,7 +87,23 @@ export const destinationsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     width: 130,
-    renderCell: params => <EditOrRemoveIconBtnsCell isShowButtonText={false} handlers={handlers} row={params.row} />,
+    renderCell: params => (
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
+        iconButton
+        row
+        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+        firstButtonTooltipText={t(TranslationKey.Edit)}
+        firstButtonElement={<EditIcon />}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonTooltipText={t(TranslationKey.Remove)}
+        secondButtonElement={<CrossIcon />}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
+        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
+      />
+    ),
     filterable: false,
     sortable: false,
     align: 'center',

@@ -5,7 +5,7 @@ import { Checkbox, Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
@@ -13,6 +13,8 @@ import { calcFinalWeightForBox, calcVolumeWeightForBox, calculateDeliveryCostPer
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './request-to-send-batch-box.style'
 
@@ -298,10 +300,10 @@ export const RequestToSendBatchBox = memo(
         <td className={cx(tableCellClsx, styles.pricePerAmoutCell)}>
           {box.items.map((item, index) => {
             const deliveryCostPerPcs = calculateDeliveryCostPerPcs({
-              itemSupplierBoxWeightGrossKg: item.order.orderSupplier.boxProperties?.boxWeighGrossKg,
+              itemSupplierBoxWeightGrossKg: item.order?.orderSupplier?.boxProperties?.boxWeighGrossKg,
               deliveryCost: price,
               itemAmount: item.amount,
-              itemSupplierAmountInBox: item.order.orderSupplier.boxProperties?.amountInBox,
+              itemSupplierAmountInBox: item.order?.orderSupplier?.boxProperties?.amountInBox,
               boxFinalWeight: calcFinalWeightForBox(box, volumeWeightCoefficient),
               box,
             })
@@ -356,7 +358,7 @@ export const RequestToSendBatchBox = memo(
         )}
 
         <td className={styles.tableCellCrossBtn}>
-          <Button danger className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
+          <Button styleType={ButtonStyle.DANGER} className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
             X
           </Button>
         </td>

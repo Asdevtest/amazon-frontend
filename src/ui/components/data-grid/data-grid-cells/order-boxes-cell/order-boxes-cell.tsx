@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { OrderCell, OrderManyItemsCell, SuperboxQtyCell } from '..'
 import { FC, memo } from 'react'
 
 import { useStyles } from './order-boxes-cell.style'
-
-import { OrderCell, OrderManyItemsCell, SuperboxQtyCell } from '../data-grid-cells'
 
 interface OrderBoxesCellProps {
   superbox: number

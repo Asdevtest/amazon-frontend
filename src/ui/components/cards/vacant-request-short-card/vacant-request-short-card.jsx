@@ -7,8 +7,8 @@ import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/stat
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { OrderCell, VacantRequestPriceCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { OrderCell, VacantRequestPriceCell } from '@components/data-grid/data-grid-cells'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { UserLink } from '@components/user/user-link'
 
@@ -177,8 +177,6 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
 
         <Button
           tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-          variant="contained"
-          color="primary"
           className={styles.actionButton}
           onClick={() => onClickViewMore(item._id)}
         >

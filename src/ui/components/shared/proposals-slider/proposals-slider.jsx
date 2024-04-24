@@ -12,10 +12,12 @@ import {
 import { showResultStatuses } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './proposals-slider.style'
 
@@ -132,7 +134,7 @@ export const ProposalsSlider = ({
           <div className={styles.buttons}>
             {onClickDeleteBtn ? (
               <Button
-                danger
+                styleType={ButtonStyle.DANGER}
                 tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
                 disabled={disabledCancelBtnStatuses.includes(currentProposal?.status)}
                 className={styles.button}

@@ -5,13 +5,15 @@ import { Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { EstimateCreateTradingShopForm } from '@components/forms/estimate-create-trading-shop-form'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-trading-shop-content.style'
 
@@ -184,7 +186,7 @@ export const CreateOrEditTradingShopContent = ({
                 ? t(TranslationKey['Back to Step 1'])
                 : t(TranslationKey['Cancel request creation'])
             }
-            variant={'text'}
+            variant={ButtonVariant.OUTLINED}
             className={styles.backBtn}
             onClick={onClickBackBtn}
           >
@@ -192,7 +194,7 @@ export const CreateOrEditTradingShopContent = ({
           </Button>
 
           <Button
-            success
+            styleType={ButtonStyle.SUCCESS}
             tooltipInfoContent={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Creates a completed request'])

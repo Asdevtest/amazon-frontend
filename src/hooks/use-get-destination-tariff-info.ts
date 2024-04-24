@@ -2,7 +2,7 @@ import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 
 import { toFixed } from '@utils/text'
 
-import { IDestination, IDestinationStorekeeper } from '@typings/destination'
+import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 type regionOfDeliveryNameType = 'west' | 'central' | 'east'
 

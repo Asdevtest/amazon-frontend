@@ -3,11 +3,7 @@ import { GridRowModel } from '@mui/x-data-grid'
 import { OrderStatusTranslate, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  DeadlineCell,
-  MultilineTextCell,
-  MultilineTextHeaderCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { DeadlineCell, MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 

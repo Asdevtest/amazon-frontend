@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom'
 import { Box, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
 import MuiListItem from '@mui/material/ListItem'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { HighPriorityValue } from '@components/shared/high-priority-value'
 
 import { renderTooltipTitle } from '@utils/renders'
 
-import { useStyles } from './navbar-category.style'
 import { HintsContext } from '@contexts/hints-context'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './navbar-category.style'
 
 export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, shortNavbar, onToggleModal }) => {
   const { classes: styles, cx } = useStyles()
@@ -19,8 +21,8 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
   const [subRoutes, setSubRoutes] = useState([])
   const isRedBadge = category.route?.includes('/buyer/free-orders')
 
-  const {hints}= useContext(HintsContext)
-  
+  const { hints } = useContext(HintsContext)
+
   const getHighPriorityValue = route => {
     switch (route) {
       case '/warehouse/tasks':
@@ -66,6 +68,7 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
       tooltipPosition="center"
       tooltipInfoContent={hints && !shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
       className={styles.menuItem}
+      styleType={ButtonStyle.TRANSPARENT}
       onClick={onToggleModal}
     >
       <MuiListItem

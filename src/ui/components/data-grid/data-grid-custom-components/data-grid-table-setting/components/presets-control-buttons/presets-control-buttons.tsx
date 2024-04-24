@@ -24,19 +24,6 @@ export const PresetsControlButtons: FC<PresetsControlButtonsProps> = memo(
         <button className={cx(styles.button, styles.success)} onClick={onClickSavePresets}>
           {t(TranslationKey.Save)}
         </button>
-
-        {/* <Button
-          danger
-          btnWrapperStyle={styles.buttonWrapper}
-          className={styles.additionalButton}
-          onClick={onClickResetPresets}
-        >
-          {t(TranslationKey['Reset Settings'])}
-        </Button>
-
-        <Button btnWrapperStyle={styles.buttonWrapper} className={styles.additionalButton} onClick={onClickSavePresets}>
-          {t(TranslationKey.Save)}
-        </Button> */}
       </div>
     )
   },

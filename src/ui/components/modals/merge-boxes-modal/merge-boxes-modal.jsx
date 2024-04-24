@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { Chip, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
+import { inchesCoefficient, poundsCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -15,7 +15,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
@@ -30,6 +30,8 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeepe
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -123,10 +125,11 @@ export const MergeBoxesModal = ({
         lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
-        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / poundsCoefficient, 2),
+        images: imagesOfBox,
       }
     } else {
-      return { ...boxBody, destinationId: boxBody.destinationId || null }
+      return { ...boxBody, destinationId: boxBody.destinationId || null, images: imagesOfBox }
     }
   }
 
@@ -277,13 +280,14 @@ export const MergeBoxesModal = ({
   const handleChange = newAlignment => {
     if (newAlignment !== sizeSetting) {
       const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
+      const weightMultiplier = newAlignment === unitsOfChangeOptions.US ? poundsCoefficient : 1 / poundsCoefficient
 
       setBoxBody({
         ...boxBody,
         lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / multiplier, 2),
         widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / multiplier, 2),
         heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / multiplier, 2),
-        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / multiplier, 2),
+        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * weightMultiplier, 2),
       })
 
       setSizeSetting(newAlignment)
@@ -476,9 +480,7 @@ export const MergeBoxesModal = ({
                       setFormField={setFormField}
                     />
 
-                    <div className={styles.imageFileInputWrapper}>
-                      <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
-                    </div>
+                    <UploadFilesInput fullWidth images={imagesOfBox} setImages={setImagesOfBox} maxNumber={50} />
                   </div>
                 }
               />
@@ -529,7 +531,7 @@ export const MergeBoxesModal = ({
           <Button
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             disabled={requestStatus === loadingStatuses.IS_LOADING}
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             className={cx(styles.button, styles.cancelButton)}
             onClick={onCloseBoxesModal}
           >
@@ -570,17 +572,20 @@ export const MergeBoxesModal = ({
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => setShowConfirmModal(false)}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings?.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-        onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => setShowConfirmModal(false)}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+        />
+      ) : null}
     </div>
   )
 }

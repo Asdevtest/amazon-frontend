@@ -73,17 +73,20 @@ export const AuthFormWrapper = memo(props => {
         </p>
       </div>
 
-      <ConfirmationModal
-        openModal={showConfirmModal}
-        setOpenModal={onToggleModal}
-        isWarning={confirmModalSettings?.isWarning}
-        title={confirmModalSettings?.confirmTitle}
-        message={confirmModalSettings?.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
-        onClickCancelBtn={onToggleModal}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showConfirmModal}
+          setOpenModal={onToggleModal}
+          isWarning={confirmModalSettings?.isWarning}
+          title={confirmModalSettings?.confirmTitle}
+          message={confirmModalSettings?.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+          onClickCancelBtn={onToggleModal}
+        />
+      ) : null}
     </>
   )
 })

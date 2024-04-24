@@ -1,16 +1,18 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineRequestStatusCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   ShortDateCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const FreelancerFreelanceColumns = handlers => [
   {
@@ -78,10 +80,11 @@ export const FreelancerFreelanceColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <NormalActionBtnCell
-        // disabled={!params.row.batch}
-        bTnText={t(TranslationKey.Open)}
-        onClickOkBtn={() => handlers.onClickOpenButton(params.row.id)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey.Open)}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickOpenButton(params.row.id)}
       />
     ),
     width: 190,

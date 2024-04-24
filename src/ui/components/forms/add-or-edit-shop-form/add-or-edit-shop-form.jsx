@@ -5,10 +5,12 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-shop-form.style'
 
@@ -94,8 +96,6 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
           tooltipInfoContent={t(TranslationKey['Create/edit a store based on the data you entered'])}
           disabled={disableSubmitBtn}
           className={styles.button}
-          color="primary"
-          variant="contained"
           onClick={() => onSubmit(formFields, shopToEdit && shopToEdit._id)}
         >
           {t(TranslationKey.Save)}
@@ -103,7 +103,8 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
 
         <Button
           tooltipInfoContent={t(TranslationKey['Closes the store creation/editing window without saving'])}
-          variant="text"
+          styleType={ButtonStyle.DANGER}
+          variant={ButtonVariant.OUTLINED}
           className={cx(styles.button, styles.cancelBtn)}
           onClick={() => onCloseModal()}
         >

@@ -7,7 +7,7 @@ import { InputAdornment } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
@@ -21,14 +21,18 @@ interface Props {
   startText?: string
   inputClasses?: ClassNamesArg
   tab?: string
+  hideButton?: boolean
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void
   onSubmit?: (value: string) => void
   onKeyDown?: () => void
+  onBlur?: () => void
+  onFocus?: () => void
 }
 
 export const SearchInput: FC<Props> = ({
   disabled,
   value,
+  hideButton,
   placeholder,
   inputClasses,
   startText,
@@ -36,6 +40,8 @@ export const SearchInput: FC<Props> = ({
   onChange,
   onSubmit,
   onKeyDown,
+  onBlur,
+  onFocus,
 }) => {
   const { classes: styles, cx } = useStyles()
 
@@ -87,21 +93,31 @@ export const SearchInput: FC<Props> = ({
       placeholder={placeholder || defaultPlaceholder}
       classes={{ input: styles.inputClass }}
       endAdornment={
-        <InputAdornment classes={{ root: styles.inputAdornmentRoot }} position={onSubmit ? 'end' : 'start'}>
-          {onSubmit ? (
-            <div className={styles.searchWrapper}>
-              {internalValue ? <CloseRoundedIcon className={styles.closeIcon} onClick={onClickCloseIcon} /> : null}
-              <Button className={styles.submit} btnWrapperStyle={styles.btnWrapperStyle} onClick={searchAndClearSpaces}>
-                {defaultPlaceholder}
-              </Button>
-            </div>
-          ) : (
-            <SearchIcon className={styles.icon} />
+        <>
+          {hideButton ? null : (
+            <InputAdornment classes={{ root: styles.inputAdornmentRoot }} position={onSubmit ? 'end' : 'start'}>
+              {onSubmit ? (
+                <div className={styles.searchWrapper}>
+                  {internalValue ? <CloseRoundedIcon className={styles.closeIcon} onClick={onClickCloseIcon} /> : null}
+                  <Button className={styles.submit} onClick={searchAndClearSpaces}>
+                    {defaultPlaceholder}
+                  </Button>
+                </div>
+              ) : (
+                <SearchIcon className={styles.icon} />
+              )}
+            </InputAdornment>
           )}
-        </InputAdornment>
+        </>
       }
-      onBlur={() => setIsMyInputFocused(false)}
-      onFocus={() => setIsMyInputFocused(true)}
+      onBlur={() => {
+        setIsMyInputFocused(false)
+        onBlur?.()
+      }}
+      onFocus={() => {
+        setIsMyInputFocused(true)
+        onFocus?.()
+      }}
       onChange={(e: ChangeEvent<HTMLInputElement>) =>
         onSubmit ? setInternalValue(e.target.value) : !!onChange && onChange(e)
       }

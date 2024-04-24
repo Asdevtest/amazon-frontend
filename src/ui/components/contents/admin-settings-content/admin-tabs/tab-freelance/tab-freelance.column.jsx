@@ -6,7 +6,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   TableDataControlsButtonsCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'

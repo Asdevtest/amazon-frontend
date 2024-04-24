@@ -1,12 +1,14 @@
-import { isPast } from 'date-fns'
+import dayjs from 'dayjs'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Button } from '@components/shared/button'
 import { ShareIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { OrderStatus } from '@typings/enums/order-status'
 
 import { useStyles } from './footer.style'
@@ -36,14 +38,15 @@ export const Footer: FC<FooterProps> = memo(props => {
     isClient,
   } = props
 
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const showButtons = isClient && isOrderEditable
   const showCancelButton = showButtons || formFields?.status === OrderStatus.READY_TO_PROCESS
   const showToOrderButton = formFields?.status <= OrderStatus.READY_FOR_BUYOUT
   const isPendingOrder = formFields?.status > OrderStatus.READY_FOR_BUYOUT
-  const disabledSaveSubmit =
-    (formFields?.deadline && isPast(new Date(formFields?.deadline))) || !formFields?.amount || stateComparison
+  const minDate = dayjs().startOf('day').add(2, 'day')
+  const isNotValidDate = new Date(formFields.deadline as string) < new Date(minDate.toString()) && !!formFields.deadline
+  const disabledSaveSubmit = isNotValidDate || !formFields?.amount || stateComparison
 
   return (
     <div className={styles.footer}>
@@ -53,32 +56,26 @@ export const Footer: FC<FooterProps> = memo(props => {
 
       <div className={styles.buttons}>
         {showCancelButton ? (
-          <button
-            className={cx(styles.button, styles.buttonCancel)}
-            onClick={() => onClickCancelOrder(formFields?._id)}
-          >
+          <Button styleType={ButtonStyle.DANGER} onClick={() => onClickCancelOrder(formFields?._id)}>
             {t(TranslationKey['Cancel order'])}
-          </button>
+          </Button>
         ) : null}
 
         {showButtons ? (
           <>
             {showToOrderButton && (
-              <button
-                className={cx(styles.button, styles.buttonOrder)}
-                onClick={() => onClickReorder(formFields, isPendingOrder)}
-              >
+              <Button onClick={() => onClickReorder(formFields, isPendingOrder)}>
                 {t(TranslationKey['To order'])}
-              </button>
+              </Button>
             )}
 
-            <button
+            <Button
+              styleType={ButtonStyle.SUCCESS}
               disabled={disabledSaveSubmit}
-              className={cx(styles.button, styles.buttonSave)}
               onClick={() => onSubmitSaveOrder(formFields)}
             >
               {t(TranslationKey.Save)}
-            </button>
+            </Button>
           </>
         ) : null}
       </div>

@@ -3,9 +3,11 @@ import { Typography } from '@mui/material'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './failed-asins-modal.style'
 
@@ -22,7 +24,7 @@ export const FailedAsinsModal = ({ failedData, onClickSuccessBtn }) => {
           <Typography>{humanFriendlyStategyStatus(mapProductStrategyStatusEnum[el.strategy]).toUpperCase()}</Typography>
         </div>
       ))}
-      <Button success disableElevation variant="contained" className={styles.button} onClick={onClickSuccessBtn}>
+      <Button styleType={ButtonStyle.SUCCESS} className={styles.button} onClick={onClickSuccessBtn}>
         {t(TranslationKey.Ok)}
       </Button>
     </div>

@@ -62,4 +62,8 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     gap: 30,
   },
+
+  addButton: {
+    width: 50,
+  },
 }))

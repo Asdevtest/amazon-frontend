@@ -1,8 +1,7 @@
+import { MultilineTextCell } from '..'
 import { FC, memo } from 'react'
 
 import { useStyles } from './orders-ids-items-cell.style'
-
-import { MultilineTextCell } from '../data-grid-cells'
 
 interface OrdersIdsItemsCellProps {
   value: string

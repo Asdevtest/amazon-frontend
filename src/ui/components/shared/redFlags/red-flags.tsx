@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, useEffect, useState } from 'react'
 
 import { Box, Checkbox, FormControlLabel } from '@mui/material'
@@ -9,20 +8,20 @@ import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.style'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { Flag } from '@typings/flag'
+import { IRedFlag } from '@typings/shared/red-flag'
 
 interface RedFlagsProps {
   isEditMode?: boolean
-  activeFlags?: Flag[]
-  handleSaveFlags?: (flags: Flag[]) => void
+  activeFlags?: IRedFlag[]
+  handleSaveFlags?: (flags: IRedFlag[]) => void
 }
 
 export const RedFlags: FC<RedFlagsProps> = props => {
   const { activeFlags = [], isEditMode, handleSaveFlags } = props
   const { classes: styles } = useRedFlagStyles()
 
-  const [selectedFlags, setSelectedFlags] = useState<Flag[]>(activeFlags)
-  const [flags, setFlags] = useState<Flag[]>([])
+  const [selectedFlags, setSelectedFlags] = useState<IRedFlag[]>(activeFlags)
+  const [flags, setFlags] = useState<IRedFlag[]>([])
 
   useEffect(() => {
     if (isEditMode) {
@@ -35,7 +34,7 @@ export const RedFlags: FC<RedFlagsProps> = props => {
     setSelectedFlags(activeFlags)
   }, [activeFlags])
 
-  const handleFlag = (flag: Flag) => {
+  const handleFlag = (flag: IRedFlag) => {
     let newSelectedFlags = []
 
     if (selectedFlags.some(val => val._id === flag._id)) {

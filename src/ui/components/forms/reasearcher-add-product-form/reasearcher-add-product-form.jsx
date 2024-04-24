@@ -14,12 +14,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { styles } from './reasearcher-add-product-form.style'
 
@@ -37,7 +39,7 @@ export const ResearcherAddProductFormRaw = observer(
   }) => {
     const disabledNoProvatLabel =
       Number(formFields.strategyStatus) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]
-    // const [disableAddButton, setDisabledAddButton] = useState(false)
+
     return (
       SettingsModel.languageTag && (
         <div className={styles.mainWrapper}>
@@ -71,12 +73,12 @@ export const ResearcherAddProductFormRaw = observer(
                   </>
                 ) : null}
               </Alert>
-            ) : undefined}
+            ) : null}
             {!errorMsg && actionStatus === loadingStatuses.SUCCESS ? (
               <Alert className={styles.alert} elevation={5} severity="success">
                 {t(TranslationKey['Operation complete'])}
               </Alert>
-            ) : undefined}
+            ) : null}
 
             <Box mt={3} className={styles.strategyWrapper}>
               <Field
@@ -116,28 +118,8 @@ export const ResearcherAddProductFormRaw = observer(
             </Box>
 
             <Box className={styles.btnsWrapper}>
-              {/* <Button
-                disabled={!formFields.strategyStatus}
-                tooltipInfoContent={t(
-                  TranslationKey['Checking Amazon ID number for uniqueness and absence in the database'],
-                )}
-                onClick={() => {
-                  onClickCheckBtn()
-                  setDisabledAddButton(false)
-                }}
-              >
-                {t(TranslationKey.Check)}
-              </Button>
               <Button
-                success
-                tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
-                disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10 || disableAddButton}
-                onClick={onClickAddBtn}
-              >
-                {t(TranslationKey['Add a product card'])}
-              </Button> */}
-              <Button
-                success
+                styleType={ButtonStyle.SUCCESS}
                 tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
                 disabled={errorMsg || formFields.strategyStatus < 10}
                 onClick={onClickCheckAndAddProductBtn}

@@ -1,16 +1,18 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
   ScrollingCell,
   WarehouseTariffDatesCell,
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const logisticsTariffsColumns = handlers => [
   {
@@ -83,9 +85,11 @@ export const logisticsTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
     renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey['Select Tariff'])}
-        onClickOkBtn={() => handlers.onClickSelectTariffOld(params.row._id, null)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey['Select Tariff'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickSelectTariffOld(params.row._id, null)}
       />
     ),
     filterable: false,

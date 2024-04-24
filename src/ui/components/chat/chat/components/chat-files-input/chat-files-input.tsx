@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './chat-files-input.style'
 
@@ -16,7 +16,7 @@ export const ChatFilesInput: FC<ChatFilesInputProps> = memo(({ files, setFiles }
 
   return (
     <div className={styles.root}>
-      <UploadFilesInput withoutLinks fullWidth images={files} setImages={setFiles} maxNumber={50} acceptType={['']} />
+      <UploadFilesInput withoutLinks fullWidth images={files} setImages={setFiles} maxNumber={50} />
     </div>
   )
 })

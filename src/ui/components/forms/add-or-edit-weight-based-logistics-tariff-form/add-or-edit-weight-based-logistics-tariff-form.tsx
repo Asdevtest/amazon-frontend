@@ -1,6 +1,4 @@
 /* eslint-disable no-prototype-builtins */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC, memo, useState } from 'react'
 
@@ -12,7 +10,7 @@ import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/key
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { NewDatePicker } from '@components/shared/date-picker/date-picker'
 import { Field } from '@components/shared/field'
@@ -23,10 +21,11 @@ import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterD
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useStyles } from './add-or-edit-weight-based-logistics-tariff-form.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { IDestination, IDestinationVariation } from '@typings/shared/destinations'
+import { ILogicTariff } from '@typings/shared/logic-tariff'
 
-import { IDestination, IDestinationVariation } from '../../../../typings/destination'
-import { ILogisticTariff } from '../../../../typings/logistics-tariff'
+import { useStyles } from './add-or-edit-weight-based-logistics-tariff-form.style'
 
 interface FormFields {
   tariffType: number
@@ -54,9 +53,9 @@ interface DestinationVariationsContentProps {
 }
 
 interface AddOrEditWeightBasedLogisticsTariffFormProps {
-  tariffToEdit: ILogisticTariff
+  tariffToEdit: ILogicTariff
   sourceYuanToDollarRate: number
-  logisticsTariffsData: Array<ILogisticTariff>
+  logisticsTariffsData: Array<ILogicTariff>
   destinationData: Array<IDestination>
   destinationsFavourites: Array<Array<string>>
   setDestinationsFavouritesItem: () => void
@@ -136,9 +135,9 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       ) ||
       !isWeightRangeValid
 
-    const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<ILogisticTariff | undefined>(undefined)
+    const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<ILogicTariff | undefined>(undefined)
 
-    const onSetDataFromTariff = (tariff: ILogisticTariff) => {
+    const onSetDataFromTariff = (tariff: ILogicTariff) => {
       setSelectedLogisticTariff(tariff)
       // @ts-ignore
       setFormFields(prevState => ({
@@ -367,7 +366,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                   selectedItemName={
                     (!!selectedLogisticTariff && selectedLogisticTariff.name) || t(TranslationKey['Select Tariff'])
                   }
-                  onClickSelect={(el: ILogisticTariff) => onSetDataFromTariff(el)}
+                  onClickSelect={(el: ILogicTariff) => onSetDataFromTariff(el)}
                 />
               }
             />
@@ -522,11 +521,20 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         />
 
         <div className={styles.btnsWrapper}>
-          <Button success disabled={disableSubmitBtn} className={styles.button} onClick={() => onSubmit()}>
+          <Button
+            styleType={ButtonStyle.SUCCESS}
+            disabled={disableSubmitBtn}
+            className={styles.button}
+            onClick={() => onSubmit()}
+          >
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button className={cx(styles.button, styles.cancelBtn)} variant="text" onClick={() => onClickClose()}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={cx(styles.button, styles.cancelBtn)}
+            onClick={() => onClickClose()}
+          >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

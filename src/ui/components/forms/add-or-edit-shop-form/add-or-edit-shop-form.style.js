@@ -10,7 +10,6 @@ export const useStyles = makeStyles()(theme => ({
 
   cancelBtn: {
     marginLeft: '50px',
-    color: theme.palette.text.general,
   },
 
   button: {

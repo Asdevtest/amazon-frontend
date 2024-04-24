@@ -123,9 +123,9 @@ export const ChatMessageCreateNewBloggerProposal: FC<Props> = ({ message, isShow
 
             <LabelValuePairBlock
               label={t(TranslationKey['Request price'])}
-              labelClasses={styles.blackText}
+              labelClasses={styles.requestPriceText}
               value={
-                <p className={cx(styles.accentText, styles.blackText)}>
+                <p className={cx(styles.accentText, styles.requestPriceText)}>
                   {toFixedWithDollarSign(message.data.proposal.price, 2)}
                 </p>
               }

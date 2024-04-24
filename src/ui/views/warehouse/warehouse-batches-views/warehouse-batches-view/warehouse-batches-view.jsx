@@ -7,9 +7,11 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { styles } from './warehouse-batches-view.style'
 
@@ -28,8 +30,7 @@ export const WarehouseBatchesViewRaw = props => {
           <div className={styles.btnsWrapper}>
             <Button
               className={styles.button}
-              color="primary"
-              variant="outlined"
+              styleType={ButtonStyle.SUCCESS}
               onClick={viewModel.onClickAwaitingBatches}
             >
               <div className={styles.btnTextWrapper}>
@@ -38,7 +39,7 @@ export const WarehouseBatchesViewRaw = props => {
               </div>
             </Button>
 
-            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickSentBatches}>
+            <Button className={styles.button} styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickSentBatches}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey.Sent)}</Typography>
                 <ArrowRightAltIcon color="primary" />

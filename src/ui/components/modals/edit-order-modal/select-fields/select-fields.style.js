@@ -90,10 +90,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '21px',
   },
 
-  imageFileInputWrapper: {
-    width: '500px',
-  },
-
   onLineWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -141,22 +137,6 @@ export const useStyles = makeStyles()(theme => ({
 
   greenLabel: {
     color: '#00B746',
-  },
-
-  normalPaymentText: {
-    width: 'fit-content',
-    color: theme.palette.primary.main,
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
-    whiteSpace: 'nowrap',
-  },
-
-  whiteNormalPaymentText: {
-    color: '#fff',
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
   },
 
   input: {
@@ -281,27 +261,7 @@ export const useStyles = makeStyles()(theme => ({
 
   supplierPaymentButtonWrapper: {
     width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'end',
-  },
-
-  supplierPaymentButton: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-    marginBottom: '20px',
-    color: '#fff',
-    gap: 5,
-  },
-
-  noPaymentButton: {
-    gap: 5,
+    marginBottom: 20,
   },
 
   formItem: {
@@ -317,19 +277,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '13px !important',
     height: '13px !important',
     color: theme.palette.primary.main,
-  },
-
-  carouselImage: {
-    height: '100% !important',
-    maxHeight: '254px !important',
-    width: '100% !important',
-    objectFit: 'contain',
-
-    transition: '.2s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
   },
 
   paymentsBlock: {
@@ -377,5 +324,20 @@ export const useStyles = makeStyles()(theme => ({
 
   supplierPaymentButtonBtnWrapperStyle: {
     width: '100%',
+  },
+
+  gallery: {
+    marginTop: 20,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  documentButton: {
+    width: '100%',
+  },
+
+  imageFileInputWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 }))

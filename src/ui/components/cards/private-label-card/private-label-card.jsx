@@ -2,11 +2,13 @@ import { Divider, InputBase, Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign, toFixedWithKg, withAmount } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './private-label-card.style'
 
@@ -59,28 +61,12 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
 
         <div className={styles.buttonsWrapper}>
           <Button
-            success
-            disableElevation
+            styleType={ButtonStyle.SUCCESS}
             tooltipInfoContent={index === 0 && t(TranslationKey['Purchase a product card by Private Label strategy'])}
-            variant="contained"
-            onClick={() => {
-              setProductToPay(item)
-            }}
+            onClick={() => setProductToPay(item)}
           >
             {t(TranslationKey.Start) + ' Private Label'}
           </Button>
-          {/* <Button  // может пригодится
-            disableElevation
-            color="primary"
-            className={styles.priceButton}
-            variant="contained"
-            onClick={() => {
-              setProductToPay(item)
-              onTriggerOpenModal('showConfirmPayModal')
-            }}
-          >
-            {`${'Добавить за'} ${toFixedWithDollarSign(item.amazon, 2)}`}
-          </Button> */}
         </div>
       </div>
     </Paper>

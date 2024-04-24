@@ -4,10 +4,12 @@ import { Box, Container, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './edit-hs-code-modal.style'
 
@@ -73,10 +75,14 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
       />
 
       <Box className={styles.saveBox}>
-        <Button success className={styles.saveBtn} onClick={() => onClickSaveHsCode(formFields)}>
+        <Button
+          styleType={ButtonStyle.SUCCESS}
+          className={styles.saveBtn}
+          onClick={() => onClickSaveHsCode(formFields)}
+        >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.closeBtn} onClick={onCloseModal}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </Box>

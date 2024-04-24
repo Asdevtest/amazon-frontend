@@ -4,12 +4,14 @@ import { MenuItem, Select } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { objectDeepCompare } from '@utils/object'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-services-content.style'
 
@@ -108,12 +110,12 @@ export const CreateOrEditServiceContent = memo(props => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button variant={'text'} className={styles.cancelBtn} onClick={onClickBackBtn}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClickBackBtn}>
           {t(TranslationKey.Cancel)}
         </Button>
 
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={disabledSubmitButton}
           className={styles.successBtn}
           onClick={() => (isEdit ? onClickEditBtn(formFields) : onClickCreateBtn(formFields))}

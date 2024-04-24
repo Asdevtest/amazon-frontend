@@ -7,9 +7,11 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { styles } from './client-batches-view.style'
 
@@ -26,19 +28,14 @@ export const ClientBatchesViewRaw = props => {
           <Typography className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</Typography>
 
           <div className={styles.btnsWrapper}>
-            <Button
-              className={styles.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickAwaitingSend}
-            >
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickAwaitingSend}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Awaiting send'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
-            <Button className={styles.button} color="primary" variant="outlined" onClick={viewModel.onClickSentBatches}>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickSentBatches}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Sent boxes'])}</Typography>
                 <ArrowRightAltIcon color="primary" />

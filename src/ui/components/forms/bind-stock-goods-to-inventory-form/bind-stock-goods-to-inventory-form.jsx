@@ -6,11 +6,13 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './bind-stock-goods-to-inventory-form.style'
 
@@ -108,7 +110,7 @@ export const BindStockGoodsToInventoryForm = observer(
         <div className={styles.form}>
           <div className={styles.filtersWrapper}>
             <Button
-              variant={'text'}
+              variant={ButtonVariant.OUTLINED}
               className={cx(styles.chip, {
                 [styles.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
               })}
@@ -120,7 +122,7 @@ export const BindStockGoodsToInventoryForm = observer(
             <Typography className={styles.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
 
             <Button
-              variant={'text'}
+              variant={ButtonVariant.OUTLINED}
               className={cx(styles.chip, styles.chipLeftMargin, {
                 [styles.chipActive]: chipConfig === chipConfigSettings.NAME,
               })}
@@ -130,7 +132,7 @@ export const BindStockGoodsToInventoryForm = observer(
             </Button>
 
             <Button
-              variant={'text'}
+              variant={ButtonVariant.OUTLINED}
               className={cx(styles.chip, styles.chipLeftMargin, {
                 [styles.chipActive]: chipConfig === chipConfigSettings.ASIN,
               })}
@@ -173,12 +175,9 @@ export const BindStockGoodsToInventoryForm = observer(
 
           <div className={styles.btnsWrapper}>
             <Button
-              success
-              disableElevation
+              styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Binds integration to the product card'])}
               disabled={!selectedRow || chosenGoods.length < 1}
-              variant="contained"
-              color="primary"
               onClick={onClickSubmit}
             >
               {t(TranslationKey.Bind)}

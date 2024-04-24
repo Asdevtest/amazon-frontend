@@ -1,20 +1,22 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NormalActionBtnCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const buyerFreeOrdersViewColumns = handlers => [
   {
@@ -51,11 +53,13 @@ export const buyerFreeOrdersViewColumns = handlers => [
 
     width: 165,
     renderCell: params => (
-      <NormalActionBtnCell
-        tooltipText={t(TranslationKey['To assign the order to Byer'])}
-        bTnText={t(TranslationKey['Get to work'])}
+      <ActionButtonsCell
+        isFirstButton
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        onClickOkBtn={() => handlers.onClickTableRowBtn(params.row)}
+        firstButtonTooltipText={t(TranslationKey['To assign the order to Byer'])}
+        firstButtonElement={t(TranslationKey['Get to work'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickTableRowBtn(params.row)}
       />
     ),
     filterable: false,

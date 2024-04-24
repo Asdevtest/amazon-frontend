@@ -25,12 +25,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  iconBtn: {
-    width: '16px !important',
-    height: '16px !important',
-    marginRight: 10,
-  },
-
   cardErrorWrapper: {
     transition: '0.3s ease',
     background: theme.palette.linearGradient.negativeDashboardCard,
@@ -113,10 +107,5 @@ export const useStyles = makeStyles()(theme => ({
     '.swiper-button-next': {
       color: theme.palette.primary.main,
     },
-  },
-
-  addButton: {
-    height: '40px',
-    marginLeft: 50,
   },
 }))

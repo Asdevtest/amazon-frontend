@@ -2,9 +2,11 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './on-checking-idea-actions.style'
 
@@ -20,10 +22,16 @@ export const OnCheckingIdeaActionsCell: FC<OnCheckingIdeaActionsProps> = memo(
 
     return (
       <div className={styles.ideaActions}>
-        <Button success disabled={isAcceptDisabled} onClick={onClickAccept}>
+        <Button
+          isTableButton
+          fullWidth
+          styleType={ButtonStyle.SUCCESS}
+          disabled={isAcceptDisabled}
+          onClick={onClickAccept}
+        >
           {t(TranslationKey.Accept)}
         </Button>
-        <Button danger onClick={onClickReject}>
+        <Button isTableButton fullWidth styleType={ButtonStyle.DANGER} onClick={onClickReject}>
           {t(TranslationKey.Reject)}
         </Button>
       </div>

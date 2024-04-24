@@ -4,7 +4,7 @@ import { memo, useState } from 'react'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
@@ -15,6 +15,8 @@ import { checkIsBuyer, checkIsClient, checkIsStorekeeper } from '@utils/checks'
 import { formatShortDateTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './box-view-form.style'
 
@@ -185,12 +187,16 @@ export const BoxViewForm = memo(props => {
 
         <div className={styles.buttonsWrapper}>
           {isEdit && (
-            <Button success disabled={disableSaveButton} onClick={() => onSubmitChangeFields(formFields)}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              disabled={disableSaveButton}
+              onClick={() => onSubmitChangeFields(formFields)}
+            >
               {t(TranslationKey.Save)}
             </Button>
           )}
 
-          <Button variant="text" className={styles.closeBtn} onClick={setOpenModal}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={setOpenModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

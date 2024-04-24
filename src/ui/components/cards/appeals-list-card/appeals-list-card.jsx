@@ -2,7 +2,7 @@ import { Avatar, Grid, Rating, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
@@ -78,13 +78,7 @@ export const AppealsListCard = ({ onClickViewMore }) => {
                 </div>
               </div>
             </div>
-            <Button
-              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-              variant="contained"
-              color="primary"
-              className={styles.actionButton}
-              onClick={() => onClickViewMore()}
-            >
+            <Button className={styles.actionButton} onClick={() => onClickViewMore()}>
               {t(TranslationKey['Open an appeal'])}
             </Button>
           </div>

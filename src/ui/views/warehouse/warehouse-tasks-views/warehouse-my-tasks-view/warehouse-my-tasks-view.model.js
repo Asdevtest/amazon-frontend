@@ -74,11 +74,15 @@ export class WarehouseMyTasksViewModel {
 
   tmpDataForCancelTask = {}
 
-  constructor({ history, location }) {
+  get currentData() {
+    return this.tasksMy
+  }
+
+  constructor({ history }) {
     this.history = history
 
-    if (location.state?.task) {
-      this.onClickResolveBtn(location.state?.task)
+    if (history.location.state?.task) {
+      this.onClickResolveBtn(history.location.state?.task)
 
       const state = { ...history.location.state }
       delete state.task
@@ -166,10 +170,6 @@ export class WarehouseMyTasksViewModel {
     })
   }
 
-  getCurrentData() {
-    return toJS(this.tasksMy)
-  }
-
   onClickOperationTypeBtn(type) {
     this.curTaskType = type
 
@@ -186,10 +186,10 @@ export class WarehouseMyTasksViewModel {
     this.nameSearchValue = e.target.value
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getTasksMy()
+      this.getTasksMy()
     } catch (error) {
       console.log(error)
     }

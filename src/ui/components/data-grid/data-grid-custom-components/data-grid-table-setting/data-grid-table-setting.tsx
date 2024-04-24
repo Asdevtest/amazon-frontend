@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo, useState } from 'react'
 
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
@@ -8,11 +6,13 @@ import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './data-grid-table-setting.style'
 
@@ -37,11 +37,11 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
   return (
     <>
       <Button
-        variant="text"
+        styleType={ButtonStyle.DEFAULT}
         className={styles.parametersButton}
         onClick={(event: any) => setMenuAnchor(event.currentTarget)}
       >
-        <SettingsOutlinedIcon fontSize="small" className={styles.parametersButtonIcon} />
+        <SettingsOutlinedIcon fontSize="small" />
 
         <p className={styles.parametersButtonTitle}>{t(TranslationKey.Parameters)}</p>
       </Button>

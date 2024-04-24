@@ -2,12 +2,12 @@ import { FC, memo } from 'react'
 
 import { UserLink } from '@components/user/user-link'
 
-import { IUser } from '@typings/user'
+import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './many-user-link-cell.style'
 
 interface ManyUserLinkCellProps {
-  usersData: IUser[]
+  usersData: IFullUser[]
 }
 
 export const ManyUserLinkCell: FC<ManyUserLinkCellProps> = memo(props => {

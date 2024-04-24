@@ -6,13 +6,15 @@ import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { SearchInput } from '@components/shared/search-input'
 import { TextWithCopy } from '@components/shared/text-with-copy'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './string-list-cell.style'
 
@@ -55,10 +57,10 @@ export const StringListCell: FC<StringListCellProps> = memo(props => {
         items
           ?.slice(0, maxItemsDisplay)
           ?.filter(el => el)
-          ?.map((item, i) => <TextWithCopy key={i} text={getShortenStringIfLongerThanCount(item, maxLettersInItem)} />)}
+          ?.map((item, i) => <TextWithCopy key={i} text={item} />)}
 
       {items?.length > maxItemsDisplay && (
-        <Button variant="text" onClick={handleClick}>
+        <Button styleType={ButtonStyle.TRANSPARENT} onClick={handleClick}>
           <MoreHorizOutlinedIcon color="primary" />
         </Button>
       )}

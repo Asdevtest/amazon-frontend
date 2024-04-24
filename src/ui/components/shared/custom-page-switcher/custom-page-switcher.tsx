@@ -13,29 +13,30 @@ import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
 
+import { IPaginationModel } from '@typings/shared/data-grid'
+
 import { useStyles } from './custom-page-switcher.style'
 
-import { PaginationModel } from '../../../../typings/pagination-model'
 import { Field } from '../field'
 
 interface CustomPageSwitcherProps {
-  paginationModel: PaginationModel
+  paginationModel: IPaginationModel
   rowCount: number
   pageSizeOptions: Array<number>
-  onChangePaginationModelChange: (model: PaginationModel) => void
+  onPaginationModelChange: (model: IPaginationModel) => void
 }
 
 export const CustomPageSwitcher: FC<CustomPageSwitcherProps> = observer(props => {
   const { classes: styles, cx } = useStyles()
 
-  const { pageSizeOptions, rowCount, paginationModel, onChangePaginationModelChange } = props
+  const { pageSizeOptions, rowCount, paginationModel, onPaginationModelChange } = props
 
   const humanFriendlyPageCount = paginationModel.page + 1
   const morePagesAvailable = rowCount > humanFriendlyPageCount * paginationModel.pageSize
   const isFistPage = paginationModel.page === 0
 
   const changeCurrentPage = (page: number): void => {
-    onChangePaginationModelChange({ ...paginationModel, page: paginationModel.page + page })
+    onPaginationModelChange({ ...paginationModel, page: paginationModel.page + page })
   }
 
   return (
@@ -50,7 +51,7 @@ export const CustomPageSwitcher: FC<CustomPageSwitcherProps> = observer(props =>
             value={paginationModel.pageSize}
             classes={{ select: styles.selectStyles }}
             input={<Input classes={{ root: styles.rootInput }} />}
-            onChange={value => onChangePaginationModelChange({ page: 0, pageSize: Number(value.target.value) })}
+            onChange={value => onPaginationModelChange({ page: 0, pageSize: Number(value.target.value) })}
           >
             {pageSizeOptions.map((pageOption: number, pageOptionIndex: number) => (
               <MenuItem key={pageOptionIndex} value={pageOption}>

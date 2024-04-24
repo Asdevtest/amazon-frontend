@@ -8,10 +8,10 @@ import { AdministratorModel } from '@models/administrator-model'
 import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
 
-import { tagsColumns } from '@components/table/table-columns/admin/tags-columns'
-
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
+
+import { tagsColumns } from './tags-columns'
 
 export class AdminSettingsTagsModel {
   tags = []
@@ -114,7 +114,7 @@ export class AdminSettingsTagsModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModel(model) {
+  onPaginationModelChange(model) {
     this.paginationModel = model
 
     this.setDataGridState()

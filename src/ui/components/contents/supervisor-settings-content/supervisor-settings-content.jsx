@@ -8,7 +8,7 @@ import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal'
 import { FailedAsinsModal } from '@components/modals/failed-asins-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
@@ -17,6 +17,8 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './supervisor-settings-content.style'
 
@@ -91,14 +93,18 @@ export const SupervisorSettingsContent = observer(() => {
           />
           <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonStyle.DANGER}
               disabled={!selectedRowIds?.length}
               className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
@@ -134,7 +140,7 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -151,14 +157,18 @@ export const SupervisorSettingsContent = observer(() => {
           />
           <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonStyle.DANGER}
               disabled={!selectedRowIds?.length}
               className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
@@ -192,7 +202,7 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -209,14 +219,18 @@ export const SupervisorSettingsContent = observer(() => {
           />
           <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonStyle.DANGER}
               disabled={!selectedRowIds?.length}
               className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
@@ -250,7 +264,7 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -267,14 +281,18 @@ export const SupervisorSettingsContent = observer(() => {
           />
           <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonStyle.DANGER}
               disabled={!selectedRowIds?.length}
               className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={styles.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
@@ -308,12 +326,13 @@ export const SupervisorSettingsContent = observer(() => {
             columns={columnsModel}
             loading={requestStatus === loadingStatuses.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>
+
       <Modal
         openModal={showAsinCheckerModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
@@ -325,6 +344,7 @@ export const SupervisorSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
         />
       </Modal>
+
       <Modal openModal={showEditAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showEditAsinCheckerModal')}>
         <EditAsinCheckerModal
           strategy={tabIndex}
@@ -333,30 +353,39 @@ export const SupervisorSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showEditAsinCheckerModal')}
         />
       </Modal>
-      <ConfirmationModal
-        openModal={showConfirmCloseAsinCheckerModal}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Window will be closed'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showConfirmCloseAsinCheckerModal')
-          onTriggerOpenModal('showAsinCheckerModal')
-        }}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
-      />
-      <ConfirmationModal
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => confirmModalSettings.onClickSuccess(tabIndex)}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+
+      {showConfirmCloseAsinCheckerModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showConfirmCloseAsinCheckerModal}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Window will be closed'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showConfirmCloseAsinCheckerModal')
+            onTriggerOpenModal('showAsinCheckerModal')
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+        />
+      ) : null}
+
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => confirmModalSettings.onClickSuccess(tabIndex)}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+
       <Modal openModal={showFailedAsinsModal} setOpenModal={() => onTriggerOpenModal('showFailedAsinsModal')}>
         <FailedAsinsModal
           failedData={failedData}

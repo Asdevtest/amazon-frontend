@@ -6,7 +6,9 @@ import { Menu, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './data-grid-custom-filter-button.style'
 
@@ -26,7 +28,7 @@ export const DataGridCustomFilterButton = props => {
 
   return (
     <div>
-      <Button variant="text" className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
+      <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
         <div className={cx(className, styles.mainFilterBtnInsert)}>
           <FilterAltOutlinedIcon />
 

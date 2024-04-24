@@ -10,12 +10,14 @@ import {
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { SearchInput } from '@components/shared/search-input'
 
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './asin-proxy-checker-form.style'
 
@@ -178,20 +180,19 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button disabled={error} variant="contained" className={styles.button} onClick={() => onClickPreviewButton()}>
+        <Button disabled={error} className={styles.button} onClick={() => onClickPreviewButton()}>
           <VisibilityIcon className={styles.icon} />
         </Button>
 
         <div className={styles.actionsButtonsContainer}>
           <Button
-            success
+            styleType={ButtonStyle.SUCCESS}
             disabled={
               !updatedAsinsAndReasonsData.length ||
               updatedAsinsAndReasonsData.some(item => item.asin === '') ||
               submitIsClicked ||
               error
             }
-            variant="contained"
             className={styles.button}
             onClick={() => {
               if (checkIsAdmin(userRole)) {
@@ -207,7 +208,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button variant="text" className={styles.buttonCancel} onClick={onClose}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.buttonCancel} onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

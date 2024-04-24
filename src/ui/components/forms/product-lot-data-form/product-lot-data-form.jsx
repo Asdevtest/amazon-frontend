@@ -8,11 +8,10 @@ import { BatchesModel } from '@models/batches-model'
 
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
@@ -45,7 +44,7 @@ export const ProductLotDataForm = memo(props => {
     }
   })
 
-  const [batches, setBatches] = useState(data)
+  const [batches, setBatches] = useState([])
 
   const [batchInfo, setBatchInfo] = useState([])
   const [nameSearchValue, setNameSearchValue] = useState('')
@@ -81,6 +80,10 @@ export const ProductLotDataForm = memo(props => {
     }
   }
 
+  useEffect(() => {
+    setBatches(data)
+  }, [batchesData])
+
   return (
     <div className={styles.productLotDataBlock}>
       <div className={styles.title}>
@@ -88,7 +91,6 @@ export const ProductLotDataForm = memo(props => {
 
         {!isTransfer && (
           <Button
-            variant="contained"
             onClick={() => {
               onClickToggleArchiveProductLotData(!isArchive)
               setIsArchive(!isArchive)
@@ -120,7 +122,6 @@ export const ProductLotDataForm = memo(props => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          localeText={getLocalizationByLanguageTag()}
           getRowId={batches => batches?._id}
           columns={
             isTransfer
@@ -132,12 +133,15 @@ export const ProductLotDataForm = memo(props => {
         />
       </div>
 
-      <BatchInfoModal
-        userInfo={userInfo}
-        openModal={showBatchInfoModal}
-        setOpenModal={setOpenBatchInfoModal}
-        batch={batchInfo}
-      />
+      {showBatchInfoModal ? (
+        <BatchInfoModal
+          // @ts-ignore
+          userInfo={userInfo}
+          openModal={showBatchInfoModal}
+          setOpenModal={setOpenBatchInfoModal}
+          batch={batchInfo}
+        />
+      ) : null}
     </div>
   )
 })

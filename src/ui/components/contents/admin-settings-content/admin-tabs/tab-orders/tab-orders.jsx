@@ -2,7 +2,7 @@ import { memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
@@ -30,7 +30,7 @@ export const TabOrders = memo(props => {
         error={formFields.timeToDeadlinePendingOrder === ''}
         onChange={e => onChangeField(fieldNameObject.timeToDeadlinePendingOrder, e)}
       />
-      <Button disabled={disabledSubmit} className={styles.saveButton} onClick={onSubmit}>
+      <Button disabled={disabledSubmit} onClick={onSubmit}>
         {t(TranslationKey.Save)}
       </Button>
     </div>

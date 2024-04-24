@@ -10,7 +10,7 @@ import { SettingsModel } from '@models/settings-model'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -42,7 +42,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
     requestStatus,
     columnsModel,
     paginationModel,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
 
     onTriggerOpenModal,
     sellerBoardDailyData,
@@ -96,7 +96,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.IS_LOADING}
         rowSelectionModel={selectedRowIds}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onRowSelectionModelChange={onSelectionModel}
       />
 
@@ -112,25 +112,27 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={successInfoModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={successInfoModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={showInfoModal}
-        setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-        title={t(TranslationKey["You can't bind"])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          onTriggerOpenModal('showInfoModal')
-        }}
-      />
+      {showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={showInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+          title={t(TranslationKey["You can't bind"])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => onTriggerOpenModal('showInfoModal')}
+        />
+      ) : null}
     </div>
   )
 })

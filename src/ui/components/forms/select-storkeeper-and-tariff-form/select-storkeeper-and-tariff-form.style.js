@@ -16,9 +16,6 @@ export const useStyles = makeStyles()(theme => ({
   boxesFiltersWrapper: {
     display: 'flex',
   },
-  btnWrapperStyle: {
-    width: 'fit-content',
-  },
 
   searchWrapper: {
     display: 'flex',

@@ -30,7 +30,7 @@ import {
 import { isHaveMasterUser } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { NavbarConfigTypes } from '@typings/navbar-config'
+import { NavbarConfigTypes } from '@typings/shared/navbar-config'
 
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'
@@ -169,7 +169,7 @@ export const navbarConfig = {
       title: () => t(TranslationKey['Commodity exchange']),
       route: '/client/product-exchange',
       subtitles: [
-        { subtitle: () => t(TranslationKey['Deal exchange']), subRoute: '/client/product-exchange/forks-exchange' },
+        { subtitle: () => t(TranslationKey['Research Exchenge']), subRoute: '/client/product-exchange/forks-exchange' },
         { subtitle: () => 'Private Label', subRoute: '/client/product-exchange/private-label' },
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
@@ -768,7 +768,7 @@ export const navbarConfig = {
     {
       icon: SearchIcon,
       title: () => t(TranslationKey['Supplier search']),
-      // route: '/buyer/search-supplier-by-supervisor',
+      route: '/buyer/search-supplier',
       subtitles: [
         {
           subtitle: () => t(TranslationKey['From the Supervisor']),

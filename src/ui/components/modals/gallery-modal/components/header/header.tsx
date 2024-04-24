@@ -8,7 +8,11 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './header.style'
 
-export const Header: FC = memo(() => {
+interface HeaderProps {
+  title?: string
+}
+
+export const Header: FC<HeaderProps> = memo(({ title }) => {
   const { classes: styles } = useStyles()
 
   return (
@@ -18,6 +22,8 @@ export const Header: FC = memo(() => {
       </div>
 
       <p className={styles.title}>{t(TranslationKey['All files'])}</p>
+
+      {title ? <p className={styles.title}>{title}</p> : null}
     </div>
   )
 })

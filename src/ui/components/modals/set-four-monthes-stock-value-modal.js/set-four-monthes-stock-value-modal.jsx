@@ -4,11 +4,13 @@ import { Box, Container, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './set-four-monthes-stock-value-modal.style'
 
@@ -36,14 +38,14 @@ export const SetFourMonthesStockModal = ({ title, onSubmit, onCloseModal, select
 
       <Box className={styles.saveBox}>
         <Button
-          success
-          disabled={/* error || */ !newValue || newValue > 99999}
+          styleType={ButtonStyle.SUCCESS}
+          disabled={!newValue || newValue > 99999}
           className={styles.saveBtn}
           onClick={() => onSubmit(newValue)}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.closeBtn} onClick={onCloseModal}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </Box>

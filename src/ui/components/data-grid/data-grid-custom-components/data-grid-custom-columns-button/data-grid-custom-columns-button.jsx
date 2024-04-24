@@ -5,10 +5,12 @@ import { Checkbox, Menu, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './data-grid-custom-columns-button.style'
 
@@ -53,12 +55,12 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
   }
 
   const itemsForRender = filteredColumnsModel.filter(item =>
-    item.headerName?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+    item?.headerName?.toLowerCase().includes(nameSearchValue.toLowerCase()),
   )
 
   return (
     <div>
-      <Button variant="text" className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
+      <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
         <div className={cx(className, styles.mainFilterBtnInsert)}>
           <SettingsOutlinedIcon fontSize="small" />
 
@@ -97,21 +99,24 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
                   {t(TranslationKey.All)}
                 </div>
               </div>
+              {itemsForRender.map((el, index) => {
+                const title = el?.headerName
 
-              {itemsForRender.map((el, index) => (
-                <div key={index} className={styles.shop}>
-                  <Checkbox
-                    color="primary"
-                    checked={
-                      !columnVisibilityModel || (columnVisibilityModel && columnVisibilityModel?.[el.field] !== false)
-                    }
-                    onClick={() => onClickItem(el.field)}
-                  />
-                  <div title={el.headerName} className={styles.shopName}>
-                    {el.headerName}
+                return (
+                  <div key={index} className={styles.shop}>
+                    <Checkbox
+                      color="primary"
+                      checked={
+                        !columnVisibilityModel || (columnVisibilityModel && columnVisibilityModel?.[el.field] !== false)
+                      }
+                      onClick={() => onClickItem(el.field)}
+                    />
+                    <div title={title} className={styles.shopName}>
+                      {title}
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </Menu>

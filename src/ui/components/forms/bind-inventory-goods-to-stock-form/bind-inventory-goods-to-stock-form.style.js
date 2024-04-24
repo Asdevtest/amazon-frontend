@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: 880,
+    width: 920,
     padding: 10,
   },
 
@@ -11,18 +11,18 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    marginTop: '10px',
-    height: '30vh',
+    marginTop: '5px',
+    height: '250px',
   },
 
   chosenGoodsTitle: {
-    marginTop: 10,
+    marginTop: '5px',
     color: theme.palette.text.second,
   },
 
   btnsWrapper: {
-    paddingRight: 5,
-    marginTop: 10,
+    paddingRight: '5px',
+    marginTop: '10px',
     display: 'flex',
     justifyContent: 'flex-end',
   },
@@ -35,7 +35,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: '5px',
   },
 
   betweenChipsText: {

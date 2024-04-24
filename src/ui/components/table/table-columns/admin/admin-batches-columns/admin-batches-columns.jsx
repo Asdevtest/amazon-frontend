@@ -8,9 +8,8 @@ import {
   ToFixedWithKgSignCell,
   UserLinkCell,
   WarehouseTariffDatesCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
-import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const adminBatchesViewColumns = () => [
@@ -19,7 +18,7 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     width: 550,
-    renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
+    renderCell: params => <BatchBoxesCell boxes={params.row.boxes} />,
     filterable: false,
     sortable: false,
   },
@@ -38,7 +37,7 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
+      <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
     ),
     width: 170,
   },
@@ -47,7 +46,7 @@ export const adminBatchesViewColumns = () => [
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.row.boxes[0]?.destination?.name} />,
     width: 150,
   },
 
@@ -79,25 +78,15 @@ export const adminBatchesViewColumns = () => [
   },
 
   {
-    field: 'totalPrice',
-    headerName: t(TranslationKey['Total price']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
-
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    type: 'number',
-    width: 150,
-  },
-
-  {
     field: 'dates',
     headerName: t(TranslationKey.Dates),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
 
     renderCell: params => (
       <WarehouseTariffDatesCell
-        cls={params.row.originalData.boxes[0].logicsTariff?.cls}
-        etd={params.row.originalData.boxes[0].logicsTariff?.etd}
-        eta={params.row.originalData.boxes[0].logicsTariff?.eta}
+        cls={params.row?.boxes[0].logicsTariff?.cls}
+        etd={params.row?.boxes[0].logicsTariff?.etd}
+        eta={params.row?.boxes[0].logicsTariff?.eta}
       />
     ),
     width: 350,

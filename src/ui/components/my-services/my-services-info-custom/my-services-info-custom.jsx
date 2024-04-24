@@ -4,8 +4,8 @@ import { RequestStatus } from '@constants/requests/request-status'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { RequestStatusCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
+import { Button } from '@components/shared/button'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
 import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
@@ -35,12 +35,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
               <div className={styles.titleWrapper}>
                 <Typography className={styles.title}>{request?.request.createdBy.name}</Typography>
 
-                <Rating
-                  readOnly
-                  value={5}
-                  size="small"
-                  // onChange={onChangeField('rating')}
-                />
+                <Rating readOnly value={5} size="small" />
               </div>
             </div>
 
@@ -49,13 +44,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
             </Typography>
           </div>
 
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={disableProposeDealButton}
-            className={styles.dealBtn}
-            onClick={onClickSuggestDealBtn}
-          >
+          <Button disabled={disableProposeDealButton} className={styles.dealBtn} onClick={onClickSuggestDealBtn}>
             {t(TranslationKey['Suggest a deal'])}
           </Button>
         </div>
@@ -119,7 +108,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
               </div>
 
               <div className={styles.blockInfoCell}>
-                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Task type'])}</Typography>
+                <Typography className={styles.blockInfoCellTitle}>{t(TranslationKey['Request type'])}</Typography>
                 <Typography className={cx(styles.blockInfoCellText, styles.announcementTitle)}>
                   {request?.request?.spec?.title}
                 </Typography>

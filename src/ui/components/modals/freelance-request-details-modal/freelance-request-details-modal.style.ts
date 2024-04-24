@@ -77,16 +77,11 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  filesItem: {
-    width: 'fit-content',
-  },
-
   requestInfo: {
     width: '100%',
     flexDirection: 'column',
     display: 'flex',
     justifyContent: 'space-between',
-    paddingBottom: '20px',
   },
 
   requestInfoWrapper: {
@@ -97,17 +92,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   suggestDeal: {
+    marginTop: 20,
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-
-    '& > div': {
-      height: 'fit-content',
-    },
-  },
-
-  filesList: {
-    width: 'fit-content',
+    alignItems: 'center',
   },
 
   editorWrapper: {
@@ -152,5 +140,9 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '10px',
     justifyContent: 'flex-end',
+  },
+
+  recoverBtn: {
+    width: '100%',
   },
 }))

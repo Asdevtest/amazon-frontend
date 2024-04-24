@@ -2,11 +2,13 @@ import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './set-barcode-modal.style'
 
@@ -45,7 +47,7 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
 
       <div className={styles.buttons}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={!files.length && !tmpCode?.length}
           className={styles.button}
           onClick={() => {
@@ -56,7 +58,11 @@ export const SetBarcodeModal: FC<SetBarcodeModalProps> = memo(props => {
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={cx(styles.button, styles.closeButton)} onClick={onCloseModal}>
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={cx(styles.button, styles.closeButton)}
+          onClick={onCloseModal}
+        >
           {t(TranslationKey.Close)}
         </Button>
       </div>

@@ -47,6 +47,9 @@ export const OwnerGeneralRequestInfo = props => {
       request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS) &&
     requestProposals.some(({ proposal }) => proposal.status === RequestStatus.ACCEPTED_BY_CLIENT)
 
+  const disableMarkAsCompletedButton =
+    request?.request?.createdBy?._id !== userInfo?._id && request?.request?.sub?._id !== userInfo?._id
+
   return (
     <div className={styles.root}>
       <RequestInformation
@@ -78,6 +81,7 @@ export const OwnerGeneralRequestInfo = props => {
 
       <ActionButtons
         id={request.request._id}
+        disableMarkAsCompletedButton={disableMarkAsCompletedButton}
         uploadedToListing={request?.request.uploadedToListing}
         isDisplayingMarkAsCompletedButton={isDisplayingMarkAsCompletedButton}
         status={request?.request?.status}

@@ -4,12 +4,14 @@ import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-suppliers-modal.style'
 
@@ -39,10 +41,15 @@ export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, p
 
       <UploadFilesInput images={images} setImages={setImages} maxNumber={1} acceptType={['xlsx']} />
       <div className={styles.buttonsWrapper}>
-        <Button success disabled={!images} className={styles.button} onClick={() => onSubmit(images[0].file)}>
+        <Button
+          styleType={ButtonStyle.SUCCESS}
+          disabled={!images}
+          className={styles.button}
+          onClick={() => onSubmit(images[0].file)}
+        >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={cx(styles.button, styles.cancelButton)} onClick={onClose}>
+        <Button variant={ButtonVariant.OUTLINED} className={cx(styles.button, styles.cancelButton)} onClick={onClose}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

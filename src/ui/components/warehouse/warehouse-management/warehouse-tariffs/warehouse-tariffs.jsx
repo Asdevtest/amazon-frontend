@@ -7,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditWarehouseTariffForm } from '@components/forms/add-or-edit-warehouse-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -42,7 +41,6 @@ export const WarehouseTariffs = observer(() => {
     showAddOrEditWarehouseTariffModal,
     showConfirmModal,
     onTriggerOpenModal,
-    onClickAddBtn,
     onClickCancelBtn,
 
     onChangeSortingModel,
@@ -50,17 +48,11 @@ export const WarehouseTariffs = observer(() => {
     onSubmitCreateTariff,
     onSubmitEditTariff,
     onColumnVisibilityModelChange,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
   } = spModel.current
 
   return (
     <div className={styles.mainWrapper}>
-      <div className={styles.placeAddBtnWrapper}>
-        <Button success className={styles.placeAddBtn} onClick={() => onClickAddBtn()}>
-          {t(TranslationKey.Add)}
-        </Button>
-      </div>
-
       <CustomDataGrid
         useResizeContainer
         localeText={getLocalizationByLanguageTag()}
@@ -88,7 +80,7 @@ export const WarehouseTariffs = observer(() => {
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onFilterModelChange={onChangeFilterModel}
       />
       <Modal
@@ -103,17 +95,20 @@ export const WarehouseTariffs = observer(() => {
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </div>
   )
 })

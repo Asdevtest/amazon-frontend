@@ -39,4 +39,5 @@ export const filtersFields = [
   'amazonTitle',
   'destinationId',
   'logicsTariffId',
+  'redFlags',
 ]

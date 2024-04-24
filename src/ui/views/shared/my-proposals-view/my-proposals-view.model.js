@@ -20,6 +20,7 @@ import { myProposalsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 import { Specs } from '@typings/enums/specs'
 
@@ -42,7 +43,7 @@ export class MyProposalsViewModel {
   rowHandlers = {
     onClickDeleteButton: (proposalId, proposalStatus) => this.onClickDeleteBtn(proposalId, proposalStatus),
     onClickEditButton: (requestId, proposalId) => this.onClickEditBtn(requestId, proposalId),
-    onClickResultButton: (requestId, proposalId) => this.onClickResultBtn(requestId, proposalId),
+    onClickResultButton: proposalId => this.onClickResultBtn(proposalId),
     onClickOpenButton: requestId => this.onClickOpenBtn(requestId),
   }
 
@@ -79,8 +80,9 @@ export class MyProposalsViewModel {
 
   showRequestDetailModal = false
   showConfirmModal = false
+  showRequestDesignerResultModal = false
   showRequestDesignerResultClientModal = false
-  showRequestStandartResultModal = false
+  showMainRequestResultModal = false
   showRequestResultModal = false
   selectedProposal = undefined
 
@@ -289,16 +291,23 @@ export class MyProposalsViewModel {
     }
   }
 
-  async onClickResultBtn(requestId, proposalId) {
-    await this.getRequestById(requestId)
+  async onClickResultBtn(proposalId) {
     await this.getProposalById(proposalId)
 
-    if (this.currentRequest?.request.spec?.title === freelanceRequestType.DESIGNER) {
+    if (
+      executedStatuses.includes(this.currentProposal?.proposal?.status) &&
+      this.currentProposal?.request.spec?.title === freelanceRequestType.DESIGNER
+    ) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
-    } else if (this.currentRequest?.request.spec?.title === freelanceRequestType.BLOGGER) {
+    } else if (
+      inTheWorkStatuses.includes(this.currentProposal?.proposal?.status) &&
+      this.currentProposal?.request.spec?.title === freelanceRequestType.DESIGNER
+    ) {
+      this.onTriggerOpenModal('showRequestDesignerResultModal')
+    } else if (this.currentProposal?.request.spec?.title === freelanceRequestType.BLOGGER) {
       this.onTriggerOpenModal('showRequestResultModal')
     } else {
-      this.onTriggerOpenModal('showRequestStandartResultModal')
+      this.onTriggerOpenModal('showMainRequestResultModal')
     }
   }
 
@@ -313,6 +322,7 @@ export class MyProposalsViewModel {
         'asin',
         'title',
         'humanFriendlyId',
+        'skuByClient',
       ]),
     )
   }
@@ -460,5 +470,70 @@ export class MyProposalsViewModel {
     this.setDefaultStatuses()
 
     this.getRequestsProposalsPagMy()
+  }
+
+  async onClickSendAsResult({ message, files, amazonOrderId, publicationLinks, sourceLink }) {
+    try {
+      if (files.length) {
+        await onSubmitPostImages.call(this, {
+          images: typeof files[0] === 'object' && 'fileLink' in files[0] ? files.map(el => el.fileLink) : files,
+          type: 'loadedFiles',
+        })
+      }
+
+      if (this.currentProposal.proposal.status === RequestProposalStatus.TO_CORRECT) {
+        await RequestProposalModel.requestProposalResultCorrected(this.currentProposal.proposal._id, {
+          reason: message,
+          linksToMediaFiles: this.loadedFiles,
+        })
+      } else if (
+        this.currentProposal.proposal.status === RequestProposalStatus.CREATED ||
+        this.currentProposal.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+        this.currentProposal.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED
+      ) {
+        await RequestProposalModel.requestProposalCorrected(this.currentProposal.proposal._id, {
+          reason: message,
+          linksToMediaFiles: this.loadedFiles,
+        })
+      } else {
+        if (this.currentProposal.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
+          await RequestProposalModel.requestProposalReadyToVerify(this.currentProposal.proposal._id)
+        }
+      }
+
+      const filesIds = files.map(el => el._id)
+
+      const curentMediaIds = this.currentProposal.proposal.media.map(el => el._id)
+
+      const mediaToRemoveIds = curentMediaIds.filter(el => !filesIds.includes(el))
+
+      if (mediaToRemoveIds.length) {
+        await RequestModel.editRequestsMediaMany(mediaToRemoveIds.map(el => ({ _id: el, proposalId: null })))
+      }
+
+      await RequestProposalModel.requestProposalResultEdit(this.currentProposal.proposal._id, {
+        result: message,
+        media: this.loadedFiles.map((el, i) => ({
+          fileLink: el,
+          commentByPerformer: typeof files[0] === 'object' ? files[i]?.commentByPerformer : '',
+          _id: this.currentProposal.proposal.media.some(item => item._id === files[i]?._id) ? files[i]?._id : null,
+          index: i,
+        })),
+        ...(amazonOrderId && { amazonOrderId }),
+        ...(publicationLinks && { publicationLinks }),
+        ...(sourceLink && {
+          sourceFiles: [
+            {
+              sourceFile: sourceLink,
+              comments: '',
+            },
+          ],
+        }),
+      })
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

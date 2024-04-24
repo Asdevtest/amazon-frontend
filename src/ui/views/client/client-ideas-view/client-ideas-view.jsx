@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { SelectedButtonValueConfig } from '@constants/configs/buttons'
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
@@ -12,9 +12,10 @@ import { UserModel } from '@models/user-model'
 import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { CommentsModal } from '@components/modals/comments-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
@@ -24,7 +25,7 @@ import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-mod
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -35,6 +36,8 @@ import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.sty
 
 import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
@@ -62,7 +65,7 @@ export const ClientIdeasView = observer(({ history }) => {
   }
 
   return (
-    <div>
+    <>
       <div className={styles.controls}>
         <div />
 
@@ -75,7 +78,11 @@ export const ClientIdeasView = observer(({ history }) => {
 
         <div>
           {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
-            <Button success className={styles.createRequest} onClick={viewModel.onClickProductLaunch}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              className={styles.createRequest}
+              onClick={viewModel.onClickProductLaunch}
+            >
               <PlusIcon /> {t(TranslationKey['Create idea'])}
             </Button>
           )}
@@ -113,9 +120,9 @@ export const ClientIdeasView = observer(({ history }) => {
           getRowClassName={getRowClassName}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row.originalData)}
+          onRowClick={params => viewModel.getDataForIdeaModal(params.row.originalData)}
         />
       </div>
 
@@ -141,14 +148,14 @@ export const ClientIdeasView = observer(({ history }) => {
         <SelectionSupplierModal
           product={viewModel.currentProduct}
           title={t(TranslationKey['Send product card for supplier search'])}
-          buttonValue={SelectedButtonValueConfig.SEND_REQUEST}
           onSubmitSeekSupplier={viewModel.onSubmitCalculateSeekSupplier}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
         />
       </Modal>
 
-      {viewModel.showIdeaModal && (
+      {viewModel.showIdeaModal ? (
         <IdeaCardsModal
+          // @ts-ignore
           isCreate={viewModel.isIdeaCreate}
           openModal={viewModel.showIdeaModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
@@ -160,7 +167,7 @@ export const ClientIdeasView = observer(({ history }) => {
           productId={viewModel.productId}
           currentIdeaId={viewModel.currentIdeaId}
         />
-      )}
+      ) : null}
 
       <Modal
         openModal={viewModel.showBarcodeOrHscodeModal}
@@ -186,82 +193,81 @@ export const ClientIdeasView = observer(({ history }) => {
 
       {viewModel.productCardModal && (
         <ProductCardModal
-          history={viewModel.history}
+          history={history}
           openModal={viewModel.productCardModal}
           setOpenModal={() => viewModel.onClickProductModal()}
           onClickOpenNewTab={row => viewModel.onClickShowProduct(row)}
         />
       )}
 
-      {viewModel.showBindingModal && (
-        <Modal
-          openModal={viewModel.showBindingModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBindingModal')}
-        >
-          <BindIdeaToRequestForm
-            requests={viewModel.requestsForProduct}
-            onClickBindButton={viewModel.onClickBindButton}
-          />
-        </Modal>
-      )}
+      <Modal
+        openModal={viewModel.showBindingModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showBindingModal')}
+      >
+        <BindIdeaToRequestForm
+          requests={viewModel.requestsForProduct}
+          onClickBindButton={viewModel.onClickBindButton}
+        />
+      </Modal>
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={viewModel.successModalTitle}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.successModalTitle}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
-      {viewModel.showRequestDesignerResultModal && (
-        <Modal
-          openModal={viewModel.showRequestDesignerResultModal}
+      <Modal
+        openModal={viewModel.showRequestDesignerResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
+      >
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={viewModel.userInfo}
+          request={{ request: viewModel.currentRequest }}
+          proposal={viewModel.currentProposal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
-        >
-          <RequestDesignerResultClientForm
-            onlyRead
-            userInfo={viewModel.userInfo}
-            request={{ request: viewModel.currentRequest }}
-            // request={viewModel.currentProposal}
-            proposal={viewModel.currentProposal}
-            setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
-          />
-        </Modal>
-      )}
+        />
+      </Modal>
 
-      {viewModel.showRequestStandartResultModal && (
-        <Modal
-          openModal={viewModel.showRequestStandartResultModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
-        >
-          <RequestStandartResultForm
-            request={{ request: viewModel.currentRequest }}
-            proposal={viewModel.currentProposal}
-            setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
-          />
-        </Modal>
-      )}
+      {viewModel.showMainRequestResultModal ? (
+        <MainRequestResultModal
+          readOnly
+          customProposal={viewModel.currentProposal}
+          userInfo={viewModel.userInfo}
+          openModal={viewModel.showMainRequestResultModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+        />
+      ) : null}
 
-      {viewModel.showRequestBloggerResultModal && (
+      {viewModel.showRequestBloggerResultModal ? (
         <RequestResultModal
+          // @ts-ignore
           request={viewModel.currentRequest}
           proposal={viewModel.currentProposal}
           openModal={viewModel.showRequestBloggerResultModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestBloggerResultModal')}
         />
-      )}
+      ) : null}
 
       <Modal
         missClickModalOn
@@ -281,21 +287,17 @@ export const ClientIdeasView = observer(({ history }) => {
         />
       </Modal>
 
-      <Modal openModal={viewModel.showAddOrEditSupplierModal} setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}>
-        <AddOrEditSupplierModalContent
-          paymentMethods={viewModel.paymentMethods}
-          product={viewModel.currentProduct}
-          storekeepersData={viewModel.storekeepers}
-          requestStatus={viewModel.requestStatus}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
-          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
+      {viewModel.showCommentsModal ? (
+        <CommentsModal
+          required
+          readOnly={false}
+          maxLength={MAX_DEFAULT_INPUT_VALUE}
+          title={t(TranslationKey['Reason for rejection'])}
+          openModal={viewModel.showCommentsModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showCommentsModal')}
+          onChangeField={viewModel.setRejectStatusHandler}
         />
-      </Modal>
+      ) : null}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield
@@ -303,6 +305,21 @@ export const ClientIdeasView = observer(({ history }) => {
           acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
         />
       )}
-    </div>
+
+      <Modal
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+      >
+        <AddOrEditSupplierModalContent
+          // @ts-ignore
+          paymentMethods={viewModel.paymentMethods}
+          requestStatus={viewModel.requestStatus}
+          platformSettings={viewModel.platformSettings}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
+          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+        />
+      </Modal>
+    </>
   )
 })

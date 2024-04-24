@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
@@ -6,10 +5,12 @@ import { SourceProduct } from '@components/cards/idea-view-and-edit-card/source-
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './interconnected-products.style'
 
-import { Button } from '../buttons/button'
-import { MinusIcon, ParentProductIcon, ShareLinkIcon, VariationIcon } from '../svg-icons'
+import { Button } from '../button'
+import { MinusIcon, ParentProductIcon, ShareIcon, VariationIcon } from '../svg-icons'
 
 interface InterconnectedProductsProps {
   isParent?: boolean
@@ -36,7 +37,6 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
   return (
     <div className={styles.root}>
       {isParent ? (
-        // @ts-ignore
         <ParentProductIcon className={styles.parentVariationIcon} />
       ) : (
         <VariationIcon className={styles.variationIcon} />
@@ -47,17 +47,19 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button variant="text" className={styles.button} onClick={() => navigateToProduct(_id)}>
-          <ShareLinkIcon className={cx(styles.icon, styles.shareLinkIcon)} />
+        <Button iconButton smallIconButton className={styles.button} onClick={() => navigateToProduct(_id)}>
+          <ShareIcon />
         </Button>
 
         {showRemoveButton && (
           <Button
-            danger
-            className={cx(styles.button, styles.removeButton)}
+            iconButton
+            smallIconButton
+            styleType={ButtonStyle.DANGER}
+            className={cx(styles.button)}
             onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}
           >
-            <MinusIcon className={cx(styles.icon, styles.removeIcon)} />
+            <MinusIcon />
           </Button>
         )}
       </div>

@@ -18,7 +18,7 @@ import {
 } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 
@@ -26,6 +26,8 @@ import { calcFinalWeightForBox, calcVolumeWeightForBox, roundSafely } from '@uti
 import { checkIsPositiveNum } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './create-box-form.style'
 
@@ -266,7 +268,6 @@ export const CreateBoxForm = observer(
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
                   })}
                 >
-                  {/* {formItem.status && getOrderStatusOptionByCode(formItem.status).label} */}
                   {OrderStatusTranslate(getOrderStatusOptionByCode(formItem.status).key)}
                 </Typography>
               }
@@ -307,14 +308,8 @@ export const CreateBoxForm = observer(
           {!isEdit ? (
             <div className={styles.buttonsWrapper}>
               <Button
-                disableElevation
                 tooltipInfoContent={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
-                className={styles.button}
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                  setFormFieldsArr(formFieldsArr.concat({ ...sourceBox }))
-                }}
+                onClick={() => setFormFieldsArr(formFieldsArr.concat({ ...sourceBox }))}
               >
                 {t(TranslationKey['Add another box'])}
               </Button>
@@ -323,26 +318,11 @@ export const CreateBoxForm = observer(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button
-            success
-            disabled={disableSubmit}
-            className={styles.button}
-            color="primary"
-            variant="contained"
-            onClick={onSubmit}
-          >
+          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmit} onClick={onSubmit}>
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
           </Button>
 
-          <Button
-            disableElevation
-            color="primary"
-            className={styles.button}
-            variant="contained"
-            onClick={() => onTriggerOpenModal()}
-          >
-            {t(TranslationKey.Cancel)}
-          </Button>
+          <Button onClick={() => onTriggerOpenModal()}>{t(TranslationKey.Cancel)}</Button>
         </div>
       </div>
     )

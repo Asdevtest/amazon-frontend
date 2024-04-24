@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ClassNamesArg } from '@emotion/react'
 import { FC, useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
-import { Checkbox, Input, MenuItem, Select, Typography } from '@mui/material'
+import { Checkbox, MenuItem, Select, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,13 +12,13 @@ import { Field } from '@components/shared/field'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { PaymentMethod } from '@typings/payments'
+import { IPaymentMethod } from '@typings/shared/payment-method'
 
 import { useStyles } from './custom-select-payment-details.style'
 
 interface CustomSelectPaymentDetailsProps {
-  orderPayments: PaymentMethod[]
-  allPayments: PaymentMethod[]
+  orderPayments: IPaymentMethod[]
+  allPayments: IPaymentMethod[]
   onlyRead?: boolean
   column?: boolean
   disabled?: boolean
@@ -27,7 +26,7 @@ interface CustomSelectPaymentDetailsProps {
   cursorPointer?: boolean
   labelClass?: ClassNamesArg
   selectWrapper?: ClassNamesArg
-  onChangePaymentMethod?: (paymentMethod: PaymentMethod) => void
+  onChangePaymentMethod?: (paymentMethod: IPaymentMethod) => void
   onClickButton?: () => void
 }
 
@@ -63,7 +62,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
 
   const EditIconToRender = () => <EditIcon className={styles.editIcon} />
 
-  const selectContentToRender = (valuesToRender: PaymentMethod[], isReadOnly: boolean): JSX.Element => {
+  const selectContentToRender = (valuesToRender: IPaymentMethod[], isReadOnly: boolean): JSX.Element => {
     if (valuesToRender.length) {
       setIsEmpty(false)
 
@@ -111,7 +110,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
               displayEmpty
               disabled={(onlyRead && isEmpty) || disabled || onlyRead}
               value={value} // @ts-ignore
-              IconComponent={!isEmpty ? EditIconToRender : ''}
+              IconComponent={!isEmpty && !onlyRead ? EditIconToRender : ''}
               classes={{
                 select: cx(styles.select, {
                   [styles.selectIsNotEmpty]: !isEmpty,
@@ -124,7 +123,6 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                 [styles.grayBorder]: (onlyRead && isEmpty) || onlyRead,
                 [styles.cursorPointer]: cursorPointer,
               })}
-              input={<Input /* startAdornment={<InputAdornment position="start" />} */ />}
               MenuProps={{
                 anchorOrigin: {
                   vertical: 'bottom',
@@ -156,10 +154,10 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                     <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
                     <img
                       src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
-                      alt={paymentMethod.title}
+                      alt={paymentMethod?.title}
                       className={styles.paymentMethodIcon}
                     />
-                    <p className={styles.paymentMethodTitle}>{paymentMethod.title}</p>
+                    <p className={styles.paymentMethodTitle}>{paymentMethod?.title}</p>
                   </MenuItem>
                 ))}
 

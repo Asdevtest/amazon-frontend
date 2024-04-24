@@ -10,20 +10,20 @@ import { UserLink } from '@components/user/user-link'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
-import { IShortUser } from '@typings/master-user'
-import { IRequestProposals } from '@typings/request-proposal'
+import { IProposal } from '@typings/models/proposals/proposal'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './request-information.style'
 
 interface RequestInformationProps {
   priority: number
   maxAmountOfProposals: number
-  requestProposals: IRequestProposals[]
+  requestProposals: IProposal[]
   title: string
   asin: string
   humanFriendlyId: string
-  sub: IShortUser
-  createdBy: IShortUser
+  sub: ICreatedBy
+  createdBy: ICreatedBy
 }
 
 export const RequestInformation: FC<RequestInformationProps> = memo(props => {

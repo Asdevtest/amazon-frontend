@@ -7,9 +7,11 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { styles } from './buyer-notifications-view.style'
 
@@ -20,40 +22,23 @@ export const BuyerNotificationsViewRaw = props => {
   const { classes: styles } = props
 
   return (
-    <>
-      <div>
-        <div>
-          <Typography className={styles.title}>{t(TranslationKey['Choose a section in Notifications'])}</Typography>
+    <div>
+      <Typography className={styles.title}>{t(TranslationKey['Choose a section in Notifications'])}</Typography>
 
-          <div className={styles.btnsWrapper}>
-            {/*
-                  <Button
-                    className={styles.button}
-                    color="primary"
-                    variant="outlined"
-                    onClick={onClickTariffsNotifications}
-                  >
-                    <div className={styles.btnTextWrapper}>
-                      <Typography className={styles.btnText}>{t(TranslationKey['On boxes tariffs'])}</Typography>
-                      <ArrowRightAltIcon color="primary" />
-                    </div>
-                  </Button> */}
-
-            <Button
-              className={styles.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickIdeasNotifications}
-            >
-              <div className={styles.btnTextWrapper}>
-                <Typography className={styles.btnText}>{t(TranslationKey['On ideas'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
+      <div className={styles.btnsWrapper}>
+        <Button
+          className={styles.button}
+          color="primary"
+          variant={ButtonVariant.OUTLINED}
+          onClick={viewModel.onClickIdeasNotifications}
+        >
+          <div className={styles.btnTextWrapper}>
+            <Typography className={styles.btnText}>{t(TranslationKey['On ideas'])}</Typography>
+            <ArrowRightAltIcon color="primary" />
           </div>
-        </div>
+        </Button>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -5,10 +5,12 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-tag-form.style'
 
@@ -54,11 +56,11 @@ export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCre
       </div>
 
       <div className={styles.btnsWrapper}>
-        <Button success color="primary" disabled={disabledButton} variant="contained" onClick={handleClick}>
+        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledButton} onClick={handleClick}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button className={styles.button} variant="text" onClick={() => onCloseModal()}>
+        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

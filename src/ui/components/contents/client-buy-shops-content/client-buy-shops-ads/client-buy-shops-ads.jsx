@@ -12,11 +12,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './client-buy-shops-ads.style'
 
@@ -68,8 +70,7 @@ export const ClientBuyShopsAds = observer(() => {
                   backgroundColor: 'none',
                 },
               }}
-              variant="text"
-              color="primary"
+              variant={ButtonVariant.OUTLINED}
               onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
             >
               {t(TranslationKey['All Ads'])}
@@ -85,8 +86,7 @@ export const ClientBuyShopsAds = observer(() => {
                   backgroundColor: 'none',
                 },
               }}
-              variant="text"
-              color="primary"
+              variant={ButtonVariant.OUTLINED}
               onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
             >
               {t(TranslationKey['Purchased Ads'])}

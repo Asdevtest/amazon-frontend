@@ -1,5 +1,5 @@
 import isEqual from 'lodash.isequal'
-import { ChangeEvent, FC, memo, useState } from 'react'
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import { MAX_DEFAULT_COMMENT_LEGTH } from '@constants/requests/request'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,46 +12,65 @@ import { t } from '@utils/translations'
 import { useStyles } from './comments-modal.style'
 
 interface CommentsModalProps {
-  readOnly: boolean
-  title: string
   text: string
-  isOpenModal: boolean
+  openModal: boolean
   onOpenModal: () => void
   onChangeField: (text: string) => void
+  readOnly?: boolean
+  title?: string
+  maxLength?: number
+  required?: boolean
 }
 
 export const CommentsModal: FC<CommentsModalProps> = memo(props => {
-  const { readOnly = true, title, text, isOpenModal, onOpenModal, onChangeField } = props
+  const {
+    readOnly,
+    title,
+    text,
+    openModal,
+    required,
+    maxLength = MAX_DEFAULT_COMMENT_LEGTH,
+    onOpenModal,
+    onChangeField,
+  } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const [comment, setComment] = useState(text || '')
+  const [comment, setComment] = useState('')
 
-  const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event?.target.value)
+  useEffect(() => {
+    setComment(text)
+  }, [text, openModal])
 
-  const isNotValidCommentLength = comment.length > MAX_DEFAULT_COMMENT_LEGTH
-  const hasCommentChanged = isEqual(comment, text) || isNotValidCommentLength
+  const isNotValidCommentLength = comment?.length > maxLength
+  const requiredText = required && !comment
+  const hasCommentChanged = isEqual(comment, text) || isNotValidCommentLength || requiredText
 
+  const handleChangeComment = (event: ChangeEvent<HTMLInputElement>) => setComment(event.target.value)
   const handleSaveComment = () => {
     if (!hasCommentChanged) {
       onChangeField(comment)
-
+      setComment('')
       onOpenModal()
     }
   }
+  const handleToggleModal = () => {
+    setComment('')
+    onOpenModal()
+  }
 
   return (
-    <Modal openModal={isOpenModal} setOpenModal={onOpenModal}>
+    <Modal openModal={openModal} setOpenModal={handleToggleModal}>
       <div className={styles.wrapper}>
         <Field
           multiline
+          minRows={8}
+          maxRows={8}
           disabled={readOnly}
           error={isNotValidCommentLength}
           containerClasses={styles.editorContainer}
           inputClasses={cx(styles.editor, { [styles.editorReadOnly]: readOnly })}
-          inputProps={{ maxLength: MAX_DEFAULT_COMMENT_LEGTH }}
-          minRows={8}
-          maxRows={8}
+          inputProps={{ maxLength }}
           labelClasses={styles.title}
           label={title}
           value={comment}

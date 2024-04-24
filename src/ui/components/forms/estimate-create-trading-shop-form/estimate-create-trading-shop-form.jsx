@@ -4,11 +4,13 @@ import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './estimate-create-trading-shop-form.style'
 
@@ -91,7 +93,7 @@ export const EstimateCreateTradingShopForm = ({
               <div className={styles.estimateCostWrapper}>
                 <Typography>{toFixed(averagePureIncome * reqMultiplier, 2)}</Typography>
 
-                <Button variant="text" className={styles.applyBtn} onClick={applyReqMultiplier}>
+                <Button variant={ButtonVariant.OUTLINED} className={styles.applyBtn} onClick={applyReqMultiplier}>
                   {t(TranslationKey.Apply)}
                 </Button>
               </div>
@@ -150,22 +152,15 @@ export const EstimateCreateTradingShopForm = ({
 
       <div className={styles.buttonsWrapper}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={submitIsClicked}
-          variant="contained"
           className={styles.buttonOk}
           onClick={onClickSubmit}
         >
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button
-          disabled={submitIsClicked}
-          color="primary"
-          variant="contained"
-          className={styles.buttonCancel}
-          onClick={setOpenModal}
-        >
+        <Button disabled={submitIsClicked} className={styles.buttonCancel} onClick={setOpenModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

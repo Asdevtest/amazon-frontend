@@ -11,6 +11,5 @@ export const useStyles = makeStyles()(() => ({
     padding: '0 20px',
     display: 'flex',
     gap: 10,
-    borderRadius: 40,
   },
 }))

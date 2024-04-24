@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
-import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+import { SelectProductAsinCellWithourTitle } from '@components/data-grid/data-grid-cells'
+import { Button } from '@components/shared/button'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './select-product-button.style'
 
@@ -20,7 +22,7 @@ export const SelectProductButton: FC<SelectProductButtonProps> = memo(props => {
   const { data, onClickCustomButton, checkbox, checkboxChecked } = props
 
   return (
-    <Button variant="text" className={styles.button} onClick={onClickCustomButton}>
+    <Button styleType={ButtonStyle.TRANSPARENT} className={styles.button} onClick={onClickCustomButton}>
       <SelectProductAsinCellWithourTitle
         product={data}
         withCheckbox={checkbox}

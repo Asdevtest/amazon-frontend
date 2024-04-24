@@ -8,11 +8,13 @@ import { Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './with-search-select.style'
 
@@ -90,7 +92,6 @@ export const WithSearchSelect = memo(
 
     const handleClose = () => {
       setAnchorEl(null)
-      onClickSubmitSearch ? onClickSubmitSearch('') : undefined
     }
 
     useEffect(() => {
@@ -166,7 +167,10 @@ export const WithSearchSelect = memo(
                 vertical: 'bottom',
                 horizontal: 'left',
               }}
-              onClose={handleClose}
+              onClose={() => {
+                handleClose()
+                onClickSubmitSearch ? onClickSubmitSearch('') : undefined
+              }}
             >
               <div
                 className={cx(styles.subMainWrapper, customSubMainWrapper)}
@@ -200,7 +204,7 @@ export const WithSearchSelect = memo(
                     <Tooltip followCursor title={t(TranslationKey['Not chosen'])}>
                       <Button
                         className={styles.button}
-                        variant="text"
+                        styleType={ButtonStyle.TRANSPARENT}
                         onClick={e => {
                           e.stopPropagation()
 
@@ -234,7 +238,7 @@ export const WithSearchSelect = memo(
                         key={index}
                         className={cx(styles.button, buttonStyles)}
                         style={changeColorById && { color: changeColorById(el._id) }}
-                        variant="text"
+                        styleType={ButtonStyle.TRANSPARENT}
                         onClick={e => {
                           e.stopPropagation()
                           onClickSelect(el)
@@ -305,7 +309,7 @@ export const WithSearchSelect = memo(
                                 e.stopPropagation()
                               }}
                             />
-                          ) : undefined}
+                          ) : null}
                         </div>
                       </Button>
                     ),

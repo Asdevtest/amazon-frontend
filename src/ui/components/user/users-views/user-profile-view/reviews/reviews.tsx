@@ -7,10 +7,10 @@ import { useStyles } from '@components/user/users-views/user-profile-view/review
 
 import { t } from '@utils/translations'
 
-import { FeedbackType } from '@typings/feedback'
+import { IFeedback } from '@typings/models/feedbacks/feedback'
 
 interface ReviewsProps {
-  reviews: FeedbackType[]
+  reviews: IFeedback[]
 }
 
 export const Reviews: FC<ReviewsProps> = memo(({ reviews }) => {

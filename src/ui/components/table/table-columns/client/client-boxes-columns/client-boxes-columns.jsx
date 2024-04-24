@@ -14,9 +14,10 @@ import {
   OrderCell,
   OrderManyItemsCell,
   OrdersIdsItemsCell,
+  RedFlagsCell,
   ShortBoxDimensionsCell,
   WarehouseDestinationAndTariffCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
@@ -130,7 +131,7 @@ export const clientBoxesViewColumns = (
   },
 
   {
-    field: 'orders',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -181,7 +182,6 @@ export const clientBoxesViewColumns = (
         .join('\n'),
 
     filterable: false,
-    sortable: false,
     columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
   },
 
@@ -225,7 +225,7 @@ export const clientBoxesViewColumns = (
     renderCell: params =>
       params.row.originalData ? <MultilineTextCell text={params.value * params.row.originalData?.amount} /> : '',
     type: 'number',
-    width: 90,
+    width: 95,
     sortable: false,
 
     columnKey: columnnsKeys.shared.QUANTITY,
@@ -391,27 +391,30 @@ export const clientBoxesViewColumns = (
   {
     field: 'prepId',
     headerName: 'PREP ID',
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={'PREP ID'}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
+    renderHeader: () => <MultilineTextHeaderCell text={'PREP ID'} />,
+
+    renderCell: params => (
+      <ChangeInputCell
+        isString
+        maxLength={25}
+        rowId={params.row.originalData._id}
+        text={params.value}
+        onClickSubmit={handlers.onClickSavePrepId}
       />
     ),
-
-    renderCell: params => {
-      return (
-        <ChangeInputCell
-          maxLength={25}
-          rowId={params.row.originalData._id}
-          text={params.value}
-          onClickSubmit={handlers.onClickSavePrepId}
-        />
-      )
-    },
     width: 240,
 
     columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
+    field: 'redFlags',
+    headerName: t(TranslationKey['Red flags']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+    renderCell: params => <RedFlagsCell flags={params.row?.originalData?.items?.[0]?.product?.redFlags} />,
+    valueGetter: ({ row }) => row?.originalData?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
+    width: 130,
+    columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
   {

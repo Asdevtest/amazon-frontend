@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { makeObservable } from 'mobx'
 
-import { IListOfModals } from '@typings/data-grid'
+import { IListOfModals } from '@typings/shared/data-grid'
 
 import { DefaultModel } from '../default-model'
 

@@ -4,12 +4,14 @@ import { Avatar, Rating, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './my-services.style'
 
@@ -52,11 +54,7 @@ export const MyServicesInfo = ({
                 userId={announcementData?.createdBy?._id}
               />
               <div className={styles.userRatingWrapper}>
-                <Button
-                  variant="text"
-                  className={styles.reviewText}
-                  onClick={() => onClickReview(announcementData?.createdBy)}
-                >
+                <Button variant={ButtonVariant.OUTLINED} onClick={() => onClickReview(announcementData?.createdBy)}>
                   {t(TranslationKey.Reviews)}
                 </Button>
                 <Rating readOnly value={Number(announcementData?.createdBy?.rating)} size="small" />
@@ -90,7 +88,11 @@ export const MyServicesInfo = ({
 
       <div className={styles.footerWrapper}>
         {shopFullDescriptionButton ? (
-          <Button variant="text" className={styles.detailsButton} onClick={() => setShowFullDescription(prev => !prev)}>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            className={styles.detailsButton}
+            onClick={() => setShowFullDescription(prev => !prev)}
+          >
             {showFullDescription ? t(TranslationKey.Close) : t(TranslationKey.Details)}
           </Button>
         ) : (
@@ -98,7 +100,7 @@ export const MyServicesInfo = ({
         )}
 
         <div className={styles.buttonsWrapper}>
-          <Button danger className={styles.deleteButton} onClick={onClickCloseAnnouncementBtn}>
+          <Button styleType={ButtonStyle.DANGER} className={styles.deleteButton} onClick={onClickCloseAnnouncementBtn}>
             {t(TranslationKey['Delete ad'])}
           </Button>
 

@@ -12,7 +12,7 @@ import {
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { ModalTableBodyRow } from '@components/table/table-rows/user-profile-view/modal-table-body-row'
 
 import { t } from '@utils/translations'
@@ -52,21 +52,11 @@ export const ContentModal = props => {
         </Table>
       </TableContainer>
       <div className={styles.buttonsWrapper}>
-        <Button
-          disableElevation
-          variant="contained"
-          className={(styles.modalButton, styles.buyNowBtn)}
-          onClick={() => props.setOpenModal(false)}
-        >
+        <Button className={(styles.modalButton, styles.buyNowBtn)} onClick={() => props.setOpenModal(false)}>
           {'Заказать сразу'}
         </Button>
 
-        <Button
-          disableElevation
-          variant="contained"
-          className={(styles.modalButton, styles.cancelBtn)}
-          onClick={() => props.setOpenModal(false)}
-        >
+        <Button className={(styles.modalButton, styles.cancelBtn)} onClick={() => props.setOpenModal(false)}>
           {'Отменить'}
         </Button>
       </div>

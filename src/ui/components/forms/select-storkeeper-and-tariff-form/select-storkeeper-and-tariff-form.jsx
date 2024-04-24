@@ -5,13 +5,15 @@ import Checkbox from '@mui/material/Checkbox'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './select-storkeeper-and-tariff-form.style'
 
@@ -205,9 +207,7 @@ export const SelectStorekeeperAndTariffForm = observer(
           {!inNotifications && (
             <div className={styles.clearBtnWrapper}>
               <Button
-                disableElevation
-                color="primary"
-                variant={'outlined'}
+                variant={ButtonVariant.OUTLINED}
                 className={styles.resetBtn}
                 onClick={() => {
                   setVariationTariffId(null)

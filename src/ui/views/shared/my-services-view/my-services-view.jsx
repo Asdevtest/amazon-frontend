@@ -6,14 +6,16 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './my-services-view.style'
 
@@ -31,15 +33,25 @@ export const MyServicesView = observer(({ history }) => {
 
   return (
     <>
-      <div className={styles.tablePanelWrapper}>
-        <div className={styles.toggleBtnAndtaskTypeWrapper}>
-          <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
+      <div className={styles.headerWrapper}>
+        <div className={styles.tablePanelWrapper}>
+          <div className={styles.toggleBtnAndtaskTypeWrapper}>
+            <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-          <FreelanceTypeTaskSelect
-            selectedSpec={viewModel.selectedSpec}
-            specs={viewModel.userInfo?.allowedSpec}
-            onClickSpec={viewModel.onClickSpec}
-          />
+            <FreelanceTypeTaskSelect
+              selectedSpec={viewModel.selectedSpec}
+              specs={viewModel.userInfo?.allowedSpec}
+              onClickSpec={viewModel.onClickSpec}
+            />
+          </div>
+
+          <Button
+            styleType={ButtonStyle.SUCCESS}
+            className={styles.rightAddingBtn}
+            onClick={viewModel.onClickCreateServiceBtn}
+          >
+            {t(TranslationKey['Create a service'])}
+          </Button>
         </div>
 
         <SearchInput
@@ -48,10 +60,6 @@ export const MyServicesView = observer(({ history }) => {
           value={viewModel.nameSearchValue}
           onChange={viewModel.onSearchSubmit}
         />
-
-        <Button success className={styles.rightAddingBtn} onClick={viewModel.onClickCreateServiceBtn}>
-          {t(TranslationKey['Create a service'])}
-        </Button>
       </div>
 
       <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
@@ -83,14 +91,13 @@ export const MyServicesView = observer(({ history }) => {
         </div>
       )}
 
-      {viewModel.showImageModal && (
-        <ImageModal
-          showPreviews
-          isOpenModal={viewModel.showImageModal}
+      {viewModel.showImageModal ? (
+        <SlideshowGalleryModal
+          openModal={viewModel.showImageModal}
           files={viewModel.service?.linksToMediaFiles}
           onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
         />
-      )}
+      ) : null}
 
       {viewModel.alertShieldSettings.alertShieldMessage && (
         <AlertShield

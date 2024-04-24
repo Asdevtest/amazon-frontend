@@ -13,7 +13,7 @@ import { SettingsModel } from '@models/settings-model'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
@@ -117,31 +117,37 @@ export const TabPaymentMethods = observer(() => {
               ))}
           </div>
 
-          <Button disabled={!isDisableButton} className={styles.button} onClick={viewModel.onSubmitPaymentMethod}>
+          <Button disabled={!isDisableButton} onClick={viewModel.onSubmitPaymentMethod}>
             {t(TranslationKey.Save)}
           </Button>
         </div>
       )}
 
-      <WarningInfoModal
-        openModal={viewModel.showInfoModal}
-        setOpenModal={viewModel.onClickToggleInfoModal}
-        title={viewModel.infoModalText}
-        btnText={t(TranslationKey.Close)}
-        onClickBtn={viewModel.onClickToggleInfoModal}
-      />
+      {viewModel.showInfoModal ? (
+        <WarningInfoModal
+          // @ts-ignore
+          openModal={viewModel.showInfoModal}
+          setOpenModal={viewModel.onClickToggleInfoModal}
+          title={viewModel.infoModalText}
+          btnText={t(TranslationKey.Close)}
+          onClickBtn={viewModel.onClickToggleInfoModal}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings?.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={viewModel.onClickToggleConfirmModal}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={viewModel.onClickToggleConfirmModal}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={viewModel.onClickToggleConfirmModal}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={viewModel.onClickToggleConfirmModal}
+        />
+      ) : null}
     </>
   )
 })

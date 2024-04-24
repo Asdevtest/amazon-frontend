@@ -7,7 +7,7 @@ import { productStatusButtonsConfigs } from '@constants/product/product-status-b
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AlertShield } from '@components/shared/alert-shield'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
@@ -137,12 +137,11 @@ export const RightSideComments = memo(
                     <Button
                       tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
                       className={styles.buttonDelete}
-                      variant="contained"
                       onClick={() => handleProductActionButtons('delete')}
                     >
                       {t(TranslationKey.Delete)}
                     </Button>
-                  ) : undefined}
+                  ) : null}
 
                   {product?.status ===
                     ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
@@ -150,8 +149,6 @@ export const RightSideComments = memo(
                     <Button
                       tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
                       className={cx(styles.buttonNormal, styles.buttonAccept)}
-                      color="primary"
-                      variant="contained"
                       onClick={() => handleProductActionButtons('accept', false)}
                     >
                       {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
@@ -166,7 +163,6 @@ export const RightSideComments = memo(
                       )}
                       disabled={product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
                       className={styles.buttonNormal}
-                      variant="contained"
                       onClick={
                         checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
                           ? () => handleProductActionButtons('accept', withoutStatus)
@@ -182,19 +178,13 @@ export const RightSideComments = memo(
                     className={cx(styles.buttonClose, {
                       [styles.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
                     })}
-                    variant="contained"
                     onClick={() => handleProductActionButtons('cancel')}
                   >
                     {checkIsClient(curUserRole) ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
                   </Button>
 
                   {checkIsClient(curUserRole) && product.archive && (
-                    <Button
-                      className={styles.restoreBtn}
-                      color="primary"
-                      variant="contained"
-                      onClick={() => handleProductActionButtons('restore')}
-                    >
+                    <Button className={styles.restoreBtn} onClick={() => handleProductActionButtons('restore')}>
                       {t(TranslationKey.Restore)}
                     </Button>
                   )}
@@ -206,7 +196,6 @@ export const RightSideComments = memo(
                     className={cx(styles.buttonClose, {
                       [styles.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
                     })}
-                    variant="contained"
                     onClick={() => handleProductActionButtons('cancel')}
                   >
                     {t(TranslationKey.Close)}

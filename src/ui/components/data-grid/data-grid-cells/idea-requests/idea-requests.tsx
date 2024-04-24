@@ -4,11 +4,13 @@ import { FC, memo, useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IdeaRequestCard } from '@components/cards/idea-view-and-edit-card/idea-request-card'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './idea-requests.style'
 
@@ -56,7 +58,6 @@ export const IdeaRequestsCell: FC<IdeaRequestsProps> = memo(props => {
             requestId={request.humanFriendlyId}
             requestStatus={request.status}
             executor={request.executor}
-            proposals={request.proposals}
             disableSeeResultButton={
               !request?.proposals?.some((proposal: any) => checkIsValidProposalStatusToShowResoult(proposal.status))
             }
@@ -68,7 +69,7 @@ export const IdeaRequestsCell: FC<IdeaRequestsProps> = memo(props => {
       })}
       {!withoutControls && (
         <div className={styles.ideaRequestsControls}>
-          <Button success onClick={onClickCreateRequest}>
+          <Button styleType={ButtonStyle.SUCCESS} onClick={onClickCreateRequest}>
             <PlusIcon /> {t(TranslationKey['Create a request'])}
           </Button>
           <Button onClick={onClickLinkRequest}>{t(TranslationKey['Link request'])}</Button>

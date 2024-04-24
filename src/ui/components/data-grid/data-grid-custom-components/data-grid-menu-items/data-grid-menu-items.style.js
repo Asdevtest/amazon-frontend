@@ -276,4 +276,9 @@ export const styles = theme => ({
     width: 24,
     height: 24,
   },
+
+  batchTrackingFormWrapper: {
+    padding: '20px 20px 0 20px',
+    flexDirection: 'column',
+  },
 })

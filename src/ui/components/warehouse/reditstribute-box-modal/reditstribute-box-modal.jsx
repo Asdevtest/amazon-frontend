@@ -9,12 +9,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { BoxSplit } from '@components/shared/boxes/box-split'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './reditstribute-box-modal.style'
 
@@ -265,7 +267,7 @@ export const RedistributeBox = observer(
           </Button>
 
           <Button
-            variant="text"
+            variant={ButtonVariant.OUTLINED}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelButton)}
             onClick={() => {
@@ -277,19 +279,20 @@ export const RedistributeBox = observer(
           </Button>
         </div>
 
-        <WarningInfoModal
-          openModal={showNewBoxAttention}
-          setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
-          title={t(
-            TranslationKey[
-              'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
-            ],
-          )}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            setShowNewBoxAttention(!showNewBoxAttention)
-          }}
-        />
+        {showNewBoxAttention ? (
+          <WarningInfoModal
+            // @ts-ignore
+            openModal={showNewBoxAttention}
+            setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
+            title={t(
+              TranslationKey[
+                'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
+              ],
+            )}
+            btnText={t(TranslationKey.Ok)}
+            onClickBtn={() => setShowNewBoxAttention(!showNewBoxAttention)}
+          />
+        ) : null}
       </div>
     )
   },

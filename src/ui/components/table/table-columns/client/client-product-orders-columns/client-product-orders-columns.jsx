@@ -13,21 +13,22 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  NormalActionBtnCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
-  SuccessActionBtnCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
   {
@@ -97,23 +98,21 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
-    renderCell: params => (
-      <div style={{ width: '100%' }}>
-        {Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) ? (
-          <NormalActionBtnCell
-            fullWidthButton
-            bTnText={t(TranslationKey['Repeat order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
-          />
-        ) : (
-          <SuccessActionBtnCell
-            fullWidthButton
-            bTnText={t(TranslationKey['To order'])}
-            onClickOkBtn={() => handlers.onClickReorder(params.row.originalData, true)}
-          />
-        )}
-      </div>
-    ),
+    renderCell: params => {
+      const isRepeatOrder =
+        Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
+      const currentStyle = isRepeatOrder ? ButtonStyle.PRIMARY : ButtonStyle.SUCCESS
+      const currentText = isRepeatOrder ? t(TranslationKey['Repeat order']) : t(TranslationKey['To order'])
+
+      return (
+        <ActionButtonsCell
+          isFirstButton
+          firstButtonElement={currentText}
+          firstButtonStyle={currentStyle}
+          onClickFirstButton={() => handlers.onClickReorder(params.row.originalData, !isRepeatOrder)}
+        />
+      )
+    },
     filterable: false,
     sortable: false,
   },

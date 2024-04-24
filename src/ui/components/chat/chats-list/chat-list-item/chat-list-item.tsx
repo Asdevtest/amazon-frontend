@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import he from 'he'
 import { observer } from 'mobx-react'
 import { FC, useContext } from 'react'

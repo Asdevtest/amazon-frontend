@@ -2,11 +2,13 @@ import { memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './select-shops-modal.style'
 
@@ -52,11 +54,9 @@ export const SelectShopsModal = memo(props => {
 
       <div className={styles.buttons}>
         <Button
-          success
-          disableElevation
+          styleType={ButtonStyle.SUCCESS}
           disabled={isDisabled}
           className={styles.button}
-          variant="contained"
           onClick={() => onClickSuccessBtn(selectedItem)}
         >
           {t(TranslationKey.Yes)}
@@ -64,8 +64,7 @@ export const SelectShopsModal = memo(props => {
 
         <Button
           className={cx(styles.button, styles.cancelButton)}
-          variant="text"
-          color="primary"
+          variant={ButtonVariant.OUTLINED}
           onClick={onClickCancelBtn}
         >
           {t(TranslationKey.Cancel)}

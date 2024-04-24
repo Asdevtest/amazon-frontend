@@ -4,12 +4,14 @@ import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RestoreRequestModal } from '@components/requests-and-request-proposals/restore-request-modal/'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
 import { getTomorrowDate } from '@utils/date-time'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './freelance-request-details-modal.style'
 
@@ -33,19 +35,23 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
   const showMarkAsCompletedButtton =
     isAcceptedProposals && request?.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED
+
   const showChangeRequestTermsButton =
     request?.status === RequestStatus.IN_PROCESS ||
     request?.status === RequestStatus.EXPIRED ||
     request?.status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED
+
   const showAcceptingProposalsButton =
     request?.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED &&
-    request?.status !== RequestStatus.EXPIRED &&
+    // request?.status !== RequestStatus.EXPIRED &&
     request?.status !== RequestStatus.DRAFT
+
   const showMainActionsButton =
     request && (request?.status === RequestStatus.DRAFT || request?.status === RequestStatus.PUBLISHED)
+
   const showPublishButton = request?.status === RequestStatus.DRAFT
 
-  const disableMarkAsCompletedButton = request?.createdBy?._id !== userInfo?._id
+  const disableMarkAsCompletedButton = request?.createdBy?._id !== userInfo?._id && request?.sub?._id !== userInfo?._id
 
   return (
     <div className={styles.suggestDeal}>
@@ -56,7 +62,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
       <div className={styles.controlsWrapper}>
         {showMarkAsCompletedButtton && (
           <Button
-            success
+            styleType={ButtonStyle.SUCCESS}
             disabled={disableMarkAsCompletedButton}
             className={styles.publishBtn}
             onClick={() => onClickMarkAsCompletedBtn(request?._id)}
@@ -70,7 +76,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
             {showMainActionsButton && (
               <>
                 <Button
-                  danger
+                  styleType={ButtonStyle.DANGER}
                   tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
                   className={styles.deleteBtn}
                   onClick={onClickCancelBtn}
@@ -80,7 +86,6 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
                 <Button
                   tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-                  color="primary"
                   className={styles.editBtn}
                   onClick={onClickEditBtn}
                 >
@@ -89,7 +94,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
                 {showPublishButton && (
                   <Button
-                    success
+                    styleType={ButtonStyle.SUCCESS}
                     tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
                     className={styles.publishBtn}
                     onClick={onClickPublishBtn}
@@ -124,7 +129,6 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
                   request?.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
                   t(TranslationKey['Removes the visibility of the request on the exchange'])
                 }
-                color="primary"
                 className={cx({
                   [styles.stopBtn]: request?.status !== RequestStatus.FORBID_NEW_PROPOSALS,
                 })}

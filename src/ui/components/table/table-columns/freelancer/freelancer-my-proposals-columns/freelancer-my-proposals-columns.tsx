@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GridCellParams } from '@mui/x-data-grid'
 
@@ -21,14 +19,14 @@ import {
   ProductAsinCell,
   ShortDateCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
 interface IHandlers {
   onClickDeleteButton: (proposalId: string, proposalStatus: string) => void
   onClickEditButton: (requestId: string, proposalId: string) => void
-  onClickResultButton: (requestId: string, proposalId: string) => void
+  onClickResultButton: (proposalId: string) => void
   onClickOpenButton: (request: any) => void
 }
 
@@ -231,12 +229,10 @@ export const FreelancerMyProposalsColumns = (handlers: IHandlers) => [
         onClickEditButton={() =>
           handlers.onClickEditButton(params.row.originalData?.request?._id, params.row.originalData?._id)
         }
-        onClickResultButton={() =>
-          handlers.onClickResultButton(params.row.originalData.request?._id, params.row.originalData._id)
-        }
+        onClickResultButton={() => handlers.onClickResultButton(params.row.originalData._id)}
       />
     ),
-    width: 200,
+    width: 240,
     sortable: false,
     filterable: false,
   },

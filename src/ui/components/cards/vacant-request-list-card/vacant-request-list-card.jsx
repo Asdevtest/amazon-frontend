@@ -1,14 +1,12 @@
-
-
 import Typography from '@mui/material/Typography'
 
 import { requestPriority } from '@constants/requests/request-priority'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { OrderCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { OrderCell } from '@components/data-grid/data-grid-cells'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { UserLink } from '@components/user/user-link'
 
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -91,8 +89,6 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
           </div>
           <Button
             tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-            variant="contained"
-            color="primary"
             className={styles.actionButton}
             onClick={() => onClickViewMore(item._id)}
           >

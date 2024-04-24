@@ -58,27 +58,33 @@ export const UserEdit = observer(({ user }) => {
         />
       ) : null}
 
-      <ConfirmationModal
-        isWarning={confirmModalSettings?.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <TwoVerticalChoicesModal
-        openModal={showTwoVerticalChoicesModal}
-        setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
-        title={t(TranslationKey['Data saved successfully'])}
-        topBtnText={t(TranslationKey['Back to Users'])}
-        bottomBtnText={t(TranslationKey['Continue working with the user'])}
-        onClickTopBtn={() => goToUsers()}
-        onClickBottomBtn={onClickBottomBtn}
-      />
+      {showTwoVerticalChoicesModal ? (
+        <TwoVerticalChoicesModal
+          // @ts-ignore
+          openModal={showTwoVerticalChoicesModal}
+          setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
+          title={t(TranslationKey['Data saved successfully'])}
+          topBtnText={t(TranslationKey['Back to Users'])}
+          bottomBtnText={t(TranslationKey['Continue working with the user'])}
+          onClickTopBtn={() => goToUsers()}
+          onClickBottomBtn={onClickBottomBtn}
+        />
+      ) : null}
     </div>
   )
 })

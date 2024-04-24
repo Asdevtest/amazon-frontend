@@ -10,12 +10,14 @@ import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardWidgetsCard } from '@components/dashboards/dashboard-widgets-card'
 import { UserMoneyTransferModal } from '@components/modals/user-money-transfer-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { PlusIcon } from '@components/shared/svg-icons'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './client-dashboard-view.style'
 
@@ -56,7 +58,7 @@ export const ClientDashboardView = observer(({ history }) => {
                 <Button
                   tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
                   className={cx(styles.button, styles.withdrawBtn)}
-                  variant="text"
+                  variant={ButtonVariant.OUTLINED}
                   onClick={viewModel.onClickAddMoney}
                 >
                   {t(TranslationKey.Withdraw)}
@@ -83,14 +85,17 @@ export const ClientDashboardView = observer(({ history }) => {
           config={getClientDashboardCardConfig()}
           valuesData={viewModel.dashboardData}
           onClickViewMore={viewModel.onClickInfoCardViewMode}
-          onClickAddProduct={viewModel.onClickAddProduct}
         />
       </div>
-      <UserMoneyTransferModal
-        openModal={viewModel.showTransferModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showTransferModal')}
-        isWithdraw={viewModel.transferModalSettings.isWithdraw}
-      />
+
+      {viewModel.showTransferModal ? (
+        <UserMoneyTransferModal
+          // @ts-ignore
+          openModal={viewModel.showTransferModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showTransferModal')}
+          isWithdraw={viewModel.transferModalSettings.isWithdraw}
+        />
+      ) : null}
     </>
   )
 })

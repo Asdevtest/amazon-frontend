@@ -2,12 +2,14 @@ import { Avatar, Grid, Rating, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './appeal-details-card.style'
 
@@ -98,14 +100,7 @@ export const AppealDetailsCard = () => {
             <Typography className={styles.timeOnReviewTitle}>
               {'Время на рассмотрение с момента принятия 48 часов'}
             </Typography>
-            <Button
-              success
-              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-              variant="contained"
-              color="primary"
-              className={styles.actionButton}
-              // onClick={() => onClickViewMore(item.requestId)}
-            >
+            <Button styleType={ButtonStyle.SUCCESS} className={styles.actionButton}>
               {'Принять к рассмотрению'}
             </Button>
           </div>

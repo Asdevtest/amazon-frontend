@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -33,7 +33,6 @@ export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellPr
       </p>
       {!noCalculate && (
         <Button
-          disableElevation
           className={styles.cellBtn}
           startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
           onClick={() => onClickCalculate(productId)}

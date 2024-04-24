@@ -2,15 +2,17 @@ import { FC, memo } from 'react'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
+import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 
-import { IDestination, IDestinationStorekeeper } from '@typings/destination'
-import { IPlatformSettings } from '@typings/patform-settings'
+import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { useStyles } from './tabs.style'
 
 import { IOrderWithAdditionalFields, SetFormFieldsType } from '../../my-order-modal.type'
 
-import { BasicInfoTab, BoxesToOrderTab, ListSuppliersTab } from './components'
+import { BasicInfo } from './basic-info'
+import { BoxesToOrder } from './boxes-to-order'
 import { customSwitcherSettings } from './tabs.config'
 import { MyOrderModalSwitcherConditions } from './tabs.type'
 
@@ -58,7 +60,7 @@ export const Tabs: FC<TabsProps> = memo(props => {
       />
 
       <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.BASIC_INFORMATION}>
-        <BasicInfoTab
+        <BasicInfo
           isOrderEditable={isOrderEditable}
           isClient={isClient}
           isPendingOrdering={isPendingOrdering}
@@ -72,11 +74,11 @@ export const Tabs: FC<TabsProps> = memo(props => {
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.LIST_O_FSUPPLIERS}>
-        <ListSuppliersTab formFields={formFields} storekeepers={storekeepers} platformSettings={platformSettings} />
+        <ListSuppliers readOnly formFields={formFields} />
       </TabPanel>
 
       <TabPanel value={switcherCondition} index={MyOrderModalSwitcherConditions.BOXES_TO_ORDER}>
-        <BoxesToOrderTab formFields={formFields} platformSettings={platformSettings} />
+        <BoxesToOrder formFields={formFields} platformSettings={platformSettings} />
       </TabPanel>
     </div>
   )

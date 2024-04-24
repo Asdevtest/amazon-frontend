@@ -12,10 +12,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
-import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells/data-grid-cells'
+import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
 import { BoxViewForm } from '@components/forms/box-view-form'
-import { ImageModal } from '@components/modals/image-modal/image-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
@@ -27,7 +26,7 @@ import { DownloadIcon } from '@components/shared/svg-icons'
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
 import {
-  calcPriceForBox,
+  calcActualBatchWeight,
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
@@ -37,6 +36,8 @@ import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFix
 import { t } from '@utils/translations'
 
 import { useStyles } from './batch-info-modal.style'
+
+import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
 
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
@@ -50,22 +51,17 @@ export const BatchInfoModal = observer(
     onClickHsCode,
     patchActualShippingCostBatch,
     history,
-    location,
   }) => {
-    const [viewModel] = useState(
-      () =>
-        new ClientAwaitingBatchesViewModel({
-          history,
-          location,
-        }),
-    )
     const { classes: styles, cx } = useStyles()
+
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
+
     const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
-    const [currentBatch, setCurrentBatch] = useState([])
+    const [currentBatch, setCurrentBatch] = useState(undefined)
 
     useEffect(() => {
       setCurrentBatch(batch)
@@ -170,7 +166,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(styles.infoField, styles.batchTitleField)}
               labelClasses={styles.subFieldLabel}
               label={t(TranslationKey.Tariff)}
-              value={getNewTariffTextForBoxOrOrder(batch?.boxes?.[0])}
+              value={getNewTariffTextForBoxOrOrder(currentBatch?.boxes?.[0])}
               placeholder={t(TranslationKey.Missing)}
             />
 
@@ -202,16 +198,16 @@ export const BatchInfoModal = observer(
               placeholder={'0'}
             />
 
-            {/* <Field
+            <Field
               disabled
-              classes={{disabled: styles.disabled}}
+              classes={{ disabled: styles.disabled }}
               containerClasses={cx(styles.sumField, styles.volumeWeightField)}
               inputClasses={cx(styles.infoField, styles.volumeWeightField)}
               labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['Gross weight'])}
-              value={toFixed(calcActualBatchWeight(batch.boxes), 4)}
+              value={toFixed(calcActualBatchWeight(currentBatch?.boxes), 4)}
               placeholder={'0'}
-            /> */}
+            />
 
             <Field
               disabled
@@ -276,11 +272,8 @@ export const BatchInfoModal = observer(
                 containerClasses={cx(styles.sumField, styles.dividerField)}
                 inputClasses={[styles.infoField, styles.dividerField]}
                 labelClasses={styles.subFieldLabel}
-                label={t(TranslationKey['Total price'])}
-                value={toFixed(
-                  currentBatch?.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
-                  2,
-                )}
+                label={`${t(TranslationKey['Total price'])} (${t(TranslationKey.China)})`}
+                value={currentBatch?.totalPriceFromOrderSupplier}
                 placeholder={'0'}
               />
 
@@ -313,8 +306,6 @@ export const BatchInfoModal = observer(
               labelClasses={cx(styles.subFieldLabel)}
               inputComponent={
                 <ChangeInputCell
-                  // disabled={!patchActualShippingCostBatch}
-                  isInts
                   rowId={currentBatch?._id}
                   text={currentBatch?.actualShippingCost}
                   onClickSubmit={(id, cost) => {
@@ -434,15 +425,15 @@ export const BatchInfoModal = observer(
             />
           </Modal>
 
-          {showPhotosModal && (
-            <ImageModal
-              isOpenModal={showPhotosModal}
+          {showPhotosModal ? (
+            <SlideshowGalleryModal
+              openModal={showPhotosModal}
               files={currentBatch?.attachedDocuments}
               currentFileIndex={curImageIndex}
               onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
               onCurrentFileIndex={index => setCurImageIndex(index)}
             />
-          )}
+          ) : null}
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

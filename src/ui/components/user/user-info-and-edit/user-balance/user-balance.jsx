@@ -6,12 +6,14 @@ import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/admin-balance-modal'
 
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './user-balance.style'
 
@@ -52,20 +54,12 @@ export const UserBalance = observer(({ userId }) => {
       <DashboardBalance user={user} title={t(TranslationKey.Balance) + ', $'} />
 
       <div className={styles.btnsWrapper}>
-        <Button
-          disableElevation
-          className={[styles.button, styles.depositBtn]}
-          color="primary"
-          variant="contained"
-          onClick={onTriggerReplenishModal}
-        >
+        <Button className={[styles.button, styles.depositBtn]} onClick={onTriggerReplenishModal}>
           {t(TranslationKey.Deposit)}
         </Button>
         <Button
-          disableElevation
           className={[styles.button, styles.cancelBtn]}
-          color="primary"
-          variant="text"
+          variant={ButtonVariant.OUTLINED}
           onClick={onTriggerWithdrawModal}
         >
           {t(TranslationKey.Withdraw)}
@@ -97,7 +91,7 @@ export const UserBalance = observer(({ userId }) => {
           columns={columnsModel}
           loading={requestStatus === loadingStatuses.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
-          onPaginationModelChange={model.current.onChangePaginationModelChange}
+          onPaginationModelChange={model.current.onPaginationModelChange}
           onFilterModelChange={onChangeFilterModel}
         />
       </div>

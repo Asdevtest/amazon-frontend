@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { memo, useEffect, useState } from 'react'
 
 import CircleIcon from '@mui/icons-material/Circle'
@@ -5,7 +6,7 @@ import { Avatar, Link, List, ListItem, ListItemText, Rating, Typography } from '
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
@@ -20,6 +21,8 @@ import { formatNormDateTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-proposal-content.style'
 
@@ -84,7 +87,7 @@ export const CreateOrEditProposalContent = memo(props => {
     !formFields.comment ||
     formFields.comment.length > 2000 ||
     +formFields.price <= 0 ||
-    (JSON.stringify(getSourceFormFields()) === JSON.stringify(formFields) && !images.length)
+    (isEqual(getSourceFormFields(), formFields) && isEqual(proposalToEdit?.linksToMediaFiles, images))
 
   return (
     <div className={styles.mainWrapper}>
@@ -287,7 +290,7 @@ export const CreateOrEditProposalContent = memo(props => {
 
           <div className={styles.buttonsWrapper}>
             <Button
-              success
+              styleType={ButtonStyle.SUCCESS}
               disabled={disableSubmit}
               className={styles.successBtn}
               onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}
@@ -295,7 +298,7 @@ export const CreateOrEditProposalContent = memo(props => {
               {proposalToEdit ? t(TranslationKey.Edit) : t(TranslationKey.Suggest)}
             </Button>
 
-            <Button variant="contained" color="primary" className={styles.backBtn} onClick={onClickBackBtn}>
+            <Button className={styles.backBtn} onClick={onClickBackBtn}>
               {t(TranslationKey.Back)}
             </Button>
           </div>

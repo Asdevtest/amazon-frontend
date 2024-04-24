@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC, memo, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
@@ -18,8 +17,9 @@ import { SeparatorIcon } from '@components/shared/svg-icons'
 import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { IOrderBoxBatch } from '@typings/order-box'
-import { IShop } from '@typings/shop'
+import { IBatch } from '@typings/models/batches/batch'
+import { IProduct } from '@typings/models/products/product'
+import { IShop } from '@typings/models/shops/shop'
 
 import { useStyles } from './product-and-batch-modal.style'
 
@@ -28,20 +28,21 @@ import { BatchInfoModal } from '../batch-info-modal'
 import { aboutProductsColumns } from './about-product-columns/about-products-columns'
 import { batchDataColumns } from './batch-data-columns/batch-data-columns'
 import { infoModalConfig, switcherSettings } from './product-and-batch-modal.config'
-import { IProductWithOrder, ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
+import { ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
 
 export interface ProductAndBatchModalProps {
   currentSwitch: ProductAndBatchModalSwitcherConditions
   shops: IShop[]
-  selectedProduct: IProductWithOrder
-  batches: IOrderBoxBatch[]
+  selectedProduct: IProduct
+  batches: IBatch[]
   openModal: boolean
   setOpenModal: () => void
-  currentBatch?: IOrderBoxBatch
+  currentBatch?: IBatch
   getCurrentBatch: (id: string) => void
   onChangeSwitcher: () => void
   onClickMyOrderModal: (id: string) => void
   onClickInTransferModal: (id: string) => void
+  onClickHsCode: (id: string) => void
 }
 
 export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props => {
@@ -57,6 +58,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     onChangeSwitcher,
     onClickMyOrderModal,
     onClickInTransferModal,
+    onClickHsCode,
   } = props
 
   const { classes: styles } = useStyles()
@@ -102,15 +104,15 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
           <div className={styles.subHeader}>
             <SlideshowGallery slidesToShow={2} files={selectedProduct?.images} />
 
-            <p className={styles.amazonTitle}>{selectedProduct.amazonTitle}</p>
+            <p className={styles.amazonTitle}>{selectedProduct?.amazonTitle}</p>
 
             <div className={styles.additionInfo}>
               <div className={styles.shopContainer}>
                 <p className={styles.shopName}>{`${t(TranslationKey.Shop)}:`}</p>
                 <p className={styles.shopValue}>{selectedProductShop?.name || t(TranslationKey['Not available'])}</p>
               </div>
-              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={selectedProduct.asin} />
-              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={selectedProduct.skuByClient} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={selectedProduct?.asin} />
+              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={selectedProduct?.skuByClient} />
             </div>
           </div>
 
@@ -157,10 +159,15 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
         </div>
       </Modal>
 
-      {showBatchModal && (
+      {showBatchModal ? (
         // @ts-ignore
-        <BatchInfoModal batch={currentBatch} openModal={showBatchModal} setOpenModal={handleShowModalBatchModal} />
-      )}
+        <BatchInfoModal
+          batch={currentBatch}
+          openModal={showBatchModal}
+          setOpenModal={handleShowModalBatchModal}
+          onClickHsCode={onClickHsCode}
+        />
+      ) : null}
     </>
   )
 })

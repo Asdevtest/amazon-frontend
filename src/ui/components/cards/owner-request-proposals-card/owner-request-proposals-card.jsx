@@ -13,9 +13,9 @@ import { freelanceRequestType } from '@constants/statuses/freelance-request-type
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { UserLink } from '@components/user/user-link'
@@ -23,6 +23,8 @@ import { UserLink } from '@components/user/user-link'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './owner-request-proposals-card.style'
 
@@ -34,11 +36,13 @@ export const OwnerRequestProposalsCard = ({
   onClickReview,
   onClickOrderProposal,
   onClickRejectProposal,
+  onSendInForRework,
+  onReceiveCustomProposal,
 }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [showRequestDesignerResultClientModal, setShowRequestDesignerResultClientModal] = useState(false)
-  const [showRequestStandartResultModal, setShowRequestStandartResultModal] = useState(false)
+  const [showMainRequestResultModal, setShowMainRequestResultModal] = useState(false)
   const [showRequestResultModal, setShowRequestResultModal] = useState(false)
 
   const onClickOpenResult = () => {
@@ -47,7 +51,7 @@ export const OwnerRequestProposalsCard = ({
     } else if (request.request?.spec?.title === freelanceRequestType.BLOGGER) {
       setShowRequestResultModal(!showRequestResultModal)
     } else {
-      setShowRequestStandartResultModal(!showRequestStandartResultModal)
+      setShowMainRequestResultModal(!showMainRequestResultModal)
     }
   }
 
@@ -64,6 +68,8 @@ export const OwnerRequestProposalsCard = ({
     RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
     RequestProposalStatus.PROPOSAL_EDITED,
   ]
+
+  const statusesReworkAndReceiveButtons = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED]
 
   return (
     <div className={styles.cardMainWrapper}>
@@ -132,13 +138,7 @@ export const OwnerRequestProposalsCard = ({
           </Typography>
         </div>
 
-        <Button
-          disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
-          variant="contained"
-          color="primary"
-          className={cx(styles.actionButton)}
-          onClick={onClickOpenResult}
-        >
+        <Button disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)} onClick={onClickOpenResult}>
           {t(TranslationKey.Result)}
         </Button>
 
@@ -147,13 +147,12 @@ export const OwnerRequestProposalsCard = ({
             item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
             <>
               <Button
-                danger
+                styleType={ButtonStyle.DANGER}
                 tooltipInfoContent={t(
                   TranslationKey[
                     'The terms of the proposal do not fit, the contractor will be able to edit them and do it again'
                   ],
                 )}
-                variant="contained"
                 onClick={() => onClickRejectProposal(item.proposal._id)}
               >
                 {t(TranslationKey.Reject)}
@@ -177,9 +176,8 @@ export const OwnerRequestProposalsCard = ({
               RequestStatus.OFFER_CONDITIONS_REJECTED,
             ].includes(request.request.status) && (
               <Button
-                success
+                styleType={ButtonStyle.SUCCESS}
                 tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
-                variant="contained"
                 className={styles.actionButton}
                 onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
               >
@@ -188,8 +186,6 @@ export const OwnerRequestProposalsCard = ({
             )}
           <Button
             tooltipInfoContent={t(TranslationKey['Open a chat with the performer'])}
-            variant="contained"
-            color="primary"
             className={styles.actionButton}
             onClick={() => onClickContactWithExecutor(item.proposal)}
           >
@@ -214,27 +210,27 @@ export const OwnerRequestProposalsCard = ({
         />
       </Modal>
 
-      <Modal
-        missClickModalOn
-        openModal={showRequestStandartResultModal}
-        setOpenModal={() => setShowRequestStandartResultModal(!showRequestStandartResultModal)}
-      >
-        <RequestStandartResultForm
-          request={request}
-          proposal={item}
-          setOpenModal={() => setShowRequestStandartResultModal(!showRequestStandartResultModal)}
-          // onClickSendAsResult={onClickSendAsResult}
+      {showMainRequestResultModal ? (
+        <MainRequestResultModal
+          readOnly={!statusesReworkAndReceiveButtons.includes(item.proposal.status)}
+          customProposal={item}
+          userInfo={userInfo}
+          openModal={showMainRequestResultModal}
+          onOpenModal={() => setShowMainRequestResultModal(!showMainRequestResultModal)}
+          onEditCustomProposal={onSendInForRework}
+          onReceiveCustomProposal={() => onReceiveCustomProposal(item.proposal._id)}
         />
-      </Modal>
+      ) : null}
 
-      {showRequestResultModal && (
+      {showRequestResultModal ? (
         <RequestResultModal
+          // @ts-ignore
           request={request}
           proposal={item}
           openModal={showRequestResultModal}
           setOpenModal={() => setShowRequestResultModal(!showRequestResultModal)}
         />
-      )}
+      ) : null}
     </div>
   )
 }

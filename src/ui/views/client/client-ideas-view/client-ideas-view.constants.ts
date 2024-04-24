@@ -42,4 +42,7 @@ export const filtersFields = [
   'asin',
   'skuByClient',
   'status',
+  'reasonReject',
+  'createdBy',
+  'sub',
 ]

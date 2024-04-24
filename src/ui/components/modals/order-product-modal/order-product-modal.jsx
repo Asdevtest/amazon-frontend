@@ -6,8 +6,9 @@ import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, Table
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
+import { Text } from '@components/shared/text'
 import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
@@ -84,6 +85,7 @@ export const OrderProductModal = memo(props => {
               .includes(reorderOrder.logicsTariff?._id)
               ? reorderOrder.logicsTariff?._id
               : '',
+            variationTariffId: reorderOrder?.variationTariffId,
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
             deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
@@ -95,7 +97,7 @@ export const OrderProductModal = memo(props => {
           expressChinaDelivery: false,
           priority: '30',
           deadline: null,
-          currentVariationTariffId: product.variationTariff?._id,
+          variationTariffId: product.variationTariff?._id,
         })),
   )
 
@@ -125,7 +127,7 @@ export const OrderProductModal = memo(props => {
             // @refactor: need to create function
             destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
             storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
-
+            variationTariffId: reorderOrder?.variationTariffId,
             logicsTariffId: storekeepers
               .find(el => el._id === reorderOrder.storekeeper?._id)
               ?.tariffLogistics.map(el => el._id)
@@ -241,7 +243,7 @@ export const OrderProductModal = memo(props => {
   }
 
   const storekeeperEqualsDestination = orderState.some(
-    order => order.storekeeperId === destinations.find(el => el._id === order.destinationId)?.storekeeper?._id,
+    order => order?.storekeeperId === destinations?.find(el => el?._id === order?.destinationId)?.storekeeper?._id,
   )
 
   const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplier)
@@ -283,84 +285,75 @@ export const OrderProductModal = memo(props => {
                 <p className={styles.cellText}>{t(TranslationKey.Product)}</p>
               </TableCell>
               <TableCell className={styles.priceCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.priceCellBtn}
                   tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
                 >
                   {t(TranslationKey['Price without delivery']) + ' $'}
-                </Button>
+                </Text>
               </TableCell>
 
               <TableCell className={styles.deliveryCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.deliveryCellBtn}
                   tooltipInfoContent={t(TranslationKey['Delivery costs to the prep center'])}
                 >
                   {t(TranslationKey['Delivery per unit.']) + ' $'}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.qntCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.qntCellBtn}
                   tooltipInfoContent={t(TranslationKey['Specify the amount of goods you want to order'])}
                 >
                   {t(TranslationKey.Quantity)}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.totalCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.totalCellBtn}
                   tooltipInfoContent={t(TranslationKey['Order amount for a specific product'])}
                 >
                   {t(TranslationKey.Total) + ' $'}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.totalCell}>
-                <Button disabled className={styles.totalCellBtn}>
-                  {t(TranslationKey['Price variations'])}
-                </Button>
+                <Text className={styles.totalCellBtn}>{t(TranslationKey['Price variations'])}</Text>
               </TableCell>
               <TableCell className={styles.barCodeCell}>
-                <Button disabled className={styles.barCodeCellBtn}>
+                <Text className={styles.barCodeCellBtn}>
                   {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency codes'])}`}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.tariffCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.tariffCellBtn}
                   tooltipInfoContent={t(
                     TranslationKey['Choose a prep center in China and the rate at which the delivery will take place'],
                   )}
                 >
                   {`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.warehouseCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.warehouseCellBtn}
                   tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
                 >
                   {t(TranslationKey.Destination)}
-                </Button>
+                </Text>
               </TableCell>
 
               <TableCell className={styles.commentCell}>
-                <Button
-                  disabled
+                <Text
                   className={styles.commentCellBtn}
                   tooltipInfoContent={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
                 >
                   {t(TranslationKey['Client comment'])}
-                </Button>
+                </Text>
               </TableCell>
               <TableCell className={styles.deadlineCell}>
-                <p className={styles.cellText}>{'Deadline'}</p>
+                <Text className={styles.cellText}>{'Deadline'}</Text>
               </TableCell>
             </TableRow>
           </TableHead>

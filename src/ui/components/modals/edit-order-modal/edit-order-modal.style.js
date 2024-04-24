@@ -203,11 +203,8 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 600,
     lineHeight: '19px',
-    textAlign: 'left',
-    height: 80,
-
     display: '-webkit-box',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 4,
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',

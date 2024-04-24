@@ -13,7 +13,7 @@ import {
   OrdersIdsItemsCell,
   PricePerUnitCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { getNewTariffTextForBoxOrOrder, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
@@ -60,7 +60,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => <UserMiniCell userName={params.row.client.name} userId={params.row.client._id} />,
+    renderCell: params => <UserMiniCell userName={params.row?.client?.name} userId={params.row?.client?._id} />,
     width: 180,
   },
 

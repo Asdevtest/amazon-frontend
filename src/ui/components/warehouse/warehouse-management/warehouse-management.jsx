@@ -10,7 +10,6 @@ import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { LogisticsTariffs } from './logistics-tariffs'
 import { WarehouseTariffs } from './warehouse-tariffs'
 import { WeightBasedLogisticsTariffs } from './weight-based-logistics-tariffs'
 
@@ -35,10 +34,6 @@ export const WarehouseManagement = observer(() => {
 
       <TabPanel value={tabIndex} index={0}>
         <WeightBasedLogisticsTariffs />
-      </TabPanel>
-
-      <TabPanel value={tabIndex} index={1}>
-        <LogisticsTariffs />
       </TabPanel>
 
       <TabPanel value={tabIndex} index={2}>

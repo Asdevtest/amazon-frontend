@@ -21,10 +21,6 @@ export class ClientOrderViewModel {
   requestStatus = undefined
   error = undefined
 
-  yuanToDollarRate = undefined
-
-  selectedSupplier = undefined
-
   orderId = undefined
   orderBoxes = []
 
@@ -47,8 +43,6 @@ export class ClientOrderViewModel {
   showOrderModal = false
 
   ordersDataStateToSubmit = undefined
-
-  showAddOrEditSupplierModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -78,6 +72,8 @@ export class ClientOrderViewModel {
     const url = new URL(window.location.href)
     this.orderId = url.searchParams.get('orderId')
 
+    this.getPlatformSettings()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -87,7 +83,6 @@ export class ClientOrderViewModel {
 
       await this.getStorekeepers()
       await this.getDestinations()
-      this.getVolumeWeightCoefficient()
       await this.getOrderById()
       this.getBoxesOfOrder(this.orderId)
 
@@ -122,42 +117,11 @@ export class ClientOrderViewModel {
     }
   }
 
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
-  }
-
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.platformSettings = result
-        })
-      }
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async onClickReorder() {
     try {
-      const [storekeepers, destinations, result] = await Promise.all([
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
       ])
 
       runInAction(() => {
@@ -166,8 +130,6 @@ export class ClientOrderViewModel {
         this.storekeepers = storekeepers
 
         this.destinations = destinations
-
-        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -239,10 +201,9 @@ export class ClientOrderViewModel {
     })
 
     this.onTriggerOpenModal('showSetBarcodeModal')
+
     runInAction(() => {
-      runInAction(() => {
-        this.selectedProduct = undefined
-      })
+      this.selectedProduct = undefined
     })
   }
 
@@ -439,7 +400,7 @@ export class ClientOrderViewModel {
     }
   }
 
-  async getVolumeWeightCoefficient() {
+  async getPlatformSettings() {
     try {
       const result = await UserModel.getPlatformSettings()
 

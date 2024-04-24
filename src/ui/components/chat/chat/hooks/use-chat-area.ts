@@ -2,7 +2,7 @@ import { ClipboardEvent, useEffect, useState } from 'react'
 
 import { checkIsExternalVideoLink } from '@utils/checks'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { IMessageState } from '../helpers/chat.interface'
 

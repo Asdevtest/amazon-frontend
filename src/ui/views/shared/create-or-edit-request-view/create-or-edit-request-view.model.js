@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
@@ -19,6 +21,7 @@ import { Specs } from '@typings/enums/specs'
 
 export class CreateOrEditRequestViewModel {
   history = undefined
+  requestStatus = loadingStatuses.IS_LOADING // for first render
 
   acceptMessage = null
   showAcceptMessage = false
@@ -30,7 +33,7 @@ export class CreateOrEditRequestViewModel {
   masterUsersData = []
   announcementId = undefined
   announcements = []
-  choosenAnnouncements = {}
+  choosenAnnouncements = undefined
   productMedia = undefined
   bigImagesOptions = {}
   showImageModal = false
@@ -91,12 +94,18 @@ export class CreateOrEditRequestViewModel {
 
   async loadData() {
     try {
+      // status change is required for loading
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
       await this.getCustomRequestCur()
       this.getAnnouncementData()
       this.getPlatformSettingsData()
       this.getSpecs()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
       console.log(error)
+      this.setRequestStatus(loadingStatuses.FAILED)
     }
   }
 
@@ -132,10 +141,14 @@ export class CreateOrEditRequestViewModel {
     })
   }
 
+  goBack() {
+    this.history.push('/client/freelance/my-requests')
+  }
+
   async onSubmitCreateRequest(data, files, withPublish, announcement) {
     try {
       if (files.length) {
-        await onSubmitPostImages.call(this, { images: files.map(el => el.file), type: 'uploadedFiles' })
+        await onSubmitPostImages.call(this, { images: files.map(el => el.fileLink), type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {
@@ -145,7 +158,10 @@ export class CreateOrEditRequestViewModel {
             ...data.request,
             executorId: data?.request?.executorId || null,
             announcementId: announcement?._id || null,
-            linksToMediaFiles: this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
+            linksToMediaFiles: this.uploadedFiles.map((el, i) => ({
+              fileLink: el,
+              commentByClient: files[i].commentByClient,
+            })),
           },
           ['discountedPrice'],
           undefined,
@@ -202,7 +218,7 @@ export class CreateOrEditRequestViewModel {
   async onSubmitEditRequest(data, files, announcement) {
     try {
       if (files.length) {
-        await onSubmitPostImages.call(this, { images: files.map(el => el.file), type: 'uploadedFiles' })
+        await onSubmitPostImages.call(this, { images: files.map(el => el.fileLink), type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {
@@ -213,7 +229,7 @@ export class CreateOrEditRequestViewModel {
             executorId: data?.request?.executorId || null,
             announcementId: announcement?._id ? announcement?._id : null,
             linksToMediaFiles: [
-              ...this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].comment })),
+              ...this.uploadedFiles.map((el, i) => ({ fileLink: el, commentByClient: files[i].commentByClient })),
             ],
           },
           ['discountedPrice'],
@@ -371,5 +387,9 @@ export class CreateOrEditRequestViewModel {
     if (this.productMedia) {
       this.onTriggerOpenModal('showGalleryModal')
     }
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

@@ -14,7 +14,7 @@ import {
   RenderFieldValueCell,
   UserLinkCell,
   UserMiniCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'

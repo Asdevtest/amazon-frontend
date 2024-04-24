@@ -3,11 +3,13 @@ import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './set-files-modal.style'
 
@@ -46,14 +48,14 @@ export const SetFilesModal: FC<SetTransparencyProps> = memo(props => {
 
       <div className={styles.saveBox}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={!files.length && !tmpFiles?.length}
           className={styles.saveBtn}
           onClick={() => onClickSave(files)}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={styles.closeBtn} onClick={() => onCloseModal(false)}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={() => onCloseModal(false)}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

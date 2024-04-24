@@ -55,6 +55,7 @@ export const ClientExchangePrivateLabelViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmPayModal')}
       >
         <SelectShopsModal
+          isNotDisabled
           title={t(TranslationKey['You buy a product card, are you sure?'])}
           message={`${t(TranslationKey['You will be charged'])} (${
             viewModel.productToPay && toFixedWithDollarSign(viewModel.productToPay.priceForClient, 2)
@@ -66,15 +67,16 @@ export const ClientExchangePrivateLabelViewRaw = props => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={t(TranslationKey['Product paid'])}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={t(TranslationKey['Product paid'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
     </>
   )
 }

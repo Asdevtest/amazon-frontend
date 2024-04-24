@@ -12,6 +12,10 @@ export const useStyles = makeStyles()(() => ({
     gap: 10,
   },
 
+  stockWrapperNoLink: {
+    justifyContent: 'center',
+  },
+
   linkWrapper: {
     fontSize: 14,
     lineHeight: '19px',

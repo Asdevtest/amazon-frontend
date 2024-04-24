@@ -45,11 +45,6 @@ export const useStyles = makeStyles()(theme => ({
     color: 'red',
   },
 
-  storekeeperBtn: {
-    width: '100%',
-    height: '32px',
-  },
-
   datePickerWrapper: {
     width: '100%',
   },
@@ -80,7 +75,23 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartText: {
-    color: `${theme.palette.text.general} !important`,
+    color: theme.palette.text.general,
+  },
+
+  button: {
+    height: '40px',
+    width: '130px',
+    flexDirection: 'column',
+    margin: '0px',
+
+    p: {
+      fontSize: 12,
+      color: 'currentcolor',
+      width: '100%',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
   },
 
   row: {

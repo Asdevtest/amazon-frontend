@@ -8,10 +8,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-chart'
 
 import { t } from '@utils/translations'
+
+import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './bar-charts-card.style'
 
@@ -78,8 +80,7 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
             className={cx(styles.button, {
               [styles.selectedBtn]: curFilterSetting === filterSettings.SIX_MONTHS,
             })}
-            variant="text"
-            color="primary"
+            variant={ButtonVariant.OUTLINED}
             onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}
           >
             {`6 ${t(TranslationKey.months)}`}
@@ -88,8 +89,7 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
             className={cx(styles.button, {
               [styles.selectedBtn]: curFilterSetting === filterSettings.TWELVE_MONTHS,
             })}
-            variant="text"
-            color="primary"
+            variant={ButtonVariant.OUTLINED}
             onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}
           >
             {`12 ${t(TranslationKey.months)}`}
@@ -98,8 +98,7 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
             className={cx(styles.button, {
               [styles.selectedBtn]: curFilterSetting === filterSettings.ALL_MONTHS,
             })}
-            variant="text"
-            color="primary"
+            variant={ButtonVariant.OUTLINED}
             onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}
           >
             {t(TranslationKey['All time'])}

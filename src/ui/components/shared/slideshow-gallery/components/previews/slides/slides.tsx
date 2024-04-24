@@ -1,19 +1,18 @@
 import { Dispatch, FC, SetStateAction, memo, useEffect, useRef } from 'react'
 
 import { FileIcon } from '@components/shared/file-icon'
+import { getCustomHeightSubjectToQuantitySlides } from '@components/shared/slideshow-gallery/helpers/get-custom-height'
 import {
   DEFAULT_PREVIEWS_SLIDE_HEIGHT,
-  NULL_DELAY,
+  PREVIEWS_SLIDE_HEIGHT_IN_MODAL,
 } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
 import { VideoPreloader } from '@components/shared/video-player/video-preloader'
 
-import { UploadFileType } from '@typings/upload-file'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './slides.style'
 
-import { GetSlideByType } from '../../get-slide-by-type'
-
-import { getCustomHeightSubjectToQuantitySlides } from './slides.helper'
+import { SlideByType } from '../../../../slide-by-type'
 
 interface SlidesProps {
   mediaFiles: UploadFileType[]
@@ -21,6 +20,7 @@ interface SlidesProps {
   setCurrentMediaFileIndex: Dispatch<SetStateAction<number>>
   isSlidesFitOnScreenWithoutArrows: boolean
   slidesToShow: number
+  isModalSize?: boolean
 }
 
 export const Slides: FC<SlidesProps> = memo(props => {
@@ -30,6 +30,7 @@ export const Slides: FC<SlidesProps> = memo(props => {
     setCurrentMediaFileIndex,
     isSlidesFitOnScreenWithoutArrows,
     slidesToShow,
+    isModalSize,
   } = props
 
   const { classes: styles, cx } = useStyles()
@@ -37,25 +38,34 @@ export const Slides: FC<SlidesProps> = memo(props => {
   const customHeightSubjectToQuantitySlides = getCustomHeightSubjectToQuantitySlides(
     isSlidesFitOnScreenWithoutArrows,
     slidesToShow,
+    isModalSize,
   )
-
+  const finalVideoHeight = isModalSize ? PREVIEWS_SLIDE_HEIGHT_IN_MODAL : DEFAULT_PREVIEWS_SLIDE_HEIGHT
   const activeSlideRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    setTimeout(() => {
-      if (activeSlideRef.current) {
-        activeSlideRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'center',
-        })
-      }
-    }, NULL_DELAY)
+    const childElement = activeSlideRef.current
+
+    if (!childElement) return
+
+    const parentElement = childElement?.parentElement
+
+    if (!parentElement) return
+
+    const parentRect = parentElement.getBoundingClientRect()
+    const childRect = childElement.getBoundingClientRect()
+
+    const offset = (parentRect.height - childRect.height) / 2
+
+    const top = childRect.top - parentRect.top + parentElement.scrollTop - offset
+
+    parentElement?.scrollTo({ top })
   }, [currentMediaFileIndex])
 
   return (
     <div
       className={cx(styles.previewSlides, {
+        [styles.previewSlidesInModal]: isModalSize,
         [styles.previewSlidesFitOnScreenWithoutArrows]: isSlidesFitOnScreenWithoutArrows,
       })}
       style={{ height: customHeightSubjectToQuantitySlides }}
@@ -64,17 +74,18 @@ export const Slides: FC<SlidesProps> = memo(props => {
         <div
           key={index}
           ref={index === currentMediaFileIndex ? activeSlideRef : null}
-          className={cx(styles.previewSlide, { [styles.previewSlideActive]: index === currentMediaFileIndex })}
+          className={cx(styles.previewSlide, {
+            [styles.previewSlideActive]: index === currentMediaFileIndex,
+            [styles.previewSlideInModal]: isModalSize,
+          })}
           onClick={() => setCurrentMediaFileIndex(index)}
         >
-          <GetSlideByType
+          <SlideByType
             isPreviews
             mediaFile={mediaFile}
             mediaFileIndex={index}
             ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.previewSlideImg} />}
-            VideoComponent={({ videoSource }) => (
-              <VideoPreloader videoSource={videoSource} height={DEFAULT_PREVIEWS_SLIDE_HEIGHT} />
-            )}
+            VideoComponent={({ videoSource }) => <VideoPreloader videoSource={videoSource} height={finalVideoHeight} />}
             FileComponent={({ documentLink, fileExtension }) => (
               <a
                 href={documentLink}

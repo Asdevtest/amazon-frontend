@@ -6,12 +6,14 @@ import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { CustomReactSelect } from '@components/shared/selects/custom-react-select'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-users-to-group-chat-form.style'
 
@@ -75,7 +77,7 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
 
       <div className={styles.buttonWrapper}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
           className={styles.button}
           onClick={() => {
@@ -86,7 +88,11 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
           {t(TranslationKey.Add)}
         </Button>
 
-        <Button variant="text" className={[styles.button, styles.cancelButton]} onClick={() => closeModal()}>
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={[styles.button, styles.cancelButton]}
+          onClick={() => closeModal()}
+        >
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

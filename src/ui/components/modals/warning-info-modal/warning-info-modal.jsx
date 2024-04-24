@@ -1,11 +1,15 @@
 import { Typography } from '@mui/material'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './warning-info-modal.style'
 
-export const WarningInfoModal = ({ openModal, setOpenModal, title, btnText, onClickBtn, isWarning }) => {
+export const WarningInfoModal = props => {
+  const { openModal, setOpenModal, title, btnText, onClickBtn, isWarning } = props
+
   const { classes: styles, cx } = useStyles()
 
   return (
@@ -15,7 +19,7 @@ export const WarningInfoModal = ({ openModal, setOpenModal, title, btnText, onCl
           {title}
         </Typography>
 
-        <Button success disableElevation variant="contained" className={styles.button} onClick={onClickBtn}>
+        <Button styleType={ButtonStyle.SUCCESS} className={styles.button} onClick={onClickBtn}>
           {btnText}
         </Button>
       </div>

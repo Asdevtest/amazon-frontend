@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
@@ -33,7 +33,7 @@ export class SuppliersAndIdeasModel {
   currentIdeaId = undefined
 
   curIdea = undefined
-  ideaIdToCreateSupplier = undefined
+  ideaForReject = undefined
   currentProduct = undefined
   productToOrder = undefined
   currentProposal = undefined
@@ -50,47 +50,33 @@ export class SuppliersAndIdeasModel {
   ideasData = []
   ideaIdToRemove = undefined
 
-  currentData = undefined
-
-  selectedSupplier = undefined
   supplierData = undefined
 
   dataToCreateProduct = undefined
 
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
-
   successModalTitle = ''
-
-  forceUpdateCallBack = undefined
 
   readyFiles = []
   progressValue = 0
   showProgress = false
-  paymentMethods = []
 
   isCreate = false
 
   showConfirmModal = false
   showSuccessModal = false
-  showAddOrEditSupplierModal = false
-  supplierModalReadOnly = false
 
   showRequestDesignerResultModal = false
-  showRequestStandartResultModal = false
+  showMainRequestResultModal = false
   showRequestBloggerResultModal = false
-  showSupplierApproximateCalculationsModal = false
   showBindingModal = false
   showOrderModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
-
-  storekeepersData = []
+  showCommentsModal = false
 
   selectedProduct = undefined
   storekeepers = []
   destinations = []
-  platformSettings = undefined
   ordersDataStateToSubmit = undefined
 
   alertShieldSettings = {
@@ -117,6 +103,14 @@ export class SuppliersAndIdeasModel {
     return SettingsModel.languageTag
   }
 
+  get currentData() {
+    return this.ideasData?.toSorted(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history, productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) {
     this.history = history
     this.productId = productId
@@ -132,31 +126,11 @@ export class SuppliersAndIdeasModel {
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.ideasData,
-      () => (this.currentData = this.getCurrentData()),
-    )
-
-    reaction(
-      () => this.languageTag,
-      () => (this.currentData = this.getCurrentData()),
-    )
-  }
-
-  getCurrentData() {
-    return this.ideasData?.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
   }
 
   async loadData() {
     try {
       if (!this.isCreateModal) {
-        const response = await UserModel.getPlatformSettings()
-
-        runInAction(() => {
-          this.platformSettings = response
-        })
-
         if (this.isModalView && this.currentIdeaId) {
           await this.getIdea(this.currentIdeaId)
           if (this.updateData) {
@@ -166,6 +140,8 @@ export class SuppliersAndIdeasModel {
           await this.getIdeas()
         }
       }
+
+      this.getStorekeepers()
     } catch (error) {
       console.log(error)
     }
@@ -247,7 +223,14 @@ export class SuppliersAndIdeasModel {
         runInAction(() => {
           this.successModalSettings = {
             modalTitle: t(TranslationKey['Idea edited']),
-            onClickSuccessBtn: () => this.onTriggerOpenModal('showSuccessModal'),
+            onClickSuccessBtn: () => {
+              if (this.isModalView) {
+                this.closeModalHandler()
+              } else {
+                this.onTriggerOpenModal('showSuccessModal')
+              }
+              this.updateData()
+            },
           }
         })
 
@@ -278,19 +261,16 @@ export class SuppliersAndIdeasModel {
   onSetCurIdea(idea) {
     this.getIdea(idea?._id)
     this.inEdit = false
-    this.selectedSupplier = undefined
   }
 
   onEditIdea(idea) {
     this.getIdea(idea?._id)
     this.inEdit = true
-    this.selectedSupplier = undefined
   }
 
   onClickCancelBtn() {
     this.inCreate = false
     this.inEdit = false
-    this.selectedSupplier = undefined
 
     if (this.isModalView) {
       this.closeModalHandler()
@@ -299,10 +279,6 @@ export class SuppliersAndIdeasModel {
 
   async onClickSaveBtn(formFields, files, isForceUpdate) {
     try {
-      runInAction(() => {
-        this.readyFiles = []
-      })
-
       if (files.length) {
         await onSubmitPostImages.call(this, { images: files, type: 'readyFiles' })
       }
@@ -329,11 +305,9 @@ export class SuppliersAndIdeasModel {
         )
 
         await this.getIdea(createdIdeaId)
-
-        this.loadData()
       }
 
-      if (isForceUpdate) {
+      /* if (isForceUpdate) {
         runInAction(() => {
           this.inCreate = false
           this.inEdit = true
@@ -343,22 +317,7 @@ export class SuppliersAndIdeasModel {
           this.inCreate = false
           this.inEdit = false
         })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSaveIcon(formFields, isForceUpdate) {
-    try {
-      const submitDataWhite = getObjectFilteredByKeyArrayWhiteList(
-        {
-          ...formFields,
-        },
-        ['status'],
-      )
-
-      await this.editIdea(formFields._id, submitDataWhite, isForceUpdate)
+      } */
 
       this.loadData()
     } catch (error) {
@@ -440,7 +399,7 @@ export class SuppliersAndIdeasModel {
       } else if (request?.spec?.title === freelanceRequestType.BLOGGER) {
         this.onTriggerOpenModal('showRequestBloggerResultModal')
       } else {
-        this.onTriggerOpenModal('showRequestStandartResultModal')
+        this.onTriggerOpenModal('showMainRequestResultModal')
       }
     } catch (error) {
       console.log(error)
@@ -615,15 +574,38 @@ export class SuppliersAndIdeasModel {
   }
 
   onClickRejectButton(ideaId) {
+    this.ideaForReject = ideaId
+    this.onTriggerOpenModal('showCommentsModal')
+  }
+
+  async setRejectStatusHandler(reasonReject) {
+    try {
+      this.setRequestStatus(loadingStatuses.IS_LOADING)
+
+      IdeaModel.setStatusToReject(this.ideaForReject, { reasonReject })
+
+      this.loadData()
+
+      this.setRequestStatus(loadingStatuses.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.FAILED)
+      console.log(error)
+    }
+  }
+
+  async onClickReoperButton(ideaId) {
     this.confirmModalSettings = {
       isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to reject this idea?']),
-      onClickConfirm: () => this.onSubmitRejectOrRemoveIdea(ideaId),
+      confirmMessage: `${t(TranslationKey['Are you sure you want to restore the idea'])}`,
+      onClickConfirm: () => {
+        this.reopenIdeaHandler(ideaId)
+        this.onTriggerOpenModal('showConfirmModal')
+      },
     }
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onClickReoperButton(ideaId) {
+  async reopenIdeaHandler(ideaId) {
     await IdeaModel.reopenIdea(ideaId)
     this.loadData()
   }
@@ -636,175 +618,44 @@ export class SuppliersAndIdeasModel {
     this[modal] = !this[modal]
   }
 
-  async getSuppliersPaymentMethods() {
-    try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = response
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-          this.supplierData = undefined
-        })
-      } else {
-        await this.getSupplier()
-        await this.getPlatformSettings()
-      }
-
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getSupplier() {
-    try {
-      console.log('this.selectedSupplier :>> ', this.selectedSupplier)
-      if (this.selectedSupplier?._id) {
-        const supplier = await SupplierModel.getSupplier(this.selectedSupplier?._id)
-
-        runInAction(() => {
-          this.supplierData = supplier
-        })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async getStorekeepers() {
     try {
       const result = await StorekeeperModel.getStorekeepers()
 
       runInAction(() => {
-        this.storekeepersData = result
+        this.storekeepers = result
       })
     } catch (error) {
       console.log(error)
     }
   }
 
-  async onClickSupplierApproximateCalculations() {
-    try {
-      await this.getSupplier()
-      await this.getPlatformSettings()
-      await this.getStorekeepers()
-
-      this.onTriggerOpenModal('showSupplierApproximateCalculationsModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      this.selectedSupplier = undefined
-    } else {
-      this.selectedSupplier = supplier
-    }
-  }
-
-  async onClickSupplierButtons(actionType, callBack, ideaIdToCreateSupplier) {
-    runInAction(() => {
-      this.ideaIdToCreateSupplier = ideaIdToCreateSupplier
-    })
-
-    if (callBack) {
-      runInAction(() => {
-        this.forceUpdateCallBack = callBack
-      })
-    }
-
-    this.getSuppliersPaymentMethods()
-    await this.getStorekeepersData()
-    await this.getIdea(ideaIdToCreateSupplier)
-
-    switch (actionType) {
-      case 'add':
-        runInAction(() => {
-          this.selectedSupplier = undefined
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'view':
-        this.supplierModalReadOnly = true
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'edit':
-        runInAction(() => {
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-
-      case 'delete':
-        runInAction(() => {
-          this.confirmModalSettings = {
-            isWarning: true,
-            confirmMessage: t(TranslationKey['Are you sure you want to remove the supplier?']),
-            onClickConfirm: () => this.onRemoveSupplier(),
-          }
-        })
-        this.onTriggerOpenModal('showConfirmModal')
-        break
-    }
-  }
-
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, ideaFormFields, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      runInAction(() => {
-        this.readyImages = []
-      })
-
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-      }
 
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
       }
 
-      if (this.forceUpdateCallBack && this.inCreate) {
-        await this.forceUpdateCallBack()
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
+      }
 
-        runInAction(() => {
-          this.inCreate = undefined
-        })
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier?._id) {
@@ -817,73 +668,70 @@ export class SuppliersAndIdeasModel {
         )
         await SupplierModel.updateSupplier(supplier?._id, supplierUpdateData)
       } else {
+        if (!itemId) {
+          await onSubmitPostImages.call(this, { images: ideaFormFields.media, type: 'readyImages' })
+
+          const submitData = {
+            ...ideaFormFields,
+            title: ideaFormFields.productName || '',
+            media: this.readyImages,
+            price: ideaFormFields.price || 0,
+            quantity: Math.floor(ideaFormFields.quantity) || 0,
+          }
+
+          const createdIdeaId = await this.createIdea(
+            getObjectFilteredByKeyArrayWhiteList({ ...submitData, parentProductId: this.productId }, IdeaCreate),
+            true,
+          )
+
+          if (createdIdeaId) {
+            runInAction(() => {
+              this.currentIdeaId = createdIdeaId
+            })
+          }
+        }
+
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-        await IdeaModel.addSuppliersToIdea(this.curIdea?._id || this.ideaIdToCreateSupplier, {
+        await IdeaModel.addSuppliersToIdea(itemId || this.currentIdeaId, {
           suppliersIds: [createSupplierResult?.guid],
         })
+
+        await this.getIdea(itemId || this.currentIdeaId)
       }
 
-      if (this.curIdea?._id) {
-        this.getIdea(this.curIdea?._id)
-      } else {
-        this.loadData()
-      }
+      runInAction(() => {
+        this.currentIdeaId = undefined
+      })
 
       this.setRequestStatus(loadingStatuses.SUCCESS)
-      this.onTriggerAddOrEditSupplierModal()
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.FAILED)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
-  async onRemoveSupplier() {
+  async onRemoveSupplier(supplierId, itemId) {
     try {
-      if (this.forceUpdateCallBack) {
-        await this.forceUpdateCallBack()
-      }
-      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, { suppliersId: this.selectedSupplier._id })
-
-      runInAction(() => {
-        this.curIdea = undefined
-        this.selectedSupplier = undefined
-      })
-
-      this.onTriggerOpenModal('showConfirmModal')
+      await IdeaModel.removeSupplierFromIdea(itemId, { suppliersId: supplierId })
 
       this.loadData()
     } catch (error) {
       console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
   async onClickToOrder(idea) {
     try {
       this.setRequestStatus(loadingStatuses.IS_LOADING)
-      const [, destinations, platformSettings] = await Promise.all([
-        ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
-      ])
-      this.getStorekeepersData()
+      const destinations = await ClientModel.getDestinations()
 
       const result = await ProductModel.getProductById(idea.childProduct?._id || this.productId)
 
       runInAction(() => {
         this.productToOrder = result
         this.destinations = destinations
-        this.platformSettings = platformSettings
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -1002,6 +850,8 @@ export class SuppliersAndIdeasModel {
         'tmpBarCode',
         'tmpIsPendingOrder',
         '_id',
+        'tmpTransparencyFile',
+        'transparency',
       ])
 
       if (orderObject.tmpIsPendingOrder) {
@@ -1080,18 +930,6 @@ export class SuppliersAndIdeasModel {
     } catch (error) {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
-      console.log(error)
-    }
-  }
-
-  async getStorekeepersData() {
-    try {
-      const response = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.storekeepers = response
-      })
-    } catch (error) {
       console.log(error)
     }
   }

@@ -3,16 +3,17 @@ import { FC, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementModal } from '@components/modals/announcement-modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { RadioButtons } from '@components/shared/radio-buttons'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { IService, IShortUser } from '@typings/master-user'
-import { isString } from '@typings/type-guards'
-import { UploadFileType } from '@typings/upload-file'
+import { isString } from '@typings/guards'
+import { IAnnoucement } from '@typings/models/announcements/annoucement'
+import { ICreatedBy } from '@typings/shared/created-by'
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './announcement-card.style'
 
@@ -22,11 +23,11 @@ interface onClickThumbnailArguments {
 }
 
 interface AnnouncementCardProps {
-  announcementData: IService
-  selectedCard?: IService
+  announcementData: IAnnoucement
+  selectedCard?: IAnnoucement
   onClickThumbnail: (images: onClickThumbnailArguments) => void
-  onClickSelectCard: (value: IService) => void
-  onClickSelectButton?: (selectedService?: IService, chosenExecutor?: IShortUser) => void
+  onClickSelectCard: (value: IAnnoucement) => void
+  onClickSelectButton?: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
 }
 
 export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
@@ -78,7 +79,9 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
           </button>
         </div>
 
-        <PhotoAndFilesSlider showPreviews isHideCounter withoutFiles mediumSlider files={imagesForRender} />
+        <div className={styles.galleryWrapper}>
+          <SlideshowGallery hiddenPreviews files={imagesForRender} />
+        </div>
 
         <div className={styles.detailsWrapper}>
           <div className={styles.detailsSubWrapper}>
@@ -104,13 +107,15 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
         </div>
       </div>
 
-      <AnnouncementModal
-        select
-        isOpenModal={isOpenModal}
-        service={announcementData}
-        onOpenModal={handleToggleModal}
-        onClickSelectButton={onClickSelectButton}
-      />
+      {isOpenModal ? (
+        <AnnouncementModal
+          select
+          openModal={isOpenModal}
+          service={announcementData}
+          onOpenModal={handleToggleModal}
+          onClickSelectButton={onClickSelectButton}
+        />
+      ) : null}
     </>
   )
 }

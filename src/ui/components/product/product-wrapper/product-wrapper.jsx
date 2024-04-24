@@ -52,7 +52,6 @@ export const ProductWrapper = memo(
     imagesForLoad,
     showProgress,
     progressValue,
-    alertFailedText,
     product,
     productVariations,
     navigateToProduct,
@@ -61,15 +60,7 @@ export const ProductWrapper = memo(
     productBase,
     userRole,
     modal,
-    showSupplierApproximateCalculationsModal,
-    storekeepersData,
-    volumeWeightCoefficient,
-    onClickSupplierApproximateCalculations,
-    handleSupplierButtons,
-    selectedSupplier,
     formFieldsValidationErrors,
-    platformSettings,
-    onClickSupplier,
     onClickSetProductStatusBtn,
     onChangeField,
     actionStatus,
@@ -87,6 +78,9 @@ export const ProductWrapper = memo(
     onClickNextButton,
     loadMorePermissionsDataHadler,
     onClickSubmitSearch,
+    onClickSaveSupplierBtn,
+    onSaveForceProductData,
+    onRemoveSupplier,
   }) => {
     const { classes: styles } = useStyles()
 
@@ -148,13 +142,11 @@ export const ProductWrapper = memo(
             <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
               <TopCard
                 languageTag={SettingsModel.languageTag}
-                platformSettings={platformSettings}
                 modal={modal}
                 user={user}
                 imagesForLoad={imagesForLoad}
                 showProgress={showProgress}
                 progressValue={progressValue}
-                alertFailedText={alertFailedText}
                 curUserRole={curUserRole}
                 product={product}
                 productVariations={productVariations}
@@ -162,7 +154,6 @@ export const ProductWrapper = memo(
                 unbindProductHandler={unbindProductHandler}
                 shops={shops}
                 productBase={productBase}
-                selectedSupplier={selectedSupplier}
                 actionStatus={actionStatus}
                 acceptMessage={acceptMessage}
                 showAcceptMessage={showAcceptMessage}
@@ -171,21 +162,18 @@ export const ProductWrapper = memo(
                 handleProductActionButtons={handleProductActionButtons}
                 formFieldsValidationErrors={formFieldsValidationErrors}
                 loadMorePermissionsDataHadler={loadMorePermissionsDataHadler}
-                showSupplierApproximateCalculationsModal={showSupplierApproximateCalculationsModal}
-                storekeepersData={storekeepersData}
-                volumeWeightCoefficient={volumeWeightCoefficient}
-                onClickSupplierApproximateCalculations={onClickSupplierApproximateCalculations}
                 onClickSubmitSearch={onClickSubmitSearch}
                 onClickNextButton={onClickNextButton}
                 onTriggerOpenModal={onTriggerOpenModal}
                 onClickGetProductsToBind={onClickGetProductsToBind}
                 onChangeField={onChangeField}
                 onClickSetProductStatusBtn={onClickSetProductStatusBtn}
-                onClickSupplierBtns={handleSupplierButtons}
-                onClickSupplier={onClickSupplier}
                 onClickParseProductData={onClickParseProductData}
                 onChangeImagesForLoad={onChangeImagesForLoad}
                 onClickHsCode={onClickHsCode}
+                onClickSaveSupplierBtn={onClickSaveSupplierBtn}
+                onSaveForceProductData={onSaveForceProductData}
+                onRemoveSupplier={onRemoveSupplier}
               />
               {!checkIsResearcher(curUserRole) && (
                 <BottomCard
