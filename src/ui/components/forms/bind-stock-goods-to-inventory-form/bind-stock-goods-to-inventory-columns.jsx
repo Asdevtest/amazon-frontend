@@ -2,12 +2,9 @@ import { Radio } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextCell,
-  RenderFieldValueCell,
-  SmallRowImageCell,
-  TrashCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextCell, RenderFieldValueCell, SmallRowImageCell } from '@components/data-grid/data-grid-cells'
+import { Button } from '@components/shared/button'
+import { DeleteIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -31,6 +28,8 @@ export const inventoryColumns = (handlers, selectedRow) => [
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
     width: 120,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -46,6 +45,8 @@ export const inventoryColumns = (handlers, selectedRow) => [
     headerName: t(TranslationKey.Title),
     width: 110,
     flex: 1,
+    filterable: false,
+    sortable: false,
   },
 ]
 
@@ -55,6 +56,8 @@ export const chosenGoodsColumns = handlers => [
     headerName: t(TranslationKey.ASIN),
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -62,6 +65,8 @@ export const chosenGoodsColumns = handlers => [
     headerName: t(TranslationKey.SKU),
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 130,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -69,6 +74,8 @@ export const chosenGoodsColumns = handlers => [
     headerName: 'Title',
     renderCell: params => <RenderFieldValueCell value={params.value} />,
     width: 120,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -76,6 +83,8 @@ export const chosenGoodsColumns = handlers => [
     headerName: 'FBA/FBM Stock',
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 140,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -83,6 +92,8 @@ export const chosenGoodsColumns = handlers => [
     headerName: 'Reserved',
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 110,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -90,19 +101,20 @@ export const chosenGoodsColumns = handlers => [
     headerName: t(TranslationKey.ROI),
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
+    filterable: false,
+    sortable: false,
   },
 
   {
     field: ' ',
     headerName: '',
-    renderCell: params => {
-      return (
-        <TrashCell
-          tooltipText={t(TranslationKey['Remove a position from the list'])}
-          onClick={() => handlers.onClickTrash(params.row.asin)}
-        />
-      )
-    },
+    renderCell: params => (
+      <Button iconButton onClick={() => handlers.onClickTrash(params.row.asin)}>
+        <DeleteIcon />
+      </Button>
+    ),
     width: 60,
+    filterable: false,
+    sortable: false,
   },
 ]
