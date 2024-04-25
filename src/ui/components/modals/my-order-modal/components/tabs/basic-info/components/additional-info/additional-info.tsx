@@ -39,8 +39,6 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
 
   const { additionalInfoFieldsConfig } = useAdditionalInfo({ ...props, ...useVariationData })
 
-  console.log('formFields :>> ', props?.formFields)
-
   return (
     <>
       <div className={styles.wrapper}>
