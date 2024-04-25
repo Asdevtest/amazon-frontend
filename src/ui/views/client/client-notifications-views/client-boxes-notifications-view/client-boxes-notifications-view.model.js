@@ -154,7 +154,7 @@ export class ClientBoxesNotificationsViewModel {
     this.confirmModalSettings = {
       isWarning: true,
       message: t(TranslationKey['Do you want to cancel?']),
-      onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
+      onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn([{ boxId: row._id }]),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
@@ -278,14 +278,24 @@ export class ClientBoxesNotificationsViewModel {
     }
   }
 
-  async onClickRejectOrderPriceChangeBtn(box) {
+  async onClickRejectOrderPriceChangeBtn(data) {
     try {
-      await ClientModel.returnBoxFromBatch([{ boxId: box._id }])
+      await ClientModel.returnBoxFromBatch(data)
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
     } catch (error) {
       console.warn(error)
     }
+  }
+
+  async handleRejectFewBoxes() {
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Do you want to cancel?']),
+      onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(this.selectedRowIds?.map(id => ({ boxId: id }))),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async handleChangePriceFewBoxes() {
