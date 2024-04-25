@@ -176,15 +176,15 @@ export const AddOrEditSupplierModalContent = memo(props => {
         ...tmpSupplier.boxProperties,
         boxLengthCm:
           (sizeSetting === unitsOfChangeOptions.US
-            ? tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient
+            ? toFixed(tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient, 2)
             : tmpSupplier.boxProperties.boxLengthCm) || 0,
         boxWidthCm:
           (sizeSetting === unitsOfChangeOptions.US
-            ? tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient
+            ? toFixed(tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient, 2)
             : tmpSupplier.boxProperties.boxWidthCm) || 0,
         boxHeightCm:
           (sizeSetting === unitsOfChangeOptions.US
-            ? tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient
+            ? toFixed(tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient, 2)
             : tmpSupplier.boxProperties.boxHeightCm) || 0,
 
         amountInBox: tmpSupplier.boxProperties.amountInBox || 0,

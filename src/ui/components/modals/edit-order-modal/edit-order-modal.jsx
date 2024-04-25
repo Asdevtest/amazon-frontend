@@ -673,8 +673,6 @@ export const EditOrderModal = memo(
             onClickSaveSupplier={onClickSaveSupplierBtn}
             onSaveProduct={handleSaveProduct}
           />
-
-          <BoxesToOrder formFields={order} platformSettings={platformSettings} />
         </div>
 
         <div className={styles.buttonsBox}>
@@ -766,22 +764,25 @@ export const EditOrderModal = memo(
                   )}
                 </div>
               </div>
-              <div>
-                <Field
-                  multiline
-                  minRows={4}
-                  maxRows={4}
-                  inputProps={{ maxLength: 500 }}
-                  inputClasses={styles.commentInput}
-                  value={commentToWarehouse}
-                  labelClasses={styles.label}
-                  label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
-                  onChange={e => setCommentToWarehouse(e.target.value)}
-                />
-              </div>
+
+              <Field
+                multiline
+                minRows={4}
+                maxRows={4}
+                inputProps={{ maxLength: 500 }}
+                inputClasses={styles.commentInput}
+                value={commentToWarehouse}
+                labelClasses={styles.label}
+                label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
+                onChange={e => setCommentToWarehouse(e.target.value)}
+              />
             </div>
           </>
         )}
+
+        <div className={styles.boxesWrapper}>
+          <BoxesToOrder formFields={order} platformSettings={platformSettings} />
+        </div>
 
         <Modal
           openModal={collapseCreateOrEditBoxBlock}

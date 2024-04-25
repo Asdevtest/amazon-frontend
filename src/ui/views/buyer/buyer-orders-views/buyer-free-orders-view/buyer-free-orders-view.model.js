@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
 import { filterModelInitialValue } from '@models/data-grid-table-model'
@@ -13,7 +12,6 @@ import { buyerFreeOrdersViewColumns } from '@components/table/table-columns/buye
 
 import { buyerVacantOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
@@ -22,26 +20,18 @@ export class BuyerFreeOrdersViewModel {
   requestStatus = undefined
 
   curOrder = undefined
-
+  selectedRowIds = []
   ordersVacant = []
   showTwoVerticalChoicesModal = false
 
-  warningTitle = ''
-
-  rowHandlers = {
-    onClickTableRowBtn: item => this.onClickTableRowBtn(item),
-  }
-
-  selectedRowIds = []
-
   sortModel = []
   filterModel = filterModelInitialValue
-  densityModel = 'compact'
   columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
-  showWarningModal = false
+  rowHandlers = {
+    onClickTableRowBtn: item => this.onClickTableRowBtn(item),
+  }
 
   get currentData() {
     return this.ordersVacant
@@ -102,7 +92,7 @@ export class BuyerFreeOrdersViewModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      // this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      // this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
@@ -151,11 +141,7 @@ export class BuyerFreeOrdersViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      runInAction(() => {
-        this.ordersVacant = []
-      })
       console.error(error)
-
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -193,13 +179,6 @@ export class BuyerFreeOrdersViewModel {
 
       UserModel.getUsersInfoCounters()
     } catch (error) {
-      runInAction(() => {
-        this.warningTitle = t(TranslationKey['Not found'])
-      })
-
-      this.onTriggerOpenModal('showWarningModal')
-
-      this.loadData()
       console.error(error)
     }
   }
@@ -216,11 +195,8 @@ export class BuyerFreeOrdersViewModel {
 
       runInAction(() => {
         this.selectedRowIds = []
-
-        this.warningTitle = t(TranslationKey['Taken to Work'])
       })
 
-      this.onTriggerOpenModal('showWarningModal')
       UserModel.getUsersInfoCounters()
       this.loadData()
     } catch (error) {

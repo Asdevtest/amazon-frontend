@@ -34,19 +34,11 @@ export const ApproximateCheckboxCell: FC<ApproximateCheckboxCellProps> = memo(pr
                   checked={isActiveSelectedVariation}
                   disabled={destinationId !== currentDestinationId && isStrictVariationSelect && !!currentDestinationId}
                   onChange={() =>
-                    onClickChangeVariation(
-                      isActiveSelectedVariation
-                        ? {
-                            variationId: '',
-                            destinationId,
-                            logicsTariffId: '',
-                          }
-                        : {
-                            variationId: variation?._id,
-                            destinationId,
-                            logicsTariffId: variation?.storekeeperTariffLogisticsId,
-                          },
-                    )
+                    onClickChangeVariation({
+                      variationId: variation?._id,
+                      destinationId,
+                      logicsTariffId: variation?.storekeeperTariffLogisticsId,
+                    })
                   }
                 />
               </div>
