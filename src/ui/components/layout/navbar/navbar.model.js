@@ -46,8 +46,8 @@ export class NavbarModel extends UseProductsPermissions {
 
   constructor() {
     super(UserModel.getPatchNotes, {
-      sortType: 'ASC',
-      sortField: '',
+      sortType: 'DESC',
+      sortField: 'updatedAt',
     })
 
     makeObservable(this, navbarObserverConfig)
