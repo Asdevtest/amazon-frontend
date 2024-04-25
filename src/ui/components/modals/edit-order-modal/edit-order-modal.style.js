@@ -274,4 +274,8 @@ export const useStyles = makeStyles()(theme => ({
   productCell: {
     width: 225,
   },
+
+  boxesWrapper: {
+    marginTop: 20,
+  },
 }))
