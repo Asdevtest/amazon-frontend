@@ -1,5 +1,6 @@
 import { FC, memo } from 'react'
 
+import { IVariationParams } from '@components/modals/supplier-approximate-calculations/supplier-approximate-calculations.type'
 import { Checkbox } from '@components/shared/checkbox'
 
 import { IDestinationVariationWithCalculations } from '@typings/shared/destinations'
@@ -11,7 +12,7 @@ interface ApproximateCheckboxCellProps {
   currentVariationId?: string
   currentDestinationId?: string
   isStrictVariationSelect?: boolean
-  onClickChangeVariation: (variationId: string, destinationId: string, logicsTariffId: string) => void
+  onClickChangeVariation: ({ variationId, destinationId, logicsTariffId }: IVariationParams) => void
 }
 
 export const ApproximateCheckboxCell: FC<ApproximateCheckboxCellProps> = memo(props => {
@@ -23,25 +24,26 @@ export const ApproximateCheckboxCell: FC<ApproximateCheckboxCellProps> = memo(pr
   return (
     <div className={styles.wrapper}>
       {variations?.length
-        ? variations.map((variation, index) => (
-            <div key={index} className={styles.destination}>
-              <Checkbox
-                checked={variation?._id === currentVariationId}
-                disabled={
-                  variation?.destination?._id !== currentDestinationId &&
-                  isStrictVariationSelect &&
-                  !!currentDestinationId
-                }
-                onChange={() =>
-                  onClickChangeVariation(
-                    variation?._id,
-                    variation?.destination?._id,
-                    variation?.storekeeperTariffLogisticsId,
-                  )
-                }
-              />
-            </div>
-          ))
+        ? variations.map((variation, index) => {
+            const isActiveSelectedVariation = variation?._id === currentVariationId
+            const destinationId = variation?.destination?._id
+
+            return (
+              <div key={index} className={styles.destination}>
+                <Checkbox
+                  checked={isActiveSelectedVariation}
+                  disabled={destinationId !== currentDestinationId && isStrictVariationSelect && !!currentDestinationId}
+                  onChange={() =>
+                    onClickChangeVariation({
+                      variationId: variation?._id,
+                      destinationId,
+                      logicsTariffId: variation?.storekeeperTariffLogisticsId,
+                    })
+                  }
+                />
+              </div>
+            )
+          })
         : null}
     </div>
   )

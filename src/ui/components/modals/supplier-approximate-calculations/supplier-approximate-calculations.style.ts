@@ -24,7 +24,7 @@ export const useStyles = makeStyles()(theme => ({
     flexWrap: 'wrap',
     padding: '3px 0',
     gap: '10px',
-    height: '105px',
+    height: '107px',
     overflowY: 'auto',
   },
 
@@ -48,5 +48,10 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
     alignItems: 'center',
     margin: '0 3px 5px 0',
+  },
+
+  activeRow: {
+    background:
+      'linear-gradient(180deg, rgba(33, 150, 243, 0.15) 0%, rgba(33, 150, 243, 0) 32.5%, rgba(33, 150, 243, 0) 72.5%, rgba(33, 150, 243, 0.15) 100%), linear-gradient(270deg, rgba(33, 150, 243, 0.15) 0%, rgba(33, 150, 243, 0) 6.5%, rgba(33, 150, 243, 0) 91.5%, rgba(33, 150, 243, 0.15) 100%)',
   },
 }))

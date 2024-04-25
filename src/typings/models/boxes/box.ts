@@ -5,6 +5,7 @@ import { IDestination } from '../../shared/destinations'
 import { IName } from '../../shared/name'
 import { IVariationTariff } from '../../shared/variation-tariff'
 import { IBatch } from '../batches/batch'
+import { ISupplier } from '../suppliers/supplier'
 
 import { IBoxItem } from './box-item'
 
@@ -65,5 +66,6 @@ export interface IBox {
   volumeWeightKgWarehouse: number
   storage: string
   productId: string
+  orderSupplier: ISupplier
   tmpImages: UploadFileType[] // local field, remove in future
 }

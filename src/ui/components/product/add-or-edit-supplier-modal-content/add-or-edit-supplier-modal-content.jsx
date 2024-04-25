@@ -105,6 +105,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     weighUnit: supplier?.weighUnit || '',
     imageUnit: supplier?.imageUnit || [],
     priceVariations: supplier?.priceVariations || [],
+    _id: supplier?._id || '',
   })
 
   const [tmpSupplier, setTmpSupplier] = useState(getInitialState())

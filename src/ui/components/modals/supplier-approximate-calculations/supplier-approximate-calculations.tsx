@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
+import { GridRowClassNameParams } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -66,6 +68,9 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
       }),
   )
 
+  const getRowClassName = (params: GridRowClassNameParams) =>
+    viewModel.currentLogicsTariffId === params?.id ? styles.activeRow : ''
+
   return (
     <Modal isSecondBackground openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.root}>
@@ -117,6 +122,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
             rows={viewModel?.tableData}
             getRowHeight={() => 'auto'}
             getRowId={({ _id }: { _id: string }) => _id}
+            getRowClassName={getRowClassName}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextCell,
   MultilineTextHeaderCell,
+  TariffInfoCell,
   VariationTariffDateCell,
 } from '@components/data-grid/data-grid-cells'
 import { ApproximateCell } from '@components/data-grid/data-grid-cells/approximate-cell/approximate-cell'
@@ -16,13 +17,15 @@ import { VariationTariffRoiCell } from '@components/data-grid/data-grid-cells/va
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { IVariationParams } from './supplier-approximate-calculations.type'
+
 interface columnHandlersProps {
   isTariffsSelect: boolean
   isHideCalculation: boolean
   getCurrentVariationId: () => string | undefined
   getCurrentDestinationId: () => string | undefined
   getStrictVariationSelect: () => boolean | undefined
-  onClickChangeVariation: (variationId: string, destinationId: string, logicsTariffId: string) => void
+  onClickChangeVariation: ({ variationId, destinationId, logicsTariffId }: IVariationParams) => void
 }
 
 export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHandlersProps) => {
@@ -32,7 +35,9 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       headerName: t(TranslationKey.Tariff),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
       width: 140,
-      renderCell: (params: GridValidRowModel) => <MultilineTextCell text={params.value} />,
+      renderCell: (params: GridValidRowModel) => (
+        <TariffInfoCell title={params.value} description={params?.row?.description} />
+      ),
       filterable: false,
       sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
@@ -116,7 +121,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
     },
 
     {
-      field: 'dates',
+      field: 'cls',
       headerName: t(TranslationKey.Dates),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
       renderCell: (params: GridValidRowModel) => <VariationTariffDateCell tariff={params.row} />,
@@ -125,7 +130,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       filterable: false,
       sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
     },
 
     {

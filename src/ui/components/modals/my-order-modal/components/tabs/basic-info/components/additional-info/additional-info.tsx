@@ -1,13 +1,16 @@
-import { FC, memo } from 'react'
+import { Dispatch, FC, SetStateAction, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Card } from '@components/modals/my-order-modal/components/tabs/basic-info/components/card'
-import { Modal } from '@components/shared/modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 
 import { t } from '@utils/translations'
+
+import { IBox } from '@typings/models/boxes/box'
+
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './additional-info.style'
 
@@ -17,15 +20,26 @@ import { useAdditionalInfo } from './use-additional-info'
 export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
   const { classes: styles } = useStyles()
 
+  const useVariationData = useTariffVariation(
+    props?.formFields?.destinationId || '',
+    props?.setFormFields as unknown as Dispatch<SetStateAction<IBox>>,
+  )
+
   const {
-    additionalInfoFieldsConfig,
-    showConfirmModal,
-    showSelectionStorekeeperAndTariffModal,
-    confirmModalSettings,
     onSubmitSelectStorekeeperAndTariff,
-    onToggleConfirmModal,
-    onToggleSelectionStorekeeperAndTariffModal,
-  } = useAdditionalInfo(props)
+
+    showConfirmModal,
+    setShowConfirmModal,
+
+    confirmModalSettings,
+
+    showSelectionStorekeeperAndTariffModal,
+    setShowSelectionStorekeeperAndTariffModal,
+  } = useVariationData
+
+  const { additionalInfoFieldsConfig } = useAdditionalInfo({ ...props, ...useVariationData })
+
+  console.log('formFields :>> ', props?.formFields)
 
   return (
     <>
@@ -43,29 +57,22 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
         </Card>
       </div>
 
-      <Modal
-        openModal={showSelectionStorekeeperAndTariffModal}
-        setOpenModal={onToggleSelectionStorekeeperAndTariffModal}
-      >
-        {/* @ts-ignore */}
-        <SelectStorekeeperAndTariffForm
-          showCheckbox
-          removeDestinationRestriction
-          storekeepers={props.storekeepers}
-          curStorekeeperId={props.formFields?.storekeeperId}
-          currentDestinationId={props.formFields?.destinationId}
-          curTariffId={props.formFields?.logicsTariffId}
-          currentVariationTariffId={props.formFields?.variationTariffId}
-          onSubmit={onSubmitSelectStorekeeperAndTariff}
+      {showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isTariffsSelect
+          openModal={showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(false)}
+          box={props?.formFields as unknown as IBox}
+          onClickSubmit={onSubmitSelectStorekeeperAndTariff}
         />
-      </Modal>
+      ) : null}
 
       {showConfirmModal ? (
         <ConfirmationModal
           // @ts-ignore
           isWarning={confirmModalSettings?.isWarning}
           openModal={showConfirmModal}
-          setOpenModal={onToggleConfirmModal}
+          setOpenModal={() => setShowConfirmModal(false)}
           title={t(TranslationKey.Attention)}
           message={confirmModalSettings?.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
