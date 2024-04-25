@@ -17,16 +17,19 @@ import { t } from '@utils/translations'
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IBox } from '@typings/models/boxes/box'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { INewDataOfVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './supplier-approximate-calculations.style'
 
+import { getTitleModal } from './helpers/get-modal-title'
 import { ProductCard } from './product-card'
 import { SupplierApproximateCalculationsModel } from './supplier-approximate-calculations.model'
 
 interface SupplierApproximateCalculationsModalProps {
   openModal: boolean
+  tariffModalType?: TariffModalType
   currentSupplierId?: string
   productId?: string
   setOpenModal: (value: boolean) => void
@@ -50,6 +53,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
     onClickSubmit,
     isHideCalculation,
     isGetAllStorekeepers,
+    tariffModalType,
   } = props
 
   const { classes: styles } = useStyles()
@@ -75,7 +79,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
     <Modal isSecondBackground openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.root}>
         <div className={styles.headerWrapper}>
-          <p className={styles.title}>{t(TranslationKey['Approximate calculation'])}</p>
+          <p className={styles.title}>{getTitleModal(tariffModalType)}</p>
 
           <SearchInput
             placeholder={`${t(TranslationKey['Search by'])}: ${t(TranslationKey.Tariff)}, ${t(

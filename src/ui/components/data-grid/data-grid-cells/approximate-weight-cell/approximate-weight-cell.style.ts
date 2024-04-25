@@ -16,10 +16,21 @@ export const useStyles = makeStyles()(theme => ({
     minHeight: 48,
     flex: 1,
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
 
     margin: '0 -10px',
     borderBottom: `1px solid ${theme.palette.input.customBorder}`,
+  },
+
+  withoutCheckbox: {
+    paddingLeft: '40px',
+  },
+
+  text: {
+    flex: '1',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
 }))

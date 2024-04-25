@@ -27,6 +27,7 @@ import { checkIsStorekeeper } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
@@ -686,6 +687,7 @@ export const EditMultipleBoxesForm = observer(
         {showSelectionStorekeeperAndTariffModal ? (
           <SupplierApproximateCalculationsModal
             isTariffsSelect
+            tariffModalType={TariffModalType.WAREHOUSE}
             openModal={showSelectionStorekeeperAndTariffModal}
             setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
             box={sharedFields}

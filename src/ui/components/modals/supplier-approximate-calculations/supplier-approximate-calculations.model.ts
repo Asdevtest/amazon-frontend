@@ -111,7 +111,12 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     if (box) {
       this.boxData = box
       this.setActualData(box)
-      this.setCurrentStorekeeper(this.storekeepers?.[0]?.value as string)
+
+      if (isGetAllStorekeepers) {
+        this.getStorekeepersData()
+      } else {
+        this.setCurrentStorekeeper(this.storekeepers?.[0]?.value as string)
+      }
     } else if (boxId) {
       this.boxId = boxId
       this.getBoxData()
@@ -119,10 +124,6 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       this.productId = productId
       this.getStorekeepersData()
     } else {
-      this.getStorekeepersData()
-    }
-
-    if (isGetAllStorekeepers) {
       this.getStorekeepersData()
     }
 
@@ -229,6 +230,8 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   }
 
   setActualData(box: IBox) {
+    console.log('box :>> ', box)
+
     const productId = box?.productId || box?.items?.[0]?.product?._id
     const supplierId =
       box?.orderSupplier?._id || box?.items?.[0]?.order?.orderSupplierId || box?.items?.[0]?.order?.orderSupplier?._id

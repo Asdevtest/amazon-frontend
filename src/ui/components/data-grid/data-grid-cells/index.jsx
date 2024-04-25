@@ -106,3 +106,4 @@ export { WarehouseTariffDatesCell } from './warehouse-tariff-dates-cell/warehous
 export { WarehouseTariffDestinationCell } from './warehouse-tariff-destination-cell/warehouse-tariff-destination-cell'
 export { WarehouseTariffRatesCell } from './warehouse-tariff-rates-cell/warehouse-tariff-rates-cell'
 export { TariffInfoCell } from './tariff-info-cell/tariff-info-cell'
+export { ApproximateWeightCell } from './approximate-weight-cell/approximate-weight-cell'

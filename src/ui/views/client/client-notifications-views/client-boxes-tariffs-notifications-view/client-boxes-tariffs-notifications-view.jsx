@@ -15,6 +15,7 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { styles } from './client-boxes-tariffs-notifications-view.style'
 
@@ -81,6 +82,7 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
       {viewModel.showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
           isTariffsSelect
+          tariffModalType={TariffModalType.WAREHOUSE}
           openModal={viewModel.showSelectionStorekeeperAndTariffModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
           box={viewModel.curBox}

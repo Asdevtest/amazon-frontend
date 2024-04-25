@@ -22,6 +22,7 @@ import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
@@ -335,26 +336,11 @@ export const OrderModalBodyRow = ({
           </TableCell>
         )}
 
-        {/* <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-        >
-          <SelectStorekeeperAndTariffForm
-            showCheckbox
-            removeDestinationRestriction
-            storekeepers={storekeepers}
-            curStorekeeperId={item.storekeeperId}
-            curTariffId={item.logicsTariffId}
-            currentDestinationId={item?.destinationId}
-            currentVariationTariffId={item?.variationTariffId}
-            onSubmit={onSubmitSelectStorekeeperAndTariff}
-          />
-        </Modal> */}
-
         {showSelectionStorekeeperAndTariffModal ? (
           <SupplierApproximateCalculationsModal
             isTariffsSelect
             isGetAllStorekeepers
+            tariffModalType={TariffModalType.ORDER}
             openModal={showSelectionStorekeeperAndTariffModal}
             setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
             box={item}
