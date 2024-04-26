@@ -85,7 +85,6 @@ export const AdminSentBatchesViewRaw = props => {
       {viewModel.showBatchInfoModal ? (
         <BatchInfoModal
           // @ts-ignore
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           openModal={viewModel.showBatchInfoModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
           batch={viewModel.curBatch}

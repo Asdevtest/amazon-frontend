@@ -21,7 +21,7 @@ interface HeaderProps {
   onClickBindInventoryGoodsToStockBtn: () => void
   onClickAddSupplierBtn: () => void
   onClickParseProductsBtn: () => void
-  onClickProductLotDataBtn: () => void
+  onClickProducDataButton: () => void
   onTriggerArchive: () => void
   onTriggerOpenModal: (key: string) => void
   onClickTriggerArchOrResetProducts: () => void
@@ -39,7 +39,7 @@ export const Header: FC<HeaderProps> = memo(props => {
     onClickBindInventoryGoodsToStockBtn,
     onClickAddSupplierBtn,
     onClickParseProductsBtn,
-    onClickProductLotDataBtn,
+    onClickProducDataButton,
     onTriggerArchive,
     onTriggerOpenModal,
     onClickTriggerArchOrResetProducts,
@@ -103,7 +103,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             <Button
               tooltipInfoContent={t(TranslationKey['Product batches data'])}
               disabled={isSelectedRowsNotEqualOne}
-              onClick={onClickProductLotDataBtn}
+              onClick={onClickProducDataButton}
             >
               {t(TranslationKey['Product batches data'])}
             </Button>

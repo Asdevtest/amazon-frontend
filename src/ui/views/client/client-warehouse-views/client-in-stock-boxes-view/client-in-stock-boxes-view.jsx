@@ -9,7 +9,6 @@ import { CheckPendingOrderForm } from '@components/forms/check-pending-order-for
 import { EditBoxForm } from '@components/forms/edit-box-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
-import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { RequestToSendBatchForm } from '@components/forms/request-to-send-batch-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -21,7 +20,6 @@ import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -352,18 +350,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       ) : null}
 
       <Modal
-        openModal={viewModel.showProductLotDataModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
-      >
-        <ProductLotDataForm
-          isTransfer
-          userInfo={viewModel.userInfo}
-          product={[viewModel.selectedWarehouseOrderProduct]}
-          batchesData={viewModel.batchesData}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showCheckPendingOrderFormModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
       >
@@ -421,18 +407,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           }}
         />
       </Modal>
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
 
       <Modal
         openModal={viewModel.showEditPriorityData}

@@ -24,6 +24,7 @@ interface MultilineTextCellProps {
   customTextStyles?: CSSProperties
   maxLength?: number
   customTextClass?: string
+  link?: boolean
   onClickText?: () => void
 }
 
@@ -45,6 +46,7 @@ export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
     customTextStyles,
     maxLength,
     customTextClass,
+    link,
   } = props
 
   const maxTextLength = maxLength ?? MAX_LENGTH_TITLE
@@ -65,7 +67,7 @@ export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
           className={cx(
             styles.multilineText,
             { [styles.multilineLeftAlignText]: leftAlign },
-            { [styles.multilineLink]: onClickText && textForRender },
+            { [styles.multilineLink]: link },
             { [styles.oneMultilineText]: oneLines },
             { [styles.twoMultilineText]: twoLines },
             { [styles.threeMultilineText]: threeLines },

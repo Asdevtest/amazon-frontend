@@ -26,7 +26,7 @@ export const ProductCard: FC<ProductCardProps> = memo(({ product, isActive, onCl
         <div>
           <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product.asin} />
           <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product.skuByClient} />
-          <AsinOrSkuLink withCopyValue withAttributeTitle="fnsku" link={undefined} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="fnsku" link={''} />
         </div>
       </div>
     </button>

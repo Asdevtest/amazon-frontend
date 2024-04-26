@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
@@ -7,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { BatchesModel } from '@models/batches-model'
-import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
@@ -45,7 +45,6 @@ export class ClientOrdersViewModel {
   chosenStatus = []
   filteredStatus = []
   hsCodeData = undefined
-  batchesData = []
 
   get currentData() {
     return this.orders
@@ -61,8 +60,6 @@ export class ClientOrdersViewModel {
   productBatches = []
   showCheckPendingOrderFormModal = false
   showMyOrderModal = false
-  showWarningInfoModal = false
-  showProductLotDataModal = false
   showEditHSCodeModal = false
 
   myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
@@ -70,11 +67,6 @@ export class ClientOrdersViewModel {
 
   existingProducts = []
   shopsData = []
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   selectedWarehouseOrderProduct = undefined
   selectedProduct = undefined
@@ -453,7 +445,7 @@ export class ClientOrdersViewModel {
 
   async getBatches() {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.activeProductGuid, false)
+      const result = await BatchesModel.getBatchesbyProduct({ guid: this.activeProductGuid, archive: false })
 
       runInAction(() => {
         this.productBatches = result
@@ -869,30 +861,11 @@ export class ClientOrdersViewModel {
 
       this.loadData()
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       await this.getOrderById(order._id)
 
       this.onTriggerOpenModal('showWarningInfoModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickInTransfer(productId) {
-    try {
-      const result = await BoxesModel.getBoxesInTransfer(productId)
-
-      runInAction(() => {
-        this.batchesData = result
-      })
-
-      this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
       console.error(error)
     }
