@@ -21,7 +21,11 @@ export const useNumbersColumnMenu = ({ fields, table, filtersData, onClickFilter
     return filtersData?.[currentField]
   }, [currentField])
 
-  const dataforRender = useMemo(() => {}, [])
+  const dataforRender = useMemo(() => {
+    if (filterData) {
+      return filterData?.filter()
+    }
+  }, [])
 
   const handleGetFilterData = () => {}
 
