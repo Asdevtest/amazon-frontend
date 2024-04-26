@@ -10,6 +10,7 @@ import { RadioButtons } from '@components/shared/radio-buttons'
 import { IRadioBottonsSetting } from '@components/shared/radio-buttons/radio-buttons'
 import { SearchInput } from '@components/shared/search-input'
 
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
@@ -24,17 +25,17 @@ import { useNumbersColumnMenu } from './hooks/use-numbers-column-menu'
 interface INumbersColumnMenuProps {
   fields: IRadioBottonsSetting[]
   filterRequestStatus: loadingStatus
-  filtersData: any
+  filtersData: unknown
   table: string
   defaultOption?: string
   onClickAccept: () => void
   onClose: () => void
   onClickFilterBtn: (field: string, table: string) => void
-  onChangeFullFieldMenuItem: (chosenItems: string[], field: string) => void
+  onChangeFullFieldMenuItem: (chosenItems: number[], field: string) => void
 }
 
 export const NumbersColumnMenu: FC<INumbersColumnMenuProps> = memo(props => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const {
     fields,
@@ -48,8 +49,16 @@ export const NumbersColumnMenu: FC<INumbersColumnMenuProps> = memo(props => {
   } = props
 
   const {
+    dataforRender,
+    isWholeNumber,
+
+    chosenItems,
+    setChosenItems,
+
+    onClickItem,
+    handleSelectField,
+
     currentField,
-    setCurrentField,
 
     fromSearchValue,
     setFromSearchValue,
@@ -68,7 +77,7 @@ export const NumbersColumnMenu: FC<INumbersColumnMenuProps> = memo(props => {
           verticalDirection
           radioBottonsSettings={fields}
           currentValue={currentField}
-          onClickRadioButton={selectedStatus => setCurrentField(selectedStatus as string)}
+          onClickRadioButton={selectedStatus => handleSelectField(selectedStatus as string)}
         />
       </div>
 
@@ -99,23 +108,25 @@ export const NumbersColumnMenu: FC<INumbersColumnMenuProps> = memo(props => {
 
       <div className={styles.filterItemsWrapper}>
         {filterRequestStatus === loadingStatus.IS_LOADING ? (
-          <CircleSpinner size={20} />
+          <div className={styles.loaderWrapper}>
+            <CircleSpinner size={50} />
+          </div>
         ) : (
           <>
-            {/* {itemsForRender?.length ? (
+            {dataforRender?.length ? (
               <>
                 <DataGridSelectAllFilters
-                  choosenItems={choosenItems}
-                  itemsForRender={itemsForRender}
-                  setChoosenItems={setChoosenItems}
+                  choosenItems={chosenItems}
+                  itemsForRender={dataforRender}
+                  setChoosenItems={setChosenItems}
                 />
-                {itemsForRender?.map((el, index) => {
-                  const value = isNotFixedValue ? el : toFixed(el, 2) || 0
-                  const valueChecked = choosenItems?.some(item => item === el)
+                {dataforRender?.map((el, index) => {
+                  const value = isWholeNumber ? el : toFixed(el)
+                  const valueChecked = chosenItems?.some(item => item === el)
 
                   return (
                     <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
-                      <p title={value} className={styles.shopName}>
+                      <p title={value} className={styles.filterTitle}>
                         {value}
                       </p>
                     </Checkbox>
@@ -124,21 +135,21 @@ export const NumbersColumnMenu: FC<INumbersColumnMenuProps> = memo(props => {
               </>
             ) : (
               <p className={styles.noOptionText}>{t(TranslationKey['No options'])}</p>
-            )} */}
+            )}
           </>
         )}
       </div>
 
       <div className={styles.buttonsWrapper}>
-        {/* <Button
-          onClick={e => {
-            onClose(e)
-            onChangeFullFieldMenuItem(choosenItems, currentField)
+        <Button
+          onClick={() => {
+            onClose()
+            onChangeFullFieldMenuItem(chosenItems, currentField)
             onClickAccept()
           }}
         >
           {t(TranslationKey.Accept)}
-        </Button> */}
+        </Button>
 
         <Button variant={ButtonVariant.OUTLINED} onClick={onClose}>
           {t(TranslationKey.Cancel)}

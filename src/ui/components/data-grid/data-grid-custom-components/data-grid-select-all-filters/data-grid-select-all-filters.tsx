@@ -29,13 +29,11 @@ export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = memo(
   return (
     <div className={styles.body}>
       <Checkbox
-        color="primary"
         checked={itemsForRender?.length === choosenItems.length}
         onClick={() => selectAllItemsHandler(itemsForRender)}
-      />
-      <div title={t(TranslationKey.All)} className={styles.title}>
-        {t(TranslationKey.All)}
-      </div>
+      >
+        <p className={styles.title}>{t(TranslationKey.All)}</p>
+      </Checkbox>
     </div>
   )
 })

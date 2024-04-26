@@ -56,4 +56,20 @@ export const useStyles = makeStyles()(theme => ({
 
     boxShadow: theme.palette.boxShadow.filter,
   },
+
+  filterTitle: {
+    width: '100%',
+    textAlign: 'left',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  loaderWrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 }))
