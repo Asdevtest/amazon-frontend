@@ -80,7 +80,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
 
         weightFinalAccountingKgWarehouse: weightFinalAccountingKg || '',
         tmpImages: [],
-        images: (startBox?.images === null ? [] : startBox?.images) || [],
+        images: startBox?.images || [],
       }
 
       return startBoxWithDemensions
@@ -186,6 +186,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         weighGrossKgWarehouse: parseFloat(el?.weighGrossKgWarehouse) || '',
         volumeWeightKgWarehouse: parseFloat(el?.volumeWeightKgWarehouse) || '',
         weightFinalAccountingKgWarehouse: parseFloat(el?.weightFinalAccountingKgWarehouse) || '',
+        tmpImages: [...el.images, ...el.tmpImages],
       }))
 
       setSourceBoxes(newBoxesWithoutNumberFields)
