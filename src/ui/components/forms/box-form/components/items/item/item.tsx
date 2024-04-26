@@ -93,7 +93,7 @@ export const Item: FC<ItemProps> = memo(props => {
           <div className={styles.info}>
             <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.product.asin} />
             <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={item.product.skuByClient} />
-            <AsinOrSkuLink withCopyValue withAttributeTitle="fnsku" link={item.product.skuByClient} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle="fnsku" link={''} />
           </div>
         </div>
 

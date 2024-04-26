@@ -36,19 +36,10 @@ import { useStyles } from './batch-info-modal.style'
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
 export const BatchInfoModal = observer(
-  ({
-    openModal,
-    setOpenModal,
-    batch,
-    userInfo,
-    onSubmitChangeBoxFields,
-    onClickHsCode,
-    patchActualShippingCostBatch,
-    history,
-  }) => {
+  ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, onClickHsCode, patchActualShippingCostBatch }) => {
     const { classes: styles, cx } = useStyles()
 
-    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel())
 
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 
@@ -391,7 +382,7 @@ export const BatchInfoModal = observer(
             setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           >
             <BoxForm
-              userInfo={userInfo}
+              userInfo={viewModel.userInfo}
               box={viewModel.curBox}
               onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
               onSubmitChangeFields={onSubmitChangeBoxFields}

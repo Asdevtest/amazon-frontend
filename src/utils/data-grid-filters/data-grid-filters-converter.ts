@@ -99,6 +99,8 @@ export const dataGridFiltersConverter = (
     filterList.forEach(item => {
       if (typeof item === 'object' && item) {
         finalFilterString += `"${item._id}",`
+      } else if (typeof item === 'boolean') {
+        finalFilterString += `${item},`
       } else {
         finalFilterString += `"${item}",`
       }

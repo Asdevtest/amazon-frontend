@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
+import { GridRowModel } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-goods-to-inventory-form'
@@ -85,7 +87,7 @@ export const ClientShopsReportView = observer(() => {
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           rowSelectionModel={viewModel.selectedRows}
-          getRowId={({ _id }: { _id: string }) => _id}
+          getRowId={({ _id }: GridRowModel) => _id}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

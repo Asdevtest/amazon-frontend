@@ -128,7 +128,18 @@ export const clientInventoryColumns = (
       field: 'sentToFbaSum',
       headerName: t(TranslationKey.Inbound),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
-      renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
+      renderCell: params => (
+        <MultilineTextCell
+          link={Number(params.value) > 0}
+          text={String(params.value)}
+          onClickText={e => {
+            if (Number(params.value) > 0) {
+              e.stopPropagation()
+              otherHandlers.onOpenProductDataModal(params.row, false)
+            }
+          }}
+        />
+      ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -173,17 +184,18 @@ export const clientInventoryColumns = (
       field: 'inTransfer',
       headerName: 'in Transfer',
       renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
-      renderCell: params => {
-        return (
-          <MultilineTextCell
-            text={String(params.value)}
-            onClickText={e => {
+      renderCell: params => (
+        <MultilineTextCell
+          link={Number(params.value) > 0}
+          text={String(params.value)}
+          onClickText={e => {
+            if (Number(params.value) > 0) {
               e.stopPropagation()
-              otherHandlers.onClickInTransfer(params.row?._id)
-            }}
-          />
-        )
-      },
+              otherHandlers.onOpenProductDataModal(params.row, false)
+            }
+          }}
+        />
+      ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },

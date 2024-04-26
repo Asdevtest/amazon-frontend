@@ -8,8 +8,6 @@ import { ProductStatus, ProductStatusByCode } from '@constants/product/product-s
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, createOrderRequestWhiteList } from '@constants/white-list'
 
-import { BatchesModel } from '@models/batches-model'
-import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { IdeaModel } from '@models/ideas-model'
@@ -101,13 +99,14 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showProductVariationsForm = false
   showAddOrEditSupplierModal = false
 
+  onAmazon = false
+  isBatches = false
+
   successModalText = ''
   confirmMessage = ''
   showInfoModalTitle = ''
   currentBarcode = ''
   currentHscode = ''
-
-  isTransfer = false
 
   readyImages = []
   progressValue = 0
@@ -253,7 +252,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const otherHandlers = {
       onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
-      onClickInTransfer: productId => this.onClickInTransfer(productId),
+      onOpenProductDataModal: (product, onAmazon) => this.onOpenProductDataModal(product, onAmazon),
       onClickOrderCell: productId => this.onClickOrderCell(productId),
       onClickShowProduct: row => this.onClickShowProduct(row),
       onClickVariationButton: id => this.onClickVariationButton(id),
@@ -1214,50 +1213,22 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickInTransfer(productId) {
-    try {
-      const result = await BoxesModel.getBoxesInTransfer(productId)
-      runInAction(() => {
-        this.isTransfer = true
+  onOpenProductDataModal(product, onAmazon) {
+    runInAction(() => {
+      this.curProduct = product
+      this.onAmazon = onAmazon
+      this.isBatches = false
+    })
 
-        this.batchesData = result
-
-        this.curProduct = this.tableData.filter(product => productId === product._id)
-      })
-      this.onTriggerOpenModal('showProductLotDataModal')
-    } catch (error) {
-      console.error(error)
-    }
+    this.onTriggerOpenModal('showProductLotDataModal')
   }
 
-  async onClickProductLotDataBtn() {
-    try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRows[0], false)
-      runInAction(() => {
-        this.isTransfer = false
-        this.batchesData = result
+  onClickProducDataButton() {
+    this.onAmazon = false
+    this.isBatches = true
+    this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product._id))?.[0]
 
-        this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product._id))
-      })
-      this.onTriggerOpenModal('showProductLotDataModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickToggleArchiveProductLotData(isArchive) {
-    try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRows[0], isArchive)
-      runInAction(() => {
-        this.batchesData = result
-      })
-    } catch (error) {
-      console.error(error)
-
-      runInAction(() => {
-        this.batchesData = []
-      })
-    }
+    this.onTriggerOpenModal('showProductLotDataModal')
   }
 
   async onSubmitCalculateSeekSupplier(clientComment) {

@@ -27,7 +27,6 @@ import { tableProductViewMode } from '@typings/enums/table-product-view'
 import { filtersFields } from './client-awaiting-batches-view.constants'
 
 export class ClientAwaitingBatchesViewModel {
-  history = undefined
   requestStatus = undefined
 
   nameSearchValue = ''
@@ -105,9 +104,7 @@ export class ClientAwaitingBatchesViewModel {
     return UserModel.platformSettings
   }
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
