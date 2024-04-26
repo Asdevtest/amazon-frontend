@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
-import { GridRowClassNameParams } from '@mui/x-data-grid-premium'
+import { GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -121,7 +121,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
             paginationModel={viewModel?.paginationModel}
             rows={viewModel?.tableData}
             getRowHeight={() => 'auto'}
-            getRowId={({ _id }: { _id: string }) => _id}
+            getRowId={({ _id }: GridRowModel) => _id}
             getRowClassName={getRowClassName}
             slotProps={{
               baseTooltip: {

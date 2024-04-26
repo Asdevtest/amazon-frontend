@@ -179,11 +179,9 @@ export const WarehouseAwaitingBatchesView = observer(props => {
       {viewModel.showBatchInfoModal ? (
         <BatchInfoModal
           // @ts-ignore
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           openModal={viewModel.showBatchInfoModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
           batch={viewModel.curBatch}
-          userInfo={viewModel.userInfo}
           patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
           onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
