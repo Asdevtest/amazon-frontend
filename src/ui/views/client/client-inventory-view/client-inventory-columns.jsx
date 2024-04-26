@@ -130,10 +130,13 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
       renderCell: params => (
         <MultilineTextCell
+          link={Number(params.value) > 0}
           text={String(params.value)}
           onClickText={e => {
-            e.stopPropagation()
-            otherHandlers.onOpenProductDataModal(params.row, true)
+            if (Number(params.value) > 0) {
+              e.stopPropagation()
+              otherHandlers.onOpenProductDataModal(params.row, false)
+            }
           }}
         />
       ),
@@ -183,10 +186,13 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
       renderCell: params => (
         <MultilineTextCell
+          link={Number(params.value) > 0}
           text={String(params.value)}
           onClickText={e => {
-            e.stopPropagation()
-            otherHandlers.onOpenProductDataModal(params.row, false)
+            if (Number(params.value) > 0) {
+              e.stopPropagation()
+              otherHandlers.onOpenProductDataModal(params.row, false)
+            }
           }}
         />
       ),

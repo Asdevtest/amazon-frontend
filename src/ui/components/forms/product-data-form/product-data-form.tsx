@@ -36,7 +36,7 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, is
   const title = isBatches
     ? 'Product batches data'
     : onAmazon
-    ? 'Data of product boxes in bound'
+    ? 'Data of product boxes inbound'
     : 'Data of product boxes in transfer'
 
   return (
@@ -60,6 +60,7 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, is
           <div className={styles.links}>
             <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product?.asin} />
             <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product?.skuByClient} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle="fnsku" link={''} />
           </div>
         </div>
 

@@ -1686,7 +1686,7 @@ export enum TranslationKey {
   'Available' = 'Available',
   'Update' = 'Update',
   'Current tariffs' = 'Current tariffs',
-  'Data of product boxes in bound' = 'Data of product boxes in bound',
+  'Data of product boxes inbound' = 'Data of product boxes inbound',
   'Data of product boxes in transfer' = 'Data of product boxes in transfer',
   'Total final weight' = 'Total final weight',
   'Client notification time before Deadline of the pending order' = 'Client notification time before Deadline of the pending order',

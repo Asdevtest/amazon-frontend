@@ -26,7 +26,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Batch number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.humanFriendlyId || '-'} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.humanFriendlyId || 0} />,
     table: DataGridFilterTables.BATCHES,
     columnKey: columnnsKeys.shared.QUANTITY,
     width: 100,
@@ -48,7 +48,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     renderHeader: () => (
       <MultilineTextHeaderCell text={t(TranslationKey['Quantity of the selected item in the batch'])} />
     ),
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.amountInBatch || '-'} />,
+    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.amountInBatch || 0} />,
     table: DataGridFilterTables.BATCHES,
     columnKey: columnnsKeys.shared.QUANTITY,
     width: 110,
