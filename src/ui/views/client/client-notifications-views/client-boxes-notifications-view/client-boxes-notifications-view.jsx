@@ -13,6 +13,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-boxes-notifications-view.style'
@@ -30,9 +31,19 @@ export const ClientBoxesNotificationsView = observer(props => {
 
   return (
     <div className={styles.container}>
-      <Button disabled={viewModel.selectedRowIds?.length < 1} onClick={viewModel.handleChangePriceFewBoxes}>
-        {t(TranslationKey.Confirm)}
-      </Button>
+      <div className={styles.buttonsContainer}>
+        <Button disabled={viewModel.selectedRowIds?.length < 1} onClick={viewModel.handleChangePriceFewBoxes}>
+          {t(TranslationKey.Confirm)}
+        </Button>
+
+        <Button
+          styleType={ButtonStyle.DANGER}
+          disabled={viewModel.selectedRowIds?.length < 1}
+          onClick={viewModel.handleRejectFewBoxes}
+        >
+          {t(TranslationKey.Reject)}
+        </Button>
+      </div>
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
