@@ -76,10 +76,20 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       ),
       width: 140,
       align: 'center',
+      fields: [
+        {
+          label: () => t(TranslationKey['Min. weight, kg']),
+          value: 'minWeight',
+        },
+        {
+          label: () => t(TranslationKey['Max. weight, kg']),
+          value: 'maxWeight',
+        },
+      ],
       filterable: false,
       sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBERS,
     },
 
     {

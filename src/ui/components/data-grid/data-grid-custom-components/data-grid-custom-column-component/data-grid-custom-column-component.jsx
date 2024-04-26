@@ -35,6 +35,7 @@ import {
   ToPayCellMenuItem,
   YesNoCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
+import { NumbersColumnMenu } from '../data-grid-menu-items/numbers-column-menu/numbers-column-menu'
 
 export const DataGridCustomColumnMenuComponent = props => {
   const {
@@ -528,6 +529,24 @@ export const DataGridCustomColumnMenuComponent = props => {
           data={props[currentColumn.field]}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.shared.NUMBERS].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <NumbersColumnMenu
+          filtersData={props}
+          fields={currentColumn.fields}
+          table={currentColumn.table}
+          filterRequestStatus={filterRequestStatus}
+          defaultOption={currentColumn?.defaultOption}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
