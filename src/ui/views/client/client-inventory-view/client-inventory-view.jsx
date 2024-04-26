@@ -46,7 +46,7 @@ import {
   disableSelectionCells,
 } from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
-import { Header } from './components'
+import { Header } from './header'
 
 export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
