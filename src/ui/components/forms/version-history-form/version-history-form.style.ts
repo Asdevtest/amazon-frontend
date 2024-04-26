@@ -23,7 +23,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   title: {
-    height: '100%',
+    minHeight: 25,
     width: '90%',
     fontSize: 18,
     lineHeight: '25px',

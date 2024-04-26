@@ -44,7 +44,7 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
     const containerHeight = element?.clientHeight
     const contentHeight = element?.scrollHeight
 
-    if (contentHeight - (scrollTop + containerHeight) < 90) {
+    if (contentHeight - (scrollTop + containerHeight) < 90 && patchNotes.length >= 10) {
       onScrollPatchNotes()
     }
   }
@@ -65,7 +65,7 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
         {selectedPatchNote ? (
           selectedPatchNote.map(patchNote => (
             <div key={patchNote._id} className={styles.version}>
-              <p className={cx(styles.title, styles.text)}>{Roles[patchNote.role]}</p>
+              <div className={cx(styles.title, styles.text)}>{Roles[patchNote.role]}</div>
               <CustomTextEditor
                 readOnly
                 allHeight

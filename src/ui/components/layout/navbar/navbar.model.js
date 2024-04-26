@@ -41,11 +41,12 @@ export class NavbarModel extends UseProductsPermissions {
   }
 
   get patchNotes() {
-    return this.permissionsData
+    return this.currentPermissionsData
   }
 
   constructor() {
     super(UserModel.getPatchNotes, {
+      limit: 10,
       sortType: 'DESC',
       sortField: 'updatedAt',
     })
@@ -56,7 +57,9 @@ export class NavbarModel extends UseProductsPermissions {
       () => this.showVersionHistoryModal,
       () => {
         if (!this.showVersionHistoryModal) {
-          this.patchNote = undefined
+          this.onResetPatchNote()
+          this.isCanLoadMore = true
+          this.setOptions({ offset: 0 })
         }
       },
     )

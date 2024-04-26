@@ -92,7 +92,7 @@ export class UseProductsPermissions {
 
       this.requestStatus = loadingStatus.SUCCESS
     } catch (error) {
-      throw new Error(`${error}`)
+      console.error(error)
     }
   }
 
@@ -115,7 +115,7 @@ export class UseProductsPermissions {
 
       this.requestStatus = loadingStatus.SUCCESS
     } catch (error) {
-      throw new Error(`${error}`)
+      console.error(error)
     }
   }
 
@@ -134,7 +134,7 @@ export class UseProductsPermissions {
 
       this.requestStatus = loadingStatus.SUCCESS
     } catch (error) {
-      throw new Error(`${error}`)
+      console.error(error)
     }
   }
 

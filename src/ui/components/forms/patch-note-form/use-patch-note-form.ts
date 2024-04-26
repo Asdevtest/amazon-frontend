@@ -4,6 +4,7 @@ import { IPatchNoteToCreate } from '@views/shared/patch-noutes-view/patch-noutes
 
 import { parseTextString } from '@utils/text'
 
+import { UserRolesForPatchNote } from './patch-note-form.constants'
 import { EventType, PatchNoteFormProps } from './patch-note-form.type'
 
 export const usePatchNoteForm = ({ onUpdatePatchNote, onCreatePatchNotes, editPatchNote }: PatchNoteFormProps) => {
@@ -87,10 +88,13 @@ export const usePatchNoteForm = ({ onUpdatePatchNote, onCreatePatchNotes, editPa
   const disabledSubmitButton = patchNotes.some(patchNote =>
     Object.values(patchNote).some(field => parseTextString(field).length === 0),
   )
+  const showAddRoleButton = !editPatchNote && patchNotes.length !== Object.keys(UserRolesForPatchNote).length
 
   return {
     patchNotes,
+    patchNotesRoles: patchNotes.map(({ role }) => role),
     error,
+    showAddRoleButton,
     disabledSubmitButton,
     onAddPatchNote: handleAddPatchNote,
     onRemovePatchNote: handleRemovePatchNote,
