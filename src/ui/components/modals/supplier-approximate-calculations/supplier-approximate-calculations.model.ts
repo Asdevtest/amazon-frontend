@@ -230,8 +230,6 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   }
 
   setActualData(box: IBox) {
-    console.log('box :>> ', box)
-
     const productId = box?.productId || box?.items?.[0]?.product?._id
     const supplierId =
       box?.orderSupplier?._id || box?.items?.[0]?.order?.orderSupplierId || box?.items?.[0]?.order?.orderSupplier?._id

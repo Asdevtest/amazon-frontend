@@ -70,6 +70,8 @@ export const NumbersColumnMenu: FC<INumbersColumnMenuProps> = memo(props => {
     setNameSearchValue,
   } = useNumbersColumnMenu({ fields, table, filtersData, onClickFilterBtn })
 
+  console.log('props :>> ', props)
+
   return (
     <div className={styles.columnMenuWrapper}>
       <div className={styles.radioButtonsWrapper}>

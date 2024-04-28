@@ -20,13 +20,20 @@ export const useNumbersColumnMenu = ({ fields, table, filtersData, onClickFilter
   const [toSearchValue, setToSearchValue] = useState('')
   const [nameSearchValue, setNameSearchValue] = useState('')
 
-  const { filterData, currentFilterData } = useMemo(() => {
+  const { filterData, currentFilterData }: { filterData: number[]; currentFilterData: number[] } = useMemo(() => {
     return filtersData?.[currentField]
   }, [currentField, filtersData?.[currentField]])
 
   const dataforRender: number[] = useMemo(() => {
-    return filterData
-  }, [filterData])
+    return filterData?.filter(item => {
+      const nameSearchCondition = !nameSearchValue || String(item).toLowerCase().includes(nameSearchValue.toLowerCase())
+      const fromValueCondition =
+        (!fromSearchValue && fromSearchValue !== '0') || Number(item) >= Number(fromSearchValue)
+      const toValueCondition = (!toSearchValue && toSearchValue !== '0') || Number(item) <= Number(toSearchValue)
+
+      return nameSearchCondition && fromValueCondition && toValueCondition
+    })
+  }, [filterData, nameSearchValue, fromSearchValue, toSearchValue])
 
   const isWholeNumber = useMemo(() => {
     return wholeIntegersList.includes(currentField)

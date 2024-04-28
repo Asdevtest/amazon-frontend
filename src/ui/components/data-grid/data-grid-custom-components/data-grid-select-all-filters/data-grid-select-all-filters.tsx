@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -7,18 +8,18 @@ import { Checkbox } from '@components/shared/checkbox'
 
 import { t } from '@utils/translations'
 
-interface DataGridSelectAllFiltersProps {
-  choosenItems: string[]
-  setChoosenItems: (arg: string[]) => void
-  itemsForRender: string[]
+interface DataGridSelectAllFiltersProps<T> {
+  choosenItems: T[]
+  setChoosenItems: (arg: T[]) => void
+  itemsForRender: T[]
 }
 
-export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = memo(props => {
+export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps<any>> = memo(props => {
   const { choosenItems, setChoosenItems, itemsForRender } = props
 
   const { classes: styles } = useStyles()
 
-  const selectAllItemsHandler = (fullList: string[]) => {
+  const selectAllItemsHandler = (fullList: (typeof choosenItems)[]) => {
     if (fullList.length === choosenItems.length) {
       setChoosenItems([])
     } else {

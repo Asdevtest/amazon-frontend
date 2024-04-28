@@ -204,6 +204,9 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   setFilterRequestStatus(requestStatus: loadingStatus) {
-    this.columnMenuSettings.filterRequestStatus = requestStatus
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 }
