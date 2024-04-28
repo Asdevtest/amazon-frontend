@@ -15,14 +15,14 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './patch-note.style'
 
+import { UserRolesForPatchNote } from '../patch-note-form.constants'
 import { EventType } from '../patch-note-form.type'
-
-import { UserRolesForPatchNote } from './patch-note.constants'
 
 interface PatchNoteProps {
   error: boolean
   patchNote: IPatchNoteToCreate
   patchNoteIndex: number
+  patchNotesRoles: string[]
   patchNoteVersions: string[]
   onRemovePatchNote: (patchNoteIndex: number) => void
   onChangePatchNote: (patchNoteIndex: number, field: string) => (e: EventType) => void
@@ -34,6 +34,7 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
     error,
     patchNote,
     patchNoteIndex,
+    patchNotesRoles,
     /* patchNoteVersions, */
     onRemovePatchNote,
     onChangePatchNote,
@@ -116,17 +117,17 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
             displayEmpty
             // @ts-ignore
             value={patchNote.role}
+            renderValue={() => UserRolesForPatchNote[patchNote.role] || t(TranslationKey.Role)}
             input={<Input fullWidth classes={{ input: patchNote.role.length === 0 ? styles.emptySelectValue : '' }} />}
             onChange={onChangePatchNote(patchNoteIndex, 'role')}
           >
-            <MenuItem disabled value="">
-              {t(TranslationKey.Role)}
-            </MenuItem>
-            {Object.entries(UserRolesForPatchNote).map(([key, value]) => (
-              <MenuItem key={value} value={key}>
-                {value}
-              </MenuItem>
-            ))}
+            {Object.entries(UserRolesForPatchNote)
+              .filter(([key, _]) => !patchNotesRoles.includes(key))
+              .map(([key, value]) => (
+                <MenuItem key={value} value={key}>
+                  {value}
+                </MenuItem>
+              ))}
           </Select>
         }
       />

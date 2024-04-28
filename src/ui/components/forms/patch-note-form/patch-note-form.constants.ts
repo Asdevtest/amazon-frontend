@@ -1,4 +1,4 @@
-export const UserRolesForPatchNote: Record<number, string> = {
+export const UserRolesForPatchNote: Record<string, string> = {
   '-1': 'All',
   0: 'Admin',
   10: 'Client',

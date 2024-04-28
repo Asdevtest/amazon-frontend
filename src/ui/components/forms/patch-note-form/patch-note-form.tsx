@@ -21,7 +21,9 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
   const { classes: styles } = useStyles()
   const {
     patchNotes,
+    patchNotesRoles,
     error,
+    showAddRoleButton,
     disabledSubmitButton,
     onAddPatchNote,
     onRemovePatchNote,
@@ -41,6 +43,7 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
             error={error}
             patchNote={patchNote}
             patchNoteIndex={index}
+            patchNotesRoles={patchNotesRoles}
             patchNoteVersions={patchNoteVersions}
             onRemovePatchNote={onRemovePatchNote}
             onChangePatchNote={onChangePatchNote}
@@ -49,7 +52,7 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
         ))}
       </div>
 
-      {!editPatchNote ? (
+      {showAddRoleButton ? (
         <div className={styles.buttonContainer}>
           <button disabled={!!editPatchNote} className={styles.addButton} onClick={onAddPatchNote}>
             <CustomPlusIcon />
