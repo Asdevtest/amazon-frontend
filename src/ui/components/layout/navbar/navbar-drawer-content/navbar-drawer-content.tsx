@@ -85,7 +85,6 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
             <Fragment key={index}>
               <NavbarCategory
                 // @ts-ignore
-                classes=""
                 isSelected={category.key === activeCategory}
                 shortNavbar={shortNavbar}
                 userInfo={userInfo}
