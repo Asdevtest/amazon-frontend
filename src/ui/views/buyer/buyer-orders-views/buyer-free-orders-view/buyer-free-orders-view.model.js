@@ -8,12 +8,12 @@ import { filterModelInitialValue } from '@models/data-grid-table-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { buyerFreeOrdersViewColumns } from '@components/table/table-columns/buyer/buyer-fre-orders-columns'
-
 import { buyerVacantOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+
+import { buyerFreeOrdersViewColumns } from './buyer-free-orders-columns'
 
 export class BuyerFreeOrdersViewModel {
   history = undefined
@@ -24,14 +24,14 @@ export class BuyerFreeOrdersViewModel {
   ordersVacant = []
   showTwoVerticalChoicesModal = false
 
+  rowHandlers = {
+    onClickTableRowBtn: item => this.onClickTableRowBtn(item),
+  }
   sortModel = []
   filterModel = filterModelInitialValue
   columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-  rowHandlers = {
-    onClickTableRowBtn: item => this.onClickTableRowBtn(item),
-  }
 
   get currentData() {
     return this.ordersVacant
@@ -66,13 +66,11 @@ export class BuyerFreeOrdersViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
   }
 
@@ -104,7 +102,6 @@ export class BuyerFreeOrdersViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
   }
 
@@ -114,14 +111,13 @@ export class BuyerFreeOrdersViewModel {
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getOrdersVacant()
+      this.getOrdersVacant()
     } catch (error) {
       console.error(error)
     }
