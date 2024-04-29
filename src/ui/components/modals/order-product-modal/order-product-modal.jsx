@@ -282,6 +282,7 @@ export const OrderProductModal = memo(props => {
 
       needsResearch: isResearchSupplier,
       tmpIsPendingOrder: isPendingOrder,
+      images: [], // reset images to create an order(onClickSubmit), because in the useTariffVariations they are added again - need to fix order product modal
     }))
 
     onSubmit({
@@ -292,6 +293,8 @@ export const OrderProductModal = memo(props => {
 
     setTimeout(() => setSubmitIsClicked(false), 3000)
   }
+
+  console.log('orderState', orderState)
 
   const storekeeperEqualsDestination = orderState.some(
     order => order?.storekeeperId === destinations?.find(el => el?._id === order?.destinationId)?.storekeeper?._id,

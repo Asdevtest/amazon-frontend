@@ -335,22 +335,6 @@ export const OrderModalBodyRow = ({
           </TableCell>
         )}
 
-        {/* <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-        >
-          <SelectStorekeeperAndTariffForm
-            showCheckbox
-            removeDestinationRestriction
-            storekeepers={storekeepers}
-            curStorekeeperId={item.storekeeperId}
-            curTariffId={item.logicsTariffId}
-            currentDestinationId={item?.destinationId}
-            currentVariationTariffId={item?.variationTariffId}
-            onSubmit={onSubmitSelectStorekeeperAndTariff}
-          />
-        </Modal> */}
-
         {showSelectionStorekeeperAndTariffModal ? (
           <SupplierApproximateCalculationsModal
             isTariffsSelect
