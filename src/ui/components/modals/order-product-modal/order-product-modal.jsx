@@ -294,8 +294,6 @@ export const OrderProductModal = memo(props => {
     setTimeout(() => setSubmitIsClicked(false), 3000)
   }
 
-  console.log('orderState', orderState)
-
   const storekeeperEqualsDestination = orderState.some(
     order => order?.storekeeperId === destinations?.find(el => el?._id === order?.destinationId)?.storekeeper?._id,
   )
