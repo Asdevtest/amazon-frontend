@@ -51,6 +51,7 @@ const Box = memo(props => {
     newBoxes,
     referenceEditingBox,
     onClickApplyAllBtn,
+    isChangedBox,
   } = props
 
   const [showFullCard, setShowFullCard] = useState(true /* && newBoxes[0]?._id === box._id ? true : false*/)
@@ -96,33 +97,29 @@ const Box = memo(props => {
   return (
     <div className={styles.mainPaper}>
       <div className={styles.fieldsWrapper}>
-        <div>
-          <Field
-            disabled
-            tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
-            label={t(TranslationKey.Destination)}
-            labelClasses={styles.smallLabel}
-            inputClasses={cx(styles.field, {
-              [styles.editAccent]: needAccent && box.destination?.name !== referenceEditingBox.destination?.name,
-            })}
-            value={box.destination?.name ? box.destination?.name : t(TranslationKey['Not available'])}
-          />
-        </div>
+        <Field
+          disabled
+          tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
+          label={t(TranslationKey.Destination)}
+          labelClasses={styles.smallLabel}
+          inputClasses={cx(styles.field, {
+            [styles.editAccent]: needAccent && box.destination?.name !== referenceEditingBox.destination?.name,
+          })}
+          value={box.destination?.name ? box.destination?.name : t(TranslationKey['Not available'])}
+        />
 
-        <div>
-          <Field
-            disabled
-            tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
-            label={t(TranslationKey.Tariff)}
-            labelClasses={styles.smallLabel}
-            value={getNewTariffTextForBoxOrOrder(box, true)}
-            inputClasses={cx(styles.field, {
-              [styles.editAccent]:
-                needAccent &&
-                getNewTariffTextForBoxOrOrder(box, true) !== getNewTariffTextForBoxOrOrder(referenceEditingBox, true),
-            })}
-          />
-        </div>
+        <Field
+          disabled
+          tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
+          label={t(TranslationKey.Tariff)}
+          labelClasses={styles.smallLabel}
+          value={getNewTariffTextForBoxOrOrder(box, true)}
+          inputClasses={cx(styles.field, {
+            [styles.editAccent]:
+              needAccent &&
+              getNewTariffTextForBoxOrOrder(box, true) !== getNewTariffTextForBoxOrOrder(referenceEditingBox, true),
+          })}
+        />
       </div>
 
       {(!showFullCard && isEdit) || (!showFullCard && taskType === TaskOperationType.MERGE) ? (
@@ -185,11 +182,13 @@ const Box = memo(props => {
 
               <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
 
-              <Dimensions
-                data={box}
-                sizeSetting={sizeSetting}
-                calculationField={isCurrentBox ? Entities.SUPPLIER : Entities.WAREHOUSE}
-              />
+              <div className={cx({ [styles.yellowBorder]: isChangedBox })}>
+                <Dimensions
+                  data={box}
+                  sizeSetting={sizeSetting}
+                  calculationField={isCurrentBox ? Entities.SUPPLIER : Entities.WAREHOUSE}
+                />
+              </div>
             </div>
 
             <Divider flexItem className={styles.divider} orientation="vertical" />
@@ -228,24 +227,22 @@ const Box = memo(props => {
                 lableLinkTitle={t(TranslationKey.View)}
               />
 
-              <div>
-                <Field
-                  oneLine
-                  containerClasses={styles.checkboxContainer}
-                  labelClasses={styles.label}
-                  label={t(TranslationKey['Shipping label was glued to the warehouse'])}
-                  inputComponent={
-                    <Checkbox
-                      color="primary"
-                      disabled={!box.shippingLabel || !isNewBox || readOnly}
-                      checked={box.isShippingLabelAttachedByStorekeeper}
-                      onClick={() =>
-                        onChangeField(!box.isShippingLabelAttachedByStorekeeper, 'isShippingLabelAttachedByStorekeeper')
-                      }
-                    />
-                  }
-                />
-              </div>
+              <Field
+                oneLine
+                containerClasses={styles.checkboxContainer}
+                labelClasses={styles.label}
+                label={t(TranslationKey['Shipping label was glued to the warehouse'])}
+                inputComponent={
+                  <Checkbox
+                    color="primary"
+                    disabled={!box.shippingLabel || !isNewBox || readOnly}
+                    checked={box.isShippingLabelAttachedByStorekeeper}
+                    onClick={() =>
+                      onChangeField(!box.isShippingLabelAttachedByStorekeeper, 'isShippingLabelAttachedByStorekeeper')
+                    }
+                  />
+                }
+              />
             </div>
 
             <div className={styles.footerTrackNumberWrapper}>
@@ -378,6 +375,7 @@ const NewBoxes = memo(props => {
   } = props
 
   const [curBox, setCurBox] = useState({})
+  const [isChangedBox, setIsChangedBox] = useState(false)
 
   return (
     <div className={styles.newBoxes}>
@@ -400,6 +398,7 @@ const NewBoxes = memo(props => {
         {newBoxes.map((box, boxIndex) => (
           <Box
             key={boxIndex}
+            isChangedBox={isChangedBox}
             boxIndex={boxIndex}
             readOnly={readOnly}
             isNewBox={isNewBox}
@@ -423,6 +422,7 @@ const NewBoxes = memo(props => {
         <EditBoxTasksForm
           box={curBox}
           newBoxes={newBoxes}
+          setIsChangedBox={setIsChangedBox}
           volumeWeightCoefficient={volumeWeightCoefficient}
           setNewBoxes={setNewBoxes}
           setEditModal={onTriggerShowEditBoxModal}

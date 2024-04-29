@@ -569,4 +569,10 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     whiteSpace: 'nowrap',
   },
+
+  yellowBorder: {
+    padding: 10,
+    border: '1px solid #F5CF00',
+    borderRadius: 10,
+  },
 }))

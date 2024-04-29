@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,12 +26,21 @@ interface EditBoxTasksFormProps {
   newBoxes: IBox[]
   setNewBoxes: (boxes: IBox[]) => void
   setEditModal: () => void
+  setIsChangedBox?: (isChangedBox: boolean) => void
   isInStorekeeperWarehouse?: boolean
   storekeeperWarehouseSubmit?: (id: string, box: IBox) => void
 }
 
 export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
-  const { box, newBoxes, setNewBoxes, setEditModal, isInStorekeeperWarehouse, storekeeperWarehouseSubmit } = props
+  const {
+    box,
+    newBoxes,
+    setNewBoxes,
+    setEditModal,
+    isInStorekeeperWarehouse,
+    setIsChangedBox,
+    storekeeperWarehouseSubmit,
+  } = props
 
   const { classes: styles } = useStyles()
 
@@ -87,6 +97,12 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
       setEditModal()
     }
   }
+
+  useEffect(() => {
+    if (setIsChangedBox) {
+      setIsChangedBox(isEqual(box, editingBox))
+    }
+  }, [])
 
   const disabledSubmit =
     !Number(editingBox.lengthCmWarehouse) ||
