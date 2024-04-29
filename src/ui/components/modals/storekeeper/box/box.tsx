@@ -27,6 +27,7 @@ import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
@@ -350,6 +351,7 @@ export const Box: FC<BoxProps> = memo(props => {
       {showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
           isTariffsSelect
+          tariffModalType={TariffModalType.WAREHOUSE}
           openModal={showSelectionStorekeeperAndTariffModal}
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           box={box}

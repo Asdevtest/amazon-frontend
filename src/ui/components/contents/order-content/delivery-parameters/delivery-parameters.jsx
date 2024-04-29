@@ -15,6 +15,8 @@ import { TruckIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { TariffModalType } from '@typings/shared/tariff-modal'
+
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
@@ -188,6 +190,8 @@ export const DeliveryParameters = ({
       {showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
           isTariffsSelect
+          isGetAllStorekeepers
+          tariffModalType={TariffModalType.ORDER}
           openModal={showSelectionStorekeeperAndTariffModal}
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           box={formFields}

@@ -19,9 +19,11 @@ export const TariffInfoCell: FC<TariffInfoCellProps> = memo(({ title, descriptio
       <p title={title} className={cx(styles.tariffTitle, styles.tariffDescription)}>
         {title || t(TranslationKey.Missing)}
       </p>
-      <p title={description} className={styles.tariffDescription}>
-        {description || t(TranslationKey.Missing)}
-      </p>
+      {description ? (
+        <p title={description} className={styles.tariffDescription}>
+          {description}
+        </p>
+      ) : null}
     </div>
   )
 })

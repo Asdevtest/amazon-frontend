@@ -29,6 +29,7 @@ import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { useStyles } from './client-in-stock-boxes-view.style'
 
@@ -302,6 +303,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
 
       {viewModel.showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
+          tariffModalType={TariffModalType[viewModel.changeItem ? 'WAREHOUSE' : 'TARIFFS']}
           isTariffsSelect={viewModel.changeItem}
           isHideCalculation={!viewModel.changeItem}
           openModal={viewModel.showSelectionStorekeeperAndTariffModal}

@@ -5,13 +5,13 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ApproximateWeightCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   TariffInfoCell,
   VariationTariffDateCell,
 } from '@components/data-grid/data-grid-cells'
 import { ApproximateCell } from '@components/data-grid/data-grid-cells/approximate-cell/approximate-cell'
-import { ApproximateCheckboxCell } from '@components/data-grid/data-grid-cells/approximate-checkbox-cell'
 import { VariationTariffRoiCell } from '@components/data-grid/data-grid-cells/variation-tariff-roi-cell/variation-tariff-roi-cell'
 
 import { toFixed } from '@utils/text'
@@ -62,32 +62,34 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
 
     {
       field: 'minWeight',
-      headerName: t(TranslationKey['Min. weight, kg']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
+      headerName: t(TranslationKey.Weight),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
       renderCell: (params: GridValidRowModel) => (
-        <ApproximateCell destinations={params.row.destinationVariations} field="minWeight" />
+        <ApproximateWeightCell
+          isTariffsSelect={columnHandlers.isTariffsSelect}
+          variations={params.row.destinationVariations}
+          currentVariationId={columnHandlers.getCurrentVariationId()}
+          currentDestinationId={columnHandlers.getCurrentDestinationId()}
+          isStrictVariationSelect={columnHandlers.getStrictVariationSelect()}
+          onClickChangeVariation={columnHandlers.onClickChangeVariation}
+        />
       ),
-      width: 100,
+      width: 140,
       align: 'center',
+      fields: [
+        {
+          label: () => t(TranslationKey['Min. weight, kg']),
+          value: 'minWeight',
+        },
+        {
+          label: () => t(TranslationKey['Max. weight, kg']),
+          value: 'maxWeight',
+        },
+      ],
       filterable: false,
       sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
-      columnKey: columnnsKeys.shared.QUANTITY,
-    },
-
-    {
-      field: 'maxWeight',
-      headerName: t(TranslationKey['Max. weight, kg']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Max. weight, kg'])} />,
-      renderCell: (params: GridValidRowModel) => (
-        <ApproximateCell destinations={params.row.destinationVariations} field="maxWeight" />
-      ),
-      width: 100,
-      align: 'center',
-      filterable: false,
-      sortable: false,
-      table: DataGridFilterTables.STOREKEEPERS,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBERS,
     },
 
     {
@@ -188,31 +190,6 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       columnKey: columnnsKeys.shared.QUANTITY,
     },
   ]
-
-  if (columnHandlers.isTariffsSelect) {
-    const selectColumn = {
-      field: 'selectVariation',
-      headerName: '',
-      renderHeader: () => '',
-      renderCell: (params: GridValidRowModel) => (
-        <ApproximateCheckboxCell
-          variations={params.row.destinationVariations}
-          currentVariationId={columnHandlers.getCurrentVariationId()}
-          currentDestinationId={columnHandlers.getCurrentDestinationId()}
-          isStrictVariationSelect={columnHandlers.getStrictVariationSelect()}
-          onClickChangeVariation={columnHandlers.onClickChangeVariation}
-        />
-      ),
-      width: 50,
-      filterable: false,
-      sortable: false,
-      disableCustomSort: true,
-      disableColumnMenu: true,
-    }
-
-    // @ts-ignore
-    columns?.splice(2, 0, selectColumn)
-  }
 
   if (columnHandlers.isHideCalculation) {
     // @ts-ignore

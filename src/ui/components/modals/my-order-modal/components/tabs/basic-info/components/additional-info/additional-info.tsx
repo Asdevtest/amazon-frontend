@@ -9,6 +9,7 @@ import { SupplierApproximateCalculationsModal } from '@components/modals/supplie
 import { t } from '@utils/translations'
 
 import { IBox } from '@typings/models/boxes/box'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
@@ -58,6 +59,8 @@ export const AdditionalInfo: FC<AdditionalInfoProps> = memo(props => {
       {showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
           isTariffsSelect
+          isGetAllStorekeepers
+          tariffModalType={TariffModalType.ORDER}
           openModal={showSelectionStorekeeperAndTariffModal}
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(false)}
           box={props?.formFields as unknown as IBox}

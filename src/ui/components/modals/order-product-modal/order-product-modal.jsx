@@ -104,6 +104,7 @@ export const OrderProductModal = memo(props => {
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
             deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
+            productId: reorderOrder.product?._id,
           }
         })
       : selectedProductsData.map(product => ({
@@ -124,6 +125,7 @@ export const OrderProductModal = memo(props => {
           variationTariff: {
             _id: null,
           },
+          productId: product?._id,
         })),
   )
 
