@@ -261,6 +261,7 @@ export const lightTheme = createTheme({
       red: '#FF1616',
       negativeMain: '#fff',
       green: '#00B746',
+      customSwitcher: '#001029',
     },
 
     button: {
@@ -349,15 +350,6 @@ export const lightTheme = createTheme({
       activeChat: '#E7F1FF',
       secondary: 'rgba(200, 200, 200, 1)',
       gray: '#5C6A7A',
-    },
-
-    customSwitcher: {
-      background: '#D9E0E8',
-      indicator: '#fff',
-      text: '#001029',
-      activeText: '#007bff',
-      headerBackground: '#F4F4F4',
-      switch: '#E3E3E3',
     },
 
     linearGradient: {
@@ -718,7 +710,6 @@ export const darkTheme = createTheme({
     // mode: 'dark', // при выставлении меняет некотрые стили по умолчанию
 
     primary: {
-      // main: '#008CF1',
       main: '#4CA1DE',
       mainRgb: '76, 161, 222',
     },
@@ -726,15 +717,11 @@ export const darkTheme = createTheme({
     text: {
       general: '#fff',
       second: '#E1E1E1',
-
       gray: 'gray',
       red: '#FF1616',
       negativeMain: '#001029',
       green: '#00B746',
-      disabled: '#001029',
-
-      primary: '#fff',
-      secondary: 'rgba(255, 255, 255, 0.7)',
+      customSwitcher: '#5C6A7A',
     },
 
     button: {
@@ -828,15 +815,6 @@ export const darkTheme = createTheme({
       activeChat: '#384C68',
       secondary: 'rgb(80, 80, 80, 1)',
       gray: '#667085',
-    },
-
-    customSwitcher: {
-      background: '#272730',
-      indicator: '#31313A',
-      text: '#5C6A7A',
-      activeText: '#4CA1DE',
-      headerBackground: '#25252D',
-      switch: '#667085',
     },
 
     linearGradient: {

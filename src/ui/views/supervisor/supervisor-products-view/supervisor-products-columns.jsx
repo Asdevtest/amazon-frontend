@@ -50,7 +50,6 @@ export const supervisorProductsViewColumns = handlers => [
       )
     },
     width: 265,
-
     columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
   },
 
@@ -67,7 +66,6 @@ export const supervisorProductsViewColumns = handlers => [
     ),
     valueFormatter: params => t(productStatusTranslateKey(ProductStatusByCode[params.value])),
     width: 150,
-
     columnKey: columnnsKeys.client.INVENTORY_STATUS,
   },
 
@@ -78,7 +76,6 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <MultilineStatusCell status={params.value} />,
     width: 140,
     align: 'center',
-
     columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
   },
 
@@ -89,7 +86,6 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
     valueGetter: params => (params.row.amazon ? toFixedWithDollarSign(params.row.amazon, 2) : '-'),
     width: 100,
-
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -105,7 +101,6 @@ export const supervisorProductsViewColumns = handlers => [
     ),
     valueGetter: params => params.row.originalData.createdBy?.name,
     width: 180,
-
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -118,7 +113,6 @@ export const supervisorProductsViewColumns = handlers => [
     ),
     valueGetter: params => params.row.originalData.buyer?.name,
     width: 180,
-
     columnKey: columnnsKeys.shared.OBJECT,
   },
 
@@ -129,7 +123,6 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 70,
-
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -141,7 +134,6 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
     type: 'number',
     minWidth: 100,
-
     columnKey: columnnsKeys.shared.QUANTITY,
   },
 
@@ -171,7 +163,6 @@ export const supervisorProductsViewColumns = handlers => [
     valueFormatter: params => (params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)),
     minWidth: 50,
     sortable: false,
-
     columnKey: columnnsKeys.shared.YES_NO,
   },
 
@@ -183,7 +174,6 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <TagsCell tags={params.row.originalData.tags} />,
     width: 160,
     sortable: false,
-
     columnKey: columnnsKeys.shared.TAGS,
   },
 
@@ -194,7 +184,6 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
     width: 130,
     sortable: false,
-
     columnKey: columnnsKeys.shared.RED_FLAGS,
   },
 
@@ -205,7 +194,6 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <NormDateCell value={params.value} />,
     valueFormatter: params => formatNormDateTime(params.value),
     width: 105,
-
     columnKey: columnnsKeys.shared.DATE,
   },
 
@@ -216,7 +204,6 @@ export const supervisorProductsViewColumns = handlers => [
     renderCell: params => <NormDateCell value={params.value} />,
     valueFormatter: params => formatNormDateTime(params.value),
     width: 100,
-
     columnKey: columnnsKeys.shared.DATE,
   },
 ]
