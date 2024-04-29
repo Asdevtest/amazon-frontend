@@ -27,6 +27,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
@@ -491,6 +492,7 @@ export const Box: FC<BoxProps> = memo(props => {
       {showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
           isTariffsSelect
+          tariffModalType={TariffModalType.WAREHOUSE}
           openModal={showSelectionStorekeeperAndTariffModal}
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           box={box}

@@ -31,6 +31,7 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { Entities, useDimensions } from '@hooks/use-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -842,6 +843,7 @@ export const EditBoxStorekeeperForm = memo(
         {showSelectionStorekeeperAndTariffModal ? (
           <SupplierApproximateCalculationsModal
             isTariffsSelect
+            tariffModalType={TariffModalType.WAREHOUSE}
             openModal={showSelectionStorekeeperAndTariffModal}
             setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
             box={boxFields}
