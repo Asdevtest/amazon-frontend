@@ -24,30 +24,30 @@ import { additionalFilterFields } from './supplier-approximate-calculations.cons
 import { IVariationParams } from './supplier-approximate-calculations.type'
 
 export class SupplierApproximateCalculationsModel extends DataGridFilterTableModel {
-  _storekeepers: ISwitcherSettings[] = []
-  get storekeepers() {
-    return this._storekeepers
-  }
-  set storekeepers(storekeepers: ISwitcherSettings[]) {
-    this._storekeepers = storekeepers
-  }
+  storekeepers: ISwitcherSettings[] = []
 
   currentStorekeeperId: string = ''
 
   productId: string = ''
   boxItems: IBoxItem[] = []
   supplierId: string = ''
+  orderId: string = ''
 
   isStrictVariationSelect: boolean = true
 
   boxId: string = ''
   boxData: IBox | undefined = undefined
 
+  initialDestinationId: string | undefined = undefined
   currentVariationId: string | undefined = undefined
   currentDestinationId: string | undefined = undefined
   currentLogicsTariffId: string | undefined = undefined
 
   handleSave: ((body: INewDataOfVariation) => void) | undefined
+
+  get isSomeFilterOn() {
+    return this.filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length && el !== 'storekeeper')
+  }
 
   constructor({
     supplierId,
@@ -72,7 +72,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       isTariffsSelect: !!isTariffsSelect,
       isHideCalculation: !!isHideCalculation,
       getCurrentVariationId: () => this.currentVariationId,
-      getCurrentDestinationId: () => this.currentDestinationId,
+      getInitialDestinationId: () => this.initialDestinationId,
       getStrictVariationSelect: () => this.isStrictVariationSelect,
       onClickChangeVariation: (variationParams: IVariationParams) => this.handleSetVariation(variationParams),
     }
@@ -187,9 +187,10 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     }
   }
 
-  async handleChangeActiveProduct(productId: string, orderSupplierId: string) {
+  async handleChangeActiveProduct(productId: string, orderSupplierId: string, orderId: string) {
     this.productId = productId
     this.supplierId = orderSupplierId
+    this.orderId = orderId
     this.setMainMethodURL(productId, orderSupplierId)
     this.getMainTableData()
   }
@@ -206,8 +207,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
 
   handleSaveVariationTariff() {
     const data = {
-      isSameDestination:
-        this.currentDestinationId === (this.boxData?.variationTariff?.destinationId || this.boxData?.destination?._id),
+      isSameDestination: this.currentDestinationId === this.initialDestinationId,
       variationTariffId: this.currentVariationId,
       destinationId: this.currentDestinationId,
       logicsTariffId: this.currentLogicsTariffId,
@@ -233,15 +233,19 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     const productId = box?.productId || box?.items?.[0]?.product?._id
     const supplierId =
       box?.orderSupplier?._id || box?.items?.[0]?.order?.orderSupplierId || box?.items?.[0]?.order?.orderSupplier?._id
+    const orderId = box?.items?.[0]?.order?._id
+    const destinationId = box?.destination?._id
 
     this.currentVariationId = box?.variationTariff?._id
-    this.currentDestinationId = box?.destination?._id
+    this.currentDestinationId = destinationId
+    this.initialDestinationId = destinationId
     this.currentLogicsTariffId = box?.variationTariff?.storekeeperTariffLogisticsId || box?.logicsTariff?._id
 
     this.storekeepers = [{ label: () => box?.storekeeper?.name || '', value: box?.storekeeper?._id }]
     this.boxItems = box?.items
     this.productId = productId
     this.supplierId = supplierId
+    this.orderId = orderId
     this.setMainMethodURL(productId, supplierId)
   }
 

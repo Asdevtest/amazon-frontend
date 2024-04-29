@@ -1,13 +1,15 @@
-import { action, computed, observable, override } from 'mobx'
+import { action, observable, override } from 'mobx'
 
 export const observerConfig = {
-  _storekeepers: observable,
+  storekeepers: observable,
   productId: observable,
   supplierId: observable,
+  orderId: observable,
 
   boxId: observable,
   boxData: observable,
   currentVariationId: observable,
+  initialDestinationId: observable,
   currentDestinationId: observable,
   currentLogicsTariffId: observable,
   currentStorekeeperId: observable,
@@ -15,8 +17,6 @@ export const observerConfig = {
   isStrictVariationSelect: observable,
   boxItems: observable,
   handleSave: observable,
-
-  storekeepers: computed,
 
   getStorekeepersData: action.bound,
   setCurrentStorekeeper: action.bound,
@@ -30,4 +30,5 @@ export const observerConfig = {
   setActualData: action.bound,
 
   onClickResetFilters: override,
+  isSomeFilterOn: override,
 }

@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   parametersButtonTitle: {
-    fontSize: '16px',
+    fontSize: '14px',
     fontWeight: 600,
   },
 

@@ -14,6 +14,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainFilterBtnInsertText: {
+    fontSize: 14,
     fontWeight: 600,
   },
 

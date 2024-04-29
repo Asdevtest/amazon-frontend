@@ -1,4 +1,4 @@
-import { GridValidRowModel } from '@mui/x-data-grid-premium'
+import { GridRenderCellParams, GridValidRowModel } from '@mui/x-data-grid-premium'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
@@ -14,8 +14,11 @@ import {
 import { ApproximateCell } from '@components/data-grid/data-grid-cells/approximate-cell/approximate-cell'
 import { VariationTariffRoiCell } from '@components/data-grid/data-grid-cells/variation-tariff-roi-cell/variation-tariff-roi-cell'
 
+import { formatDateWithoutTime } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { IDestinationVariationWithCalculations } from '@typings/shared/destinations'
 
 import { IVariationParams } from './supplier-approximate-calculations.type'
 
@@ -23,7 +26,7 @@ interface columnHandlersProps {
   isTariffsSelect: boolean
   isHideCalculation: boolean
   getCurrentVariationId: () => string | undefined
-  getCurrentDestinationId: () => string | undefined
+  getInitialDestinationId: () => string | undefined
   getStrictVariationSelect: () => boolean | undefined
   onClickChangeVariation: ({ variationId, destinationId, logicsTariffId }: IVariationParams) => void
 }
@@ -52,6 +55,10 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       renderCell: (params: GridValidRowModel) => (
         <ApproximateCell borderLeft destinations={params.row.destinationVariations} field="destinationName" />
       ),
+      valueGetter: (params: GridRenderCellParams) =>
+        params.row?.destinationVariations
+          ?.map((el: IDestinationVariationWithCalculations) => el?.destination?.name)
+          .join(', '),
       minWidth: 100,
       align: 'center',
       filterable: false,
@@ -69,11 +76,18 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
           isTariffsSelect={columnHandlers.isTariffsSelect}
           variations={params.row.destinationVariations}
           currentVariationId={columnHandlers.getCurrentVariationId()}
-          currentDestinationId={columnHandlers.getCurrentDestinationId()}
+          initialDestinationId={columnHandlers.getInitialDestinationId()}
           isStrictVariationSelect={columnHandlers.getStrictVariationSelect()}
           onClickChangeVariation={columnHandlers.onClickChangeVariation}
         />
       ),
+      valueGetter: (params: GridRenderCellParams) =>
+        params.row?.destinationVariations
+          ?.map(
+            (variation: IDestinationVariationWithCalculations) =>
+              `${toFixed(variation?.minWeight)} - ${toFixed(variation?.maxWeight)}`,
+          )
+          .join(', '),
       width: 140,
       align: 'center',
       fields: [
@@ -99,6 +113,10 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       renderCell: (params: GridValidRowModel) => (
         <ApproximateCell destinations={params.row.destinationVariations} field="pricePerKgRmb" />
       ),
+      valueGetter: (params: GridRenderCellParams) =>
+        params.row?.destinationVariations
+          ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.pricePerKgRmb))
+          .join(', '),
       width: 80,
       align: 'center',
       filterable: false,
@@ -114,6 +132,10 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       renderCell: (params: GridValidRowModel) => (
         <ApproximateCell borderRight destinations={params.row.destinationVariations} field="pricePerKgUsd" />
       ),
+      valueGetter: (params: GridRenderCellParams) =>
+        params.row?.destinationVariations
+          ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.pricePerKgUsd))
+          .join(', '),
       width: 80,
       align: 'center',
       filterable: false,
@@ -127,6 +149,11 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       headerName: t(TranslationKey.Dates),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
       renderCell: (params: GridValidRowModel) => <VariationTariffDateCell tariff={params.row} />,
+      valueGetter: (params: GridRenderCellParams) => {
+        return `cls: ${formatDateWithoutTime(params.row?.cls)}, etd: ${formatDateWithoutTime(
+          params.row?.etd,
+        )}, eta: ${formatDateWithoutTime(params.row?.eta)}`
+      },
       width: 140,
       align: 'center',
       filterable: false,
@@ -152,6 +179,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
         <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit with delivery to China']) + ', $'} />
       ),
       renderCell: (params: GridValidRowModel) => <MultilineTextCell text={toFixed(params.value, 2)} />,
+      valueGetter: (params: GridRenderCellParams) => toFixed(params.row?.costUnitWithDeliveryToChina),
       width: 150,
       align: 'center',
       filterable: false,
@@ -167,6 +195,12 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       renderCell: (params: GridValidRowModel) => (
         <ApproximateCell borderLeft destinations={params.row.destinationVariations} field="costUnitWithDeliveryToUsa" />
       ),
+      valueGetter: (params: GridRenderCellParams) =>
+        params.row?.destinationVariations
+          ?.map((variation: IDestinationVariationWithCalculations) =>
+            toFixed(variation?.destination?.costUnitWithDeliveryToUsa),
+          )
+          .join(', '),
       width: 130,
       align: 'center',
       filterable: false,
@@ -182,6 +216,10 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       renderCell: (params: GridValidRowModel) => (
         <VariationTariffRoiCell destinations={params.row.destinationVariations} />
       ),
+      valueGetter: (params: GridRenderCellParams) =>
+        params.row?.destinationVariations
+          ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.destination?.roi))
+          .join(', '),
       width: 140,
       align: 'center',
       filterable: false,
