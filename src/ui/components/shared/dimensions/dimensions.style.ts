@@ -1,10 +1,19 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  dimensions: {
+  wrapper: {
+    width: '100%',
+    maxWidth: 235,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
+  },
+
+  switcher: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
   },
 
   isCell: {
@@ -14,6 +23,10 @@ export const useStyles = makeStyles()(theme => ({
   text: {
     fontSize: 14,
     lineHeight: '19px',
+  },
+
+  textSecond: {
+    color: theme.palette.text.second,
   },
 
   alert: {

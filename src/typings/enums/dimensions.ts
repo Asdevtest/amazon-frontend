@@ -1,4 +1,4 @@
 export enum Dimensions {
-  EU,
-  US,
+  EU = 'EU',
+  US = 'US',
 }

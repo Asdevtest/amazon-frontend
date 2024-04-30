@@ -14,7 +14,6 @@ import { Dimensions } from '@components/shared/dimensions'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
-import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { BoxArrow } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
@@ -22,7 +21,6 @@ import { Text } from '@components/shared/text'
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { Dimensions as DimensionsEnum } from '@typings/enums/dimensions'
 import { UiTheme } from '@typings/enums/ui-theme'
 
 import { Entities } from '@hooks/use-dimensions'
@@ -89,10 +87,14 @@ const Box = memo(props => {
     setNewBoxes(updatedNewBoxes)
   }
 
-  const [sizeSetting, setSizeSetting] = useState(DimensionsEnum.EU)
-
   const needAccent =
     (taskType === TaskOperationType.EDIT || taskType === TaskOperationType.EDIT_BY_STOREKEEPER) && isNewBox
+  const calculationDimensionsField =
+    taskType === TaskOperationType.RECEIVE && isCurrentBox ? Entities.SUPPLIER : Entities.WAREHOUSE
+  const dimensionsTitle =
+    taskType === TaskOperationType.RECEIVE && isCurrentBox
+      ? t(TranslationKey['Sizes from buyer']) + ':'
+      : `${t(TranslationKey['Sizes from storekeeper'])}:`
 
   return (
     <div className={styles.mainPaper}>
@@ -170,25 +172,9 @@ const Box = memo(props => {
               </div>
             ))}
           </div>
-          <div className={cx(styles.boxInfoWrapper)}>
-            <div className={styles.demensionsWrapper}>
-              <p>
-                {taskType === TaskOperationType.RECEIVE
-                  ? isCurrentBox
-                    ? t(TranslationKey['Sizes from buyer']) + ':'
-                    : `${t(TranslationKey['Sizes from storekeeper'])}:`
-                  : `${t(TranslationKey['Sizes from storekeeper'])}:`}
-              </p>
-
-              <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
-
-              <div className={cx({ [styles.yellowBorder]: isChangedBox })}>
-                <Dimensions
-                  data={box}
-                  sizeSetting={sizeSetting}
-                  calculationField={isCurrentBox ? Entities.SUPPLIER : Entities.WAREHOUSE}
-                />
-              </div>
+          <div className={styles.boxInfoWrapper}>
+            <div className={cx({ [styles.yellowBorder]: isChangedBox })}>
+              <Dimensions data={box} title={dimensionsTitle} calculationField={calculationDimensionsField} />
             </div>
 
             <Divider flexItem className={styles.divider} orientation="vertical" />
@@ -280,7 +266,6 @@ const Box = memo(props => {
             {isEdit && !readOnly && (
               <div className={styles.btnsWrapper}>
                 <Button
-                  className={styles.editBtn}
                   tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
                   onClick={() => {
                     setCurBox(box)
@@ -297,7 +282,6 @@ const Box = memo(props => {
                     !box.lengthCmWarehouse ||
                     !box.heightCmWarehouse
                   }
-                  className={styles.editBtn}
                   onClick={() => {
                     onClickApplyAllBtn(box)
                   }}
@@ -348,9 +332,7 @@ const ReceiveBoxes = memo(({ taskType, onClickOpenModal }) => {
       </Typography>
 
       {taskType === TaskOperationType.RECEIVE && (
-        <Button className={styles.button} onClick={onClickOpenModal}>
-          {t(TranslationKey.Receive)}
-        </Button>
+        <Button onClick={onClickOpenModal}>{t(TranslationKey.Receive)}</Button>
       )}
     </div>
   )
@@ -453,6 +435,7 @@ export const BeforeAfterBlock = memo(props => {
   const onClickEditBox = box => {
     onEditBox(box)
   }
+
   return (
     <>
       <div className={styles.currentBox}>
@@ -497,6 +480,7 @@ export const BeforeAfterBlock = memo(props => {
           onClickApplyAllBtn={onClickApplyAllBtn}
         />
       )}
+
       {taskType === TaskOperationType.RECEIVE && desiredBoxes.length === 0 && incomingBoxes.length > 0 && !readOnly && (
         <ReceiveBoxes taskType={taskType} onClickOpenModal={onClickOpenModal} />
       )}

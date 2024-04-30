@@ -14,15 +14,10 @@ import { Dimensions } from '@components/shared/dimensions'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
-import { SizeSwitcher } from '@components/shared/size-switcher'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getNewTariffTextForBoxOrOrder } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { Dimensions as DimensionsEnum } from '@typings/enums/dimensions'
-
-import { Entities } from '@hooks/use-dimensions'
 
 import { useStyles } from './box.style'
 
@@ -52,7 +47,6 @@ export const Box: FC<BoxProps> = memo(props => {
     onClickBasicBoxRadio,
   } = props
 
-  const [sizeSetting, setSizeSetting] = useState(DimensionsEnum.EU)
   const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
 
   useEffect(() => {
@@ -162,15 +156,8 @@ export const Box: FC<BoxProps> = memo(props => {
         ))}
         {showFullCard ? (
           <div className={styles.itemSubWrapper}>
-            <div>
-              <div className={styles.sizesTitleWrapper}>
-                <p className={styles.label}>{t(TranslationKey.Dimensions)}</p>
+            <Dimensions isTotalWeight data={box} />
 
-                <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
-              </div>
-
-              <Dimensions isTotalWeight data={box} sizeSetting={sizeSetting} calculationField={Entities.WAREHOUSE} />
-            </div>
             <div className={styles.fieldWrapper}>
               <Field
                 containerClasses={styles.field}
