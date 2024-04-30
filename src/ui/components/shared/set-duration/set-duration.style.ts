@@ -15,9 +15,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  inputLabel: {
-    color: theme.palette.text.primary,
-  },
+  inputLabel: {},
 
   inputField: {
     margin: '0 !important',

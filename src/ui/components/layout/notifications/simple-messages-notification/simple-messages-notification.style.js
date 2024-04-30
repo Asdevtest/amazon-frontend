@@ -25,7 +25,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 12,
     lineHeight: '110%',
     fontWeight: 400,
-    color: theme.palette.text.primary,
+
     wordBreak: 'break-all',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',

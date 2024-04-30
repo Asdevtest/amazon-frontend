@@ -66,7 +66,6 @@ export const styles = theme => ({
     fontSize: 16,
     lineHeight: '22px',
     fontWeight: 400,
-    color: theme.palette.text.primary,
   },
 
   noOptionText: {
@@ -104,9 +103,7 @@ export const styles = theme => ({
     gap: 20,
   },
 
-  cancelBtn: {
-    color: theme.palette.text.primary,
-  },
+  cancelBtn: {},
   radioGroup: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -114,7 +111,7 @@ export const styles = theme => ({
   radioGroupTwoItems: {
     display: 'flex',
     gap: 20,
-    color: theme.palette.text.primary,
+
     maxHeight: 200,
     overflowY: 'auto',
   },
@@ -134,7 +131,6 @@ export const styles = theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
 
     margin: 0,
     gap: 5,
@@ -231,7 +227,7 @@ export const styles = theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+
     marginRight: 10,
   },
 
@@ -246,7 +242,7 @@ export const styles = theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+
     textTransform: 'capitalize',
   },
 

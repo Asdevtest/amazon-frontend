@@ -30,9 +30,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.secondary,
   },
 
-  disabledSelectedItemName: {
-    color: theme.palette.text.primary,
-  },
+  disabledSelectedItemName: {},
 
   mainWrapper: {
     width: '100%',
@@ -104,7 +102,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
-    color: theme.palette.text.primary,
+
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
@@ -148,7 +146,6 @@ export const useStyles = makeStyles()(theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
-    color: theme.palette.text.primary,
   },
 
   selectedItemName: {
@@ -158,9 +155,7 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
   },
-  blackSelectedItem: {
-    color: theme.palette.text.primary,
-  },
+  blackSelectedItem: {},
 
   submitWrapper: {
     display: 'flex',

@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+
     alignSelf: 'start',
   },
 
@@ -27,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
   buttonCancel: {
     padding: '8px 36px',
     backgroundColor: theme.palette.background.general,
-    color: theme.palette.text.primary,
+
     '&:hover': {
       backgroundColor: 'rgba(231, 231, 231, 0.801)',
     },
@@ -41,8 +41,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     width: 400,
     textAlign: 'center',
-
-    color: theme.palette.text.primary,
   },
 
   fieldInput: {
@@ -78,7 +76,6 @@ export const useStyles = makeStyles()(theme => ({
 
   fieldLabel: {
     fontSize: 16,
-    color: theme.palette.text.primary,
   },
 
   reqMultiplier: {

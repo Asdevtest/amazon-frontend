@@ -83,9 +83,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: 10,
   },
 
-  label: {
-    color: theme.palette.text.primary,
-  },
+  label: {},
 
   link: {
     color: theme.palette.primary.main,

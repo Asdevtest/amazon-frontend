@@ -74,7 +74,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     wordWrap: 'break-word',
     whiteSpace: 'pre-wrap',
-    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(768)]: {
       minWidth: 80,

@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
   labelText: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+
     whiteSpace: 'nowrap',
   },
 

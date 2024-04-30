@@ -34,7 +34,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,
-    color: theme.palette.text.primary,
   },
 
   subTitle: {
@@ -47,7 +46,6 @@ export const useStyles = makeStyles()(theme => ({
   text: {
     fontSize: '16px',
     lineHeight: '22px',
-    color: theme.palette.text.primary,
   },
 
   stepWrapper: {
@@ -254,7 +252,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 600,
-    color: theme.palette.text.primary,
   },
 
   infoColumn: {

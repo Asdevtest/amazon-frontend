@@ -12,12 +12,9 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: theme.palette.text.primary,
   },
 
-  businessInfoDate: {
-    color: theme.palette.text.primary,
-  },
+  businessInfoDate: {},
 
   businessInfoDateAgo: {
     fontSize: '14px',

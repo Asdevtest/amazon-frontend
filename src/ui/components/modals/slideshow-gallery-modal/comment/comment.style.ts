@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 550,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+
     wordBreak: 'break-all',
     overflow: 'hidden',
     display: '-webkit-box',

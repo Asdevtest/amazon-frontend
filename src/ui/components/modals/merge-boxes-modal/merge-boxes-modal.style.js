@@ -27,7 +27,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '30px',
     lineHeight: '40px',
     fontWeight: '600',
-    color: theme.palette.text.primary,
   },
 
   inputAccent: {
@@ -63,7 +62,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '21px',
     marginRight: '10px',
     width: '299px',
-    color: theme.palette.text.primary,
   },
 
   input: {
@@ -87,9 +85,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.negativePrimary,
   },
 
-  storekeeperBtnDark: {
-    color: theme.palette.text.primary,
-  },
+  storekeeperBtnDark: {},
 
   storekeeperBtnDefault: {
     color: '#ffff',
@@ -142,7 +138,6 @@ export const useStyles = makeStyles()(theme => ({
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
   },
   orderInput: {
     width: '79px',
@@ -169,13 +164,11 @@ export const useStyles = makeStyles()(theme => ({
     width: '183px',
     height: '40px',
   },
-  cancelButton: {
-    color: theme.palette.text.primary,
-  },
+  cancelButton: {},
   boxTitle: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+
     marginBottom: '12px',
   },
   boxPhotoWrapperS: {

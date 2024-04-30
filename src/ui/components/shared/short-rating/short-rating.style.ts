@@ -10,7 +10,7 @@ export const useStyles = makeStyles()(theme => ({
   rating: {
     fontSize: 14,
     fontWeight: 600,
-    color: theme.palette.text.primary,
+
     lineHeight: '1',
   },
 

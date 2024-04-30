@@ -38,7 +38,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '110%',
     [theme.breakpoints.down(768)]: {
       fontSize: '18px',
-      color: theme.palette.text.primary,
+
       marginTop: '10px',
     },
   },

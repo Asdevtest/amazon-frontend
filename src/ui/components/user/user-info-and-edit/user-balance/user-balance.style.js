@@ -16,9 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     height: '68vh',
   },
 
-  cancelBtn: {
-    color: theme.palette.text.primary,
-  },
+  cancelBtn: {},
 
   redRow: {
     color: 'red',

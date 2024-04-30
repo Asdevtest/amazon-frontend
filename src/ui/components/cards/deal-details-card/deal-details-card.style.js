@@ -54,7 +54,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+
     overflow: 'auto',
     height: 57,
   },
@@ -63,7 +63,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+
     marginTop: '10px',
     height: '57px',
     overflow: 'auto',
@@ -84,7 +84,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+
     marginBottom: '10px',
   },
 
@@ -163,14 +163,13 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
   },
 
   resultDescription: {
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+
     height: '125px',
     maxWidth: '758px',
     overflow: 'auto',
@@ -193,14 +192,11 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
   },
 
   timeOnReview: {
     padding: '8px 16px 8px 56px',
     backgroundColor: theme.palette.background.green,
-
-    color: theme.palette.text.primary,
   },
 
   sumAndTimeWrapper: {
@@ -213,10 +209,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
   },
 
-  text: {
-    color: theme.palette.text.primary,
-  },
+  text: {},
 }))

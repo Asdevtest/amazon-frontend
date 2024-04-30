@@ -61,7 +61,6 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
     textAlign: 'center',
     transition: '0.3s ease',
     cursor: 'pointer',
-    color: theme.palette.text.primary,
   }
 
   const borderStyle = {

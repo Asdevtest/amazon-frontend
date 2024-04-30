@@ -37,7 +37,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -135,7 +135,6 @@ export const useStyles = makeStyles()(theme => ({
   accentText: {
     fontSize: 14,
     fontWeight: 600,
-    color: theme.palette.text.primary,
   },
 
   mainInfosSubWrapper: {
@@ -173,8 +172,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',
-
-    color: theme.palette.text.primary,
   },
 
   emptyDiv: {

@@ -47,9 +47,7 @@ export const useStyles = makeStyles()(theme => ({
     color: '#001029',
   },
 
-  input: {
-    color: theme.palette.text.primary,
-  },
+  input: {},
 
   hideDropdownIndicator: {
     display: 'none',

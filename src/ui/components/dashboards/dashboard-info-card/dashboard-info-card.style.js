@@ -15,7 +15,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 500,
     fontSize: '16px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
   },
   titleWrapper: {
     position: 'relative',
@@ -61,6 +60,5 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '20px',
     fontWeight: 700,
     lineHeight: '21px',
-    color: theme.palette.text.primary,
   },
 }))

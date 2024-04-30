@@ -37,7 +37,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   text: {
-    color: theme.palette.text.primary,
     fontSize: '16px',
     fontWeight: 600,
     lineHeight: '19px',
@@ -58,7 +57,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fieldLabel: {
-    color: theme.palette.text.primary,
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',

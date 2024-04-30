@@ -24,7 +24,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,
-    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 16,
@@ -52,7 +51,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '25px',
     wordBreak: 'break-all',
-    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 16,
@@ -85,7 +83,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   statusText: {
-    color: theme.palette.text.primary,
     fontSize: 18,
     lineHeight: '25px',
 

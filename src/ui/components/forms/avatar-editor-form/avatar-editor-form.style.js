@@ -8,9 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  mainTitle: {
-    color: theme.palette.text.primary,
-  },
+  mainTitle: {},
 
   mainWrapper: {
     width: '100%',
@@ -52,12 +50,9 @@ export const useStyles = makeStyles()(theme => ({
 
   cancelBtn: {
     marginLeft: '30px',
-    color: theme.palette.text.primary,
   },
 
-  standartText: {
-    color: theme.palette.text.primary,
-  },
+  standartText: {},
 
   labelStyle: {
     width: '100%',

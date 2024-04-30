@@ -38,9 +38,7 @@ export const useEditTaskPriorityModalStyles = makeStyles()(theme => ({
     },
   },
 
-  cancel: {
-    color: theme.palette.text.primary,
-  },
+  cancel: {},
 
   titleWrapper: {
     display: 'flex',

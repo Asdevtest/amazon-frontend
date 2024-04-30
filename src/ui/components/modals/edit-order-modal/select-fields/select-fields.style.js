@@ -43,7 +43,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   totalPrice: {
-    color: theme.palette.text.primary,
     fontSize: '16px',
     fontWeight: 500,
     lineHeight: '21px',
@@ -332,9 +331,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
   },
 
-  deliveredGoodsMiddleText: {
-    color: theme.palette.text.primary,
-  },
+  deliveredGoodsMiddleText: {},
 
   deliveredGoodsRightText: {
     color: theme.palette.primary.main,

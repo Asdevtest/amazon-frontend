@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(theme => ({
   conditionsField: {
     width: '100%',
     minHeight: '300px',
-    color: theme.palette.text.primary,
+
     padding: '8px',
     fontSize: '16px',
     outline: 'none',
@@ -20,7 +20,7 @@ export const useStyles = makeStyles()(theme => ({
   nameField: {
     width: '100%',
     minHeight: '60px',
-    color: theme.palette.text.primary,
+
     padding: '8px',
     fontSize: '16px',
     outline: 'none',

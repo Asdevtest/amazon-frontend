@@ -21,7 +21,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
-    color: theme.palette.text.primary,
   },
 
   details: {
@@ -39,7 +38,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
   },
 
   editorWrapper: {

@@ -13,7 +13,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'start',
     justifyContent: 'space-between',
     marginBottom: '30px',
-    color: theme.palette.text.primary,
   },
 
   img: {
@@ -51,7 +50,6 @@ export const useStyles = makeStyles()(theme => ({
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
   },
   orderInput: {
     width: '79px',

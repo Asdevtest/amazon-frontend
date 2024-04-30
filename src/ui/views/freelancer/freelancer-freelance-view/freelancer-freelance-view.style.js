@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+
     marginBottom: 30,
   },
 
@@ -24,9 +24,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     whiteSpace: 'nowrap',
 
-    p: {
-      color: theme.palette.text.primary,
-    },
+    p: {},
   },
 
   primary: {

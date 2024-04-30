@@ -19,7 +19,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     fontWeight: 600,
     textTransform: 'uppercase',
-    color: theme.palette.text.primary,
   },
 
   boxAndPrepIdInput: {
@@ -32,7 +31,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: '5px 10px',
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
   },
 
   updatedContainer: {
@@ -46,7 +44,5 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.secondary,
   },
 
-  updatedTitle: {
-    color: theme.palette.text.primary,
-  },
+  updatedTitle: {},
 }))

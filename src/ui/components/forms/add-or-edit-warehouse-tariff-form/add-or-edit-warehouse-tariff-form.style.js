@@ -12,7 +12,6 @@ export const useStyles = makeStyles()(theme => ({
   modalTitle: {
     fontSize: '16px',
     lineHeight: '22px',
-    color: theme.palette.text.primary,
 
     fontWeight: 600,
     [theme.breakpoints.down(768)]: {
@@ -24,9 +23,7 @@ export const useStyles = makeStyles()(theme => ({
 
   button: { width: '120px', height: '40px' },
 
-  closeButton: {
-    color: theme.palette.text.primary,
-  },
+  closeButton: {},
 
   multiline: {
     width: '100%',

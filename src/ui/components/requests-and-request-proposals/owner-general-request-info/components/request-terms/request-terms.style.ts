@@ -70,7 +70,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 600,
     wordBreak: 'break-word',
-    color: theme.palette.text.primary,
   },
 
   pricesWrapper: {
@@ -87,7 +86,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   price: {
-    color: theme.palette.text.primary,
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',

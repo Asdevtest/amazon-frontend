@@ -65,9 +65,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
   },
 
-  cancelButton: {
-    color: theme.palette.text.primary,
-  },
+  cancelButton: {},
 
   downloadsWrapper: {
     display: 'flex',

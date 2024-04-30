@@ -21,7 +21,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+
     whiteSpace: 'nowrap',
   },
 
@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+
     whiteSpace: 'nowrap',
   },
 }))

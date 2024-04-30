@@ -74,7 +74,6 @@ export const useStyles = makeStyles()(theme => ({
 
   noChatSubTitle: {
     fontSize: 18,
-    color: theme.palette.text.primary,
   },
 
   noSelectedChatWrapper: {

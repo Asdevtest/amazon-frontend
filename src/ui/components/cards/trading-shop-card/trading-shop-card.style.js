@@ -40,8 +40,6 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontWeight: 600,
     fontSize: 18,
-
-    color: theme.palette.text.primary,
   },
 
   shortInfoWrapper: {
@@ -65,7 +63,6 @@ export const useStyles = makeStyles()(theme => ({
 
   shortInfoValue: {
     fontSize: 18,
-    color: theme.palette.text.primary,
   },
 
   description: {
@@ -75,7 +72,7 @@ export const useStyles = makeStyles()(theme => ({
 
     width: '100%',
     fontSize: 16,
-    color: theme.palette.text.primary,
+
     height: 70,
     overflow: 'hidden',
     textOverflow: 'ellipsis',

@@ -50,7 +50,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '25px',
-    color: theme.palette.text.primary,
+
     maxWidth: 140,
     overflow: 'hidden',
     textOverflow: 'ellipsis',

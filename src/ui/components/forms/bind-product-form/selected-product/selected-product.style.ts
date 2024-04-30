@@ -16,7 +16,5 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
   },
 
-  asin: {
-    color: theme.palette.text.primary,
-  },
+  asin: {},
 }))

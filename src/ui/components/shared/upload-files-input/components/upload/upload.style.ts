@@ -28,7 +28,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'relative',
     width: '100%',
     height: 80,
-    color: theme.palette.text.primary,
+
     background: theme.palette.background.second,
     border: `2px dashed ${theme.palette.primary.main}`,
     borderRadius: 20,

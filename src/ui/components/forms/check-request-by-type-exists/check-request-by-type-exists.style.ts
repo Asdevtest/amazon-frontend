@@ -47,7 +47,6 @@ export const useStyles = makeStyles()(theme => ({
 
   cancelBtn: {
     padding: '0 27px',
-    color: theme.palette.text.primary,
   },
 
   requestInfo: {

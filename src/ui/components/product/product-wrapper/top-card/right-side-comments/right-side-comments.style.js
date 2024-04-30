@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: theme.palette.text.primary,
+
     fontWeight: '600',
   },
 

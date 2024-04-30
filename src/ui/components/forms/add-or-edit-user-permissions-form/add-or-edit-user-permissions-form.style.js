@@ -65,9 +65,7 @@ export const useStyles = makeStyles()(theme => ({
       height: '40px',
     },
   },
-  cancelBtn: {
-    color: theme.palette.text.primary,
-  },
+  cancelBtn: {},
 
   leftSideWrapper: {
     display: 'flex',
@@ -116,20 +114,15 @@ export const useStyles = makeStyles()(theme => ({
       transform: 'scale(1.01)',
     },
 
-    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       border: 'none',
       margin: 0,
     },
   },
 
-  standartText: {
-    color: theme.palette.text.primary,
-  },
+  standartText: {},
 
-  rightSideTitle: {
-    color: theme.palette.text.primary,
-  },
+  rightSideTitle: {},
 
   permissionGroupsToSelectCheckboxWrapper: {
     border: '1px solid rgba(0,0,0, .1)',
@@ -195,7 +188,7 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       background: 'none',
       fontSize: '16px',
-      color: theme.palette.text.primary,
+
       fontWeight: 600,
     },
   },
@@ -215,8 +208,6 @@ export const useStyles = makeStyles()(theme => ({
 
   title: {
     fontWeight: 600,
-
-    color: theme.palette.text.primary,
   },
 
   permGroupWrapper: {

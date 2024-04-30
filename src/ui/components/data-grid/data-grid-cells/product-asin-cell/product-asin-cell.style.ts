@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 500,
-    color: theme.palette.text.primary,
+
     whiteSpace: 'nowrap',
     maxWidth: '165px',
     overflow: 'hidden',

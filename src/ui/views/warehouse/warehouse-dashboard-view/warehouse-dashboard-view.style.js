@@ -51,9 +51,7 @@ export const styles = theme => ({
     },
   },
 
-  addressMain: {
-    color: theme.palette.text.primary,
-  },
+  addressMain: {},
 
   address: {
     color: theme.palette.text.secondary,

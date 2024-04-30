@@ -43,7 +43,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     width: 260,
-    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(1282)]: {
       width: '100%',
@@ -76,7 +75,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 600,
-    color: theme.palette.text.primary,
   },
 
   currentBoxesWrapper: {
@@ -103,7 +101,6 @@ export const useStyles = makeStyles()(theme => ({
 
   categoryTitle: {
     fontWeight: 600,
-    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(1282)]: {
       width: 'fit-content',
@@ -113,7 +110,6 @@ export const useStyles = makeStyles()(theme => ({
   footerTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(1282)]: {
       width: 'fit-content',

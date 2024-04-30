@@ -10,13 +10,11 @@ export const useStyles = makeStyles()(theme => ({
   balanceTitle: {
     fontSize: 36,
     lineHeight: '49px',
-    // color: theme.palette.text.primary,
+    //
 
-    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       fontSize: 18,
       lineHeight: '140%',
-      color: theme.palette.text.primary,
     },
   },
 
@@ -29,14 +27,13 @@ export const useStyles = makeStyles()(theme => ({
 
   title: {
     fontSize: 18,
-    // color: theme.palette.text.primary,
+    //
     lineHeight: '140%',
     marginBottom: '3px',
 
-    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       fontSize: 12,
-      color: theme.palette.text.primary,
+
       lineHeight: '16px',
     },
   },

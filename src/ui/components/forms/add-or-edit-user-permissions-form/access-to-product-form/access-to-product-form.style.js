@@ -21,9 +21,7 @@ export const useStyles = makeStyles()(theme => ({
     marginLeft: '5px',
     color: theme.palette.text.secondary,
   },
-  standartText: {
-    color: theme.palette.text.primary,
-  },
+  standartText: {},
   detailsShopWrapper: {
     width: '100%',
   },
@@ -64,7 +62,5 @@ export const useStyles = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
-
-    color: theme.palette.text.primary,
   },
 }))

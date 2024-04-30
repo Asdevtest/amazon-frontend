@@ -80,7 +80,5 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: '5px',
   },
 
-  cancelButton: {
-    color: theme.palette.text.primary,
-  },
+  cancelButton: {},
 }))

@@ -33,7 +33,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '19px',
     width: '299px',
-    color: theme.palette.text.primary,
   },
 
   orderInput: {

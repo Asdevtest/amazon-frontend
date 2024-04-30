@@ -32,7 +32,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,
-    color: theme.palette.text.primary,
   },
 
   tableWrapper: {

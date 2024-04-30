@@ -20,12 +20,8 @@ export const useStyles = makeStyles()(theme => ({
   },
   checkboxLabel: {
     fontWeight: 600,
-
-    color: theme.palette.text.primary,
   },
-  cancelBtn: {
-    color: theme.palette.text.primary,
-  },
+  cancelBtn: {},
 
   isWrongPermissionsSelectError: {
     color: 'red',
@@ -33,8 +29,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   userRoleSelect: {
-    color: theme.palette.text.primary,
-
     '&:disabled': {
       color: '#DEDEDE',
     },
@@ -60,9 +54,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
   },
 
-  rating: {
-    color: theme.palette.text.primary,
-  },
+  rating: {},
 
   mainWrapper: {
     marginTop: 20,
@@ -131,7 +123,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: theme.palette.text.primary,
+
     marginBottom: '10px',
   },
 
@@ -172,7 +164,6 @@ export const useStyles = makeStyles()(theme => ({
 
   selectedRole: {
     width: 262,
-    color: theme.palette.text.primary,
   },
 
   actionDelButton: {
@@ -208,7 +199,6 @@ export const useStyles = makeStyles()(theme => ({
   standartText: {
     width: '100%',
     height: 40,
-    color: theme.palette.text.primary,
   },
 
   standartTextRole: {
@@ -221,7 +211,6 @@ export const useStyles = makeStyles()(theme => ({
 
     height: 20,
     width: '139px',
-    color: theme.palette.text.primary,
   },
 
   labelField: {

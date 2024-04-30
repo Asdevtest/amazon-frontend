@@ -4,14 +4,13 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: theme.palette.text.primary,
+
     fontWeight: '600',
   },
   input: {
     width: '100%',
   },
   text: {
-    color: theme.palette.text.primary,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '22px',

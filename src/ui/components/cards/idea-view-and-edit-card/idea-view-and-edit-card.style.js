@@ -125,9 +125,7 @@ export const useStyles = makeStyles()(theme => ({
     marginLeft: '40px',
   },
 
-  cancelBtn: {
-    color: theme.palette.text.primary,
-  },
+  cancelBtn: {},
 
   existedIdeaBtnsWrapper: {
     width: '100%',
@@ -298,7 +296,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: theme.palette.text.primary,
   },
 
   criterionsField: {
@@ -312,7 +309,6 @@ export const useStyles = makeStyles()(theme => ({
   supplierSearchTitle: {
     fontWeight: 600,
     fontSize: 18,
-    color: theme.palette.text.primary,
   },
 
   noDataText: {

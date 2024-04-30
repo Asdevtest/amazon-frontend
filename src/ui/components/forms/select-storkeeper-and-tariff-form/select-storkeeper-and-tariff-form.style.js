@@ -44,9 +44,7 @@ export const useStyles = makeStyles()(theme => ({
     boxShadow: `inset 0 0 15px ${theme.palette.primary.main}`,
   },
 
-  resetBtn: {
-    color: theme.palette.text.primary,
-  },
+  resetBtn: {},
 
   tableWrapper: {
     display: 'flex',

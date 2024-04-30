@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+
     marginBottom: '12px',
     [theme.breakpoints.down(768)]: {
       fontSize: 14,

@@ -19,7 +19,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '25px',
-    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(768)]: {
       fontSize: 16,
@@ -74,8 +73,6 @@ export const useStyles = makeStyles()(theme => ({
   textsWrapper: {},
 
   standartText: {
-    color: theme.palette.text.primary,
-
     [theme.breakpoints.down(768)]: {
       fontSize: 14,
     },
@@ -99,7 +96,5 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  cancelBtn: {
-    color: theme.palette.text.primary,
-  },
+  cancelBtn: {},
 }))

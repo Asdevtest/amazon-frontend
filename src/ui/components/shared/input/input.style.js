@@ -7,7 +7,7 @@ export const styles = theme => ({
   },
   input: {
     padding: '9px 15px',
-    color: theme.palette.text.primary,
+
     fontFamily: 'Regular, sans-serif',
 
     '&:-webkit-autofill': {
@@ -37,7 +37,6 @@ export const stylesWithIcon = theme => ({
   input: {
     paddingLeft: '40px',
     paddingRight: '40px',
-    color: theme.palette.text.primary,
 
     '&:-webkit-autofill': {
       borderRadius: '4px',

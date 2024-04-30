@@ -32,13 +32,11 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
-    color: theme.palette.text.primary,
   },
 
   informationUser: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
   },
 
   storageInput: {
@@ -52,7 +50,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: '5px 10px',
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
   },
 
   customGap: {

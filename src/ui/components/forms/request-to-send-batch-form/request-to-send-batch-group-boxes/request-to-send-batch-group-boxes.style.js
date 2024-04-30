@@ -41,7 +41,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
   },
 
   headerSpanText: {
@@ -83,7 +82,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
   },
 
   footerSpanText: {

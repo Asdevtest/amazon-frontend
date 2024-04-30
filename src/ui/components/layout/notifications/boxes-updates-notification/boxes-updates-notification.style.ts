@@ -55,7 +55,6 @@ export const useBoxNotificationStyles = makeStyles()(theme => ({
     p: {
       margin: 0,
       fontSize: 14,
-      color: theme.palette.text.primary,
     },
     '& > p': {
       marginBottom: 5,

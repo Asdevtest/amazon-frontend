@@ -25,7 +25,6 @@ export const useStyles = makeStyles()(theme => ({
       marginBottom: '40px',
       fontSize: '16px',
       lineHeight: '22px',
-      color: theme.palette.text.primary,
     },
   },
 
@@ -60,16 +59,14 @@ export const useStyles = makeStyles()(theme => ({
       fontSize: '12px',
       lineHeight: '140%',
       fontWeight: 600,
-      color: theme.palette.text.primary,
+
       textTransform: 'uppercase',
     },
   },
 
   deleteBtn: {
     color: 'rgba(189, 194, 209, 1)',
-    [theme.breakpoints.down(768)]: {
-      color: theme.palette.text.primary,
-    },
+    [theme.breakpoints.down(768)]: {},
   },
 
   descriptionWrapper: {
@@ -158,7 +155,6 @@ export const useStyles = makeStyles()(theme => ({
       fontSize: '12px',
       lineHeight: '16px',
       fontWeight: 600,
-      color: theme.palette.text.primary,
     },
   },
 

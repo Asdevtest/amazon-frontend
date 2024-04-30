@@ -39,9 +39,7 @@ export const useStyles = makeStyles()(theme => ({
 
     borderBottom: theme.palette.other.tableActiveFilterBtn,
   },
-  button: {
-    color: theme.palette.text.primary,
-  },
+  button: {},
   selectionBtns: {
     display: 'flex',
     height: 40,

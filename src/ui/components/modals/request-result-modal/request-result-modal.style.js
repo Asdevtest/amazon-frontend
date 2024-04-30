@@ -97,7 +97,5 @@ export const useStyles = makeStyles()(theme => ({
     gap: 40,
   },
 
-  cancelButton: {
-    color: theme.palette.text.primary,
-  },
+  cancelButton: {},
 }))

@@ -27,9 +27,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
-  button: {
-    color: theme.palette.text.primary,
-  },
+  button: {},
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'center',

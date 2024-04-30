@@ -7,12 +7,9 @@ export const useStyles = makeStyles()(theme => ({
 
   button: {
     marginLeft: '10px',
-    color: theme.palette.text.primary,
   },
 
-  standartText: {
-    color: theme.palette.text.primary,
-  },
+  standartText: {},
 
   form: {
     marginTop: '20px',

@@ -48,7 +48,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '30px',
     lineHeight: '40px',
     fontWeight: '600',
-    color: theme.palette.text.primary,
   },
 
   applyButton: {
@@ -65,7 +64,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   sectionTitle: {
-    color: theme.palette.text.primary,
     fontSize: '18px',
     lineHeight: '140%',
   },
@@ -136,7 +134,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelButton: {
-    color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.general,
   },
 

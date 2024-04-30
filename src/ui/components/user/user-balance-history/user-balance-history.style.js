@@ -10,10 +10,8 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     '& td': {
       flexShrink: 0,
-      color: theme.palette.text.primary,
     },
     '& th': {
-      color: theme.palette.text.primary,
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',
@@ -27,8 +25,6 @@ export const useStyles = makeStyles()(theme => ({
   },
   mainTitle: {
     marginTop: '30px',
-
-    color: theme.palette.text.primary,
   },
 
   subTitle: {
