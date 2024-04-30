@@ -1,5 +1,6 @@
 import { GridCellParams } from '@mui/x-data-grid'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,26 +20,8 @@ import { t } from '@utils/translations'
 import { RowHandlers } from '@typings/shared/data-grid'
 import { IFullUser } from '@typings/shared/full-user'
 
-export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: IFullUser | undefined) => {
+export const generalNotificationsColumns = (rowHandlers: RowHandlers, userInfo: IFullUser | undefined) => {
   const renderCells = [
-    {
-      field: 'updatedAt',
-      headerName: t(TranslationKey.Updated),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: (params: GridCellParams) => <NormDateCell value={params.row.updatedAt} />,
-      width: 100,
-    },
-
-    {
-      field: 'shopId',
-      headerName: t(TranslationKey.Shop),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: (params: GridCellParams) => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
-      width: 90,
-      disableCustomSort: true,
-      // columnKey: columnnsKeys.client.INVENTORY_SHOPS,
-    },
-
     {
       field: 'product',
       headerName: t(TranslationKey.Product),
@@ -53,6 +36,18 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
         />
       ),
       width: 300,
+      disableColumnMenu: true,
+      filterable: false,
+      sortable: false,
+    },
+
+    {
+      field: 'shopId',
+      headerName: t(TranslationKey.Shop),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+      renderCell: (params: GridCellParams) => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
+      width: 90,
+      columnKey: columnnsKeys.client.INVENTORY_SHOPS,
     },
 
     {
@@ -63,8 +58,7 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
         <MultilineTextCell text={getHumanFriendlyNotificationType(params.value)} />
       ),
       width: 115,
-      sortable: false,
-      filterable: false,
+      columnKey: columnnsKeys.shared.STRING,
     },
 
     {
@@ -82,17 +76,36 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
           />
         )
       },
-      minWidth: 590,
+      flex: 1,
+      disableColumnMenu: true,
       filterable: false,
+      sortable: false,
+    },
+
+    {
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+      renderCell: (params: GridCellParams) => <NormDateCell value={params.row.updatedAt} />,
+      width: 100,
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+      renderCell: (params: GridCellParams) => <NormDateCell value={params.row.createdAt} />,
+      width: 100,
+      columnKey: columnnsKeys.shared.DATE,
     },
   ]
 
   if (checkIsFreelancer(UserRoleCodeMap[userInfo?.role || 0])) {
-    renderCells.splice(2, 0, {
+    renderCells.splice(1, 0, {
       field: 'createdBy',
       headerName: t(TranslationKey.Performer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
-      width: 145,
       renderCell: (params: GridCellParams) => {
         const sub = params?.row?.sub
 
@@ -102,6 +115,8 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
           <MultilineTextCell text={t(TranslationKey.Missing)} />
         )
       },
+      width: 145,
+      columnKey: columnnsKeys.shared.OBJECT,
     })
   }
 

@@ -29,7 +29,7 @@ interface GeneralNotificationsViewProps {
 }
 
 export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = observer(({ history }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new GeneralNotificationsViewModel({ history }))
 
@@ -80,30 +80,19 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
         )}
 
         <SearchInput
-          inputClasses={cx(styles.searchInput, {
-            [styles.searchInputClient]: isCurrentUserClient,
-            [styles.searchInputFreelancer]: isCurrentUserFreelancer,
-          })}
+          inputClasses={styles.searchInput}
           value={viewModel.searchValue}
           placeholder={`${t(TranslationKey['Search by ASIN, Title']) + searchPlaceholderText}`}
           onSubmit={viewModel.onSearchSubmit}
         />
 
         <div className={styles.buttonsWrapper}>
-          <Button
-            className={cx(styles.button, styles.archiveButton)}
-            variant={ButtonVariant.OUTLINED}
-            onClick={() => viewModel.toggleVariationHandler('isArchive')}
-          >
+          <Button variant={ButtonVariant.OUTLINED} onClick={() => viewModel.toggleVariationHandler('isArchive')}>
             {viewModel.isArchive ? t(TranslationKey['To the actual']) : t(TranslationKey['Open archive'])}
           </Button>
 
           {!viewModel.isArchive && (
-            <Button
-              disabled={!viewModel.selectedRowIds.length}
-              className={styles.button}
-              onClick={() => viewModel.onClickReadButton()}
-            >
+            <Button disabled={!viewModel.selectedRowIds.length} onClick={() => viewModel.onClickReadButton()}>
               {t(TranslationKey.Read)}
             </Button>
           )}

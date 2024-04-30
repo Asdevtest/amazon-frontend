@@ -10,8 +10,6 @@ import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { GeneralNotificationsColumns } from '@components/table/table-columns/general-notifications-columns/general-notifications-columns'
-
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { notificationDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
@@ -23,13 +21,15 @@ import { IProduct } from '@typings/models/products/product'
 import { IColumnVisibilityModel, IPaginationModel, ISortModel, RowHandlers } from '@typings/shared/data-grid'
 import { IFullUser } from '@typings/shared/full-user'
 
+import { generalNotificationsColumns } from './general-notifications-columns'
+
 interface IVariations {
   isArchive: boolean
   showIdeaModal: boolean
 }
 
 export class GeneralNotificationsViewModel {
-  history: History | undefined = undefined
+  history?: History = undefined
   requestStatus = loadingStatus.SUCCESS
 
   // * Pagination & Sorting & Filtering
@@ -41,7 +41,7 @@ export class GeneralNotificationsViewModel {
   columnVisibilityModel: IColumnVisibilityModel = {}
   filterModel: GridFilterModel = { items: [] }
   selectedRowIds: Array<string> = []
-  curNotificationType: string | number | null | undefined = undefined
+  curNotificationType?: string = undefined
 
   // * Table settings
 
@@ -56,7 +56,7 @@ export class GeneralNotificationsViewModel {
   // * dataGrid data
 
   notificationsData = []
-  columnsModel = GeneralNotificationsColumns(this.rowHandlers, this.userInfo)
+  columnsModel = generalNotificationsColumns(this.rowHandlers, this.userInfo)
 
   // * Modal state
 
@@ -225,7 +225,7 @@ export class GeneralNotificationsViewModel {
     this.searchValue = value
   }
 
-  onClickToChangeNotificationType(notificationType: string | number | null | undefined) {
+  onClickToChangeNotificationType(notificationType?: string) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
