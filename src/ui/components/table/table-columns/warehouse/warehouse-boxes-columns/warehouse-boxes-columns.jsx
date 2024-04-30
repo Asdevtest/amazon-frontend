@@ -22,8 +22,6 @@ import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { Entities } from '@hooks/use-dimensions'
-
 export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   {
     field: 'humanFriendlyId',
@@ -197,13 +195,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
       return `L:${box?.lengthCmWarehouse}, W:${box?.widthCmWarehouse}, H:${box?.heightCmWarehouse}, FW:${boxFinalWeight}`
     },
     renderCell: params => (
-      <Dimensions
-        isCell
-        isTotalWeight
-        data={params.row.originalData}
-        sizeSetting={getUnitsOption()}
-        calculationField={Entities.WAREHOUSE}
-      />
+      <Dimensions isCell isTotalWeight data={params.row.originalData} transmittedSizeSetting={getUnitsOption()} />
     ),
     width: 210,
     filterable: false,

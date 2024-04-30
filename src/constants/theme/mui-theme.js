@@ -722,6 +722,10 @@ export const darkTheme = createTheme({
       negativeMain: '#001029',
       green: '#00B746',
       customSwitcher: '#5C6A7A',
+
+      disabled: '#001029',
+      primary: '#fff',
+      secondary: 'rgba(255, 255, 255, 0.7)',
     },
 
     button: {

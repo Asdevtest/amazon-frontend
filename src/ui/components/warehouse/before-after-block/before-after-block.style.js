@@ -90,16 +90,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  demensionsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
-  },
-  editBtn: {
-    width: '183px',
-    height: '40px',
-    display: 'flex',
-  },
   bottomBlockWrapper: {
     marginTop: '20px',
   },
@@ -493,11 +483,6 @@ export const useStyles = makeStyles()(theme => ({
       fontSize: 14,
       lineHeight: 19,
     },
-  },
-
-  button: {
-    width: 183,
-    height: 40,
   },
 
   incomingBtnWrapper: {

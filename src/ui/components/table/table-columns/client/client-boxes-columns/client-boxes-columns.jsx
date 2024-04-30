@@ -24,8 +24,6 @@ import { formatNormDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign, trimBarcode } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { Entities } from '@hooks/use-dimensions'
-
 export const clientBoxesViewColumns = (
   handlers,
   getStorekeepersData,
@@ -362,13 +360,7 @@ export const clientBoxesViewColumns = (
       />
     ),
     renderCell: params => (
-      <Dimensions
-        isCell
-        isTotalWeight
-        data={params.row.originalData}
-        sizeSetting={getUnitsOption()}
-        calculationField={Entities.WAREHOUSE}
-      />
+      <Dimensions isCell isTotalWeight data={params.row.originalData} transmittedSizeSetting={getUnitsOption()} />
     ),
     width: 210,
     sortable: false,

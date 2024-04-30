@@ -3,6 +3,7 @@ import { ChangeEvent, FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Checkbox } from '@components/shared/checkbox'
+import { Dimensions } from '@components/shared/dimensions'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { NoPhotoIcon } from '@components/shared/svg-icons'
 
@@ -15,7 +16,8 @@ import { useStyles } from './box.style'
 
 import { Items } from '../items'
 
-import { Dimensions, Fields, TrackNumber } from './components'
+import { Fields } from './fields'
+import { TrackNumber } from './track-number'
 
 interface BoxProps {
   isEdit: boolean
@@ -39,7 +41,7 @@ export const Box: FC<BoxProps> = memo(props => {
         <div className={cx(styles.info, styles.flexContainer)}>
           <SlideshowGallery hiddenPreviews files={formFields?.images} slidesToShow={2} />
 
-          <Dimensions formFields={formFields} />
+          <Dimensions data={formFields} title={t(TranslationKey['Sizes from storekeeper'])} />
 
           <div className={styles.checkboxes}>
             <div className={styles.checkboxContainer}>
