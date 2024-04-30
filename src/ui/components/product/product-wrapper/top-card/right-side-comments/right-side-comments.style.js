@@ -1,28 +1,21 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  label: {
-    fontSize: '16px',
-    lineHeight: '20px',
-    color: theme.palette.text.general,
-    fontWeight: '600',
-  },
-
-  title: {
-    fontSize: '24px',
-    lineHeight: '20px',
-    color: theme.palette.text.second,
-    fontWeight: '500',
-    textAlign: 'center',
-    marginBottom: '24px',
-  },
-
-  rightBoxComments: {
+  wrapper: {
     width: '100%',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
+  },
+
+  title: {
+    fontSize: '18px',
+    lineHeight: '25px',
+    color: theme.palette.text.second,
+    fontWeight: 600,
+    textAlign: 'center',
+    marginBottom: 20,
   },
 
   heightFieldAuto: {
@@ -32,32 +25,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   errorActive: {
-    borderColor: 'red',
+    borderColor: theme.palette.text.red,
   },
 
   buttonsWrapper: {
     position: 'fixed',
     bottom: 50,
+    right: 50,
     zIndex: 50,
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4,auto)',
+    display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
-    marginBottom: '20px',
-    width: '38%',
-  },
-
-  buttonWrapper: {
-    position: 'fixed',
-    bottom: 50,
-    right: 60,
-    zIndex: 150,
-    width: '33%',
-    display: 'grid',
-  },
-
-  rightBoxCommentsWrapper: {
-    display: 'flex',
-    width: '50%',
   },
 }))
