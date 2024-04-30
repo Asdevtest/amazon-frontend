@@ -284,6 +284,7 @@ export const OrderProductModal = memo(props => {
 
       needsResearch: isResearchSupplier,
       tmpIsPendingOrder: isPendingOrder,
+      images: [], // reset images to create an order(onClickSubmit), because in the useTariffVariations they are added again - need to fix order product modal
     }))
 
     onSubmit({
