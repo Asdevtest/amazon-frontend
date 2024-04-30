@@ -91,7 +91,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
   }
 
   return (
-    <div className={styles.root}>
+    <div className={styles.wrapper}>
       <p className={styles.title}>{t(TranslationKey['Bind an product from Amazon'])}</p>
 
       <div className={styles.flexContainer}>

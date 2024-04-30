@@ -11,7 +11,7 @@ interface ApproximateWeightCellProps {
   variations: IDestinationVariationWithCalculations[]
   onClickChangeVariation: ({ variationId, destinationId, logicsTariffId }: IVariationParams) => void
   currentVariationId?: string
-  currentDestinationId?: string
+  initialDestinationId?: string
   isStrictVariationSelect?: boolean
   isTariffsSelect: boolean
 }
@@ -23,7 +23,7 @@ export const ApproximateWeightCell: FC<ApproximateWeightCellProps> = memo(props 
     isTariffsSelect,
     variations,
     currentVariationId,
-    currentDestinationId,
+    initialDestinationId,
     isStrictVariationSelect,
     onClickChangeVariation,
   } = props
@@ -46,7 +46,7 @@ export const ApproximateWeightCell: FC<ApproximateWeightCellProps> = memo(props 
                   <Checkbox
                     checked={isActiveSelectedVariation}
                     disabled={
-                      destinationId !== currentDestinationId && isStrictVariationSelect && !!currentDestinationId
+                      destinationId !== initialDestinationId && isStrictVariationSelect && !!initialDestinationId
                     }
                     onChange={() =>
                       onClickChangeVariation({

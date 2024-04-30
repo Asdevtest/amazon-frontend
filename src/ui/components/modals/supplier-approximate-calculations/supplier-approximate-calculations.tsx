@@ -102,12 +102,13 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
             {viewModel?.boxItems?.map(({ product, order }) => (
               <ProductCard
                 key={product._id}
-                isActive={viewModel?.productId === product?._id}
+                isActive={viewModel?.productId === product?._id && viewModel?.orderId === order?._id}
                 product={product}
                 onClickChangeActive={() =>
                   viewModel?.handleChangeActiveProduct(
                     product?._id,
                     order?.orderSupplier?._id || order?.orderSupplierId,
+                    order?._id,
                   )
                 }
               />

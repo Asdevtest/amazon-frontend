@@ -620,7 +620,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                     <Input
                       placeholder={'0.00'}
                       value={toFixed(variant.maxWeight, 2) || ''}
-                      inputProps={{ maxLength: 7 }}
+                      inputProps={{ maxLength: 6 }}
                       className={cx(styles.weightInput, {
                         [styles.error]:
                           !!variant.minWeight &&
@@ -654,7 +654,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                           ? variant.pricePerKgRmb
                           : ''
                       }
-                      inputProps={{ maxLength: 7 }}
+                      inputProps={{ maxLength: 6 }}
                       className={styles.regionFieldInput}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value

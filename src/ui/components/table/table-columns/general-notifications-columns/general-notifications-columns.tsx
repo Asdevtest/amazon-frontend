@@ -30,6 +30,16 @@ export const GeneralNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
     },
 
     {
+      field: 'shopId',
+      headerName: t(TranslationKey.Shop),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+      renderCell: (params: GridCellParams) => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
+      width: 90,
+      disableCustomSort: true,
+      // columnKey: columnnsKeys.client.INVENTORY_SHOPS,
+    },
+
+    {
       field: 'product',
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,

@@ -3,7 +3,6 @@ import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { Field } from '@components/shared/field'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -88,46 +87,42 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
       <div className={styles.supWrapper}>
         <p className={styles.title}>{t(TranslationKey['Choice of Performer'])}</p>
 
-        <Field
-          label={t(TranslationKey.Performer)}
-          labelClasses={styles.label}
-          containerClasses={styles.executorContainer}
-          inputComponent={
+        <div className={styles.executorContainer}>
+          <p className={styles.label}>{t(TranslationKey.Performer)}</p>
+
+          <WithSearchSelect
             // @ts-ignore
-            <WithSearchSelect
-              // @ts-ignore
-              darkIcon
-              grayBorder
-              masterUserSelect
-              blackSelectedItem
-              chosenItemNoHover
-              width="100%"
-              data={masterUsersData}
-              searchOnlyFields={['name']}
-              customSubMainWrapper={styles.customSubMainWrapper}
-              customSearchInput={styles.customSearchInput}
-              selectedItemName={
-                selectedExecutor ? (
-                  <MasterUserItem
-                    id={selectedExecutor?._id}
-                    name={selectedExecutor?.name}
-                    rating={selectedExecutor?.rating}
-                  />
-                ) : (
-                  t(TranslationKey['Choose an executor'])
-                )
-              }
-              onClickSelect={(el: ICreatedBy) => {
-                setSelectedExecutor(el)
-                setSelectedService(undefined)
-              }}
-              onClickNotChosen={() => {
-                setSelectedExecutor(undefined)
-                setSelectedService(undefined)
-              }}
-            />
-          }
-        />
+            darkIcon
+            grayBorder
+            masterUserSelect
+            blackSelectedItem
+            chosenItemNoHover
+            width="100%"
+            data={masterUsersData}
+            searchOnlyFields={['name']}
+            customSubMainWrapper={styles.customSubMainWrapper}
+            customSearchInput={styles.customSearchInput}
+            selectedItemName={
+              selectedExecutor ? (
+                <MasterUserItem
+                  id={selectedExecutor?._id}
+                  name={selectedExecutor?.name}
+                  rating={selectedExecutor?.rating}
+                />
+              ) : (
+                t(TranslationKey['Choose an executor'])
+              )
+            }
+            onClickSelect={(el: ICreatedBy) => {
+              setSelectedExecutor(el)
+              setSelectedService(undefined)
+            }}
+            onClickNotChosen={() => {
+              setSelectedExecutor(undefined)
+              setSelectedService(undefined)
+            }}
+          />
+        </div>
 
         <SearchInput
           inputClasses={styles.searchInput}

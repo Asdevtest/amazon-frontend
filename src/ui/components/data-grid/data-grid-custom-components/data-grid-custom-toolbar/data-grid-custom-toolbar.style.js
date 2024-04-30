@@ -33,7 +33,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   text: {
-    fontSize: 16,
+    fontSize: '14px',
     lineHeight: '22px',
     fontWeight: 600,
   },
