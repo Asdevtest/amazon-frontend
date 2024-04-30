@@ -25,7 +25,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '14px',
     cursor: 'pointer',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   formFooter: {
@@ -57,7 +57,7 @@ export const useStyles = makeStyles()(theme => ({
     transition: '0.3s ease',
     cursor: 'pointer',
 
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     '&:hover': {
       color: theme.palette.primary.main,
@@ -77,18 +77,18 @@ export const useStyles = makeStyles()(theme => ({
 
   visibilityIcon: {
     cursor: 'pointer',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   input: {
     height: '34px',
     backgroundColor: 'inherit',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   labelField: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     lineHeight: '19px',
   },
 }))

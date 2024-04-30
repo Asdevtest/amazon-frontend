@@ -11,20 +11,20 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     fontWeight: 600,
     textAlign: 'center',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   fieldLabel: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   message: {
     fontSize: '14px',
     lineHeight: '19px',
     textAlign: 'center',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   buttons: {
@@ -40,7 +40,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelButton: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   customSubMainWrapper: {

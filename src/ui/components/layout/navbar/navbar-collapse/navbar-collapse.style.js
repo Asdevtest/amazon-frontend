@@ -51,7 +51,7 @@ export const useStyles = makeStyles()(theme => ({
     backgroundColor: 'inherit',
     borderRadius: 0,
 
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     '&:hover': { backgroundColor: '#0000ff0a' },
   },
 
@@ -76,7 +76,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '0 36px 0 0',
     width: '100%',
     height: '100%',
-    // color: theme.palette.text.secondary,
+    // color: theme.palette.text.second,
   },
 
   userInfoWrapper: {

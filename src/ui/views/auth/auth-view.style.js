@@ -14,6 +14,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   error: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

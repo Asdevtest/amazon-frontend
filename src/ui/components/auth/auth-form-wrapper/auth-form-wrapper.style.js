@@ -52,7 +52,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     transition: '0.3s ease',
     cursor: 'pointer',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     '&:hover': {
       color: theme.palette.primary.main,

@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '22px',
     lineHeight: '30px',
     fontWeight: '600',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   imgBox: {
@@ -75,7 +75,7 @@ export const useStyles = makeStyles()(theme => ({
   closeButton: {
     width: '136px',
     height: '40px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
   saveButton: {
     width: '136px',

@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 5,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   controls: {
@@ -31,7 +31,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelButton: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   errorInput: {

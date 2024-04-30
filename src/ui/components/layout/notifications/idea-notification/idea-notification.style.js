@@ -22,7 +22,7 @@ export const useStyles = makeStyles()(theme => ({
 
   messageText: {
     marginLeft: 5,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     whiteSpace: 'pre-wrap',
     width: 'auto',
     display: 'flex',
@@ -77,6 +77,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 12,
     marginRight: '-20px',
     marginTop: '-18px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

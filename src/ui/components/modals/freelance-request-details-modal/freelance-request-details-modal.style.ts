@@ -42,7 +42,7 @@ export const useStyles = makeStyles()(theme => ({
   headerText: {
     fontSize: '14px',
     fontWeight: 400,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     textTransform: 'capitalize',
   },
 

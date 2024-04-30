@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 5,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   buttons: {

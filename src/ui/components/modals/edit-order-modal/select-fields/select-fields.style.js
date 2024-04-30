@@ -34,7 +34,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 120,
     height: '46px',
     overflowX: 'auto',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
   barCodeWrapper: {
     width: '100%',
@@ -43,7 +43,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   totalPrice: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: 500,
     lineHeight: '21px',
@@ -114,7 +114,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   researchLabel: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '19px',
@@ -122,7 +122,7 @@ export const useStyles = makeStyles()(theme => ({
 
   label: {
     maxWidth: '231px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '19px',
@@ -195,7 +195,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   subUsersBodyWrapper: {
@@ -246,7 +246,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     fontWeight: 400,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   partialPaymentWrapper: {
@@ -333,7 +333,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   deliveredGoodsMiddleText: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   deliveredGoodsRightText: {

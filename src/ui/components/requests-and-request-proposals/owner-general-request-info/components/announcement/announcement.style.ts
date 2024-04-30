@@ -14,7 +14,7 @@ export const useStyles = makeStyles()(theme => ({
   sectionTitle: {
     fontSize: 14,
     fontWeight: 400,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   announcementWrapper: {
@@ -38,7 +38,7 @@ export const useStyles = makeStyles()(theme => ({
   sectionText: {
     fontSize: 14,
     fontWeight: 400,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     display: '-webkit-box',
     WebkitLineClamp: 2,

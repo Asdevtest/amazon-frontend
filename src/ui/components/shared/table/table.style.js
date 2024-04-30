@@ -49,6 +49,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     marginTop: '40px',
 
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

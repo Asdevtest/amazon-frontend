@@ -21,7 +21,7 @@ export const useStyles = makeStyles()(theme => ({
   textField: {
     width: 410,
     height: 40,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     outline: 'none',
     border: '1px solid #E0E0E0',
     borderRadius: 4,
@@ -32,7 +32,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 10,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   tableContainer: {
@@ -43,7 +43,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 10,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   tableWrapper: {
@@ -85,7 +85,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   editIcon: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   archiveIcon: {

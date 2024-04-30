@@ -30,21 +30,21 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   shortInfoValue: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   shortInfoLabel: {
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 400,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   shortInfoWrapper: {
@@ -80,7 +80,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 400,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   chart: {
@@ -98,7 +98,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginBottom: '5px',
   },
 
@@ -106,7 +106,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginBottom: '20px',
   },
 }))

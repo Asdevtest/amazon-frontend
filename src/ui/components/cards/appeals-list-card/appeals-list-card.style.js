@@ -42,14 +42,14 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   cardDescription: {
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginTop: '10px',
     height: '57px',
   },
@@ -70,7 +70,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 
@@ -152,7 +152,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   timeOnReview: {

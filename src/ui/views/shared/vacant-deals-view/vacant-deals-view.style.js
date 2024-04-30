@@ -16,7 +16,7 @@ export const styles = theme => ({
 
   emptyTableText: {
     marginTop: '30px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   tablePanelWrapper: {

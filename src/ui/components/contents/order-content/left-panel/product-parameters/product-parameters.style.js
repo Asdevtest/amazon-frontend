@@ -33,11 +33,11 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
   barcodeChipExists: {
-    backgroundcolor: theme.palette.text.primary,
+    backgroundcolor: theme.palette.text.general,
   },
 
   text: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: 600,
     lineHeight: '19px',
@@ -54,11 +54,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartText: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   fieldLabel: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',

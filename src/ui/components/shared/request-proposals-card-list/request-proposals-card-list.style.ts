@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   proposalAndChatWrapper: {
@@ -46,6 +46,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '24px',
     lineHeight: '28px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 }))

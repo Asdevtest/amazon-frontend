@@ -12,14 +12,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   title: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   text: {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   link: {

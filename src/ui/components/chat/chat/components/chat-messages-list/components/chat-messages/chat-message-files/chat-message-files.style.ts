@@ -38,7 +38,7 @@ export const useStyles = makeStyles()(theme => ({
     p: {
       fontSize: 14,
       lineHeight: '19px',
-      color: theme.palette.text.primary,
+      color: theme.palette.text.general,
     },
   },
 
@@ -52,6 +52,6 @@ export const useStyles = makeStyles()(theme => ({
   fileSize: {
     fontSize: 12,
     lineHeight: '16px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

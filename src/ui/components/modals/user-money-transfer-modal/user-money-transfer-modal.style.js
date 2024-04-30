@@ -17,11 +17,11 @@ export const useStyles = makeStyles()(theme => ({
 
   title: {
     fontSize: '24px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   text: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   button: {

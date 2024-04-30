@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
   labelText: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     whiteSpace: 'nowrap',
   },
 
@@ -28,6 +28,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   grayLabelText: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

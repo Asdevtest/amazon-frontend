@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   nameWrapper: {
@@ -31,7 +31,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
 
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     marginBottom: '5px !important',
   },
@@ -97,7 +97,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 16,
     lineHeight: '22px',
 
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   customItemsWrapper: {
@@ -129,7 +129,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
 
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   currentRateText: {
@@ -137,7 +137,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 16,
     lineHeight: '22px',
 
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   rateFieldInput: {
@@ -155,7 +155,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   regionsWrapper: {
@@ -285,7 +285,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelBtn: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     padding: '0 35px',
   },
 

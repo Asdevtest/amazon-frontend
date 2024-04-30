@@ -21,7 +21,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   categoryTitle: {
@@ -31,7 +31,7 @@ export const useStyles = makeStyles()(theme => ({
     flex: 1,
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   categoresWrapper: {
@@ -76,6 +76,6 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

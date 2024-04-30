@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     whiteSpace: 'nowrap',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     margin: '0 !important',
   },
 

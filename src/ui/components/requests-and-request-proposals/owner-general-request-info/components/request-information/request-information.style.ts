@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
   sectionTitle: {
     fontSize: 14,
     fontWeight: 400,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   priorityIcon: {
@@ -57,13 +57,13 @@ export const useStyles = makeStyles()(theme => ({
   sectionSubTitle: {
     fontSize: 12,
     fontWeight: 400,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   sectionText: {
     fontSize: 14,
     fontWeight: 400,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     display: '-webkit-box',
     WebkitLineClamp: 2,

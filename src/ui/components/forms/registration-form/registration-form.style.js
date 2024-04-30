@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
 
   visibilityIcon: {
     cursor: 'pointer',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   inputAdornment: {
@@ -55,7 +55,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   validationHiddenMessage: {
@@ -68,7 +68,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   input: {
@@ -84,7 +84,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   label: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   link: {
@@ -100,7 +100,7 @@ export const useStyles = makeStyles()(theme => ({
   },
   labelField: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     lineHeight: '19px',
   },
   button: {

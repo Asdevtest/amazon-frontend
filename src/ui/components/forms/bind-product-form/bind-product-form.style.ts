@@ -60,6 +60,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   canselButton: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 }))

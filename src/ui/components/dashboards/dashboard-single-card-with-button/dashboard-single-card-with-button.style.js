@@ -28,16 +28,16 @@ export const useStyles = makeStyles()(theme => ({
   cardTitleWrapperHorizontal: { gap: '38px' },
   cardTitle: {
     width: '111px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
   cardListTitle: {
     fontSize: '18px',
     lineHeight: '27px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontWeight: 600,
   },
   cardListSubTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: '14px',
     lineHeight: '19px',
     marginBottom: '10px',
@@ -50,7 +50,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 700,
     fontSize: '32px',
     lineHeight: '44px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     textAlign: 'end',
   },
 }))

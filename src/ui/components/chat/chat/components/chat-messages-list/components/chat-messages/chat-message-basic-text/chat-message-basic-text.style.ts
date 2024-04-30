@@ -74,7 +74,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     wordWrap: 'break-word',
     whiteSpace: 'pre-wrap',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     [theme.breakpoints.down(768)]: {
       minWidth: 80,
@@ -97,7 +97,7 @@ export const useStyles = makeStyles()(theme => ({
   timeText: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     [theme.breakpoints.down(768)]: {
       fontSize: 12,
@@ -118,6 +118,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   noReadIcon: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

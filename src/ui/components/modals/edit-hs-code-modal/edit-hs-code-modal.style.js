@@ -23,7 +23,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     marginBottom: 5,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   nameField: {

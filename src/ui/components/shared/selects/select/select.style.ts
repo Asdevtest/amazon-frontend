@@ -55,7 +55,7 @@ export const useStyles = makeStyles()(theme => ({
   text: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     maxWidth: '80%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -140,7 +140,7 @@ export const useStyles = makeStyles()(theme => ({
     maxWidth: 190,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     wordBreak: 'break-all',
     overflow: 'hidden',
     display: '-webkit-box',

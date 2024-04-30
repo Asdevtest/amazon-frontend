@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   viewCart: {
     width: '20px !important',
     height: '20px !important',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   viewCartSelected: {

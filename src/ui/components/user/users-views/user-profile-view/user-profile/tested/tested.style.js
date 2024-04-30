@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   text: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginBottom: '20px',
   },
   checkedStrategyRow: {
@@ -31,6 +31,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   miss: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

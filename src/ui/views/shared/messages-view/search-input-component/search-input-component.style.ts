@@ -43,7 +43,7 @@ export const useStyles = makeStyles()(theme => ({
 
   searchResult: {
     width: 140,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     [theme.breakpoints.down(1024)]: {
       fontSize: 12,

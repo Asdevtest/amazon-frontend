@@ -18,7 +18,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   cardDescription: {
@@ -58,7 +58,7 @@ export const useStyles = makeStyles()(theme => ({
   detailTitle: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   detailDescription: {

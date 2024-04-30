@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     padding: '48px',
     background: theme.palette.background.entryLeftPanel,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     [theme.breakpoints.down(768)]: {
       background: theme.palette.background.general,
       flex: '0 0 20%',
@@ -38,7 +38,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '110%',
     [theme.breakpoints.down(768)]: {
       fontSize: '18px',
-      color: theme.palette.text.primary,
+      color: theme.palette.text.general,
       marginTop: '10px',
     },
   },
@@ -47,7 +47,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     [theme.breakpoints.down(768)]: {
       fontSize: '12px',
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.second,
     },
   },
   footer: {

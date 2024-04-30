@@ -5,13 +5,13 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   chartLabel: {
     fontSize: '16px',
     lineHeight: '22px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   error: {
@@ -133,7 +133,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     whiteSpace: 'nowrap',
 
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   totalContainer: {
@@ -148,7 +148,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 18,
 
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   profitWrapper: {

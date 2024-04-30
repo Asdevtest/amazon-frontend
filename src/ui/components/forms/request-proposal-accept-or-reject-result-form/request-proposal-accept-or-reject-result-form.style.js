@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginBottom: '30px',
   },
 
@@ -31,7 +31,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelSubmit: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   heightFieldAuto: {

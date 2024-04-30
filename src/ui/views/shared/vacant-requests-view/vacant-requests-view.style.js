@@ -56,7 +56,7 @@ export const useStyles = makeStyles()(theme => ({
 
   emptyTableText: {
     fontSize: 25,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   deadlineBorder: {

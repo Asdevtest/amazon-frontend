@@ -13,17 +13,17 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       fontWeight: '600',
       fontSize: '16px',
       lineHeight: '22px',
-      color: theme.palette.text.primary,
+      color: theme.palette.text.general,
     },
   },
 
   subTitle: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   boxCounterWrapper: {
@@ -35,14 +35,14 @@ export const useStyles = makeStyles()(theme => ({
   boxCounterText: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   boxCounterCount: {
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   tableWrapper: {
@@ -52,7 +52,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   chosenGoodsTitle: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   btnsWrapper: {
@@ -69,7 +69,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelBtn: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       width: '120px',
     },
@@ -170,6 +170,6 @@ export const useStyles = makeStyles()(theme => ({
 
   volumeWeightDivider: {
     margin: '0 40px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

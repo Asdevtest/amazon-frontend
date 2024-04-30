@@ -33,13 +33,13 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   label: {
     fontSize: '14px',
     fontWeight: 400,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     margin: '0 !important',
   },
 

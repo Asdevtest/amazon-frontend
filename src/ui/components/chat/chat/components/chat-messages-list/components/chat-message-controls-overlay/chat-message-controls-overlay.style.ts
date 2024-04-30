@@ -37,7 +37,7 @@ export const useStyles = makeStyles()(theme => ({
     button: {
       all: 'unset',
       cursor: 'pointer',
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.second,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -91,7 +91,7 @@ export const useStyles = makeStyles()(theme => ({
   additionalControlsBtn: {
     all: 'unset',
     cursor: 'pointer',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     display: 'flex',
     alignItems: 'center',
     gap: 5,

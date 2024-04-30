@@ -26,7 +26,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 16,
@@ -42,7 +42,7 @@ export const useStyles = makeStyles()(theme => ({
   timeText: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 12,
@@ -125,7 +125,7 @@ export const useStyles = makeStyles()(theme => ({
   /* conditionsField: {
     border: 'none',
     resize: 'none',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: 18,
     fontFamily: 'inherit',
     width: '305px',

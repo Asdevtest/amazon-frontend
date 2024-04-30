@@ -33,7 +33,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: 10,
   },
   leftToRedistribute: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginRight: 5,
   },
 
@@ -74,7 +74,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '30px',
     lineHeight: '40px',
     fontWeight: '600',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginRight: 20,
   },
 
@@ -123,7 +123,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   leftToRedistributeCount: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontSize: 18,
   },
 
@@ -132,7 +132,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '0 25px',
   },
   cancelButton: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     backgroundColor: theme.palette.background.general,
   },
 
@@ -145,11 +145,11 @@ export const useStyles = makeStyles()(theme => ({
   asinTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 }))

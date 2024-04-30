@@ -11,7 +11,7 @@ export const styles = theme => ({
   fieldLabel: {
     fontSize: 18,
     fontWeight: 600,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   selectorWrapper: {
@@ -47,7 +47,7 @@ export const styles = theme => ({
   },
 
   technicalWorkNoticeAttention: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     fontSize: 16,
     fontWeight: 600,

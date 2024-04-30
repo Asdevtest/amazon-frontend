@@ -44,6 +44,6 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

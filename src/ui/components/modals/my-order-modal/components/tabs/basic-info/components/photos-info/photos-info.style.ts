@@ -34,7 +34,7 @@ export const useStyles = makeStyles()(theme => ({
   fieldText: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     '&:hover': {
       opacity: 1,

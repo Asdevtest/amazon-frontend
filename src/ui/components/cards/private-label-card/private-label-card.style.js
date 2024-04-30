@@ -43,7 +43,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '4px 0px',
   },
   text: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '20px',

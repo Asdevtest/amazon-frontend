@@ -255,18 +255,13 @@ export const lightTheme = createTheme({
     },
 
     text: {
-      primary: '#001029',
-      negativePrimary: '#fff',
-
-      secondary: '#656565',
-
+      general: '#001029',
+      second: '#656565',
       gray: '#C4C4C4',
       red: '#FF1616',
+      negativeMain: '#fff',
       green: '#00B746',
-
       customSwitcher: '#001029',
-
-      disabled: '#fff',
     },
 
     button: {
@@ -720,18 +715,17 @@ export const darkTheme = createTheme({
     },
 
     text: {
-      primary: '#fff',
-      negativePrimary: '#001029',
-
-      secondary: '#E1E1E1',
-
+      general: '#fff',
+      second: '#E1E1E1',
       gray: 'gray',
       red: '#FF1616',
+      negativeMain: '#001029',
       green: '#00B746',
-
       customSwitcher: '#5C6A7A',
 
       disabled: '#001029',
+      primary: '#fff',
+      secondary: 'rgba(255, 255, 255, 0.7)',
     },
 
     button: {

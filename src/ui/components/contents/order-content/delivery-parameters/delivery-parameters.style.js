@@ -49,7 +49,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginBottom: 5,
   },
 

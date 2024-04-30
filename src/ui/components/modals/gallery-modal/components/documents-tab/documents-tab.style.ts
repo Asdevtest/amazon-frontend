@@ -70,7 +70,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   downloadIcon: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   noDocuments: {

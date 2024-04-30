@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
   textField: {
     width: 410,
     height: 40,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     outline: 'none',
     border: '1px solid var(--light-thin-lines, #E0E0E0)',
     borderRadius: 4,
@@ -28,7 +28,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     marginBottom: 10,
     fontSize: 14,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   proxyContent: {
@@ -75,7 +75,7 @@ export const useStyles = makeStyles()(theme => ({
 
   deleteProxy: {
     margin: 2,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     cursor: 'pointer',
     transition: '0.3s ease',
 

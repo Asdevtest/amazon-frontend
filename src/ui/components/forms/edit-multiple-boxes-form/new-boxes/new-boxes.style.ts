@@ -7,13 +7,13 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginBottom: '10px',
     justifyContent: 'space-between',
   },
 
   sectionTitle: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontSize: '18px',
     lineHeight: '140%',
   },

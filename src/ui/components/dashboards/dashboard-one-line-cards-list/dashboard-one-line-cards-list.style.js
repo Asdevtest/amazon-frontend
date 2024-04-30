@@ -48,12 +48,12 @@ export const useStyles = makeStyles()(theme => ({
   cardTitle: {
     fontSize: '18px',
     lineHeight: '25px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontWeight: 600,
   },
 
   cardSubTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: '14px',
     lineHeight: '19px',
   },
@@ -68,6 +68,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 700,
     fontSize: '32px',
     lineHeight: '44px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 }))

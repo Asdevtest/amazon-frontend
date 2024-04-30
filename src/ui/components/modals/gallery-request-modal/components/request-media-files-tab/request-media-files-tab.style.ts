@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
 
   title: {
     marginBottom: 10,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     textTransform: 'capitalize',
   },
 

@@ -45,7 +45,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   resetBtn: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   tableWrapper: {

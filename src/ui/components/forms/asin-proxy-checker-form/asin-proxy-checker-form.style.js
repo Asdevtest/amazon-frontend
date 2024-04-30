@@ -19,11 +19,11 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   standartText: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   modalFieldsWrapper: {
@@ -41,7 +41,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: '400',
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   commentContainer: {
@@ -57,7 +57,7 @@ export const useStyles = makeStyles()(theme => ({
   tableSearchTitle: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   searchInput: {
@@ -79,7 +79,7 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonCancel: {
     padding: '10px 25px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     background: theme.palette.background.general,
   },
 

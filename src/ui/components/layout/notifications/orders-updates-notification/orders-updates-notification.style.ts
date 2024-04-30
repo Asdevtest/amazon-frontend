@@ -38,7 +38,7 @@ export const useOrdersUpdatesNotificationStyle = makeStyles()(theme => ({
     gap: '5px',
   },
   listTitle: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: '400',
     paddingBottom: '10px',
@@ -53,10 +53,10 @@ export const useOrdersUpdatesNotificationStyle = makeStyles()(theme => ({
     gap: '10px',
 
     div: {
-      color: theme.palette.text.primary,
+      color: theme.palette.text.general,
 
       span: {
-        color: theme.palette.text.secondary,
+        color: theme.palette.text.second,
       },
     },
   },
@@ -71,6 +71,6 @@ export const useOrdersUpdatesNotificationStyle = makeStyles()(theme => ({
     fontSize: 12,
     marginRight: '-20px',
     marginTop: '-18px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

@@ -20,14 +20,14 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '25px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   label: {
     marginBottom: 5,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   menuList: {
@@ -59,7 +59,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelButton: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   isFocusedOption: {

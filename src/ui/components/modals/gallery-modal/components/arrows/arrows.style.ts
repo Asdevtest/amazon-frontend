@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 16,
     lineHeight: '22px',
     fontWeight: 500,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   iconButton: {
@@ -44,7 +44,7 @@ export const useStyles = makeStyles()(theme => ({
 
   icon: {
     path: {
-      stroke: theme.palette.text.secondary,
+      stroke: theme.palette.text.second,
     },
   },
 }))

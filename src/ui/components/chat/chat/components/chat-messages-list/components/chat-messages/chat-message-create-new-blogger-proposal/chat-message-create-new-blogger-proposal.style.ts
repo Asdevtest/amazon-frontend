@@ -58,13 +58,13 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 600,
     textTransform: 'uppercase',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   timeText: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 12,
@@ -86,7 +86,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 12,
@@ -100,14 +100,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   idTitle: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   descriptionText: {
     width: '100%',
     maxHeight: 150,
     overflow: 'auto',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     wordBreak: 'break-word',
     whiteSpace: 'pre-line',
 
@@ -166,19 +166,19 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     whiteSpace: 'nowrap',
   },
 
   requestPriceText: {
-    color: theme.palette.text.negativePrimary,
+    color: theme.palette.text.negativeMain,
   },
 
   fieldLabel: {
     marginBottom: 10,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   divider: {

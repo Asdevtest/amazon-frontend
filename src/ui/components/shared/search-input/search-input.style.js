@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   closeIcon: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     cursor: 'pointer',
     transition: '.3s ease',
 

@@ -23,7 +23,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   titleText: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   searchInputWrapper: {
@@ -64,7 +64,7 @@ export const useStyles = makeStyles()(theme => ({
 
       '& p': {
         textAlign: 'left ',
-        color: theme.palette.text.primary,
+        color: theme.palette.text.general,
         fontFamily: 'Manrope,sans-serif',
         fontWeight: 400,
         fontSize: 16,

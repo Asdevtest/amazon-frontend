@@ -23,7 +23,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   text: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   tableWrapper: {

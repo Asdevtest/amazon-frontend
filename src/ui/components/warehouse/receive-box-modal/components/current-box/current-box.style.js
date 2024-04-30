@@ -43,7 +43,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     width: 260,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     [theme.breakpoints.down(1282)]: {
       width: '100%',
@@ -69,14 +69,14 @@ export const useStyles = makeStyles()(theme => ({
   qtyTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   qtySubTitle: {
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 600,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   currentBoxesWrapper: {
@@ -103,7 +103,7 @@ export const useStyles = makeStyles()(theme => ({
 
   categoryTitle: {
     fontWeight: 600,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     [theme.breakpoints.down(1282)]: {
       width: 'fit-content',
@@ -113,7 +113,7 @@ export const useStyles = makeStyles()(theme => ({
   footerTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     [theme.breakpoints.down(1282)]: {
       width: 'fit-content',
@@ -132,6 +132,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   arrowIconDisable: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

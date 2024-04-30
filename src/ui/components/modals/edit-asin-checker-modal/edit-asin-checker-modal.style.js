@@ -23,14 +23,14 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   commentLabelText: {
     fontSize: '14px',
     fontWeight: '400',
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   heightFieldAuto: {
@@ -48,7 +48,7 @@ export const useStyles = makeStyles()(theme => ({
   buttonCancel: {
     padding: '8px 36px',
     backgroundColor: theme.palette.background.general,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'rgba(231, 231, 231, 0.801)',
     },

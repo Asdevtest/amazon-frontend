@@ -31,7 +31,7 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
   barcodeChipExists: {
-    backgroundcolor: theme.palette.text.primary,
+    backgroundcolor: theme.palette.text.general,
   },
   amountCell: {
     width: '90px',
@@ -71,11 +71,11 @@ export const useStyles = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     width: '100%',
     marginBottom: '5px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   standartText: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   button: {
@@ -144,7 +144,7 @@ export const useStyles = makeStyles()(theme => ({
 
   labelField: {
     fontSize: '14px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     lineHeight: '17px',
     fontWeight: '600',
     marginRight: '10px',
@@ -153,7 +153,7 @@ export const useStyles = makeStyles()(theme => ({
 
   sumText: {
     fontSize: '14px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     lineHeight: '16px',
     fontWeight: '400',
     whiteSpace: 'nowrap',
@@ -184,7 +184,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     height: '100%',
     margin: 'auto',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontSize: '12px',
   },
 

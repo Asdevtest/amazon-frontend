@@ -16,13 +16,13 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '30px',
     lineHeight: '41px',
     fontWeight: 600,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
       fontWeight: 600,
-      color: theme.palette.text.primary,
+      color: theme.palette.text.general,
       marginBottom: '27px',
     },
   },
@@ -99,7 +99,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelButton: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   noImageText: {

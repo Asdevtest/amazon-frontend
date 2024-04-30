@@ -21,14 +21,14 @@ export const useStyles = makeStyles()(theme => ({
   attachFiles: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   uploadButton: {
     position: 'relative',
     width: '100%',
     height: 80,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     background: theme.palette.background.second,
     border: `2px dashed ${theme.palette.primary.main}`,
     borderRadius: 20,

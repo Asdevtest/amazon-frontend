@@ -25,7 +25,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   subTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
   field: {
     flexBasis: '100%',
@@ -103,6 +103,6 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
 
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

@@ -66,7 +66,7 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
   cancelBtn: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   leftSideWrapper: {
@@ -116,7 +116,7 @@ export const useStyles = makeStyles()(theme => ({
       transform: 'scale(1.01)',
     },
 
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       border: 'none',
       margin: 0,
@@ -124,11 +124,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartText: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   rightSideTitle: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   permissionGroupsToSelectCheckboxWrapper: {
@@ -195,7 +195,7 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       background: 'none',
       fontSize: '16px',
-      color: theme.palette.text.primary,
+      color: theme.palette.text.general,
       fontWeight: 600,
     },
   },
@@ -216,7 +216,7 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontWeight: 600,
 
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   permGroupWrapper: {
@@ -251,7 +251,7 @@ export const useStyles = makeStyles()(theme => ({
     p: {
       fontSize: '14px',
       fontWeight: 400,
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.second,
     },
   },
 

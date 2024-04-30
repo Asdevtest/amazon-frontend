@@ -40,7 +40,7 @@ export const useStyles = makeStyles()(theme => ({
   timeText: {
     fontSize: '14px',
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   messageContent: {

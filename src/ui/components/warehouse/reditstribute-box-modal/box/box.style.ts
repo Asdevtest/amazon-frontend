@@ -33,7 +33,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '19px',
     width: '299px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   orderInput: {
@@ -45,12 +45,12 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 5,
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   subTitle: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginRight: theme.spacing(1),
   },
 
@@ -75,7 +75,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   storekeeperBtnColored: {
-    color: theme.palette.text.negativePrimary,
+    color: theme.palette.text.negativeMain,
   },
 
   storekeeperDisableBtn: {
@@ -100,7 +100,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   miss: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   barcodeChip: {
@@ -131,7 +131,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   barcodeChipExists: {
-    backgroundcolor: theme.palette.text.primary,
+    backgroundcolor: theme.palette.text.general,
   },
 
   currentBoxFooter: {
@@ -141,7 +141,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   footerTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   bottomBlockWrapper: {
@@ -150,7 +150,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   deleteBtn: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   incomingBtnWrapper: {

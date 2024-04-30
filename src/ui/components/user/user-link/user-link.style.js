@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   blackLinkText: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '600',

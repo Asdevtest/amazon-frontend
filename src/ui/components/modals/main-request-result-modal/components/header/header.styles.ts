@@ -43,6 +43,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   textSecond: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

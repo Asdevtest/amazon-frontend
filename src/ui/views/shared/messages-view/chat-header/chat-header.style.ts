@@ -119,7 +119,7 @@ export const useStyles = makeStyles()(theme => ({
     maxWidth: 200,
     fontSize: 18,
     fontWeight: 600,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -137,7 +137,7 @@ export const useStyles = makeStyles()(theme => ({
 
   usersCount: {
     fontSize: 14,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     [theme.breakpoints.down(1024)]: {
       display: 'none',

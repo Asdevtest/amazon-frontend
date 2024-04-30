@@ -45,7 +45,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   noOptionText: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   filterItemsWrapper: {

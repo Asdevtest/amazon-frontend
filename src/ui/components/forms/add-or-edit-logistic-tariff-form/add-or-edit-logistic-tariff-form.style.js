@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalTitle: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
@@ -27,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalSubTitle: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
@@ -41,7 +41,7 @@ export const useStyles = makeStyles()(theme => ({
 
   cancelBtn: {
     marginLeft: '10px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
   multiline: {
     width: '100%',
@@ -57,7 +57,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartText: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   form: {
@@ -118,7 +118,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     whiteSpace: 'nowrap',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
       lineHeight: '19px',
@@ -189,7 +189,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',

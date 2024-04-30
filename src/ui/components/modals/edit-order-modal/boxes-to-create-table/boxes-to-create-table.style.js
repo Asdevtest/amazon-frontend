@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     objectPosition: 'center',
   },
   sectionTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: '20px',
     marginBottom: '10px',
     marginTop: '10px',
@@ -102,7 +102,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   labelWrapper: {

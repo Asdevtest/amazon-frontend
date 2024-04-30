@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
   batchTrackingTitle: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     margin: '0 !important',
   },
 }))

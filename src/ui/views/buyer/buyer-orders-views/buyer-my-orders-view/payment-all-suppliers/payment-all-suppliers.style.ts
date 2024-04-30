@@ -14,7 +14,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '140%',
     whiteSpace: 'nowrap',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   totalPriceTextWrapper: {

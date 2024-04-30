@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 15,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   fieldContainer: {

@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginBottom: 10,
   },
 
@@ -79,7 +79,7 @@ export const useStyles = makeStyles()(theme => ({
   deleteBtn: {
     width: '20px !important',
     height: '20px !important',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     cursor: 'pointer',
   },
 
@@ -98,6 +98,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelButton: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 }))

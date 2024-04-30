@@ -63,7 +63,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   price: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     fontWeight: 600,
     fontSize: 14,
@@ -75,7 +75,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 12,
     lineHeight: '16px',
 
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
   blockInfoCellText: {
     fontWeight: 600,
@@ -106,7 +106,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   titleAndCounterkWrapper: {

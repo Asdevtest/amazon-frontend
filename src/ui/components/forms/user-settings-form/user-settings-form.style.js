@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
   textField: {
     width: '100%',
     minHeight: '60px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     padding: '8px',
     fontSize: '16px',
     outline: 'none',

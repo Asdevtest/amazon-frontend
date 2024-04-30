@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalText: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
@@ -25,18 +25,18 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     overflow: 'auto',
     height: 152,
   },
 
   label: {
     fontSize: 14,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   date: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   buttonsWrapper: {
@@ -46,6 +46,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   closeBtn: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 }))

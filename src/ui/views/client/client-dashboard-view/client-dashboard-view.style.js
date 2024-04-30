@@ -48,7 +48,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   withdrawBtn: {
-    color: `${theme.palette.text.primary} !important`,
+    color: `${theme.palette.text.general} !important`,
   },
 
   masterUserWrapper: {

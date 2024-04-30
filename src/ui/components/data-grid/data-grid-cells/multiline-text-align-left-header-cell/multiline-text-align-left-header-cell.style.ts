@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     height: '100%',
   },
 }))

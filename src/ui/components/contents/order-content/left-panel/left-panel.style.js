@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   product: {
@@ -30,7 +30,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   text: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '16px',

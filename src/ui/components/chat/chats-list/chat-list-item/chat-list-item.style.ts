@@ -50,7 +50,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '25px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     maxWidth: 140,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -73,7 +73,7 @@ export const useStyles = makeStyles()(theme => ({
 
   messageDate: {
     fontSize: 12,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   lastMessageWrapper: {
@@ -107,7 +107,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     fontWeight: 600,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -118,7 +118,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     flex: 1,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     wordWrap: 'break-word',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -154,7 +154,7 @@ export const useStyles = makeStyles()(theme => ({
   noReadIcon: {
     width: '18px !important',
     height: '18px !important',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   badgeWrapper: {
@@ -169,7 +169,7 @@ export const useStyles = makeStyles()(theme => ({
     color: '#AEAEAE',
     // '&:hover': {
     //   cursor: 'pointer',
-    //   color: theme.palette.text.secondary,
+    //   color: theme.palette.text.second,
     // },
   },
 }))

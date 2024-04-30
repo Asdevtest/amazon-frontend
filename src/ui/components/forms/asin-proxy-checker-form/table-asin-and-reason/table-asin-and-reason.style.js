@@ -4,11 +4,11 @@ export const useStyles = makeStyles()(theme => ({
   table: {
     '& td': {
       flexShrink: 0,
-      color: theme.palette.text.primary,
+      color: theme.palette.text.general,
       borderBottom: 'none',
     },
     '& th': {
-      color: theme.palette.text.primary,
+      color: theme.palette.text.general,
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',

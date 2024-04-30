@@ -20,21 +20,21 @@ export const useStyles = makeStyles()(theme => ({
     marginLeft: 15,
   },
   headerText: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   titleWrapper: {
     marginTop: 10,
   },
   titleText: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   descriptionWrapper: {
     marginTop: 10,
   },
   descriptionText: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   otherInfoWrapper: {

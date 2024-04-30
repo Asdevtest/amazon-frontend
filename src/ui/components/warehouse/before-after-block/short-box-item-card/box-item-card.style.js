@@ -36,7 +36,7 @@ export const useStyles = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     overflowY: 'auto',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -47,24 +47,24 @@ export const useStyles = makeStyles()(theme => ({
 
   subTitle: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     lineHeight: '19px',
   },
   asin: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     lineHeight: '19px',
   },
 
   count: {
     fontSize: '16px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     lineHeight: '19px',
     fontWeight: 600,
   },
   asinTitle: {
     fontSize: '14px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     lineHeight: '19px',
     fontWeight: 600,
   },

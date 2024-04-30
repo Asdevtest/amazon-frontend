@@ -30,11 +30,11 @@ export const useStyles = makeStyles()(theme => ({
   cardListTitle: {
     fontSize: '18px',
     lineHeight: '27px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontWeight: 600,
   },
   cardListSubTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: '14px',
     lineHeight: '19px',
     marginBottom: '10px',
@@ -43,11 +43,11 @@ export const useStyles = makeStyles()(theme => ({
   cardValueTitle: {
     fontSize: '24px',
     lineHeight: '33px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     fontWeight: 700,
   },
 
   cardSubTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 }))

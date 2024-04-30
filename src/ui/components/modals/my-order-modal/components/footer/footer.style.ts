@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
     height: '20px !important',
 
     path: {
-      stroke: theme.palette.text.secondary,
+      stroke: theme.palette.text.second,
     },
   },
 

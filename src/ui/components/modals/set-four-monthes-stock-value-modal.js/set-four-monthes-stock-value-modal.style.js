@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '0 40px',
   },
   modalTitle: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     fontSize: '18px',
     fontWeight: 600,
@@ -27,11 +27,11 @@ export const useStyles = makeStyles()(theme => ({
   closeBtn: {
     width: '123px',
     height: '40px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   standartText: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
   error: {
     color: 'red',

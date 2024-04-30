@@ -27,11 +27,11 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
   darkIcon: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   disabledSelectedItemName: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   mainWrapper: {
@@ -104,7 +104,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
@@ -148,7 +148,7 @@ export const useStyles = makeStyles()(theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   selectedItemName: {
@@ -159,7 +159,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
   },
   blackSelectedItem: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   submitWrapper: {

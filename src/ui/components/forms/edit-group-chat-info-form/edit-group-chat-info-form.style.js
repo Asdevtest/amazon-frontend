@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '25px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     [theme.breakpoints.down(768)]: {
       fontSize: 16,
@@ -31,7 +31,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 5,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
 
     [theme.breakpoints.down(768)]: {
       fontSize: 12,
@@ -74,7 +74,7 @@ export const useStyles = makeStyles()(theme => ({
   textsWrapper: {},
 
   standartText: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     [theme.breakpoints.down(768)]: {
       fontSize: 14,
@@ -100,6 +100,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelBtn: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 }))

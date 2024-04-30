@@ -28,13 +28,13 @@ export const useStyles = makeStyles()(theme => ({
   updatedText: {
     fontSize: 16,
     lineHeight: '22px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   updatedTitle: {
     fontSize: 16,
     lineHeight: '22px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   subHeader: {
@@ -75,7 +75,7 @@ export const useStyles = makeStyles()(theme => ({
   shopName: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   shopValue: {
@@ -105,14 +105,14 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 12,
     lineHeight: '16px',
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   fieldValue: {
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 500,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     cursor: 'text',
   },
 

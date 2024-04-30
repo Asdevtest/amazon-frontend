@@ -35,7 +35,7 @@ export const useStyles = makeStyles()(theme => ({
   chipStock: {
     width: '100%',
     minWidth: '125px',
-    backgroundcolor: theme.palette.text.primary,
+    backgroundcolor: theme.palette.text.general,
   },
 
   barcodeChipNoExists: {

@@ -2,13 +2,13 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   text: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
   },
   title: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   infoRow: {
@@ -20,11 +20,11 @@ export const useStyles = makeStyles()(theme => ({
   },
   typoLabel: {
     marginRight: '16px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
   typoValue: {
     fontWeight: 600,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
   paper: {
     width: '470px',

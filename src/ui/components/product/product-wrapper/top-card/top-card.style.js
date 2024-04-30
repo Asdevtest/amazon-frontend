@@ -57,13 +57,13 @@ export const useStyles = makeStyles()(theme => ({
   variationText: {
     fontSize: '16px',
     fontWeight: 600,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   variationIcon: {
     width: '24px !important',
     height: '24px !important',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   parentVariation: {

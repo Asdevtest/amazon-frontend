@@ -10,7 +10,7 @@ export const useStyles = makeStyles()(theme => ({
 
   title: {
     margin: 0,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: 14,
     lineHeight: '19px',
   },

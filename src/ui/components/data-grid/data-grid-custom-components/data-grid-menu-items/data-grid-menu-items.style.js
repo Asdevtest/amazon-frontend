@@ -66,11 +66,11 @@ export const styles = theme => ({
     fontSize: 16,
     lineHeight: '22px',
     fontWeight: 400,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   noOptionText: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     padding: '10px 0',
   },
 
@@ -105,7 +105,7 @@ export const styles = theme => ({
   },
 
   cancelBtn: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
   radioGroup: {
     display: 'flex',
@@ -114,7 +114,7 @@ export const styles = theme => ({
   radioGroupTwoItems: {
     display: 'flex',
     gap: 20,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     maxHeight: 200,
     overflowY: 'auto',
   },
@@ -127,14 +127,14 @@ export const styles = theme => ({
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
   radioOption: {
     display: 'flex',
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
 
     margin: 0,
     gap: 5,
@@ -231,7 +231,7 @@ export const styles = theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginRight: 10,
   },
 
@@ -246,7 +246,7 @@ export const styles = theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     textTransform: 'capitalize',
   },
 

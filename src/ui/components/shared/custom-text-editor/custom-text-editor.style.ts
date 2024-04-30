@@ -54,7 +54,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
 
     button: {
-      color: theme.palette.text.primary,
+      color: theme.palette.text.general,
     },
 
     '.MuiIconButton-colorPrimary': {

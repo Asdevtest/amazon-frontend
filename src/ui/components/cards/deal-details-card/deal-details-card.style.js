@@ -54,7 +54,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     overflow: 'auto',
     height: 57,
   },
@@ -63,7 +63,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginTop: '10px',
     height: '57px',
     overflow: 'auto',
@@ -84,7 +84,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 
@@ -163,14 +163,14 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   resultDescription: {
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
     height: '125px',
     maxWidth: '758px',
     overflow: 'auto',
@@ -193,14 +193,14 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   timeOnReview: {
     padding: '8px 16px 8px 56px',
     backgroundColor: theme.palette.background.green,
 
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   sumAndTimeWrapper: {
@@ -213,10 +213,10 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 
   text: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.general,
   },
 }))
