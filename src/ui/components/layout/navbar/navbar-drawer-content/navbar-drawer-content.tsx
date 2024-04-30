@@ -1,6 +1,6 @@
 import { FC, Fragment, memo, useEffect, useState } from 'react'
 
-import { List, Typography } from '@mui/material'
+import { List } from '@mui/material'
 
 import { appVersion } from '@constants/app-version'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -85,7 +85,6 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
             <Fragment key={index}>
               <NavbarCategory
                 // @ts-ignore
-                classes=""
                 isSelected={category.key === activeCategory}
                 shortNavbar={shortNavbar}
                 userInfo={userInfo}
@@ -112,17 +111,15 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
       <div className={styles.bottomCategories}>
         {filteredBottomCategories.map((category: NavbarConfigTypes.Route, index: number) =>
           category.checkHideBlock(userInfo) ? (
-            <Fragment key={index}>
-              <NavbarCategory
-                // @ts-ignore
-                classes=""
-                shortNavbar={shortNavbar}
-                isSelected={category.key === activeCategory}
-                userInfo={userInfo}
-                category={category}
-                badge={category.route?.includes('/messages') && unreadMessages}
-              />
-            </Fragment>
+            <NavbarCategory
+              key={index}
+              // @ts-ignore
+              shortNavbar={shortNavbar}
+              isSelected={category.key === activeCategory}
+              userInfo={userInfo}
+              category={category}
+              badge={category.route?.includes('/messages') && unreadMessages}
+            />
           ) : null,
         )}
 
@@ -131,7 +128,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
             className={cx(styles.feedBackButton, { [styles.shortFeedBackButton]: shortNavbar })}
             onClick={() => onTriggerOpenModal('showFeedbackModal')}
           >
-            {!shortNavbar && <Typography className={styles.feedBackText}>{t(TranslationKey.Feedback)}</Typography>}
+            {!shortNavbar && <p>{t(TranslationKey.Feedback)}</p>}
             <Feedback className={styles.feedbackIcon} />
           </div>
         ) : null}

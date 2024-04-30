@@ -191,6 +191,7 @@ export const useStyles = makeStyles()(theme => ({
 
   notificationIcon: {
     cursor: 'pointer',
+    color: theme.palette.text.general,
 
     [theme.breakpoints.down(768)]: {
       display: 'none !important',

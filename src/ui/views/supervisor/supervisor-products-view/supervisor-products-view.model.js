@@ -7,8 +7,6 @@ import { SettingsModel } from '@models/settings-model'
 import { SupervisorModel } from '@models/supervisor-model'
 import { UserModel } from '@models/user-model'
 
-import { supervisorProductsViewColumns } from '@components/table/table-columns/supervisor/supervisor-products-columns'
-
 import { supervisorProductsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
@@ -16,6 +14,7 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
+import { supervisorProductsViewColumns } from './supervisor-products-columns'
 import { filtersFields } from './supervisor-products-view.constants'
 
 export class SupervisorProductsViewModel {

@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     flexWrap: 'wrap',
     gap: 5,
-    backgroundColor: theme.palette.customSwitcher.background,
+    backgroundColor: theme.palette.background.general,
     borderRadius: '21px',
     width: 'fit-content',
   },
@@ -18,7 +18,7 @@ export const useStyles = makeStyles()(theme => ({
 
   headerStylesSwitcherWrapper: {
     borderRadius: '24px',
-    backgroundColor: theme.palette.customSwitcher.headerBackground,
+    backgroundColor: theme.palette.background.third,
   },
 
   mediumGapWrapper: {
@@ -57,12 +57,11 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     whiteSpace: 'nowrap',
     transition: 'all .3s ease',
-    color: theme.palette.customSwitcher.text,
+    color: theme.palette.text.customSwitcher,
     borderRadius: '21px',
 
-    '&:active': {
-      color: theme.palette.customSwitcher.text,
-      backgroundColor: theme.palette.customSwitcher.headerBackground,
+    '&:hover': {
+      backgroundColor: theme.palette.background.second,
     },
   },
 
@@ -73,15 +72,9 @@ export const useStyles = makeStyles()(theme => ({
 
   activeOption: {
     cursor: 'unset',
-    fontWeight: 600,
     transition: 'all .3s ease',
-    color: theme.palette.customSwitcher.activeText,
-    backgroundColor: theme.palette.customSwitcher.indicator,
-
-    '&:hover': {
-      color: theme.palette.customSwitcher.activeText,
-      backgroundColor: theme.palette.customSwitcher.indicator,
-    },
+    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.background.second,
   },
 
   bigOptionStyles: {
