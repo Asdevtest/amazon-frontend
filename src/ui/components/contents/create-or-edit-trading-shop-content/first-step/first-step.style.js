@@ -72,6 +72,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
+    color: theme.palette.text.primary,
   },
 
   dateAndTimeWrapper: {
@@ -141,6 +142,8 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     width: '280px',
+
+    color: theme.palette.text.primary,
   },
 
   actionDelButton: {

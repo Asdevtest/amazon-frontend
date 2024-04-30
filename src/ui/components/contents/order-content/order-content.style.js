@@ -28,10 +28,13 @@ export const useStyles = makeStyles()(theme => ({
     gap: 100,
   },
 
-  orderTitle: {},
+  orderTitle: {
+    color: theme.palette.text.primary,
+  },
 
   orderText: {
     fontWeight: 600,
+    color: theme.palette.text.primary,
   },
 
   field: {
@@ -69,5 +72,6 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: 16,
     lineHeight: '19px',
+    color: theme.palette.text.primary,
   },
 }))

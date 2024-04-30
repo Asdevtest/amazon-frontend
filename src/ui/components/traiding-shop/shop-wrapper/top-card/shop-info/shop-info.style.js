@@ -30,12 +30,14 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
+    color: theme.palette.text.primary,
   },
 
   shortInfoValue: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
+    color: theme.palette.text.primary,
   },
 
   shortInfoLabel: {
@@ -96,7 +98,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-
+    color: theme.palette.text.primary,
     marginBottom: '5px',
   },
 
@@ -104,7 +106,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-
+    color: theme.palette.text.primary,
     marginBottom: '20px',
   },
 }))

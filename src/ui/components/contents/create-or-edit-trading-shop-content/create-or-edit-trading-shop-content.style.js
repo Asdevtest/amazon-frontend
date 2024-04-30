@@ -16,6 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '34px',
     lineHeight: '40px',
+    color: theme.palette.text.primary,
   },
 
   headerWrapper: {
@@ -33,7 +34,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-
+    color: theme.palette.text.primary,
     marginTop: '30px',
     // width: '373px',
   },
@@ -54,6 +55,8 @@ export const useStyles = makeStyles()(theme => ({
   backBtn: {
     width: '211px',
     height: '42px',
+
+    color: theme.palette.text.primary,
   },
 
   successBtn: {

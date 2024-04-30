@@ -40,7 +40,9 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
-  addressMain: {},
+  addressMain: {
+    color: theme.palette.text.primary,
+  },
 
   address: {
     color: theme.palette.text.secondary,

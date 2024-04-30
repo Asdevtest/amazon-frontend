@@ -52,6 +52,7 @@ export const useStyles = makeStyles()(theme => ({
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
+    color: theme.palette.text.primary,
   },
 
   title: {
@@ -66,6 +67,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'normal',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    color: theme.palette.text.primary,
   },
 
   label: {

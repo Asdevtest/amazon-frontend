@@ -120,6 +120,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '400',
     lineHeight: '140%',
+    color: theme.palette.text.primary,
   },
 
   reviews: {
@@ -130,5 +131,7 @@ export const useStyles = makeStyles()(theme => ({
     cursor: 'pointer',
   },
 
-  standartText: {},
+  standartText: {
+    color: theme.palette.text.primary,
+  },
 }))

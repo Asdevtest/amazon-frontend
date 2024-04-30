@@ -13,15 +13,18 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       fontWeight: '600',
       fontSize: '16px',
       lineHeight: '22px',
+      color: theme.palette.text.primary,
     },
   },
 
-  subTitle: {},
+  subTitle: {
+    color: theme.palette.text.primary,
+  },
 
   boxCounterWrapper: {
     display: 'flex',
@@ -48,7 +51,9 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
   },
 
-  chosenGoodsTitle: {},
+  chosenGoodsTitle: {
+    color: theme.palette.text.primary,
+  },
 
   btnsWrapper: {
     marginTop: '30px',
@@ -64,6 +69,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelBtn: {
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       width: '120px',
     },

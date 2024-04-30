@@ -17,6 +17,7 @@ export const useStyles = makeStyles()(theme => ({
 
   title: {
     fontSize: '24px',
+    color: theme.palette.text.primary,
   },
 
   text: {

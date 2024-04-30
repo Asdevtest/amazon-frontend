@@ -21,6 +21,7 @@ export const useStyles = makeStyles()(theme => ({
     // maxWidth: 100,
   },
   title: {
+    color: theme.palette.text.primary,
     marginBottom: 15,
     fontWeight: 600,
     fontSize: 14,

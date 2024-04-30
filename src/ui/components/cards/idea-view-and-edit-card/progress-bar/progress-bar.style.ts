@@ -25,7 +25,9 @@ export const useStyles = makeStyles()(theme => ({
     position: 'relative',
   },
 
-  settingItemDuration: {},
+  settingItemDuration: {
+    color: theme.palette.text.primary,
+  },
 
   lastActiveItem: {
     '&:after': {

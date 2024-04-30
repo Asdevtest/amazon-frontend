@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(theme => ({
 
   boxesAndQuantityText: {
     whiteSpace: 'normal',
-
+    color: theme.palette.text.primary,
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',

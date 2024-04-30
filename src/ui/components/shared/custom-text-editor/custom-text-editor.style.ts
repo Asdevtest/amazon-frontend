@@ -53,7 +53,9 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
 
-    button: {},
+    button: {
+      color: theme.palette.text.primary,
+    },
 
     '.MuiIconButton-colorPrimary': {
       color: `${theme.palette.primary.main} !important`,

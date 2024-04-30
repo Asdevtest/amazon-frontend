@@ -11,12 +11,14 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '25px',
     fontWeight: 600,
+    color: theme.palette.text.primary,
   },
 
   fieldLabel: {
     marginBottom: 5,
     fontSize: '14px',
     lineHeight: '19px',
+    color: theme.palette.text.primary,
   },
 
   fieldContainer: {

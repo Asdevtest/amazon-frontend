@@ -11,6 +11,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     fontWeight: 600,
     textAlign: 'center',
+    color: theme.palette.text.primary,
   },
 
   fieldLabel: {
@@ -23,6 +24,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     textAlign: 'center',
+    color: theme.palette.text.primary,
   },
 
   buttons: {
@@ -37,7 +39,9 @@ export const useStyles = makeStyles()(theme => ({
     width: 100,
   },
 
-  cancelButton: {},
+  cancelButton: {
+    color: theme.palette.text.primary,
+  },
 
   customSubMainWrapper: {
     width: '340px !important',

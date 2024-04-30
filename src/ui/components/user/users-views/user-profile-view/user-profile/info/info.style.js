@@ -7,7 +7,9 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '21px',
   },
-  title: {},
+  title: {
+    color: theme.palette.text.primary,
+  },
 
   infoRow: {
     display: 'flex',
@@ -18,9 +20,11 @@ export const useStyles = makeStyles()(theme => ({
   },
   typoLabel: {
     marginRight: '16px',
+    color: theme.palette.text.primary,
   },
   typoValue: {
     fontWeight: 600,
+    color: theme.palette.text.primary,
   },
   paper: {
     width: '470px',

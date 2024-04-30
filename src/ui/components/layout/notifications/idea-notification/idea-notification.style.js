@@ -22,7 +22,7 @@ export const useStyles = makeStyles()(theme => ({
 
   messageText: {
     marginLeft: 5,
-
+    color: theme.palette.text.primary,
     whiteSpace: 'pre-wrap',
     width: 'auto',
     display: 'flex',

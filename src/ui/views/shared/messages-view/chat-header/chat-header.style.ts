@@ -119,7 +119,7 @@ export const useStyles = makeStyles()(theme => ({
     maxWidth: 200,
     fontSize: 18,
     fontWeight: 600,
-
+    color: theme.palette.text.primary,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',

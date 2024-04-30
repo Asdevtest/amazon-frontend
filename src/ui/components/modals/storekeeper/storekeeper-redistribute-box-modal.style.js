@@ -32,9 +32,11 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '30px',
     lineHeight: '40px',
     fontWeight: '600',
+    color: theme.palette.text.primary,
   },
 
   sectionTitle: {
+    color: theme.palette.text.primary,
     fontSize: '18px',
     lineHeight: '140%',
   },
@@ -58,7 +60,9 @@ export const useStyles = makeStyles()(theme => ({
     height: '40px',
     padding: '0 25px',
   },
-  cancelButton: {},
+  cancelButton: {
+    color: theme.palette.text.primary,
+  },
 
   asinTitle: {
     fontSize: '14px',
@@ -68,5 +72,6 @@ export const useStyles = makeStyles()(theme => ({
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
+    color: theme.palette.text.primary,
   },
 }))

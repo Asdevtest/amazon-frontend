@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(theme => ({
 
   titleMembers: {
     margin: 0,
-
+    color: theme.palette.text.primary,
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '25px',

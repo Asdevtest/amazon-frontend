@@ -11,5 +11,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  modalText: {},
+  modalText: {
+    color: theme.palette.text.primary,
+  },
 }))

@@ -25,6 +25,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '14px',
     cursor: 'pointer',
+    color: theme.palette.text.primary,
   },
 
   formFooter: {
@@ -82,6 +83,7 @@ export const useStyles = makeStyles()(theme => ({
   input: {
     height: '34px',
     backgroundColor: 'inherit',
+    color: theme.palette.text.primary,
   },
 
   labelField: {

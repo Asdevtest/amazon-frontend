@@ -12,12 +12,14 @@ export const useStyles = makeStyles()(theme => ({
     color: 'rgba(143, 152, 165, 1)',
   },
   text: {
+    color: theme.palette.text.primary,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
   },
 
   subTitle: {
+    color: theme.palette.text.primary,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
@@ -57,6 +59,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   commentsTitle: {
+    color: theme.palette.text.primary,
     fontSize: '16px',
     lineHeight: '19px',
   },

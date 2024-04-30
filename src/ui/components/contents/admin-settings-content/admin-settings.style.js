@@ -46,7 +46,7 @@ export const useStyles = makeStyles()(theme => ({
   textField: {
     width: 430,
     height: 40,
-
+    color: theme.palette.text.primary,
     outline: 'none',
     border: '1px solid var(--light-thin-lines, #E0E0E0)',
     borderRadius: 4,

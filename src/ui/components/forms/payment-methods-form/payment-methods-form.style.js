@@ -12,6 +12,7 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: 18,
     lineHeight: '25px',
+    color: theme.palette.text.primary,
   },
 
   payments: {

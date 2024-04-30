@@ -6,6 +6,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalTitle: {
+    color: theme.palette.text.primary,
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
@@ -36,6 +37,7 @@ export const useStyles = makeStyles()(theme => ({
       color: '#070707',
     },
     '& th': {
+      color: theme.palette.text.primary,
       fontWeight: 600,
       lineHeight: '16px',
       fontSize: '14px',
@@ -79,6 +81,7 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:disabled': {
       backgroundColor: 'inherit !important',
+      color: theme.palette.text.primary,
     },
   },
 
@@ -102,6 +105,7 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:disabled': {
       backgroundColor: 'inherit !important',
+      color: theme.palette.text.primary,
     },
   },
 
@@ -124,6 +128,7 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:disabled': {
       backgroundColor: 'inherit !important',
+      color: theme.palette.text.primary,
     },
   },
 
@@ -146,6 +151,7 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:disabled': {
       backgroundColor: 'inherit !important',
+      color: theme.palette.text.primary,
     },
   },
 
@@ -168,6 +174,7 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:disabled': {
       backgroundColor: 'inherit !important',
+      color: theme.palette.text.primary,
     },
   },
 
@@ -190,6 +197,7 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:disabled': {
       backgroundColor: 'inherit !important',
+      color: theme.palette.text.primary,
     },
   },
 
@@ -210,6 +218,7 @@ export const useStyles = makeStyles()(theme => ({
     },
     '&:disabled': {
       backgroundColor: 'inherit !important',
+      color: theme.palette.text.primary,
     },
   },
 
@@ -231,6 +240,7 @@ export const useStyles = makeStyles()(theme => ({
   cellText: {
     fontSize: 16,
     lineHeight: '19px',
+    color: theme.palette.text.primary,
   },
 
   commentCellBtn: {
@@ -243,6 +253,7 @@ export const useStyles = makeStyles()(theme => ({
     },
     '&:disabled': {
       backgroundColor: 'inherit !important',
+      color: theme.palette.text.primary,
     },
   },
 
@@ -258,9 +269,10 @@ export const useStyles = makeStyles()(theme => ({
   },
   cancelBtn: {
     backgroundColor: 'inherit !important',
-
+    color: theme.palette.text.primary,
     textTransform: 'none',
     '&:hover': {
+      color: theme.palette.text.primary,
       backgroundColor: '#e4e4e4',
     },
   },
@@ -272,5 +284,6 @@ export const useStyles = makeStyles()(theme => ({
   sumText: {
     fontSize: 14,
     lineHeight: '19px',
+    color: theme.palette.text.primary,
   },
 }))

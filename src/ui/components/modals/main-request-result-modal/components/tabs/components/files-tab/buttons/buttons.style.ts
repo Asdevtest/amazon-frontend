@@ -20,6 +20,7 @@ export const useStyles = makeStyles()(theme => ({
   text: {
     fontSize: '14px',
     lineHeight: '19px',
+    color: theme.palette.text.primary,
   },
 
   error: {

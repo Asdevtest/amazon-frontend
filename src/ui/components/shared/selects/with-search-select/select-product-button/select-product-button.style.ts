@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-start',
     height: 'auto !important',
-
+    color: theme.palette.text.primary,
     padding: '6px 8px',
     borderRadius: '7px',
 

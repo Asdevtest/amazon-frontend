@@ -4,7 +4,9 @@ export const useStyles = makeStyles()(theme => ({
   content: {
     width: '100%',
   },
-  modalTitle: {},
+  modalTitle: {
+    color: theme.palette.text.primary,
+  },
 
   boxesWrapper: {
     marginTop: '20px',

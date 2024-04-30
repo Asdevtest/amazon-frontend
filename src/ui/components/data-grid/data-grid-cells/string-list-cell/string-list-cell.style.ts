@@ -32,6 +32,7 @@ export const useStyles = makeStyles()(theme => ({
   shopOrderText: {
     width: '100%',
     textAlign: 'center',
+    color: theme.palette.text.primary,
 
     fontWeight: '600',
     fontSize: '12px',

@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '20px',
     fontWeight: '600',
-
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       fontSize: '14px',
     },
@@ -20,7 +20,9 @@ export const useStyles = makeStyles()(theme => ({
     height: 32,
   },
 
-  strategyOption: {},
+  strategyOption: {
+    color: theme.palette.text.primary,
+  },
 
   menuItemWrapper: {
     width: 300,
@@ -44,6 +46,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   text: {
+    color: theme.palette.text.primary,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '22px',
@@ -52,7 +55,7 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: '24px',
     lineHeight: '20px',
-
+    color: theme.palette.text.primary,
     fontWeight: '500',
     textAlign: 'center',
     marginBottom: '24px',
@@ -74,7 +77,7 @@ export const useStyles = makeStyles()(theme => ({
 
   nativeSelect: {
     width: '300px',
-
+    color: theme.palette.text.primary,
     height: 40,
     '& > disabled': {
       backgroundColor: theme.palette.input.customDisabled,
@@ -107,6 +110,7 @@ export const useStyles = makeStyles()(theme => ({
   radioLabel: {
     fontSize: '16px',
     lineHeight: '22px',
+    color: theme.palette.text.primary,
   },
 
   radioRoot: {
@@ -117,7 +121,9 @@ export const useStyles = makeStyles()(theme => ({
       height: 18,
     },
 
-    '& > span > svg:first-of-type': {},
+    '& > span > svg:first-of-type': {
+      color: theme.palette.text.primary,
+    },
   },
 
   rightBlockWrapper: {
@@ -191,6 +197,7 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '4px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    color: theme.palette.text.primary,
   },
 
   subInputWrapper: {
@@ -203,7 +210,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     maxWidth: '600px',
     overflow: 'hidden',
-
+    color: theme.palette.text.primary,
     outline: 'none',
     textDecoration: 'none',
   },

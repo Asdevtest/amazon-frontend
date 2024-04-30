@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   modalTitle: {
+    color: theme.palette.text.primary,
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
@@ -20,10 +21,11 @@ export const useStyles = makeStyles()(theme => ({
   table: {
     '& td': {
       flexShrink: 0,
-
+      color: theme.palette.text.primary,
       borderBottom: 'none',
     },
     '& th': {
+      color: theme.palette.text.primary,
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',
@@ -57,7 +59,7 @@ export const useStyles = makeStyles()(theme => ({
   },
   cancelBtn: {
     backgroundColor: '#d5d5d5',
-
+    color: theme.palette.text.primary,
     textTransform: 'none',
   },
 }))

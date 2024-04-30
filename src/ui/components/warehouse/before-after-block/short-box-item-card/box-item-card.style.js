@@ -36,7 +36,7 @@ export const useStyles = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     overflowY: 'auto',
-
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
@@ -58,13 +58,13 @@ export const useStyles = makeStyles()(theme => ({
 
   count: {
     fontSize: '16px',
-
+    color: theme.palette.text.primary,
     lineHeight: '19px',
     fontWeight: 600,
   },
   asinTitle: {
     fontSize: '14px',
-
+    color: theme.palette.text.primary,
     lineHeight: '19px',
     fontWeight: 600,
   },

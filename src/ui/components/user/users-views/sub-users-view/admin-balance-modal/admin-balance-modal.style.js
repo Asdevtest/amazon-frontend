@@ -7,12 +7,15 @@ export const useStyles = makeStyles()(theme => ({
     textTransform: 'none',
   },
 
-  title: {},
+  title: {
+    color: theme.palette.text.primary,
+  },
   positiveMsg: {
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: '5px',
     marginBottom: '16px',
     padding: '20px',
+    color: theme.palette.text.primary,
   },
   negativeMsg: {
     border: `1px solid ${theme.palette.error.main}`,

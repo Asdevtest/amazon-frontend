@@ -129,7 +129,7 @@ export const useStyles = makeStyles()(theme => ({
   allowedRolesItem: {
     borderRadius: 0,
     height: 56,
-
+    color: theme.palette.text.primary,
     fontSize: 16,
     transition: '.15s ease-in-out',
 
@@ -159,6 +159,7 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '4px',
 
     [theme.breakpoints.down(1600)]: {
+      color: theme.palette.text.primary,
       fontSize: '14px',
       lineHeight: '19px',
       padding: '0 0 0 7px',
@@ -190,6 +191,7 @@ export const useStyles = makeStyles()(theme => ({
 
   notificationIcon: {
     cursor: 'pointer',
+    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(768)]: {
       display: 'none !important',
@@ -278,7 +280,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 160,
     padding: '10px 20px',
     fontSize: 18,
-
+    color: theme.palette.text.primary,
     background: theme.palette.background.general,
 
     '&:hover': {
@@ -372,7 +374,9 @@ export const useStyles = makeStyles()(theme => ({
     background: `${theme.palette.background.general} !important`,
 
     button: {
-      svg: {},
+      svg: {
+        color: theme.palette.text.primary,
+      },
     },
   },
 }))

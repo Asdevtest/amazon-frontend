@@ -48,12 +48,14 @@ export const useStyles = makeStyles()(theme => {
     transparent: {
       padding: '0 5px',
       margin: '0',
-
+      color: theme.palette.text.primary,
       background: 'transparent',
       '&:hover': {
+        color: theme.palette.text.primary,
         background: 'transparent',
       },
       '&:disabled': {
+        color: theme.palette.text.primary,
         background: 'transparent',
       },
 
@@ -203,7 +205,7 @@ export const useStyles = makeStyles()(theme => {
     casual: {
       borderRadius: '100px',
       fontWeight: 500,
-
+      color: theme.palette.text.primary,
       backgroundColor: backgroundGeneral,
       boxShadow: theme.palette.boxShadow.casualBoxShadow,
       border: `2px solid ${theme.palette.button.casualBorder}`,

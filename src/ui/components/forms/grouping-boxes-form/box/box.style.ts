@@ -80,6 +80,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
+    color: theme.palette.text.primary,
   },
 
   amountField: {
@@ -138,6 +139,7 @@ export const useStyles = makeStyles()(theme => ({
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
+    color: theme.palette.text.primary,
   },
 
   title: {
@@ -153,6 +155,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'normal',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    color: theme.palette.text.primary,
   },
 
   barCodeWrapper: {

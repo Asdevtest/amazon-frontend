@@ -24,6 +24,8 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: '18px',
     lineHeight: '140%',
+
+    color: theme.palette.text.primary,
   },
   orderInfo: {
     cursor: 'pointer',
@@ -43,5 +45,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: 3,
     marginBottom: '15px',
   },
-  CancelBtn: {},
+  CancelBtn: {
+    color: theme.palette.text.primary,
+  },
 }))

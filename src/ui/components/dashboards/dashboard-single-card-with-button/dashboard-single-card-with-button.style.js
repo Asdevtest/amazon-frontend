@@ -33,7 +33,7 @@ export const useStyles = makeStyles()(theme => ({
   cardListTitle: {
     fontSize: '18px',
     lineHeight: '27px',
-
+    color: theme.palette.text.primary,
     fontWeight: 600,
   },
   cardListSubTitle: {
@@ -50,7 +50,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 700,
     fontSize: '32px',
     lineHeight: '44px',
-
+    color: theme.palette.text.primary,
     textAlign: 'end',
   },
 }))

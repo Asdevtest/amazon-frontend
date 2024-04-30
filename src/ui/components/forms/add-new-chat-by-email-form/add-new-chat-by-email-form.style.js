@@ -20,6 +20,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '25px',
+    color: theme.palette.text.primary,
   },
 
   label: {
@@ -57,7 +58,9 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  cancelButton: {},
+  cancelButton: {
+    color: theme.palette.text.primary,
+  },
 
   isFocusedOption: {
     transition: '.3s ease',

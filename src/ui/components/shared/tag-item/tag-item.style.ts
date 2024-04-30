@@ -18,6 +18,7 @@ export const useStyles = makeStyles()(theme => ({
 
   textTag: {
     fontSize: '14px',
+    color: theme.palette.text.primary,
   },
 
   widthLimitation: {

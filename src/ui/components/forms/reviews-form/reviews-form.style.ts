@@ -14,6 +14,7 @@ export const useStyles = makeStyles()(theme => ({
   userReviewTitle: {
     fontSize: '18px',
     fontWeight: '600',
+    color: theme.palette.text.primary,
   },
 
   reviewsList: {

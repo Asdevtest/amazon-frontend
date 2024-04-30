@@ -19,9 +19,12 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
+    color: theme.palette.text.primary,
   },
 
-  standartText: {},
+  standartText: {
+    color: theme.palette.text.primary,
+  },
 
   modalFieldsWrapper: {
     display: 'flex',
@@ -54,6 +57,7 @@ export const useStyles = makeStyles()(theme => ({
   tableSearchTitle: {
     fontSize: '18px',
     lineHeight: '140%',
+    color: theme.palette.text.primary,
   },
 
   searchInput: {
@@ -75,7 +79,7 @@ export const useStyles = makeStyles()(theme => ({
 
   buttonCancel: {
     padding: '10px 25px',
-
+    color: theme.palette.text.primary,
     background: theme.palette.background.general,
   },
 

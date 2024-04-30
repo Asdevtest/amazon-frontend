@@ -12,6 +12,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
+    color: theme.palette.text.primary,
   },
 
   nameWrapper: {
@@ -95,6 +96,8 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 16,
     lineHeight: '22px',
+
+    color: theme.palette.text.primary,
   },
 
   customItemsWrapper: {
@@ -133,6 +136,8 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 16,
     lineHeight: '22px',
+
+    color: theme.palette.text.primary,
   },
 
   rateFieldInput: {
@@ -150,6 +155,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
+    color: theme.palette.text.primary,
   },
 
   regionsWrapper: {
@@ -279,6 +285,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelBtn: {
+    color: theme.palette.text.primary,
     padding: '0 35px',
   },
 

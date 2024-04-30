@@ -24,7 +24,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: 14,
     lineHeight: '140%',
-
+    color: theme.palette.text.primary,
     marginBottom: '20px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -96,6 +96,7 @@ export const useStyles = makeStyles()(theme => ({
   accentText: {
     fontSize: 14,
     fontWeight: 600,
+    color: theme.palette.text.primary,
   },
 
   rightLieldLabel: {
@@ -125,7 +126,9 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.secondary,
   },
 
-  idText: {},
+  idText: {
+    color: theme.palette.text.primary,
+  },
 
   idAndPriorityWrapper: {
     display: 'flex',

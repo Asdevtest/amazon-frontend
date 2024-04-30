@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
     fontFamily: 'inherit',
     border: 'none',
     backgroundColor: 'inherit',
-
+    color: theme.palette.text.primary,
     resize: 'none',
     cursor: 'pointer',
   },

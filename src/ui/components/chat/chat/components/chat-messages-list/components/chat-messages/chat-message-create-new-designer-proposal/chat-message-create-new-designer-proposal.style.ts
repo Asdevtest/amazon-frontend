@@ -58,6 +58,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 600,
     textTransform: 'uppercase',
+    color: theme.palette.text.primary,
   },
 
   timeText: {
@@ -98,7 +99,9 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  idTitle: {},
+  idTitle: {
+    color: theme.palette.text.primary,
+  },
 
   descriptionText: {
     width: '100%',
@@ -140,7 +143,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-
+    color: theme.palette.text.primary,
     whiteSpace: 'nowrap',
   },
 

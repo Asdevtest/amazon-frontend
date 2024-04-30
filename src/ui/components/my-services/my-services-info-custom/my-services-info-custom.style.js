@@ -63,6 +63,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   price: {
+    color: theme.palette.text.primary,
+
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',

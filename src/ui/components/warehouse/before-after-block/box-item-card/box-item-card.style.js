@@ -53,6 +53,7 @@ export const useStyles = makeStyles()(theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
+    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(1282)]: {
       width: '100%',
@@ -81,6 +82,7 @@ export const useStyles = makeStyles()(theme => ({
   subValue: {
     fontSize: '16px',
 
+    color: theme.palette.text.primary,
     lineHeight: '19px',
     fontWeight: 600,
 
@@ -89,7 +91,7 @@ export const useStyles = makeStyles()(theme => ({
 
   asinTitle: {
     fontSize: '16px',
-
+    color: theme.palette.text.primary,
     lineHeight: '19px',
     fontWeight: 600,
   },

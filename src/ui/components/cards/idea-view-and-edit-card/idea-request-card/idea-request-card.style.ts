@@ -31,6 +31,7 @@ export const useStyles = makeStyles()(theme => ({
     flex: 1,
     fontSize: '14px',
     lineHeight: '19px',
+    color: theme.palette.text.primary,
   },
 
   categoresWrapper: {

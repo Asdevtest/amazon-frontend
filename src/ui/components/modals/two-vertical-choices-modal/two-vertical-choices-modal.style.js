@@ -22,7 +22,9 @@ export const useStyles = makeStyles()(theme => ({
     minHeight: '168px',
   },
 
-  title: {},
+  title: {
+    color: theme.palette.text.primary,
+  },
 
   bottomBtnText: {
     color: `${theme.palette.text.primary} !important`,

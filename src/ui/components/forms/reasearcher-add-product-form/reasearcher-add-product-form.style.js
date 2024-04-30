@@ -56,7 +56,10 @@ export const styles = theme => ({
   input: {
     overflow: 'hidden',
     border: `1px solid ${theme.palette.input.customBorder} `,
+    color: theme.palette.text.primary,
   },
 
-  selectOption: {},
+  selectOption: {
+    color: theme.palette.text.primary,
+  },
 })

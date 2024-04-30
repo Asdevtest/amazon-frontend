@@ -34,6 +34,7 @@ export const useStyles = makeStyles()(theme => ({
   updatedTitle: {
     fontSize: 16,
     lineHeight: '22px',
+    color: theme.palette.text.primary,
   },
 
   subHeader: {
@@ -111,7 +112,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 500,
-
+    color: theme.palette.text.primary,
     cursor: 'text',
   },
 

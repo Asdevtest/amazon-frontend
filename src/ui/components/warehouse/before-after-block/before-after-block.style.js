@@ -169,6 +169,7 @@ export const useStyles = makeStyles()(theme => ({
     maxWidth: '325px',
     whiteSpace: 'nowrap',
     overflowX: 'auto',
+    color: theme.palette.text.primary,
   },
 
   checkboxContainer: {
@@ -302,6 +303,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
+    color: theme.palette.text.primary,
   },
   sectionTitleWrapper: {
     marginBottom: '20px',
@@ -334,7 +336,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 10,
     fontSize: '14px',
     lineHeight: '19px',
-
+    color: theme.palette.text.primary,
     fontWeight: '600',
     [theme.breakpoints.down(768)]: {
       width: '243px',
@@ -344,7 +346,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-
+    color: theme.palette.text.primary,
     fontWeight: 400,
 
     [theme.breakpoints.down(1282)]: {
@@ -401,7 +403,7 @@ export const useStyles = makeStyles()(theme => ({
   subTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-
+    color: theme.palette.text.primary,
     fontWeight: 600,
     [theme.breakpoints.down(1282)]: {
       width: '100%',
@@ -474,6 +476,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 20,
     fontSize: 18,
     lineHeight: '140%',
+    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(768)]: {
       marginBottom: 30,

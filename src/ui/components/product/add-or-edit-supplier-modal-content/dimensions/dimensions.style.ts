@@ -20,7 +20,9 @@ export const useStyles = makeStyles()(theme => ({
     gap: '15px',
   },
 
-  standartText: {},
+  standartText: {
+    color: theme.palette.text.primary,
+  },
 
   sizesBottomWrapper: {
     display: 'flex',

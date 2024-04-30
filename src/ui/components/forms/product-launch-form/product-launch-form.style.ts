@@ -41,5 +41,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: '30px',
   },
 
-  canselButton: {},
+  canselButton: {
+    color: theme.palette.text.primary,
+  },
 }))

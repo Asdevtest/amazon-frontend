@@ -113,7 +113,9 @@ export const useStyles = makeStyles()(theme => ({
 
   deleteBtn: {
     color: 'rgba(189, 194, 209, 1)',
-    [theme.breakpoints.down(768)]: {},
+    [theme.breakpoints.down(768)]: {
+      color: theme.palette.text.primary,
+    },
   },
 
   plusIcon: {

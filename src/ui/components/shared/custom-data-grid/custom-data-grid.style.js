@@ -10,6 +10,7 @@ export const useStyles = makeStyles()(theme => ({
   input: {
     paddingLeft: '8px',
     paddingRight: '8px',
+    color: theme.palette.text.primary,
 
     '&:-webkit-autofill': {
       borderRadius: '4px',

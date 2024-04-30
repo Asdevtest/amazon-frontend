@@ -17,6 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 16,
     lineHeight: '22px',
     fontWeight: 500,
+    color: theme.palette.text.primary,
   },
 
   iconButton: {

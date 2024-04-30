@@ -11,6 +11,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalTitle: {
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
@@ -26,6 +27,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalSubTitle: {
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
@@ -39,6 +41,7 @@ export const useStyles = makeStyles()(theme => ({
 
   cancelBtn: {
     marginLeft: '10px',
+    color: theme.palette.text.primary,
   },
   multiline: {
     width: '100%',
@@ -186,7 +189,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',

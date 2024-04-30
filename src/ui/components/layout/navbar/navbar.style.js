@@ -30,6 +30,7 @@ export const useStyles = makeStyles()(theme => ({
   logoIcon: {
     width: '125px !important',
     height: '42px !important',
+    color: theme.palette.text.primary,
 
     'path:first-of-type': {
       fill: theme.palette.primary.main,
@@ -39,6 +40,7 @@ export const useStyles = makeStyles()(theme => ({
   logoIconShort: {
     width: '50px !important',
     height: '50px !important',
+    color: theme.palette.text.primary,
 
     'path:first-of-type': {
       fill: theme.palette.primary.main,

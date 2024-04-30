@@ -30,7 +30,9 @@ export const useStyles = makeStyles()(theme => ({
     padding: '0 25px',
   },
 
-  cancelButton: {},
+  cancelButton: {
+    color: theme.palette.text.primary,
+  },
 
   errorInput: {
     borderColor: theme.palette.text.red,

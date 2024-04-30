@@ -33,13 +33,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   title: {
+    color: theme.palette.text.primary,
     fontSize: 14,
     fontWeight: 600,
   },
 
   messageText: {
     marginTop: 5,
-
+    color: theme.palette.text.primary,
     whiteSpace: 'nowrap',
     minHeight: 25,
     maxHeight: 150,

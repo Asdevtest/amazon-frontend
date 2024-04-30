@@ -54,6 +54,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
+    color: theme.palette.text.primary,
   },
 
   commentLabelText: {
@@ -78,7 +79,7 @@ export const useStyles = makeStyles()(theme => ({
   modalMessage: {
     whiteSpace: 'pre-wrap',
     textAlign: 'center',
-
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       fontSize: '12px',
     },
@@ -133,6 +134,7 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'center',
     marginBottom: '11px',
 
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       width: '220px',
       textAlign: 'center',
@@ -164,5 +166,6 @@ export const useStyles = makeStyles()(theme => ({
   cancelButton: {
     height: '40px',
     width: '98px',
+    color: theme.palette.text.primary,
   },
 }))

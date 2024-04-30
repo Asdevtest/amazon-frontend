@@ -12,6 +12,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
+    color: theme.palette.text.primary,
   },
 
   step: {
@@ -63,6 +64,8 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     width: '90%',
+
+    color: theme.palette.text.primary,
   },
 
   actionDelButton: {

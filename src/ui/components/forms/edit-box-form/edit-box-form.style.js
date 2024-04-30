@@ -57,7 +57,9 @@ export const useStyles = makeStyles()(theme => ({
     padding: 0,
   },
 
-  standartText: {},
+  standartText: {
+    color: theme.palette.text.primary,
+  },
 
   divider: {
     width: '100%',
@@ -201,6 +203,8 @@ export const useStyles = makeStyles()(theme => ({
 
     width: '230px',
     marginBottom: '5px',
+
+    color: theme.palette.text.primary,
   },
 
   asinText: {
@@ -219,6 +223,8 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontWeight: 600,
     fontSize: 30,
+
+    color: theme.palette.text.primary,
   },
 
   standartLabel: {
@@ -231,6 +237,7 @@ export const useStyles = makeStyles()(theme => ({
   tableTitle: {
     fontWeight: 600,
     fontSize: 16,
+    color: theme.palette.text.primary,
   },
 
   boxImageClass: {

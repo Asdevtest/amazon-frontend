@@ -31,6 +31,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     padding: '0 15px',
     cursor: 'pointer',
+    color: theme.palette.text.primary,
 
     '&:hover': {
       backgroundColor: 'rgba(0,123,255,0.3)',

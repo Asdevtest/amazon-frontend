@@ -12,6 +12,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   sectionTitle: {
+    color: theme.palette.text.primary,
     fontSize: '18px',
     lineHeight: '140%',
   },

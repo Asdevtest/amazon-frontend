@@ -23,5 +23,7 @@ export const useStyles = makeStyles()(theme => ({
     minWidth: '350px',
     overflow: 'hidden',
   },
-  text: {},
+  text: {
+    color: theme.palette.text.primary,
+  },
 }))

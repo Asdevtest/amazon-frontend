@@ -64,7 +64,7 @@ export const useStyles = makeStyles()(theme => ({
 
       '& p': {
         textAlign: 'left ',
-
+        color: theme.palette.text.primary,
         fontFamily: 'Manrope,sans-serif',
         fontWeight: 400,
         fontSize: 16,
