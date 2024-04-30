@@ -261,7 +261,6 @@ export const lightTheme = createTheme({
       red: '#FF1616',
       negativeMain: '#fff',
       green: '#00B746',
-      customSwitcher: '#001029',
     },
 
     button: {
@@ -399,6 +398,15 @@ export const lightTheme = createTheme({
       bad: '#FBEEED',
       normal: '#FDF7E3',
       good: '#ECF8ED',
+    },
+
+    customSwitcher: {
+      background: '#D9E0E8',
+      indicator: '#fff',
+      text: '#001029',
+      activeText: '#007bff',
+      headerBackground: '#F4F4F4',
+      switch: '#E3E3E3',
     },
   },
 })
@@ -721,7 +729,6 @@ export const darkTheme = createTheme({
       red: '#FF1616',
       negativeMain: '#001029',
       green: '#00B746',
-      customSwitcher: '#5C6A7A',
 
       disabled: '#001029',
       primary: '#fff',
@@ -869,6 +876,15 @@ export const darkTheme = createTheme({
       bad: '#2C2022',
       normal: '#2F281D',
       good: '#1C221F',
+    },
+
+    customSwitcher: {
+      background: '#272730',
+      indicator: '#31313A',
+      text: '#5C6A7A',
+      activeText: '#4CA1DE',
+      headerBackground: '#25252D',
+      switch: '#667085',
     },
   },
 })
