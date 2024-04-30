@@ -51,6 +51,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     textAlign: 'center',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 }))

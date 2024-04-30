@@ -45,7 +45,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   trainingText: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   trainingLink: {
@@ -72,7 +72,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 20,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   infoBlockWrapper: {
@@ -92,7 +92,7 @@ export const useStyles = makeStyles()(theme => ({
   requestTitleName: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   requestTitle: {
@@ -132,7 +132,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 10,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   descriptionWrapper: {

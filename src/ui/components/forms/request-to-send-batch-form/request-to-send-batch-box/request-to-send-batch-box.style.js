@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'table-cell',
     verticalAlign: 'middle',
 
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
   priceCellRight: {
     textAlign: 'center',
@@ -93,7 +93,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   priceCell: {
@@ -108,7 +108,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     margin: 0,
     padding: 0,
     gap: 15,

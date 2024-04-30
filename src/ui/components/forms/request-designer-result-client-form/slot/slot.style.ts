@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   imageObjIndex: {
     fontWeight: 700,
     fontSize: 20,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     marginRight: 10,
   },
 

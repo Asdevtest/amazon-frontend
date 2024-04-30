@@ -80,7 +80,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   amountField: {
@@ -97,7 +97,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
   },
 
@@ -133,13 +133,13 @@ export const useStyles = makeStyles()(theme => ({
   asinTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   title: {
@@ -155,7 +155,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'normal',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   barCodeWrapper: {
@@ -176,7 +176,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   miss: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   field: {
@@ -217,7 +217,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   deleteBtn: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   prepId: {

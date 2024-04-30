@@ -24,6 +24,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   emptyTableText: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 }))

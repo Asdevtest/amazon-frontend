@@ -3,12 +3,12 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     lineHeight: '19px',
     marginTop: '12px',
     [theme.breakpoints.down(768)]: {
       fontSize: 12,
-      color: theme.palette.text.general,
+      color: theme.palette.text.primary,
       lineHeight: '16px',
       marginTop: '12px',
       maxWidth: '62px',
@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '45px',
     height: '44px',
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     // '&:hover': {
     //   transform: 'scale(1.1)',
     // },

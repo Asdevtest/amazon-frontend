@@ -44,7 +44,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 5,
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   field: {
@@ -56,7 +56,7 @@ export const useStyles = makeStyles()(theme => ({
     right: 10,
     top: 27,
     cursor: 'pointer',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   validationMessage: {
@@ -72,7 +72,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   red: {
@@ -89,7 +89,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   visibility: {

@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
 
   textField: {
     height: 40,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     outline: 'none',
     border: '1px solid var(--light-thin-lines, #E0E0E0)',
     borderRadius: 4,
@@ -78,7 +78,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     marginBottom: 10,
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   containerImage: {
@@ -116,7 +116,7 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     fontSize: 12,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   redFlags: {
@@ -158,7 +158,7 @@ export const useStyles = makeStyles()(theme => ({
 
   iconAction: {
     margin: 2,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     cursor: 'pointer',
     transition: '0.3s ease',
 

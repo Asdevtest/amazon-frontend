@@ -51,6 +51,6 @@ export const useStyles = makeStyles()(theme => ({
   clearIcon: {
     width: '16px !important',
     height: '16px !important',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 }))

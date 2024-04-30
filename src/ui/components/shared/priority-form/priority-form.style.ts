@@ -11,6 +11,6 @@ export const usePriorityFormStyles = makeStyles()(theme => ({
   label: {
     marginBottom: 5,
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 }))

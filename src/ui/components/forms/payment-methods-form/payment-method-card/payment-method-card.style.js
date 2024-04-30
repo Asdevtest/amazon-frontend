@@ -34,7 +34,7 @@ export const useStyles = makeStyles()(theme => ({
 
   label: {
     marginBottom: '5px !important',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   notActiceCard: {

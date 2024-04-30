@@ -26,7 +26,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 'min-content',
     fontSize: '14px',
     fontWeight: 400,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   attributesProductWrapper: {

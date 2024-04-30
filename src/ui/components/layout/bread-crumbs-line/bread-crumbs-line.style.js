@@ -10,7 +10,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   lastCrumb: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: 16,
 
     [theme.breakpoints.down(1024)]: {

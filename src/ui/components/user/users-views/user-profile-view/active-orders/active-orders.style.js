@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   text: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',

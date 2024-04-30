@@ -25,7 +25,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 12,
     lineHeight: '110%',
     fontWeight: 400,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     wordBreak: 'break-all',
     whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
@@ -43,7 +43,7 @@ export const useStyles = makeStyles()(theme => ({
   date: {
     fontSize: 12,
     lineHeight: '16px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   dateContainer: {

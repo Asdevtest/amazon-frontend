@@ -44,7 +44,7 @@ export const useStyles = makeStyles()(theme => ({
   commentLabel: {
     marginBottom: 5,
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   containerField: {
@@ -58,7 +58,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartText: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   divider: {
@@ -106,7 +106,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   barcodeChipExists: {
-    backgroundcolor: theme.palette.text.general,
+    backgroundcolor: theme.palette.text.primary,
     width: '230px',
   },
 
@@ -204,12 +204,12 @@ export const useStyles = makeStyles()(theme => ({
     width: '230px',
     marginBottom: '5px',
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   asinText: {
     marginLeft: 10,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   titleWrapper: {
@@ -224,20 +224,20 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 30,
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   standartLabel: {
     margin: 0,
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
   },
 
   tableTitle: {
     fontWeight: 600,
     fontSize: 16,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   boxImageClass: {

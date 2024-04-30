@@ -46,13 +46,13 @@ export const useStyles = makeStyles()(theme => ({
   asinTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   title: {
@@ -67,14 +67,14 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'normal',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   label: {
     margin: 0,
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   barcodeChip: {
@@ -105,7 +105,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   barcodeChipExists: {
-    backgroundcolor: theme.palette.text.general,
+    backgroundcolor: theme.palette.text.primary,
   },
 
   checkboxContainer: {
@@ -127,7 +127,7 @@ export const useStyles = makeStyles()(theme => ({
 
   subTitle: {
     fontSize: '14px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     marginRight: theme.spacing(1),
   },
 
@@ -160,7 +160,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   deleteBtn: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   incomingBtnWrapper: {

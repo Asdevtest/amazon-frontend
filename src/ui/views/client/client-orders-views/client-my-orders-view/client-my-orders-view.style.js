@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     marginBottom: 30,
   },
 
@@ -20,7 +20,7 @@ export const useStyles = makeStyles()(theme => ({
 
   btnText: {
     marginRight: 10,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   btnTextWrapper: {

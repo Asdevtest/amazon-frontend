@@ -69,28 +69,28 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   cardPriceValue: {
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   cardTime: {
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   cardTimeValue: {
     fontWeight: '600',
     fontSize: '16px',
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     whiteSpace: 'nowrap',
   },
 
@@ -98,7 +98,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   userRating: {
@@ -118,7 +118,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     marginTop: '10px',
     overflow: 'auto',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '140%',
@@ -132,7 +132,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     wordBreak: 'break-all',
   },
 
@@ -177,6 +177,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartText: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 }))

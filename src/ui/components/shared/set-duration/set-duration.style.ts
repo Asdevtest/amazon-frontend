@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   inputLabel: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   inputField: {
@@ -47,7 +47,7 @@ export const useStyles = makeStyles()(theme => ({
       display: 'block',
       height: 1,
       width: 30,
-      background: theme.palette.text.second,
+      background: theme.palette.text.secondary,
     },
 
     '&.Mui-focused': {

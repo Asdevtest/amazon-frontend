@@ -73,7 +73,7 @@ export const useStyles = makeStyles()(theme => ({
   detailTitle: {
     fontSize: '14px',
     fontWeight: 400,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   detailDescription: {
@@ -84,7 +84,7 @@ export const useStyles = makeStyles()(theme => ({
   userLinkCustomClassNames: {
     fontSize: '14px',
     fontWeight: 600,
-    color: `${theme.palette.text.general} !important`,
+    color: `${theme.palette.text.primary} !important`,
     width: '100px',
     whiteSpace: 'nowrap',
     overflow: 'hidden',

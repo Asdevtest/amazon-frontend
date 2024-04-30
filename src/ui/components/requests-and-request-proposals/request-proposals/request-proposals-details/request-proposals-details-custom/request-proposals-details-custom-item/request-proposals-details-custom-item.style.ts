@@ -24,6 +24,6 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
   },
   text: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 }))

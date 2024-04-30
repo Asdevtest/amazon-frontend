@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 13,
     lineHeight: '15px',
     fontWeight: 500,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     borderLeft: `5px solid transparent`,
     paddingRight: '16px',
 
@@ -40,7 +40,7 @@ export const useStyles = makeStyles()(theme => ({
     color: `${theme.palette.primary.main} !important`,
   },
   notSelected: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
   iconWrapper: {
     minWidth: '0',
@@ -82,7 +82,7 @@ export const useStyles = makeStyles()(theme => ({
 
   icon: {
     backgroundColor: 'none',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   menuItem: {
@@ -93,7 +93,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: 0,
     display: 'inline-flex',
     backgroundColor: 'inherit',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     '&:hover': {
       backgroundColor: 'inherit',
     },

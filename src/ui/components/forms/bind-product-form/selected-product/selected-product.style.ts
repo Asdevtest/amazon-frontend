@@ -10,13 +10,13 @@ export const useStyles = makeStyles()(theme => ({
   text: {
     fontSize: '16px',
     fontWeight: 400,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
 
   asin: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 }))

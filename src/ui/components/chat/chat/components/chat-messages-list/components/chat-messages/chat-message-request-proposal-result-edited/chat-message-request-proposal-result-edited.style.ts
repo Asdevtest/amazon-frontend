@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     fontWeight: 600,
     textTransform: 'uppercase',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 16,
@@ -45,7 +45,7 @@ export const useStyles = makeStyles()(theme => ({
   timeText: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 12,
@@ -64,7 +64,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     whiteSpace: 'pre-line',
     wordBreak: 'break-word',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 16,
@@ -124,7 +124,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 5,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 12,
@@ -151,7 +151,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     fontSize: 18,
     lineHeight: '25px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     background: theme.palette.background.green,
     borderRadius: 7,
 

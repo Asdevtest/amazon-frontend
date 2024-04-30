@@ -23,11 +23,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   title: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   bottomBtnText: {
-    color: `${theme.palette.text.general} !important`,
+    color: `${theme.palette.text.primary} !important`,
   },
 
   '@media (max-width: 768px)': {

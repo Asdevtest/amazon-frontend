@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   editorContainer: {
@@ -27,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
 
     textarea: {
       '&:disabled': {
-        '-webkit-text-fill-color': theme.palette.text.general,
+        '-webkit-text-fill-color': theme.palette.text.primary,
       },
     },
   },

@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(theme => ({
   commentLabel: {
     marginBottom: 5,
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   modalTitleWrapper: {
@@ -27,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '30px',
     lineHeight: '40px',
     fontWeight: '600',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   inputAccent: {
@@ -63,7 +63,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '21px',
     marginRight: '10px',
     width: '299px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   input: {
@@ -84,11 +84,11 @@ export const useStyles = makeStyles()(theme => ({
 
   storekeeperBtn: {
     height: '32px',
-    color: theme.palette.text.negativeMain,
+    color: theme.palette.text.negativePrimary,
   },
 
   storekeeperBtnDark: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   storekeeperBtnDefault: {
@@ -120,7 +120,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
   fieldInput: {
     height: '40px',
@@ -137,12 +137,12 @@ export const useStyles = makeStyles()(theme => ({
   asinTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
   orderInput: {
     width: '79px',
@@ -170,12 +170,12 @@ export const useStyles = makeStyles()(theme => ({
     height: '40px',
   },
   cancelButton: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
   boxTitle: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     marginBottom: '12px',
   },
   boxPhotoWrapperS: {
@@ -196,7 +196,7 @@ export const useStyles = makeStyles()(theme => ({
   },
   standartLabel: {
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
   boxImageClass: {
     width: 148,

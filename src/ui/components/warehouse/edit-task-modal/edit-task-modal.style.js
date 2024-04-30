@@ -35,7 +35,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '30px',
     lineHeight: '41px',
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
@@ -49,7 +49,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
@@ -58,7 +58,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '30px',
     lineHeight: '41px',
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
@@ -105,7 +105,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     gridColumn: '1 / 4',
 
     [theme.breakpoints.down(768)]: {
@@ -241,7 +241,7 @@ export const useStyles = makeStyles()(theme => ({
   cancelButton: {
     width: '183px',
     height: '40px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
 
     zIndex: 50,
 

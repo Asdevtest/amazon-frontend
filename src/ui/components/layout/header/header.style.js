@@ -49,7 +49,7 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: 18,
     lineHeight: '25px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
 
     [theme.breakpoints.down(1024)]: {
       width: 90,
@@ -97,7 +97,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   userRoleTitle: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     marginRight: 15,
 
     [theme.breakpoints.down(1600)]: {
@@ -129,7 +129,7 @@ export const useStyles = makeStyles()(theme => ({
   allowedRolesItem: {
     borderRadius: 0,
     height: 56,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: 16,
     transition: '.15s ease-in-out',
 
@@ -159,7 +159,7 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '4px',
 
     [theme.breakpoints.down(1600)]: {
-      color: theme.palette.text.general,
+      color: theme.palette.text.primary,
       fontSize: '14px',
       lineHeight: '19px',
       padding: '0 0 0 7px',
@@ -191,7 +191,7 @@ export const useStyles = makeStyles()(theme => ({
 
   notificationIcon: {
     cursor: 'pointer',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(768)]: {
       display: 'none !important',
@@ -240,7 +240,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   userName: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontSize: 14,
     fontWeight: 500,
     width: 110,
@@ -257,7 +257,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   balance: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontSize: '14px',
     fontWeight: 500,
     lineHeight: 1,
@@ -280,7 +280,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 160,
     padding: '10px 20px',
     fontSize: 18,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     background: theme.palette.background.general,
 
     '&:hover': {
@@ -375,7 +375,7 @@ export const useStyles = makeStyles()(theme => ({
 
     button: {
       svg: {
-        color: theme.palette.text.general,
+        color: theme.palette.text.primary,
       },
     },
   },

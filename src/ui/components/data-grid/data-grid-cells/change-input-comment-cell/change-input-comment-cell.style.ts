@@ -49,7 +49,7 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   changeInputIcon: {

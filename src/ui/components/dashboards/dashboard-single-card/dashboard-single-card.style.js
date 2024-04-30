@@ -20,7 +20,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cardTitle: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     textAlign: 'end',
     width: '140px',
   },
@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 700,
     fontSize: '32px',
     lineHeight: '44px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     textAlign: 'end',
   },
 

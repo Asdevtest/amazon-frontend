@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(768)]: {
       fontSize: 16,
@@ -41,7 +41,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 10,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   isFocusedOption: {
@@ -78,6 +78,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelButton: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 }))

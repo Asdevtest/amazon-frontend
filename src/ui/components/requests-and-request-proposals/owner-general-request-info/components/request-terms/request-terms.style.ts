@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
   sectionTitle: {
     fontSize: 14,
     fontWeight: 400,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-end',
@@ -61,7 +61,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '16px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   blockInfoCellText: {
@@ -70,7 +70,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     fontWeight: 600,
     wordBreak: 'break-word',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   pricesWrapper: {
@@ -87,7 +87,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   price: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontWeight: 600,
     fontSize: 14,
     lineHeight: '19px',

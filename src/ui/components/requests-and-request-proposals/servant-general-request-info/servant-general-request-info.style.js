@@ -41,7 +41,7 @@ export const useStyles = makeStyles()(theme => ({
   transactions: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   btnsBlockWrapper: {
@@ -85,7 +85,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   idText: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontSize: 14,
   },
 
@@ -93,14 +93,14 @@ export const useStyles = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontWeight: 600,
   },
 
   standartText: {
     fontSize: 14,
     lineHeight: '20px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     marginBottom: 15,
   },
 
@@ -130,7 +130,7 @@ export const useStyles = makeStyles()(theme => ({
   urgentText: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   mainInfosWrapper: {
@@ -152,7 +152,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '25px',
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(1500)]: {
       textOverflow: 'ellipsis',
       textWrap: 'nowrap',
@@ -176,7 +176,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   proposalsWrapper: {
@@ -189,7 +189,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 12,
     lineHeight: '16px',
     fontWeight: 400,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     marginBottom: 5,
   },
 

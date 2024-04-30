@@ -48,7 +48,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '30px',
     lineHeight: '40px',
     fontWeight: '600',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   applyButton: {
@@ -65,7 +65,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   sectionTitle: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: '18px',
     lineHeight: '140%',
   },
@@ -108,7 +108,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   barcodeChipExists: {
-    backgroundcolor: theme.palette.text.general,
+    backgroundcolor: theme.palette.text.primary,
   },
 
   modalText: {
@@ -125,7 +125,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     marginBottom: '10px',
     justifyContent: 'space-between',
   },
@@ -136,7 +136,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelButton: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.general,
   },
 
@@ -144,6 +144,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: 0,
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 }))

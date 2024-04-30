@@ -14,7 +14,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '80px',
   },
   label: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     marginRight: '8px',
   },
 

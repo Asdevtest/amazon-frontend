@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   sectionTitle: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     marginBottom: theme.spacing(1),
 
     [theme.breakpoints.down(1282)]: {
@@ -25,7 +25,7 @@ export const useStyles = makeStyles()(theme => ({
       marginBottom: '40px',
       fontSize: '16px',
       lineHeight: '22px',
-      color: theme.palette.text.general,
+      color: theme.palette.text.primary,
     },
   },
 
@@ -60,7 +60,7 @@ export const useStyles = makeStyles()(theme => ({
       fontSize: '12px',
       lineHeight: '140%',
       fontWeight: 600,
-      color: theme.palette.text.general,
+      color: theme.palette.text.primary,
       textTransform: 'uppercase',
     },
   },
@@ -68,7 +68,7 @@ export const useStyles = makeStyles()(theme => ({
   deleteBtn: {
     color: 'rgba(189, 194, 209, 1)',
     [theme.breakpoints.down(768)]: {
-      color: theme.palette.text.general,
+      color: theme.palette.text.primary,
     },
   },
 
@@ -114,7 +114,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   unitsText: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   inputWrapper: {
@@ -158,7 +158,7 @@ export const useStyles = makeStyles()(theme => ({
       fontSize: '12px',
       lineHeight: '16px',
       fontWeight: 600,
-      color: theme.palette.text.general,
+      color: theme.palette.text.primary,
     },
   },
 
@@ -177,7 +177,7 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       fontSize: '12px',
       lineHeight: '16px',
-      color: theme.palette.text.second,
+      color: theme.palette.text.secondary,
     },
   },
 

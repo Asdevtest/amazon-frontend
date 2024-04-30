@@ -26,7 +26,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   settingItemDuration: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   lastActiveItem: {

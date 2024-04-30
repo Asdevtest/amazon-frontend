@@ -6,16 +6,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainTitle: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     marginBottom: 15,
   },
 
   standartText: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   listSubheader: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.second,
   },
 
@@ -51,18 +51,18 @@ export const useStyles = makeStyles()(theme => ({
   permissionSelect: {
     maxWidth: '200px',
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   resetBtn: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   permissionsSubTitle: {
     fontWeight: 'bold',
     fontSize: '16px',
 
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   selectWrapper: {
@@ -74,7 +74,7 @@ export const useStyles = makeStyles()(theme => ({
 
   selectChoose: {
     fontSize: '26px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   singlePermission: {

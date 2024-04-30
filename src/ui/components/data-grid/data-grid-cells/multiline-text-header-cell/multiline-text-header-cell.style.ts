@@ -22,7 +22,7 @@ export const useStyles = makeStyles()(theme => ({
   multilineHeaderText: {
     width: 'fit-content',
     textAlign: 'center',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontWeight: '600',
     fontSize: '12px',
     lineHeight: '14px',

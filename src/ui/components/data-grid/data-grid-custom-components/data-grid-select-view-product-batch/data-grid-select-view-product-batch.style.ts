@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(theme => ({
   icon: {
     width: '21px !important',
     height: '21px !important',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     cursor: 'pointer',
   },
 

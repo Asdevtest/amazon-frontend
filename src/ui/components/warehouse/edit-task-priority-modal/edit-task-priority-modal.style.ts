@@ -26,7 +26,7 @@ export const useEditTaskPriorityModalStyles = makeStyles()(theme => ({
   reasonLabel: {
     marginBottom: 5,
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   controls: {
@@ -39,7 +39,7 @@ export const useEditTaskPriorityModalStyles = makeStyles()(theme => ({
   },
 
   cancel: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   titleWrapper: {

@@ -56,7 +56,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   buttonDocumentsWrapper: {

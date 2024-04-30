@@ -21,7 +21,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   userEmail: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
 
     fontWeight: 600,
     fontSize: 14,

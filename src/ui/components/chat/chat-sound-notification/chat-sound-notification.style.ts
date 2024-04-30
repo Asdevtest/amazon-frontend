@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     color: '#AEAEAE',
     '&:hover': {
       cursor: 'pointer',
-      color: theme.palette.text.second,
+      color: theme.palette.text.secondary,
     },
   },
 

@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
 
   title: {
     lineHeight: '25px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontSize: 16,
   },
 
@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontWeight: 600,
   },
 }))

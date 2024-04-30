@@ -28,7 +28,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   button: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
   buttonsWrapper: {
     display: 'flex',

@@ -6,7 +6,7 @@ export const styles = theme => ({
   },
 
   archiveHandler: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     marginLeft: 'auto',
   },
 })

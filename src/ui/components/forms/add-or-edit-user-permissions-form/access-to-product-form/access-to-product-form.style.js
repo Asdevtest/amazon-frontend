@@ -19,10 +19,10 @@ export const useStyles = makeStyles()(theme => ({
   },
   selectedValue: {
     marginLeft: '5px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
   standartText: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
   detailsShopWrapper: {
     width: '100%',
@@ -65,6 +65,6 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 }))

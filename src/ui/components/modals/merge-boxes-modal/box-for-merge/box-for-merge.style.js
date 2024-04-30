@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'start',
     justifyContent: 'space-between',
     marginBottom: '30px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   img: {
@@ -24,11 +24,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   boxTitle: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   notAvailable: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   title: {
@@ -46,12 +46,12 @@ export const useStyles = makeStyles()(theme => ({
   asinTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
   orderInput: {
     width: '79px',
@@ -69,7 +69,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   storekeeperDisableBtn: {

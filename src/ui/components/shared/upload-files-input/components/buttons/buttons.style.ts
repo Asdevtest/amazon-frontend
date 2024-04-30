@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     textAlign: 'center',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   imagesCountSpan: {

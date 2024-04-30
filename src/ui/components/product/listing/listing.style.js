@@ -34,7 +34,7 @@ export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: '24px',
     lineHeight: '20px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontWeight: '500',
     textAlign: 'center',
     marginBottom: '24px',
@@ -55,7 +55,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   subTitle: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '20px',

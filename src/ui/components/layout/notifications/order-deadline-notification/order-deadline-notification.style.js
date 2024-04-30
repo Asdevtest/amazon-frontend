@@ -33,14 +33,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   title: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: 14,
     fontWeight: 600,
   },
 
   messageText: {
     marginTop: 5,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     whiteSpace: 'nowrap',
     minHeight: 25,
     maxHeight: 150,
@@ -84,6 +84,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 12,
     marginRight: '-20px',
     marginTop: '-18px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 }))

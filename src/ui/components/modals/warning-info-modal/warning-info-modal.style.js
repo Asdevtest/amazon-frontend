@@ -20,7 +20,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '350px',
     whiteSpace: 'pre-line',
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       textAlign: 'center',
       width: '280px',

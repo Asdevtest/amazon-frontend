@@ -44,11 +44,11 @@ export const useStyles = makeStyles()(theme => ({
   },
   text: {
     fontSize: '26px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   standartText: {
     fontSize: '26px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 }))

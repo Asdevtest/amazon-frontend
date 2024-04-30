@@ -100,7 +100,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   barcodeChipExists: {
-    backgroundcolor: theme.palette.text.general,
+    backgroundcolor: theme.palette.text.primary,
     width: '230px',
   },
 
@@ -195,12 +195,12 @@ export const useStyles = makeStyles()(theme => ({
     width: '230px',
     marginBottom: '5px',
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   asinText: {
     marginLeft: 10,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   titleWrapper: {
@@ -215,12 +215,12 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 30,
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   standartLabel: {
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
     margin: 0,
   },
@@ -228,7 +228,7 @@ export const useStyles = makeStyles()(theme => ({
   tableTitle: {
     fontWeight: 600,
     fontSize: 16,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   productImageClass: {

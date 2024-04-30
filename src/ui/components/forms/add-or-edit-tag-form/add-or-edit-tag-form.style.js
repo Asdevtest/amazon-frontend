@@ -7,11 +7,11 @@ export const useStyles = makeStyles()(theme => ({
 
   button: {
     marginLeft: 10,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   standartText: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   form: {

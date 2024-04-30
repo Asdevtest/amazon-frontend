@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     width: '100%',
     textTransform: 'none',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     minHeight: 34,
     padding: 5,
 

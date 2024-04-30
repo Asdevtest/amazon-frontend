@@ -2,12 +2,12 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   username: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: '32px',
     fontWeight: 500,
   },
   text: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -30,7 +30,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainTitle: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
   subTabWrapper: {
     height: '98px',

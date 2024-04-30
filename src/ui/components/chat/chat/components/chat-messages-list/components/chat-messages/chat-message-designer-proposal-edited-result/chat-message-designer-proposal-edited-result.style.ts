@@ -32,7 +32,7 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     fontWeight: 600,
     textTransform: 'uppercase',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 16,
@@ -48,7 +48,7 @@ export const useStyles = makeStyles()(theme => ({
   timeText: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
 
     [theme.breakpoints.down(1280)]: {
       fontSize: 12,
@@ -83,7 +83,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 530,
     fontSize: 18,
     lineHeight: '25px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     wordBreak: 'break-word',
 
     [theme.breakpoints.down(1750)]: {
@@ -213,7 +213,7 @@ export const useStyles = makeStyles()(theme => ({
   fieldLabel: {
     fontSize: 12,
     lineHeight: '16px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
     marginBottom: 5,
   },

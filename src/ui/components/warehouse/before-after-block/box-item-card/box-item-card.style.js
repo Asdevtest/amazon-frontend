@@ -39,7 +39,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   miss: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   title: {
@@ -53,7 +53,7 @@ export const useStyles = makeStyles()(theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(1282)]: {
       width: '100%',
@@ -69,20 +69,20 @@ export const useStyles = makeStyles()(theme => ({
 
   subTitle: {
     fontSize: '14px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     lineHeight: '19px',
     whiteSpace: 'nowrap',
   },
   asin: {
     fontSize: '14px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     lineHeight: '19px',
   },
 
   subValue: {
     fontSize: '16px',
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     lineHeight: '19px',
     fontWeight: 600,
 
@@ -91,7 +91,7 @@ export const useStyles = makeStyles()(theme => ({
 
   asinTitle: {
     fontSize: '16px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     lineHeight: '19px',
     fontWeight: 600,
   },

@@ -70,7 +70,7 @@ export const useStyles = makeStyles()(theme => ({
   spanLabel: {
     fontSize: '14px',
     fontWeight: 400,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     marginBottom: 0,
   },
 
@@ -126,7 +126,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelBtn: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   existedIdeaBtnsWrapper: {
@@ -289,7 +289,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   deleteBtn: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     width: '20px',
     height: '20px',
   },
@@ -298,7 +298,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   criterionsField: {
@@ -312,11 +312,11 @@ export const useStyles = makeStyles()(theme => ({
   supplierSearchTitle: {
     fontWeight: 600,
     fontSize: 18,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   noDataText: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   supplierActionsWrapper: {
@@ -348,7 +348,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   emptyBlock: {
@@ -360,7 +360,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'end',
     marginTop: '-20px',
 
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
   error: {
     color: 'red',
@@ -386,7 +386,7 @@ export const useStyles = makeStyles()(theme => ({
     color: `${theme.palette.text.green} !important`,
   },
   label: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '19px',

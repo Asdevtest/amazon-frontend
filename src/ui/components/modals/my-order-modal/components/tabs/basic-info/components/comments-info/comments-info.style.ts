@@ -45,7 +45,7 @@ export const useStyles = makeStyles()(theme => ({
   fieldText: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
 
     '&:hover': {
       opacity: 1,
@@ -72,20 +72,20 @@ export const useStyles = makeStyles()(theme => ({
       background: `${theme.palette.background.general} !important`,
 
       '&:disabled': {
-        '-webkit-text-fill-color': theme.palette.text.general,
+        '-webkit-text-fill-color': theme.palette.text.primary,
       },
     },
   },
 
   commentTitle: {
     fontWeight: 500,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   commentText: {
     fontSize: 12,
     lineHeight: '16px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   empty: {

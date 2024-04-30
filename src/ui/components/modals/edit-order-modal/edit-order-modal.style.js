@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   modalText: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '36px',
@@ -54,7 +54,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalSpanText: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   itemInput: {
@@ -87,7 +87,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   label: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '19px',
@@ -134,7 +134,7 @@ export const useStyles = makeStyles()(theme => ({
 
   addBoxTitle: {
     marginBottom: '10px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '140%',
@@ -153,7 +153,7 @@ export const useStyles = makeStyles()(theme => ({
 
   amazonTitle: {
     width: '310px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: '14px',
     fontWeight: 600,
     lineHeight: '19px',
@@ -165,7 +165,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   orderStatus: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
@@ -197,7 +197,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableTitle: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '140%',
@@ -232,7 +232,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   priorityTitle: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '19px',
@@ -262,7 +262,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
 
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   seeCommentsText: {

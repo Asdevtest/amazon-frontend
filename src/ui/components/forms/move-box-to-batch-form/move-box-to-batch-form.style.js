@@ -10,7 +10,7 @@ export const useStyles = makeStyles()(theme => ({
 
   title: {
     textAlign: 'center',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       fontWeight: 600,
@@ -19,14 +19,14 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   standartText: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   messageWrapper: {
     width: '460px',
     textAlign: 'center',
     margin: '30px 0',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     [theme.breakpoints.down(768)]: {
       width: '214px',
       textAlign: 'center',
@@ -74,7 +74,7 @@ export const useStyles = makeStyles()(theme => ({
 
   cancelBtn: {
     marginLeft: '40px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
 
     [theme.breakpoints.down(768)]: {
       marginLeft: 0,

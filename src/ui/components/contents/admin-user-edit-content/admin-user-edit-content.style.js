@@ -21,10 +21,10 @@ export const useStyles = makeStyles()(theme => ({
   checkboxLabel: {
     fontWeight: 600,
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
   cancelBtn: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   isWrongPermissionsSelectError: {
@@ -33,7 +33,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   userRoleSelect: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
 
     '&:disabled': {
       color: '#DEDEDE',
@@ -61,7 +61,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   rating: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   mainWrapper: {
@@ -131,7 +131,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     marginBottom: '10px',
   },
 
@@ -172,7 +172,7 @@ export const useStyles = makeStyles()(theme => ({
 
   selectedRole: {
     width: 262,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   actionDelButton: {
@@ -208,7 +208,7 @@ export const useStyles = makeStyles()(theme => ({
   standartText: {
     width: '100%',
     height: 40,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   standartTextRole: {
@@ -221,12 +221,12 @@ export const useStyles = makeStyles()(theme => ({
 
     height: 20,
     width: '139px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   labelField: {
     fontSize: '14px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     lineHeight: '19px',
   },
   field: {
@@ -244,7 +244,7 @@ export const useStyles = makeStyles()(theme => ({
     right: 10,
     top: 35,
     cursor: 'pointer',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     [theme.breakpoints.down(768)]: {
       top: 35,
     },
@@ -266,7 +266,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
   validationHiddenMessage: {
     display: 'flex',
@@ -277,7 +277,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
   red: {
     color: 'red !important',

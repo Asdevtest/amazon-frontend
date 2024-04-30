@@ -37,7 +37,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '140%',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -48,7 +48,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
 
     span: {
       fontWeight: '600',
@@ -71,7 +71,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     marginRight: 5,
   },
 
@@ -93,7 +93,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   fieldContainer: {
@@ -135,7 +135,7 @@ export const useStyles = makeStyles()(theme => ({
   accentText: {
     fontSize: 14,
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   mainInfosSubWrapper: {
@@ -174,7 +174,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
 
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   emptyDiv: {

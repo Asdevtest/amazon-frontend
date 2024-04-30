@@ -157,7 +157,7 @@ export const useStyles = makeStyles()(theme => ({
   inputIcon: {
     width: '38px !important',
     height: '38px !important',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     transition: '0.3s ease',
     cursor: 'pointer',
 

@@ -34,14 +34,14 @@ export const useStyles = makeStyles()(theme => ({
 
   headerSubText: {
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     whiteSpace: 'pre-line',
     breakWord: 'word-break',
   },
 
   fieldLabel: {
     fontSize: 14,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
     marginBottom: 5,
   },
@@ -166,7 +166,7 @@ export const useStyles = makeStyles()(theme => ({
   imageObjIndex: {
     fontWeight: 700,
     fontSize: 20,
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     alignSelf: 'flex-start',
   },
 

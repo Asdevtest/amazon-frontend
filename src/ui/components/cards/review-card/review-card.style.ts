@@ -33,7 +33,7 @@ export const useStyles = makeStyles()(theme => ({
   headerItemTitle: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   headerItemTitleBold: {

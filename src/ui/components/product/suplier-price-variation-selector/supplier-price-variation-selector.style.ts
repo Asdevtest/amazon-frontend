@@ -21,13 +21,13 @@ export const useStyles = makeStyles()(theme => ({
     // maxWidth: 100,
   },
   title: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     marginBottom: 15,
     fontWeight: 600,
     fontSize: 14,
   },
   label: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontSize: 14,
     marginBottom: 8,
   },

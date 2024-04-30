@@ -51,7 +51,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   unitsText: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   linkSpan: {
@@ -114,7 +114,7 @@ export const useStyles = makeStyles()(theme => ({
   deleteBtn: {
     color: 'rgba(189, 194, 209, 1)',
     [theme.breakpoints.down(768)]: {
-      color: theme.palette.text.general,
+      color: theme.palette.text.primary,
     },
   },
 

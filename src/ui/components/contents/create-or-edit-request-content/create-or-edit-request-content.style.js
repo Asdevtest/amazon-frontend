@@ -34,20 +34,20 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '25px',
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   subTitle: {
     width: '100%',
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   text: {
     fontSize: '16px',
     lineHeight: '22px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   stepWrapper: {
@@ -89,7 +89,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 5,
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   fields: {
@@ -254,7 +254,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   infoColumn: {

@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainTitle: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   mainWrapper: {
@@ -52,11 +52,11 @@ export const useStyles = makeStyles()(theme => ({
 
   cancelBtn: {
     marginLeft: '30px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   standartText: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   labelStyle: {
@@ -84,6 +84,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 }))

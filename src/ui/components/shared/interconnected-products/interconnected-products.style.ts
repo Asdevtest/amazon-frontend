@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   variationIcon: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   parentVariationIcon: {

@@ -27,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
 
   label: {
     fontSize: '14px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     margin: '0 !important',
   },
 
@@ -81,6 +81,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cancelButton: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 }))

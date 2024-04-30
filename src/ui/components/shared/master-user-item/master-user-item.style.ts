@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   userName: {
     fontSize: '14px',
     fontWeight: 600,
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -27,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '5px',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   rating: {

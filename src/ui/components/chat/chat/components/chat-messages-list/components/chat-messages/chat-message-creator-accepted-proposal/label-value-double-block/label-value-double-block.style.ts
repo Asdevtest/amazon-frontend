@@ -20,12 +20,12 @@ export const useStyles = makeStyles()(theme => ({
   },
   labelWrapper: {},
   labelText: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontSize: 18,
   },
   valueWrapper: {},
   valueText: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontSize: 18,
   },
   rowNotFirst: {

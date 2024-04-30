@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   typoSpan: {
-    color: `${theme.palette.text.second} !important`,
+    color: `${theme.palette.text.secondary} !important`,
   },
 
   cellBtn: {

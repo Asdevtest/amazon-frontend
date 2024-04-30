@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 5,
     fontSize: '14px',
     lineHeight: '19px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   commentFieldContainer: {

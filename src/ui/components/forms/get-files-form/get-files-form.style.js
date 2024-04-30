@@ -12,6 +12,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalText: {
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 }))

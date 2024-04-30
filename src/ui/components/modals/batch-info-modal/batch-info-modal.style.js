@@ -20,7 +20,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   boxCounterText: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
   },
 
   boxCounterCount: {
@@ -104,7 +104,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: theme.palette.text.general,
+    color: theme.palette.text.primary,
   },
 
   searchInput: {
@@ -133,7 +133,7 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
   subFieldLabel: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.secondary,
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
@@ -156,7 +156,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   disabled: {
-    WebkitTextFillColor: `${theme.palette.text.second} !important`,
+    WebkitTextFillColor: `${theme.palette.text.secondary} !important`,
   },
   batchTitleField: {
     width: '160px !important',
