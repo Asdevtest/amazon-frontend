@@ -181,7 +181,15 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
 
         {isTariffsSelect ? (
           <div className={styles.buttonsWrapper}>
-            <Button disabled={!viewModel?.currentVariationId} onClick={viewModel?.handleSaveVariationTariff}>
+            <Button
+              disabled={
+                !viewModel?.currentVariationId ||
+                (viewModel.currentDestinationId !== viewModel.initialDestinationId &&
+                  !!viewModel.initialDestinationId &&
+                  viewModel.isStrictVariationSelect)
+              }
+              onClick={viewModel?.handleSaveVariationTariff}
+            >
               {t(TranslationKey.Choose)}
             </Button>
 
