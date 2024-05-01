@@ -223,6 +223,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   unitDimensionsSubWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
   },
