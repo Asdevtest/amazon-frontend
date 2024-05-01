@@ -6,6 +6,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   mainFilterBtnInsertText: {
+    fontSize: 14,
     fontWeight: 600,
     marginLeft: 5,
   },
