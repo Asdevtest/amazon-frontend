@@ -48,5 +48,10 @@ export const useStyles = makeStyles()(theme => {
       objectFit: 'contain',
       boxShadow: '0px 2px 8px 0px #1F1F1F40',
     },
+
+    orderText: {
+      color: theme.palette.text.second,
+      fontSize: '14px',
+    },
   }
 })

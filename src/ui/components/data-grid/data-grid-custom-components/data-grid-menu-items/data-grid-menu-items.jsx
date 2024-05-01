@@ -1961,6 +1961,9 @@ export const FromToDateMenuItem = memo(
       const [toDate, setToDate] = useState(null)
 
       useEffect(() => {
+        if (headerControls) {
+          return
+        }
         onClickFilterBtn(field, table)
       }, [])
 
@@ -2729,6 +2732,7 @@ export const BatchShippingDateCellMenuItem = memo(
       <FromToDateMenuItem
         data={data[currentTab]}
         field={currentTab}
+        table={table}
         filterRequestStatus={filterRequestStatus}
         headerControls={() => (
           <FormControl className={styles.formControl}>
