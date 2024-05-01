@@ -56,7 +56,7 @@ export const useChangeDimensions = ({ data, sizeSetting = Dimensions.EU }: IUseD
       weight: String(data.weighGrossKgWarehouse),
     }))
     setIsInitState(false)
-  }, [data])
+  }, [])
 
   useEffect(() => {
     if (!isInitState) {
