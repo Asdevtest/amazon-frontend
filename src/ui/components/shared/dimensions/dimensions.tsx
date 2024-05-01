@@ -8,7 +8,7 @@ import { t } from '@utils/translations'
 import { Dimensions as DimensionsEnum } from '@typings/enums/dimensions'
 import { IBox } from '@typings/models/boxes/box'
 
-import { Entities, useDimensions } from '@hooks/use-dimensions'
+import { Entities, useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
 
 import { useStyles } from './dimensions.style'
 
@@ -29,7 +29,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const [sizeSetting, setSizeSetting] = useState(DimensionsEnum.EU)
   const { length, width, height, weight, volumeWeight, finalWeight, totalWeight, dimensionsSize, unitsSize } =
-    useDimensions({
+    useShowDimensions({
       data,
       sizeSetting: transmittedSizeSetting || sizeSetting,
       calculationField,

@@ -21,7 +21,6 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SizeSwitcher } from '@components/shared/size-switcher'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -34,7 +33,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { UiTheme } from '@typings/enums/ui-theme'
 import { TariffModalType } from '@typings/shared/tariff-modal'
 
-import { Entities, useDimensions } from '@hooks/use-dimensions'
+import { Entities, useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
@@ -106,7 +105,7 @@ export const MergeBoxesModal = ({
   })
 
   const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-  const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+  const { length, width, height, weight, volumeWeight, finalWeight } = useShowDimensions({
     data: boxBody,
     sizeSetting,
     calculationField: Entities.WAREHOUSE,
@@ -392,7 +391,7 @@ export const MergeBoxesModal = ({
                       <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
                     </div>
 
-                    <WarehouseDimensions
+                    {/* <WarehouseDimensions
                       length={length}
                       width={width}
                       height={height}
@@ -401,7 +400,7 @@ export const MergeBoxesModal = ({
                       finalWeight={finalWeight}
                       sizeSetting={sizeSetting}
                       setFormField={setFormField}
-                    />
+                    /> */}
 
                     <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} />
                   </div>

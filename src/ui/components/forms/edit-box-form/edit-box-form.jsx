@@ -27,14 +27,13 @@ import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
 import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import '@utils/text'
 import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { TariffModalType } from '@typings/shared/tariff-modal'
 
-import { Entities, useDimensions } from '@hooks/use-dimensions'
+import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
@@ -56,10 +55,8 @@ export const EditBoxForm = memo(
     const [priorityReason, setPriorityReason] = useState()
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(undefined)
-
     const [showSetFilesModal, setShowSetFilesModal] = useState(false)
     const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
-
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
 
     const onClickBarcode = item => {
@@ -116,10 +113,9 @@ export const EditBoxForm = memo(
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
     const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-    const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+    const { dimensions, onChangeDimensions } = useChangeDimensions({
       data: boxFields,
       sizeSetting,
-      calculationField: Entities.WAREHOUSE,
     })
 
     const {
@@ -611,14 +607,9 @@ export const EditBoxForm = memo(
                 </div>
 
                 <WarehouseDimensions
-                  length={length}
-                  width={width}
-                  height={height}
-                  weight={weight}
-                  volumeWeight={volumeWeight}
-                  finalWeight={finalWeight}
+                  dimensions={dimensions}
                   sizeSetting={sizeSetting}
-                  setFormField={setFormField}
+                  onChangeDimensions={onChangeDimensions}
                 />
 
                 <div className={styles.boxPhotoWrapper}>

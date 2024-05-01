@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { SizeSwitcher } from '@components/shared/size-switcher'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
@@ -17,7 +16,7 @@ import { Dimensions } from '@typings/enums/dimensions'
 import { IBox } from '@typings/models/boxes/box'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { Entities, useDimensions } from '@hooks/use-dimensions'
+import { Entities, useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
 
 import { useStyles } from './edit-box-tasks-form.style'
 
@@ -46,7 +45,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
 
   const [editingBox, setEditingBox] = useState<IBox>(box)
   const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-  const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+  const { length, width, height, weight, volumeWeight, finalWeight } = useShowDimensions({
     data: editingBox,
     sizeSetting,
     calculationField: Entities.WAREHOUSE,
@@ -119,7 +118,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
 
       <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
 
-      <WarehouseDimensions
+      {/* <WarehouseDimensions
         length={length}
         width={width}
         height={height}
@@ -128,7 +127,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
         finalWeight={finalWeight}
         sizeSetting={sizeSetting}
         setFormField={setNewBoxField}
-      />
+      /> */}
 
       <UploadFilesInput
         withoutLinks

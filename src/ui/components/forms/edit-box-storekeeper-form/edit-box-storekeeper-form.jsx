@@ -24,7 +24,6 @@ import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
@@ -33,7 +32,7 @@ import { t } from '@utils/translations'
 import { Dimensions } from '@typings/enums/dimensions'
 import { TariffModalType } from '@typings/shared/tariff-modal'
 
-import { Entities, useDimensions } from '@hooks/use-dimensions'
+import { Entities, useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
@@ -154,7 +153,7 @@ export const EditBoxStorekeeperForm = memo(
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
     const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-    const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+    const { length, width, height, weight, volumeWeight, finalWeight } = useShowDimensions({
       data: boxFields,
       sizeSetting,
       calculationField: Entities.WAREHOUSE,
@@ -737,7 +736,7 @@ export const EditBoxStorekeeperForm = memo(
                   <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
                 </div>
 
-                <WarehouseDimensions
+                {/* <WarehouseDimensions
                   length={length}
                   width={width}
                   height={height}
@@ -746,7 +745,7 @@ export const EditBoxStorekeeperForm = memo(
                   finalWeight={finalWeight}
                   sizeSetting={sizeSetting}
                   setFormField={setFormField}
-                />
+                /> */}
 
                 <div className={styles.imageFileInputWrapper}>
                   <UploadFilesInput images={boxFields.images} setImages={handleChangeImages} />
