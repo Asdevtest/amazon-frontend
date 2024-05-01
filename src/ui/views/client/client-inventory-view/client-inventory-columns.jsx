@@ -135,7 +135,7 @@ export const clientInventoryColumns = (
           onClickText={e => {
             if (Number(params.value) > 0) {
               e.stopPropagation()
-              otherHandlers.onOpenProductDataModal(params.row, false)
+              otherHandlers.onOpenProductDataModal(params.row, true)
             }
           }}
         />
