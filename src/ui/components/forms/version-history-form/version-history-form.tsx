@@ -4,16 +4,17 @@ import { appVersion } from '@constants/app-version'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { Roles } from '@typings/enums/roles'
 import { IPatchNote } from '@typings/shared/patch-notes'
 
 import { useStyles } from './version-history-form.style'
+
+import { SelectedPatchNote } from './selected-patch-note'
+import { Versions } from './versions'
 
 interface VersionHistoryFormProps {
   title: string
@@ -36,9 +37,13 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
     selectedPatchNote,
   } = props
 
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const handleScrollPatchNotes = (e: UIEvent<HTMLElement>) => {
+    if (selectedPatchNote) {
+      return
+    }
+
     const element = e.target as HTMLElement
     const scrollTop = element?.scrollTop
     const containerHeight = element?.clientHeight
@@ -57,34 +62,19 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
             <ArrowBackIcon />
           </Button>
         ) : null}
-        <p className={cx(styles.title, styles.text)}>{selectedPatchNote ? selectedPatchNote?.[0]?.title : title}</p>
+        <p className={styles.title}>{selectedPatchNote ? selectedPatchNote?.[0]?.title : title}</p>
         {!selectedPatchNote ? <p className={styles.appVersion}>{appVersion}</p> : null}
       </div>
 
-      <div className={styles.versions} onScroll={e => (!selectedPatchNote ? handleScrollPatchNotes(e) : undefined)}>
-        {selectedPatchNote ? (
-          selectedPatchNote.map(patchNote => (
-            <div key={patchNote._id} className={styles.version}>
-              <div className={cx(styles.title, styles.text)}>{Roles[patchNote.role]}</div>
-              <CustomTextEditor
-                readOnly
-                allHeight
-                value={patchNote.description}
-                placeholder={t(TranslationKey.Description)}
-                editorWrapperClassName={styles.editorContainer}
-              />
-            </div>
-          ))
-        ) : patchNotes.length > 0 ? (
-          patchNotes.map(patchNote => (
-            <button key={patchNote._id} className={styles.buttonVersion} onClick={() => onViewPatchNote(patchNote._id)}>
-              <p className={styles.text}>{patchNote.title}</p>
-            </button>
-          ))
-        ) : (
-          <p className={styles.noData}>{t(TranslationKey['No data'])}</p>
-        )}
-      </div>
+      {selectedPatchNote ? (
+        <SelectedPatchNote selectedPatchNote={selectedPatchNote} />
+      ) : (
+        <Versions
+          patchNotes={patchNotes}
+          onScrollPatchNotes={handleScrollPatchNotes}
+          onViewPatchNote={onViewPatchNote}
+        />
+      )}
 
       <div className={styles.buttons}>
         <Button styleType={ButtonStyle.DANGER} onClick={onClickResetVersion}>

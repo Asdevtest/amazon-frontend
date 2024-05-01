@@ -75,6 +75,12 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
   const getRowClassName = (params: GridRowClassNameParams) =>
     viewModel.currentLogicsTariffId === params?.id ? styles.activeRow : ''
 
+  const isDisableButton =
+    !viewModel?.currentVariationId ||
+    (viewModel.currentDestinationId !== viewModel.initialDestinationId &&
+      !!viewModel.initialDestinationId &&
+      viewModel.isStrictVariationSelect)
+
   return (
     <Modal isSecondBackground openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.root}>
@@ -181,7 +187,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
 
         {isTariffsSelect ? (
           <div className={styles.buttonsWrapper}>
-            <Button disabled={!viewModel?.currentVariationId} onClick={viewModel?.handleSaveVariationTariff}>
+            <Button disabled={isDisableButton} onClick={viewModel?.handleSaveVariationTariff}>
               {t(TranslationKey.Choose)}
             </Button>
 
