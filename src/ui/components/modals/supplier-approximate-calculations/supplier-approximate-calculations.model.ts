@@ -87,17 +87,16 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       ...(this.currentLogicsTariffId ? { activeTariffLogisticsId: this.currentLogicsTariffId } : {}),
     })
 
-    super(
-      StorekeeperModel.getStorekeepersTariffsWithCalculations,
-      columns,
-      getFilterFields(columns, additionalFilterFields),
-      `storekeepers/tariffs_with_calculations?${productId ? 'productId=' + productId + '&' : ''}${
+    super({
+      getMainDataMethod: StorekeeperModel.getStorekeepersTariffsWithCalculations,
+      columnsModel: columns,
+      filtersFields: getFilterFields(columns, additionalFilterFields),
+      mainMethodURL: `storekeepers/tariffs_with_calculations?${productId ? 'productId=' + productId + '&' : ''}${
         supplierId ? 'supplierId=' + supplierId + '&' : ''
       }`,
-      ['name', 'destinationName'],
-      undefined,
+      fieldsForSearch: ['name', 'destinationName'],
       defaultGetDataMethodOptions,
-    )
+    })
 
     if (onClickSubmit) {
       this.handleSave = onClickSubmit

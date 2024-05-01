@@ -1,6 +1,7 @@
 import { GridCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,9 +19,10 @@ import { getHumanFriendlyNotificationType } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { RowHandlers } from '@typings/shared/data-grid'
-import { IFullUser } from '@typings/shared/full-user'
 
-export const generalNotificationsColumns = (rowHandlers: RowHandlers, userInfo: IFullUser | undefined) => {
+export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
+  const userInfo = rowHandlers?.userInfo()
+
   const renderCells = [
     {
       field: 'product',
@@ -42,7 +44,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
     },
 
     {
-      field: 'shopId',
+      field: 'shop',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: (params: GridCellParams) => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
@@ -94,7 +96,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
     {
       field: 'createdAt',
       headerName: t(TranslationKey.Created),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: (params: GridCellParams) => <NormDateCell value={params.row.createdAt} />,
       width: 100,
       columnKey: columnnsKeys.shared.DATE,
@@ -103,7 +105,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
 
   if (checkIsFreelancer(UserRoleCodeMap[userInfo?.role || 0])) {
     renderCells.splice(1, 0, {
-      field: 'createdBy',
+      field: 'user',
       headerName: t(TranslationKey.Performer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
       renderCell: (params: GridCellParams) => {
@@ -118,6 +120,12 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers, userInfo: 
       width: 145,
       columnKey: columnnsKeys.shared.OBJECT,
     })
+  }
+
+  for (const column of renderCells) {
+    // @ts-ignore
+    column.table = DataGridFilterTables.USER_NOTIFICATIONS
+    column.sortable = false
   }
 
   return renderCells

@@ -24,45 +24,15 @@ import { getClassParams } from './helpers/get-class-params'
 import { observerConfig } from './observer.config'
 
 export class ClientShopsViewModel extends DataGridFilterTableModel {
-  _tabKey = ShopReportsTabsValues.PPC_ORGANIC_BY_DAY
-  get tabKey() {
-    return this._tabKey
-  }
-  set tabKey(tabKey) {
-    this._tabKey = tabKey
-  }
+  tabKey = ShopReportsTabsValues.PPC_ORGANIC_BY_DAY
 
-  _inventoryProducts: any = []
-  get inventoryProducts() {
-    return this._inventoryProducts
-  }
-  set inventoryProducts(inventoryProducts) {
-    this._inventoryProducts = inventoryProducts
-  }
+  inventoryProducts: any = []
 
-  _showBindStockGoodsToInventoryModal = false
-  get showBindStockGoodsToInventoryModal() {
-    return this._showBindStockGoodsToInventoryModal
-  }
-  set showBindStockGoodsToInventoryModal(showBindStockGoodsToInventoryModal) {
-    this._showBindStockGoodsToInventoryModal = showBindStockGoodsToInventoryModal
-  }
+  showBindStockGoodsToInventoryModal = false
 
-  _showWarningInfoModal = false
-  get showWarningInfoModal() {
-    return this._showWarningInfoModal
-  }
-  set showWarningInfoModal(showWarningInfoModal) {
-    this._showWarningInfoModal = showWarningInfoModal
-  }
+  showWarningInfoModal = false
 
-  _showConfirmModal = false
-  get showConfirmModal() {
-    return this._showConfirmModal
-  }
-  set showConfirmModal(showConfirmModal) {
-    this._showConfirmModal = showConfirmModal
-  }
+  showConfirmModal = false
 
   showSelectShopsModal = false
   shopsData: any = []
@@ -71,7 +41,14 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
       getClassParams(currentTabsValues)
 
-    super(getMainDataMethod, columnsModel(), filtersFields, mainMethodURL, fieldsForSearch, tableKey)
+    super({
+      getMainDataMethod,
+      columnsModel: columnsModel(),
+      filtersFields,
+      mainMethodURL,
+      fieldsForSearch,
+      tableKey,
+    })
 
     this.tabKey = currentTabsValues
     this.getDataGridState()
@@ -90,7 +67,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.filtersFields = filtersFields
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
-    this._tableKey = tableKey
+    this.tableKey = tableKey
     this.sortModel = sortModelInitialValue
     this.paginationModel = paginationModelInitialValue
     this.filterModel = filterModelInitialValue
@@ -115,7 +92,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.getMainDataMethod = getMainDataMethod
     this.columnsModel = columnsModel()
     this.filtersFields = filtersFields
-    this._tableKey = tableKey
+    this.tableKey = tableKey
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
     this.fieldsForSearch = fieldsForSearch

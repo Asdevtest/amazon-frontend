@@ -1,6 +1,6 @@
 import { History } from 'history'
 import { observer } from 'mobx-react'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { NotificationTypes } from '@constants/notifications/notification-type'
@@ -32,10 +32,6 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
   const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new GeneralNotificationsViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   const currentUserRole = viewModel?.userInfo?.role || -1
   const isCurrentUserClient = checkIsClient(UserRoleCodeMap[currentUserRole])
@@ -81,7 +77,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
 
         <SearchInput
           inputClasses={styles.searchInput}
-          value={viewModel.searchValue}
+          value={viewModel.currentSearchValue}
           placeholder={`${t(TranslationKey['Search by ASIN, Title']) + searchPlaceholderText}`}
           onSubmit={viewModel.onSearchSubmit}
         />
@@ -92,7 +88,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           </Button>
 
           {!viewModel.isArchive && (
-            <Button disabled={!viewModel.selectedRowIds.length} onClick={() => viewModel.onClickReadButton()}>
+            <Button disabled={!viewModel.selectedRows.length} onClick={() => viewModel.onClickReadButton()}>
               {t(TranslationKey.Read)}
             </Button>
           )}
@@ -103,26 +99,38 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
-          rowSelectionModel={viewModel.selectedRowIds}
+          rowSelectionModel={viewModel.selectedRows}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.notificationsData}
+          rows={viewModel.currentData}
           columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
-          density="compact"
+          density={viewModel.densityModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.sortFields,
+                onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
           }}
@@ -140,7 +148,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           openModal={viewModel.showIdeaModal}
           setOpenModal={() => viewModel.toggleVariationHandler('showIdeaModal')}
           updateData={() => {
-            viewModel.getUserNotifications()
+            viewModel.getMainTableData()
             UserModel.getUserInfo()
           }}
           product={viewModel.currentProduct}

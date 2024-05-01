@@ -316,17 +316,17 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     )
     const filtersFields = getFilterFields(columns, additionalFilterFields)
 
-    super(
-      ClientModel.getProductsMyFilteredByShopIdWithPag,
-      columns,
+    super({
+      getMainDataMethod: ClientModel.getProductsMyFilteredByShopIdWithPag,
+      columnsModel: columns,
       filtersFields,
-      'clients/products/my_with_pag_v2?',
-      ['asin', 'amazonTitle', 'skuByClient'],
-      DataGridTablesKeys.CLIENT_INVENTORY,
+      mainMethodURL: 'clients/products/my_with_pag_v2?',
+      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
+      tableKey: DataGridTablesKeys.CLIENT_INVENTORY,
       defaultGetDataMethodOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
-    )
+    })
 
     this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
 

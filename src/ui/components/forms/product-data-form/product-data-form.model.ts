@@ -34,17 +34,16 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
       archive: this.archive,
     })
 
-    super(
-      isBatches ? BatchesModel.getBatchesbyProduct : BoxesModel.getProductInBatch,
-      columns,
-      getFilterFields(columns, ['archive']),
-      isBatches
+    super({
+      getMainDataMethod: isBatches ? BatchesModel.getBatchesbyProduct : BoxesModel.getProductInBatch,
+      columnsModel: columns,
+      filtersFields: getFilterFields(columns, ['archive']),
+      mainMethodURL: isBatches
         ? `batches/by_product/${product._id}?`
         : `boxes/clients/product_in_batch/${product._id}?onAmazon=${onAmazon}&`,
-      searchFields,
-      undefined,
+      fieldsForSearch: searchFields,
       defaultGetDataMethodOptions,
-    )
+    })
 
     this.onChangeFullFieldMenuItem([false], 'archive')
     this.getMainTableData()

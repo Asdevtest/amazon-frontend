@@ -1,14 +1,15 @@
 import { action, computed, observable } from 'mobx'
 
-export const generalNotificationsConfig = {
-  notifications: computed,
-  userInfo: computed,
-
-  archive: observable,
+export const observerConfig = {
   curNotificationType: observable,
+  isArchive: observable,
+  showIdeaModal: observable,
   currentProduct: observable,
   currentIdeaId: observable,
-  showIdeaModal: observable,
+  sortFields: observable,
+
+  userInfo: computed,
+  currentData: computed,
 
   onClickReadButton: action.bound,
   toggleVariationHandler: action.bound,
