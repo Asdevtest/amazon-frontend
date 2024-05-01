@@ -7,9 +7,18 @@ import { toFixed } from '@utils/text'
 import { Dimensions } from '@typings/enums/dimensions'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
-const INCHES_COEFFICIENT = 2.54
-const POUNDS_COEFFICIENT = 0.4536
-const DEFAULT_VOLUME_WEIGHT_COEFFICIENT = 6000
+export const INCHES_COEFFICIENT = 2.54
+export const POUNDS_COEFFICIENT = 0.4536
+export const DEFAULT_VOLUME_WEIGHT_COEFFICIENT = 6000
+
+export interface IFormattedDimensions {
+  length: string
+  width: string
+  height: string
+  weight: string
+  volumeWeight: number
+  finalWeight: number
+}
 
 export interface IDimensions {
   lengthCmWarehouse: number
@@ -21,14 +30,9 @@ export interface IDimensions {
 interface IUseDimension {
   data: IDimensions
   sizeSetting: Dimensions
-  defaultDimension?: Dimensions
 }
 
-export const useChangeDimensions = ({
-  data,
-  sizeSetting = Dimensions.EU,
-  defaultDimension = Dimensions.EU,
-}: IUseDimension) => {
+export const useChangeDimensions = ({ data, sizeSetting = Dimensions.EU }: IUseDimension) => {
   const [dimensions, setDimensions] = useState({
     length: '',
     width: '',
@@ -37,84 +41,82 @@ export const useChangeDimensions = ({
     volumeWeight: 0,
     finalWeight: 0,
   })
+  const [isInitState, setIsInitState] = useState(true)
 
   const volumeWeightCoefficient =
     (UserModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient ||
     DEFAULT_VOLUME_WEIGHT_COEFFICIENT
-  const convertValue = (value: number, dimension: Dimensions, coefficient: number) => {
-    return toFixed(dimension === defaultDimension ? value : value / coefficient)
-  }
-  const convertAndSetDimensions = (length: number, width: number, height: number, weight: number) => {
-    const convertedLength = convertValue(length, sizeSetting, INCHES_COEFFICIENT)
-    const convertedWidth = convertValue(width, sizeSetting, INCHES_COEFFICIENT)
-    const convertedHeight = convertValue(height, sizeSetting, INCHES_COEFFICIENT)
-    const convertedWeight = convertValue(weight, sizeSetting, POUNDS_COEFFICIENT)
-    const convertedVolumeWeight = convertValue(
-      (length * width * height) / volumeWeightCoefficient,
-      sizeSetting,
-      POUNDS_COEFFICIENT,
-    )
-
-    setDimensions(prevState => ({
-      ...prevState,
-      length: String(convertedLength),
-      width: String(convertedWidth),
-      height: String(convertedHeight),
-      weight: String(convertedWeight),
-      volumeWeight: convertedVolumeWeight,
-      finalWeight: toFixed(Math.max(convertedWeight, convertedVolumeWeight)),
-    }))
-  }
 
   useEffect(() => {
-    convertAndSetDimensions(
-      data.lengthCmWarehouse,
-      data.widthCmWarehouse,
-      data.heightCmWarehouse,
-      data.weighGrossKgWarehouse,
-    )
+    setDimensions(prev => ({
+      ...prev,
+      length: String(data.lengthCmWarehouse),
+      width: String(data.widthCmWarehouse),
+      height: String(data.heightCmWarehouse),
+      weight: String(data.weighGrossKgWarehouse),
+    }))
+    setIsInitState(false)
   }, [data])
+
+  useEffect(() => {
+    if (!isInitState) {
+      if (sizeSetting === Dimensions.US) {
+        setDimensions(prev => ({
+          ...prev,
+          length: String(toFixed(Number(prev.length) / INCHES_COEFFICIENT)),
+          width: String(toFixed(Number(prev.width) / INCHES_COEFFICIENT)),
+          height: String(toFixed(Number(prev.height) / INCHES_COEFFICIENT)),
+          weight: String(toFixed(Number(prev.weight) / POUNDS_COEFFICIENT)),
+        }))
+      } else {
+        setDimensions(prev => ({
+          ...prev,
+          length: String(toFixed(Number(prev.length) * INCHES_COEFFICIENT)),
+          width: String(toFixed(Number(prev.width) * INCHES_COEFFICIENT)),
+          height: String(toFixed(Number(prev.height) * INCHES_COEFFICIENT)),
+          weight: String(toFixed(Number(prev.weight) * POUNDS_COEFFICIENT)),
+        }))
+      }
+    }
+  }, [sizeSetting])
+
+  useEffect(() => {
+    if (sizeSetting === Dimensions.US) {
+      setDimensions(prev => {
+        // use "US" dimensions for viewing (work with "EU" sizes).
+        const returnEuDimensions =
+          Number(prev.length) *
+          INCHES_COEFFICIENT *
+          Number(prev.width) *
+          INCHES_COEFFICIENT *
+          Number(prev.height) *
+          INCHES_COEFFICIENT
+
+        return {
+          ...prev,
+          volumeWeight: toFixed(returnEuDimensions / volumeWeightCoefficient / POUNDS_COEFFICIENT),
+        }
+      })
+    } else {
+      setDimensions(prev => ({
+        ...prev,
+        volumeWeight: toFixed(
+          (Number(prev.length) * Number(prev.width) * Number(prev.height)) / volumeWeightCoefficient,
+        ),
+      }))
+    }
+  }, [dimensions.length, dimensions.width, dimensions.height])
+
+  useEffect(() => {
+    setDimensions(prev => ({
+      ...prev,
+      finalWeight: toFixed(Math.max(Number(prev.weight), Number(prev.volumeWeight))),
+    }))
+  }, [dimensions.volumeWeight, dimensions.weight])
 
   const handleChangeDimensions = (fieldName: string) => (e: ChangeEvent<HTMLInputElement>) => {
     if (!/^\d*\.?\d{0,2}$/.test(e.target.value)) {
       return
-    }
-
-    switch (fieldName) {
-      case 'length':
-        convertAndSetDimensions(
-          Number(e.target.value),
-          Number(dimensions.width),
-          Number(dimensions.height),
-          Number(dimensions.weight),
-        )
-        break
-      case 'width':
-        convertAndSetDimensions(
-          Number(dimensions.length),
-          Number(e.target.value),
-          Number(dimensions.height),
-          Number(dimensions.weight),
-        )
-        break
-      case 'height':
-        convertAndSetDimensions(
-          Number(dimensions.length),
-          Number(dimensions.width),
-          Number(e.target.value),
-          Number(dimensions.weight),
-        )
-        break
-      case 'weight':
-        convertAndSetDimensions(
-          Number(dimensions.length),
-          Number(dimensions.width),
-          Number(dimensions.height),
-          Number(e.target.value),
-        )
-        break
-      default:
-        break
     }
 
     setDimensions(prevState => ({

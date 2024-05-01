@@ -607,6 +607,7 @@ export const EditBoxForm = memo(
                 </div>
 
                 <WarehouseDimensions
+                  disabled
                   dimensions={dimensions}
                   sizeSetting={sizeSetting}
                   onChangeDimensions={onChangeDimensions}

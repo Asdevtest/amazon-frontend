@@ -9,16 +9,19 @@ import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 
+import { IFormattedDimensions } from '@hooks/dimensions/use-change-dimensions'
+
 import { useStyles } from './warehouse-dimensions.style'
 
 interface WarehouseDimensionsProps {
-  dimensions: any
+  dimensions: IFormattedDimensions
   sizeSetting: Dimensions
   onChangeDimensions: (fieldName: string) => (value: ChangeEvent<HTMLInputElement>) => void
+  disabled?: boolean
 }
 
 export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
-  const { dimensions, sizeSetting, onChangeDimensions } = props
+  const { dimensions, sizeSetting, onChangeDimensions, disabled } = props
 
   const { classes: styles } = useStyles()
 
@@ -30,6 +33,7 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
     <div className={styles.wrapper}>
       <div className={styles.flexContainer}>
         <Field
+          disabled={disabled}
           inputProps={{ maxLength: 6 }}
           error={isNormalLength}
           containerClasses={styles.fieldContainer}
@@ -40,6 +44,7 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
         />
 
         <Field
+          disabled={disabled}
           inputProps={{ maxLength: 6 }}
           error={isNormalWidth}
           containerClasses={styles.fieldContainer}
@@ -51,6 +56,7 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
       </div>
       <div className={styles.flexContainer}>
         <Field
+          disabled={disabled}
           inputProps={{ maxLength: 6 }}
           error={isNormalHeight}
           labelClasses={styles.label}
@@ -61,6 +67,7 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
         />
 
         <Field
+          disabled={disabled}
           inputProps={{ maxLength: 6 }}
           error={Number(dimensions.weight) === 0}
           containerClasses={styles.fieldContainer}
