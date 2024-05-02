@@ -170,6 +170,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   boxInfoSubWrapper: {
@@ -179,7 +180,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     height: '100%',
     gap: '15px',
-    width: '320px',
   },
 
   boxInfoExtraSubWrapper: {
@@ -219,12 +219,13 @@ export const useStyles = makeStyles()(theme => ({
   unitDimensionsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   unitDimensionsSubWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    width: '320px',
   },
 
   needAddPhotos: {
