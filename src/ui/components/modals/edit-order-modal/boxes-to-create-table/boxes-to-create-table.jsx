@@ -18,7 +18,7 @@ import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 
-import { Entities, useDimensions } from '@hooks/use-dimensions'
+import { Entities, useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
 
 import { useStyles } from './boxes-to-create-table.style'
 
@@ -45,7 +45,7 @@ const renderHeadRow = () => (
 const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
   const { classes: styles, cx } = useStyles()
 
-  const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+  const { length, width, height, weight, volumeWeight, finalWeight } = useShowDimensions({
     data: item,
     sizeSetting: restProps.sizeSetting,
     calculationField: Entities.SUPPLIER,

@@ -42,7 +42,7 @@ interface IUseDimension {
   defaultDimension?: Dimensions
 }
 
-export const useDimensions = ({
+export const useShowDimensions = ({
   data,
   sizeSetting = Dimensions.EU,
   calculationField,

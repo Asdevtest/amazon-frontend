@@ -26,14 +26,13 @@ import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 import { TariffModalType } from '@typings/shared/tariff-modal'
 
-import { Entities, useDimensions } from '@hooks/use-dimensions'
+import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
@@ -154,10 +153,9 @@ export const EditBoxStorekeeperForm = memo(
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
     const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-    const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+    const { dimensions, onChangeDimensions } = useChangeDimensions({
       data: boxFields,
       sizeSetting,
-      calculationField: Entities.WAREHOUSE,
     })
 
     const {
@@ -179,11 +177,6 @@ export const EditBoxStorekeeperForm = memo(
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
       const currentValue = e.target.value
-      if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-        if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
-          return
-        }
-      }
       newFormFields[fieldName] = currentValue
       setBoxFields(newFormFields)
     }
@@ -241,10 +234,10 @@ export const EditBoxStorekeeperForm = memo(
       return {
         ...boxFields,
         destinationId: boxFields.destinationId || null,
-        lengthCmWarehouse: length,
-        widthCmWarehouse: width,
-        heightCmWarehouse: height,
-        weighGrossKgWarehouse: weight,
+        lengthCmWarehouse: Number(dimensions.length),
+        widthCmWarehouse: Number(dimensions.width),
+        heightCmWarehouse: Number(dimensions.height),
+        weighGrossKgWarehouse: Number(dimensions.weight),
       }
     }
 
@@ -278,7 +271,6 @@ export const EditBoxStorekeeperForm = memo(
       setBarcodeModalSetting({
         title: '',
         maxNumber: 1,
-
         tmpCode: item?.tmpBarCode,
         item,
         onClickSaveBarcode: data => onClickSaveBarcode(item)(data),
@@ -289,9 +281,9 @@ export const EditBoxStorekeeperForm = memo(
     const disableSubmit =
       isEqual(boxInitialState, boxFields) ||
       boxFields.storekeeperId === '' ||
-      maxBoxSizeFromOption(sizeSetting, length) ||
-      maxBoxSizeFromOption(sizeSetting, width) ||
-      maxBoxSizeFromOption(sizeSetting, height)
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.length)) ||
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.width)) ||
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.height))
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
@@ -738,14 +730,9 @@ export const EditBoxStorekeeperForm = memo(
                 </div>
 
                 <WarehouseDimensions
-                  length={length}
-                  width={width}
-                  height={height}
-                  weight={weight}
-                  volumeWeight={volumeWeight}
-                  finalWeight={finalWeight}
+                  dimensions={dimensions}
                   sizeSetting={sizeSetting}
-                  setFormField={setFormField}
+                  onChangeDimensions={onChangeDimensions}
                 />
 
                 <div className={styles.imageFileInputWrapper}>

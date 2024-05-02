@@ -23,7 +23,7 @@ import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
 
-import { Entities } from '@hooks/use-dimensions'
+import { Entities } from '@hooks/dimensions/use-show-dimensions'
 
 import { useStyles } from './before-after-block.style'
 

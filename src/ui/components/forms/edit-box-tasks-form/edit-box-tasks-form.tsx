@@ -1,5 +1,5 @@
 import isEqual from 'lodash.isequal'
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -8,7 +8,6 @@ import { SizeSwitcher } from '@components/shared/size-switcher'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { t } from '@utils/translations'
 
@@ -17,7 +16,7 @@ import { Dimensions } from '@typings/enums/dimensions'
 import { IBox } from '@typings/models/boxes/box'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { Entities, useDimensions } from '@hooks/use-dimensions'
+import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 
 import { useStyles } from './edit-box-tasks-form.style'
 
@@ -46,10 +45,9 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
 
   const [editingBox, setEditingBox] = useState<IBox>(box)
   const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-  const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+  const { dimensions, onChangeDimensions } = useChangeDimensions({
     data: editingBox,
     sizeSetting,
-    calculationField: Entities.WAREHOUSE,
   })
 
   useEffect(() => {
@@ -57,19 +55,6 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
       setEditingBox(box)
     }
   }, [box])
-
-  const setNewBoxField = (fieldName: string) => (e: ChangeEvent<HTMLInputElement>) => {
-    const newFormFields: IBox = { ...editingBox }
-
-    if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-      return
-    }
-
-    // @ts-ignore
-    newFormFields[fieldName] = e.target.value
-
-    setEditingBox(newFormFields)
-  }
 
   const setImagesOfBox = (tmpImages: UploadFileType[]) => {
     setEditingBox((prev: IBox) => ({ ...prev, tmpImages }))
@@ -80,10 +65,10 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
 
     const lastStepEditBox: IBox = {
       ...editingBox,
-      lengthCmWarehouse: length,
-      widthCmWarehouse: width,
-      heightCmWarehouse: height,
-      weighGrossKgWarehouse: weight,
+      lengthCmWarehouse: Number(dimensions.length),
+      widthCmWarehouse: Number(dimensions.width),
+      heightCmWarehouse: Number(dimensions.height),
+      weighGrossKgWarehouse: Number(dimensions.weight),
     }
 
     if (isInStorekeeperWarehouse) {
@@ -105,13 +90,9 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
   }, [])
 
   const disabledSubmit =
-    !Number(editingBox.lengthCmWarehouse) ||
-    !Number(editingBox.widthCmWarehouse) ||
-    !Number(editingBox.heightCmWarehouse) ||
-    !Number(editingBox.weighGrossKgWarehouse) ||
-    maxBoxSizeFromOption(sizeSetting, editingBox.lengthCmWarehouse) ||
-    maxBoxSizeFromOption(sizeSetting, editingBox.widthCmWarehouse) ||
-    maxBoxSizeFromOption(sizeSetting, editingBox.heightCmWarehouse)
+    maxBoxSizeFromOption(sizeSetting, Number(dimensions.length)) ||
+    maxBoxSizeFromOption(sizeSetting, Number(dimensions.width)) ||
+    maxBoxSizeFromOption(sizeSetting, Number(dimensions.height))
 
   return (
     <div className={styles.wrapper}>
@@ -119,16 +100,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
 
       <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
 
-      <WarehouseDimensions
-        length={length}
-        width={width}
-        height={height}
-        weight={weight}
-        volumeWeight={volumeWeight}
-        finalWeight={finalWeight}
-        sizeSetting={sizeSetting}
-        setFormField={setNewBoxField}
-      />
+      <WarehouseDimensions dimensions={dimensions} sizeSetting={sizeSetting} onChangeDimensions={onChangeDimensions} />
 
       <UploadFilesInput
         withoutLinks

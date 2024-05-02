@@ -13,7 +13,7 @@ import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 
-import { useDimensions } from '@hooks/use-dimensions'
+import { useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
 
 import { useStyles } from './supplier-info.style'
 
@@ -31,7 +31,7 @@ export const useSupplierInfo = ({
 
   const [showSetBarCodeModal, setShowSetBarCodeModal] = useState(false)
   const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-  const { length, width, height, weight, unitsSize } = useDimensions({
+  const { length, width, height, weight, unitsSize } = useShowDimensions({
     data: formFields.product,
     sizeSetting,
     defaultDimension: Dimensions.US,

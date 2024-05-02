@@ -9,87 +9,89 @@ import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 
+import { IFormattedDimensions } from '@hooks/dimensions/use-change-dimensions'
+
 import { useStyles } from './warehouse-dimensions.style'
 
 interface WarehouseDimensionsProps {
-  length: number
-  width: number
-  height: number
-  weight: number
-  volumeWeight: number
-  finalWeight: number
+  dimensions: IFormattedDimensions
   sizeSetting: Dimensions
-  setFormField: (fieldName: string) => (value: ChangeEvent<HTMLInputElement>) => void
+  onChangeDimensions: (fieldName: string) => (value: ChangeEvent<HTMLInputElement>) => void
+  disabled?: boolean
 }
 
 export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
-  const { length, width, height, weight, volumeWeight, finalWeight, setFormField, sizeSetting } = props
+  const { dimensions, sizeSetting, onChangeDimensions, disabled } = props
 
   const { classes: styles } = useStyles()
 
-  const isNormalLength = !Number(length) || maxBoxSizeFromOption(sizeSetting, length)
-  const isNormalWidth = !Number(width) || maxBoxSizeFromOption(sizeSetting, width)
-  const isNormalHeight = !Number(height) || maxBoxSizeFromOption(sizeSetting, height)
+  const isNormalLength = maxBoxSizeFromOption(sizeSetting, Number(dimensions.length))
+  const isNormalWidth = maxBoxSizeFromOption(sizeSetting, Number(dimensions.width))
+  const isNormalHeight = maxBoxSizeFromOption(sizeSetting, Number(dimensions.height))
 
   return (
-    <div className={styles.numberInputFieldsBlocksWrapper}>
-      <div className={styles.numberInputFieldsWrapper}>
+    <div className={styles.wrapper}>
+      <div className={styles.flexContainer}>
         <Field
+          disabled={disabled}
           inputProps={{ maxLength: 6 }}
           error={isNormalLength}
-          containerClasses={styles.numberInputField}
+          containerClasses={styles.fieldContainer}
           labelClasses={styles.label}
           label={t(TranslationKey.Length) + ': '}
-          value={length}
-          onChange={setFormField('lengthCmWarehouse')}
+          value={dimensions.length}
+          onChange={onChangeDimensions('length')}
         />
 
         <Field
+          disabled={disabled}
           inputProps={{ maxLength: 6 }}
           error={isNormalWidth}
-          containerClasses={styles.numberInputField}
+          containerClasses={styles.fieldContainer}
           labelClasses={styles.label}
           label={t(TranslationKey.Width) + ': '}
-          value={width}
-          onChange={setFormField('widthCmWarehouse')}
+          value={dimensions.width}
+          onChange={onChangeDimensions('width')}
         />
       </div>
-      <div className={styles.numberInputFieldsWrapper}>
+      <div className={styles.flexContainer}>
         <Field
+          disabled={disabled}
           inputProps={{ maxLength: 6 }}
           error={isNormalHeight}
           labelClasses={styles.label}
-          containerClasses={styles.numberInputField}
+          containerClasses={styles.fieldContainer}
           label={t(TranslationKey.Height) + ': '}
-          value={height}
-          onChange={setFormField('heightCmWarehouse')}
+          value={dimensions.height}
+          onChange={onChangeDimensions('height')}
         />
 
         <Field
+          disabled={disabled}
           inputProps={{ maxLength: 6 }}
-          error={Number(weight) === 0}
-          containerClasses={styles.numberInputField}
+          error={Number(dimensions.weight) === 0}
+          containerClasses={styles.fieldContainer}
           labelClasses={styles.label}
           label={t(TranslationKey.Weight) + ': '}
-          value={weight}
-          onChange={setFormField('weighGrossKgWarehouse')}
+          value={dimensions.weight}
+          onChange={onChangeDimensions('weight')}
         />
       </div>
-      <div className={styles.numberInputFieldsWrapper}>
+      <div className={styles.flexContainer}>
         <Field
           disabled
-          containerClasses={styles.numberInputField}
+          containerClasses={styles.fieldContainer}
           label={t(TranslationKey['Volume weight']) + ': '}
           labelClasses={styles.label}
-          value={volumeWeight}
+          value={dimensions.volumeWeight}
         />
 
         <Field
           disabled
-          containerClasses={styles.numberInputField}
+          containerClasses={styles.fieldContainer}
           label={t(TranslationKey['Final weight']) + ': '}
           labelClasses={styles.label}
-          value={finalWeight}
+          value={dimensions.finalWeight}
         />
       </div>
     </div>

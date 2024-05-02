@@ -23,7 +23,7 @@ import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeeper } from '@utils/checks'
+import { checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
@@ -34,7 +34,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { UiTheme } from '@typings/enums/ui-theme'
 import { TariffModalType } from '@typings/shared/tariff-modal'
 
-import { Entities, useDimensions } from '@hooks/use-dimensions'
+import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
@@ -106,10 +106,9 @@ export const MergeBoxesModal = ({
   })
 
   const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-  const { length, width, height, weight, volumeWeight, finalWeight } = useDimensions({
+  const { dimensions, onChangeDimensions } = useChangeDimensions({
     data: boxBody,
     sizeSetting,
-    calculationField: Entities.WAREHOUSE,
   })
 
   const {
@@ -128,23 +127,7 @@ export const MergeBoxesModal = ({
     setShowSelectionStorekeeperAndTariffModal,
   } = useTariffVariation(boxBody.destinationId, setBoxBody)
 
-  const setFormField = fieldName => e => {
-    const newFormFields = { ...boxBody }
-    const currentValue = e.target.value
-
-    if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
-        return
-      }
-    }
-
-    newFormFields[fieldName] = currentValue
-
-    setBoxBody(newFormFields)
-  }
-
   const [imagesOfBox, setImagesOfBox] = useState([])
-
   const [comment, setComment] = useState('')
   const getBoxDataToSubmit = () => {
     setSizeSetting(Dimensions.EU)
@@ -152,10 +135,10 @@ export const MergeBoxesModal = ({
     return {
       ...boxBody,
       destinationId: boxBody.destinationId || null,
-      lengthCmWarehouse: length,
-      widthCmWarehouse: width,
-      heightCmWarehouse: height,
-      weighGrossKgWarehouse: weight,
+      lengthCmWarehouse: Number(dimensions.length),
+      widthCmWarehouse: Number(dimensions.width),
+      heightCmWarehouse: Number(dimensions.height),
+      weighGrossKgWarehouse: Number(dimensions.weight),
       images: imagesOfBox,
     }
   }
@@ -393,14 +376,9 @@ export const MergeBoxesModal = ({
                     </div>
 
                     <WarehouseDimensions
-                      length={length}
-                      width={width}
-                      height={height}
-                      weight={weight}
-                      volumeWeight={volumeWeight}
-                      finalWeight={finalWeight}
+                      dimensions={dimensions}
                       sizeSetting={sizeSetting}
-                      setFormField={setFormField}
+                      onChangeDimensions={onChangeDimensions}
                     />
 
                     <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} />
