@@ -31,8 +31,6 @@ export const productStatusButtonsConfigs = {
     if (curStatus === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]) {
       return
     } else if (curStatus === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP]) {
-      console.log('curStatus :>> ', curStatus)
-
       return [
         {
           statusKey: ProductStatus.CHECKED_BY_SUPERVISOR,
