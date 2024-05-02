@@ -26,9 +26,10 @@ export class UserPermissionsModel {
   permissionIdToRemove = undefined
 
   showAddOrEditGroupPermissionModal = false
+  showAddOrEditSinglePermissionModal = false
   showConfirmModal = false
 
-  addOrEditGroupPermissionSettings = {
+  addOrEditPermissionSettings = {
     permission: {},
     isEdit: false,
     onSubmit: (data, newSinglePermissions) =>
@@ -167,7 +168,7 @@ export class UserPermissionsModel {
     }
   }
 
-  async onCreateSinglePermission(data) {
+  async createPermission(data) {
     try {
       const newPermissionId = await PermissionsModel.createSinglePermission(data)
 
@@ -184,7 +185,7 @@ export class UserPermissionsModel {
       for (let i = 0; i < newSinglePermissions.length; i++) {
         const perm = newSinglePermissions[i]
 
-        this.onCreateSinglePermission(perm)
+        this.createPermission(perm)
       }
     } catch (error) {
       console.error(error)
@@ -292,7 +293,7 @@ export class UserPermissionsModel {
   }
 
   onClickAddBtn() {
-    this.addOrEditGroupPermissionSettings = {
+    this.addOrEditPermissionSettings = {
       permission: {},
       isEdit: false,
       onSubmit: (data, newSinglePermissions) =>
@@ -300,11 +301,13 @@ export class UserPermissionsModel {
           ? this.onSubmitCreateGroupPermission(data, newSinglePermissions)
           : this.onSubmitCreateSinglePermission(data),
     }
-    this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
+    this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
+      ? this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
+      : this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
   }
 
   onClickEditBtn(row) {
-    this.addOrEditGroupPermissionSettings = {
+    this.addOrEditPermissionSettings = {
       permission: row,
       isEdit: true,
       onSubmit: (data, newSinglePermissions, permissionId) =>
@@ -312,7 +315,9 @@ export class UserPermissionsModel {
           ? this.onSubmitUpdateGroupPermission(data, newSinglePermissions, permissionId)
           : this.onSubmitUpdateSinglePermission(data, permissionId),
     }
-    this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
+    this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
+      ? this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
+      : this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
   }
 
   onClickCancelBtn() {
@@ -342,7 +347,9 @@ export class UserPermissionsModel {
   }
 
   cancelTheOrder() {
-    this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
+    this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
+      ? this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
+      : this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
     this.onTriggerOpenModal('showConfirmModal')
   }
 

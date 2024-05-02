@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditGroupPermissionForm } from '@components/forms/add-or-edit-group-permission-form'
+import { AddOrEditSinglePermissionForm } from '@components/forms/add-or-edit-single-permission-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -84,10 +85,23 @@ export const UserPermissions = observer(() => {
         <AddOrEditGroupPermissionForm
           existingGroupPermissions={viewModel.groupPermissions}
           singlePermissions={viewModel.singlePermissions}
-          permissionToEdit={viewModel.addOrEditGroupPermissionSettings.permission}
-          isEdit={viewModel.addOrEditGroupPermissionSettings.isEdit}
+          permissionToEdit={viewModel.addOrEditPermissionSettings.permission}
+          isEdit={viewModel.addOrEditPermissionSettings.isEdit}
           onCloseModal={viewModel.onClickCancelBtn}
-          onSubmit={viewModel.addOrEditGroupPermissionSettings.onSubmit}
+          onSubmit={viewModel.addOrEditPermissionSettings.onSubmit}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showAddOrEditSinglePermissionModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
+      >
+        <AddOrEditSinglePermissionForm
+          existingSinglePermissions={viewModel.singlePermissions}
+          permissionToEdit={viewModel.addOrEditPermissionSettings.permission}
+          isEdit={viewModel.addOrEditPermissionSettings.isEdit}
+          onCloseModal={viewModel.onClickCancelBtn}
+          onSubmit={viewModel.addOrEditPermissionSettings.onSubmit}
         />
       </Modal>
 
