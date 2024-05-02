@@ -16,7 +16,6 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SinglePermissionsModel {
-  history = undefined
   requestStatus = undefined
 
   singlePermissions = []
@@ -29,7 +28,6 @@ export class SinglePermissionsModel {
     isEdit: false,
     onSubmit: data => this.onSubmitCreateSinglePermission(data),
   }
-
   confirmModalSettings = {
     isWarning: false,
     message: '',
@@ -40,35 +38,33 @@ export class SinglePermissionsModel {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
-
   sortModel = []
   filterModel = { items: [] }
-  densityModel = 'compact'
   columnsModel = adminSinglePermissionsColumns(this.rowHandlers)
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
-  constructor({ history }) {
-    this.history = history
+  get currentData() {
+    return this.singlePermissions
+  }
+
+  constructor() {
+    this.loadData()
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
   }
 
@@ -98,10 +94,6 @@ export class SinglePermissionsModel {
     this.requestStatus = requestStatus
   }
 
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
-  }
-
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
 
@@ -110,10 +102,6 @@ export class SinglePermissionsModel {
 
   onSelectionModel(model) {
     this.rowSelectionModel = model
-  }
-
-  get currentData() {
-    return this.singlePermissions
   }
 
   loadData() {

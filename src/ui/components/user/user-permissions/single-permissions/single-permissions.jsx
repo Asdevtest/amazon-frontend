@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,101 +20,73 @@ import { SinglePermissionsModel } from './single-permissions.model'
 
 export const SinglePermissions = observer(() => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
-  const spModel = useRef(new SinglePermissionsModel({ history }))
 
-  useEffect(() => {
-    spModel.current.loadData()
-  }, [])
-
-  const {
-    singlePermissions,
-    requestStatus,
-    currentData,
-    sortModel,
-    filterModel,
-    densityModel,
-    columnsModel,
-
-    columnVisibilityModel,
-    paginationModel,
-    addOrEditSinglePermissionSettings,
-    confirmModalSettings,
-    showAddOrEditSinglePermissionModal,
-    showConfirmModal,
-    onTriggerOpenModal,
-    onClickAddBtn,
-    onClickCancelBtn,
-
-    onChangeSortingModel,
-    onChangeFilterModel,
-    onColumnVisibilityModelChange,
-    onPaginationModelChange,
-  } = spModel.current
+  const [viewModel] = useState(() => new SinglePermissionsModel())
 
   return (
-    <div className={styles.mainWrapper}>
-      <div className={styles.placeAddBtnWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} className={styles.addPermissonsBtn} onClick={() => onClickAddBtn()}>
+    <div className={styles.wrapper}>
+      <div className={styles.buttons}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickAddBtn}>
           {t(TranslationKey.Add)}
         </Button>
       </div>
+
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          sortModel={sortModel}
-          filterModel={filterModel}
-          columnVisibilityModel={columnVisibilityModel}
-          paginationModel={paginationModel}
-          rows={currentData}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           sortingMode="client"
           paginationMode="client"
+          getRowId={({ id }) => id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
             toolbar: {
               columsBtnSettings: {
-                columnsModel,
-                columnVisibilityModel,
-                onColumnVisibilityModelChange,
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
             },
           }}
-          density={densityModel}
-          columns={columnsModel}
-          loading={requestStatus === loadingStatus.IS_LOADING}
-          onSortModelChange={onChangeSortingModel}
-          onPaginationModelChange={onPaginationModelChange}
-          onFilterModelChange={onChangeFilterModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
 
       <Modal
-        openModal={showAddOrEditSinglePermissionModal}
-        setOpenModal={() => onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
+        openModal={viewModel.showAddOrEditSinglePermissionModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
       >
         <AddOrEditSinglePermissionForm
-          existingSinglePermissions={singlePermissions}
-          permissionToEdit={addOrEditSinglePermissionSettings.permission}
-          isEdit={addOrEditSinglePermissionSettings.isEdit}
-          onCloseModal={() => onClickCancelBtn()}
-          onSubmit={addOrEditSinglePermissionSettings.onSubmit}
+          existingSinglePermissions={viewModel.singlePermissions}
+          permissionToEdit={viewModel.addOrEditSinglePermissionSettings.permission}
+          isEdit={viewModel.addOrEditSinglePermissionSettings.isEdit}
+          onCloseModal={viewModel.onClickCancelBtn}
+          onSubmit={viewModel.addOrEditSinglePermissionSettings.onSubmit}
         />
       </Modal>
 
-      {showConfirmModal ? (
+      {viewModel.showConfirmModal ? (
         <ConfirmationModal
           // @ts-ignore
-          isWarning={confirmModalSettings?.isWarning}
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
-          message={confirmModalSettings.message}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={confirmModalSettings.onClickSuccess}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
     </div>

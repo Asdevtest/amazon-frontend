@@ -1,27 +1,20 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  mainWrapper: {
+  wrapper: {
+    marginTop: 20,
     display: 'flex',
-    gap: '20px',
-    width: '100%',
-    marginTop: 10,
     flexDirection: 'column',
+    gap: '20px',
   },
 
-  placeAddBtnWrapper: {
-    width: '100%',
+  buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
   },
 
-  addPermissonsBtn: {
-    width: '149px',
-    height: '40px',
-  },
-
   datagridWrapper: {
-    height: '75vh',
+    height: '76vh',
     width: '100%',
   },
 }))
