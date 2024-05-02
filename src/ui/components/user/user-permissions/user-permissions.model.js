@@ -385,7 +385,9 @@ export class UserPermissionsModel {
         link.click()
         document.body.removeChild(link)
 
-        toast.success(t(TranslationKey['Permissions exported successfully']))
+        setTimeout(() => {
+          toast.success(t(TranslationKey['Permissions exported successfully']))
+        }, 3000)
       }
     } catch (error) {
       console.error(error)
