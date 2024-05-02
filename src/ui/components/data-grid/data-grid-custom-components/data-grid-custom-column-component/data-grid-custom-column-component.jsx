@@ -539,7 +539,7 @@ export const DataGridCustomColumnMenuComponent = props => {
 
   if ([columnnsKeys.shared.NUMBERS].includes(currentColumn.columnKey)) {
     return (
-      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+      <CustomMenuContainer {...props}>
         <NumbersColumnMenu
           filtersData={props}
           fields={currentColumn.fields}
@@ -551,7 +551,7 @@ export const DataGridCustomColumnMenuComponent = props => {
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
         />
-      </GridColumnMenuContainer>
+      </CustomMenuContainer>
     )
   }
 

@@ -332,6 +332,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     makeObservable(this, observerConfig)
 
+    this.loadData()
+
     const getValidColumns = async () => {
       const activeFields = this.presetsData.reduce((acc, el) => {
         if (el?._id) {

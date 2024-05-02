@@ -1,6 +1,6 @@
 import { FC, SyntheticEvent, memo } from 'react'
 
-import { GridPinnedColumns } from '@mui/x-data-grid-premium'
+import { GridPinnedPosition, useGridApiContext } from '@mui/x-data-grid-premium'
 
 import { CrossIcon } from '@components/shared/svg-icons'
 
@@ -10,63 +10,50 @@ import { PinButton } from '../pin-button'
 
 interface IControlColumnMenuProps {
   field: string
-  pinnedColumns: GridPinnedColumns
   onClickCloseMenu: (event: SyntheticEvent<Element, Event>) => void
-  onClickPinButton: (pinnedColumns: GridPinnedColumns) => void
 }
 
-export const ControlColumnMenu: FC<IControlColumnMenuProps> = memo(
-  ({ field, pinnedColumns, onClickCloseMenu, onClickPinButton }) => {
-    const { classes: styles } = useStyles()
+export const ControlColumnMenu: FC<IControlColumnMenuProps> = memo(({ field, onClickCloseMenu }) => {
+  const { classes: styles } = useStyles()
 
-    const isPinnedLeft = pinnedColumns?.left?.includes(field)
-    const isPinnedRight = pinnedColumns?.right?.includes(field)
+  const { current: apiRef } = useGridApiContext()
 
-    const handlePinColumn = (isRightDirection: boolean, fieldName: string, isUnpin: boolean) => {
-      const newPinnedColumns = { ...pinnedColumns }
+  const pinSide = apiRef?.isColumnPinned(field)
 
-      if (isUnpin) {
-        for (const direction in newPinnedColumns) {
-          if (direction) {
-            const currentDirection = direction as keyof GridPinnedColumns
-            newPinnedColumns[currentDirection] = newPinnedColumns?.[currentDirection]?.filter(el => el !== fieldName)
-          }
-        }
-      } else {
-        const sideToPin = isRightDirection ? 'right' : 'left'
-        const sideToUnpin = isRightDirection ? 'left' : 'right'
+  const isPinnedLeft = pinSide === GridPinnedPosition.left
+  const isPinnedRight = pinSide === GridPinnedPosition.right
 
-        newPinnedColumns?.[sideToPin]?.push(fieldName)
-        newPinnedColumns[sideToUnpin] = newPinnedColumns?.[sideToUnpin]?.filter(el => el !== fieldName)
-      }
-
-      onClickPinButton(newPinnedColumns)
+  const handlePinColumn = (direction: GridPinnedPosition, isUnpin: boolean) => {
+    if (isUnpin) {
+      apiRef.unpinColumn(field)
+    } else {
+      apiRef?.pinColumn(field, direction)
     }
+  }
 
-    return (
-      <div className={styles.controlWrapper}>
-        <div className={styles.pinButtonsWrapper}>
-          <PinButton
-            isPinned={isPinnedLeft}
-            onClickButton={e => {
-              onClickCloseMenu(e)
-              handlePinColumn(false, field, !!isPinnedLeft)
-            }}
-          />
-          <PinButton
-            isRight
-            isPinned={isPinnedRight}
-            onClickButton={e => {
-              onClickCloseMenu(e)
-              handlePinColumn(true, field, !!isPinnedRight)
-            }}
-          />
-        </div>
-
-        <button onClick={onClickCloseMenu}>
-          <CrossIcon className={styles.crossIcon} />
-        </button>
+  return (
+    <div className={styles.controlWrapper}>
+      <div className={styles.pinButtonsWrapper}>
+        <PinButton
+          isPinned={isPinnedLeft}
+          onClickButton={e => {
+            onClickCloseMenu(e)
+            handlePinColumn(GridPinnedPosition.left, !!isPinnedLeft)
+          }}
+        />
+        <PinButton
+          isRight
+          isPinned={isPinnedRight}
+          onClickButton={e => {
+            onClickCloseMenu(e)
+            handlePinColumn(GridPinnedPosition.right, !!isPinnedRight)
+          }}
+        />
       </div>
-    )
-  },
-)
+
+      <button onClick={onClickCloseMenu}>
+        <CrossIcon className={styles.crossIcon} />
+      </button>
+    </div>
+  )
+})

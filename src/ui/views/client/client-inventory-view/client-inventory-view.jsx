@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -61,10 +61,6 @@ export const ClientInventoryView = observer(({ history }) => {
       }),
   )
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
 
   return (
@@ -103,8 +99,7 @@ export const ClientInventoryView = observer(({ history }) => {
             },
             columnMenu: {
               ...viewModel.columnMenuSettings,
-              pinnedColumns: viewModel.pinnedColumns,
-              onClickPinButton: viewModel.handlePinColumn,
+              pinnedColumns: !!viewModel.pinnedColumns,
             },
 
             toolbar: {
@@ -171,6 +166,7 @@ export const ClientInventoryView = observer(({ history }) => {
           }}
           onRowClick={params => viewModel.onClickProductModal(params.row)}
           onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
