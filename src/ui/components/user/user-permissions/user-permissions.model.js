@@ -272,7 +272,6 @@ export class UserPermissionsModel {
 
   async onSubmitUpdateSinglePermission(data, permissionId) {
     try {
-      console.log('first', data, permissionId)
       await this.updateSinglePermission(data, permissionId)
 
       this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
