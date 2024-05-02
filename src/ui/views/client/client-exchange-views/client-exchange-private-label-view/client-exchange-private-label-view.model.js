@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
+import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { ShopModel } from '@models/shop-model'
@@ -8,7 +9,7 @@ import { UserModel } from '@models/user-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
@@ -75,7 +76,7 @@ export class ClientExchangePrivateLabelViewModel {
         productId: product._id,
         images: [],
       }
-      await ClientModel.createOrder(createorderData)
+      await ClientModel.createOrder(getObjectFilteredByKeyArrayWhiteList(createorderData, createOrderRequestWhiteList))
       this.loadData()
     } catch (error) {
       console.error(error)

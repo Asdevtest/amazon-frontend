@@ -14,7 +14,6 @@ export const useStyles = makeStyles()(() => ({
       lineHeight: '1 !important',
     },
     '.MuiAutocomplete-clearIndicator': {
-      // display: 'none',
       marginRight: 20,
     },
     '.MuiAutocomplete-option': {
@@ -26,11 +25,19 @@ export const useStyles = makeStyles()(() => ({
     },
   },
 
+  disableHover: {
+    '&:hover': {
+      'svg, button': {
+        display: 'none',
+      },
+    },
+  },
+
   addBtn: {
     position: 'absolute',
-    right: '3px',
-    top: '7px',
-    bottom: '0',
+    right: 3,
+    top: 7,
+    bottom: 0,
   },
 
   tagList: {

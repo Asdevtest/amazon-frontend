@@ -50,8 +50,6 @@ export const TopCard = memo(
     onClickSetProductStatusBtn,
     handleProductActionButtons,
     onChangeImagesForLoad,
-    acceptMessage,
-    showAcceptMessage,
     showBindProductModal,
     productsToBind,
     onTriggerOpenModal,
@@ -87,7 +85,7 @@ export const TopCard = memo(
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
         productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
 
-    const isChildProduct = product.parentProductId
+    const isChildProduct = product?.parentProductId
 
     return (
       <>
@@ -106,7 +104,7 @@ export const TopCard = memo(
                 </p>
               </div>
               <div className={styles.card}>
-                {product.images.length ? (
+                {product?.images?.length ? (
                   <div className={styles.carouselWrapper}>
                     <SlideshowGallery
                       slidesToShow={5}
@@ -154,8 +152,6 @@ export const TopCard = memo(
               curUserRole={curUserRole}
               product={product}
               productBase={productBase}
-              acceptMessage={acceptMessage}
-              showAcceptMessage={showAcceptMessage}
               formFieldsValidationErrors={formFieldsValidationErrors}
               handleProductActionButtons={handleProductActionButtons}
               onClickSetProductStatusBtn={onClickSetProductStatusBtn}

@@ -103,9 +103,9 @@ class ClientModelStatic {
     return response.data
   }
 
-  boxConfirmPriceChange = async guid => {
+  boxConfirmPriceChange = async body => {
     const response = await restApiService.clientApi.apiV1ClientsBoxesConfirmDeliveryPriceChangePost({
-      body: [{ boxId: guid }],
+      body,
     })
     return response.data
   }
@@ -172,6 +172,25 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsProductsGuidFourMonthesStockPatch({
       guid,
       body,
+    })
+    return response.data
+  }
+
+  editRecommendationForStockByGuid = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesEditRecommendationForStockGuidPatch({
+      guid,
+      body,
+    })
+    return response.data
+  }
+
+  postAddRecommendationForStock = async (productId, storekeeperId, recommendedValue) => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesAddRecommendationForStockPost({
+      body: {
+        productId,
+        storekeeperId,
+        recommendedValue,
+      },
     })
     return response.data
   }

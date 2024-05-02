@@ -1,6 +1,14 @@
-import { GridRowModel } from '@mui/x-data-grid-premium'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { GridColDef } from '@mui/x-data-grid-premium'
 
-export interface IPinnedRows {
-  top: GridRowModel[]
-  bottom: GridRowModel[]
+export interface DataGridFilterTableModelParams {
+  getMainDataMethod: (...args: any) => any
+  columnsModel: GridColDef[]
+  filtersFields: string[]
+  mainMethodURL: string
+  fieldsForSearch?: string[]
+  tableKey?: string
+  defaultGetDataMethodOptions?: any
+  additionalPropertiesColumnMenuSettings?: any
+  additionalPropertiesGetFilters?: any
 }

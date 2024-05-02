@@ -1,12 +1,13 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { BatchesModel } from '@models/batches-model'
-import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
@@ -23,7 +24,7 @@ import { clientOrdersViewColumns } from '@components/table/table-columns/client/
 
 import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -45,7 +46,6 @@ export class ClientOrdersViewModel {
   chosenStatus = []
   filteredStatus = []
   hsCodeData = undefined
-  batchesData = []
 
   get currentData() {
     return this.orders
@@ -61,8 +61,6 @@ export class ClientOrdersViewModel {
   productBatches = []
   showCheckPendingOrderFormModal = false
   showMyOrderModal = false
-  showWarningInfoModal = false
-  showProductLotDataModal = false
   showEditHSCodeModal = false
 
   myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
@@ -70,16 +68,6 @@ export class ClientOrdersViewModel {
 
   existingProducts = []
   shopsData = []
-
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   selectedWarehouseOrderProduct = undefined
   selectedProduct = undefined
@@ -458,7 +446,7 @@ export class ClientOrdersViewModel {
 
   async getBatches() {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.activeProductGuid, false)
+      const result = await BatchesModel.getBatchesbyProduct({ guid: this.activeProductGuid, archive: false })
 
       runInAction(() => {
         this.productBatches = result
@@ -603,14 +591,7 @@ export class ClientOrdersViewModel {
 
   async createOrder(orderObject) {
     try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-        '_id',
-        'tmpTransparencyFile',
-        'transparency',
-      ])
+      const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
       if (orderObject.tmpIsPendingOrder) {
         await ClientModel.createFormedOrder(requestData)
@@ -881,30 +862,11 @@ export class ClientOrdersViewModel {
 
       this.loadData()
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       await this.getOrderById(order._id)
 
       this.onTriggerOpenModal('showWarningInfoModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickInTransfer(productId) {
-    try {
-      const result = await BoxesModel.getBoxesInTransfer(productId)
-
-      runInAction(() => {
-        this.batchesData = result
-      })
-
-      this.onTriggerOpenModal('showProductLotDataModal')
     } catch (error) {
       console.error(error)
     }

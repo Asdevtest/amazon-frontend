@@ -169,12 +169,6 @@ export class WarehouseTariffModel {
     }
   }
 
-  onClickAddBtn() {
-    this.tariffToEdit = undefined
-
-    this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
-  }
-
   onClickCancelBtn() {
     this.confirmModalSettings = {
       isWarning: false,

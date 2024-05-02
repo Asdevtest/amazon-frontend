@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { Errors } from '@constants/errors'
 import { BatchStatus } from '@constants/statuses/batch-status'
@@ -25,6 +24,7 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
+import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields, updateBoxWhiteList } from './warehouse-my-warehouse-view.constants'
@@ -45,7 +45,7 @@ export class WarehouseMyWarehouseViewModel {
   curBoxToMove = undefined
   sourceBoxForBatch = undefined
 
-  unitsOption = unitsOfChangeOptions.EU
+  unitsOption = Dimensions.EU
 
   selectedBoxes = []
 
@@ -100,11 +100,7 @@ export class WarehouseMyWarehouseViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(
-    this.rowHandlers,
-    () => this.userInfo,
-    () => this.unitsOption,
-  )
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.unitsOption)
 
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
@@ -246,6 +242,7 @@ export class WarehouseMyWarehouseViewModel {
         trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       this.getBoxesMy()
@@ -954,7 +951,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -1170,11 +1167,7 @@ export class WarehouseMyWarehouseViewModel {
 
   onChangeUnitsOption(option) {
     this.unitsOption = option
-    this.columnsModel = warehouseBoxesViewColumns(
-      this.rowHandlers,
-      () => this.userInfo,
-      () => this.unitsOption,
-    )
+    this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.unitsOption)
   }
 
   onChangeFullFieldMenuItem(value, field) {

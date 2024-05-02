@@ -12,9 +12,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
@@ -29,8 +29,10 @@ import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './box.style'
 
@@ -55,7 +57,6 @@ interface BoxProps {
 export const Box: FC<BoxProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
-    showCheckbox,
     destinations,
     storekeepers,
     box,
@@ -74,8 +75,6 @@ export const Box: FC<BoxProps> = memo(props => {
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showFullCard, setShowFullCard] = useState(true)
-  const [showConfirmModal, setShowConfirmModal] = useState(false)
-  const [confirmModalSettings, setConfirmModalSettings] = useState<any | undefined>(undefined)
 
   const setShippingLabel = () => (value: any) => {
     onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
@@ -89,46 +88,24 @@ export const Box: FC<BoxProps> = memo(props => {
     onChangeField({ shippingLabel: '', tmpShippingLabel: [] }, 'part', box._id)
   }
 
-  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+  const setBoxBody = (prevData: any) => (newData: any) => onChangeField(newData(prevData), 'part', box._id)
 
-  const onSubmitSelectStorekeeperAndTariff = (
-    storekeeperId: string,
-    tariffId: string,
-    variationTariffId: string,
-    destinationId: string,
-    isSelectedDestinationNotValid: boolean,
-  ) => {
-    if (isSelectedDestinationNotValid) {
-      setConfirmModalSettings({
-        isWarning: false,
-        title: t(TranslationKey.Attention),
-        confirmMessage: t(TranslationKey['Wish to change a destination?']),
+  const {
+    destinationId,
 
-        onClickConfirm: () => {
-          onChangeField({ logicsTariffId: tariffId, storekeeperId, variationTariffId, destinationId }, 'part', box._id)
+    onSubmitSelectStorekeeperAndTariff,
 
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-        },
+    showConfirmModal,
+    setShowConfirmModal,
 
-        onClickCancelBtn: () => {
-          onChangeField(
-            { logicsTariffId: tariffId, storekeeperId, variationTariffId, destinationId: null },
-            'part',
-            box._id,
-          )
+    confirmModalSettings,
 
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-        },
-      })
+    handleSetDestination,
+    handleResetDestination,
 
-      setShowConfirmModal(true)
-    } else {
-      onChangeField({ logicsTariffId: tariffId, storekeeperId, variationTariffId, destinationId }, 'part', box._id)
-      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-    }
-  }
+    showSelectionStorekeeperAndTariffModal,
+    setShowSelectionStorekeeperAndTariffModal,
+  } = useTariffVariation(box.destinationId, setBoxBody(box))
 
   const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
     destinations,
@@ -187,17 +164,14 @@ export const Box: FC<BoxProps> = memo(props => {
                     }
                     data={
                       box?.variationTariffId && currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                        ? destinations?.filter(
-                            el => el._id === (box?.destinationId || box?.variationTariff?.destinationId),
-                          )
+                        ? destinations?.filter(el => el._id === (destinationId || box?.variationTariff?.destinationId))
                         : destinations?.filter(el => el.storekeeper?._id !== box?.storekeeper?._id)
                     }
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                    onClickNotChosen={() => onChangeField({ target: { value: '' } }, 'destinationId', box._id)}
-                    // @ts-ignore
-                    onClickSelect={el => onChangeField({ target: { value: el._id } }, 'destinationId', box._id)}
+                    onClickNotChosen={handleResetDestination}
+                    onClickSelect={(el: IDestination) => handleSetDestination(el?._id)}
                   />
                 }
               />
@@ -341,23 +315,16 @@ export const Box: FC<BoxProps> = memo(props => {
         />
       </Modal>
 
-      <Modal
-        openModal={showSelectionStorekeeperAndTariffModal}
-        setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-      >
-        <SelectStorekeeperAndTariffForm
-          RemoveDestinationRestriction
-          showCheckbox={showCheckbox}
-          // @ts-ignore
-          destinationsData={destinations}
-          storekeepers={storekeepers.filter(el => el?._id === box?.storekeeper?._id)}
-          curStorekeeperId={box?.storekeeperId}
-          curTariffId={box?.logicsTariffId}
-          currentDestinationId={box?.destinationId}
-          currentVariationTariffId={box?.variationTariffId}
-          onSubmit={onSubmitSelectStorekeeperAndTariff}
+      {showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isTariffsSelect
+          tariffModalType={TariffModalType.WAREHOUSE}
+          openModal={showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+          box={box}
+          onClickSubmit={onSubmitSelectStorekeeperAndTariff}
         />
-      </Modal>
+      ) : null}
 
       {showConfirmModal ? (
         <ConfirmationModal

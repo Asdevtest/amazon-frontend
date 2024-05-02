@@ -120,7 +120,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
                     ) : null}
                   </div>
                 )}
-                updateData={viewModel.loadData}
                 requestStatus={viewModel.requestStatus}
                 onChangeRequestStatus={viewModel.setRequestStatus}
                 onSubmitMessage={viewModel.onSubmitMessage}

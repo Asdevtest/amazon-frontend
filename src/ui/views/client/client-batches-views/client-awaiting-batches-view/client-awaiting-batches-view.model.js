@@ -27,7 +27,6 @@ import { tableProductViewMode } from '@typings/enums/table-product-view'
 import { filtersFields } from './client-awaiting-batches-view.constants'
 
 export class ClientAwaitingBatchesViewModel {
-  history = undefined
   requestStatus = undefined
 
   nameSearchValue = ''
@@ -105,9 +104,7 @@ export class ClientAwaitingBatchesViewModel {
     return UserModel.platformSettings
   }
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -266,6 +263,7 @@ export class ClientAwaitingBatchesViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       await this.loadData()
@@ -422,10 +420,10 @@ export class ClientAwaitingBatchesViewModel {
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
 
-        if (newBoxesIds.length) {
+        if (newBoxesIds?.length) {
           await BatchesModel.addBoxToBatch(batchToEdit._id, newBoxesIds)
         }
-        if (boxesToRemoveIds.length) {
+        if (boxesToRemoveIds?.length) {
           await BatchesModel.removeBoxFromBatch(batchToEdit._id, boxesToRemoveIds)
         }
 

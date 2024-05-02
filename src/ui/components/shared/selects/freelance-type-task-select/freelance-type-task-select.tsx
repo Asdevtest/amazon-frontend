@@ -33,7 +33,7 @@ export const FreelanceTypeTaskSelect: FC<FreelanceTypeTaskSelectProps> = memo(
         switchMode="medium"
         condition={selectedSpec}
         switcherSettings={customSwitcherSettings}
-        changeConditionHandler={value => onClickSpec(value as number)} // bugs with  CustomSwitcher types
+        changeConditionHandler={onClickSpec}
       />
     )
   },

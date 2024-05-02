@@ -4,16 +4,13 @@ import { useEffect, useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-import {
-  BatchWeightCalculationMethodTranslateKey,
-  getBatchWeightCalculationMethodForBox,
-} from '@constants/statuses/batch-weight-calculations-method'
+import { BatchWeightCalculationMethodTranslateKey } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
-import { BoxViewForm } from '@components/forms/box-view-form'
+import { BoxForm } from '@components/forms/box-form'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -36,26 +33,14 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './batch-info-modal.style'
 
-import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
-
 import { batchInfoModalColumn } from './batch-info-modal-column'
 
 export const BatchInfoModal = observer(
-  ({
-    openModal,
-    setOpenModal,
-    batch,
-    userInfo,
-    onSubmitChangeBoxFields,
-    onClickHsCode,
-    patchActualShippingCostBatch,
-    history,
-  }) => {
+  ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, onClickHsCode, patchActualShippingCostBatch }) => {
     const { classes: styles, cx } = useStyles()
 
-    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel())
 
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -102,8 +87,6 @@ export const BatchInfoModal = observer(
       }
     }, [nameSearchValue, currentBatch])
 
-    const [curImageIndex, setCurImageIndex] = useState(0)
-
     const uploadTemplateFile = async () => {
       setIsFileDownloading(true)
       await OtherModel.getReportBatchByHumanFriendlyId(currentBatch?.humanFriendlyId)
@@ -114,9 +97,7 @@ export const BatchInfoModal = observer(
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
         <div className={styles.form}>
           <div className={styles.titleWrapper}>
-            <Typography className={styles.modalTitle} variant="h5">
-              {t(TranslationKey['Viewing the batch'])}
-            </Typography>
+            <p className={styles.modalTitle}>{t(TranslationKey['Viewing the batch'])}</p>
 
             <Field
               oneLine
@@ -305,7 +286,6 @@ export const BatchInfoModal = observer(
               labelClasses={cx(styles.subFieldLabel)}
               inputComponent={
                 <ChangeInputCell
-                  isInteger
                   rowId={currentBatch?._id}
                   text={currentBatch?.actualShippingCost}
                   onClickSubmit={(id, cost) => {
@@ -388,14 +368,12 @@ export const BatchInfoModal = observer(
             <SlideshowGallery slidesToShow={2} files={currentBatch?.attachedDocuments} />
 
             <div className={styles.buttonsWrapper}>
-              <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
+              <Button onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download the batch file'])}
                 <DownloadIcon />
               </Button>
 
-              <Button className={styles.actionButton} onClick={setOpenModal}>
-                {t(TranslationKey.Close)}
-              </Button>
+              <Button onClick={setOpenModal}>{t(TranslationKey.Close)}</Button>
             </div>
           </div>
 
@@ -403,31 +381,14 @@ export const BatchInfoModal = observer(
             openModal={viewModel.showBoxViewModal}
             setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           >
-            <BoxViewForm
-              storekeeper={currentBatch?.storekeeper}
-              userInfo={userInfo}
+            <BoxForm
+              userInfo={viewModel.userInfo}
               box={viewModel.curBox}
-              batchHumanFriendlyId={currentBatch?.humanFriendlyId}
-              volumeWeightCoefficient={currentBatch?.volumeWeightDivide}
-              calcFinalWeightForBoxFunction={getBatchWeightCalculationMethodForBox(
-                currentBatch?.calculationMethod,
-                isActualGreaterTheVolume,
-              )}
-              setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-              onSubmitChangeFields={data => onSubmitChangeBoxFields(data)}
+              onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+              onSubmitChangeFields={onSubmitChangeBoxFields}
               onClickHsCode={onClickHsCode}
             />
           </Modal>
-
-          {showPhotosModal ? (
-            <SlideshowGalleryModal
-              openModal={showPhotosModal}
-              files={currentBatch?.attachedDocuments}
-              currentFileIndex={curImageIndex}
-              onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-              onCurrentFileIndex={index => setCurImageIndex(index)}
-            />
-          ) : null}
         </div>
         {isFileDownloading && <CircularProgressWithLabel />}
       </Modal>

@@ -3,7 +3,7 @@ import { FC, memo, useEffect, useState } from 'react'
 import ClearIcon from '@mui/icons-material/Clear'
 import DoneIcon from '@mui/icons-material/Done'
 
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { SaveIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from './date-picker-cell.style'
@@ -29,7 +29,7 @@ export const DatePickerCell: FC<DatePickerCellProps> = memo(props => {
 
   return (
     <div className={styles.arrivalDateWrapper}>
-      <NewDatePicker
+      <DatePicker
         disabled={disabled}
         value={value}
         onChange={(e: string) => {

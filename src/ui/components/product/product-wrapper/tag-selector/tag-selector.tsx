@@ -28,7 +28,7 @@ interface TagSelectorProps {
 
 export const TagSelector: FC<TagSelectorProps> = memo(props => {
   const { currentTags, getTags, handleSaveTags, isEditMode, prefix = '', placeholder = 'Input' } = props
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [tagList, setTagList] = useState<Tag[]>([])
   const [selectedTags, setSelectedTags] = useState<Tag[]>(currentTags)
@@ -49,8 +49,6 @@ export const TagSelector: FC<TagSelectorProps> = memo(props => {
   }
 
   const handleAddTags = () => {
-    if (!selectValue) return
-
     const tag = tagList.find(el => el.title === selectValue?.title)
 
     let newValue: Tag[] = []
@@ -60,13 +58,16 @@ export const TagSelector: FC<TagSelectorProps> = memo(props => {
       setSelectedTags(newValue)
       handleSaveTags(newValue)
     } else {
-      GeneralModel.createTag(selectValue.title).then(res => {
-        newValue = [...selectedTags, { title: selectValue?.title, _id: res._id } as Tag]
+      GeneralModel.createTag(textValue || selectValue?.title).then(res => {
+        newValue = [...selectedTags, { title: textValue || selectValue?.title, _id: res._id } as Tag]
         setSelectedTags(newValue)
         handleSaveTags(newValue)
         getTags().then(value => setTagList(value))
       })
     }
+
+    setSelectValue(null)
+    setTextValue('')
   }
 
   return (
@@ -85,6 +86,7 @@ export const TagSelector: FC<TagSelectorProps> = memo(props => {
               <TextField
                 {...params}
                 placeholder={placeholder}
+                classes={{ root: cx({ [styles.disableHover]: !textValue }) }}
                 value={textValue}
                 onInput={(event: ChangeEvent<HTMLInputElement>) => {
                   setTextValue(event.target.value)
@@ -97,7 +99,7 @@ export const TagSelector: FC<TagSelectorProps> = memo(props => {
                 <TagItem prefix={prefix} option={option.title} />
               </li>
             )}
-            value={selectValue}
+            value={textValue}
             onChange={(_, value) => {
               setTextValue(typeof value === 'string' ? value : value?.title || '')
               setSelectValue(typeof value === 'string' ? ({ title: value } as Tag) : value)

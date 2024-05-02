@@ -26,6 +26,7 @@ export const AppealsListCard = ({ onClickViewMore }) => {
           </div>
 
           <SlideshowGallery
+            slidesToShow={2}
             files={[
               'http://www.rosphoto.com/images/u/articles/1510/7_5.jpg',
               'https://s0.rbk.ru/v6_top_pics/media/img/5/46/756038770746465.jpg',

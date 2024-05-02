@@ -35,6 +35,7 @@ import {
   ToPayCellMenuItem,
   YesNoCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
+import { NumbersColumnMenu } from '../data-grid-menu-items/numbers-column-menu/numbers-column-menu'
 
 import { CustomMenuContainer } from './components'
 
@@ -48,7 +49,6 @@ export const DataGridCustomColumnMenuComponent = props => {
     onClickFilterBtn,
     onChangeFullFieldMenuItem,
     onClickAccept,
-    isNeedPurchaseFilterData,
     isHaveBarCodeFilterData,
   } = props
 
@@ -60,7 +60,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <IsFormedMenuItem
           isFormedData={isFormedData}
           data={props.sub}
-          field={'sub'}
+          field="sub"
           table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           columnKey={currentColumn.columnKey}
@@ -77,8 +77,11 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <CustomMenuContainer {...props}>
         <IsNeedPurchaseFilterMenuItem
-          isNeedPurchaseFilterData={isNeedPurchaseFilterData}
+          isNeedPurchaseFilterData={
+            currentColumn?.field === 'purchaseQuantity' ? props.isNeedPurchaseFilterData : props.isNeedRefillFilterData
+          }
           data={props}
+          defaultOption={currentColumn?.defaultOption}
           table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
@@ -424,6 +427,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <BatchShippingDateCellMenuItem
           data={props}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
@@ -503,8 +507,9 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <CustomMenuContainer {...props}>
         <InStockMenuItem
-          data={props[currentColumn.field]}
-          field={currentColumn.field}
+          data={props?.amountInBoxes}
+          field={'amountInBoxes'}
+          defaultOption={currentColumn?.defaultOption}
           table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
@@ -529,6 +534,24 @@ export const DataGridCustomColumnMenuComponent = props => {
           onClickAccept={onClickAccept}
         />
       </CustomMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.shared.NUMBERS].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <NumbersColumnMenu
+          filtersData={props}
+          fields={currentColumn.fields}
+          table={currentColumn.table}
+          filterRequestStatus={filterRequestStatus}
+          defaultOption={currentColumn?.defaultOption}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
     )
   }
 

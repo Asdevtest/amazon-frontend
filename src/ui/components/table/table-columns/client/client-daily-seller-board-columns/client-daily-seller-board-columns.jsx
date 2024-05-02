@@ -77,6 +77,30 @@ export const clientDailySellerBoardColumns = () => [
   },
 
   {
+    field: 'fnsku',
+    headerName: 'FNSKU',
+    renderHeader: () => <MultilineTextHeaderCell text="FNSKU" />,
+
+    renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
+    width: 150,
+
+    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+    columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
+    field: 'marketplace',
+    headerName: 'Marketplace',
+    renderHeader: () => <MultilineTextHeaderCell text="Marketplace" />,
+
+    renderCell: params => <MultilineTextCell leftAlign maxLength={100} text={params.value} />,
+    width: 150,
+
+    table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
+    columnKey: columnnsKeys.shared.STRING,
+  },
+
+  {
     field: 'reserved',
     headerName: 'Reserved',
     renderHeader: () => <MultilineTextHeaderCell text={'Reserved'} />,

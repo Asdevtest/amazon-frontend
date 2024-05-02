@@ -1,9 +1,6 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import qs from 'qs'
 import { useEffect, useState } from 'react'
-
-import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +10,7 @@ import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './bind-inventory-goods-to-stock-form.style'
 
@@ -26,17 +23,17 @@ const chipConfigSettings = {
   SKU: 'SKU',
 }
 
-export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockData, product, onSubmit }) => {
-  const { classes: styles, cx } = useStyles()
+export const BindInventoryGoodsToStockForm = observer(props => {
+  const { stockData, updateStockData, product, onSubmit } = props
 
+  const { classes: styles } = useStyles()
   const [selectedGoods, setSelectedGoods] = useState([])
   const [chosenGoods, setChosenGoods] = useState([])
-
   const [chipConfig, setChipConfig] = useState(chipConfigSettings.RECOMMENDED)
   const [searchInputValue, setSearchInputValue] = useState('')
 
   const onClickTrash = asin => {
-    const filteredArray = [...chosenGoods].filter(el => el.asin !== asin)
+    const filteredArray = chosenGoods.filter(el => el.asin !== asin)
     setChosenGoods(filteredArray)
   }
 
@@ -56,23 +53,17 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
   const filter = qs
     .stringify({ [filterByChipConfig(chipConfig)]: { $contains: searchInputValue } }, { encode: false })
     .replace(/&/, ';')
-
   const setRecommendChip = () => {
     setChipConfig(chipConfigSettings.RECOMMENDED)
   }
-
   const onSelectionModel = model => {
     setSelectedGoods(model)
   }
-
   const onClickAdd = () => {
     const curChosenGoodsIds = chosenGoods.map(el => el.id)
-
     const newRowIds = selectedGoods.filter(el => !curChosenGoodsIds.includes(el))
-
-    const newSelectedItems = toJS(stockData).filter(el => newRowIds.includes(el.id))
+    const newSelectedItems = stockData.filter(el => newRowIds.includes(el.id))
     setChosenGoods([...chosenGoods, ...newSelectedItems])
-
     setSelectedGoods([])
   }
 
@@ -100,30 +91,24 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
   }
 
   return (
-    <div className={styles.root}>
-      <Typography variant="h6" className={styles.title}>
-        {t(TranslationKey['Bind an product from Amazon'])}
-      </Typography>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{t(TranslationKey['Bind an product from Amazon'])}</p>
 
-      <div className={styles.form}>
-        <div className={styles.filtersWrapper}>
+      <div className={styles.flexContainer}>
+        <div className={styles.flexContainer}>
           <Button
             variant={ButtonVariant.OUTLINED}
-            className={cx(styles.chip, {
-              [styles.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
-            })}
+            styleType={chipConfig === chipConfigSettings.RECOMMENDED ? ButtonStyle.PRIMARY : ButtonStyle.CASUAL}
             onClick={() => setRecommendChip()}
           >
             {t(TranslationKey.Recommended)}
           </Button>
 
-          <Typography className={styles.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
+          <p className={styles.text}>{t(TranslationKey['or search by'])}</p>
 
           <Button
             variant={ButtonVariant.OUTLINED}
-            className={cx(styles.chip, styles.chipLeftMargin, {
-              [styles.chipActive]: chipConfig === chipConfigSettings.NAME,
-            })}
+            styleType={chipConfig === chipConfigSettings.NAME ? ButtonStyle.PRIMARY : ButtonStyle.CASUAL}
             onClick={() => setChipConfig(chipConfigSettings.NAME)}
           >
             {t(TranslationKey.Title)}
@@ -131,9 +116,7 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
 
           <Button
             variant={ButtonVariant.OUTLINED}
-            className={cx(styles.chip, styles.chipLeftMargin, {
-              [styles.chipActive]: chipConfig === chipConfigSettings.ASIN,
-            })}
+            styleType={chipConfig === chipConfigSettings.ASIN ? ButtonStyle.PRIMARY : ButtonStyle.CASUAL}
             onClick={() => setChipConfig(chipConfigSettings.ASIN)}
           >
             {t(TranslationKey.ASIN)}
@@ -141,75 +124,71 @@ export const BindInventoryGoodsToStockForm = observer(({ stockData, updateStockD
 
           <Button
             variant={ButtonVariant.OUTLINED}
-            className={cx(styles.chip, styles.chipLeftMargin, {
-              [styles.chipActive]: chipConfig === chipConfigSettings.SKU,
-            })}
+            styleType={chipConfig === chipConfigSettings.SKU ? ButtonStyle.PRIMARY : ButtonStyle.CASUAL}
             onClick={() => setChipConfig(chipConfigSettings.SKU)}
           >
             {t(TranslationKey.SKU)}
           </Button>
-
-          <SearchInput
-            inputClasses={styles.searchInput}
-            disabled={chipConfig === chipConfigSettings.RECOMMENDED}
-            value={searchInputValue}
-            placeholder={t(TranslationKey.search)}
-            onSubmit={setSearchInputValue}
-          />
         </div>
 
-        <div className={styles.tableWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            sortingMode="client"
-            paginationMode="client"
-            rows={toJS(stockData)}
-            rowCount={stockData?.length}
-            columns={sourceColumns()}
-            rowHeight={60}
-            rowSelectionModel={selectedGoods}
-            onRowSelectionModelChange={onSelectionModel}
-          />
-        </div>
+        <SearchInput
+          disabled={chipConfig === chipConfigSettings.RECOMMENDED}
+          value={searchInputValue}
+          placeholder={t(TranslationKey.Search)}
+          onSubmit={setSearchInputValue}
+        />
+      </div>
 
-        <div className={styles.btnsWrapper}>
-          <Button
-            disabled={selectedGoods.every(el => chosenGoods.map(el => el.id).includes(el)) || selectedGoods.length < 1}
-            variant="contained"
-            color="primary"
-            onClick={onClickAdd}
-          >
-            {t(TranslationKey.Add)}
-          </Button>
-        </div>
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
+          checkboxSelection
+          disableColumnMenu
+          columnHeaderHeight={40}
+          sortingMode="client"
+          paginationMode="client"
+          rows={stockData}
+          rowCount={stockData?.length}
+          columns={sourceColumns()}
+          getRowHeight={() => 'auto'}
+          rowSelectionModel={selectedGoods}
+          onRowSelectionModelChange={onSelectionModel}
+        />
+      </div>
 
-        <Typography className={styles.chosenGoodsTitle}>{t(TranslationKey['Selected products from stock'])}</Typography>
+      <div className={styles.btnsWrapper}>
+        <Button
+          disabled={selectedGoods.every(el => chosenGoods.map(el => el.id).includes(el)) || selectedGoods.length < 1}
+          onClick={onClickAdd}
+        >
+          {t(TranslationKey.Add)}
+        </Button>
+      </div>
 
-        <div className={styles.tableWrapper}>
-          <CustomDataGrid
-            sortingMode="client"
-            paginationMode="client"
-            rows={chosenGoods || []}
-            columns={chosenGoodsColumns({ onClickTrash })}
-            rowHeight={60}
-          />
-        </div>
+      <p className={styles.text}>{t(TranslationKey['Selected products from stock'])}</p>
 
-        <div className={styles.btnsWrapper}>
-          <Button
-            success
-            disableElevation
-            tooltipInfoContent={t(
-              TranslationKey['Bind the selected product from the store to the item in the inventory'],
-            )}
-            disabled={chosenGoods.length < 1}
-            variant="contained"
-            color="primary"
-            onClick={onClickSubmit}
-          >
-            {t(TranslationKey.Bind)}
-          </Button>
-        </div>
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
+          disableColumnMenu
+          columnHeaderHeight={40}
+          sortingMode="client"
+          paginationMode="client"
+          rows={chosenGoods || []}
+          columns={chosenGoodsColumns({ onClickTrash })}
+          rowHeight={40}
+        />
+      </div>
+
+      <div className={styles.btnsWrapper}>
+        <Button
+          styleType={ButtonStyle.SUCCESS}
+          tooltipInfoContent={t(
+            TranslationKey['Bind the selected product from the store to the item in the inventory'],
+          )}
+          disabled={chosenGoods.length < 1}
+          onClick={onClickSubmit}
+        >
+          {t(TranslationKey.Bind)}
+        </Button>
       </div>
     </div>
   )

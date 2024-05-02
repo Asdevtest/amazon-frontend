@@ -1,25 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { action, computed, makeObservable, observable } from 'mobx'
+import { action, makeObservable, observable } from 'mobx'
 import { useHistory } from 'react-router-dom'
 
 export class DefaultModel {
-  _history: any
-  get history() {
-    return this._history
-  }
-  set history(history: any) {
-    this._history = history
-  }
+  history: any
 
   constructor() {
     makeObservable(this, {
-      _history: observable,
-      history: computed,
+      history: observable,
       initHistory: action.bound,
     })
   }
 
   initHistory() {
-    this._history = useHistory()
+    this.history = useHistory()
   }
 }

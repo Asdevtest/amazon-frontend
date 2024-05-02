@@ -73,7 +73,6 @@ export const useStyles = makeStyles()(theme => ({
 
   activeOption: {
     cursor: 'unset',
-    fontWeight: 600,
     transition: 'all .3s ease',
     color: theme.palette.customSwitcher.activeText,
     backgroundColor: theme.palette.customSwitcher.indicator,

@@ -68,8 +68,6 @@ export const ProductWrapper = memo(
     setCurrentTab,
     onClickParseProductData,
     onChangeImagesForLoad,
-    acceptMessage,
-    showAcceptMessage,
     showBindProductModal,
     productsToBind,
     onTriggerOpenModal,
@@ -123,7 +121,7 @@ export const ProductWrapper = memo(
                 },
 
                 !checkIsResearcher(curUserRole) && {
-                  icon: product.ideasOnCheck > 0,
+                  icon: product?.ideasOnCheck > 0,
                   label: () => t(TranslationKey['Suppliers and Ideas']),
                   value: tabsValues.SUPPLIERS_AND_IDEAS,
                 },
@@ -155,8 +153,6 @@ export const ProductWrapper = memo(
                 shops={shops}
                 productBase={productBase}
                 actionStatus={actionStatus}
-                acceptMessage={acceptMessage}
-                showAcceptMessage={showAcceptMessage}
                 showBindProductModal={showBindProductModal}
                 productsToBind={productsToBind}
                 handleProductActionButtons={handleProductActionButtons}
@@ -189,21 +185,21 @@ export const ProductWrapper = memo(
             <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
               <Orders
                 modal={modal}
-                productId={product._id}
+                productId={product?._id}
                 showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS}
               />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
-              <Integrations userRole={curUserRole} modal={modal} productId={product._id} />
+              <Integrations userRole={curUserRole} modal={modal} productId={product?._id} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
-              <Freelance modal={modal} productId={product._id} />
+              <Freelance modal={modal} productId={product?._id} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
-              <SuppliersAndIdeas productId={product._id} product={product} />
+              <SuppliersAndIdeas productId={product?._id} product={product} />
             </TabPanel>
 
             <TabPanel value={tabIndex} index={tabsValues.MANAGEMENT}>

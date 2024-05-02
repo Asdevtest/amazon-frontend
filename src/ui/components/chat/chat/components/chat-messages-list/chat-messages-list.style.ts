@@ -59,6 +59,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   messageWrapper: {
+    minHeight: '20px',
     width: '100%',
     display: 'flex',
     alignItems: 'end',

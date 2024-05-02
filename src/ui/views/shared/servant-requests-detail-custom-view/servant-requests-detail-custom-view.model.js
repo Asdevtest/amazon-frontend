@@ -83,7 +83,7 @@ export class RequestDetailCustomViewModel {
     this.history = history
 
     if (history.location?.state?.chatId) {
-      this.chatSelectedId = history.location.state.chatId
+      this.chatSelectedId = history?.location?.state?.chatId
     }
 
     reaction(

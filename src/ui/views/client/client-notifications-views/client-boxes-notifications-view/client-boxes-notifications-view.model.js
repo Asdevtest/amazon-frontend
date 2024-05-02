@@ -33,6 +33,7 @@ export class ClientBoxesNotificationsViewModel {
   showEditHSCodeModal = false
 
   boxes = []
+  selectedRowIds = []
   showConfirmModal = false
   confirmModalSettings = {
     isWarning: false,
@@ -66,32 +67,26 @@ export class ClientBoxesNotificationsViewModel {
   }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -118,16 +113,15 @@ export class ClientBoxesNotificationsViewModel {
   }
 
   onTriggerOpenConfirmModal(row) {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        message: `${t(TranslationKey['Additional payment is required:'])} ${toFixedWithDollarSign(
-          row.deliveryTotalPriceChanged - row.deliveryTotalPrice,
-          2,
-        )} ${t(TranslationKey['Do you confirm the extra payment?'])}`,
-        onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: `${t(TranslationKey['Additional payment is required:'])} ${toFixedWithDollarSign(
+        row.deliveryTotalPriceChanged - row.deliveryTotalPrice,
+        2,
+      )} ${t(TranslationKey['Do you confirm the extra payment?'])}`,
+      onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
+    }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -157,40 +151,31 @@ export class ClientBoxesNotificationsViewModel {
   }
 
   onTriggerOpenRejectModal(row) {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        message: t(TranslationKey['Do you want to cancel?']),
-        onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Do you want to cancel?']),
+      onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn([{ boxId: row._id }]),
+    }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   get currentData() {
@@ -230,6 +215,7 @@ export class ClientBoxesNotificationsViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       this.loadData()
@@ -283,7 +269,7 @@ export class ClientBoxesNotificationsViewModel {
 
   async onClickConfirmOrderPriceChangeBtn(box) {
     try {
-      await ClientModel.boxConfirmPriceChange(box._id)
+      await ClientModel.boxConfirmPriceChange([{ boxId: box._id }])
 
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
@@ -292,19 +278,56 @@ export class ClientBoxesNotificationsViewModel {
     }
   }
 
-  async onClickRejectOrderPriceChangeBtn(box) {
+  async onClickRejectOrderPriceChangeBtn(data) {
     try {
-      await ClientModel.returnBoxFromBatch([{ boxId: box._id }])
+      await ClientModel.returnBoxFromBatch(data)
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
     } catch (error) {
       console.warn(error)
     }
+  }
+
+  async handleRejectFewBoxes() {
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Do you want to cancel?']),
+      onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(this.selectedRowIds?.map(id => ({ boxId: id }))),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async handleChangePriceFewBoxes() {
+    const rows = this.selectedRowIds.map(id => this.boxes.find(box => box._id === id))
+
+    const priceToChange = rows.reduce((acc, row) => {
+      return (acc += row.deliveryTotalPriceChanged - row.deliveryTotalPrice)
+    }, 0)
+
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: `${t(TranslationKey['Additional payment is required:'])} ${toFixedWithDollarSign(priceToChange, 2)} ${t(
+        TranslationKey['Do you confirm the extra payment?'],
+      )}`,
+      onClickOkBtn: () => this.handleSaveChangePrice(rows),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async handleSaveChangePrice(rows) {
+    const body = rows.map(row => ({
+      boxId: row._id,
+    }))
+
+    await ClientModel.boxConfirmPriceChange(body)
+
+    this.onTriggerOpenModal('showConfirmModal')
+    this.loadData()
   }
 
   setLoadingStatus(loadingStatus) {
-    runInAction(() => {
-      this.loadingStatus = loadingStatus
-    })
+    this.loadingStatus = loadingStatus
   }
 }

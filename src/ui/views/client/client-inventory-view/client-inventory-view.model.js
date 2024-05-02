@@ -1,19 +1,15 @@
 import { makeObservable, reaction, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
-import { v4 as uuid } from 'uuid'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { creatSupplier } from '@constants/white-list'
+import { creatSupplier, createOrderRequestWhiteList } from '@constants/white-list'
 
-import { BatchesModel } from '@models/batches-model'
-import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
-import { pinnedRowsInitialValue } from '@models/data-grid-filter-table-model/filter-table-model'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
 import { OtherModel } from '@models/other-model'
@@ -25,9 +21,9 @@ import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
-import { addIdDataConverter, hierarchyDataConverter } from '@utils/data-grid-data-converters'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -103,18 +99,14 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showProductVariationsForm = false
   showAddOrEditSupplierModal = false
 
+  onAmazon = false
+  isBatches = false
+
   successModalText = ''
   confirmMessage = ''
   showInfoModalTitle = ''
   currentBarcode = ''
   currentHscode = ''
-
-  isTransfer = false
-
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
 
   readyImages = []
   progressValue = 0
@@ -144,6 +136,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   get platformSettings() {
     return UserModel.platformSettings
   }
+  meta = undefined
 
   constructor() {
     const additionalPropertiesColumnMenuSettings = {
@@ -195,6 +188,23 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         },
       },
 
+      isNeedRefillFilterData: {
+        isNeedPurchaseFilter: true,
+        isNotNeedPurchaseFilter: true,
+        onChangeIsNeedPurchaseFilter: (isNotNeedPurchaseFilter, isNeedPurchaseFilter) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isNeedRefillFilterData: {
+              ...this.columnMenuSettings.isNeedRefillFilterData,
+              isNeedPurchaseFilter,
+              isNotNeedPurchaseFilter,
+            },
+          }
+
+          this.getMainTableData()
+        },
+      },
+
       isHaveBarCodeFilterData: {
         isHaveBarCodeFilter: null,
         onChangeIsHaveBarCodeFilter: value => {
@@ -226,6 +236,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const fourMonthesStockHandlers = {
       onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
+      editRecommendationForStockByGuid: (productId, storekeeperId, recommendedValue) =>
+        this.editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue),
     }
 
     const stockUsHandlers = {
@@ -234,13 +246,11 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const otherHandlers = {
       onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
-      onClickInTransfer: productId => this.onClickInTransfer(productId),
+      onOpenProductDataModal: (product, onAmazon) => this.onOpenProductDataModal(product, onAmazon),
       onClickOrderCell: productId => this.onClickOrderCell(productId),
       onClickShowProduct: row => this.onClickShowProduct(row),
       onClickVariationButton: id => this.onClickVariationButton(id),
       onClickTag: tag => this.setActiveProductsTagFromTable(tag),
-      getPinnedRows: () => this.pinnedRows,
-      onClickPinRow: pinnedRows => this.handlePinRow(pinnedRows),
     }
 
     const defaultGetDataMethodOptions = () => ({
@@ -252,6 +262,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
       const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
       const purchaseQuantityAboveZero = !(isNeedPurchaseFilter && isNotNeedPurchaseFilter)
+
+      const isNeedRefillFilterData = this.columnMenuSettings.isNeedRefillFilterData.isNeedPurchaseFilter
+      const isNotNeedRefillFilterData = this.columnMenuSettings.isNeedRefillFilterData.isNotNeedPurchaseFilter
+      const isNeedRefillFilter = !(isNeedRefillFilterData && isNotNeedRefillFilterData)
 
       return {
         ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
@@ -270,6 +284,11 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           : {
               isChild: { $eq: this.columnMenuSettings.childrenYesNoFilterData.yes },
             }),
+
+        ...(isNeedRefillFilter && {
+          toRefill: isNotNeedRefillFilterData ? { $eq: 0 } : { $gt: 0 },
+        }),
+
         ...(purchaseQuantityAboveZero && {
           purchaseQuantityAboveZero: { $eq: isNeedPurchaseFilter },
         }),
@@ -298,8 +317,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       defaultGetDataMethodOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
-      dataModefierMethod: hierarchyDataConverter,
-      saveBaseData: true,
     })
 
     this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
@@ -315,7 +332,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     makeObservable(this, observerConfig)
 
-    const getValidColumns = () => {
+    const getValidColumns = async () => {
       const activeFields = this.presetsData.reduce((acc, el) => {
         if (el?._id) {
           acc[el.table] = []
@@ -336,6 +353,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         stockUsHandlers,
         otherHandlers,
         additionalFields: activeFields,
+        storekeepers: this.meta?.storekeepers,
       })
 
       const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
@@ -352,45 +370,17 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     )
 
     reaction(
-      () => this.pinnedRows,
-      async () => {
-        this.tableData = await this.baseTableData?.filter(row => {
-          return (
-            !this.pinnedRows?.bottom?.some(el => el?._id === row?._id) ||
-            !this.pinnedRows?.top?.some(el => el?._id === row?._id)
-          )
-        })
-      },
-    )
+      () => this.meta?.storekeepers?.length,
+      () => {
+        for (const storekeeper of this.meta.storekeepers) {
+          const currentColumnName = `toRefill${storekeeper?._id}`
 
-    reaction(
-      () => this.baseTableData,
-      async () => {
-        this.pinnedRows = {
-          top: this.pinnedRows.top?.map(el => {
-            const updatedRow = this.baseTableData?.find(row => row?._id === el?._id)
-
-            if (!updatedRow) {
-              return el
-            }
-
-            updatedRow.isPinnedRow = true
-
-            return updatedRow
-          }),
-
-          bottom: this.pinnedRows.bottom?.map(el => {
-            const updatedRow = this.baseTableData?.find(row => row?._id === el?._id)
-
-            if (!updatedRow) {
-              return el
-            }
-
-            updatedRow.isPinnedRow = true
-
-            return updatedRow
-          }),
+          if (!this.columnVisibilityModel?.[currentColumnName] && !storekeeper?.isUserPreprocessingCenterUSA) {
+            this.columnVisibilityModel[currentColumnName] = false
+          }
         }
+
+        getValidColumns()
       },
     )
   }
@@ -456,57 +446,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.onTriggerOpenModal('showProductVariationsForm')
     } catch (error) {
       console.error(error)
-    }
-  }
-
-  async onClickGetChildProducts(id, isDelete) {
-    try {
-      if (isDelete) {
-        this.tableData = this.tableData.filter(product => product?.hierarchy[0] !== id || product?.id === id)
-      } else {
-        this.setRequestStatus(loadingStatus.IS_LOADING)
-        const result = await ProductModel.getProductsVariationsByGuid(id, true, true, this.isArchive)
-
-        if (!result?.childProducts?.length && !result?.parentProduct) {
-          toast?.error(t(TranslationKey['No data']))
-          this.setRequestStatus(loadingStatus.SUCCESS)
-          return
-        }
-
-        const newTableData = []
-
-        if (result?.childProducts?.length) {
-          for (const child of result.childProducts) {
-            const productId = uuid()
-
-            newTableData.push({
-              ...child,
-              id: productId,
-              hierarchy: [id, productId],
-              isTreeRow: true,
-            })
-          }
-        }
-
-        if (result?.parentProduct) {
-          const productId = uuid()
-
-          newTableData.push({
-            ...result?.parentProduct,
-            id: productId,
-            hierarchy: [id, productId],
-            isTreeRow: true,
-          })
-        }
-
-        this.tableData = this.tableData.concat(newTableData)
-        this.setRequestStatus(loadingStatus.SUCCESS)
-
-        return !!newTableData?.length
-      }
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.log(error)
     }
   }
 
@@ -589,7 +528,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   onTriggerArchive() {
     this.selectedRows = []
-    this.pinnedRows = pinnedRowsInitialValue
 
     this.isArchive ? this.history.push('/client/inventory') : this.history.push('/client/inventory?isArchive=true')
     this.isArchive = this.isArchive ? false : true
@@ -720,6 +658,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async getCurrentPresets() {
     try {
       const result = await UserModel.getUsersPresets()
+
       return result
     } catch (error) {
       console.error(error)
@@ -1005,6 +944,16 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
+  async editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue) {
+    try {
+      await ClientModel.postAddRecommendationForStock(productId, storekeeperId, recommendedValue || 0)
+
+      this.getMainTableData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   showBarcodeOrHscode(barcode, hscode) {
     this.currentHscode = hscode
     this.currentBarcode = barcode
@@ -1093,14 +1042,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async createOrder(orderObject) {
     try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-        '_id',
-        'tmpTransparencyFile',
-        'transparency',
-      ])
+      const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
       if (orderObject.tmpIsPendingOrder) {
         await ClientModel.createFormedOrder(requestData)
@@ -1264,50 +1206,22 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickInTransfer(productId) {
-    try {
-      const result = await BoxesModel.getBoxesInTransfer(productId)
-      runInAction(() => {
-        this.isTransfer = true
+  onOpenProductDataModal(product, onAmazon) {
+    runInAction(() => {
+      this.curProduct = product
+      this.onAmazon = onAmazon
+      this.isBatches = false
+    })
 
-        this.batchesData = result
-
-        this.curProduct = this.tableData.filter(product => productId === product._id)
-      })
-      this.onTriggerOpenModal('showProductLotDataModal')
-    } catch (error) {
-      console.error(error)
-    }
+    this.onTriggerOpenModal('showProductLotDataModal')
   }
 
-  async onClickProductLotDataBtn() {
-    try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRows[0], false)
-      runInAction(() => {
-        this.isTransfer = false
-        this.batchesData = result
+  onClickProducDataButton() {
+    this.onAmazon = false
+    this.isBatches = true
+    this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product._id))?.[0]
 
-        this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product._id))
-      })
-      this.onTriggerOpenModal('showProductLotDataModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickToggleArchiveProductLotData(isArchive) {
-    try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRows[0], isArchive)
-      runInAction(() => {
-        this.batchesData = result
-      })
-    } catch (error) {
-      console.error(error)
-
-      runInAction(() => {
-        this.batchesData = []
-      })
-    }
+    this.onTriggerOpenModal('showProductLotDataModal')
   }
 
   async onSubmitCalculateSeekSupplier(clientComment) {
@@ -1622,6 +1536,54 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+    }
+  }
+
+  async getMainTableData(options) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      const toRefill = 'toRefill'
+      const amountInBoxes = 'amountInBoxes'
+
+      let storekeeperId
+      let sortField = this.sortModel?.[0]?.field
+
+      if (sortField?.includes(toRefill)) {
+        storekeeperId = sortField?.replace(toRefill, '')
+        sortField = toRefill
+      } else if (sortField?.includes(amountInBoxes)) {
+        storekeeperId = sortField?.replace(amountInBoxes, '')
+        sortField = amountInBoxes
+      }
+
+      const result = await this.getMainDataMethod(
+        options || {
+          filters: this.getFilters(),
+
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+          sortField: this.sortModel.length ? sortField : 'updatedAt',
+          sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
+          storekeeper: storekeeperId,
+
+          ...this.defaultGetDataMethodOptions?.(),
+        },
+      )
+
+      runInAction(() => {
+        this.meta = result?.meta
+        this.tableData = result?.rows || result
+        this.rowCount = result?.count || result.length
+      })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      console.error(error)
+      this.tableData = []
+      this.rowCount = 0
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }

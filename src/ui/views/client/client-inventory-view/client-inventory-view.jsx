@@ -6,13 +6,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 
-import { groupingColDef } from '@components/data-grid/data-grid-cells/tree-data-grouping-cell/grouping-col-def'
 import { AddOwnProductForm } from '@components/forms/add-own-product-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { GetFilesForm } from '@components/forms/get-files-form'
+import { ProductDataForm } from '@components/forms/product-data-form'
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
-import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { ProductVariationsForm } from '@components/forms/product-variations-form'
 import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -28,7 +27,6 @@ import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-mod
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
-import { AlertShield } from '@components/shared/alert-shield'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -48,7 +46,7 @@ import {
   disableSelectionCells,
 } from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
-import { Header } from './components'
+import { Header } from './header'
 
 export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
@@ -77,7 +75,7 @@ export const ClientInventoryView = observer(({ history }) => {
         onClickTriggerArchOrResetProducts={viewModel.onClickTriggerArchOrResetProducts}
         onTriggerOpenModal={viewModel.onTriggerOpenModal}
         onTriggerArchive={viewModel.onTriggerArchive}
-        onClickProductLotDataBtn={viewModel.onClickProductLotDataBtn}
+        onClickProducDataButton={viewModel.onClickProducDataButton}
         onClickParseProductsBtn={viewModel.onClickParseProductsBtn}
         onClickAddSupplierBtn={viewModel.onClickAddSupplierBtn}
         onClickBindInventoryGoodsToStockBtn={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
@@ -88,13 +86,9 @@ export const ClientInventoryView = observer(({ history }) => {
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          treeData
           checkboxSelection
           disableRowSelectionOnClick
-          pinnedRows={viewModel.pinnedRows}
           pinnedColumns={viewModel.pinnedColumns}
-          getTreeDataPath={row => row?.hierarchy}
-          groupingColDef={groupingColDef(viewModel.onClickGetChildProducts)}
           getCellClassName={getCellClassName}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
@@ -127,7 +121,6 @@ export const ClientInventoryView = observer(({ history }) => {
 
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
-
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
@@ -148,6 +141,7 @@ export const ClientInventoryView = observer(({ history }) => {
             },
           }}
           rowSelectionModel={viewModel.selectedRows}
+          getRowId={row => row._id}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -157,13 +151,21 @@ export const ClientInventoryView = observer(({ history }) => {
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onCellClick={(params, event) => {
-            if (disableSelectionCells.includes(params.field)) {
+            if (
+              disableSelectionCells.includes(params.field) ||
+              params.field?.includes('boxAmounts') ||
+              params.field?.includes('toRefill')
+            ) {
               event.stopPropagation()
             }
             event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
           }}
           onCellDoubleClick={(params, event) => {
-            if (disableDoubleClickOnCells.includes(params.field)) {
+            if (
+              disableDoubleClickOnCells.includes(params.field) ||
+              params.field?.includes('boxAmounts') ||
+              params.field?.includes('toRefill')
+            ) {
               event.stopPropagation()
             }
           }}
@@ -184,7 +186,6 @@ export const ClientInventoryView = observer(({ history }) => {
       </Modal>
 
       <Modal
-        dialogClassName={styles.modalDialogContext}
         openModal={viewModel.showProductLaunch}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >
@@ -225,13 +226,7 @@ export const ClientInventoryView = observer(({ history }) => {
         openModal={viewModel.showProductLotDataModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
       >
-        <ProductLotDataForm
-          userInfo={viewModel.userInfo}
-          isTransfer={viewModel.isTransfer}
-          product={viewModel.curProduct}
-          batchesData={viewModel.batchesData}
-          onClickToggleArchiveProductLotData={viewModel.onClickToggleArchiveProductLotData}
-        />
+        <ProductDataForm product={viewModel.curProduct} isBatches={viewModel.isBatches} onAmazon={viewModel.onAmazon} />
       </Modal>
 
       <Modal
@@ -409,25 +404,16 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       ) : null}
 
-      {viewModel.showProductVariationsForm && (
-        <Modal
-          noPadding
-          openModal={viewModel.showProductVariationsForm}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showProductVariationsForm')}
-        >
-          <ProductVariationsForm
-            product={viewModel.productVariations}
-            onClickShowProduct={viewModel.onClickShowProduct}
-          />
-        </Modal>
-      )}
-
-      {viewModel.alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+      <Modal
+        noPadding
+        openModal={viewModel.showProductVariationsForm}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductVariationsForm')}
+      >
+        <ProductVariationsForm
+          product={viewModel.productVariations}
+          onClickShowProduct={viewModel.onClickShowProduct}
         />
-      )}
+      </Modal>
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
       {viewModel.showProgress && <CircularProgressWithLabel />}

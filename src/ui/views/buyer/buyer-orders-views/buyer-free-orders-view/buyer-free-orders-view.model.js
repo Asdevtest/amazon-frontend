@@ -2,48 +2,36 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
 import { filterModelInitialValue } from '@models/data-grid-table-model'
 import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
-import { buyerFreeOrdersViewColumns } from '@components/table/table-columns/buyer/buyer-fre-orders-columns'
-
 import { buyerVacantOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+
+import { buyerFreeOrdersViewColumns } from './buyer-free-orders-columns'
 
 export class BuyerFreeOrdersViewModel {
   history = undefined
   requestStatus = undefined
 
   curOrder = undefined
-
+  selectedRowIds = []
   ordersVacant = []
-  showBarcodeModal = false
-  showOrderModal = false
   showTwoVerticalChoicesModal = false
-
-  warningTitle = ''
 
   rowHandlers = {
     onClickTableRowBtn: item => this.onClickTableRowBtn(item),
   }
-
-  selectedRowIds = []
-
   sortModel = []
   filterModel = filterModelInitialValue
-  densityModel = 'compact'
   columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
-  showWarningModal = false
 
   get currentData() {
     return this.ordersVacant
@@ -78,13 +66,11 @@ export class BuyerFreeOrdersViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
   }
 
@@ -104,7 +90,7 @@ export class BuyerFreeOrdersViewModel {
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
-      // this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      // this.filterModel = toJS(state.filterModel)
       this.paginationModel = toJS(state.paginationModel)
       this.columnVisibilityModel = toJS(state.columnVisibilityModel)
     }
@@ -116,7 +102,6 @@ export class BuyerFreeOrdersViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
   }
 
@@ -126,14 +111,13 @@ export class BuyerFreeOrdersViewModel {
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getOrdersVacant()
+      this.getOrdersVacant()
     } catch (error) {
       console.error(error)
     }
@@ -153,11 +137,7 @@ export class BuyerFreeOrdersViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      runInAction(() => {
-        this.ordersVacant = []
-      })
       console.error(error)
-
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -195,13 +175,6 @@ export class BuyerFreeOrdersViewModel {
 
       UserModel.getUsersInfoCounters()
     } catch (error) {
-      runInAction(() => {
-        this.warningTitle = t(TranslationKey['Not found'])
-      })
-
-      this.onTriggerOpenModal('showWarningModal')
-
-      this.loadData()
       console.error(error)
     }
   }
@@ -218,11 +191,8 @@ export class BuyerFreeOrdersViewModel {
 
       runInAction(() => {
         this.selectedRowIds = []
-
-        this.warningTitle = t(TranslationKey['Taken to Work'])
       })
 
-      this.onTriggerOpenModal('showWarningModal')
       UserModel.getUsersInfoCounters()
       this.loadData()
     } catch (error) {
@@ -233,10 +203,6 @@ export class BuyerFreeOrdersViewModel {
   onClickContinueWorkButton() {
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     this.loadData()
-  }
-
-  onTriggerShowOrderModal() {
-    this.showOrderModal = !this.showOrderModal
   }
 
   onTriggerOpenModal(modal) {

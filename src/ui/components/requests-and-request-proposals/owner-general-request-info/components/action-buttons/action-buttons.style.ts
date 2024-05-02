@@ -24,11 +24,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  publishBtn: {
-    width: '100%',
-    height: 40,
-  },
-
   btnsWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -38,40 +33,12 @@ export const useStyles = makeStyles()(theme => ({
   btnsRow: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-
-  deleteBtn: {
-    color: '#fff',
-    width: 97,
-    height: 40,
-  },
-
-  editBtn: {
-    color: '#fff',
-    width: 145,
-    height: 40,
-  },
-
-  buttonEditRemoveBtnIsShown: {
-    marginLeft: '10px',
-  },
-
-  recoverBtn: {
-    width: '100%',
+    gap: 20,
   },
 
   btnsRowIsLast: {
     marginBottom: 0,
     height: 40,
-  },
-
-  buttonWrapperFullWidth: {
-    flex: 1,
-    display: 'flex',
-  },
-
-  button: {
-    width: '100%',
   },
 
   stopBtn: {

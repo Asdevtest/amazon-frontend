@@ -19,9 +19,4 @@ export const useStyles = makeStyles()(theme => ({
     height: '79vh',
     width: '100%',
   },
-
-  openArchiveBtn: {
-    padding: '0 30px',
-    color: theme.palette.primary.main,
-  },
 }))

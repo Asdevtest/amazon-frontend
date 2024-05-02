@@ -14,7 +14,6 @@ import { FreelanceRequestDetailsModal } from '@components/modals/freelance-reque
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
-import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -89,7 +88,7 @@ export const MyRequestsView = observer(({ history }) => {
 
         <CustomSwitcher
           fullWidth
-          switchMode={'big'}
+          switchMode="big"
           condition={viewModel.switcherCondition}
           switcherSettings={[
             { label: () => t(TranslationKey['Requests in progress']), value: 'inProgress' },
@@ -183,14 +182,6 @@ export const MyRequestsView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
         />
       ) : null}
-
-      {viewModel.alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-          severity={viewModel?.alertShieldSettings?.error ? 'error' : 'success'}
-        />
-      )}
 
       {viewModel.showRequestDetailModal ? (
         <FreelanceRequestDetailsModal

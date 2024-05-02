@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
@@ -15,9 +16,9 @@ interface CustomSwitcherProps {
   fullWidth?: boolean
   switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header'
   switcherSettings: ISwitcherSettings[]
-  condition: string | number | null | undefined
-  customCondition?: (vale: string | number | null | undefined | Object) => boolean
-  changeConditionHandler: (condition: string | number | null | undefined) => void
+  condition: any
+  customCondition?: (value: any) => boolean
+  changeConditionHandler: (condition: any) => void
 }
 
 export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
@@ -60,12 +61,12 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
               [styles.bigOptionStyles]: switchMode === 'big',
               [styles.smallOptionStyles]: switchMode === 'small',
               [styles.headerOptionStyles]: switchMode === 'header',
-              [styles.activeOption]: condition === option.value || customCondition?.(option.value),
+              [styles.activeOption]: isEqual(condition, option.value) || customCondition?.(option.value),
               [styles.headerActiveOptionStyles]:
-                switchMode === 'header' && (condition === option.value || customCondition?.(option.value)),
+                switchMode === 'header' && (isEqual(condition, option.value) || customCondition?.(option.value)),
             })}
             onClick={() => {
-              if (condition !== option.value || !customCondition?.(option.value)) {
+              if (!isEqual(condition, option.value) || !customCondition?.(option.value)) {
                 changeConditionHandler(option.value)
               }
             }}

@@ -21,7 +21,6 @@ import { dataURLtoFile } from '@utils/upload-files'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ProfileViewModel {
-  history = undefined
   requestStatus = undefined
 
   showAvatarEditModal = false
@@ -66,9 +65,7 @@ export class ProfileViewModel {
     return this.productsVacant
   }
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -310,8 +307,7 @@ export class ProfileViewModel {
     }
   }
 
-  onToggleUserInfoEditFormFlag(e) {
-    e.preventDefault()
+  onToggleUserInfoEditFormFlag() {
     this.onTriggerOpenModal('userInfoEditFormFlag')
 
     if (!this.userInfoEditFormFlag) {
@@ -322,6 +318,10 @@ export class ProfileViewModel {
   async onLogoutSession(sessionCreatedAt) {
     await this.logoutSession(sessionCreatedAt)
 
-    this.getActiveSessions()
+    await this.getActiveSessions()
+  }
+
+  onTriggerEnterInformation() {
+    this.userInfoEditFormFlag = true
   }
 }

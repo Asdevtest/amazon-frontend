@@ -59,7 +59,6 @@ interface ChatProps {
   onChangeRequestStatus: (status: loadingStatus) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: UploadFileType[], replyMessageId: string | null) => void
-  updateData: () => void
   onTypingMessage: (chatId: string) => void
   onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
@@ -79,7 +78,6 @@ export const Chat: FC<ChatProps> = memo(
     headerChatComponent,
     onSubmitMessage,
     renderAdditionalButtons,
-    updateData,
     onTypingMessage,
     onClickAddUsersToGroupChat,
     onRemoveUsersFromGroupChat,
@@ -238,12 +236,6 @@ export const Chat: FC<ChatProps> = memo(
         messageInput.current?.focus()
       }
     }, [messageToReply])
-
-    useEffect(() => {
-      if (updateData && messages?.[messages.length - 1]?.text === 'PROPOSAL_STATUS_CHANGED') {
-        updateData()
-      }
-    }, [messages?.length])
 
     useEffect(() => {
       if (!messages.length) {

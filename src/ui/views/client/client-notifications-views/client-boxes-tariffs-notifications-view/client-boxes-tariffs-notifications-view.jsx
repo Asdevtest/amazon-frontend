@@ -4,10 +4,10 @@ import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxViewForm } from '@components/forms/box-view-form'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { BoxForm } from '@components/forms/box-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -15,6 +15,7 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { styles } from './client-boxes-tariffs-notifications-view.style'
 
@@ -78,31 +79,25 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
         />
       ) : null}
 
-      <Modal
-        openModal={viewModel.showSelectionStorekeeperAndTariffModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
-      >
-        <SelectStorekeeperAndTariffForm
-          inNotifications
-          showCheckbox
-          storekeepers={viewModel.storekeepersData.filter(el => el._id === viewModel.curBox?.storekeeper._id)}
-          curStorekeeperId={viewModel.curBox?.storekeeperId}
-          curTariffId={viewModel.curBox?.logicsTariffId}
-          currentDestinationId={viewModel.curBox?.destination?._id}
-          currentVariationTariffId={viewModel.curBox?.variationTariff?._id}
-          onSubmit={viewModel.onClickConfirmTarrifChangeBtn}
+      {viewModel.showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isTariffsSelect
+          tariffModalType={TariffModalType.WAREHOUSE}
+          openModal={viewModel.showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
+          box={viewModel.curBox}
+          onClickSubmit={viewModel.onClickConfirmTarrifChangeBtn}
         />
-      </Modal>
+      ) : null}
 
       <Modal
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxViewForm
+        <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
         />

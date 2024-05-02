@@ -1,17 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  modalWrapper: {
-    background: theme.palette.background.second,
-  },
-
+export const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
     width: 1640,
     height: 730,
     overflowY: 'auto',
-    padding: '0 10px',
+    padding: 10,
   },
 
   clippedRoot: {
@@ -19,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   footerWrapper: {
-    marginTop: 30,
+    marginTop: 10,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -28,14 +24,5 @@ export const useStyles = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     gap: 20,
-  },
-
-  buttonNormalNoMargin: {
-    marginRight: 0,
-  },
-
-  restoreBtn: {
-    flexGrow: 1,
-    marginLeft: '15px',
   },
 }))

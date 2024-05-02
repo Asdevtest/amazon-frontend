@@ -13,9 +13,9 @@ export const useStyles = makeStyles()(theme => ({
     height: '100%',
 
     border: `1px solid ${theme.palette.input.customBorder}`,
-    padding: '0 5px',
+    padding: '0 10px',
 
-    borderRadius: '7px 0px 0px 7px',
+    borderRadius: '25px 0px 0px 25px',
   },
 
   indicatorWrapper: {

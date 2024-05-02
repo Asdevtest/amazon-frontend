@@ -1,12 +1,5 @@
 import { FC, memo } from 'react'
 
-import { CustomFileIcon } from '@components/shared/custom-file-icon'
-import { VideoPlayer } from '@components/shared/video-player'
-import { VideoPreloader } from '@components/shared/video-preloader'
-
-import { checkIsDocumentLink, checkIsImageLink } from '@utils/checks'
-
-import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './main-slide.style'
@@ -34,11 +27,7 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
   )
 
   const handleClickMainSlide = () => {
-    const file = isString(mediaFile) ? mediaFile : mediaFile.file.name
-    const isImage = checkIsImageLink(file)
-    const isDocument = checkIsDocumentLink(file)
-
-    if ((isModalSize && isImage) || (!isModalSize && !isDocument)) {
+    if (!isModalSize) {
       onOpenImageModal()
     }
   }
@@ -53,26 +42,11 @@ export const MainSlide: FC<MainSlideProps> = memo(props => {
       onClick={handleClickMainSlide}
     >
       <SlideByType
+        objectFitContain
+        isModal={isModalSize}
+        withLink={isModalSize}
         mediaFile={mediaFile}
         mediaFileIndex={currentMediaFileIndex}
-        ImageComponent={({ src, alt }) => <img src={src} alt={alt} className={styles.mainSlideImg} />}
-        VideoComponent={({ videoSource }) =>
-          isModalSize ? (
-            <VideoPlayer controls videoSource={videoSource} />
-          ) : (
-            <VideoPreloader
-              videoSource={videoSource}
-              height={customDimensionMainSlideSubjectToQuantitySlides}
-              iconPlayClassName={styles.iconPreloader}
-            />
-          )
-        }
-        FileComponent={({ documentLink, fileExtension }) => (
-          <a href={documentLink} target="_blank" rel="noreferrer noopener" className={styles.document}>
-            <CustomFileIcon fileExtension={fileExtension} height="100%" />
-            <span className={styles.linkText}>{documentLink}</span>
-          </a>
-        )}
       />
     </div>
   )

@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
@@ -6,7 +7,6 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
-import { BoxesModel } from '@models/boxes-model'
 import { BuyerModel } from '@models/buyer-model'
 import { OrderModel } from '@models/order-model'
 import { ProductModel } from '@models/product-model'
@@ -18,7 +18,6 @@ import { buyerMyOrdersViewColumns } from '@components/table/table-columns/buyer/
 
 import { calcOrderTotalPrice, calcOrderTotalPriceInYuann } from '@utils/calculation'
 import { buyerMyOrdersDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -43,30 +42,17 @@ export class BuyerMyOrdersViewModel {
     return this.ordersMy
   }
 
-  curBoxesOfOrder = []
-
   createBoxesResult = []
 
   nameSearchValue = ''
 
-  hsCodeData = {}
-
-  showEditHSCodeModal = false
-
-  showBarcodeModal = false
   showOrderModal = false
   selectedOrder = undefined
   barcode = ''
-  showNoDimensionsErrorModal = false
-  showWarningNewBoxesModal = false
-  showSuccessModal = false
-  showOrderPriceMismatchModal = false
   showConfirmModal = false
-  showWarningInfoModal = false
 
   paymentMethods = []
-
-  showSuccessModalText = ''
+  hsCodeData = undefined
 
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
 
@@ -221,48 +207,11 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
-  async onClickHsCode(id) {
-    try {
-      const response = await ProductModel.getProductsHsCodeByGuid(id)
-
-      runInAction(() => {
-        this.hsCodeData = response
-      })
-
-      this.onTriggerOpenModal('showEditHSCodeModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   async onSaveOrderItem(orderId, orderItem) {
     try {
       await BuyerModel.changeOrderItem(orderId, orderItem)
 
-      runInAction(() => {
-        this.showSuccessModalText = t(TranslationKey['Data saved successfully'])
-      })
-
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       this.loadData()
     } catch (error) {
@@ -270,31 +219,15 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async getBoxesOfOrder(orderId) {
-    try {
-      const result = await BoxesModel.getBoxesOfOrder(orderId)
-      runInAction(() => {
-        this.curBoxesOfOrder = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).reverse()
-      })
-    } catch (error) {
-      console.error(error)
-      runInAction(() => {
-        this.curBoxesOfOrder = []
-      })
-    }
-  }
-
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
-      const hsCode = await ProductModel.getProductsHsCodeByGuid(orderData.product._id)
 
       runInAction(() => {
-        this.hsCodeData = hsCode
         this.selectedOrder = orderData
       })
 
-      this.getBoxesOfOrder(orderId)
+      await this.onClickHsCode(orderData.product._id)
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
@@ -356,34 +289,6 @@ export class BuyerMyOrdersViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
-  }
-
-  async onSubmitChangeBoxFields(data, inModal) {
-    try {
-      if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
-      }
-
-      await BoxesModel.editAdditionalInfo(data._id, {
-        trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
-      })
-
-      this.getBoxesOfOrder(this.selectedOrder._id)
-
-      !inModal && this.onTriggerOpenModal('showBoxViewModal')
-
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
-    } catch (error) {
       console.error(error)
     }
   }
@@ -554,11 +459,19 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+  async onClickHsCode(productId) {
+    try {
+      const response = await ProductModel.getProductsHsCodeByGuid(productId)
+
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  onTriggerShowBarcodeModal() {
-    this.showBarcodeModal = !this.showBarcodeModal
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

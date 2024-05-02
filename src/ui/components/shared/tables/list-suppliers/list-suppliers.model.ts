@@ -59,17 +59,10 @@ export class ListSuppliersModel {
 
   constructor(
     product: IProduct,
-    orderSupplier?: ISupplier,
     onSaveProduct?: (product: IProduct) => void,
     onRemoveSupplier?: (supplierId: string, itemId?: string) => void,
   ) {
     this.product = product
-
-    if (orderSupplier) {
-      this.currentSupplier = orderSupplier
-    } else {
-      this.currentSupplier = product?.currentSupplier
-    }
 
     this.onSaveProduct = onSaveProduct
     this.onRemoveSupplier = onRemoveSupplier
@@ -94,15 +87,6 @@ export class ListSuppliersModel {
         }
       },
     )
-
-    reaction(
-      () => this.showSupplierApproximateCalculationsModal,
-      () => {
-        if (this.showSupplierApproximateCalculationsModal) {
-          this.getStorekeepers()
-        }
-      },
-    )
   }
 
   onPaginationModelChange(model: GridPaginationModel) {
@@ -120,7 +104,7 @@ export class ListSuppliersModel {
 
   onGetSuppliers() {
     if (this.product) {
-      const currentSupplierId: string | undefined = this.currentSupplier?._id
+      const currentSupplierId: string | undefined = this.product.currentSupplier?._id
 
       const foundCurrentSupplier = this.product?.suppliers?.find(
         (supplier: ISupplier) => supplier._id === currentSupplierId,

@@ -40,12 +40,18 @@ import { ActionButtonsCellProps } from './action-buttons-cell.type'
  * @returns {HTMLElement} Return table cell with action buttons.
  */
 export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
-  const { row, buttonWrapperClassName, buttonClassName, iconButton } = props
+  const { row, buttonWrapperClassName, buttonClassName, iconButton, fullWidth } = props
 
   const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={cx(styles.wrapper, { [styles.wrapperRow]: row }, buttonWrapperClassName)}>
+    <div
+      className={cx(
+        styles.wrapper,
+        { [styles.wrapperRow]: row, [styles.fullWidth]: fullWidth },
+        buttonWrapperClassName,
+      )}
+    >
       {getButtonActionsConfig(props).map((button, index) =>
         button.showButton ? (
           <Button

@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -14,14 +14,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  button: {
-    padding: '0 20px',
-  },
-
-  archiveButton: {
-    color: `${theme.palette.primary.main} !important`,
-  },
-
   datagridWrapper: {
     height: 'calc(100vh - 190px)',
     width: '100%',
@@ -33,15 +25,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  searchInputClient: {
-    width: '450px',
-  },
-
-  searchInputFreelancer: {
-    width: '400px',
-  },
-
   searchInput: {
-    width: '350px',
+    width: 450,
   },
 }))

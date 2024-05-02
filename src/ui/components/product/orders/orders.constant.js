@@ -7,6 +7,7 @@ export const selectedStatus = [
   OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
   OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
   OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+  OrderStatusByKey[OrderStatus.PARTIALLY_PAID],
 ]
 
 export const canceledStatus = [

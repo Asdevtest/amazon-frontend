@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
@@ -15,7 +14,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './supervisor-products-view.style'
 
-import { attentionStatuses, statusesList } from './statuses'
+import { filterStatusConfig, warningStatuses } from './supervisor-products-view.constants'
 import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 
 export const SupervisorProductsView = observer(({ history }) => {
@@ -27,20 +26,22 @@ export const SupervisorProductsView = observer(({ history }) => {
     viewModel.loadData()
   }, [])
 
-  const getRowClassName = params => attentionStatuses.includes(params.row.statusForAttention) && styles.attentionRow
-
-  const switcherSettingsConfig = statusesList.map(el => ({
-    icon: <span className={styles.badge}>{viewModel.userInfo[el.userInfoKey]}</span>,
-    label: () => t(productStatusTranslateKey(ProductStatusByCode[el.status])),
-    value: el.userInfoKey,
+  const customSwitcherConfig = filterStatusConfig.map(status => ({
+    icon: viewModel.userInfo[status.userInfoKey] ? (
+      <span className={styles.badge}>{viewModel.userInfo[status.userInfoKey]}</span>
+    ) : null,
+    label: () => t(status.label),
+    value: status.value,
   }))
+
+  const getRowClassName = params => warningStatuses.includes(params.row.statusForAttention) && styles.attentionRow
 
   return (
     <>
       <CustomSwitcher
         switchMode="medium"
-        condition={viewModel.currentStatusGroup}
-        switcherSettings={switcherSettingsConfig}
+        condition={viewModel.switcherFilterStatuses}
+        switcherSettings={customSwitcherConfig}
         changeConditionHandler={viewModel.onClickStatusFilterButton}
       />
 
@@ -83,9 +84,8 @@ export const SupervisorProductsView = observer(({ history }) => {
               },
             },
           }}
-          density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.isLoading}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}

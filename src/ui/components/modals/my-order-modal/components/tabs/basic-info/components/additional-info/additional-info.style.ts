@@ -77,7 +77,6 @@ export const useStyles = makeStyles()(theme => ({
   inputDeadline: {
     width: 140,
     boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
-    border: `1px solid ${theme.palette.background.general}`,
     borderRadius: 6,
 
     div: {
@@ -96,6 +95,11 @@ export const useStyles = makeStyles()(theme => ({
       fieldset: {
         border: 'none',
       },
+    },
+
+    svg: {
+      width: 18,
+      height: 18,
     },
   },
 

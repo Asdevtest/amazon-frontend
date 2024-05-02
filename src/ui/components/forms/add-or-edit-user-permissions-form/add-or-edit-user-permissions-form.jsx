@@ -348,7 +348,6 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                         .map(item => (
                           <Tooltip
                             key={item.key}
-                            // followCursor
                             arrow
                             title={item.description}
                             placement="right-end"
@@ -419,7 +418,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
               multiple
               displayEmpty
               value={currentSpecs}
-              className={cx(styles.requestTypeField, styles.capitalize)}
+              className={styles.requestTypeField}
               renderValue={selected =>
                 !selected?.length
                   ? t(TranslationKey['Select from the list'])
@@ -432,7 +431,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
               </MenuItem>
 
               {specs?.map(spec => (
-                <MenuItem key={spec?._id} value={spec?.type} className={styles.capitalize}>
+                <MenuItem key={spec?._id} value={spec?.type}>
                   <Checkbox checked={currentSpecs.includes(spec?.type)} />
                   {spec?.title}
                 </MenuItem>

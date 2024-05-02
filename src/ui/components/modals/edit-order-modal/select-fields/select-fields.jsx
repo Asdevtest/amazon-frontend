@@ -42,7 +42,6 @@ export const SelectFields = ({
   showProgress,
   progressValue,
   setPhotosToLoad,
-  deliveredGoodsCount,
   hsCode,
   setHsCode,
   checkIsPlanningPrice,
@@ -51,6 +50,7 @@ export const SelectFields = ({
   onClickSupplierPaymentButton,
   setPaymentMethodsModal,
   orderPayments,
+  deliveredQuantity,
 }) => {
   const { classes: styles, cx } = useStyles()
 
@@ -77,27 +77,27 @@ export const SelectFields = ({
                 inputComponent={
                   <div
                     className={cx(styles.deliveredGoodsWrapper, {
-                      [styles.deliveredGoodsSuccessWrapper]: deliveredGoodsCount >= order.amount,
+                      [styles.deliveredGoodsSuccessWrapper]: deliveredQuantity >= order.amount,
                     })}
                   >
                     <div className={styles.deliveredGoodsSubWrapper}>
                       <Typography
                         className={cx(styles.deliveredGoodsLeftText, {
-                          [styles.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
+                          [styles.deliveredGoodsSuccessText]: deliveredQuantity >= order.amount,
                         })}
                       >
-                        {deliveredGoodsCount}
+                        {deliveredQuantity || 0}
                       </Typography>
                       <Typography className={styles.deliveredGoodsMiddleText}>{t(TranslationKey['out of'])}</Typography>
                       <Typography
                         className={cx(styles.deliveredGoodsRightText, {
-                          [styles.deliveredGoodsSuccessText]: deliveredGoodsCount >= order.amount,
+                          [styles.deliveredGoodsSuccessText]: deliveredQuantity >= order.amount,
                         })}
                       >
                         {order.amount}
                       </Typography>
                     </div>
-                    {deliveredGoodsCount < order.amount && <img src="/assets/icons/attention.svg" />}
+                    {deliveredQuantity < order.amount && <img src="/assets/icons/attention.svg" />}
                   </div>
                 }
               />

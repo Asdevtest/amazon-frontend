@@ -56,36 +56,8 @@ export const additionalFilterFields = [
   'skuByClient',
   'amazonTitle',
   'purchaseQuantity',
-]
-
-export const filtersFields = [
-  'shopId',
-  'asin',
-  'skuByClient',
-  'amazonTitle',
-  'strategyStatus',
-  'amountInOrders',
-  'inTransfer',
-  'stockUSA',
-  'boxAmounts',
-  'sumStock',
-  'amazon',
-  'createdAt',
-  'updatedAt',
-  'profit',
-  'fbafee',
-  'status',
-  'reservedSum',
-  'sentToFbaSum',
-  'fbaFbmStockSum',
-  'ideasOnCheck',
-  'stockCost',
-  'purchaseQuantity',
-  'ideasClosed',
-  'ideasFinished',
-  'tags',
-  'redFlags',
-  'transparency',
+  'amountInBoxes',
+  'toRefill',
 ]
 
 export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA', 'tags']

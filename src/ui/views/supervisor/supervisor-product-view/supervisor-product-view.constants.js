@@ -68,6 +68,7 @@ export const formFieldsDefault = {
 export const confirmMessageByProductStatus = () => ({
   15: t(TranslationKey['The product is suitable']) + '?',
   20: t(TranslationKey['The product is not suitable']) + '?',
+  25: t(TranslationKey['Temporarily delayed']) + '?',
   30: t(TranslationKey['Send to find a supplier?']),
   70: t(TranslationKey['Publish on the exchange']) + '?',
   80: t(TranslationKey['Supplier not found']) + '?',

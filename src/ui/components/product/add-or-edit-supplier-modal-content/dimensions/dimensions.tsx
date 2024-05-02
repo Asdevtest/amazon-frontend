@@ -63,7 +63,7 @@ export const Dimensions: FC<DimensionsProps> = memo(props => {
           <CustomSwitcher
             condition={sizeMode}
             switcherSettings={switcherSettings}
-            changeConditionHandler={condition => onChangeSizeMode(condition as string)}
+            changeConditionHandler={onChangeSizeMode}
           />
         </div>
 

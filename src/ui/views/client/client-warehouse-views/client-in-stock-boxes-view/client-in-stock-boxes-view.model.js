@@ -1,11 +1,12 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { operationTypes } from '@constants/keys/operation-types'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
@@ -30,6 +31,7 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
+import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
@@ -45,7 +47,7 @@ export class ClientInStockBoxesViewModel {
 
   nameSearchValue = ''
 
-  unitsOption = unitsOfChangeOptions.EU
+  unitsOption = Dimensions.EU
 
   curBox = undefined
   showBoxViewModal = false
@@ -69,13 +71,8 @@ export class ClientInStockBoxesViewModel {
   currentBatch = undefined
   selectedWarehouseOrderProduct = undefined
   order = undefined
-  batchesData = undefined
   existingProducts = undefined
   reorderOrdersData = undefined
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
 
   curDestinationId = undefined
 
@@ -109,8 +106,6 @@ export class ClientInStockBoxesViewModel {
   showEditBoxModal = false
   showConfirmModal = false
   showRedistributeBoxModal = false
-  showProductLotDataModal = false
-
   showProductModal = false
   showMyOrderModal = false
   showCheckPendingOrderFormModal = false
@@ -134,18 +129,11 @@ export class ClientInStockBoxesViewModel {
 
   showSetChipValueModal = false
 
-  showWarningInfoModal = false
-
   showSelectionStorekeeperAndTariffModal = false
 
   showEditPriorityData = false
 
   changeItem = null
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   editPriorityData = {
     taskId: null,
@@ -402,20 +390,14 @@ export class ClientInStockBoxesViewModel {
         trackNumberText: data.trackNumberText,
         trackNumberFile: this.uploadedFiles,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       this.getBoxesMy()
 
       !inModal && this.onTriggerOpenModal('showBoxViewModal')
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }
@@ -455,15 +437,6 @@ export class ClientInStockBoxesViewModel {
       console.error(error)
 
       this.onTriggerOpenModal('showConfirmModal')
-
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey.Error),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
     }
   }
 
@@ -515,12 +488,8 @@ export class ClientInStockBoxesViewModel {
       !this.selectedBox.fbaShipment &&
       !this.destinations.find(el => el._id === this.selectedBox.destination?._id)?.storekeeper
     ) {
-      this.warningInfoModalSettings = {
-        isWarning: true,
-        title: t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']),
-      }
+      toast.warning(t(TranslationKey['Before you fill out the Shipping label, you need to fill out the FBA Shipment']))
 
-      this.onTriggerOpenModal('showWarningInfoModal')
       this.onTriggerOpenModal('showSetChipValueModal')
     }
   }
@@ -682,14 +651,7 @@ export class ClientInStockBoxesViewModel {
     try {
       await BoxesModel.editBoxAtClient(this.selectedBox._id, { fbaShipment })
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       this.onTriggerOpenModal('showSetChipValueModal')
       this.loadData()
@@ -698,7 +660,7 @@ export class ClientInStockBoxesViewModel {
         this.selectedBox = { ...this.selectedBox, fbaShipment }
       })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -824,26 +786,19 @@ export class ClientInStockBoxesViewModel {
         this.selectedBoxes = []
       })
 
-      if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey['The box is not split!']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+      if (this.selectedBoxes?.length === updatedBoxes?.length && !isMasterBox) {
+        toast.warning(t(TranslationKey['The box is not split!']))
       } else {
         const resBoxes = []
 
-        for (let i = 0; i < updatedBoxes.length; i++) {
-          if (updatedBoxes[i].tmpShippingLabel.length) {
+        for (let i = 0; i < updatedBoxes?.length; i++) {
+          if (updatedBoxes[i].tmpShippingLabel?.length) {
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
 
           const boxToPush = {
             boxBody: {
-              shippingLabel: this.uploadedFiles.length
+              shippingLabel: this.uploadedFiles?.length
                 ? this.uploadedFiles[0]
                 : updatedBoxes[i].tmpShippingLabel?.[0] || updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
@@ -886,14 +841,7 @@ export class ClientInStockBoxesViewModel {
 
           this.onTriggerOpenModal('showSuccessInfoModal')
         } else {
-          runInAction(() => {
-            this.warningInfoModalSettings = {
-              isWarning: true,
-              title: t(TranslationKey['The box is not split!']),
-            }
-          })
-
-          this.onTriggerOpenModal('showWarningInfoModal')
+          toast.warning(t(TranslationKey['The box is not split!']))
         }
         this.onTriggerOpenModal('showConfirmModal')
         this.onTriggerOpenModal('showRedistributeBoxModal')
@@ -923,14 +871,7 @@ export class ClientInStockBoxesViewModel {
       })
 
       if (boxesWithDifferentStorekeepers.length) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['Boxes with identical storekeeper must be selected']))
 
         return
       }
@@ -943,7 +884,7 @@ export class ClientInStockBoxesViewModel {
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -957,14 +898,7 @@ export class ClientInStockBoxesViewModel {
       })
 
       if (boxesWithDifferentStorekeepers.length) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['Boxes with identical storekeeper must be selected']))
 
         return
       }
@@ -1173,34 +1107,24 @@ export class ClientInStockBoxesViewModel {
     this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
-  async editTariff(id, boxData, isSelectedDestinationNotValid, isSetCurrentDestination) {
+  async editTariff(boxData) {
     try {
-      if (isSelectedDestinationNotValid) {
+      const boxId = this.changeItem?._id
+
+      if (!boxData?.isSameDestination) {
         runInAction(() => {
           this.confirmModalSettings = {
             isWarning: false,
             title: t(TranslationKey.Attention),
             confirmMessage: t(TranslationKey['Wish to change a destination?']),
-            onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
-            onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, true, false),
+            onClickConfirm: () => this.patchBoxHandler(boxId, boxData, true, false, false),
+            onClickCancelBtn: () => this.patchBoxHandler(boxId, boxData, false, true, false),
           }
         })
+
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        if (!isSetCurrentDestination) {
-          runInAction(() => {
-            this.confirmModalSettings = {
-              isWarning: false,
-              title: t(TranslationKey.Attention),
-              confirmMessage: t(TranslationKey['Wish to set a destination?']),
-              onClickConfirm: () => this.patchBoxHandler(id, boxData, true, false, false),
-              onClickCancelBtn: () => this.patchBoxHandler(id, boxData, false, false, false),
-            }
-          })
-          this.onTriggerOpenModal('showConfirmModal')
-        } else {
-          this.patchBoxHandler(id, boxData, false, false, true)
-        }
+        this.patchBoxHandler(boxId, boxData, false, false, true)
       }
     } catch (error) {
       console.error(error)
@@ -1377,13 +1301,8 @@ export class ClientInStockBoxesViewModel {
 
         this.onTriggerOpenModal('showEditBoxModal')
       }
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['The box is unchanged']),
-        }
-      })
-      this.onTriggerOpenModal('showWarningInfoModal')
+
+      toast.warning(t(TranslationKey['The box is unchanged']))
     }
   }
 
@@ -1402,7 +1321,16 @@ export class ClientInStockBoxesViewModel {
             ? this.uploadedFiles?.[0]
             : boxBody?.tmpShippingLabel?.[0] || boxBody?.shippingLabel,
         },
-        ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
+        [
+          'tmpShippingLabel',
+          'storekeeperId',
+          'humanFriendlyId',
+          'storekeeper',
+          'destination',
+          'logicsTariff',
+          'variationTariff',
+          'items',
+        ],
         undefined,
         undefined,
         true,
@@ -1418,14 +1346,7 @@ export class ClientInStockBoxesViewModel {
         })
         this.onTriggerOpenModal('showSuccessInfoModal')
       } else {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey['The boxes are not joined!']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['The boxes are not joined!']))
       }
 
       this.onTriggerOpenModal('showMergeBoxModal')
@@ -1471,30 +1392,17 @@ export class ClientInStockBoxesViewModel {
 
       runInAction(() => {
         this.selectedBoxes = []
-
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data was successfully saved']),
-        }
       })
 
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['Data was successfully saved']))
 
       this.loadData()
-
-      this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
       console.error(error)
 
+      toast.error(t(TranslationKey['Boxes are not regrouped']))
+    } finally {
       this.onTriggerOpenModal('showGroupingBoxesModal')
-
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['Boxes are not regrouped']),
-        }
-      })
-      this.onTriggerOpenModal('showWarningInfoModal')
     }
   }
 
@@ -1540,9 +1448,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   async onClickCurrentTariffsBtn() {
-    await this.getStorekeepers()
-    await ClientModel.getDestinations()
-
+    this.changeItem = null
     this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
 
     runInAction(() => {
@@ -1553,8 +1459,6 @@ export class ClientInStockBoxesViewModel {
   async editBox(guid, body) {
     try {
       const result = await BoxesModel.editBox(guid, body)
-
-      console.log('result :>> ', result)
 
       return result
     } catch (error) {
@@ -1762,18 +1666,13 @@ export class ClientInStockBoxesViewModel {
       })
 
       if (boxesWithoutTariffOrDestinationIds.length) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title: `${t(
-              TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
-            )}: ${boxesWithoutTariffOrDestinationIds
-              .map(el => this.boxesMy.find(box => box._id === el).humanFriendlyId)
-              .join(', ')} `,
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(
+          `${t(
+            TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
+          )}: ${boxesWithoutTariffOrDestinationIds
+            .map(el => this.boxesMy.find(box => box._id === el).humanFriendlyId)
+            .join(', ')} `,
+        )
 
         this.setRequestStatus(loadingStatus.FAILED)
 
@@ -1815,15 +1714,6 @@ export class ClientInStockBoxesViewModel {
 
       this.triggerRequestToSendBatchModal()
     } catch (error) {
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: error.body.message,
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
-
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
@@ -1837,14 +1727,7 @@ export class ClientInStockBoxesViewModel {
       })
 
       if (isMasterBoxSelected) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title: t(TranslationKey['Cannot be merged with a Superbox']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['Cannot be merged with a Superbox']))
 
         return
       }
@@ -1880,14 +1763,7 @@ export class ClientInStockBoxesViewModel {
     const selectedBoxItems = selectedBox?.originalData?.items
 
     if (selectedBoxItems?.length > 1) {
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['A box contains more than one product']),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.warning(t(TranslationKey['A box contains more than one product']))
 
       return
     }
@@ -1912,7 +1788,7 @@ export class ClientInStockBoxesViewModel {
         this.productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
       }
     } catch (e) {
-      console.log(e)
+      console.error(e)
 
       runInAction(() => {
         this.selectedWarehouseOrderProduct = undefined
@@ -1971,7 +1847,7 @@ export class ClientInStockBoxesViewModel {
 
   async getBatches() {
     try {
-      const result = await BatchesModel.getBatchesbyProduct(this.activeProductGuid, false)
+      const result = await BatchesModel.getBatchesbyProduct({ guid: this.activeProductGuid, archive: false })
 
       runInAction(() => {
         this.productBatches = result
@@ -1981,20 +1857,6 @@ export class ClientInStockBoxesViewModel {
       runInAction(() => {
         this.productBatches = undefined
       })
-    }
-  }
-
-  async onClickInTransfer(productId) {
-    try {
-      const result = await BoxesModel.getBoxesInTransfer(productId)
-
-      runInAction(() => {
-        this.batchesData = result
-      })
-
-      this.onTriggerOpenModal('showProductLotDataModal')
-    } catch (error) {
-      console.error(error)
     }
   }
 
@@ -2174,14 +2036,7 @@ export class ClientInStockBoxesViewModel {
 
   async createOrder(orderObject) {
     try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-        '_id',
-        'tmpTransparencyFile',
-        'transparency',
-      ])
+      const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
       if (orderObject.tmpIsPendingOrder) {
         await ClientModel.createFormedOrder(requestData)
@@ -2239,16 +2094,9 @@ export class ClientInStockBoxesViewModel {
 
       await OrderModel.changeOrderData(this.order._id, dataToRequest)
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       await this.getOrderById(order._id)
-
-      this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
       console.error(error)
     }

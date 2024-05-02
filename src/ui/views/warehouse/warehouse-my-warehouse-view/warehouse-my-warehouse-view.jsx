@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
 import { AddOrEditHsCodeInBox } from '@components/forms/add-or-edit-hs-code-in-box-form'
-import { BoxViewForm } from '@components/forms/box-view-form'
+import { BoxForm } from '@components/forms/box-form'
 import { EditBoxStorekeeperForm } from '@components/forms/edit-box-storekeeper-form'
 import { EditBoxTasksForm } from '@components/forms/edit-box-tasks-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
@@ -117,11 +117,10 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxViewForm
+        <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
         />
@@ -165,7 +164,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           requestStatus={viewModel.requestStatus}
           formItem={viewModel.curBox}
           destinationsFavourites={viewModel.destinationsFavourites}
@@ -220,7 +218,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       <Modal openModal={viewModel.showEditBoxModal} setOpenModal={viewModel.onTriggerShowEditBoxModal}>
         <EditBoxTasksForm
           isInStorekeeperWarehouse
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setEditModal={viewModel.onTriggerShowEditBoxModal}
           storekeeperWarehouseSubmit={viewModel.onSubmitEditBox}
         />
@@ -245,7 +242,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <MergeBoxesModal
           showCheckbox
           userInfo={viewModel.userInfo}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={
@@ -271,7 +267,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       >
         <StorekeeperRedistributeBox
           showCheckbox
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           showEditBoxModalR={viewModel.showEditBoxModalR}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
@@ -297,7 +292,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
       >
         <GroupingBoxesForm
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={viewModel.boxesMy

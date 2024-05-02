@@ -27,25 +27,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 5,
   },
 
-  pinRowWrapper: {
-    position: 'absolute',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '5px',
-    bottom: '5px',
-    // right: '0',
-    right: '25%',
-    transform: 'translateX(50%)',
-  },
-
-  pinButton: {
-    svg: {
-      width: '9px !important',
-      height: '9px !important',
-      color: theme.palette.primary.main,
-    },
-  },
-
   ideaRowGreen: {
     '&:before': {
       content: '""',

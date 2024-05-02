@@ -39,48 +39,21 @@ export const clientInventoryColumns = ({
   stockUsHandlers,
   otherHandlers,
   additionalFields,
+  storekeepers,
 }) => {
   const defaultColumns = [
     {
       ...GRID_CHECKBOX_SELECTION_COL_DEF,
       renderCell: params => {
-        const pinnedRows = otherHandlers.getPinnedRows()
-        const isPinnedTop = pinnedRows?.top?.findIndex(item => item?.id && item?.id === params.row?.id) !== -1
-        const isPinnedBottom = pinnedRows?.bottom?.findIndex(item => params.id && item?.id === params.id) !== -1
         const isShowSheldGreen = !params.row.ideasOnCheck && !!params.row.ideasVerified
         const isShowSheldYellow = !!params.row.ideasOnCheck
-        const isTreeRow = params.row?.isTreeRow
 
         return (
           <SelectRowCell
-            isTreeRow={isTreeRow}
-            isPinnedTop={isPinnedTop}
-            isPinnedBottom={isPinnedBottom}
             isShowSheldGreen={isShowSheldGreen}
             isShowSheldYellow={isShowSheldYellow}
             checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
             onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?._id)}
-            onClickPinRow={(direction, isPinned) => {
-              const newPinnedRows = { ...pinnedRows }
-
-              if (isPinned) {
-                for (const side in newPinnedRows) {
-                  if (side) {
-                    newPinnedRows[side] = newPinnedRows[side].filter(item => item?.id !== params?.row?.id)
-                  }
-                }
-              } else {
-                const sideToUnpin = direction === 'top' ? 'bottom' : 'top'
-                const rowToPin = {
-                  ...params?.row,
-                  isPinnedRow: true,
-                }
-
-                newPinnedRows?.[direction]?.push(rowToPin)
-                newPinnedRows[sideToUnpin] = newPinnedRows?.[sideToUnpin]?.filter(item => item?.id !== params?.row?.id)
-              }
-              otherHandlers.onClickPinRow(newPinnedRows)
-            }}
           />
         )
       },
@@ -162,7 +135,18 @@ export const clientInventoryColumns = ({
       field: 'sentToFbaSum',
       headerName: t(TranslationKey.Inbound),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
-      renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
+      renderCell: params => (
+        <MultilineTextCell
+          link={Number(params.value) > 0}
+          text={String(params.value)}
+          onClickText={e => {
+            if (Number(params.value) > 0) {
+              e.stopPropagation()
+              otherHandlers.onOpenProductDataModal(params.row, true)
+            }
+          }}
+        />
+      ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -207,17 +191,18 @@ export const clientInventoryColumns = ({
       field: 'inTransfer',
       headerName: 'in Transfer',
       renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
-      renderCell: params => {
-        return (
-          <MultilineTextCell
-            text={String(params.value)}
-            onClickText={e => {
+      renderCell: params => (
+        <MultilineTextCell
+          link={Number(params.value) > 0}
+          text={String(params.value)}
+          onClickText={e => {
+            if (Number(params.value) > 0) {
               e.stopPropagation()
-              otherHandlers.onClickInTransfer(params.row?._id)
-            }}
-          />
-        )
-      },
+              otherHandlers.onOpenProductDataModal(params.row, false)
+            }
+          }}
+        />
+      ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -248,7 +233,7 @@ export const clientInventoryColumns = ({
       field: 'sumStock',
       headerName: t(TranslationKey['Stock sum']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <MultilineTextCell text={Math.round(params.value)} />,
       valueGetter: ({ row }) => toFixed(row?.sumStock, 2),
       width: 120,
       type: 'number',
@@ -269,11 +254,7 @@ export const clientInventoryColumns = ({
       field: 'purchaseQuantity',
       headerName: t(TranslationKey['Recommendation for additional purchases']),
       renderHeader: () => (
-        <MultilineTextHeaderCell
-          withIcon
-          isFilterActive
-          text={t(TranslationKey['Recommendation for additional purchases'])}
-        />
+        <MultilineTextHeaderCell text={t(TranslationKey['Recommendation for additional purchases'])} />
       ),
       renderCell: params => (
         <FourMonthesStockCell
@@ -313,6 +294,17 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FBA)} />,
       renderCell: params => <ToFixedCell value={params.value} fix={2} />,
       width: 70,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+
+    {
+      field: 'currentSupplierProductionTerm',
+      headerName: t(TranslationKey['Production time']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
+      renderCell: params => <MultilineTextCell text={params.row.currentSupplier?.productionTerm} />,
+      valueGetter: params => params.row.currentSupplier?.productionTerm,
+      width: 120,
+      sortable: false,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -481,6 +473,83 @@ export const clientInventoryColumns = ({
     },
   ]
 
+  if (storekeepers?.length) {
+    const storekeeperCells = []
+
+    for (const storekeeper of storekeepers) {
+      const lable = `In stock (${storekeeper?.name})`
+      const lablePurchaseQuantity = `Prep limit (${storekeeper?.name})`
+
+      const storekeeperCell = {
+        field: 'amountInBoxes' + storekeeper?._id,
+        headerName: lable,
+        defaultOption: storekeeper?._id,
+        renderHeader: () => <MultilineTextHeaderCell text={lable} />,
+        renderCell: params => (
+          <InStockCell
+            isHideStorekeeper
+            boxAmounts={params.row?.boxAmounts?.filter(box => box?.storekeeper?._id === storekeeper?._id)}
+            boxId={params.row?._id}
+            onClickInStock={otherHandlers.onClickInStock}
+          />
+        ),
+        valueGetter: params => {
+          const boxAmounts = params.row?.boxAmounts?.filter(box => box?.storekeeper?._id === storekeeper?._id)?.[0]
+            ?.amountInBoxes
+
+          return Number(boxAmounts) || 0
+        },
+        width: 145,
+        columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
+      }
+
+      storekeeperCells.push(storekeeperCell)
+
+      const purchaseQuantityCell = {
+        field: 'toRefill' + storekeeper?._id,
+        defaultOption: storekeeper?._id,
+        headerName: lablePurchaseQuantity,
+        renderHeader: () => <MultilineTextHeaderCell text={lablePurchaseQuantity} />,
+        renderCell: params => {
+          const currentBoxAmounts = params.row?.boxAmounts?.filter(
+            box => box?.storekeeper?._id === storekeeper?._id,
+          )?.[0]
+
+          return (
+            <FourMonthesStockCell
+              isNotPepurchase
+              title={'For shipping'}
+              rowId={storekeeper?._id}
+              value={currentBoxAmounts?.toRefill || 0}
+              fourMonthesStockValue={currentBoxAmounts?.recommendedValue || 0}
+              onClick={(storekeeperId, recommendedValue) =>
+                fourMonthesStockHandlers.editRecommendationForStockByGuid(
+                  params?.row?._id,
+                  storekeeperId,
+                  recommendedValue,
+                )
+              }
+            />
+          )
+        },
+        valueGetter: params => {
+          const currentBoxAmounts = params.row?.boxAmounts?.filter(
+            box => box?.storekeeper?._id === storekeeper?._id,
+          )?.[0]
+
+          return Number(currentBoxAmounts?.toRefill) || 0
+        },
+        width: 150,
+        filterable: false,
+        columnKey: columnnsKeys.client.INVENTORY_PURCHASE_QUANTITY,
+      }
+
+      storekeeperCells.push(purchaseQuantityCell)
+    }
+
+    defaultColumns.splice(11, 1, ...storekeeperCells)
+  }
+
   if (additionalFields) {
     for (const table in additionalFields) {
       if (additionalFields[table]) {
@@ -521,6 +590,10 @@ export const clientInventoryColumns = ({
   }
 
   for (const column of defaultColumns) {
+    if (column.table) {
+      continue
+    }
+
     column.table = DataGridFilterTables.PRODUCTS
     column.sortable = false
   }

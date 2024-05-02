@@ -20,7 +20,8 @@ export const observerConfig = {
   existingProducts: observable,
   selectedRowId: observable,
   selectedProduct: observable,
-  isTransfer: observable,
+  onAmazon: observable,
+  isBatches: observable,
 
   showOrderModal: observable,
   showSuccessModal: observable,
@@ -49,8 +50,10 @@ export const observerConfig = {
   readyImages: observable,
   progressValue: observable,
   showProgress: observable,
+  meta: observable,
 
   isSomeFilterOn: override,
+  getMainTableData: override,
 
   userInfo: computed,
   destinationsFavourites: computed,
@@ -69,9 +72,7 @@ export const observerConfig = {
   onSubmitSeekSupplier: action.bound,
   onSubmitSeekSomeSuppliers: action.bound,
   onSubmitCalculateSeekSupplier: action.bound,
-  onClickToggleArchiveProductLotData: action.bound,
-  onClickProductLotDataBtn: action.bound,
-  onClickInTransfer: action.bound,
+  onClickProducDataButton: action.bound,
   onClickAddSupplierBtn: action.bound,
   onClickParseProductsBtn: action.bound,
   onClickAddSupplierButton: action.bound,
@@ -115,5 +116,4 @@ export const observerConfig = {
   loadData: action.bound,
   setActiveProductsTag: action.bound,
   onClickSaveSupplierBtn: action.bound,
-  onClickGetChildProducts: action.bound,
 }

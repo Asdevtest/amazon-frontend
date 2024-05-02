@@ -5,7 +5,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxesModel } from '@models/boxes-model'
 import { GeneralModel } from '@models/general-model'
 import { TableSettingsModel } from '@models/table-settings'
-import { UserModel } from '@models/user-model'
 
 import { adminBoxesViewColumns } from '@components/table/table-columns/admin/boxes-columns'
 
@@ -49,10 +48,6 @@ export class AdminWarehouseBoxesViewModel {
 
   get currentData() {
     return this.boxes
-  }
-
-  get platformSettings() {
-    return UserModel.platformSettings
   }
 
   constructor() {

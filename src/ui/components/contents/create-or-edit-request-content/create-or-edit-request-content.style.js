@@ -321,4 +321,10 @@ export const useStyles = makeStyles()(theme => ({
   customItemsWrapper: {
     padding: '0 10px',
   },
+
+  seoInfoText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.red,
+  },
 }))

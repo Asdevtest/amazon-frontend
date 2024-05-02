@@ -14,7 +14,6 @@ export const useStyles = makeStyles()(theme => ({
       padding: '40px 0',
       width: '100%',
     },
-    // color: '#656565',
   },
   header: {
     minHeight: '40%',

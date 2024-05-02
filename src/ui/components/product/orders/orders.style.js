@@ -9,6 +9,6 @@ export const useStyles = makeStyles()(() => ({
   },
 
   modalWrapper: {
-    height: 665,
+    height: 600,
   },
 }))

@@ -220,6 +220,7 @@ export class WarehouseAwaitingBatchesViewModel {
         trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       await this.loadData()
@@ -309,6 +310,7 @@ export class WarehouseAwaitingBatchesViewModel {
       runInAction(() => {
         if (setting.isAdding) {
           this.selectedBatches = []
+          this.curBatch = undefined
         }
 
         this.showCircularProgress = true

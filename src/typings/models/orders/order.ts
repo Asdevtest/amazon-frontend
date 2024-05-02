@@ -51,4 +51,5 @@ export interface IOrder {
   paymentDetailsAttached: boolean
   payments: Array<IPayment>
   paymentDetails: Array<string>
+  orderSupplierId: string
 }

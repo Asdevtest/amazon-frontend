@@ -158,9 +158,7 @@ export const VacantRequestShortCard = ({ item, onClickViewMore, onDoubleClick, i
               containerClasses={styles.fieldContainer}
               label={t(TranslationKey['Request type'])}
               inputComponent={
-                <Typography className={cx(styles.accentText, styles.rightText, styles.capitalize)}>
-                  {item.spec?.title}
-                </Typography>
+                <Typography className={cx(styles.accentText, styles.rightText)}>{item.spec?.title}</Typography>
               }
             />
             <Field

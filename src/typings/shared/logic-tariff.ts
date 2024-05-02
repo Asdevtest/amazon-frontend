@@ -18,7 +18,7 @@ export interface ILogicTariff {
   createdAt: string
 }
 
-interface IConditionsByRegion {
+export interface IConditionsByRegion {
   west: IRegion
   central: IRegion
   east: IRegion

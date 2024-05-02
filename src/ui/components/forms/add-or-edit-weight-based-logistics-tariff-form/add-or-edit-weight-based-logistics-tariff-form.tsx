@@ -12,7 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -390,11 +390,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     value: currencyTypes.YUAN,
                   },
                 ]}
-                changeConditionHandler={value => {
-                  if (typeof value === 'string') {
-                    setCurrentCurrency(value)
-                  }
-                }}
+                changeConditionHandler={setCurrentCurrency}
               />
             </div>
 
@@ -451,7 +447,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     [styles.deadlineError]: checkDateByDeadline(formFields.cls),
                   })}
                 >
-                  <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
+                  <DatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
                   {!!formFields.cls && checkDateByDeadline(formFields.cls) && (
                     <p className={styles.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
@@ -471,7 +467,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     [styles.deadlineError]: checkDateByDeadline(formFields.etd),
                   })}
                 >
-                  <NewDatePicker disablePast value={formFields.etd} onChange={onChangeField('etd')} />
+                  <DatePicker disablePast value={formFields.etd} onChange={onChangeField('etd')} />
 
                   {!!formFields.etd && checkDateByDeadline(formFields.etd) && (
                     <p className={styles.deadlineErrorText}>
@@ -492,7 +488,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     [styles.deadlineError]: checkDateByDeadline(formFields.eta),
                   })}
                 >
-                  <NewDatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
+                  <DatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
                   {!!formFields.eta && checkDateByDeadline(formFields.eta) && (
                     <p className={styles.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
@@ -632,8 +628,10 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                           Number(variant.maxWeight) < Number(variant.minWeight),
                       })}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                          onChangeDestinationVariations('maxWeight')(variantIndex)(e.target.value)
+                        const input = e.target.value
+
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
+                          onChangeDestinationVariations('maxWeight')(variantIndex)(input)
                         }
                       }}
                     />
@@ -663,7 +661,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
 
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
                           // e.target.value = toFixed(e.target.value, 2)
                           onChangeDestinationVariations(
                             currentCurrency === currencyTypes.DOLLAR ? 'pricePerKgUsd' : 'pricePerKgRmb',

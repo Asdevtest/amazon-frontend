@@ -1066,5 +1066,3 @@ export const myProposalsDataConverter = data =>
     originalData: item,
     id: item._id ? item._id : index,
   }))
-
-export const hierarchyDataConverter = data => data?.map(item => ({ ...item, id: item._id, hierarchy: [item._id] }))

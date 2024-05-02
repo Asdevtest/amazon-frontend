@@ -4,7 +4,7 @@ import { Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -108,7 +108,7 @@ export const FirstStep = ({
               labelClasses={styles.spanLabelSmall}
               inputComponent={
                 <div className={cx({ [styles.deadlineError]: deadlineError })}>
-                  <NewDatePicker value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} />
+                  <DatePicker value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} />
 
                   {deadlineError && (
                     <p className={styles.deadlineErrorText}>

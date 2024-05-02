@@ -9,38 +9,18 @@ import { IConfirmModalSettings, IWarningInfoModalSettings } from './model-with-m
 import { observerConfig } from './observer-config'
 
 export class ModalsModel extends DefaultModel {
-  _confirmModalSettings: IConfirmModalSettings | undefined = undefined
-  _warningInfoModalSettings: IWarningInfoModalSettings | undefined = undefined
-
-  get confirmModalSettings() {
-    if (!this._confirmModalSettings) {
-      this._confirmModalSettings = {
-        isWarning: false,
-        title: '',
-        message: '',
-        onSubmit: () => {},
-        onCancel: () => {},
-      }
-    }
-    return this._confirmModalSettings
+  confirmModalSettings: IConfirmModalSettings = {
+    isWarning: false,
+    title: '',
+    message: '',
+    onSubmit: () => {},
+    onCancel: () => {},
   }
-  set confirmModalSettings(confirmModalSettings: IConfirmModalSettings) {
-    this._confirmModalSettings = confirmModalSettings
-  }
-
-  get warningInfoModalSettings() {
-    if (!this._warningInfoModalSettings) {
-      this._warningInfoModalSettings = {
-        isWarning: false,
-        title: '',
-        buttonText: '',
-        onSubmit: () => {},
-      }
-    }
-    return this._warningInfoModalSettings
-  }
-  set warningInfoModalSettings(warningInfoModalSettings: IWarningInfoModalSettings) {
-    this._warningInfoModalSettings = warningInfoModalSettings
+  warningInfoModalSettings: IWarningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+    buttonText: '',
+    onSubmit: () => {},
   }
 
   constructor() {

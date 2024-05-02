@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react'
 
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import { Box, InputAdornment, MenuItem, Select, TableCell, TableRow, Typography } from '@mui/material'
+import { Box, InputAdornment, MenuItem, Select, Typography } from '@mui/material'
 
 import {
   OrderStatus,
@@ -14,11 +14,8 @@ import {
   buyerOrderModalSubmitDisabledOrderStatuses,
   getOrderStatusOptionByCode,
 } from '@constants/orders/order-status'
-import { BUYER_WAREHOUSE_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { CheckQuantityForm } from '@components/forms/check-quantity-form'
 import { CreateBoxForm } from '@components/forms/create-box-form'
@@ -33,11 +30,10 @@ import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { SaveIcon } from '@components/shared/svg-icons'
-import { Table } from '@components/shared/table'
+import { SaveIcon, TruckIcon } from '@components/shared/svg-icons'
+import { BoxesToOrder } from '@components/shared/tables/boxes-to-order'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { Text } from '@components/shared/text'
-import { WarehouseBodyRow } from '@components/table/table-rows/warehouse'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -45,12 +41,10 @@ import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { clearEverythingExceptNumbers, timeToDeadlineInHoursAndMins, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './edit-order-modal.style'
-
-import { SlideshowGalleryModal } from '../slideshow-gallery-modal'
 
 import { BoxesToCreateTable } from './boxes-to-create-table'
 import { ProductTable } from './product-table'
@@ -95,18 +89,14 @@ export const EditOrderModal = memo(
     userInfo,
     requestStatus,
     order,
-    boxes,
+    hsCodeData,
     onTriggerOpenModal,
     modalHeadCells,
     onSubmitSaveOrder,
     showProgress,
-    hsCodeData,
     progressValue,
-    setCurrentOpenedBox,
     onSaveOrderItem,
-    onSubmitChangeBoxFields,
     onClickSaveSupplierBtn,
-    onClickHsCode,
     updateSupplierData,
     onClickSaveWithoutUpdateSupData,
     onClickUpdataSupplierData,
@@ -128,25 +118,9 @@ export const EditOrderModal = memo(
       order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
     )
     const [commentToWarehouse, setCommentToWarehouse] = useState('')
-    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
     const [trackNumber, setTrackNumber] = useState({ text: '', files: [] })
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
-    const [headCells, setHeadCells] = useState(BUYER_WAREHOUSE_HEAD_CELLS)
-
-    const deliveredGoodsCount =
-      boxes
-        ?.filter(el => !el.isDraft)
-        ?.reduce(
-          (acc, cur) =>
-            acc +
-            cur.items
-              .filter(item => item.product._id === order.product._id && item.order.id === order.id)
-              .reduce((acc, cur) => (acc += cur.amount), 0) *
-              cur.amount,
-          0,
-        ) || 0
 
     const initialState = {
       ...order,
@@ -179,29 +153,29 @@ export const EditOrderModal = memo(
       partialPaymentAmountRmb: order?.partialPaymentAmountRmb || 0,
       partiallyPaid: order?.partiallyPaid || 0,
       partialPayment: order?.partialPayment || false,
+      deliveredQuantity: order?.deliveredQuantity || 0,
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
 
-    const [hsCode, setHsCode] = useState({ ...hsCodeData })
+    const [hsCode, setHsCode] = useState({
+      _id: '',
+      chinaTitle: '',
+      hsCode: '',
+      material: '',
+      productUsage: '',
+      productId: '',
+    })
+
+    useEffect(() => {
+      if (hsCodeData) {
+        setHsCode(hsCodeData)
+      }
+    }, [hsCodeData])
 
     const [orderPayments, setOrderPayments] = useState(orderFields.payments)
     const [photosToLoad, setPhotosToLoad] = useState(orderFields.images)
     const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
-
-    const renderHeadRow = () => (
-      <TableRow>
-        {headCells.map((item, index) => (
-          <TableCell key={index}>
-            <div className={styles[item.className]}>{item.label}</div>
-          </TableCell>
-        ))}
-      </TableRow>
-    )
-
-    useEffect(() => {
-      setHeadCells(BUYER_WAREHOUSE_HEAD_CELLS)
-    }, [SettingsModel.languageTag])
 
     useEffect(() => {
       setOrderFields({ ...orderFields, product: order.product, orderSupplier: order.orderSupplier })
@@ -381,7 +355,7 @@ export const EditOrderModal = memo(
 
         if (
           e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
-          deliveredGoodsCount < orderFields.amount
+          orderFields.deliveredQuantity < orderFields.amount
         ) {
           setShowCheckQuantityModal(!showCheckQuantityModal)
         } else {
@@ -520,7 +494,7 @@ export const EditOrderModal = memo(
             ) : null}
             {order.expressChinaDelivery ? (
               <div className={styles.rushOrderWrapper}>
-                <img className={styles.rushOrderImg} src="/assets/icons/truck.svg" />
+                <TruckIcon className={styles.rushOrderImg} />
                 <Typography className={styles.rushOrder}>{t(TranslationKey['Express delivery'])}</Typography>
               </div>
             ) : null}
@@ -666,12 +640,11 @@ export const EditOrderModal = memo(
             checkIsPlanningPrice={checkIsPlanningPrice}
             setCheckIsPlanningPrice={setCheckIsPlanningPrice}
             isPendingOrder={isPendingOrder}
-            updateSupplierData={updateSupplierData}
             usePriceInDollars={usePriceInDollars}
-            deliveredGoodsCount={deliveredGoodsCount}
             disableSubmit={disableSubmit}
             photosToLoad={photosToLoad}
             order={order}
+            deliveredQuantity={orderFields.deliveredQuantity}
             setOrderField={setOrderField}
             orderFields={orderFields}
             showProgress={showProgress}
@@ -679,14 +652,11 @@ export const EditOrderModal = memo(
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
             setPaymentMethodsModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
-            onClickHsCode={onClickHsCode}
             onClickUpdateButton={onClickUpdateButton}
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
 
-          <Text className={styles.tableTitle} containerClasses={styles.tableTitleContainer}>
-            {t(TranslationKey.Product)}
-          </Text>
+          <Text className={styles.tableTitle}>{t(TranslationKey.Product)}</Text>
 
           <ProductTable
             checkIsPlanningPrice={checkIsPlanningPrice}
@@ -707,9 +677,9 @@ export const EditOrderModal = memo(
 
         <div className={styles.buttonsBox}>
           <Button
+            styleType={ButtonStyle.SUCCESS}
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the order'])}
-            className={styles.saveBtn}
             onClick={() => {
               if (boxesForCreation.length > 0) {
                 setConfirmModalMode(confirmModalModes.SUBMIT)
@@ -722,8 +692,6 @@ export const EditOrderModal = memo(
             {t(TranslationKey.Save)}
           </Button>
           <Button
-            variant={ButtonVariant.OUTLINED}
-            className={styles.cancelBtn}
             tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
             onClick={() => onTriggerOpenModal('showOrderModal')}
           >
@@ -737,11 +705,7 @@ export const EditOrderModal = memo(
               <Typography className={styles.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
 
               <Box width="fit-content">
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
-                  className={styles.addBoxButton}
-                  onClick={addBoxHandler}
-                >
+                <Button tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])} onClick={addBoxHandler}>
                   {t(TranslationKey['Add a box'])}
                 </Button>
               </Box>
@@ -750,7 +714,7 @@ export const EditOrderModal = memo(
             <div />
           )}
 
-          <Button className={styles.seeCommentsButton} onClick={() => setCommentModalModal(!commentModal)}>
+          <Button onClick={() => setCommentModalModal(!commentModal)}>
             <Typography className={styles.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
             <VisibilityIcon className={styles.seeCommentsIcon} />
           </Button>
@@ -760,7 +724,6 @@ export const EditOrderModal = memo(
           <>
             <BoxesToCreateTable
               orderGoodsAmount={orderFields?.amount}
-              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={
                 userInfo._id !== order.orderSupplier.createdBy?._id &&
@@ -788,10 +751,7 @@ export const EditOrderModal = memo(
                     onChange={e => setTrackNumber({ ...trackNumber, text: e.target.value })}
                   />
 
-                  <Button
-                    className={styles.trackNumberPhotoBtn}
-                    onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-                  >
+                  <Button onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
                     {trackNumber.files[0] ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
                   </Button>
                 </div>
@@ -804,56 +764,29 @@ export const EditOrderModal = memo(
                   )}
                 </div>
               </div>
-              <div className={styles.fieldWrapper}>
-                <div className={styles.inputWrapper}>
-                  <Field
-                    multiline
-                    minRows={4}
-                    maxRows={4}
-                    inputProps={{ maxLength: 500 }}
-                    inputClasses={styles.commentInput}
-                    value={commentToWarehouse}
-                    labelClasses={styles.label}
-                    label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
-                    onChange={e => setCommentToWarehouse(e.target.value)}
-                  />
-                </div>
-              </div>
+
+              <Field
+                multiline
+                minRows={4}
+                maxRows={4}
+                inputProps={{ maxLength: 500 }}
+                inputClasses={styles.commentInput}
+                value={commentToWarehouse}
+                labelClasses={styles.label}
+                label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
+                onChange={e => setCommentToWarehouse(e.target.value)}
+              />
             </div>
           </>
         )}
 
-        <div className={styles.tableWrapper}>
-          <Field
-            tooltipInfoContent={t(TranslationKey['All the boxes that the prep center received on order'])}
-            label={t(TranslationKey['Boxes on this order:'])}
-            inputClasses={styles.hidden}
-            labelClasses={styles.label}
-            containerClasses={styles.fieldLabel}
-          />
-
-          {boxes.length > 0 ? (
-            <Table
-              rowsOnly
-              data={boxes}
-              BodyRow={WarehouseBodyRow}
-              renderHeadRow={renderHeadRow()}
-              mainProductId={order.product._id}
-              userInfo={userInfo}
-              setCurrentOpenedBox={setCurrentOpenedBox}
-              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-              onSubmitChangeBoxFields={onSubmitChangeBoxFields}
-              onClickHsCode={onClickHsCode}
-            />
-          ) : (
-            <Typography className={styles.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
-          )}
+        <div className={styles.boxesWrapper}>
+          <BoxesToOrder formFields={order} platformSettings={platformSettings} />
         </div>
 
         <Modal
           openModal={collapseCreateOrEditBoxBlock}
           setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-          dialogClassName={styles.dialogClassName}
         >
           <CreateBoxForm
             isEdit={isEdit}
@@ -914,16 +847,6 @@ export const EditOrderModal = memo(
           />
         </Modal>
 
-        {showPhotosModal ? (
-          <SlideshowGalleryModal
-            files={bigImagesOptions.images}
-            currentFileIndex={bigImagesOptions.imgIndex}
-            openModal={showPhotosModal}
-            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          />
-        ) : null}
-
         <Modal
           openModal={showCheckQuantityModal}
           setOpenModal={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
@@ -933,12 +856,11 @@ export const EditOrderModal = memo(
             maxRefundNumber={orderFields.totalPrice}
             title={t(TranslationKey['Setting the stock status'])}
             description={t(TranslationKey['Enter the amount of goods that came into the warehouse']) + ':'}
+            deliveredQuantity={orderFields.deliveredQuantity}
             acceptText={t(TranslationKey.Continue) + '?'}
-            comparisonQuantity={deliveredGoodsCount}
             onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
             onSubmit={({ refundValue }) => {
               setTmpNewOrderFieldsState({ ...tmpNewOrderFieldsState, tmpRefundToClient: refundValue })
-
               setConfirmModalMode(confirmModalModes.STATUS)
               setShowConfirmModal(!showConfirmModal)
               setShowCheckQuantityModal(!showCheckQuantityModal)

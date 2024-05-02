@@ -1,32 +1,17 @@
 import { OpenInNewTabCell } from '..'
 import { FC, memo } from 'react'
 
-import { ArrowDownIcon, ArrowUpIcon, UnPinIcon } from '@components/shared/svg-icons'
-
 import { useStyles } from './select-row-cell.style'
 
 interface SelectRowCellProps {
   checkboxComponent: JSX.Element
   onClickShareIcon: () => void
-  onClickPinRow: (direction: string, isUnpin?: boolean) => void
-  isPinnedTop: boolean
-  isPinnedBottom: boolean
   isShowSheldGreen: boolean
   isShowSheldYellow: boolean
-  isTreeRow: boolean
 }
 
 export const SelectRowCell: FC<SelectRowCellProps> = memo(
-  ({
-    isTreeRow,
-    isPinnedTop,
-    isPinnedBottom,
-    isShowSheldGreen,
-    isShowSheldYellow,
-    onClickPinRow,
-    checkboxComponent,
-    onClickShareIcon,
-  }) => {
+  ({ isShowSheldGreen, isShowSheldYellow, checkboxComponent, onClickShareIcon }) => {
     const { classes: styles, cx } = useStyles()
 
     return (
@@ -36,35 +21,11 @@ export const SelectRowCell: FC<SelectRowCellProps> = memo(
           isShowSheldGreen ? styles.ideaRowGreen : isShowSheldYellow ? styles.ideaRowYellow : '',
         )}
       >
-        {isTreeRow ? <div /> : checkboxComponent}
+        {checkboxComponent}
 
         <div className={styles.buttonsWrapper}>
           <OpenInNewTabCell onClickOpenInNewTab={onClickShareIcon} />
         </div>
-
-        {isTreeRow ? null : (
-          <div className={styles.pinRowWrapper}>
-            <button
-              className={styles.pinButton}
-              onClick={e => {
-                e.stopPropagation()
-                onClickPinRow('top', isPinnedTop)
-              }}
-            >
-              {isPinnedTop ? <UnPinIcon /> : <ArrowUpIcon />}
-            </button>
-
-            <button
-              className={styles.pinButton}
-              onClick={e => {
-                e.stopPropagation()
-                onClickPinRow('bottom', isPinnedBottom)
-              }}
-            >
-              {isPinnedBottom ? <UnPinIcon /> : <ArrowDownIcon />}
-            </button>
-          </div>
-        )}
       </div>
     )
   },

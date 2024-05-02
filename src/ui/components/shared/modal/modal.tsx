@@ -16,21 +16,11 @@ interface ModalProps extends PropsWithChildren {
   openModal: boolean
   setOpenModal: (openModal: boolean) => void
   missClickModalOn?: boolean
-  dialogClassName?: string
-  contentClassName?: string
-  contentWrapperClassName?: string
+  isSecondBackground?: boolean
 }
 
 export const Modal: FC<ModalProps> = memo(props => {
-  const {
-    openModal,
-    setOpenModal,
-    missClickModalOn,
-    dialogClassName,
-    contentClassName,
-    contentWrapperClassName,
-    children,
-  } = props
+  const { openModal, setOpenModal, missClickModalOn, children, isSecondBackground } = props
 
   if (!openModal) {
     return null
@@ -58,14 +48,14 @@ export const Modal: FC<ModalProps> = memo(props => {
   return (
     <ModalPortal>
       <div
-        className={cx(styles.dialogWrapper, { [styles.openModal]: openModal }, dialogClassName)}
+        className={cx(styles.dialogWrapper, { [styles.openModal]: openModal })}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
-        <div className={cx(styles.contentWrapper, contentWrapperClassName)}>
+        <div className={cx(styles.contentWrapper, { [styles.alternativeBackground]: isSecondBackground })}>
           <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={handleCloseModal} />
 
-          <div className={cx(styles.content, contentClassName)}>{children}</div>
+          <div className={styles.content}>{children}</div>
         </div>
       </div>
 

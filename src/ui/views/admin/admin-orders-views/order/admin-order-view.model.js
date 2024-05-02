@@ -1,24 +1,17 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { loadingStatus } from '@typings/enums/loading-status'
-
 export class AdminOrderViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
-  orderBoxes = []
-  orderId = undefined
-
+  orderId = ''
   storekeepers = []
   destinations = []
-
   order = undefined
 
   get platformSettings() {
@@ -36,23 +29,10 @@ export class AdminOrderViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
       this.getOrderById()
-      this.getBoxesOfOrder(this.orderId)
-
-      const [storekeepers, destinations] = await Promise.all([
-        StorekeeperModel.getStorekeepers(),
-        ClientModel.getDestinations(),
-      ])
-
-      runInAction(() => {
-        this.destinations = destinations
-        this.storekeepers = storekeepers
-      })
-      this.setRequestStatus(loadingStatus.SUCCESS)
+      this.getStorekeepers()
+      this.getDestinations()
     } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
@@ -73,29 +53,25 @@ export class AdminOrderViewModel {
 
   async getStorekeepers() {
     try {
-      const result = await StorekeeperModel.getStorekeepers()
+      const response = await StorekeeperModel.getStorekeepers()
 
       runInAction(() => {
-        this.storekeepersData = result
+        this.storekeepers = response
       })
     } catch (error) {
       console.error(error)
     }
   }
 
-  async getBoxesOfOrder(orderId) {
+  async getDestinations() {
     try {
-      const result = await BoxesModel.getBoxesOfOrder(orderId)
+      const response = await ClientModel.getDestinations()
 
       runInAction(() => {
-        this.orderBoxes = result
+        this.destinations = response
       })
     } catch (error) {
       console.error(error)
     }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
   }
 }

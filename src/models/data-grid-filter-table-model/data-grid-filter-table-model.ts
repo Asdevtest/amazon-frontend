@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
 
-import { GridColDef } from '@mui/x-data-grid'
 import { GridPinnedColumns } from '@mui/x-data-grid-premium'
 
 import { DataGridTableModel } from '@models/data-grid-table-model'
@@ -13,97 +12,31 @@ import { objectToUrlQs } from '@utils/text'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { IPinnedRows } from './data-grid-filter-table-model.type'
-import { pinnedRowsInitialValue } from './filter-table-model'
+import { DataGridFilterTableModelParams } from './data-grid-filter-table-model.type'
 import { observerConfig } from './observer-config'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
-  _filtersFields: string[]
-  get filtersFields() {
-    return this._filtersFields
-  }
-  set filtersFields(filtersFields: string[]) {
-    this._filtersFields = filtersFields
-  }
+  currentSearchValue: string = ''
 
-  _mainMethodURL: string
-  get mainMethodURL() {
-    return this._mainMethodURL
-  }
-  set mainMethodURL(mainMethodURL: string) {
-    this._mainMethodURL = mainMethodURL
-  }
+  filtersFields: string[]
 
-  _fieldsForSearch: string[] = []
-  get fieldsForSearch() {
-    return this._fieldsForSearch
-  }
-  set fieldsForSearch(fieldsForSearch: string[]) {
-    this._fieldsForSearch = fieldsForSearch
-  }
+  mainMethodURL: string
 
-  _columnMenuSettings = undefined
-  get columnMenuSettings() {
-    return this._columnMenuSettings
-  }
-  set columnMenuSettings(columnMenuSettings: any) {
-    this._columnMenuSettings = columnMenuSettings
-  }
+  fieldsForSearch: string[] = []
+
+  columnMenuSettings: any = undefined
 
   get isSomeFilterOn() {
     return this.filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
   }
 
-  _currentSearchValue = ''
-  get currentSearchValue() {
-    return this._currentSearchValue
-  }
-  set currentSearchValue(currentSearchValue: string) {
-    this._currentSearchValue = currentSearchValue
-  }
+  additionalPropertiesColumnMenuSettings: any = {}
 
-  _additionalPropertiesColumnMenuSettings: any = {}
-  get additionalPropertiesColumnMenuSettings() {
-    return this._additionalPropertiesColumnMenuSettings
-  }
-  set additionalPropertiesColumnMenuSettings(additionalProperties: any) {
-    this._additionalPropertiesColumnMenuSettings = additionalProperties
-  }
+  additionalPropertiesGetFilters: any = undefined
 
-  _additionalPropertiesGetFilters: any = undefined
-  get additionalPropertiesGetFilters() {
-    return this._additionalPropertiesGetFilters
-  }
-  set additionalPropertiesGetFilters(additionalProperties: any) {
-    this._additionalPropertiesGetFilters = additionalProperties
-  }
-
-  _pinnedColumns: GridPinnedColumns = {
+  pinnedColumns: GridPinnedColumns = {
     left: [],
     right: [],
-  }
-  get pinnedColumns() {
-    return this._pinnedColumns
-  }
-  set pinnedColumns(pinnedColumns: GridPinnedColumns) {
-    this._pinnedColumns = pinnedColumns
-  }
-
-  _pinnedRows: IPinnedRows = pinnedRowsInitialValue
-  get pinnedRows() {
-    return this._pinnedRows
-  }
-  set pinnedRows(pinnedRows: IPinnedRows) {
-    this._pinnedRows = pinnedRows
-  }
-
-  _isSaveBaseData = false
-  _baseTableData: any[] = []
-  get baseTableData() {
-    return this._baseTableData
-  }
-  set baseTableData(baseTableData: any[]) {
-    this._baseTableData = baseTableData
   }
 
   constructor({
@@ -116,41 +49,22 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     defaultGetDataMethodOptions,
     additionalPropertiesColumnMenuSettings,
     additionalPropertiesGetFilters,
-    dataModefierMethod,
-    saveBaseData,
-  }: {
-    getMainDataMethod: (...args: any) => any
-    columnsModel: GridColDef[]
-    filtersFields: string[]
-    mainMethodURL: string
-    fieldsForSearch?: string[]
-    tableKey?: string
-    defaultGetDataMethodOptions?: any
-    additionalPropertiesColumnMenuSettings?: any
-    additionalPropertiesGetFilters?: any
-    dataModefierMethod?: (...args: any) => any
-    saveBaseData?: boolean
-  }) {
-    super({ getMainDataMethod, columnsModel, tableKey, defaultGetDataMethodOptions, dataModefierMethod })
+  }: DataGridFilterTableModelParams) {
+    super({
+      getMainDataMethod,
+      columnsModel,
+      tableKey,
+      defaultGetDataMethodOptions,
+    })
 
     this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)
-
-    this._pinnedColumns = {
-      left: [],
-      right: [],
-    }
-
-    this._filtersFields = filtersFields
-    this._mainMethodURL = mainMethodURL
-    this._additionalPropertiesColumnMenuSettings = additionalPropertiesColumnMenuSettings
-    this._additionalPropertiesGetFilters = additionalPropertiesGetFilters
+    this.filtersFields = filtersFields
+    this.mainMethodURL = mainMethodURL
+    this.additionalPropertiesColumnMenuSettings = additionalPropertiesColumnMenuSettings
+    this.additionalPropertiesGetFilters = additionalPropertiesGetFilters
 
     if (fieldsForSearch) {
-      this._fieldsForSearch = fieldsForSearch
-    }
-
-    if (saveBaseData) {
-      this._isSaveBaseData = saveBaseData
+      this.fieldsForSearch = fieldsForSearch
     }
 
     makeObservable(this, observerConfig)
@@ -158,7 +72,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   setColumnMenuSettings(filtersFields: string[], additionalProperties?: any) {
     this.columnMenuSettings = {
-      onClickFilterBtn: (field: string, table: string) => this.onClickFilterBtn(field, table),
+      onClickFilterBtn: (field: string, table: string, searchValue?: string) =>
+        this.onClickFilterBtn(field, table, searchValue),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),
       onClickAccept: () => this.getMainTableData(),
 
@@ -170,17 +85,12 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     }
   }
 
-  handlePinRow(pinnedRows: IPinnedRows) {
-    this.pinnedRows = pinnedRows
-  }
-
   handlePinColumn(pinnedColumns: GridPinnedColumns) {
-    console.log('pinnedColumns :>> ', pinnedColumns)
     this.pinnedColumns = pinnedColumns
     this.setDataGridState()
   }
 
-  async onClickFilterBtn(column: string, table: string) {
+  async onClickFilterBtn(column: string, table: string, searchValue?: string) {
     try {
       this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
@@ -188,7 +98,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         table,
         column,
         // "?" не нужен, т.к. он должен быть в mainMethodURL, на случай если url должна содержать больше свойств
-        `${this.mainMethodURL}filters=${this.getFilters(column)}`,
+        `${this.mainMethodURL}filters=${this.getFilters(column)}${searchValue || ''}`,
       )
 
       if (this.columnMenuSettings[column as keyof typeof this.columnMenuSettings]) {
@@ -247,23 +157,15 @@ export class DataGridFilterTableModel extends DataGridTableModel {
           limit: this.paginationModel.pageSize,
           offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-          sortField: this.sortModel.length ? this.sortModel?.[0]?.field : 'updatedAt',
-          sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
+          sortField: this.sortModel?.length ? this.sortModel?.[0]?.field : 'updatedAt',
+          sortType: this.sortModel?.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
 
           ...this.defaultGetDataMethodOptions?.(),
         },
       )
 
-      if (this.dataModefierMethod) {
-        result.rows = this.dataModefierMethod(result.rows)
-      }
-
       runInAction(() => {
         this.tableData = result?.rows || result
-
-        if (this._isSaveBaseData) {
-          this.baseTableData = result?.rows || result
-        }
 
         this.rowCount = result?.count || result.length
       })
@@ -278,11 +180,14 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   setFilterRequestStatus(requestStatus: loadingStatus) {
-    this.columnMenuSettings.filterRequestStatus = requestStatus
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 
   setDataGridState() {
-    if (!this._tableKey) return
+    if (!this.tableKey) return
 
     const requestState = {
       sortModel: this.sortModel,
@@ -292,14 +197,14 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       pinnedColumns: this.pinnedColumns,
     }
 
-    TableSettingsModel.saveTableSettings(requestState, this._tableKey)
+    TableSettingsModel.saveTableSettings(requestState, this.tableKey)
   }
 
   getDataGridState() {
-    if (!this._tableKey) return
+    if (!this.tableKey) return
 
     // @ts-ignore
-    const state = TableSettingsModel.getTableSettings(this._tableKey)
+    const state = TableSettingsModel.getTableSettings(this.tableKey)
 
     if (state) {
       // @ts-ignore

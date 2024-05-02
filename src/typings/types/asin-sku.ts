@@ -1,1 +1,1 @@
-export type AsinOrSkuType = 'asin' | 'sku'
+export type AsinOrSkuType = 'asin' | 'sku' | 'fnsku'

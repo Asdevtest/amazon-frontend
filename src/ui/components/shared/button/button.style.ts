@@ -43,8 +43,6 @@ export const useStyles = makeStyles()(theme => {
       '&:disabled': {
         cursor: 'default',
       },
-
-      margin: '0 3px 3px 0',
     },
 
     transparent: {
@@ -237,7 +235,7 @@ export const useStyles = makeStyles()(theme => {
       width: '28px',
       height: '28px',
       padding: 0,
-      backgroundColor: 'transparent !important',
+      backgroundColor: 'transparent',
 
       '> svg': {
         width: '16px',
@@ -247,7 +245,6 @@ export const useStyles = makeStyles()(theme => {
 
     primaryIconButton: {
       border: `1px solid ${primaryMain}`,
-      backgroundColor: backgroundGeneral,
       boxShadow: defaultBoxShadow,
 
       '> svg': {
@@ -256,18 +253,20 @@ export const useStyles = makeStyles()(theme => {
 
       '&:hover': {
         border: `1px solid ${primaryHoverColor}`,
-        backgroundColor: `${primaryHoverBackground}`,
+        backgroundColor: primaryHoverBackground,
 
         '> svg': {
-          color: `${primaryHoverColor}`,
+          fill: primaryHoverBackground,
+          color: primaryHoverColor,
         },
       },
 
       '&:disabled': {
         border: `1px solid ${primaryDisabledColor}`,
-        backgroundColor: backgroundGeneral,
+        backgroundColor: `${backgroundGeneral}`,
 
         '> svg': {
+          fill: `transparent`,
           color: primaryDisabledColor,
         },
       },

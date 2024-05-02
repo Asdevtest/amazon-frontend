@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { BigPlusIcon } from '@components/shared/svg-icons'
 
-import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
 import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
@@ -20,16 +19,13 @@ import { Box } from './box/box'
 export const GroupingBoxesForm = memo(props => {
   const { classes: styles, cx } = useStyles()
 
-  const { destinations, storekeepers, onSubmit, onCloseModal, volumeWeightCoefficient, selectedBoxes } = props
+  const { destinations, storekeepers, onSubmit, onCloseModal, selectedBoxes } = props
 
   const sourceOldBoxes = selectedBoxes.map(el => ({
     ...el,
     destinationId: el.destination?._id || null,
     storekeeperId: el.storekeeper?._id || '',
     logicsTariffId: el.logicsTariff?._id || '',
-
-    volumeWeightKgWarehouse: calcVolumeWeightForBox(el, volumeWeightCoefficient),
-    weightFinalAccountingKgWarehouse: calcFinalWeightForBox(el, volumeWeightCoefficient),
   }))
 
   const [oldBoxes, setOldBoxes] = useState(sourceOldBoxes)

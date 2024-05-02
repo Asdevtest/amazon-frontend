@@ -60,7 +60,6 @@ interface MultipleChatsProps {
   requestStatus: loadingStatus
   onChangeRequestStatus: (status: loadingStatus) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  updateData: () => void
   onSubmitMessage: (message: string, files: UploadFileType[], chat: string, replyMessageId: string | null) => void
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
@@ -90,7 +89,6 @@ export const MultipleChats = observer(
         chatSelectedId,
         chatMessageHandlers,
         curFoundedMessage,
-        updateData,
         onSubmitMessage,
         onClickChat,
         renderAdditionalButtons,
@@ -192,7 +190,6 @@ export const MultipleChats = observer(
                 searchPhrase={searchPhrase}
                 classNamesWrapper={styles.chatWrapper}
                 renderAdditionalButtons={renderAdditionalButtons}
-                updateData={updateData}
                 currentOpponent={currentOpponent}
                 requestStatus={requestStatus}
                 onChangeRequestStatus={onChangeRequestStatus}

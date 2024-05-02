@@ -32,12 +32,15 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   errorText: {
-    position: 'absolute',
-    bottom: 6,
-    right: 10,
-    fontSize: 14,
-    lineHeight: '19px',
+    marginTop: '2px',
     color: theme.palette.text.red,
+    maxWidth: '100%',
+    // overflow: 'hidden',
+    // whiteSpace: 'nowrap',
+    // textOverflow: 'ellipsis',
+    fontSize: '12px',
+    lineHeight: '16px',
+    wordBreak: 'break-word',
   },
 
   successText: {

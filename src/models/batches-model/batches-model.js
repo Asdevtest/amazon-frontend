@@ -66,11 +66,8 @@ export class BatchesModelStatic {
     return response.data
   }
 
-  getBatchesbyProduct = async (guid, archive) => {
-    const response = await restApiService.batchesApi.apiV1BatchesByProductGuidGet({
-      guid,
-      archive,
-    })
+  getBatchesbyProduct = async body => {
+    const response = await restApiService.batchesApi.apiV1BatchesByProductGuidGet(body)
     return response.data
   }
 

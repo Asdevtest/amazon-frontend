@@ -29,7 +29,7 @@ export class AdminTechnicalViewModel {
         this.serverWorkOn = !result.dynamicSettings.tech_pause
       })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -41,7 +41,7 @@ export class AdminTechnicalViewModel {
         this.serverWorkOn = !res.tech_pause
       })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 }

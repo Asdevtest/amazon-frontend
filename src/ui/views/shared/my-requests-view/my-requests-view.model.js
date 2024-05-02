@@ -38,12 +38,6 @@ export class MyRequestsViewModel {
   showConfirmWithCommentModal = false
   isAcceptedProposals = false
 
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-    error: undefined,
-  }
-
   selectedIndex = null
   selectedRequests = []
   researchIdToRemove = undefined
@@ -148,41 +142,12 @@ export class MyRequestsViewModel {
   constructor({ history }) {
     this.history = history
 
-    if (history.location?.state) {
-      this.alertShieldSettings = {
-        showAlertShield: history.location?.state?.showAcceptMessage,
-        alertShieldMessage: history.location?.state?.acceptMessage,
-        error: history.location?.state?.error,
-      }
-
-      const state = { ...history.location?.state }
-      delete state?.acceptMessage
-      delete state?.showAcceptMessage
-      history.replace({ ...history.location, state })
-    }
-
     this.setDefaultStatuses()
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
     if (this.isRequestsAtWork) {
       this.onChangeFullFieldMenuItem(allowStatuses, 'status')
-    }
-
-    if (this.alertShieldSettings.showAlertShield) {
-      setTimeout(() => {
-        this.alertShieldSettings = {
-          ...this.alertShieldSettings,
-          showAlertShield: false,
-        }
-
-        setTimeout(() => {
-          this.alertShieldSettings = {
-            showAlertShield: false,
-            alertShieldMessage: '',
-          }
-        }, 1000)
-      }, 3000)
     }
   }
 
@@ -448,8 +413,6 @@ export class MyRequestsViewModel {
 
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
       await RequestModel.patchRequestsUploadedToListing({
         requestIds: [id],
         uploadedToListing: !uploadedToListingState,
@@ -466,10 +429,7 @@ export class MyRequestsViewModel {
           },
         }
       })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

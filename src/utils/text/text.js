@@ -116,7 +116,7 @@ export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
     return t(TranslationKey['Not available'])
   }
 
-  const rate = box?.variationTariff?.pricePerKgUsd
+  const rate = box?.lastRateTariff || box?.variationTariff?.pricePerKgUsd
 
   return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixedWithDollarSign(rate, 2) : ''}`
 }
@@ -210,7 +210,7 @@ export const getTableByColumn = (column, hint) => {
       return 'orders'
     }
 
-    if (['buyerComment', 'createdBy', 'sub'].includes(column) && hint === 'ideas') {
+    if (['buyerComment', 'createdBy', 'sub', 'status', 'updatedAt'].includes(column) && hint === 'ideas') {
       return 'ideas'
     }
 

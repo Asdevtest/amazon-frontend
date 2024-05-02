@@ -126,8 +126,8 @@ export const Field: FC<Props> = observer(
               </div>
             ))}
         </>
-        {error && typeof error === 'string' && <Typography className={styles.errorText}>{error}</Typography>}
-        {successText && <Typography className={styles.successText}>{successText}</Typography>}
+        {error && typeof error === 'string' ? <p className={styles.errorText}>{error}</p> : null}
+        {successText ? <p className={styles.successText}>{successText}</p> : null}
       </div>
     )
   },

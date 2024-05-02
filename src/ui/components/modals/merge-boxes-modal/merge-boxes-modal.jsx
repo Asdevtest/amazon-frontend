@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -12,39 +11,42 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
+import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot, checkIsStorekeeper } from '@utils/checks'
+import { checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { UiTheme } from '@typings/enums/ui-theme'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
+import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './merge-boxes-modal.style'
 
 import { ConfirmationModal } from '../confirmation-modal'
 import { SetShippingLabelModal } from '../set-shipping-label-modal'
+import { SupplierApproximateCalculationsModal } from '../supplier-approximate-calculations'
 
 import { BoxForMerge } from './box-for-merge'
 
 export const MergeBoxesModal = ({
-  showCheckbox,
   userInfo,
   destinations,
   storekeepers,
@@ -55,7 +57,6 @@ export const MergeBoxesModal = ({
   onRemoveBoxFromSelected,
   destinationsFavourites,
   setDestinationsFavouritesItem,
-  volumeWeightCoefficient,
 }) => {
   const { classes: styles, cx } = useStyles()
 
@@ -63,26 +64,34 @@ export const MergeBoxesModal = ({
 
   const [priority, setPriority] = useState()
   const [priorityReason, setPriorityReason] = useState()
-  const [showConfirmModal, setShowConfirmModal] = useState(false)
-  const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
 
-  const hasDifferentDestinations = selectedBoxes.some(
-    box => box?.destination?._id !== selectedBoxes[0]?.destination?._id,
+  const selectedDestination = selectedBoxes.some(box => box?.destination?._id !== selectedBoxes[0]?.destination?._id)
+    ? null
+    : selectedBoxes[0]?.destination
+  const selectedStorekeepers = selectedBoxes.some(box => box?.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
+    ? null
+    : selectedBoxes[0]?.storekeeper
+  const selectedLogicsTariffs = selectedBoxes.some(
+    box => box?.logicsTariff?._id !== selectedBoxes[0]?.logicsTariff?._id,
+  )
+    ? null
+    : selectedBoxes[0]?.logicsTariff
+  const selectedVariationTariffs = selectedBoxes.some(
+    box => box?.variationTariff?._id !== selectedBoxes[0]?.variationTariff?._id,
   )
 
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
-    destinationId: hasDifferentDestinations ? null : selectedBoxes[0]?.destination?._id,
 
-    storekeeperId: selectedBoxes?.some(box => box?.storekeeper?._id !== selectedBoxes[0]?.storekeeper?._id)
-      ? ''
-      : selectedBoxes[0]?.storekeeper?._id,
-    logicsTariffId: selectedBoxes?.some(box => box?.logicsTariff?._id !== selectedBoxes[0]?.logicsTariff?._id)
-      ? ''
-      : selectedBoxes[0]?.logicsTariff?._id,
-    variationTariffId: selectedBoxes?.some(box => box?.variationTariff?._id !== selectedBoxes[0]?.variationTariff?._id)
-      ? null
-      : selectedBoxes[0]?.variationTariff?._id,
+    storekeeper: selectedStorekeepers,
+    destination: selectedDestination,
+    logicsTariff: selectedLogicsTariffs,
+    variationTariff: selectedVariationTariffs,
+
+    destinationId: selectedDestination?._id,
+    storekeeperId: selectedStorekeepers?._id,
+    logicsTariffId: selectedLogicsTariffs?._id,
+    variationTariffId: selectedVariationTariffs?._id,
 
     fbaShipment: '',
 
@@ -92,45 +101,45 @@ export const MergeBoxesModal = ({
     heightCmWarehouse: 0,
     weighGrossKgWarehouse: 0,
     images: [],
+
+    items: selectedBoxes.map(box => box.items)?.flat(),
   })
 
-  const [destinationId, setDestinationId] = useState(boxBody?.destinationId)
+  const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+  const { dimensions, onChangeDimensions } = useChangeDimensions({
+    data: boxBody,
+    sizeSetting,
+  })
 
-  useEffect(() => {
-    setDestinationId(boxBody?.destinationId)
-  }, [boxBody?.destinationId])
+  const {
+    destinationId,
+    onSubmitSelectStorekeeperAndTariff,
 
-  const setFormField = fieldName => e => {
-    const newFormFields = { ...boxBody }
-    const currentValue = e.target.value
+    showConfirmModal,
+    setShowConfirmModal,
 
-    if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
-        return
-      }
-    }
+    confirmModalSettings,
 
-    newFormFields[fieldName] = currentValue
+    handleSetDestination,
+    handleResetDestination,
 
-    setBoxBody(newFormFields)
-  }
+    showSelectionStorekeeperAndTariffModal,
+    setShowSelectionStorekeeperAndTariffModal,
+  } = useTariffVariation(boxBody.destinationId, setBoxBody)
 
   const [imagesOfBox, setImagesOfBox] = useState([])
-
   const [comment, setComment] = useState('')
   const getBoxDataToSubmit = () => {
-    if (sizeSetting === unitsOfChangeOptions.US) {
-      return {
-        ...boxBody,
-        destinationId: boxBody.destinationId || null,
-        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse * inchesCoefficient, 2),
-        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse * inchesCoefficient, 2),
-        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse * inchesCoefficient, 2),
-        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
-        images: imagesOfBox,
-      }
-    } else {
-      return { ...boxBody, destinationId: boxBody.destinationId || null, images: imagesOfBox }
+    setSizeSetting(Dimensions.EU)
+
+    return {
+      ...boxBody,
+      destinationId: boxBody.destinationId || null,
+      lengthCmWarehouse: Number(dimensions.length),
+      widthCmWarehouse: Number(dimensions.width),
+      heightCmWarehouse: Number(dimensions.height),
+      weighGrossKgWarehouse: Number(dimensions.weight),
+      images: imagesOfBox,
     }
   }
 
@@ -155,71 +164,6 @@ export const MergeBoxesModal = ({
     const newFormFields = { ...boxBody }
     newFormFields.shippingLabel = ''
     setBoxBody(newFormFields)
-  }
-
-  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
-  const onSubmitSelectStorekeeperAndTariff = (
-    storekeeperId,
-    tariffId,
-    variationTariffId,
-    destinationId,
-    isSelectedDestinationNotValid,
-  ) => {
-    if (isSelectedDestinationNotValid) {
-      setConfirmModalSettings({
-        isWarning: false,
-        title: t(TranslationKey.Attention),
-        confirmMessage: t(TranslationKey['Wish to change a destination?']),
-
-        onClickConfirm: () => {
-          setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
-          setDestinationId(destinationId)
-
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-        },
-
-        onClickCancelBtn: () => {
-          setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId: null })
-
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-        },
-      })
-
-      setShowConfirmModal(true)
-    } else {
-      if (!boxBody?.destinationId) {
-        setConfirmModalSettings({
-          isWarning: false,
-          title: t(TranslationKey.Attention),
-          confirmMessage: t(TranslationKey['Wish to set a destination?']),
-
-          onClickConfirm: () => {
-            setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
-            setDestinationId(destinationId)
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-          },
-
-          onClickCancelBtn: () => {
-            setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId: null })
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-          },
-        })
-
-        setShowConfirmModal(true)
-      } else {
-        setBoxBody({ ...boxBody, storekeeperId, logicsTariffId: tariffId, variationTariffId })
-        setDestinationId(destinationId)
-
-        setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-      }
-    }
   }
 
   const isDifferentStorekeepers = selectedBoxes.some(el => el.storekeeper._id !== selectedBoxes[0]?.storekeeper._id)
@@ -255,10 +199,8 @@ export const MergeBoxesModal = ({
     boxBody.variationTariffId,
   )
 
-  const boxData = selectedBoxes.map(box => box.items)
-
   const finalBoxData = Object.values(
-    boxData.flat().reduce((acc, item) => {
+    boxBody?.items.reduce((acc, item) => {
       if (!acc[item.product.asin] && acc[item.product.asin]?.order?._id !== item.order._id) {
         acc[item.product.asin] = { ...item }
       } else if (
@@ -275,24 +217,6 @@ export const MergeBoxesModal = ({
       return acc
     }, {}),
   )
-
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-  const handleChange = newAlignment => {
-    if (newAlignment !== sizeSetting) {
-      const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
-
-      setBoxBody({
-        ...boxBody,
-        lengthCmWarehouse: toFixed(boxBody.lengthCmWarehouse / multiplier, 2),
-        widthCmWarehouse: toFixed(boxBody.widthCmWarehouse / multiplier, 2),
-        heightCmWarehouse: toFixed(boxBody.heightCmWarehouse / multiplier, 2),
-        weighGrossKgWarehouse: toFixed(boxBody.weighGrossKgWarehouse / multiplier, 2),
-      })
-
-      setSizeSetting(newAlignment)
-    }
-  }
 
   return (
     <div className={styles.root}>
@@ -378,8 +302,8 @@ export const MergeBoxesModal = ({
                     searchFields={['name']}
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-                    onClickNotChosen={() => setBoxBody({ ...boxBody, destinationId: '' })}
-                    onClickSelect={el => setBoxBody({ ...boxBody, destinationId: el._id })}
+                    onClickNotChosen={handleResetDestination}
+                    onClickSelect={handleSetDestination}
                   />
                 }
               />
@@ -448,23 +372,13 @@ export const MergeBoxesModal = ({
                         {t(TranslationKey.Dimensions)}
                       </Text>
 
-                      <div className={styles.customSwitcherWrapper}>
-                        <CustomSwitcher
-                          condition={sizeSetting}
-                          switcherSettings={[
-                            { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                            { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                          ]}
-                          changeConditionHandler={condition => handleChange(condition)}
-                        />
-                      </div>
+                      <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
                     </div>
 
-                    <WarehouseDemensions
-                      orderBox={boxBody}
+                    <WarehouseDimensions
+                      dimensions={dimensions}
                       sizeSetting={sizeSetting}
-                      volumeWeightCoefficient={volumeWeightCoefficient}
-                      setFormField={setFormField}
+                      onChangeDimensions={onChangeDimensions}
                     />
 
                     <UploadFilesInput images={imagesOfBox} setImages={setImagesOfBox} />
@@ -542,22 +456,16 @@ export const MergeBoxesModal = ({
         />
       </Modal>
 
-      <Modal
-        openModal={showSelectionStorekeeperAndTariffModal}
-        setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-      >
-        <SelectStorekeeperAndTariffForm
-          RemoveDestinationRestriction
-          showCheckbox={showCheckbox}
-          destinationsData={destinations}
-          storekeepers={storekeepers?.filter(el => el._id === selectedBoxes[0]?.storekeeper._id)}
-          curStorekeeperId={boxBody?.storekeeperId}
-          curTariffId={boxBody?.logicsTariffId}
-          currentDestinationId={boxBody?.destinationId}
-          currentVariationTariffId={boxBody?.variationTariffId}
-          onSubmit={onSubmitSelectStorekeeperAndTariff}
+      {showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isTariffsSelect
+          tariffModalType={TariffModalType.WAREHOUSE}
+          openModal={showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+          box={boxBody}
+          onClickSubmit={onSubmitSelectStorekeeperAndTariff}
         />
-      </Modal>
+      ) : null}
 
       {showConfirmModal ? (
         <ConfirmationModal

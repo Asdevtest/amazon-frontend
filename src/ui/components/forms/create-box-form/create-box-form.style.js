@@ -105,9 +105,4 @@ export const useStyles = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
-
-  sizesSubWrapper: {
-    width: 'fit-content',
-    marginBottom: 20,
-  },
 }))
