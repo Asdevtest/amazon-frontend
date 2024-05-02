@@ -1,8 +1,12 @@
+import { format } from 'date-fns'
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AdministratorModel } from '@models/administrator-model'
+import { OtherModel } from '@models/other-model'
 import { PermissionsModel } from '@models/permissions-model'
 import { SettingsModel } from '@models/settings-model'
 
@@ -24,6 +28,7 @@ export class UserPermissionsModel {
   newPermissionIds = []
   tabIndex = ITabsIndex.GROUP_PERMISSIONS
   permissionIdToRemove = undefined
+  exportPermissions = undefined
 
   showAddOrEditGroupPermissionModal = false
   showAddOrEditSinglePermissionModal = false
@@ -267,6 +272,7 @@ export class UserPermissionsModel {
 
   async onSubmitUpdateSinglePermission(data, permissionId) {
     try {
+      console.log('first', data, permissionId)
       await this.updateSinglePermission(data, permissionId)
 
       this.onTriggerOpenModal('showAddOrEditSinglePermissionModal')
@@ -276,7 +282,7 @@ export class UserPermissionsModel {
     }
   }
 
-  async onSubmitUpdateGroupPermission(data, newSinglePermissions, permissionId) {
+  async onSubmitUpdateGroupPermission(data, permissionId, newSinglePermissions) {
     try {
       if (newSinglePermissions.length > 0) {
         await this.onCreateGroupPermission(newSinglePermissions)
@@ -296,7 +302,7 @@ export class UserPermissionsModel {
     this.addOrEditPermissionSettings = {
       permission: {},
       isEdit: false,
-      onSubmit: (data, newSinglePermissions) =>
+      onSubmit: (data, _, newSinglePermissions) =>
         this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
           ? this.onSubmitCreateGroupPermission(data, newSinglePermissions)
           : this.onSubmitCreateSinglePermission(data),
@@ -310,9 +316,9 @@ export class UserPermissionsModel {
     this.addOrEditPermissionSettings = {
       permission: row,
       isEdit: true,
-      onSubmit: (data, newSinglePermissions, permissionId) =>
+      onSubmit: (data, permissionId, newSinglePermissions) =>
         this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
-          ? this.onSubmitUpdateGroupPermission(data, newSinglePermissions, permissionId)
+          ? this.onSubmitUpdateGroupPermission(data, permissionId, newSinglePermissions)
           : this.onSubmitUpdateSinglePermission(data, permissionId),
     }
     this.tabIndex === ITabsIndex.GROUP_PERMISSIONS
@@ -361,5 +367,56 @@ export class UserPermissionsModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
+  }
+
+  async onClickExportPermissions() {
+    try {
+      const response = await AdministratorModel.exportPermissions()
+
+      if (response) {
+        const jsonData = JSON.stringify(response)
+        const blob = new Blob([jsonData], { type: 'application/json' })
+        const href = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = href
+        const formattedDate = format(new Date(), 'yyyy-MM-dd_HH-mm-ss')
+        link.download = `permissions-${formattedDate}.json`
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+
+        toast.success(t(TranslationKey['Permissions exported successfully']))
+      }
+    } catch (error) {
+      console.error(error)
+      toast.error(t(TranslationKey['Permissions not exported']))
+    }
+  }
+
+  async onClickImportPermissions() {
+    try {
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.accept = 'application/json'
+
+      input.addEventListener('change', async () => {
+        const file = input.files[0]
+
+        if (!file || file.type !== 'application/json') {
+          toast.error(t(TranslationKey['Please select a JSON file']))
+
+          return
+        }
+
+        await OtherModel.patchPermissionJson(file)
+
+        toast.success(t(TranslationKey['Permissions imported successfully']))
+      })
+
+      input.click()
+    } catch (error) {
+      console.error(error)
+      toast.error(t(TranslationKey['Permissions not imported']))
+    }
   }
 }

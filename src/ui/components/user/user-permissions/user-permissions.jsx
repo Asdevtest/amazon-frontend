@@ -40,8 +40,8 @@ export const UserPermissions = observer(() => {
         </div>
 
         <div className={styles.buttons}>
-          <Button>{t(TranslationKey['Export to file'])}</Button>
-          <Button>{t(TranslationKey['Import permissions'])}</Button>
+          <Button onClick={viewModel.onClickExportPermissions}>{t(TranslationKey['Export to file'])}</Button>
+          <Button onClick={viewModel.onClickImportPermissions}>{t(TranslationKey['Import permissions'])}</Button>
           <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickAddBtn}>
             {t(TranslationKey.Add)}
           </Button>
