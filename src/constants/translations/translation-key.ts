@@ -2245,7 +2245,7 @@ export enum TranslationKey {
   'No patch notes added' = 'No patch notes added',
   'Patch notes successfully modified' = 'Patch notes successfully modified',
   'Patch notes not changed' = 'Patch notes not changed',
-  'Choice tariff' = 'Choice tariff',
-  'Choice storekeeper' = 'Choice storekeeper',
+  'Tariff selection' = 'Tariff selection',
+  'Storekeeper selection' = 'Storekeeper selection',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

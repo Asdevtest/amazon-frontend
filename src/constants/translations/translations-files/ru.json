@@ -2243,6 +2243,6 @@
   "No patch notes added": "Обновления не добавлены",
   "Patch notes successfully modified": "Обновление успешно изменено",
   "Patch notes not changed": "Обновление не изменено",
-  "Choice tariff": "Выбор тарифа",
-  "Choice storekeeper": "Выбор сторкипера"
+  "Tariff selection": "Выбор тарифа",
+  "Storekeeper selection": "Выбор сторкипера"
 }

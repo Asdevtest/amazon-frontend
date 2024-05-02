@@ -209,6 +209,10 @@ export const EditBoxForm = memo(
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
 
+    console.log('destinations :>> ', destinations)
+    console.log('boxFields.destinationId :>> ', boxFields.destinationId)
+    console.log('123123 :>> ', destinations.find(el => el._id === boxFields.destinationId)?.name)
+
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
@@ -483,7 +487,7 @@ export const EditBoxForm = memo(
                             t(TranslationKey['Not chosen'])
                           }
                           data={
-                            boxFields.logicsTariffId && destinationId
+                            destinationId
                               ? destinations.filter(
                                   el => el?._id === (destinationId || formItem?.variationTariff?.destinationId),
                                 )
@@ -493,7 +497,7 @@ export const EditBoxForm = memo(
                           favourites={destinationsFavourites}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                           onClickNotChosen={handleResetDestination}
-                          onClickSelect={handleSetDestination}
+                          onClickSelect={el => handleSetDestination(el._id)}
                         />
                       }
                     />
