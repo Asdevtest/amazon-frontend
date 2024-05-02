@@ -24,7 +24,7 @@ export const useStyles = makeStyles()(theme => ({
     flexWrap: 'wrap',
     padding: '3px 0',
     gap: '10px',
-    height: '107px',
+    height: '133px',
     overflowY: 'auto',
   },
 
@@ -36,7 +36,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    minHeight: 'calc(100% - 280px)',
+    minHeight: 'calc(100% - 500px)',
     flex: 1,
     width: '100%',
     paddingBottom: '3px',

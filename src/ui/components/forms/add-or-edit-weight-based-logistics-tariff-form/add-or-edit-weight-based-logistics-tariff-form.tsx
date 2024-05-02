@@ -620,7 +620,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                     <Input
                       placeholder={'0.00'}
                       value={toFixed(variant.maxWeight, 2) || ''}
-                      inputProps={{ maxLength: 6 }}
+                      inputProps={{ maxLength: 7 }}
                       className={cx(styles.weightInput, {
                         [styles.error]:
                           !!variant.minWeight &&
@@ -628,8 +628,10 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                           Number(variant.maxWeight) < Number(variant.minWeight),
                       })}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                          onChangeDestinationVariations('maxWeight')(variantIndex)(e.target.value)
+                        const input = e.target.value
+
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
+                          onChangeDestinationVariations('maxWeight')(variantIndex)(input)
                         }
                       }}
                     />
@@ -654,12 +656,12 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                           ? variant.pricePerKgRmb
                           : ''
                       }
-                      inputProps={{ maxLength: 6 }}
+                      inputProps={{ maxLength: 7 }}
                       className={styles.regionFieldInput}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
 
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
                           // e.target.value = toFixed(e.target.value, 2)
                           onChangeDestinationVariations(
                             currentCurrency === currencyTypes.DOLLAR ? 'pricePerKgUsd' : 'pricePerKgRmb',

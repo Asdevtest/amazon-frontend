@@ -110,6 +110,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
                 key={product._id}
                 isActive={viewModel?.productId === product?._id && viewModel?.orderId === order?._id}
                 product={product}
+                orderId={order?.id}
                 onClickChangeActive={() =>
                   viewModel?.handleChangeActiveProduct(
                     product?._id,

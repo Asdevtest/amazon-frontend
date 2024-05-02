@@ -230,9 +230,15 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
 
   setActualData(box: IBox) {
     const productId = box?.productId || box?.items?.[0]?.product?._id
+
     const supplierId =
-      box?.orderSupplier?._id || box?.items?.[0]?.order?.orderSupplierId || box?.items?.[0]?.order?.orderSupplier?._id
+      box?.orderSupplier?._id ||
+      box?.items?.[0]?.order?.orderSupplierId ||
+      box?.items?.[0]?.order?.orderSupplier?._id ||
+      box?.currentSupplier?._id
+
     const orderId = box?.items?.[0]?.order?._id
+
     const destinationId = box?.destination?._id
 
     this.currentVariationId = box?.variationTariff?._id

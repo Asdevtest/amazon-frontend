@@ -67,5 +67,6 @@ export interface IBox {
   storage: string
   productId: string
   orderSupplier: ISupplier
+  currentSupplier: ISupplier
   tmpImages: UploadFileType[] // local field, remove in future
 }

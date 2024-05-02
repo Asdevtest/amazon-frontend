@@ -69,8 +69,8 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
 
     {
       field: 'minWeight',
-      headerName: t(TranslationKey.Weight),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
+      headerName: `${t(TranslationKey.Weight)}, ${t(TranslationKey.kg)}`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Weight)}, ${t(TranslationKey.kg)}`} />,
       renderCell: (params: GridValidRowModel) => (
         <ApproximateWeightCell
           isTariffsSelect={columnHandlers.isTariffsSelect}
@@ -169,6 +169,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       width: 130,
       renderCell: (params: GridValidRowModel) => <MultilineTextCell text={params.value} />,
       table: DataGridFilterTables.STOREKEEPERS,
+      sortable: false,
       columnKey: columnnsKeys.shared.STRING,
     },
 

@@ -1,8 +1,11 @@
 import { FC, memo } from 'react'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/models/products/product'
 
@@ -10,11 +13,12 @@ import { useStyles } from './product-card.style'
 
 interface ProductCardProps {
   product: IProduct
+  orderId: number
   onClickChangeActive: () => void
   isActive?: boolean
 }
 
-export const ProductCard: FC<ProductCardProps> = memo(({ product, isActive, onClickChangeActive }) => {
+export const ProductCard: FC<ProductCardProps> = memo(({ product, orderId, isActive, onClickChangeActive }) => {
   const { classes: styles, cx } = useStyles()
 
   return (
@@ -29,6 +33,10 @@ export const ProductCard: FC<ProductCardProps> = memo(({ product, isActive, onCl
           <AsinOrSkuLink withCopyValue withAttributeTitle="fnsku" link={''} />
         </div>
       </div>
+
+      <p>
+        <span className={styles.orderText}>{`${t(TranslationKey.Order)} №`}</span> <span>{orderId}</span>
+      </p>
     </button>
   )
 })
