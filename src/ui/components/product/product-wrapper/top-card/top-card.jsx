@@ -69,7 +69,6 @@ export const TopCard = memo(
 
     const showActionBtns =
       (checkIsSupervisor(curUserRole) &&
-        productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
         productBase.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
         productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
       (checkIsSupervisor(curUserRole) &&

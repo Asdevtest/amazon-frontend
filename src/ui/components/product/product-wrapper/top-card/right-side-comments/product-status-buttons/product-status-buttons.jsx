@@ -17,6 +17,8 @@ export const ProductStatusButtons = props => {
     setSelected(ProductStatusByCode[product.status])
   }, [product])
 
+  console.log('buttonsConfig :>> ', buttonsConfig)
+
   if (!buttonsConfig) {
     return <div />
   }

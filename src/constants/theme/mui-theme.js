@@ -95,6 +95,7 @@ export const lightTheme = createTheme({
         row: {
           cursor: 'pointer',
           transition: '0.3s ease',
+          minHeight: '70px !important',
         },
 
         sortIcon: {
@@ -449,6 +450,7 @@ export const darkTheme = createTheme({
         row: {
           cursor: 'pointer',
           transition: '0.3s ease',
+          minHeight: '70px !important',
 
           '&.Mui-selected': {
             backgroundColor: 'rgba(76, 161, 222, 0.16)',

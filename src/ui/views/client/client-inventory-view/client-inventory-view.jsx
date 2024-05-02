@@ -171,6 +171,7 @@ export const ClientInventoryView = observer(({ history }) => {
           }}
           onRowClick={params => viewModel.onClickProductModal(params.row)}
           onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?._id)}
+          onColumnOrderChange={(params, event) => console.log(params, event)}
         />
       </div>
 

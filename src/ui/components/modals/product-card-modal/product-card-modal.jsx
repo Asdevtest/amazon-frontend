@@ -85,7 +85,6 @@ export const ProductCardModal = observer(props => {
 
   const showActionBtns =
     (checkIsSupervisor(UserRoleCodeMap[viewModel?.userInfo.role]) &&
-      viewModel?.productBase?.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
       viewModel?.productBase?.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
       viewModel?.productBase?.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
     (checkIsSupervisor(UserRoleCodeMap[viewModel?.userInfo.role]) &&
