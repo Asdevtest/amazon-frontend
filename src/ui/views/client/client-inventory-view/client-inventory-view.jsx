@@ -219,8 +219,8 @@ export const ClientInventoryView = observer(({ history }) => {
       )}
 
       <Modal
-        openModal={viewModel.showProductLotDataModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
+        openModal={viewModel.showProductDataModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductDataModal')}
       >
         <ProductDataForm product={viewModel.curProduct} isBatches={viewModel.isBatches} onAmazon={viewModel.onAmazon} />
       </Modal>

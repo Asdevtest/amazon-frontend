@@ -349,7 +349,7 @@ export const AddOrEditGroupPermissionForm = observer(
         <div className={styles.buttonsWrapper}>
           <Button
             disabled={disableSubmitBtn}
-            onClick={() => onSubmit(formFields, newSinglePermission, permissionToEdit._id)}
+            onClick={() => onSubmit(formFields, permissionToEdit._id, newSinglePermission)}
           >
             {isEdit ? t(TranslationKey['Edit a group']) : t(TranslationKey['Create a group'])}
           </Button>

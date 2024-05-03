@@ -303,7 +303,7 @@ export const MergeBoxesModal = ({
                     favourites={destinationsFavourites}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                     onClickNotChosen={handleResetDestination}
-                    onClickSelect={handleSetDestination}
+                    onClickSelect={el => handleSetDestination(el?._id)}
                   />
                 }
               />

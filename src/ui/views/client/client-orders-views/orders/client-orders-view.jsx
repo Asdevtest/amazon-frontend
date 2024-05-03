@@ -143,6 +143,7 @@ export const ClientOrdersView = observer(history => {
           currentBatch={viewModel.currentBatch}
           shops={viewModel.shopsData}
           selectedProduct={viewModel.selectedWarehouseOrderProduct}
+          patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
           onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
           onClickMyOrderModal={viewModel.onClickMyOrderModal}
           onClickInTransferModal={viewModel.onClickInTransfer}

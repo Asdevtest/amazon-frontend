@@ -483,7 +483,7 @@ export const EditBoxForm = memo(
                             t(TranslationKey['Not chosen'])
                           }
                           data={
-                            boxFields.logicsTariffId && destinationId
+                            destinationId
                               ? destinations.filter(
                                   el => el?._id === (destinationId || formItem?.variationTariff?.destinationId),
                                 )
@@ -493,7 +493,7 @@ export const EditBoxForm = memo(
                           favourites={destinationsFavourites}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                           onClickNotChosen={handleResetDestination}
-                          onClickSelect={handleSetDestination}
+                          onClickSelect={el => handleSetDestination(el._id)}
                         />
                       }
                     />

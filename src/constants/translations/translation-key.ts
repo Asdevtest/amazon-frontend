@@ -2246,7 +2246,17 @@ export enum TranslationKey {
   'No patch notes added' = 'No patch notes added',
   'Patch notes successfully modified' = 'Patch notes successfully modified',
   'Patch notes not changed' = 'Patch notes not changed',
+  'Tariff selection' = 'Tariff selection',
+  'Storekeeper selection' = 'Storekeeper selection',
   'Choice tariff' = 'Choice tariff',
   'Choice storekeeper' = 'Choice storekeeper',
+  'Send to find a supplier' = 'Send to find a supplier',
+  'Export to file' = 'Export to file',
+  'Import permissions' = 'Import permissions',
+  'Permissions not exported' = 'Permissions not exported',
+  'Permissions exported successfully' = 'Permissions exported successfully',
+  'Permissions imported successfully' = 'Permissions imported successfully',
+  'Permissions not imported' = 'Permissions not imported',
+  'Please select a JSON file' = 'Please select a JSON file',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

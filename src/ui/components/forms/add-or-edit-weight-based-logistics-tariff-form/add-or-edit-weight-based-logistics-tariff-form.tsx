@@ -106,8 +106,8 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate || 6.5,
       destinationVariations: tariffToEdit?.destinationVariations?.map(variation => ({
         ...variation,
-        pricePerKgUsd: toFixed(variation.pricePerKgUsd, 2),
-        pricePerKgRmb: toFixed(variation.pricePerKgRmb, 2),
+        pricePerKgUsd: variation.pricePerKgUsd,
+        pricePerKgRmb: variation.pricePerKgRmb,
       })) || [emptyDestinationVariation],
     }
 
@@ -165,7 +165,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         newFormFields.destinationVariations = newFormFields.destinationVariations.map(variant => ({
           ...variant,
           // pricePerKgUsd: '',
-          pricePerKgRmb: variant.pricePerKgUsd * Number(value),
+          pricePerKgRmb: Number(variant.pricePerKgUsd) * Number(value),
         }))
       } else {
         // @ts-ignore
@@ -182,13 +182,13 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
         if (fieldName === 'pricePerKgUsd') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = toFixed(value, 2)
-          updatedDestinationVariation.pricePerKgRmb = toFixed(value, 2) * Number(formFields.yuanToDollarRate)
+          updatedDestinationVariation[fieldName] = value as number
+          updatedDestinationVariation.pricePerKgRmb = Number(value) * Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else if (fieldName === 'pricePerKgRmb') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = toFixed(value, 2)
-          updatedDestinationVariation.pricePerKgUsd = toFixed(value, 2) / Number(formFields.yuanToDollarRate)
+          updatedDestinationVariation[fieldName] = value as number
+          updatedDestinationVariation.pricePerKgUsd = Number(value) / Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else if (fieldName === 'destinationId') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }

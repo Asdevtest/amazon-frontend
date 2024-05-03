@@ -2,6 +2,7 @@ import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from
 import QueryString from 'qs'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { getTranslationNotificationType } from '@constants/notifications/notification-type'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
@@ -406,6 +407,9 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
 
     case columnnsKeys.shared.TASK_COMPLEXITY:
       return difficultyLevelTranslate(difficultyLevelByCode[status])
+
+    case columnnsKeys.shared.TYPE:
+      return getTranslationNotificationType(status)
 
     default:
       return status
