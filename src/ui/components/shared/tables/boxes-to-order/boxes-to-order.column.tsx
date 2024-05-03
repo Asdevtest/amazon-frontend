@@ -99,7 +99,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={`ID: ${row.humanFriendlyId}`} />,
     filterable: false,
     sortable: false,
-    width: 90,
+    width: 85,
   },
 
   {
