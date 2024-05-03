@@ -173,13 +173,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   checkboxContainer: {
+    width: 'fit-content',
     display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
     margin: 0,
-    [theme.breakpoints.down(1282)]: {
-      width: '100%',
-    },
   },
 
   warningAccent: {
@@ -361,15 +357,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   footerSubWrapper: {
+    width: '100%',
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    [theme.breakpoints.down(1282)]: {
-      flexDirection: 'column',
-    },
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      gap: '14px',
-    },
+    gap: 20,
   },
 
   footerTrackNumberWrapper: {
