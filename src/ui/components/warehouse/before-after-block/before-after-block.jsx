@@ -49,10 +49,9 @@ const Box = memo(props => {
     newBoxes,
     referenceEditingBox,
     onClickApplyAllBtn,
-    isChangedBox,
   } = props
 
-  const [showFullCard, setShowFullCard] = useState(true /* && newBoxes[0]?._id === box._id ? true : false*/)
+  const [showFullCard, setShowFullCard] = useState(true)
 
   const onChangeField = (value, field) => {
     const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
@@ -95,6 +94,18 @@ const Box = memo(props => {
     taskType === TaskOperationType.RECEIVE && isCurrentBox
       ? t(TranslationKey['Sizes from buyer']) + ':'
       : `${t(TranslationKey['Sizes from storekeeper'])}:`
+  const isChanedDimensions =
+    taskType === TaskOperationType.RECEIVE
+      ? (referenceEditingBox?.weighGrossKgSupplier !== box?.weighGrossKgWarehouse ||
+          referenceEditingBox?.widthCmSupplier !== box?.widthCmWarehouse ||
+          referenceEditingBox?.heightCmSupplier !== box?.heightCmWarehouse ||
+          referenceEditingBox?.lengthCmSupplier !== box?.lengthCmWarehouse) &&
+        !isCurrentBox
+      : (referenceEditingBox?.weighGrossKgWarehouse !== box?.weighGrossKgWarehouse ||
+          referenceEditingBox?.widthCmWarehouse !== box?.widthCmWarehouse ||
+          referenceEditingBox?.heightCmWarehouse !== box?.heightCmWarehouse ||
+          referenceEditingBox?.lengthCmWarehouse !== box?.lengthCmWarehouse) &&
+        !isCurrentBox
 
   return (
     <div className={styles.mainPaper}>
@@ -173,7 +184,7 @@ const Box = memo(props => {
             ))}
           </div>
           <div className={styles.boxInfoWrapper}>
-            <div className={cx({ [styles.yellowBorder]: isChangedBox })}>
+            <div className={cx({ [styles.yellowBorder]: isChanedDimensions })}>
               <Dimensions data={box} title={dimensionsTitle} calculationField={calculationDimensionsField} />
             </div>
 
@@ -357,7 +368,6 @@ const NewBoxes = memo(props => {
   } = props
 
   const [curBox, setCurBox] = useState({})
-  const [isChangedBox, setIsChangedBox] = useState(false)
 
   return (
     <div className={styles.newBoxes}>
@@ -380,11 +390,10 @@ const NewBoxes = memo(props => {
         {newBoxes.map((box, boxIndex) => (
           <Box
             key={boxIndex}
-            isChangedBox={isChangedBox}
             boxIndex={boxIndex}
             readOnly={readOnly}
             isNewBox={isNewBox}
-            referenceEditingBox={referenceEditingBoxes[0]}
+            referenceEditingBox={referenceEditingBoxes[boxIndex]}
             box={box}
             curBox={curBox}
             setCurBox={setCurBox}
@@ -404,7 +413,6 @@ const NewBoxes = memo(props => {
         <EditBoxTasksForm
           box={curBox}
           newBoxes={newBoxes}
-          setIsChangedBox={setIsChangedBox}
           volumeWeightCoefficient={volumeWeightCoefficient}
           setNewBoxes={setNewBoxes}
           setEditModal={onTriggerShowEditBoxModal}
