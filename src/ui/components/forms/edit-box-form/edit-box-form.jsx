@@ -209,10 +209,6 @@ export const EditBoxForm = memo(
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
 
-    console.log('destinations :>> ', destinations)
-    console.log('boxFields.destinationId :>> ', boxFields.destinationId)
-    console.log('123123 :>> ', destinations.find(el => el._id === boxFields.destinationId)?.name)
-
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
