@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { FeedbackModel } from '@models/feedback-model'
 import { OtherModel } from '@models/other-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { vacByUserIdExchangeColumns } from '@components/table/table-columns/product/vac-by-user-id-exchange-columns'
@@ -77,11 +77,11 @@ export class ProfileViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.PROFILE_VAC_PRODUCTS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

@@ -1380,7 +1380,7 @@ export const FreelancerToWorkConfirmationMenuItem = memo(
 
       const onClickItem = value => {
         if (choosenItems.some(item => item === value)) {
-          setChoosenItems(choosenItems.slice().filter(item => !item === value))
+          setChoosenItems(choosenItems?.filter(item => !item === value))
         } else {
           setChoosenItems([...choosenItems, value])
         }

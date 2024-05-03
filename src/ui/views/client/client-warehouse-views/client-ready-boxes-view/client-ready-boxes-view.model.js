@@ -7,8 +7,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { clientBoxesReadyToBatchViewColumns } from '@components/table/table-columns/client/client-boxes-ready-to-batch-columns'
@@ -110,11 +110,11 @@ export class ClientReadyBoxesViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_BOXES_READY_TO_BATCH)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.CLIENT_BOXES_READY_TO_BATCH)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_BOXES_READY_TO_BATCH]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_BOXES_READY_TO_BATCH)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
