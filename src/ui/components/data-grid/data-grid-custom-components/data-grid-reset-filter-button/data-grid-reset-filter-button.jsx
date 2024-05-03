@@ -21,7 +21,7 @@ export const DataGridResetFilterButton = memo(props => {
     <div>
       <Button
         isTableButton
-        className={cx(className)}
+        className={cx(className, styles.button)}
         styleType={ButtonStyle.DEFAULT}
         onClick={resetFiltersBtnSettings.onClickResetFilters}
         {...restProps}

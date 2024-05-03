@@ -8,7 +8,7 @@ import { freelanceRequestType } from '@constants/statuses/freelance-request-type
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
@@ -207,11 +207,11 @@ export class FreelanceModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.PRODUCT_FREELANCE)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.PRODUCT_FREELANCE)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.PRODUCT_FREELANCE]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.PRODUCT_FREELANCE)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

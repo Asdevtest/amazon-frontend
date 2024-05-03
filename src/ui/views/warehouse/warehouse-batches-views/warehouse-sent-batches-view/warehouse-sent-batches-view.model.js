@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { GeneralModel } from '@models/general-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { batchesViewColumns } from '@components/table/table-columns/batches-columns'
@@ -89,11 +89,11 @@ export class WarehouseSentBatchesViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_BATCHES)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.WAREHOUSE_BATCHES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_BATCHES]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.WAREHOUSE_BATCHES)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

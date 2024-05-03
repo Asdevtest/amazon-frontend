@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -61,15 +61,7 @@ export const ClientInventoryView = observer(({ history }) => {
       }),
   )
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
-
-  const getRowClassName = params =>
-    (!params.row.ideasOnCheck && !!params.row.ideasVerified && styles.ideaRowGreen) ||
-    (!!params.row.ideasOnCheck && styles.ideaRowYellow)
 
   return (
     <>
@@ -92,8 +84,8 @@ export const ClientInventoryView = observer(({ history }) => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          pinnedColumns={viewModel.pinnedColumns}
           getCellClassName={getCellClassName}
-          getRowClassName={getRowClassName}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -101,12 +93,14 @@ export const ClientInventoryView = observer(({ history }) => {
           paginationModel={viewModel.paginationModel}
           rows={viewModel.tableData}
           getRowHeight={() => 'auto'}
-          getRowId={row => row._id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-            columnMenu: viewModel.columnMenuSettings,
+            columnMenu: {
+              ...viewModel.columnMenuSettings,
+              pinnedColumns: !!viewModel.pinnedColumns,
+            },
 
             toolbar: {
               presetsSettings: {
@@ -142,6 +136,7 @@ export const ClientInventoryView = observer(({ history }) => {
             },
           }}
           rowSelectionModel={viewModel.selectedRows}
+          getRowId={row => row._id}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -171,6 +166,7 @@ export const ClientInventoryView = observer(({ history }) => {
           }}
           onRowClick={params => viewModel.onClickProductModal(params.row)}
           onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -326,7 +322,6 @@ export const ClientInventoryView = observer(({ history }) => {
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           selectedProductsData={viewModel.dataForOrderModal}
-          // selectedProductsData={viewModel.tableData.filter(product => viewModel.selectedRows.includes(product._id))}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}

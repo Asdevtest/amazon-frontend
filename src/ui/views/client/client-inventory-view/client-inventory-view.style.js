@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   datagridWrapper: {
     marginTop: '20px',
     height: '75vh',
@@ -17,31 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  ideaRowGreen: {
-    '&:before': {
-      content: '""',
-      backgroundImage: theme.palette.other.ideaProductSheldGreen,
-
-      width: 48,
-      height: 21,
-      posotion: 'absolute',
-      top: 0,
-      left: 0,
-      marginRight: '-48px',
-    },
-  },
-
-  ideaRowYellow: {
-    '&:before': {
-      content: '""',
-      backgroundImage: theme.palette.other.ideaProductSheldYellow,
-
-      width: 48,
-      height: 21,
-      posotion: 'absolute',
-      top: 0,
-      left: 0,
-      marginRight: '-48px',
-    },
+  modalDialogContext: {
+    padding: 0,
   },
 }))

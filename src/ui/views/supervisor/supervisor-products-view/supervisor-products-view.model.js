@@ -3,8 +3,8 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
 import { GeneralModel } from '@models/general-model'
-import { SettingsModel } from '@models/settings-model'
 import { SupervisorModel } from '@models/supervisor-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { supervisorProductsDataConverter } from '@utils/data-grid-data-converters'
@@ -111,11 +111,11 @@ export class SupervisorProductsViewModel {
       columnVisibilityModel: this.columnVisibilityModel,
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUPERVISOR_PRODUCTS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.SUPERVISOR_PRODUCTS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.SUPERVISOR_PRODUCTS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.SUPERVISOR_PRODUCTS)
 
     if (state) {
       this.sortModel = state.sortModel

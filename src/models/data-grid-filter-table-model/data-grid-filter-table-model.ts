@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
 
+import { GridPinnedColumns } from '@mui/x-data-grid-premium'
+
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { GeneralModel } from '@models/general-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
@@ -30,6 +33,11 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   additionalPropertiesColumnMenuSettings: any = {}
 
   additionalPropertiesGetFilters: any = undefined
+
+  pinnedColumns: GridPinnedColumns = {
+    left: [],
+    right: [],
+  }
 
   constructor({
     getMainDataMethod,
@@ -75,6 +83,11 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
       ...dataGridFiltersInitializer(filtersFields),
     }
+  }
+
+  handlePinColumn(pinnedColumns: GridPinnedColumns) {
+    this.pinnedColumns = pinnedColumns
+    this.setDataGridState()
   }
 
   async onClickFilterBtn(column: string, table: string, searchValue?: string) {
@@ -153,6 +166,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
       runInAction(() => {
         this.tableData = result?.rows || result
+
         this.rowCount = result?.count || result.length
       })
 
@@ -169,6 +183,40 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
       filterRequestStatus: requestStatus,
+    }
+  }
+
+  setDataGridState() {
+    if (!this.tableKey) return
+
+    const requestState = {
+      sortModel: this.sortModel,
+      filterModel: this.filterModel,
+      paginationModel: this.paginationModel,
+      columnVisibilityModel: this.columnVisibilityModel,
+      pinnedColumns: this.pinnedColumns,
+    }
+
+    TableSettingsModel.saveTableSettings(requestState, this.tableKey)
+  }
+
+  getDataGridState() {
+    if (!this.tableKey) return
+
+    // @ts-ignore
+    const state = TableSettingsModel.getTableSettings(this.tableKey)
+
+    if (state) {
+      // @ts-ignore
+      this.sortModel = state?.sortModel
+      // @ts-ignore
+      this.filterModel = state?.filterModel
+      // @ts-ignore
+      this.paginationModel = state?.paginationModel
+      // @ts-ignore
+      this.columnVisibilityModel = state?.columnVisibilityModel
+      // @ts-ignore
+      this.pinnedColumns = state?.pinnedColumns
     }
   }
 }

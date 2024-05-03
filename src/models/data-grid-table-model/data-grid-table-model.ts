@@ -121,7 +121,7 @@ export class DataGridTableModel extends ModalsModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const result = await this.getMainDataMethod(options || this.defaultGetDataMethodOptions?.())
+      const result = await this?.getMainDataMethod(options || this.defaultGetDataMethodOptions?.())
 
       runInAction(() => {
         this.tableData = result?.rows || result

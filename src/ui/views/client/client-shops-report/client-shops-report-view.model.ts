@@ -72,8 +72,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.paginationModel = paginationModelInitialValue
     this.filterModel = filterModelInitialValue
     this.fieldsForSearch = fieldsForSearch
-
-    this.getTableData()
   }
 
   initUserSettings() {
