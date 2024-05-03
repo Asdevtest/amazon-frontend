@@ -2249,6 +2249,7 @@ export enum TranslationKey {
   'Storekeeper selection' = 'Storekeeper selection',
   'Choice tariff' = 'Choice tariff',
   'Choice storekeeper' = 'Choice storekeeper',
+  'Send to find a supplier' = 'Send to find a supplier',
   'Export to file' = 'Export to file',
   'Import permissions' = 'Import permissions',
   'Permissions not exported' = 'Permissions not exported',

@@ -70,5 +70,6 @@ export const columnnsKeys = {
     SECONDS: 'SECONDS',
     TASK_COMPLEXITY: 'TASK_COMPLEXITY',
     TAGS: 'TAGS',
+    TYPE: 'TYPE',
   },
 }
