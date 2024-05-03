@@ -23,6 +23,7 @@ import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { clientNewIdeasColumns } from '@components/table/table-columns/client/client-ideas-columns'
@@ -205,11 +206,11 @@ export class ClientIdeasViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, this.currentSettings.dataGridKey)
+    TableSettingsModel.saveTableSettings(requestState, this.currentSettings.dataGridKey)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[this.currentSettings.dataGridKey]
+    const state = TableSettingsModel.getTableSettings(this.currentSettings.dataGridKey)
     if (state) {
       this.sortModel = toJS(state.sortModel)
       this.filterModel = toJS(state.filterModel)

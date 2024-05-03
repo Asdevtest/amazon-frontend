@@ -32,7 +32,7 @@ import { t } from '@utils/translations'
 import { complexCells } from './cell-types'
 import { getCellType } from './helpers/get-cell-type'
 
-export const clientInventoryColumns = (
+export const clientInventoryColumns = ({
   barCodeHandlers,
   hsCodeHandlers,
   fourMonthesStockHandlers,
@@ -40,16 +40,23 @@ export const clientInventoryColumns = (
   otherHandlers,
   additionalFields,
   storekeepers,
-) => {
+}) => {
   const defaultColumns = [
     {
       ...GRID_CHECKBOX_SELECTION_COL_DEF,
-      renderCell: params => (
-        <SelectRowCell
-          checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
-          onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?._id)}
-        />
-      ),
+      renderCell: params => {
+        const isShowSheldGreen = !params.row.ideasOnCheck && !!params.row.ideasVerified
+        const isShowSheldYellow = !!params.row.ideasOnCheck
+
+        return (
+          <SelectRowCell
+            isShowSheldGreen={isShowSheldGreen}
+            isShowSheldYellow={isShowSheldYellow}
+            checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+            onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?._id)}
+          />
+        )
+      },
       width: 80,
       disableCustomSort: true,
       hide: true,
@@ -213,9 +220,9 @@ export const clientInventoryColumns = (
       ),
       valueGetter: params => {
         return params.row?.boxAmounts
-          .sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
-          .map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
-          .join(', ')
+          ?.sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
+          ?.map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
+          ?.join(', ')
       },
       width: 145,
       disableCustomSort: true,

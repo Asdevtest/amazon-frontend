@@ -6,7 +6,7 @@ import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { AdministratorModel } from '@models/administrator-model'
 import { ChatModel } from '@models/chat-model'
 import { ChatsModel } from '@models/chats-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { adminFeedbackViewColumns } from '@components/table/table-columns/admin/admin-feedback-columns/admin-feedback-columns'
@@ -74,11 +74,11 @@ export class AdminFeedbackViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_FEEDBACK)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_FEEDBACK)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_FEEDBACK]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_FEEDBACK)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

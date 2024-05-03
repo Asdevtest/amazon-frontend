@@ -10,6 +10,7 @@ import {
 import { AdministratorModel } from '@models/administrator-model'
 import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { adminOrdersViewColumns } from '@components/table/table-columns/admin/orders-columns'
 
@@ -103,20 +104,18 @@ export class AdminOrdersAllViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_ORDERS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_ORDERS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_ORDERS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_ORDERS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onClickTableRow(order) {

@@ -2217,6 +2217,7 @@ export enum TranslationKey {
   'Access is denied' = 'Access is denied',
   'Parent' = 'Parent',
   'China' = 'China',
+  'Hierarchy' = 'Hierarchy',
   'Active sessions' = 'Active sessions',
   'No active sessions' = 'No active sessions',
   'Browser not found' = 'Browser not found',

@@ -4,6 +4,7 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 
 import { appVersion } from '@constants/app-version'
+import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
 
 import { setI18nConfig } from '@utils/translations'
@@ -23,8 +24,6 @@ const persistProperties = [
   'mutedChats',
   'originMutedChats',
 ]
-
-const stateModelName = 'SettingsModel'
 
 class SettingsModelStatic {
   dataGridState = {}
@@ -58,7 +57,7 @@ class SettingsModelStatic {
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
-    makePersistable(this, { name: stateModelName, properties: persistProperties })
+    makePersistable(this, { name: LOCAL_STORAGE_KEYS.SETTINGS_MODEL, properties: persistProperties })
       .then(({ isHydrated }) => {
         runInAction(() => {
           this.isHydrated = isHydrated
@@ -129,29 +128,16 @@ class SettingsModelStatic {
     if (compareVersions(response.data.version, appVersion) > 0) {
       console.log('!!!*** versions do not match')
 
-      // Очистка локального хранилища
-      localStorage.clear()
-
-      // Очистка кэша
-      if (window.caches && window.caches.delete) {
-        caches.keys().then(names => {
-          for (const name of names) {
-            caches.delete(name)
-          }
-        })
-      } else {
-        // Для старых версий Edge используем следующий способ очистки кэша
-        window.location.reload(true)
-      }
-
-      window.location.reload()
+      this.resetLocalStorageAndCach()
     }
 
     console.log('!!!*** versions do match')
   }
 
   resetLocalStorageAndCach() {
-    localStorage.clear()
+    for (const key of Object.values(LOCAL_STORAGE_KEYS)) {
+      localStorage.removeItem(key)
+    }
 
     // Очистка кэша
     if (window.caches && window.caches.delete) {

@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
 import { OtherModel } from '@models/other-model'
+import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
@@ -79,19 +80,7 @@ export class NavbarModel extends UseProductsPermissions {
 
   async submitResetLocalStorageAndCach() {
     await UserModel.signOut()
-    localStorage.clear()
-    // Очистка кэша
-    if (window.caches && window.caches.delete) {
-      caches.keys().then(names => {
-        for (const name of names) {
-          caches.delete(name)
-        }
-      })
-    } else {
-      // Для старых версий Edge используем следующий способ очистки кэша
-      window.location.reload(true)
-    }
-    window.location.reload()
+    SettingsModel.resetLocalStorageAndCach()
   }
 
   async getPatchNote(patchNoteId) {

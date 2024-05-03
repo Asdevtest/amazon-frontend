@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { GeneralModel } from '@models/general-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
@@ -88,7 +88,7 @@ export class AdminSettingsTagsModel {
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_TAGS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_TAGS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
@@ -106,7 +106,7 @@ export class AdminSettingsTagsModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_TAGS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_TAGS)
   }
 
   onChangeSortingModel(sortModel) {

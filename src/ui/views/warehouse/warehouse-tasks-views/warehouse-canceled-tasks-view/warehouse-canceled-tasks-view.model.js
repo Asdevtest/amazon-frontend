@@ -4,8 +4,8 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { OtherModel } from '@models/other-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { warehouseCanceledTasksViewColumns } from '@components/table/table-columns/warehouse/canceled-tasks-columns'
@@ -69,11 +69,11 @@ export class WarehouseCanceledTasksViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS)
 
     runInAction(() => {
       if (state) {

@@ -9,8 +9,8 @@ import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { batchesViewColumns } from '@components/table/table-columns/batches-columns'
@@ -150,11 +150,11 @@ export class WarehouseAwaitingBatchesViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.WAREHOUSE_AWAITING_BATCHES)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)

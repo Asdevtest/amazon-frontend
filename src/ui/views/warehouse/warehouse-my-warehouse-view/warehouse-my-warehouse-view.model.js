@@ -12,6 +12,7 @@ import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
@@ -173,11 +174,11 @@ export class WarehouseMyWarehouseViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_WAREHOUSE)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
