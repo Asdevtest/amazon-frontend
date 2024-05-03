@@ -199,6 +199,11 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsPatchNotesGuidDelete({ guid })
     return response.data
   }
+
+  exportPermissions = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsPermissionGet()
+    return response.data
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

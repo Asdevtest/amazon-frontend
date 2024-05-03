@@ -7,7 +7,7 @@ class PermissionsModelStatic {
   }
 
   getSinglePermissions = async role => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGet({ role })
+    const response = await restApiService.permissionsApi.apiV1PermissionsGet({ role, noCache: true })
     return response.data
   }
 
@@ -27,7 +27,7 @@ class PermissionsModelStatic {
   }
 
   getGroupPermissions = async role => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGet({ role })
+    const response = await restApiService.permissionsApi.apiV1PermissionsGroupsGet({ role, noCache: true })
     return response.data
   }
 

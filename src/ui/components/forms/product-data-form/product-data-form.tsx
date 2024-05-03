@@ -65,7 +65,7 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, is
         </div>
 
         <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onToggleArchive}>
-          {viewModel.archive ? t(TranslationKey['Actual batches']) : t(TranslationKey.Archive)}
+          {viewModel.batchArchive ? t(TranslationKey['Actual batches']) : t(TranslationKey.Archive)}
         </Button>
       </div>
 
