@@ -182,12 +182,12 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
         if (fieldName === 'pricePerKgUsd') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = value
+          updatedDestinationVariation[fieldName] = value as number
           updatedDestinationVariation.pricePerKgRmb = Number(value) * Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else if (fieldName === 'pricePerKgRmb') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = value
+          updatedDestinationVariation[fieldName] = value as number
           updatedDestinationVariation.pricePerKgUsd = Number(value) / Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else if (fieldName === 'destinationId') {
