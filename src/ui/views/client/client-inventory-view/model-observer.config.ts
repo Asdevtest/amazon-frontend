@@ -38,7 +38,7 @@ export const observerConfig = {
   showCircularProgressModal: observable,
   showAddSuppliersModal: observable,
   showSetStockUsValueModal: observable,
-  showProductLotDataModal: observable,
+  showProductDataModal: observable,
   showGetFilesModal: observable,
   showEditHSCodeModal: observable,
   productCardModal: observable,

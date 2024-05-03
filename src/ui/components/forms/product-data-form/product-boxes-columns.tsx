@@ -60,7 +60,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
   },
 
   {
-    field: 'title',
+    field: 'batchTitle',
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.batch?.title || '-'} />,
@@ -77,6 +77,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
     ),
     renderCell: ({ row }: GridRowModel) => <BoxesAndQuantityCell boxesData={row} />,
     disableColumnMenu: true,
+    disableCustomSort: true,
     filterable: false,
     sortable: false,
     width: 170,
