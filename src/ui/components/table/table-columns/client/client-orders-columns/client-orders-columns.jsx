@@ -13,7 +13,6 @@ import {
   OpenInNewTabCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
-  RenderFieldValueCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -180,7 +179,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
     field: 'destination',
     headerName: t(TranslationKey['Where to']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
-    renderCell: params => <RenderFieldValueCell value={params.row.originalData.destination?.name} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines text={params.row.originalData.destination?.name} />,
     valueGetter: params => params.row.originalData.destination?.name,
     width: 140,
     sortable: false,

@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: 10,
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: 15,
   },
 
   title: {
@@ -27,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    height: 270,
+    height: 230,
   },
 
   buttons: {
