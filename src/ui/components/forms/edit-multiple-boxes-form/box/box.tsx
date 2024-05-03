@@ -383,7 +383,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     }
                     searchFields={['name']}
                     onClickNotChosen={handleResetDestination}
-                    onClickSelect={handleSetDestination}
+                    onClickSelect={(el: IDestination) => handleSetDestination(el._id)}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                   />
                 }

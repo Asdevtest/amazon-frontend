@@ -899,4 +899,10 @@ export class ClientOrdersViewModel {
   onTriggerOpenModal(modalState) {
     this[modalState] = !this[modalState]
   }
+
+  async patchActualShippingCostBatch(id, cost) {
+    await BatchesModel.changeBatch(id, {
+      actualShippingCost: cost,
+    })
+  }
 }
