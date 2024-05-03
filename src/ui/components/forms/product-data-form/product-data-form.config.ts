@@ -9,4 +9,5 @@ export const productDataFormConfig = {
 
   onClickShowBatchInfoModal: action.bound,
   onToggleArchive: action.bound,
+  patchActualShippingCostBatch: action.bound,
 }
