@@ -13,7 +13,12 @@ export const useStyles = makeStyles()(() => ({
   },
 
   tableWrapper: {
-    height: '86vh',
+    height: 'calc(100% - 70px)',
     width: '100%',
+  },
+
+  buttonsContainer: {
+    display: 'flex',
+    gap: '10px',
   },
 }))

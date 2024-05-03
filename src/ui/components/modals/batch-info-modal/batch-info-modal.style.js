@@ -29,16 +29,13 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalTitle: {
-    marginRight: '100px',
-    marginBottom: '0 !important',
-    color: theme.palette.text.general,
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: 600,
 
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
-      fontWeight: 600,
-      marginRight: 0,
     },
   },
 
@@ -47,16 +44,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'end',
     alignItems: 'center',
     gap: 40,
-  },
-
-  actionButton: {
-    width: '126px',
-    height: '40px',
-  },
-
-  downloadButton: {
-    height: 40,
-    gap: 5,
   },
 
   amount: {
@@ -160,19 +147,12 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
   infoField: {
-    height: 40,
-    fontWeight: 400,
-    fontSize: 16,
-    lineHeight: '22px',
+    fontSize: 14,
+    lineHeight: '19px',
   },
   tableWrapper: {
-    height: 400,
+    height: 350,
     width: '100%',
-  },
-
-  virtualScroller: {
-    minHeight: 150,
-    maxHeight: 450,
   },
 
   disabled: {

@@ -94,11 +94,11 @@ export const BindStockGoodsToInventoryForm = observer(props => {
   }
 
   return (
-    <div className={styles.root}>
+    <div className={styles.wrapper}>
       <p className={styles.title}>{t(TranslationKey['Inventory integration'])}</p>
 
-      <div className={styles.filtersWrapper}>
-        <div className={styles.filtersWrapper}>
+      <div className={styles.flexContainer}>
+        <div className={styles.flexContainer}>
           <Button
             variant={ButtonVariant.OUTLINED}
             styleType={chipConfig === chipConfigSettings.RECOMMENDED ? ButtonStyle.PRIMARY : ButtonStyle.CASUAL}
@@ -136,11 +136,13 @@ export const BindStockGoodsToInventoryForm = observer(props => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
+          disableColumnMenu
+          columnHeaderHeight={40}
           sortingMode="client"
           paginationMode="client"
           rows={inventoryData}
           columns={inventoryColumns({ selectRow: onClickRowRadioBtn }, selectedRow)}
-          rowHeight={60}
+          getRowHeight={() => 'auto'}
         />
       </div>
 
@@ -148,15 +150,17 @@ export const BindStockGoodsToInventoryForm = observer(props => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
+          disableColumnMenu
+          columnHeaderHeight={40}
           sortingMode="client"
           paginationMode="client"
           rows={chosenGoods}
           columns={chosenGoodsColumns({ onClickTrash })}
-          rowHeight={60}
+          rowHeight={40}
         />
       </div>
 
-      <div className={styles.btnsWrapper}>
+      <div className={styles.buttons}>
         <Button
           styleType={ButtonStyle.SUCCESS}
           tooltipInfoContent={t(TranslationKey['Binds integration to the product card'])}

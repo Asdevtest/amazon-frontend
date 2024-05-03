@@ -6,13 +6,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditWarehouseTariffForm } from '@components/forms/add-or-edit-warehouse-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-tariffs.style'
@@ -43,7 +41,6 @@ export const WarehouseTariffs = observer(() => {
     showAddOrEditWarehouseTariffModal,
     showConfirmModal,
     onTriggerOpenModal,
-    onClickAddBtn,
     onClickCancelBtn,
 
     onChangeSortingModel,
@@ -56,12 +53,6 @@ export const WarehouseTariffs = observer(() => {
 
   return (
     <div className={styles.mainWrapper}>
-      <div className={styles.placeAddBtnWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} className={styles.placeAddBtn} onClick={() => onClickAddBtn()}>
-          {t(TranslationKey.Add)}
-        </Button>
-      </div>
-
       <CustomDataGrid
         sortModel={sortModel}
         filterModel={filterModel}

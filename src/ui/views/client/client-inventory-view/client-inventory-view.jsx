@@ -10,8 +10,8 @@ import { AddOwnProductForm } from '@components/forms/add-own-product-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { GetFilesForm } from '@components/forms/get-files-form'
+import { ProductDataForm } from '@components/forms/product-data-form'
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
-import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { ProductVariationsForm } from '@components/forms/product-variations-form'
 import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -28,7 +28,6 @@ import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-mod
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
-import { AlertShield } from '@components/shared/alert-shield'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -48,7 +47,7 @@ import {
   disableSelectionCells,
 } from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
-import { Header } from './components'
+import { Header } from './header'
 
 export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
@@ -81,7 +80,7 @@ export const ClientInventoryView = observer(({ history }) => {
         onClickTriggerArchOrResetProducts={viewModel.onClickTriggerArchOrResetProducts}
         onTriggerOpenModal={viewModel.onTriggerOpenModal}
         onTriggerArchive={viewModel.onTriggerArchive}
-        onClickProductLotDataBtn={viewModel.onClickProductLotDataBtn}
+        onClickProducDataButton={viewModel.onClickProducDataButton}
         onClickParseProductsBtn={viewModel.onClickParseProductsBtn}
         onClickAddSupplierBtn={viewModel.onClickAddSupplierBtn}
         onClickBindInventoryGoodsToStockBtn={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
@@ -224,20 +223,12 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       )}
 
-      {viewModel.showProductLotDataModal && (
-        <Modal
-          openModal={viewModel.showProductLotDataModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
-        >
-          <ProductLotDataForm
-            userInfo={viewModel.userInfo}
-            isTransfer={viewModel.isTransfer}
-            product={viewModel.curProduct}
-            batchesData={viewModel.batchesData}
-            onClickToggleArchiveProductLotData={viewModel.onClickToggleArchiveProductLotData}
-          />
-        </Modal>
-      )}
+      <Modal
+        openModal={viewModel.showProductDataModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductDataModal')}
+      >
+        <ProductDataForm product={viewModel.curProduct} isBatches={viewModel.isBatches} onAmazon={viewModel.onAmazon} />
+      </Modal>
 
       <Modal
         openModal={viewModel.showCheckPendingOrderFormModal}
@@ -415,25 +406,16 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       ) : null}
 
-      {viewModel.showProductVariationsForm && (
-        <Modal
-          noPadding
-          openModal={viewModel.showProductVariationsForm}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showProductVariationsForm')}
-        >
-          <ProductVariationsForm
-            product={viewModel.productVariations}
-            onClickShowProduct={viewModel.onClickShowProduct}
-          />
-        </Modal>
-      )}
-
-      {viewModel.alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
+      <Modal
+        noPadding
+        openModal={viewModel.showProductVariationsForm}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductVariationsForm')}
+      >
+        <ProductVariationsForm
+          product={viewModel.productVariations}
+          onClickShowProduct={viewModel.onClickShowProduct}
         />
-      )}
+      </Modal>
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
       {viewModel.showProgress && <CircularProgressWithLabel />}

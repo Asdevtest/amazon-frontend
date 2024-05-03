@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/task/task-operation-type'
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
 import { OtherModel } from '@models/other-model'
@@ -15,7 +14,6 @@ import { warehouseVacantTasksViewColumns } from '@components/table/table-columns
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
 import { objectToUrlQs } from '@utils/text'
-import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
@@ -38,11 +36,6 @@ export class WarehouseVacantViewModel {
 
   curTaskType = null
   curTaskPriority = null
-
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
 
   showTwoVerticalChoicesModal = false
   showTaskInfoModal = false
@@ -205,27 +198,6 @@ export class WarehouseVacantViewModel {
       this.loadData()
       runInAction(() => {
         this.selectedTasks = []
-      })
-
-      runInAction(() => {
-        this.alertShieldSettings = {
-          showAlertShield: true,
-          alertShieldMessage: t(TranslationKey['Taken on board']),
-        }
-
-        setTimeout(() => {
-          this.alertShieldSettings = {
-            ...this.alertShieldSettings,
-            showAlertShield: false,
-          }
-
-          setTimeout(() => {
-            this.alertShieldSettings = {
-              showAlertShield: false,
-              alertShieldMessage: '',
-            }
-          }, 1000)
-        }, 3000)
       })
     } catch (error) {
       console.error(error)

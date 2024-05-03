@@ -11,12 +11,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Button } from '@components/shared/button'
-import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
-import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -45,7 +43,6 @@ const Slot = ({
   onPasteFiles,
   onUploadFile,
   onChangeImageFileds,
-  isRework,
   onClickRemoveItem,
 }) => {
   const { classes: styles, cx } = useStyles()
@@ -102,37 +99,14 @@ const Slot = ({
         </div>
 
         {slot.fileLink ? (
-          <div className={styles.imageListItem}>
-            <SlideByType
-              mediaFile={slot.fileLink}
-              mediaFileIndex={index}
-              ImageComponent={({ src, alt }) => (
-                <img
-                  src={src}
-                  alt={isRework ? '' : alt}
-                  className={styles.image}
-                  onClick={() => {
-                    setCurImageIndex(index)
-                    setShowImageModal(!showImageModal)
-                  }}
-                />
-              )}
-              VideoComponent={({ videoSource }) => (
-                <VideoPreloader
-                  videoSource={videoSource}
-                  onClick={() => {
-                    setCurImageIndex(index)
-                    setShowImageModal(!showImageModal)
-                  }}
-                />
-              )}
-              FileComponent={({ documentLink, fileExtension }) => (
-                <a href={documentLink} target="_blank" rel="noreferrer noopener" className={styles.document}>
-                  <CustomFileIcon fileExtension={fileExtension} height="100%" />
-                  <span className={styles.linkText}>{documentLink}</span>
-                </a>
-              )}
-            />
+          <div
+            className={styles.imageListItem}
+            onClick={() => {
+              setCurImageIndex(index)
+              setShowImageModal(!showImageModal)
+            }}
+          >
+            <SlideByType objectFitContain mediaFile={slot.fileLink} mediaFileIndex={index} />
           </div>
         ) : (
           <div className={styles.imageSubWrapper}>
@@ -391,7 +365,6 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
                   setImagesData={setImagesData}
                   setShowImageModal={setShowImageModal}
                   showImageModal={showImageModal}
-                  isRework={isRework}
                   onPasteFiles={onPasteFiles}
                   onUploadFile={onUploadFile}
                   onClickRemoveItem={onClickRemoveItem}
@@ -442,6 +415,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
 
       {showImageModal ? (
         <SlideshowGalleryModal
+          withoutMakeMainImage
           isEditable={isRework}
           openModal={showImageModal}
           files={imagesData}

@@ -1,16 +1,34 @@
-import { action, computed, observable, override } from 'mobx'
+import { action, observable, override } from 'mobx'
 
 export const observerConfig = {
-  _storekeepers: observable,
-  _productId: observable,
-  _currentStorekeeperId: observable,
+  storekeepers: observable,
+  productId: observable,
+  supplierId: observable,
+  orderId: observable,
 
-  storekeepers: computed,
-  productId: computed,
-  currentStorekeeperId: computed,
+  boxId: observable,
+  boxData: observable,
+  currentVariationId: observable,
+  initialDestinationId: observable,
+  currentDestinationId: observable,
+  currentLogicsTariffId: observable,
+  currentStorekeeperId: observable,
+
+  isStrictVariationSelect: observable,
+  boxItems: observable,
+  handleSave: observable,
 
   getStorekeepersData: action.bound,
   setCurrentStorekeeper: action.bound,
+  getBoxData: action.bound,
+  handleChangeStrictVariation: action.bound,
+  handleSetVariation: action.bound,
+  handleChangeActiveProduct: action.bound,
+  setMainMethodURL: action.bound,
+  handleSaveVariationTariff: action.bound,
+  handleResetVariationTariff: action.bound,
+  setActualData: action.bound,
 
   onClickResetFilters: override,
+  isSomeFilterOn: override,
 }

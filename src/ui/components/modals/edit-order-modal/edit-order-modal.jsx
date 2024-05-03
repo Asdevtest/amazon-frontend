@@ -153,6 +153,7 @@ export const EditOrderModal = memo(
       partialPaymentAmountRmb: order?.partialPaymentAmountRmb || 0,
       partiallyPaid: order?.partiallyPaid || 0,
       partialPayment: order?.partialPayment || false,
+      deliveredQuantity: order?.deliveredQuantity || 0,
     }
 
     const [orderFields, setOrderFields] = useState(initialState)
@@ -352,7 +353,10 @@ export const EditOrderModal = memo(
 
         setOrderFields(initialState)
 
-        if (e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) {
+        if (
+          e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
+          orderFields.deliveredQuantity < orderFields.amount
+        ) {
           setShowCheckQuantityModal(!showCheckQuantityModal)
         } else {
           setConfirmModalMode(confirmModalModes.STATUS)
@@ -640,6 +644,7 @@ export const EditOrderModal = memo(
             disableSubmit={disableSubmit}
             photosToLoad={photosToLoad}
             order={order}
+            deliveredQuantity={orderFields.deliveredQuantity}
             setOrderField={setOrderField}
             orderFields={orderFields}
             showProgress={showProgress}
@@ -668,8 +673,6 @@ export const EditOrderModal = memo(
             onClickSaveSupplier={onClickSaveSupplierBtn}
             onSaveProduct={handleSaveProduct}
           />
-
-          <BoxesToOrder formFields={order} platformSettings={platformSettings} />
         </div>
 
         <div className={styles.buttonsBox}>
@@ -721,7 +724,6 @@ export const EditOrderModal = memo(
           <>
             <BoxesToCreateTable
               orderGoodsAmount={orderFields?.amount}
-              volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={
                 userInfo._id !== order.orderSupplier.createdBy?._id &&
@@ -762,22 +764,25 @@ export const EditOrderModal = memo(
                   )}
                 </div>
               </div>
-              <div className={styles.fieldWrapper}>
-                <Field
-                  multiline
-                  minRows={4}
-                  maxRows={4}
-                  inputProps={{ maxLength: 500 }}
-                  inputClasses={styles.commentInput}
-                  value={commentToWarehouse}
-                  labelClasses={styles.label}
-                  label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
-                  onChange={e => setCommentToWarehouse(e.target.value)}
-                />
-              </div>
+
+              <Field
+                multiline
+                minRows={4}
+                maxRows={4}
+                inputProps={{ maxLength: 500 }}
+                inputClasses={styles.commentInput}
+                value={commentToWarehouse}
+                labelClasses={styles.label}
+                label={`${t(TranslationKey['Buyer comment to the warehouse'])}:`}
+                onChange={e => setCommentToWarehouse(e.target.value)}
+              />
             </div>
           </>
         )}
+
+        <div className={styles.boxesWrapper}>
+          <BoxesToOrder formFields={order} platformSettings={platformSettings} />
+        </div>
 
         <Modal
           openModal={collapseCreateOrEditBoxBlock}
@@ -851,6 +856,7 @@ export const EditOrderModal = memo(
             maxRefundNumber={orderFields.totalPrice}
             title={t(TranslationKey['Setting the stock status'])}
             description={t(TranslationKey['Enter the amount of goods that came into the warehouse']) + ':'}
+            deliveredQuantity={orderFields.deliveredQuantity}
             acceptText={t(TranslationKey.Continue) + '?'}
             onClose={() => setShowCheckQuantityModal(!showCheckQuantityModal)}
             onSubmit={({ refundValue }) => {

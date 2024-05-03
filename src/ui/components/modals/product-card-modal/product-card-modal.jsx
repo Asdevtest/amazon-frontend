@@ -85,7 +85,6 @@ export const ProductCardModal = observer(props => {
 
   const showActionBtns =
     (checkIsSupervisor(UserRoleCodeMap[viewModel?.userInfo.role]) &&
-      viewModel?.productBase?.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
       viewModel?.productBase?.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
       viewModel?.productBase?.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
     (checkIsSupervisor(UserRoleCodeMap[viewModel?.userInfo.role]) &&
@@ -110,12 +109,7 @@ export const ProductCardModal = observer(props => {
     productStatusButtonsConfigs[UserRoleCodeMap[viewModel?.userInfo.role]](viewModel?.productBase?.status)
 
   return (
-    <Modal
-      missClickModalOn
-      openModal={openModal}
-      setOpenModal={setOpenModal}
-      contentWrapperClassName={styles.modalWrapper}
-    >
+    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <div className={cx(styles.root, { [styles.clippedRoot]: viewModel?.product && currentTab === 'MAIN_INFO' })}>
         {viewModel?.product && (
           <ProductWrapper
@@ -132,8 +126,6 @@ export const ProductCardModal = observer(props => {
             handleProductActionButtons={viewModel?.handleProductActionButtons}
             formFieldsValidationErrors={viewModel?.formFieldsValidationErrors}
             setCurrentTab={tab => setCurrentTab(tab)}
-            acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-            showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
             productVariations={viewModel.productVariations}
             navigateToProduct={viewModel.navigateToProduct}
             unbindProductHandler={viewModel.unbindProductHandler}
@@ -209,9 +201,7 @@ export const ProductCardModal = observer(props => {
 
               {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) && (
                 <Button
-                  styleType={ButtonStyle.SUCCESS}
                   disabled={viewModel?.product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
-                  className={styles.buttonNormal}
                   onClick={
                     checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
                     checkIsSupervisor(UserRoleCodeMap[viewModel?.userInfo.role])
@@ -224,10 +214,9 @@ export const ProductCardModal = observer(props => {
               )}
 
               <Button
-                styleType={ButtonStyle.DANGER}
-                className={cx({
-                  [styles.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
-                })}
+                styleType={
+                  checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) ? ButtonStyle.PRIMARY : ButtonStyle.DANGER
+                }
                 onClick={() => viewModel?.handleProductActionButtons('closeModal')}
               >
                 {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
@@ -237,7 +226,6 @@ export const ProductCardModal = observer(props => {
 
               {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && viewModel?.product.archive && (
                 <Button
-                  className={styles.restoreBtn}
                   onClick={() => viewModel?.handleProductActionButtons('restore', undefined, true, updateDataHandler)}
                 >
                   {t(TranslationKey.Restore)}
@@ -245,13 +233,7 @@ export const ProductCardModal = observer(props => {
               )}
             </div>
           ) : (
-            <Button
-              styleType={ButtonStyle.DANGER}
-              className={cx({
-                [styles.buttonNormalNoMargin]: !checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]),
-              })}
-              onClick={() => viewModel?.handleProductActionButtons('closeModal')}
-            >
+            <Button onClick={() => viewModel?.handleProductActionButtons('closeModal')}>
               {t(TranslationKey.Close)}
             </Button>
           )}

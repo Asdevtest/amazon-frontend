@@ -13,14 +13,13 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SupplierModel } from '@models/supplier-model'
 
-import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field'
-import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -106,6 +105,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     weighUnit: supplier?.weighUnit || '',
     imageUnit: supplier?.imageUnit || [],
     priceVariations: supplier?.priceVariations || [],
+    _id: supplier?._id || '',
   })
 
   const [tmpSupplier, setTmpSupplier] = useState(getInitialState())
@@ -176,15 +176,15 @@ export const AddOrEditSupplierModalContent = memo(props => {
         ...tmpSupplier.boxProperties,
         boxLengthCm:
           (sizeSetting === unitsOfChangeOptions.US
-            ? tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient
+            ? toFixed(tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient, 2)
             : tmpSupplier.boxProperties.boxLengthCm) || 0,
         boxWidthCm:
           (sizeSetting === unitsOfChangeOptions.US
-            ? tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient
+            ? toFixed(tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient, 2)
             : tmpSupplier.boxProperties.boxWidthCm) || 0,
         boxHeightCm:
           (sizeSetting === unitsOfChangeOptions.US
-            ? tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient
+            ? toFixed(tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient, 2)
             : tmpSupplier.boxProperties.boxHeightCm) || 0,
 
         amountInBox: tmpSupplier.boxProperties.amountInBox || 0,
@@ -951,18 +951,14 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
 
-      <Modal
-        openModal={showSupplierApproximateCalculationsModal}
-        setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
-      >
-        <SupplierApproximateCalculationsForm
-          volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-          product={product}
-          supplier={tmpSupplier}
-          storekeepers={storekeepersData}
-          onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+      {showSupplierApproximateCalculationsModal ? (
+        <SupplierApproximateCalculationsModal
+          openModal={showSupplierApproximateCalculationsModal}
+          productId={product?._id || ''}
+          currentSupplierId={tmpSupplier?._id || ''}
+          setOpenModal={setShowSupplierApproximateCalculationsModal}
         />
-      </Modal>
+      ) : null}
     </div>
   )
 })

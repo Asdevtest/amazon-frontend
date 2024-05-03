@@ -16,10 +16,11 @@ interface ModalProps extends PropsWithChildren {
   openModal: boolean
   setOpenModal: (openModal: boolean) => void
   missClickModalOn?: boolean
+  isSecondBackground?: boolean
 }
 
 export const Modal: FC<ModalProps> = memo(props => {
-  const { openModal, setOpenModal, missClickModalOn, children } = props
+  const { openModal, setOpenModal, missClickModalOn, children, isSecondBackground } = props
 
   if (!openModal) {
     return null
@@ -51,7 +52,7 @@ export const Modal: FC<ModalProps> = memo(props => {
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
-        <div className={styles.contentWrapper}>
+        <div className={cx(styles.contentWrapper, { [styles.alternativeBackground]: isSecondBackground })}>
           <CloseRoundedIcon className={styles.closeIcon} fontSize="large" onClick={handleCloseModal} />
 
           <div className={styles.content}>{children}</div>

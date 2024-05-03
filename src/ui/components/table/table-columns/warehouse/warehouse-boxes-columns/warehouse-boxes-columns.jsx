@@ -1,4 +1,3 @@
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,18 +10,19 @@ import {
   OrderManyItemsCell,
   OrdersIdsItemsCell,
   RedFlagsCell,
-  ShortBoxDimensionsCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { Dimensions } from '@components/shared/dimensions'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 
 import { calcFinalWeightForBox } from '@utils/calculation'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => [
+export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Box ID']),
@@ -49,7 +49,15 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    valueGetter: ({ row }) => row.originalData.items?.map(item => item?.product?.asin).join(', '),
+    valueGetter: ({ row }) =>
+      row.originalData.items
+        ?.map(
+          item =>
+            `ASIN: ${item?.product?.asin || t(TranslationKey.Missing)} / SKU: ${
+              item?.product?.skuByClient || t(TranslationKey.Missing)
+            }`,
+        )
+        .join(', '),
     renderCell: params => {
       return params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} />
@@ -103,6 +111,13 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
         ]}
       />
     ),
+    valueGetter: ({ row }) => {
+      const shippingLabelLink = row?.originalData?.shippingLabel
+        ? getAmazonImageUrl(row?.originalData?.shippingLabel, true)
+        : t(TranslationKey.Missing)
+
+      return shippingLabelLink
+    },
     filterable: false,
     sortable: false,
     width: 280,
@@ -170,16 +185,7 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
     renderHeader: () => (
       <MultilineTextHeaderCell
         text={t(TranslationKey.Dimensions)}
-        component={
-          <CustomSwitcher
-            condition={getUnitsOption()}
-            switcherSettings={[
-              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-            ]}
-            changeConditionHandler={handlers.onChangeUnitsOption}
-          />
-        }
+        component={<SizeSwitcher condition={getUnitsOption()} onChangeCondition={handlers.onChangeUnitsOption} />}
       />
     ),
     valueGetter: ({ row }) => {
@@ -189,16 +195,9 @@ export const warehouseBoxesViewColumns = (handlers, getUser, getUnitsOption) => 
       return `L:${box?.lengthCmWarehouse}, W:${box?.widthCmWarehouse}, H:${box?.heightCmWarehouse}, FW:${boxFinalWeight}`
     },
     renderCell: params => (
-      <ShortBoxDimensionsCell
-        isShipping
-        box={params.row.originalData}
-        volumeWeightCoefficient={params.row.volumeWeightCoefficient}
-        curUser={getUser()?.role}
-        handlers={handlers}
-        unitsOption={getUnitsOption()}
-      />
+      <Dimensions isCell isTotalWeight data={params.row.originalData} transmittedSizeSetting={getUnitsOption()} />
     ),
-    width: 230,
+    width: 210,
     filterable: false,
     sortable: false,
   },

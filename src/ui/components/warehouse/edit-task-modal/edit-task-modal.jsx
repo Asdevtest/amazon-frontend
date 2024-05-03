@@ -267,7 +267,6 @@ export const EditTaskModal = memo(
 
           <BeforeAfterBlock
             readOnly={readOnly}
-            volumeWeightCoefficient={volumeWeightCoefficient}
             incomingBoxes={task.boxesBefore}
             desiredBoxes={newBoxes}
             taskType={task.operationType}
@@ -287,9 +286,7 @@ export const EditTaskModal = memo(
                 <Button
                   className={styles.buttonMobile}
                   tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-                  onClick={() => {
-                    setReceiveBoxModal(!receiveBoxModal)
-                  }}
+                  onClick={() => setReceiveBoxModal(!receiveBoxModal)}
                 >
                   {t(TranslationKey.Redistribute)}
                 </Button>
@@ -353,11 +350,7 @@ export const EditTaskModal = memo(
           )}
         </div>
 
-        <Modal
-          openModal={receiveBoxModal}
-          setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
-          onCloseModal={() => setReceiveBoxModal(!receiveBoxModal)}
-        >
+        <Modal openModal={receiveBoxModal} setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}>
           <ReceiveBoxModal
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}

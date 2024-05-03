@@ -15,7 +15,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './weight-based-logistics-tariffs.style'
@@ -93,15 +93,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
             <Button variant={ButtonVariant.OUTLINED} className={styles.openArchiveBtn} onClick={onTriggerArchive}>
               {t(TranslationKey['Open archive'])}
             </Button>
-
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              tooltipInfoContent={t(TranslationKey['Add a new rate'])}
-              className={styles.placeAddBtn}
-              onClick={() => onClickAddBtn()}
-            >
-              {t(TranslationKey.Add)}
-            </Button>
           </div>
         )}
       </div>
@@ -145,6 +136,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
           onCloseModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
           onCreateSubmit={onSubmitChangeDestination}
           onEditSubmit={onSubmitChangeDestination}
+          onClickAddBtn={onClickAddBtn}
         />
       </Modal>
 

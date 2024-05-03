@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
 
-import { GridColDef } from '@mui/x-data-grid'
-
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { GeneralModel } from '@models/general-model'
 
@@ -11,90 +9,54 @@ import { objectToUrlQs } from '@utils/text'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
+import { DataGridFilterTableModelParams } from './data-grid-filter-table-model.type'
 import { observerConfig } from './observer-config'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
-  _filtersFields: string[]
-  get filtersFields() {
-    return this._filtersFields
-  }
-  set filtersFields(filtersFields: string[]) {
-    this._filtersFields = filtersFields
-  }
+  currentSearchValue: string = ''
 
-  _mainMethodURL: string
-  get mainMethodURL() {
-    return this._mainMethodURL
-  }
-  set mainMethodURL(mainMethodURL: string) {
-    this._mainMethodURL = mainMethodURL
-  }
+  filtersFields: string[]
 
-  _fieldsForSearch: string[] = []
-  get fieldsForSearch() {
-    return this._fieldsForSearch
-  }
-  set fieldsForSearch(fieldsForSearch: string[]) {
-    this._fieldsForSearch = fieldsForSearch
-  }
+  mainMethodURL: string
 
-  _columnMenuSettings = undefined
-  get columnMenuSettings() {
-    return this._columnMenuSettings
-  }
-  set columnMenuSettings(columnMenuSettings: any) {
-    this._columnMenuSettings = columnMenuSettings
-  }
+  fieldsForSearch: string[] = []
+
+  columnMenuSettings: any = undefined
 
   get isSomeFilterOn() {
     return this.filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
   }
 
-  _currentSearchValue = ''
-  get currentSearchValue() {
-    return this._currentSearchValue
-  }
-  set currentSearchValue(currentSearchValue: string) {
-    this._currentSearchValue = currentSearchValue
-  }
+  additionalPropertiesColumnMenuSettings: any = {}
 
-  _additionalPropertiesColumnMenuSettings: any = {}
-  get additionalPropertiesColumnMenuSettings() {
-    return this._additionalPropertiesColumnMenuSettings
-  }
-  set additionalPropertiesColumnMenuSettings(additionalProperties: any) {
-    this._additionalPropertiesColumnMenuSettings = additionalProperties
-  }
+  additionalPropertiesGetFilters: any = undefined
 
-  _additionalPropertiesGetFilters: any = undefined
-  get additionalPropertiesGetFilters() {
-    return this._additionalPropertiesGetFilters
-  }
-  set additionalPropertiesGetFilters(additionalProperties: any) {
-    this._additionalPropertiesGetFilters = additionalProperties
-  }
-
-  constructor(
-    getMainDataMethod: (...args: any) => any,
-    columnsModel: GridColDef[],
-    filtersFields: string[],
-    mainMethodURL: string,
-    fieldsForSearch?: string[],
-    tableKey?: string,
-    defaultGetDataMethodOptions?: any,
-    additionalPropertiesColumnMenuSettings?: any,
-    additionalPropertiesGetFilters?: any,
-  ) {
-    super(getMainDataMethod, columnsModel, tableKey, defaultGetDataMethodOptions)
+  constructor({
+    getMainDataMethod,
+    columnsModel,
+    filtersFields,
+    mainMethodURL,
+    fieldsForSearch,
+    tableKey,
+    defaultGetDataMethodOptions,
+    additionalPropertiesColumnMenuSettings,
+    additionalPropertiesGetFilters,
+  }: DataGridFilterTableModelParams) {
+    super({
+      getMainDataMethod,
+      columnsModel,
+      tableKey,
+      defaultGetDataMethodOptions,
+    })
 
     this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)
-    this._filtersFields = filtersFields
-    this._mainMethodURL = mainMethodURL
-    this._additionalPropertiesColumnMenuSettings = additionalPropertiesColumnMenuSettings
-    this._additionalPropertiesGetFilters = additionalPropertiesGetFilters
+    this.filtersFields = filtersFields
+    this.mainMethodURL = mainMethodURL
+    this.additionalPropertiesColumnMenuSettings = additionalPropertiesColumnMenuSettings
+    this.additionalPropertiesGetFilters = additionalPropertiesGetFilters
 
     if (fieldsForSearch) {
-      this._fieldsForSearch = fieldsForSearch
+      this.fieldsForSearch = fieldsForSearch
     }
 
     makeObservable(this, observerConfig)
@@ -204,6 +166,9 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   setFilterRequestStatus(requestStatus: loadingStatus) {
-    this.columnMenuSettings.filterRequestStatus = requestStatus
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 }

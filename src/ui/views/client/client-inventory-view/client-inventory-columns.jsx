@@ -128,7 +128,18 @@ export const clientInventoryColumns = (
       field: 'sentToFbaSum',
       headerName: t(TranslationKey.Inbound),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
-      renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
+      renderCell: params => (
+        <MultilineTextCell
+          link={Number(params.value) > 0}
+          text={String(params.value)}
+          onClickText={e => {
+            if (Number(params.value) > 0) {
+              e.stopPropagation()
+              otherHandlers.onOpenProductDataModal(params.row, true)
+            }
+          }}
+        />
+      ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -173,17 +184,18 @@ export const clientInventoryColumns = (
       field: 'inTransfer',
       headerName: 'in Transfer',
       renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
-      renderCell: params => {
-        return (
-          <MultilineTextCell
-            text={String(params.value)}
-            onClickText={e => {
+      renderCell: params => (
+        <MultilineTextCell
+          link={Number(params.value) > 0}
+          text={String(params.value)}
+          onClickText={e => {
+            if (Number(params.value) > 0) {
               e.stopPropagation()
-              otherHandlers.onClickInTransfer(params.row?._id)
-            }}
-          />
-        )
-      },
+              otherHandlers.onOpenProductDataModal(params.row, false)
+            }
+          }}
+        />
+      ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -275,6 +287,17 @@ export const clientInventoryColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FBA)} />,
       renderCell: params => <ToFixedCell value={params.value} fix={2} />,
       width: 70,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+
+    {
+      field: 'currentSupplierProductionTerm',
+      headerName: t(TranslationKey['Production time']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
+      renderCell: params => <MultilineTextCell text={params.row.currentSupplier?.productionTerm} />,
+      valueGetter: params => params.row.currentSupplier?.productionTerm,
+      width: 120,
+      sortable: false,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
 
@@ -566,6 +589,10 @@ export const clientInventoryColumns = (
   }
 
   for (const column of defaultColumns) {
+    if (column.table) {
+      continue
+    }
+
     column.table = DataGridFilterTables.PRODUCTS
     column.sortable = false
   }

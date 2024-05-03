@@ -138,7 +138,7 @@ class UserModelStatic {
 
   async getUsersInfoCounters() {
     try {
-      const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
+      const response = await restApiService.userApi.apiV1UsersInfoCountersGet({ noCache: true })
 
       runInAction(() => {
         this.userInfo = { ...this.userInfo, ...response.data }
@@ -282,6 +282,16 @@ class UserModelStatic {
 
   async logoutSession(sessionCreatedAt) {
     const response = await restApiService.userApi.apiV1UsersLogoutPost({ body: { sessionCreatedAt } })
+    return response.data
+  }
+
+  async getPatchNotes(body) {
+    const response = await restApiService.userApi.apiV1UsersPatchNotesGet({ ...body, noCache: true })
+    return response.data
+  }
+
+  async getPatchNote(guid) {
+    const response = await restApiService.userApi.apiV1UsersPatchNotesGuidGet({ guid, noCache: true })
     return response.data
   }
 }

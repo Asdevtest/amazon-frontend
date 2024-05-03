@@ -25,6 +25,14 @@ export const useStyles = makeStyles()(() => ({
     },
   },
 
+  disableHover: {
+    '&:hover': {
+      'svg, button': {
+        display: 'none',
+      },
+    },
+  },
+
   addBtn: {
     position: 'absolute',
     right: 3,

@@ -27,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
 
   editor: {
     width: '100%',
-    minHeight: 150,
+    minHeight: 154,
     maxHeight: 900,
     overflowY: 'auto',
     fontSize: 16,
@@ -36,6 +36,15 @@ export const useStyles = makeStyles()(theme => ({
 
     '.public-DraftEditor-content': {
       minHeight: 130,
+    },
+  },
+
+  allHeight: {
+    minHeight: 0,
+    maxHeight: '100%',
+
+    '.public-DraftEditor-content': {
+      minHeight: 0,
     },
   },
 

@@ -133,6 +133,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.text.general,
+    wordBreak: 'break-all',
   },
 
   cardContentWrapper: {

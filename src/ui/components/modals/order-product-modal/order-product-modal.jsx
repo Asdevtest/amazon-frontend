@@ -74,7 +74,22 @@ export const OrderProductModal = memo(props => {
             ...reorderOrder.product,
 
             amount: reorderOrder.amount,
+            clientComment: isPendingOrdering ? reorderOrder.clientComment : '',
 
+            destination: {
+              _id: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            },
+            logicsTariff: {
+              _id: storekeepers
+                .find(el => el._id === reorderOrder.storekeeper?._id)
+                ?.tariffLogistics.map(el => el._id)
+                .includes(reorderOrder.logicsTariff?._id)
+                ? reorderOrder.logicsTariff?._id
+                : '',
+            },
+            variationTariff: {
+              _id: reorderOrder?.variationTariffId,
+            },
             // @refactor: need to create function
             destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
             storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
@@ -89,15 +104,28 @@ export const OrderProductModal = memo(props => {
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
             deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
+            productId: reorderOrder.product?._id,
           }
         })
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
+          clientComment: isPendingOrdering ? product.clientComment : '',
           expressChinaDelivery: false,
           priority: '30',
           deadline: null,
           variationTariffId: product.variationTariff?._id,
+
+          destination: {
+            _id: null,
+          },
+          logicsTariff: {
+            _id: null,
+          },
+          variationTariff: {
+            _id: null,
+          },
+          productId: product?._id,
         })),
   )
 
@@ -113,7 +141,7 @@ export const OrderProductModal = memo(props => {
 
           return {
             amount: reorderOrder.amount,
-            clientComment: '',
+            clientComment: isPendingOrdering ? reorderOrder.clientComment : '',
             barCode: reorderOrder?.product?.barCode || '',
             tmpBarCode: [],
 
@@ -123,6 +151,21 @@ export const OrderProductModal = memo(props => {
 
             productId: reorderOrder.product._id,
             images: [],
+
+            destination: {
+              _id: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            },
+            logicsTariff: {
+              _id: storekeepers
+                .find(el => el._id === reorderOrder.storekeeper?._id)
+                ?.tariffLogistics.map(el => el._id)
+                .includes(reorderOrder.logicsTariff?._id)
+                ? reorderOrder.logicsTariff?._id
+                : '',
+            },
+            variationTariff: {
+              _id: reorderOrder?.variationTariffId,
+            },
 
             // @refactor: need to create function
             destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
@@ -143,7 +186,7 @@ export const OrderProductModal = memo(props => {
         })
       : selectedProductsData.map(product => ({
           amount: 1,
-          clientComment: '',
+          clientComment: isPendingOrdering ? product.clientComment : '',
           barCode: product?.barCode || '',
           productId: product._id,
           images: [],
@@ -152,6 +195,16 @@ export const OrderProductModal = memo(props => {
           transparency: product.transparency,
           tmpBarCode: [],
           tmpTransparencyFile: [],
+
+          destination: {
+            _id: null,
+          },
+          logicsTariff: {
+            _id: null,
+          },
+          variationTariff: {
+            _id: null,
+          },
 
           destinationId: null,
 
@@ -231,6 +284,7 @@ export const OrderProductModal = memo(props => {
 
       needsResearch: isResearchSupplier,
       tmpIsPendingOrder: isPendingOrder,
+      images: [], // reset images to create an order(onClickSubmit), because in the useTariffVariations they are added again - need to fix order product modal
     }))
 
     onSubmit({
@@ -262,7 +316,7 @@ export const OrderProductModal = memo(props => {
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        ((!!isInventory || !!reorderOrdersData?.length || !!isPendingOrdering) && isDeadlineTodayOrTomorrow) ||
+        ((!!isInventory || !!reorderOrdersData?.length) && !!isPendingOrdering && isDeadlineTodayOrTomorrow) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
           order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)

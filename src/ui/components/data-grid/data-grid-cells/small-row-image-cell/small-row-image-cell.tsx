@@ -15,10 +15,11 @@ export const SmallRowImageCell: FC<SmallRowImageCellProps> = memo(({ image }) =>
   const { classes: styles } = useStyles()
 
   const checkIsVideo = checkIsVideoLink(image)
+
   return (
-    <div className={styles.smallRowImgWrapper}>
+    <div className={styles.wrapper}>
       {checkIsVideo ? (
-        <VideoPreloader videoSource={getAmazonImageUrl(image)} height={58} iconPlayClassName={styles.preloaderIcon} />
+        <VideoPreloader videoSource={getAmazonImageUrl(image)} />
       ) : (
         <img src={getAmazonImageUrl(image)} alt="image" className={styles.img} />
       )}

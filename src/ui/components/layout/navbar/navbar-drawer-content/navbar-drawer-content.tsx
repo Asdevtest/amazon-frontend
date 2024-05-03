@@ -1,6 +1,6 @@
 import { FC, Fragment, memo, useEffect, useState } from 'react'
 
-import { List, Typography } from '@mui/material'
+import { List } from '@mui/material'
 
 import { appVersion } from '@constants/app-version'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -12,10 +12,6 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { NavbarCategory } from '@components/layout/navbar'
 import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
 import { NavbarModel } from '@components/layout/navbar/navbar.model'
-import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { FeedBackModal } from '@components/modals/feedback-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AlertShield } from '@components/shared/alert-shield'
 import { Feedback } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'
@@ -30,9 +26,6 @@ import { getCategoryBadge } from './navbar-drawer-content.helper'
 
 interface NavbarDrawerContentProps {
   shortNavbar: boolean
-  onToggleModal: () => void
-  confirmModalSettings: NavbarModel['confirmModalSettings']
-  alertShieldSettings: NavbarModel['alertShieldSettings']
   curNavbar: NavbarConfigTypes.RootObject
   userInfo: IInfoCounters
   activeCategory: string
@@ -40,10 +33,6 @@ interface NavbarDrawerContentProps {
   onClickVersion: NavbarModel['onClickVersion']
   onTriggerOpenModal: (arg: string) => void
   activeSubCategory: string
-  sendFeedbackAboutPlatform: NavbarModel['sendFeedbackAboutPlatform']
-  showFeedbackModal: boolean
-  showWarningModal: boolean
-  showConfirmModal: boolean
 }
 
 export const alwaysShowSubCategoryKeys = [
@@ -52,26 +41,18 @@ export const alwaysShowSubCategoryKeys = [
 ]
 
 export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
-  const { classes: styles, cx } = useStyles()
-
   const {
     shortNavbar,
-    confirmModalSettings,
-    alertShieldSettings,
     curNavbar,
     userInfo,
     activeCategory,
     unreadMessages,
     activeSubCategory,
-    showFeedbackModal,
-    showWarningModal,
-    showConfirmModal,
-    onToggleModal,
     onTriggerOpenModal,
     onClickVersion,
-    sendFeedbackAboutPlatform,
   } = props
 
+  const { classes: styles, cx } = useStyles()
   const [filteredCategories, setFilteredCategories] = useState<NavbarConfigTypes.Route[]>([])
   const [filteredBottomCategories, setFilteredBottomCategories] = useState<NavbarConfigTypes.Route[]>([])
 
@@ -104,13 +85,11 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
             <Fragment key={index}>
               <NavbarCategory
                 // @ts-ignore
-                classes=""
                 isSelected={category.key === activeCategory}
                 shortNavbar={shortNavbar}
                 userInfo={userInfo}
                 category={category}
                 badge={getCategoryBadge(category, userInfo) || 0}
-                onToggleModal={onToggleModal}
               />
 
               {(category.key === activeCategory || alwaysShowSubCategoryKeys.includes(category.key)) && (
@@ -132,18 +111,15 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
       <div className={styles.bottomCategories}>
         {filteredBottomCategories.map((category: NavbarConfigTypes.Route, index: number) =>
           category.checkHideBlock(userInfo) ? (
-            <Fragment key={index}>
-              <NavbarCategory
-                // @ts-ignore
-                classes=""
-                shortNavbar={shortNavbar}
-                isSelected={category.key === activeCategory}
-                userInfo={userInfo}
-                category={category}
-                badge={category.route?.includes('/messages') && unreadMessages}
-                onToggleModal={onToggleModal}
-              />
-            </Fragment>
+            <NavbarCategory
+              key={index}
+              // @ts-ignore
+              shortNavbar={shortNavbar}
+              isSelected={category.key === activeCategory}
+              userInfo={userInfo}
+              category={category}
+              badge={category.route?.includes('/messages') && unreadMessages}
+            />
           ) : null,
         )}
 
@@ -152,61 +128,15 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
             className={cx(styles.feedBackButton, { [styles.shortFeedBackButton]: shortNavbar })}
             onClick={() => onTriggerOpenModal('showFeedbackModal')}
           >
-            {!shortNavbar && <Typography className={styles.feedBackText}>{t(TranslationKey.Feedback)}</Typography>}
+            {!shortNavbar && <p>{t(TranslationKey.Feedback)}</p>}
             <Feedback className={styles.feedbackIcon} />
           </div>
         ) : null}
 
-        <Typography
-          className={cx(styles.appVersion, { [styles.smallAppVersion]: shortNavbar })}
-          onClick={onClickVersion}
-        >
+        <p className={cx(styles.appVersion, { [styles.smallAppVersion]: shortNavbar })} onClick={onClickVersion}>
           {appVersion}
-        </Typography>
+        </p>
       </div>
-
-      {showFeedbackModal ? (
-        <FeedBackModal
-          // @ts-ignore
-          openModal={showFeedbackModal}
-          onSubmit={sendFeedbackAboutPlatform}
-          onClose={() => onTriggerOpenModal('showFeedbackModal')}
-        />
-      ) : null}
-
-      {showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={false}
-          openModal={showWarningModal}
-          setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={t(TranslationKey['Your feedback has been sent and will be reviewed shortly'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => onTriggerOpenModal('showWarningModal')}
-        />
-      ) : null}
-
-      {showConfirmModal ? (
-        <ConfirmationModal
-          // @ts-ignore
-          openModal={showConfirmModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          isWarning={confirmModalSettings?.isWarning}
-          title={confirmModalSettings.confirmTitle}
-          message={confirmModalSettings.confirmMessage}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={alertShieldSettings.showAlertShield}
-          acceptMessage={alertShieldSettings.alertShieldMessage}
-        />
-      )}
     </div>
   )
 })

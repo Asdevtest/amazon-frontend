@@ -30,11 +30,7 @@ export const BuyerTypeTaskSelect: FC<BuyerTypeTaskSelectProps> = props => {
           .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
           .map(type => ({ label: () => taskOperationTypeTranslate(type) || '', value: type })),
       ]}
-      changeConditionHandler={value => {
-        if (typeof value === 'string' || value === null) {
-          onClickOperationTypeBtn(value)
-        }
-      }}
+      changeConditionHandler={onClickOperationTypeBtn}
     />
   )
 }

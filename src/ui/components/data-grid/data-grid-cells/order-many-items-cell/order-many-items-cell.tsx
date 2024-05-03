@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, memo } from 'react'
+import { FC, Fragment, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
 
@@ -36,9 +36,8 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
         const isNeedToUpdate = box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF
 
         return (
-          <>
+          <Fragment key={itemIndex}>
             <ProductAsinCell
-              key={itemIndex}
               withoutSku={withoutSku}
               image={item.product.images?.[0]}
               amazonTitle={item.product.amazonTitle}
@@ -57,7 +56,7 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
             ) : null}
 
             {error ? <span className={styles.error}>{error}</span> : null}
-          </>
+          </Fragment>
         )
       })}
     </div>

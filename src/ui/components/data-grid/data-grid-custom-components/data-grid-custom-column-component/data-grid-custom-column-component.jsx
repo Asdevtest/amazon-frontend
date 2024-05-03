@@ -35,6 +35,7 @@ import {
   ToPayCellMenuItem,
   YesNoCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
+import { NumbersColumnMenu } from '../data-grid-menu-items/numbers-column-menu/numbers-column-menu'
 
 export const DataGridCustomColumnMenuComponent = props => {
   const {
@@ -58,7 +59,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <IsFormedMenuItem
           isFormedData={isFormedData}
           data={props.sub}
-          field={'sub'}
+          field="sub"
           table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           columnKey={currentColumn.columnKey}
@@ -282,6 +283,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.INVENTORY_STATUS,
       columnnsKeys.client.FREELANCE_MY_REQUESTS,
       columnnsKeys.shared.STRING,
+      columnnsKeys.shared.TYPE,
       columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
       columnnsKeys.client.ORDERS_STATUS,
       columnnsKeys.client.IDEAS_STATUS,
@@ -425,6 +427,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <BatchShippingDateCellMenuItem
           data={props}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
@@ -527,6 +530,24 @@ export const DataGridCustomColumnMenuComponent = props => {
           data={props[currentColumn.field]}
           field={currentColumn.field}
           filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </GridColumnMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.shared.NUMBERS].includes(currentColumn.columnKey)) {
+    return (
+      <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn} {...other}>
+        <NumbersColumnMenu
+          filtersData={props}
+          fields={currentColumn.fields}
+          table={currentColumn.table}
+          filterRequestStatus={filterRequestStatus}
+          defaultOption={currentColumn?.defaultOption}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}

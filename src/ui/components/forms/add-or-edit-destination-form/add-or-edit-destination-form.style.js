@@ -22,8 +22,13 @@ export const useStyles = makeStyles()(theme => ({
     margin: 0,
   },
 
-  btnsWrapper: {
+  footerWrapper: {
     marginTop: '30px',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  btnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
   },

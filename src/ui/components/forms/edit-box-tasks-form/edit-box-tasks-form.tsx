@@ -1,36 +1,31 @@
-import { ChangeEvent, FC, memo, useEffect, useState } from 'react'
+import isEqual from 'lodash.isequal'
+import { FC, memo, useEffect, useState } from 'react'
 
-import {
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-  volumePoundsWeightCoefficient,
-} from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { Dimensions } from '@typings/enums/dimensions'
 import { IBox } from '@typings/models/boxes/box'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { useStyles } from './edit-box-tasks-form.style'
+import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 
-import { Dimensions } from './dimensions'
+import { useStyles } from './edit-box-tasks-form.style'
 
 interface EditBoxTasksFormProps {
   box: IBox
   newBoxes: IBox[]
-  volumeWeightCoefficient: number
   setNewBoxes: (boxes: IBox[]) => void
   setEditModal: () => void
+  setIsChangedBox?: (isChangedBox: boolean) => void
   isInStorekeeperWarehouse?: boolean
   storekeeperWarehouseSubmit?: (id: string, box: IBox) => void
 }
@@ -39,17 +34,21 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
   const {
     box,
     newBoxes,
-    volumeWeightCoefficient,
     setNewBoxes,
     setEditModal,
     isInStorekeeperWarehouse,
+    setIsChangedBox,
     storekeeperWarehouseSubmit,
   } = props
 
   const { classes: styles } = useStyles()
 
   const [editingBox, setEditingBox] = useState<IBox>(box)
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
+  const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+  const { dimensions, onChangeDimensions } = useChangeDimensions({
+    data: editingBox,
+    sizeSetting,
+  })
 
   useEffect(() => {
     if (box) {
@@ -57,47 +56,19 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
     }
   }, [box])
 
-  const setNewBoxField =
-    <T extends keyof IBox>(fieldName: T) =>
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const newFormFields: IBox = { ...editingBox }
-
-      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-        return
-      }
-
-      newFormFields[fieldName] = e.target.value as IBox[T]
-
-      setEditingBox(newFormFields)
-    }
-
   const setImagesOfBox = (tmpImages: UploadFileType[]) => {
     setEditingBox((prev: IBox) => ({ ...prev, tmpImages }))
   }
 
   const onSubmit = () => {
+    setSizeSetting(Dimensions.EU)
+
     const lastStepEditBox: IBox = {
       ...editingBox,
-
-      lengthCmWarehouse:
-        (sizeSetting === unitsOfChangeOptions.US
-          ? toFixed(editingBox.lengthCmWarehouse * inchesCoefficient, 2)
-          : editingBox.lengthCmWarehouse) || 0,
-
-      widthCmWarehouse:
-        (sizeSetting === unitsOfChangeOptions.US
-          ? toFixed(editingBox.widthCmWarehouse * inchesCoefficient, 2)
-          : editingBox.widthCmWarehouse) || 0,
-
-      heightCmWarehouse:
-        (sizeSetting === unitsOfChangeOptions.US
-          ? toFixed(editingBox.heightCmWarehouse * inchesCoefficient, 2)
-          : editingBox.heightCmWarehouse) || 0,
-
-      weighGrossKgWarehouse:
-        (sizeSetting === unitsOfChangeOptions.US
-          ? toFixed(editingBox.weighGrossKgWarehouse * poundsWeightCoefficient, 2)
-          : editingBox?.weighGrossKgWarehouse) || 0,
+      lengthCmWarehouse: Number(dimensions.length),
+      widthCmWarehouse: Number(dimensions.width),
+      heightCmWarehouse: Number(dimensions.height),
+      weighGrossKgWarehouse: Number(dimensions.weight),
     }
 
     if (isInStorekeeperWarehouse) {
@@ -112,59 +83,29 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
     }
   }
 
-  const handleChange = (newAlignment: keyof typeof unitsOfChangeOptions) => {
-    if (newAlignment !== sizeSetting) {
-      const multiplier = newAlignment === unitsOfChangeOptions.US ? 1 / inchesCoefficient : inchesCoefficient
-      const weightMultiplier =
-        newAlignment === unitsOfChangeOptions.US ? 1 / poundsWeightCoefficient : poundsWeightCoefficient
-
-      setEditingBox((prev: IBox) => ({
-        ...prev,
-        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse * multiplier, 2),
-        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse * multiplier, 2),
-        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse * multiplier, 2),
-        weighGrossKgWarehouse: toFixed(editingBox.weighGrossKgWarehouse * weightMultiplier, 2),
-      }))
-
-      setSizeSetting(newAlignment)
+  useEffect(() => {
+    if (setIsChangedBox) {
+      setIsChangedBox(isEqual(box, editingBox))
     }
-  }
+  }, [])
 
   const disabledSubmit =
-    !Number(editingBox.lengthCmWarehouse) ||
-    !Number(editingBox.widthCmWarehouse) ||
-    !Number(editingBox.heightCmWarehouse) ||
-    !Number(editingBox.weighGrossKgWarehouse) ||
-    maxBoxSizeFromOption(sizeSetting, editingBox.lengthCmWarehouse) ||
-    maxBoxSizeFromOption(sizeSetting, editingBox.widthCmWarehouse) ||
-    maxBoxSizeFromOption(sizeSetting, editingBox.heightCmWarehouse)
-  const weightCoefficient =
-    sizeSetting === unitsOfChangeOptions.EU ? volumeWeightCoefficient : volumePoundsWeightCoefficient
+    maxBoxSizeFromOption(sizeSetting, Number(dimensions.length)) ||
+    maxBoxSizeFromOption(sizeSetting, Number(dimensions.width)) ||
+    maxBoxSizeFromOption(sizeSetting, Number(dimensions.height))
 
   return (
     <div className={styles.wrapper}>
       <p className={styles.title}>{t(TranslationKey['Editing the box'])}</p>
 
-      <CustomSwitcher
-        condition={sizeSetting}
-        switcherSettings={[
-          { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-          { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-        ]}
-        changeConditionHandler={condition => handleChange(condition as keyof typeof unitsOfChangeOptions)}
-      />
+      <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
 
-      <Dimensions
-        box={editingBox}
-        sizeSetting={sizeSetting}
-        weightCoefficient={weightCoefficient}
-        setNewBoxField={setNewBoxField}
-      />
+      <WarehouseDimensions dimensions={dimensions} sizeSetting={sizeSetting} onChangeDimensions={onChangeDimensions} />
 
       <UploadFilesInput
         withoutLinks
         dragAndDropButtonHeight={60}
-        images={editingBox?.tmpImages}
+        images={editingBox?.tmpImages?.length > 0 ? editingBox?.tmpImages : box?.images}
         setImages={setImagesOfBox}
       />
 

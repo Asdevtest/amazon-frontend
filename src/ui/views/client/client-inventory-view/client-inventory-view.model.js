@@ -6,10 +6,8 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { creatSupplier } from '@constants/white-list'
+import { creatSupplier, createOrderRequestWhiteList } from '@constants/white-list'
 
-import { BatchesModel } from '@models/batches-model'
-import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { IdeaModel } from '@models/ideas-model'
@@ -25,7 +23,7 @@ import { UserModel } from '@models/user-model'
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -92,7 +90,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showCircularProgressModal = false
   showAddSuppliersModal = false
   showSetStockUsValueModal = false
-  showProductLotDataModal = false
+  showProductDataModal = false
   showGetFilesModal = false
   showEditHSCodeModal = false
   productCardModal = false
@@ -102,18 +100,14 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showAddOrEditSupplierModal = false
   showEditProductTagsModal = false
 
+  onAmazon = false
+  isBatches = false
+
   successModalText = ''
   confirmMessage = ''
   showInfoModalTitle = ''
   currentBarcode = ''
   currentHscode = ''
-
-  isTransfer = false
-
-  alertShieldSettings = {
-    showAlertShield: false,
-    alertShieldMessage: '',
-  }
 
   readyImages = []
   progressValue = 0
@@ -259,7 +253,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     const otherHandlers = {
       onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
-      onClickInTransfer: productId => this.onClickInTransfer(productId),
+      onOpenProductDataModal: (product, onAmazon) => this.onOpenProductDataModal(product, onAmazon),
       onClickOrderCell: productId => this.onClickOrderCell(productId),
       onClickShowProduct: row => this.onClickShowProduct(row),
       onClickVariationButton: id => this.onClickVariationButton(id),
@@ -324,17 +318,17 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     )
     const filtersFields = getFilterFields(columns, additionalFilterFields)
 
-    super(
-      ClientModel.getProductsMyFilteredByShopIdWithPag,
-      columns,
+    super({
+      getMainDataMethod: ClientModel.getProductsMyFilteredByShopIdWithPag,
+      columnsModel: columns,
       filtersFields,
-      'clients/products/my_with_pag_v2?',
-      ['asin', 'amazonTitle', 'skuByClient'],
-      DataGridTablesKeys.CLIENT_INVENTORY,
+      mainMethodURL: 'clients/products/my_with_pag_v2?',
+      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
+      tableKey: DataGridTablesKeys.CLIENT_INVENTORY,
       defaultGetDataMethodOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
-    )
+    })
 
     this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
 
@@ -965,7 +959,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.getMainTableData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1057,14 +1051,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async createOrder(orderObject) {
     try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-        '_id',
-        'tmpTransparencyFile',
-        'transparency',
-      ])
+      const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
       if (orderObject.tmpIsPendingOrder) {
         await ClientModel.createFormedOrder(requestData)
@@ -1228,50 +1215,22 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickInTransfer(productId) {
-    try {
-      const result = await BoxesModel.getBoxesInTransfer(productId)
-      runInAction(() => {
-        this.isTransfer = true
+  onOpenProductDataModal(product, onAmazon) {
+    runInAction(() => {
+      this.curProduct = product
+      this.onAmazon = onAmazon
+      this.isBatches = false
+    })
 
-        this.batchesData = result
-
-        this.curProduct = this.tableData.filter(product => productId === product._id)
-      })
-      this.onTriggerOpenModal('showProductLotDataModal')
-    } catch (error) {
-      console.error(error)
-    }
+    this.onTriggerOpenModal('showProductDataModal')
   }
 
-  async onClickProductLotDataBtn() {
-    try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRows[0], false)
-      runInAction(() => {
-        this.isTransfer = false
-        this.batchesData = result
+  onClickProducDataButton() {
+    this.onAmazon = false
+    this.isBatches = true
+    this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product._id))?.[0]
 
-        this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product._id))
-      })
-      this.onTriggerOpenModal('showProductLotDataModal')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickToggleArchiveProductLotData(isArchive) {
-    try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRows[0], isArchive)
-      runInAction(() => {
-        this.batchesData = result
-      })
-    } catch (error) {
-      console.error(error)
-
-      runInAction(() => {
-        this.batchesData = []
-      })
-    }
+    this.onTriggerOpenModal('showProductDataModal')
   }
 
   async onSubmitCalculateSeekSupplier(clientComment) {
@@ -1631,7 +1590,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.tableData = []
       this.rowCount = 0
       this.setRequestStatus(loadingStatus.FAILED)

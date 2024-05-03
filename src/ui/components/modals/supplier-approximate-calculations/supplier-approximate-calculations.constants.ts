@@ -1,1 +1,1 @@
-export const additionalFilterFields = ['storekeeper']
+export const additionalFilterFields = ['maxWeight', 'storekeeper', 'etd', 'eta']

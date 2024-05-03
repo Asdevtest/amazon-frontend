@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Divider } from '@mui/material'
@@ -43,6 +43,7 @@ export interface ProductAndBatchModalProps {
   onClickMyOrderModal: (id: string) => void
   onClickInTransferModal: (id: string) => void
   onClickHsCode: (id: string) => void
+  patchActualShippingCostBatch: (id: string, value: number) => void
 }
 
 export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props => {
@@ -59,11 +60,13 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     onClickMyOrderModal,
     onClickInTransferModal,
     onClickHsCode,
+    patchActualShippingCostBatch,
   } = props
 
   const { classes: styles } = useStyles()
 
   const [showBatchModal, setShowBatchModal] = useState(false)
+  const [rows, setRows] = useState<GridRowModel[]>([])
 
   const handleShowModalBatchModal = () => {
     setShowBatchModal(!showBatchModal)
@@ -77,7 +80,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
   const selectedProductShop = shops?.find(shop => shop._id === selectedProduct?.shopId)
   const switchCurrentCondition = currentSwitch === ProductAndBatchModalSwitcherConditions.BATCH_DATA
   const columns = switchCurrentCondition ? batchDataColumns(handleOpenBatchModal) : aboutProductsColumns
-  const rows = switchCurrentCondition ? batches : selectedProduct?.orders
+
   const handleRowClick = (id: string) => {
     if (switchCurrentCondition) {
       return
@@ -85,6 +88,10 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
 
     onClickMyOrderModal(id)
   }
+
+  useEffect(() => {
+    setRows(switchCurrentCondition ? batches : selectedProduct?.orders)
+  }, [switchCurrentCondition, batches])
 
   return (
     <>
@@ -165,6 +172,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
           batch={currentBatch}
           openModal={showBatchModal}
           setOpenModal={handleShowModalBatchModal}
+          patchActualShippingCostBatch={patchActualShippingCostBatch}
           onClickHsCode={onClickHsCode}
         />
       ) : null}

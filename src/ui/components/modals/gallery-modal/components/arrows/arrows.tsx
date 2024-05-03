@@ -9,14 +9,12 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './arrows.style'
 
-import { FIRST_SLIDE } from '../../gallery-modal.constants'
-
 interface ArrowsProps {
   currentPage: number
   pageСount: number
-  disableArrows: boolean
+  isTransitioning: boolean
   setIsTransitioning: Dispatch<SetStateAction<boolean>>
-  onChangeSlide: (increment: number) => void
+  onChangePage: (increment: number) => void
 }
 
 enum ArrowsIncrement {
@@ -24,8 +22,10 @@ enum ArrowsIncrement {
   LEFT_ARROW = -1,
 }
 
+const FIRST_SLIDE = 1
+
 export const Arrows: FC<ArrowsProps> = memo(props => {
-  const { currentPage, pageСount, disableArrows, setIsTransitioning, onChangeSlide } = props
+  const { currentPage, pageСount, isTransitioning, setIsTransitioning, onChangePage } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -33,15 +33,15 @@ export const Arrows: FC<ArrowsProps> = memo(props => {
     setIsTransitioning(true)
 
     setTimeout(() => {
-      onChangeSlide(increment)
+      onChangePage(increment)
 
       setIsTransitioning(false)
     }, DEFAULT_ANIMATION_DELAY)
   }
 
   const pageTitle = `${t(TranslationKey.Page)} ${currentPage} ${t(TranslationKey.of)} ${pageСount}`
-  const isLeftArrowDisable = disableArrows || currentPage === FIRST_SLIDE
-  const isRightArrowDisable = disableArrows || currentPage === pageСount
+  const isLeftArrowDisable = isTransitioning || currentPage === FIRST_SLIDE
+  const isRightArrowDisable = isTransitioning || currentPage === pageСount
   const showArrows = pageСount > FIRST_SLIDE
 
   return (

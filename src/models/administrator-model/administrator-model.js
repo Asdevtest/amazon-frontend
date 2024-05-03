@@ -179,6 +179,31 @@ class AdministratorModelStatic {
     })
     return response.data
   }
+
+  createPatchNote = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesPost({ body })
+    return response.data
+  }
+
+  updatePatchNote = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesGuidPatch({ guid, body })
+    return response.data
+  }
+
+  getPatchNoteVersions = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesVersionsGet()
+    return response.data
+  }
+
+  removePatchNote = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesGuidDelete({ guid })
+    return response.data
+  }
+
+  exportPermissions = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsPermissionGet()
+    return response.data
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

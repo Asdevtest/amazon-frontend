@@ -1,11 +1,8 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const observerConfig = {
-  _confirmModalSettings: observable,
-  _warningInfoModalSettings: observable,
-
-  confirmModalSettings: computed,
-  warningInfoModalSettings: computed,
+  confirmModalSettings: observable,
+  warningInfoModalSettings: observable,
 
   onTriggerOpenModal: action.bound,
 }

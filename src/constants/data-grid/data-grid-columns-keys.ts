@@ -55,6 +55,7 @@ export const columnnsKeys = {
     DATE: 'DATE',
     DATE_DETAILS: 'DATE_DETAILS',
     QUANTITY: 'QUANTITY',
+    NUMBERS: 'NUMBERS',
     STRING: 'STRING',
     PRODUCT_ORDERS_STATUS: 'PRODUCT_ORDERS_STATUS',
     BOXES_STATUS: 'BOXES_STATUS',
@@ -69,5 +70,6 @@ export const columnnsKeys = {
     SECONDS: 'SECONDS',
     TASK_COMPLEXITY: 'TASK_COMPLEXITY',
     TAGS: 'TAGS',
+    TYPE: 'TYPE',
   },
 }

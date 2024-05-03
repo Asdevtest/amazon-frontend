@@ -54,8 +54,8 @@ export const DatePicker = props => {
             placeholder,
             className: cx(styles.root, { [styles.error]: error }),
           }}
-          value={value}
-          renderInput={params => <TextField title={t(TranslationKey.Date)} {...params} />}
+          value={value ? value : null}
+          renderInput={params => <TextField title={t(TranslationKey.Date)} size="small" {...params} />}
           onChange={onChange}
           {...restProps}
         />

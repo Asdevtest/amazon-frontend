@@ -15,6 +15,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   slide: {
+    display: 'none',
     height: 100,
     width: 100,
     borderRadius: 6,
@@ -27,6 +28,10 @@ export const useStyles = makeStyles()(() => ({
     '&:hover': {
       opacity: 0.8,
     },
+  },
+
+  showSlide: {
+    display: 'block',
   },
 
   image: {

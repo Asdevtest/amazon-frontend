@@ -179,11 +179,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
             switchMode={'header'}
             condition={role}
             switcherSettings={roles}
-            changeConditionHandler={value => {
-              if (typeof value === 'number') {
-                onChangeUserInfo(value)
-              }
-            }}
+            changeConditionHandler={onChangeUserInfo}
           />
         </div>
 

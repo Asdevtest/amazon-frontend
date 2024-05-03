@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 30,
+    gap: 20,
     padding: 10,
   },
 

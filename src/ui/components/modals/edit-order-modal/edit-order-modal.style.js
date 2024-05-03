@@ -22,18 +22,13 @@ export const useStyles = makeStyles()(theme => ({
   InfoWrapper: {
     width: '100%',
     display: 'flex',
+    justifyContent: 'space-between',
+    gap: '20px',
   },
 
   labelsInfoWrapper: {
     display: 'flex',
     gap: '27px',
-  },
-
-  fieldWrapper: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
   },
 
   stantartSelect: {
@@ -278,5 +273,9 @@ export const useStyles = makeStyles()(theme => ({
 
   productCell: {
     width: 225,
+  },
+
+  boxesWrapper: {
+    marginTop: 20,
   },
 }))

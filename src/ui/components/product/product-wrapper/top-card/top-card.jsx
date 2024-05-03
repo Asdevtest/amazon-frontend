@@ -50,8 +50,6 @@ export const TopCard = memo(
     onClickSetProductStatusBtn,
     handleProductActionButtons,
     onChangeImagesForLoad,
-    acceptMessage,
-    showAcceptMessage,
     showBindProductModal,
     productsToBind,
     onTriggerOpenModal,
@@ -71,7 +69,6 @@ export const TopCard = memo(
 
     const showActionBtns =
       (checkIsSupervisor(curUserRole) &&
-        productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
         productBase.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
         productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
       (checkIsSupervisor(curUserRole) &&
@@ -154,8 +151,6 @@ export const TopCard = memo(
               curUserRole={curUserRole}
               product={product}
               productBase={productBase}
-              acceptMessage={acceptMessage}
-              showAcceptMessage={showAcceptMessage}
               formFieldsValidationErrors={formFieldsValidationErrors}
               handleProductActionButtons={handleProductActionButtons}
               onClickSetProductStatusBtn={onClickSetProductStatusBtn}

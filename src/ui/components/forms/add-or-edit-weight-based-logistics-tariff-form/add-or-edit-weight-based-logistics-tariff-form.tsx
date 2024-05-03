@@ -106,8 +106,8 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate || 6.5,
       destinationVariations: tariffToEdit?.destinationVariations?.map(variation => ({
         ...variation,
-        pricePerKgUsd: toFixed(variation.pricePerKgUsd, 2),
-        pricePerKgRmb: toFixed(variation.pricePerKgRmb, 2),
+        pricePerKgUsd: variation.pricePerKgUsd,
+        pricePerKgRmb: variation.pricePerKgRmb,
       })) || [emptyDestinationVariation],
     }
 
@@ -165,7 +165,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         newFormFields.destinationVariations = newFormFields.destinationVariations.map(variant => ({
           ...variant,
           // pricePerKgUsd: '',
-          pricePerKgRmb: variant.pricePerKgUsd * Number(value),
+          pricePerKgRmb: Number(variant.pricePerKgUsd) * Number(value),
         }))
       } else {
         // @ts-ignore
@@ -182,13 +182,13 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
         if (fieldName === 'pricePerKgUsd') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = toFixed(value, 2)
-          updatedDestinationVariation.pricePerKgRmb = toFixed(value, 2) * Number(formFields.yuanToDollarRate)
+          updatedDestinationVariation[fieldName] = value as number
+          updatedDestinationVariation.pricePerKgRmb = Number(value) * Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else if (fieldName === 'pricePerKgRmb') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
-          updatedDestinationVariation[fieldName] = toFixed(value, 2)
-          updatedDestinationVariation.pricePerKgUsd = toFixed(value, 2) / Number(formFields.yuanToDollarRate)
+          updatedDestinationVariation[fieldName] = value as number
+          updatedDestinationVariation.pricePerKgUsd = Number(value) / Number(formFields.yuanToDollarRate)
           newDestinationVariations[index] = updatedDestinationVariation
         } else if (fieldName === 'destinationId') {
           const updatedDestinationVariation = { ...newDestinationVariations[index] }
@@ -390,11 +390,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     value: currencyTypes.YUAN,
                   },
                 ]}
-                changeConditionHandler={value => {
-                  if (typeof value === 'string') {
-                    setCurrentCurrency(value)
-                  }
-                }}
+                changeConditionHandler={setCurrentCurrency}
               />
             </div>
 
@@ -632,8 +628,10 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                           Number(variant.maxWeight) < Number(variant.minWeight),
                       })}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
-                          onChangeDestinationVariations('maxWeight')(variantIndex)(e.target.value)
+                        const input = e.target.value
+
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
+                          onChangeDestinationVariations('maxWeight')(variantIndex)(input)
                         }
                       }}
                     />
@@ -663,7 +661,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
 
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
                           // e.target.value = toFixed(e.target.value, 2)
                           onChangeDestinationVariations(
                             currentCurrency === currencyTypes.DOLLAR ? 'pricePerKgUsd' : 'pricePerKgRmb',

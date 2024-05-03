@@ -1,7 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  root: {
+  wrapper: {
     width: 920,
     padding: 10,
     display: 'flex',
@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
   },
 
-  filtersWrapper: {
+  flexContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -27,10 +27,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    height: 230,
+    height: 270,
   },
 
-  btnsWrapper: {
+  buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
   },

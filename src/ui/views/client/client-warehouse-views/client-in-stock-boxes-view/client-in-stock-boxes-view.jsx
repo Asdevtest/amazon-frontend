@@ -9,9 +9,7 @@ import { CheckPendingOrderForm } from '@components/forms/check-pending-order-for
 import { EditBoxForm } from '@components/forms/edit-box-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
-import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
 import { RequestToSendBatchForm } from '@components/forms/request-to-send-batch-form'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
@@ -21,8 +19,7 @@ import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal
 import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AlertShield } from '@components/shared/alert-shield'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -32,6 +29,7 @@ import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { useStyles } from './client-in-stock-boxes-view.style'
 
@@ -142,7 +140,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -200,7 +197,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
       >
         <GroupingBoxesForm
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={viewModel.boxesMy
@@ -277,7 +273,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
@@ -306,44 +301,17 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         />
       </Modal>
 
-      <Modal openModal={viewModel.showSelectionStorekeeperAndTariffModal} setOpenModal={viewModel.openModalAndClear}>
-        <SelectStorekeeperAndTariffForm
-          showCheckbox
-          RemoveDestinationRestriction={!viewModel.isCurrentTarrifsButton}
-          storekeepers={
-            viewModel.changeItem
-              ? viewModel.storekeepersData.filter(el => el._id === viewModel.changeItem?.storekeeper._id)
-              : viewModel.storekeepersData
-          }
-          curStorekeeperId={viewModel.changeItem?.storekeeper?._id}
-          curTariffId={viewModel.changeItem?.logicsTariff?._id}
-          destinationsData={viewModel.destinations}
-          inNotifications={!viewModel.changeItem}
-          total={!viewModel.changeItem}
-          currentDestinationId={viewModel.changeItem?.destination?._id}
-          currentVariationTariffId={viewModel.changeItem?.variationTariff?._id}
-          onSubmit={(
-            storekeeperId,
-            tariffId,
-            variationTariffId,
-            destinationId,
-            isSelectedDestinationNotValid,
-            isSetCurrentDestination,
-          ) =>
-            viewModel.editTariff(
-              viewModel.changeItem?._id,
-              {
-                logicsTariffId: tariffId,
-                storekeeperId,
-                variationTariffId,
-                destinationId,
-              },
-              isSelectedDestinationNotValid,
-              isSetCurrentDestination,
-            )
-          }
+      {viewModel.showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          tariffModalType={TariffModalType[viewModel.changeItem ? 'WAREHOUSE' : 'TARIFFS']}
+          isTariffsSelect={viewModel.changeItem}
+          isHideCalculation={!viewModel.changeItem}
+          openModal={viewModel.showSelectionStorekeeperAndTariffModal}
+          boxId={viewModel.changeItem?._id}
+          setOpenModal={viewModel.openModalAndClear}
+          onClickSubmit={viewModel.editTariff}
         />
-      </Modal>
+      ) : null}
 
       {viewModel.showProductModal ? (
         <ProductAndBatchModal
@@ -384,18 +352,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       ) : null}
 
       <Modal
-        openModal={viewModel.showProductLotDataModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
-      >
-        <ProductLotDataForm
-          isTransfer
-          userInfo={viewModel.userInfo}
-          product={[viewModel.selectedWarehouseOrderProduct]}
-          batchesData={viewModel.batchesData}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showCheckPendingOrderFormModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
       >
@@ -425,13 +381,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         />
       </Modal>
 
-      {viewModel.alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-        />
-      )}
-
       {viewModel.showSuccessInfoModal ? (
         <SuccessInfoModal
           // @ts-ignore
@@ -460,18 +409,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           }}
         />
       </Modal>
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
 
       <Modal
         openModal={viewModel.showEditPriorityData}

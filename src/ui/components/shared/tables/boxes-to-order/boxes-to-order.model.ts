@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { GridPaginationModel } from '@mui/x-data-grid'
 
@@ -8,22 +9,22 @@ import { BoxesModel } from '@models/boxes-model'
 import { ProductModel } from '@models/product-model'
 import { UserModel } from '@models/user-model'
 
-import { ApiV1BatchesBoxes } from '@services/rest-api-service/codegen'
-
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { isBuyer, isClient } from '@typings/guards/roles'
 import { IBox } from '@typings/models/boxes/box'
+import { IFullUser } from '@typings/shared/full-user'
 import { IHSCode } from '@typings/shared/hs-code'
-import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { ModalNames } from './boxes-to-order.type'
 
-interface IOrderBoxSupplemented extends ApiV1BatchesBoxes {
+interface IOrderBoxSupplemented extends IBox {
   asin: string
   amazonTitle: string
   boxProductPreview: UploadFileType
@@ -38,18 +39,11 @@ export class BoxesToOrderModel {
   boxes: IOrderBoxSupplemented[] = []
   currentBox: IBox | undefined = undefined
   hsCodeData: IHSCode | undefined = undefined
-  platformSettings: IPlatformSettings | undefined = undefined
-
+  uploadedFiles: UploadFileType[] = []
   showBoxModal = false
-  showWarningInfoModal = false
   showEditHSCodeModal = false
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
-
-  get userInfo() {
+  get userInfo(): IFullUser | undefined {
     return UserModel.userInfo
   }
 
@@ -75,7 +69,7 @@ export class BoxesToOrderModel {
 
       const response = await BoxesModel.getBoxesOfOrder(this.order?._id)
 
-      const transformedBoxes: IOrderBoxSupplemented[] = response
+      const transformedBoxes = response
         .map(box => ({
           ...box,
           asin: this.order?.product?.asin || '',
@@ -86,7 +80,7 @@ export class BoxesToOrderModel {
         .sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
 
       runInAction(() => {
-        this.boxes = transformedBoxes
+        this.boxes = transformedBoxes as unknown as IOrderBoxSupplemented[]
       })
 
       this.setRequestStatus(loadingStatus.SUCCESS)
@@ -120,21 +114,24 @@ export class BoxesToOrderModel {
 
   async onSubmitChangeBoxFields(box: IBox) {
     try {
+      // @ts-ignore
+      await onSubmitPostImages.call(this, { images: box.trackNumberFile, type: 'uploadedFiles' })
+
       await BoxesModel.editAdditionalInfo(box._id, {
-        clientComment: box.clientComment,
-        referenceId: box.referenceId,
-        fbaNumber: box.fbaNumber,
-        prepId: box.prepId,
+        ...(isClient(this.userInfo?.role) && {
+          clientComment: box.clientComment,
+          referenceId: box.referenceId,
+          fbaNumber: box.fbaNumber,
+          prepId: box.prepId,
+          storage: box.storage,
+        }),
+        ...(isBuyer(this.userInfo?.role) && {
+          trackNumberText: box.trackNumberText,
+          trackNumberFile: this.uploadedFiles,
+        }),
       })
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
-
-      this.onToggleModal(ModalNames.WARNING_INFO)
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       this.getBoxesOfOrder()
     } catch (error) {

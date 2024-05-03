@@ -1,22 +1,19 @@
 import { ChangeEvent, useMemo, useState } from 'react'
 
-import {
-  getConversion,
-  getWeightSizesType,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-} from '@constants/configs/sizes-settings'
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 import { PencilIcon } from '@components/shared/svg-icons'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { Dimensions } from '@typings/enums/dimensions'
+
+import { useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
 
 import { useStyles } from './supplier-info.style'
 
@@ -33,11 +30,15 @@ export const useSupplierInfo = ({
   const { classes: styles, cx } = useStyles()
 
   const [showSetBarCodeModal, setShowSetBarCodeModal] = useState(false)
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
+  const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+  const { length, width, height, weight, unitsSize } = useShowDimensions({
+    data: formFields.product,
+    sizeSetting,
+    defaultDimension: Dimensions.US,
+  })
 
   const handleToggleSetBarCodeModal = () => setShowSetBarCodeModal(!showSetBarCodeModal)
-
-  const onChangeField = (field: string) => (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeField = (field: string) => (event: ChangeEvent<HTMLInputElement>) => {
     const currentInputValue = event.target.value
 
     if (!checkIsPositiveNummberAndNoMoreNCharactersAfterDot(currentInputValue, 0)) {
@@ -46,14 +47,10 @@ export const useSupplierInfo = ({
 
     setFormFields(prevFormFields => ({ ...prevFormFields, [field]: parseInt(currentInputValue) }))
   }
-
-  const onChangeBarCode = (field: string) => (files: string[]) => {
+  const handleChangeBarCode = (field: string) => (files: string[]) => {
     setFormFields(prevFormFields => ({ ...prevFormFields, [field]: files }))
   }
 
-  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
-  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
-  const weightSizesType = getWeightSizesType(sizeSetting)
   const purchasePrice = useMemo(
     () =>
       formFields?.totalPrice && formFields?.amount
@@ -73,7 +70,7 @@ export const useSupplierInfo = ({
           value={formFields?.amount || 0}
           disabled={!isOrderEditable}
           className={styles.inputAmount}
-          onChange={onChangeField('amount')}
+          onChange={handleChangeField('amount')}
         />
       ),
     },
@@ -127,15 +124,7 @@ export const useSupplierInfo = ({
       text: undefined,
       element: (
         <div className={styles.switcher}>
-          <CustomSwitcher
-            switchMode="small"
-            condition={sizeSetting}
-            switcherSettings={[
-              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-            ]}
-            changeConditionHandler={condition => setSizeSetting(condition as string)} // (as string) - CustomSwitcher types bug
-          />
+          <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
         </div>
       ),
     },
@@ -143,21 +132,13 @@ export const useSupplierInfo = ({
       title: t(TranslationKey.Dimensions),
       text:
         formFields?.product?.width && formFields?.product?.height && formFields?.product?.length
-          ? `${
-              toFixed(formFields?.product?.width / lengthConversion, 2) +
-              ' x ' +
-              toFixed(formFields?.product?.height / lengthConversion, 2) +
-              ' x ' +
-              toFixed(formFields?.product?.length / lengthConversion, 2)
-            }`
+          ? `${width} x ${height} x ${length}`
           : t(TranslationKey['No data']),
       element: undefined,
     },
     {
       title: t(TranslationKey.Weight),
-      text: formFields?.product?.weight
-        ? `${toFixed(formFields?.product?.weight / weightConversion, 2)} ${weightSizesType}`
-        : t(TranslationKey['No data']),
+      text: formFields?.product?.weight ? `${weight} ${unitsSize}` : t(TranslationKey['No data']),
       element: undefined,
     },
   ]
@@ -166,6 +147,6 @@ export const useSupplierInfo = ({
     supplierInfoFieldsConfig,
     showSetBarCodeModal,
     onToggleSetBarCodeModal: handleToggleSetBarCodeModal,
-    onChangeBarCode,
+    onChangeBarCode: handleChangeBarCode,
   }
 }

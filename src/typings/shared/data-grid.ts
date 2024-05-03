@@ -1,3 +1,5 @@
+import { IFullUser } from './full-user'
+
 export interface ISortModel {
   field: string
   sort: string
@@ -14,6 +16,7 @@ export interface IPaginationModel {
 
 export type RowHandlers = {
   navigateToHandler: (type: string, value: string) => void
+  userInfo: () => IFullUser | undefined
 }
 
 export interface IListOfModals {

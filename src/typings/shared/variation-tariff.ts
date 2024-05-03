@@ -6,6 +6,7 @@ export interface IVariationTariff {
   pricePerKgRmb: number
   pricePerKgUsd: number
   destinationId: string
+  storekeeperTariffLogisticsId: string
 }
 
 export interface ITariffsWithCalculations {

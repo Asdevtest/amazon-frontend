@@ -1,23 +1,15 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  smallRowImgWrapper: {
-    display: 'flex',
-    alignItems: 'center',
+  wrapper: {
+    padding: '10px 0',
   },
 
   img: {
-    height: '58px',
-    width: '58px',
-    marginRight: '16px',
+    height: 40,
+    width: 40,
     objectFit: 'contain',
     objectPosition: 'center',
-    borderRadius: '4px',
-    border: `1px solid #E0E0E0`,
-  },
-
-  preloaderIcon: {
-    width: '18px !important',
-    height: '18px !important',
+    borderRadius: 4,
   },
 }))

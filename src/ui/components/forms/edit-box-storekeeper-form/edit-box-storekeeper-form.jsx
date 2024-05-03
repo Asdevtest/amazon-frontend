@@ -1,9 +1,8 @@
 import isEqual from 'lodash.isequal'
-import { memo, useEffect, useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsWeightCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,41 +11,40 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
+import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { Dimensions } from '@typings/enums/dimensions'
+import { TariffModalType } from '@typings/shared/tariff-modal'
+
+import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './edit-box-storekeeper-form.style'
-
-import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
 
 export const EditBoxStorekeeperForm = memo(
   ({
     formItem,
     onSubmit,
     onTriggerOpenModal,
-    volumeWeightCoefficient,
     destinations,
     storekeepers,
-
     destinationsFavourites,
     setDestinationsFavouritesItem,
     onClickHsCode,
@@ -56,8 +54,6 @@ export const EditBoxStorekeeperForm = memo(
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-    const [showConfirmModal, setShowConfirmModal] = useState(false)
-    const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
     const [showSetFilesModal, setShowSetFilesModal] = useState(false)
     const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
 
@@ -137,8 +133,6 @@ export const EditBoxStorekeeperForm = memo(
       widthCmWarehouse: formItem?.widthCmWarehouse || 0,
       heightCmWarehouse: formItem?.heightCmWarehouse || 0,
       weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
-      volumeWeightKgWarehouse: formItem ? calcVolumeWeightForBox(formItem, volumeWeightCoefficient) : 0,
-      weightFinalAccountingKgWarehouse: formItem ? calcFinalWeightForBox(formItem, volumeWeightCoefficient) : 0,
 
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
@@ -158,20 +152,31 @@ export const EditBoxStorekeeperForm = memo(
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
-    const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
+    const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+    const { dimensions, onChangeDimensions } = useChangeDimensions({
+      data: boxFields,
+      sizeSetting,
+    })
 
-    useEffect(() => {
-      setDestinationId(boxFields?.destinationId)
-    }, [boxFields?.destinationId])
+    const {
+      destinationId,
+      onSubmitSelectStorekeeperAndTariff,
+
+      showConfirmModal,
+      setShowConfirmModal,
+
+      confirmModalSettings,
+
+      handleSetDestination,
+      handleResetDestination,
+
+      showSelectionStorekeeperAndTariffModal,
+      setShowSelectionStorekeeperAndTariffModal,
+    } = useTariffVariation(boxFields.destinationId, setBoxFields)
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
       const currentValue = e.target.value
-      if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-        if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
-          return
-        }
-      }
       newFormFields[fieldName] = currentValue
       setBoxFields(newFormFields)
     }
@@ -217,24 +222,6 @@ export const EditBoxStorekeeperForm = memo(
       setBoxFields(newFormFields)
     }
 
-    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-    const handleChange = newAlignment => {
-      if (newAlignment !== sizeSetting) {
-        const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
-
-        setBoxFields({
-          ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / multiplier, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / multiplier, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / multiplier, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / multiplier, 2),
-        })
-
-        setSizeSetting(newAlignment)
-      }
-    }
-
     const handleChangeImages = files =>
       setBoxFields({
         ...boxFields,
@@ -242,64 +229,15 @@ export const EditBoxStorekeeperForm = memo(
       })
 
     const getBoxDataToSubmit = () => {
-      if (sizeSetting === unitsOfChangeOptions.US) {
-        return {
-          ...boxFields,
-          destinationId: boxFields.destinationId || null,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
-        }
-      } else {
-        return { ...boxFields, destinationId: boxFields.destinationId || null }
-      }
-    }
+      setSizeSetting(Dimensions.EU)
 
-    const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
-    const onSubmitSelectStorekeeperAndTariff = (
-      storekeeperId,
-      tariffId,
-      variationTariffId,
-      destinationId,
-      isSelectedDestinationNotValid,
-    ) => {
-      if (isSelectedDestinationNotValid) {
-        setConfirmModalSettings({
-          isWarning: false,
-          title: t(TranslationKey.Attention),
-          confirmMessage: t(TranslationKey['Wish to change a destination?']),
-
-          onClickConfirm: () => {
-            setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
-            setDestinationId(destinationId)
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-          },
-
-          onClickCancelBtn: () => {
-            setBoxFields({
-              ...boxFields,
-              storekeeperId,
-              logicsTariffId: tariffId,
-              variationTariffId,
-              destinationId: null,
-            })
-            setDestinationId(null)
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-          },
-        })
-
-        setShowConfirmModal(true)
-      } else {
-        setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
-        setDestinationId(destinationId)
-
-        setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+      return {
+        ...boxFields,
+        destinationId: boxFields.destinationId || null,
+        lengthCmWarehouse: Number(dimensions.length),
+        widthCmWarehouse: Number(dimensions.width),
+        heightCmWarehouse: Number(dimensions.height),
+        weighGrossKgWarehouse: Number(dimensions.weight),
       }
     }
 
@@ -333,7 +271,6 @@ export const EditBoxStorekeeperForm = memo(
       setBarcodeModalSetting({
         title: '',
         maxNumber: 1,
-
         tmpCode: item?.tmpBarCode,
         item,
         onClickSaveBarcode: data => onClickSaveBarcode(item)(data),
@@ -344,9 +281,9 @@ export const EditBoxStorekeeperForm = memo(
     const disableSubmit =
       isEqual(boxInitialState, boxFields) ||
       boxFields.storekeeperId === '' ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.length)) ||
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.width)) ||
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.height))
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
@@ -622,8 +559,8 @@ export const EditBoxStorekeeperForm = memo(
                               : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
                           }
                           searchFields={['name']}
-                          onClickNotChosen={() => setBoxFields({ ...boxFields, destinationId: null })}
-                          onClickSelect={el => setBoxFields({ ...boxFields, destinationId: el._id })}
+                          onClickNotChosen={handleResetDestination}
+                          onClickSelect={el => handleSetDestination(el._id)}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                         />
                       }
@@ -789,23 +726,13 @@ export const EditBoxStorekeeperForm = memo(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <div>
-                    <CustomSwitcher
-                      condition={sizeSetting}
-                      switcherSettings={[
-                        { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                        { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                      ]}
-                      changeConditionHandler={condition => handleChange(condition)}
-                    />
-                  </div>
+                  <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
                 </div>
 
-                <WarehouseDemensions
-                  orderBox={boxFields}
+                <WarehouseDimensions
+                  dimensions={dimensions}
                   sizeSetting={sizeSetting}
-                  volumeWeightCoefficient={volumeWeightCoefficient}
-                  setFormField={setFormField}
+                  onChangeDimensions={onChangeDimensions}
                 />
 
                 <div className={styles.imageFileInputWrapper}>
@@ -900,21 +827,16 @@ export const EditBoxStorekeeperForm = memo(
           />
         </Modal>
 
-        <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-        >
-          <SelectStorekeeperAndTariffForm
-            showCheckbox
-            RemoveDestinationRestriction
-            storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
-            curStorekeeperId={boxFields.storekeeperId}
-            curTariffId={boxFields.logicsTariffId}
-            currentDestinationId={boxFields?.destinationId}
-            currentVariationTariffId={boxFields?.variationTariffId}
-            onSubmit={onSubmitSelectStorekeeperAndTariff}
+        {showSelectionStorekeeperAndTariffModal ? (
+          <SupplierApproximateCalculationsModal
+            isTariffsSelect
+            tariffModalType={TariffModalType.WAREHOUSE}
+            openModal={showSelectionStorekeeperAndTariffModal}
+            setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+            box={boxFields}
+            onClickSubmit={onSubmitSelectStorekeeperAndTariff}
           />
-        </Modal>
+        ) : null}
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal

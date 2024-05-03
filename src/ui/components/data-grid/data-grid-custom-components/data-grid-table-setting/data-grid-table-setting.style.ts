@@ -1,15 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  parametersButton: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '10px',
-  },
-
   parametersButtonTitle: {
-    fontSize: '16px',
+    fontSize: '14px',
     fontWeight: 600,
   },
 
