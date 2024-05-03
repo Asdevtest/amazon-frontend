@@ -16,7 +16,7 @@ import { searchFields } from './product-data-form.constants'
 
 export class ProductDataFormModel extends DataGridFilterTableModel {
   batch?: IBatch = undefined
-  archive = false
+  batchArchive = false
   showBatchInfoModal = false
 
   get rows() {
@@ -31,21 +31,21 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
     const defaultGetDataMethodOptions = () => ({
       guid: product._id,
       onAmazon,
-      archive: this.archive,
+      batchArchive: this.batchArchive,
     })
 
     super({
       getMainDataMethod: isBatches ? BatchesModel.getBatchesbyProduct : BoxesModel.getProductInBatch,
       columnsModel: columns,
-      filtersFields: getFilterFields(columns, ['archive']),
+      filtersFields: getFilterFields(columns, ['batchArchive']),
       mainMethodURL: isBatches
         ? `batches/by_product/${product._id}?`
         : `boxes/clients/product_in_batch/${product._id}?onAmazon=${onAmazon}&`,
       fieldsForSearch: searchFields,
       defaultGetDataMethodOptions,
     })
-
-    this.onChangeFullFieldMenuItem([false], 'archive')
+    this.sortModel = [{ field: 'humanFriendlyId', sort: 'desc' }]
+    this.onChangeFullFieldMenuItem([false], 'batchArchive')
     this.getMainTableData()
 
     makeObservable(this, productDataFormConfig)
@@ -64,8 +64,8 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
   }
 
   onToggleArchive() {
-    this.archive = !this.archive
-    this.onChangeFullFieldMenuItem([this.archive], 'archive')
+    this.batchArchive = !this.batchArchive
+    this.onChangeFullFieldMenuItem([this.batchArchive], 'batchArchive')
     this.getMainTableData()
   }
 }

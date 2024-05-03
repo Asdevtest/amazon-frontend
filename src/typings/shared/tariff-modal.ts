@@ -1,5 +1,5 @@
 export enum TariffModalType {
-  ORDER = 'Choice storekeeper',
-  WAREHOUSE = 'Choice tariff',
+  ORDER = 'Storekeeper selection',
+  WAREHOUSE = 'Tariff selection',
   TARIFFS = 'Current tariffs',
 }

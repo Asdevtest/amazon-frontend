@@ -560,7 +560,7 @@ export const EditBoxStorekeeperForm = memo(
                           }
                           searchFields={['name']}
                           onClickNotChosen={handleResetDestination}
-                          onClickSelect={handleSetDestination}
+                          onClickSelect={el => handleSetDestination(el._id)}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                         />
                       }

@@ -90,7 +90,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showCircularProgressModal = false
   showAddSuppliersModal = false
   showSetStockUsValueModal = false
-  showProductLotDataModal = false
+  showProductDataModal = false
   showGetFilesModal = false
   showEditHSCodeModal = false
   productCardModal = false
@@ -1220,7 +1220,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.isBatches = false
     })
 
-    this.onTriggerOpenModal('showProductLotDataModal')
+    this.onTriggerOpenModal('showProductDataModal')
   }
 
   onClickProducDataButton() {
@@ -1228,7 +1228,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     this.isBatches = true
     this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product._id))?.[0]
 
-    this.onTriggerOpenModal('showProductLotDataModal')
+    this.onTriggerOpenModal('showProductDataModal')
   }
 
   async onSubmitCalculateSeekSupplier(clientComment) {
