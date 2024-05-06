@@ -1,1 +1,1 @@
-export const searchFields: string[] = ['humanFriendlyId', 'fbaShipment']
+export const searchFields: string[] = ['batchHumanFriendlyId', 'fbaShipment']
