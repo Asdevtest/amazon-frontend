@@ -31,7 +31,7 @@ import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
-import { TariffModalType } from '@typings/shared/tariff-modal'
+import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -113,8 +113,9 @@ export const EditBoxForm = memo(
     const [boxFields, setBoxFields] = useState(boxInitialState)
 
     const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-    const { dimensions, onChangeDimensions } = useChangeDimensions({
+    const { onChangeDimensions } = useChangeDimensions({
       data: boxFields,
+      setData: setBoxFields,
       sizeSetting,
     })
 
@@ -185,11 +186,20 @@ export const EditBoxForm = memo(
       setBoxFields(newFormFields)
     }
 
+    const getBoxDataToSubmit = () => {
+      setSizeSetting(Dimensions.EU)
+
+      return {
+        ...boxFields,
+        destinationId: boxFields.destinationId || null,
+      }
+    }
+
     const disableSubmit =
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
       requestStatus === loadingStatus.IS_LOADING ||
-      boxFields.storekeeperId === '' ||
-      boxFields.logicsTariffId === '' ||
+      !boxFields.storekeeperId ||
+      !boxFields.logicsTariffId ||
       ((boxFields.shippingLabel || boxFields.tmpShippingLabel.length) &&
         !boxFields.fbaShipment &&
         !destinations.find(el => el._id === boxFields.destinationId)?.storekeeper) ||
@@ -608,7 +618,7 @@ export const EditBoxForm = memo(
 
                 <WarehouseDimensions
                   disabled
-                  dimensions={dimensions}
+                  dimensions={boxFields}
                   sizeSetting={sizeSetting}
                   onChangeDimensions={onChangeDimensions}
                 />
@@ -677,16 +687,7 @@ export const EditBoxForm = memo(
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
             onClick={() => {
-              onSubmit(
-                formItem?._id,
-                {
-                  ...boxFields,
-                  destinationId: boxFields.destinationId || null,
-                },
-                formItem,
-                priority,
-                priorityReason,
-              )
+              onSubmit(formItem?._id, getBoxDataToSubmit(), formItem, priority, priorityReason)
             }}
           >
             {t(TranslationKey.Save)}
@@ -715,7 +716,7 @@ export const EditBoxForm = memo(
         {showSelectionStorekeeperAndTariffModal ? (
           <SupplierApproximateCalculationsModal
             isTariffsSelect
-            tariffModalType={TariffModalType.WAREHOUSE}
+            tariffModalType={TariffModal.WAREHOUSE}
             openModal={showSelectionStorekeeperAndTariffModal}
             setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
             box={boxFields}

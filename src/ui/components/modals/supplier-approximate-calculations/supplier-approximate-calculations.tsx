@@ -16,8 +16,8 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { TariffModal } from '@typings/enums/tariff-modal'
 import { IBox } from '@typings/models/boxes/box'
-import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { INewDataOfVariation } from '@hooks/use-tariff-variation'
 
@@ -29,7 +29,7 @@ import { SupplierApproximateCalculationsModel } from './supplier-approximate-cal
 
 interface SupplierApproximateCalculationsModalProps {
   openModal: boolean
-  tariffModalType?: TariffModalType
+  tariffModalType?: TariffModal
   currentSupplierId?: string
   productId?: string
   setOpenModal: (value: boolean) => void
@@ -90,6 +90,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
           <p className={styles.title}>{getTitleModal(tariffModalType)}</p>
 
           <SearchInput
+            inputClasses={styles.searchInput}
             placeholder={`${t(TranslationKey['Search by'])}: ${t(TranslationKey.Tariff)}, ${t(
               TranslationKey.Destination,
             )}`}

@@ -13,10 +13,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-
-    '> div': {
-      width: '350px',
-    },
   },
 
   productsWrapper: {
@@ -33,6 +29,10 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     fontWeight: 600,
     color: theme.palette.text.general,
+  },
+
+  searchInput: {
+    width: 400,
   },
 
   tableWrapper: {

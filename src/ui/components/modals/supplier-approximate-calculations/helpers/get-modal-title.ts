@@ -2,9 +2,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { TariffModalType } from '@typings/shared/tariff-modal'
+import { TariffModal } from '@typings/enums/tariff-modal'
 
-export const getTitleModal = (modalType?: TariffModalType) => {
+export const getTitleModal = (modalType?: TariffModal) => {
   let title = 'Approximate calculation'
 
   if (modalType) {
