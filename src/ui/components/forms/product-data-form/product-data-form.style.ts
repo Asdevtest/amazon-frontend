@@ -17,6 +17,7 @@ export const useStyles = makeStyles()(() => ({
 
   searchInput: {
     height: 32,
+    width: 360,
   },
 
   flexContainer: {

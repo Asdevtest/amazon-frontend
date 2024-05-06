@@ -68,4 +68,10 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
     this.onChangeFullFieldMenuItem([this.batchArchive], 'batchArchive')
     this.getMainTableData()
   }
+
+  async patchActualShippingCostBatch(id: string, cost: number) {
+    await BatchesModel.changeBatch(id, {
+      actualShippingCost: cost || '0',
+    })
+  }
 }

@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@mui/icons-material/Edit'
 import { TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,11 +9,13 @@ import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { SizeSwitcher } from '@components/shared/size-switcher'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 
 import { Entities, useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
@@ -162,11 +162,13 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
         <div className={styles.buttonCell}>
           <Button
             iconButton
+            styleType={ButtonStyle.DANGER}
             tooltipInfoContent={t(TranslationKey['Remove box'])}
             onClick={() => handlers.onRemoveBox(itemIndex)}
           >
-            <DeleteIcon />
+            <CrossIcon />
           </Button>
+
           <Button iconButton onClick={() => handlers.onEditBox()}>
             <EditIcon />
           </Button>

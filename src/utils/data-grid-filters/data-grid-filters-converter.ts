@@ -14,10 +14,10 @@ type FilterList = {
 }
 
 const onlyDigitsRegex = /^\d+$/
-const onlyNumberColumns = ['humanFriendlyId', 'id', 'orderHumanFriendlyId']
+const onlyNumberColumns = ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'batchHumanFriendlyId']
 
 const searchOperatorByColumn = {
-  $eq: ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'orderHumanFriendlyId', 'productId'],
+  $eq: ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'orderHumanFriendlyId', 'productId', 'batchHumanFriendlyId'],
 }
 const filterOperatorByColumn = {
   $any: ['tags', 'redFlags'],
