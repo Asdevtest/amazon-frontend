@@ -119,6 +119,7 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, is
           openModal={viewModel.showBatchInfoModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBatchInfoModal')}
           batch={viewModel.batch}
+          patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
         />
       ) : null}
     </div>
