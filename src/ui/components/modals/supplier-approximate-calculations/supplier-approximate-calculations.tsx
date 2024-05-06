@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
-import { GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid-premium'
+import { GridCellParams, GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -75,6 +75,8 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
   const getRowClassName = (params: GridRowClassNameParams) =>
     viewModel.currentLogicsTariffId === params?.id ? styles.activeRow : ''
 
+  const getCellClassName = (params: GridCellParams) => (params?.field === 'deliveryTimeInDay' ? styles.borderCell : '')
+
   const isDisableButton =
     !viewModel?.currentVariationId ||
     (viewModel.currentDestinationId !== viewModel.initialDestinationId &&
@@ -135,6 +137,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
             getRowHeight={() => 'auto'}
             getRowId={({ _id }: GridRowModel) => _id}
             getRowClassName={getRowClassName}
+            getCellClassName={getCellClassName}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

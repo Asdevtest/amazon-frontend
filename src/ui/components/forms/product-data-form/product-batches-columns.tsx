@@ -30,6 +30,9 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     table: DataGridFilterTables.BATCHES,
     columnKey: columnnsKeys.shared.QUANTITY,
     width: 100,
+    disableColumnMenu: true,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -40,6 +43,9 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     table: DataGridFilterTables.BATCHES,
     columnKey: columnnsKeys.shared.STRING,
     width: 110,
+    disableColumnMenu: true,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -52,6 +58,9 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     table: DataGridFilterTables.BATCHES,
     columnKey: columnnsKeys.shared.QUANTITY,
     width: 110,
+    disableColumnMenu: true,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -74,6 +83,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.storekeeper?.name || '-'} />,
     table: DataGridFilterTables.BOXES,
     columnKey: columnnsKeys.shared.OBJECT,
+    disableColumnMenu: true,
+    filterable: false,
     sortable: false,
     width: 180,
   },
@@ -86,6 +97,9 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     table: DataGridFilterTables.BOXES,
     columnKey: columnnsKeys.shared.OBJECT,
     width: 150,
+    disableColumnMenu: true,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -98,6 +112,9 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     table: DataGridFilterTables.BOXES,
     columnKey: columnnsKeys.shared.STRING,
     width: 165,
+    disableColumnMenu: true,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -110,6 +127,9 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     table: DataGridFilterTables.BOXES,
     columnKey: columnnsKeys.shared.DATE,
     width: 110,
+    disableColumnMenu: true,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -122,6 +142,9 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     table: DataGridFilterTables.BOXES,
     columnKey: columnnsKeys.shared.DATE,
     width: 110,
+    disableColumnMenu: true,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -134,6 +157,9 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     table: DataGridFilterTables.BOXES,
     columnKey: columnnsKeys.shared.DATE,
     width: 110,
+    disableColumnMenu: true,
+    filterable: false,
+    sortable: false,
   },
 
   {

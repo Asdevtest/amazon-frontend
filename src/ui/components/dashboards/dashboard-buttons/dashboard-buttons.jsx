@@ -48,7 +48,7 @@ export const DashboardButtons = ({ user, routes }) => {
         <div className={styles.iconWrapper}>
           <Message classes={{ root: styles.fontSizeLarge }} fontSize="large" />
 
-          {unreadMessages ? <div className={styles.badge}>{unreadMessages}</div> : null}
+          {Number(unreadMessages) > 0 ? <div className={styles.badge}>{unreadMessages}</div> : null}
         </div>
 
         <Typography className={styles.title}>{t(TranslationKey.Messages)}</Typography>

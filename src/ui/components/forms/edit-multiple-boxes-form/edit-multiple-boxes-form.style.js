@@ -11,15 +11,14 @@ export const useStyles = makeStyles()(theme => ({
   boxesWrapper: {
     display: 'flex',
     gap: '40px',
-
     flexGrow: 1,
   },
+
   buttonsWrapper: {
     marginTop: 20,
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
-
     position: 'sticky',
     bottom: 0,
     right: 0,
@@ -44,6 +43,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     marginBottom: '40px',
   },
+
   modalTitle: {
     fontSize: '30px',
     lineHeight: '40px',

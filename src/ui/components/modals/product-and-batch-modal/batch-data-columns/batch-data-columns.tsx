@@ -33,7 +33,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
       <MultilineTextHeaderCell text={t(TranslationKey['Quantity of the selected item in the batch'])} />
     ),
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row.amountInBatch} />,
-    width: 170,
+    width: 165,
   },
 
   {
@@ -41,7 +41,7 @@ export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => 
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.boxes?.[0]?.destination?.name} />,
-    width: 150,
+    width: 145,
   },
 
   {

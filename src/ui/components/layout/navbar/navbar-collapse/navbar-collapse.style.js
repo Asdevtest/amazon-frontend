@@ -56,6 +56,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   redBadge: {
+    borderRadius: '22px',
+    padding: '1px 6px',
     background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
   },
 
