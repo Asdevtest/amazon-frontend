@@ -91,7 +91,7 @@ export const AddOrEditGroupPermissionForm = observer(
     }
 
     const renderPermissionInfo = perm => (
-      <div>
+      <div className={styles.permissionInfoWrapper}>
         <Typography>{t(TranslationKey.Key) + ':'}</Typography>
         <Typography>{perm.key}</Typography>
 
@@ -139,13 +139,14 @@ export const AddOrEditGroupPermissionForm = observer(
 
     return (
       <div className={styles.root}>
-        <Typography variant="h5" className={styles.mainTitle}>
+        <p className={styles.mainTitle}>
           {isEdit ? t(TranslationKey['Change permissions group']) : t(TranslationKey['New Permission Group'])}
-        </Typography>
+        </p>
 
         <div className={styles.form}>
           <Field
             label={t(TranslationKey.Role)}
+            labelClasses={styles.fieldLabel}
             error={
               isWrongPermissionsSelect &&
               t(TranslationKey['The selected permissions and the current role do not match!'])
@@ -171,6 +172,7 @@ export const AddOrEditGroupPermissionForm = observer(
           <Field
             disabled={isEdit}
             label={t(TranslationKey.Key)}
+            labelClasses={styles.fieldLabel}
             value={formFields.key}
             placeholder={`${t(TranslationKey.Key)}_${t(TranslationKey.Key)}_${t(TranslationKey.Key)}...`}
             error={
@@ -185,6 +187,7 @@ export const AddOrEditGroupPermissionForm = observer(
           <Field
             label={t(TranslationKey.Title)}
             value={formFields.title}
+            labelClasses={styles.fieldLabel}
             placeholder={t(TranslationKey['Group №1'])}
             onChange={onChangeField('title')}
           />
@@ -193,6 +196,7 @@ export const AddOrEditGroupPermissionForm = observer(
             multiline
             minRows={4}
             maxRows={4}
+            labelClasses={styles.fieldLabel}
             className={styles.descriptionField}
             label={t(TranslationKey.Description)}
             placeholder={t(TranslationKey.Description) + '...'}
@@ -202,6 +206,7 @@ export const AddOrEditGroupPermissionForm = observer(
 
           <Field
             label={t(TranslationKey.Position)}
+            labelClasses={styles.fieldLabel}
             placeholder={t(TranslationKey['Priority number'])}
             value={formFields.hierarchy}
             onChange={onChangeField('hierarchy')}
@@ -209,6 +214,7 @@ export const AddOrEditGroupPermissionForm = observer(
 
           <Field
             containerClasses={styles.field}
+            labelClasses={styles.fieldLabel}
             label={t(TranslationKey.Permissions)}
             error={
               isWrongPermissionsSelect &&
