@@ -59,7 +59,6 @@ export const useChangeDimensions = ({ data, setData, sizeSetting = Dimensions.EU
   useEffect(() => {
     if (sizeSetting === Dimensions.US) {
       setData(prev => {
-        // use "US" dimensions for viewing (work with "EU" sizes).
         const returnEuDimensions =
           prev.lengthCmWarehouse *
           INCHES_COEFFICIENT *
