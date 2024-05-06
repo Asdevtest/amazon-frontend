@@ -1,80 +1,56 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import { UserModel } from '@models/user-model'
 
 import { toFixed } from '@utils/text'
 
 import { Dimensions } from '@typings/enums/dimensions'
+import { IBox } from '@typings/models/boxes/box'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 export const INCHES_COEFFICIENT = 2.54
 export const POUNDS_COEFFICIENT = 0.4536
 export const DEFAULT_VOLUME_WEIGHT_COEFFICIENT = 6000
 
-export interface IFormattedDimensions {
-  length: string
-  width: string
-  height: string
-  weight: string
-  volumeWeight: number
-  finalWeight: number
-}
-
-export interface IDimensions {
-  lengthCmWarehouse: number
-  widthCmWarehouse: number
-  heightCmWarehouse: number
-  weighGrossKgWarehouse: number
+export interface IDimensions extends IBox {
+  volumeWeight?: number
+  finalWeight?: number
 }
 
 interface IUseDimension {
   data: IDimensions
+  setData: Dispatch<SetStateAction<IDimensions>>
   sizeSetting: Dimensions
 }
 
-export const useChangeDimensions = ({ data, sizeSetting = Dimensions.EU }: IUseDimension) => {
-  const [dimensions, setDimensions] = useState({
-    length: '',
-    width: '',
-    height: '',
-    weight: '',
-    volumeWeight: 0,
-    finalWeight: 0,
-  })
+export const useChangeDimensions = ({ data, setData, sizeSetting = Dimensions.EU }: IUseDimension) => {
   const [isInitState, setIsInitState] = useState(true)
+
+  useEffect(() => {
+    setIsInitState(false)
+  }, [])
 
   const volumeWeightCoefficient =
     (UserModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient ||
     DEFAULT_VOLUME_WEIGHT_COEFFICIENT
 
   useEffect(() => {
-    setDimensions(prev => ({
-      ...prev,
-      length: String(data.lengthCmWarehouse),
-      width: String(data.widthCmWarehouse),
-      height: String(data.heightCmWarehouse),
-      weight: String(data.weighGrossKgWarehouse),
-    }))
-    setIsInitState(false)
-  }, [])
-
-  useEffect(() => {
     if (!isInitState) {
       if (sizeSetting === Dimensions.US) {
-        setDimensions(prev => ({
+        setData(prev => ({
           ...prev,
-          length: String(toFixed(Number(prev.length) / INCHES_COEFFICIENT)),
-          width: String(toFixed(Number(prev.width) / INCHES_COEFFICIENT)),
-          height: String(toFixed(Number(prev.height) / INCHES_COEFFICIENT)),
-          weight: String(toFixed(Number(prev.weight) / POUNDS_COEFFICIENT)),
+          lengthCmWarehouse: Number(toFixed(prev.lengthCmWarehouse / INCHES_COEFFICIENT)),
+          widthCmWarehouse: Number(toFixed(prev.widthCmWarehouse / INCHES_COEFFICIENT)),
+          heightCmWarehouse: Number(toFixed(prev.heightCmWarehouse / INCHES_COEFFICIENT)),
+          weighGrossKgWarehouse: Number(toFixed(prev.weighGrossKgWarehouse / POUNDS_COEFFICIENT)),
         }))
       } else {
-        setDimensions(prev => ({
+        setData(prev => ({
           ...prev,
-          length: String(toFixed(Number(prev.length) * INCHES_COEFFICIENT)),
-          width: String(toFixed(Number(prev.width) * INCHES_COEFFICIENT)),
-          height: String(toFixed(Number(prev.height) * INCHES_COEFFICIENT)),
-          weight: String(toFixed(Number(prev.weight) * POUNDS_COEFFICIENT)),
+          lengthCmWarehouse: Number(toFixed(prev.lengthCmWarehouse * INCHES_COEFFICIENT)),
+          widthCmWarehouse: Number(toFixed(prev.widthCmWarehouse * INCHES_COEFFICIENT)),
+          heightCmWarehouse: Number(toFixed(prev.heightCmWarehouse * INCHES_COEFFICIENT)),
+          weighGrossKgWarehouse: Number(toFixed(prev.weighGrossKgWarehouse * POUNDS_COEFFICIENT)),
         }))
       }
     }
@@ -82,48 +58,48 @@ export const useChangeDimensions = ({ data, sizeSetting = Dimensions.EU }: IUseD
 
   useEffect(() => {
     if (sizeSetting === Dimensions.US) {
-      setDimensions(prev => {
+      setData(prev => {
         // use "US" dimensions for viewing (work with "EU" sizes).
         const returnEuDimensions =
-          Number(prev.length) *
+          prev.lengthCmWarehouse *
           INCHES_COEFFICIENT *
-          Number(prev.width) *
+          prev.widthCmWarehouse *
           INCHES_COEFFICIENT *
-          Number(prev.height) *
+          prev.heightCmWarehouse *
           INCHES_COEFFICIENT
 
         return {
           ...prev,
-          volumeWeight: toFixed(returnEuDimensions / volumeWeightCoefficient / POUNDS_COEFFICIENT),
+          volumeWeight: Number(toFixed(returnEuDimensions / volumeWeightCoefficient / POUNDS_COEFFICIENT)),
         }
       })
     } else {
-      setDimensions(prev => ({
+      setData(prev => ({
         ...prev,
-        volumeWeight: toFixed(
-          (Number(prev.length) * Number(prev.width) * Number(prev.height)) / volumeWeightCoefficient,
+        volumeWeight: Number(
+          toFixed((prev.lengthCmWarehouse * prev.widthCmWarehouse * prev.heightCmWarehouse) / volumeWeightCoefficient),
         ),
       }))
     }
-  }, [dimensions.length, dimensions.width, dimensions.height])
+  }, [data.lengthCmWarehouse, data.widthCmWarehouse, data.heightCmWarehouse])
 
   useEffect(() => {
-    setDimensions(prev => ({
+    setData(prev => ({
       ...prev,
-      finalWeight: toFixed(Math.max(Number(prev.weight), Number(prev.volumeWeight))),
+      finalWeight: Number(toFixed(Math.max(prev.weighGrossKgWarehouse, Number(prev.volumeWeight)))),
     }))
-  }, [dimensions.volumeWeight, dimensions.weight])
+  }, [data.volumeWeight, data.weighGrossKgWarehouse])
 
   const handleChangeDimensions = (fieldName: string) => (e: ChangeEvent<HTMLInputElement>) => {
-    if (!/^\d*\.?\d{0,2}$/.test(e.target.value)) {
+    if (!/^\d*\.?\d{0,2}$/.test(e.target.value) || e.target.value.length > 6) {
       return
     }
 
-    setDimensions(prevState => ({
-      ...prevState,
-      [fieldName]: e.target.value,
+    setData(prev => ({
+      ...prev,
+      [fieldName]: Number(e.target.value),
     }))
   }
 
-  return { dimensions, onChangeDimensions: handleChangeDimensions }
+  return { onChangeDimensions: handleChangeDimensions }
 }

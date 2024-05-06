@@ -24,7 +24,7 @@ import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
 import { checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getShortenStringIfLongerThanCount } from '@utils/text'
+import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
@@ -33,7 +33,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { UiTheme } from '@typings/enums/ui-theme'
 import { TariffModalType } from '@typings/shared/tariff-modal'
 
-import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
+import { INCHES_COEFFICIENT, POUNDS_COEFFICIENT, useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
@@ -105,8 +105,9 @@ export const MergeBoxesModal = ({
   })
 
   const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-  const { dimensions, onChangeDimensions } = useChangeDimensions({
+  const { onChangeDimensions } = useChangeDimensions({
     data: boxBody,
+    setData: setBoxBody,
     sizeSetting,
   })
 
@@ -128,18 +129,32 @@ export const MergeBoxesModal = ({
 
   const [imagesOfBox, setImagesOfBox] = useState([])
   const [comment, setComment] = useState('')
-  const getBoxDataToSubmit = () => {
-    setSizeSetting(Dimensions.EU)
 
-    return {
-      ...boxBody,
-      destinationId: boxBody.destinationId || null,
-      lengthCmWarehouse: Number(dimensions.length),
-      widthCmWarehouse: Number(dimensions.width),
-      heightCmWarehouse: Number(dimensions.height),
-      weighGrossKgWarehouse: Number(dimensions.weight),
-      images: imagesOfBox,
+  const handleSubmit = () => {
+    const updateBoxFields = { ...boxBody }
+
+    if (sizeSetting === Dimensions.US) {
+      updateBoxFields.lengthCmWarehouse = Number(toFixed(updateBoxFields.lengthCmWarehouse * INCHES_COEFFICIENT))
+      updateBoxFields.widthCmWarehouse = Number(toFixed(updateBoxFields.widthCmWarehouse * INCHES_COEFFICIENT))
+      updateBoxFields.heightCmWarehouse = Number(toFixed(updateBoxFields.heightCmWarehouse * INCHES_COEFFICIENT))
+      updateBoxFields.weighGrossKgWarehouse = Number(
+        toFixed(updateBoxFields.weighGrossKgWarehouse * POUNDS_COEFFICIENT),
+      )
     }
+
+    const { items, logicsTariff, storekeeper, finalWeight, volumeWeight, variationTariff, destination, ...other } =
+      updateBoxFields
+
+    onSubmit(
+      {
+        ...other,
+        destinationId: boxBody.destinationId || null,
+        images: imagesOfBox,
+      },
+      comment,
+      priority,
+      priorityReason,
+    )
   }
 
   const onCloseBoxesModal = () => {
@@ -169,7 +184,7 @@ export const MergeBoxesModal = ({
 
   const disabledSubmit =
     requestStatus === loadingStatus.IS_LOADING ||
-    boxBody.logicsTariffId === '' ||
+    !boxBody.logicsTariffId ||
     selectedBoxes.length < 2 ||
     (boxBody.shippingLabel?.length < 5 && boxBody.shippingLabel?.length > 0) ||
     isDifferentStorekeepers ||
@@ -179,7 +194,10 @@ export const MergeBoxesModal = ({
     (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
 
   const disabledSubmitStorekeeper =
-    disabledSubmit || ['length', 'width', 'height', 'weight'].some(dim => Number(dimensions[dim]) <= 0)
+    disabledSubmit ||
+    ['lengthCmWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'weighGrossKgWarehouse'].some(
+      dim => boxBody[dim] <= 0,
+    )
 
   const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
     destinations,
@@ -367,7 +385,7 @@ export const MergeBoxesModal = ({
                     </div>
 
                     <WarehouseDimensions
-                      dimensions={dimensions}
+                      dimensions={boxBody}
                       sizeSetting={sizeSetting}
                       onChangeDimensions={onChangeDimensions}
                     />
@@ -416,7 +434,7 @@ export const MergeBoxesModal = ({
             tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
             disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
             className={styles.button}
-            onClick={() => onSubmit(getBoxDataToSubmit(), comment, priority, priorityReason)}
+            onClick={handleSubmit}
           >
             {t(TranslationKey.Merge)}
           </Button>

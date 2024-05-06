@@ -27,16 +27,19 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 import { TariffModalType } from '@typings/shared/tariff-modal'
 
-import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
+import { INCHES_COEFFICIENT, POUNDS_COEFFICIENT, useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './edit-box-storekeeper-form.style'
+
+import { getBoxWithoutExtraFields } from './helpers/get-box-without-extra-fields'
 
 export const EditBoxStorekeeperForm = memo(
   ({
@@ -128,17 +131,14 @@ export const EditBoxStorekeeperForm = memo(
 
     const boxInitialState = {
       ...formItem,
-
       lengthCmWarehouse: formItem?.lengthCmWarehouse || 0,
       widthCmWarehouse: formItem?.widthCmWarehouse || 0,
       heightCmWarehouse: formItem?.heightCmWarehouse || 0,
       weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
-
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
       logicsTariffId: formItem?.logicsTariff?._id || null,
       variationTariffId: formItem?.variationTariff?._id || null,
-
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel || '',
       clientComment: formItem?.clientComment || '',
@@ -150,11 +150,17 @@ export const EditBoxStorekeeperForm = memo(
       tmpTrackNumberFile: [],
     }
 
+    const [boxState, setBoxState] = useState(boxInitialState)
     const [boxFields, setBoxFields] = useState(boxInitialState)
-
     const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-    const { dimensions, onChangeDimensions } = useChangeDimensions({
+    const { _ } = useChangeDimensions({
+      data: boxState,
+      setData: setBoxState,
+      sizeSetting,
+    })
+    const { onChangeDimensions } = useChangeDimensions({
       data: boxFields,
+      setData: setBoxFields,
       sizeSetting,
     })
 
@@ -228,17 +234,31 @@ export const EditBoxStorekeeperForm = memo(
         images: files,
       })
 
-    const getBoxDataToSubmit = () => {
-      setSizeSetting(Dimensions.EU)
+    const handleSubmit = () => {
+      const updateBoxFields = { ...boxFields }
 
-      return {
-        ...boxFields,
-        destinationId: boxFields.destinationId || null,
-        lengthCmWarehouse: Number(dimensions.length),
-        widthCmWarehouse: Number(dimensions.width),
-        heightCmWarehouse: Number(dimensions.height),
-        weighGrossKgWarehouse: Number(dimensions.weight),
+      if (sizeSetting === Dimensions.US) {
+        updateBoxFields.lengthCmWarehouse = Number(toFixed(updateBoxFields.lengthCmWarehouse * INCHES_COEFFICIENT))
+        updateBoxFields.widthCmWarehouse = Number(toFixed(updateBoxFields.widthCmWarehouse * INCHES_COEFFICIENT))
+        updateBoxFields.heightCmWarehouse = Number(toFixed(updateBoxFields.heightCmWarehouse * INCHES_COEFFICIENT))
+        updateBoxFields.weighGrossKgWarehouse = Number(
+          toFixed(updateBoxFields.weighGrossKgWarehouse * POUNDS_COEFFICIENT),
+        )
       }
+
+      onSubmit({
+        id: formItem?._id,
+        boxData: {
+          ...getBoxWithoutExtraFields(updateBoxFields),
+          destinationId: updateBoxFields.destinationId || null,
+        },
+        sourceData: formItem,
+        imagesOfBox: boxFields.images,
+        dataToSubmitHsCode: boxFields.items.map(el => ({
+          productId: el.product._id,
+          hsCode: el.product.hsCode,
+        })),
+      })
     }
 
     const [barcodeModalSetting, setBarcodeModalSetting] = useState({
@@ -278,14 +298,12 @@ export const EditBoxStorekeeperForm = memo(
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 
-    console.log('boxFields', boxFields)
-
     const disableSubmit =
-      isEqual(boxInitialState, boxFields) ||
+      isEqual(boxState, boxFields) ||
       boxFields.storekeeperId === '' ||
-      maxBoxSizeFromOption(sizeSetting, Number(dimensions.length)) ||
-      maxBoxSizeFromOption(sizeSetting, Number(dimensions.width)) ||
-      maxBoxSizeFromOption(sizeSetting, Number(dimensions.height))
+      maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
+      maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
@@ -732,7 +750,7 @@ export const EditBoxStorekeeperForm = memo(
                 </div>
 
                 <WarehouseDimensions
-                  dimensions={dimensions}
+                  dimensions={boxFields}
                   sizeSetting={sizeSetting}
                   onChangeDimensions={onChangeDimensions}
                 />
@@ -793,18 +811,7 @@ export const EditBoxStorekeeperForm = memo(
           <Button
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
-            onClick={() =>
-              onSubmit({
-                id: formItem?._id,
-                boxData: getBoxDataToSubmit(),
-                sourceData: formItem,
-                imagesOfBox: boxFields.images,
-                dataToSubmitHsCode: boxFields.items.map(el => ({
-                  productId: el.product._id,
-                  hsCode: el.product.hsCode,
-                })),
-              })
-            }
+            onClick={handleSubmit}
           >
             {t(TranslationKey.Save)}
           </Button>
