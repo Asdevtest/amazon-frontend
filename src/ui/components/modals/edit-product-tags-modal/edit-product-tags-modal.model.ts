@@ -1,13 +1,20 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { MouseEvent } from 'react'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
 
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
+import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ITagList } from '@typings/models/generals/tag-list'
+
+import { IHandleUpdateRow } from './edit-product-tags.type'
 
 export class EditProductTagModel {
   requestStatus: loadingStatus = loadingStatus.SUCCESS
@@ -16,12 +23,14 @@ export class EditProductTagModel {
   productId: string = ''
 
   offset: number = 0
-  limit: number = 100
+  limit: number = 10
 
   tags: ITagList[] = []
   selectedTags: ITagList[] = []
 
   isCanLoadMore = true
+
+  searchValue: string = ''
 
   get availableTags() {
     return this.tags?.filter(tag => !this.selectedTags?.find(selectedTag => selectedTag._id === tag._id))
@@ -29,22 +38,24 @@ export class EditProductTagModel {
 
   constructor(productId: string) {
     this.productId = productId
-    makeAutoObservable(this)
+    makeAutoObservable(this, undefined, { autoBind: true })
 
-    this.getTagsAll()
     this.getTagsByProductId()
   }
 
   async getTagsAll() {
     try {
-      const result = await this.getTagsData({
-        limit: this.limit,
-        offset: this.offset,
-      })
+      this.requestStatus = loadingStatus.IS_LOADING
+
+      this.offset = 0
+
+      const result = await this.getTagsData()
 
       runInAction(() => {
         this.tags = result?.rows as ITagList[]
       })
+
+      this.requestStatus = loadingStatus.SUCCESS
     } catch (error) {
       console.error(error)
     }
@@ -66,51 +77,65 @@ export class EditProductTagModel {
     }
   }
 
-  async createTag(titleTag: string) {
+  async handleCreateTag(titleTag: string) {
     try {
       const result = await GeneralModel.createTag(titleTag)
+
+      this.selectedTags?.push({
+        _id: result._id,
+        title: titleTag,
+      } as ITagList)
+
+      toast.success(t(TranslationKey['Tag was successfully created and added to the list']))
     } catch (error) {
       console.error(error)
     }
   }
 
-  async loadMoreDataHadler() {
+  async loadMoreDataHadler(scrollEvent: MouseEvent<HTMLDivElement>) {
     if (!this.isCanLoadMore || this.requestStatus !== loadingStatus.SUCCESS) return
 
-    try {
-      this.requestStatus = loadingStatus.IS_LOADING
+    const element = scrollEvent.target as HTMLDivElement
+    const scrollTop = element?.scrollTop
+    const containerHeight = element?.clientHeight
+    const contentHeight = element?.scrollHeight
 
-      this.offset += this.limit
+    if (contentHeight - (scrollTop + containerHeight) < 50) {
+      try {
+        runInAction(() => {
+          this.requestStatus = loadingStatus.IS_LOADING
+        })
 
-      const result = await this.getTagsData({
-        limit: this.limit,
-        offset: this.offset,
-      })
+        this.offset += this.limit
 
-      runInAction(() => {
-        this.tags = this.tags.concat(result?.rows as ITagList[])
-      })
+        const result = await this.getTagsData()
 
-      if ((result?.rows?.length || 0) < this.limit) {
-        this.isCanLoadMore = false
+        runInAction(() => {
+          this.tags = this.tags.concat(result?.rows as ITagList[])
+        })
+
+        if ((result?.rows?.length || 0) < this.limit) {
+          this.isCanLoadMore = false
+        }
+
+        runInAction(() => {
+          this.requestStatus = loadingStatus.SUCCESS
+        })
+      } catch (error) {
+        console.error(error)
       }
-
-      this.requestStatus = loadingStatus.SUCCESS
-    } catch (error) {
-      console.error(error)
     }
   }
 
   async onClickSubmitSearch(searchValue: string) {
-    if (this.requestStatus !== loadingStatus.SUCCESS) return
+    this.searchValue = searchValue
+
+    if (this.requestStatus !== loadingStatus.SUCCESS || !searchValue) return
     try {
       this.isCanLoadMore = true
       this.offset = 0
 
-      const result = await this.getTagsData({
-        offset: 0,
-        filters: objectToUrlQs(dataGridFiltersConverter({}, searchValue, '', [], ['title'])),
-      })
+      const result = await this.getTagsData()
 
       runInAction(() => {
         this.tags = result?.rows as ITagList[]
@@ -120,22 +145,41 @@ export class EditProductTagModel {
     }
   }
 
-  async getTagsData(options: any) {
+  async getTagsData() {
     try {
-      const result = await GeneralModel.getPagTagList(options)
+      const result = await GeneralModel.getPagTagList({
+        offset: this.offset,
+        limit: this.limit,
+        filters: objectToUrlQs(dataGridFiltersConverter({}, this.searchValue, '', [], ['title'])),
+      })
       return result
     } catch (error) {
       console.error(error)
     }
   }
 
-  setSeletedTag(tag: ITagList) {
-    const tagIndex = this.selectedTags.findIndex(el => el._id === tag._id)
+  handleClickTag(tag: ITagList) {
+    const tagIndex = this.selectedTags?.findIndex(el => el?._id === tag?._id)
 
     if (tagIndex === -1) {
       this.selectedTags.push(tag)
     } else {
       this.selectedTags.splice(tagIndex, 1)
+    }
+  }
+
+  handleResetOptions() {
+    runInAction(() => {
+      this.offset = 0
+    })
+  }
+
+  async handleBindTagsToProduct(handleUpdateRow: IHandleUpdateRow) {
+    try {
+      await ProductModel.editProductTags(this.productId, { tags: this.selectedTags?.map(tag => tag?._id) })
+      handleUpdateRow([{ _id: this.productId, tags: this.selectedTags }])
+    } catch (error) {
+      console.error(error)
     }
   }
 }

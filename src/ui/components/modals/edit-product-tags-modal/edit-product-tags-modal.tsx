@@ -1,42 +1,83 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Button } from '@components/shared/button'
 import { CircleSpinner } from '@components/shared/circle-spinner'
 import { Modal } from '@components/shared/modal'
 import { TagsSelect } from '@components/shared/selects/tags-select'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { TagItem } from '@components/shared/tag-item'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
-import { ITagList } from '@typings/models/generals/tag-list'
 
 import { useStyles } from './edit-product-tags-modal.style'
 
 import { EditProductTagModel } from './edit-product-tags-modal.model'
+import { IHandleUpdateRow } from './edit-product-tags.type'
 
-export const EditProductTags = observer(({ openModal, setOpenModal, productId }) => {
-  const { classes: styles } = useStyles()
+interface EditProductTagsProps {
+  openModal: boolean
+  productId: string
+  setOpenModal: (openModal: boolean) => void
+  handleUpdateRow: IHandleUpdateRow
+}
+
+export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
+  const { classes: styles, cx } = useStyles()
+
+  const { openModal, setOpenModal, productId, handleUpdateRow } = props
 
   const [viewModel] = useState(() => new EditProductTagModel(productId))
 
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.container}>
-        <TagsSelect tags={viewModel.availableTags} />
+        <p className={styles.title}>{t(TranslationKey['Edit product tags'])}</p>
+
+        <TagsSelect
+          isloadingTags={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          tags={viewModel.availableTags}
+          getTagsAll={viewModel.getTagsAll}
+          loadMoreDataHadler={viewModel.loadMoreDataHadler}
+          onClickTag={viewModel.handleClickTag}
+          onClickSubmitSearch={viewModel.onClickSubmitSearch}
+          onClickCreateTag={viewModel.handleCreateTag}
+        />
 
         {viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING ? (
-          <CircleSpinner size={20} />
+          <div>
+            <CircleSpinner size={20} />
+          </div>
         ) : (
-          <div className={styles.tagsList}>
-            {viewModel.selectedTags?.map(tag => (
-              <TagItem key={tag._id} option={tag.title} onClickRemove={() => viewModel.setSeletedTag(tag)} />
-            ))}
+          <div className={cx(styles.tagsList, { [styles.noTagsWrapper]: !viewModel.selectedTags?.length })}>
+            {viewModel.selectedTags?.length ? (
+              viewModel.selectedTags?.map(tag => (
+                <TagItem key={tag._id} option={tag.title} onClickRemove={() => viewModel.handleClickTag(tag)} />
+              ))
+            ) : (
+              <p className={styles.noTagsText}>{t(TranslationKey['No data'])}</p>
+            )}
           </div>
         )}
+
+        <div className={styles.buttonsWrapper}>
+          <Button
+            styleType={ButtonStyle.SUCCESS}
+            onClick={async () => {
+              await viewModel.handleBindTagsToProduct(handleUpdateRow)
+              setOpenModal(false)
+            }}
+          >
+            {t(TranslationKey.Save)}
+          </Button>
+          <Button styleType={ButtonStyle.CASUAL} onClick={() => setOpenModal(false)}>
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
       </div>
     </Modal>
   )

@@ -38,7 +38,9 @@ export const useStyles = makeStyles()(theme => ({
     display: 'none',
     position: 'absolute',
 
-    width: '320px',
+    top: '95px',
+
+    width: '400px',
 
     zIndex: 20,
     padding: 5,
@@ -66,7 +68,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   menuItems: {
-    maxHeight: 204,
+    maxHeight: '205px',
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',

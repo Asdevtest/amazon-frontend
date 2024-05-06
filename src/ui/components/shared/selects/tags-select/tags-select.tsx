@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, MouseEvent, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,51 +16,83 @@ import { useSelectsServer } from '@hooks/use-selects-server'
 import { useStyles } from './tags-select.style'
 
 interface TagsSelectProps {
+  isloadingTags: boolean
   tags: ITagList[]
+  getTagsAll: () => void
+  loadMoreDataHadler: (scrollEvent: MouseEvent<HTMLDivElement>) => void
+  onClickTag: (tag: ITagList) => void
+  onClickSubmitSearch: (searchValue: string) => void
+  onClickCreateTag: (tagTitle: string) => void
 }
 
-export const TagsSelect: FC<TagsSelectProps> = memo(({ tags }) => {
+export const TagsSelect: FC<TagsSelectProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
-  const { selectRef, isOpen } = useSelectsServer()
+  const { isloadingTags, tags, onClickTag, onClickSubmitSearch, getTagsAll, loadMoreDataHadler, onClickCreateTag } =
+    props
+
+  const { selectRef, isOpen, setIsOpen, searchValue, setSearchValue } = useSelectsServer(
+    onClickSubmitSearch,
+    getTagsAll,
+  )
 
   return (
     <div ref={selectRef} className={styles.container}>
       <form className={styles.form}>
-        <input type="text" className={styles.input} />
+        <input
+          type="text"
+          placeholder={t(TranslationKey['Tag name'])}
+          className={styles.input}
+          value={searchValue}
+          onChange={event => setSearchValue(event?.target?.value)}
+          onFocus={() => setIsOpen(true)}
+        />
 
-        <div className={styles.buttonsWrapper}>
-          <Button iconButton>
-            <CrossIcon className={styles.crossIcon} />
-          </Button>
+        {searchValue ? (
+          <div className={styles.buttonsWrapper}>
+            <Button
+              iconButton
+              onClick={() => {
+                setSearchValue('')
+              }}
+            >
+              <CrossIcon className={styles.crossIcon} />
+            </Button>
 
-          <Button iconButton>
-            <CustomPlusIcon />
-          </Button>
-        </div>
+            <Button
+              iconButton
+              onClick={() => {
+                onClickCreateTag(searchValue)
+                setSearchValue('')
+              }}
+            >
+              <CustomPlusIcon />
+            </Button>
+          </div>
+        ) : null}
       </form>
 
       <div className={cx(styles.menuContainer, { [styles.menuContainerAnimation]: isOpen })}>
-        {isLoading ? (
-          <div className={styles.loadingWrapper}>
-            <CircleSpinner size={20} />
-          </div>
-        ) : (
-          <div className={styles.menuItems}>
-            {tags?.length
-              ? tags.map((item, index) => (
-                  <Button
-                    key={index}
-                    className={styles.button}
-                    styleType={ButtonStyle.DEFAULT}
-                    // onClick={() => setActiveProductsTag([...activeTags, item])}
-                  >
-                    {item.title}
-                  </Button>
-                ))
-              : t(TranslationKey['Not found'])}
-          </div>
-        )}
+        <div className={styles.menuItems} onScroll={loadMoreDataHadler}>
+          {tags?.length
+            ? tags.map((item, index) => (
+                <Button
+                  key={index}
+                  className={styles.button}
+                  styleType={ButtonStyle.DEFAULT}
+                  onClick={() => onClickTag(item)}
+                >
+                  {item.title}
+                </Button>
+              ))
+            : t(TranslationKey['Not found'])}
+
+          {isloadingTags ? (
+            <div className={styles.loadingWrapper}>
+              <CircleSpinner size={20} />
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   )

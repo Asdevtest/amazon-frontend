@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
+import { useGridApiRef } from '@mui/x-data-grid-premium'
+
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -64,6 +66,8 @@ export const ClientInventoryView = observer(({ history }) => {
 
   const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
 
+  const apiRef = useGridApiRef()
+
   return (
     <>
       <Header
@@ -85,6 +89,7 @@ export const ClientInventoryView = observer(({ history }) => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          apiRef={apiRef}
           pinnedColumns={viewModel.pinnedColumns}
           getCellClassName={getCellClassName}
           rowCount={viewModel.rowCount}
@@ -435,6 +440,7 @@ export const ClientInventoryView = observer(({ history }) => {
           openModal={viewModel.showEditProductTagsModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
           productId={viewModel.selectedRowId}
+          handleUpdateRow={apiRef.current.updateRows}
         />
       ) : null}
     </>
