@@ -8,6 +8,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -15,7 +16,7 @@ import { Dimensions } from '@typings/enums/dimensions'
 import { IBox } from '@typings/models/boxes/box'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
+import { INCHES_COEFFICIENT, POUNDS_COEFFICIENT, useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 
 import { useStyles } from './edit-box-tasks-form.style'
 
@@ -34,11 +35,6 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const [editingBox, setEditingBox] = useState<IBox>(box)
-  const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
-  const { dimensions, onChangeDimensions } = useChangeDimensions({
-    data: editingBox,
-    sizeSetting,
-  })
 
   useEffect(() => {
     if (box) {
@@ -46,26 +42,34 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
     }
   }, [box])
 
+  const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+  const { onChangeDimensions } = useChangeDimensions({
+    data: editingBox,
+    setData: setEditingBox,
+    sizeSetting,
+  })
+
   const setImagesOfBox = (tmpImages: UploadFileType[]) => {
     setEditingBox((prev: IBox) => ({ ...prev, tmpImages }))
   }
 
   const onSubmit = () => {
-    setSizeSetting(Dimensions.EU)
+    const updateEditingBox = { ...editingBox }
 
-    const lastStepEditBox: IBox = {
-      ...editingBox,
-      lengthCmWarehouse: Number(dimensions.length),
-      widthCmWarehouse: Number(dimensions.width),
-      heightCmWarehouse: Number(dimensions.height),
-      weighGrossKgWarehouse: Number(dimensions.weight),
+    if (sizeSetting === Dimensions.US) {
+      updateEditingBox.lengthCmWarehouse = Number(toFixed(updateEditingBox.lengthCmWarehouse * INCHES_COEFFICIENT))
+      updateEditingBox.widthCmWarehouse = Number(toFixed(updateEditingBox.widthCmWarehouse * INCHES_COEFFICIENT))
+      updateEditingBox.heightCmWarehouse = Number(toFixed(updateEditingBox.heightCmWarehouse * INCHES_COEFFICIENT))
+      updateEditingBox.weighGrossKgWarehouse = Number(
+        toFixed(updateEditingBox.weighGrossKgWarehouse * POUNDS_COEFFICIENT),
+      )
     }
 
     if (isInStorekeeperWarehouse) {
-      storekeeperWarehouseSubmit ? storekeeperWarehouseSubmit(box._id, lastStepEditBox) : undefined
+      storekeeperWarehouseSubmit ? storekeeperWarehouseSubmit(box._id, updateEditingBox) : undefined
     } else {
       const updatedNewBoxes = newBoxes.map((oldBox: IBox) =>
-        oldBox._id === lastStepEditBox._id ? lastStepEditBox : oldBox,
+        oldBox._id === updateEditingBox._id ? updateEditingBox : oldBox,
       )
 
       setNewBoxes(updatedNewBoxes)
@@ -74,9 +78,9 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
   }
 
   const disabledSubmit =
-    maxBoxSizeFromOption(sizeSetting, Number(dimensions.length)) ||
-    maxBoxSizeFromOption(sizeSetting, Number(dimensions.width)) ||
-    maxBoxSizeFromOption(sizeSetting, Number(dimensions.height))
+    maxBoxSizeFromOption(sizeSetting, editingBox.lengthCmWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.widthCmWarehouse) ||
+    maxBoxSizeFromOption(sizeSetting, editingBox.heightCmWarehouse)
 
   return (
     <div className={styles.wrapper}>
@@ -84,7 +88,7 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
 
       <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
 
-      <WarehouseDimensions dimensions={dimensions} sizeSetting={sizeSetting} onChangeDimensions={onChangeDimensions} />
+      <WarehouseDimensions dimensions={editingBox} sizeSetting={sizeSetting} onChangeDimensions={onChangeDimensions} />
 
       <UploadFilesInput
         withoutLinks

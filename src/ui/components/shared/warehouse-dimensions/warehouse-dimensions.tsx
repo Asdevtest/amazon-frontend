@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo } from 'react'
+import { ChangeEvent, FC, KeyboardEvent, memo, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,12 +9,14 @@ import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 
-import { IFormattedDimensions } from '@hooks/dimensions/use-change-dimensions'
+import { IDimensions } from '@hooks/dimensions/use-change-dimensions'
 
 import { useStyles } from './warehouse-dimensions.style'
 
+import { exceptThisSymbols } from './warehouse-dimensions.constants'
+
 interface WarehouseDimensionsProps {
-  dimensions: IFormattedDimensions
+  dimensions: IDimensions
   sizeSetting: Dimensions
   onChangeDimensions: (fieldName: string) => (value: ChangeEvent<HTMLInputElement>) => void
   disabled?: boolean
@@ -25,56 +27,71 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  const isNormalLength = maxBoxSizeFromOption(sizeSetting, Number(dimensions.length))
-  const isNormalWidth = maxBoxSizeFromOption(sizeSetting, Number(dimensions.width))
-  const isNormalHeight = maxBoxSizeFromOption(sizeSetting, Number(dimensions.height))
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => exceptThisSymbols.includes(e.key) && e.preventDefault()
+
+  const isNormalLength = useMemo(
+    () => maxBoxSizeFromOption(sizeSetting, dimensions.lengthCmWarehouse),
+    [dimensions.lengthCmWarehouse],
+  )
+  const isNormalWidth = useMemo(
+    () => maxBoxSizeFromOption(sizeSetting, dimensions.widthCmWarehouse),
+    [dimensions.widthCmWarehouse],
+  )
+  const isNormalHeight = useMemo(
+    () => maxBoxSizeFromOption(sizeSetting, dimensions.heightCmWarehouse),
+    [dimensions.heightCmWarehouse],
+  )
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.flexContainer}>
         <Field
+          type="number"
           disabled={disabled}
-          inputProps={{ maxLength: 6 }}
           error={isNormalLength}
           containerClasses={styles.fieldContainer}
           labelClasses={styles.label}
           label={t(TranslationKey.Length) + ': '}
-          value={dimensions.length}
-          onChange={onChangeDimensions('length')}
+          value={String(dimensions.lengthCmWarehouse)}
+          onChange={onChangeDimensions('lengthCmWarehouse')}
+          onKeyDown={handleKeyDown}
         />
 
         <Field
+          type="number"
           disabled={disabled}
-          inputProps={{ maxLength: 6 }}
           error={isNormalWidth}
           containerClasses={styles.fieldContainer}
           labelClasses={styles.label}
           label={t(TranslationKey.Width) + ': '}
-          value={dimensions.width}
-          onChange={onChangeDimensions('width')}
+          value={String(dimensions.widthCmWarehouse)}
+          onChange={onChangeDimensions('widthCmWarehouse')}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className={styles.flexContainer}>
         <Field
+          type="number"
           disabled={disabled}
-          inputProps={{ maxLength: 6 }}
           error={isNormalHeight}
           labelClasses={styles.label}
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey.Height) + ': '}
-          value={dimensions.height}
-          onChange={onChangeDimensions('height')}
+          value={String(dimensions.heightCmWarehouse)}
+          onChange={onChangeDimensions('heightCmWarehouse')}
+          onKeyDown={handleKeyDown}
         />
 
         <Field
+          type="number"
           disabled={disabled}
-          inputProps={{ maxLength: 6 }}
-          error={Number(dimensions.weight) === 0}
+          error={dimensions.weighGrossKgWarehouse === 0}
           containerClasses={styles.fieldContainer}
           labelClasses={styles.label}
           label={t(TranslationKey.Weight) + ': '}
-          value={dimensions.weight}
-          onChange={onChangeDimensions('weight')}
+          value={String(dimensions.weighGrossKgWarehouse)}
+          onChange={onChangeDimensions('weighGrossKgWarehouse')}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className={styles.flexContainer}>

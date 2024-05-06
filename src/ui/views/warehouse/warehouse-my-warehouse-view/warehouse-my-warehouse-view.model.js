@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { Errors } from '@constants/errors'
@@ -521,12 +522,9 @@ export class WarehouseMyWarehouseViewModel {
       await StorekeeperModel.editBox(id, requestBox)
 
       if (!isMultipleEdit) {
-        this.loadData()
         this.onTriggerOpenModal('showFullEditBoxModal')
-        runInAction(() => {
-          this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
-        })
-        this.onTriggerOpenModal('showSuccessInfoModal')
+        toast.success(t(TranslationKey['Data saved successfully']))
+        this.loadData()
       }
     } catch (error) {
       console.error(error)
