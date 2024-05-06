@@ -278,6 +278,8 @@ export const EditBoxStorekeeperForm = memo(
       setShowSetBarcodeModal(!showSetBarcodeModal)
     }
 
+    console.log('boxFields', boxFields)
+
     const disableSubmit =
       isEqual(boxInitialState, boxFields) ||
       boxFields.storekeeperId === '' ||

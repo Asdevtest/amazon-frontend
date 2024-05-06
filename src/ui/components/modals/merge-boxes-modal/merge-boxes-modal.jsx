@@ -4,7 +4,6 @@ import { Typography } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { BoxStatus } from '@constants/statuses/box-status'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -177,18 +176,10 @@ export const MergeBoxesModal = ({
     ((boxBody.shippingLabel || boxBody.tmpShippingLabel?.length) &&
       !boxBody.fbaShipment &&
       !destinations.find(el => el._id === boxBody.destinationId)?.storekeeper) ||
-    (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length) ||
-    selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK) ||
-    !boxBody.logicsTariffId
+    (Number(priority) === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC] && !priorityReason?.length)
 
   const disabledSubmitStorekeeper =
-    disabledSubmit ||
-    !boxBody.lengthCmWarehouse ||
-    !boxBody.lengthCmWarehouse ||
-    !boxBody.widthCmWarehouse ||
-    !boxBody.heightCmWarehouse ||
-    !boxBody.weighGrossKgWarehouse ||
-    !boxBody.logicsTariffId
+    disabledSubmit || ['length', 'width', 'height', 'weight'].some(dim => Number(dimensions[dim]) <= 0)
 
   const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
     destinations,
