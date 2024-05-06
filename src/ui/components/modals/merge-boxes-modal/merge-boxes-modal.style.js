@@ -208,4 +208,18 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 5,
   },
+  blockOfNewBoxWrapper: {
+    height: '100%',
+    width: 525,
+    padding: '10px 20px',
+    backgroundColor: theme.palette.background.second,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+  sizesTitleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 40,
+  },
 }))
