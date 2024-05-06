@@ -11,7 +11,6 @@ import {
   NormDateCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
-  RenderFieldValueCell,
   UserLinkCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
@@ -194,7 +193,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-    renderCell: params => <RenderFieldValueCell value={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
     width: 130,
     sortable: false,
   },

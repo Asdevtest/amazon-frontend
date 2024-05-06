@@ -1,6 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextCell, RenderFieldValueCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
 import { DeleteIcon } from '@components/shared/svg-icons'
 
@@ -28,8 +28,8 @@ export const sourceColumns = () => [
   {
     field: 'title',
     headerName: 'Title',
-    renderCell: params => <RenderFieldValueCell value={params.value} />,
-    width: 200,
+    renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
+    flex: 1,
     filterable: false,
     sortable: false,
   },
@@ -84,7 +84,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'title',
     headerName: 'Title',
-    renderCell: params => <RenderFieldValueCell value={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
     width: 200,
     filterable: false,
     sortable: false,
