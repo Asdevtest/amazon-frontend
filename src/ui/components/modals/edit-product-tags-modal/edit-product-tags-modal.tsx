@@ -40,17 +40,19 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
 
         <TagsSelect
           isloadingTags={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          tags={viewModel.availableTags}
+          tags={viewModel.tags}
+          selectedTags={viewModel.selectedTags}
           getTagsAll={viewModel.getTagsAll}
           loadMoreDataHadler={viewModel.loadMoreDataHadler}
+          handleResetTags={viewModel.handleResetTags}
           onClickTag={viewModel.handleClickTag}
           onClickSubmitSearch={viewModel.onClickSubmitSearch}
           onClickCreateTag={viewModel.handleCreateTag}
         />
 
         {viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING ? (
-          <div>
-            <CircleSpinner size={20} />
+          <div className={cx(styles.tagsList, styles.noTagsWrapper)}>
+            <CircleSpinner size={50} />
           </div>
         ) : (
           <div className={cx(styles.tagsList, { [styles.noTagsWrapper]: !viewModel.selectedTags?.length })}>

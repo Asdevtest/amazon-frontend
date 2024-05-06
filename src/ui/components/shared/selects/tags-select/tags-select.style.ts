@@ -1,8 +1,5 @@
 import { makeStyles } from 'tss-react/mui'
 
-import { fadeIn } from '@constants/theme/animations/fade-in'
-import { fadeOut } from '@constants/theme/animations/fade-out'
-
 export const useStyles = makeStyles()(theme => ({
   form: {
     display: 'flex',
@@ -35,10 +32,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   menuContainer: {
-    display: 'none',
     position: 'absolute',
-
     top: '95px',
+
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
 
     width: '400px',
 
@@ -48,17 +47,8 @@ export const useStyles = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.background.second}`,
     borderRadius: '7px',
 
-    animation: `${fadeOut} 0.3s ease-in-out`,
-
     boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
     background: theme.palette.background.general,
-  },
-
-  menuContainerAnimation: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-    animation: `${fadeIn} 0.3s ease-in-out`,
   },
 
   loadingWrapper: {
@@ -68,7 +58,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   menuItems: {
-    maxHeight: '205px',
+    height: '205px',
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
@@ -86,5 +76,12 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+  },
+
+  buttonSelected: {
+    color: theme.palette.primary.main,
+    borderRadius: '0px',
+    fontWeight: 700,
+    background: theme.palette.background.activeChat,
   },
 }))

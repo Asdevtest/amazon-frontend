@@ -18,8 +18,10 @@ import { useStyles } from './tags-select.style'
 interface TagsSelectProps {
   isloadingTags: boolean
   tags: ITagList[]
+  selectedTags: ITagList[]
   getTagsAll: () => void
   loadMoreDataHadler: (scrollEvent: MouseEvent<HTMLDivElement>) => void
+  handleResetTags: () => void
   onClickTag: (tag: ITagList) => void
   onClickSubmitSearch: (searchValue: string) => void
   onClickCreateTag: (tagTitle: string) => void
@@ -28,12 +30,21 @@ interface TagsSelectProps {
 export const TagsSelect: FC<TagsSelectProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
-  const { isloadingTags, tags, onClickTag, onClickSubmitSearch, getTagsAll, loadMoreDataHadler, onClickCreateTag } =
-    props
+  const {
+    isloadingTags,
+    tags,
+    selectedTags,
+    onClickTag,
+    onClickSubmitSearch,
+    getTagsAll,
+    loadMoreDataHadler,
+    onClickCreateTag,
+    handleResetTags,
+  } = props
 
   const { selectRef, isOpen, setIsOpen, searchValue, setSearchValue } = useSelectsServer(
     onClickSubmitSearch,
-    getTagsAll,
+    handleResetTags,
   )
 
   return (
@@ -45,7 +56,10 @@ export const TagsSelect: FC<TagsSelectProps> = memo(props => {
           className={styles.input}
           value={searchValue}
           onChange={event => setSearchValue(event?.target?.value)}
-          onFocus={() => setIsOpen(true)}
+          onFocus={() => {
+            getTagsAll()
+            setIsOpen(true)
+          }}
         />
 
         {searchValue ? (
@@ -72,28 +86,34 @@ export const TagsSelect: FC<TagsSelectProps> = memo(props => {
         ) : null}
       </form>
 
-      <div className={cx(styles.menuContainer, { [styles.menuContainerAnimation]: isOpen })}>
-        <div className={styles.menuItems} onScroll={loadMoreDataHadler}>
-          {tags?.length
-            ? tags.map((item, index) => (
-                <Button
-                  key={index}
-                  className={styles.button}
-                  styleType={ButtonStyle.DEFAULT}
-                  onClick={() => onClickTag(item)}
-                >
-                  {item.title}
-                </Button>
-              ))
-            : t(TranslationKey['Not found'])}
+      {isOpen ? (
+        <div className={styles.menuContainer}>
+          <div className={styles.menuItems} onScroll={loadMoreDataHadler}>
+            {tags?.length
+              ? tags.map((item, index) => (
+                  <Button
+                    key={index}
+                    className={cx(styles.button, {
+                      [styles.buttonSelected]: selectedTags?.some(tag => tag._id === item._id),
+                    })}
+                    styleType={ButtonStyle.DEFAULT}
+                    onClick={() => onClickTag(item)}
+                  >
+                    {item.title}
+                  </Button>
+                ))
+              : isloadingTags
+              ? null
+              : t(TranslationKey['Not found'])}
 
-          {isloadingTags ? (
-            <div className={styles.loadingWrapper}>
-              <CircleSpinner size={20} />
-            </div>
-          ) : null}
+            {isloadingTags ? (
+              <div className={styles.loadingWrapper}>
+                <CircleSpinner size={20} />
+              </div>
+            ) : null}
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   )
 })

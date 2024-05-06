@@ -23,7 +23,7 @@ export class EditProductTagModel {
   productId: string = ''
 
   offset: number = 0
-  limit: number = 10
+  limit: number = 50
 
   tags: ITagList[] = []
   selectedTags: ITagList[] = []
@@ -31,10 +31,6 @@ export class EditProductTagModel {
   isCanLoadMore = true
 
   searchValue: string = ''
-
-  get availableTags() {
-    return this.tags?.filter(tag => !this.selectedTags?.find(selectedTag => selectedTag._id === tag._id))
-  }
 
   constructor(productId: string) {
     this.productId = productId
@@ -45,8 +41,11 @@ export class EditProductTagModel {
 
   async getTagsAll() {
     try {
-      this.requestStatus = loadingStatus.IS_LOADING
+      runInAction(() => {
+        this.requestStatus = loadingStatus.IS_LOADING
+      })
 
+      this.isCanLoadMore = true
       this.offset = 0
 
       const result = await this.getTagsData()
@@ -55,24 +54,35 @@ export class EditProductTagModel {
         this.tags = result?.rows as ITagList[]
       })
 
-      this.requestStatus = loadingStatus.SUCCESS
+      runInAction(() => {
+        this.requestStatus = loadingStatus.SUCCESS
+      })
     } catch (error) {
+      runInAction(() => {
+        this.requestStatus = loadingStatus.SUCCESS
+      })
       console.error(error)
     }
   }
 
   async getTagsByProductId() {
     try {
-      this.requestTagsByIdStatus = loadingStatus.IS_LOADING
+      runInAction(() => {
+        this.requestTagsByIdStatus = loadingStatus.IS_LOADING
+      })
 
       const result = await ProductModel.getProductTagsByGuid(this.productId)
       runInAction(() => {
         this.selectedTags = result as ITagList[]
       })
 
-      this.requestTagsByIdStatus = loadingStatus.SUCCESS
+      runInAction(() => {
+        this.requestTagsByIdStatus = loadingStatus.SUCCESS
+      })
     } catch (error) {
-      this.requestTagsByIdStatus = loadingStatus.SUCCESS
+      runInAction(() => {
+        this.requestTagsByIdStatus = loadingStatus.SUCCESS
+      })
       console.error(error)
     }
   }
@@ -104,19 +114,19 @@ export class EditProductTagModel {
       try {
         runInAction(() => {
           this.requestStatus = loadingStatus.IS_LOADING
-        })
 
-        this.offset += this.limit
+          this.offset += this.limit
+        })
 
         const result = await this.getTagsData()
 
         runInAction(() => {
           this.tags = this.tags.concat(result?.rows as ITagList[])
-        })
 
-        if ((result?.rows?.length || 0) < this.limit) {
-          this.isCanLoadMore = false
-        }
+          if ((result?.rows?.length || 0) < this.limit) {
+            this.isCanLoadMore = false
+          }
+        })
 
         runInAction(() => {
           this.requestStatus = loadingStatus.SUCCESS
@@ -128,12 +138,19 @@ export class EditProductTagModel {
   }
 
   async onClickSubmitSearch(searchValue: string) {
-    this.searchValue = searchValue
+    runInAction(() => {
+      this.searchValue = searchValue
+    })
 
-    if (this.requestStatus !== loadingStatus.SUCCESS || !searchValue) return
+    if (this.requestStatus !== loadingStatus.SUCCESS) {
+      return
+    }
+
     try {
-      this.isCanLoadMore = true
-      this.offset = 0
+      runInAction(() => {
+        this.isCanLoadMore = true
+        this.offset = 0
+      })
 
       const result = await this.getTagsData()
 
@@ -158,20 +175,20 @@ export class EditProductTagModel {
     }
   }
 
+  handleResetTags() {
+    runInAction(() => {
+      this.tags = []
+    })
+  }
+
   handleClickTag(tag: ITagList) {
     const tagIndex = this.selectedTags?.findIndex(el => el?._id === tag?._id)
 
     if (tagIndex === -1) {
-      this.selectedTags.push(tag)
+      this.selectedTags = [...this.selectedTags, tag]
     } else {
-      this.selectedTags.splice(tagIndex, 1)
+      this.selectedTags = this.selectedTags?.filter(el => el?._id !== tag?._id)
     }
-  }
-
-  handleResetOptions() {
-    runInAction(() => {
-      this.offset = 0
-    })
   }
 
   async handleBindTagsToProduct(handleUpdateRow: IHandleUpdateRow) {

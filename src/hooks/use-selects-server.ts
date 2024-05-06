@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useDebounce } from './use-debounce'
 
-export const useSelectsServer = (onClickSubmitSearch: (searchValue: string) => void, getTagsAll: () => void) => {
+export const useSelectsServer = (onClickSubmitSearch: (searchValue: string) => void, handleResetTags: () => void) => {
   const selectRef = useRef<HTMLDivElement | null>(null)
 
   const [isOpen, setIsOpen] = useState(false)
@@ -16,8 +16,7 @@ export const useSelectsServer = (onClickSubmitSearch: (searchValue: string) => v
   useEffect(() => {
     if (!isOpen) {
       setSearchValue('')
-    } else {
-      getTagsAll()
+      handleResetTags()
     }
   }, [isOpen])
 
