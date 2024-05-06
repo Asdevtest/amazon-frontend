@@ -52,6 +52,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   constructor({
     supplierId,
     productId,
+    ideaId,
     boxId,
     isTariffsSelect,
     onClickSubmit,
@@ -62,6 +63,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     box?: IBox
     supplierId?: string
     productId?: string
+    ideaId?: string
     boxId?: string
     isTariffsSelect?: boolean
     isHideCalculation?: boolean
@@ -82,6 +84,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     const defaultGetDataMethodOptions = () => ({
       // FIXME: remove guid
       guid: this.productId || '',
+      ...(ideaId ? { ideaId } : {}),
       ...(this.productId ? { productId: this.productId } : {}),
       ...(this.supplierId ? { supplierId: this.supplierId } : {}),
       ...(this.currentLogicsTariffId ? { activeTariffLogisticsId: this.currentLogicsTariffId } : {}),
@@ -93,7 +96,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       filtersFields: getFilterFields(columns, additionalFilterFields),
       mainMethodURL: `storekeepers/tariffs_with_calculations?${productId ? 'productId=' + productId + '&' : ''}${
         supplierId ? 'supplierId=' + supplierId + '&' : ''
-      }`,
+      }${ideaId ? 'ideaId=' + ideaId + '&' : ''}`,
       fieldsForSearch: ['name', 'destinationName'],
       defaultGetDataMethodOptions,
     })
@@ -121,6 +124,8 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       this.getBoxData()
     } else if (productId) {
       this.productId = productId
+      this.getStorekeepersData()
+    } else if (ideaId) {
       this.getStorekeepersData()
     } else {
       this.getStorekeepersData()

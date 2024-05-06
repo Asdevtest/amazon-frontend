@@ -129,7 +129,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
 
               sortSettings: {
                 sortModel: viewModel.sortModel,
-                columnsModel: viewModel.sortFields,
+                columnsModel: viewModel.sortFields(),
                 onSortModelChange: viewModel.onChangeSortingModel,
               },
             },

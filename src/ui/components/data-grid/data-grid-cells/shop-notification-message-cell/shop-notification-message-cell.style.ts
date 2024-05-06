@@ -18,6 +18,10 @@ export const useStyles = makeStyles()(theme => {
 
     shopLink: {
       color: colorPrimary,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      maxWidth: '150px',
     },
 
     shopLink1: {
