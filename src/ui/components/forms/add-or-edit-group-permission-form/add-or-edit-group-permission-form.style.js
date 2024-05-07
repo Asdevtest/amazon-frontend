@@ -3,10 +3,12 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: '650px',
+    padding: 10,
   },
 
   mainTitle: {
-    color: theme.palette.text.general,
+    fontSize: 18,
+    lineHeight: '25px',
     marginBottom: 15,
   },
 
@@ -19,9 +21,6 @@ export const useStyles = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.second,
   },
 
-  button: {
-    marginLeft: '10px',
-  },
   multiline: {
     width: '100%',
     minHeight: '100px',
@@ -51,10 +50,6 @@ export const useStyles = makeStyles()(theme => ({
   permissionSelect: {
     maxWidth: '200px',
 
-    color: theme.palette.text.general,
-  },
-
-  resetBtn: {
     color: theme.palette.text.general,
   },
 
@@ -91,9 +86,21 @@ export const useStyles = makeStyles()(theme => ({
   selectModalBtnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: 10,
     position: 'sticky',
     bottom: '0',
     right: '0',
     zIndex: 50,
+  },
+
+  fieldLabel: {
+    fontSize: 14,
+    lineHeight: '19px',
+    marginBottom: 5,
+  },
+
+  permissionInfoWrapper: {
+    maxHeight: 200,
+    overflowY: 'auto',
   },
 }))

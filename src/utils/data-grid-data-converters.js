@@ -840,19 +840,6 @@ export const adminUsersDataConverter = data =>
     isSubUser: item.masterUser ? 'SUB-USER' : 'USER',
   }))
 
-export const adminUserPermissionsDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    id: item._id,
-    role: UserRoleCodeMap[item.role],
-
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    key: item.key,
-    title: item.title,
-    description: item.description,
-  }))
-
 export const freelancerServiceDetaildsDataConverter = data =>
   data.requests.map(item => ({
     id: item?._id,

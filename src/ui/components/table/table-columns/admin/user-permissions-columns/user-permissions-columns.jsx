@@ -61,8 +61,8 @@ export const userPermissionsColumns = handlers => [
         firstButtonStyle={ButtonStyle.PRIMARY}
         secondButtonElement={<DeleteOutlineOutlinedIcon />}
         secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
-        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
+        onClickFirstButton={() => handlers.onClickEditBtn(params.row)}
+        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
     filterable: false,
