@@ -144,29 +144,33 @@ export const IdeaViewAndEditCard = observer(
       fbaFee: idea?.fbaFee || 0,
     })
 
-    const getFullIdea = () => ({
-      ...curIdea,
-      status: curIdea?.status,
-      media: curIdea?.linksToMediaFiles?.length ? curIdea.linksToMediaFiles : [],
-      comments: curIdea?.comments || '',
-      buyerComment: curIdea?.buyerComment || '',
-      productName: curIdea?.productName || '',
-      productLinks: curIdea?.productLinks || [],
-      criteria: curIdea?.criteria || '',
-      quantity: curIdea?.quantity || 0,
-      price: curIdea?.price || 0,
-      width: curIdea?.width || 0,
-      height: curIdea?.height || 0,
-      length: curIdea?.length || 0,
-      suppliers: curIdea?.suppliers || [],
-      _id: curIdea?._id || undefined,
-      parentProduct: curIdea?.parentProduct || undefined,
-      childProduct: curIdea?.childProduct || undefined,
-      requestsOnCheck: curIdea?.requestsOnCheck || [],
-      requestsOnFinished: curIdea?.requestsOnFinished || [],
-      approximatePrice: idea?.approximatePrice || 0,
-      fbaFee: idea?.fbaFee || 0,
-    })
+    const getFullIdea = () => {
+      const multiplier = sizeSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1
+
+      return {
+        ...curIdea,
+        status: curIdea?.status,
+        media: curIdea?.linksToMediaFiles?.length ? curIdea.linksToMediaFiles : [],
+        comments: curIdea?.comments || '',
+        buyerComment: curIdea?.buyerComment || '',
+        productName: curIdea?.productName || '',
+        productLinks: curIdea?.productLinks || [],
+        criteria: curIdea?.criteria || '',
+        quantity: curIdea?.quantity || 0,
+        price: curIdea?.price || 0,
+        width: toFixed(curIdea?.width / multiplier, 2) || 0,
+        height: toFixed(curIdea?.height / multiplier, 2) || 0,
+        length: toFixed(curIdea?.length / multiplier, 2) || 0,
+        suppliers: curIdea?.suppliers || [],
+        _id: curIdea?._id || undefined,
+        parentProduct: curIdea?.parentProduct || undefined,
+        childProduct: curIdea?.childProduct || undefined,
+        requestsOnCheck: curIdea?.requestsOnCheck || [],
+        requestsOnFinished: curIdea?.requestsOnFinished || [],
+        approximatePrice: idea?.approximatePrice || 0,
+        fbaFee: idea?.fbaFee || 0,
+      }
+    }
 
     const onChangeField = fieldName => event => {
       const newFormFields = { ...formFields }
@@ -597,16 +601,14 @@ export const IdeaViewAndEditCard = observer(
                         <div className={styles.sizesSubWrapper}>
                           <p className={styles.spanLabel}>{t(TranslationKey.Dimensions)}</p>
 
-                          <div>
-                            <CustomSwitcher
-                              condition={sizeSetting}
-                              switcherSettings={[
-                                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                              ]}
-                              changeConditionHandler={handleChange}
-                            />
-                          </div>
+                          <CustomSwitcher
+                            condition={sizeSetting}
+                            switcherSettings={[
+                              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+                              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+                            ]}
+                            changeConditionHandler={handleChange}
+                          />
                         </div>
 
                         <div className={styles.sizesBottomWrapper}>
