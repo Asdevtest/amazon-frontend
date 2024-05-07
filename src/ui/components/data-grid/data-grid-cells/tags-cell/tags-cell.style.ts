@@ -9,6 +9,10 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
   },
 
+  editMode: {
+    width: 'calc(100% - 40px)',
+  },
+
   tagItem: {
     fontSize: 14,
     textAlign: 'left',
@@ -23,5 +27,12 @@ export const useStyles = makeStyles()(theme => ({
     ':hover': {
       transform: 'scale(1.05)',
     },
+  },
+
+  tagsWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
   },
 }))

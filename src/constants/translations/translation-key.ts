@@ -2258,5 +2258,7 @@ export enum TranslationKey {
   'Permissions imported successfully' = 'Permissions imported successfully',
   'Permissions not imported' = 'Permissions not imported',
   'Please select a JSON file' = 'Please select a JSON file',
+  'Edit product tags' = 'Edit product tags',
+  'Tag was successfully created and added to the list' = 'Tag was successfully created and added to the list',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }

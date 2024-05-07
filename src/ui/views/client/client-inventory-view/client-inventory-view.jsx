@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
+import { useGridApiRef } from '@mui/x-data-grid-premium'
+
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,6 +18,7 @@ import { ProductVariationsForm } from '@components/forms/product-variations-form
 import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
@@ -63,6 +66,8 @@ export const ClientInventoryView = observer(({ history }) => {
 
   const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
 
+  const apiRef = useGridApiRef()
+
   return (
     <>
       <Header
@@ -84,6 +89,7 @@ export const ClientInventoryView = observer(({ history }) => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          apiRef={apiRef}
           pinnedColumns={viewModel.pinnedColumns}
           getCellClassName={getCellClassName}
           rowCount={viewModel.rowCount}
@@ -428,6 +434,15 @@ export const ClientInventoryView = observer(({ history }) => {
           onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
         />
       </Modal>
+
+      {viewModel.showEditProductTagsModal ? (
+        <EditProductTags
+          openModal={viewModel.showEditProductTagsModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
+          productId={viewModel.selectedRowId}
+          handleUpdateRow={apiRef.current.updateRows}
+        />
+      ) : null}
     </>
   )
 })
