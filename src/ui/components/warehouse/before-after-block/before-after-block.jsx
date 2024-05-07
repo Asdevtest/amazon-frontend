@@ -51,6 +51,9 @@ const Box = memo(props => {
     onClickApplyAllBtn,
   } = props
 
+  console.log('box :>> ', box)
+  console.log('referenceEditingBox :>> ', referenceEditingBox)
+
   const [showFullCard, setShowFullCard] = useState(true)
 
   const onChangeField = (value, field) => {
@@ -216,7 +219,12 @@ const Box = memo(props => {
             </div>
           </div>
           <div className={styles.footerWrapper}>
-            <div className={styles.footerSubWrapper}>
+            <div
+              className={cx(styles.footerSubWrapper, {
+                [styles.editAccent]:
+                  box && referenceEditingBox && box?.shippingLabel !== referenceEditingBox?.shippingLabel,
+              })}
+            >
               <LabelWithCopy
                 labelTitleFontWeight={'bold'}
                 labelTitle={t(TranslationKey['Shipping label'])}
