@@ -5,12 +5,13 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '1140px',
+    gap: 20,
     padding: 10,
   },
   form: {
-    flexWrap: 'wrap',
-    marginTop: theme.spacing(2.5),
-    marginBottom: theme.spacing(2.5),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
     border: '1px solid rgb(224, 224, 224)',
     borderRadius: '5px',
     padding: '20px',
@@ -20,13 +21,14 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
-    marginTop: '10px',
-    marginRight: 10,
   },
 
   subTitle: {
+    fontSize: 18,
+    lineHeight: '25px',
     color: theme.palette.text.second,
   },
+
   field: {
     flexBasis: '100%',
   },
@@ -35,21 +37,17 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     height: 1,
     background: '#E0E0E0',
-    marginBottom: 20,
   },
 
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
     width: '100%',
     gap: '10px',
   },
 
   numberInputFieldsBlocksSubWrapper: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'flex-start',
     width: '100%',
     gap: '10px',
@@ -102,7 +100,10 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'left',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-
     color: theme.palette.text.second,
+  },
+
+  fieldContainer: {
+    margin: 0,
   },
 }))
