@@ -73,7 +73,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     color: '#fff',
     fontSize: '12px',
-    lineHeight: '12px',
+    lineHeight: '16px',
   },
 
   redBadge: {

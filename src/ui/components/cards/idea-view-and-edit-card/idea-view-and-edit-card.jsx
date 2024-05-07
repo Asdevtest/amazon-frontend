@@ -681,6 +681,7 @@ export const IdeaViewAndEditCard = observer(
           <div className={styles.fullMiddleBlock}>
             {formFields ? (
               <ListSuppliers
+                isIdea
                 formFields={formFields}
                 isNotProductNameForIdea={formFields?.productName.length === 0} // for disable add supplier button
                 onClickSaveSupplier={({ ...rest }) =>

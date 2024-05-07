@@ -30,6 +30,7 @@ interface ListSuppliersProps {
   defaultSupplierId?: string
   checkIsPlanningPrice?: boolean
   isNotProductNameForIdea?: boolean
+  isIdea?: boolean
   onSaveProduct?: () => void
   onRemoveSupplier?: () => void // can be transferred inside the table model
   onClickSaveSupplier?: () => void // can be transferred inside the table model
@@ -42,6 +43,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
     defaultSupplierId,
     checkIsPlanningPrice,
     isNotProductNameForIdea,
+    isIdea,
     onClickSaveSupplier,
     onSaveProduct,
     onRemoveSupplier,
@@ -126,6 +128,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
       >
         <AddOrEditSupplierModalContent
           // @ts-ignore
+          isIdea={isIdea}
           onlyRead={viewModel.supplierModalReadOnly}
           paymentMethods={viewModel.paymentMethods}
           product={extractProduct(formFields)}
@@ -142,7 +145,8 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
       {viewModel.showSupplierApproximateCalculationsModal ? (
         <SupplierApproximateCalculationsModal
           openModal={viewModel.showSupplierApproximateCalculationsModal}
-          productId={extractProduct(formFields)?._id || ''}
+          productId={isIdea ? '' : extractProduct(formFields)?._id}
+          ideaId={isIdea ? extractProduct(formFields)?._id : ''}
           currentSupplierId={viewModel.currentSupplier?._id || ''}
           setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
         />
