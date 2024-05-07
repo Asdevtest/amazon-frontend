@@ -176,9 +176,7 @@ export class EditProductTagModel {
   }
 
   handleResetTags() {
-    runInAction(() => {
-      this.tags = []
-    })
+    this.tags = []
   }
 
   handleClickTag(tag: ITagList) {
