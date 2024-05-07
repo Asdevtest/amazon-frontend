@@ -36,7 +36,7 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
   currentProduct: IProduct | undefined = undefined
   currentIdeaId: string | undefined = undefined
 
-  sortFields = [
+  sortFields = () => [
     {
       field: 'shop',
       headerName: t(TranslationKey.Shop),

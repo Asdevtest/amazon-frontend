@@ -38,6 +38,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const {
+    isIdea,
     paymentMethods,
     product,
     storekeepersData,
@@ -954,7 +955,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
       {showSupplierApproximateCalculationsModal ? (
         <SupplierApproximateCalculationsModal
           openModal={showSupplierApproximateCalculationsModal}
-          productId={product?._id || ''}
+          productId={isIdea ? '' : product?._id}
+          ideaId={isIdea ? product?._id : ''}
           currentSupplierId={tmpSupplier?._id || ''}
           setOpenModal={setShowSupplierApproximateCalculationsModal}
         />

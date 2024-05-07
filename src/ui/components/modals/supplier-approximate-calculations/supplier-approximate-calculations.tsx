@@ -29,10 +29,11 @@ import { SupplierApproximateCalculationsModel } from './supplier-approximate-cal
 
 interface SupplierApproximateCalculationsModalProps {
   openModal: boolean
+  setOpenModal: (value: boolean) => void
   tariffModalType?: TariffModal
   currentSupplierId?: string
   productId?: string
-  setOpenModal: (value: boolean) => void
+  ideaId?: string
   onClickSubmit?: (body: INewDataOfVariation) => void
   boxId?: string
   box?: IBox
@@ -47,6 +48,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
     setOpenModal,
     currentSupplierId,
     productId,
+    ideaId,
     boxId,
     isTariffsSelect,
     box,
@@ -69,6 +71,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
         box,
         isHideCalculation,
         isGetAllStorekeepers,
+        ideaId,
       }),
   )
 

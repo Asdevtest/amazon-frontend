@@ -312,7 +312,13 @@ export const clientInventoryColumns = ({
       field: 'tags',
       headerName: t(TranslationKey.Tags),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
-      renderCell: params => <TagsCell tags={params.row?.tags} onClickTag={otherHandlers.onClickTag} />,
+      renderCell: params => (
+        <TagsCell
+          tags={params.row?.tags}
+          onClickTag={otherHandlers.onClickTag}
+          onClickEdit={() => otherHandlers.onClickEdit(params.row?._id)}
+        />
+      ),
       valueGetter: ({ row }) => row?.tags?.map(el => el?.title).join(', '),
       width: 160,
       disableCustomSort: true,

@@ -98,6 +98,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showIdeaModal = false
   showProductVariationsForm = false
   showAddOrEditSupplierModal = false
+  showEditProductTagsModal = false
 
   onAmazon = false
   isBatches = false
@@ -251,6 +252,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       onClickShowProduct: row => this.onClickShowProduct(row),
       onClickVariationButton: id => this.onClickVariationButton(id),
       onClickTag: tag => this.setActiveProductsTagFromTable(tag),
+      onClickEdit: productId => this.onClickEditTags(productId),
     }
 
     const defaultGetDataMethodOptions = () => ({
@@ -1588,5 +1590,10 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.rowCount = 0
       this.setRequestStatus(loadingStatus.FAILED)
     }
+  }
+
+  async onClickEditTags(productId) {
+    this.selectedRowId = productId
+    this.onTriggerOpenModal('showEditProductTagsModal')
   }
 }

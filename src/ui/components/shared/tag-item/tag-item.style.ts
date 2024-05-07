@@ -2,7 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   tagListItem: {
-    maxWidth: 295,
+    height: '30px',
+    maxWidth: '190px',
     padding: '5px 10px 5px 10px',
     display: 'flex',
     alignItems: 'center',
