@@ -61,8 +61,9 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
   get userInfo(): IFullUser | undefined {
     return UserModel.userInfo
   }
-  get currentData() {
-    return notificationDataConverter(this.tableData)
+
+  get currentConvertedData() {
+    return notificationDataConverter(this.currentData)
   }
 
   constructor({ history }: { history: History }) {
@@ -79,7 +80,7 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
       filtersFields.push('user')
     }
 
-    const defaultGetDataMethodOptions = () => ({
+    const defaultGetCurrentDataOptions = () => ({
       archive: this.isArchive,
     })
 
@@ -98,7 +99,7 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'users/notifications/pag/my?',
       fieldsForSearch: ['data'],
       tableKey: DataGridTablesKeys.GENERAL_NOTIFICATIONS,
-      defaultGetDataMethodOptions,
+      defaultGetCurrentDataOptions,
       additionalPropertiesGetFilters,
     })
 
@@ -106,11 +107,11 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
-    this.getMainTableData()
+    this.getCurrentData()
 
     reaction(
       () => this.isArchive,
-      () => this.getMainTableData(),
+      () => this.getCurrentData(),
     )
 
     makeObservable(this, observerConfig)
@@ -121,7 +122,7 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await UserModel.addNotificationsToArchive(this.selectedRows)
-      await this.getMainTableData()
+      await this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -173,7 +174,7 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
 
       this.curNotificationType = notificationType
 
-      this.getMainTableData()
+      this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (err) {

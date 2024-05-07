@@ -137,7 +137,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
             filterModel={viewModel?.filterModel}
             columnVisibilityModel={viewModel?.columnVisibilityModel}
             paginationModel={viewModel?.paginationModel}
-            rows={viewModel?.tableData}
+            rows={viewModel?.currentData}
             getRowHeight={() => 'auto'}
             getRowId={({ _id }: GridRowModel) => _id}
             getRowClassName={getRowClassName}

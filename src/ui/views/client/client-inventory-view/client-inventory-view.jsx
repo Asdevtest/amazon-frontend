@@ -97,16 +97,13 @@ export const ClientInventoryView = observer(({ history }) => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.tableData}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-            columnMenu: {
-              ...viewModel.columnMenuSettings,
-              pinnedColumns: !!viewModel.pinnedColumns,
-            },
+            columnMenu: viewModel.columnMenuSettings,
 
             toolbar: {
               presetsSettings: {
@@ -209,7 +206,7 @@ export const ClientInventoryView = observer(({ history }) => {
           product={viewModel.selectedProductToLaunch}
           productId={viewModel.selectedProductToLaunch?._id}
           openModal={viewModel.showIdeaModal}
-          updateData={viewModel.getMainTableData}
+          updateData={viewModel.getCurrentData}
           setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
         />
       ) : null}
@@ -219,7 +216,7 @@ export const ClientInventoryView = observer(({ history }) => {
           history={history}
           openModal={viewModel.productCardModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('productCardModal')}
-          updateDataHandler={viewModel.getMainTableData}
+          updateDataHandler={viewModel.getCurrentData}
           onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
       )}
@@ -306,7 +303,7 @@ export const ClientInventoryView = observer(({ history }) => {
       >
         <SelectionSupplierModal
           product={
-            viewModel.selectedProductToLaunch || viewModel.tableData.find(el => el._id === viewModel.selectedRowId)
+            viewModel.selectedProductToLaunch || viewModel.currentData.find(el => el._id === viewModel.selectedRowId)
           }
           title={viewModel.selectedProductToLaunch && t(TranslationKey['Send product card for supplier search'])}
           onClickFinalAddSupplierButton={viewModel.onClickAddSupplierButton}
@@ -339,7 +336,7 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
         <BindInventoryGoodsToStockForm
-          product={viewModel.tableData.find(item => viewModel.selectedRows.includes(item._id))}
+          product={viewModel.currentData.find(item => viewModel.selectedRows.includes(item._id))}
           stockData={viewModel.sellerBoardDailyData}
           updateStockData={viewModel.getStockGoodsByFilters}
           onSubmit={viewModel.onSubmitBindStockGoods}

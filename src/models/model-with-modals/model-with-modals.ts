@@ -3,12 +3,10 @@ import { makeObservable } from 'mobx'
 
 import { IListOfModals } from '@typings/shared/data-grid'
 
-import { DefaultModel } from '../default-model'
-
 import { IConfirmModalSettings, IWarningInfoModalSettings } from './model-with-modals-interface'
 import { observerConfig } from './observer-config'
 
-export class ModalsModel extends DefaultModel {
+export class ModalsModel {
   confirmModalSettings: IConfirmModalSettings = {
     isWarning: false,
     title: '',
@@ -24,7 +22,6 @@ export class ModalsModel extends DefaultModel {
   }
 
   constructor() {
-    super()
     makeObservable(this, observerConfig)
   }
 

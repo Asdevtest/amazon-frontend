@@ -18,9 +18,9 @@ import { observerConfig } from './model-config'
 export class ShopsViewModel extends DataGridTableModel {
   get currentData() {
     if (this.unserverSearchValue) {
-      return this.tableData.filter(shop => shop.name.toLowerCase().includes(this.unserverSearchValue.toLowerCase()))
+      return this.currentData.filter(shop => shop.name.toLowerCase().includes(this.unserverSearchValue.toLowerCase()))
     } else {
-      return this.tableData
+      return this.currentData
     }
   }
 
@@ -43,7 +43,7 @@ export class ShopsViewModel extends DataGridTableModel {
       columnsModel: shopsColumns(rowHandlers),
     })
 
-    this.getMainTableData()
+    this.getCurrentData()
 
     makeObservable(this, observerConfig)
   }
@@ -96,7 +96,7 @@ export class ShopsViewModel extends DataGridTableModel {
         toast.success(t(TranslationKey['Store created']))
       }
 
-      this.getMainTableData()
+      this.getCurrentData()
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
@@ -122,7 +122,7 @@ export class ShopsViewModel extends DataGridTableModel {
   async onSubmitRemoveShop() {
     try {
       await this.removeShopById()
-      this.getMainTableData()
+      this.getCurrentData()
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {

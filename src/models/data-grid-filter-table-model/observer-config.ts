@@ -8,7 +8,6 @@ export const observerConfig = {
   fieldsForSearch: observable,
   additionalPropertiesColumnMenuSettings: observable,
   additionalPropertiesGetFilters: observable,
-  pinnedColumns: observable,
 
   isSomeFilterOn: computed,
 
@@ -19,9 +18,6 @@ export const observerConfig = {
   onClickFilterBtn: action.bound,
   onClickResetFilters: action.bound,
   setFilterRequestStatus: action.bound,
-  handlePinColumn: action.bound,
 
-  getMainTableData: override,
-  setDataGridState: override,
-  getDataGridState: override,
+  getCurrentData: override,
 }

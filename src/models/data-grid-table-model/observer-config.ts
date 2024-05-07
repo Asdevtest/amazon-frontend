@@ -1,8 +1,6 @@
 import { action, observable } from 'mobx'
 
 export const observerConfig = {
-  requestStatus: observable,
-  rowCount: observable,
   sortModel: observable,
   densityModel: observable,
   paginationModel: observable,
@@ -10,11 +8,9 @@ export const observerConfig = {
   columnVisibilityModel: observable,
   selectedRows: observable,
   tableKey: observable,
-  tableData: observable,
-  getMainDataMethod: observable,
   columnsModel: observable,
-  defaultGetDataMethodOptions: observable,
   unserverSearchValue: observable,
+  pinnedColumns: observable,
 
   setDataGridState: action.bound,
   getDataGridState: action.bound,
@@ -23,7 +19,6 @@ export const observerConfig = {
   onSelectionModel: action.bound,
   onPaginationModelChange: action.bound,
   onChangeFilterModel: action.bound,
-  getMainTableData: action.bound,
   onChangeUnserverSearchValue: action.bound,
-  setRequestStatus: action.bound,
+  handlePinColumn: action.bound,
 }

@@ -83,7 +83,7 @@ export const ClientShopsReportView = observer(() => {
             },
           }}
           density={viewModel.densityModel}
-          rows={viewModel.tableData}
+          rows={viewModel.currentData}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           rowSelectionModel={viewModel.selectedRows}
@@ -102,7 +102,7 @@ export const ClientShopsReportView = observer(() => {
       >
         <BindStockGoodsToInventoryForm
           goodsToSelect={addIdDataConverter(
-            viewModel.tableData?.filter(item => viewModel.selectedRows?.includes(item?._id)),
+            viewModel.currentData?.filter(item => viewModel.selectedRows?.includes(item?._id)),
           )}
           inventoryData={viewModel.inventoryProducts}
           updateInventoryData={viewModel.getProductsMy}

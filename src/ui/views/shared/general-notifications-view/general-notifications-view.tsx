@@ -105,7 +105,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
+          rows={viewModel.currentConvertedData}
           columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
@@ -148,7 +148,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           openModal={viewModel.showIdeaModal}
           setOpenModal={() => viewModel.toggleVariationHandler('showIdeaModal')}
           updateData={() => {
-            viewModel.getMainTableData()
+            viewModel.getCurrentData()
             UserModel.getUserInfo()
           }}
           product={viewModel.currentProduct}

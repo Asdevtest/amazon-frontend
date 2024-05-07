@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
 
-import { GridPinnedColumns } from '@mui/x-data-grid-premium'
-
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { GeneralModel } from '@models/general-model'
-import { TableSettingsModel } from '@models/table-settings'
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
@@ -26,17 +23,12 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   columnMenuSettings: any = undefined
 
-  get isSomeFilterOn() {
-    return this.filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
-  }
-
   additionalPropertiesColumnMenuSettings: any = {}
 
   additionalPropertiesGetFilters: any = undefined
 
-  pinnedColumns: GridPinnedColumns = {
-    left: [],
-    right: [],
+  get isSomeFilterOn() {
+    return this.filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
   }
 
   constructor({
@@ -46,7 +38,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     mainMethodURL,
     fieldsForSearch,
     tableKey,
-    defaultGetDataMethodOptions,
+    defaultGetCurrentDataOptions,
     additionalPropertiesColumnMenuSettings,
     additionalPropertiesGetFilters,
   }: DataGridFilterTableModelParams) {
@@ -54,7 +46,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       getMainDataMethod,
       columnsModel,
       tableKey,
-      defaultGetDataMethodOptions,
+      defaultGetCurrentDataOptions,
     })
 
     this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)
@@ -75,7 +67,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       onClickFilterBtn: (field: string, table: string, searchValue?: string) =>
         this.onClickFilterBtn(field, table, searchValue),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),
-      onClickAccept: () => this.getMainTableData(),
+      onClickAccept: () => this.getCurrentData(),
 
       filterRequestStatus: loadingStatus.SUCCESS,
 
@@ -83,11 +75,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
       ...dataGridFiltersInitializer(filtersFields),
     }
-  }
-
-  handlePinColumn(pinnedColumns: GridPinnedColumns) {
-    this.pinnedColumns = pinnedColumns
-    this.setDataGridState()
   }
 
   async onClickFilterBtn(column: string, table: string, searchValue?: string) {
@@ -134,7 +121,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   onSearchSubmit(value: string) {
     this.currentSearchValue = value
-    this.getMainTableData()
+    this.getCurrentData()
   }
 
   onChangeFullFieldMenuItem(value: any, field: string) {
@@ -143,10 +130,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   onClickResetFilters() {
     this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
-    this.getMainTableData()
+    this.getCurrentData()
   }
 
-  async getMainTableData(options?: any) {
+  async getCurrentData(options?: any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -160,12 +147,12 @@ export class DataGridFilterTableModel extends DataGridTableModel {
           sortField: this.sortModel?.length ? this.sortModel?.[0]?.field : 'updatedAt',
           sortType: this.sortModel?.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
 
-          ...this.defaultGetDataMethodOptions?.(),
+          ...this.defaultGetCurrentDataOptions?.(),
         },
       )
 
       runInAction(() => {
-        this.tableData = result?.rows || result
+        this.currentData = result?.rows || result
 
         this.rowCount = result?.count || result.length
       })
@@ -173,7 +160,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.tableData = []
+      this.currentData = []
       this.rowCount = 0
       this.setRequestStatus(loadingStatus.FAILED)
     }
@@ -183,40 +170,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
       filterRequestStatus: requestStatus,
-    }
-  }
-
-  setDataGridState() {
-    if (!this.tableKey) return
-
-    const requestState = {
-      sortModel: this.sortModel,
-      filterModel: this.filterModel,
-      paginationModel: this.paginationModel,
-      columnVisibilityModel: this.columnVisibilityModel,
-      pinnedColumns: this.pinnedColumns,
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, this.tableKey)
-  }
-
-  getDataGridState() {
-    if (!this.tableKey) return
-
-    // @ts-ignore
-    const state = TableSettingsModel.getTableSettings(this.tableKey)
-
-    if (state) {
-      // @ts-ignore
-      this.sortModel = state?.sortModel
-      // @ts-ignore
-      this.filterModel = state?.filterModel
-      // @ts-ignore
-      this.paginationModel = state?.paginationModel
-      // @ts-ignore
-      this.columnVisibilityModel = state?.columnVisibilityModel
-      // @ts-ignore
-      this.pinnedColumns = state?.pinnedColumns
     }
   }
 }

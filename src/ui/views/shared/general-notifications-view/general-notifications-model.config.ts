@@ -9,7 +9,7 @@ export const observerConfig = {
   sortFields: observable,
 
   userInfo: computed,
-  currentData: computed,
+  currentConvertedData: computed,
 
   onClickReadButton: action.bound,
   toggleVariationHandler: action.bound,
