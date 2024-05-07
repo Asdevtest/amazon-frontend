@@ -51,9 +51,6 @@ const Box = memo(props => {
     onClickApplyAllBtn,
   } = props
 
-  console.log('box :>> ', box)
-  console.log('referenceEditingBox :>> ', referenceEditingBox)
-
   const [showFullCard, setShowFullCard] = useState(true)
 
   const onChangeField = (value, field) => {
