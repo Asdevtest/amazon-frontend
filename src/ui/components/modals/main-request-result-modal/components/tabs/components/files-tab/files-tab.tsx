@@ -25,7 +25,6 @@ import { useFilesTab } from './use-files-tab'
 
 export const FilesTab: FC<FilesTabProps> = memo(props => {
   const { classes: styles } = useStyles()
-
   const {
     showCommentModal,
     showSlideshowGalleryModal,
@@ -52,6 +51,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
     onUpdateSeoIFilesInProduct,
     onReorderMediaFiles,
   } = useFilesTab(props)
+  const lastFileRef = useScrollToFile(files.length)
 
   const handleCheckedFile = (fileId: string | null) => filesForDownload.some(({ _id }) => _id === fileId)
   const checkedSelectAll = filesForDownload.length === files.length && files.length > 0
@@ -63,8 +63,6 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
   const disabledUpdateSeoFilesInProductButton = filesForDownload.length !== ONLY_ONE_SEO_FILE
   const errorUpdateSeoFilesInProduct = filesForDownload.length > ONLY_ONE_SEO_FILE
 
-  const lastFileRef = useScrollToFile(files.length)
-
   return (
     <>
       <div className={styles.wrapper}>
@@ -73,7 +71,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
             {files.map((file, index) => (
               <File
                 key={index}
-                ref={index === files.length - 1 ? lastFileRef : null}
+                ref={index === files.length - 1 && !props.readOnly ? lastFileRef : null}
                 readOnly={props.readOnly}
                 isClient={props.isClient}
                 file={file}
