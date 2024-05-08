@@ -178,6 +178,31 @@ export const productStatusButtonsConfigs = {
         },
       ]
     } else if (
+      curStatus === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER] ||
+      curStatus === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE]
+    ) {
+      return [
+        {
+          statusKey: ProductStatus.TO_BUYER_FOR_RESEARCH,
+          label: t(TranslationKey['Repeat search']),
+          color: '#ff9800',
+          colorHover: '#f57c00',
+        },
+        {
+          statusKey: ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND,
+          label: t(TranslationKey['Supplier not found']),
+          color: '#ff9800',
+          colorHover: '#f57c00',
+        },
+
+        {
+          statusKey: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
+          label: t(TranslationKey["The supplier's price does not fit"]),
+          color: 'rgb(0, 123, 255)',
+          colorHover: '#1269ec',
+        },
+      ]
+    } else if (
       curStatus > ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] &&
       curStatus <= ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]
     ) {
