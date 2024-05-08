@@ -93,11 +93,8 @@ export const destinationsColumns = handlers => [
         isSecondButton
         iconButton
         row
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        firstButtonTooltipText={t(TranslationKey.Edit)}
         firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonTooltipText={t(TranslationKey.Remove)}
         secondButtonElement={<CrossIcon />}
         secondButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
