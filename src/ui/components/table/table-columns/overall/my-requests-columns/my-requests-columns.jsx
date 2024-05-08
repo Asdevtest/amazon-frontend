@@ -78,7 +78,7 @@ export const myRequestsViewColumns = rowHandlers => {
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params.row?.shop?.name} />,
+      renderCell: params => <MultilineTextCell twoLines text={params.row?.product?.shop?.name} />,
       width: 90,
       sortable: false,
 
