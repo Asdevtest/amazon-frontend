@@ -51,8 +51,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   ideaId = undefined
   isArchive = false
 
-  batchesData = []
-
   presetsData = []
   productsTags = []
   activeProductsTags = []

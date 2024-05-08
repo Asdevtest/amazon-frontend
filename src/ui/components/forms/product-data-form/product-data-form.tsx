@@ -24,14 +24,14 @@ import { ProductDataFormModel } from './product-data-form.model'
 
 interface ProductDataFormProps {
   product: IProduct
-  isBatches: boolean
   onAmazon: boolean
+  isBatches?: boolean
 }
 
-export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, isBatches, onAmazon }) => {
+export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, onAmazon, isBatches }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ProductDataFormModel({ product, isBatches, onAmazon }))
+  const [viewModel] = useState(() => new ProductDataFormModel({ product, onAmazon, isBatches }))
 
   const title = isBatches
     ? 'Product batches data'
