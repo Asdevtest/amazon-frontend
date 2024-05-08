@@ -21,7 +21,7 @@ export const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientNewIdeasColumns,
-    defaultSortingModel: 'updatedAt',
+    defaultSortingModel: 'status',
     dataGridKey: DataGridTablesKeys.CLIENT_NEW_IDEAS,
   },
   '/client/ideas/on-checking': {

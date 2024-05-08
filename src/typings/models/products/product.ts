@@ -82,6 +82,7 @@ export interface IProduct {
   fbaFbmStockSum: number
   ideasOnCheck: number
   ideasFinished: number
+  buyerId: number
   ideasClosed: number
   subUsers: ICreatedBy
   redFlags: IRedFlag[]

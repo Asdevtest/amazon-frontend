@@ -1,7 +1,9 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { GridColDef } from '@mui/x-data-grid-premium'
+
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
@@ -14,39 +16,41 @@ import {
 } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
-import { GeneralModel } from '@models/general-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { IdeaModel } from '@models/ideas-model'
 import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
-import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
-
-import { clientNewIdeasColumns } from '@components/table/table-columns/client/client-ideas-columns'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { getCurrentSortingDirectionOfColumns } from '@utils/sortings'
-import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IIdea } from '@typings/models/ideas/idea'
+import { IProduct } from '@typings/models/products/product'
+import { IProposal } from '@typings/models/proposals/proposal'
+import { IRequest } from '@typings/models/requests/request'
+import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
+import { ISupplier } from '@typings/models/suppliers/supplier'
+import { IDestination } from '@typings/shared/destinations'
+import { IFullUser } from '@typings/shared/full-user'
+import { IPaymentMethod } from '@typings/shared/payment-method'
+import { IUploadFile } from '@typings/shared/upload-file'
 
-import { filtersFields, intervalFields } from './client-ideas-view.constants'
+import { fieldsForSearch, filtersFields } from './client-ideas-view.constants'
+import { observerConfig } from './observer-config'
 import { settingsByUrl } from './settings-by-url'
 
-export class ClientIdeasViewModel {
-  history = undefined
-  requestStatus = undefined
-
+export class ClientIdeasViewModel extends DataGridFilterTableModel {
   progressValue = 0
   showProgress = false
   uploadedFiles = []
@@ -73,95 +77,34 @@ export class ClientIdeasViewModel {
 
   readyImages = []
   ideaList = []
-  shopList = []
-  currentSettings = undefined
-  selectedProduct = undefined
-  currentBarcode = undefined
+
+  selectedProduct: IProduct | undefined = undefined
+  currentBarcode: string = ''
   currentHscode = undefined
-  storekeepers = undefined
-  destinations = undefined
+  storekeepers: IStorekeeper[] = []
+  destinations: IDestination[] = []
   ordersDataStateToSubmit = undefined
-
-  // * Filtration
-
-  currentSearchValue = ''
-  filterModel = { items: [] }
-
-  // * Pagination & Sort
-
-  rowCount = 0
-  sortModel = []
-  densityModel = 'compact'
-  paginationModel = { page: 0, pageSize: 15 }
 
   // * Modal data
 
-  selectedIdea = undefined
-  selectedIdeaId = undefined
-  currentProduct = undefined
+  selectedIdea: IIdea | undefined = undefined
+  selectedIdeaId: string = ''
+  currentProduct: IProduct | undefined = undefined
   requestsForProduct = []
-  productsToLaunch = []
-  productId = undefined
-  currentProposal = undefined
+  productsToLaunch: IProduct[] = []
+  productId: string = ''
+  currentIdeaId: string = ''
+  currentProposal: IProposal | undefined = undefined
   currentRequest = undefined
-  paymentMethods = []
+  paymentMethods: IPaymentMethod[] = []
 
   // * Modal states
 
-  confirmModalSettings = {
-    isWarning: false,
-    confirmMessage: '',
-    onClickConfirm: () => {},
-  }
   successModalTitle = ''
   isIdeaCreate = false
 
-  // * Table settings
-
-  columnVisibilityModel = {}
-  rowHandlers = {
-    onClickToCheck: id => this.handleStatusToCheck(id),
-    onClickReject: id => this.handleStatusToReject(id),
-    onClickCreateRequest: ideaData => this.onClickCreateRequestButton(ideaData),
-    onClickLinkRequest: (productId, idea) => this.onClickLinkRequestButton(productId, idea),
-    onClickResultButton: request => this.onClickResultButton(request),
-    onClickUnbindButton: requestId => this.onClickUnbindButton(requestId),
-    onClickCreateCard: ideaData => this.onClickCreateProduct(ideaData),
-    onClickClose: ideaId => this.onClickCloseIdea(ideaId),
-    onClickRestore: id => this.handleRestore(id),
-    onClickAcceptOnCheckingStatus: id => this.handleStatusToSupplierSearch(id),
-    onClickAcceptOnSuppliersSearch: (id, ideaData) => this.handleStatusToProductCreating(id, ideaData),
-    onClickAcceptOnCreatingProduct: id => this.handleStatusToAddingAsin(id),
-    onClickAcceptOnAddingAsin: id => this.handleStatusToFinished(id),
-    onClickParseProductData: idea => this.onClickParseProductData(idea),
-    onClickToOrder: id => this.onClickToOrder(id),
-    onClickRequestId: id => this.onClickRequestId(id),
-    onClickAddSupplierButton: id => this.onClickAddSupplierButton(id),
-
-    barCodeHandlers: {
-      onClickBarcode: item => this.onClickBarcode(item),
-      onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
-      onDeleteBarcode: item => this.onDeleteBarcode(item),
-      showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
-    },
-  }
-  columnsModel = clientNewIdeasColumns(this.rowHandlers, this.shopList)
-
-  columnMenuSettings = {
-    onClickFilterBtn: field => this.onClickFilterBtn(field),
-    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: () => {
-      this.onLeaveColumnField()
-      this.getIdeaList()
-      this.getDataGridState()
-    },
-
-    filterRequestStatus: undefined,
-
-    ...dataGridFiltersInitializer(filtersFields),
-  }
-
-  get userInfo() {
+  get userInfo(): IFullUser {
+    // @ts-ignore
     return UserModel.userInfo
   }
 
@@ -169,242 +112,70 @@ export class ClientIdeasViewModel {
     return UserModel.platformSettings
   }
 
-  get currentData() {
-    return this.ideaList
-  }
-
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
   }
 
-  constructor({ history }) {
+  constructor({ history }: { history: any }) {
+    const rowHandlers = {
+      onClickToCheck: (id: string) => this.handleStatusToCheck(id),
+      onClickReject: (id: string) => this.handleStatusToReject(id),
+      onClickCreateRequest: (ideaData: IIdea) => this.onClickCreateRequestButton(ideaData),
+      onClickLinkRequest: (idea: IIdea) => this.onClickLinkRequestButton(idea),
+      onClickResultButton: (request: any) => this.onClickResultButton(request),
+      onClickUnbindButton: (requestId: string) => this.onClickUnbindButton(requestId),
+      onClickCreateCard: (ideaData: IIdea) => this.onClickCreateProduct(ideaData),
+      onClickClose: (ideaId: string) => this.onClickCloseIdea(ideaId),
+      onClickRestore: (id: string) => this.handleRestore(id),
+      onClickAcceptOnCheckingStatus: (id: string) => this.handleStatusToSupplierSearch(id),
+      onClickAcceptOnSuppliersSearch: (id: string, ideaData: IIdea) => this.handleStatusToProductCreating(id, ideaData),
+      onClickAcceptOnCreatingProduct: (id: string) => this.handleStatusToAddingAsin(id),
+      onClickAcceptOnAddingAsin: (id: string) => this.handleStatusToFinished(id),
+      onClickToOrder: (id: string) => this.onClickToOrder(id),
+      onClickRequestId: (id: string) => this.onClickRequestId(id),
+      onClickAddSupplierButton: (id: string) => this.onClickAddSupplierButton(id),
+
+      barCodeHandlers: {
+        onClickBarcode: (item: IProduct) => this.onClickBarcode(item),
+        onDoubleClickBarcode: (item: IProduct) => this.onDoubleClickBarcode(item),
+        onDeleteBarcode: (item: IProduct) => this.onDeleteBarcode(item),
+        showBarcodeOrHscode: (barCode: string) => this.showBarcodeOrHscode(barCode),
+      },
+    }
+
+    const pageSettings = settingsByUrl[history?.location?.pathname as keyof typeof settingsByUrl]
+    const columns = pageSettings.columnsModel(rowHandlers)
+    const tableKey = pageSettings.dataGridKey
+    const status = pageSettings.statuses
+
+    const defaultGetCurrentDataOptions = () => pageSettings.queries
+    const additionalPropertiesGetFilters = () => ({
+      status: {
+        $eq: status?.map((item: number) => `"${item}"`).join(','),
+      },
+    })
+
+    super({
+      getMainDataMethod: IdeaModel.getIdeaList,
+      columnsModel: columns as GridColDef[],
+      filtersFields,
+      mainMethodURL: 'ideas/pag/my?',
+      fieldsForSearch,
+      tableKey,
+      defaultGetCurrentDataOptions,
+      additionalPropertiesGetFilters,
+    })
+
+    makeObservable(this, observerConfig)
+
     this.history = history
-    this.currentSettings = settingsByUrl[history.location.pathname]
-    this.handleUpdateColumnModel()
+    this.sortModel = [{ field: pageSettings.defaultSortingModel, sort: 'desc' }]
 
-    this.isSearchForSuppliers = this.currentSettings.dataGridKey === DataGridTablesKeys.CLIENT_SEARCH_SUPPLIERS_IDEAS
-
-    makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.shopList,
-      () => this.handleUpdateColumnModel(),
-    )
-  }
-
-  // * Table settings handlers
-
-  handleUpdateColumnModel() {
-    this.columnsModel = this.currentSettings.columnsModel(this.rowHandlers, this.shopList)
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, this.currentSettings.dataGridKey)
-  }
-
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(this.currentSettings.dataGridKey)
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
-  // * Filtration handlers
-
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
-  }
-
-  onChangeFilterModel(model) {
-    this.filterModel = model
-    this.setDataGridState()
-    this.getIdeaList()
-  }
-
-  onPaginationModelChange(model) {
-    this.paginationModel = model
-    this.setDataGridState()
-    this.getIdeaList()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-    this.setDataGridState()
-    this.getIdeaList()
-  }
-
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-    this.setDataGridState()
-    this.getIdeaList()
-  }
-
-  onChangeSearchValue(value) {
-    this.currentSearchValue = value
-    this.getIdeaList()
-  }
-
-  getFilters(exclusion) {
-    const statusFilterData = exclusion !== 'status' ? this.columnMenuSettings.status.currentFilterData : []
-
-    const commentsFilter =
-      exclusion !== 'comments' && this.columnMenuSettings.comments?.currentFilterData.map(item => `"${item}"`).join(',')
-
-    const buyerCommentFilter =
-      exclusion !== 'buyerComment' &&
-      this.columnMenuSettings.buyerComment?.currentFilterData.map(item => `"${item}"`).join(',')
-
-    return objectToUrlQs(
-      dataGridFiltersConverter(
-        this.columnMenuSettings,
-        this.currentSearchValue,
-        exclusion,
-        filtersFields,
-        [
-          'parentProductSkuByClient',
-          'parentProductAmazonTitle',
-          'parentProductAsin',
-          'childProductAmazonTitle',
-          'childProductSkuByClient',
-          'childProductAsin',
-          'title',
-        ],
-        {
-          ...(!statusFilterData.length && {
-            status: {
-              $eq: this.currentSettings.statuses.join(','),
-            },
-          }),
-          ...(commentsFilter && {
-            comments: { $eq: commentsFilter },
-          }),
-
-          ...(buyerCommentFilter && {
-            buyerComment: { $eq: buyerCommentFilter },
-          }),
-        },
-      ),
-    )
-  }
-
-  onClickResetFilters() {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      ...dataGridFiltersInitializer(filtersFields),
-    }
-
-    this.getIdeaList()
     this.getDataGridState()
+    this.getCurrentData()
   }
 
-  setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings.filterRequestStatus = requestStatus
-  }
-
-  onLeaveColumnField() {
-    this.onHover = null
-  }
-
-  async onClickFilterBtn(column) {
-    try {
-      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
-
-      const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column, 'ideas'),
-        column,
-        `ideas/pag/my?filters=${this.getFilters(column)}`,
-      )
-
-      if (this.columnMenuSettings[column]) {
-        runInAction(() => {
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [column]: { ...this.columnMenuSettings[column], filterData: data },
-          }
-        })
-      }
-
-      this.setFilterRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setFilterRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
-  }
-
-  onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings[field].currentFilterData = value
-  }
-
-  // * Data getters
-
-  loadData() {
-    try {
-      this.getDataGridState()
-      this.getIdeaList()
-      this.getShopList()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async getIdeaList() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      const response = await IdeaModel.getIdeaList({
-        ...this.currentSettings.queries,
-
-        limit: this.paginationModel.pageSize,
-        offset: this.paginationModel.page * this.paginationModel.pageSize,
-
-        sortField: this.sortModel.length ? this.sortModel[0].field : this.currentSettings.defaultSortingModel,
-        sortType: getCurrentSortingDirectionOfColumns(this.sortModel, intervalFields),
-
-        filters: this.getFilters(),
-      })
-
-      runInAction(() => {
-        this.ideaList = addIdDataConverter(response.rows) || []
-        this.rowCount = response.count
-      })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-
-      this.setRequestStatus(loadingStatus.FAILED)
-    }
-  }
-
-  async getShopList() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      const response = await ShopModel.getMyShopNames()
-
-      runInAction(() => {
-        this.shopList = response
-      })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-
-      this.setRequestStatus(loadingStatus.FAILED)
-    }
-  }
-
-  async getDataForIdeaModal(idea) {
+  async getDataForIdeaModal(idea: IIdea) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -432,7 +203,7 @@ export class ClientIdeasViewModel {
   async onClickVariationRadioButton() {
     try {
       const result = await ClientModel.getProductPermissionsData({ isParent: true, isChild: false })
-      this.productsToLaunch = result.rows
+      this.productsToLaunch = result.rows as unknown as IProduct[]
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
@@ -444,7 +215,7 @@ export class ClientIdeasViewModel {
       const response = await SupplierModel.getSuppliersPaymentMethods()
 
       runInAction(() => {
-        this.paymentMethods = response
+        this.paymentMethods = response as IPaymentMethod[]
       })
     } catch (error) {
       console.error(error)
@@ -456,7 +227,7 @@ export class ClientIdeasViewModel {
       const result = await StorekeeperModel.getStorekeepers()
 
       runInAction(() => {
-        this.storekeepers = result
+        this.storekeepers = result as IStorekeeper[]
       })
     } catch (error) {
       console.error(error)
@@ -465,7 +236,7 @@ export class ClientIdeasViewModel {
 
   // * Idea handlers
 
-  async statusHandler(method, id, addSupliersToParentProductData, data) {
+  async statusHandler(method: Function, id: string, addSupliersToParentProductData?: any, data?: any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       await method(id, data)
@@ -473,11 +244,11 @@ export class ClientIdeasViewModel {
       if (addSupliersToParentProductData) {
         await ProductModel.addSuppliersToProduct(
           addSupliersToParentProductData?.parentProduct?._id,
-          addSupliersToParentProductData?.suppliers?.map(supplier => supplier._id),
+          addSupliersToParentProductData?.suppliers?.map((supplier: ISupplier) => supplier._id),
         )
       }
 
-      await this.getIdeaList()
+      await this.getCurrentData()
 
       UserModel.getUsersInfoCounters()
 
@@ -489,44 +260,49 @@ export class ClientIdeasViewModel {
     }
   }
 
-  handleStatusToCheck(id) {
+  handleStatusToCheck(id: string) {
     this.confirmModalSettings = {
       isWarning: false,
-      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
-      onClickConfirm: () => {
+      title: '',
+      message: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onSubmit: () => {
         this.statusHandler(IdeaModel.setStatusToCheck, id)
         this.onTriggerOpenModal('showConfirmModal')
       },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  handleStatusToReject(ideaId) {
-    this.selectedIdea = ideaId
+  handleStatusToReject(ideaId: string) {
+    this.selectedIdeaId = ideaId
     this.onTriggerOpenModal('showCommentsModal')
   }
 
-  setRejectStatusHandler(reasonReject) {
-    this.statusHandler(IdeaModel.setStatusToReject, this.selectedIdea, undefined, { reasonReject })
+  setRejectStatusHandler(reasonReject: string) {
+    this.statusHandler(IdeaModel.setStatusToReject, this.selectedIdeaId, undefined, { reasonReject })
   }
 
-  handleStatusToSupplierSearch(id) {
+  handleStatusToSupplierSearch(id: string) {
     this.confirmModalSettings = {
       isWarning: false,
-      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
-      onClickConfirm: () => {
+      title: '',
+      message: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onSubmit: () => {
         this.statusHandler(IdeaModel.setStatusToSupplierSearch, id)
         this.onTriggerOpenModal('showConfirmModal')
       },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  handleStatusToProductCreating(id, ideaData) {
+  handleStatusToProductCreating(id: string, ideaData: IIdea) {
     this.confirmModalSettings = {
       isWarning: false,
-      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
-      onClickConfirm: () => {
+      title: '',
+      message: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onSubmit: () => {
         this.statusHandler(
           ideaData?.variation ? IdeaModel.setStatusToProductCreating : IdeaModel.setStatusToAddingAsin,
           id,
@@ -534,135 +310,132 @@ export class ClientIdeasViewModel {
         )
         this.onTriggerOpenModal('showConfirmModal')
       },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  handleStatusToAddingAsin(id) {
+  handleStatusToAddingAsin(id: string) {
     this.confirmModalSettings = {
       isWarning: false,
-      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
-      onClickConfirm: () => {
+      title: '',
+      message: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onSubmit: () => {
         this.statusHandler(IdeaModel.setStatusToAddingAsin, id)
         this.onTriggerOpenModal('showConfirmModal')
       },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  handleStatusToFinished(id) {
+  handleStatusToFinished(id: string) {
     this.confirmModalSettings = {
       isWarning: false,
-      confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
-      onClickConfirm: () => {
+      title: '',
+      message: t(TranslationKey['Are you sure you want to change the status of an idea']),
+      onSubmit: () => {
         this.statusHandler(IdeaModel.setStatusToFinished, id)
         this.onTriggerOpenModal('showConfirmModal')
       },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  handleRestore(id) {
+  handleRestore(id: string) {
     this.confirmModalSettings = {
       isWarning: false,
-      confirmMessage: t(TranslationKey['Are you sure you want to restore the idea']),
-      onClickConfirm: () => {
+      title: '',
+      message: t(TranslationKey['Are you sure you want to restore the idea']),
+      onSubmit: () => {
         this.statusHandler(IdeaModel.restore, id)
         this.onTriggerOpenModal('showConfirmModal')
       },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onSubmitRemoveIdea(ideaId) {
+  async onSubmitRemoveIdea(ideaId: string) {
     try {
       await IdeaModel.setStatusToClosed(ideaId)
-      this.loadData()
+      this.getCurrentData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.error(error)
     }
   }
 
-  onClickRequestId(id) {
-    const win = window.open(
-      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request?request-id=${id}`,
-      '_blank',
-    )
-
-    win.focus()
+  onClickRequestId(id: string) {
+    window
+      ?.open(
+        `/${
+          UserRoleCodeMapForRoutes[this.userInfo?.role as keyof typeof UserRoleCodeMapForRoutes]
+        }/freelance/my-requests/custom-request?request-id=${id}`,
+        '_blank',
+      )
+      ?.focus()
   }
 
   //  * Barcode handlers
 
-  onClickBarcode(item) {
+  onClickBarcode(item: IProduct) {
     this.setSelectedProduct(item)
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
-  onDoubleClickBarcode = item => {
+  onDoubleClickBarcode = (item: IProduct) => {
     this.setSelectedProduct(item)
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
-  async onDeleteBarcode(product) {
+  async onDeleteBarcode(product: IProduct) {
     try {
       await ClientModel.updateProductBarCode(product._id, { barCode: null })
 
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  showBarcodeOrHscode(barcode /* , hscode */) {
-    // this.currentHscode = hscode
+  showBarcodeOrHscode(barcode: string) {
     this.currentBarcode = barcode
 
     this.onTriggerOpenModal('showBarcodeOrHscodeModal')
   }
 
-  async onClickSaveBarcode(tmpBarCode) {
-    if (tmpBarCode.length) {
+  async onClickSaveBarcode(tmpBarCode: IUploadFile[]) {
+    if (tmpBarCode?.length) {
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
 
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
+    await ClientModel.updateProductBarCode(this.selectedProduct?._id, { barCode: this.uploadedFiles[0] })
 
-    this.loadData()
+    this.getCurrentData()
 
     runInAction(() => {
       this.selectedProduct = undefined
     })
   }
 
-  // * Product handlers
-
-  onClickParseProductData(item) {
-    this.setSelectedProduct(item)
-    this.onClickProductModal()
-  }
-
-  setSelectedProduct(item) {
+  setSelectedProduct(item: IProduct) {
     this.selectedProduct = item
   }
 
   onClickProductModal() {
-    this.history.push(`/client/ideas/add-asin?product-id=${this.selectedProduct._id}`)
+    this.history.push(`/client/ideas/add-asin?product-id=${this.selectedProduct?._id}`)
 
     this.onTriggerOpenModal('productCardModal')
   }
 
-  onClickShowProduct(row) {
-    const win = window.open(
-      `${window.location.origin}/client/inventory/product?product-id=${row.originalData._id}`,
-      '_blank',
-    )
-
-    win.focus()
+  onClickShowProduct(row: IProduct) {
+    window?.open(`${window.location.origin}/client/inventory/product?product-id=${row?._id}`, '_blank')?.focus()
   }
 
-  async editIdea(id, data, isForceUpdate) {
+  async editIdea(id: string, data: any, isForceUpdate?: boolean) {
     try {
       await IdeaModel.editIdea(id, data)
 
@@ -676,19 +449,13 @@ export class ClientIdeasViewModel {
     }
   }
 
-  // * Modal handlers
-
-  onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
-  }
-
-  async onClickBindButton(requests) {
+  async onClickBindButton(requests: IRequest[]) {
     this.setRequestStatus(loadingStatus.IS_LOADING)
     const methodBody =
-      this.selectedIdea.status === ideaStatusByKey[ideaStatus.NEW] ||
-      this.selectedIdea.status === ideaStatusByKey[ideaStatus.ON_CHECK]
-        ? { onCheckedIdeaId: this.selectedIdea._id }
-        : { onFinishedIdeaId: this.selectedIdea._id }
+      this.selectedIdea?.status === ideaStatusByKey[ideaStatus.NEW] ||
+      this.selectedIdea?.status === ideaStatusByKey[ideaStatus.ON_CHECK]
+        ? { onCheckedIdeaId: this.selectedIdea?._id }
+        : { onFinishedIdeaId: this.selectedIdea?._id }
 
     for (const request of requests) {
       try {
@@ -698,24 +465,24 @@ export class ClientIdeasViewModel {
       }
     }
 
-    this.loadData()
+    this.getCurrentData()
 
     this.setRequestStatus(loadingStatus.SUCCESS)
 
     this.onTriggerOpenModal('showBindingModal')
   }
 
-  async onSubmitCreateProduct(ideaData) {
+  async onSubmitCreateProduct(ideaData: any) {
     try {
-      const createData = getObjectFilteredByKeyArrayWhiteList(
+      const createData: any = getObjectFilteredByKeyArrayWhiteList(
         {
           images: ideaData?.linksToMediaFiles,
           amazonTitle: ideaData?.productName,
           asin: '',
-          suppliersIds: ideaData?.suppliers?.map(el => el._id),
+          suppliersIds: ideaData?.suppliers?.map((el: ISupplier) => el._id),
           parentProductId: ideaData?.parentProduct?._id,
           clientComment: ideaData?.comments,
-          lamazon: ideaData?.productLinks[0],
+          lamazon: ideaData?.productLinks?.[0],
           buyerId: ideaData?.parentProduct?.buyerId,
         },
         createProductByClient,
@@ -725,13 +492,13 @@ export class ClientIdeasViewModel {
 
       await this.editIdea(ideaData._id, { childProductId: result.guid })
 
-      if (createData.suppliersIds?.length) {
+      if (createData?.suppliersIds?.length) {
         await ClientModel.updateProduct(result.guid, {
-          currentSupplierId: createData.suppliersIds[0],
+          currentSupplierId: createData?.suppliersIds?.[0],
         })
       }
 
-      this.loadData()
+      this.getCurrentData()
 
       this.successModalTitle = t(TranslationKey['Product added'])
       this.onTriggerOpenModal('showSuccessModal')
@@ -742,14 +509,26 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({
+    supplier,
+    itemId,
+    editPhotosOfSupplier,
+    editPhotosOfUnit,
+  }: {
+    supplier: any
+    itemId: string
+    editPhotosOfSupplier: IUploadFile[]
+    editPhotosOfUnit: IUploadFile[]
+  }) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
+        paymentMethods: supplier.paymentMethods.map((item: IPaymentMethod) =>
+          getObjectFilteredByKeyArrayWhiteList(item, ['_id']),
+        ),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         heightUnit: supplier?.heightUnit || null,
@@ -758,12 +537,14 @@ export class ClientIdeasViewModel {
         weighUnit: supplier?.weighUnit || null,
       }
 
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       supplier = {
         ...supplier,
         images: this.readyImages,
       }
 
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
       supplier = {
         ...supplier,
@@ -780,8 +561,9 @@ export class ClientIdeasViewModel {
         )
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
-        if (supplier._id === this.currentProduct.currentSupplierId) {
+        if (supplier._id === this.currentProduct?.currentSupplierId) {
           runInAction(() => {
+            // @ts-ignore
             this.currentProduct.currentSupplier = supplier
             updateProductAutoCalculatedFields.call(this)
           })
@@ -796,10 +578,10 @@ export class ClientIdeasViewModel {
       }
 
       runInAction(() => {
-        this.selectedIdeaId = undefined
+        this.selectedIdeaId = ''
       })
 
-      this.loadData()
+      this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -810,7 +592,7 @@ export class ClientIdeasViewModel {
 
   // * Order handlers
 
-  async onClickToOrder(id) {
+  async onClickToOrder(id: string) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       const [storekeepers, destinations] = await Promise.all([
@@ -819,13 +601,13 @@ export class ClientIdeasViewModel {
       ])
 
       runInAction(() => {
-        this.storekeepers = storekeepers
-        this.destinations = destinations
+        this.storekeepers = storekeepers as unknown as IStorekeeper[]
+        this.destinations = destinations as unknown as IDestination[]
       })
 
       const result = await ProductModel.getProductById(id)
       runInAction(() => {
-        this.currentProduct = result
+        this.currentProduct = result as unknown as IProduct
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -835,20 +617,20 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async onClickCreateRequestButton(ideaData) {
+  async onClickCreateRequestButton(ideaData: IIdea) {
     const isCreateByChildProduct = ideaData?.status >= ideaStatusByKey[ideaStatus.ADDING_ASIN] && ideaData?.childProduct
 
-    const win = window.open(
-      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/create-request?parentProduct=${
-        isCreateByChildProduct ? ideaData?.childProduct?._id : ideaData?.parentProduct?._id
-      }&asin=${isCreateByChildProduct ? ideaData?.childProduct?.asin : ideaData?.parentProduct?.asin}`,
-      '_blank',
-    )
-
-    win.focus()
+    window
+      ?.open(
+        `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/create-request?parentProduct=${
+          isCreateByChildProduct ? ideaData?.childProduct?._id : ideaData?.parentProduct?._id
+        }&asin=${isCreateByChildProduct ? ideaData?.childProduct?.asin : ideaData?.parentProduct?.asin}`,
+        '_blank',
+      )
+      ?.focus()
   }
 
-  async onClickLinkRequestButton(idea) {
+  async onClickLinkRequestButton(idea: IIdea) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -877,24 +659,28 @@ export class ClientIdeasViewModel {
     }
   }
 
-  onClickCreateProduct(ideaData) {
+  onClickCreateProduct(ideaData: IIdea) {
     this.confirmModalSettings = {
+      title: '',
       isWarning: false,
-      confirmMessage: t(TranslationKey['Are you sure you want to create a product?']),
-      onClickConfirm: () => this.onSubmitCreateProduct(ideaData),
+      message: t(TranslationKey['Are you sure you want to create a product?']),
+      onSubmit: () => this.onSubmitCreateProduct(ideaData),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onClickCloseIdea(ideaId) {
+  onClickCloseIdea(ideaId: string) {
     this.confirmModalSettings = {
+      title: '',
       isWarning: true,
-      confirmMessage:
+      message:
         t(TranslationKey['Are you sure you want to close this idea?']) +
         '\n' +
         t(TranslationKey['Once confirmed, the idea will be closed without reopening']),
-      onClickConfirm: () => this.onSubmitRemoveIdea(ideaId),
+      onSubmit: () => this.onSubmitRemoveIdea(ideaId),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -902,29 +688,31 @@ export class ClientIdeasViewModel {
   async onClickProductLaunch() {
     try {
       this.isIdeaCreate = true
-      this.productId = undefined
-      this.currentIdeaId = undefined
+      this.productId = ''
+      this.currentIdeaId = ''
       this.onTriggerOpenModal('showProductLaunch')
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onClickNextButton(chosenProduct) {
+  async onClickNextButton(chosenProduct: IProduct) {
     runInAction(() => {
       this.currentProduct = chosenProduct
       this.productId = chosenProduct?._id
     })
 
-    if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.originalData?.buyer?._id) {
+    if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.buyer?._id) {
       this.confirmModalSettings = {
         isWarning: true,
-        confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
-        onClickConfirm: () => {
+        title: '',
+        message: t(TranslationKey['The card does not fit, send to supplier search']),
+        onSubmit: () => {
           this.onTriggerOpenModal('showSelectionSupplierModal')
           this.onTriggerOpenModal('showConfirmModal')
           this.onTriggerOpenModal('showProductLaunch')
         },
+        onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
       }
       this.onTriggerOpenModal('showConfirmModal')
     } else {
@@ -933,21 +721,22 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async onSubmitCalculateSeekSupplier(clientComment) {
+  async onSubmitCalculateSeekSupplier(clientComment: string) {
     try {
       const result = await ClientModel.calculatePriceToSeekSupplier(this.productId)
 
       runInAction(() => {
-        const priceForSeekSupplier = result.priceForClient
+        const priceForSeekSupplier = result.priceForClient as number
 
-        this.confirmMessage = this.confirmModalSettings = {
+        this.confirmModalSettings = {
           isWarning: false,
-          confirmTitle: t(TranslationKey.Attention),
-          confirmMessage: `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
+          title: t(TranslationKey.Attention),
+          message: `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
             result.priceForClient,
             2,
           )}.\n ${t(TranslationKey['Apply?'])}`,
-          onClickConfirm: () => this.onSubmitSeekSupplier(clientComment, priceForSeekSupplier),
+          onSubmit: () => this.onSubmitSeekSupplier(clientComment, priceForSeekSupplier),
+          onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
         }
       })
 
@@ -957,14 +746,14 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async onSubmitSeekSupplier(clientComment, priceForSeekSupplier) {
+  async onSubmitSeekSupplier(clientComment: string, priceForSeekSupplier: number) {
     try {
       await ClientModel.sendProductToSeekSupplier(this.productId, {
         clientComment,
         priceForClient: priceForSeekSupplier,
       })
 
-      this.loadData()
+      this.getCurrentData()
 
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
@@ -975,9 +764,9 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async onClickResultButton(request) {
+  async onClickResultButton(request: any) {
     try {
-      const proposals = await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)
+      const proposals = (await RequestProposalModel.getRequestProposalsCustomByRequestId(request._id)) as IProposal[]
 
       runInAction(() => {
         this.currentProposal = proposals.find(proposal =>
@@ -998,38 +787,47 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async unbindRequest(requestId) {
+  async unbindRequest(requestId: string) {
     try {
       await RequestModel.bindIdeaToRequest(requestId, { onCheckedIdeaId: null, onFinishedIdeaId: null })
-      this.getIdeaList()
+      this.getCurrentData()
     } catch (error) {
       console.error('error', error)
     }
   }
 
-  async onClickUnbindButton(requestId) {
+  async onClickUnbindButton(requestId: string) {
     this.confirmModalSettings = {
       isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to unbind the request from the idea?']),
-      onClickConfirm: () => {
+      title: '',
+      message: t(TranslationKey['Are you sure you want to unbind the request from the idea?']),
+      onSubmit: () => {
         this.unbindRequest(requestId)
         this.onTriggerOpenModal('showConfirmModal')
       },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
+  onConfirmSubmitOrderProductModal({
+    ordersDataState,
+    totalOrdersCost,
+  }: {
+    ordersDataState: any
+    totalOrdersCost: number
+  }) {
     this.ordersDataStateToSubmit = ordersDataState
 
     this.confirmModalSettings = {
       isWarning: false,
-      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+      title: t(TranslationKey['You are making an order, are you sure?']),
+      message: ordersDataState.some((el: any) => el.tmpIsPendingOrder)
         ? t(TranslationKey['Pending order will be created'])
         : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-      onClickConfirm: () => this.onSubmitOrderProductModal(),
+      onSubmit: () => this.onSubmitOrderProductModal(),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
@@ -1041,10 +839,13 @@ export class ClientIdeasViewModel {
 
       this.onTriggerOpenModal('showOrderModal')
 
-      for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
+      // @ts-ignore
+      for (let i = 0; i < this.ordersDataStateToSubmit?.length; i++) {
+        // @ts-ignore
         const orderObject = this.ordersDataStateToSubmit[i]
 
         if (orderObject.tmpBarCode.length) {
+          // @ts-ignore
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
 
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
@@ -1058,7 +859,7 @@ export class ClientIdeasViewModel {
       toast.success(t(TranslationKey['The order has been created']))
 
       this.onTriggerOpenModal('showConfirmModal')
-      this.loadData()
+      this.getCurrentData()
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
@@ -1066,7 +867,7 @@ export class ClientIdeasViewModel {
     }
   }
 
-  async createOrder(orderObject) {
+  async createOrder(orderObject: any) {
     try {
       const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
@@ -1077,23 +878,14 @@ export class ClientIdeasViewModel {
       }
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
-      })
-      this.onTriggerOpenModal('showInfoModal')
     }
   }
 
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  setDestinationsFavouritesItem(item) {
+  setDestinationsFavouritesItem(item: any) {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  async onClickAddSupplierButton(id) {
+  async onClickAddSupplierButton(id: string) {
     runInAction(() => {
       this.selectedIdeaId = id
     })

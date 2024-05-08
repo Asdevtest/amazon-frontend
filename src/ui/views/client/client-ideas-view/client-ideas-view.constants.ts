@@ -46,3 +46,13 @@ export const filtersFields = [
   'createdBy',
   'sub',
 ]
+
+export const fieldsForSearch = [
+  'parentProductSkuByClient',
+  'parentProductAmazonTitle',
+  'parentProductAsin',
+  'childProductAmazonTitle',
+  'childProductSkuByClient',
+  'childProductAsin',
+  'title',
+]
