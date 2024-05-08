@@ -1,1 +1,1 @@
-export const exceptThisSymbols = ['e', 'E', '+', '-', '.']
+export const exceptThisSymbols = ['e', 'E', '+', '-', ',']

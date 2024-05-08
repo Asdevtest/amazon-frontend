@@ -131,10 +131,10 @@ export const EditBoxStorekeeperForm = memo(
 
     const boxInitialState = {
       ...formItem,
-      lengthCmWarehouse: formItem?.lengthCmWarehouse || 0,
-      widthCmWarehouse: formItem?.widthCmWarehouse || 0,
-      heightCmWarehouse: formItem?.heightCmWarehouse || 0,
-      weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
+      lengthCmWarehouse: String(formItem?.lengthCmWarehouse) || '',
+      widthCmWarehouse: String(formItem?.widthCmWarehouse) || '',
+      heightCmWarehouse: String(formItem?.heightCmWarehouse) || '',
+      weighGrossKgWarehouse: String(formItem?.weighGrossKgWarehouse) || '',
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
       logicsTariffId: formItem?.logicsTariff?._id || null,
@@ -244,6 +244,11 @@ export const EditBoxStorekeeperForm = memo(
         updateBoxFields.weighGrossKgWarehouse = Number(
           toFixed(updateBoxFields.weighGrossKgWarehouse * POUNDS_COEFFICIENT),
         )
+      } else {
+        updateBoxFields.lengthCmWarehouse = Number(updateBoxFields.lengthCmWarehouse)
+        updateBoxFields.widthCmWarehouse = Number(updateBoxFields.widthCmWarehouse)
+        updateBoxFields.heightCmWarehouse = Number(updateBoxFields.heightCmWarehouse)
+        updateBoxFields.weighGrossKgWarehouse = Number(updateBoxFields.weighGrossKgWarehouse)
       }
 
       onSubmit({
@@ -301,9 +306,9 @@ export const EditBoxStorekeeperForm = memo(
     const disableSubmit =
       isEqual(boxState, boxFields) ||
       boxFields.storekeeperId === '' ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
+      maxBoxSizeFromOption(sizeSetting, Number(boxFields.lengthCmWarehouse)) ||
+      maxBoxSizeFromOption(sizeSetting, Number(boxFields.widthCmWarehouse)) ||
+      maxBoxSizeFromOption(sizeSetting, Number(boxFields.heightCmWarehouse))
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,

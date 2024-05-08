@@ -39,18 +39,18 @@ export const useChangeDimensions = ({ data, setData, sizeSetting = Dimensions.EU
       if (sizeSetting === Dimensions.US) {
         setData(prev => ({
           ...prev,
-          lengthCmWarehouse: Number(toFixed(prev.lengthCmWarehouse / INCHES_COEFFICIENT)),
-          widthCmWarehouse: Number(toFixed(prev.widthCmWarehouse / INCHES_COEFFICIENT)),
-          heightCmWarehouse: Number(toFixed(prev.heightCmWarehouse / INCHES_COEFFICIENT)),
-          weighGrossKgWarehouse: Number(toFixed(prev.weighGrossKgWarehouse / POUNDS_COEFFICIENT)),
+          lengthCmWarehouse: toFixed(Number(prev.lengthCmWarehouse) / INCHES_COEFFICIENT),
+          widthCmWarehouse: toFixed(Number(prev.widthCmWarehouse) / INCHES_COEFFICIENT),
+          heightCmWarehouse: toFixed(Number(prev.heightCmWarehouse) / INCHES_COEFFICIENT),
+          weighGrossKgWarehouse: toFixed(Number(prev.weighGrossKgWarehouse) / POUNDS_COEFFICIENT),
         }))
       } else {
         setData(prev => ({
           ...prev,
-          lengthCmWarehouse: Number(toFixed(prev.lengthCmWarehouse * INCHES_COEFFICIENT)),
-          widthCmWarehouse: Number(toFixed(prev.widthCmWarehouse * INCHES_COEFFICIENT)),
-          heightCmWarehouse: Number(toFixed(prev.heightCmWarehouse * INCHES_COEFFICIENT)),
-          weighGrossKgWarehouse: Number(toFixed(prev.weighGrossKgWarehouse * POUNDS_COEFFICIENT)),
+          lengthCmWarehouse: toFixed(Number(prev.lengthCmWarehouse) * INCHES_COEFFICIENT),
+          widthCmWarehouse: toFixed(Number(prev.widthCmWarehouse) * INCHES_COEFFICIENT),
+          heightCmWarehouse: toFixed(Number(prev.heightCmWarehouse) * INCHES_COEFFICIENT),
+          weighGrossKgWarehouse: toFixed(Number(prev.weighGrossKgWarehouse) * POUNDS_COEFFICIENT),
         }))
       }
     }
@@ -60,23 +60,24 @@ export const useChangeDimensions = ({ data, setData, sizeSetting = Dimensions.EU
     if (sizeSetting === Dimensions.US) {
       setData(prev => {
         const returnEuDimensions =
-          prev.lengthCmWarehouse *
+          Number(prev.lengthCmWarehouse) *
           INCHES_COEFFICIENT *
-          prev.widthCmWarehouse *
+          Number(prev.widthCmWarehouse) *
           INCHES_COEFFICIENT *
-          prev.heightCmWarehouse *
+          Number(prev.heightCmWarehouse) *
           INCHES_COEFFICIENT
 
         return {
           ...prev,
-          volumeWeight: Number(toFixed(returnEuDimensions / volumeWeightCoefficient / POUNDS_COEFFICIENT)),
+          volumeWeight: toFixed(returnEuDimensions / volumeWeightCoefficient / POUNDS_COEFFICIENT),
         }
       })
     } else {
       setData(prev => ({
         ...prev,
-        volumeWeight: Number(
-          toFixed((prev.lengthCmWarehouse * prev.widthCmWarehouse * prev.heightCmWarehouse) / volumeWeightCoefficient),
+        volumeWeight: toFixed(
+          (Number(prev.lengthCmWarehouse) * Number(prev.widthCmWarehouse) * Number(prev.heightCmWarehouse)) /
+            volumeWeightCoefficient,
         ),
       }))
     }
@@ -85,7 +86,7 @@ export const useChangeDimensions = ({ data, setData, sizeSetting = Dimensions.EU
   useEffect(() => {
     setData(prev => ({
       ...prev,
-      finalWeight: Number(toFixed(Math.max(prev.weighGrossKgWarehouse, Number(prev.volumeWeight)))),
+      finalWeight: toFixed(Math.max(Number(prev.weighGrossKgWarehouse), Number(prev.volumeWeight))),
     }))
   }, [data.volumeWeight, data.weighGrossKgWarehouse])
 
@@ -96,7 +97,7 @@ export const useChangeDimensions = ({ data, setData, sizeSetting = Dimensions.EU
 
     setData(prev => ({
       ...prev,
-      [fieldName]: Number(e.target.value),
+      [fieldName]: e.target.value,
     }))
   }
 
