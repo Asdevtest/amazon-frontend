@@ -2,7 +2,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  CommentUsersCell,
+  ChangeInputCommentCell,
   MultilineTextHeaderCell,
   NormDateCell,
   UserCell,
@@ -62,13 +62,13 @@ export const subUsersColumns = handlers => [
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     renderCell: params => (
-      <CommentUsersCell
-        id={params.row._id}
-        comment={params?.row?.note?.comment}
-        handler={reason => handlers.onClickSaveComment(params.row._id, reason)}
+      <ChangeInputCommentCell
+        rowsCount={3}
+        text={params?.row?.note?.comment}
+        onClickSubmit={reason => handlers.onClickSaveComment(params.row._id, reason)}
       />
     ),
-    width: 335,
+    width: 340,
     disableColumnMenu: true,
     filterable: false,
     sortable: false,
