@@ -2,10 +2,11 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   container: {
-    width: '400px',
+    width: '420px',
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+    padding: 10,
   },
 
   title: {

@@ -24,6 +24,7 @@ export const styles = theme => ({
 
   mainWrapper: {
     display: 'flex',
+    padding: 10,
     backgroundColor: theme.palette.background.general,
   },
 

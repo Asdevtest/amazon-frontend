@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
+    padding: 10,
     [theme.breakpoints.down(768)]: {
       width: '100%',
     },
