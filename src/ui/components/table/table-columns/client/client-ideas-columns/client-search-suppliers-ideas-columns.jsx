@@ -71,7 +71,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderCell: params => (
       <OnCheckingIdeaActionsCell
         isAcceptDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
-        onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row.originalData)}
+        onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row)}
         onClickReject={() => rowHandlers.onClickReject(params.row._id)}
       />
     ),
@@ -195,7 +195,7 @@ export const clientSearchSuppliersIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
     headerName: t(TranslationKey.Files),
 
-    renderCell: params => <FilesCell files={params.row.originalData?.suppliers[0]?.images} />,
+    renderCell: params => <FilesCell files={params.row?.suppliers[0]?.images} />,
     width: 80,
     align: 'center',
     sortable: false,
