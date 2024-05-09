@@ -114,7 +114,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       const requestBody = []
 
       for (const row of this.selectedRows) {
-        const selectedRow = this.tableData?.find(item => item._id === row)
+        const selectedRow = this.currentData?.find(item => item._id === row)
 
         if (selectedRow) {
           requestBody.push({
@@ -169,7 +169,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
       await SellerBoardModel.deleteIntegrationsReport(this.tabKey, this.selectedRows)
 
-      await this.getMainTableData()
+      await this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -284,6 +284,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
   getTableData() {
     this.getDataGridState()
-    this.getMainTableData()
+    this.getCurrentData()
   }
 }

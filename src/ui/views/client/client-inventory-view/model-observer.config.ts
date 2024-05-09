@@ -54,7 +54,7 @@ export const observerConfig = {
   meta: observable,
 
   isSomeFilterOn: override,
-  getMainTableData: override,
+  getCurrentData: override,
 
   userInfo: computed,
   destinationsFavourites: computed,

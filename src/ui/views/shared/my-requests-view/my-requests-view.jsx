@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -28,33 +28,27 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './my-requests-view.style'
 
+import { switcherConfig } from './my-requests-view.constants'
 import { MyRequestsViewModel } from './my-requests-view.model'
 
 export const MyRequestsView = observer(({ history }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [viewModel] = useState(() => new MyRequestsViewModel({ history }))
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   const getCellClassName = params =>
-    params.row.originalData.countProposalsByStatuses.waitedProposals &&
+    params.row.countProposalsByStatuses.waitedProposals &&
     params.field === 'waitedProposals' &&
     styles.waitingCheckedBacklighting
 
   const getRowClassName = params => {
-    if (
-      getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= ONE_DAY_IN_SECONDS &&
-      viewModel.isRequestsAtWork
-    ) {
-      return [styles.deadlineBorder, styles.redBorder]
+    if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= ONE_DAY_IN_SECONDS && viewModel.isRequestsAtWork) {
+      return cx(styles.deadlineBorder, styles.redBorder)
     } else if (
-      getDistanceBetweenDatesInSeconds(params.row.originalData.timeoutAt) <= ONE_DAY_IN_SECONDS * 2 &&
+      getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= ONE_DAY_IN_SECONDS * 2 &&
       viewModel.isRequestsAtWork
     ) {
-      return [styles.deadlineBorder, styles.yellowBorder]
+      return cx(styles.deadlineBorder, styles.yellowBorder)
     }
   }
 
@@ -64,81 +58,80 @@ export const MyRequestsView = observer(({ history }) => {
 
   return (
     <>
-      <div>
-        <div className={styles.header}>
-          <div />
+      <div className={styles.header}>
+        <div />
 
-          <SearchInput
-            inputClasses={styles.searchInput}
-            placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.SEARCH_BY_TITLE)}, ${t(
-              TranslationKey.ASIN,
-            )}, ${t(TranslationKey.ID)}`}
-            value={viewModel.nameSearchValue}
-            onSubmit={viewModel.onSearchSubmit}
-          />
-
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            tooltipInfoContent={t(TranslationKey['Opens the form to create a request'])}
-            onClick={() => viewModel.onClickAddBtn()}
-          >
-            {t(TranslationKey['Create a request'])}
-          </Button>
-        </div>
-
-        <CustomSwitcher
-          fullWidth
-          switchMode="big"
-          condition={viewModel.switcherCondition}
-          switcherSettings={[
-            { label: () => t(TranslationKey['Requests in progress']), value: 'inProgress' },
-            { label: () => t(TranslationKey['Ready to check']), value: 'readyToCheck' },
-            { label: () => t(TranslationKey['Completed requests']), value: 'completed' },
-          ]}
-          changeConditionHandler={viewModel.onClickChangeCatigory}
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={`${t(TranslationKey.SEARCH_BY_TITLE)}, ${t(TranslationKey.ASIN)}, ${t(TranslationKey.ID)}`}
+          value={viewModel.currentSearchValue}
+          onSubmit={viewModel.onSearchSubmit}
         />
 
-        <div className={styles.datagridWrapper}>
-          <CustomDataGrid
-            getCellClassName={getCellClassName}
-            getRowClassName={getRowClassName}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            rows={viewModel.currentData}
-            rowHeight={130}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              columnMenu: viewModel.columnMenuSettings,
+        <Button
+          styleType={ButtonStyle.SUCCESS}
+          tooltipInfoContent={t(TranslationKey['Opens the form to create a request'])}
+          onClick={() => viewModel.onClickAddBtn()}
+        >
+          {t(TranslationKey['Create a request'])}
+        </Button>
+      </div>
 
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
+      <CustomSwitcher
+        fullWidth
+        switchMode="big"
+        condition={viewModel.switcherCondition}
+        switcherSettings={switcherConfig}
+        changeConditionHandler={viewModel.onClickChangeCatigory}
+      />
+
+      <div className={styles.datagridWrapper}>
+        <CustomDataGrid
+          getCellClassName={getCellClassName}
+          getRowClassName={getRowClassName}
+          pinnedColumns={viewModel.pinnedColumns}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          rows={viewModel.currentData}
+          rowHeight={130}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
+
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-            onColumnHeaderEnter={params => viewModel.onHoverColumnField(params.field)}
-            onColumnHeaderLeave={viewModel.onLeaveColumnField}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowClick={e => viewModel.handleOpenRequestDetailModal(e)}
-          />
-        </div>
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
+            },
+          }}
+          getRowId={row => row._id}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowClick={e => viewModel.handleOpenRequestDetailModal(e)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
+        />
       </div>
 
       <Modal openModal={viewModel.showRequestForm} setOpenModal={() => viewModel.onTriggerOpenModal('showRequestForm')}>

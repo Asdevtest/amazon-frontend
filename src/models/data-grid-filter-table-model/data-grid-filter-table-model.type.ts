@@ -8,7 +8,7 @@ export interface DataGridFilterTableModelParams {
   mainMethodURL: string
   fieldsForSearch?: string[]
   tableKey?: string
-  defaultGetDataMethodOptions?: any
+  defaultGetCurrentDataOptions?: any
   additionalPropertiesColumnMenuSettings?: any
   additionalPropertiesGetFilters?: any
 }

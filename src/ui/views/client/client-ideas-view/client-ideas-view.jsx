@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
@@ -50,10 +50,6 @@ export const ClientIdeasView = observer(({ history }) => {
       }),
   )
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   const getRowClassName = params => {
     if (params.row.status === ideaStatusByKey.SUPPLIER_NOT_FOUND) {
       return [styles.deadlineBorder, styles.redBorder]
@@ -71,7 +67,7 @@ export const ClientIdeasView = observer(({ history }) => {
           inputClasses={styles.searchInput}
           value={viewModel.currentSearchValue}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-          onSubmit={viewModel.onChangeSearchValue}
+          onSubmit={viewModel.onSearchSubmit}
         />
 
         <div>
@@ -94,11 +90,13 @@ export const ClientIdeasView = observer(({ history }) => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
+          pinnedColumns={viewModel.pinnedColumns}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowId={({ _id }) => _id}
           slotProps={{
             columnMenu: viewModel.columnMenuSettings,
             toolbar: {
@@ -106,19 +104,27 @@ export const ClientIdeasView = observer(({ history }) => {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
           getRowClassName={getRowClassName}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowClick={params => viewModel.getDataForIdeaModal(params.row.originalData)}
+          onRowClick={params => viewModel.getDataForIdeaModal(params.row)}
         />
       </div>
 
@@ -212,7 +218,7 @@ export const ClientIdeasView = observer(({ history }) => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}

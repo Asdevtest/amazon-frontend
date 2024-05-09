@@ -139,7 +139,7 @@ export const clientOnCheckingIdeasColumns = (rowHandlers, shops) => [
       <IdeaRequestsCell
         row={params.row}
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
-        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.originalData)}
+        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row)}
         onClickResultButton={rowHandlers.onClickResultButton}
         onClickUnbindButton={rowHandlers.onClickUnbindButton}
         onClickRequestId={rowHandlers.onClickRequestId}

@@ -20,7 +20,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     headerName: t(TranslationKey['Idea title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.originalData.productName} />,
+    renderCell: params => <MultilineTextCell text={params.row.productName} />,
     width: 198,
     filterable: false,
 
@@ -90,13 +90,11 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     renderCell: params => {
-      const product = params.row.originalData.variation
-        ? params.row?.originalData?.childProduct
-        : params.row?.originalData?.parentProduct
+      const product = params.row.variation ? params.row?.childProduct : params.row?.parentProduct
 
       return (
         <ChangeChipCell
-          disabled={params.row.originalData.variation && !params.row.originalData.childProduct}
+          disabled={params.row.variation && !params.row.childProduct}
           text={t(TranslationKey.BarCode)}
           value={product?.barCode}
           onClickChip={() => rowHandlers.barCodeHandlers.onClickBarcode(product)}
@@ -161,7 +159,7 @@ export const clientAddAsinIdeasColumns = (rowHandlers, shops) => [
         row={params.row}
         onFinishedOnly
         onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
-        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row.originalData)}
+        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row)}
         onClickResultButton={rowHandlers.onClickResultButton}
         onClickUnbindButton={rowHandlers.onClickUnbindButton}
         onClickRequestId={rowHandlers.onClickRequestId}
