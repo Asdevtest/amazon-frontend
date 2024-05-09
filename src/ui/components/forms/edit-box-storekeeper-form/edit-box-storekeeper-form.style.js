@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    paddingRight: 10,
+    padding: 10,
   },
   form: {
     borderRadius: '5px',

@@ -9,6 +9,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: '20px',
+    padding: 10,
   },
 
   modalMessageTitle: {

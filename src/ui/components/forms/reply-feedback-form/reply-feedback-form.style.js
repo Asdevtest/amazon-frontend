@@ -5,6 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 650,
     display: 'flex',
     flexDirection: 'column',
+    padding: 10,
   },
 
   modalText: {

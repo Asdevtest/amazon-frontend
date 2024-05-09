@@ -13,12 +13,13 @@ export interface ISwitcherSettings {
 }
 
 interface CustomSwitcherProps {
+  condition: any
+  switcherSettings: ISwitcherSettings[]
+  changeConditionHandler: (condition: any) => void
   fullWidth?: boolean
   switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header'
-  switcherSettings: ISwitcherSettings[]
-  condition: any
+  className?: string
   customCondition?: (value: any) => boolean
-  changeConditionHandler: (condition: any) => void
 }
 
 export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
@@ -28,6 +29,7 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
     condition,
     switcherSettings,
     fullWidth,
+    className,
     changeConditionHandler,
     customCondition,
   } = props
@@ -40,11 +42,15 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
 
   return (
     <div
-      className={cx(styles.switcherWrapper, {
-        [styles.fullWidthWrapper]: fullWidth,
-        [styles.headerStylesSwitcherWrapper]: switchMode === 'header',
-        [styles.mediumGapWrapper]: switchMode === 'medium',
-      })}
+      className={cx(
+        styles.switcherWrapper,
+        {
+          [styles.fullWidthWrapper]: fullWidth,
+          [styles.headerStylesSwitcherWrapper]: switchMode === 'header',
+          [styles.mediumGapWrapper]: switchMode === 'medium',
+        },
+        className,
+      )}
     >
       {switchOptionsToRender.map((option, optionIndex) => (
         <div

@@ -3,11 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     minWidth: 100,
-  },
-
-  button: {
-    marginLeft: 10,
-    color: theme.palette.text.general,
+    padding: 10,
   },
 
   standartText: {

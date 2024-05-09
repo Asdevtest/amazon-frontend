@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   content: {
     width: '100%',
+    padding: 10,
   },
   modalTitle: {
     color: theme.palette.text.general,

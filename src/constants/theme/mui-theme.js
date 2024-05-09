@@ -59,6 +59,22 @@ export const globalStyles = theme => ({
       },
     },
   },
+
+  // MuiTablePagination
+  '.MuiTablePagination-input': {
+    borderRadius: '100px !important',
+    margin: '0 10px !important',
+    width: '60px !important',
+  },
+  '.MuiTablePagination-actions': {
+    marginLeft: '10px !important',
+    display: 'flex',
+    gap: 5,
+
+    button: {
+      padding: '0 !important',
+    },
+  },
 })
 
 export const lightTheme = createTheme({

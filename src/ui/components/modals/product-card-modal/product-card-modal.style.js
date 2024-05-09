@@ -7,7 +7,6 @@ export const useStyles = makeStyles()(() => ({
     width: 1640,
     height: 730,
     overflowY: 'auto',
-    padding: 10,
   },
 
   clippedRoot: {
@@ -15,7 +14,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   footerWrapper: {
-    marginTop: 10,
+    padding: '10px 20px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

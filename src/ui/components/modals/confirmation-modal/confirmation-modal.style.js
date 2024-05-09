@@ -2,7 +2,7 @@ import { keyframes } from '@emotion/react'
 import { makeStyles } from 'tss-react/mui'
 
 const animate_gradient = keyframes`
- 0% {
+  0% {
     backgroundPosition: '0% 50%';
   }
   50% {
@@ -21,7 +21,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 28px',
+    padding: 10,
     backgroundColor: theme.palette.background.general,
 
     [theme.breakpoints.down(768)]: {

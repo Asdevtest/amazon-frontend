@@ -6,6 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
+    padding: 10,
   },
 
   field: {
