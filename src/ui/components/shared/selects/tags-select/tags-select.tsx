@@ -52,6 +52,7 @@ export const TagsSelect: FC<TagsSelectProps> = memo(props => {
       <form className={styles.form}>
         <input
           type="text"
+          maxLength={255}
           placeholder={t(TranslationKey['Tag name'])}
           className={styles.input}
           value={searchValue}

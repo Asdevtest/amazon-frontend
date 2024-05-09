@@ -2260,5 +2260,6 @@ export enum TranslationKey {
   'Please select a JSON file' = 'Please select a JSON file',
   'Edit product tags' = 'Edit product tags',
   'Tag was successfully created and added to the list' = 'Tag was successfully created and added to the list',
+  'Failed to create tag' = 'Failed to create tag',
   // <p>t(TranslationKey.Close)</p> ПРИМЕР
 }
