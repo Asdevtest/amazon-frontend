@@ -9,6 +9,7 @@ import { CheckPendingOrderForm } from '@components/forms/check-pending-order-for
 import { EditBoxForm } from '@components/forms/edit-box-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
+import { ProductDataForm } from '@components/forms/product-data-form'
 import { RequestToSendBatchForm } from '@components/forms/request-to-send-batch-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -313,10 +314,11 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         />
       ) : null}
 
-      {viewModel.showProductModal ? (
+      <Modal
+        openModal={viewModel.showProductModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
+      >
         <ProductAndBatchModal
-          // @ts-ignore
-          setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
           openModal={viewModel.showProductModal}
           currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
           batches={viewModel.productBatches}
@@ -326,10 +328,10 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           selectedProduct={viewModel.selectedWarehouseOrderProduct}
           onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
           onClickMyOrderModal={viewModel.onClickMyOrderModal}
-          onClickInTransferModal={viewModel.onClickInTransfer}
+          onOpenProductDataModal={viewModel.onOpenProductDataModal}
           onClickHsCode={viewModel.onClickHsCode}
         />
-      ) : null}
+      </Modal>
 
       {viewModel.showMyOrderModal ? (
         <MyOrderModal
@@ -423,6 +425,13 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       </Modal>
 
       {viewModel.showProgress && <CircularProgressWithLabel />}
+
+      <Modal
+        openModal={viewModel.showProductDataModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductDataModal')}
+      >
+        <ProductDataForm product={viewModel.selectedWarehouseOrderProduct} onAmazon={viewModel.onAmazon} />
+      </Modal>
     </>
   )
 })

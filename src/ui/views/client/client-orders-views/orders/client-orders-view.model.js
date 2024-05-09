@@ -41,7 +41,7 @@ export class ClientOrdersViewModel {
   nameSearchValue = ''
   orders = []
   baseNoConvertedOrders = []
-
+  onAmazon = false
   orderStatusDataBase = []
   chosenStatus = []
   filteredStatus = []
@@ -62,6 +62,7 @@ export class ClientOrdersViewModel {
   showCheckPendingOrderFormModal = false
   showMyOrderModal = false
   showEditHSCodeModal = false
+  showProductDataModal = false
 
   myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
   productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
@@ -905,5 +906,11 @@ export class ClientOrdersViewModel {
     await BatchesModel.changeBatch(id, {
       actualShippingCost: cost,
     })
+  }
+
+  onOpenProductDataModal(onAmazon) {
+    this.onAmazon = onAmazon
+
+    this.onTriggerOpenModal('showProductDataModal')
   }
 }
