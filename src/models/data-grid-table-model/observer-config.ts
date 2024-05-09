@@ -21,6 +21,5 @@ export const observerConfig = {
   onChangeFilterModel: action.bound,
   onChangeUnserverSearchValue: action.bound,
   handlePinColumn: action.bound,
-  setRequestStatus: action.bound,
   handleHideColumns: action.bound,
 }
