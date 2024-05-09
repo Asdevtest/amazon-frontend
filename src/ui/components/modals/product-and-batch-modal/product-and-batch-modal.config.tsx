@@ -18,7 +18,7 @@ export const switcherSettings = [
 
 export const infoModalConfig = (
   selectedProduct: IProduct,
-  onClickInTransferModal: (id: string) => void,
+  onOpenProductDataModal: (onAmazon: boolean) => void,
 ): IModalConfig[] => {
   const { classes: styles, cx } = useStyles()
 
@@ -33,7 +33,20 @@ export const infoModalConfig = (
     },
     {
       title: t(TranslationKey.Inbound),
-      element: () => <p className={styles.fieldValue}>{selectedProduct?.sentToFbaSum || 0}</p>,
+      element: () => {
+        const isActiveButton = selectedProduct?.sentToFbaSum !== 0
+
+        return (
+          <button
+            className={cx(styles.fieldValue, {
+              [styles.blueText]: isActiveButton,
+            })}
+            onClick={() => (isActiveButton ? onOpenProductDataModal(true) : undefined)}
+          >
+            {selectedProduct?.sentToFbaSum || 0}
+          </button>
+        )
+      },
     },
     {
       title: t(TranslationKey.Order),
@@ -57,9 +70,8 @@ export const infoModalConfig = (
           <button
             className={cx(styles.fieldValue, {
               [styles.blueText]: isActiveButton,
-              [styles.button]: isActiveButton,
             })}
-            onClick={() => (isActiveButton ? onClickInTransferModal(selectedProduct._id) : undefined)}
+            onClick={() => (isActiveButton ? onOpenProductDataModal(false) : undefined)}
           >
             {selectedProduct?.inTransfer || 0}
           </button>

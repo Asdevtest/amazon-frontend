@@ -69,8 +69,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     !!userInfo &&
     (checkIsClient(UserRoleCodeMap[userInfo?.role]) ||
       checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
-      checkIsSupervisor(UserRoleCodeMap[userInfo?.role])) &&
-    !ideaValidStatuses.includes(status)
+      checkIsSupervisor(UserRoleCodeMap[userInfo?.role])) /* && !ideaValidStatuses.includes(status) */
 
   const showAddSupplierButton =
     !readOnly &&
@@ -167,75 +166,70 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
 
         {showAddSupplierButton ? (
           <Button
-            variant={ButtonVariant.OUTLINED}
+            iconButton
             // tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
             className={styles.button}
             disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea}
             onClick={() => onSupplierActions(ModalModes.ADD)}
           >
-            <AddIcon className={styles.icon} />
+            <AddIcon />
           </Button>
         ) : null}
 
         {showEditSupplierButton ? (
           <Button
-            isTableButton
-            variant={ButtonVariant.OUTLINED}
+            iconButton
             // tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
             tooltipAttentionContent={tooltipAttentionContentEditSupplierButton}
             className={styles.button}
             disabled={disabledEditSupplierButton}
             onClick={() => onSupplierActions(ModalModes.EDIT)}
           >
-            <EditOutlinedIcon className={styles.icon} />
+            <EditOutlinedIcon />
           </Button>
         ) : null}
 
         {isSupplerSelected ? (
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            className={styles.button}
-            onClick={() => onSupplierActions(ModalModes.VIEW)}
-          >
-            <EyeIcon className={styles.icon} />
+          <Button iconButton className={styles.button} onClick={() => onSupplierActions(ModalModes.VIEW)}>
+            <EyeIcon />
           </Button>
         ) : null}
 
         {showToggleCurrentSupplierButton && isCurrentSupplierSelected ? (
           <Button
+            iconButton
             styleType={ButtonStyle.DANGER}
-            variant={ButtonVariant.OUTLINED}
             className={styles.button}
             // tooltipInfoContent={t(TranslationKey['Remove the current supplier'])}
             disabled={isAtProcessOrder}
             onClick={() => onSupplierActions(ModalModes.ACCERT_REVOKE)}
           >
-            <AcceptRevokeIcon className={styles.icon} />
+            <AcceptRevokeIcon />
           </Button>
         ) : null}
 
         {showToggleCurrentSupplierButton && !isCurrentSupplierSelected ? (
           <Button
+            iconButton
             styleType={ButtonStyle.SUCCESS}
-            variant={ButtonVariant.OUTLINED}
             className={styles.button}
             // tooltipInfoContent={t(TranslationKey['Select a supplier as the current supplier'])}
             disabled={isAtProcessOrder}
             onClick={() => onSupplierActions(ModalModes.ACCEPT)}
           >
-            <AcceptIcon className={styles.icon} />
+            <AcceptIcon />
           </Button>
         ) : null}
 
         {showRemoveCurrentSupplierButton ? (
           <Button
+            iconButton
             styleType={ButtonStyle.DANGER}
-            variant={ButtonVariant.OUTLINED}
             // tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
             className={styles.button}
             onClick={() => onSupplierActions(ModalModes.DELETE)}
           >
-            <DeleteOutlineOutlinedIcon className={styles.icon} />
+            <DeleteOutlineOutlinedIcon />
           </Button>
         ) : null}
       </div>
