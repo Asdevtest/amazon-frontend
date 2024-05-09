@@ -72,10 +72,6 @@ export class AdminSettingsFreelanceModel {
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
-
-      runInAction(() => {
-        this.specs = []
-      })
     }
   }
 
@@ -83,11 +79,9 @@ export class AdminSettingsFreelanceModel {
     try {
       await AdministratorModel.createSpec(specTitle)
       this.getSpecs()
-
       toast.success(t(TranslationKey['Specialty successfully created.']))
     } catch (error) {
       console.error(error)
-
       toast.error(t(TranslationKey['Specialty not created, something went wrong ...']))
     }
   }
@@ -97,14 +91,12 @@ export class AdminSettingsFreelanceModel {
       if (isEditSpec) {
         await AdministratorModel.editSpec(_id, this.editedSpecTitle || title, archive)
         this.getSpecs()
-
         toast.success(t(TranslationKey['Specialty successfully changed.']))
       } else {
         this.onChangeSpecById(_id)
       }
     } catch (error) {
       console.error(error)
-
       toast.error(t(TranslationKey['Specialty not changed, something went wrong ...']))
     }
   }
@@ -118,7 +110,6 @@ export class AdminSettingsFreelanceModel {
         this.onClickToggleConfirmModal()
       },
     }
-
     this.onClickToggleConfirmModal()
   }
 
