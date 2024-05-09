@@ -125,4 +125,10 @@ export class DataGridTableModel extends DefaultModel {
     this.pinnedColumns = pinnedColumns
     this.setDataGridState()
   }
+
+  handleHideColumns(columnsToHide: string[]) {
+    columnsToHide.forEach(el => {
+      this.columnVisibilityModel[el] = false
+    })
+  }
 }

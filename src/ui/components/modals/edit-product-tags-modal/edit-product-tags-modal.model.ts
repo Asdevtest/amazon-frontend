@@ -98,6 +98,7 @@ export class EditProductTagModel {
 
       toast.success(t(TranslationKey['Tag was successfully created and added to the list']))
     } catch (error) {
+      toast.error(t(TranslationKey['Failed to create tag']))
       console.error(error)
     }
   }

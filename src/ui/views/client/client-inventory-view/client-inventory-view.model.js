@@ -321,9 +321,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
     this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
 
-    defaultHiddenColumns.forEach(el => {
-      this.columnVisibilityModel[el] = false
-    })
+    this.handleHideColumns(defaultHiddenColumns)
 
     this.getDataGridState()
 

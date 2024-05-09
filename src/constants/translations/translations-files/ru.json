@@ -2257,5 +2257,6 @@
   "Permissions not imported": "Файл не импортирован",
   "Please select a JSON file": "Пожалуйста, выберите файл JSON",
   "Edit product tags": "Редактирование тегов продукта",
-  "Tag was successfully created and added to the list": "Тег успешно создан и добавлен в список"
+  "Tag was successfully created and added to the list": "Тег успешно создан и добавлен в список",
+  "Failed to create tag": "Не удалось создать тег"
 }

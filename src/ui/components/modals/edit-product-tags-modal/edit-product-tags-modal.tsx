@@ -38,18 +38,6 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
       <div className={styles.container}>
         <p className={styles.title}>{t(TranslationKey['Edit product tags'])}</p>
 
-        <TagsSelect
-          isloadingTags={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          tags={viewModel.tags}
-          selectedTags={viewModel.selectedTags}
-          getTagsAll={viewModel.getTagsAll}
-          loadMoreDataHadler={viewModel.loadMoreDataHadler}
-          handleResetTags={viewModel.handleResetTags}
-          onClickTag={viewModel.handleClickTag}
-          onClickSubmitSearch={viewModel.onClickSubmitSearch}
-          onClickCreateTag={viewModel.handleCreateTag}
-        />
-
         {viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING ? (
           <div className={cx(styles.tagsList, styles.noTagsWrapper)}>
             <CircleSpinner size={50} />
@@ -65,6 +53,18 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
             )}
           </div>
         )}
+
+        <TagsSelect
+          isloadingTags={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          tags={viewModel.tags}
+          selectedTags={viewModel.selectedTags}
+          getTagsAll={viewModel.getTagsAll}
+          loadMoreDataHadler={viewModel.loadMoreDataHadler}
+          handleResetTags={viewModel.handleResetTags}
+          onClickTag={viewModel.handleClickTag}
+          onClickSubmitSearch={viewModel.onClickSubmitSearch}
+          onClickCreateTag={viewModel.handleCreateTag}
+        />
 
         <div className={styles.buttonsWrapper}>
           <Button

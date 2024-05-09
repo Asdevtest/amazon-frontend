@@ -1,4 +1,4 @@
-import { action, observable, override } from 'mobx'
+import { action, computed, observable, override } from 'mobx'
 
 export const observerConfig = {
   storekeepers: observable,
@@ -17,6 +17,8 @@ export const observerConfig = {
   isStrictVariationSelect: observable,
   boxItems: observable,
   handleSave: observable,
+
+  role: computed,
 
   getStorekeepersData: action.bound,
   setCurrentStorekeeper: action.bound,
