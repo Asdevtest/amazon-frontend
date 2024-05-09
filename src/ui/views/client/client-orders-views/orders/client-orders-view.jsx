@@ -41,7 +41,7 @@ export const ClientOrdersView = observer(history => {
           <div className={styles.topHeaderBtnsSubWrapper}>
             <Button
               styleType={ButtonStyle.SUCCESS}
-              disabled={!viewModel.selectedRowIds.length}
+              disabled={!viewModel.selectedRows.length}
               className={styles.button}
               onClick={viewModel.onClickManyReorder}
             >
@@ -50,7 +50,7 @@ export const ClientOrdersView = observer(history => {
 
             <Button
               styleType={ButtonStyle.DANGER}
-              disabled={!viewModel.selectedRowIds.length}
+              disabled={!viewModel.selectedRows.length}
               className={cx(styles.button, styles.buttonDanger)}
               onClick={viewModel.onConfirmCancelManyReorder}
             >
@@ -98,7 +98,7 @@ export const ClientOrdersView = observer(history => {
               },
             },
           }}
-          rowSelectionModel={viewModel.selectedRowIds}
+          rowSelectionModel={viewModel.selectedRows}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

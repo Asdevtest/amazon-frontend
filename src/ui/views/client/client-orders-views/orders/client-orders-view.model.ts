@@ -1,32 +1,25 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
-import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
+import { OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { BatchesModel } from '@models/batches-model'
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
-import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
-import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { MyOrderModalSwitcherConditions } from '@components/modals/my-order-modal/components/tabs/tabs.type'
 import { ProductAndBatchModalSwitcherConditions } from '@components/modals/product-and-batch-modal/product-and-batch-modal.type'
 import { clientOrdersViewColumns } from '@components/table/table-columns/client/client-orders-columns'
 
-import { addIdDataConverter, clientOrdersDataConverter } from '@utils/data-grid-data-converters'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -35,23 +28,12 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { fieldsForSearch, filtersFields } from './client-orders-view.constants'
 import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
 import { getOrderStatuses } from './helpers/get-order-statuses'
+import { observerConfig } from './observer-config'
 
 export class ClientOrdersViewModel extends DataGridFilterTableModel {
-  history = undefined
-  requestStatus = undefined
-  error = undefined
-
-  nameSearchValue = ''
   orders = []
-  baseNoConvertedOrders = []
-  filteredStatus = []
   hsCodeData = undefined
 
-  get currentData() {
-    return this.orders
-  }
-
-  selectedRowIds = []
   order = undefined
 
   showOrderModal = false
@@ -78,23 +60,9 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
   storekeepers = []
   destinations = []
 
-  confirmModalSettings = {
-    isWarning: false,
-    title: '',
-    message: '',
-    onSubmit: () => {},
-    onCancel: () => {},
-  }
-
-  rowCount = 0
-  startFilterModel = undefined
   currentBatch = undefined
-  sortModel = []
+
   activeProductGuid = undefined
-  filterModel = { items: [] }
-  densityModel = 'compact'
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
@@ -102,10 +70,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
 
   get isPendingOrdering() {
     return this.history.location.pathname === routsPathes.CLIENT_PENDING_ORDERS
-  }
-
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
   get userInfo() {
@@ -116,41 +80,44 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     return UserModel.platformSettings
   }
 
-  columnMenuSettings = {
-    onClickFilterBtn: field => this.onClickFilterBtn(field),
-    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: () => {
-      this.getOrders()
-      this.getDataGridState()
-    },
-
-    filterRequestStatus: undefined,
-
-    isFormedData: { isFormed: null, onChangeIsFormed: value => this.onChangeIsFormed(value) },
-
-    ...dataGridFiltersInitializer(filtersFields),
-  }
-
   constructor({ history }: { history: any }) {
     const rowHandlers = {
       onClickReorder: (item, isPending) => this.onClickReorder(item, isPending),
-      onClickOpenNewTab: id => this.onClickOpenNewTab(id),
-      onClickWarehouseOrderButton: guid => this.onClickWarehouseOrderButton(guid),
+      onClickOpenNewTab: (id: string) => this.onClickOpenNewTab(id),
+      onClickWarehouseOrderButton: (guid: string) => this.onClickWarehouseOrderButton(guid),
     }
 
     const filteredStatuses = getOrderStatuses(history.location.pathname)
 
-    const defaultGetCurrentDataOptions = () => {
+    const additionalPropertiesColumnMenuSettings = {
+      isFormedData: { isFormed: null, onChangeIsFormed: (value: boolean) => this.onChangeIsFormed(value) },
+    }
+
+    const additionalPropertiesGetFilters = () => {
+      const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
+
       const orderStatuses = filteredStatuses
         .map(item => OrderStatusByKey[item as keyof typeof OrderStatusByKey])
         .join(',')
 
-      const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
+      const currentStatuses = this.columnMenuSettings?.status?.currentFilterData.join(',')
 
       return {
-        status: this.columnMenuSettings.status?.currentFilterData.length ? currentStatuses : orderStatuses,
+        ...(isFormedFilter
+          ? {
+              isFormed: isFormedFilter,
+            }
+          : {}),
+
+        status: {
+          $eq: currentStatuses ? currentStatuses : orderStatuses,
+        },
       }
     }
+
+    // `clients/pag/orders?filters=${this.getFilter(column)}${shopFilter ? ';&' + '[shopId][$eq]=' + shopFilter : ''}${
+    //   isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''
+    // }${orderStatus ? ';&' + 'status=' + orderStatus : ''}`
 
     super({
       getMainDataMethod: ClientModel.getOrdersPag,
@@ -159,87 +126,49 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'clients/pag/orders?',
       fieldsForSearch,
       tableKey: getDataGridTableKey(history.location.pathname),
+      // defaultGetCurrentDataOptions,
+      additionalPropertiesColumnMenuSettings,
+      additionalPropertiesGetFilters,
     })
-
-    //   getMainDataMethod: (...args: any) => any
-    // columnsModel: GridColDef[]
-    // filtersFields: string[]
-    // mainMethodURL: string
-    // fieldsForSearch?: string[]
-    // tableKey?: string
-    // defaultGetCurrentDataOptions?: any
-    // additionalPropertiesColumnMenuSettings?: any
-    // additionalPropertiesGetFilters?: any
 
     this.history = history
 
-    if (history.location?.state?.dataGridFilter) {
-      this.startFilterModel = history.location.state.dataGridFilter
-    }
-
-    this.setDefaultStatuses()
     this.getDestinations()
     this.getStorekeepers()
 
-    makeAutoObservable(this, undefined, { autoBind: true })
+    makeObservable(this, observerConfig)
   }
 
-  async onClickFilterBtn(column) {
-    try {
-      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
-      const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
-      const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
+  // async onClickFilterBtn(column) {
+  //   try {
+  //     const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
+  //     const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
+  //     const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
-      const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
+  //     const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
 
-      const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column, 'orders'),
-        column,
-        `clients/pag/orders?filters=${this.getFilter(column)}${shopFilter ? ';&' + '[shopId][$eq]=' + shopFilter : ''}${
-          isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''
-        }${orderStatus ? ';&' + 'status=' + orderStatus : ''}`,
-      )
+  //     const data = await GeneralModel.getDataForColumn(
+  //       getTableByColumn(column, 'orders'),
+  //       column,
+  //       `clients/pag/orders?filters=${this.getFilter(column)}${shopFilter ? ';&' + '[shopId][$eq]=' + shopFilter : ''}${
+  //         isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''
+  //       }${orderStatus ? ';&' + 'status=' + orderStatus : ''}`,
+  //     )
 
-      if (this.columnMenuSettings[column]) {
-        runInAction(() => {
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [column]: { ...this.columnMenuSettings[column], filterData: data },
-          }
-        })
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  //     if (this.columnMenuSettings[column]) {
+  //       runInAction(() => {
+  //         this.columnMenuSettings = {
+  //           ...this.columnMenuSettings,
+  //           [column]: { ...this.columnMenuSettings[column], filterData: data },
+  //         }
+  //       })
+  //     }
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
-  getFilter(exclusion) {
-    return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
-        'amazonTitle',
-        'id',
-        'asin',
-        'skuByClient',
-        'item',
-      ]),
-    )
-  }
-
-  onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings[field].currentFilterData = value
-  }
-
-  onClickResetFilters() {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      ...dataGridFiltersInitializer(filtersFields),
-    }
-
-    this.getOrders()
-    this.getDataGridState()
-  }
-
-  onChangeIsFormed(value) {
+  onChangeIsFormed(value: boolean) {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
       isFormedData: {
@@ -255,142 +184,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  onChangeFilterModel(model) {
-    this.filterModel = model
-
-    this.setDataGridState()
-  }
-
-  onPaginationModelChange(model) {
-    this.paginationModel = model
-
-    this.setDataGridState()
-    this.getOrders()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-
-    this.setDataGridState()
-    this.getOrders()
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, this.getDataGridTableKey(this.history.location.pathname))
-  }
-
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(this.getDataGridTableKey(this.history.location.pathname))
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(
-        this.startFilterModel
-          ? {
-              ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-            }
-          : state.filterModel,
-      )
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
-  onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
-
-    this.getOrders()
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-
-    this.setDataGridState()
-    this.getOrders()
-  }
-
-  onSelectionModel(model) {
-    this.selectedRowIds = model
-  }
-
-  async loadData() {
-    try {
-      this.getDataGridState()
-      await this.getShops()
-      await this.getOrders()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async getShops() {
-    try {
-      const result = await ShopModel.getMyShopNames()
-
-      runInAction(() => {
-        this.shopsData = addIdDataConverter(result)
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  getDataGridTableKey = pathname => {
-    if (pathname) {
-      switch (pathname) {
-        case routsPathes.CLIENT_ORDERS:
-          return DataGridTablesKeys.CLIENT_ORDERS
-        case routsPathes.CLIENT_PENDING_ORDERS:
-          return DataGridTablesKeys.CLIENT_PENDING_ORDERS
-
-        default:
-          return DataGridTablesKeys.CLIENT_ORDERS
-      }
-    }
-  }
-
-  setOrderStatus = pathname => {
-    if (pathname) {
-      switch (pathname) {
-        case routsPathes.CLIENT_ORDERS:
-          return [
-            OrderStatus.AT_PROCESS,
-            OrderStatus.READY_TO_PROCESS,
-            OrderStatus.READY_FOR_PAYMENT,
-            OrderStatus.PAID_TO_SUPPLIER,
-            OrderStatus.TRACK_NUMBER_ISSUED,
-            OrderStatus.VERIFY_RECEIPT,
-            OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
-            OrderStatus.IN_STOCK,
-            OrderStatus.CANCELED_BY_BUYER,
-            OrderStatus.CANCELED_BY_CLIENT,
-            OrderStatus.PARTIALLY_PAID,
-          ]
-        case routsPathes.CLIENT_PENDING_ORDERS:
-          return [OrderStatus.FORMED, OrderStatus.PENDING, OrderStatus.READY_FOR_BUYOUT]
-
-        default:
-          return [OrderStatus.AT_PROCESS, OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
-      }
-    }
-  }
-
-  setDefaultStatuses() {
-    this.filteredStatus = this.setOrderStatus(this.history.location.pathname)
-  }
-
   async onClickManyReorder() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
@@ -404,8 +197,8 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
         ClientModel.getDestinations(),
       ])
 
-      for (let i = 0; i < this.selectedRowIds.length; i++) {
-        const orderId = this.selectedRowIds[i]
+      for (let i = 0; i < this.selectedRows.length; i++) {
+        const orderId = this.selectedRows[i]
 
         const order = await ClientModel.getOrderById(orderId)
 
@@ -448,8 +241,8 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
 
   async onClickCancelManyReorder() {
     try {
-      for (let i = 0; i < this.selectedRowIds.length; i++) {
-        const orderId = this.selectedRowIds[i]
+      for (let i = 0; i < this.selectedRows.length; i++) {
+        const orderId = this.selectedRows[i]
         await this.onSubmitCancelOrder(orderId)
       }
 
@@ -537,53 +330,47 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
   }
 
   onClickPandingOrder(id) {
-    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?orderId=${id}`, '_blank')
-    win.focus()
+    window?.open(`${window.location.origin}/client/my-orders/pending-orders/order?orderId=${id}`, '_blank')?.focus()
   }
 
-  async getOrders() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
+  // async getOrders() {
+  //   try {
+  //     this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const orderStatuses = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
-      const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
+  //     const orderStatuses = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
+  //     const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
 
-      const result = await ClientModel.getOrdersPag({
-        filters: this.getFilter(),
+  //     const result = await ClientModel.getOrdersPag({
+  //       filters: this.getFilter(),
 
-        status: this.columnMenuSettings.status?.currentFilterData.length ? currentStatuses : orderStatuses,
+  //       status: this.columnMenuSettings.status?.currentFilterData.length ? currentStatuses : orderStatuses,
 
-        limit: this.paginationModel.pageSize,
-        offset: this.paginationModel.page * this.paginationModel.pageSize,
+  //       limit: this.paginationModel.pageSize,
+  //       offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : this.isPendingOrdering ? 'deadline' : 'createdAt',
-        sortType: this.sortModel.length
-          ? this.sortModel[0].sort.toUpperCase()
-          : this.isPendingOrdering
-          ? 'ASC'
-          : 'DESC',
-      })
+  //       sortField: this.sortModel.length ? this.sortModel[0].field : this.isPendingOrdering ? 'deadline' : 'createdAt',
+  //       sortType: this.sortModel.length
+  //         ? this.sortModel[0].sort.toUpperCase()
+  //         : this.isPendingOrdering
+  //         ? 'ASC'
+  //         : 'DESC',
+  //     })
 
-      runInAction(() => {
-        this.rowCount = result.count
+  //     runInAction(() => {
+  //       this.rowCount = result.count
 
-        this.baseNoConvertedOrders = result.rows
+  //       this.baseNoConvertedOrders = result.rows
 
-        this.orders = clientOrdersDataConverter(result.rows, this.shopsData)
-      })
+  //       this.orders = clientOrdersDataConverter(result.rows, this.shopsData)
+  //     })
 
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
+  //     this.setRequestStatus(loadingStatus.SUCCESS)
+  //   } catch (error) {
+  //     this.setRequestStatus(loadingStatus.FAILED)
 
-      console.error(error)
-
-      runInAction(() => {
-        this.baseNoConvertedOrders = []
-        this.orders = []
-      })
-    }
-  }
+  //     console.error(error)
+  //   }
+  // }
 
   onDoubleClickBarcode = item => {
     this.selectedProduct = item
@@ -709,13 +496,10 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  onClickOpenNewTab(orderId) {
-    const win = window.open(
-      `/client/my-orders/orders/order?orderId=${orderId}&order-human-friendly-id=${orderId}`,
-      '_blank',
-    )
-
-    win.focus()
+  onClickOpenNewTab(orderId: string) {
+    window
+      ?.open(`/client/my-orders/orders/order?orderId=${orderId}&order-human-friendly-id=${orderId}`, '_blank')
+      ?.focus()
   }
 
   async getOrderById(orderId) {
@@ -731,7 +515,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
   }
 
   async onClickMyOrderModal(id) {
-    if (window.getSelection().toString()) {
+    if (window?.getSelection?.()?.toString?.()) {
       return
     }
 
@@ -767,7 +551,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickWarehouseOrderButton(guid) {
+  async onClickWarehouseOrderButton(guid: string) {
     try {
       this.productBatches = undefined
       this.activeProductGuid = guid
@@ -911,10 +695,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     runInAction(() => {
       this.selectedProduct = undefined
     })
-  }
-
-  onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
   }
 
   async patchActualShippingCostBatch(id, cost) {
