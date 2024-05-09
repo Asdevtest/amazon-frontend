@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
+import { ProductDataForm } from '@components/forms/product-data-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
@@ -132,11 +133,11 @@ export const ClientOrdersView = observer(history => {
         />
       </Modal>
 
-      {viewModel.showProductModal ? (
+      <Modal
+        openModal={viewModel.showProductModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
+      >
         <ProductAndBatchModal
-          // @ts-ignore
-          setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
-          openModal={viewModel.showProductModal}
           currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
           batches={viewModel.productBatches}
           getCurrentBatch={viewModel.getCurrBatch}
@@ -146,10 +147,10 @@ export const ClientOrdersView = observer(history => {
           patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
           onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
           onClickMyOrderModal={viewModel.onClickMyOrderModal}
-          onClickInTransferModal={viewModel.onClickInTransfer}
+          onOpenProductDataModal={viewModel.onOpenProductDataModal}
           onClickHsCode={viewModel.onClickHsCode}
         />
-      ) : null}
+      </Modal>
 
       <Modal
         missClickModalOn
@@ -217,6 +218,13 @@ export const ClientOrdersView = observer(history => {
           onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
         />
       ) : null}
+
+      <Modal
+        openModal={viewModel.showProductDataModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductDataModal')}
+      >
+        <ProductDataForm product={viewModel.selectedWarehouseOrderProduct} onAmazon={viewModel.onAmazon} />
+      </Modal>
     </>
   )
 })

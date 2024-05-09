@@ -23,7 +23,7 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
     return this.currentData
   }
 
-  constructor({ product, isBatches, onAmazon }: { product: IProduct; isBatches: boolean; onAmazon: boolean }) {
+  constructor({ product, isBatches, onAmazon }: { product: IProduct; onAmazon: boolean; isBatches?: boolean }) {
     const columnHandlers = {
       onClickChangeVariation: (id: string) => this.onClickShowBatchInfoModal(id),
     }

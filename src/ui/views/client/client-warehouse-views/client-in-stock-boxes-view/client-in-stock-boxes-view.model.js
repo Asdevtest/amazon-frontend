@@ -97,7 +97,7 @@ export class ClientInStockBoxesViewModel {
 
   storekeeperFilterData = []
   storekeeperCurrentFilterData = []
-
+  onAmazon = false
   hsCodeData = {}
 
   showEditHSCodeModal = false
@@ -110,7 +110,7 @@ export class ClientInStockBoxesViewModel {
   showMyOrderModal = false
   showCheckPendingOrderFormModal = false
   showOrderModal = false
-
+  showProductDataModal = false
   showRequestToSendBatchModal = false
 
   showEditMultipleBoxesModal = false
@@ -1704,15 +1704,15 @@ export class ClientInStockBoxesViewModel {
         selectedBoxId => this.boxesDeliveryCosts.find(priceObj => priceObj.guid === selectedBoxId)?.deliveryCost,
       )
       await BatchesModel.requestSendBoxToBatch(boxesSendToBatch)
+
       runInAction(() => {
         this.showRequestToSendBatchModal = false
         this.selectedBoxes = []
       })
+
       this.setRequestStatus(loadingStatus.SUCCESS)
       this.updateUserInfo()
       this.loadData()
-
-      this.triggerRequestToSendBatchModal()
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
@@ -2100,5 +2100,11 @@ export class ClientInStockBoxesViewModel {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  onOpenProductDataModal(onAmazon) {
+    this.onAmazon = onAmazon
+
+    this.onTriggerOpenModal('showProductDataModal')
   }
 }

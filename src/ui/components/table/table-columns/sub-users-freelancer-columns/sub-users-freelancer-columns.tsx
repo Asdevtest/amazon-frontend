@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  CommentUsersCell,
+  ChangeInputCommentCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -94,9 +94,10 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
     width: 335,
     renderCell: (params: GridRowParams) => (
-      <CommentUsersCell
-        comment={params?.row?.note?.comment}
-        handler={comment => handlers.onClickSaveComment(params?.row?._id, comment)}
+      <ChangeInputCommentCell
+        rowsCount={3}
+        text={params?.row?.note?.comment}
+        onClickSubmit={reason => handlers.onClickSaveComment(params.row._id, reason)}
       />
     ),
     filterable: false,

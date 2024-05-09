@@ -88,10 +88,10 @@ export const EditBoxForm = memo(
     const boxInitialState = {
       ...formItem,
 
-      lengthCmWarehouse: formItem?.lengthCmWarehouse || 0,
-      widthCmWarehouse: formItem?.widthCmWarehouse || 0,
-      heightCmWarehouse: formItem?.heightCmWarehouse || 0,
-      weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
+      lengthCmWarehouse: String(formItem?.lengthCmWarehouse) || '',
+      widthCmWarehouse: String(formItem?.widthCmWarehouse) || '',
+      heightCmWarehouse: String(formItem?.heightCmWarehouse) || '',
+      weighGrossKgWarehouse: String(formItem?.weighGrossKgWarehouse) || '',
 
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
@@ -187,8 +187,6 @@ export const EditBoxForm = memo(
     }
 
     const getBoxDataToSubmit = () => {
-      setSizeSetting(Dimensions.EU)
-
       return {
         ...boxFields,
         destinationId: boxFields.destinationId || null,

@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     minWidth: '500px',
+    padding: 10,
     [theme.breakpoints.down(768)]: {
       minWidth: 0,
       width: '280px',

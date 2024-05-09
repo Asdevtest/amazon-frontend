@@ -28,6 +28,7 @@ export const ideaValidStatuses = [
   IdeaStatus.SUPPLIER_NOT_FOUND,
 ]
 
+// not used yet
 export const allIdeaStatuses = [
   IdeaStatus.NEW,
   IdeaStatus.ON_CHECK,

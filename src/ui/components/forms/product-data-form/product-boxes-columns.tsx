@@ -90,6 +90,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.storekeeper?.name || '-'} />,
     table: DataGridFilterTables.BOXES,
     columnKey: columnnsKeys.shared.OBJECT,
+    disableCustomSort: true,
     sortable: false,
     width: 180,
   },
@@ -101,13 +102,15 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={row?.destination?.name || '-'} />,
     table: DataGridFilterTables.BOXES,
     columnKey: columnnsKeys.shared.OBJECT,
+    disableCustomSort: true,
+    sortable: false,
     width: 150,
   },
 
   {
     field: 'fbaShipment',
     headerName: 'FBA Shipment',
-    renderHeader: () => <MultilineTextHeaderCell text={'FBA Shipment'} />,
+    renderHeader: () => <MultilineTextHeaderCell text="FBA Shipment" />,
     renderCell: ({ row }: GridRowModel) => (
       <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={row?.fbaShipment} />
     ),
@@ -123,6 +126,8 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(row) || '-'} />,
     table: DataGridFilterTables.BOXES,
     columnKey: columnnsKeys.shared.OBJECT,
+    disableCustomSort: true,
+    sortable: false,
     width: 120,
   },
 

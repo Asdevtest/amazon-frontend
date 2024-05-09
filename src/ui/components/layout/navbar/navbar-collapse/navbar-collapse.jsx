@@ -224,13 +224,14 @@ export const NavbarCollapse = ({
             {userInfo?.purchaseOrderRequired?.length ? userInfo?.purchaseOrderRequired?.length : 0}
           </div>
         )
-
       case '/supervisor/ready-to-check':
         return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.vacFromResearcher}</div>
-
       case '/supervisor/ready-to-check-by-client':
         return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.vacFromClient}</div>
-
+      case '/client/freelance/my-requests':
+        return userInfo?.freelanceNotices.length > 0 ? (
+          <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.freelanceNotices.length}</div>
+        ) : null
       default:
         return null
     }

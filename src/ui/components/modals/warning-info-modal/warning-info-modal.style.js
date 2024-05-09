@@ -9,23 +9,13 @@ export const useStyles = makeStyles()(theme => ({
     gap: '40px',
     width: '445px',
     minHeight: '168px',
-    [theme.breakpoints.down(768)]: {
-      width: '260px',
-      minHeight: '120px',
-      gap: '20px',
-    },
+    padding: 10,
   },
   title: {
     textAlign: 'center',
     width: '350px',
     whiteSpace: 'pre-line',
-
     color: theme.palette.text.general,
-    [theme.breakpoints.down(768)]: {
-      textAlign: 'center',
-      width: '280px',
-      fontSize: '14px',
-    },
   },
 
   titleWarning: {

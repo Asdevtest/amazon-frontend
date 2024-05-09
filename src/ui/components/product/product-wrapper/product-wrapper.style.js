@@ -1,30 +1,16 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
   },
 
-  rootTabs: {
-    minHeight: 0,
-  },
-
-  indicator: {
-    height: 1,
-  },
-
-  flexContainerTabs: {
-    gap: 20,
-  },
-
-  rootTab: {
-    minHeight: 0,
-    padding: '9px 15px',
-    fontSize: 18,
-    fontWeight: 600,
-    lineHeight: 1.4,
-    textTransform: 'none',
-    color: theme.palette.text.second,
+  customSwitcher: {
+    position: 'sticky',
+    top: 0,
+    left: 0,
+    zIndex: 50,
   },
 }))

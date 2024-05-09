@@ -357,6 +357,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   footerSubWrapper: {
+    paddingLeft: '10px',
     width: '100%',
     display: 'flex',
     alignItems: 'center',

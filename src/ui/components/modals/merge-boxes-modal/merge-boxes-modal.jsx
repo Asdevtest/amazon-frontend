@@ -95,10 +95,10 @@ export const MergeBoxesModal = ({
     fbaShipment: '',
 
     tmpShippingLabel: [],
-    lengthCmWarehouse: 0,
-    widthCmWarehouse: 0,
-    heightCmWarehouse: 0,
-    weighGrossKgWarehouse: 0,
+    lengthCmWarehouse: '',
+    widthCmWarehouse: '',
+    heightCmWarehouse: '',
+    weighGrossKgWarehouse: '',
     images: [],
 
     items: selectedBoxes.map(box => box.items)?.flat(),
@@ -140,6 +140,11 @@ export const MergeBoxesModal = ({
       updateBoxFields.weighGrossKgWarehouse = Number(
         toFixed(updateBoxFields.weighGrossKgWarehouse * POUNDS_COEFFICIENT),
       )
+    } else {
+      updateBoxFields.lengthCmWarehouse = Number(updateBoxFields.lengthCmWarehouse)
+      updateBoxFields.widthCmWarehouse = Number(updateBoxFields.widthCmWarehouse)
+      updateBoxFields.heightCmWarehouse = Number(updateBoxFields.heightCmWarehouse)
+      updateBoxFields.weighGrossKgWarehouse = Number(updateBoxFields.weighGrossKgWarehouse)
     }
 
     const { items, logicsTariff, storekeeper, finalWeight, volumeWeight, variationTariff, destination, ...other } =
@@ -196,7 +201,7 @@ export const MergeBoxesModal = ({
   const disabledSubmitStorekeeper =
     disabledSubmit ||
     ['lengthCmWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'weighGrossKgWarehouse'].some(
-      dim => boxBody[dim] <= 0,
+      dim => Number(boxBody[dim]) <= 0,
     )
 
   const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(

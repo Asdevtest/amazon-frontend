@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Tab, Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
@@ -28,12 +27,7 @@ import {
 
 export const AdminSettings = observer(() => {
   const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new AdminSettingsModel())
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   return (
     <>
@@ -58,13 +52,10 @@ export const AdminSettings = observer(() => {
             user={viewModel.user}
             serverProxy={viewModel.serverProxy}
             showAsinCheckerModal={viewModel.showAsinCheckerModal}
-            showInfoModal={viewModel.showInfoModal}
-            infoModalText={viewModel.infoModalText}
             formFields={viewModel.formFields}
             isFormFieldsChanged={viewModel.isFormFieldsChanged}
             isEqualServerProxy={viewModel.isEqualServerProxy}
             onClickToggleProxyModal={viewModel.onClickToggleProxyModal}
-            onClickToggleInfoModal={viewModel.onClickToggleInfoModal}
             onSubmit={viewModel.onSubmitMain}
             onChangeField={viewModel.onChangeField}
           />
@@ -116,17 +107,6 @@ export const AdminSettings = observer(() => {
       <TabPanel value={viewModel.tabIndex} index={tabIndexes.tags}>
         <TabTags />
       </TabPanel>
-
-      {viewModel.showInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          title={viewModel.infoModalText}
-          btnText={t(TranslationKey.Close)}
-          openModal={viewModel.showInfoModal}
-          setOpenModal={viewModel.onClickToggleInfoModal}
-          onClickBtn={viewModel.onClickToggleInfoModal}
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

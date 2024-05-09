@@ -216,7 +216,12 @@ const Box = memo(props => {
             </div>
           </div>
           <div className={styles.footerWrapper}>
-            <div className={styles.footerSubWrapper}>
+            <div
+              className={cx(styles.footerSubWrapper, {
+                [styles.editAccent]:
+                  box && referenceEditingBox && box?.shippingLabel !== referenceEditingBox?.shippingLabel,
+              })}
+            >
               <LabelWithCopy
                 labelTitleFontWeight={'bold'}
                 labelTitle={t(TranslationKey['Shipping label'])}

@@ -44,7 +44,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
   nameSearchValue = ''
   orders = []
   baseNoConvertedOrders = []
-
   filteredStatus = []
   hsCodeData = undefined
 
@@ -63,6 +62,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
   showCheckPendingOrderFormModal = false
   showMyOrderModal = false
   showEditHSCodeModal = false
+  showProductDataModal = false
 
   myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
   productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
@@ -921,5 +921,11 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     await BatchesModel.changeBatch(id, {
       actualShippingCost: cost,
     })
+  }
+
+  onOpenProductDataModal(onAmazon) {
+    this.onAmazon = onAmazon
+
+    this.onTriggerOpenModal('showProductDataModal')
   }
 }

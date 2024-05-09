@@ -33,11 +33,9 @@ export const OrderBox = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  const isNormalLength =
-    !Number(orderBox.lengthCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.lengthCmSupplier)
-  const isNormalWidth = !Number(orderBox.widthCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.widthCmSupplier)
-  const isNormalHeight =
-    !Number(orderBox.heightCmSupplier) || maxBoxSizeFromOption(sizeSetting, orderBox.heightCmSupplier)
+  const isNormalLength = maxBoxSizeFromOption(sizeSetting, Number(orderBox.lengthCmSupplier))
+  const isNormalWidth = maxBoxSizeFromOption(sizeSetting, Number(orderBox.widthCmSupplier))
+  const isNormalHeight = maxBoxSizeFromOption(sizeSetting, Number(orderBox.heightCmSupplier))
 
   return (
     <div className={styles.numberInputFieldsBlocksWrapper}>

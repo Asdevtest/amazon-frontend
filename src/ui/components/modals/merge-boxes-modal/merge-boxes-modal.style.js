@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     position: 'relative',
-    paddingRight: 10,
+    padding: 10,
   },
   heightFieldAuto: {
     height: '86px',

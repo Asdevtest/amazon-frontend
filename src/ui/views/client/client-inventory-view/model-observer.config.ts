@@ -8,7 +8,6 @@ export const observerConfig = {
   storekeepers: observable,
   destinations: observable,
   ideaId: observable,
-  batchesData: observable,
   presetsData: observable,
   receivedFiles: observable,
   paymentMethods: observable,
