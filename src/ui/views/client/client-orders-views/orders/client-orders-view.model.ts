@@ -144,6 +144,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       const orderStatuses = filteredStatuses
         .map(item => OrderStatusByKey[item as keyof typeof OrderStatusByKey])
         .join(',')
+
       const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
 
       return {
