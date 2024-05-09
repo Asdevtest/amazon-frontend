@@ -30,15 +30,21 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => exceptThisSymbols.includes(e.key) && e.preventDefault()
 
   const isNormalLength = useMemo(
-    () => maxBoxSizeFromOption(sizeSetting, dimensions.lengthCmWarehouse),
+    () =>
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.lengthCmWarehouse)) ||
+      Number(dimensions.lengthCmWarehouse) === 0,
     [dimensions.lengthCmWarehouse],
   )
   const isNormalWidth = useMemo(
-    () => maxBoxSizeFromOption(sizeSetting, dimensions.widthCmWarehouse),
+    () =>
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.widthCmWarehouse)) ||
+      Number(dimensions.widthCmWarehouse) === 0,
     [dimensions.widthCmWarehouse],
   )
   const isNormalHeight = useMemo(
-    () => maxBoxSizeFromOption(sizeSetting, dimensions.heightCmWarehouse),
+    () =>
+      maxBoxSizeFromOption(sizeSetting, Number(dimensions.heightCmWarehouse)) ||
+      Number(dimensions.heightCmWarehouse) === 0,
     [dimensions.heightCmWarehouse],
   )
 
@@ -46,7 +52,6 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
     <div className={styles.wrapper}>
       <div className={styles.flexContainer}>
         <Field
-          type="number"
           disabled={disabled}
           error={isNormalLength}
           containerClasses={styles.fieldContainer}
@@ -58,7 +63,6 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
         />
 
         <Field
-          type="number"
           disabled={disabled}
           error={isNormalWidth}
           containerClasses={styles.fieldContainer}
@@ -71,7 +75,6 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
       </div>
       <div className={styles.flexContainer}>
         <Field
-          type="number"
           disabled={disabled}
           error={isNormalHeight}
           labelClasses={styles.label}
@@ -83,9 +86,8 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
         />
 
         <Field
-          type="number"
           disabled={disabled}
-          error={dimensions.weighGrossKgWarehouse === 0}
+          error={Number(dimensions.weighGrossKgWarehouse) === 0}
           containerClasses={styles.fieldContainer}
           labelClasses={styles.label}
           label={t(TranslationKey.Weight) + ': '}

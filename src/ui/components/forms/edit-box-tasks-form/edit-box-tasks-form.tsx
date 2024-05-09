@@ -63,6 +63,11 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
       updateEditingBox.weighGrossKgWarehouse = Number(
         toFixed(updateEditingBox.weighGrossKgWarehouse * POUNDS_COEFFICIENT),
       )
+    } else {
+      updateEditingBox.lengthCmWarehouse = Number(updateEditingBox.lengthCmWarehouse)
+      updateEditingBox.widthCmWarehouse = Number(updateEditingBox.widthCmWarehouse)
+      updateEditingBox.heightCmWarehouse = Number(updateEditingBox.heightCmWarehouse)
+      updateEditingBox.weighGrossKgWarehouse = Number(updateEditingBox.weighGrossKgWarehouse)
     }
 
     if (isInStorekeeperWarehouse) {
@@ -78,9 +83,9 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
   }
 
   const disabledSubmit =
-    maxBoxSizeFromOption(sizeSetting, editingBox.lengthCmWarehouse) ||
-    maxBoxSizeFromOption(sizeSetting, editingBox.widthCmWarehouse) ||
-    maxBoxSizeFromOption(sizeSetting, editingBox.heightCmWarehouse)
+    maxBoxSizeFromOption(sizeSetting, Number(editingBox.lengthCmWarehouse)) ||
+    maxBoxSizeFromOption(sizeSetting, Number(editingBox.widthCmWarehouse)) ||
+    maxBoxSizeFromOption(sizeSetting, Number(editingBox.heightCmWarehouse))
 
   return (
     <div className={styles.wrapper}>
