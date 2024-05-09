@@ -259,6 +259,7 @@ export class ClientExchangeViewModel {
         deadline: orderObject.deadline,
         needsResearch: orderObject.needsResearch,
         buyerId: orderObject.buyerId,
+        variationTariffId: orderObject.variationTariffId,
       }
 
       if (orderObject.tmpIsPendingOrder) {

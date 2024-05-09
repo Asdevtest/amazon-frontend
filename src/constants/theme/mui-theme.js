@@ -139,6 +139,15 @@ export const lightTheme = createTheme({
         iconSeparator: {
           padding: '0 1px',
         },
+
+        pinnedColumns: {
+          '.MuiDataGrid-row': {
+            '&:after': {
+              content: 'unset',
+              display: 'none',
+            },
+          },
+        },
       },
     },
 
@@ -534,6 +543,13 @@ export const darkTheme = createTheme({
         },
 
         pinnedColumns: {
+          '.MuiDataGrid-row': {
+            '&:after': {
+              content: 'unset',
+              display: 'none',
+            },
+          },
+
           backgroundColor: '#2B2B34',
         },
       },
