@@ -33,7 +33,8 @@ export const useStyles = makeStyles()(theme => ({
 
   menuContainer: {
     position: 'absolute',
-    top: '95px',
+    bottom: '0',
+    transform: 'translateY(68%)',
 
     display: 'flex',
     flexDirection: 'column',

@@ -142,4 +142,10 @@ export class DataGridTableModel extends ModalsModel {
   onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {
     this.unserverSearchValue = e.target.value
   }
+
+  handleHideColumns(columnsToHide: string[]) {
+    columnsToHide.forEach(el => {
+      this.columnVisibilityModel[el] = false
+    })
+  }
 }

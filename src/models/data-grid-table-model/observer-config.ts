@@ -26,4 +26,5 @@ export const observerConfig = {
   getMainTableData: action.bound,
   onChangeUnserverSearchValue: action.bound,
   setRequestStatus: action.bound,
+  handleHideColumns: action.bound,
 }

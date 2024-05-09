@@ -98,11 +98,7 @@ export const TagsSelect: FC<TagsSelectProps> = memo(props => {
                       [styles.buttonSelected]: selectedTags?.some(tag => tag._id === item._id),
                     })}
                     styleType={ButtonStyle.DEFAULT}
-                    onClick={() => {
-                      onClickTag(item)
-                      setSearchValue('')
-                      setIsOpen(false)
-                    }}
+                    onClick={() => onClickTag(item)}
                   >
                     {item.title}
                   </Button>

@@ -2,13 +2,17 @@ import { makeObservable, reaction, runInAction } from 'mobx'
 
 import { GridColDef } from '@mui/x-data-grid-premium'
 
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
+
 import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
 import { SortSettingsMode } from '@components/data-grid/data-grid-custom-components/sort-settings/sort-settings.type'
 import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
 
+import { checkIsClient } from '@utils/checks'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -20,7 +24,7 @@ import { INewDataOfVariation } from '@hooks/use-tariff-variation'
 
 import { observerConfig } from './observer-config'
 import { SupplierApproximateCalculationsColumns } from './supplier-approximate-calculations-columns'
-import { additionalFilterFields } from './supplier-approximate-calculations.constants'
+import { additionalFilterFields, columnsToHide } from './supplier-approximate-calculations.constants'
 import { IVariationParams } from './supplier-approximate-calculations.type'
 
 export class SupplierApproximateCalculationsModel extends DataGridFilterTableModel {
@@ -47,6 +51,11 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
 
   get isSomeFilterOn() {
     return this.filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length && el !== 'storekeeper')
+  }
+
+  get role() {
+    // @ts-ignore
+    return UserModel.userInfo?.role
   }
 
   constructor({
@@ -104,7 +113,12 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     if (onClickSubmit) {
       this.handleSave = onClickSubmit
     }
+
     this.sortModel = [{ field: isHideCalculation ? 'pricePerKgUsd' : 'roi', sort: SortSettingsMode.DESC }]
+
+    if (!checkIsClient(UserRoleCodeMap[this.role])) {
+      this.handleHideColumns(columnsToHide)
+    }
 
     if (supplierId) {
       this.supplierId = supplierId
