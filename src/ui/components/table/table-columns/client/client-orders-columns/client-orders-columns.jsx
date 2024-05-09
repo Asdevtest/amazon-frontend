@@ -25,7 +25,7 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
-export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getOnHover) => [
+export const clientOrdersViewColumns = rowHandlers => [
   {
     field: 'link',
     renderHeader: () => null,
@@ -50,13 +50,7 @@ export const clientOrdersViewColumns = (rowHandlers, getColumnMenuSettings, getO
   {
     field: 'shopId',
     headerName: t(TranslationKey.Shop),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Shop)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
     renderCell: params => <MultilineTextCell twoLines text={params.value} />,
     width: 100,
     sortable: false,

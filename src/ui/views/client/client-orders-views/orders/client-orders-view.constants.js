@@ -19,3 +19,5 @@ export const filtersFields = [
   'createdAt',
   'updatedAt',
 ]
+
+export const fieldsForSearch = ['amazonTitle', 'id', 'asin', 'skuByClient', 'item']

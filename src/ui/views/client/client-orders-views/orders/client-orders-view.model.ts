@@ -9,6 +9,7 @@ import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { BatchesModel } from '@models/batches-model'
 import { ClientModel } from '@models/client-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
 import { ProductModel } from '@models/product-model'
@@ -31,9 +32,11 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { filtersFields } from './client-orders-view.constants'
+import { fieldsForSearch, filtersFields } from './client-orders-view.constants'
+import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
+import { getOrderStatuses } from './helpers/get-order-statuses'
 
-export class ClientOrdersViewModel {
+export class ClientOrdersViewModel extends DataGridFilterTableModel {
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -42,8 +45,6 @@ export class ClientOrdersViewModel {
   orders = []
   baseNoConvertedOrders = []
 
-  orderStatusDataBase = []
-  chosenStatus = []
   filteredStatus = []
   hsCodeData = undefined
 
@@ -77,19 +78,12 @@ export class ClientOrdersViewModel {
   storekeepers = []
   destinations = []
 
-  onHover = null
-
   confirmModalSettings = {
     isWarning: false,
-    confirmTitle: '',
-    confirmMessage: '',
-    onClickConfirm: () => {},
-  }
-
-  rowHandlers = {
-    onClickReorder: (item, isPending) => this.onClickReorder(item, isPending),
-    onClickOpenNewTab: id => this.onClickOpenNewTab(id),
-    onClickWarehouseOrderButton: guid => this.onClickWarehouseOrderButton(guid),
+    title: '',
+    message: '',
+    onSubmit: () => {},
+    onCancel: () => {},
   }
 
   rowCount = 0
@@ -99,11 +93,6 @@ export class ClientOrdersViewModel {
   activeProductGuid = undefined
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = clientOrdersViewColumns(
-    this.rowHandlers,
-    () => this.columnMenuSettings,
-    () => this.onHover,
-  )
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
@@ -131,7 +120,6 @@ export class ClientOrdersViewModel {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
-      this.onLeaveColumnField()
       this.getOrders()
       this.getDataGridState()
     },
@@ -143,7 +131,45 @@ export class ClientOrdersViewModel {
     ...dataGridFiltersInitializer(filtersFields),
   }
 
-  constructor({ history }) {
+  constructor({ history }: { history: any }) {
+    const rowHandlers = {
+      onClickReorder: (item, isPending) => this.onClickReorder(item, isPending),
+      onClickOpenNewTab: id => this.onClickOpenNewTab(id),
+      onClickWarehouseOrderButton: guid => this.onClickWarehouseOrderButton(guid),
+    }
+
+    const filteredStatuses = getOrderStatuses(history.location.pathname)
+
+    const defaultGetCurrentDataOptions = () => {
+      const orderStatuses = filteredStatuses
+        .map(item => OrderStatusByKey[item as keyof typeof OrderStatusByKey])
+        .join(',')
+      const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
+
+      return {
+        status: this.columnMenuSettings.status?.currentFilterData.length ? currentStatuses : orderStatuses,
+      }
+    }
+
+    super({
+      getMainDataMethod: ClientModel.getOrdersPag,
+      columnsModel: clientOrdersViewColumns(rowHandlers),
+      filtersFields,
+      mainMethodURL: 'clients/pag/orders?',
+      fieldsForSearch,
+      tableKey: getDataGridTableKey(history.location.pathname),
+    })
+
+    //   getMainDataMethod: (...args: any) => any
+    // columnsModel: GridColDef[]
+    // filtersFields: string[]
+    // mainMethodURL: string
+    // fieldsForSearch?: string[]
+    // tableKey?: string
+    // defaultGetCurrentDataOptions?: any
+    // additionalPropertiesColumnMenuSettings?: any
+    // additionalPropertiesGetFilters?: any
+
     this.history = history
 
     if (history.location?.state?.dataGridFilter) {
@@ -200,10 +226,6 @@ export class ClientOrdersViewModel {
 
   onChangeFullFieldMenuItem(value, field) {
     this.columnMenuSettings[field].currentFilterData = value
-  }
-
-  onLeaveColumnField() {
-    this.onHover = null
   }
 
   onClickResetFilters() {
@@ -305,7 +327,6 @@ export class ClientOrdersViewModel {
   async loadData() {
     try {
       this.getDataGridState()
-
       await this.getShops()
       await this.getOrders()
     } catch (error) {
@@ -366,13 +387,7 @@ export class ClientOrdersViewModel {
   }
 
   setDefaultStatuses() {
-    if (!this.chosenStatus.length) {
-      this.filteredStatus = this.setOrderStatus(this.history.location.pathname)
-    } else {
-      this.filteredStatus = this.chosenStatus
-    }
-
-    this.orderStatusDataBase = this.setOrderStatus(this.history.location.pathname)
+    this.filteredStatus = this.setOrderStatus(this.history.location.pathname)
   }
 
   async onClickManyReorder() {
@@ -414,9 +429,9 @@ export class ClientOrdersViewModel {
   onConfirmCancelManyReorder() {
     this.confirmModalSettings = {
       isWarning: true,
-      confirmTitle: t(TranslationKey.Attention),
-      confirmMessage: t(TranslationKey['Cancel selected orders']) + '?',
-      onClickConfirm: () => this.onClickCancelManyReorder(),
+      title: t(TranslationKey.Attention),
+      message: t(TranslationKey['Cancel selected orders']) + '?',
+      onSubmit: () => this.onClickCancelManyReorder(),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
@@ -683,11 +698,11 @@ export class ClientOrdersViewModel {
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
     this.confirmModalSettings = {
       isWarning: false,
-      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+      title: t(TranslationKey['You are making an order, are you sure?']),
+      message: ordersDataState.some(el => el.tmpIsPendingOrder)
         ? t(TranslationKey['Pending order will be created'])
         : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-      onClickConfirm: () => this.onSubmitOrderProductModal(ordersDataState),
+      onSubmit: () => this.onSubmitOrderProductModal(ordersDataState),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
@@ -807,9 +822,9 @@ export class ClientOrdersViewModel {
   onClickCancelOrder(orderId) {
     this.confirmModalSettings = {
       isWarning: true,
-      confirmTitle: t(TranslationKey.Attention),
-      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
-      onClickConfirm: () => {
+      title: t(TranslationKey.Attention),
+      message: t(TranslationKey['Are you sure you want to cancel the order?']),
+      onSubmit: () => {
         this.onSubmitCancelOrder(orderId)
         this.onTriggerOpenModal('showConfirmModal')
         this.onTriggerOpenModal('showMyOrderModal')
