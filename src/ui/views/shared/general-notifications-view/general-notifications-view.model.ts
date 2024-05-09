@@ -81,6 +81,7 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
 
     const defaultGetDataMethodOptions = () => ({
       archive: this.isArchive,
+      noCache: true,
     })
 
     const additionalPropertiesGetFilters = () => ({

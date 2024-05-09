@@ -41,8 +41,8 @@ export const useStyles = makeStyles()(theme => ({
     transform: 'translate(90%, -30%)',
 
     svg: {
-      width: '13px',
-      height: '13px',
+      width: '13px !important',
+      height: '13px !important',
     },
   },
 }))
