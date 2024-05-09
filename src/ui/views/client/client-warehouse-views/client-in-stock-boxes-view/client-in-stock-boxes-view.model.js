@@ -1704,15 +1704,15 @@ export class ClientInStockBoxesViewModel {
         selectedBoxId => this.boxesDeliveryCosts.find(priceObj => priceObj.guid === selectedBoxId)?.deliveryCost,
       )
       await BatchesModel.requestSendBoxToBatch(boxesSendToBatch)
+
       runInAction(() => {
         this.showRequestToSendBatchModal = false
         this.selectedBoxes = []
       })
+
       this.setRequestStatus(loadingStatus.SUCCESS)
       this.updateUserInfo()
       this.loadData()
-
-      this.triggerRequestToSendBatchModal()
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
