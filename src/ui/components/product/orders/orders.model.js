@@ -13,7 +13,7 @@ import { clientProductOrdersViewColumns } from '@components/table/table-columns/
 
 import { clientOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
