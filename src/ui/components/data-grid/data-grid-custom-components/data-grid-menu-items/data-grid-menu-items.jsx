@@ -1638,6 +1638,7 @@ export const OrderOrItemMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -1647,7 +1648,7 @@ export const OrderOrItemMenuItem = memo(
       const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'id')
 
       useEffect(() => {
-        onClickFilterBtn(currentOption)
+        onClickFilterBtn(currentOption, table)
 
         if (currentOption === 'item') {
           onChangeFullFieldMenuItem([], 'id')

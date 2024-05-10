@@ -1,5 +1,8 @@
-import { makeAutoObservable, makeObservable, runInAction } from 'mobx'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
+
+import { GridColDef } from '@mui/x-data-grid-premium'
 
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { OrderStatusByKey } from '@constants/orders/order-status'
@@ -24,6 +27,13 @@ import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IBatch } from '@typings/models/batches/batch'
+import { IOrder } from '@typings/models/orders/order'
+import { IProduct } from '@typings/models/products/product'
+import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
+import { IDestination } from '@typings/shared/destinations'
+import { IHSCode } from '@typings/shared/hs-code'
+import { IUploadFile } from '@typings/shared/upload-file'
 
 import { fieldsForSearch, filtersFields } from './client-orders-view.constants'
 import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
@@ -32,15 +42,15 @@ import { observerConfig } from './observer-config'
 
 export class ClientOrdersViewModel extends DataGridFilterTableModel {
   orders = []
-  hsCodeData = undefined
+  hsCodeData: IHSCode | undefined = undefined
 
-  order = undefined
+  order: IOrder | undefined = undefined
 
   showOrderModal = false
   showProductModal = false
   showSetBarcodeModal = false
   showConfirmModal = false
-  productBatches = []
+  productBatches: IBatch[] = []
   showCheckPendingOrderFormModal = false
   showMyOrderModal = false
   showEditHSCodeModal = false
@@ -49,20 +59,21 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
   myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
   productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
 
-  existingProducts = []
+  existingProducts: any = []
   shopsData = []
 
-  selectedWarehouseOrderProduct = undefined
-  selectedProduct = undefined
-  reorderOrdersData = []
-  uploadedFiles = []
+  selectedWarehouseOrderProduct: IProduct | undefined = undefined
+  selectedProduct: IProduct | undefined = undefined
+  reorderOrdersData: IOrder[] = []
+  uploadedFiles: IUploadFile[] = []
 
-  storekeepers = []
-  destinations = []
+  storekeepers: IStorekeeper[] = []
+  destinations: IDestination[] = []
 
-  currentBatch = undefined
+  currentBatch: IBatch | undefined = undefined
 
-  activeProductGuid = undefined
+  activeProductGuid: string = ''
+  onAmazon: boolean = false
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
@@ -82,12 +93,13 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
 
   constructor({ history }: { history: any }) {
     const rowHandlers = {
-      onClickReorder: (item, isPending) => this.onClickReorder(item, isPending),
+      onClickReorder: (item: IOrder, isPending: boolean) => this.onClickReorder(item, isPending),
       onClickOpenNewTab: (id: string) => this.onClickOpenNewTab(id),
       onClickWarehouseOrderButton: (guid: string) => this.onClickWarehouseOrderButton(guid),
     }
 
     const filteredStatuses = getOrderStatuses(history.location.pathname)
+    const orderStatuses = filteredStatuses.map(item => OrderStatusByKey[item as keyof typeof OrderStatusByKey])
 
     const additionalPropertiesColumnMenuSettings = {
       isFormedData: { isFormed: null, onChangeIsFormed: (value: boolean) => this.onChangeIsFormed(value) },
@@ -96,11 +108,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     const additionalPropertiesGetFilters = () => {
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
-      const orderStatuses = filteredStatuses
-        .map(item => OrderStatusByKey[item as keyof typeof OrderStatusByKey])
-        .join(',')
-
-      const currentStatuses = this.columnMenuSettings?.status?.currentFilterData.join(',')
+      const currentStatusFilters = this.columnMenuSettings.status?.currentFilterData.join(',')
 
       return {
         ...(isFormedFilter
@@ -110,63 +118,44 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
           : {}),
 
         status: {
-          $eq: currentStatuses ? currentStatuses : orderStatuses,
+          $eq: currentStatusFilters ? currentStatusFilters : orderStatuses?.join(','),
         },
       }
     }
 
-    // `clients/pag/orders?filters=${this.getFilter(column)}${shopFilter ? ';&' + '[shopId][$eq]=' + shopFilter : ''}${
-    //   isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''
-    // }${orderStatus ? ';&' + 'status=' + orderStatus : ''}`
-
     super({
       getMainDataMethod: ClientModel.getOrdersPag,
-      columnsModel: clientOrdersViewColumns(rowHandlers),
+      columnsModel: clientOrdersViewColumns(rowHandlers) as GridColDef[],
       filtersFields,
       mainMethodURL: 'clients/pag/orders?',
       fieldsForSearch,
       tableKey: getDataGridTableKey(history.location.pathname),
-      // defaultGetCurrentDataOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
     })
 
+    makeObservable(this, observerConfig)
+
+    this.onChangeFullFieldMenuItem(orderStatuses, 'status')
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+
     this.history = history
+
+    this.getDataGridState()
 
     this.getDestinations()
     this.getStorekeepers()
-
-    makeObservable(this, observerConfig)
+    this.getCurrentData()
   }
 
-  // async onClickFilterBtn(column) {
-  //   try {
-  //     const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
-  //     const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
-  //     const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
+  onClickResetFilters() {
+    const filteredStatuses = getOrderStatuses(this.history?.location?.pathname)
+    const orderStatuses = filteredStatuses.map(item => OrderStatusByKey[item as keyof typeof OrderStatusByKey])
 
-  //     const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
-
-  //     const data = await GeneralModel.getDataForColumn(
-  //       getTableByColumn(column, 'orders'),
-  //       column,
-  //       `clients/pag/orders?filters=${this.getFilter(column)}${shopFilter ? ';&' + '[shopId][$eq]=' + shopFilter : ''}${
-  //         isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''
-  //       }${orderStatus ? ';&' + 'status=' + orderStatus : ''}`,
-  //     )
-
-  //     if (this.columnMenuSettings[column]) {
-  //       runInAction(() => {
-  //         this.columnMenuSettings = {
-  //           ...this.columnMenuSettings,
-  //           [column]: { ...this.columnMenuSettings[column], filterData: data },
-  //         }
-  //       })
-  //     }
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+    this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
+    this.onChangeFullFieldMenuItem(orderStatuses, 'status')
+    this.getCurrentData()
+  }
 
   onChangeIsFormed(value: boolean) {
     this.columnMenuSettings = {
@@ -177,10 +166,10 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       },
     }
 
-    this.getOrders()
+    this.getCurrentData()
   }
 
-  setDestinationsFavouritesItem(item) {
+  setDestinationsFavouritesItem(item: string) {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
@@ -200,7 +189,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       for (let i = 0; i < this.selectedRows.length; i++) {
         const orderId = this.selectedRows[i]
 
-        const order = await ClientModel.getOrderById(orderId)
+        const order = (await ClientModel.getOrderById(orderId)) as unknown as IOrder
 
         runInAction(() => {
           this.reorderOrdersData = [...this.reorderOrdersData, order]
@@ -208,8 +197,8 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       }
 
       runInAction(() => {
-        this.storekeepers = storekeepers
-        this.destinations = destinations
+        this.storekeepers = storekeepers as IStorekeeper[]
+        this.destinations = destinations as IDestination[]
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -226,12 +215,13 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       title: t(TranslationKey.Attention),
       message: t(TranslationKey['Cancel selected orders']) + '?',
       onSubmit: () => this.onClickCancelManyReorder(),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onSubmitCancelOrder(orderId) {
+  async onSubmitCancelOrder(orderId: string) {
     try {
       await ClientModel.cancelOrder(orderId)
     } catch (error) {
@@ -246,7 +236,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
         await this.onSubmitCancelOrder(orderId)
       }
 
-      this.loadData()
+      this.getCurrentData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.error(error)
@@ -258,17 +248,14 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       const result = await BatchesModel.getBatchesbyProduct({ guid: this.activeProductGuid, archive: false })
 
       runInAction(() => {
-        this.productBatches = result
+        this.productBatches = result as IBatch[]
       })
     } catch (error) {
       console.error(error)
-      runInAction(() => {
-        this.productBatches = undefined
-      })
     }
   }
 
-  async onClickReorder(item, isPending) {
+  async onClickReorder(item: IOrder, isPending: boolean) {
     try {
       if (isPending) {
         await this.onClickContinueBtn(item)
@@ -303,7 +290,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickContinueBtn(item) {
+  async onClickContinueBtn(item: IOrder) {
     try {
       const [storekeepers, destinations, order] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
@@ -312,11 +299,11 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       ])
 
       runInAction(() => {
-        this.storekeepers = storekeepers
+        this.storekeepers = storekeepers as IStorekeeper[]
 
-        this.destinations = destinations
+        this.destinations = destinations as IDestination[]
 
-        this.reorderOrdersData = [order]
+        this.reorderOrdersData = [order as unknown as IOrder]
       })
 
       this.onTriggerOpenModal('showOrderModal')
@@ -329,61 +316,23 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickPandingOrder(id) {
+  onClickPandingOrder(id: string) {
     window?.open(`${window.location.origin}/client/my-orders/pending-orders/order?orderId=${id}`, '_blank')?.focus()
   }
 
-  // async getOrders() {
-  //   try {
-  //     this.setRequestStatus(loadingStatus.IS_LOADING)
-
-  //     const orderStatuses = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
-  //     const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
-
-  //     const result = await ClientModel.getOrdersPag({
-  //       filters: this.getFilter(),
-
-  //       status: this.columnMenuSettings.status?.currentFilterData.length ? currentStatuses : orderStatuses,
-
-  //       limit: this.paginationModel.pageSize,
-  //       offset: this.paginationModel.page * this.paginationModel.pageSize,
-
-  //       sortField: this.sortModel.length ? this.sortModel[0].field : this.isPendingOrdering ? 'deadline' : 'createdAt',
-  //       sortType: this.sortModel.length
-  //         ? this.sortModel[0].sort.toUpperCase()
-  //         : this.isPendingOrdering
-  //         ? 'ASC'
-  //         : 'DESC',
-  //     })
-
-  //     runInAction(() => {
-  //       this.rowCount = result.count
-
-  //       this.baseNoConvertedOrders = result.rows
-
-  //       this.orders = clientOrdersDataConverter(result.rows, this.shopsData)
-  //     })
-
-  //     this.setRequestStatus(loadingStatus.SUCCESS)
-  //   } catch (error) {
-  //     this.setRequestStatus(loadingStatus.FAILED)
-
-  //     console.error(error)
-  //   }
-  // }
-
-  onDoubleClickBarcode = item => {
+  onDoubleClickBarcode = (item: IProduct) => {
     this.selectedProduct = item
 
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
-  async onClickSaveBarcode(tmpBarCode) {
+  async onClickSaveBarcode(tmpBarCode: IUploadFile[]) {
     if (tmpBarCode.length) {
-      await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
+      // @ts-ignore
+      await onSubmitPostImages?.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
 
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
+    await ClientModel.updateProductBarCode(this.selectedProduct?._id, { barCode: this.uploadedFiles[0] })
 
     this.onTriggerOpenModal('showSetBarcodeModal')
 
@@ -392,7 +341,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     })
   }
 
-  async createOrder(orderObject) {
+  async createOrder(orderObject: any) {
     try {
       const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
@@ -406,9 +355,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     } catch (error) {
       console.error(error)
 
-      runInAction(() => {
-        this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
-      })
       this.onTriggerOpenModal('showInfoModal')
     }
   }
@@ -417,13 +363,14 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     await UserModel.getUserInfo()
   }
 
-  async onSubmitOrderProductModal(ordersDataState) {
+  async onSubmitOrderProductModal(ordersDataState: any) {
     try {
       for (let i = 0; i < ordersDataState.length; i++) {
         let orderObject = ordersDataState[i]
         let uploadedTransparencyFiles = []
 
         if (orderObject.tmpBarCode.length) {
+          // @ts-ignore
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
 
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
@@ -432,6 +379,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
         }
 
         if (orderObject.tmpTransparencyFile.length) {
+          // @ts-ignore
           uploadedTransparencyFiles = await onSubmitPostImages.call(this, {
             images: orderObject.tmpTransparencyFile,
             type: 'uploadedFiles',
@@ -470,7 +418,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
         }
       }
 
-      this.loadData()
+      this.getCurrentData()
       this.updateUserInfo()
 
       this.onTriggerOpenModal('showConfirmModal')
@@ -483,14 +431,22 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
+  onConfirmSubmitOrderProductModal({
+    ordersDataState,
+    totalOrdersCost,
+  }: {
+    ordersDataState: any
+    totalOrdersCost: number
+  }) {
     this.confirmModalSettings = {
       isWarning: false,
       title: t(TranslationKey['You are making an order, are you sure?']),
+      // @ts-ignore
       message: ordersDataState.some(el => el.tmpIsPendingOrder)
         ? t(TranslationKey['Pending order will be created'])
         : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
       onSubmit: () => this.onSubmitOrderProductModal(ordersDataState),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
@@ -502,19 +458,21 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       ?.focus()
   }
 
-  async getOrderById(orderId) {
+  async getOrderById(orderId: string) {
     try {
       const resolve = await ClientModel.getOrderById(orderId)
 
+      console.log('resolve :>> ', resolve)
+
       runInAction(() => {
-        this.order = resolve
+        this.order = resolve as unknown as IOrder
       })
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onClickMyOrderModal(id) {
+  async onClickMyOrderModal(id: string) {
     if (window?.getSelection?.()?.toString?.()) {
       return
     }
@@ -528,12 +486,12 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async getCurrBatch(guid) {
+  async getCurrBatch(guid: string) {
     try {
       const result = await BatchesModel.getBatchesByGuid(guid)
 
       runInAction(() => {
-        this.currentBatch = result
+        this.currentBatch = result as unknown as IBatch
       })
     } catch (error) {
       console.error(error)
@@ -543,7 +501,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickChangeProductAndBatchModalCondition(value) {
+  onClickChangeProductAndBatchModalCondition(value: ProductAndBatchModalSwitcherConditions) {
     this.productAndBatchModalSwitcherCondition = value
 
     if (value === ProductAndBatchModalSwitcherConditions.BATCH_DATA) {
@@ -553,10 +511,10 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
 
   async onClickWarehouseOrderButton(guid: string) {
     try {
-      this.productBatches = undefined
+      this.productBatches = []
       this.activeProductGuid = guid
 
-      const result = await ClientModel.getProductById(guid)
+      const result = (await ClientModel.getProductById(guid)) as unknown as IProduct
 
       runInAction(() => {
         this.selectedWarehouseOrderProduct = { ...result, _id: guid }
@@ -576,7 +534,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickChangeMyOrderModalCondition(value) {
+  onClickChangeMyOrderModalCondition(value: MyOrderModalSwitcherConditions) {
     this.myOrderModalSwitcherCondition = value
   }
 
@@ -585,7 +543,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       const response = await ClientModel.getDestinations()
 
       runInAction(() => {
-        this.destinations = response
+        this.destinations = response as unknown as IDestination[]
       })
     } catch (error) {
       console.error(error)
@@ -597,14 +555,14 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       const response = await StorekeeperModel.getStorekeepers()
 
       runInAction(() => {
-        this.storekeepers = response
+        this.storekeepers = response as unknown as IStorekeeper[]
       })
     } catch (error) {
       console.error(error)
     }
   }
 
-  onClickCancelOrder(orderId) {
+  onClickCancelOrder(orderId: string) {
     this.confirmModalSettings = {
       isWarning: true,
       title: t(TranslationKey.Attention),
@@ -613,16 +571,18 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
         this.onSubmitCancelOrder(orderId)
         this.onTriggerOpenModal('showConfirmModal')
         this.onTriggerOpenModal('showMyOrderModal')
-        this.getOrders()
+        this.getCurrentData()
       },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async onSubmitSaveOrder(order) {
+  async onSubmitSaveOrder(order: any) {
     try {
       if (order.tmpBarCode.length) {
+        // @ts-ignore
         await onSubmitPostImages.call(this, { images: order.tmpBarCode, type: 'uploadedFiles' })
 
         await ClientModel.updateProductBarCode(order.product._id, { barCode: this.uploadedFiles[0] })
@@ -658,9 +618,9 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
         true,
       )
 
-      await OrderModel.changeOrderData(this.order._id, dataToRequest)
+      await OrderModel.changeOrderData(this.order?._id, dataToRequest)
 
-      this.loadData()
+      this.getCurrentData()
 
       toast.success(t(TranslationKey['Data saved successfully']))
 
@@ -672,13 +632,13 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
+  async onClickHsCode(id: string) {
+    this.hsCodeData = (await ProductModel.getProductsHsCodeByGuid(id)) as unknown as IHSCode
 
     this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
-  async onClickSaveHsCode(hsCode) {
+  async onClickSaveHsCode(hsCode: IHSCode) {
     await ProductModel.editProductsHsCods([
       {
         productId: hsCode._id,
@@ -690,20 +650,20 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     ])
 
     this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
+    this.getCurrentData()
 
     runInAction(() => {
       this.selectedProduct = undefined
     })
   }
 
-  async patchActualShippingCostBatch(id, cost) {
+  async patchActualShippingCostBatch(id: string, cost: number) {
     await BatchesModel.changeBatch(id, {
       actualShippingCost: cost,
     })
   }
 
-  onOpenProductDataModal(onAmazon) {
+  onOpenProductDataModal(onAmazon: boolean) {
     this.onAmazon = onAmazon
 
     this.onTriggerOpenModal('showProductDataModal')

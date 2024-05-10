@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -29,10 +29,6 @@ export const ClientOrdersView = observer(history => {
   const { classes: styles, cx } = useStyles()
 
   const [viewModel] = useState(() => new ClientOrdersViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   return (
     <>
@@ -96,6 +92,11 @@ export const ClientOrdersView = observer(history => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
           rowSelectionModel={viewModel.selectedRows}
@@ -107,7 +108,7 @@ export const ClientOrdersView = observer(history => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowClick={({ id }) => viewModel.onClickMyOrderModal(id)}
+          onRowClick={params => viewModel.onClickMyOrderModal(params.row._id)}
         />
       </div>
 
