@@ -16,7 +16,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { observerConfig } from './model-config'
 
 export class ShopsViewModel extends DataGridTableModel {
-  get currentData() {
+  get fiteredCurrentData() {
     if (this.unserverSearchValue) {
       return this.currentData.filter(shop => shop.name.toLowerCase().includes(this.unserverSearchValue.toLowerCase()))
     } else {

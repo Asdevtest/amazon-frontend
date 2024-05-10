@@ -44,7 +44,7 @@ export const ClientShopsView = observer(() => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
+          rows={viewModel.fiteredCurrentData}
           getRowHeight={() => 'auto'}
           getRowId={({ _id }) => _id}
           slotProps={{

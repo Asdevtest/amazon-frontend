@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { createOrderRequestWhiteList } from '@constants/white-list'
+import { createFormedOrder, createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { OrderModel } from '@models/order-model'
@@ -13,7 +13,7 @@ import { clientProductOrdersViewColumns } from '@components/table/table-columns/
 
 import { clientOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -297,16 +297,7 @@ export class OrdersModel {
         }
 
         if (product.tmpIsPendingOrder) {
-          const requestData = getObjectFilteredByKeyArrayBlackList(product, [
-            'barCode',
-            'tmpBarCode',
-            'tmpIsPendingOrder',
-            '_id',
-            'tmpTransparencyFile',
-            'transparency',
-          ])
-
-          await ClientModel.createFormedOrder(requestData)
+          await ClientModel.createFormedOrder(getObjectFilteredByKeyArrayWhiteList(product, createFormedOrder))
         } else if (this.isPendingOrdering) {
           const dataToRequest = getObjectFilteredByKeyArrayWhiteList(product, [
             'amount',

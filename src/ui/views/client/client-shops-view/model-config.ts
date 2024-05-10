@@ -5,7 +5,7 @@ export const observerConfig = {
   showAddOrEditShopModal: observable,
   showConfirmModal: observable,
 
-  currentData: computed,
+  fiteredCurrentData: computed,
 
   updateShops: action.bound,
   onSubmitShopForm: action.bound,
