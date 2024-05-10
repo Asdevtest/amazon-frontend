@@ -153,7 +153,11 @@ export class ClientBoxesNotificationsViewModel {
   onTriggerOpenRejectModal(row) {
     this.confirmModalSettings = {
       isWarning: true,
-      message: t(TranslationKey['Do you want to cancel?']),
+      message: t(
+        TranslationKey[
+          'Do you want to cancel the extra fare payment? The selected boxes will be returned to the warehouse'
+        ],
+      ),
       onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn([{ boxId: row._id }]),
     }
 
@@ -291,7 +295,11 @@ export class ClientBoxesNotificationsViewModel {
   async handleRejectFewBoxes() {
     this.confirmModalSettings = {
       isWarning: true,
-      message: t(TranslationKey['Do you want to cancel?']),
+      message: t(
+        TranslationKey[
+          'Do you want to cancel the extra fare payment? The selected boxes will be returned to the warehouse'
+        ],
+      ),
       onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(this.selectedRowIds?.map(id => ({ boxId: id }))),
     }
 

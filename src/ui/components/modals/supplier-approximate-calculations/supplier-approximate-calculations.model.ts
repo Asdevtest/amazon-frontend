@@ -12,7 +12,7 @@ import { UserModel } from '@models/user-model'
 import { SortSettingsMode } from '@components/data-grid/data-grid-custom-components/sort-settings/sort-settings.type'
 import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
 
-import { checkIsClient } from '@utils/checks'
+import { checkIsStorekeeper } from '@utils/checks'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -116,7 +116,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
 
     this.sortModel = [{ field: isHideCalculation ? 'pricePerKgUsd' : 'roi', sort: SortSettingsMode.DESC }]
 
-    if (!checkIsClient(UserRoleCodeMap[this.role])) {
+    if (checkIsStorekeeper(UserRoleCodeMap[this.role])) {
       this.handleHideColumns(columnsToHide)
     }
 

@@ -2258,5 +2258,6 @@
   "Please select a JSON file": "Пожалуйста, выберите файл JSON",
   "Edit product tags": "Редактирование тегов продукта",
   "Tag was successfully created and added to the list": "Тег успешно создан и добавлен в список",
-  "Failed to create tag": "Не удалось создать тег"
+  "Failed to create tag": "Не удалось создать тег",
+  "Do you want to cancel the extra fare payment? The selected boxes will be returned to the warehouse": "Вы хотите отменить доплату по тарифу? Выбранные коробки будут возвращены на склад"
 }

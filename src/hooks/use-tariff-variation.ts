@@ -108,7 +108,7 @@ export const useTariffVariation = (initialDestinationId: string, handleSetState:
 
             logicsTariffId,
             variationTariffId,
-            destinationId: '',
+            destinationId: null as unknown as string,
             storekeeperId,
 
             storekeeper: {
@@ -117,7 +117,7 @@ export const useTariffVariation = (initialDestinationId: string, handleSetState:
             },
             destination: {
               ...prev?.destination,
-              _id: '',
+              _id: null as unknown as string,
             },
             logicsTariff: {
               ...prev?.logicsTariff,
@@ -154,9 +154,9 @@ export const useTariffVariation = (initialDestinationId: string, handleSetState:
       ...prev,
       destination: {
         ...prev?.destination,
-        _id: '',
+        _id: null as unknown as string,
       },
-      destinationId: '',
+      destinationId: null as unknown as string,
     }))
 
   return {

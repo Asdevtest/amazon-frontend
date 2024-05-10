@@ -58,7 +58,7 @@ export const OrderModalBodyRow = ({
 
   const priceVariations = item.currentSupplier?.priceVariations
 
-  const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
+  const { tariffName, tariffRate } = useGetDestinationTariffInfo(
     destinations,
     storekeepers,
     item.destinationId,
@@ -82,9 +82,7 @@ export const OrderModalBodyRow = ({
 
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
 
-  const curTariffRate = currentTariff?.pricePerKgUsd
-
-  const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
+  const costDeliveryOfBatch = weightOfBatch * tariffRate || ''
 
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {

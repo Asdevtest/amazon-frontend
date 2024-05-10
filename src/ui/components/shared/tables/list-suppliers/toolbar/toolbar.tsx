@@ -1,17 +1,14 @@
 import { FC, memo } from 'react'
 
-import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
 import AcceptRevokeIcon from '@material-ui/icons/Clear'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { EyeIcon } from '@components/shared/svg-icons'
+import { CustomPlusIcon, EditIcon, EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -172,7 +169,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea}
             onClick={() => onSupplierActions(ModalModes.ADD)}
           >
-            <AddIcon />
+            <CustomPlusIcon />
           </Button>
         ) : null}
 
@@ -185,7 +182,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             disabled={disabledEditSupplierButton}
             onClick={() => onSupplierActions(ModalModes.EDIT)}
           >
-            <EditOutlinedIcon />
+            <EditIcon />
           </Button>
         ) : null}
 
@@ -229,7 +226,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             className={styles.button}
             onClick={() => onSupplierActions(ModalModes.DELETE)}
           >
-            <DeleteOutlineOutlinedIcon />
+            <AcceptRevokeIcon />
           </Button>
         ) : null}
       </div>

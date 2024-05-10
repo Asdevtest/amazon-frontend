@@ -152,3 +152,23 @@ export const createOrderRequestWhiteList = [
   'deadline',
   'totalPrice',
 ]
+
+export const createFormedOrder = [
+  'storekeeperId',
+  'buyerId',
+  'transparencyFile',
+  'item',
+  'logicsTariffId',
+  'variationTariffId',
+  'priority',
+  'destinationId',
+  'amount',
+  'deliveryCostToTheWarehouse',
+  'clientComment',
+  'productId',
+  'images',
+  'expressChinaDelivery',
+  'needsResearch',
+  'deadline',
+  'totalPrice',
+]
