@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -30,10 +30,6 @@ export const ClientOrdersView = observer(history => {
 
   const [viewModel] = useState(() => new ClientOrdersViewModel({ history }))
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   return (
     <>
       <div className={styles.topHeaderBtnsWrapper}>
@@ -41,7 +37,7 @@ export const ClientOrdersView = observer(history => {
           <div className={styles.topHeaderBtnsSubWrapper}>
             <Button
               styleType={ButtonStyle.SUCCESS}
-              disabled={!viewModel.selectedRowIds.length}
+              disabled={!viewModel.selectedRows.length}
               className={styles.button}
               onClick={viewModel.onClickManyReorder}
             >
@@ -50,7 +46,7 @@ export const ClientOrdersView = observer(history => {
 
             <Button
               styleType={ButtonStyle.DANGER}
-              disabled={!viewModel.selectedRowIds.length}
+              disabled={!viewModel.selectedRows.length}
               className={cx(styles.button, styles.buttonDanger)}
               onClick={viewModel.onConfirmCancelManyReorder}
             >
@@ -96,9 +92,14 @@ export const ClientOrdersView = observer(history => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          rowSelectionModel={viewModel.selectedRowIds}
+          rowSelectionModel={viewModel.selectedRows}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -107,7 +108,7 @@ export const ClientOrdersView = observer(history => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowClick={({ id }) => viewModel.onClickMyOrderModal(id)}
+          onRowClick={params => viewModel.onClickMyOrderModal(params.row._id)}
         />
       </div>
 

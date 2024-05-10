@@ -26,6 +26,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -100,6 +101,7 @@ export const EditOrderModal = memo(
     updateSupplierData,
     onClickSaveWithoutUpdateSupData,
     onClickUpdataSupplierData,
+    setUpdateSupplierData,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -665,6 +667,12 @@ export const EditOrderModal = memo(
             orderFields={orderFields}
             setOrderField={setOrderField}
           />
+
+          <div className={styles.supplierCheckboxWrapper} onClick={() => setUpdateSupplierData(!updateSupplierData)}>
+            <Checkbox checked={updateSupplierData} color="primary">
+              <p className={styles.checkboxTitle}>{t(TranslationKey['Update supplier data'])}</p>
+            </Checkbox>
+          </div>
 
           <ListSuppliers
             formFields={orderFields}
