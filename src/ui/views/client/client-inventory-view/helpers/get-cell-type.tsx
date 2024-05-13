@@ -26,7 +26,7 @@ export const getCellType = (column: string, table: string) => {
       renderCell: (params: GridRenderCellParams) => {
         return <MultilineTextCell text={params.row?.[table]?.[column]} />
       },
-      minWidth: 80,
+      minWidth: 120,
 
       columnKey: columnnsKeys.shared.QUANTITY,
     }
@@ -39,7 +39,7 @@ export const getCellType = (column: string, table: string) => {
       renderCell: (params: GridRenderCellParams) => {
         return <MultilineTextCell text={params.row?.[table]?.[column]} />
       },
-      minWidth: 80,
+      minWidth: 120,
 
       columnKey: columnnsKeys.shared.STRING,
     }
@@ -52,7 +52,7 @@ export const getCellType = (column: string, table: string) => {
       renderCell: (params: GridRenderCellParams) => (
         <NormDateCell dateWithoutTime value={params.row?.[table]?.[column]} />
       ),
-      width: 118,
+      width: 120,
 
       columnKey: columnnsKeys.shared.DATE,
     }
