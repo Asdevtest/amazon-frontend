@@ -79,7 +79,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
     onClickAccept: () => {
-      this.onLeaveColumnField()
       this.getBoxesMy()
       this.getDataGridState()
     },
@@ -91,8 +90,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     ...dataGridFiltersInitializer(filtersFields),
   }
 
-  storekeeperFilterData = []
-  storekeeperCurrentFilterData = []
   onAmazon = false
   hsCodeData = {}
 
@@ -766,15 +763,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.modalRedistributeBoxAddNewBox = value
   }
 
-  onSearchSubmit(searchValue) {
-    this.currentSearchValue = searchValue
-
-    this.requestStatus = loadingStatus.IS_LOADING
-    this.getBoxesMy().then(() => {
-      this.requestStatus = loadingStatus.SUCCESS
-    })
-  }
-
   async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
@@ -847,14 +835,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
-  }
-
-  onHoverColumnField(field) {
-    this.onHover = field
-  }
-
-  onLeaveColumnField() {
-    this.onHover = null
   }
 
   async onClickGroupingBtn() {
