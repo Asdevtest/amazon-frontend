@@ -1,6 +1,5 @@
 import { Dispatch, FC, SetStateAction, memo } from 'react'
 
-import { SlideByType } from '@components/shared/slide-by-type'
 import { getCustomHeightSubjectToQuantitySlides } from '@components/shared/slideshow-gallery/helpers/get-custom-height'
 
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -8,6 +7,8 @@ import { UploadFileType } from '@typings/shared/upload-file'
 import { useScrollToFile } from '@hooks/use-scroll-to-file'
 
 import { useStyles } from './slides.style'
+
+import { SlideByType } from '../../../../slide-by-type'
 
 interface SlidesProps {
   mediaFiles: UploadFileType[]

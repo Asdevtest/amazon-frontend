@@ -1,11 +1,10 @@
 import { FC, memo } from 'react'
 
-import { SlideByType } from '@components/shared/slide-by-type'
-
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './main-slide.style'
 
+import { SlideByType } from '../../../slide-by-type'
 import { getCustomDimensionMainSlideSubjectToQuantitySlides } from '../../helpers/get-custom-dimension'
 
 interface MainSlideProps {
