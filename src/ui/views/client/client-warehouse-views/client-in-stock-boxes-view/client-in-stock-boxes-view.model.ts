@@ -1,6 +1,8 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
 
+import { GridColDef } from '@mui/x-data-grid-premium'
+
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { operationTypes } from '@constants/keys/operation-types'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -35,7 +37,7 @@ import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
+import { fieldsForSearch, filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
 
 export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   selectedBox = undefined
@@ -135,42 +137,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   onHover = null
 
-  rowHandlers = {
-    onClickFbaShipment: item => this.onClickFbaShipment(item),
-    onDoubleClickFbaShipment: item => this.onDoubleClickFbaShipment(item),
-    onDeleteFbaShipment: item => this.onDeleteFbaShipment(item),
-
-    onClickShippingLabel: item => this.onClickShippingLabel(item),
-    onDoubleClickShippingLabel: item => this.onDoubleClickShippingLabel(item),
-    onDeleteShippingLabel: item => this.onDeleteShippingLabel(item),
-    onChangeIsFormedInBox: item => this.onChangeIsFormedInBox(item),
-
-    onClickSetDestinationFavourite: item => SettingsModel.setDestinationsFavouritesItem(item),
-    onSelectDestination: (id, boxData) => this.editDestination(id, boxData),
-    setShowSelectionStorekeeperAndTariffModal: () => this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal'),
-    onClickSetTariff: item => this.setChangeItem(item),
-
-    onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
-
-    onChangeUnitsOption: option => this.onChangeUnitsOption(option),
-  }
-
   setChangeItem(item) {
     this.changeItem = item
   }
 
-  confirmModalSettings = {
-    isWarning: false,
-    confirmMessage: '',
-    onClickConfirm: () => {},
-    onClickCancelBtn: () => {},
-  }
-
-  rowCount = 0
-  sortModel = []
-
-  filterModel = { items: [] }
-  densityModel = 'compact'
   columnsModel = clientBoxesViewColumns(
     this.rowHandlers,
     () => this.storekeepersData,
@@ -180,19 +150,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     () => this.onHover,
     () => this.unitsOption,
   )
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
 
   get userInfo() {
     return UserModel.userInfo
-  }
-
-  get currentData() {
-    return this.boxesMy
-  }
-
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
   get isChoosenOnlySendToBatchBoxes() {
@@ -220,6 +180,77 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   }
 
   constructor({ history }) {
+    const rowHandlers = {
+      onClickFbaShipment: item => this.onClickFbaShipment(item),
+      onDoubleClickFbaShipment: item => this.onDoubleClickFbaShipment(item),
+      onDeleteFbaShipment: item => this.onDeleteFbaShipment(item),
+
+      onClickShippingLabel: item => this.onClickShippingLabel(item),
+      onDoubleClickShippingLabel: item => this.onDoubleClickShippingLabel(item),
+      onDeleteShippingLabel: item => this.onDeleteShippingLabel(item),
+      onChangeIsFormedInBox: item => this.onChangeIsFormedInBox(item),
+
+      onClickSetDestinationFavourite: item => SettingsModel.setDestinationsFavouritesItem(item),
+      onSelectDestination: (id, boxData) => this.editDestination(id, boxData),
+      setShowSelectionStorekeeperAndTariffModal: () =>
+        this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal'),
+      onClickSetTariff: item => this.setChangeItem(item),
+
+      onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
+
+      onChangeUnitsOption: option => this.onChangeUnitsOption(option),
+    }
+
+    const columnsModel = clientBoxesViewColumns(
+      rowHandlers,
+      () => this.storekeepersData,
+      () => this.destinations,
+      () => SettingsModel.destinationsFavourites,
+      () => this.columnMenuSettings,
+      () => this.onHover,
+      () => this.unitsOption,
+    )
+
+    const defaultGetCurrentDataOptions = () => {
+      const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
+
+      const curStatus = this.columnMenuSettings.status.currentFilterData.length
+        ? this.columnMenuSettings.status.currentFilterData.join(',')
+        : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
+
+      return {
+        status: curStatus,
+        destinationId: this.curDestinationId,
+        shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
+        isFormed: this.columnMenuSettings.isFormedData.isFormed,
+        hasBatch: false,
+      }
+    }
+
+    const additionalPropertiesColumnMenuSettings = {
+      isFormedData: { isFormed: undefined, onChangeIsFormed: value => this.onChangeIsFormed(value) },
+    }
+
+    super({
+      getMainDataMethod: BoxesModel.getBoxesForCurClientLightPag,
+      columnsModel: columnsModel as GridColDef[],
+      filtersFields,
+      mainMethodURL: 'boxes/pag/clients_light?',
+      fieldsForSearch,
+      tableKey: DataGridTablesKeys.CLIENT_WAREHOUSE_BOXES,
+      defaultGetCurrentDataOptions,
+    })
+
+    //   getMainDataMethod: (...args: any) => any
+    // columnsModel: GridColDef[]
+    // filtersFields: string[]
+    // mainMethodURL: string
+    // fieldsForSearch?: string[]
+    // tableKey?: string
+    // defaultGetCurrentDataOptions?: any
+    // additionalPropertiesColumnMenuSettings?: any
+    // additionalPropertiesGetFilters?: any
+
     this.history = history
     const url = new URL(window.location.href)
 
@@ -409,9 +440,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   onClickReturnBoxesToStockBtn() {
     this.confirmModalSettings = {
       isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to return the boxes to the warehouse?']),
-      onClickConfirm: () => this.returnBoxesToStock(),
-      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+      message: t(TranslationKey['Are you sure you want to return the boxes to the warehouse?']),
+      onSubmit: () => this.returnBoxesToStock(),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
@@ -504,11 +535,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.confirmModalSettings = {
           isWarning: false,
-          confirmMessage: t(
-            TranslationKey['Shipping label has been stamped, a warehouse task will be created for labeling.'],
-          ),
-          onClickConfirm: () => this.onSaveShippingLabelInTableSubmit(),
-          onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+          message: t(TranslationKey['Shipping label has been stamped, a warehouse task will be created for labeling.']),
+          onSubmit: () => this.onSaveShippingLabelInTableSubmit(),
+          onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
         }
       })
 
@@ -579,12 +608,11 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
     this.confirmModalSettings = {
       isWarning: false,
-      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
-        sourceBox?.storekeeper?.name
-      } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
-      onClickConfirm: () =>
-        this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
-      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+      message: `${t(TranslationKey['The task for the warehouse will be formed'])} ${sourceBox?.storekeeper?.name} ${t(
+        TranslationKey['to redistribute the Box'],
+      )} № ${sourceBox?.humanFriendlyId}`,
+      onSubmit: () => this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
   }
 
@@ -593,7 +621,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
     this.confirmModalSettings = {
       isWarning: false,
-      confirmMessage:
+      message:
         !boxData.clientTaskComment &&
         boxData.items.every(item => !item.tmpBarCode.length) &&
         // (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
@@ -602,8 +630,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
               TranslationKey['to change the Box'],
             )} № ${boxData?.humanFriendlyId}`,
-      onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData, undefined, priority, priorityReason),
-      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+      onSubmit: () => this.onEditBoxSubmit(id, boxData, sourceData, undefined, priority, priorityReason),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
   }
 
@@ -612,11 +640,11 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
     this.confirmModalSettings = {
       isWarning: false,
-      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+      message: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
         this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
       } ${t(TranslationKey['to merge boxes'])}`,
-      onClickConfirm: () => this.onClickMerge(boxBody, comment, priority, priorityReason),
-      onClickCancelBtn: () => this.onTriggerOpenModal('showConfirmModal'),
+      onSubmit: () => this.onClickMerge(boxBody, comment, priority, priorityReason),
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
   }
 
@@ -1092,9 +1120,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           this.confirmModalSettings = {
             isWarning: false,
             title: t(TranslationKey.Attention),
-            confirmMessage: t(TranslationKey['Wish to change a destination?']),
-            onClickConfirm: () => this.patchBoxHandler(boxId, boxData, true, false, false),
-            onClickCancelBtn: () => this.patchBoxHandler(boxId, boxData, false, true, false),
+            message: t(TranslationKey['Wish to change a destination?']),
+            onSubmit: () => this.patchBoxHandler(boxId, boxData, true, false, false),
+            onCancel: () => this.patchBoxHandler(boxId, boxData, false, true, false),
           }
         })
 
@@ -1587,15 +1615,15 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       const result = await BoxesModel.getBoxesForCurClientLightPag({
         status: curStatus,
-        filters: this.getFilter(),
         destinationId: this.curDestinationId,
         shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
         isFormed: this.columnMenuSettings.isFormedData.isFormed,
+        hasBatch: false,
+        filters: this.getFilter(),
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        hasBatch: false,
       })
 
       runInAction(() => {
@@ -1850,8 +1878,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.confirmModalSettings = {
       isWarning: true,
       confirmTitle: t(TranslationKey.Attention),
-      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
-      onClickConfirm: () => {
+      message: t(TranslationKey['Are you sure you want to cancel the order?']),
+      onSubmit: () => {
         this.onSubmitCancelOrder(orderId)
         this.onTriggerOpenModal('showConfirmModal')
         this.onTriggerOpenModal('showMyOrderModal')
@@ -1938,10 +1966,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.confirmModalSettings = {
       isWarning: false,
       confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+      message: ordersDataState.some(el => el.tmpIsPendingOrder)
         ? t(TranslationKey['Pending order will be created'])
         : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-      onClickConfirm: () => this.onSubmitOrderProductModal(ordersDataState),
+      onSubmit: () => this.onSubmitOrderProductModal(ordersDataState),
     }
 
     this.onTriggerOpenModal('showConfirmModal')

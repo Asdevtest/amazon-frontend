@@ -51,4 +51,15 @@ export const filtersFields = [
   'redFlags',
 ]
 
+export const fieldsForSearch = [
+  'asin',
+  'amazonTitle',
+  'skuByClient',
+  'id',
+  'item',
+  'productId',
+  'humanFriendlyId',
+  'prepId',
+]
+
 export const disableSelectionCells = ['prepId']
