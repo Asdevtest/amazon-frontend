@@ -295,7 +295,7 @@ export const RequestDesignerResultClientForm = memo(props => {
           files={imagesData}
           currentFileIndex={curImageIndex}
           onOpenModal={() => setShowImageModal(!showImageModal)}
-          onCurrentFileIndex={index => setCurImageIndex(index)}
+          onCurrentFileIndex={setCurImageIndex}
           onChangeImagesForLoad={setImagesData}
         />
       ) : null}

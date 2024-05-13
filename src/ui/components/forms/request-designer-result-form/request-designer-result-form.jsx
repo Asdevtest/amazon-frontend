@@ -256,7 +256,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
 
   const disableSubmit = imagesData.some(el => !el.fileLink) || imagesData.length === 0
 
-  const lastFileRef = useScrollToFile(imagesData)
+  const lastFileRef = useScrollToFile(imagesData.length)
 
   return (
     <>
@@ -421,7 +421,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
           files={imagesData}
           currentFileIndex={curImageIndex}
           onOpenModal={() => setShowImageModal(!showImageModal)}
-          onCurrentFileIndex={index => setCurImageIndex(index)}
+          onCurrentFileIndex={setCurImageIndex}
           onChangeImagesForLoad={setImagesData}
         />
       ) : null}
