@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -31,10 +31,6 @@ export const ClientShopsReportView = observer(() => {
   const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY))
   viewModel.initHistory()
 
-  useEffect(() => {
-    viewModel.initUserSettings()
-  }, [])
-
   return (
     <div className={styles.root}>
       <CustomSwitcher
@@ -59,6 +55,7 @@ export const ClientShopsReportView = observer(() => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          pinnedColumns={viewModel.pinnedColumns}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -93,6 +90,7 @@ export const ClientShopsReportView = observer(() => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 

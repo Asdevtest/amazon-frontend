@@ -51,7 +51,9 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     })
 
     this.tabKey = currentTabsValues
+
     this.getDataGridState()
+    this.initUserSettings()
 
     makeObservable(this, observerConfig)
   }
