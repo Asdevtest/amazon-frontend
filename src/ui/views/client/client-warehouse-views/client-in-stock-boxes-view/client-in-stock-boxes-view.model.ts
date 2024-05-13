@@ -11,6 +11,7 @@ import { createOrderRequestWhiteList } from '@constants/white-list'
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { GeneralModel } from '@models/general-model'
 import { OrderModel } from '@models/order-model'
 import { ProductModel } from '@models/product-model'
@@ -36,16 +37,11 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
 
-export class ClientInStockBoxesViewModel {
-  history = undefined
-  requestStatus = undefined
-
+export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   selectedBox = undefined
 
   boxesMy = []
   baseBoxesMy = []
-
-  nameSearchValue = ''
 
   unitsOption = Dimensions.EU
 
@@ -238,7 +234,7 @@ export class ClientInStockBoxesViewModel {
       this.columnMenuSettings?.humanFriendlyId.currentFilterData.push(boxId)
     }
 
-    this.nameSearchValue = url.searchParams.get('search-text')
+    this.currentSearchValue = url.searchParams.get('search-text')
 
     if (history.location.state?.dataGridFilter) {
       this.columnMenuSettings?.status.currentFilterData.push(history.location.state?.dataGridFilter)
@@ -771,7 +767,7 @@ export class ClientInStockBoxesViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    this.currentSearchValue = searchValue
 
     this.requestStatus = loadingStatus.IS_LOADING
     this.getBoxesMy().then(() => {
@@ -1584,7 +1580,7 @@ export class ClientInStockBoxesViewModel {
     return objectToUrlQs(
       dataGridFiltersConverter(
         this.columnMenuSettings,
-        this.nameSearchValue,
+        this.currentSearchValue,
         exclusion,
         filtersFields,
         ['asin', 'amazonTitle', 'skuByClient', 'id', 'item', 'productId', 'humanFriendlyId', 'prepId'],
