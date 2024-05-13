@@ -1,10 +1,7 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
@@ -24,8 +21,7 @@ import { IntegrationsModel } from './integrations.model'
 
 export const Integrations = observer(({ productId, modal, userRole }) => {
   const { classes: styles, cx } = useStyles()
-  const history = useHistory()
-  const model = useRef(new IntegrationsModel({ history, productId }))
+  const model = useRef(new IntegrationsModel({ productId }))
 
   useEffect(() => {
     model.current.loadData()
@@ -42,8 +38,9 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
     requestStatus,
     columnsModel,
     paginationModel,
+    columnVisibilityModel,
     onPaginationModelChange,
-
+    onColumnVisibilityModelChange,
     onTriggerOpenModal,
     sellerBoardDailyData,
     getStockGoodsByFilters,
@@ -58,22 +55,20 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
 
   return (
     <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
-      {SettingsModel.languageTag && (
-        <div className={styles.addProductBtnsWrapper}>
-          <Button disabled={isAdmin} onClick={onClickBindInventoryGoodsToStockBtn}>
-            {t(TranslationKey['Bind an product from Amazon'])}
-          </Button>
+      <div className={styles.addProductBtnsWrapper}>
+        <Button disabled={isAdmin} onClick={onClickBindInventoryGoodsToStockBtn}>
+          {t(TranslationKey['Bind an product from Amazon'])}
+        </Button>
 
-          <Button disabled={isDisabledUnlinkButton} onClick={onUnlinkSkuSProduct}>
-            {t(TranslationKey['Unlink an product from Amazon'])}
-          </Button>
-        </div>
-      )}
+        <Button disabled={isDisabledUnlinkButton} onClick={onUnlinkSkuSProduct}>
+          {t(TranslationKey['Unlink an product from Amazon'])}
+        </Button>
+      </div>
 
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick
-        columnVisibilityModel={model.current.columnVisibilityModel}
+        columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}
         rows={getCurrentData()}
         rowHeight={100}
@@ -86,8 +81,8 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
           toolbar: {
             columsBtnSettings: {
               columnsModel,
-              columnVisibilityModel: model.current.columnVisibilityModel,
-              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+              columnVisibilityModel,
+              onColumnVisibilityModelChange,
             },
           },
         }}
