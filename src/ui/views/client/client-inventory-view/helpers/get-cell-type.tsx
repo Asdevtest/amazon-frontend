@@ -26,7 +26,7 @@ export const getCellType = (column: string, table: string) => {
       renderCell: (params: GridRenderCellParams) => {
         return <MultilineTextCell text={params.row?.[table]?.[column]} />
       },
-      minWidth: 120,
+      minWidth: 150,
 
       columnKey: columnnsKeys.shared.QUANTITY,
     }
@@ -39,7 +39,7 @@ export const getCellType = (column: string, table: string) => {
       renderCell: (params: GridRenderCellParams) => {
         return <MultilineTextCell text={params.row?.[table]?.[column]} />
       },
-      minWidth: 120,
+      minWidth: 150,
 
       columnKey: columnnsKeys.shared.STRING,
     }
