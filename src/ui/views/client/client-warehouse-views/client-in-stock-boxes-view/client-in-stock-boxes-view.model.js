@@ -230,7 +230,11 @@ export class ClientInStockBoxesViewModel {
     this.history = history
     const url = new URL(window.location.href)
 
-    this.currentStorekeeperId = url.searchParams.get('storekeeper-id')
+    const storekeeperId = url.searchParams.get('storekeeper-id')
+
+    if (storekeeperId) {
+      this.currentStorekeeperId = storekeeperId
+    }
 
     const boxId = url.searchParams.get('box-id')
 
@@ -362,15 +366,6 @@ export class ClientInStockBoxesViewModel {
 
       runInAction(() => {
         this.storekeepersData = result
-
-        this.currentStorekeeperId =
-          this.currentStorekeeperId === null
-            ? undefined
-            : this.currentStorekeeperId
-            ? result.find(storekeeper => storekeeper._id === this.currentStorekeeperId)?._id
-            : result
-                .filter(storekeeper => storekeeper.boxesCount !== 0)
-                .sort((a, b) => a.name?.localeCompare(b.name))?.[0]?._id
       })
 
       this.getDataGridState()
