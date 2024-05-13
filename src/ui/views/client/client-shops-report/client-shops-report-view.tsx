@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
@@ -25,11 +26,10 @@ import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
 import { switcherConfig } from './switcher.config'
 
-export const ClientShopsReportView = observer(() => {
+export const ClientShopsReportView = observer(({ history }: { history: any }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY))
-  viewModel.initHistory()
+  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, history))
 
   return (
     <div className={styles.root}>

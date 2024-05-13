@@ -183,9 +183,9 @@ export const clientInventoryReportColumns = (): GridColDef[] => {
     },
 
     {
-      field: 'inventoryAge0to90Days',
-      headerName: 'Inventory Age 0 to 90 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Inventory Age 0 to 90 days" />,
+      field: 'age0to90Days',
+      headerName: 'Age 0 to 90 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Age 0 to 90 days" />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
       width: 120,
 
@@ -193,9 +193,9 @@ export const clientInventoryReportColumns = (): GridColDef[] => {
     },
 
     {
-      field: 'inventoryAge91to180Days',
-      headerName: 'Inventory Age 91 to 180 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Inventory Age 91 to 180 days" />,
+      field: 'age91to180Days',
+      headerName: 'Age 91 to 180 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Age 91 to 180 days" />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
       width: 120,
 
@@ -203,9 +203,9 @@ export const clientInventoryReportColumns = (): GridColDef[] => {
     },
 
     {
-      field: 'inventoryAge181to270Days',
-      headerName: 'Inventory Age 181 to 270 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Inventory Age 181 to 270 days" />,
+      field: 'age181to270Days',
+      headerName: 'Age 181 to 270 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Age 181 to 270 days" />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
       width: 120,
 
@@ -213,9 +213,9 @@ export const clientInventoryReportColumns = (): GridColDef[] => {
     },
 
     {
-      field: 'inventoryAge271to365Days',
-      headerName: 'Inventory Age 271 to 365 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Inventory Age 271 to 365 days" />,
+      field: 'age271to365Days',
+      headerName: 'Age 271 to 365 days',
+      renderHeader: () => <MultilineTextHeaderCell text="Age 271 to 365 days" />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
       width: 120,
 
@@ -223,9 +223,9 @@ export const clientInventoryReportColumns = (): GridColDef[] => {
     },
 
     {
-      field: 'inventoryAge365plusDays',
-      headerName: 'Inventory Age 365 plus days',
-      renderHeader: () => <MultilineTextHeaderCell text="Inventory Age 365 plus days" />,
+      field: 'age365plusDays',
+      headerName: 'Age 365 plus days',
+      renderHeader: () => <MultilineTextHeaderCell text="Age 365 plus days" />,
       renderCell: (params: GridRenderCellParams) => <MultilineTextCell text={params.value} />,
       width: 120,
 
