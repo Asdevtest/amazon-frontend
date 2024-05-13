@@ -239,6 +239,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey: DataGridTablesKeys.CLIENT_WAREHOUSE_BOXES,
       defaultGetCurrentDataOptions,
+      additionalPropertiesColumnMenuSettings,
     })
 
     //   getMainDataMethod: (...args: any) => any
