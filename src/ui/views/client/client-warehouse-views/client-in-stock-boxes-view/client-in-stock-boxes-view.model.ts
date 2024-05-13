@@ -55,7 +55,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   selectedRows = []
   curOpenedTask = {}
   toCancelData = {}
-  currentStorekeeperId = undefined
+  currentStorekeeperId = ''
   storekeepersData = []
   destinations = []
   clientDestinations = []
@@ -76,21 +76,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   boxesIdsToTask = []
   shopsData = []
-
-  columnMenuSettings = {
-    onClickFilterBtn: field => this.onClickFilterBtn(field),
-    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: () => {
-      this.getBoxesMy()
-      this.getDataGridState()
-    },
-
-    filterRequestStatus: undefined,
-
-    isFormedData: { isFormed: undefined, onChangeIsFormed: value => this.onChangeIsFormed(value) },
-
-    ...dataGridFiltersInitializer(filtersFields),
-  }
 
   onAmazon = false
   hsCodeData = {}
@@ -140,16 +125,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   setChangeItem(item) {
     this.changeItem = item
   }
-
-  columnsModel = clientBoxesViewColumns(
-    this.rowHandlers,
-    () => this.storekeepersData,
-    () => this.destinations,
-    () => SettingsModel.destinationsFavourites,
-    () => this.columnMenuSettings,
-    () => this.onHover,
-    () => this.unitsOption,
-  )
 
   get userInfo() {
     return UserModel.userInfo
@@ -255,7 +230,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.history = history
     const url = new URL(window.location.href)
 
-    this.currentStorekeeperId = url.searchParams.get('storekeeper-id')
+    this.currentStorekeeperId = url.searchParams.get('storekeeper-id') || ''
 
     const boxId = url.searchParams.get('box-id')
 
@@ -263,7 +238,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       this.columnMenuSettings?.humanFriendlyId.currentFilterData.push(boxId)
     }
 
-    this.currentSearchValue = url.searchParams.get('search-text')
+    this.currentSearchValue = url.searchParams.get('search-text') || ''
 
     if (history.location.state?.dataGridFilter) {
       this.columnMenuSettings?.status.currentFilterData.push(history.location.state?.dataGridFilter)
