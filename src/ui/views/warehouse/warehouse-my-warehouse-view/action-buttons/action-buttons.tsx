@@ -25,7 +25,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
     <div className={styles.leftBtnsWrapper}>
       <Button
         tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-        disabled={!selectedBoxes.length}
+        disabled={!selectedBoxes?.length}
         className={styles.editBtn}
         onClick={onEditBox}
       >
@@ -48,7 +48,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         {t(TranslationKey.Redistribute)}
       </Button>
 
-      <Button disabled={!selectedBoxes.length} onClick={onClickGroupingBtn}>
+      <Button disabled={!selectedBoxes?.length} onClick={onClickGroupingBtn}>
         {t(TranslationKey.Grouping)}
       </Button>
     </div>
