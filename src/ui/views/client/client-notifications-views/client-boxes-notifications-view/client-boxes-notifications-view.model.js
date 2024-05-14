@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -21,10 +22,7 @@ import { onSubmitPostImages } from '@utils/upload-files'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ClientBoxesNotificationsViewModel {
-  history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-  loadingStatus = undefined
 
   curBox = undefined
   showBoxViewModal = false
@@ -38,13 +36,6 @@ export class ClientBoxesNotificationsViewModel {
   confirmModalSettings = {
     isWarning: false,
     onClickOkBtn: () => this.onSaveProductData(),
-  }
-
-  showWarningInfoModal = false
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
   }
 
   uploadedFiles = []
@@ -66,9 +57,7 @@ export class ClientBoxesNotificationsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -190,22 +179,9 @@ export class ClientBoxesNotificationsViewModel {
     return UserModel.platformSettings
   }
 
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      this.getDataGridState()
-      await this.getBoxes()
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
-    }
+  loadData() {
+    this.getDataGridState()
+    this.getBoxes()
   }
 
   async onSubmitChangeBoxFields(data) {
@@ -225,14 +201,8 @@ export class ClientBoxesNotificationsViewModel {
       this.loadData()
 
       this.onTriggerOpenModal('showBoxViewModal')
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
 
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }
@@ -240,6 +210,8 @@ export class ClientBoxesNotificationsViewModel {
 
   async getBoxes() {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const result = await BoxesModel.getBoxesForCurClient({
         status: BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
       })
@@ -249,11 +221,11 @@ export class ClientBoxesNotificationsViewModel {
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      runInAction(() => {
-        this.boxes = []
-      })
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -278,7 +250,7 @@ export class ClientBoxesNotificationsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -288,7 +260,7 @@ export class ClientBoxesNotificationsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -333,9 +305,5 @@ export class ClientBoxesNotificationsViewModel {
 
     this.onTriggerOpenModal('showConfirmModal')
     this.loadData()
-  }
-
-  setLoadingStatus(loadingStatus) {
-    this.loadingStatus = loadingStatus
   }
 }

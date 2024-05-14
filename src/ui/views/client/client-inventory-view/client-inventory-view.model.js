@@ -80,7 +80,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showSelectionSupplierModal = false
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
-  showInfoModal = false
   showConfirmModal = false
   showSetChipValueModal = false
   showBarcodeOrHscodeModal = false
@@ -103,7 +102,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   successModalText = ''
   confirmMessage = ''
-  showInfoModalTitle = ''
   currentBarcode = ''
   currentHscode = ''
 
@@ -493,9 +491,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   onClickTriggerArchOrResetProducts() {
     if (this.checkIsNoEditProductSelected()) {
-      this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
+      toast.warning(t(TranslationKey['Product with invalid status selected']))
 
-      this.onTriggerOpenModal('showInfoModal')
       return
     }
 
@@ -1113,11 +1110,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       await this.getCurrentData()
     } catch (error) {
       console.error(error)
-      runInAction(() => {
-        this.showInfoModalTitle = t(TranslationKey.Error)
-      })
 
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey.Error))
     }
   }
 
@@ -1134,10 +1128,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async onClickParseProductsBtn() {
     try {
       if (this.checkIsNoEditProductSelected()) {
-        runInAction(() => {
-          this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
-        })
-        this.onTriggerOpenModal('showInfoModal')
+        toast.warning(t(TranslationKey['Product with invalid status selected']))
+
         return
       }
 
@@ -1159,10 +1151,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.showCircularProgressModal = false
       })
 
-      runInAction(() => {
-        this.showInfoModalTitle = t(TranslationKey['Parsing data not updated'])
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey['Parsing data not updated']))
 
       console.error(error)
     }
@@ -1173,10 +1162,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.selectedProductToLaunch = undefined
 
       if (this.checkIsNoEditProductSelected()) {
-        runInAction(() => {
-          this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
-        })
-        this.onTriggerOpenModal('showInfoModal')
+        toast.warning(t(TranslationKey['Product with invalid status selected']))
+
         return
       }
 
@@ -1485,10 +1472,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       await this.getCurrentData()
     } catch (error) {
-      runInAction(() => {
-        this.showInfoModalTitle = t(TranslationKey["You can't bind"])
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey["You can't bind"]))
 
       console.error(error)
     }

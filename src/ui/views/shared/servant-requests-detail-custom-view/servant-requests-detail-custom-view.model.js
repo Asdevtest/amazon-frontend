@@ -24,7 +24,6 @@ export class RequestDetailCustomViewModel {
   requestProposals = undefined
   showProgress = false
 
-  showWarningModal = false
   showConfirmModal = false
   showMainRequestResultModal = false
   showRequestDesignerResultModal = false
@@ -34,11 +33,6 @@ export class RequestDetailCustomViewModel {
   curResultMedia = []
 
   loadedFiles = []
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   chatSelectedId = undefined
   chatIsConnected = false
@@ -125,7 +119,7 @@ export class RequestDetailCustomViewModel {
         )
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -213,7 +207,7 @@ export class RequestDetailCustomViewModel {
         ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {
-      console.warn('onSubmitMessage error ', error)
+      console.error('onSubmitMessage error ', error)
     }
   }
 

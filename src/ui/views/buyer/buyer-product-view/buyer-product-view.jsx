@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { Modal } from '@components/shared/modal'
 
@@ -54,17 +53,6 @@ export const BuyerProductView = observer(({ history }) => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.warningModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

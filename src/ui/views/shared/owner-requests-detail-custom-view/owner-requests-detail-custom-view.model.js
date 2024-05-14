@@ -157,7 +157,7 @@ export class OwnerRequestDetailCustomViewModel {
         )
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -229,7 +229,7 @@ export class OwnerRequestDetailCustomViewModel {
         ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {
-      console.warn('onSubmitMessage error ', error)
+      console.error('onSubmitMessage error ', error)
     }
   }
 

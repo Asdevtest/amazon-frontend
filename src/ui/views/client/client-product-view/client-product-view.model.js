@@ -50,11 +50,9 @@ export class ClientProductViewModel {
   shopsData = []
 
   curUpdateProductData = undefined
-  warningModalTitle = ''
 
   paymentMethods = []
 
-  showWarningModal = false
   showConfirmModal = false
   showBindProductModal = false
 
@@ -133,7 +131,6 @@ export class ClientProductViewModel {
       })
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -155,7 +152,6 @@ export class ClientProductViewModel {
       this.onTriggerOpenModal('showBindProductModal')
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -689,10 +685,7 @@ export class ClientProductViewModel {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
-      runInAction(() => {
-        this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
-      })
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey['Parsing error']) + '\n' + String(error))
     }
   }
 }

@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
@@ -47,8 +48,6 @@ export class ClientAwaitingBatchesViewModel {
   showConfirmModal = false
   showAddOrEditBatchModal = false
 
-  showWarningInfoModal = false
-
   boxesData = []
 
   curBox = undefined
@@ -56,11 +55,6 @@ export class ClientAwaitingBatchesViewModel {
 
   progressValue = 0
   showProgress = false
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   productViewMode = tableProductViewMode.EXTENDED
 
@@ -270,14 +264,9 @@ export class ClientAwaitingBatchesViewModel {
 
       runInAction(() => {
         this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
-
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
       })
 
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }
@@ -300,9 +289,6 @@ export class ClientAwaitingBatchesViewModel {
         this.batches = warehouseBatchesDataConverter(result.rows, this.platformSettings?.volumeWeightCoefficient)
       })
     } catch (error) {
-      runInAction(() => {
-        this.batches = []
-      })
       console.error(error)
     }
   }

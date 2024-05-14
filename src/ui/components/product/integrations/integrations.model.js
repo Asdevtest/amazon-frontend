@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,7 +21,6 @@ export class IntegrationsModel {
 
   showBindInventoryGoodsToStockModal = false
   showSuccessModal = false
-  showInfoModal = false
 
   successInfoModalText = ''
 
@@ -136,7 +136,7 @@ export class IntegrationsModel {
 
       this.loadData()
     } catch (error) {
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey["You can't bind"]))
 
       console.error(error)
     }

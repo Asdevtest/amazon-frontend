@@ -57,10 +57,6 @@ export class BuyerMyOrdersViewModel {
   showConfirmModal = false
   showPaymentMethodsModal = false
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
   confirmModalSettings = {
     title: '',
     isWarning: false,

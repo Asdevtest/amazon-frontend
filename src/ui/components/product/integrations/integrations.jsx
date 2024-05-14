@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -34,7 +33,6 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
     getCurrentData,
     showBindInventoryGoodsToStockModal,
     showSuccessModal,
-    showInfoModal,
     requestStatus,
     columnsModel,
     paginationModel,
@@ -113,17 +111,6 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
           title={successInfoModalText}
           successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
-
-      {showInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={showInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-          title={t(TranslationKey["You can't bind"])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => onTriggerOpenModal('showInfoModal')}
         />
       ) : null}
     </div>

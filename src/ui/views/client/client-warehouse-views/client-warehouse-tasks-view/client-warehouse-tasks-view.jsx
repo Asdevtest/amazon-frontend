@@ -5,7 +5,6 @@ import { TaskOperationType, mapTaskOperationTypeToLabel } from '@constants/task/
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -181,18 +180,6 @@ export const ClientWarehouseTasksView = observer(() => {
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       ) : null}
 

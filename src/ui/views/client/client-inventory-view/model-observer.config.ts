@@ -29,7 +29,6 @@ export const observerConfig = {
   showSelectionSupplierModal: observable,
   showSendOwnProductModal: observable,
   showBindInventoryGoodsToStockModal: observable,
-  showInfoModal: observable,
   showConfirmModal: observable,
   showSetChipValueModal: observable,
   showBarcodeOrHscodeModal: observable,

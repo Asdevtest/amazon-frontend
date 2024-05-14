@@ -24,7 +24,6 @@ import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field/field'
@@ -116,9 +115,6 @@ export const EditOrderModal = memo(
     const [paymentMethodsModal, setPaymentMethodsModal] = useState(false)
     const [commentModal, setCommentModalModal] = useState(false)
     const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
-    const [showWarningInfoModal, setShowWarningInfoModal] = useState(
-      order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
-    )
     const [commentToWarehouse, setCommentToWarehouse] = useState('')
     const [trackNumber, setTrackNumber] = useState({ text: '', files: [] })
     const [boxesForCreation, setBoxesForCreation] = useState([])
@@ -831,17 +827,6 @@ export const EditOrderModal = memo(
               }
               setShowConfirmModal(!showConfirmModal)
             }}
-          />
-        ) : null}
-
-        {showWarningInfoModal ? (
-          <WarningInfoModal
-            // @ts-ignore
-            openModal={showWarningInfoModal}
-            setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
-            title={t(TranslationKey['PAY ATTENTION!!!'])}
-            btnText={t(TranslationKey.Ok)}
-            onClickBtn={() => setShowWarningInfoModal(!showWarningInfoModal)}
           />
         ) : null}
 

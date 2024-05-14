@@ -7,7 +7,6 @@ import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { HeaderTable } from '@components/table/header-table/header-table'
@@ -20,9 +19,9 @@ import { useStyles } from './client-awaiting-batches-view.style'
 
 import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
 
-export const ClientAwaitingBatchesView = observer(({ history }) => {
+export const ClientAwaitingBatchesView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
+  const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel())
 
   useEffect(() => {
     viewModel.loadData()
@@ -124,18 +123,6 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={viewModel.onClickCancelSendToBatchBtn}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       ) : null}
     </>

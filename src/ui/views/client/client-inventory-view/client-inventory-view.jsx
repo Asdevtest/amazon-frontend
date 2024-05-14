@@ -28,7 +28,6 @@ import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-stock-value-modal.js'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -374,17 +373,6 @@ export const ClientInventoryView = observer(({ history }) => {
           title={viewModel.successModalText}
           successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
-
-      {viewModel.showInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-          title={viewModel.showInfoModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
         />
       ) : null}
 

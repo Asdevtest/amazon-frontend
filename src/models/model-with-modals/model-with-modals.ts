@@ -3,7 +3,7 @@ import { makeObservable } from 'mobx'
 
 import { IListOfModals } from '@typings/shared/data-grid'
 
-import { IConfirmModalSettings, IWarningInfoModalSettings } from './model-with-modals-interface'
+import { IConfirmModalSettings } from './model-with-modals-interface'
 import { observerConfig } from './observer-config'
 
 export class ModalsModel {
@@ -13,12 +13,6 @@ export class ModalsModel {
     message: '',
     onSubmit: () => {},
     onCancel: () => {},
-  }
-  warningInfoModalSettings: IWarningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-    buttonText: '',
-    onSubmit: () => {},
   }
 
   constructor() {

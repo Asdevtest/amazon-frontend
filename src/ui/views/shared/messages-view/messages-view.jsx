@@ -13,7 +13,6 @@ import { ChatsList } from '@components/chat/chats-list'
 import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
 import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
 import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
@@ -237,18 +236,6 @@ export const MessagesView = observer(({ history }) => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
         />
       </Modal>
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
     </div>
   )
 })

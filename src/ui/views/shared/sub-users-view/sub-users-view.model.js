@@ -39,7 +39,6 @@ export class SubUsersViewModel {
   productPermissionsData = []
 
   showAddSubUserModal = false
-  showWarningModal = false
   showPermissionModal = false
   showConfirmModal = false
 
@@ -54,11 +53,6 @@ export class SubUsersViewModel {
   columnsModel = subUsersColumns(this.rowHandlers)
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = undefined
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   get userInfo() {
     return UserModel.userInfo
@@ -318,23 +312,9 @@ export class SubUsersViewModel {
         await UserModel.changeSubUserSpec(id, { allowedSpec: currentSpec })
       }
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['User permissions were changed']),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningModal')
+      toast.success(t(TranslationKey['User permissions were changed']))
     } catch (error) {
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['User permissions are not changed']),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey['User permissions are not changed']))
 
       console.error(error)
     }
@@ -363,14 +343,7 @@ export class SubUsersViewModel {
     try {
       await UserModel.unlinkSubUser({ userId: this.selectedSubUser._id })
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Sub-user removed']),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningModal')
+      toast.success(t(TranslationKey['Sub-user removed']))
     } catch (error) {
       console.error(error)
     }

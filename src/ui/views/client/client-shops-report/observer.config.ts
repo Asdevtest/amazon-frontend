@@ -4,7 +4,6 @@ export const observerConfig = {
   tabKey: observable,
   inventoryProducts: observable,
   showBindStockGoodsToInventoryModal: observable,
-  showWarningInfoModal: observable,
   showConfirmModal: observable,
   showSelectShopsModal: observable,
   shopsData: observable,

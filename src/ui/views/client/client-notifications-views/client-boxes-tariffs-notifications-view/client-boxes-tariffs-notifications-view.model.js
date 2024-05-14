@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -23,10 +24,7 @@ import { onSubmitPostImages } from '@utils/upload-files'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ClientBoxesTariffsNotificationsViewModel {
-  history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-  loadingStatus = undefined
 
   tariffIdToChange = undefined
   curBox = undefined
@@ -42,13 +40,6 @@ export class ClientBoxesTariffsNotificationsViewModel {
   confirmModalSettings = {
     isWarning: false,
     onClickOkBtn: () => this.onSaveProductData(),
-  }
-
-  showWarningInfoModal = false
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
   }
 
   uploadedFiles = []
@@ -73,33 +64,25 @@ export class ClientBoxesTariffsNotificationsViewModel {
     return UserModel.platformSettings
   }
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -142,14 +125,8 @@ export class ClientBoxesTariffsNotificationsViewModel {
       this.loadData()
 
       this.onTriggerOpenModal('showBoxViewModal')
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
 
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }
@@ -237,71 +214,52 @@ export class ClientBoxesTariffsNotificationsViewModel {
       })
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
   onTriggerOpenRejectModal(row) {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        message: t(TranslationKey['Do you want to cancel?']),
-        onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Do you want to cancel?']),
+      onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
+    }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
-  getCurrentData() {
-    return toJS(this.boxes)
+  get currentData() {
+    return this.boxes
   }
 
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-      this.getDataGridState()
+  loadData() {
+    this.getDataGridState()
 
-      await this.getBoxes()
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
-    }
+    this.getBoxes()
   }
 
   async getBoxes() {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const result = await BoxesModel.getBoxesForCurClient({ status: BoxStatus.NEED_TO_UPDATE_THE_TARIFF })
 
       runInAction(() => {
@@ -309,11 +267,11 @@ export class ClientBoxesTariffsNotificationsViewModel {
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      runInAction(() => {
-        this.boxes = []
-      })
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -337,13 +295,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
-  }
-
-  setLoadingStatus(loadingStatus) {
-    runInAction(() => {
-      this.loadingStatus = loadingStatus
-    })
   }
 }

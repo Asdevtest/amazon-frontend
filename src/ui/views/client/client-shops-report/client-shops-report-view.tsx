@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-goods-to-inventory-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
@@ -120,18 +119,6 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
         />
       </Modal>
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          openModal={viewModel.showWarningInfoModal}
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={viewModel.warningInfoModalSettings.buttonText}
-          onClickBtn={() => viewModel.warningInfoModalSettings.onSubmit()}
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

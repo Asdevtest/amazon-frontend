@@ -121,7 +121,7 @@ class ChatModelStatic {
         }))
       })
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -216,7 +216,7 @@ class ChatModelStatic {
         })
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -275,7 +275,7 @@ class ChatModelStatic {
         }))
       })
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -295,7 +295,7 @@ class ChatModelStatic {
         })
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -556,7 +556,7 @@ class ChatModelStatic {
   }
 
   private onConnectionError(error: Error) {
-    console.warn('onConnectionError error ', error)
+    console.error('onConnectionError error ', error)
     this.isConnected = false
   }
 
@@ -738,7 +738,7 @@ class ChatModelStatic {
       const messages = await this.websocketChatService.FindChatMessage(requestParams)
       return messages
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 }
