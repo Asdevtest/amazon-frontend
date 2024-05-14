@@ -489,4 +489,8 @@ export const parseTextString = textValue => {
 }
 
 export const formatCamelCaseString = str =>
-  str.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b\w/g, c => c.toUpperCase())
+  str
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replaceAll(/([a-zA-Z])(\d)/g, '$1 $2')
+    .replaceAll(/(\d)([a-zA-Z])/g, '$1 $2')
+    .replace(/\b\w/g, c => c.toUpperCase())
