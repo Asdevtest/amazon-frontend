@@ -1,70 +1,35 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  root: {
-    width: '640px',
-    padding: 10,
+  wrapper: {
     display: 'flex',
     flexDirection: 'column',
+    gap: 20,
   },
 
-  mainTitle: {
-    color: theme.palette.text.general,
+  title: {
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
   },
 
   mainWrapper: {
-    width: '100%',
-    minHeight: 320,
     display: 'flex',
-    padding: '20px  0 20px ',
-  },
-
-  avatarWrapper: {
-    width: '100%',
-    minHeight: 320,
-    maxHeight: 500,
-    display: 'flex',
-    overflow: 'auto',
-  },
-
-  imgWrapper: {
-    marginLeft: '70px',
-    display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
+    gap: 40,
   },
 
   img: {
-    width: '208px',
-    height: '208px',
-
+    width: 200,
+    height: 200,
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: '50%',
-
-    backgroundColor: theme.palette.background.disabled,
   },
 
   btnsWrapper: {
     display: 'flex',
-    margin: '30px 20px 10px 0',
     justifyContent: 'flex-end',
-  },
-
-  cancelBtn: {
-    marginLeft: '30px',
-    color: theme.palette.text.general,
-  },
-
-  standartText: {
-    color: theme.palette.text.general,
-  },
-
-  labelStyle: {
-    width: '100%',
-    backgroundColor: theme.palette.background.second,
-    textAlign: 'center',
-    transition: '0.3s ease',
-    cursor: 'pointer',
+    gap: 20,
   },
 
   successText: {
@@ -78,12 +43,5 @@ export const useStyles = makeStyles()(theme => ({
 
   textsWrapper: {
     alignSelf: 'center',
-  },
-
-  title: {
-    fontWeight: '600',
-    fontSize: '18px',
-    lineHeight: '140%',
-    color: theme.palette.text.second,
   },
 }))

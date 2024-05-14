@@ -43,11 +43,8 @@ export class WarehouseMyTasksViewModel {
   progressValue = 0
 
   showEditTaskModal = false
-  showNoDimensionsErrorModal = false
   selectedTask = undefined
-  showBarcodeModal = false
   showEditBoxModal = false
-  showCancelTaskModal = false
   showConfirmModal = false
   showEditPriorityData = false
 
