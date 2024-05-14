@@ -220,7 +220,7 @@ export class UserPermissionsModel {
     try {
       await PermissionsModel.removeSinglePermission(this.permissionIdToRemove)
       this.onTriggerOpenModal('showConfirmModal')
-      this.getSinglePermissions()
+      this.loadData()
     } catch (error) {
       console.error(error)
     }
@@ -230,7 +230,7 @@ export class UserPermissionsModel {
     try {
       await PermissionsModel.removeGroupPermission(this.permissionIdToRemove)
       this.onTriggerOpenModal('showConfirmModal')
-      this.getGroupPermissions()
+      this.loadData()
     } catch (error) {
       console.error(error)
     }
@@ -405,6 +405,8 @@ export class UserPermissionsModel {
         await OtherModel.patchPermissionJson(file)
 
         toast.success(t(TranslationKey['Permissions imported successfully']))
+
+        this.loadData()
       })
 
       input.click()

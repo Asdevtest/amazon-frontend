@@ -1,4 +1,5 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { BoxStatus, boxStatusTranslateKey, colorByBoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -29,404 +30,319 @@ export const clientBoxesViewColumns = (
   getStorekeepersData,
   getDestinations,
   getDestinationsFavourites,
-  getColumnMenuSettings,
-  getOnHover,
   getUnitsOption,
-) => [
-  {
-    field: 'storekeeper',
-    headerName: t(TranslationKey.Storekeeper),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Storekeeper)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+) => {
+  const columns = [
+    {
+      field: 'storekeeper',
+      headerName: t(TranslationKey.Storekeeper),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 100,
-    sortable: false,
-    columnKey: columnnsKeys.shared.OBJECT,
-  },
-
-  {
-    field: 'shopId',
-    headerName: t(TranslationKey.Shop),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Shop)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-
-    renderCell: params => <MultilineTextCell twoLines text={params.value} />,
-
-    width: 100,
-    sortable: false,
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
-  },
-
-  {
-    field: 'status',
-    headerName: t(TranslationKey.Status),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Status)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-
-    width: 160,
-    renderCell: params => (
-      <MultilineTextCell
-        leftAlign
-        text={t(boxStatusTranslateKey(params.value))}
-        customTextStyles={colorByBoxStatus(params.value)}
-      />
-    ),
-    valueFormatter: params => t(boxStatusTranslateKey(params.value)),
-    columnKey: columnnsKeys.shared.BOXES_STATUS,
-  },
-
-  {
-    field: 'humanFriendlyId',
-    headerName: t(TranslationKey.ID),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.ID)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    type: 'number',
-    width: 60,
-
-    columnKey: columnnsKeys.client.WAREHOUSE_ID,
-  },
-
-  {
-    field: 'orderIdsItems',
-    headerName: t(TranslationKey['№ Order/ № Item']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['№ Order/ № Item'])}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={
-          getColumnMenuSettings()?.item?.currentFilterData?.length ||
-          getColumnMenuSettings()?.id?.currentFilterData?.length
-        }
-      />
-    ),
-
-    renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
-    width: 160,
-    sortable: false,
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
-  },
-
-  {
-    field: 'asin',
-    headerName: t(TranslationKey.Product),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Product)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={
-          getColumnMenuSettings()?.asin?.currentFilterData?.length ||
-          getColumnMenuSettings()?.skuByClient?.currentFilterData?.length ||
-          getColumnMenuSettings()?.amazonTitle?.currentFilterData?.length
-        }
-      />
-    ),
-
-    width: 300,
-    renderCell: params => {
-      return params.row.originalData?.items.length > 1 ? (
-        <OrderManyItemsCell
-          box={params.row.originalData}
-          error={
-            !findTariffInStorekeepersData(
-              getStorekeepersData(),
-              params.row.originalData.storekeeper?._id,
-              params.row.originalData.logicsTariff?._id,
-            ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-          }
-        />
-      ) : (
-        <OrderCell
-          box={params.row.originalData}
-          product={params.row.originalData?.items[0]?.product}
-          superbox={params.row.originalData?.amount > 1 && params.row.originalData?.amount}
-          error={
-            !findTariffInStorekeepersData(
-              getStorekeepersData(),
-              params.row.originalData?.storekeeper?._id,
-              params.row.originalData?.logicsTariff?._id,
-            ) && t(TranslationKey['The tariff is invalid or has been removed!'])
-          }
-        />
-      )
+      renderCell: params => <MultilineTextCell text={params.value?.name} />,
+      width: 100,
+      sortable: false,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
-    valueGetter: params =>
-      params.row.originalData.items
-        ?.filter(item => Boolean(item.product.asin))
-        .map(item => {
-          return `Asin ${item.product.asin}`
-        })
-        .join('\n'),
 
-    filterable: false,
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
-  },
+    {
+      field: 'shopId',
+      headerName: t(TranslationKey.Shop),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-  {
-    field: 'isFormed',
-    headerName: t(TranslationKey.Formed),
-    renderHeader: () => (
-      <MultilineTextHeaderCell
-        withIcon
-        isFilterActive={getColumnMenuSettings()?.isFormedData?.isFormed !== null}
-        text={t(TranslationKey.Formed)}
-      />
-    ),
+      renderCell: params => <MultilineTextCell twoLines text={params.value} />,
 
-    renderCell: params => (
-      <FormedCell
-        sub={params.row.originalData?.sub}
-        isChecked={!!params.value}
-        disable={params.row.originalData.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-        onChangeIsFormedInBox={() => handlers.onChangeIsFormedInBox(params.row.originalData)}
-      />
-    ),
-    width: 120,
-    sortable: false,
-    filterable: false,
-    valueFormatter: params => (params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)),
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED,
-  },
-
-  {
-    field: 'amount',
-    headerName: t(TranslationKey.Quantity),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Quantity)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-
-    renderCell: params =>
-      params.row.originalData ? <MultilineTextCell text={params.value * params.row.originalData?.amount} /> : '',
-    type: 'number',
-    width: 95,
-    sortable: false,
-
-    columnKey: columnnsKeys.shared.QUANTITY,
-  },
-
-  {
-    field: 'destination',
-    headerName: t(TranslationKey['Destination and tariff']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['Destination and tariff'])}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={
-          getColumnMenuSettings()?.logicsTariff?.currentFilterData?.length ||
-          getColumnMenuSettings()?.destination?.currentFilterData?.length
-        }
-      />
-    ),
-
-    renderCell: params => {
-      return params.row.originalData ? (
-        <WarehouseDestinationAndTariffCell
-          destinations={getDestinations()}
-          boxesMy={params.row.originalData}
-          destinationsFavourites={getDestinationsFavourites()}
-          setDestinationsFavouritesItem={handlers.onClickSetDestinationFavourite}
-          storekeepers={getStorekeepersData()}
-          setShowSelectionStorekeeperAndTariffModal={handlers.setShowSelectionStorekeeperAndTariffModal}
-          disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-          onSelectDestination={handlers.onSelectDestination}
-          onClickSetTariff={handlers.onClickSetTariff}
-        />
-      ) : (
-        ''
-      )
+      width: 100,
+      sortable: false,
+      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
+      table: DataGridFilterTables.PRODUCTS,
     },
-    width: 215,
-    filterable: false,
-    sortable: false,
-    align: 'center',
-    columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
-  },
 
-  {
-    field: 'amazonPrice',
-    headerName: t(TranslationKey['Total price']),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey['Total price'])}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    {
+      field: 'status',
+      headerName: t(TranslationKey.Status),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    type: 'number',
-    width: 110,
-    sortable: false,
-  },
+      width: 160,
+      renderCell: params => (
+        <MultilineTextCell
+          leftAlign
+          text={t(boxStatusTranslateKey(params.value))}
+          customTextStyles={colorByBoxStatus(params.value)}
+        />
+      ),
+      valueFormatter: params => t(boxStatusTranslateKey(params.value)),
+      columnKey: columnnsKeys.shared.BOXES_STATUS,
+    },
 
-  {
-    field: 'deadline',
-    headerName: t(TranslationKey.Deadline),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Deadline)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.Deadline?.currentFilterData?.length}
-      />
-    ),
-    renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
-    valueFormatter: params => (params.value ? formatNormDateTime(params.value) : ''),
-    width: 100,
-  },
+    {
+      field: 'humanFriendlyId',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-  {
-    field: 'fbaShipment',
-    headerName: 'FBA Shipment / Shipping Label',
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={'FBA Shipment / Shipping Label'}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        // isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      type: 'number',
+      width: 60,
 
-    renderCell: params => {
-      return params.row.originalData ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0' }}>
-          <ChangeChipCell
-            label={t(TranslationKey['Shipping label']) + ':'}
-            disabled={params.row.originalData?.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-            row={params.row.originalData}
-            value={params.row.shippingLabel}
-            text={'Set Shipping Label'}
-            onClickChip={handlers.onClickShippingLabel}
-            onDoubleClickChip={handlers.onDoubleClickShippingLabel}
-            onDeleteChip={handlers.onDeleteShippingLabel}
+      columnKey: columnnsKeys.client.WAREHOUSE_ID,
+    },
+
+    {
+      field: 'orderIdsItems',
+      headerName: t(TranslationKey['№ Order/ № Item']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
+
+      renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
+      width: 160,
+      sortable: false,
+      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
+      table: DataGridFilterTables.ORDERS,
+    },
+
+    {
+      field: 'asin',
+      headerName: t(TranslationKey.Product),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+
+      width: 300,
+      renderCell: params => {
+        return params.row?.items.length > 1 ? (
+          <OrderManyItemsCell
+            box={params.row}
+            error={
+              !findTariffInStorekeepersData(
+                getStorekeepersData(),
+                params.row.storekeeper?._id,
+                params.row.logicsTariff?._id,
+              ) && t(TranslationKey['The tariff is invalid or has been removed!'])
+            }
           />
-
-          <ChangeChipCell
-            label={t(TranslationKey['FBA Shipment']) + ':'}
-            disabled={params.row.originalData?.isDraft || params.row.status !== BoxStatus.IN_STOCK}
-            row={params.row.originalData}
-            value={params.row.fbaShipment}
-            text={t(TranslationKey['FBA Shipment'])}
-            onClickChip={handlers.onClickFbaShipment}
-            onDoubleClickChip={handlers.onDoubleClickFbaShipment}
-            onDeleteChip={handlers.onDeleteFbaShipment}
+        ) : (
+          <OrderCell
+            box={params.row}
+            product={params.row.items[0]?.product}
+            superbox={params.row.amount > 1 && params.row.amount}
+            error={
+              !findTariffInStorekeepersData(
+                getStorekeepersData(),
+                params.row.storekeeper?._id,
+                params.row.logicsTariff?._id,
+              ) && t(TranslationKey['The tariff is invalid or has been removed!'])
+            }
           />
-        </div>
-      ) : (
-        ''
-      )
+        )
+      },
+      valueGetter: params =>
+        params.row.items
+          ?.filter(item => Boolean(item.product.asin))
+          .map(item => {
+            return `Asin ${item.product.asin}`
+          })
+          .join('\n'),
+
+      table: DataGridFilterTables.PRODUCTS,
+      filterable: false,
+      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_PRODUCT,
     },
-    valueGetter: params =>
-      `Shipping Label:${params.row.shippingLabel ? trimBarcode(params.row.shippingLabel) : '-'}\n FBA Shipment:${
-        params.row.fbaShipment || ''
-      }`,
-    minWidth: 150,
-    headerAlign: 'center',
-    sortable: false,
-  },
 
-  {
-    field: 'dimansions',
-    headerName: t(TranslationKey.Dimensions),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Dimensions)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        component={<SizeSwitcher condition={getUnitsOption()} onChangeCondition={handlers.onChangeUnitsOption} />}
-      />
-    ),
-    renderCell: params => (
-      <Dimensions isCell isTotalWeight data={params.row.originalData} transmittedSizeSetting={getUnitsOption()} />
-    ),
-    width: 210,
-    sortable: false,
-  },
+    {
+      field: 'isFormed',
+      headerName: t(TranslationKey.Formed),
+      renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Formed)} />,
 
-  {
-    field: 'prepId',
-    headerName: 'PREP ID',
-    renderHeader: () => <MultilineTextHeaderCell text={'PREP ID'} />,
+      renderCell: params => (
+        <FormedCell
+          sub={params.row.sub}
+          isChecked={!!params.value}
+          disable={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+          onChangeIsFormedInBox={() => handlers.onChangeIsFormedInBox(params.row)}
+        />
+      ),
+      width: 120,
+      sortable: false,
+      filterable: false,
+      valueFormatter: params => (params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)),
+      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED,
+    },
 
-    renderCell: params => (
-      <ChangeInputCell
-        isString
-        maxLength={25}
-        rowId={params.row.originalData._id}
-        text={params.value}
-        onClickSubmit={handlers.onClickSavePrepId}
-      />
-    ),
-    width: 240,
+    {
+      field: 'amount',
+      headerName: t(TranslationKey.Quantity),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      renderCell: params => (params.row ? <MultilineTextCell text={params.value * params.row.amount} /> : ''),
+      type: 'number',
+      width: 95,
+      sortable: false,
 
-  {
-    field: 'redFlags',
-    headerName: t(TranslationKey['Red flags']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
-    renderCell: params => <RedFlagsCell flags={params.row?.originalData?.items?.[0]?.product?.redFlags} />,
-    valueGetter: ({ row }) => row?.originalData?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
-    width: 130,
-    columnKey: columnnsKeys.shared.RED_FLAGS,
-  },
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
 
-  {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Created)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
+    {
+      field: 'destination',
+      headerName: t(TranslationKey['Destination and tariff']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
 
-    renderCell: params => <NormDateCell value={params.value} />,
-    valueFormatter: params => formatNormDateTime(params.value),
-    width: 120,
-    // type: 'date',
-    columnKey: columnnsKeys.shared.DATE,
-  },
+      renderCell: params => {
+        return params.row ? (
+          <WarehouseDestinationAndTariffCell
+            destinations={getDestinations()}
+            boxesMy={params.row}
+            destinationsFavourites={getDestinationsFavourites()}
+            setDestinationsFavouritesItem={handlers.onClickSetDestinationFavourite}
+            storekeepers={getStorekeepersData()}
+            setShowSelectionStorekeeperAndTariffModal={handlers.setShowSelectionStorekeeperAndTariffModal}
+            disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+            onSelectDestination={handlers.onSelectDestination}
+            onClickSetTariff={handlers.onClickSetTariff}
+          />
+        ) : (
+          ''
+        )
+      },
+      width: 215,
+      filterable: false,
+      sortable: false,
+      align: 'center',
+      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
+    },
 
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: params => (
-      <MultilineTextHeaderCell
-        text={t(TranslationKey.Updated)}
-        isShowIconOnHover={getOnHover && params.field && getOnHover() === params.field}
-        isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-      />
-    ),
-    valueFormatter: params => formatNormDateTime(params.value),
-    renderCell: params => <NormDateCell value={params.value} />,
-    width: 120,
-    // type: 'date',
-    columnKey: columnnsKeys.shared.DATE,
-  },
-]
+    {
+      field: 'amazonPrice',
+      headerName: t(TranslationKey['Total price']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
+
+      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      type: 'number',
+      width: 110,
+      sortable: false,
+    },
+
+    {
+      field: 'deadline',
+      headerName: t(TranslationKey.Deadline),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
+      renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
+      valueFormatter: params => (params.value ? formatNormDateTime(params.value) : ''),
+      width: 100,
+    },
+
+    {
+      field: 'fbaShipment',
+      headerName: 'FBA Shipment / Shipping Label',
+      renderHeader: () => <MultilineTextHeaderCell text={'FBA Shipment / Shipping Label'} />,
+
+      renderCell: params => {
+        return params.row ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', padding: '10px 0' }}>
+            <ChangeChipCell
+              label={t(TranslationKey['Shipping label']) + ':'}
+              disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+              row={params.row}
+              value={params.row.shippingLabel}
+              text={'Set Shipping Label'}
+              onClickChip={handlers.onClickShippingLabel}
+              onDoubleClickChip={handlers.onDoubleClickShippingLabel}
+              onDeleteChip={handlers.onDeleteShippingLabel}
+            />
+
+            <ChangeChipCell
+              label={t(TranslationKey['FBA Shipment']) + ':'}
+              disabled={params.row.isDraft || params.row.status !== BoxStatus.IN_STOCK}
+              row={params.row}
+              value={params.row.fbaShipment}
+              text={t(TranslationKey['FBA Shipment'])}
+              onClickChip={handlers.onClickFbaShipment}
+              onDoubleClickChip={handlers.onDoubleClickFbaShipment}
+              onDeleteChip={handlers.onDeleteFbaShipment}
+            />
+          </div>
+        ) : null
+      },
+      valueGetter: params =>
+        `Shipping Label:${params.row.shippingLabel ? trimBarcode(params.row.shippingLabel) : '-'}\n FBA Shipment:${
+          params.row.fbaShipment || ''
+        }`,
+      minWidth: 150,
+      headerAlign: 'center',
+      sortable: false,
+    },
+
+    {
+      field: 'dimansions',
+      headerName: t(TranslationKey.Dimensions),
+      renderHeader: () => (
+        <MultilineTextHeaderCell
+          text={t(TranslationKey.Dimensions)}
+          component={<SizeSwitcher condition={getUnitsOption()} onChangeCondition={handlers.onChangeUnitsOption} />}
+        />
+      ),
+      renderCell: params => (
+        <Dimensions isCell isTotalWeight data={params.row} transmittedSizeSetting={getUnitsOption()} />
+      ),
+      width: 210,
+      sortable: false,
+    },
+
+    {
+      field: 'prepId',
+      headerName: 'PREP ID',
+      renderHeader: () => <MultilineTextHeaderCell text={'PREP ID'} />,
+
+      renderCell: params => (
+        <ChangeInputCell
+          isString
+          maxLength={25}
+          rowId={params.row._id}
+          text={params.value}
+          onClickSubmit={handlers.onClickSavePrepId}
+        />
+      ),
+      width: 240,
+
+      columnKey: columnnsKeys.shared.STRING,
+    },
+
+    {
+      field: 'redFlags',
+      headerName: t(TranslationKey['Red flags']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
+      renderCell: params => <RedFlagsCell flags={params.row?.items?.[0]?.product?.redFlags} />,
+      valueGetter: ({ row }) => row?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
+      width: 130,
+      columnKey: columnnsKeys.shared.RED_FLAGS,
+    },
+
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
+      renderCell: params => <NormDateCell value={params.value} />,
+      valueFormatter: params => formatNormDateTime(params.value),
+      width: 120,
+      // type: 'date',
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+      valueFormatter: params => formatNormDateTime(params.value),
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+      // type: 'date',
+      columnKey: columnnsKeys.shared.DATE,
+    },
+  ]
+
+  for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.BOXES
+    }
+
+    column.sortable = false
+  }
+
+  return columns
+}

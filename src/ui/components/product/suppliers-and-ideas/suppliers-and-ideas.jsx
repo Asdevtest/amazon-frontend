@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
@@ -42,10 +42,8 @@ export const SuppliersAndIdeas = observer(props => {
   const selectedIdeaId = queries.get('ideaId')
   const ideaRef = useRef(null)
 
-  const history = useHistory()
   const model = useRef(
     new SuppliersAndIdeasModel({
-      history,
       productId,
       product,
       isModalView,

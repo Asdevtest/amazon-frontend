@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo } from 'react'
+import { ChangeEvent, FC, MouseEventHandler, memo } from 'react'
 
 import { docValidTypes } from '@constants/media/doc-types'
 import { imageValidTypes } from '@constants/media/image-types'
@@ -34,6 +34,10 @@ export const Upload: FC<UploadProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
+  const handleInputClick: MouseEventHandler<HTMLInputElement> = event => {
+    event.currentTarget.value = ''
+  }
+
   return (
     <div className={cx(styles.uploadInputWrapper, { [styles.uploadInputWrapperMinimazed]: minimized })}>
       {!withoutTitles && !minimized ? <p className={styles.attachFiles}>{t(TranslationKey['Attach files'])}</p> : null}
@@ -60,6 +64,7 @@ export const Upload: FC<UploadProps> = memo(props => {
           accept={generateAcceptString(acceptTypes)}
           className={styles.uploadInput}
           onChange={onUploadFiles}
+          onClick={handleInputClick}
         />
       </button>
     </div>

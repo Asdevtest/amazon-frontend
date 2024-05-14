@@ -37,7 +37,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   showSelectShopsModal = false
   shopsData: any = []
 
-  constructor(currentTabsValues: ShopReportsTabsValues) {
+  constructor(currentTabsValues: ShopReportsTabsValues, history: any) {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
       getClassParams(currentTabsValues)
 
@@ -49,9 +49,12 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey,
     })
+    this.history = history
 
     this.tabKey = currentTabsValues
+
     this.getDataGridState()
+    this.initUserSettings()
 
     makeObservable(this, observerConfig)
   }

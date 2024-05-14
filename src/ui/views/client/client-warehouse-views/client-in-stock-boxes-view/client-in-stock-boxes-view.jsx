@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -19,7 +19,6 @@ import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
 import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -43,10 +42,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
 
   const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history }))
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   const getRowClassName = params =>
     (params.row.isDraft === true ||
       params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
@@ -64,7 +59,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         curDestinationId={viewModel.curDestinationId}
         clientDestinations={viewModel.clientDestinations}
         selectedRows={viewModel.selectedRows}
-        selectedBoxes={viewModel.selectedBoxes}
         onClickRequestToSendBatch={viewModel.onClickRequestToSendBatch}
         onClickMergeBtn={viewModel.onClickMergeBtn}
         onClickSplitBtn={viewModel.onClickSplitBtn}
@@ -74,7 +68,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         onClickStorekeeperBtn={viewModel.onClickStorekeeperBtn}
         onClickDestinationBtn={viewModel.onClickDestinationBtn}
         onSearchSubmit={viewModel.onSearchSubmit}
-        onClickWarehouseOrderButton={() => viewModel.onClickWarehouseOrderButton(viewModel.selectedBoxes?.[0])}
+        onClickWarehouseOrderButton={() => viewModel.onClickWarehouseOrderButton(viewModel.selectedRows?.[0])}
         onClickCurrentTariffsBtn={viewModel.onClickCurrentTariffsBtn}
       />
 
@@ -82,13 +76,14 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          pinnedColumns={viewModel.pinnedColumns}
           isRowSelectable={params =>
             params.row.isDraft === false &&
             params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
             params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
           }
           getRowClassName={getRowClassName}
-          rowSelectionModel={viewModel.selectedBoxes}
+          rowSelectionModel={viewModel.selectedRows}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -96,6 +91,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={row => row._id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -107,19 +103,23 @@ export const ClientInStockBoxesView = observer(({ history }) => {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onColumnHeaderEnter={params => {
-            viewModel.onHoverColumnField(params.field)
-          }}
           onColumnHeaderLeave={viewModel.onLeaveColumnField}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
@@ -129,6 +129,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onCellDoubleClick={params =>
             !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
           }
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -144,7 +145,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          formItem={viewModel.boxesMy.find(box => box._id === viewModel.selectedBoxes.slice()[0])?.originalData}
+          formItem={viewModel.boxesMy.find(box => box._id === viewModel.selectedRows.slice()[0])?.originalData}
           onSubmit={viewModel.onClickConfirmCreateChangeTasks}
           onTriggerOpenModal={() => viewModel.onTriggerOpenModal('showEditBoxModal')}
         />
@@ -161,10 +162,9 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           storekeepers={viewModel.storekeepersData}
           requestStatus={viewModel.requestStatus}
           addNewBoxModal={viewModel.showRedistributeBoxAddNewBoxModal}
-          setAddNewBoxModal={value => viewModel.onModalRedistributeBoxAddNewBox(value)}
           selectedBox={
-            viewModel.selectedBoxes.length &&
-            viewModel.boxesMy.find(box => box._id === viewModel.selectedBoxes.slice()[0])?.originalData
+            viewModel.selectedRows.length &&
+            viewModel.boxesMy.find(box => box._id === viewModel.selectedRows.slice()[0])?.originalData
           }
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -182,8 +182,8 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={viewModel.boxesMy
-            .filter(el => viewModel.selectedBoxes.includes(el._id))
+          selectedRows={viewModel.boxesMy
+            .filter(el => viewModel.selectedRows.includes(el._id))
             .map(box => box.originalData)}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -200,8 +200,8 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         <GroupingBoxesForm
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={viewModel.boxesMy
-            .filter(el => viewModel.selectedBoxes.includes(el._id))
+          selectedRows={viewModel.boxesMy
+            .filter(el => viewModel.selectedRows.includes(el._id))
             .map(box => box.originalData)}
           onSubmit={viewModel.onClickSubmitGroupingBoxes}
           onCloseModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
@@ -217,10 +217,10 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={
-            (viewModel.selectedBoxes.length &&
+          selectedRows={
+            (viewModel.selectedRows.length &&
               viewModel.boxesMy
-                .filter(box => viewModel.selectedBoxes.includes(box._id))
+                .filter(box => viewModel.selectedRows.includes(box._id))
                 ?.map(box => box.originalData)) ||
             []
           }
@@ -242,10 +242,10 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           storekeepersData={viewModel.storekeepersData}
           closeModal={viewModel.triggerRequestToSendBatchModal}
           boxesDeliveryCosts={viewModel.boxesDeliveryCosts}
-          selectedBoxes={viewModel.selectedBoxes}
+          selectedRows={viewModel.selectedRows}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           boxesMy={viewModel.boxesMy
-            .filter(box => viewModel.selectedBoxes.includes(box._id))
+            .filter(box => viewModel.selectedRows.includes(box._id))
             .map(box => box.originalData)}
           setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickSendBoxesToBatch={viewModel.onClickSendBoxesToBatch}
@@ -382,17 +382,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
         />
       </Modal>
-
-      {viewModel.showSuccessInfoModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-          title={viewModel.modalEditSuccessMessage}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-        />
-      ) : null}
 
       <Modal
         openModal={viewModel.showSetChipValueModal}

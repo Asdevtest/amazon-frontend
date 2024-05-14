@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -25,15 +26,10 @@ import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
 import { switcherConfig } from './switcher.config'
 
-export const ClientShopsReportView = observer(() => {
+export const ClientShopsReportView = observer(({ history }: { history: any }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY))
-  viewModel.initHistory()
-
-  useEffect(() => {
-    viewModel.initUserSettings()
-  }, [])
+  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, history))
 
   return (
     <div className={styles.root}>
@@ -59,6 +55,7 @@ export const ClientShopsReportView = observer(() => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          pinnedColumns={viewModel.pinnedColumns}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -93,6 +90,7 @@ export const ClientShopsReportView = observer(() => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 

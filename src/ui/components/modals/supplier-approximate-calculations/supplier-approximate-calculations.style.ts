@@ -57,7 +57,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   borderCell: {
-    borderRight: `1px solid ${theme.palette.input.customBorder}`,
-    borderLeft: `1px solid ${theme.palette.input.customBorder}`,
+    borderRight: `1px solid ${theme.palette.input.customBorder} !important`,
+    borderLeft: `1px solid ${theme.palette.input.customBorder} !important`,
   },
 }))

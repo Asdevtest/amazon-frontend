@@ -21,8 +21,7 @@ interface ViewHeaderProps {
   nameSearchValue: string
   curDestinationId: string
   clientDestinations: IDestination[]
-  selectedRows: any[]
-  selectedBoxes: string[]
+  selectedRows: string[]
   isHaveRequestSendToBatch: boolean
   isChoosenOnlySendToBatchBoxes: boolean
   onClickStorekeeperBtn: () => void
@@ -47,7 +46,6 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
     curDestinationId,
     clientDestinations,
     selectedRows,
-    selectedBoxes,
     isHaveRequestSendToBatch,
     isChoosenOnlySendToBatchBoxes,
     onClickStorekeeperBtn,
@@ -77,13 +75,12 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
                 label: () => storekeeper.name || '',
                 value: storekeeper._id,
               })),
-            { label: () => t(TranslationKey['All warehouses']) || '', value: undefined },
+            { label: () => t(TranslationKey['All warehouses']) || '', value: '' },
           ]}
           changeConditionHandler={onClickStorekeeperBtn}
         />
 
         <SearchInput
-          key={'client_warehouse_search_input'}
           inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
           startText={nameSearchValue}
@@ -107,7 +104,6 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
 
       <ActionButtons
         selectedRows={selectedRows}
-        selectedBoxes={selectedBoxes}
         storekeepersData={storekeepersData}
         isHaveRequestSendToBatch={isHaveRequestSendToBatch}
         isChoosenOnlySendToBatchBoxes={isChoosenOnlySendToBatchBoxes}

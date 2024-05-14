@@ -34,7 +34,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SuppliersAndIdeasModel {
-  history = undefined
   requestStatus = undefined
 
   currentIdeaId = undefined
@@ -113,8 +112,7 @@ export class SuppliersAndIdeasModel {
     return UserModel.platformSettings
   }
 
-  constructor({ history, productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) {
-    this.history = history
+  constructor({ productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData }) {
     this.productId = productId
     this.currentProduct = product
     this.isModalView = isModalView

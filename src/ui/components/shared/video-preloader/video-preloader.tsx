@@ -31,7 +31,7 @@ export const VideoPreloader: FC<VideoPreloaderProps> = memo(props => {
 
   return (
     <div className={cx(styles.wrapper, wrapperClassName)} onClick={onClick}>
-      <VideoPlayer videoSource={videoSource} />
+      <VideoPlayer preloader videoSource={videoSource} />
       <div className={cx(styles.preloader, preloaderClassName)}>
         <PlayCircleFilledWhiteOutlinedIcon className={cx(styles.preloaderIcon, iconPlayClassName)} />
       </div>
