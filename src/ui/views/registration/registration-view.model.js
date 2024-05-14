@@ -24,7 +24,6 @@ export class RegistrationViewModel {
   checkValidationNameOrEmail = {}
   language = ''
 
-  showErrorRegistrationModal = false
   showSuccessRegistrationModal = false
 
   formValidationErrors = {

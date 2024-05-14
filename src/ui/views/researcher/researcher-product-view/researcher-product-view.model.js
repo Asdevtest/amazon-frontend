@@ -1,4 +1,5 @@
 import { action, makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
@@ -54,12 +55,9 @@ export class ResearcherProductViewModel {
   startParse = false
 
   showConfirmModal = false
-  showWarningModal = false
 
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
-
-  warningModalTitle = ''
 
   confirmModalSettings = {
     isWarning: false,
@@ -205,9 +203,7 @@ export class ResearcherProductViewModel {
 
   onClickSetProductStatusBtn(statusKey) {
     if (statusKey === ProductStatus.RESEARCHER_FOUND_SUPPLIER && !this.product.currentSupplierId) {
-      this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
-
-      this.onTriggerOpenModal('showWarningModal')
+      toast.warning(warningModalTitleVariants().NO_SUPPLIER)
     } else {
       this.product = { ...this.product, status: ProductStatusByKey[statusKey] }
     }
@@ -277,10 +273,7 @@ export class ResearcherProductViewModel {
       if (this.confirmModalSettings.message) {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        runInAction(() => {
-          this.warningModalTitle = warningModalTitleVariants().CHOOSE_STATUS
-        })
-        this.onTriggerOpenModal('showWarningModal')
+        toast.warning(warningModalTitleVariants().CHOOSE_STATUS)
       }
     } catch (error) {
       console.error(error)
@@ -421,15 +414,14 @@ export class ResearcherProductViewModel {
         })
       }
 
-      this.warningModalTitle = t(TranslationKey['Success parse'])
-      this.onTriggerOpenModal('showWarningModal')
+      toast.success(t(TranslationKey['Success parse']))
+
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
-      this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey['Parsing error']) + '\n' + String(error))
     }
   }
 

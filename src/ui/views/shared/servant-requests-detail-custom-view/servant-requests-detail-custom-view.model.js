@@ -24,7 +24,6 @@ export class RequestDetailCustomViewModel {
   requestProposals = undefined
   showProgress = false
 
-  showWarningModal = false
   showConfirmModal = false
   showMainRequestResultModal = false
   showRequestDesignerResultModal = false
@@ -34,11 +33,6 @@ export class RequestDetailCustomViewModel {
   curResultMedia = []
 
   loadedFiles = []
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   chatSelectedId = undefined
   chatIsConnected = false

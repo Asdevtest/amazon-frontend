@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import AddIcon from '@mui/icons-material/Add'
 import { Divider, Typography } from '@mui/material'
@@ -8,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddFilesForm } from '@components/forms/add-files-form'
 import { CheckQuantityForm } from '@components/forms/check-quantity-form'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
@@ -22,7 +22,6 @@ import { CurrentBox, NewBoxes } from './components'
 
 export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoefficient, boxesBefore }) => {
   const { classes: styles, cx } = useStyles()
-  const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
   const [showAddImagesModal, setShowAddImagesModal] = useState(false)
 
   const [showCheckQuantityModal, setShowCheckQuantityModal] = useState(false)
@@ -192,7 +191,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
       setSourceBoxes(newBoxesWithoutNumberFields)
       setOpenModal()
     } catch (error) {
-      setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)
+      toast.error(t(TranslationKey['Enter the dimensions of all the boxes']))
     }
   }
 
@@ -290,17 +289,6 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
-
-      {showNoDimensionsErrorModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={showNoDimensionsErrorModal}
-          setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
-          title={t(TranslationKey['Enter the dimensions of all the boxes'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
-        />
-      ) : null}
 
       <Modal openModal={showAddImagesModal} setOpenModal={() => setShowAddImagesModal(!showAddImagesModal)}>
         <AddFilesForm

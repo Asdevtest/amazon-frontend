@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { ContentModal } from '@components/user/users-views/user-profile-view/content-modal'
@@ -118,17 +117,6 @@ export const UserProfileView = observer(() => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
         />
       </Modal>
-
-      {viewModel.showInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-          title={viewModel.warningInfoModalTitle}
-          btnText={t(TranslationKey.Close)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
-        />
-      ) : null}
 
       {viewModel.showConfirmWorkResultFormModal ? (
         <RequestProposalAcceptOrRejectResultForm

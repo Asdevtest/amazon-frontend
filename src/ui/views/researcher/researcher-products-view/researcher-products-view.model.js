@@ -1,4 +1,5 @@
 import { action, makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -45,8 +46,6 @@ export class ResearcherProductsViewModel {
   formFields = { ...formFieldsDefault }
   newProductId = undefined
 
-  showWarningInfoModal = false
-
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   products = []
@@ -60,11 +59,6 @@ export class ResearcherProductsViewModel {
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   get userInfo() {
     return UserModel.userInfo
@@ -231,14 +225,7 @@ export class ResearcherProductsViewModel {
     } catch (error) {
       this.setActionStatus(loadingStatus.FAILED)
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: error.body.message,
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.error(error.body.message)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
@@ -247,7 +234,7 @@ export class ResearcherProductsViewModel {
           })
         })
       } else {
-        console.error('error ', error)
+        console.error(error)
         runInAction(() => {
           this.error = error.message
         })

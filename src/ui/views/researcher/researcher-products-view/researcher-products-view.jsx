@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ResearcherAddProductForm } from '@components/forms/reasearcher-add-product-form'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
@@ -70,18 +69,6 @@ export const ResearcherProductsView = observer(({ history }) => {
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
       </div>
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Close)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
     </>
   )
 })

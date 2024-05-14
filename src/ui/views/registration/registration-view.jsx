@@ -7,7 +7,6 @@ import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
 import { AuthPageBanner } from '@components/auth/auth-page-banner'
 import { RegistrationForm } from '@components/forms/registration-form'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 
 import { t } from '@utils/translations'
 import { disallowsSpecialCharInEmailField, disallowsSpecialCharInFirstCharEmail } from '@utils/validation'
@@ -65,17 +64,6 @@ export const RegistrationView = observer(({ history }) => {
           title={t(TranslationKey['Successful registration'])}
           successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessRegistrationModal')}
-        />
-      ) : null}
-
-      {viewModel.showErrorRegistrationModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showErrorRegistrationModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showErrorRegistrationModal')}
-          title={t(TranslationKey['Registration error'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showErrorRegistrationModal')}
         />
       ) : null}
     </div>
