@@ -211,7 +211,7 @@ export class ResearcherProductsViewModel {
           { startParse: true },
         )
       } catch (error) {
-        console.warn(error)
+        console.error(error)
       }
     }
   }
@@ -247,7 +247,7 @@ export class ResearcherProductsViewModel {
           })
         })
       } else {
-        console.warn('error ', error)
+        console.error('error ', error)
         runInAction(() => {
           this.error = error.message
         })

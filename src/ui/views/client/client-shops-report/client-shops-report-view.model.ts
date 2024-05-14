@@ -29,11 +29,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   inventoryProducts: any = []
 
   showBindStockGoodsToInventoryModal = false
-
-  showWarningInfoModal = false
-
   showConfirmModal = false
-
   showSelectShopsModal = false
   shopsData: any = []
 
@@ -130,16 +126,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey.Created),
-          buttonText: t(TranslationKey.Ok),
-          onSubmit: () => this.onTriggerOpenModal('showWarningInfoModal'),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey.Created))
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
@@ -147,18 +134,16 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   }
 
   deleteReportHandler() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        title: t(TranslationKey.Attention),
-        message: t(TranslationKey['Are you sure?']),
-        onSubmit: () => {
-          this.submitDeleteReportHandler()
-          this.onTriggerOpenModal('showConfirmModal')
-        },
-        onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey.Attention),
+      message: t(TranslationKey['Are you sure?']),
+      onSubmit: () => {
+        this.submitDeleteReportHandler()
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -223,26 +208,10 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       await SellerBoardModel.bindStockProductsBySku(data)
       this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['The product is bound']),
-          buttonText: t(TranslationKey.Ok),
-          onSubmit: () => this.onTriggerOpenModal('showWarningInfoModal'),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['The product is bound']))
     } catch (error) {
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey["You can't bind"]),
-          buttonText: t(TranslationKey.Ok),
-          onSubmit: () => this.onTriggerOpenModal('showWarningInfoModal'),
-        }
-      })
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.error(t(TranslationKey["You can't bind"]))
+
       console.error(error)
     }
   }

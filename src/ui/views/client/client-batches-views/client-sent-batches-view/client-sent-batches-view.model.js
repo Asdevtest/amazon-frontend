@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
@@ -42,7 +43,6 @@ export class ClientSentBatchesViewModel {
 
   showEditHSCodeModal = false
   showBatchInfoModal = false
-  showWarningInfoModal = false
   showConfirmModal = false
 
   confirmModalSettings = {
@@ -50,10 +50,6 @@ export class ClientSentBatchesViewModel {
     confirmTitle: '',
     confirmMessage: '',
     onClickConfirm: () => {},
-  }
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
   }
 
   rowCount = 0
@@ -274,14 +270,9 @@ export class ClientSentBatchesViewModel {
 
       runInAction(() => {
         this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
-
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
       })
 
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }

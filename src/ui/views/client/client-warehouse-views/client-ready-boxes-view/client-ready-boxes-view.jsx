@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BoxForm } from '@components/forms/box-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -24,7 +23,7 @@ import { styles } from './client-ready-boxes-view.style'
 import { ClientReadyBoxesViewModel } from './client-ready-boxes-view.model'
 
 export const ClientReadyBoxesViewRaw = props => {
-  const [viewModel] = useState(() => new ClientReadyBoxesViewModel({ history: props.history }))
+  const [viewModel] = useState(() => new ClientReadyBoxesViewModel())
   const { classes: styles } = props
 
   useEffect(() => {
@@ -173,18 +172,6 @@ export const ClientReadyBoxesViewRaw = props => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

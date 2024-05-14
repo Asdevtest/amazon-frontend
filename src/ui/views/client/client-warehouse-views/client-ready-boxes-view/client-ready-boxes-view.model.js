@@ -1,4 +1,5 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -21,7 +22,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ClientReadyBoxesViewModel {
-  history = undefined
   requestStatus = undefined
 
   nameSearchValue = ''
@@ -43,7 +43,6 @@ export class ClientReadyBoxesViewModel {
 
   showBoxViewModal = false
   showConfirmModal = false
-  showWarningInfoModal = false
 
   uploadedFiles = []
 
@@ -55,11 +54,6 @@ export class ClientReadyBoxesViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
-
   get userInfo() {
     return UserModel.userInfo
   }
@@ -68,9 +62,7 @@ export class ClientReadyBoxesViewModel {
     return UserModel.platformSettings
   }
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -243,14 +235,7 @@ export class ClientReadyBoxesViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
     }
@@ -313,14 +298,7 @@ export class ClientReadyBoxesViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey.Error),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.error(t(TranslationKey.Error))
     }
   }
 

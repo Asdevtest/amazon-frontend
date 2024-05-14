@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -41,13 +42,8 @@ export class ClientWarehouseTasksViewModel {
   showConfirmWithCommentModal = false
   showTaskInfoModal = false
   showSuccessInfoModal = false
-  showWarningInfoModal = false
   showEditPriorityData = false
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
   confirmModalSettings = {
     isWarning: false,
     confirmMessage: '',
@@ -226,16 +222,12 @@ export class ClientWarehouseTasksViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
       this.getStorekeepers()
       this.getTasksMy()
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -309,6 +301,7 @@ export class ClientWarehouseTasksViewModel {
   async getTasksMy() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const result = await ClientModel.getTasks({
         filters: this.getFilter(),
         limit: this.paginationModel.pageSize,
@@ -331,9 +324,7 @@ export class ClientWarehouseTasksViewModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      runInAction(() => {
-        this.tasksMy = []
-      })
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -438,14 +429,7 @@ export class ClientWarehouseTasksViewModel {
       if (task.status !== mapTaskStatusEmumToKey[TaskStatus.NEW]) {
         this.getTasksMy()
 
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey['The warehouse has already taken the task to work']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['The warehouse has already taken the task to work']))
       } else {
         runInAction(() => {
           this.toCancelData = { id, taskId, type }

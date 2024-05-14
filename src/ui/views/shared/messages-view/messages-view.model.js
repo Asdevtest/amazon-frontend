@@ -322,7 +322,7 @@ export class MessagesViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.warn('onSubmitMessage error ', error)
+      console.error('onSubmitMessage error ', error)
     }
   }
 

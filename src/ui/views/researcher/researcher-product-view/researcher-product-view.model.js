@@ -294,7 +294,7 @@ export class ResearcherProductViewModel {
           })
         })
       } else {
-        console.warn(error)
+        console.error(error)
       }
     }
   }

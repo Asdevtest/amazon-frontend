@@ -125,7 +125,7 @@ export class RequestDetailCustomViewModel {
         )
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -213,7 +213,7 @@ export class RequestDetailCustomViewModel {
         ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {
-      console.warn('onSubmitMessage error ', error)
+      console.error('onSubmitMessage error ', error)
     }
   }
 
