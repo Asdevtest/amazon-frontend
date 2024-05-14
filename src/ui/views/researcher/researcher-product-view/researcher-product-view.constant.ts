@@ -26,7 +26,6 @@ export const fieldsOfProductAllowedToForceUpdate = [
   'minpurchase',
   'fbaamount',
   'strategyStatus',
-
   'niche',
   'asins',
   'avgRevenue',
@@ -36,7 +35,6 @@ export const fieldsOfProductAllowedToForceUpdate = [
   'avgPrice',
   'avgReviews',
   // 'totalFba'
-
   'currentSupplierId',
 ]
 
@@ -103,8 +101,6 @@ export const formFieldsDefault = {
   fbaamount: '',
 }
 
-export const fieldsNotFilledText = () => t(TranslationKey['Fields not filled in'])
-
 export const warningModalTitleVariants = () => ({
   NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
   CHOOSE_STATUS: t(TranslationKey['We need to choose a status']),
@@ -114,5 +110,3 @@ export const confirmMessageByProductStatus = () => ({
   5: t(TranslationKey['Send to the Supervisor for review']) + '?',
   10: t(TranslationKey['Send to check with the supplier']) + '?',
 })
-
-export const confirmMessageWithoutStatus = () => t(TranslationKey['Save without status']) + '?'

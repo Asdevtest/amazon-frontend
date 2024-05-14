@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,42 +14,38 @@ import { useStyles } from './researcher-products-view.style'
 
 import { ResearcherProductsViewModel } from './researcher-products-view.model'
 
-export const ResearcherProductsView = observer(({ history }) => {
+export const ResearcherProductsView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ResearcherProductsViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const [viewModel] = useState(() => new ResearcherProductsViewModel())
 
   return (
     <>
-      <div className={styles.card}>
-        <ResearcherAddProductForm
-          user={viewModel.userInfo}
-          formFields={viewModel.formFields}
-          errorMsg={viewModel.error}
-          reasonErrorMsg={viewModel.reasonError}
-          chekedCode={viewModel.chekedCode}
-          actionStatus={viewModel.actionStatus}
-          onChangeFormFields={viewModel.onChangeFormFields}
-          onClickCheckAndAddProductBtn={viewModel.onClickCheckAndAddProductBtn}
-        />
-      </div>
+      <ResearcherAddProductForm
+        user={viewModel.userInfo}
+        formFields={viewModel.formFields}
+        errorMsg={viewModel.error}
+        reasonErrorMsg={viewModel.reasonError}
+        chekedCode={viewModel.chekedCode}
+        actionStatus={viewModel.actionStatus}
+        onChangeFormFields={viewModel.onChangeFormFields}
+        onClickCheckAndAddProductBtn={viewModel.onClickCheckAndAddProductBtn}
+      />
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
           sortingMode="client"
           paginationMode="client"
+          rowHeight={50}
+          columns={viewModel.columnsModel}
+          rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
+          pinnedColumns={viewModel.pinnedColumns}
           paginationModel={viewModel.paginationModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
           rows={viewModel.currentData}
-          rowHeight={60}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -67,6 +63,7 @@ export const ResearcherProductsView = observer(({ history }) => {
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
     </>

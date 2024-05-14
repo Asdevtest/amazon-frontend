@@ -44,7 +44,7 @@ export const ClientDashboardView = observer(({ history }) => {
           <div className={styles.userInfoLeftWrapper}>
             <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
             <div className={styles.balanceWrapper}>
-              <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
+              <DashboardBalance user={viewModel.userInfo} />
 
               <div className={styles.buttonWrapper}>
                 <Button
