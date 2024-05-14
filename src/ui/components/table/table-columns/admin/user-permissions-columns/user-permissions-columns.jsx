@@ -1,6 +1,3 @@
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -9,6 +6,7 @@ import {
   MultilineTextHeaderCell,
   ShortDateCell,
 } from '@components/data-grid/data-grid-cells'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -57,9 +55,9 @@ export const userPermissionsColumns = handlers => [
         iconButton
         isFirstButton
         isSecondButton
-        firstButtonElement={<EditOutlinedIcon />}
+        firstButtonElement={<EditIcon />}
         firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonElement={<DeleteOutlineOutlinedIcon />}
+        secondButtonElement={<CrossIcon />}
         secondButtonStyle={ButtonStyle.DANGER}
         onClickFirstButton={() => handlers.onClickEditBtn(params.row)}
         onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}

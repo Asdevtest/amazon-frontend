@@ -101,7 +101,7 @@ export const useAdditionalInfo = ({
           items={currentItems}
           destinationsFavourites={destinationsFavourites}
           setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-          onChangeSelectedItem={id => handleSetDestination(id || '')}
+          onChangeSelectedItem={id => handleSetDestination(id as string)}
         />
       ),
     },
