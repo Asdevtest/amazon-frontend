@@ -64,17 +64,11 @@ export class WarehouseMyWarehouseViewModel {
   showEditBoxModal = false
   showFullEditBoxModal = false
   showSuccessInfoModal = false
-  showWarningInfoModal = false
   showMergeBoxModal = false
   showRedistributeBoxModal = false
   showGroupingBoxesModal = false
 
   showEditBoxModalR = false
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   showEditMultipleBoxesModal = false
 
@@ -530,16 +524,10 @@ export class WarehouseMyWarehouseViewModel {
       console.error(error)
 
       if (error.message === Errors.INVALID_IMAGE) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(
-              TranslationKey['An error occurred while loading the image from the link. Please replace the image'],
-            ),
-          }
-        })
+        toast.warning(
+          t(TranslationKey['An error occurred while loading the image from the link. Please replace the image']),
+        )
 
-        this.onTriggerOpenModal('showWarningInfoModal')
         return
       }
 
@@ -548,13 +536,8 @@ export class WarehouseMyWarehouseViewModel {
 
         this.onTriggerOpenModal('showFullEditBoxModal')
       }
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['The box is unchanged']),
-        }
-      })
-      this.onTriggerOpenModal('showWarningInfoModal')
+
+      toast.warning(t(TranslationKey['The box is unchanged']))
     }
   }
 
@@ -648,16 +631,10 @@ export class WarehouseMyWarehouseViewModel {
       const isDifferentClient = selectedBoxes.some(box => box?.client?._id !== selectedBoxes[0]?.client?._id)
 
       if (isMasterBoxSelected || isDifferentClient) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title:
-              (isMasterBoxSelected && t(TranslationKey['Cannot be merged with a Superbox'])) ||
-              (isDifferentClient && t(TranslationKey['Cannot be merged with different clients'])),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(
+          (isMasterBoxSelected && t(TranslationKey['Cannot be merged with a Superbox'])) ||
+            (isDifferentClient && t(TranslationKey['Cannot be merged with different clients'])),
+        )
 
         return
       }
@@ -686,14 +663,7 @@ export class WarehouseMyWarehouseViewModel {
       })
 
       if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey['The box is not split!']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['The box is not split!']))
       } else {
         const resBoxes = []
 
@@ -748,13 +718,7 @@ export class WarehouseMyWarehouseViewModel {
           })
           this.onTriggerOpenModal('showSuccessInfoModal')
         } else {
-          runInAction(() => {
-            this.warningInfoModalSettings = {
-              isWarning: true,
-              title: t(TranslationKey['The box is not split!']),
-            }
-          })
-          this.onTriggerOpenModal('showWarningInfoModal')
+          toast.warning(t(TranslationKey['The box is not split!']))
         }
         this.onTriggerOpenModal('showConfirmModal')
         if (this.showRedistributeBoxModal) {
@@ -812,14 +776,7 @@ export class WarehouseMyWarehouseViewModel {
         })
         this.onTriggerOpenModal('showSuccessInfoModal')
       } else {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey['The boxes are not joined!']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['The boxes are not joined!']))
       }
 
       this.onTriggerOpenModal('showMergeBoxModal')
@@ -895,13 +852,8 @@ export class WarehouseMyWarehouseViewModel {
       runInAction(() => {
         this.selectedBoxes = []
 
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data was successfully saved']),
-        }
+        toast.success(t(TranslationKey['Data was successfully saved']))
       })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
 
       this.loadData()
 
@@ -909,13 +861,8 @@ export class WarehouseMyWarehouseViewModel {
     } catch (error) {
       console.error(error)
       this.onTriggerOpenModal('showGroupingBoxesModal')
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['Boxes are not regrouped']),
-        }
-      })
-      this.onTriggerOpenModal('showWarningInfoModal')
+
+      toast.error(t(TranslationKey['Boxes are not regrouped']))
     }
   }
 
@@ -929,14 +876,7 @@ export class WarehouseMyWarehouseViewModel {
       })
 
       if (boxesWithDifferentStorekeepers.length) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['Boxes with identical storekeeper must be selected']))
 
         return
       }

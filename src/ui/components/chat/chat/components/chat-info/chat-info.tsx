@@ -136,7 +136,7 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
           files={files || []}
           currentFileIndex={currentImageIndex}
           onOpenModal={() => setIsImageModalOpen(!isImageModalOpen)}
-          onCurrentFileIndex={index => setCurrentImageIndex(index)}
+          onCurrentFileIndex={setCurrentImageIndex}
         />
       ) : null}
     </div>

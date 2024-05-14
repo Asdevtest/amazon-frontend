@@ -33,6 +33,8 @@ import { useStyles } from './create-box-form.style'
 
 import { OrderBox } from './order-box'
 
+const properties = ['widthCmSupplier', 'heightCmSupplier', 'lengthCmSupplier']
+
 export const CreateBoxForm = observer(
   ({
     currentSupplier,
@@ -139,10 +141,15 @@ export const CreateBoxForm = observer(
       ) ||
       formFieldsArr.some(
         el =>
-          el.widthCmSupplier > maxLengthInputInSizeBox ||
-          el.heightCmSupplier > maxLengthInputInSizeBox ||
-          el.lengthCmSupplier > maxLengthInputInSizeBox,
+          properties.some(
+            prop =>
+              Number(el[prop]) >
+                (sizeSetting === unitsOfChangeOptions.US
+                  ? maxLengthInputInSizeBox / inchesCoefficient
+                  : maxLengthInputInSizeBox) || Number(el[prop]) === 0,
+          ) || el.weighGrossKgSupplier === 0,
       )
+
     const handleChange = newAlignment => {
       if (newAlignment !== sizeSetting) {
         const convertedFormFieldsArr = formFieldsArr.map(editingBox => {

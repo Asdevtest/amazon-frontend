@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -76,16 +76,12 @@ export const RequestToSendBatchForm = observer(
       .concat(boxesWithoutPrice)
       .filter(obj => obj.boxes.length)
 
-    const [submitIsClicked, setSubmitIsClicked] = useState(false)
-
     const onClickSubmit = () => {
       onClickSendBoxesToBatch()
-      setSubmitIsClicked(true)
     }
 
     const onClickRemoveBtn = boxId => {
       onClickRemoveBoxFromBatch(boxId)
-      setSubmitIsClicked(false)
     }
 
     const isHasTransparencyDoesntHasImages = boxesMy.some(box =>
@@ -105,7 +101,6 @@ export const RequestToSendBatchForm = observer(
             selectedGroup.logicsTariff?._id,
           ),
       ) ||
-      submitIsClicked ||
       boxesMy.some(
         box =>
           (!box.shippingLabel && !box.destination?.storekeeperId) ||

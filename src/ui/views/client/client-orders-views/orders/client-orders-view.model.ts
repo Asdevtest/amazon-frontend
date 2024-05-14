@@ -624,9 +624,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
 
       toast.success(t(TranslationKey['Data saved successfully']))
 
-      await this.getOrderById(order._id)
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      this.onTriggerOpenModal('showMyOrderModal')
     } catch (error) {
       console.error(error)
     }
