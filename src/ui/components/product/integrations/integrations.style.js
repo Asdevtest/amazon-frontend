@@ -9,11 +9,10 @@ export const useStyles = makeStyles()(() => ({
   },
 
   modalWrapper: {
-    height: 605,
+    height: 620,
   },
 
   addProductBtnsWrapper: {
-    width: '100%',
     display: 'flex',
     gap: 20,
     marginBottom: 10,
