@@ -2220,7 +2220,7 @@
   "No active sessions": "Нет активных сессий",
   "Browser not found": "Браузер не найден",
   "Close the access": "Закрыть доступ",
-  "No user found with this email.": "Пользователь с данной электронной почтой не найден.",
+  "No user found with this email.": "Пользователь с данным адресом электронной почты не найден.",
   "Storage": "Storage",
   "Max. weight, kg": "Макс. вес, кг",
   "Buyer's product in progress": "Товар у байера в работе",
@@ -2260,5 +2260,6 @@
   "Tag was successfully created and added to the list": "Тег успешно создан и добавлен в список",
   "Failed to create tag": "Не удалось создать тег",
   "Do you want to cancel the extra fare payment? The selected boxes will be returned to the warehouse": "Вы хотите отменить доплату по тарифу? Выбранные коробки будут возвращены на склад",
-  "New report": "Новый отчет"
+  "New report": "Новый отчет",
+  "The user with this email is not a candidate.": "Пользователь с данным адресом электронной почты не является кандидатом."
 }

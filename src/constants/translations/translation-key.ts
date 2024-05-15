@@ -2263,5 +2263,5 @@ export enum TranslationKey {
   'Failed to create tag' = 'Failed to create tag',
   'Do you want to cancel the extra fare payment? The selected boxes will be returned to the warehouse' = 'Do you want to cancel the extra fare payment? The selected boxes will be returned to the warehouse',
   'New report' = 'New report',
-  // <p>t(TranslationKey.Close)</p> ПРИМЕР
+  'The user with this email is not a candidate.' = 'The user with this email is not a candidate.',
 }

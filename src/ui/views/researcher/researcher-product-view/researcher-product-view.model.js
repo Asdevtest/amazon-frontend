@@ -31,8 +31,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import {
   confirmMessageByProductStatus,
-  confirmMessageWithoutStatus,
-  fieldsNotFilledText,
   fieldsOfProductAllowedToForceUpdate,
   fieldsOfProductAllowedToUpdate,
   formFieldsDefault,
@@ -42,35 +40,26 @@ import {
 export class ResearcherProductViewModel {
   history = undefined
   requestStatus = undefined
-
   alertFailedText = undefined
-
   productId = undefined
   product = undefined
   productBase = undefined
   curUpdateProductData = undefined
   imagesForLoad = []
   uploadedImages = []
-
   startParse = false
-
   showConfirmModal = false
-
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
-
   confirmModalSettings = {
     isWarning: false,
     message: t(TranslationKey['The product will be sent to Supervisor for review. Are you sure?']),
     onClickOkBtn: () => this.onSaveProductData(),
   }
-
   readyImages = []
   progressValue = 0
   showProgress = false
-
-  formFields = formFieldsDefault
-
+  formFields = { ...formFieldsDefault }
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   get userInfo() {
@@ -90,22 +79,20 @@ export class ResearcherProductViewModel {
 
     this.productId = history.location.search.slice(1)
 
+    this.loadData()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
-    try {
-      await this.getProductById()
+    await this.getProductById()
 
-      if (this.startParse) {
-        this.onClickParseProductData(this.product)
+    if (this.startParse) {
+      this.onClickParseProductData(this.product)
 
-        runInAction(() => {
-          this.startParse = false
-        })
-      }
-    } catch (error) {
-      console.error(error)
+      runInAction(() => {
+        this.startParse = false
+      })
     }
   }
 
@@ -264,7 +251,7 @@ export class ResearcherProductViewModel {
         this.confirmModalSettings = {
           isWarning: false,
           message: withoutStatus
-            ? confirmMessageWithoutStatus()
+            ? t(TranslationKey['Save without status']) + '?'
             : confirmMessageByProductStatus()[this.curUpdateProductData?.status],
           onClickOkBtn: () => this.onSaveProductData(),
         }
@@ -283,7 +270,7 @@ export class ResearcherProductViewModel {
         plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
           runInAction(() => {
             this.formFieldsValidationErrors[errorProperty] = constraint
-            this.alertFailedText = fieldsNotFilledText()
+            this.alertFailedText = t(TranslationKey['Fields not filled in'])
           })
         })
       } else {
@@ -351,6 +338,7 @@ export class ResearcherProductViewModel {
   async onClickParseProductData(product) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
+
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
@@ -420,7 +408,6 @@ export class ResearcherProductViewModel {
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
-
       toast.error(t(TranslationKey['Parsing error']) + '\n' + String(error))
     }
   }
@@ -433,9 +420,7 @@ export class ResearcherProductViewModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      if (this.imagesForLoad?.length) {
-        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-      }
+      await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
 
       await ResearcherModel.updateProduct(
         this.product._id,
@@ -501,7 +486,9 @@ export class ResearcherProductViewModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       await ResearcherModel.removeProduct(this.product._id)
+
       this.setRequestStatus(loadingStatus.SUCCESS)
+
       this.history.goBack()
     } catch (error) {
       console.error(error)

@@ -44,7 +44,7 @@ export const WarehouseDashboardViewRaw = props => {
             <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
             <div>
-              <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
+              <DashboardBalance user={viewModel.userInfo} />
 
               {window.innerWidth >= 768 ? (
                 <div className={styles.addressMainWrapper}>

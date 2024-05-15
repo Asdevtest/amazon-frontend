@@ -1,12 +1,7 @@
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
-import {
-  ProductStatus,
-  ProductStatusByCode,
-  ProductStatusByKey,
-  productStatusTranslateKey,
-} from '@constants/product/product-status'
+import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
@@ -98,28 +93,6 @@ export const researcherCustomRequestsDataConverter = data =>
     name: item.details.name,
     maxAmountOfProposals: item.request.maxAmountOfProposals,
     price: item.request.price,
-  }))
-
-export const researcherProductsDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    status: [
-      ProductStatusByKey[ProductStatus.NEW_PRODUCT],
-      ProductStatusByKey[ProductStatus.DEFAULT],
-      ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
-      // ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
-      ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
-      ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
-    ].includes(item.status)
-      ? t(productStatusTranslateKey(ProductStatusByCode[item.status]))
-      : 'OK',
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-    createdAt: item.createdAt,
-    amazon: item.amazon,
-    bsr: item.bsr,
-    asin: item.asin,
-    id: item._id,
-    supervisorComment: item.checkednotes,
   }))
 
 export const researcherFinancesDataConverter = data =>
