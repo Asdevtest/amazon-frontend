@@ -1,12 +1,15 @@
 import { transformAndValidate } from 'class-transformer-validator'
 import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 import { UserRegistrationContract } from '@models/user-model/user-model.contracts'
 
 import { getObjectKeys } from '@utils/object'
-import { setI18nConfig } from '@utils/translations'
+import { setI18nConfig, t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
@@ -73,7 +76,7 @@ export class RegistrationViewModel {
 
       await UserModel.signUp(requestData)
 
-      this.onTriggerOpenModal('showSuccessRegistrationModal')
+      toast.success(t(TranslationKey['Successful registration']))
 
       this.setRequestStatus(loadingStatus.SUCCESS)
 

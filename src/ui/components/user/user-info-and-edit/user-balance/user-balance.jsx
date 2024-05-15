@@ -51,7 +51,7 @@ export const UserBalance = observer(({ userId }) => {
 
   return (
     <div className={styles.mainWrapper}>
-      <DashboardBalance user={user} title={t(TranslationKey.Balance) + ', $'} />
+      <DashboardBalance user={user} />
 
       <div className={styles.btnsWrapper}>
         <Button className={[styles.button, styles.depositBtn]} onClick={onTriggerReplenishModal}>
