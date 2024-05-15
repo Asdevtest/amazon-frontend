@@ -7,11 +7,13 @@ import { useStyles } from '@components/dashboards/dashboard-balance/dashboard-ba
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const DashboardBalance = ({ user, title }) => {
+export const DashboardBalance = ({ user }) => {
   const { classes: styles } = useStyles()
+
   return (
     <div>
-      {title ? <Typography className={styles.title}>{title}</Typography> : null}
+      <Typography className={styles.title}>{t(TranslationKey['My balance'])}</Typography>
+
       <div className={styles.balanceWrapper}>
         <Typography className={styles.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
         {user.balanceFreeze !== 0 && (

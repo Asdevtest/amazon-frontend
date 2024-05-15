@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
 import { AuthPageBanner } from '@components/auth/auth-page-banner'
 import { RegistrationForm } from '@components/forms/registration-form'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 
 import { t } from '@utils/translations'
 import { disallowsSpecialCharInEmailField, disallowsSpecialCharInFirstCharEmail } from '@utils/validation'
@@ -17,7 +16,6 @@ import { RegistrationViewModel } from './registration-view.model'
 
 export const RegistrationView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new RegistrationViewModel({ history }))
 
   useEffect(() => {
@@ -55,17 +53,6 @@ export const RegistrationView = observer(({ history }) => {
         />
         {renderError()}
       </AuthFormWrapper>
-
-      {viewModel.showSuccessRegistrationModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessRegistrationModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessRegistrationModal')}
-          title={t(TranslationKey['Successful registration'])}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessRegistrationModal')}
-        />
-      ) : null}
     </div>
   )
 })

@@ -13,11 +13,16 @@ import { Message, MyNotificationsIcon, SettingsIcon } from '@components/shared/s
 import { checkIsAdmin, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-export const DashboardButtons = ({ user, routes }) => {
+export const DashboardButtons = ({ user }) => {
   const { classes: styles } = useStyles()
   const history = useHistory()
 
   const unreadMessages = ChatModel.unreadMessages
+
+  const routes = {
+    notifications: '',
+    messages: 'messages',
+  }
 
   const notices =
     (user.needConfirmPriceChange?.boxes || 0) +

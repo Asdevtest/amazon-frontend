@@ -1,147 +1,56 @@
-import { action, makeAutoObservable, runInAction, toJS } from 'mobx'
+import { action, makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
 
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { ResearcherModel } from '@models/researcher-model'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
-import { researcherProductsViewColumns } from '@components/table/table-columns/researcher/researcher-products-columns'
-
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
-import { researcherProductsDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'
 import { getNewObjectWithDefaultValue } from '@utils/object'
-import { t } from '@utils/translations'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-const formFieldsDefault = {
-  amazonLink: '',
-  productCode: '',
-  strategyStatus: '',
+import { researcherProductsViewColumns } from './researcher-products-view.columns'
+import { formFieldsDefault, paginationInitModel, researcherProductsViewConfig } from './researcher-products-view.config'
 
-  niche: '',
-  asins: '',
-  avgRevenue: '',
-  avgBSR: '',
-  totalRevenue: '',
-  coefficient: '',
-  avgPrice: '',
-  avgReviews: '',
-}
-
-export class ResearcherProductsViewModel {
-  history = undefined
-  requestStatus = undefined
+export class ResearcherProductsViewModel extends DataGridFilterTableModel {
   error = undefined
   reasonError = undefined
   actionStatus = undefined
-
-  formFields = { ...formFieldsDefault }
   newProductId = undefined
-
+  formFields = { ...formFieldsDefault }
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
-
   products = []
-  chekedCode = ''
-
-  sortModel = []
-  startFilterModel = undefined
-  filterModel = { items: [] }
-  densityModel = 'compact'
-  columnsModel = researcherProductsViewColumns()
-
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
+  chekedCode = undefined
 
   get userInfo() {
     return UserModel.userInfo
   }
 
-  get currentData() {
-    return this.products
-  }
+  constructor() {
+    const columns = researcherProductsViewColumns()
+    const filtersFields = getFilterFields(columns)
 
-  constructor({ history }) {
-    this.history = history
+    super({
+      getMainDataMethod: ResearcherModel.getProductsVacant,
+      columnsModel: columns,
+      filtersFields,
+      tableKey: DataGridTablesKeys.RESEARCHER_PRODUCTS,
+    })
 
-    if (history.location?.state?.dataGridFilter) {
-      this.startFilterModel = history.location.state.dataGridFilter
-    }
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
+    this.paginationModel = paginationInitModel
+    this.initHistory()
+    this.getDataGridState()
+    this.getCurrentData()
 
-  onChangeFilterModel(model) {
-    this.filterModel = model
-    this.setDataGridState()
-  }
-
-  onPaginationModelChange(model) {
-    this.paginationModel = model
-    this.setDataGridState()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-    this.setDataGridState()
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.RESEARCHER_PRODUCTS)
-  }
-
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.RESEARCHER_PRODUCTS)
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(
-        this.startFilterModel
-          ? {
-              ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-            }
-          : state.filterModel,
-      )
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-
-    this.setDataGridState()
-  }
-
-  onSelectionModel(model) {
-    this.rowSelectionModel = model
-  }
-
-  async loadData() {
-    try {
-      this.getDataGridState()
-      await this.getPropductsVacant()
-    } catch (error) {
-      console.error(error)
-    }
+    makeObservable(this, researcherProductsViewConfig)
   }
 
   async onClickCheckAndAddProductBtn() {
@@ -182,7 +91,6 @@ export class ResearcherProductsViewModel {
           lamazon: this.formFields.amazonLink,
           strategyStatus: Number(this.formFields.strategyStatus),
           fba: true,
-
           niche: this.formFields.niche,
           asins: this.formFields.asins,
           avgRevenue: this.formFields.avgRevenue,
@@ -195,12 +103,12 @@ export class ResearcherProductsViewModel {
 
         await this.createProduct(product)
 
-        const foundedProd = this.products.find(prod => prod.originalData._id === this.newProductId)
+        const foundedProd = this.products.find(prod => prod._id === this.newProductId)
 
         this.history.push(
           {
             pathname: '/researcher/products/product',
-            search: foundedProd.originalData._id,
+            search: foundedProd._id,
           },
           { startParse: true },
         )
@@ -212,19 +120,15 @@ export class ResearcherProductsViewModel {
 
   async createProduct(product) {
     try {
-      this.setActionStatus(loadingStatus.IS_LOADING)
-
       const response = await ResearcherModel.createProduct(product)
 
-      this.setActionStatus(loadingStatus.SUCCESS)
       runInAction(() => {
         this.formFields = formFieldsDefault
         this.newProductId = response.guid
       })
-      await this.loadData()
-    } catch (error) {
-      this.setActionStatus(loadingStatus.FAILED)
 
+      this.getCurrentData()
+    } catch (error) {
       toast.error(error.body.message)
 
       if (isValidationErrors(error)) {
@@ -240,24 +144,6 @@ export class ResearcherProductsViewModel {
         })
       }
       throw new Error('Failed to create product')
-    }
-  }
-
-  async getPropductsVacant() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-      const result = await ResearcherModel.getProductsVacant()
-
-      runInAction(() => {
-        this.products = researcherProductsDataConverter(
-          result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
-        )
-      })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
     }
   }
 
@@ -283,10 +169,10 @@ export class ResearcherProductsViewModel {
   }
 
   onClickTableRow(item) {
-    if (item.originalData.status < ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
+    if (item.status < ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
       this.history.push({
         pathname: '/researcher/products/product',
-        search: item.originalData._id,
+        search: item._id,
       })
     }
   }
@@ -327,10 +213,6 @@ export class ResearcherProductsViewModel {
         }
       }
     })
-
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
-  }
 
   setActionStatus(actionStatus) {
     this.actionStatus = actionStatus
