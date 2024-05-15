@@ -42,7 +42,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       ),
       width: 50,
       filterable: false,
-      sortable: false,
+
       disableColumnMenu: true,
     },
 
@@ -63,9 +63,9 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: params => <MultilineTextCell twoLines text={params.row?.product?.shop?.name} />,
       width: 100,
-      sortable: false,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
+      table: DataGridFilterTables.PRODUCTS,
     },
 
     {
@@ -80,7 +80,7 @@ export const clientOrdersViewColumns = rowHandlers => {
         />
       ),
       width: 75,
-      // sortable: false,
+      //
 
       columnKey: columnnsKeys.client.MY_ORDERS_PRIORITY,
     },
@@ -91,7 +91,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
       renderCell: params => <OrderCell product={params.row.product} />,
       width: 280,
-      sortable: false,
+
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
@@ -108,7 +108,7 @@ export const clientOrdersViewColumns = rowHandlers => {
         />
       ),
       width: 160,
-      sortable: false,
+
       filterable: false,
       columnKey: columnnsKeys.client.ORDERS_STATUS,
     },
@@ -137,7 +137,6 @@ export const clientOrdersViewColumns = rowHandlers => {
       },
       width: 220,
       filterable: false,
-      sortable: false,
     },
 
     {
@@ -153,7 +152,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       ),
       valueFormatter: ({ row }) =>
         checkIsHasHttp(row?.product?.barCode) ? row?.product?.barCode : getAmazonImageUrl(row?.product?.barCode, true),
-      sortable: false,
+
       filterable: false,
     },
 
@@ -164,7 +163,6 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderCell: params => <MultilineTextCell text={params.value} />,
       width: 100,
       type: 'number',
-      sortable: false,
 
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -177,7 +175,6 @@ export const clientOrdersViewColumns = rowHandlers => {
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
       width: 160,
-      sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
     },
@@ -189,7 +186,6 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderCell: params => <MultilineTextCell leftAlign threeLines text={params.row.destination?.name} />,
       valueGetter: params => params.row.destination?.name,
       width: 140,
-      sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
     },
@@ -201,9 +197,9 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderCell: params => <MultilineTextCell text={params.row.orderSupplier?.productionTerm} />,
       valueGetter: params => params.row.orderSupplier?.productionTerm,
       width: 120,
-      sortable: false,
 
       columnKey: columnnsKeys.shared.QUANTITY,
+      table: DataGridFilterTables.SUPPLIERS,
     },
 
     {
@@ -247,7 +243,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       valueGetter: params => toFixedWithKg(params.row.product?.weight, 2),
       width: 110,
       type: 'number',
-      sortable: false,
+
       filterable: false,
     },
 
@@ -257,7 +253,6 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 200,
-      sortable: false,
 
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -268,7 +263,6 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 200,
-      sortable: false,
 
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -299,6 +293,7 @@ export const clientOrdersViewColumns = rowHandlers => {
     if (!column.table) {
       column.table = DataGridFilterTables.ORDERS
     }
+    column.sortable = false
   }
 
   return columns

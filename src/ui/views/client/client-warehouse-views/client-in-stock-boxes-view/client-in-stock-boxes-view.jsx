@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { SettingsModel } from '@models/settings-model'
+
 import { BoxForm } from '@components/forms/box-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { EditBoxForm } from '@components/forms/edit-box-form'
@@ -127,7 +129,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onCellDoubleClick={params =>
-            !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
+            !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
           }
           onPinnedColumnsChange={viewModel.handlePinColumn}
         />
@@ -145,7 +147,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          formItem={viewModel.boxesMy.find(box => box._id === viewModel.selectedRows.slice()[0])?.originalData}
+          formItem={viewModel.currentData.find(box => box._id === viewModel.selectedRows.slice()[0])}
           onSubmit={viewModel.onClickConfirmCreateChangeTasks}
           onTriggerOpenModal={() => viewModel.onTriggerOpenModal('showEditBoxModal')}
         />
@@ -164,7 +166,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           addNewBoxModal={viewModel.showRedistributeBoxAddNewBoxModal}
           selectedBox={
             viewModel.selectedRows.length &&
-            viewModel.boxesMy.find(box => box._id === viewModel.selectedRows.slice()[0])?.originalData
+            viewModel.currentData.find(box => box._id === viewModel.selectedRows.slice()[0])
           }
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -182,9 +184,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedRows={viewModel.boxesMy
-            .filter(el => viewModel.selectedRows.includes(el._id))
-            .map(box => box.originalData)}
+          selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           onSubmit={viewModel.onClickSubmitEditMultipleBoxes}
@@ -200,9 +200,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         <GroupingBoxesForm
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedRows={viewModel.boxesMy
-            .filter(el => viewModel.selectedRows.includes(el._id))
-            .map(box => box.originalData)}
+          selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}
           onSubmit={viewModel.onClickSubmitGroupingBoxes}
           onCloseModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
         />
@@ -217,16 +215,10 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedRows={
-            (viewModel.selectedRows.length &&
-              viewModel.boxesMy
-                .filter(box => viewModel.selectedRows.includes(box._id))
-                ?.map(box => box.originalData)) ||
-            []
-          }
+          selectedBoxes={viewModel.currentData.filter(box => viewModel.selectedRows.includes(box._id))}
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
-          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          setDestinationsFavouritesItem={SettingsModel.setDestinationsFavouritesItem}
           setOpenModal={() => viewModel.onTriggerOpenModal('showMergeBoxModal')}
           onRemoveBoxFromSelected={viewModel.onRemoveBoxFromSelected}
           onSubmit={viewModel.onClickConfirmCreateMergeTasks}
@@ -242,11 +234,9 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           storekeepersData={viewModel.storekeepersData}
           closeModal={viewModel.triggerRequestToSendBatchModal}
           boxesDeliveryCosts={viewModel.boxesDeliveryCosts}
-          selectedRows={viewModel.selectedRows}
+          selectedBoxes={viewModel.selectedRows}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          boxesMy={viewModel.boxesMy
-            .filter(box => viewModel.selectedRows.includes(box._id))
-            .map(box => box.originalData)}
+          currentData={viewModel.currentData.filter(box => viewModel.selectedRows.includes(box._id))}
           setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickSendBoxesToBatch={viewModel.onClickSendBoxesToBatch}
           onClickRemoveBoxFromBatch={viewModel.onClickRemoveBoxFromBatch}
@@ -260,11 +250,11 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={viewModel.confirmModalSettings.onClickCancelBtn}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />
       ) : null}
       <Modal

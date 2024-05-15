@@ -21,7 +21,7 @@ export const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientNewIdeasColumns,
-    defaultSortingModel: 'status',
+    defaultSortingModel: 'createdAt',
     dataGridKey: DataGridTablesKeys.CLIENT_NEW_IDEAS,
   },
   '/client/ideas/on-checking': {
@@ -31,7 +31,7 @@ export const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientOnCheckingIdeasColumns,
-    defaultSortingModel: 'updatedAt',
+    defaultSortingModel: 'dateStatusOnCheck',
     dataGridKey: DataGridTablesKeys.CLIENT_ON_CHECKING_IDEAS,
   },
   '/client/ideas/search-suppliers': {
@@ -51,7 +51,7 @@ export const settingsByUrl = {
       withRequests: false,
     },
     columnsModel: clientCreateCardIdeasColumns,
-    defaultSortingModel: 'updatedAt',
+    defaultSortingModel: 'dateStatusProductCreating',
     dataGridKey: DataGridTablesKeys.CLIENT_CREATE_CARD_IDEAS,
   },
   '/client/ideas/add-asin': {
@@ -61,7 +61,7 @@ export const settingsByUrl = {
       withRequests: true,
     },
     columnsModel: clientAddAsinIdeasColumns,
-    defaultSortingModel: 'updatedAt',
+    defaultSortingModel: 'dateStatusAddingAsin',
     dataGridKey: DataGridTablesKeys.CLIENT_ADD_ASIN_IDEAS,
   },
   '/client/ideas/realized': {
