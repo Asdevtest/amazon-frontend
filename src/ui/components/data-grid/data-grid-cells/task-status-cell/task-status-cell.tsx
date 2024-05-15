@@ -6,15 +6,12 @@ import { useStyles } from './task-status-cell.style'
 
 interface TaskStatusCellProps {
   status: string
-  usedStatusFromProps?: boolean
 }
 
-export const TaskStatusCell: FC<TaskStatusCellProps> = memo(({ status, usedStatusFromProps = false }) => {
+export const TaskStatusCell: FC<TaskStatusCellProps> = memo(({ status }) => {
   const { classes: styles } = useStyles()
 
-  const actualStatus = usedStatusFromProps
-    ? status
-    : mapTaskStatusKeyToEnum[status as unknown as keyof typeof mapTaskStatusKeyToEnum]
+  const actualStatus = mapTaskStatusKeyToEnum[status as unknown as keyof typeof mapTaskStatusKeyToEnum]
 
   const colorByStatus = () => {
     if ([TaskStatus.AT_PROCESS, TaskStatus.NEW].includes(actualStatus)) {
