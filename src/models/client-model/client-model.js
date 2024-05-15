@@ -265,6 +265,11 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsGet({ ...body, noCache: true })
     return response.data
   }
+
+  getListingReport = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsGuidGet({ guid, noCache: true })
+    return response.data
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

@@ -2264,4 +2264,6 @@ export enum TranslationKey {
   'Do you want to cancel the extra fare payment? The selected boxes will be returned to the warehouse' = 'Do you want to cancel the extra fare payment? The selected boxes will be returned to the warehouse',
   'New report' = 'New report',
   'The user with this email is not a candidate.' = 'The user with this email is not a candidate.',
+  'Launch type' = 'Launch type',
+  'New product price' = 'New product price',
 }

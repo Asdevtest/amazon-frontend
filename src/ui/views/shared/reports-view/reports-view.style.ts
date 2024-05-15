@@ -1,17 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-  },
-
-  infoContainer: {
-    padding: 10,
-    backgroundColor: theme.palette.background.general,
-    boxShadow: theme.palette.boxShadow.paper,
-    borderRadius: 20,
   },
 
   buttonsContainer: {
@@ -23,6 +16,6 @@ export const useStyles = makeStyles()(theme => ({
 
   tableContainer: {
     width: '100%',
-    height: '44vh',
+    height: '43vh',
   },
 }))

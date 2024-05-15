@@ -2261,5 +2261,7 @@
   "Failed to create tag": "Не удалось создать тег",
   "Do you want to cancel the extra fare payment? The selected boxes will be returned to the warehouse": "Вы хотите отменить доплату по тарифу? Выбранные коробки будут возвращены на склад",
   "New report": "Новый отчет",
-  "The user with this email is not a candidate.": "Пользователь с данным адресом электронной почты не является кандидатом."
+  "The user with this email is not a candidate.": "Пользователь с данным адресом электронной почты не является кандидатом.",
+  "Launch type": "Тип запуска",
+  "New product price": "Новая цена продукта"
 }

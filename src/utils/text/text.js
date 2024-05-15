@@ -32,7 +32,7 @@ export const toFixed = (int, x = 2) => (int && typeof int === 'number' ? int.toF
 
 export const getFloatOrZero = str => (str ? parseFloat(str) || 0 : 0)
 
-export const toFixedWithDollarSign = (int, x) => withDollarSign(toFixed(int, x))
+export const toFixedWithDollarSign = (int, x = 2) => withDollarSign(toFixed(int, x))
 export const toFixedWithYuanSign = (int, x) => withYuanSign(toFixed(int, x))
 
 export const toFixedWithKg = (int, x) => withKg(toFixed(int, x))

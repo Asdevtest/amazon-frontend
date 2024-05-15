@@ -7,38 +7,33 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './reports-view.style'
 
+import { Info } from './info'
 import { ReportsViewModel } from './reports-view.model'
 
 interface ReportsViewProps {
-  product: IProduct
+  productId: string
 }
 
-export const ReportsView: FC<ReportsViewProps> = observer(({ product }) => {
+export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ReportsViewModel())
-
-  console.log('product', product)
+  const [viewModel] = useState(() => new ReportsViewModel(productId))
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.infoContainer}>
-        <SlideshowGallery slidesToShow={2} files={product.images} />
-      </div>
+      <Info product={viewModel.product} />
 
       <div className={styles.buttonsContainer}>
-        <Button>{t(TranslationKey['New report'])}</Button>
+        <p>{t(TranslationKey.Date)}</p>
 
         <Button styleType={ButtonStyle.SUCCESS}>
           <CustomPlusIcon />
@@ -58,6 +53,7 @@ export const ReportsView: FC<ReportsViewProps> = observer(({ product }) => {
           rowSelectionModel={viewModel.selectedRows}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           getRowHeight={() => 'auto'}
+          columnHeaderHeight={40}
           getRowId={({ _id }: GridRowModel) => _id}
           slotProps={{
             baseTooltip: {
