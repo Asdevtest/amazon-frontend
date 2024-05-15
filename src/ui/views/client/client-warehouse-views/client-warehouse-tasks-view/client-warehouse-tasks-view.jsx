@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { TaskOperationType, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -28,24 +27,6 @@ export const ClientWarehouseTasksView = observer(() => {
   const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new ClientWarehouseTasksViewModel())
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
-  const [isDisabledDownload, setIsDisabledDownload] = useState(true)
-
-  useEffect(() => {
-    setIsDisabledDownload(
-      !viewModel.selectedBoxes?.length ||
-        viewModel.selectedBoxes?.length > 1 ||
-        viewModel.tasksMy
-          .filter(el => viewModel.selectedBoxes.includes(el.id))
-          .some(box => {
-            return box.operationType !== mapTaskOperationTypeToLabel[TaskOperationType.RECEIVE]
-          }),
-    )
-  }, [viewModel.selectedBoxes])
-
   return (
     <>
       <div className={styles.headerWrapper}>
@@ -58,9 +39,15 @@ export const ClientWarehouseTasksView = observer(() => {
           onSubmit={viewModel.onSearchSubmit}
         />
 
-        <Button сlassName={styles.downloadBtn} disabled={isDisabledDownload} onClick={viewModel.onClickReportBtn}>
+        <Button
+          сlassName={styles.downloadBtn}
+          disabled={viewModel.isDisabledDownload}
+          onClick={viewModel.onClickReportBtn}
+        >
           {t(TranslationKey['Download task file'])}
-          <DownloadIcon className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: isDisabledDownload })} />
+          <DownloadIcon
+            className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: viewModel.isDisabledDownload })}
+          />
         </Button>
       </div>
 
@@ -102,6 +89,8 @@ export const ClientWarehouseTasksView = observer(() => {
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={row => row._id}
+          pinnedColumns={viewModel.pinnedColumns}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -118,13 +107,13 @@ export const ClientWarehouseTasksView = observer(() => {
           }}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           columns={viewModel.columnsModel}
-          rowCount={viewModel.rowsCount}
-          onRowHover={viewModel.onHover}
+          rowCount={viewModel.rowCount}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 

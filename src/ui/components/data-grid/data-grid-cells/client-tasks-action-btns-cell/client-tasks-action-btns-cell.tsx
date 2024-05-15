@@ -17,7 +17,7 @@ interface ClientTasksActionBtnsCellProps {
   row: any
   handlers: {
     onClickTaskInfo: (row: any) => void
-    onClickCancelBtn: (boxId: string, taskId: string, operationType: string) => void
+    onClickCancelBtn: (taskId: string) => void
   }
 }
 
@@ -49,7 +49,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
               <Button
                 styleType={ButtonStyle.DANGER}
                 className={styles.cancelTaskBtn}
-                onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
+                onClick={() => handlers.onClickCancelBtn(row._id)}
               >
                 {t(TranslationKey.Cancel)}
               </Button>
@@ -64,7 +64,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
               <Button
                 styleType={ButtonStyle.DANGER}
                 className={styles.cancelTaskBtn}
-                onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
+                onClick={() => handlers.onClickCancelBtn(row._id)}
               >
                 {t(TranslationKey.Cancel)}
               </Button>
@@ -83,7 +83,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
                 styleType={ButtonStyle.DANGER}
                 className={styles.cancelTaskBtn}
                 onClick={() => {
-                  handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
+                  handlers.onClickCancelBtn(row._id)
                 }}
               >
                 {t(TranslationKey.Cancel)}
