@@ -129,4 +129,5 @@ export const DataGridTablesKeys = {
   SHOPS_REPORT_PPC_ORGANIC_BY_DAY: 'shopsReportPpcOrganicByDayDataGridState',
 
   UPDATED_PATH_NOUTES: 'updatedPatchNoutes',
+  LISTING_REPORTS: 'listingReports',
 }

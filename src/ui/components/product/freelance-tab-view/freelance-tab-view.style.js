@@ -2,12 +2,12 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   tableWrapper: {
-    height: '75vh',
+    height: '73vh',
     width: '100%',
   },
 
   modalWrapper: {
-    height: 614,
+    height: 594,
   },
 
   header: {
