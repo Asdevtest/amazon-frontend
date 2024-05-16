@@ -225,7 +225,7 @@ export const UserInfoEditForm = observer(
       (submit && errorMaxLength)
 
     return (
-      <form className={styles.wrapper} onSubmit={onClickSubmit}>
+      <div className={styles.wrapper}>
         <div className={styles.titleContainer}>
           {userInfoEditFormFlag ? (
             <>
@@ -366,7 +366,7 @@ export const UserInfoEditForm = observer(
         ) : (
           <ActiveSessions activeSessions={activeSessions} onLogoutSession={onLogoutSession} />
         )}
-      </form>
+      </div>
     )
   },
 )

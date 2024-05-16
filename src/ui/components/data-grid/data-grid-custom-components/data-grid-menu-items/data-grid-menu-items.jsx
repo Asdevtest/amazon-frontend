@@ -618,7 +618,7 @@ export const CreatedByMenuItem = memo(
 
       const onClickItem = obj => {
         if (choosenItems.some(item => item._id === obj._id)) {
-          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+          setChoosenItems(choosenItems.filter(item => item._id !== obj._id))
         } else {
           setChoosenItems([...choosenItems, obj])
         }
@@ -630,13 +630,11 @@ export const CreatedByMenuItem = memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData
-            .filter(el => el)
-            .sort(
-              (a, b) =>
-                currentFilterData.length &&
-                Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
-            ),
+          filterData.sort(
+            (a, b) =>
+              currentFilterData.length &&
+              Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+          ),
         )
       }, [data.createdBy.filterData, data.sub.filterData])
 
@@ -705,20 +703,20 @@ export const CreatedByMenuItem = memo(
               onClick={e => {
                 onClose(e)
 
+                let choosenSub = []
                 if (choosenItems?.some(item => data?.sub?.filterData?.some(obj => obj?._id === item?._id))) {
-                  const choosenSub = choosenItems.filter(item =>
-                    data?.sub?.filterData?.some(obj => obj?._id === item?._id),
-                  )
-                  onChangeFullFieldMenuItem(choosenSub, 'sub')
+                  choosenSub = choosenItems.filter(item => data?.sub?.filterData?.some(obj => obj?._id === item?._id))
                 }
+                onChangeFullFieldMenuItem(choosenSub, 'sub')
 
+                let choosenCreatedBy = []
                 if (choosenItems.some(item => data?.createdBy?.filterData?.some(obj => obj?._id === item?._id))) {
-                  const choosenCreatedBy = choosenItems.filter(item =>
+                  choosenCreatedBy = choosenItems.filter(item =>
                     data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
                   )
-                  onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
-                  // onChangeFullFieldMenuItem(choosenCreatedBy, 'sub')
                 }
+                onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
+
                 onClickAccept()
               }}
             >

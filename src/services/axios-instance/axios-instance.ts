@@ -113,6 +113,7 @@ export const getAxiosInstance = () => {
         })
         return Promise.reject(error)
       } else {
+        toast.error(t(TranslationKey['Something went wrong']))
         return Promise.reject(error)
       }
     },

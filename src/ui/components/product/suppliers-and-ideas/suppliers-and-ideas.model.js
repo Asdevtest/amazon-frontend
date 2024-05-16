@@ -699,6 +699,7 @@ export class SuppliersAndIdeasModel {
         })
 
         await this.getIdea(itemId || this.currentIdeaId)
+        this.getIdeas()
       }
 
       runInAction(() => {
