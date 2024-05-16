@@ -36,7 +36,7 @@ export const ClientAwaitingBatchesView = observer(() => {
           disableRowSelectionOnClick
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
-          rowSelectionModel={viewModel.selectedBatches}
+          rowSelectionModel={viewModel.selectedRows}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}

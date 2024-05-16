@@ -30,7 +30,7 @@ export const HeaderTable = ({ viewModel }) => {
         <SearchInput
           key={'client_batches_awaiting-batch_search_input'}
           inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
+          value={viewModel.currentSearchValue}
           placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
           onSubmit={viewModel.onSearchSubmit}
         />
