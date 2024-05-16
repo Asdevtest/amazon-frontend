@@ -17,7 +17,7 @@ interface CustomSwitcherProps {
   switcherSettings: ISwitcherSettings[]
   changeConditionHandler: (condition: any) => void
   fullWidth?: boolean
-  switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header' | 'circle'
+  switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header'
   className?: string
   circle?: boolean
   customCondition?: (value: any) => boolean
