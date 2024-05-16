@@ -155,6 +155,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <PriorityMenuItem
           data={props[currentColumn.field]}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           columnKey={currentColumn.columnKey}
           onClickFilterBtn={onClickFilterBtn}
@@ -177,6 +178,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <CreatedByMenuItem
           data={props}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           columnKey={currentColumn.columnKey}
           onClickFilterBtn={onClickFilterBtn}
@@ -236,6 +238,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <IdeaShopsFieldMenuItem
           data={props}
           field={['parentProductShop', 'childProductShop']}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}
@@ -343,6 +346,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <DateDetailsMenuItem
           field={currentColumn.field}
           data={props}
+          table={currentColumn.table}
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}

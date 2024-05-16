@@ -124,7 +124,7 @@ export const ClientIdeasView = observer(({ history }) => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowClick={params => viewModel.getDataForIdeaModal(params.row)}
+          onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row)}
         />
       </div>
 
@@ -221,7 +221,7 @@ export const ClientIdeasView = observer(({ history }) => {
           message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}

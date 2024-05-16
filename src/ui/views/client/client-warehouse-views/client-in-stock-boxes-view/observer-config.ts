@@ -2,7 +2,6 @@ import { action, computed, observable } from 'mobx'
 
 export const observerConfig = {
   selectedBox: observable,
-  boxesMy: observable,
   baseBoxesMy: observable,
   unitsOption: observable,
   curBox: observable,

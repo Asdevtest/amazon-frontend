@@ -1,4 +1,5 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -15,151 +16,159 @@ import {
 import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
-export const clientNewIdeasColumns = (rowHandlers, shops) => [
-  {
-    field: 'title',
-    headerName: t(TranslationKey['Idea title']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
+export const clientNewIdeasColumns = rowHandlers => {
+  const columns = [
+    {
+      field: 'title',
+      headerName: t(TranslationKey['Idea title']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
 
-    renderCell: params => <MultilineTextCell twoLines maxLength={45} text={params.value} />,
-    width: 198,
-    filterable: false,
+      renderCell: params => <MultilineTextCell twoLines maxLength={45} text={params.value} />,
+      width: 198,
+      filterable: false,
 
-    columnKey: columnnsKeys.shared.STRING,
-  },
-
-  {
-    field: 'parentProduct',
-    headerName: t(TranslationKey['Parent product']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
-
-    renderCell: params => {
-      const product = params.row.parentProduct
-
-      return (
-        <ProductAsinCell
-          image={product?.images?.[0]}
-          amazonTitle={product?.amazonTitle}
-          asin={product?.asin}
-          skuByClient={product?.skuByClient}
-        />
-      )
+      columnKey: columnnsKeys.shared.STRING,
     },
-    width: 265,
-    sortable: false,
 
-    columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
-  },
+    {
+      field: 'parentProduct',
+      headerName: t(TranslationKey['Parent product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
 
-  {
-    field: 'parentProductShop',
-    headerName: t(TranslationKey.Shop),
-    renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
+      renderCell: params => {
+        const product = params.row.parentProduct
 
-    renderCell: params => (
-      <MultilineTextCell twoLines text={shops?.find(el => el?._id === params?.row?.parentProduct?.shopId)?.name} />
-    ),
-    width: 100,
-    sortable: false,
-    columnKey: columnnsKeys.client.IDEA_SHOPS,
-  },
+        return (
+          <ProductAsinCell
+            image={product?.images?.[0]}
+            amazonTitle={product?.amazonTitle}
+            asin={product?.asin}
+            skuByClient={product?.skuByClient}
+          />
+        )
+      },
+      width: 265,
 
-  {
-    field: 'linksToMediaFiles',
-    headerName: t(TranslationKey.Idea),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
+      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+      table: DataGridFilterTables.PRODUCTS,
+    },
 
-    renderCell: params => <SmallRowImageCell image={params.value?.find(el => checkIsMediaFileLink(el))} />,
-    width: 96,
-    sortable: false,
-    filterable: false,
-  },
+    {
+      field: 'parentProductShop',
+      headerName: t(TranslationKey.Shop),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
-  {
-    field: 'comments',
-    headerName: t(TranslationKey.Comment),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+      renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
+      width: 100,
 
-    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-    width: 251,
-    sortable: false,
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      columnKey: columnnsKeys.client.IDEA_SHOPS,
+      table: DataGridFilterTables.PRODUCTS,
+    },
 
-  {
-    field: 'buyerComment',
-    headerName: t(TranslationKey['Buyer comment']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+    {
+      field: 'linksToMediaFiles',
+      headerName: t(TranslationKey.Idea),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
-    width: 251,
-    sortable: false,
-    columnKey: columnnsKeys.shared.STRING,
-  },
+      renderCell: params => <SmallRowImageCell image={params.value?.find(el => checkIsMediaFileLink(el))} />,
+      width: 96,
 
-  {
-    field: 'actions',
-    headerName: t(TranslationKey.Actions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+      filterable: false,
+    },
 
-    renderCell: params => (
-      <IdeaActionsCell
-        onClickToCheck={() => rowHandlers.onClickToCheck(params.row._id)}
-        onClickReject={() => rowHandlers.onClickReject(params.row._id)}
-      />
-    ),
+    {
+      field: 'comments',
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
-    width: 150,
-    sortable: false,
-    filterable: false,
-  },
+      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      width: 251,
 
-  {
-    field: 'createdAt',
-    headerName: t(TranslationKey['Status Updated']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-    renderCell: params => <ShortDateCell value={params.value} />,
-    width: 91,
-    columnKey: columnnsKeys.shared.DATE,
-  },
+    {
+      field: 'buyerComment',
+      headerName: t(TranslationKey['Buyer comment']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-  {
-    field: 'createdBy',
-    headerName: t(TranslationKey['Created by']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
+      width: 251,
 
-    renderCell: ({ row }) => (
-      <UserLinkCell
-        blackText
-        name={row.sub?.name || row.createdBy?.name}
-        userId={row.sub?._id || row?.createdBy?._id}
-      />
-    ),
-    width: 130,
+      columnKey: columnnsKeys.shared.STRING,
+    },
 
-    filterable: false,
-    sortable: false,
+    {
+      field: 'actions',
+      headerName: t(TranslationKey.Actions),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
-  },
+      renderCell: params => (
+        <IdeaActionsCell
+          onClickToCheck={() => rowHandlers.onClickToCheck(params.row._id)}
+          onClickReject={() => rowHandlers.onClickReject(params.row._id)}
+        />
+      ),
 
-  {
-    field: 'requestsOnCheck',
-    headerName: t(TranslationKey.Requests),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Requests)} />,
+      width: 150,
 
-    renderCell: params => (
-      <IdeaRequestsCell
-        row={params.row}
-        onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
-        onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row)}
-        onClickResultButton={rowHandlers.onClickResultButton}
-        onClickUnbindButton={rowHandlers.onClickUnbindButton}
-        onClickRequestId={rowHandlers.onClickRequestId}
-      />
-    ),
-    width: 990,
-    sortable: false,
-  },
-]
+      filterable: false,
+    },
+
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey['Status Updated']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
+
+      renderCell: params => <ShortDateCell value={params.value} />,
+      width: 91,
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
+      field: 'createdBy',
+      headerName: t(TranslationKey['Created by']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+
+      renderCell: ({ row }) => (
+        <UserLinkCell
+          blackText
+          name={row.sub?.name || row.createdBy?.name}
+          userId={row.sub?._id || row?.createdBy?._id}
+        />
+      ),
+      width: 130,
+
+      filterable: false,
+
+      columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+    },
+
+    {
+      field: 'requestsOnCheck',
+      headerName: t(TranslationKey.Requests),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Requests)} />,
+
+      renderCell: params => (
+        <IdeaRequestsCell
+          row={params.row}
+          onClickCreateRequest={() => rowHandlers.onClickCreateRequest(params.row)}
+          onClickLinkRequest={() => rowHandlers.onClickLinkRequest(params.row)}
+          onClickResultButton={rowHandlers.onClickResultButton}
+          onClickUnbindButton={rowHandlers.onClickUnbindButton}
+          onClickRequestId={rowHandlers.onClickRequestId}
+        />
+      ),
+      width: 990,
+    },
+  ]
+
+  for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.IDEAS
+    }
+    column.sortable = false
+  }
+
+  return columns
+}
