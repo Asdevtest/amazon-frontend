@@ -2,11 +2,14 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   launches: {
-    padding: '10px 0',
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
     gap: '5px 10px',
+  },
+
+  cell: {
+    padding: '10px 0',
   },
 
   text: {

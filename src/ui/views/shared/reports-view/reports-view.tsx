@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { DatePicker } from '@components/shared/date-picker'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -30,10 +31,15 @@ export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Info product={viewModel.product} />
+      <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} />
 
       <div className={styles.buttonsContainer}>
-        <p>{t(TranslationKey.Date)}</p>
+        <DatePicker
+          value={new Date()}
+          onChange={() => {
+            console.log('test')
+          }}
+        />
 
         <Button styleType={ButtonStyle.SUCCESS}>
           <CustomPlusIcon />
