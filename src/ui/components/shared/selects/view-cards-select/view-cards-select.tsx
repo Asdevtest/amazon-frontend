@@ -20,6 +20,7 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
 
   return (
     <CustomSwitcher
+      circle
       switchMode="medium"
       condition={viewMode}
       // @ts-ignore

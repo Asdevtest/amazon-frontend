@@ -65,6 +65,7 @@ export const globalStyles = theme => ({
     borderRadius: '100px !important',
     margin: '0 10px !important',
     width: '60px !important',
+    height: '30px !important',
   },
   '.MuiTablePagination-actions': {
     marginLeft: '10px !important',
@@ -74,6 +75,11 @@ export const globalStyles = theme => ({
     button: {
       padding: '0 !important',
     },
+  },
+
+  // checkbox
+  '.MuiCheckbox-root': {
+    padding: '0 !important',
   },
 })
 
@@ -90,8 +96,8 @@ export const lightTheme = createTheme({
 
         toolbar: {
           color: '#001029',
-          height: 40,
-          minHeight: '40px !important',
+          height: 30,
+          minHeight: '30px !important',
         },
       },
     },
@@ -501,8 +507,8 @@ export const darkTheme = createTheme({
 
         toolbar: {
           color: '#fff',
-          height: 40,
-          minHeight: '40px !important',
+          height: 30,
+          minHeight: '30px !important',
         },
       },
     },
