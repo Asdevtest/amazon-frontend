@@ -7,13 +7,16 @@ import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
-import { IProduct } from '@typings/models/products/product'
-
 import { reportsViewColumns } from './reports-view.columns'
 import { reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
-  product?: IProduct
+  get product() {
+    return this.meta?.product
+  }
+  get activeLaunches() {
+    return this.meta?.activeLaunches
+  }
   get rows() {
     return this.currentData
   }
@@ -21,10 +24,10 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   constructor(productId: string) {
     const columnsModel = reportsViewColumns()
     const filtersFields = getFilterFields(columnsModel, ['productId'])
-    const mainMethodURL = `clients/products/listing_reports/${productId}?`
+    const mainMethodURL = `clients/products/listing_reports_by_product_id/${productId}?`
 
     super({
-      getMainDataMethod: ClientModel.getListingReports,
+      getMainDataMethod: () => ClientModel.getListingReportById(productId),
       columnsModel,
       filtersFields,
       mainMethodURL,
@@ -32,7 +35,6 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.onChangeFullFieldMenuItem([productId], 'productId')
     this.getCurrentData()
 
     makeObservable(this, reportsViewConfig)

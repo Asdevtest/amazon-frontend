@@ -153,15 +153,13 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
       runInAction(() => {
         this.currentData = result?.rows || result
-
         this.rowCount = result?.count || result.length
+        this.meta = result?.meta
       })
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.currentData = []
-      this.rowCount = 0
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
