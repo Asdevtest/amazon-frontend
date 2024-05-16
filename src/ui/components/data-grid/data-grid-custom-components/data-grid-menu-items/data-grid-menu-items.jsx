@@ -641,7 +641,7 @@ export const CreatedByMenuItem = memo(
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
+          const filter = filterData?.filter(item => item?.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
