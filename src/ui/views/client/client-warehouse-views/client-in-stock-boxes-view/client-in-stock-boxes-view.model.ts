@@ -54,7 +54,6 @@ import { observerConfig } from './observer-config'
 export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   selectedBox: IBox | null = null
 
-  boxesMy: IBox[] = []
   baseBoxesMy = []
 
   unitsOption = Dimensions.EU
@@ -131,7 +130,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       return false
     }
 
-    return this.boxesMy
+    return this.currentData
       .filter(el => this.selectedRows.includes(el._id))
       .every(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
@@ -141,7 +140,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       return false
     }
 
-    return this.boxesMy
+    return this.currentData
       .filter(el => this.selectedRows.includes(el._id))
       .some(el => el.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
   }
@@ -259,6 +258,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
     this.getDataGridState()
     this.loadData()
+    this.getClientDestinations()
 
     reaction(
       () => this.currentStorekeeperId,
@@ -660,7 +660,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     try {
       const clientDestinations = await ClientModel.getClientDestinations({
         status: BoxStatus.IN_STOCK,
-        storekeeperId: this.currentStorekeeperId,
+        ...(this.currentStorekeeperId ? { storekeeperId: this.currentStorekeeperId } : {}),
       })
 
       runInAction(() => {
@@ -798,10 +798,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   async onClickGroupingBtn() {
     try {
-      const firstBox = this.boxesMy.find(box => box._id === this.selectedRows[0])
+      const firstBox = this.currentData.find(box => box._id === this.selectedRows[0])
 
       const boxesWithDifferentStorekeepers = this.selectedRows.filter(boxId => {
-        const findBox = this.boxesMy.find(box => box._id === boxId)
+        const findBox = this.currentData.find(box => box._id === boxId)
         return findBox?.storekeeper !== firstBox?.storekeeper
       })
 
@@ -825,11 +825,12 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   async onClickEditBtn() {
     try {
-      const firstBox = this.boxesMy.find(box => box._id === this.selectedRows[0])
+      const firstBox = this.currentData.find(box => box._id === this.selectedRows[0])
 
       const boxesWithDifferentStorekeepers = this.selectedRows.filter(boxId => {
-        const findBox = this.boxesMy.find(box => box._id === boxId)
-        return findBox?.storekeeper !== firstBox?.storekeeper
+        const findBox = this.currentData.find(box => box._id === boxId)
+
+        return findBox?.storekeeper?._id !== firstBox?.storekeeper?._id
       })
 
       if (boxesWithDifferentStorekeepers.length) {
@@ -1460,50 +1461,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  // async onClickFilterBtn(column) {
-  //   try {
-  //     this.setFilterRequestStatus(loadingStatus.IS_LOADING)
-
-  //     const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
-  //     const shopFilter = this.columnMenuSettings.shopId.currentFilterData && column !== 'shopId' ? curShops : null
-
-  //     const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
-
-  //     const curStatus = this.columnMenuSettings.status.currentFilterData.length
-  //       ? this.columnMenuSettings.status.currentFilterData.join(',')
-  //       : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
-
-  //     const currentColumn =
-  //       column === 'logicsTariffId' ? 'logicsTariff' : column === 'destinationId' ? 'destination' : column
-
-  //     const data = await GeneralModel.getDataForColumn(
-  //       // Костылики, если ты это видишь, то Паша обещал решить эту проблему после релиза 27.11.2023
-  //       // Будущий чел, исправь это в следующем релизе, году, десятилетии, в общем разберись
-  //       // Удалить currentColumn и поставить на его место аргумент функции, column
-  //       // Костыли зло ┗( T﹏T )┛
-  //       getTableByColumn(currentColumn, currentColumn === 'redFlags' ? 'products' : 'boxes'),
-  //       currentColumn,
-
-  //       `boxes/pag/clients_light?status=${curStatus}&filters=;${this.getFilter(column)}${
-  //         shopFilter ? ';&' + '[shopId][$eq]=' + shopFilter : ''
-  //       }${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`,
-  //     )
-
-  //     if (this.columnMenuSettings[column]) {
-  //       this.columnMenuSettings = {
-  //         ...this.columnMenuSettings,
-  //         [column]: { ...this.columnMenuSettings[column], filterData: data },
-  //       }
-  //     }
-
-  //     this.setFilterRequestStatus(loadingStatus.SUCCESS)
-  //   } catch (error) {
-  //     this.setFilterRequestStatus(loadingStatus.FAILED)
-
-  //     console.error(error)
-  //   }
-  // }
-
   async getShops() {
     try {
       const result = await ShopModel.getMyShopNames()
@@ -1514,70 +1471,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       console.error(error)
     }
   }
-
-  // getFilter(exclusion) {
-  //   return objectToUrlQs(
-  //     dataGridFiltersConverter(
-  //       this.columnMenuSettings,
-  //       this.currentSearchValue,
-  //       exclusion,
-  //       filtersFields,
-  //       ['asin', 'amazonTitle', 'skuByClient', 'id', 'item', 'productId', 'humanFriendlyId', 'prepId'],
-  //       {
-  //         ...(!!this.currentStorekeeperId &&
-  //           exclusion !== 'storekeeper' &&
-  //           !this.columnMenuSettings?.storekeeper?.currentFilterData?.length && {
-  //             storekeeper: {
-  //               $eq: this.currentStorekeeperId,
-  //             },
-  //           }),
-  //       },
-  //     ),
-  //   )
-  // }
-
-  // async getCurrentData() {
-  //   try {
-  //     const curShops = this.columnMenuSettings.shopId.currentFilterData?.map(shop => shop._id).join(',')
-
-  //     const curStatus = this.columnMenuSettings.status.currentFilterData.length
-  //       ? this.columnMenuSettings.status.currentFilterData.join(',')
-  //       : `${BoxStatus.NEW},${BoxStatus.IN_STOCK},${BoxStatus.REQUESTED_SEND_TO_BATCH},${BoxStatus.ACCEPTED_IN_PROCESSING},${BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE},${BoxStatus.NEED_TO_UPDATE_THE_TARIFF}`
-
-  //     const result = await BoxesModel.getBoxesForCurClientLightPag({
-  //       status: curStatus,
-  //       destinationId: this.curDestinationId,
-  //       shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
-  //       isFormed: this.columnMenuSettings.isFormedData.isFormed,
-  //       hasBatch: false,
-  //       filters: this.getFilter(),
-  //       limit: this.paginationModel.pageSize,
-  //       offset: this.paginationModel.page * this.paginationModel.pageSize,
-  //       sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-  //       sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-  //     })
-
-  //     runInAction(() => {
-  //       this.baseBoxesMy = result.rows
-
-  //       this.rowCount = result.count
-
-  //       this.boxesMy = clientWarehouseDataConverter(
-  //         result.rows,
-  //         this.platformSettings?.volumeWeightCoefficient,
-  //         this.shopsData,
-  //       )
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-
-  //     runInAction(() => {
-  //       this.boxesMy = []
-
-  //       this.baseBoxesMy = []
-  //     })
-  //   }
-  // }
 
   triggerRequestToSendBatchModal() {
     this.showRequestToSendBatchModal = !this.showRequestToSendBatchModal
@@ -1596,7 +1489,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const boxesWithoutTariffOrDestinationIds = this.selectedRows.filter(boxId => {
-        const findBox = this.boxesMy.find(box => box._id === boxId)
+        const findBox = this.currentData.find(box => box._id === boxId)
         return !findBox?.logicsTariff || !findBox?.destination
       })
 
@@ -1606,7 +1499,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
           )}: ${boxesWithoutTariffOrDestinationIds
             // @ts-ignore
-            .map(el => this.boxesMy?.find(box => box?._id === el)?.humanFriendlyId)
+            .map(el => this.currentData?.find(box => box?._id === el)?.humanFriendlyId)
             .join(', ')} `,
         )
 
@@ -1659,7 +1552,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   async onClickMergeBtn() {
     try {
       const isMasterBoxSelected = this.selectedRows.some(boxId => {
-        const findBox = this.boxesMy.find(box => box._id === boxId)
+        const findBox = this.currentData.find(box => box._id === boxId)
         return findBox?.amount && findBox.amount > 1
       })
 

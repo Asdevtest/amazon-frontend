@@ -40,7 +40,6 @@ export const myRequestsViewColumns = rowHandlers => {
       ),
 
       filterable: false,
-      sortable: false,
 
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
     },
@@ -80,9 +79,9 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell twoLines text={params.row?.product?.shop?.name} />,
       width: 90,
-      sortable: false,
 
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
+      table: DataGridFilterTables.PRODUCTS,
     },
 
     {
@@ -105,9 +104,9 @@ export const myRequestsViewColumns = rowHandlers => {
       width: 270,
 
       filterable: false,
-      sortable: false,
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+      table: DataGridFilterTables.PRODUCTS,
     },
 
     {
@@ -130,7 +129,6 @@ export const myRequestsViewColumns = rowHandlers => {
       renderCell: params => <MultilineRequestStatusCell status={params.value} />,
       width: 120,
       filterable: false,
-      sortable: false,
 
       columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
     },
@@ -162,7 +160,6 @@ export const myRequestsViewColumns = rowHandlers => {
       width: 110,
 
       filterable: false,
-      sortable: false,
 
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
     },
@@ -176,7 +173,6 @@ export const myRequestsViewColumns = rowHandlers => {
       width: 187,
 
       filterable: false,
-      sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
     },
@@ -196,7 +192,6 @@ export const myRequestsViewColumns = rowHandlers => {
       width: 160,
 
       filterable: false,
-      sortable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
     },
@@ -269,7 +264,10 @@ export const myRequestsViewColumns = rowHandlers => {
   ]
 
   for (const column of columns) {
-    column.table = DataGridFilterTables.REQUESTS
+    if (!column.table) {
+      column.table = DataGridFilterTables.REQUESTS
+    }
+    column.sortable = false
   }
 
   return columns

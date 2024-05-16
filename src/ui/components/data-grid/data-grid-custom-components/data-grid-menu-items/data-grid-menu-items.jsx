@@ -600,14 +600,15 @@ export const CreatedByMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
     }) => {
       useEffect(() => {
-        onClickFilterBtn('createdBy')
-        onClickFilterBtn('sub')
+        onClickFilterBtn('createdBy', table)
+        onClickFilterBtn('sub', table)
       }, [])
 
       const filterData = [...data.createdBy.filterData, ...data.sub.filterData] || []
@@ -641,7 +642,9 @@ export const CreatedByMenuItem = memo(
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(item => String(item).toLowerCase().includes(nameSearchValue.toLowerCase()))
+          const filter = filterData?.filter(item =>
+            String(item?.name).toLowerCase().includes(nameSearchValue.toLowerCase()),
+          )
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
@@ -893,6 +896,7 @@ export const IdeaShopsFieldMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       addNullObj,
       onChangeFullFieldMenuItem,
@@ -932,7 +936,7 @@ export const IdeaShopsFieldMenuItem = memo(
 
       useEffect(() => {
         for (const item of field) {
-          onClickFilterBtn(item)
+          onClickFilterBtn(item, table)
         }
       }, [])
 
@@ -1284,13 +1288,14 @@ export const PriorityMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       columnKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
     }) => {
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const isOrder = ['MY_ORDERS_PRIORITY', 'ORDERS_PRIORITY'].includes(columnKey)
@@ -2097,7 +2102,7 @@ export const FromToDateMenuItem = memo(
 
 export const DateDetailsMenuItem = memo(
   withStyles(
-    ({ classes: styles, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
+    ({ classes: styles, onClose, data, field, table, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
       const [searchType, setSearchType] = useState('days')
       const [searchFrom, setSearchFrom] = useState('')
       const [searchTo, setSearchTo] = useState('')
@@ -2105,7 +2110,7 @@ export const DateDetailsMenuItem = memo(
       const [disableButton, setDisableButton] = useState(false)
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const handleSearchTypeChange = event => {

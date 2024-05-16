@@ -40,7 +40,7 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => <MultilineTextCell text={params.value?.name} />,
       width: 100,
-      sortable: false,
+
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
@@ -52,7 +52,7 @@ export const clientBoxesViewColumns = (
       renderCell: params => <MultilineTextCell twoLines text={params.value} />,
 
       width: 100,
-      sortable: false,
+
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -93,7 +93,7 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
       width: 160,
-      sortable: false,
+
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
       table: DataGridFilterTables.ORDERS,
     },
@@ -158,7 +158,7 @@ export const clientBoxesViewColumns = (
         />
       ),
       width: 120,
-      sortable: false,
+
       filterable: false,
       valueFormatter: params => (params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)),
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED,
@@ -172,7 +172,6 @@ export const clientBoxesViewColumns = (
       renderCell: params => (params.row ? <MultilineTextCell text={params.value * params.row.amount} /> : ''),
       type: 'number',
       width: 95,
-      sortable: false,
 
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -201,7 +200,7 @@ export const clientBoxesViewColumns = (
       },
       width: 215,
       filterable: false,
-      sortable: false,
+
       align: 'center',
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
     },
@@ -214,7 +213,6 @@ export const clientBoxesViewColumns = (
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       type: 'number',
       width: 110,
-      sortable: false,
     },
 
     {
@@ -264,7 +262,6 @@ export const clientBoxesViewColumns = (
         }`,
       minWidth: 150,
       headerAlign: 'center',
-      sortable: false,
     },
 
     {
@@ -280,7 +277,6 @@ export const clientBoxesViewColumns = (
         <Dimensions isCell isTotalWeight data={params.row} transmittedSizeSetting={getUnitsOption()} />
       ),
       width: 210,
-      sortable: false,
     },
 
     {

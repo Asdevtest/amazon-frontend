@@ -89,8 +89,9 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
       tableKey: DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS,
       defaultGetCurrentDataOptions,
     })
-
     makeObservable(this, observerConfig)
+
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.getDataGridState()
 
