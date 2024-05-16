@@ -8,6 +8,8 @@ import { SettingsModel } from '@models/settings-model'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
 
+import { ReportsView } from '@views/shared/reports-view'
+
 import { checkIsAdmin, checkIsClient, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
@@ -25,6 +27,7 @@ import { TopCard } from './top-card'
 const tabsValues = {
   MAIN_INFO: 'MAIN_INFO',
   ORDERS: 'ORDERS',
+  REPORTS: 'REPORTS',
   INTEGRATIONS: 'INTEGRATIONS',
   LISTING: 'LISTING',
   SUPPLIERS_AND_IDEAS: 'SUPPLIERS_AND_IDEAS',
@@ -108,6 +111,11 @@ export const ProductWrapper = memo(
             },
 
             isClientOrAdmin && {
+              label: () => t(TranslationKey.Reports),
+              value: tabsValues.REPORTS,
+            },
+
+            isClientOrAdmin && {
               label: () => t(TranslationKey.Integrations),
               value: tabsValues.INTEGRATIONS,
             },
@@ -180,6 +188,10 @@ export const ProductWrapper = memo(
 
         <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
           <Orders modal={modal} productId={product?._id} showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS} />
+        </TabPanel>
+
+        <TabPanel value={tabIndex} index={tabsValues.REPORTS}>
+          <ReportsView productId={product?._id} />
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>

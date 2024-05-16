@@ -1,0 +1,10 @@
+export type LaunchType =
+  | 'COUPON'
+  | 'PROMO'
+  | 'PRIME_DISCOUNT'
+  | 'LIGHTING_DEAL'
+  | 'BEST_DEAL'
+  | 'OUTLET_DEAL'
+  | 'SALES_PRICE'
+  | 'AB_TEST'
+  | 'CUSTOM'

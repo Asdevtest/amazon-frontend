@@ -1,0 +1,11 @@
+export enum Launches {
+  'COUPON' = 'COUPON',
+  'PROMO' = 'PROMO',
+  'PRIME_DISCOUNT' = 'PRIME_DISCOUNT',
+  'LIGHTING_DEAL' = 'LIGHTING_DEAL',
+  'BEST_DEAL' = 'BEST_DEAL',
+  'OUTLET_DEAL' = 'OUTLET_DEAL',
+  'SALES_PRICE' = 'SALES_PRICE',
+  'AB_TEST' = 'AB_TEST',
+  'CUSTOM' = 'CUSTOM',
+}

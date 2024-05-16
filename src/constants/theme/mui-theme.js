@@ -433,6 +433,58 @@ export const lightTheme = createTheme({
       headerBackground: '#F4F4F4',
       switch: '#E3E3E3',
     },
+
+    launch: {
+      coupon: {
+        background: 'center no-repeat url(/assets/img/launches/coupon.svg)',
+        width: '55px',
+        height: '22px',
+        padding: '0',
+        borderRadius: '0',
+        color: '#5C6A7A',
+      },
+      promo: {
+        background: '#FFEEDE',
+        color: '#FF4D00',
+      },
+      prime_discount: {
+        background: '#F5FAFD',
+        color: '#007bff',
+      },
+      lighting_deal: {
+        backgroundColor: '#FFFBE9',
+        backgroundImage: 'url(/assets/img/launches/lighting.svg)',
+        backgroundPosition: '8% 50%',
+        backgroundRepeat: 'no-repeat',
+        color: '#C69109',
+        padding: '5px 10px 5px 20px',
+      },
+      best_deal: {
+        background: 'center no-repeat url(/assets/img/launches/best.svg)',
+        width: '85px',
+        height: '22px',
+        color: '#fff',
+        borderRadius: '0',
+        padding: '0 0 0 12px',
+      },
+      outlet_deal: {
+        background: '#DEEAD8',
+        color: '#5C6A7A',
+      },
+      sales_price: {
+        background: '#D4E9FD',
+        color: '#001029',
+      },
+      ab_test: {
+        background: '#F2ECFF',
+        color: '#8263B5',
+      },
+      custom: {
+        background: '#F6F6F6',
+        color: '#5C6A7A',
+        outline: '1px solid #E0E0E0',
+      },
+    },
   },
 })
 
@@ -929,6 +981,57 @@ export const darkTheme = createTheme({
       activeText: '#4CA1DE',
       headerBackground: '#25252D',
       switch: '#667085',
+    },
+
+    launch: {
+      coupon: {
+        background: 'center no-repeat url(/assets/img/launches/coupon.svg)',
+        width: '55px',
+        height: '22px',
+        padding: '0',
+        borderRadius: '0',
+        color: '#E0E0E0',
+      },
+      promo: {
+        color: '#FF4D00',
+        outline: '1px solid #FF4D00',
+      },
+      prime_discount: {
+        color: '#4CA1DE',
+        outline: '1px solid #4CA1DE',
+      },
+      lighting_deal: {
+        backgroundImage: 'url(/assets/img/launches/lighting.svg)',
+        backgroundPosition: '8% 50%',
+        backgroundRepeat: 'no-repeat',
+        color: '#C69109',
+        padding: '5px 10px 5px 20px',
+        outline: '1px solid #C69109',
+      },
+      best_deal: {
+        background: 'center no-repeat url(/assets/img/launches/best.svg)',
+        width: '85px',
+        height: '22px',
+        color: '#fff',
+        borderRadius: '0',
+        padding: '0 0 0 12px',
+      },
+      outlet_deal: {
+        color: '#DEEAD8',
+        outline: '1px solid #DEEAD8',
+      },
+      sales_price: {
+        color: '#D4E9FD',
+        outline: '1px solid #D4E9FD',
+      },
+      ab_test: {
+        color: '#8263B5',
+        outline: '1px solid #8263B5',
+      },
+      custom: {
+        color: '#667085',
+        outline: '1px solid #667085',
+      },
     },
   },
 })

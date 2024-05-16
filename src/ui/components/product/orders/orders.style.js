@@ -5,10 +5,10 @@ export const useStyles = makeStyles()(() => ({
     gap: 5,
     width: '100%',
     flexDirection: 'column',
-    height: '81vh',
+    height: '79vh',
   },
 
   modalWrapper: {
-    height: 670,
+    height: 650,
   },
 }))

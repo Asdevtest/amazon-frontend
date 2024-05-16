@@ -5,6 +5,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
+    padding: 10,
   },
 
   customSwitcher: {
