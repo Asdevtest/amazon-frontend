@@ -324,6 +324,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         if (setting.isAdding) {
           this.selectedRows = []
+
           this.curBatch = undefined
         }
       })
