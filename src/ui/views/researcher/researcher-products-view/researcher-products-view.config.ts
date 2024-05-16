@@ -19,7 +19,7 @@ export const researcherProductsViewConfig = {
   onChangeFormFields: action.bound,
   setActionStatus: action.bound,
 }
-export const paginationInitModel = { page: 0, pageSize: 100 }
+export const paginationInitModel = { page: 0, pageSize: 15 }
 export const formFieldsDefault = {
   amazonLink: '',
   productCode: '',
