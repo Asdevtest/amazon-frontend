@@ -169,10 +169,9 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     renderCell: ({ row }: GridRowModel) => (
       <ActionButtonsCell
         isFirstButton
-        disabledFirstButton={!row.batch}
         firstButtonElement={t(TranslationKey['Watch the batch'])}
         firstButtonStyle={ButtonStyle.PRIMARY}
-        onClickFirstButton={() => onClickChangeVariation(row?.batch?._id)}
+        onClickFirstButton={() => onClickChangeVariation(row?._id)}
       />
     ),
     disableColumnMenu: true,
