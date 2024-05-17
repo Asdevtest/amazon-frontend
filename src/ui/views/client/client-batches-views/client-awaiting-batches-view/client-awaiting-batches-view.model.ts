@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -88,6 +88,11 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
     this.getDataGridState()
     this.getStorekeepers()
     this.getCurrentData()
+
+    reaction(
+      () => this.productViewMode,
+      () => (this.columnsModel = columnsModel),
+    )
   }
 
   async onClickSaveHsCode(hsCode: IHSCode) {

@@ -28,13 +28,13 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
           component={
             <DataGridSelectViewProductBatch
               changeViewModeHandler={rowHandlers?.changeViewModeHandler}
-              selectedViewMode={getProductViewMode}
+              selectedViewMode={getProductViewMode?.()}
               rootStyles={{ marginLeft: 15, marginRight: 15 }}
             />
           }
         />
       ),
-      renderCell: params => <BatchBoxesCell boxes={params.row.boxes} productViewMode={getProductViewMode} />,
+      renderCell: params => <BatchBoxesCell boxes={params.row.boxes} productViewMode={getProductViewMode?.()} />,
       width: 420,
       filterable: false,
       sortable: false,

@@ -40,13 +40,13 @@ export const ClientSentBatchesView = observer(({ history }) => {
         <SearchInput
           key="client_batches_awaiting-batch_search_input"
           inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
+          value={viewModel.currentSearchValue}
           placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
           onSubmit={viewModel.onSearchSubmit}
         />
 
         <Button
-          disabled={!viewModel.selectedBatches.length}
+          disabled={!viewModel.selectedRows.length}
           styleType={ButtonStyle.DANGER}
           variant={ButtonVariant.OUTLINED}
           onClick={viewModel.onClickTriggerArchOrResetProducts}
@@ -145,11 +145,11 @@ export const ClientSentBatchesView = observer(({ history }) => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           isWarning={viewModel.confirmModalSettings?.isWarning}
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
