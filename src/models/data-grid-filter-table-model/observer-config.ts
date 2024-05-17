@@ -20,4 +20,9 @@ export const observerConfig = {
   setFilterRequestStatus: action.bound,
 
   getCurrentData: override,
+
+  onColumnVisibilityModelChange: override,
+  onChangeSortingModel: override,
+  onChangeFilterModel: override,
+  onPaginationModelChange: override,
 }
