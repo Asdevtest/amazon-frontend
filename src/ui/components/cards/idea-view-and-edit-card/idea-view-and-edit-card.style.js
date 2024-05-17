@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
+    width: 1640,
     minHeight: 603,
     padding: 50,
     background: theme.palette.background.general,
@@ -56,9 +56,11 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: '30px',
     width: '543px',
+    border: '1px solid blue',
   },
 
   mediaBlock: {
+    border: '1px solid green',
     width: '887px',
 
     display: 'flex',
@@ -492,6 +494,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '40px',
+    border: '1px solid red',
   },
 
   modalContentWrapper: {
