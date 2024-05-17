@@ -3,9 +3,9 @@ import {
   ProductStatusByCode,
   ProductStatusByKey,
   colorByProductStatus,
-  productStatusTranslateKey,
   translateStatusForResearcher,
 } from '@constants/product/product-status'
+import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -53,20 +53,9 @@ export const researcherProductsViewColumns = () => [
     field: 'strategyStatus',
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
-    renderCell: params => {
-      const status = [
-        ProductStatusByKey[ProductStatus.NEW_PRODUCT],
-        ProductStatusByKey[ProductStatus.DEFAULT],
-        ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
-        // ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
-        ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
-        ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
-      ].includes(params.row.status)
-        ? t(productStatusTranslateKey(ProductStatusByCode[params.row.status]))
-        : 'OK'
-
-      return <MultilineStatusCell leftAlign status={status} />
-    },
+    renderCell: params => (
+      <MultilineStatusCell leftAlign status={mapProductStrategyStatusEnum[params.row.strategyStatus]} />
+    ),
     width: 180,
   },
 
@@ -93,7 +82,7 @@ export const researcherProductsViewColumns = () => [
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-    renderCell: params => <NormDateCell value={params.row.checkedAt} />,
+    renderCell: params => <NormDateCell value={params.row.createdAt} />,
     width: 115,
   },
 ]
