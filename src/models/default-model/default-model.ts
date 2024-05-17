@@ -13,6 +13,7 @@ export class DefaultModel extends ModalsModel {
   requestStatus: loadingStatus = loadingStatus.SUCCESS
   currentData: any[] = []
   rowCount: number = 0
+  meta?: any
 
   getMainDataMethod: any
   defaultGetCurrentDataOptions: any
@@ -37,6 +38,7 @@ export class DefaultModel extends ModalsModel {
       runInAction(() => {
         this.currentData = result?.rows || result
         this.rowCount = result?.count || result.length
+        this.meta = result?.meta
       })
 
       this.setRequestStatus(loadingStatus.SUCCESS)

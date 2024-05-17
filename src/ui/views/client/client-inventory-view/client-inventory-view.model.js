@@ -133,7 +133,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   get platformSettings() {
     return UserModel.platformSettings
   }
-  meta = undefined
 
   constructor() {
     const additionalPropertiesColumnMenuSettings = {

@@ -4,12 +4,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   ActionButtonsCell,
-  LaunchesCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ShortDateCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { Launches } from '@components/shared/launches'
 import { EditIcon } from '@components/shared/svg-icons'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -54,7 +54,7 @@ export const reportsViewColumns = () => [
     field: 'launchType',
     headerName: t(TranslationKey['Launch type']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
-    renderCell: ({ row }: GridRowModel) => <LaunchesCell launches={row.listingLaunches || []} />,
+    renderCell: ({ row }: GridRowModel) => <Launches cell launches={row.listingLaunches || []} />,
     disableColumnMenu: true,
     filterable: false,
     sortable: false,
