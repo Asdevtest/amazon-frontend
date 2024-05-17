@@ -3,7 +3,6 @@ import { makeObservable } from 'mobx'
 import { ChangeEvent } from 'react'
 
 import {
-  GridCallbackDetails,
   GridColDef,
   GridColumnVisibilityModel,
   GridFilterModel,
@@ -80,41 +79,28 @@ export class DataGridTableModel extends DefaultModel {
     }
   }
 
-  onColumnVisibilityModelChange(model: GridColumnVisibilityModel, details: GridCallbackDetails, isNotServer?: boolean) {
+  onColumnVisibilityModelChange(model: GridColumnVisibilityModel) {
     this.columnVisibilityModel = model
-    if (!isNotServer) {
-      this.getCurrentData()
-    }
+    this.setDataGridState()
+  }
+
+  onChangeSortingModel(sortModel: GridSortModel) {
+    this.sortModel = sortModel
+    this.setDataGridState()
+  }
+
+  onChangeFilterModel(model: GridFilterModel) {
+    this.filterModel = model
+    this.setDataGridState()
+  }
+
+  onPaginationModelChange(model: GridPaginationModel) {
+    this.paginationModel = model
     this.setDataGridState()
   }
 
   onSelectionModel(selectedRows: string[]) {
     this.selectedRows = selectedRows
-  }
-
-  onChangeSortingModel(sortModel: GridSortModel, details: GridCallbackDetails, isNotServer?: boolean) {
-    this.sortModel = sortModel
-
-    if (!isNotServer) {
-      this.getCurrentData()
-    }
-    this.setDataGridState()
-  }
-
-  onChangeFilterModel(model: GridFilterModel, details: GridCallbackDetails, isNotServer?: boolean) {
-    this.filterModel = model
-    if (!isNotServer) {
-      this.getCurrentData()
-    }
-    this.setDataGridState()
-  }
-
-  onPaginationModelChange(model: GridPaginationModel, details: GridCallbackDetails, isNotServer?: boolean) {
-    this.paginationModel = model
-    if (!isNotServer) {
-      this.getCurrentData()
-    }
-    this.setDataGridState()
   }
 
   onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {

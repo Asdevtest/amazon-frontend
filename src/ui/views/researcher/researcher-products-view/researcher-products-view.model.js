@@ -5,7 +5,7 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
 
-import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
+import { DataGridTableModel } from '@models/data-grid-table-model'
 import { ResearcherModel } from '@models/researcher-model'
 import { UserModel } from '@models/user-model'
 
@@ -20,7 +20,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { researcherProductsViewColumns } from './researcher-products-view.columns'
 import { formFieldsDefault, paginationInitModel, researcherProductsViewConfig } from './researcher-products-view.config'
 
-export class ResearcherProductsViewModel extends DataGridFilterTableModel {
+export class ResearcherProductsViewModel extends DataGridTableModel {
   error = undefined
   reasonError = undefined
   actionStatus = undefined
@@ -45,6 +45,7 @@ export class ResearcherProductsViewModel extends DataGridFilterTableModel {
       tableKey: DataGridTablesKeys.RESEARCHER_PRODUCTS,
     })
 
+    this.sortModel = [{ field: 'createdAt', sort: 'asc' }]
     this.paginationModel = paginationInitModel
     this.initHistory()
     this.getDataGridState()
@@ -149,17 +150,17 @@ export class ResearcherProductsViewModel extends DataGridFilterTableModel {
 
   async checkProductExists() {
     try {
-      this.setActionStatus(loadingStatus.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const checkProductExistResult = await ResearcherModel.checkProductExists(
         this.formFields.productCode,
         this.formFields.strategyStatus,
       )
 
-      this.setActionStatus(loadingStatus.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
       return checkProductExistResult
     } catch (error) {
       console.error(error)
-      this.setActionStatus(loadingStatus.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message
@@ -213,8 +214,4 @@ export class ResearcherProductsViewModel extends DataGridFilterTableModel {
         }
       }
     })
-
-  setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
-  }
 }

@@ -17,7 +17,6 @@ export const researcherProductsViewConfig = {
   checkProductExists: action.bound,
   onClickTableRow: action.bound,
   onChangeFormFields: action.bound,
-  setActionStatus: action.bound,
 }
 export const paginationInitModel = { page: 0, pageSize: 100 }
 export const formFieldsDefault = {
