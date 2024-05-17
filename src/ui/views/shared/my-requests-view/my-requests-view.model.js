@@ -353,7 +353,7 @@ export class MyRequestsViewModel {
 
         onlyWaitedProposals: this.onlyWaitedProposals,
 
-        sortField: this.sortModel?.length ? this.sortModel[0]?.field : 'updatedAt',
+        sortField: this.sortModel?.length ? this.sortModel[0]?.field : 'priority',
         sortType: this.sortModel?.length ? this.sortModel[0]?.sort.toUpperCase() : 'DESC',
       })
 
