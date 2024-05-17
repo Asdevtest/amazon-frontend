@@ -68,7 +68,6 @@ export const CreateBoxForm = observer(
           product: formItem?.product,
           amount: formItem?.amount,
           order: formItem,
-
           transparencyFile: formItem?.transparencyFile || '',
           isBarCodeAlreadyAttachedByTheSupplier: false,
           isTransparencyFileAlreadyAttachedByTheSupplier: false,
@@ -147,7 +146,7 @@ export const CreateBoxForm = observer(
                 (sizeSetting === unitsOfChangeOptions.US
                   ? maxLengthInputInSizeBox / inchesCoefficient
                   : maxLengthInputInSizeBox) || Number(el[prop]) === 0,
-          ) || el.weighGrossKgSupplier === 0,
+          ) || Number(el.weighGrossKgSupplier) === 0,
       )
 
     const handleChange = newAlignment => {
