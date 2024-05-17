@@ -450,6 +450,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <BatchTrackingCellMenuItem
           data={props}
           field={currentColumn.field}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}

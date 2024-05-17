@@ -2785,6 +2785,7 @@ export const BatchTrackingCellMenuItem = memo(
       classes: styles,
       data,
       field,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -2819,6 +2820,7 @@ export const BatchTrackingCellMenuItem = memo(
           <NormalFieldMenuItem
             data={data[currentTab]}
             field={currentTab}
+            table={table}
             filterRequestStatus={filterRequestStatus}
             columnKey={currentTab}
             onClickFilterBtn={onClickFilterBtn}
@@ -2832,6 +2834,7 @@ export const BatchTrackingCellMenuItem = memo(
           <FromToDateMenuItem
             data={data[currentTab]}
             field={currentTab}
+            table={table}
             filterRequestStatus={filterRequestStatus}
             onClickFilterBtn={onClickFilterBtn}
             onClose={onClose}
