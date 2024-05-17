@@ -34,6 +34,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 48,
     fontWeight: 600,
     lineHeight: '110%',
+    textAlign: 'center',
   },
 
   subtitle: {
