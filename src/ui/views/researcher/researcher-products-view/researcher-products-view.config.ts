@@ -7,10 +7,10 @@ export const researcherProductsViewConfig = {
   formFields: observable,
   newProductId: observable,
   formFieldsValidationErrors: observable,
-  products: observable,
   chekedCode: observable,
 
   userInfo: computed,
+  products: computed,
 
   createProduct: action.bound,
   onClickCheckAndAddProductBtn: action.bound,

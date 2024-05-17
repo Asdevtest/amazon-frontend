@@ -43,7 +43,7 @@ export const ResearcherProductsView = observer(() => {
           pinnedColumns={viewModel.pinnedColumns}
           paginationModel={viewModel.paginationModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
-          rows={viewModel.currentData}
+          rows={viewModel.products}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           getRowId={({ _id }) => _id}
           slotProps={{
