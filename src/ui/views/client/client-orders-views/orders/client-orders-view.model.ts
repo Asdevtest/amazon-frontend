@@ -462,8 +462,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     try {
       const resolve = await ClientModel.getOrderById(orderId)
 
-      console.log('resolve :>> ', resolve)
-
       runInAction(() => {
         this.order = resolve as unknown as IOrder
       })
