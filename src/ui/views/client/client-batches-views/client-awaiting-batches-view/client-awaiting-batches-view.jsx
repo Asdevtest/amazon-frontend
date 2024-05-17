@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,13 +23,10 @@ export const ClientAwaitingBatchesView = observer(() => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel())
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   return (
     <>
       <HeaderTable viewModel={viewModel} />
+
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
           checkboxSelection
@@ -39,9 +36,11 @@ export const ClientAwaitingBatchesView = observer(() => {
           rowSelectionModel={viewModel.selectedRows}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
+          pinnedColumns={viewModel.pinnedColumns}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -61,6 +60,11 @@ export const ClientAwaitingBatchesView = observer(() => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
           onRowSelectionModelChange={viewModel.onSelectionModel}
@@ -68,7 +72,8 @@ export const ClientAwaitingBatchesView = observer(() => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 

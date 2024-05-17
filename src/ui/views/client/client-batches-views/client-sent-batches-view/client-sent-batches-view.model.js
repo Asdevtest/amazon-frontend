@@ -14,8 +14,6 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
-import { clientBatchesViewColumns } from '@components/table/table-columns/client/client-batches-columns'
-
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
@@ -24,6 +22,8 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { tableProductViewMode } from '@typings/enums/table-product-view'
+
+import { clientBatchesViewColumns } from '../client-awaiting-batches-view/client-batches-columns'
 
 import { filtersFields } from './client-sent-batches-view.constants'
 
