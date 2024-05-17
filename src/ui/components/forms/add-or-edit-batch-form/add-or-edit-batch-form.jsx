@@ -13,6 +13,8 @@ import {
 } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { UserModel } from '@models/user-model'
+
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -41,12 +43,12 @@ import { useStyles } from './add-or-edit-batch-form.style'
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
 export const AddOrEditBatchForm = observer(
-  ({ userRole, boxesData, onClose, onSubmit, batchToEdit, sourceBox, showProgress, progressValue, history }) => {
+  ({ boxesData, onClose, onSubmit, batchToEdit, sourceBox, showProgress, progressValue, history }) => {
     const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
 
     const { classes: styles, cx } = useStyles()
 
-    const isClient = checkIsClient(UserRoleCodeMap[userRole])
+    const isClient = checkIsClient(UserRoleCodeMap[UserModel.platformSettings?.role])
 
     const [nameSearchValueBoxesToAddData, setNameSearchValueBoxesToAddData] = useState('')
 

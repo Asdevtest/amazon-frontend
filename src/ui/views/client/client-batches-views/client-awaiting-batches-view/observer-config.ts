@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const observerConfig = {
   curBatch: observable,
@@ -15,9 +15,6 @@ export const observerConfig = {
   progressValue: observable,
   showProgress: observable,
   productViewMode: observable,
-
-  userInfo: computed,
-  platformSettings: computed,
 
   onClickSaveHsCode: action.bound,
   onClickHsCode: action.bound,

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -25,10 +25,6 @@ import { ClientSentBatchesViewModel } from './client-sent-batches-view.model'
 export const ClientSentBatchesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new ClientSentBatchesViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   return (
     <>
@@ -71,7 +67,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
               .filter(storekeeper => storekeeper.boxesCount !== 0)
               .sort((a, b) => a.name?.localeCompare(b.name))
               .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
-            { label: () => t(TranslationKey['All warehouses']), value: undefined },
+            { label: () => t(TranslationKey['All warehouses']), value: '' },
           ]}
           changeConditionHandler={viewModel.onClickStorekeeperBtn}
         />
@@ -84,10 +80,12 @@ export const ClientSentBatchesView = observer(({ history }) => {
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
+          pinnedColumns={viewModel.pinnedColumns}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -103,6 +101,11 @@ export const ClientSentBatchesView = observer(({ history }) => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
           columns={viewModel.columnsModel}
@@ -112,7 +115,8 @@ export const ClientSentBatchesView = observer(({ history }) => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
