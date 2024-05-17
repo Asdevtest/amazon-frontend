@@ -157,7 +157,7 @@ export class ProfileViewModel {
           await this.changeUserNameOrEmail(data)
         }
 
-        if (oldPassword || newPassword) {
+        if (oldPassword && newPassword) {
           await this.changeUserPassword(data)
         }
 
@@ -166,8 +166,6 @@ export class ProfileViewModel {
 
           toast.success(t(TranslationKey['Data was successfully saved']))
         }
-
-        this.loadData()
       } else {
         return
       }

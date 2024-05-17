@@ -49,7 +49,6 @@ export const observerConfig = {
   readyImages: observable,
   progressValue: observable,
   showProgress: observable,
-  meta: observable,
 
   isSomeFilterOn: override,
   getCurrentData: override,

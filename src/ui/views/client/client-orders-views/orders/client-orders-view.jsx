@@ -190,12 +190,12 @@ export const ClientOrdersView = observer(history => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           isWarning={viewModel.confirmModalSettings?.isWarning}
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />
       ) : null}
 
