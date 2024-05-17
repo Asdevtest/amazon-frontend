@@ -19,6 +19,7 @@ interface CustomSwitcherProps {
   fullWidth?: boolean
   switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header'
   className?: string
+  circle?: boolean
   customCondition?: (value: any) => boolean
 }
 
@@ -30,6 +31,7 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
     switcherSettings,
     fullWidth,
     className,
+    circle,
     changeConditionHandler,
     customCondition,
   } = props
@@ -70,6 +72,7 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
               [styles.activeOption]: isEqual(condition, option.value) || customCondition?.(option.value),
               [styles.headerActiveOptionStyles]:
                 switchMode === 'header' && (isEqual(condition, option.value) || customCondition?.(option.value)),
+              [styles.circleOptionStyles]: circle,
             })}
             onClick={() => {
               if (!isEqual(condition, option.value) || !customCondition?.(option.value)) {
