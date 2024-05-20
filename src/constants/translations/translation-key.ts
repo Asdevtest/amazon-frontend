@@ -2266,4 +2266,5 @@ export enum TranslationKey {
   'The user with this email is not a candidate.' = 'The user with this email is not a candidate.',
   'Launch type' = 'Launch type',
   'New product price' = 'New product price',
+  'is not a valid email address' = 'is not a valid email address',
 }

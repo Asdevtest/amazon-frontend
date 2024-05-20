@@ -1,9 +1,11 @@
 import enLocale from 'date-fns/locale/en-US'
+import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 
 import TextField from '@mui/material/TextField'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { DatePicker as NewDatePicker, TimePicker as NewTimePicker } from '@mui/x-date-pickers'
+import { CalendarIcon, DatePicker as NewDatePicker, TimePicker as NewTimePicker } from '@mui/x-date-pickers'
+import { DateRangePicker, SingleInputDateRangeField } from '@mui/x-date-pickers-pro'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
@@ -81,6 +83,78 @@ export const TimePicker = ({ value, onChange, ...restProps }) => {
           renderInput={params => <TextField {...params} />}
           onChange={onChange}
           {...restProps}
+        />
+      </LocalizationProvider>
+    </ThemeProvider>
+  )
+}
+
+const shortcutsItems = [
+  {
+    label: 'This Week',
+    getValue: () => {
+      const today = dayjs()
+      return [today.startOf('week'), today.endOf('week')]
+    },
+  },
+  {
+    label: 'Last Week',
+    getValue: () => {
+      const today = dayjs()
+      const prevWeek = today.subtract(7, 'day')
+      return [prevWeek.startOf('week'), prevWeek.endOf('week')]
+    },
+  },
+  {
+    label: 'Last 7 Days',
+    getValue: () => {
+      const today = dayjs()
+      return [today.subtract(7, 'day'), today]
+    },
+  },
+  {
+    label: 'Current Month',
+    getValue: () => {
+      const today = dayjs()
+      return [today.startOf('month'), today.endOf('month')]
+    },
+  },
+  {
+    label: 'Next Month',
+    getValue: () => {
+      const today = dayjs()
+      const startOfNextMonth = today.endOf('month').add(1, 'day')
+      return [startOfNextMonth, startOfNextMonth.endOf('month')]
+    },
+  },
+  { label: 'Reset', getValue: () => [null, null] },
+]
+
+export const NewDateRangePicker = () => {
+  const [local, setLocal] = useState(enLocale)
+  const [value, setValue] = useState([null, null])
+
+  useEffect(() => {
+    setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
+  }, [SettingsModel.languageTag])
+
+  return (
+    <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
+      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
+        <DateRangePicker
+          calendars={1}
+          name="allowedRange"
+          value={value}
+          slots={{ field: SingleInputDateRangeField }}
+          slotProps={{
+            shortcuts: {
+              items: shortcutsItems,
+            },
+            textField: { InputProps: { startAdornment: <CalendarIcon />, sx: { width: 300, height: 40 } } },
+          }}
+          onChange={newValue => {
+            setValue(newValue)
+          }}
         />
       </LocalizationProvider>
     </ThemeProvider>
