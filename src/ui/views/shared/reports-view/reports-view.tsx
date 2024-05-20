@@ -25,11 +25,9 @@ interface ReportsViewProps {
 }
 
 export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new ReportsViewModel(productId))
-
-  const [toggleDateRangePicker, setToggleDateRangePicker] = useState(false)
 
   return (
     <div className={styles.wrapper}>
