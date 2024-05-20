@@ -32,9 +32,6 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
   get userInfo() {
     return UserModel.userInfo
   }
-  get products() {
-    return this.currentData
-  }
 
   constructor() {
     const columns = researcherProductsViewColumns()

@@ -10,7 +10,6 @@ export const researcherProductsViewConfig = {
   chekedCode: observable,
 
   userInfo: computed,
-  products: computed,
 
   createProduct: action.bound,
   onClickCheckAndAddProductBtn: action.bound,
