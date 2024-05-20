@@ -36,15 +36,7 @@ export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
       <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} />
 
       <div className={styles.buttonsContainer}>
-        <div className={styles.dateRangePickerContainer}>
-          <Button styleType={ButtonStyle.TRANSPARENT} onClick={() => setToggleDateRangePicker(prev => !prev)}>
-            {t(TranslationKey.Date)}
-          </Button>
-
-          <div className={cx(styles.dateRangePicker, { [styles.dateRangePickerShow]: toggleDateRangePicker })}>
-            <CustomDateRangePicker />
-          </div>
-        </div>
+        <CustomDateRangePicker />
 
         <Button styleType={ButtonStyle.SUCCESS}>
           <CustomPlusIcon />

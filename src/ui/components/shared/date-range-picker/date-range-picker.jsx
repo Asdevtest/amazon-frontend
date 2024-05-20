@@ -1,9 +1,20 @@
+import enLocale from 'date-fns/locale/en-US'
+import ruLocale from 'date-fns/locale/ru'
 import dayjs from 'dayjs'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { StaticDateRangePicker } from '@mui/x-date-pickers-pro/StaticDateRangePicker'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { CalendarIcon } from '@mui/x-date-pickers'
+import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker'
+import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+
+import { SettingsModel } from '@models/settings-model'
+
+import { UiTheme } from '@typings/enums/ui-theme'
+
+import { getLocalByLanguageTag } from '../date-picker/helpers/get-local-by-language-tag'
 
 const shortcutsItems = [
   {
@@ -46,22 +57,58 @@ const shortcutsItems = [
   { label: 'Reset', getValue: () => [null, null] },
 ]
 
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+})
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+})
+
 export const CustomDateRangePicker = () => {
   const [value, setValue] = useState([null, null])
 
-  console.log('value', value)
+  useEffect(() => {
+    if (!value[1]) {
+      setValue(prev => [prev[0], prev[0]])
+    }
+  }, [value])
+
+  const [local, setLocal] = useState(enLocale)
+
+  useEffect(() => {
+    setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
+  }, [SettingsModel.languageTag])
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <StaticDateRangePicker
-        value={value}
-        slotProps={{
-          shortcuts: {
-            items: shortcutsItems,
-          },
-        }}
-        onChange={newValue => setValue(newValue)}
-      />
-    </LocalizationProvider>
+    <ThemeProvider theme={SettingsModel.uiTheme === UiTheme.light ? lightTheme : darkTheme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={ruLocale}>
+        <DateRangePicker
+          name="allowedRange"
+          calendars={1}
+          value={value}
+          slots={{
+            field: SingleInputDateRangeField,
+            openPickerIcon: CalendarIcon,
+          }}
+          slotProps={{
+            shortcuts: {
+              items: shortcutsItems,
+            },
+            inputAdornment: {
+              position: 'start',
+            },
+            openPickerButton: {
+              color: 'primary',
+            },
+            field: { sx: { width: 250, height: 40 } },
+          }}
+          onChange={newValue => setValue(newValue)}
+        />
+      </LocalizationProvider>
+    </ThemeProvider>
   )
 }
