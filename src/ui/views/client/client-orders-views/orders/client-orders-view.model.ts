@@ -143,8 +143,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
 
     this.getDataGridState()
 
-    this.getDestinations()
-    this.getStorekeepers()
     this.getCurrentData()
   }
 

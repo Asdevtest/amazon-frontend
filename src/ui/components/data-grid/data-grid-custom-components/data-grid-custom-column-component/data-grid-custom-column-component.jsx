@@ -400,6 +400,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       <CustomMenuContainer {...props}>
         <DestinationMenuItem
           data={props}
+          table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}
           onClickFilterBtn={onClickFilterBtn}

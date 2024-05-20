@@ -34,6 +34,8 @@ export class BuyerSearchSupplierByClientModel {
     this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
+
+    this.getProductsVacant()
   }
 
   onSelectionModel(model) {

@@ -306,6 +306,7 @@ export const clientBoxesViewColumns = (
       valueGetter: ({ row }) => row?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
       width: 130,
       columnKey: columnnsKeys.shared.RED_FLAGS,
+      table: DataGridFilterTables.PRODUCTS,
     },
 
     {

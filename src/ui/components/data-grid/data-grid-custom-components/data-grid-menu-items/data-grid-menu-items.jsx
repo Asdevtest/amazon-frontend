@@ -51,6 +51,7 @@ export const IsFormedMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       columnKey,
       onChangeFullFieldMenuItem,
@@ -61,7 +62,7 @@ export const IsFormedMenuItem = memo(
 
       const handleCategory = e => {
         if (e.target.value === 'second') {
-          onClickFilterBtn(field)
+          onClickFilterBtn(field, table)
         }
         setCurrentOption(e.target.value)
       }
@@ -142,6 +143,7 @@ export const IsFormedMenuItem = memo(
                 asBlock
                 data={data}
                 field={field}
+                table={table}
                 filterRequestStatus={filterRequestStatus}
                 columnKey={columnKey}
                 onClickFilterBtn={onClickFilterBtn}
@@ -1801,6 +1803,7 @@ export const DestinationMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -1808,7 +1811,7 @@ export const DestinationMenuItem = memo(
     } = props
 
     const [currentOption, setCurrentOption] = useState(
-      data.logicsTariffId.currentFilterData.length ? 'logicsTariffId' : 'destinationId',
+      data.logicsTariff.currentFilterData.length ? 'logicsTariff' : 'destination',
     )
 
     const filterData = data[currentOption]?.filterData
@@ -1819,7 +1822,7 @@ export const DestinationMenuItem = memo(
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     useEffect(() => {
-      onClickFilterBtn(currentOption)
+      onClickFilterBtn(currentOption, table)
     }, [currentOption])
 
     useEffect(() => {
@@ -1877,14 +1880,14 @@ export const DestinationMenuItem = memo(
               <FormControlLabel
                 title={t(TranslationKey.Destination)}
                 className={styles.radioOption}
-                value="destinationId"
+                value="destination"
                 control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Destination)}
               />
               <FormControlLabel
                 title={t(TranslationKey.Tariff)}
                 className={styles.radioOption}
-                value="logicsTariffId"
+                value="logicsTariff"
                 control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Tariff)}
               />
