@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: 400,
-    padding: '0 5px',
+    padding: '0 10px',
   },
 
   paymentMethodTitleWrapper: {
