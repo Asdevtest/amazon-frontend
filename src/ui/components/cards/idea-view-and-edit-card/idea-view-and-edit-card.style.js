@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: 1640,
+    width: '100%',
     minHeight: 603,
     padding: 50,
     background: theme.palette.background.general,
@@ -17,11 +17,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cardWrapper: {
-    width: '100%',
+    width: 'max-content',
     height: '370px',
     display: 'flex',
     overflow: 'hidden',
     justifyContent: 'space-between',
+    columnGap: '80px',
   },
 
   fullCardWpapper: {
