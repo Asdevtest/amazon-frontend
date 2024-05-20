@@ -1,35 +1,26 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  root: {
-    padding: 10,
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-  formFields: {
+  form: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-  },
-  field: {
-    flexBasis: '100%',
-    position: 'relative',
-  },
-  checkbox: {
-    marginLeft: '-12px',
-  },
-  formFooter: {
-    width: '290px',
-    cursor: 'pointer',
-    alignItems: 'center',
-    display: 'flex',
-    marginBottom: theme.spacing(2.5),
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    gap: 20,
   },
 
-  visibilityIcon: {
-    cursor: 'pointer',
+  input: {
+    height: '36px',
+  },
+
+  field: {
+    width: '100%',
+    margin: 0,
+  },
+
+  label: {
+    marginBottom: 5,
+    fontSize: '14px',
+    lineHeight: '19px',
     color: theme.palette.text.second,
   },
 
@@ -38,18 +29,16 @@ export const useStyles = makeStyles()(theme => ({
     left: 0,
   },
 
-  validationMessage: {
+  fieldContainer: {
     width: '100%',
     display: 'flex',
-    flexWrap: 'nowrap',
-    marginTop: '-15px',
+    flexDirection: 'column',
+    gap: 5,
+  },
 
-    justifyContent: 'start',
-    gap: '5px',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      flexWrap: 'wrap',
-    },
+  validationMessages: {
+    display: 'flex',
+    gap: 5,
   },
 
   validationText: {
@@ -59,58 +48,22 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
-  validationHiddenMessage: {
-    display: 'flex',
-    justifyContent: 'end',
-  },
-
-  validationHiddenText: {
-    visibility: 'hidden',
-    fontSize: '12px',
-    lineHeight: '16px',
-    fontWeight: '400',
-    color: theme.palette.text.second,
-  },
-
-  input: {
-    height: '34px',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-
-  labelWrapper: {
-    display: 'flex',
-    gap: 10,
-  },
-
-  label: {
-    color: theme.palette.text.general,
-  },
-
   link: {
     color: theme.palette.primary.main,
   },
 
   red: {
-    color: 'red !important',
+    color: theme.palette.text.red,
   },
 
-  visibility: {
-    visibility: 'visible',
+  footer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
   },
-  labelField: {
-    fontSize: '14px',
-    color: theme.palette.text.second,
-    lineHeight: '19px',
-  },
-  button: {
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-  inputAdornmentVisibility: {
-    position: 'absolute',
-    right: 0,
+
+  termsContainer: {
+    display: 'flex',
+    gap: 5,
   },
 }))
