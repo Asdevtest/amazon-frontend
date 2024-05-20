@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cardWrapper: {
-    width: 'max-content',
+    width: '100%',
     height: '370px',
     display: 'flex',
     overflow: 'hidden',
@@ -31,7 +31,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cardBlockWrapper: {
-    width: '887px',
+    width: '100%',
 
     display: 'flex',
     flexDirection: 'column',
@@ -42,25 +42,25 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-    width: '691px',
+    width: '100%',
   },
 
   linksAndDimensionsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    width: '733px',
+    width: '100%',
   },
 
   commentsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: '30px',
-    width: '543px',
+    width: '100%',
   },
 
   mediaBlock: {
-    width: '887px',
+    width: '100%',
 
     display: 'flex',
     flexDirection: 'column',
