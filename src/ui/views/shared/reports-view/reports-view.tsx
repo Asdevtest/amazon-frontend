@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { NewDateRangePicker } from '@components/shared/date-picker'
+import { CustomDateRangePicker } from '@components/shared/date-range-picker'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -25,17 +25,25 @@ interface ReportsViewProps {
 }
 
 export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [viewModel] = useState(() => new ReportsViewModel(productId))
+
+  const [toggleDateRangePicker, setToggleDateRangePicker] = useState(false)
 
   return (
     <div className={styles.wrapper}>
       <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} />
 
       <div className={styles.buttonsContainer}>
-        <div>
-          <NewDateRangePicker />
+        <div className={styles.dateRangePickerContainer}>
+          <Button styleType={ButtonStyle.TRANSPARENT} onClick={() => setToggleDateRangePicker(prev => !prev)}>
+            {t(TranslationKey.Date)}
+          </Button>
+
+          <div className={cx(styles.dateRangePicker, { [styles.dateRangePickerShow]: toggleDateRangePicker })}>
+            <CustomDateRangePicker />
+          </div>
         </div>
 
         <Button styleType={ButtonStyle.SUCCESS}>
