@@ -25,11 +25,11 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-interface ISupervisorProductsViewColumnsProps {
+interface SupervisorProductsViewColumnsProps {
   onClickTableRow: (id: string) => void
 }
 
-export const supervisorProductsViewColumns = ({ onClickTableRow }: ISupervisorProductsViewColumnsProps) => {
+export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorProductsViewColumnsProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'link',
