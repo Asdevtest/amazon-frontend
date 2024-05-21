@@ -3,7 +3,6 @@ import { UserRole } from '@constants/keys/user-roles'
 import {
   Addresses,
   ClockIcon,
-  DashboardIcon,
   ExchangeIcon,
   Feedback,
   FreeOrdersIcon,
@@ -27,6 +26,7 @@ import {
   TradingShops,
   UsersPermissionsIcon,
 } from '@components/shared/svg-icons'
+import { DashboardIcon } from '@components/shared/svg-icons/dashboard-icon'
 
 import { isHaveMasterUser } from '@utils/checks'
 import { t } from '@utils/translations'

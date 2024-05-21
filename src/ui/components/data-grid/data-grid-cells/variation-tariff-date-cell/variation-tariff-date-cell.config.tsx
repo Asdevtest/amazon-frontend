@@ -1,6 +1,7 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ClsIcon, EtaIcon, EtdIcon } from '@components/shared/svg-icons'
+import { ClsIcon, EtaIcon } from '@components/shared/svg-icons'
+import { EtdIcon } from '@components/shared/svg-icons/etd-icon'
 
 import { t } from '@utils/translations'
 
