@@ -61,7 +61,7 @@ export const ResearcherProductsView = observer(() => {
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+          onRowDoubleClick={({ row }) => viewModel.onClickTableRow(row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onPinnedColumnsChange={viewModel.handlePinColumn}
         />
