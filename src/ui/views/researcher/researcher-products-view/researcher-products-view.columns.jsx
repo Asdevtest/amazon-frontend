@@ -5,7 +5,7 @@ import {
   colorByProductStatus,
   translateStatusForResearcher,
 } from '@constants/product/product-status'
-import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -54,7 +54,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
     renderCell: params => (
-      <MultilineStatusCell leftAlign status={mapProductStrategyStatusEnum[params.row.strategyStatus]} />
+      <MultilineStatusCell leftAlign status={productStrategyStatusesEnum[params.row.strategyStatus]} />
     ),
     width: 180,
   },

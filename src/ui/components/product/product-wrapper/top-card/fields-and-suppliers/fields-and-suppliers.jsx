@@ -6,8 +6,8 @@ import { UserRole } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import {
   ProductStrategyStatus,
-  mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
+  productStrategyStatusesEnum,
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -293,7 +293,7 @@ export const FieldsAndSuppliers = memo(props => {
                     className={styles.nativeSelect}
                     onChange={onChangeField?.('strategyStatus')}
                   >
-                    {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
+                    {Object.keys(productStrategyStatusesEnum).map((statusCode, statusIndex) => (
                       <MenuItem
                         key={statusIndex}
                         value={statusCode}
@@ -302,7 +302,7 @@ export const FieldsAndSuppliers = memo(props => {
                           checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
                         }
                       >
-                        {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
+                        {productStrategyStatusesEnum[statusCode]?.replace(/_/g, ' ')}
                       </MenuItem>
                     ))}
                   </Select>

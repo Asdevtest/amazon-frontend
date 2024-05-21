@@ -2,7 +2,7 @@ import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
-import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
@@ -117,25 +117,6 @@ export const supervisorFinancesDataConverter = data =>
     sum: item.sum,
   }))
 
-export const supervisorProductsDataConverter = data =>
-  data?.map(item => ({
-    originalData: item,
-
-    status: item.status,
-    statusForAttention: ProductStatusByCode[item.status],
-    researcherName: item.createdBy?.name,
-    buyerName: item.buyer?.name,
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    amazon: item.amazon,
-    bsr: item.bsr,
-    id: item._id,
-    fbafee: item.fbafee,
-    asin: item.asin,
-    ordered: item.ordered,
-  }))
-
 export const buyerFinancesDataConverter = data =>
   data.map(item => ({
     originalData: item,
@@ -153,7 +134,7 @@ export const buyerProductsDataConverter = data =>
 
     status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
     statusForAttention: ProductStatusByCode[item.status],
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
 
@@ -229,7 +210,7 @@ export const clientProductsDataConverter = data =>
     buyerName: item.buyer?.name,
     supervisorName: item.checkedBy?.name,
 
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -251,7 +232,7 @@ export const clientInventoryDataConverter = data =>
 
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
     status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -659,7 +640,7 @@ export const adminProductsDataConverter = data =>
     originalData: item,
 
     status: ProductStatusByCode[item.status],
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,

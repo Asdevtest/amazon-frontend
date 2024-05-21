@@ -5,8 +5,8 @@ import { Alert, Box, MenuItem, Select, TextareaAutosize, Typography } from '@mui
 
 import {
   ProductStrategyStatus,
-  mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
+  productStrategyStatusesEnum,
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -101,11 +101,11 @@ export const ResearcherAddProductFormRaw = observer(
                     {t(TranslationKey['not selected'])}
                   </MenuItem>
 
-                  {Object.keys(mapProductStrategyStatusEnum)
+                  {Object.keys(productStrategyStatusesEnum)
                     .filter(el => user.allowedStrategies.includes(Number(el)))
                     .map((statusCode, statusIndex) => (
                       <MenuItem key={statusIndex} value={statusCode} className={styles.selectOption}>
-                        {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
+                        {productStrategyStatusesEnum[statusCode]?.replace(/_/g, ' ')}
                       </MenuItem>
                     ))}
                 </Select>

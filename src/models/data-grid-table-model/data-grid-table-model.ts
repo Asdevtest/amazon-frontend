@@ -2,17 +2,13 @@
 import { makeObservable } from 'mobx'
 import { ChangeEvent } from 'react'
 
-import {
-  GridColDef,
-  GridColumnVisibilityModel,
-  GridFilterModel,
-  GridPaginationModel,
-  GridSortModel,
-} from '@mui/x-data-grid'
+import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
 import { GridPinnedColumns } from '@mui/x-data-grid-premium'
 
 import { DefaultModel } from '@models/default-model'
 import { TableSettingsModel } from '@models/table-settings'
+
+import { IGridColumn } from '@typings/shared/grid-column'
 
 import { DataGridTableModelParams } from './data-grid-table-model.type'
 import { filterModelInitialValue, paginationModelInitialValue } from './model-config'
@@ -29,7 +25,7 @@ export class DataGridTableModel extends DefaultModel {
   selectedRows: string[] = []
   tableKey: string | undefined = undefined
 
-  columnsModel: GridColDef[] = []
+  columnsModel: IGridColumn[] = []
 
   pinnedColumns: GridPinnedColumns = {
     left: [],

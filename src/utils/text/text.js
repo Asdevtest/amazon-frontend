@@ -5,7 +5,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { getTranslationNotificationType } from '@constants/notifications/notification-type'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
-import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
@@ -383,7 +383,7 @@ export const getTableByColumn = (column, hint) => {
 export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
   switch (columnKey) {
     case columnnsKeys.client.INVENTORY_STRATEGY_STATUS:
-      return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
+      return humanFriendlyStategyStatus(productStrategyStatusesEnum[status])
 
     case columnnsKeys.client.INVENTORY_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
@@ -403,7 +403,7 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
     case columnnsKeys.client.IDEAS_STATUS:
       return ideaStatusTranslate(ideaStatusByCode[status])
     case columnnsKeys.admin.STRATEGY_STATUS:
-      return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
+      return humanFriendlyStategyStatus(productStrategyStatusesEnum[status])
 
     case columnnsKeys.shared.TASK_COMPLEXITY:
       return difficultyLevelTranslate(difficultyLevelByCode[status])
