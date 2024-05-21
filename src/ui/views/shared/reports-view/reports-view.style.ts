@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -12,6 +12,23 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 20,
+  },
+
+  dateRangePickerContainer: {
+    position: 'relative',
+  },
+
+  dateRangePicker: {
+    display: 'none',
+    position: 'absolute',
+    top: 40,
+    left: 0,
+    zIndex: 100,
+    boxShadow: theme.palette.boxShadow.paper,
+  },
+
+  dateRangePickerShow: {
+    display: 'block',
   },
 
   tableContainer: {

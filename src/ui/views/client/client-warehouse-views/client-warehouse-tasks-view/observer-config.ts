@@ -15,6 +15,7 @@ export const observerConfig = {
   showEditPriorityData: observable,
 
   editPriorityData: observable,
+  toCancelData: observable,
 
   userInfo: computed,
   platformSettings: computed,
@@ -33,4 +34,5 @@ export const observerConfig = {
   cancelEditBoxes: action.bound,
   cancelMergeBoxes: action.bound,
   cancelSplitBoxes: action.bound,
+  onClickCancelAfterConfirm: action.bound,
 }

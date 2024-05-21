@@ -236,7 +236,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           boxesDeliveryCosts={viewModel.boxesDeliveryCosts}
           selectedBoxes={viewModel.selectedRows}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          currentData={viewModel.currentData.filter(box => viewModel.selectedRows.includes(box._id))}
+          boxesMy={viewModel.currentData.filter(box => viewModel.selectedRows.includes(box._id))}
           setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickSendBoxesToBatch={viewModel.onClickSendBoxesToBatch}
           onClickRemoveBoxFromBatch={viewModel.onClickRemoveBoxFromBatch}

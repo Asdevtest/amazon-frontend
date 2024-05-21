@@ -27,7 +27,6 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
   newProductId = undefined
   formFields = { ...formFieldsDefault }
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
-  products = []
   chekedCode = undefined
 
   get userInfo() {
@@ -59,6 +58,7 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
       runInAction(() => {
         this.error = 'Product code field is required for this action'
       })
+
       return
     }
 
@@ -85,8 +85,10 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
       try {
         if (!(this.formFields.amazonLink || this.formFields.productCode)) {
           this.error = 'All fields are required for this action'
+
           return
         }
+
         const product = {
           asin: this.formFields.productCode,
           lamazon: this.formFields.amazonLink,
@@ -104,12 +106,10 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
 
         await this.createProduct(product)
 
-        const foundedProd = this.products.find(prod => prod._id === this.newProductId)
-
         this.history.push(
           {
             pathname: '/researcher/products/product',
-            search: foundedProd._id,
+            search: this.newProductId,
           },
           { startParse: true },
         )
@@ -127,9 +127,9 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
         this.formFields = formFieldsDefault
         this.newProductId = response.guid
       })
-
-      this.getCurrentData()
     } catch (error) {
+      this.getCurrentData()
+
       toast.error(error.body.message)
 
       if (isValidationErrors(error)) {
