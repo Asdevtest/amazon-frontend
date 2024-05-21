@@ -70,7 +70,7 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
       this.history.push(`/supervisor/products`)
     }
 
-    this.onTriggerOpenModal('productCardModal')
+    this.onTriggerOpenModal('showProductModal')
   }
 
   onToggleModal(modal) {
