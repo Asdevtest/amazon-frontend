@@ -16,6 +16,7 @@ import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
 import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
 
+import { createUploadFile } from '@utils/create-upload-file'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -201,13 +202,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
       return
     }
 
-    const readyFilesArr = files.map(el => ({
-      data_url: URL.createObjectURL(el),
-      file: new File([el], el.name?.replace(/ /g, ''), {
-        type: el.type,
-        lastModified: el.lastModified,
-      }),
-    }))
+    const readyFilesArr = files.map(el => createUploadFile(el))
 
     const restNewSlots = readyFilesArr
       .slice(1)
@@ -231,13 +226,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
 
       evt.preventDefault()
 
-      const readyFilesArr = filesArr.map(el => ({
-        data_url: URL.createObjectURL(el),
-        file: new File([el], el.name?.replace(/ /g, ''), {
-          type: el.type,
-          lastModified: el.lastModified,
-        }),
-      }))
+      const readyFilesArr = filesArr.map(el => createUploadFile(el))
 
       const restNewSlots = readyFilesArr
         .slice(1)

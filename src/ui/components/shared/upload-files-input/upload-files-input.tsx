@@ -43,6 +43,7 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
     onUploadFile,
     onUploadFiles,
     onRemoveAllFiles,
+    onPasteFile,
   } = useUploadFilesInput(props)
 
   return (
@@ -60,6 +61,7 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
               withoutTitles={withoutTitles}
               onLoadFile={onLoadFile}
               onChangeLink={onChangeLink}
+              onPasteFile={onPasteFile}
             />
           ) : null}
 

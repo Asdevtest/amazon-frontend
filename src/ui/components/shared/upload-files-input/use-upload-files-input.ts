@@ -1,7 +1,10 @@
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, ClipboardEvent, useCallback, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
+import { createUploadFile } from '@utils/create-upload-file'
+
 import { isRequestMedia } from '@typings/guards'
+import { IUploadFile } from '@typings/shared/upload-file'
 
 import { regExpUriChecking } from './upload-files-input.constants'
 import { UploadFilesInputProps } from './upload-files-input.type'
@@ -44,6 +47,34 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
     }
   }, [linkInput, images, setImages])
 
+  const handlePasteFile = useCallback(
+    (event: ClipboardEvent<HTMLInputElement>) => {
+      const files: IUploadFile[] = []
+      const clipboardData = event.clipboardData
+
+      if (clipboardData) {
+        for (let i = 0; i < clipboardData.items.length; i++) {
+          const receivedFile = clipboardData.items[i].getAsFile()
+
+          if (receivedFile) {
+            files.push(createUploadFile(receivedFile))
+          }
+        }
+      }
+
+      const resultFiles = files.map(file => {
+        if (withComment) {
+          return { fileLink: file, commentByClient: '', commentByPerformer: '', _id: uuid() }
+        } else {
+          return file
+        }
+      })
+
+      setImages([...images, ...resultFiles])
+    },
+    [images, setImages],
+  )
+
   const handleUploadFiles = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
       if (!event?.target?.files || event?.target?.files?.length === 0) {
@@ -53,13 +84,7 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
       event.preventDefault()
 
       const filesArr: File[] = Array.from(event?.target?.files)
-      const readyFilesArr = filesArr.map((el: File) => ({
-        data_url: URL.createObjectURL(el),
-        file: new File([el], el?.name?.replace(/ /g, ''), {
-          type: el?.type,
-          lastModified: el?.lastModified,
-        }),
-      }))
+      const readyFilesArr = filesArr.map((el: File) => createUploadFile(el))
       const filesAlowLength = maxNumber - images?.length
       const resultUploadedFiles = readyFilesArr.slice(0, filesAlowLength)
       const resultFiles = withComment
@@ -81,20 +106,14 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
 
   const handleUploadFile = useCallback(
     (fileIndex: number) => async (event: ChangeEvent<HTMLInputElement>) => {
+      event.preventDefault()
+
       if (!event?.target?.files || event?.target?.files?.length === 0) {
         return
       }
 
-      event.preventDefault()
-
       const filesArr: File[] = Array.from(event?.target?.files)
-      const readyFilesArr = filesArr.map((el: File) => ({
-        data_url: URL.createObjectURL(el),
-        file: new File([el], el?.name?.replace(/ /g, ''), {
-          type: el?.type,
-          lastModified: el?.lastModified,
-        }),
-      }))
+      const readyFilesArr = filesArr.map((el: File) => createUploadFile(el))
       const resultFiles = images.map((file, index) => {
         if (isRequestMedia(file) && withComment) {
           return { ...file, fileLink: index === fileIndex ? readyFilesArr[0] : file.fileLink }
@@ -134,9 +153,7 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
     [images, setImages],
   )
 
-  const handleRemoveAllFiles = useCallback(() => {
-    setImages([])
-  }, [setImages])
+  const handleRemoveAllFiles = useCallback(() => setImages([]), [setImages])
 
   const disabledLoadButton = linkInput.trim().length === 0 || images?.length >= maxNumber
 
@@ -157,5 +174,6 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
     onUploadFile: handleUploadFile,
     onUploadFiles: handleUploadFiles,
     onRemoveAllFiles: handleRemoveAllFiles,
+    onPasteFile: handlePasteFile,
   }
 }

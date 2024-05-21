@@ -7,6 +7,7 @@ import { ClientModel } from '@models/client-model'
 
 import { IMediaRework } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
 
+import { createUploadFile } from '@utils/create-upload-file'
 import { reversedFormatDateWithoutTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
@@ -89,13 +90,7 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
     event.preventDefault()
 
     const filesArr: File[] = Array.from(event?.target?.files)
-    const readyFilesArr = filesArr.map((el: File) => ({
-      data_url: URL.createObjectURL(el),
-      file: new File([el], el?.name?.replace(/ /g, ''), {
-        type: el?.type,
-        lastModified: el?.lastModified,
-      }),
-    }))
+    const readyFilesArr = filesArr.map((el: File) => createUploadFile(el))
 
     if (!isClient) {
       const multipleFilesLoaded: IMediaRework[] =
