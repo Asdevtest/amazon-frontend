@@ -194,7 +194,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         status: curStatus,
         destinationId: this.curDestinationId,
         shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
-        isFormed: this.columnMenuSettings.isFormedData.isFormed,
+        // isFormed: this.columnMenuSettings.isFormedData.isFormed,
         hasBatch: false,
       }
     }
@@ -215,7 +215,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       return {
         // status: curStatus,
 
-        ...(isFormedFilter && { isFormed: isFormedFilter }),
+        isFormed: isFormedFilter,
       }
     }
 

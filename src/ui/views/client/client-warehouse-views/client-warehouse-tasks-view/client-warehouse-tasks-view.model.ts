@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -44,6 +45,8 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
     newPriority: 0,
   }
 
+  toCancelData: any = null
+
   get userInfo() {
     return UserModel.userInfo
   }
@@ -68,7 +71,8 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
       updateTaskComment: (taskId: string, priority: number, reason: string) =>
         this.updateTaskComment(taskId, priority, reason),
       onClickTaskInfo: (item: ITask) => this.setCurrentOpenedTask(item),
-      onClickCancelBtn: (taskId: string) => this.onClickCancelBtn(taskId),
+      onClickCancelBtn: (boxId: string, taskId: string, operationType: string) =>
+        this.onClickCancelBtn(boxId, taskId, operationType),
     }
 
     const columnsModel = clientTasksViewColumns(rowTaskHandlers) as GridColDef[]
@@ -172,7 +176,7 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async cancelTask(taskId: string, comment: string) {
+  async cancelTask(taskId: string, comment: { clientComment: string }) {
     try {
       await ClientModel.cancelTask(taskId, comment)
     } catch (error) {
@@ -193,18 +197,37 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickCancelBtn(taskId: string) {
+  async onClickCancelBtn(boxId: string, taskId: string, operationType: string) {
     try {
       const task = await StorekeeperModel.getTaskById(taskId)
 
-      // @ts-ignore
-      if (task.status !== mapTaskStatusEmumToKey[TaskStatus.NEW]) {
+      if (task.status !== mapTaskStatusEmumToKey[TaskStatus.NEW as keyof typeof mapTaskStatusEmumToKey]) {
         this.getCurrentData()
 
         toast.warning(t(TranslationKey['The warehouse has already taken the task to work']))
+      } else {
+        runInAction(() => {
+          this.toCancelData = { id: boxId, taskId, type: operationType }
+        })
+
+        this.onTriggerOpenModal('showConfirmWithCommentModal')
       }
     } catch (e) {
       console.error(e)
+    }
+  }
+
+  async onClickCancelAfterConfirm(comment: string) {
+    try {
+      await this.onClickCancelBtnByAction(this.toCancelData.type, this.toCancelData.id)
+
+      this.onTriggerOpenModal('showConfirmWithCommentModal')
+
+      await this.cancelTask(this.toCancelData.taskId, { clientComment: comment })
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
     }
   }
 
