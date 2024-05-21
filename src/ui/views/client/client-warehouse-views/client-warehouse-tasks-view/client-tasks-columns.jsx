@@ -28,6 +28,7 @@ export const clientTasksViewColumns = handlers => {
 
       renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row} />,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -82,6 +83,7 @@ export const clientTasksViewColumns = handlers => {
       width: 290,
       renderCell: params => <TaskDescriptionCell task={params.row} />,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -101,6 +103,7 @@ export const clientTasksViewColumns = handlers => {
         />
       ),
 
+      disableCustomSort: true,
       width: window.innerWidth < 1282 ? 100 : 160,
     },
 
@@ -113,6 +116,7 @@ export const clientTasksViewColumns = handlers => {
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
       width: 170,
+      disableCustomSort: true,
     },
 
     {
@@ -131,7 +135,7 @@ export const clientTasksViewColumns = handlers => {
         />
       ),
       type: 'number',
-
+      disableCustomSort: true,
       width: window.innerWidth < 1282 ? 73 : 160,
     },
 
@@ -170,7 +174,7 @@ export const clientTasksViewColumns = handlers => {
           )}
         />
       ),
-
+      disableCustomSort: true,
       width: window.innerWidth < 1282 ? 54 : 160,
     },
 

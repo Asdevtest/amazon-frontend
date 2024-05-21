@@ -28,6 +28,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       width: 190,
 
       columnKey: columnnsKeys.shared.STRING,
+      disableCustomSort: true,
     },
 
     {
@@ -64,7 +65,7 @@ export const clientAllIdeasColumns = rowHandlers => {
         )
       },
       width: 265,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -78,7 +79,7 @@ export const clientAllIdeasColumns = rowHandlers => {
         <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
       ),
       width: 96,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -89,7 +90,7 @@ export const clientAllIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 250,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -100,7 +101,7 @@ export const clientAllIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 250,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -111,7 +112,7 @@ export const clientAllIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -134,7 +135,7 @@ export const clientAllIdeasColumns = rowHandlers => {
         )
       },
       width: 265,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -157,7 +158,7 @@ export const clientAllIdeasColumns = rowHandlers => {
 
       renderCell: params => <AllIdeasActionsCell row={params.row} rowHandlers={rowHandlers} />,
       width: 150,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -168,6 +169,7 @@ export const clientAllIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell text={params.row?.order?.amount} />,
       width: 110,
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -259,7 +261,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       width: 130,
 
       filterable: false,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
     },
 

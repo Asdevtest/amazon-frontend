@@ -35,7 +35,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
         )
       },
       width: 265,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -47,7 +47,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -70,7 +70,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
         )
       },
       width: 265,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -82,7 +82,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
 
       renderCell: params => <RealizedIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
       width: 140,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -94,6 +94,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       renderCell: params => <MultilineTextCell text={params.row?.order?.amount} />,
       width: 110,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -104,6 +105,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       renderCell: params => <ShortDateCell value={params.row?.order?.createdAt} />,
       width: 110,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -183,7 +185,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 250,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -194,7 +196,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 250,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -223,7 +225,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       width: 130,
 
       filterable: false,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
     },
 
@@ -244,7 +246,7 @@ export const clientRealizedIdeasColumns = rowHandlers => {
         />
       ),
       width: 990,
-
+      disableCustomSort: true,
       filterable: false,
     },
   ]

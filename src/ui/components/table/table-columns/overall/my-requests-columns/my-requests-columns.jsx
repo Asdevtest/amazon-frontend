@@ -40,7 +40,6 @@ export const myRequestsViewColumns = rowHandlers => {
       ),
 
       filterable: false,
-
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_PRIORITY,
     },
 
@@ -79,9 +78,9 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell twoLines text={params.row?.product?.shop?.name} />,
       width: 90,
-
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
+      disableCustomSort: true,
     },
 
     {
@@ -107,6 +106,7 @@ export const myRequestsViewColumns = rowHandlers => {
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
+      disableCustomSort: true,
     },
 
     {
@@ -131,6 +131,7 @@ export const myRequestsViewColumns = rowHandlers => {
       filterable: false,
 
       columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
+      disableCustomSort: true,
     },
 
     {
@@ -162,6 +163,7 @@ export const myRequestsViewColumns = rowHandlers => {
       filterable: false,
 
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+      disableCustomSort: true,
     },
 
     {
@@ -175,6 +177,7 @@ export const myRequestsViewColumns = rowHandlers => {
       filterable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {
@@ -194,6 +197,7 @@ export const myRequestsViewColumns = rowHandlers => {
       filterable: false,
 
       columnKey: columnnsKeys.shared.OBJECT,
+      disableCustomSort: true,
     },
 
     {

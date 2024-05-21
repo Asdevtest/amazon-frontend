@@ -66,6 +66,7 @@ export const clientOrdersViewColumns = rowHandlers => {
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
+      disableCustomSort: true,
     },
 
     {
@@ -94,6 +95,7 @@ export const clientOrdersViewColumns = rowHandlers => {
 
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+      disableCustomSort: true,
     },
 
     {
@@ -108,7 +110,7 @@ export const clientOrdersViewColumns = rowHandlers => {
         />
       ),
       width: 160,
-
+      disableCustomSort: true,
       filterable: false,
       columnKey: columnnsKeys.client.ORDERS_STATUS,
     },
@@ -137,6 +139,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       },
       width: 220,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -154,6 +157,7 @@ export const clientOrdersViewColumns = rowHandlers => {
         checkIsHasHttp(row?.product?.barCode) ? row?.product?.barCode : getAmazonImageUrl(row?.product?.barCode, true),
 
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -165,6 +169,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       type: 'number',
 
       columnKey: columnnsKeys.shared.QUANTITY,
+      disableCustomSort: true,
     },
 
     {
@@ -175,7 +180,7 @@ export const clientOrdersViewColumns = rowHandlers => {
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
       width: 160,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
@@ -186,7 +191,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderCell: params => <MultilineTextCell leftAlign threeLines text={params.row.destination?.name} />,
       valueGetter: params => params.row.destination?.name,
       width: 140,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
@@ -197,7 +202,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderCell: params => <MultilineTextCell text={params.row.orderSupplier?.productionTerm} />,
       valueGetter: params => params.row.orderSupplier?.productionTerm,
       width: 120,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.QUANTITY,
       table: DataGridFilterTables.SUPPLIERS,
     },
@@ -243,7 +248,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       valueGetter: params => toFixedWithKg(params.row.product?.weight, 2),
       width: 110,
       type: 'number',
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -253,7 +258,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 200,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -263,7 +268,7 @@ export const clientOrdersViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
       width: 200,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
     {

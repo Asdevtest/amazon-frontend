@@ -32,7 +32,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
 
   hsCodeData: IHSCode | null = null
 
-  currentStorekeeperId = undefined
+  currentStorekeeperId: string | undefined = undefined
   storekeepersData: IStorekeeper[] = []
 
   uploadedFiles = []
@@ -162,27 +162,13 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  // async getCurrentData() {
-  //   try {
-  //     const result = await BatchesModel.getBatchesWithFiltersPag({
-  //       limit: this.paginationModel.pageSize,
-  //       offset: this.paginationModel.page * this.paginationModel.pageSize,
-  //       sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-  //       sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-  //       filters: this.getFilter(),
+  onClickStorekeeperBtn(currentStorekeeperId: string) {
+    this.onSelectionModel([])
 
-  //       status: BatchStatus.IS_BEING_COLLECTED,
-  //       storekeeperId: this.currentStorekeeperId,
-  //     })
+    this.currentStorekeeperId = currentStorekeeperId
 
-  //     runInAction(() => {
-  //       this.rowCount = result.count
-  //       this.currentData = warehouseBatchesDataConverter(result.rows, this.platformSettings?.volumeWeightCoefficient)
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+    this.getCurrentData()
+  }
 
   async setCurrentOpenedBatch(id: string, notTriggerModal: boolean) {
     try {

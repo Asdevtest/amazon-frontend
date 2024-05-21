@@ -39,6 +39,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
+      disableCustomSort: true,
     },
 
     {
@@ -51,6 +52,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
 
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
+      disableCustomSort: true,
     },
 
     {
@@ -62,6 +64,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       width: 96,
 
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -73,6 +76,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
+      disableCustomSort: true,
     },
 
     {
@@ -84,6 +88,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
+      disableCustomSort: true,
     },
 
     {
@@ -98,7 +103,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
         />
       ),
       width: 150,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -147,7 +152,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
         />
       ),
       width: 990,
-
+      disableCustomSort: true,
       filterable: false,
     },
   ]

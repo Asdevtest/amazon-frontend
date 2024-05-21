@@ -40,7 +40,7 @@ export const clientBoxesViewColumns = (
 
       renderCell: params => <MultilineTextCell text={params.value?.name} />,
       width: 100,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
@@ -52,7 +52,7 @@ export const clientBoxesViewColumns = (
       renderCell: params => <MultilineTextCell twoLines text={params.value} />,
 
       width: 100,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -96,6 +96,7 @@ export const clientBoxesViewColumns = (
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
       table: DataGridFilterTables.ORDERS,
+      disableCustomSort: true,
     },
 
     {
@@ -162,6 +163,7 @@ export const clientBoxesViewColumns = (
       filterable: false,
       valueFormatter: params => (params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)),
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED,
+      disableCustomSort: true,
     },
 
     {
@@ -174,6 +176,7 @@ export const clientBoxesViewColumns = (
       width: 95,
 
       columnKey: columnnsKeys.shared.QUANTITY,
+      disableCustomSort: true,
     },
 
     {
@@ -200,7 +203,7 @@ export const clientBoxesViewColumns = (
       },
       width: 215,
       filterable: false,
-
+      disableCustomSort: true,
       align: 'center',
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
     },
@@ -213,6 +216,7 @@ export const clientBoxesViewColumns = (
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       type: 'number',
       width: 110,
+      disableCustomSort: true,
     },
 
     {
@@ -262,6 +266,7 @@ export const clientBoxesViewColumns = (
         }`,
       minWidth: 150,
       headerAlign: 'center',
+      disableCustomSort: true,
     },
 
     {
@@ -277,6 +282,7 @@ export const clientBoxesViewColumns = (
         <Dimensions isCell isTotalWeight data={params.row} transmittedSizeSetting={getUnitsOption()} />
       ),
       width: 210,
+      disableCustomSort: true,
     },
 
     {

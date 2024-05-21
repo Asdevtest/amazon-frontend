@@ -49,6 +49,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
+      disableCustomSort: true,
     },
 
     {
@@ -79,7 +80,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         />
       ),
       width: 150,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -93,6 +94,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
 
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
+      disableCustomSort: true,
     },
 
     {
@@ -104,7 +106,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
       ),
       width: 96,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -120,7 +122,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         />
       ),
       width: 176,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -147,7 +149,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         )
       },
       width: 100,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -163,8 +165,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
         return <MultilineTextCell text={toFixed(priceWithDelivery, 2)} />
       },
       width: 120,
-      type: 'number',
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -178,6 +179,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       type: 'number',
       columnKey: columnnsKeys.shared.QUANTITY,
       table: DataGridFilterTables.SUPPLIERS,
+      disableCustomSort: true,
     },
 
     {
@@ -190,6 +192,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       type: 'number',
       columnKey: columnnsKeys.shared.QUANTITY,
       table: DataGridFilterTables.SUPPLIERS,
+      disableCustomSort: true,
     },
 
     {
@@ -200,7 +203,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderCell: params => <FilesCell files={params.row?.suppliers[0]?.images} />,
       width: 80,
       align: 'center',
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -211,7 +214,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 250,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -222,7 +225,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 250,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -241,7 +244,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       width: 130,
 
       filterable: false,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
     },
 
