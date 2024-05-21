@@ -10,7 +10,6 @@ import { UserModel } from '@models/user-model'
 import { supervisorProductsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
-import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
@@ -22,14 +21,12 @@ export class SupervisorProductsViewModel {
   requestStatus = undefined
 
   nameSearchValue = ''
-  baseProducts = []
   productsMy = []
   switcherFilterStatuses = []
 
   productCardModal = false
 
   sortModel = []
-  startFilterModel = undefined
   filterModel = { items: [] }
   paginationModel = { page: 0, pageSize: 15 }
   rowCount = 0
@@ -78,9 +75,7 @@ export class SupervisorProductsViewModel {
   constructor({ history }) {
     this.history = history
 
-    if (history.location?.state?.dataGridFilter) {
-      this.startFilterModel = history.location.state.dataGridFilter
-    }
+    this.loadData()
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -119,12 +114,7 @@ export class SupervisorProductsViewModel {
 
     if (state) {
       this.sortModel = state.sortModel
-      this.filterModel = this.startFilterModel
-        ? {
-            ...this.startFilterModel,
-            items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-          }
-        : state.filterModel
+      this.filterModel = state.filterModel
       this.paginationModel = state.paginationModel
       this.columnVisibilityModel = state.columnVisibilityModel
     }
@@ -155,12 +145,8 @@ export class SupervisorProductsViewModel {
   }
 
   loadData() {
-    try {
-      this.getDataGridState()
-      this.getProductsMy()
-    } catch (error) {
-      console.error(error)
-    }
+    this.getDataGridState()
+    this.getProductsMy()
   }
 
   async getProductsMy() {
