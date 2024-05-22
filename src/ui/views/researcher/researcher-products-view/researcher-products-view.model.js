@@ -2,7 +2,6 @@ import { action, makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
 
 import { DataGridTableModel } from '@models/data-grid-table-model'
@@ -16,6 +15,7 @@ import { getNewObjectWithDefaultValue } from '@utils/object'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { ProductStatus } from '@typings/enums/product/product-status'
 
 import { researcherProductsViewColumns } from './researcher-products-view.columns'
 import { formFieldsDefault, paginationInitModel, researcherProductsViewConfig } from './researcher-products-view.config'
@@ -169,11 +169,14 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
     }
   }
 
-  onClickTableRow(item) {
-    if (item.status < ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
+  onClickTableRow(row) {
+    const shouldRedirectForProduct =
+      row.status < ProductStatus.TO_BUYER_FOR_RESEARCH && row.status !== ProductStatus.TEMPORARILY_DELAYED
+
+    if (shouldRedirectForProduct) {
       this.history.push({
         pathname: '/researcher/products/product',
-        search: item._id,
+        search: row._id,
       })
     }
   }
