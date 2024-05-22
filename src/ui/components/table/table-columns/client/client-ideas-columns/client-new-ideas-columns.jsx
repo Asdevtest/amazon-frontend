@@ -51,6 +51,7 @@ export const clientNewIdeasColumns = rowHandlers => {
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
+      disableCustomSort: true,
     },
 
     {
@@ -63,6 +64,7 @@ export const clientNewIdeasColumns = rowHandlers => {
 
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
+      disableCustomSort: true,
     },
 
     {
@@ -74,6 +76,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       width: 96,
 
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -85,6 +88,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
+      disableCustomSort: true,
     },
 
     {
@@ -96,6 +100,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       width: 251,
 
       columnKey: columnnsKeys.shared.STRING,
+      disableCustomSort: true,
     },
 
     {
@@ -111,7 +116,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       ),
 
       width: 150,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -140,7 +145,7 @@ export const clientNewIdeasColumns = rowHandlers => {
       width: 130,
 
       filterable: false,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
     },
 
@@ -160,6 +165,7 @@ export const clientNewIdeasColumns = rowHandlers => {
         />
       ),
       width: 990,
+      disableCustomSort: true,
     },
   ]
 

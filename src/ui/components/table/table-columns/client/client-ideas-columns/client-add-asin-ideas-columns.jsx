@@ -47,7 +47,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
         )
       },
       width: 265,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -59,7 +59,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -82,7 +82,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
         )
       },
       width: 265,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -107,7 +107,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
         )
       },
       width: 150,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -118,7 +118,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
 
       renderCell: params => <AddAsinIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
       width: 110,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -147,7 +147,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       width: 130,
 
       filterable: false,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
     },
 
@@ -168,6 +168,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
         />
       ),
       width: 690,
+      disableCustomSort: true,
     },
   ]
 

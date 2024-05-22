@@ -491,11 +491,11 @@ export const EditBoxForm = memo(
                             t(TranslationKey['Not chosen'])
                           }
                           data={
-                            destinationId
+                            boxFields?.variationTariffId
                               ? destinations.filter(
-                                  el => el?._id === (destinationId || formItem?.variationTariff?.destinationId),
+                                  el => el?._id === (destinationId || boxFields?.variationTariff?.destinationId),
                                 )
-                              : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
+                              : destinations.filter(el => el.storekeeper?._id !== boxFields?.storekeeper._id)
                           }
                           searchFields={['name']}
                           favourites={destinationsFavourites}

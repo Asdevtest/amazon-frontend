@@ -27,4 +27,5 @@ export const observerConfig = {
   patchActualShippingCostBatch: action.bound,
   onSubmitAddOrEditBatch: action.bound,
   changeViewModeHandler: action.bound,
+  onClickStorekeeperBtn: action.bound,
 }

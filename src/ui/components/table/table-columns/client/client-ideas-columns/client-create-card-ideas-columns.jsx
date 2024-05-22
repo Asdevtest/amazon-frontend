@@ -36,7 +36,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
         )
       },
       width: 265,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -48,7 +48,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -62,7 +62,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
         <SmallRowImageCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
       ),
       width: 96,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -79,7 +79,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
         />
       ),
       width: 290,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -91,7 +91,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 250,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -102,7 +102,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 250,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -113,7 +113,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
 
       renderCell: params => <CreateCardIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
       width: 110,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -132,7 +132,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       width: 130,
 
       filterable: false,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
     },
 

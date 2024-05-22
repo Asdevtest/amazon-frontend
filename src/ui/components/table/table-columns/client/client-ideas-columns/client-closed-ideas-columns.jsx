@@ -41,7 +41,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
         )
       },
       width: 265,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -53,7 +53,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEA_SHOPS,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -65,7 +65,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
 
       renderCell: params => <SmallRowImageCell image={params.value.find(el => checkIsMediaFileLink(el))} />,
       width: 96,
-
+      disableCustomSort: true,
       filterable: false,
     },
 
@@ -76,7 +76,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 250,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -87,7 +87,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
 
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={95} text={params.value} />,
       width: 250,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -104,7 +104,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
         />
       ),
       width: 100,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.IDEAS_STATUS,
     },
 
@@ -195,7 +195,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       width: 130,
 
       filterable: false,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
     },
 
@@ -207,6 +207,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderCell: params => <ClosedIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
       width: 150,
       filterable: false,
+      disableCustomSort: true,
     },
   ]
 
