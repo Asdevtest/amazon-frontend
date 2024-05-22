@@ -9,7 +9,7 @@ import { UserModel } from '@models/user-model'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { supervisorProductsViewColumns } from './supervisor-products-columns'
-import { searchFields, supervisorProductsConfig } from './supervisor-products-view.config'
+import { additionalFields, supervisorProductsConfig } from './supervisor-products-view.config'
 import { filtersFields } from './supervisor-products-view.constants'
 
 export class SupervisorProductsViewModel extends DataGridFilterTableModel {
@@ -55,14 +55,15 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
       onClickTableRow: id => this.onClickTableRow(id),
     }
     const columns = supervisorProductsViewColumns(rowHandlers)
-    const filtersFields = getFilterFields(columns)
+
+    const filtersFields = getFilterFields(columns, additionalFields)
 
     super({
       getMainDataMethod: SupervisorModel.getProductsMyPag,
       columnsModel: columns,
       filtersFields,
       mainMethodURL: 'supervisors/products/pag/my?',
-      fieldsForSearch: searchFields,
+      fieldsForSearch: additionalFields,
       tableKey: DataGridTablesKeys.SUPERVISOR_PRODUCTS,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
