@@ -9,7 +9,7 @@ import { UserModel } from '@models/user-model'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { supervisorProductsViewColumns } from './supervisor-products-columns'
-import { supervisorProductsConfig } from './supervisor-products-view.config'
+import { searchFields, supervisorProductsConfig } from './supervisor-products-view.config'
 import { filtersFields } from './supervisor-products-view.constants'
 
 export class SupervisorProductsViewModel extends DataGridFilterTableModel {
@@ -40,7 +40,7 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
       columnsModel: columns,
       filtersFields,
       mainMethodURL: 'supervisors/products/pag/my?',
-      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
+      fieldsForSearch: searchFields,
       tableKey: DataGridTablesKeys.SUPERVISOR_PRODUCTS,
       additionalPropertiesGetFilters,
     })

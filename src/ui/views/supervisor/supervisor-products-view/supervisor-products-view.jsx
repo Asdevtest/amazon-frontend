@@ -75,6 +75,11 @@ export const SupervisorProductsView = observer(() => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
           rowCount={viewModel.rowCount}

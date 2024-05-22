@@ -12,3 +12,4 @@ export const supervisorProductsConfig = {
   onClickProductModal: action.bound,
   onToggleModal: action.bound,
 }
+export const searchFields = ['asin', 'amazonTitle', 'skuByClient']
