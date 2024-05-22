@@ -51,6 +51,7 @@ export const filtersFields = [
   'storekeeper',
   'sub',
   'redFlags',
+  'totalPrice',
 ]
 
 export const fieldsForSearch = [

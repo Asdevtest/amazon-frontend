@@ -13,7 +13,6 @@ import {
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
-  OrdersIdsItemsCell,
   RedFlagsCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
@@ -49,7 +48,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
-      renderCell: params => <MultilineTextCell twoLines text={params.value} />,
+      renderCell: params => <MultilineTextCell twoLines text={params.row.items?.[0]?.product?.shop?.name} />,
 
       width: 100,
       disableCustomSort: true,
@@ -71,7 +70,7 @@ export const clientBoxesViewColumns = (
         />
       ),
       valueFormatter: params => t(boxStatusTranslateKey(params.value)),
-      columnKey: columnnsKeys.shared.BOXES_STATUS,
+      columnKey: columnnsKeys.box.SHOP,
     },
 
     {
@@ -87,14 +86,14 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'orderIdsItems',
-      headerName: t(TranslationKey['№ Order/ № Item']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
+      field: 'id',
+      headerName: t(TranslationKey['№ Order']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
-      renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
+      renderCell: params => <MultilineTextCell text={params.row.items?.[0]?.order?.id} />,
       width: 160,
 
-      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
+      columnKey: columnnsKeys.shared.QUANTITY,
       table: DataGridFilterTables.ORDERS,
       disableCustomSort: true,
     },
@@ -209,7 +208,7 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'amazonPrice',
+      field: 'totalPrice',
       headerName: t(TranslationKey['Total price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
@@ -217,6 +216,7 @@ export const clientBoxesViewColumns = (
       type: 'number',
       width: 110,
       disableCustomSort: true,
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {

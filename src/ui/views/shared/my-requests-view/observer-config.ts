@@ -22,12 +22,11 @@ export const observerConfig = {
   isRequestsAtWork: observable,
   onlyWaitedProposals: observable,
   acceptProposalResultSetting: observable,
-  switcherCondition: observable,
+  statusGroup: observable,
 
   userInfo: computed,
 
   onClickChangeCatigory: action.bound,
-  setDefaultStatuses: action.bound,
   loadData: action.bound,
   onClickAddBtn: action.bound,
   onClickEditBtn: action.bound,

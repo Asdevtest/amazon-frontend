@@ -291,6 +291,7 @@ export const DataGridCustomColumnMenuComponent = props => {
       columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY,
       columnnsKeys.client.ORDERS_STATUS,
       columnnsKeys.client.IDEAS_STATUS,
+      columnnsKeys.box.SHOP,
       columnnsKeys.buyer.MY_PRODUCTS_STATUS,
       columnnsKeys.admin.STRATEGY_STATUS,
       columnnsKeys.shared.TASK_COMPLEXITY,

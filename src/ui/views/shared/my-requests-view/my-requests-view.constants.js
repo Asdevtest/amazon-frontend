@@ -1,16 +1,8 @@
-import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
 import { SwitcherCondition } from './my-requests-view.type'
-
-export const allowStatuses = [
-  RequestStatus.DRAFT,
-  RequestStatus.PUBLISHED,
-  RequestStatus.IN_PROCESS,
-  RequestStatus.EXPIRED,
-]
 
 export const filtersFields = [
   'humanFriendlyId',

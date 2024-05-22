@@ -1712,11 +1712,11 @@ export const OrderOrItemMenuItem = memo(
                 onChange={e => setCurrentOption(e.target.value)}
               >
                 <FormControlLabel
-                  title={t(TranslationKey['№Order'])}
+                  title={t(TranslationKey['№ Order'])}
                   className={styles.radioOption}
                   value="id"
                   control={<Radio className={styles.radioControl} />}
-                  label={t(TranslationKey['№Order'])}
+                  label={t(TranslationKey['№ Order'])}
                 />
                 <FormControlLabel
                   title={'№Item'}

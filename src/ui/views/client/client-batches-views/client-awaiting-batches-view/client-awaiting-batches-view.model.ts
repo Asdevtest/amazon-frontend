@@ -60,7 +60,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
 
     const defaultGetCurrentDataOptions = () => ({
       status: BatchStatus.IS_BEING_COLLECTED,
-      storekeeperId: this.currentStorekeeperId,
+      ...(this.currentStorekeeperId && { storekeeperId: this.currentStorekeeperId }),
     })
 
     super({
