@@ -20,7 +20,7 @@ export const HeaderTable = ({ viewModel }) => {
     .concat([
       {
         label: () => t(TranslationKey['All warehouses']),
-        value: undefined,
+        value: '',
       },
     ])
 

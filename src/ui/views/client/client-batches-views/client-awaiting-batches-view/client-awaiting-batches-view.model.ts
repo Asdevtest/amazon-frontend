@@ -32,7 +32,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
 
   hsCodeData: IHSCode | null = null
 
-  currentStorekeeperId: string | undefined = undefined
+  currentStorekeeperId: string = ''
   storekeepersData: IStorekeeper[] = []
 
   uploadedFiles = []
@@ -126,7 +126,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.storekeepersData = result as unknown as IStorekeeper[]
 
-        this.currentStorekeeperId = this.currentStorekeeperId || undefined
+        this.currentStorekeeperId = this.currentStorekeeperId || ''
       })
 
       this.getDataGridState()
