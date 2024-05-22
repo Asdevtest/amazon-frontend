@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 
 import { FIRST_SLIDE } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
 
+import { createUploadFile } from '@utils/create-upload-file'
 import { downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { isArrayOfRequestMedia, isString, isUploadFileType } from '@typings/guards'
@@ -90,13 +91,7 @@ export const useSlideshowGalleryModal = ({
     event.preventDefault()
 
     const filesArr: File[] = Array.from(event?.target?.files)
-    const readyFilesArr = filesArr.map((el: File) => ({
-      data_url: URL.createObjectURL(el),
-      file: new File([el], el?.name?.replace(/ /g, ''), {
-        type: el?.type,
-        lastModified: el?.lastModified,
-      }),
-    }))
+    const readyFilesArr = filesArr.map((el: File) => createUploadFile(el))
 
     setMediaFiles(prevMediaFiles =>
       prevMediaFiles.map((mediaFile, index) => (index === mediaFileIndex ? readyFilesArr[0] : mediaFile)),

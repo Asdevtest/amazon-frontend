@@ -2,8 +2,10 @@
 import { IRequestMedia } from '@typings/models/requests/request-media'
 import { UploadFileType } from '@typings/shared/upload-file'
 
+export type UploadFilesOrMediaRequestsType = UploadFileType[] | IRequestMedia[]
+
 export interface UploadFilesInputProps {
-  images: UploadFileType[] | IRequestMedia[]
+  images: UploadFilesOrMediaRequestsType
   setImages: any
   maxNumber?: number
   acceptTypes?: string[]

@@ -1,6 +1,7 @@
 import { ClipboardEvent, useEffect, useState } from 'react'
 
 import { checkIsExternalVideoLink } from '@utils/checks'
+import { createUploadFile } from '@utils/create-upload-file'
 
 import { UploadFileType } from '@typings/shared/upload-file'
 
@@ -34,13 +35,7 @@ export const useChatInputControl = (messageInitialState: IMessageState) => {
 
       evt.preventDefault()
 
-      const readyFilesArr: UploadFileType[] = filesArr.map((el: File) => ({
-        data_url: URL.createObjectURL(el),
-        file: new File([el], el.name?.replace(/ /g, ''), {
-          type: el.type,
-          lastModified: el.lastModified,
-        }),
-      }))
+      const readyFilesArr: UploadFileType[] = filesArr.map((el: File) => createUploadFile(el))
 
       changeFilesAndState([...files, ...readyFilesArr.slice(0, filesAlowLength)])
     }

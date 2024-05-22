@@ -1,14 +1,13 @@
 import { ChangeEvent, FC, memo } from 'react'
 
-import { IRequestMedia } from '@typings/models/requests/request-media'
-import { UploadFileType } from '@typings/shared/upload-file'
-
 import { useStyles } from './files.style'
+
+import { UploadFilesOrMediaRequestsType } from '../../upload-files-input.type'
 
 import { File } from './file'
 
 export interface FilesProps {
-  files: UploadFileType[] | IRequestMedia[]
+  files: UploadFilesOrMediaRequestsType
   onRemoveFile: (fileIndex: number) => void
   onShowGalleryModal: (fileIndex: number) => void
   onChangeComment: (fileIndex: number) => (event: ChangeEvent<HTMLInputElement>) => void
