@@ -95,12 +95,8 @@ export class SupervisorProductViewModel {
   }
 
   async loadData() {
-    try {
-      await this.getProductById()
-      await this.getProductsVariations()
-    } catch (error) {
-      console.error(error)
-    }
+    await this.getProductById()
+    this.getProductsVariations()
   }
 
   async getProductsVariations() {
@@ -332,9 +328,11 @@ export class SupervisorProductViewModel {
 
       await SupervisorModel.updateProduct(this.product._id, dataToUpdate)
 
-      this.setOpenModal()
+      if (this.setOpenModal) {
+        this.setOpenModal()
+      }
 
-      this.loadData()
+      await this.loadData()
 
       updateDataHandler && (await updateDataHandler())
 
