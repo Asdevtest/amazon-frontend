@@ -24,10 +24,32 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
   }
 
   constructor() {
+    const additionalPropertiesColumnMenuSettings = {
+      orderedYesNoFilterData: {
+        yes: true,
+        no: true,
+        handleFilters: (yes, no) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            orderedYesNoFilterData: {
+              ...this.columnMenuSettings.orderedYesNoFilterData,
+              yes,
+              no,
+            },
+          }
+          this.getCurrentData()
+        },
+      },
+    }
     const additionalPropertiesGetFilters = () => ({
       ...(this.switcherFilterStatuses.length > 0 && {
         status: { $eq: this.switcherFilterStatuses.join(',') },
       }),
+      ...(this.columnMenuSettings.orderedYesNoFilterData.yes && this.columnMenuSettings.orderedYesNoFilterData.no
+        ? {}
+        : {
+            ordered: { $eq: this.columnMenuSettings.orderedYesNoFilterData.yes },
+          }),
     })
     const rowHandlers = {
       onClickTableRow: id => this.onClickTableRow(id),
@@ -42,9 +64,10 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'supervisors/products/pag/my?',
       fieldsForSearch: searchFields,
       tableKey: DataGridTablesKeys.SUPERVISOR_PRODUCTS,
+      additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
     })
-
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.initHistory()
     this.getDataGridState()
     this.getCurrentData()
