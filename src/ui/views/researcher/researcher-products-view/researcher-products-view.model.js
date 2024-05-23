@@ -18,7 +18,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { ProductStatus } from '@typings/enums/product/product-status'
 
 import { researcherProductsViewColumns } from './researcher-products-view.columns'
-import { formFieldsDefault, paginationInitModel, researcherProductsViewConfig } from './researcher-products-view.config'
+import { formFieldsDefault, researcherProductsViewConfig } from './researcher-products-view.config'
 
 export class ResearcherProductsViewModel extends DataGridTableModel {
   error = undefined
@@ -45,7 +45,6 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
     })
 
     this.sortModel = [{ field: 'createdAt', sort: 'asc' }]
-    this.paginationModel = paginationInitModel
     this.initHistory()
     this.getDataGridState()
     this.getCurrentData()

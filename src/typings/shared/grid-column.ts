@@ -5,4 +5,5 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 export interface IGridColumn extends GridBaseColDef {
   table?: DataGridFilterTables
   columnKey?: string
+  disableCustomSort?: boolean
 }
