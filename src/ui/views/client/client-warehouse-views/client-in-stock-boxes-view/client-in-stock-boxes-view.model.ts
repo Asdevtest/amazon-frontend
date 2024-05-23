@@ -206,16 +206,20 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const additionalPropertiesGetFilters = () => {
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
-      // const curStatus = this.columnMenuSettings.status.currentFilterData.length
-      //   ? this.columnMenuSettings.status.currentFilterData.join(',')
-      //   : defaultStatuses.join(',')
+      const curStatus = this.columnMenuSettings.status.currentFilterData.length
+        ? this.columnMenuSettings.status.currentFilterData.join(',')
+        : defaultStatuses.join(',')
 
       // `boxes/pag/clients_light?&filters=;${this.getFilter()}${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`
 
       return {
-        // status: curStatus,
+        status: {
+          $eq: curStatus,
+        },
 
-        isFormed: isFormedFilter,
+        isFormed: {
+          $eq: isFormedFilter,
+        },
       }
     }
 

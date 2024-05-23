@@ -121,9 +121,19 @@ export const clientNewIdeasColumns = rowHandlers => {
     },
 
     {
-      field: 'createdAt',
+      field: 'updatedAt',
       headerName: t(TranslationKey['Status Updated']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Status Updated'])} />,
+
+      renderCell: params => <ShortDateCell value={params.value} />,
+      width: 91,
+      columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
       renderCell: params => <ShortDateCell value={params.value} />,
       width: 91,

@@ -72,4 +72,8 @@ export const columnnsKeys = {
     TAGS: 'TAGS',
     TYPE: 'TYPE',
   },
+
+  box: {
+    SHOP: 'SHOP',
+  },
 }

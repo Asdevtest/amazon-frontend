@@ -7,6 +7,7 @@ import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
@@ -410,6 +411,9 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
 
     case columnnsKeys.shared.TYPE:
       return getTranslationNotificationType(status)
+
+    case columnnsKeys.box.SHOP:
+      return boxStatusTranslateKey(status)
 
     default:
       return status

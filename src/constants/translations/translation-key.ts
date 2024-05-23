@@ -1759,7 +1759,7 @@ export enum TranslationKey {
   'Return to actual batches' = 'Return to actual batches',
   'My filter' = 'My filter',
   'Search by' = 'Search by',
-  '№Order' = '№Order',
+  '№ Order' = '№ Order',
   'From' = 'From',
   'To' = 'To',
   'Without strategy' = 'Without strategy',

@@ -40,6 +40,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       sortable: false,
       columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
       table: DataGridFilterTables.PRODUCTS,
+      disableCustomSort: true,
     },
 
     {
@@ -60,6 +61,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
       table: DataGridFilterTables.BOXES,
+      disableCustomSort: true,
     },
 
     {
@@ -72,6 +74,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       filterable: false,
       sortable: false,
       columnKey: columnnsKeys.shared.QUANTITY,
+      disableCustomSort: true,
     },
 
     {
@@ -95,6 +98,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
       table: DataGridFilterTables.BOXES,
+      disableCustomSort: true,
     },
 
     {
@@ -106,6 +110,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT,
       table: DataGridFilterTables.BOXES,
+      disableCustomSort: true,
     },
 
     {
@@ -126,6 +131,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       filterable: false,
       sortable: false,
       columnKey: columnnsKeys.shared.BATCHES_TRACKING,
+      disableCustomSort: true,
     },
 
     {
@@ -142,12 +148,13 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       field: 'deliveryTotalPrice',
       headerName: t(TranslationKey['Delivery cost']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row?.calculatedShippingCost, 2)} />,
       type: 'number',
       width: 110,
       sortable: false,
       columnKey: columnnsKeys.shared.QUANTITY,
       table: DataGridFilterTables.BOXES,
+      disableCustomSort: true,
     },
 
     {
@@ -166,6 +173,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       sortable: false,
       columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
       table: DataGridFilterTables.BOXES,
+      disableCustomSort: true,
     },
 
     {

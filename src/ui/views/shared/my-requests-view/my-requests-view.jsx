@@ -31,10 +31,10 @@ import { useStyles } from './my-requests-view.style'
 import { switcherConfig } from './my-requests-view.constants'
 import { MyRequestsViewModel } from './my-requests-view.model'
 
-export const MyRequestsView = observer(({ history }) => {
+export const MyRequestsView = observer(() => {
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new MyRequestsViewModel({ history }))
+  const [viewModel] = useState(() => new MyRequestsViewModel())
 
   const getCellClassName = params =>
     params.row.countProposalsByStatuses.waitedProposals &&
