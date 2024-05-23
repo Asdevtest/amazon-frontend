@@ -14,7 +14,7 @@ import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
-import { BigPlus, CrossInRectangleIcon, PhotoCameraWithPlus } from '@components/shared/svg-icons'
+import { BigPlusIcon, CrossInRectangleIcon, PhotoCameraWithPlusIcon } from '@components/shared/svg-icons'
 
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -111,7 +111,7 @@ const Slot = ({
         ) : (
           <div className={styles.imageSubWrapper}>
             <div className={styles.cameraIconWrapper}>
-              <PhotoCameraWithPlus className={styles.cameraIcon} />
+              <PhotoCameraWithPlusIcon className={styles.cameraIcon} />
             </div>
 
             <Typography className={cx(styles.imageUploadText)}>Upload</Typography>
@@ -377,7 +377,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
 
         <div className={styles.footerWrapper}>
           <div className={styles.bigPlusWrapper}>
-            <BigPlus className={styles.bigPlus} onClick={onClickAddImageObj} />
+            <BigPlusIcon className={styles.bigPlus} onClick={onClickAddImageObj} />
           </div>
 
           <div className={styles.flexContainer}>
