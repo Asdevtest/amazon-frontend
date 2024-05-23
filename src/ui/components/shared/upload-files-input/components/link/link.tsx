@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo } from 'react'
+import { ChangeEvent, ClipboardEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,6 +15,7 @@ interface LinkProps {
   disabledLoadButton: boolean
   onLoadFile: () => void
   onChangeLink: (event: ChangeEvent<HTMLInputElement>) => void
+  onPasteFile: (event: ClipboardEvent<HTMLInputElement>) => void
   title?: string
   disabled?: boolean
   minimized?: boolean
@@ -28,6 +29,7 @@ export const Link: FC<LinkProps> = memo(props => {
     disabledLoadButton,
     onLoadFile,
     onChangeLink,
+    onPasteFile,
     title,
     disabled,
     minimized,
@@ -49,6 +51,7 @@ export const Link: FC<LinkProps> = memo(props => {
         inputClasses={styles.linkInput}
         value={linkInput}
         onChange={onChangeLink}
+        onPaste={onPasteFile}
       />
 
       <Button
