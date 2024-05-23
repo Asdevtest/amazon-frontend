@@ -110,7 +110,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   linkContainer: {
-    width: '590px !important',
+    width: '290px !important',
   },
 
   middleContainer: {

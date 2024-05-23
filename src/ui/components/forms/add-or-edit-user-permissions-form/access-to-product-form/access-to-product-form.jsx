@@ -53,6 +53,7 @@ export const AccessToProductForm = memo(props => {
 
     if (value === accessProductSettings.ALL_PRODUCTS) {
       setSelectionModel(allProductsIds)
+      setChosenGoods(allProductsIds)
     }
   }
 
@@ -96,12 +97,17 @@ export const AccessToProductForm = memo(props => {
         chosenGoods?.length === allProductsIds?.length &&
         shop._id !== 'PRODUCTS_WITHOUT_SHOPS_ID'
 
+      console.log('chosenGoods :>> ', chosenGoods)
+      console.log('allProductsIds :>> ', allProductsIds)
+      console.log('=== :>> ', chosenGoods?.length === allProductsIds?.length)
+
       if (selectedAccess === accessProductSettings.NEED_SELECT) {
         return newDataToRender.map(item =>
           item._id === shop._id ? { ...item, tmpSelectedShop, tmpProductsIds: chosenGoods } : item,
         )
       } else if (selectedAccess === accessProductSettings.ALL_PRODUCTS) {
         setChooseAllCheck(true)
+        console.log('2')
 
         return newDataToRender.map(item =>
           item._id === shop._id

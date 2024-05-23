@@ -2267,4 +2267,6 @@ export enum TranslationKey {
   'Launch type' = 'Launch type',
   'New product price' = 'New product price',
   'is not a valid email address' = 'is not a valid email address',
+  'Min. production time, days' = 'Min. production time, days',
+  'Max. production time, days' = 'Max. production time, days',
 }

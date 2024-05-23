@@ -183,16 +183,36 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
     },
 
     {
-      field: 'productionTerm',
+      field: 'minProductionTerm',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       headerName: t(TranslationKey['Production time, days']),
 
-      renderCell: params => <MultilineTextCell text={params.row.suppliers?.[0]?.productionTerm} />,
+      renderCell: ({ row }) => {
+        const supplier = row.suppliers?.[0]
+
+        return (
+          <MultilineTextCell
+            text={
+              supplier ? `${supplier?.minProductionTerm} - ${supplier?.maxProductionTerm}` : t(TranslationKey.Missing)
+            }
+          />
+        )
+      },
+      fields: [
+        {
+          label: () => t(TranslationKey['Min. production time, days']),
+          value: 'minProductionTerm',
+        },
+        {
+          label: () => t(TranslationKey['Max. production time, days']),
+          value: 'maxProductionTerm',
+        },
+      ],
       width: 115,
       type: 'number',
-      columnKey: columnnsKeys.shared.QUANTITY,
-      table: DataGridFilterTables.SUPPLIERS,
+      columnKey: columnnsKeys.shared.NUMBERS,
       disableCustomSort: true,
+      table: DataGridFilterTables.SUPPLIERS,
     },
 
     {

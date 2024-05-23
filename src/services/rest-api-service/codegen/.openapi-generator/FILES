@@ -428,11 +428,12 @@ models/inline-response20061-rows.ts
 models/inline-response20061-suppliers.ts
 models/inline-response20061.ts
 models/inline-response20062.ts
+models/inline-response20063-rows.ts
 models/inline-response20063.ts
 models/inline-response20064-rows.ts
 models/inline-response20064.ts
-models/inline-response20065-rows.ts
 models/inline-response20065.ts
+models/inline-response20066-rows.ts
 models/inline-response20066.ts
 models/inline-response20067-rows.ts
 models/inline-response20067.ts
@@ -443,7 +444,6 @@ models/inline-response20069.ts
 models/inline-response2007.ts
 models/inline-response20070-rows.ts
 models/inline-response20070.ts
-models/inline-response20071-rows.ts
 models/inline-response20071.ts
 models/inline-response20072-entity-product.ts
 models/inline-response20072-rows.ts

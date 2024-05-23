@@ -45,6 +45,8 @@ export const filtersFields = [
   'reasonReject',
   'createdBy',
   'sub',
+  'minProductionTerm',
+  'maxProductionTerm',
 ]
 
 export const fieldsForSearch = [
