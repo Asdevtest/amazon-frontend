@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
@@ -398,8 +398,10 @@ export class ClientProductViewModel {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
 
+      console.log('this.product', this.product)
+
       const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
-        toJS(this.product),
+        this.product,
         fieldsOfProductAllowedToUpdate,
         true,
         (key, value) => {
@@ -430,7 +432,10 @@ export class ClientProductViewModel {
               return value
           }
         },
+        true,
       )
+
+      console.log('curUpdateProductData', curUpdateProductData)
 
       if (withoutStatus) {
         runInAction(() => {
@@ -454,9 +459,9 @@ export class ClientProductViewModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      if (this.imagesForLoad?.length) {
-        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-      }
+      await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
+
+      console.log('this.curUpdateProductData', this.curUpdateProductData)
 
       await ClientModel.updateProduct(
         this.product._id,
