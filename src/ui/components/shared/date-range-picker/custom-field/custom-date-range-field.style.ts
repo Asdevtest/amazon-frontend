@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   field: {
     display: 'flex',
     alignItems: 'center',
@@ -8,7 +8,14 @@ export const useStyles = makeStyles()(() => ({
 
     div: {
       button: {
-        padding: 4,
+        padding: 0,
+        backgroundColor: 'transparent',
+        transition: 'transform 0.3s ease',
+
+        '&:hover': {
+          transform: 'scale(0.9)',
+          backgroundColor: 'transparent',
+        },
       },
     },
   },
@@ -17,9 +24,14 @@ export const useStyles = makeStyles()(() => ({
     width: '100%',
     fontSize: 14,
     lineHeight: '19px',
+    color: theme.palette.primary.main,
+
+    '&::placeholder': {
+      color: theme.palette.primary.main,
+    },
   },
 
-  iconButton: {
-    padding: 4,
+  calendarIcon: {
+    color: theme.palette.primary.main,
   },
 }))

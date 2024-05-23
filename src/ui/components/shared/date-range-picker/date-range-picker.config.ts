@@ -29,4 +29,5 @@ export const shortcutsItems = [
       return [today.startOf('month'), today.endOf('month')]
     },
   },
+  { label: 'Reset', getValue: () => [null, null] },
 ]

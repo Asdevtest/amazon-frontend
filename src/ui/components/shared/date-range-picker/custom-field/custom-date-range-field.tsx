@@ -43,6 +43,8 @@ const Field = forwardRef((props: FieldProps, ref: Ref<HTMLDivElement>) => {
 export const CustomDateRangeField = forwardRef((props: CustomDateRangeFieldProps, ref: Ref<HTMLDivElement>) => {
   const { slots, slotProps, onAdornmentClick, ...other } = props
 
+  const { classes: styles } = useStyles()
+
   const textFieldProps: SingleInputDateRangeFieldProps<Dayjs, false> = useSlotProps({
     elementType: 'input',
     externalSlotProps: slotProps?.textField,
@@ -55,7 +57,7 @@ export const CustomDateRangeField = forwardRef((props: CustomDateRangeFieldProps
     startAdornment: (
       <InputAdornment position="start">
         <IconButton onClick={onAdornmentClick}>
-          <DateRangeIcon />
+          <DateRangeIcon className={styles.calendarIcon} />
         </IconButton>
       </InputAdornment>
     ),
