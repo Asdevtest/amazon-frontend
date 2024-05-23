@@ -165,6 +165,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       ),
       valueFormatter: ({ row }: GridRowModel) => (row?.ordered ? t(TranslationKey.Yes) : t(TranslationKey.No)),
       width: 85,
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.YES_NO,
     },
 
@@ -175,6 +176,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       valueGetter: ({ row }: GridRowModel) => row?.tags?.map((el: { title: string }) => `#${el.title}`).join(),
       renderCell: ({ row }: GridRowModel) => <TagsCell tags={row?.tags} />,
       width: 180,
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.TAGS,
     },
 
@@ -184,6 +186,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Red flags'])} />,
       renderCell: ({ row }: GridRowModel) => <RedFlagsCell flags={row?.redFlags} />,
       width: 130,
+      disableCustomSort: true,
       columnKey: columnnsKeys.shared.RED_FLAGS,
     },
 

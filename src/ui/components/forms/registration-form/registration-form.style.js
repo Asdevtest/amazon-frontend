@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   form: {
+    width: 540,
     display: 'flex',
     alignItems: 'flex-start',
     flexDirection: 'column',
@@ -13,7 +14,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   field: {
-    width: '100%',
     margin: 0,
   },
 
@@ -27,6 +27,10 @@ export const useStyles = makeStyles()(theme => ({
   inputAdornment: {
     position: 'absolute',
     left: 0,
+  },
+
+  inputAdornmentRight: {
+    cursor: 'pointer',
   },
 
   fieldContainer: {

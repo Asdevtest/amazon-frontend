@@ -183,7 +183,11 @@ export const RegistrationForm = memo(props => {
             </InputAdornment>
           }
           endAdornment={
-            <InputAdornment position="start" onClick={() => setVisibilityPass(prev => !prev)}>
+            <InputAdornment
+              position="start"
+              className={styles.inputAdornmentRight}
+              onClick={() => setVisibilityPass(prev => !prev)}
+            >
               {visibilityPass ? <VisibilityIcon /> : <VisibilityOffIcon />}
             </InputAdornment>
           }
