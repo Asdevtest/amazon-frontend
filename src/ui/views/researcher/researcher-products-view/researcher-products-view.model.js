@@ -44,12 +44,7 @@ export class ResearcherProductsViewModel extends DataGridTableModel {
       tableKey: DataGridTablesKeys.RESEARCHER_PRODUCTS,
     })
 
-<<<<<<< HEAD
-    this.sortModel = [{ field: 'createdAt', sort: 'desc' }]
-    this.paginationModel = paginationInitModel
-=======
     this.sortModel = [{ field: 'createdAt', sort: 'asc' }]
->>>>>>> dev
     this.initHistory()
     this.getDataGridState()
     this.getCurrentData()
