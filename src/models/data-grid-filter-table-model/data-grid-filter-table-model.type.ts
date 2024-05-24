@@ -11,4 +11,7 @@ export interface DataGridFilterTableModelParams {
   defaultGetCurrentDataOptions?: any
   additionalPropertiesColumnMenuSettings?: any
   additionalPropertiesGetFilters?: any
+  operatorsSettings?: {
+    [key: string]: string
+  }
 }

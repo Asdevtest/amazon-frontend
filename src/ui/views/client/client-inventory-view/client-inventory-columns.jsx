@@ -298,7 +298,7 @@ export const clientInventoryColumns = ({
     },
 
     {
-      field: 'supplierMaxProductionTerm',
+      field: 'currentSupplierMinProductionTerm',
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
@@ -316,11 +316,11 @@ export const clientInventoryColumns = ({
       fields: [
         {
           label: () => t(TranslationKey['Min. production time, days']),
-          value: 'supplierMinProductionTerm',
+          value: 'currentSupplierMinProductionTerm',
         },
         {
           label: () => t(TranslationKey['Max. production time, days']),
-          value: 'supplierMaxProductionTerm',
+          value: 'currentSupplierMaxProductionTerm',
         },
       ],
       width: 120,

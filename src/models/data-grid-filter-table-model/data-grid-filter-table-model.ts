@@ -33,6 +33,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   additionalPropertiesColumnMenuSettings: any = {}
 
   additionalPropertiesGetFilters: any = undefined
+  operatorsSettings: any = undefined
 
   get isSomeFilterOn() {
     return this.filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
@@ -48,6 +49,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     defaultGetCurrentDataOptions,
     additionalPropertiesColumnMenuSettings,
     additionalPropertiesGetFilters,
+    operatorsSettings,
   }: DataGridFilterTableModelParams) {
     super({
       getMainDataMethod,
@@ -61,6 +63,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this.mainMethodURL = mainMethodURL
     this.additionalPropertiesColumnMenuSettings = additionalPropertiesColumnMenuSettings
     this.additionalPropertiesGetFilters = additionalPropertiesGetFilters
+    this.operatorsSettings = operatorsSettings
 
     if (fieldsForSearch) {
       this.fieldsForSearch = fieldsForSearch
@@ -122,6 +125,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         this.filtersFields,
         this.fieldsForSearch,
         this.additionalPropertiesGetFilters?.(),
+        this.operatorsSettings,
       ),
     )
   }

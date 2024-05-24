@@ -117,8 +117,9 @@ export const supervisorProductsViewColumns = ({ onClickTableRow }: SupervisorPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
       renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row?.buyer?.name} userId={row?.buyer?._id} />,
       valueGetter: ({ row }: GridRowModel) => row?.buyer?.name,
+
       width: 180,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {

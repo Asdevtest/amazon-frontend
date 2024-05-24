@@ -36,6 +36,7 @@ import {
   YesNoCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
 import { NumbersColumnMenu } from '../data-grid-menu-items/numbers-column-menu/numbers-column-menu'
+import { ObjectColumnMenu } from '../data-grid-menu-items/object-column-menu'
 
 import { CustomMenuContainer } from './components'
 
@@ -564,6 +565,24 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
+  if ([columnnsKeys.shared.OBJECT_VALUE].includes(currentColumn.columnKey)) {
+    return (
+      <CustomMenuContainer {...props}>
+        <ObjectColumnMenu
+          field={currentColumn.field}
+          table={currentColumn.table}
+          emptyObject={currentColumn.emptyObject}
+          filtersData={props[currentColumn.field]}
+          filterRequestStatus={filterRequestStatus}
+          onClose={hideMenu}
+          onClickFilterBtn={onClickFilterBtn}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </CustomMenuContainer>
+    )
+  }
+
   if (currentColumn.columnKey === columnnsKeys.client.FREELANCER_REQUEST_LISTING) {
     return (
       <CustomMenuContainer {...props}>
@@ -590,5 +609,9 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
-  return <GridColumnMenu {...props} />
+  return (
+    <CustomMenuContainer {...props}>
+      <GridColumnMenu {...props} />
+    </CustomMenuContainer>
+  )
 }

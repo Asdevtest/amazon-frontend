@@ -205,15 +205,15 @@ export const clientOrdersViewColumns = rowHandlers => {
         return (
           <MultilineTextCell
             text={
-              supplier ? `${supplier.minProductionTerm} - ${supplier.maxProductionTerm}` : t(TranslationKey.Missing)
+              supplier ? `${supplier?.minProductionTerm} - ${supplier?.maxProductionTerm}` : t(TranslationKey.Missing)
             }
           />
         )
       },
       valueGetter: params => {
-        const supplier = params.row.orderSupplier
+        const supplier = params.row?.orderSupplier
 
-        return `${supplier.minProductionTerm} - ${supplier.maxProductionTerm}`
+        return `${supplier?.minProductionTerm} - ${supplier?.maxProductionTerm}`
       },
       fields: [
         {
