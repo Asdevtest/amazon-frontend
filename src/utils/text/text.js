@@ -277,12 +277,16 @@ export const getTableByColumn = (column, hint) => {
       'createdAt',
       'updatedAt',
       'trackNumberText',
+      'minProductionTerm',
+      'maxProductionTerm',
     ].includes(column)
   ) {
     if (['buyer', 'createdAt', 'updatedAt'].includes(column) && hint === 'orders') {
       return 'orders'
     } else if (['childProductShop', 'parentProductShop'].includes(column) && hint === 'ideas') {
       return 'products'
+    } else if (['minProductionTerm', 'maxProductionTerm'].includes(column) && hint === 'orders') {
+      return 'suppliers'
     } else if (
       [
         'parentProductSkuByClient',

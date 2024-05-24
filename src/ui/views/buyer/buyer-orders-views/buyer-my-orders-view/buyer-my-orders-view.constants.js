@@ -47,6 +47,8 @@ export const filtersFields = [
   'updatedAt',
   'partiallyPaid',
   'partialPaymentAmountRmb',
+  'minProductionTerm',
+  'maxProductionTerm',
 ]
 
 export const attentionStatuses = [

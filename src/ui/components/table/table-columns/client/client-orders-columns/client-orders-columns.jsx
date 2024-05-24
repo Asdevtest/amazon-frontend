@@ -196,14 +196,38 @@ export const clientOrdersViewColumns = rowHandlers => {
     },
 
     {
-      field: 'productionTerm',
+      field: 'minProductionTerm',
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
-      renderCell: params => <MultilineTextCell text={params.row.orderSupplier?.productionTerm} />,
-      valueGetter: params => params.row.orderSupplier?.productionTerm,
+      renderCell: params => {
+        const supplier = params.row.orderSupplier
+
+        return (
+          <MultilineTextCell
+            text={
+              supplier ? `${supplier.minProductionTerm} - ${supplier.maxProductionTerm}` : t(TranslationKey.Missing)
+            }
+          />
+        )
+      },
+      valueGetter: params => {
+        const supplier = params.row.orderSupplier
+
+        return `${supplier.minProductionTerm} - ${supplier.maxProductionTerm}`
+      },
+      fields: [
+        {
+          label: () => t(TranslationKey['Min. production time, days']),
+          value: 'minProductionTerm',
+        },
+        {
+          label: () => t(TranslationKey['Max. production time, days']),
+          value: 'maxProductionTerm',
+        },
+      ],
       width: 120,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBERS,
       table: DataGridFilterTables.SUPPLIERS,
     },
 

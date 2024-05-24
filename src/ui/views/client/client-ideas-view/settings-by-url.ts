@@ -1,6 +1,6 @@
 // * Объект с доп. фильтра в зависимости от текущего роута
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { ideaStatusGroups, ideaStatusGroupsNames } from '@constants/statuses/idea-status'
+import { ideaStatusGroupsNames } from '@constants/statuses/idea-status'
 
 import {
   clientAddAsinIdeasColumns,
@@ -15,7 +15,7 @@ import {
 
 export const settingsByUrl = {
   '/client/ideas/new': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.NEW],
+    statusGroup: ideaStatusGroupsNames.NEW,
     queries: {
       withOrder: false,
       withRequests: true,
@@ -25,7 +25,7 @@ export const settingsByUrl = {
     dataGridKey: DataGridTablesKeys.CLIENT_NEW_IDEAS,
   },
   '/client/ideas/on-checking': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.ON_CHECKING],
+    statusGroup: ideaStatusGroupsNames.ON_CHECKING,
     queries: {
       withOrder: false,
       withRequests: true,
@@ -35,7 +35,7 @@ export const settingsByUrl = {
     dataGridKey: DataGridTablesKeys.CLIENT_ON_CHECKING_IDEAS,
   },
   '/client/ideas/search-suppliers': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.SEARCH_SUPPLIERS],
+    statusGroup: ideaStatusGroupsNames.SEARCH_SUPPLIERS,
     queries: {
       withOrder: false,
       withRequests: false,
@@ -45,7 +45,7 @@ export const settingsByUrl = {
     dataGridKey: DataGridTablesKeys.CLIENT_SEARCH_SUPPLIERS_IDEAS,
   },
   '/client/ideas/create-card': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.CREATE_CARD],
+    statusGroup: ideaStatusGroupsNames.CREATE_CARD,
     queries: {
       withOrder: false,
       withRequests: false,
@@ -55,7 +55,7 @@ export const settingsByUrl = {
     dataGridKey: DataGridTablesKeys.CLIENT_CREATE_CARD_IDEAS,
   },
   '/client/ideas/add-asin': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.ADD_ASIN],
+    statusGroup: ideaStatusGroupsNames.ADD_ASIN,
     queries: {
       withOrder: false,
       withRequests: true,
@@ -65,7 +65,7 @@ export const settingsByUrl = {
     dataGridKey: DataGridTablesKeys.CLIENT_ADD_ASIN_IDEAS,
   },
   '/client/ideas/realized': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.REALIZED],
+    statusGroup: ideaStatusGroupsNames.REALIZED,
     queries: {
       withOrder: true,
       withRequests: true,
@@ -75,7 +75,7 @@ export const settingsByUrl = {
     dataGridKey: DataGridTablesKeys.CLIENT_REALIZED_IDEAS,
   },
   '/client/ideas/closed': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.CLOSED],
+    statusGroup: ideaStatusGroupsNames.CLOSED,
     queries: {
       withOrder: false,
       withRequests: false,
@@ -85,7 +85,7 @@ export const settingsByUrl = {
     dataGridKey: DataGridTablesKeys.CLIENT_CLOSED_IDEAS,
   },
   '/client/ideas/all': {
-    statuses: ideaStatusGroups[ideaStatusGroupsNames.ALL],
+    statusGroup: ideaStatusGroupsNames.ALL,
     queries: {
       withOrder: true,
       withRequests: true,
