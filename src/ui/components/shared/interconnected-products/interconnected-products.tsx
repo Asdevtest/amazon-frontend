@@ -2,6 +2,7 @@ import { observer } from 'mobx-react'
 import { FC } from 'react'
 
 import { SourceProduct } from '@components/cards/idea-view-and-edit-card/source-product'
+import { MinusIcon, ParentProductIcon, ShareIcon, VariationIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
@@ -10,7 +11,6 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { useStyles } from './interconnected-products.style'
 
 import { Button } from '../button'
-import { MinusIcon, ParentProductIcon, ShareIcon, VariationIcon } from '../svg-icons'
 
 interface InterconnectedProductsProps {
   isParent?: boolean

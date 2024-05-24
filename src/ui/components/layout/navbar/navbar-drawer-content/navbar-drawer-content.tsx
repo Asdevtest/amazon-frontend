@@ -12,7 +12,7 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 import { NavbarCategory } from '@components/layout/navbar'
 import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
 import { NavbarModel } from '@components/layout/navbar/navbar.model'
-import { Feedback } from '@components/shared/svg-icons'
+import { FeedbackIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -129,7 +129,7 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
             onClick={() => onTriggerOpenModal('showFeedbackModal')}
           >
             {!shortNavbar && <p>{t(TranslationKey.Feedback)}</p>}
-            <Feedback className={styles.feedbackIcon} />
+            <FeedbackIcon className={styles.feedbackIcon} />
           </div>
         ) : null}
 

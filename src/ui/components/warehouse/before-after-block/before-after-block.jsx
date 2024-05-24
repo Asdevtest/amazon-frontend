@@ -15,7 +15,7 @@ import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { BoxArrow } from '@components/shared/svg-icons'
+import { BoxArrowIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount } from '@utils/text'
@@ -340,7 +340,7 @@ const ReceiveBoxes = memo(({ taskType, onClickOpenModal }) => {
     <div className={styles.receiveBoxWrapper}>
       <div className={styles.boxImageContainer}>
         <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
-        <BoxArrow className={styles.boxArrowSvg} />
+        <BoxArrowIcon className={styles.boxArrowSvg} />
       </div>
 
       <Typography className={styles.receiveBoxTitle}>

@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatContract } from '@models/chat-model/contracts'
 
 import { Button } from '@components/shared/button'
-import { MemberPlus } from '@components/shared/svg-icons'
+import { MemberPlusIcon } from '@components/shared/svg-icons'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -34,7 +34,7 @@ export const ChatGroupUsers: FC<ChatGroupUsersProps> = memo(props => {
           <div className={styles.addMemberBtnWrapper}>
             <p className={styles.addMemberBtnText}>{t(TranslationKey['Add member'])}</p>
 
-            <MemberPlus className={styles.arrowIcon} />
+            <MemberPlusIcon className={styles.arrowIcon} />
           </div>
         </Button>
       ) : null}
