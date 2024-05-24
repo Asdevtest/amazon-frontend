@@ -28,7 +28,7 @@ export const ReportModal: FC<ReportModalProps> = memo(props => {
   const modalTitle = `${viewModel.editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(
     TranslationKey['report by the product'],
   )}`
-  const launchTypePlaceholder = `+ ${t(TranslationKey['Select launch type'])}`
+  const launchTypePlaceholder = `＋ ${t(TranslationKey['Select launch type'])}`
 
   return (
     <div className={styles.wrapper}>
@@ -37,33 +37,30 @@ export const ReportModal: FC<ReportModalProps> = memo(props => {
       <div className={styles.flexRowContainer}>
         <CustomSelectPicker data={[]} placeholder={t(TranslationKey['Select ASIN'])} />
 
-        <CustomSelectPicker data={[]} placeholder={launchTypePlaceholder} />
+        <CustomSelectPicker data={[]} placeholder={launchTypePlaceholder} searchable={false} />
       </div>
 
       <div className={styles.tableContainer}>
         <CustomDataGrid
-          rows={[]}
-          columns={[]}
+          rows={viewModel.currentData}
+          columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
-          columnHeaderHeight={40}
+          columnHeaderHeight={32}
           getRowId={({ _id }: GridRowModel) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
-          }}
+          slots={null}
+          className={styles.dataGridRoot}
         />
       </div>
 
       <div className={styles.flexRowContainer}>
         <div className={cx(styles.fieldContainer, styles.inputContainer)}>
           <p className={styles.label}>{t(TranslationKey['New price'])}</p>
-          <Input placeholder={t(TranslationKey['New price'])} />
+          <Input placeholder={t(TranslationKey.Enter)} />
         </div>
 
         <div className={cx(styles.fieldContainer, styles.textareaContainer)}>
           <p className={styles.label}>{t(TranslationKey.Comment)}</p>
-          <Input as="textarea" rows={3} placeholder={t(TranslationKey.Comment)} style={{ resize: 'none' }} />
+          <Input as="textarea" rows={3} placeholder={t(TranslationKey.Enter)} style={{ resize: 'none' }} />
         </div>
       </div>
 

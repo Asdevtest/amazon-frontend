@@ -107,9 +107,7 @@ export const lightTheme = createTheme({
         root: {
           backgroundColor: '#fff',
           border: 'none',
-          margin: '0 3px',
-          // boxShadow: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
-          boxShadow: ' 0px 1px 3px 1px #00000026, 0px 1px 2px 0px #0000004D',
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
           color: '#001029',
           borderRadius: 20,
         },
@@ -518,10 +516,7 @@ export const darkTheme = createTheme({
         root: {
           backgroundColor: '#2B2B34',
           border: 'none',
-          // boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
-          margin: '0 3px',
-          boxShadow: '0px 2px 2px 0px #1F1F1FCC',
-
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
           color: '#fff',
           borderRadius: 20,
         },

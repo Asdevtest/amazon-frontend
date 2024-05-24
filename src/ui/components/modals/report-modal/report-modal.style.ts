@@ -31,6 +31,10 @@ export const useStyles = makeStyles()(theme => ({
     height: 400,
   },
 
+  dataGridRoot: {
+    borderRadius: '6px !important',
+  },
+
   fieldContainer: {
     width: '100%',
     display: 'flex',
