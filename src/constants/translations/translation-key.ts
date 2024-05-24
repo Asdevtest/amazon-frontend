@@ -2270,4 +2270,7 @@ export enum TranslationKey {
   'report by the product' = 'report by the product',
   'Min. production time, days' = 'Min. production time, days',
   'Max. production time, days' = 'Max. production time, days',
+  'Select launch type' = 'Select launch type',
+  'New price' = 'New price',
+  'Add changes to the product' = 'Add changes to the product',
 }

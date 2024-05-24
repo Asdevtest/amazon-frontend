@@ -23,7 +23,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 40,
     left: 0,
-    zIndex: 100,
+    zIndex: 7,
     boxShadow: theme.palette.boxShadow.paper,
   },
 

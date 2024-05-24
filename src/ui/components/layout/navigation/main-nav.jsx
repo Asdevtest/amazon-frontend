@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { CustomProvider } from 'rsuite'
 
 import { GlobalStyles } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -41,21 +42,23 @@ export const MainNav = observer(() => {
   )
 
   return (
-    <ThemeProvider theme={{ ...theme, lang }}>
-      <HintsContextProvider hints>
-        <ToastifyProvider theme={SettingsModel.uiTheme} />
-        <GlobalStyles styles={globalStyles} />
-        <CssBaseline />
-        <Router>
-          <Suspense fallback={<CircularProgressWithLabel showBackground />}>
-            <Switch>
-              {generateRedirects()}
-              {generatePublicRoutes()}
-              <PrivateRoutes />
-            </Switch>
-          </Suspense>
-        </Router>
-      </HintsContextProvider>
-    </ThemeProvider>
+    <CustomProvider theme={SettingsModel.uiTheme === UiTheme.light ? UiTheme.light : UiTheme.dark}>
+      <ThemeProvider theme={{ ...theme, lang }}>
+        <HintsContextProvider hints>
+          <ToastifyProvider theme={SettingsModel.uiTheme} />
+          <GlobalStyles styles={globalStyles} />
+          <CssBaseline />
+          <Router>
+            <Suspense fallback={<CircularProgressWithLabel showBackground />}>
+              <Switch>
+                {generateRedirects()}
+                {generatePublicRoutes()}
+                <PrivateRoutes />
+              </Switch>
+            </Suspense>
+          </Router>
+        </HintsContextProvider>
+      </ThemeProvider>
+    </CustomProvider>
   )
 })

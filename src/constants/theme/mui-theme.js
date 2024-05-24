@@ -139,7 +139,7 @@ export const lightTheme = createTheme({
         },
 
         menuIconButton: {
-          zIndex: 50,
+          zIndex: 7,
           position: 'absolute !important',
           right: -2,
           width: '20px !important',
@@ -593,7 +593,7 @@ export const darkTheme = createTheme({
 
         menuIconButton: {
           color: '#fff',
-          zIndex: 50,
+          zIndex: 7,
           position: 'absolute !important',
           right: -3,
           width: '20px !important',

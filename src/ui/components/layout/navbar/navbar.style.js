@@ -49,7 +49,7 @@ export const useStyles = makeStyles()(theme => ({
 
   hideAndShowIconWrapper: {
     position: 'absolute',
-    zIndex: 50,
+    zIndex: 7,
     top: 40,
     right: -20,
     width: 40,

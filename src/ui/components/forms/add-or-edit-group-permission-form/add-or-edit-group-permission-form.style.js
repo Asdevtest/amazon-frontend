@@ -90,7 +90,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'sticky',
     bottom: '0',
     right: '0',
-    zIndex: 50,
+    zIndex: 7,
   },
 
   fieldLabel: {

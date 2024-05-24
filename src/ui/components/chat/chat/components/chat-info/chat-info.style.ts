@@ -80,6 +80,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 10,
+    zIndex: 7,
   },
 }))
