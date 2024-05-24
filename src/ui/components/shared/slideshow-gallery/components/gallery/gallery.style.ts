@@ -6,6 +6,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: 20,
+    padding: 10,
   },
 
   leftPreviews: {
