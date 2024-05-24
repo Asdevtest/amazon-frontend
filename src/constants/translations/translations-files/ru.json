@@ -2264,5 +2264,6 @@
   "The user with this email is not a candidate.": "Пользователь с данным адресом электронной почты не является кандидатом.",
   "Launch type": "Тип запуска",
   "New product price": "Новая цена продукта",
-  "is not a valid email address": "не является действительным адресом электронной почты"
+  "is not a valid email address": "не является действительным адресом электронной почты",
+  "report by the product": "отчет по продукту"
 }

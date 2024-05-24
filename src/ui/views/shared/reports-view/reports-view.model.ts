@@ -11,6 +11,8 @@ import { reportsViewColumns } from './reports-view.columns'
 import { reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
+  showReportModal = false
+
   get product() {
     return this.meta?.product
   }
@@ -38,5 +40,9 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     this.getCurrentData()
 
     makeObservable(this, reportsViewConfig)
+  }
+
+  onToggleReportModal() {
+    this.showReportModal = !this.showReportModal
   }
 }

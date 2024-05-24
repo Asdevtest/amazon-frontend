@@ -1,9 +1,10 @@
-import { computed } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 export const reportsViewConfig = {
+  showReportModal: observable,
   rows: computed,
   product: computed,
   activeLaunches: computed,
 
-  // createProduct: action.bound,
+  onToggleReportModal: action.bound,
 }
