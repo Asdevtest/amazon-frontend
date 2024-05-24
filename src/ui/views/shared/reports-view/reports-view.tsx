@@ -34,7 +34,7 @@ export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
       <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} />
 
       <div className={styles.buttonsContainer}>
-        <CustomDateRangePicker />
+        <CustomDateRangePicker onAdditionalClick={viewModel.onDateRangePickerClick} />
 
         <Button styleType={ButtonStyle.SUCCESS}>
           <CustomPlusIcon />
@@ -44,7 +44,7 @@ export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
 
       <div className={styles.tableContainer}>
         <CustomDataGrid
-          rows={viewModel.rows}
+          rows={viewModel.currentData}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           columns={viewModel.columnsModel}

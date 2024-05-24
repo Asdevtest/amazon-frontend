@@ -1,16 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  root: {
-    width: '100%',
+  subheader: {
+    padding: 20,
   },
 
-  error: {
-    color: theme.palette.text.red,
-  },
-
-  openPickerIcon: {
-    width: '16px !important',
-    height: '16px !important',
+  clearIcon: {
+    width: '12px !important',
+    height: '12px !important',
+    color: theme.palette.primary.main,
   },
 }))
