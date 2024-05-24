@@ -298,14 +298,35 @@ export const clientInventoryColumns = ({
     },
 
     {
-      field: 'currentSupplierProductionTerm',
+      field: 'supplierMaxProductionTerm',
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
-      renderCell: params => <MultilineTextCell text={params.row.currentSupplier?.productionTerm} />,
-      valueGetter: params => params.row.currentSupplier?.productionTerm,
+      renderCell: params => {
+        const currentSupplier = params.row.currentSupplier
+
+        return (
+          <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+        )
+      },
+      valueGetter: params => {
+        const currentSupplier = params.row.currentSupplier
+
+        return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
+      },
+      fields: [
+        {
+          label: () => t(TranslationKey['Min. production time, days']),
+          value: 'supplierMinProductionTerm',
+        },
+        {
+          label: () => t(TranslationKey['Max. production time, days']),
+          value: 'supplierMaxProductionTerm',
+        },
+      ],
       width: 120,
       sortable: false,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBERS,
+      table: DataGridFilterTables.PRODUCTS,
     },
 
     {

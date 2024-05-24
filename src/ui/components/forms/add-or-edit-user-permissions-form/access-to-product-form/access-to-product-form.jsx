@@ -53,6 +53,7 @@ export const AccessToProductForm = memo(props => {
 
     if (value === accessProductSettings.ALL_PRODUCTS) {
       setSelectionModel(allProductsIds)
+      setChosenGoods(allProductsIds)
     }
   }
 

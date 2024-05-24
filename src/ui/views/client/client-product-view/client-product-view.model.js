@@ -398,8 +398,6 @@ export class ClientProductViewModel {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
 
-      console.log('this.product', this.product)
-
       const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
         this.product,
         fieldsOfProductAllowedToUpdate,
@@ -435,8 +433,6 @@ export class ClientProductViewModel {
         true,
       )
 
-      console.log('curUpdateProductData', curUpdateProductData)
-
       if (withoutStatus) {
         runInAction(() => {
           this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(curUpdateProductData, ['status'])
@@ -460,8 +456,6 @@ export class ClientProductViewModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-
-      console.log('this.curUpdateProductData', this.curUpdateProductData)
 
       await ClientModel.updateProduct(
         this.product._id,

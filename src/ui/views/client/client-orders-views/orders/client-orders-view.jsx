@@ -70,6 +70,7 @@ export const ClientOrdersView = observer(history => {
         <CustomDataGrid
           disableRowSelectionOnClick
           checkboxSelection={viewModel.isPendingOrdering}
+          pinnedColumns={viewModel.pinnedColumns}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -110,6 +111,7 @@ export const ClientOrdersView = observer(history => {
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowClick={params => viewModel.onClickMyOrderModal(params.row._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 

@@ -3,7 +3,7 @@ import { useContext, useState } from 'react'
 
 import { Chip, Tooltip } from '@mui/material'
 
-import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { TooltipAttentionIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { HintsContext } from '@contexts/hints-context'
 
@@ -51,7 +51,7 @@ export const ColoredChip = observer(
                   onClick={() => setOpenAttentionTooltip(true)}
                 /> */}
                 <div>
-                  <TooltipAttention className={cx(styles.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
+                  <TooltipAttentionIcon className={cx(styles.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
                 </div>
               </Tooltip>
             ) : null}

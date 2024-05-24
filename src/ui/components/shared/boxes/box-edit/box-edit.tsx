@@ -1,8 +1,8 @@
 import { FC, memo } from 'react'
 
-import { useStyles } from './box-edit.style'
+import { PencilIcon } from '@components/shared/svg-icons'
 
-import { PencilIcon } from '../../svg-icons'
+import { useStyles } from './box-edit.style'
 
 export const BoxEdit: FC = memo(() => {
   const { classes: styles } = useStyles()

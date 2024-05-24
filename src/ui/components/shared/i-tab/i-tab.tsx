@@ -5,7 +5,7 @@ import { Tab } from '@mui/material'
 import { TabClasses } from '@mui/material/Tab/tabClasses'
 import Tooltip from '@mui/material/Tooltip'
 
-import { BulbIcon, TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { BulbIcon, TooltipAttentionIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { HintsContext } from '@contexts/hints-context'
 
@@ -53,7 +53,7 @@ export const ITab: FC<Props> = observer(
               onOpen={() => setOpenAttentionTooltip(true)}
             >
               <div>
-                <TooltipAttention className={styles.tooltip} onClick={() => setOpenAttentionTooltip(true)} />
+                <TooltipAttentionIcon className={styles.tooltip} onClick={() => setOpenAttentionTooltip(true)} />
               </div>
             </Tooltip>
           )}

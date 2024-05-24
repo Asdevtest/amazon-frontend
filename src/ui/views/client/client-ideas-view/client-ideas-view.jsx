@@ -29,7 +29,6 @@ import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { PlusIcon } from '@components/shared/svg-icons'
 
-import { ClientIdeasViewModel } from '@views/client/client-ideas-view/client-ideas-view.model'
 import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.style'
 
 import { t } from '@utils/translations'
@@ -38,6 +37,8 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
+
+import { ClientIdeasViewModel } from './client-ideas-view.model'
 
 export const ClientIdeasView = observer(({ history }) => {
   const { classes: styles } = useStyles()

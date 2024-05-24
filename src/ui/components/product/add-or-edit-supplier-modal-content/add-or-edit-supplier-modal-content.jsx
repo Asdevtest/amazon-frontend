@@ -84,7 +84,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
     price: supplier?.price || '',
     images: supplier?.images || [],
     multiplicity: supplier?.multiplicity || false,
-    productionTerm: supplier?.productionTerm || '',
+    minProductionTerm: supplier?.minProductionTerm || 0,
+    maxProductionTerm: supplier?.maxProductionTerm || 0,
     paymentMethods: supplier?.paymentMethods || [],
     yuanRate: supplier?.yuanRate || platformSettings?.yuanToDollarRate,
     priceInYuan: supplier?.priceInYuan || '',
@@ -192,7 +193,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
         boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
       },
 
-      productionTerm: tmpSupplier?.productionTerm ? tmpSupplier?.productionTerm : 0,
+      minProductionTerm: tmpSupplier?.minProductionTerm || 0,
+      maxProductionTerm: tmpSupplier?.maxProductionTerm || 0,
 
       _id: supplier?._id,
     }
@@ -352,7 +354,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         ...tmpSupplier,
         [fieldName]: event?.target?.checked,
       })
-    } else if (['minlot', 'amount', 'productionTerm'].includes(fieldName)) {
+    } else if (['minlot', 'amount', 'minProductionTerm', 'maxProductionTerm'].includes(fieldName)) {
       setTmpSupplier({ ...tmpSupplier, [fieldName]: parseInt(event.target.value) || '' })
     } else if (['amountInBox'].includes(fieldName)) {
       setTmpSupplier({
@@ -519,7 +521,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
               label={t(TranslationKey.Link) + '*'}
               inputProps={{ maxLength: 2000 }}
-              containerClasses={styles.linkContainer}
+              containerClasses={styles.nameContainer}
               labelClasses={styles.normalLabel}
               inputComponent={
                 <a
@@ -537,7 +539,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
               tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
               label={t(TranslationKey.Link) + '*'}
               inputProps={{ maxLength: 2000 }}
-              containerClasses={styles.linkContainer}
+              containerClasses={styles.nameContainer}
               labelClasses={styles.normalLabel}
               value={tmpSupplier.link}
               onChange={onChangeField('link')}
@@ -547,11 +549,21 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <Field
             disabled={onlyRead}
             inputProps={{ maxLength: 10 }}
-            label={t(TranslationKey['Production time'])}
+            label={t(TranslationKey['Min. production time, days'])}
             containerClasses={styles.middleContainer}
             labelClasses={styles.normalLabel}
-            value={tmpSupplier?.productionTerm}
-            onChange={onChangeField('productionTerm')}
+            value={tmpSupplier?.minProductionTerm}
+            onChange={onChangeField('minProductionTerm')}
+          />
+
+          <Field
+            disabled={onlyRead}
+            inputProps={{ maxLength: 10 }}
+            label={t(TranslationKey['Max. production time, days'])}
+            containerClasses={styles.middleContainer}
+            labelClasses={styles.normalLabel}
+            value={tmpSupplier?.maxProductionTerm}
+            onChange={onChangeField('maxProductionTerm')}
           />
         </div>
       </div>

@@ -2268,4 +2268,6 @@ export enum TranslationKey {
   'New product price' = 'New product price',
   'is not a valid email address' = 'is not a valid email address',
   'report by the product' = 'report by the product',
+  'Min. production time, days' = 'Min. production time, days',
+  'Max. production time, days' = 'Max. production time, days',
 }

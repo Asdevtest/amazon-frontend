@@ -122,7 +122,18 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.originalData?.orderSupplier?.productionTerm} />,
+    renderCell: params => {
+      const currentSupplier = params.row.originalData?.orderSupplier
+
+      return (
+        <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+      )
+    },
+    valueGetter: params => {
+      const currentSupplier = params.row.originalData?.orderSupplier
+
+      return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
+    },
     width: 120,
     sortable: false,
   },

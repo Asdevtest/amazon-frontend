@@ -23,8 +23,8 @@ const filterOperatorByColumn = {
   $any: ['tags', 'redFlags'],
 }
 
-const setValueForFilter = (column: string, FilterString: string) => {
-  const FinalFilterString = FilterString.substring(0, FilterString.length - 1)
+const setValueForFilter = (column: string, filterString: string) => {
+  const finalFilterString = filterString.substring(0, filterString.length - 1)
 
   let operator = '$eq'
 
@@ -35,7 +35,7 @@ const setValueForFilter = (column: string, FilterString: string) => {
     }
   }
 
-  return { [operator]: FinalFilterString }
+  return { [operator]: finalFilterString }
 }
 
 const setValueForSearch = (searchField: string, searchValue: string) => {
@@ -92,6 +92,13 @@ export const dataGridFiltersConverter = (
 
     if (filterList.length === 0) {
       return acc
+    }
+
+    if (Array.isArray(filterList) && filterList.length === 2 && ['createdAt', 'updatedAt'].includes(column)) {
+      return (acc = {
+        ...acc,
+        createdAt: { $gte: filterList[0], $lte: filterList[1] },
+      })
     }
 
     let finalFilterString = ''

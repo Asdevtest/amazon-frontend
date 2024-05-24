@@ -146,13 +146,15 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
     const pageSettings = settingsByUrl[history?.location?.pathname as keyof typeof settingsByUrl]
     const columns = pageSettings.columnsModel(rowHandlers)
     const tableKey = pageSettings.dataGridKey
-    const status = pageSettings.statuses
+    const statusGroup = pageSettings.statusGroup
 
     const defaultGetCurrentDataOptions = () => pageSettings.queries
     const additionalPropertiesGetFilters = () => ({
-      status: {
-        $eq: status?.map((item: number) => `"${item}"`).join(','),
-      },
+      ...(!this.columnMenuSettings?.status?.currentFilterData?.length && {
+        statusGroup: {
+          $eq: statusGroup,
+        },
+      }),
     })
 
     super({
@@ -172,6 +174,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
     this.sortModel = [{ field: pageSettings.defaultSortingModel, sort: 'desc' }]
 
     this.getDataGridState()
+
     this.getCurrentData()
   }
 

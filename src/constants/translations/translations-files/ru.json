@@ -2265,5 +2265,7 @@
   "Launch type": "Тип запуска",
   "New product price": "Новая цена продукта",
   "is not a valid email address": "не является действительным адресом электронной почты",
-  "report by the product": "отчет по продукту"
+  "report by the product": "отчет по продукту",
+  "Min. production time, days": "Мин. срок изготовления, дней",
+  "Max. production time, days": "Макс. срок изготовления, дней"
 }

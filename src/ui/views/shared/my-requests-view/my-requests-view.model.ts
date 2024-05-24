@@ -127,7 +127,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
     })
     makeObservable(this, observerConfig)
 
-    this.history = this.initHistory()
+    this.initHistory()
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.getDataGridState()

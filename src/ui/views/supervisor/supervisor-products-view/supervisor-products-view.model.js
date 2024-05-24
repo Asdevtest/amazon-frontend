@@ -10,7 +10,6 @@ import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-f
 
 import { supervisorProductsViewColumns } from './supervisor-products-columns'
 import { additionalFields, supervisorProductsConfig } from './supervisor-products-view.config'
-import { filtersFields } from './supervisor-products-view.constants'
 
 export class SupervisorProductsViewModel extends DataGridFilterTableModel {
   switcherFilterStatuses = []
@@ -18,9 +17,6 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
 
   get userInfo() {
     return UserModel.userInfo
-  }
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
   constructor() {

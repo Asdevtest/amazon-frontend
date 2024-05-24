@@ -806,7 +806,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       const boxesWithDifferentStorekeepers = this.selectedRows.filter(boxId => {
         const findBox = this.currentData.find(box => box._id === boxId)
-        return findBox?.storekeeper !== firstBox?.storekeeper
+
+        return findBox?.storekeeper?._id !== firstBox?.storekeeper?._id
       })
 
       if (boxesWithDifferentStorekeepers.length) {

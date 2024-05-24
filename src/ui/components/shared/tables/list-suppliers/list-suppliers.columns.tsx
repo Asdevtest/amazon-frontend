@@ -98,7 +98,9 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'productionTime',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time'])} />,
-    renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={String(row.productionTerm)} />,
+    renderCell: ({ row }: GridRowModel) => (
+      <MultilineTextCell text={`${row.minProductionTerm} - ${row.maxProductionTerm}`} />
+    ),
     filterable: false,
     sortable: false,
     width: 100,

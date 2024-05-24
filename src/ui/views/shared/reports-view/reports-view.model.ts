@@ -1,4 +1,7 @@
+import { Dayjs } from 'dayjs'
 import { makeObservable } from 'mobx'
+
+import { DateRange } from '@mui/x-date-pickers-pro'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
@@ -19,27 +22,36 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   get activeLaunches() {
     return this.meta?.activeLaunches
   }
-  get rows() {
-    return this.currentData
-  }
 
   constructor(productId: string) {
-    const columnsModel = reportsViewColumns()
-    const filtersFields = getFilterFields(columnsModel, ['productId'])
+    const rowHandlers = {}
+    const columnsModel = reportsViewColumns(rowHandlers)
+    const filtersFields = getFilterFields(columnsModel, ['sub'])
     const mainMethodURL = `clients/products/listing_reports_by_product_id/${productId}?`
+    const defaultGetCurrentDataOptions = () => ({
+      guid: productId,
+    })
 
     super({
-      getMainDataMethod: () => ClientModel.getListingReportById(productId),
+      getMainDataMethod: ClientModel.getListingReportById,
       columnsModel,
       filtersFields,
       mainMethodURL,
       tableKey: DataGridTablesKeys.PRODUCT_LISTING_REPORTS,
+      defaultGetCurrentDataOptions,
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.getDataGridState()
     this.getCurrentData()
 
     makeObservable(this, reportsViewConfig)
+  }
+
+  onDateRangePickerClick(value: DateRange<Dayjs>) {
+    const transformedValue = [value?.[0]?.toISOString(), value?.[1]?.toISOString()]
+    this.onChangeFullFieldMenuItem(transformedValue, 'createdAt')
+    this.getCurrentData()
   }
 
   onToggleReportModal() {

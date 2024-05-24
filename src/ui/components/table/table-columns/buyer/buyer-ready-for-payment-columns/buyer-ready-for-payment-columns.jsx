@@ -1,6 +1,7 @@
 import { Checkbox } from '@mui/material'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import {
   OrderStatus,
   OrderStatusByCode,
@@ -212,15 +213,39 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
     },
 
     {
-      field: 'productionTerm',
+      field: 'minProductionTerm',
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
-      renderCell: params => <MultilineTextCell text={params.row.originalData.orderSupplier?.productionTerm} />,
-      valueGetter: params => params.row.originalData.orderSupplier?.productionTerm ?? '',
+
+      renderCell: params => {
+        const currentSupplier = params.row.originalData.orderSupplier
+
+        return (
+          <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+        )
+      },
+      valueGetter: params => {
+        const currentSupplier = params.row.originalData.orderSupplier
+
+        return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
+      },
+
+      fields: [
+        {
+          label: () => t(TranslationKey['Min. production time, days']),
+          value: 'minProductionTerm',
+        },
+        {
+          label: () => t(TranslationKey['Max. production time, days']),
+          value: 'maxProductionTerm',
+        },
+      ],
+
       width: 120,
       sortable: false,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBERS,
+      table: DataGridFilterTables.SUPPLIERS,
     },
 
     {
