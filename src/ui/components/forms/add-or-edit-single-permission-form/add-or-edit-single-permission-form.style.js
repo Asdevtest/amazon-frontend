@@ -68,5 +68,9 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
+    position: 'sticky',
+    bottom: 0,
+    paddingBlock: 5,
+    backgroundColor: '#fff',
   },
 }))
