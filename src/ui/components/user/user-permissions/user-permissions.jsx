@@ -80,6 +80,7 @@ export const UserPermissions = observer(() => {
       </div>
 
       <Modal
+        missClickModalOn
         openModal={viewModel.showAddOrEditGroupPermissionModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditGroupPermissionModal')}
       >
@@ -94,6 +95,7 @@ export const UserPermissions = observer(() => {
       </Modal>
 
       <Modal
+        missClickModalOn
         openModal={viewModel.showAddOrEditSinglePermissionModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
       >
