@@ -1,18 +1,19 @@
+import { Button, Checkbox, Input, Select } from 'antd'
 import { FC, memo, useState } from 'react'
-import { Button, Checkbox, Input } from 'rsuite'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSelectPicker } from '@components/shared/selects/custom-select-picker/custom-select-picker'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './report-modal.style'
 
 import { ReportModalModel } from './report-modal.model'
+
+const { TextArea } = Input
 
 interface ReportModalProps {
   onClose: () => void
@@ -30,14 +31,30 @@ export const ReportModal: FC<ReportModalProps> = memo(props => {
   )}`
   const launchTypePlaceholder = `＋ ${t(TranslationKey['Select launch type'])}`
 
+  const filterOption = (input: string, option?: { label: string; value: string }) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+
   return (
     <div className={styles.wrapper}>
       <p className={styles.title}>{modalTitle}</p>
 
       <div className={styles.flexRowContainer}>
-        <CustomSelectPicker data={[]} placeholder={t(TranslationKey['Select ASIN'])} />
+        <Select
+          showSearch
+          placeholder={t(TranslationKey['Select ASIN'])}
+          optionFilterProp="children"
+          filterOption={filterOption}
+          options={[]}
+          className={styles.select}
+        />
 
-        <CustomSelectPicker data={[]} placeholder={launchTypePlaceholder} searchable={false} />
+        <Select
+          placeholder={launchTypePlaceholder}
+          optionFilterProp="children"
+          filterOption={filterOption}
+          options={[]}
+          className={styles.select}
+        />
       </div>
 
       <div className={styles.tableContainer}>
@@ -60,7 +77,7 @@ export const ReportModal: FC<ReportModalProps> = memo(props => {
 
         <div className={cx(styles.fieldContainer, styles.textareaContainer)}>
           <p className={styles.label}>{t(TranslationKey.Comment)}</p>
-          <Input as="textarea" rows={3} placeholder={t(TranslationKey.Enter)} style={{ resize: 'none' }} />
+          <TextArea rows={3} placeholder={t(TranslationKey.Enter)} style={{ resize: 'none' }} />
         </div>
       </div>
 
@@ -68,10 +85,8 @@ export const ReportModal: FC<ReportModalProps> = memo(props => {
         <Checkbox className={styles.checkbox}>{t(TranslationKey['Add changes to the product'])}</Checkbox>
 
         <div className={styles.flexRowContainer}>
-          <Button appearance="primary" color="green">
-            {t(TranslationKey.Save)}
-          </Button>
-          <Button appearance="ghost" color="red" onClick={onClose}>
+          <Button type="primary">{t(TranslationKey.Save)}</Button>
+          <Button danger onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>

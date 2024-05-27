@@ -5,7 +5,6 @@ import { BrowserTracing } from '@sentry/tracing'
 import ReactDOM from 'react-dom/client'
 import FaviconNotificationContextProvider from 'react-favicon-notification'
 import 'reflect-metadata'
-import 'rsuite/dist/rsuite.min.css'
 
 import '@services/mobx-persist-configure'
 

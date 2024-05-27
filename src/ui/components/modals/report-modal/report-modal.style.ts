@@ -26,13 +26,17 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
+  select: {
+    width: 215,
+  },
+
   tableContainer: {
     width: '100%',
     height: 400,
   },
 
   dataGridRoot: {
-    borderRadius: '6px !important',
+    borderRadius: '10px !important',
   },
 
   fieldContainer: {
