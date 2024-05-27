@@ -24,8 +24,8 @@ export const Info: FC<InfoProps> = memo(({ product, activeLaunches }) => {
       <div className={styles.titleContainer}>
         <p className={styles.title}>{product?.amazonTitle}</p>
         <div className={styles.infoContainer}>
-          <AsinOrSkuLink withAttributeTitle="asin" link={product?.asin} />
-          <AsinOrSkuLink withAttributeTitle="sku" link={product?.skuByClient} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={product?.asin} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={product?.skuByClient} />
         </div>
 
         <Launches launches={activeLaunches || []} />
