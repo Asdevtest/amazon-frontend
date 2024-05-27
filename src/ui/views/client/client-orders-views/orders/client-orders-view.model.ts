@@ -38,6 +38,7 @@ import { IUploadFile } from '@typings/shared/upload-file'
 import { fieldsForSearch, filtersFields } from './client-orders-view.constants'
 import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
 import { getOrderStatuses } from './helpers/get-order-statuses'
+import { getSortModel } from './helpers/get-sort-model'
 import { observerConfig } from './observer-config'
 
 export class ClientOrdersViewModel extends DataGridFilterTableModel {
@@ -137,7 +138,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     makeObservable(this, observerConfig)
 
     this.onChangeFullFieldMenuItem(orderStatuses, 'status')
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.sortModel = getSortModel(history.location.pathname)
 
     this.history = history
 

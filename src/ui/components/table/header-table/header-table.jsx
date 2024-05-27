@@ -38,6 +38,7 @@ export const HeaderTable = ({ viewModel }) => {
       <div className={styles.btnsWrapper}>
         <div className={styles.btnsSubWrapper}>
           <Button
+            styleType={ButtonStyle.DANGER}
             disabled={!viewModel.selectedRows.length}
             tooltipInfoContent={t(
               TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],

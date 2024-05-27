@@ -8,6 +8,7 @@ export const observerConfig = {
   fieldsForSearch: observable,
   additionalPropertiesColumnMenuSettings: observable,
   additionalPropertiesGetFilters: observable,
+  operatorsSettings: observable,
 
   isSomeFilterOn: computed,
 
