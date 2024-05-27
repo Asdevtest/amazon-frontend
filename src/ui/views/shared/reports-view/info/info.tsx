@@ -1,8 +1,12 @@
 import { FC, memo } from 'react'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Launches } from '@components/shared/launches'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+
+import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/models/products/product'
 import { ILaunch } from '@typings/shared/launch'
@@ -15,7 +19,9 @@ interface InfoProps {
 }
 
 export const Info: FC<InfoProps> = memo(({ product, activeLaunches }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
+
+  const shopName = product?.shop?.name || t(TranslationKey.Missing)
 
   return (
     <div className={styles.wrapper}>
@@ -23,7 +29,11 @@ export const Info: FC<InfoProps> = memo(({ product, activeLaunches }) => {
 
       <div className={styles.titleContainer}>
         <p className={styles.title}>{product?.amazonTitle}</p>
-        <div className={styles.infoContainer}>
+        <div>
+          <div className={styles.shopContainer}>
+            <p className={cx(styles.textSecond, styles.text)}> {t(TranslationKey.Shop)}:</p>
+            <p className={styles.text}>{shopName}</p>
+          </div>
           <AsinOrSkuLink withAttributeTitle="asin" link={product?.asin} />
           <AsinOrSkuLink withAttributeTitle="sku" link={product?.skuByClient} />
         </div>
