@@ -1,3 +1,4 @@
+import { UserRolePrettyMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -25,7 +26,7 @@ export const userPermissionsColumns = handlers => [
     field: 'role',
     headerName: t(TranslationKey.Role),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
-    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign text={UserRolePrettyMap[params.value]} />,
     width: 140,
   },
 
