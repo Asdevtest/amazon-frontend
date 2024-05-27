@@ -13,6 +13,10 @@ type FilterList = {
   [field: string]: FilterObject | FilterObject[] | Record<string, unknown>
 }
 
+type OperatorsSettingsType = {
+  [key: string]: string
+}
+
 const onlyDigitsRegex = /^\d+$/
 const onlyNumberColumns = ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'batchHumanFriendlyId']
 
@@ -23,15 +27,23 @@ const filterOperatorByColumn = {
   $any: ['tags', 'redFlags'],
 }
 
-const setValueForFilter = (column: string, filterString: string) => {
+const setValueForFilter = (column: string, filterString: string, operatorsSettings?: OperatorsSettingsType) => {
   const finalFilterString = filterString.substring(0, filterString.length - 1)
 
   let operator = '$eq'
 
-  for (const key in filterOperatorByColumn) {
-    if (filterOperatorByColumn[key as keyof typeof filterOperatorByColumn].includes(column)) {
+  if (operatorsSettings) {
+    const key = operatorsSettings[column]
+
+    if (key) {
       operator = key
-      break
+    }
+  } else {
+    for (const key in filterOperatorByColumn) {
+      if (filterOperatorByColumn[key as keyof typeof filterOperatorByColumn].includes(column)) {
+        operator = key
+        break
+      }
     }
   }
 
@@ -70,6 +82,7 @@ export const dataGridFiltersConverter = (
   columns: string[],
   searchFields: string[] = [],
   additionalOptions?: Record<string, unknown>,
+  operatorsSettings?: OperatorsSettingsType,
 ): FilterList => {
   // * Проходимся по списку колонок для поиска и создаем фильтр для каждой
   const searchFieldsArray: FilterObject[] = searchValue
@@ -115,7 +128,7 @@ export const dataGridFiltersConverter = (
 
     acc = {
       ...acc,
-      [column]: setValueForFilter(column, finalFilterString),
+      [column]: setValueForFilter(column, finalFilterString, operatorsSettings),
     }
 
     return acc

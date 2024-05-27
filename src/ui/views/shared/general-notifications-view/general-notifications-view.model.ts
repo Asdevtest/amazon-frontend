@@ -93,6 +93,10 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
       }),
     })
 
+    const operatorsSettings = {
+      shop: '$any',
+    }
+
     super({
       getMainDataMethod: UserModel.getUsersNotificationsPagMy,
       columnsModel: columns,
@@ -102,6 +106,7 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
       tableKey: DataGridTablesKeys.GENERAL_NOTIFICATIONS,
       defaultGetCurrentDataOptions,
       additionalPropertiesGetFilters,
+      operatorsSettings,
     })
 
     this.history = history

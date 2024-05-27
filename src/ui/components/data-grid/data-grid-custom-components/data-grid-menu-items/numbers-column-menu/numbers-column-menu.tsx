@@ -2,7 +2,6 @@ import { ChangeEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CircleSpinner } from '@components/shared/circle-spinner'
 import { Input } from '@components/shared/input'
@@ -13,12 +12,12 @@ import { SearchInput } from '@components/shared/search-input'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './numbers-column-menu.style'
 
 import { DataGridSelectAllFilters } from '../../data-grid-select-all-filters/data-grid-select-all-filters'
+import { ControlButtonsColumnMenu } from '../control-buttons-column-menu'
 
 import { useNumbersColumnMenu } from './hooks/use-numbers-column-menu'
 
@@ -140,21 +139,11 @@ export const NumbersColumnMenu: FC<INumbersColumnMenuProps> = memo(props => {
         )}
       </div>
 
-      <div className={styles.buttonsWrapper}>
-        <Button
-          onClick={() => {
-            onClose()
-            onChangeFullFieldMenuItem(chosenItems, currentField)
-            onClickAccept()
-          }}
-        >
-          {t(TranslationKey.Accept)}
-        </Button>
-
-        <Button variant={ButtonVariant.OUTLINED} onClick={onClose}>
-          {t(TranslationKey.Cancel)}
-        </Button>
-      </div>
+      <ControlButtonsColumnMenu
+        onClose={onClose}
+        onChangeFullFieldMenuItem={() => onChangeFullFieldMenuItem(chosenItems, currentField)}
+        onClickAccept={onClickAccept}
+      />
     </div>
   )
 })

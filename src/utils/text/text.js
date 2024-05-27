@@ -204,6 +204,10 @@ export const getTableByColumn = (column, hint) => {
       return 'batches'
     }
 
+    if (['updatedAt'].includes(column) && hint === 'products') {
+      return 'products'
+    }
+
     if (column === 'batchHumanFriendlyId' && hint === 'boxes') {
       return 'batches'
     }
