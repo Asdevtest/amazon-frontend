@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: 600,
     padding: 10,
@@ -71,6 +71,6 @@ export const useStyles = makeStyles()(() => ({
     position: 'sticky',
     bottom: 0,
     paddingBlock: 5,
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.general,
   },
 }))

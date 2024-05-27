@@ -48,7 +48,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'sticky',
     bottom: 0,
     paddingBlock: 5,
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.general,
   },
 
   permissionSelect: {
