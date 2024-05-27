@@ -132,6 +132,7 @@ export const WarehouseAwaitingBatchesView = observer(() => {
       </div>
 
       <Modal
+        missClickModalOn
         openModal={viewModel.showAddOrEditBatchModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
       >
