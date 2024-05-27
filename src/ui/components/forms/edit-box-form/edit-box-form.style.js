@@ -189,7 +189,10 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     width: 660,
     overflow: 'hidden',
-    padding: 5,
+  },
+
+  leftProductColumn: {
+    padding: 10,
   },
 
   amazonTitle: {
