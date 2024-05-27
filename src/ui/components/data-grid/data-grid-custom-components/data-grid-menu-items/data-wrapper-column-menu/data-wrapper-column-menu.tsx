@@ -13,14 +13,14 @@ import { useStyles } from './data-wrapper-column-menu.style'
 
 import { DataGridSelectAllFilters } from '../../data-grid-select-all-filters/data-grid-select-all-filters'
 
-interface IDataWrapperColumnMenuProps extends PropsWithChildren {
+interface DataWrapperColumnMenuProps extends PropsWithChildren {
   dataforRender: any
   filterRequestStatus: loadingStatus
   chosenItems: any
   setChosenItems: (arg: any) => void
 }
 
-export const DataWrapperColumnMenu: FC<IDataWrapperColumnMenuProps> = memo(props => {
+export const DataWrapperColumnMenu: FC<DataWrapperColumnMenuProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const { children, dataforRender, filterRequestStatus, chosenItems, setChosenItems } = props

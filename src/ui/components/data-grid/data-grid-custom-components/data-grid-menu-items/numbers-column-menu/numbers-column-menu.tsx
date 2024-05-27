@@ -21,7 +21,7 @@ import { ControlButtonsColumnMenu } from '../control-buttons-column-menu'
 
 import { useNumbersColumnMenu } from './hooks/use-numbers-column-menu'
 
-interface INumbersColumnMenuProps {
+interface NumbersColumnMenuProps {
   fields: IRadioBottonsSetting[]
   filterRequestStatus: loadingStatus
   filtersData: unknown
@@ -33,7 +33,7 @@ interface INumbersColumnMenuProps {
   onChangeFullFieldMenuItem: (chosenItems: number[], field: string) => void
 }
 
-export const NumbersColumnMenu: FC<INumbersColumnMenuProps> = memo(props => {
+export const NumbersColumnMenu: FC<NumbersColumnMenuProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const {
