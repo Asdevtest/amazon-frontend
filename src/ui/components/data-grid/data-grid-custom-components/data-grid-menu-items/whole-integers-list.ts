@@ -53,6 +53,8 @@ export const wholeIntegersList = [
   'currentSupplierProductionTerm',
   'minlot',
   'totalAmount',
+  'minProductionTerm',
+  'maxProductionTerm',
 ]
 
 export const negativeOrPositiveList = ['roi']
