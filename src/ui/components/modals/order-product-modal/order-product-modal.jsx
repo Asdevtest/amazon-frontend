@@ -88,7 +88,7 @@ export const OrderProductModal = memo(props => {
                 : '',
             },
             variationTariff: {
-              _id: reorderOrder?.variationTariffId,
+              ...reorderOrder?.variationTariff,
             },
             // @refactor: need to create function
             destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
@@ -164,7 +164,7 @@ export const OrderProductModal = memo(props => {
                 : '',
             },
             variationTariff: {
-              _id: reorderOrder?.variationTariffId,
+              ...reorderOrder?.variationTariff,
             },
 
             // @refactor: need to create function
