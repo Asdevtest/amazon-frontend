@@ -11,7 +11,19 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 20,
   },
 
-  infoContainer: {},
+  shopContainer: {
+    display: 'flex',
+    gap: 5,
+  },
+
+  text: {
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
+  textSecond: {
+    color: theme.palette.text.second,
+  },
 
   titleContainer: {
     flex: 1,

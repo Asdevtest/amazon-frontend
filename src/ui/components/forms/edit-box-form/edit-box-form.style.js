@@ -191,6 +191,10 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
   },
 
+  leftProductColumn: {
+    padding: 10,
+  },
+
   amazonTitle: {
     display: '-webkit-box',
     WebkitLineClamp: 3,
