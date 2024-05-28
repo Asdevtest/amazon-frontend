@@ -45,6 +45,10 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 30,
     justifyContent: 'flex-end',
+    position: 'sticky',
+    bottom: 0,
+    paddingBlock: 5,
+    backgroundColor: theme.palette.background.general,
   },
 
   permissionSelect: {
