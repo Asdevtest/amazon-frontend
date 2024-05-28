@@ -166,11 +166,11 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'amount',
+      field: 'totalAmount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-      renderCell: params => (params.row ? <MultilineTextCell text={params.value * params.row.amount} /> : ''),
+      renderCell: params => <MultilineTextCell text={params.value} />,
       type: 'number',
       width: 95,
 

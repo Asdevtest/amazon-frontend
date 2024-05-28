@@ -194,7 +194,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         status: curStatus,
         destinationId: this.curDestinationId,
         shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
-        // isFormed: this.columnMenuSettings.isFormedData.isFormed,
+
         hasBatch: false,
       }
     }
@@ -210,8 +210,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         ? this.columnMenuSettings.status.currentFilterData.join(',')
         : defaultStatuses.join(',')
 
-      // `boxes/pag/clients_light?&filters=;${this.getFilter()}${isFormedFilter ? ';&' + 'isFormed=' + isFormedFilter : ''}`
-
       return {
         status: {
           $eq: curStatus,
@@ -220,6 +218,12 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         isFormed: {
           $eq: isFormedFilter,
         },
+
+        ...(this.currentStorekeeperId && {
+          storekeeper: {
+            $eq: this.currentStorekeeperId,
+          },
+        }),
       }
     }
 
