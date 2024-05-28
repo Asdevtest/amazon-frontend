@@ -20,8 +20,6 @@ import { DataGridFilterTableModelParams } from './data-grid-filter-table-model.t
 import { observerConfig } from './observer-config'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
-  currentSearchValue: string = ''
-
   filtersFields: string[]
 
   mainMethodURL: string

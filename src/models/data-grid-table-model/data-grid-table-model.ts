@@ -15,7 +15,7 @@ import { filterModelInitialValue, paginationModelInitialValue } from './model-co
 import { observerConfig } from './observer-config'
 
 export class DataGridTableModel extends DefaultModel {
-  unserverSearchValue: string = ''
+  currentSearchValue: string = ''
 
   densityModel = 'compact'
   sortModel: any = undefined
@@ -100,7 +100,7 @@ export class DataGridTableModel extends DefaultModel {
   }
 
   onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {
-    this.unserverSearchValue = e.target.value
+    this.currentSearchValue = e.target.value
   }
 
   handlePinColumn(pinnedColumns: GridPinnedColumns) {

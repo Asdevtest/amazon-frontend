@@ -9,8 +9,8 @@ export const observerConfig = {
   selectedRows: observable,
   tableKey: observable,
   columnsModel: observable,
-  unserverSearchValue: observable,
   pinnedColumns: observable,
+  currentSearchValue: observable,
 
   setDataGridState: action.bound,
   getDataGridState: action.bound,
