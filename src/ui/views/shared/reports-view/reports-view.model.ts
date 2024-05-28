@@ -33,7 +33,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     })
 
     super({
-      getMainDataMethod: ClientModel.getListingReportById,
+      getMainDataMethod: ClientModel.getListingReportByproductId,
       columnsModel,
       filtersFields,
       mainMethodURL,

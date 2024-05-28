@@ -2274,4 +2274,5 @@ export enum TranslationKey {
   'New price' = 'New price',
   'Add changes to the product' = 'Add changes to the product',
   'Enter' = 'Enter',
+  'Discount' = 'Discount',
 }

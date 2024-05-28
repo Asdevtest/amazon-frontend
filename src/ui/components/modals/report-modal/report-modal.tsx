@@ -1,11 +1,13 @@
 import { Button, Checkbox, Input, Select } from 'antd'
-import { FC, memo, useState } from 'react'
+import { observer } from 'mobx-react'
+import { FC, useState } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputNumber } from '@components/shared/custom-input-number'
 
 import { t } from '@utils/translations'
 
@@ -16,23 +18,21 @@ import { ReportModalModel } from './report-modal.model'
 const { TextArea } = Input
 
 interface ReportModalProps {
+  productId: string
   onClose: () => void
 }
 
-export const ReportModal: FC<ReportModalProps> = memo(props => {
-  const { onClose } = props
+export const ReportModal: FC<ReportModalProps> = observer(props => {
+  const { productId, onClose } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new ReportModalModel())
+  const [viewModel] = useState(() => new ReportModalModel(productId))
 
   const modalTitle = `${viewModel.editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(
     TranslationKey['report by the product'],
   )}`
   const launchTypePlaceholder = `＋ ${t(TranslationKey['Select launch type'])}`
-
-  const filterOption = (input: string, option?: { label: string; value: string }) =>
-    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
 
   return (
     <div className={styles.wrapper}>
@@ -40,26 +40,28 @@ export const ReportModal: FC<ReportModalProps> = memo(props => {
 
       <div className={styles.flexRowContainer}>
         <Select
+          allowClear
           showSearch
           placeholder={t(TranslationKey['Select ASIN'])}
-          optionFilterProp="children"
-          filterOption={filterOption}
           options={[]}
           className={styles.select}
         />
 
         <Select
+          allowClear
+          loading={viewModel.launchOptions.length === 0}
           placeholder={launchTypePlaceholder}
-          optionFilterProp="children"
-          filterOption={filterOption}
-          options={[]}
+          options={viewModel.launchOptions}
           className={styles.select}
+          value={viewModel.selectLaunchValue}
+          onChange={viewModel.onSelectLaunch}
         />
       </div>
 
       <div className={styles.tableContainer}>
         <CustomDataGrid
-          rows={viewModel.currentData}
+          rows={viewModel.launches}
+          rowCount={viewModel.launches.length}
           columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
           columnHeaderHeight={32}
@@ -72,12 +74,24 @@ export const ReportModal: FC<ReportModalProps> = memo(props => {
       <div className={styles.flexRowContainer}>
         <div className={cx(styles.fieldContainer, styles.inputContainer)}>
           <p className={styles.label}>{t(TranslationKey['New price'])}</p>
-          <Input placeholder={t(TranslationKey.Enter)} />
+          <CustomInputNumber
+            addonAfter="$"
+            controls={false}
+            placeholder={t(TranslationKey.Enter)}
+            value={viewModel.newProductPrice}
+            onChange={viewModel.onChangeNewProductPrice}
+          />
         </div>
 
         <div className={cx(styles.fieldContainer, styles.textareaContainer)}>
           <p className={styles.label}>{t(TranslationKey.Comment)}</p>
-          <TextArea rows={3} placeholder={t(TranslationKey.Enter)} style={{ resize: 'none' }} />
+          <TextArea
+            rows={3}
+            placeholder={t(TranslationKey.Enter)}
+            style={{ resize: 'none' }}
+            value={viewModel.description}
+            onChange={viewModel.onChangeDescription}
+          />
         </div>
       </div>
 
