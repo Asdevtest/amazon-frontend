@@ -12,6 +12,11 @@ export const useStyles = makeStyles()(() => ({
     padding: '10px 0',
   },
 
+  soloLaunchLabel: {
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
   text: {
     padding: '5px 10px',
     display: 'flex',

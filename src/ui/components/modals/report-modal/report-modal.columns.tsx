@@ -1,32 +1,42 @@
+import dayjs from 'dayjs'
+
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { CustomRangeDatePicker } from '@components/shared/custom-range-date-picker'
 import { CustomTextarea } from '@components/shared/custom-textarea'
+import { Launches } from '@components/shared/launches'
 import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
 
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { ChangeCellCommentValueType, ChangeCellValueType } from './report-modal.type'
+import { ChangeCommentCellValueType, ChangeDateCellValueType, ChangeNumberCellValueType } from './report-modal.type'
 
 interface ReportModalColumnsProps {
-  onChangeCellValue: ChangeCellValueType
-  onChangeCellCommentValue: ChangeCellCommentValueType
+  onChangeNumberCellValue: ChangeNumberCellValueType
+  onChangeCommentCellValue: ChangeCommentCellValueType
+  onChangeDateCellValue: ChangeDateCellValueType
 }
 
-export const reportModalColumns = ({ onChangeCellValue, onChangeCellCommentValue }: ReportModalColumnsProps) => {
+export const reportModalColumns = ({
+  onChangeNumberCellValue,
+  onChangeCommentCellValue,
+  onChangeDateCellValue,
+}: ReportModalColumnsProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'launchType',
       headerName: t(TranslationKey['Launch type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell leftAlign twoLines text={getLaunchName(row.type)} />,
-      width: 160,
+      renderCell: ({ row }: GridRowModel) => (
+        <Launches cell launchLabel={getLaunchName(row.type)} launches={[{ type: row.type, value: row.value }]} />
+      ),
+      width: 150,
     },
 
     {
@@ -40,17 +50,23 @@ export const reportModalColumns = ({ onChangeCellValue, onChangeCellCommentValue
           min={0}
           max={100}
           value={row.value}
-          onChange={onChangeCellValue(row._id, 'value')}
+          onChange={onChangeNumberCellValue(row._id, 'value')}
         />
       ),
-      width: 105,
+      width: 110,
     },
 
     {
       field: 'dates',
       headerName: t(TranslationKey.Dates),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
-      renderCell: ({ row }: GridRowModel) => <CustomRangeDatePicker cell />,
+      renderCell: ({ row }: GridRowModel) => (
+        <CustomRangeDatePicker
+          cell
+          value={[row.dateFrom ? dayjs(row.dateFrom) : null, row.dateFrom ? dayjs(row.dateTo) : null]}
+          onChange={onChangeDateCellValue(row._id, 'dateFrom')} // or dateTo - same overall value
+        />
+      ),
       width: 260,
     },
 
@@ -64,10 +80,10 @@ export const reportModalColumns = ({ onChangeCellValue, onChangeCellCommentValue
           rows={2}
           placeholder="Enter"
           value={row.comment}
-          onChange={onChangeCellCommentValue(row._id, 'comment')}
+          onChange={onChangeCommentCellValue(row._id, 'comment')}
         />
       ),
-      width: 200,
+      width: 210,
     },
 
     {
@@ -81,10 +97,10 @@ export const reportModalColumns = ({ onChangeCellValue, onChangeCellCommentValue
           rows={2}
           placeholder="Enter"
           value={row.result}
-          onChange={onChangeCellCommentValue(row._id, 'result')}
+          onChange={onChangeCommentCellValue(row._id, 'result')}
         />
       ),
-      width: 200,
+      width: 210,
     },
   ]
 

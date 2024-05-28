@@ -1,4 +1,4 @@
-import { Button, Checkbox, Select } from 'antd'
+import { Button, Checkbox, Select, Space } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
@@ -6,6 +6,7 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { CustomTextarea } from '@components/shared/custom-textarea'
@@ -17,6 +18,7 @@ import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './report-modal.style'
 
+import { getAsinOptions } from './report-modal.config'
 import { ReportModalModel } from './report-modal.model'
 
 interface ReportModalProps {
@@ -35,6 +37,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
     TranslationKey['report by the product'],
   )}`
   const launchTypePlaceholder = `＋ ${t(TranslationKey['Select launch type'])}`
+  const asinOptions = getAsinOptions(product)
 
   return (
     <div className={styles.wrapper}>
@@ -42,15 +45,41 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
 
       <div className={styles.flexRowContainer}>
         <Select
-          allowClear
           showSearch
           placeholder={t(TranslationKey['Select ASIN'])}
-          options={[]}
           className={styles.select}
+          defaultValue={[product.asin]}
+          options={asinOptions}
+          optionRender={option => (
+            <Space>
+              <img
+                aria-label={option.data.value}
+                src={option.data.image}
+                alt={option.data.value}
+                className={styles.optionImage}
+              />
+              <div className={styles.optionContainer}>
+                <AsinOrSkuLink
+                  withCopyValue
+                  withAttributeTitle="asin"
+                  link={option.data.value}
+                  textStyles={styles.optionText}
+                  iconStyles={styles.optionIcon}
+                />
+                <AsinOrSkuLink
+                  withCopyValue
+                  withAttributeTitle="sku"
+                  link={option.data.sku}
+                  textStyles={styles.optionText}
+                  iconStyles={styles.optionIcon}
+                />
+              </div>
+            </Space>
+          )}
         />
 
         <Select
-          allowClear
+          showSearch
           loading={viewModel.launchOptions.length === 0}
           placeholder={launchTypePlaceholder}
           options={viewModel.launchOptions}

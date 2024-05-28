@@ -33,7 +33,7 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
         {...restProps}
         className={cx(styles.textarea, className)}
         style={{ resize: resize ? 'vertical' : 'none' }}
-        placeholder={t(TranslationKey[placeholder as TranslationKey])}
+        placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
       />
     </div>
   )

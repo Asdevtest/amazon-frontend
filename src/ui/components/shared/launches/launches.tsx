@@ -10,13 +10,17 @@ import { getLaunchName } from './helpers/get-launch-name'
 interface LaunchesProps {
   launches: ILaunch[]
   cell?: boolean
+  launchLabel?: string
 }
 
-export const Launches: FC<LaunchesProps> = memo(({ launches, cell }) => {
+export const Launches: FC<LaunchesProps> = memo(props => {
+  const { launches, cell, launchLabel } = props
+
   const { classes: styles, theme, cx } = useStyles()
 
   return (
     <div className={cx(styles.launches, { [styles.cell]: cell })}>
+      {launchLabel && <p className={styles.soloLaunchLabel}>{launchLabel}</p>}
       {launches.map((launch, index) => (
         <p key={index} style={getLaunchStyle(launch.type, theme)} className={styles.text}>
           {`${getLaunchName(launch.type, true)} ${launch.value} %`}

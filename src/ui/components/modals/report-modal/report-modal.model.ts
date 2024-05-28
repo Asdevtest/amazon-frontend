@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { makeAutoObservable } from 'mobx'
 import { ChangeEvent } from 'react'
 import { v4 as uuid } from 'uuid'
@@ -10,7 +11,13 @@ import { IProduct } from '@typings/models/products/product'
 
 import { reportModalColumns } from './report-modal.columns'
 import { launchOptions } from './report-modal.config'
-import { ChangeCellCommentValueType, ChangeCellValueType, ILaunchOption, IListingLaunch } from './report-modal.type'
+import {
+  ChangeCommentCellValueType,
+  ChangeDateCellValueType,
+  ChangeNumberCellValueType,
+  ILaunchOption,
+  IListingLaunch,
+} from './report-modal.type'
 
 export class ReportModalModel {
   requestStatus: loadingStatus = loadingStatus.SUCCESS
@@ -22,8 +29,9 @@ export class ReportModalModel {
   selectLaunchValue: Launches | null = null
 
   rowHandlers = {
-    onChangeCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeCellValue(id, field),
-    onChangeCellCommentValue: (id: string, field: keyof IListingLaunch) => this.onChangeCellCommentValue(id, field),
+    onChangeNumberCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeNumberCellValue(id, field),
+    onChangeCommentCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeCommentCellValue(id, field),
+    onChangeDateCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeDateCellValue(id, field),
   }
   columnsModel = reportModalColumns(this.rowHandlers)
 
@@ -82,18 +90,18 @@ export class ReportModalModel {
         _id: uuid(),
         type: value,
         value: 0,
-        dateFrom: '',
-        dateTo: '',
+        dateFrom: null,
+        dateTo: null,
         comment: '',
         requestId: null,
-        // result: '',
+        result: '',
       }
       this.listingLaunches = [...this.listingLaunches, generatedListingLaunch]
       this.selectLaunchValue = null
     }
   }
 
-  onChangeCellValue: ChangeCellValueType = (id, field) => event => {
+  onChangeNumberCellValue: ChangeNumberCellValueType = (id, field) => event => {
     const foundLaunchIndex = this.listingLaunches.findIndex(el => el._id === id)
 
     if (foundLaunchIndex !== -1 && field === 'value') {
@@ -103,12 +111,24 @@ export class ReportModalModel {
     }
   }
 
-  onChangeCellCommentValue: ChangeCellCommentValueType = (id, field) => event => {
+  onChangeCommentCellValue: ChangeCommentCellValueType = (id, field) => event => {
     const foundLaunchIndex = this.listingLaunches.findIndex(el => el._id === id)
 
     if (foundLaunchIndex !== -1 && (field === 'comment' || field === 'result')) {
       const updatedLaunches = [...this.listingLaunches]
       updatedLaunches[foundLaunchIndex][field] = event.target.value
+      this.listingLaunches = updatedLaunches
+    }
+  }
+
+  onChangeDateCellValue: ChangeDateCellValueType = (id, field) => dates => {
+    const foundLaunchIndex = this.listingLaunches.findIndex(el => el._id === id)
+
+    if (foundLaunchIndex !== -1 && (field === 'dateFrom' || field === 'dateTo')) {
+      const transformedDatesToISOString = [dayjs(dates?.[0]).toJSON(), dayjs(dates?.[1]).toJSON()]
+      const updatedLaunches = [...this.listingLaunches]
+      updatedLaunches[foundLaunchIndex].dateFrom = transformedDatesToISOString[0]
+      updatedLaunches[foundLaunchIndex].dateTo = transformedDatesToISOString[1]
       this.listingLaunches = updatedLaunches
     }
   }

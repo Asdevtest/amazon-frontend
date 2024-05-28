@@ -31,7 +31,7 @@ export const CustomInputNumber: FC<CustomInputNumberProps> = memo(props => {
         min={0}
         controls={false}
         className={cx(styles.input, className)}
-        placeholder={t(TranslationKey[placeholder as TranslationKey])}
+        placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
       />
     </div>
   )
