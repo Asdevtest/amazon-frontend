@@ -144,17 +144,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: 'barcode',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      renderCell: params => (
-        <CheckboxCell
-          checked={
-            !params.row[params.row.boxes?.length ? 'boxes' : 'boxesBefore'].some(box =>
-              box.items.some(
-                item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
-              ),
-            )
-          }
-        />
-      ),
+      renderCell: params => <CheckboxCell checked={params.value} />,
       width: window.innerWidth < 1282 ? 65 : 160,
       type: 'boolean',
     },
