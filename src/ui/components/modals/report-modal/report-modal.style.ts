@@ -32,18 +32,11 @@ export const useStyles = makeStyles()(theme => ({
 
   tableContainer: {
     width: '100%',
-    height: 400,
+    height: 410,
   },
 
   dataGridRoot: {
     borderRadius: '10px !important',
-  },
-
-  fieldContainer: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 5,
   },
 
   inputContainer: {
@@ -52,12 +45,6 @@ export const useStyles = makeStyles()(theme => ({
 
   textareaContainer: {
     width: '80%',
-  },
-
-  label: {
-    fontSize: 12,
-    lineHeight: '16px',
-    color: theme.palette.text.secondary,
   },
 
   checkbox: {

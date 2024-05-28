@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'row',
   },
 
-  input: {
+  textarea: {
     width: '100%',
   },
 

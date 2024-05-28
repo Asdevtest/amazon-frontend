@@ -1,4 +1,4 @@
-import { Button, Checkbox, Input, Select } from 'antd'
+import { Button, Checkbox, Select } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
@@ -8,26 +8,28 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
+import { CustomTextarea } from '@components/shared/custom-textarea'
 
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
+import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './report-modal.style'
 
 import { ReportModalModel } from './report-modal.model'
 
-const { TextArea } = Input
-
 interface ReportModalProps {
-  productId: string
+  product: IProduct
   onClose: () => void
 }
 
 export const ReportModal: FC<ReportModalProps> = observer(props => {
-  const { productId, onClose } = props
+  const { product, onClose } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new ReportModalModel(productId))
+  const [viewModel] = useState(() => new ReportModalModel(product))
 
   const modalTitle = `${viewModel.editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(
     TranslationKey['report by the product'],
@@ -60,11 +62,12 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
 
       <div className={styles.tableContainer}>
         <CustomDataGrid
+          disableRowSelectionOnClick
           rows={viewModel.launches}
           rowCount={viewModel.launches.length}
           columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
-          columnHeaderHeight={32}
+          columnHeaderHeight={35}
           getRowId={({ _id }: GridRowModel) => _id}
           slots={null}
           className={styles.dataGridRoot}
@@ -72,23 +75,21 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
       </div>
 
       <div className={styles.flexRowContainer}>
-        <div className={cx(styles.fieldContainer, styles.inputContainer)}>
-          <p className={styles.label}>{t(TranslationKey['New price'])}</p>
+        <div className={styles.inputContainer}>
           <CustomInputNumber
             addonAfter="$"
-            controls={false}
-            placeholder={t(TranslationKey.Enter)}
+            label="New price"
+            placeholder="Enter"
             value={viewModel.newProductPrice}
             onChange={viewModel.onChangeNewProductPrice}
           />
         </div>
 
-        <div className={cx(styles.fieldContainer, styles.textareaContainer)}>
-          <p className={styles.label}>{t(TranslationKey.Comment)}</p>
-          <TextArea
+        <div className={styles.textareaContainer}>
+          <CustomTextarea
             rows={3}
-            placeholder={t(TranslationKey.Enter)}
-            style={{ resize: 'none' }}
+            label="Comment"
+            placeholder="Enter"
             value={viewModel.description}
             onChange={viewModel.onChangeDescription}
           />
@@ -96,10 +97,18 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
       </div>
 
       <div className={cx(styles.flexRowContainer, styles.alignCenter)}>
-        <Checkbox className={styles.checkbox}>{t(TranslationKey['Add changes to the product'])}</Checkbox>
+        <Checkbox disabled className={styles.checkbox}>
+          {t(TranslationKey['Add changes to the product'])}
+        </Checkbox>
 
         <div className={styles.flexRowContainer}>
-          <Button type="primary">{t(TranslationKey.Save)}</Button>
+          <Button
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+            type="primary"
+            onClick={viewModel.createListingReport}
+          >
+            {t(TranslationKey.Save)}
+          </Button>
           <Button danger onClick={onClose}>
             {t(TranslationKey.Cancel)}
           </Button>

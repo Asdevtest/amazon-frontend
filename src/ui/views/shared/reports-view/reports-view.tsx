@@ -93,7 +93,7 @@ export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
       </div>
 
       <Modal openModal={viewModel.showReportModal} setOpenModal={viewModel.onToggleReportModal}>
-        <ReportModal productId={productId} onClose={viewModel.onToggleReportModal} />
+        <ReportModal product={viewModel.product} onClose={viewModel.onToggleReportModal} />
       </Modal>
     </>
   )

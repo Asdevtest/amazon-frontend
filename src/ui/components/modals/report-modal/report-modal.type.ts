@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react'
+
 import { Launches } from '@typings/enums/launches'
 
 export interface ILaunchOption {
@@ -12,5 +14,13 @@ export interface IListingLaunch {
   dateFrom: string
   dateTo: string
   comment: string
-  requestId: string
+  requestId: string | null
+  result?: string
 }
+
+export type ChangeCellValueType = (id: string, field: keyof IListingLaunch) => (value: string | number | null) => void
+
+export type ChangeCellCommentValueType = (
+  id: string,
+  field: keyof IListingLaunch,
+) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
