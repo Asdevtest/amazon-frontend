@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -26,11 +26,7 @@ import { SubUsersViewModel } from './sub-users-view.model'
 export const SubUsersView = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new SubUsersViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const [viewModel] = useState(() => new SubUsersViewModel(history))
 
   return (
     <>
@@ -40,8 +36,8 @@ export const SubUsersView = observer(({ history }) => {
         <SearchInput
           inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by name, email'])}
-          value={viewModel.nameSearchValue}
-          onChange={viewModel.onChangeNameSearchValue}
+          value={viewModel.currentSearchValue}
+          onChange={viewModel.onChangeUnserverSearchValue}
         />
 
         <Button
@@ -62,10 +58,12 @@ export const SubUsersView = observer(({ history }) => {
           filterModel={viewModel.filterModel}
           sortingMode="client"
           paginationMode="client"
+          pinnedColumns={viewModel.pinnedColumns}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
+          rows={viewModel.filteredData}
           getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -76,6 +74,12 @@ export const SubUsersView = observer(({ history }) => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
           columns={viewModel.columnsModel}
@@ -84,6 +88,7 @@ export const SubUsersView = observer(({ history }) => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -102,8 +107,8 @@ export const SubUsersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showPermissionModal')}
       >
         <AddOrEditUserPermissionsForm
-          isWithoutProductPermissions={checkIsWithoutProductPermissions(UserRoleCodeMap[viewModel.userInfo.role])}
-          isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[viewModel.userInfo.role])}
+          isWithoutProductPermissions={checkIsWithoutProductPermissions(UserRoleCodeMap[viewModel.userRole])}
+          isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[viewModel.userRole])}
           curUserProductPermissions={viewModel.curUserProductPermissions}
           curUserShopsPermissions={viewModel.curUserShopsPermissions}
           permissionsToSelect={viewModel.singlePermissions}

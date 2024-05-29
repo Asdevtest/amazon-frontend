@@ -5,5 +5,6 @@ export interface DataGridTableModelParams {
   getMainDataMethod: (...args: any) => any
   columnsModel: GridColDef[]
   tableKey?: string
+  fieldsForSearch?: string[]
   defaultGetCurrentDataOptions?: any
 }

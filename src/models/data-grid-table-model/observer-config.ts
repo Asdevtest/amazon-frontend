@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 export const observerConfig = {
   sortModel: observable,
@@ -11,6 +11,9 @@ export const observerConfig = {
   columnsModel: observable,
   pinnedColumns: observable,
   currentSearchValue: observable,
+  fieldsForSearch: observable,
+
+  filteredData: computed,
 
   setDataGridState: action.bound,
   getDataGridState: action.bound,

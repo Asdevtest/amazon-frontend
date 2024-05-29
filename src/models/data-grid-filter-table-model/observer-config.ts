@@ -5,7 +5,6 @@ export const observerConfig = {
   mainMethodURL: observable,
   columnMenuSettings: observable,
 
-  fieldsForSearch: observable,
   additionalPropertiesColumnMenuSettings: observable,
   additionalPropertiesGetFilters: observable,
   operatorsSettings: observable,

@@ -27,13 +27,37 @@ export class DataGridTableModel extends DefaultModel {
 
   columnsModel: IGridColumn[] = []
 
+  fieldsForSearch: string[] = []
+
   pinnedColumns: GridPinnedColumns = {
     left: [],
     right: [],
   }
 
-  constructor({ getMainDataMethod, columnsModel, tableKey, defaultGetCurrentDataOptions }: DataGridTableModelParams) {
+  get filteredData() {
+    if (this.fieldsForSearch?.length) {
+      return this.currentData?.filter(item =>
+        this.fieldsForSearch.some(field =>
+          item?.[field]?.toLowerCase().includes(this.currentSearchValue.toLowerCase()),
+        ),
+      )
+    } else {
+      return this.currentData
+    }
+  }
+
+  constructor({
+    getMainDataMethod,
+    columnsModel,
+    tableKey,
+    defaultGetCurrentDataOptions,
+    fieldsForSearch,
+  }: DataGridTableModelParams) {
     super({ getMainDataMethod, defaultGetCurrentDataOptions })
+
+    if (fieldsForSearch) {
+      this.fieldsForSearch = fieldsForSearch
+    }
 
     this.columnsModel = columnsModel
     this.tableKey = tableKey
