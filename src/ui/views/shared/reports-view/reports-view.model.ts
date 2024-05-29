@@ -14,6 +14,8 @@ import { reportsViewColumns } from './reports-view.columns'
 import { reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
+  showReportModal = false
+
   get product() {
     return this.meta?.product
   }
@@ -31,7 +33,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     })
 
     super({
-      getMainDataMethod: ClientModel.getListingReportById,
+      getMainDataMethod: ClientModel.getListingReportByproductId,
       columnsModel,
       filtersFields,
       mainMethodURL,
@@ -50,5 +52,9 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     const transformedValue = [value?.[0]?.toISOString(), value?.[1]?.toISOString()]
     this.onChangeFullFieldMenuItem(transformedValue, 'createdAt')
     this.getCurrentData()
+  }
+
+  onToggleReportModal() {
+    this.showReportModal = !this.showReportModal
   }
 }

@@ -576,7 +576,7 @@
   "Destinations": "Пункты назначения",
   "User permissions": "Разрешения пользователей",
   "Settings": "Настройки",
-  "New": "Новые",
+  "New": "Новый",
   "Supplier found by Buyer": "Поставщик найден Байером",
   "Supplier not found by Buyer": "Поставщик не найден Байером",
   "Price is higher than MZC": "Цена выше МЗЦ",
@@ -2265,6 +2265,12 @@
   "Launch type": "Тип запуска",
   "New product price": "Новая цена продукта",
   "is not a valid email address": "не является действительным адресом электронной почты",
+  "report by the product": "отчет по продукту",
   "Min. production time, days": "Мин. срок изготовления, дней",
-  "Max. production time, days": "Макс. срок изготовления, дней"
+  "Max. production time, days": "Макс. срок изготовления, дней",
+  "Select launch type": "Выберите тип запуска",
+  "New price": "Новая цена",
+  "Add changes to the product": "Внести изменения в продукт",
+  "Enter": "Ввод",
+  "Discount": "Скидка"
 }

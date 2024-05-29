@@ -104,6 +104,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
   ]
 
   if (checkIsFreelancer(UserRoleCodeMap[userInfo?.role || 0])) {
+    // @ts-ignore
     renderCells.splice(1, 0, {
       field: 'user',
       headerName: t(TranslationKey.Performer),
@@ -118,7 +119,6 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
         )
       },
       width: 145,
-      columnKey: columnnsKeys.shared.OBJECT,
     })
   }
 

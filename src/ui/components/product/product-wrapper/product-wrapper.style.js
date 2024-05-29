@@ -12,6 +12,6 @@ export const useStyles = makeStyles()(() => ({
     position: 'sticky',
     top: 0,
     left: 0,
-    zIndex: 50,
+    zIndex: 7,
   },
 }))

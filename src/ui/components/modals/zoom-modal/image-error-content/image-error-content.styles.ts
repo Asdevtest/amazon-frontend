@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   videoPlayerCustomWrapper: {
     position: 'relative',
-    zIndex: 5,
+    zIndex: 7,
     maxWidth: 1200,
   },
 

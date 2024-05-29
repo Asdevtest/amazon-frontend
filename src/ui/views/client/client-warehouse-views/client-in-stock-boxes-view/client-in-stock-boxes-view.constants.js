@@ -45,7 +45,7 @@ export const filtersFields = [
   'logicsTariff',
   'createdAt',
   'updatedAt',
-  'amount',
+  'totalAmount',
   'prepId',
   'status',
   'storekeeper',

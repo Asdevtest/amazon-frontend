@@ -142,14 +142,14 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 5,
     right: 5,
-    zIndex: 50,
+    zIndex: 7,
   },
 
   moreImagesWrapper: {
     position: 'absolute',
     top: 0,
     left: 0,
-    zIndex: 50,
+    zIndex: 7,
     width: '100%',
     height: '100%',
     display: 'flex',

@@ -84,7 +84,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 28,
     right: 0,
-    zIndex: 20,
+    zIndex: 7,
     padding: 5,
     background: theme.palette.background.general,
     boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',

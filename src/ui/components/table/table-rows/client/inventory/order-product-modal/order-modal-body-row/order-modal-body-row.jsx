@@ -291,7 +291,9 @@ export const OrderModalBodyRow = ({
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
             data={
-              item.logicsTariffId && destinationId ? destinations.filter(el => el?._id === destinationId) : destinations
+              item?.variationTariffId
+                ? destinations.filter(el => el?._id === (destinationId || item?.variationTariff?.destinationId))
+                : destinations.filter(el => el.storekeeper?._id !== item?.storekeeper._id)
             }
             favourites={destinationsFavourites}
             searchFields={['name']}

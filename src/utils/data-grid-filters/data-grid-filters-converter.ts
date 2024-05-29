@@ -24,7 +24,7 @@ const searchOperatorByColumn = {
   $eq: ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'orderHumanFriendlyId', 'productId', 'batchHumanFriendlyId'],
 }
 const filterOperatorByColumn = {
-  $any: ['tags', 'redFlags'],
+  $any: ['tags', 'redFlags', 'buyer', 'createdBy'],
 }
 
 const setValueForFilter = (column: string, filterString: string, operatorsSettings?: OperatorsSettingsType) => {

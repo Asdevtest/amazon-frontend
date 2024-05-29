@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'fixed',
     top: 0,
     left: 0,
-    zIndex: 100,
+    zIndex: 7,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -65,7 +65,7 @@ export const useStyles = makeStyles()(theme => ({
     },
 
     [theme.breakpoints.down(768)]: {
-      zIndex: 50,
+      zIndex: 7,
       top: 10,
       right: 10,
       color: theme.palette.primary.main,

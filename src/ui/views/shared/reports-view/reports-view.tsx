@@ -5,9 +5,11 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ReportModal } from '@components/modals/report-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomDateRangePicker } from '@components/shared/date-range-picker'
+import { Modal } from '@components/shared/modal'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -30,63 +32,69 @@ export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
   const [viewModel] = useState(() => new ReportsViewModel(productId))
 
   return (
-    <div className={styles.wrapper}>
-      <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} />
+    <>
+      <div className={styles.wrapper}>
+        <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} />
 
-      <div className={styles.buttonsContainer}>
-        <CustomDateRangePicker onAdditionalClick={viewModel.onDateRangePickerClick} />
+        <div className={styles.buttonsContainer}>
+          <CustomDateRangePicker onAdditionalClick={viewModel.onDateRangePickerClick} />
 
-        <Button styleType={ButtonStyle.SUCCESS}>
-          <CustomPlusIcon />
-          {t(TranslationKey['New report'])}
-        </Button>
+          <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onToggleReportModal}>
+            <CustomPlusIcon />
+            {t(TranslationKey['New report'])}
+          </Button>
+        </div>
+
+        <div className={styles.tableContainer}>
+          <CustomDataGrid
+            rows={viewModel.currentData}
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            columns={viewModel.columnsModel}
+            filterModel={viewModel.filterModel}
+            pinnedColumns={viewModel.pinnedColumns}
+            paginationModel={viewModel.paginationModel}
+            rowSelectionModel={viewModel.selectedRows}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            getRowHeight={() => 'auto'}
+            columnHeaderHeight={40}
+            getRowId={({ _id }: GridRowModel) => _id}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              columnMenu: viewModel.columnMenuSettings,
+              toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+                sortSettings: {
+                  sortModel: viewModel.sortModel,
+                  columnsModel: viewModel.columnsModel,
+                  onSortModelChange: viewModel.onChangeSortingModel,
+                },
+              },
+            }}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+            onRowSelectionModelChange={viewModel.onSelectionModel}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onPinnedColumnsChange={viewModel.handlePinColumn}
+          />
+        </div>
       </div>
 
-      <div className={styles.tableContainer}>
-        <CustomDataGrid
-          rows={viewModel.currentData}
-          rowCount={viewModel.rowCount}
-          sortModel={viewModel.sortModel}
-          columns={viewModel.columnsModel}
-          filterModel={viewModel.filterModel}
-          pinnedColumns={viewModel.pinnedColumns}
-          paginationModel={viewModel.paginationModel}
-          rowSelectionModel={viewModel.selectedRows}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          getRowHeight={() => 'auto'}
-          columnHeaderHeight={40}
-          getRowId={({ _id }: GridRowModel) => _id}
-          slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
-            columnMenu: viewModel.columnMenuSettings,
-            toolbar: {
-              resetFiltersBtnSettings: {
-                onClickResetFilters: viewModel.onClickResetFilters,
-                isSomeFilterOn: viewModel.isSomeFilterOn,
-              },
-              columsBtnSettings: {
-                columnsModel: viewModel.columnsModel,
-                columnVisibilityModel: viewModel.columnVisibilityModel,
-                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-              },
-              sortSettings: {
-                sortModel: viewModel.sortModel,
-                columnsModel: viewModel.columnsModel,
-                onSortModelChange: viewModel.onChangeSortingModel,
-              },
-            },
-          }}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onRowSelectionModelChange={viewModel.onSelectionModel}
-          onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onFilterModelChange={viewModel.onChangeFilterModel}
-          onPinnedColumnsChange={viewModel.handlePinColumn}
-        />
-      </div>
-    </div>
+      <Modal openModal={viewModel.showReportModal} setOpenModal={viewModel.onToggleReportModal}>
+        <ReportModal product={viewModel.product} onClose={viewModel.onToggleReportModal} />
+      </Modal>
+    </>
   )
 })

@@ -178,14 +178,14 @@ export const useStyles = makeStyles()(theme => {
       position: 'absolute',
       top: '-9px',
       right: '-9px',
-      zIndex: '10',
+      zIndex: 7,
     },
 
     tooltipsCenterWrapper: {
       position: 'absolute',
       top: 'calc(50% - 10.5px)',
       right: 15,
-      zIndex: '10',
+      zIndex: 7,
     },
 
     tooltip: {

@@ -32,7 +32,7 @@ export const useStyles = makeStyles()(theme => ({
     height: 'fit-content',
     pointerEvents: 'all',
     borderRadius: '8px',
-    zIndex: 15,
+    zIndex: 7,
 
     button: {
       all: 'unset',
