@@ -44,7 +44,8 @@ export const ClientShopsView = observer(() => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.fiteredCurrentData}
+          pinnedColumns={viewModel.pinnedColumns}
+          rows={viewModel.filteredData}
           getRowHeight={() => 'auto'}
           getRowId={({ _id }) => _id}
           slotProps={{
@@ -57,6 +58,12 @@ export const ClientShopsView = observer(() => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: (model, details) =>
                   viewModel.onColumnVisibilityModelChange(model, details, true),
+              },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
           }}
@@ -71,6 +78,7 @@ export const ClientShopsView = observer(() => {
           }
           onPaginationModelChange={(model, details) => viewModel.onPaginationModelChange(model, details, true)}
           onFilterModelChange={(model, details) => viewModel.onChangeFilterModel(model, details, true)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 

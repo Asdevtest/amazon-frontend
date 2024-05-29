@@ -1,11 +1,9 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const observerConfig = {
   selectedShop: observable,
   showAddOrEditShopModal: observable,
   showConfirmModal: observable,
-
-  fiteredCurrentData: computed,
 
   updateShops: action.bound,
   onSubmitShopForm: action.bound,
