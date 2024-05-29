@@ -132,8 +132,8 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       width: 130,
 
       filterable: false,
-
       columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+      disableCustomSort: true,
     },
 
     {

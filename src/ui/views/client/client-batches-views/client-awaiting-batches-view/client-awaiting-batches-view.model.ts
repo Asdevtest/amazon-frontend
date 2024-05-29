@@ -51,7 +51,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
 
   productViewMode = tableProductViewMode.EXTENDED
 
-  constructor() {
+  constructor(isModalModel = false) {
     const rowHandlers = {
       changeViewModeHandler: (value: tableProductViewMode) => this.changeViewModeHandler(value),
     }
@@ -76,9 +76,11 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
-    this.getDataGridState()
-    this.getStorekeepers()
-    this.getCurrentData()
+    if (!isModalModel) {
+      this.getDataGridState()
+      this.getStorekeepers()
+      this.getCurrentData()
+    }
 
     reaction(
       () => this.productViewMode,
