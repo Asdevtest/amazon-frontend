@@ -33,6 +33,10 @@ export const useStyles = makeStyles()(theme => ({
 
   tableContainer: {
     width: '100%',
-    height: '43vh',
+    height: '54vh',
+  },
+
+  tableContainerModal: {
+    height: '36vh',
   },
 }))

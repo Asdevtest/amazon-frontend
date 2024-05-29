@@ -24,10 +24,13 @@ import { ReportsViewModel } from './reports-view.model'
 
 interface ReportsViewProps {
   productId: string
+  modal?: boolean
 }
 
-export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
-  const { classes: styles } = useStyles()
+export const ReportsView: FC<ReportsViewProps> = observer(props => {
+  const { modal, productId } = props
+
+  const { classes: styles, cx } = useStyles()
 
   const [viewModel] = useState(() => new ReportsViewModel(productId))
 
@@ -45,7 +48,7 @@ export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
           </Button>
         </div>
 
-        <div className={styles.tableContainer}>
+        <div className={cx(styles.tableContainer, { [styles.tableContainerModal]: modal })}>
           <CustomDataGrid
             rows={viewModel.currentData}
             rowCount={viewModel.rowCount}
