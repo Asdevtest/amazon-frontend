@@ -53,7 +53,7 @@ export const useStyles = makeStyles()(theme => ({
 
     width: '320px',
 
-    zIndex: 20,
+    zIndex: 7,
     padding: 5,
 
     border: `1px solid ${theme.palette.background.second}`,

@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 0,
     right: 0,
-    zIndex: 10,
+    zIndex: 7,
   },
 
   checkbox: {

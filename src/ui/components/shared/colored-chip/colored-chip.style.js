@@ -60,7 +60,7 @@ export const useStyles = makeStyles()((theme, props) => ({
     position: 'absolute',
     top: '-10px',
     right: '-15px',
-    zIndex: '10',
+    zIndex: 7,
     display: 'flex',
   },
 

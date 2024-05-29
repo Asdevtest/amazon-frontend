@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 1,
     right: 1,
-    zIndex: 10,
+    zIndex: 7,
     display: 'flex',
   },
 

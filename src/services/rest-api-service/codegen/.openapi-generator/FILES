@@ -90,7 +90,6 @@ models/api-v1-buyers-orders-my-product.ts
 models/api-v1-buyers-orders-ready-for-payment-guid-order-payments.ts
 models/api-v1-buyers-products-guid-tags.ts
 models/api-v1-clients-products-guid-red-flags.ts
-models/api-v1-clients-products-listing-reports-guid-listing-launches.ts
 models/api-v1-clients-products-listing-reports-listing-launches.ts
 models/api-v1-gologin-profile-navigator.ts
 models/api-v1-ideas-by-parent-guid-child-product.ts
@@ -390,6 +389,7 @@ models/inline-response20049-rows.ts
 models/inline-response20049.ts
 models/inline-response2005.ts
 models/inline-response20050-meta-active-launches.ts
+models/inline-response20050-meta-product.ts
 models/inline-response20050-meta.ts
 models/inline-response20050.ts
 models/inline-response20051-batch.ts

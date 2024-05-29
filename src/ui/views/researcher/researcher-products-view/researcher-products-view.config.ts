@@ -17,7 +17,6 @@ export const researcherProductsViewConfig = {
   onClickTableRow: action.bound,
   onChangeFormFields: action.bound,
 }
-export const paginationInitModel = { page: 0, pageSize: 15 }
 export const formFieldsDefault = {
   amazonLink: '',
   productCode: '',

@@ -84,7 +84,7 @@ export const ProductWrapper = memo(
     const { classes: styles } = useStyles()
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
-    const [tabIndex, setTabIndex] = useState(getTab(showTab))
+    const [tabIndex, setTabIndex] = useState(tabsValues.REPORTS) // TODO: retrun default settings
 
     const isClientOrAdmin = checkIsClient(curUserRole) || checkIsAdmin(curUserRole)
 

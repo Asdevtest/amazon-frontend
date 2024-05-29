@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(theme => ({
   tooltipsWrapper: {
     display: 'flex',
     gap: 3,
-    zIndex: 10,
+    zIndex: 7,
   },
 
   noFlextextWrapper: {
@@ -39,7 +39,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: -10,
     right: -15,
-    zIndex: 10,
+    zIndex: 7,
 
     display: 'flex',
   },
@@ -49,6 +49,6 @@ export const useStyles = makeStyles()(theme => ({
     top: 0,
     right: 0,
     transform: 'translateX(100%)',
-    zIndex: 10,
+    zIndex: 7,
   },
 }))
