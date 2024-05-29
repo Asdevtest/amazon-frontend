@@ -37,7 +37,7 @@ export const clientInventoryReportColumns = () => {
 
       columnKey: columnnsKeys.shared.OBJECT,
 
-      sortable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -49,7 +49,7 @@ export const clientInventoryReportColumns = () => {
         <ProductAsinCell withoutTitle image={params.row?.image} asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
       width: 250,
-      sortable: false,
+      disableCustomSort: true,
 
       columnKey: columnnsKeys.client.SHOP_REPORT,
     },
@@ -257,6 +257,7 @@ export const clientInventoryReportColumns = () => {
 
   for (const column of columns) {
     column.table = DataGridFilterTables.INVENTORY
+    column.sortable = false
   }
 
   return columns
