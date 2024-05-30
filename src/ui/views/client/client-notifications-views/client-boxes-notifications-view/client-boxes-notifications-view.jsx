@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -24,20 +24,16 @@ export const ClientBoxesNotificationsView = observer(() => {
 
   const [viewModel] = useState(() => new ClientBoxesNotificationsViewModel())
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   return (
     <div className={styles.container}>
       <div className={styles.buttonsContainer}>
-        <Button disabled={viewModel.selectedRowIds?.length < 1} onClick={viewModel.handleChangePriceFewBoxes}>
+        <Button disabled={viewModel.selectedRows?.length < 1} onClick={viewModel.handleChangePriceFewBoxes}>
           {t(TranslationKey.Confirm)}
         </Button>
 
         <Button
           styleType={ButtonStyle.DANGER}
-          disabled={viewModel.selectedRowIds?.length < 1}
+          disabled={viewModel.selectedRows?.length < 1}
           onClick={viewModel.handleRejectFewBoxes}
         >
           {t(TranslationKey.Reject)}
@@ -51,11 +47,13 @@ export const ClientBoxesNotificationsView = observer(() => {
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
+          pinnedColumns={viewModel.pinnedColumns}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           sortingMode="client"
           paginationMode="client"
           getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -69,15 +67,22 @@ export const ClientBoxesNotificationsView = observer(() => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          rowSelectionModel={viewModel.selectedRowIds}
+          rowSelectionModel={viewModel.selectedRows}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -91,7 +96,7 @@ export const ClientBoxesNotificationsView = observer(() => {
           message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}

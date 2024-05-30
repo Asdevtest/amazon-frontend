@@ -43,9 +43,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
 
     width: 100,
-    renderCell: params => (
-      <MultilineTextCell text={(params.value - params.row.originalData.deliveryTotalPrice).toFixed(2)} />
-    ),
+    renderCell: params => <MultilineTextCell text={(params.value - params.row.deliveryTotalPrice).toFixed(2)} />,
   },
 
   {
@@ -62,8 +60,8 @@ export const clientBoxesNotificationsViewColumns = handlers => [
         firstButtonStyle={ButtonStyle.PRIMARY}
         secondButtonElement={t(TranslationKey.Reject)}
         secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(params.row.originalData)}
-        onClickSecondButton={() => handlers.onTriggerOpenRejectModal(params.row.originalData)}
+        onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(params.row)}
+        onClickSecondButton={() => handlers.onTriggerOpenRejectModal(params.row)}
       />
     ),
     filterable: false,
@@ -77,13 +75,13 @@ export const clientBoxesNotificationsViewColumns = handlers => [
 
     width: 270,
     renderCell: params => {
-      return params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row.originalData} />
+      return params.row.items.length > 1 ? (
+        <OrderManyItemsCell box={params.row} />
       ) : (
         <OrderCell
-          product={params.row.originalData.items[0].product}
-          superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
-          box={params.row.originalData}
+          product={params.row.items[0].product}
+          superbox={params.row.amount > 1 && params.row.amount}
+          box={params.row}
         />
       )
     },
@@ -97,8 +95,8 @@ export const clientBoxesNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
     renderCell: params =>
-      params.row.originalData.amount > 1 ? (
-        <SuperboxQtyCell qty={params.row.amount} superbox={params.row.originalData.amount} />
+      params.row.amount > 1 ? (
+        <SuperboxQtyCell qty={params.row.amount} superbox={params.row.amount} />
       ) : (
         <MultilineTextCell text={params.value} />
       ),
@@ -120,9 +118,7 @@ export const clientBoxesNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-    renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
-    ),
+    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.storekeeper?._id} />,
     width: 160,
   },
 
