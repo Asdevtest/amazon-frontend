@@ -6,6 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: 20,
     padding: 10,
+    position: 'relative',
   },
 
   modalTitle: {
@@ -51,16 +52,28 @@ export const useStyles = makeStyles()(theme => ({
     height: 40,
   },
 
-  regionFieldInput: {
-    width: '80px !important',
-    height: 40,
+  regionFieldInput: {},
+
+  deliveryFieldInput: {
+    width: '60%',
+  },
+
+  tariffFieldInput: {
+    maxWidth: 214,
   },
 
   rateWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 5,
+    alignItems: 'flex-start',
+    gap: 32,
+    border: '1px solid #EBEDEF',
+    borderRadius: 12,
+    background: '#F9FCFF',
+    position: 'absolute',
+    top: 46,
+    right: 29,
+    padding: '13px 13px 17px 8px',
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
   },
 
   customSwitcherWrapper: {
@@ -119,8 +132,15 @@ export const useStyles = makeStyles()(theme => ({
 
   currentRateWrapper: {
     display: 'flex',
-    alignItems: 'center',
-    gap: 10,
+    flexDirection: 'column',
+    gap: 5,
+    marginBottom: 20,
+  },
+
+  rateContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
 
   currentRate: {
@@ -147,7 +167,8 @@ export const useStyles = makeStyles()(theme => ({
   rateFieldContainer: {
     margin: '0 !important',
     display: 'flex',
-    gap: 10,
+    flexDirection: 'column',
+    gap: 5,
     width: 'fit-content !important',
   },
 
@@ -167,12 +188,12 @@ export const useStyles = makeStyles()(theme => ({
   regionWrapper: {
     display: 'flex',
     alignItems: 'center',
-
-    gap: 10,
+    marginBottom: 20,
+    gap: 5,
   },
 
   regionContainer: {
-    width: '173px !important',
+    width: '80px !important',
     margin: '0 !important',
   },
 
@@ -234,12 +255,13 @@ export const useStyles = makeStyles()(theme => ({
 
   weightMainWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     gap: 15,
     width: 'fit-content',
   },
 
   weightInput: {
-    width: 80,
+    width: 70,
     height: 40,
   },
 
@@ -269,10 +291,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: 0,
   },
 
-  regionMainWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
+  regionMainWrapper: {},
 
   btnsWrapper: {
     display: 'flex',
@@ -291,8 +310,50 @@ export const useStyles = makeStyles()(theme => ({
 
   controlOptionsButtons: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     display: 'flex',
     gap: 10,
+    paddingTop: 30,
+    minWidth: 53,
+  },
+
+  minBoxWeightContainer: {
+    maxWidth: 210,
+  },
+
+  minBoxWeightWrapper: {
+    marginBottom: 20,
+  },
+
+  minBoxWeightFieldLabel: {
+    marginTop: -19,
+  },
+
+  minBoxWeightContainerBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  applyButton: {
+    paddingInline: 10,
+    paddingBlock: 2,
+    height: 'auto',
+    borderRadius: 30,
+  },
+
+  datePickerIcon: {
+    marginRight: 10,
+    '&&': {
+      fill: theme.palette.primary.main,
+    },
+  },
+
+  tooltipIcon: {
+    '&&': {
+      fill: theme.palette.primary.main,
+      width: 14,
+      height: 14,
+    },
   },
 }))
