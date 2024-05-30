@@ -29,13 +29,7 @@ export const DatePickerCell: FC<DatePickerCellProps> = memo(props => {
 
   return (
     <div className={styles.arrivalDateWrapper}>
-      <DatePicker
-        disabled={disabled}
-        value={value}
-        onChange={(e: string) => {
-          setValue(e)
-        }}
-      />
+      <DatePicker disabled={disabled} value={value} onChange={(e: string) => setValue(e)} />
       {!!onClickSaveArrivalDate && (
         <div>
           {isShow && arrivalDate !== value ? (
