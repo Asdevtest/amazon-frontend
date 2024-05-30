@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
 import { v4 as uuid } from 'uuid'
 
@@ -7,7 +7,11 @@ import { ClientModel } from '@models/client-model'
 
 import { Launches } from '@typings/enums/launches'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IListingLaunch, IListingReport } from '@typings/models/clients/listing-report'
 import { IProduct } from '@typings/models/products/product'
+import { IRequest } from '@typings/models/requests/request'
+import { IGridColumn } from '@typings/shared/grid-column'
+import { ILaunch } from '@typings/shared/launch'
 
 import { reportModalColumns } from './report-modal.columns'
 import { launchOptions } from './report-modal.config'
@@ -16,24 +20,31 @@ import {
   ChangeDateCellValueType,
   ChangeNumberCellValueType,
   ILaunchOption,
-  IListingLaunch,
+  IReportModalModelProps,
+  IRequestWithLaunch,
+  ReportModalColumnsProps,
 } from './report-modal.type'
 
 export class ReportModalModel {
   requestStatus: loadingStatus = loadingStatus.SUCCESS
-  productId?: string = undefined
-  editMode = false
+  product?: IProduct
+  editMode?: boolean = false
+  reportId?: string = undefined
   newProductPrice = 0
   description = ''
   listingLaunches: IListingLaunch[] = []
   selectLaunchValue: Launches | null = null
+  requests: IRequestWithLaunch[] = []
 
-  rowHandlers = {
+  columnsProps: ReportModalColumnsProps = {
     onChangeNumberCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeNumberCellValue(id, field),
     onChangeCommentCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeCommentCellValue(id, field),
     onChangeDateCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeDateCellValue(id, field),
+    onAddRequest: (launch: ILaunch, request?: IRequest) => this.onAddRequest(launch, request),
+    onRemoveLaunch: (id: string) => this.onRemoveLaunch(id),
+    product: undefined,
   }
-  columnsModel = reportModalColumns(this.rowHandlers)
+  columnsModel: IGridColumn[] = []
 
   get launches() {
     return this.listingLaunches
@@ -41,18 +52,50 @@ export class ReportModalModel {
   get launchOptions(): ILaunchOption[] {
     return launchOptions.filter(({ value }) => !this.listingLaunches.some(({ type }) => type === value))
   }
+  get disabledSaveButton() {
+    return (
+      this.description.trim().length === 0 ||
+      this.listingLaunches.some(
+        launch =>
+          launch.value === 0 ||
+          launch.comment.trim().length === 0 ||
+          launch.dateFrom === null ||
+          launch.dateTo === null,
+      )
+    )
+  }
 
-  constructor(product: IProduct) {
-    this.productId = product?._id
+  constructor({ product, reportId, editMode }: IReportModalModelProps) {
+    this.editMode = editMode
+    this.reportId = reportId
+    this.product = product
+    this.columnsProps.product = product
+    this.columnsModel = reportModalColumns(this.columnsProps)
+
     this.getListingReportById()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   getListingReportById = async () => {
     try {
-      await ClientModel.getListingReportById(this.productId)
+      if (this.reportId && this.editMode) {
+        this.setRequestStatus(loadingStatus.IS_LOADING)
+
+        const reponse = (await ClientModel.getListingReportById(this.reportId)) as unknown as IListingReport
+
+        runInAction(() => {
+          this.product = reponse.product
+          this.description = reponse.description
+          this.newProductPrice = reponse.newProductPrice
+          this.listingLaunches = reponse.listingLaunches
+        })
+
+        this.setRequestStatus(loadingStatus.SUCCESS)
+      }
     } catch (error) {
       console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -61,13 +104,32 @@ export class ReportModalModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const generatedListingReport = {
-        productId: this.productId,
+        productId: this.product?._id,
         newProductPrice: this.newProductPrice,
         description: this.description,
         listingLaunches: this.listingLaunches,
       }
 
       await ClientModel.createListingReport(generatedListingReport)
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+    }
+  }
+
+  updateListingReport = async () => {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      const generatedListingReport = {
+        newProductPrice: this.newProductPrice,
+        description: this.description,
+        listingLaunches: this.listingLaunches,
+      }
+
+      await ClientModel.updateListingReport(this.reportId, generatedListingReport)
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -131,6 +193,42 @@ export class ReportModalModel {
       updatedLaunches[foundLaunchIndex].dateTo = transformedDatesToISOString[1]
       this.listingLaunches = updatedLaunches
     }
+  }
+
+  onAddRequest = (selectedlaunch: ILaunch, request?: IRequest) => {
+    if (request) {
+      const existingRequestIndex = this.requests.findIndex(el => el.launch.type === selectedlaunch.type)
+
+      const generatedRequest = {
+        ...request,
+        launch: selectedlaunch,
+      }
+
+      if (existingRequestIndex !== -1) {
+        this.requests.splice(existingRequestIndex, 1, generatedRequest)
+      } else {
+        this.requests.push(generatedRequest)
+      }
+
+      const existingLaunchIndex = this.launches.findIndex(el => el.type === selectedlaunch.type)
+
+      if (existingLaunchIndex !== -1) {
+        const generatedLaunch = {
+          ...this.launches[existingLaunchIndex],
+          requestId: request._id,
+        }
+
+        this.launches.splice(existingLaunchIndex, 1, generatedLaunch)
+      }
+    }
+  }
+
+  onRemoveRequest = (id: string) => {
+    this.requests = this.requests.filter(el => el._id !== id)
+  }
+
+  onRemoveLaunch = (id: string) => {
+    this.listingLaunches = this.listingLaunches.filter(el => el._id !== id)
   }
 
   setRequestStatus(requestStatus: loadingStatus) {

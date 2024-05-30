@@ -3,9 +3,16 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     padding: 10,
-    width: 960,
+    width: 1000,
     display: 'flex',
     flexDirection: 'column',
+    gap: 20,
+  },
+
+  header: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
     gap: 20,
   },
 
@@ -57,7 +64,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   dataGridRoot: {
-    borderRadius: '10px !important',
+    '& .MuiDataGrid-columnHeaderTitleContainer': { padding: '0 !important' },
+    '& .MuiDataGrid-columnHeaderDraggableContainer': { padding: '0 !important' },
   },
 
   inputContainer: {
@@ -72,5 +80,37 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.secondary,
+  },
+
+  requestWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 5,
+  },
+
+  requestConatainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  requestText: {
+    fontSize: 14,
+    lineHeight: '19px',
+  },
+
+  requestTextSecond: {
+    color: theme.palette.text.secondary,
+  },
+
+  crossButton: {
+    width: '16px !important',
+    height: '16px !important',
+    minWidth: '16px !important',
+  },
+
+  crossIcon: {
+    width: '8px !important',
+    height: '8px !important',
   },
 }))

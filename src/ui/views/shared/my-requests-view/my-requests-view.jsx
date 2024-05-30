@@ -73,7 +73,7 @@ export const MyRequestsView = observer(() => {
           tooltipInfoContent={t(TranslationKey['Opens the form to create a request'])}
           onClick={viewModel.onClickAddBtn}
         >
-          {t(TranslationKey['Create a request'])}
+          {t(TranslationKey['Create request'])}
         </Button>
       </div>
 

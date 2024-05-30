@@ -1274,12 +1274,12 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
-    crumbNameKey: TranslationKey['Create a request'],
+    crumbNameKey: TranslationKey['Create request'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
-      title: () => t(TranslationKey['Create a request']),
+      title: () => t(TranslationKey['Create request']),
     },
   },
 
@@ -1296,7 +1296,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
-      title: () => t(TranslationKey['Create a request']),
+      title: () => t(TranslationKey['Create request']),
     },
   },
 

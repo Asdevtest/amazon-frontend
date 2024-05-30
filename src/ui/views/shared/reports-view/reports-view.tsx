@@ -31,7 +31,6 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
   const { modal, productId } = props
 
   const { classes: styles, cx } = useStyles()
-
   const [viewModel] = useState(() => new ReportsViewModel(productId))
 
   return (
@@ -96,7 +95,13 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
       </div>
 
       <Modal openModal={viewModel.showReportModal} setOpenModal={viewModel.onToggleReportModal}>
-        <ReportModal product={viewModel.product} onClose={viewModel.onToggleReportModal} />
+        <ReportModal
+          product={viewModel.product}
+          reportId={viewModel.reportId}
+          editMode={viewModel.reportModalEditMode}
+          onClose={viewModel.onToggleReportModal}
+          onUpdateTableData={viewModel.onGetCurrentData}
+        />
       </Modal>
     </>
   )

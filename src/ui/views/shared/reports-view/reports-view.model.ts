@@ -14,7 +14,9 @@ import { reportsViewColumns } from './reports-view.columns'
 import { reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
+  reportId?: string = undefined
   showReportModal = false
+  reportModalEditMode = false
 
   get product() {
     return this.meta?.product
@@ -24,7 +26,9 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   }
 
   constructor(productId: string) {
-    const rowHandlers = {}
+    const rowHandlers = {
+      onToggleReportModalEditMode: (reportId: string) => this.onToggleReportModalEditMode(reportId),
+    }
     const columnsModel = reportsViewColumns(rowHandlers)
     const filtersFields = getFilterFields(columnsModel, ['sub'])
     const mainMethodURL = `clients/products/listing_reports_by_product_id/${productId}?`
@@ -33,7 +37,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     })
 
     super({
-      getMainDataMethod: ClientModel.getListingReportByproductId,
+      getMainDataMethod: ClientModel.getListingReportByProductId,
       columnsModel,
       filtersFields,
       mainMethodURL,
@@ -42,8 +46,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.getDataGridState()
-    this.getCurrentData()
+    this.onGetCurrentData()
 
     makeObservable(this, reportsViewConfig)
   }
@@ -51,10 +54,23 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   onDateRangePickerClick(value: DateRange<Dayjs>) {
     const transformedValue = [value?.[0]?.toISOString(), value?.[1]?.toISOString()]
     this.onChangeFullFieldMenuItem(transformedValue, 'createdAt')
-    this.getCurrentData()
+    this.onGetCurrentData()
   }
 
   onToggleReportModal() {
+    this.reportId = undefined
+    this.reportModalEditMode = false
     this.showReportModal = !this.showReportModal
+  }
+
+  onToggleReportModalEditMode(reportId: string) {
+    this.reportId = reportId
+    this.reportModalEditMode = true
+    this.showReportModal = !this.showReportModal
+  }
+
+  onGetCurrentData() {
+    this.getDataGridState()
+    this.getCurrentData()
   }
 }

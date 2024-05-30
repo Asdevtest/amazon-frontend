@@ -53,7 +53,7 @@ export const DashboardWidgetsCard = observer(({ config, valuesData, onClickViewM
             horizontal
             config={config.freelance}
             valuesData={valuesData}
-            buttonText={t(TranslationKey['Create a request'])}
+            buttonText={t(TranslationKey['Create request'])}
             configSubTitle={t(TranslationKey['Request data'])}
             onClickViewMore={onClickViewMore}
           />
