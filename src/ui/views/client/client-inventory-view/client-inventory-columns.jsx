@@ -304,9 +304,9 @@ export const clientInventoryColumns = ({
       renderCell: params => {
         const currentSupplier = params.row.currentSupplier
 
-        return (
+        return currentSupplier ? (
           <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
-        )
+        ) : null
       },
       valueGetter: params => {
         const currentSupplier = params.row.currentSupplier
