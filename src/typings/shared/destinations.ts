@@ -23,6 +23,7 @@ export interface IDestinationVariation {
   _id: string
   minWeight: number
   maxWeight: number
+  minBoxWeight: number
   pricePerKgRmb: number
   pricePerKgUsd: number
   destination: {
