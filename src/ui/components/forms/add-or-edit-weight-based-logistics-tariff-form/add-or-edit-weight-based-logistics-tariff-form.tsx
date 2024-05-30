@@ -142,27 +142,9 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       ) ||
       !isWeightRangeValid
 
-    console.log('disabled', {
-      formFields,
-      name: !formFields.name,
-      _some: formFields.destinationVariations.some(
-        (variant: IDestinationVariation) =>
-          !variant.destination._id ||
-          !variant.pricePerKgRmb ||
-          !variant.pricePerKgUsd ||
-          !variant.minWeight ||
-          !variant.maxWeight ||
-          Number(variant.minWeight) === Number(variant.maxWeight) ||
-          (variant.minWeight && Number(variant.minWeight) < 1) ||
-          (variant.minWeight && variant.maxWeight && Number(variant.maxWeight) < Number(variant.minWeight)),
-      ),
-      isWeightRangeValid: !isWeightRangeValid,
-    })
-
     const [selectedLogisticTariff, setSelectedLogisticTariff] = useState<ILogicTariff | undefined>(undefined)
 
     const onSetDataFromTariff = (tariff: ILogicTariff) => {
-      console.log('onSetDataFromTariff', { tariff })
       setSelectedLogisticTariff(tariff)
       // @ts-ignore
       setFormFields(prevState => ({
@@ -367,17 +349,6 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               }
             }}
           />
-          {/* <Field
-              inputClasses={styles.fieldInput}
-              labelClasses={styles.fieldLabel}
-              // @ts-ignore
-              inputProps={{ maxLength: 50 }}
-              containerClasses={styles.fieldContainer}
-              value={formFields.deliveryTimeInDay}
-              placeholder={t(TranslationKey['Amount of days'])}
-              label={t(TranslationKey['Minimum weight']) + ', ' + t(TranslationKey.kg)}
-              onChange={onChangeField('days')}
-            /> */}
 
           <Field
             label={t(TranslationKey['Add data from tariff'])}
