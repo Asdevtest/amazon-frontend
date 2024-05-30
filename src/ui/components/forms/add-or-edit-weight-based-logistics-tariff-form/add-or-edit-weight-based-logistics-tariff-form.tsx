@@ -700,10 +700,10 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                   </div>
 
                   <div className={styles.minBoxWeightContainerBtn}>
-                    <Typography>Apply to all</Typography>
+                    <Typography className={styles.applyToAll}>{t(TranslationKey['Apply to all'])}</Typography>
                     <TooltipInfoIcon className={styles.tooltipIcon} />
                     <Button className={styles.applyButton} onClick={() => onApplyMinBoxWeightToAll(variantIndex)}>
-                      Apply
+                      {t(TranslationKey.Apply)}
                     </Button>
                   </div>
                 </>

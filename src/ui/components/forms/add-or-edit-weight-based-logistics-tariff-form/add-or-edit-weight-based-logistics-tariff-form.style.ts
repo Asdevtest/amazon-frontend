@@ -133,6 +133,7 @@ export const useStyles = makeStyles()(theme => ({
   currentRateWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'flex-end',
     gap: 5,
     marginBottom: 20,
   },
@@ -168,6 +169,7 @@ export const useStyles = makeStyles()(theme => ({
     margin: '0 !important',
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'flex-end',
     gap: 5,
     width: 'fit-content !important',
   },
@@ -355,5 +357,9 @@ export const useStyles = makeStyles()(theme => ({
       width: 14,
       height: 14,
     },
+  },
+
+  applyToAll: {
+    lineHeight: '19px',
   },
 }))
