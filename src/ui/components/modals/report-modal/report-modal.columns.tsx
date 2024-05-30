@@ -78,9 +78,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <CustomRangeDatePicker
           cell
-          allowClear
           minDate={dayjs()}
-          // value={[row.dateFrom ? dayjs(row.dateFrom) : null, row.dateFrom ? dayjs(row.dateTo) : null]}
           onChange={onChangeDateCellValue(row._id, 'dateFrom')} // or dateTo - same overall value
         />
       ),

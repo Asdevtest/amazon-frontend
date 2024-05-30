@@ -1,7 +1,5 @@
-import { Dayjs } from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { makeObservable } from 'mobx'
-
-import { DateRange } from '@mui/x-date-pickers-pro'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
@@ -51,10 +49,14 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     makeObservable(this, reportsViewConfig)
   }
 
-  onDateRangePickerClick(value: DateRange<Dayjs>) {
-    const transformedValue = [value?.[0]?.toISOString(), value?.[1]?.toISOString()]
-    this.onChangeFullFieldMenuItem(transformedValue, 'createdAt')
-    this.onGetCurrentData()
+  onChangeRangeDate(dates: null | (Dayjs | null)[]) {
+    if (dates?.[0] && dates?.[1]) {
+      const transformedDatesToISOString = [dayjs(dates?.[0]).toISOString(), dayjs(dates?.[1]).toISOString()]
+      this.onChangeFullFieldMenuItem(transformedDatesToISOString, 'createdAt')
+      this.onGetCurrentData()
+    }
+
+    this.onClickResetFilters()
   }
 
   onToggleReportModal() {

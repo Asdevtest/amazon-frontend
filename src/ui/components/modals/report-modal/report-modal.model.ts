@@ -187,7 +187,7 @@ export class ReportModalModel {
     const foundLaunchIndex = this.listingLaunches.findIndex(el => el._id === id)
 
     if (foundLaunchIndex !== -1 && (field === 'dateFrom' || field === 'dateTo')) {
-      const transformedDatesToISOString = [dayjs(dates?.[0]).toJSON(), dayjs(dates?.[1]).toJSON()]
+      const transformedDatesToISOString = [dayjs(dates?.[0]).toISOString(), dayjs(dates?.[1]).toISOString()]
       const updatedLaunches = [...this.listingLaunches]
       updatedLaunches[foundLaunchIndex].dateFrom = transformedDatesToISOString[0]
       updatedLaunches[foundLaunchIndex].dateTo = transformedDatesToISOString[1]
