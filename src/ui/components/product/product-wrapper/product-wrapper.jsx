@@ -84,7 +84,7 @@ export const ProductWrapper = memo(
     const { classes: styles } = useStyles()
 
     const [curUserRole, seturUserRole] = useState(UserRoleCodeMap[userRole])
-    const [tabIndex, setTabIndex] = useState(tabsValues.REPORTS) // TODO: retrun default settings
+    const [tabIndex, setTabIndex] = useState(tabsValues.MAIN_INFO)
 
     const isClientOrAdmin = checkIsClient(curUserRole) || checkIsAdmin(curUserRole)
 
@@ -191,7 +191,7 @@ export const ProductWrapper = memo(
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.REPORTS}>
-          <ReportsView productId={product?._id} />
+          <ReportsView modal={modal} productId={product?._id} />
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
