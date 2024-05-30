@@ -176,7 +176,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
 
         <div className={styles.allowedRolesMainWrapper}>
           <CustomSwitcher
-            switchMode={'header'}
+            switchMode="header"
             condition={role}
             switcherSettings={roles}
             changeConditionHandler={onChangeUserInfo}
