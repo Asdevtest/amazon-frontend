@@ -7,9 +7,11 @@ import { ClientModel } from '@models/client-model'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { ProductVariation } from '@typings/enums/product/product-variation'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
@@ -89,6 +91,8 @@ export const ClientProductView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
+
+      {viewModel.requestStatus === loadingStatus.IS_LOADING && <CircularProgressWithLabel />}
     </>
   )
 })
