@@ -2275,4 +2275,6 @@ export enum TranslationKey {
   'Add changes to the product' = 'Add changes to the product',
   'Enter' = 'Enter',
   'Discount' = 'Discount',
+  'Launches reports' = 'Launches reports',
+  'Notify users of completed launches in' = 'Notify users of completed launches in',
 }
