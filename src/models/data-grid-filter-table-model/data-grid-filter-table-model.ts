@@ -20,13 +20,9 @@ import { DataGridFilterTableModelParams } from './data-grid-filter-table-model.t
 import { observerConfig } from './observer-config'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
-  currentSearchValue: string = ''
-
   filtersFields: string[]
 
   mainMethodURL: string
-
-  fieldsForSearch: string[] = []
 
   columnMenuSettings: any = undefined
 
@@ -56,6 +52,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       columnsModel,
       tableKey,
       defaultGetCurrentDataOptions,
+      fieldsForSearch,
     })
 
     this.setColumnMenuSettings(filtersFields, additionalPropertiesColumnMenuSettings)
@@ -64,10 +61,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this.additionalPropertiesColumnMenuSettings = additionalPropertiesColumnMenuSettings
     this.additionalPropertiesGetFilters = additionalPropertiesGetFilters
     this.operatorsSettings = operatorsSettings
-
-    if (fieldsForSearch) {
-      this.fieldsForSearch = fieldsForSearch
-    }
 
     makeObservable(this, observerConfig)
   }

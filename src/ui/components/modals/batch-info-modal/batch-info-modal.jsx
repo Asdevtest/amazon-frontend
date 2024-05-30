@@ -39,7 +39,7 @@ export const BatchInfoModal = observer(
   ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, onClickHsCode, patchActualShippingCostBatch }) => {
     const { classes: styles, cx } = useStyles()
 
-    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel())
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
 
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 

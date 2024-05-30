@@ -6,11 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model/data-grid-filter-table-model'
-import {
-  filterModelInitialValue,
-  paginationModelInitialValue,
-  sortModelInitialValue,
-} from '@models/data-grid-table-model'
+import { filterModelInitialValue, paginationModelInitialValue } from '@models/data-grid-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 import { ShopModel } from '@models/shop-model'
 
@@ -48,6 +44,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.history = history
 
     this.tabKey = currentTabsValues
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.getDataGridState()
     this.initUserSettings()
@@ -67,10 +64,14 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
     this.tableKey = tableKey
-    this.sortModel = sortModelInitialValue
+
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.paginationModel = paginationModelInitialValue
+
     this.filterModel = filterModelInitialValue
     this.fieldsForSearch = fieldsForSearch
+
+    this.getTableData()
   }
 
   initUserSettings() {

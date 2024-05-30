@@ -4,8 +4,7 @@ export const observerConfig = {
   filtersFields: observable,
   mainMethodURL: observable,
   columnMenuSettings: observable,
-  currentSearchValue: observable,
-  fieldsForSearch: observable,
+
   additionalPropertiesColumnMenuSettings: observable,
   additionalPropertiesGetFilters: observable,
   operatorsSettings: observable,
@@ -26,4 +25,5 @@ export const observerConfig = {
   onChangeSortingModel: override,
   onChangeFilterModel: override,
   onPaginationModelChange: override,
+  currentSearchValue: override,
 }

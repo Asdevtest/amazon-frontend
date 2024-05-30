@@ -48,8 +48,8 @@ class ClientModelStatic {
     return response.data
   }
 
-  getOrders = async status => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGet({ status })
+  getOrders = async options => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGet(options)
     return response.data
   }
 

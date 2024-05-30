@@ -1,14 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GridColDef } from '@mui/x-data-grid-premium'
+import { DataGridTableModelParams } from '@models/data-grid-table-model/data-grid-table-model.type'
 
-export interface DataGridFilterTableModelParams {
-  getMainDataMethod: (...args: any) => any
-  columnsModel: GridColDef[]
+export interface DataGridFilterTableModelParams extends DataGridTableModelParams {
   filtersFields: string[]
   mainMethodURL: string
-  fieldsForSearch?: string[]
-  tableKey?: string
-  defaultGetCurrentDataOptions?: any
   additionalPropertiesColumnMenuSettings?: any
   additionalPropertiesGetFilters?: any
   operatorsSettings?: {
