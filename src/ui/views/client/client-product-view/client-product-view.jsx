@@ -11,7 +11,6 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 
 import { t } from '@utils/translations'
 
-import { loadingStatus } from '@typings/enums/loading-status'
 import { ProductVariation } from '@typings/enums/product/product-variation'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
@@ -72,7 +71,9 @@ export const ClientProductView = observer(({ history }) => {
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
           onSaveForceProductData={viewModel.onSaveForceProductData}
         />
-      ) : null}
+      ) : (
+        <CircularProgressWithLabel />
+      )}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal
@@ -91,8 +92,6 @@ export const ClientProductView = observer(({ history }) => {
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}
-
-      {viewModel.requestStatus === loadingStatus.IS_LOADING && <CircularProgressWithLabel />}
     </>
   )
 })
