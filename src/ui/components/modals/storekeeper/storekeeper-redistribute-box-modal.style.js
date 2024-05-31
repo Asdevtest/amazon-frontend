@@ -4,13 +4,14 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     position: 'relative',
     padding: 10,
+    paddingBottom: 0,
   },
   boxesWrapper: {
     display: 'flex',
     gap: '40px',
   },
   buttonsWrapper: {
-    marginTop: 20,
+    paddingTop: 10,
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
@@ -18,7 +19,8 @@ export const useStyles = makeStyles()(theme => ({
     position: 'sticky',
     bottom: 0,
     right: 0,
-    marginRight: 5,
+    backgroundColor: theme.palette.background.general,
+    zIndex: 8,
   },
 
   modalTitleWrapper: {
