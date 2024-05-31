@@ -35,6 +35,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           <CircularProgressWithLabel />
         ) : (
           <CreateOrEditRequestContent
+            buttonStatus={viewModel.buttonStatus}
             mainContentRef={mainContentRef}
             specs={viewModel.specs}
             executor={viewModel.executor}

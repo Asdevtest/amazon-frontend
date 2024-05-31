@@ -89,7 +89,7 @@ export class SupervisorReadyToCheckViewModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const result = await SupervisorModel.getProductsVacant()
+      const result = await SupervisorModel.getProductsVacant(false)
 
       runInAction(() => {
         this.productsReadyToCheck = depersonalizedPickDataConverter(
