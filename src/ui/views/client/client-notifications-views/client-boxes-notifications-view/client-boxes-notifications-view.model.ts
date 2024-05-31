@@ -57,6 +57,8 @@ export class ClientBoxesNotificationsViewModel extends DataGridTableModel {
 
     makeObservable(this, observerConfig)
 
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+
     this.getDataGridState()
     this.getCurrentData()
   }
