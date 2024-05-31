@@ -2,21 +2,18 @@ import { Dayjs } from 'dayjs'
 import { ChangeEvent } from 'react'
 
 import { Launches } from '@typings/enums/launches'
+import { IListingLaunch } from '@typings/models/clients/listing-report'
+import { IProduct } from '@typings/models/products/product'
+import { IRequest } from '@typings/models/requests/request'
+import { ILaunch } from '@typings/shared/launch'
 
 export interface ILaunchOption {
   label: string
   value: Launches
 }
 
-export interface IListingLaunch {
-  _id: string
-  type: Launches
-  value: number
-  comment: string
-  requestId: string | null
-  result: string
-  dateFrom: string | null
-  dateTo: string | null
+export interface IRequestWithLaunch extends IRequest {
+  launch: ILaunch
 }
 
 export type ChangeNumberCellValueType = (
@@ -33,3 +30,18 @@ export type ChangeDateCellValueType = (
   id: string,
   field: keyof IListingLaunch,
 ) => (dates: null | (Dayjs | null)[], dateStrings: string[]) => void
+
+export interface ReportModalColumnsProps {
+  onChangeNumberCellValue: ChangeNumberCellValueType
+  onChangeCommentCellValue: ChangeCommentCellValueType
+  onChangeDateCellValue: ChangeDateCellValueType
+  onAddRequest: (launch: ILaunch, request?: IRequest) => void
+  onRemoveLaunch: (id: string) => void
+  product?: IProduct
+}
+
+export interface IReportModalModelProps {
+  product: IProduct
+  reportId?: string
+  editMode?: boolean
+}

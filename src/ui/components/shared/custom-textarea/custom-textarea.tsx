@@ -34,6 +34,7 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
         className={cx(styles.textarea, className)}
         style={{ resize: resize ? 'vertical' : 'none' }}
         placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
+        onKeyDown={event => event.stopPropagation()}
       />
     </div>
   )

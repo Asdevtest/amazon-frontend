@@ -1,15 +1,18 @@
 import { Button, Checkbox, Select, Space } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { CustomTextarea } from '@components/shared/custom-textarea'
+import { Launches } from '@components/shared/launches'
+import { CrossIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -24,14 +27,22 @@ import { ReportModalModel } from './report-modal.model'
 interface ReportModalProps {
   product: IProduct
   onClose: () => void
+  reportId?: string
+  editMode?: boolean
+  onUpdateTableData?: () => void
 }
 
 export const ReportModal: FC<ReportModalProps> = observer(props => {
-  const { product, onClose } = props
+  const { product, onClose, reportId, editMode, onUpdateTableData } = props
 
   const { classes: styles, cx } = useStyles()
+  const [viewModel] = useState(() => new ReportModalModel({ product, reportId, editMode }))
 
-  const [viewModel] = useState(() => new ReportModalModel(product))
+  const handleSave = useCallback(() => {
+    editMode ? viewModel.updateListingReport() : viewModel.createListingReport()
+    onClose()
+    onUpdateTableData?.()
+  }, [])
 
   const modalTitle = `${viewModel.editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(
     TranslationKey['report by the product'],
@@ -41,52 +52,93 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>{modalTitle}</p>
+      <div className={styles.header}>
+        <div className={cx(styles.flexRowContainer, styles.optionContainer)}>
+          <p className={styles.title}>{modalTitle}</p>
 
-      <div className={styles.flexRowContainer}>
-        <Select
-          showSearch
-          placeholder={t(TranslationKey['Select ASIN'])}
-          className={styles.select}
-          defaultValue={[product.asin]}
-          options={asinOptions}
-          optionRender={option => (
-            <Space>
-              <img
-                aria-label={option.data.value}
-                src={option.data.image}
-                alt={option.data.value}
-                className={styles.optionImage}
-              />
-              <div className={styles.optionContainer}>
-                <AsinOrSkuLink
-                  withCopyValue
-                  withAttributeTitle="asin"
-                  link={option.data.value}
-                  textStyles={styles.optionText}
-                  iconStyles={styles.optionIcon}
-                />
-                <AsinOrSkuLink
-                  withCopyValue
-                  withAttributeTitle="sku"
-                  link={option.data.sku}
-                  textStyles={styles.optionText}
-                  iconStyles={styles.optionIcon}
-                />
+          <div className={styles.flexRowContainer}>
+            <Select
+              showSearch
+              placeholder={t(TranslationKey['Select ASIN'])}
+              className={styles.select}
+              defaultValue={[product.asin]}
+              options={asinOptions}
+              optionRender={option => (
+                <Space>
+                  <img
+                    aria-label={option.data.value}
+                    src={option.data.image}
+                    alt={option.data.value}
+                    className={styles.optionImage}
+                  />
+                  <div className={styles.optionContainer}>
+                    <AsinOrSkuLink
+                      withCopyValue
+                      withAttributeTitle="asin"
+                      link={option.data.value}
+                      textStyles={styles.optionText}
+                      iconStyles={styles.optionIcon}
+                    />
+                    <AsinOrSkuLink
+                      withCopyValue
+                      withAttributeTitle="sku"
+                      link={option.data.sku}
+                      textStyles={styles.optionText}
+                      iconStyles={styles.optionIcon}
+                    />
+                  </div>
+                </Space>
+              )}
+            />
+
+            <Select
+              showSearch
+              disabled={viewModel.launchOptions.length === 0}
+              placeholder={launchTypePlaceholder}
+              options={viewModel.launchOptions}
+              className={styles.select}
+              value={viewModel.selectLaunchValue}
+              onChange={viewModel.onSelectLaunch}
+            />
+          </div>
+        </div>
+
+        {viewModel.requests.length > 0 && (
+          <div className={styles.flexRowContainer}>
+            {viewModel.requests.map(request => (
+              <div key={request._id} className={styles.requestWrapper}>
+                <div className={styles.requestConatainer}>
+                  <p className={styles.requestText}>
+                    <span className={styles.requestTextSecond}>{`${t(TranslationKey['Request type'])}: `}</span>
+                    {request.spec.title}
+                  </p>
+
+                  <Button
+                    danger
+                    shape="circle"
+                    size="small"
+                    icon={
+                      <CrossIcon className={styles.crossIcon} onClick={() => viewModel.onRemoveRequest(request._id)} />
+                    }
+                    className={styles.crossButton}
+                  />
+                </div>
+                <div className={styles.requestConatainer}>
+                  <p className={styles.requestText}>
+                    <span className={styles.requestTextSecond}>{`${t(TranslationKey.ID)}: `}</span>
+                    {request.humanFriendlyId}
+                  </p>
+
+                  <Launches launches={[request.launch]} />
+                </div>
+                <p className={styles.requestText}>
+                  <span className={styles.requestTextSecond}>{`${t(TranslationKey.Status)}: `}</span>
+                  {MyRequestStatusTranslate(request.status)}
+                </p>
               </div>
-            </Space>
-          )}
-        />
-
-        <Select
-          showSearch
-          loading={viewModel.launchOptions.length === 0}
-          placeholder={launchTypePlaceholder}
-          options={viewModel.launchOptions}
-          className={styles.select}
-          value={viewModel.selectLaunchValue}
-          onChange={viewModel.onSelectLaunch}
-        />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className={styles.tableContainer}>
@@ -107,8 +159,10 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         <div className={styles.inputContainer}>
           <CustomInputNumber
             addonAfter="$"
+            precision={2}
             label="New price"
             placeholder="Enter"
+            maxLength={10}
             value={viewModel.newProductPrice}
             onChange={viewModel.onChangeNewProductPrice}
           />
@@ -117,6 +171,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         <div className={styles.textareaContainer}>
           <CustomTextarea
             rows={3}
+            maxLength={1024}
             label="Comment"
             placeholder="Enter"
             value={viewModel.description}
@@ -132,9 +187,10 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
 
         <div className={styles.flexRowContainer}>
           <Button
-            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
             type="primary"
-            onClick={viewModel.createListingReport}
+            disabled={viewModel.disabledSaveButton}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+            onClick={handleSave}
           >
             {t(TranslationKey.Save)}
           </Button>

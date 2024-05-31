@@ -1122,7 +1122,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   onClick={() => (isSecondStep ? onClickCreate({ withPublish: false }) : onSuccessSubmit())}
                 >
                   {isSecondStep ? (
-                    t(TranslationKey['Create a request'])
+                    t(TranslationKey['Create request'])
                   ) : (
                     <>
                       {t(TranslationKey.Next)}

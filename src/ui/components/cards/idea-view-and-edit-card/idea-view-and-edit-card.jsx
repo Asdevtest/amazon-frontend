@@ -760,7 +760,7 @@ export const IdeaViewAndEditCard = observer(
                     onClick={() => onClickCreateRequestButton(formFields)}
                   >
                     <PlusIcon className={styles.plusIcon} />
-                    {t(TranslationKey['Create a request'])}
+                    {t(TranslationKey['Create request'])}
                   </Button>
                 )}
 
