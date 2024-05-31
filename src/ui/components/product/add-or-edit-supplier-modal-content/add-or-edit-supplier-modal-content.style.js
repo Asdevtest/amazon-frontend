@@ -102,7 +102,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   nameBlockFlexStart: {
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
   },
 
   nameContainer: {
