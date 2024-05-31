@@ -8,7 +8,7 @@ import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CustomPlusIcon, EditIcon, EyeIcon } from '@components/shared/svg-icons'
+import { CustomPlusIcon, DeleteIcon, EditIcon, EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -226,7 +226,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             className={styles.button}
             onClick={() => onSupplierActions(ModalModes.DELETE)}
           >
-            <AcceptRevokeIcon />
+            <DeleteIcon />
           </Button>
         ) : null}
       </div>
