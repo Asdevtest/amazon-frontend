@@ -60,7 +60,7 @@ export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewC
       field: 'launchType',
       headerName: t(TranslationKey['Launch type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
-      renderCell: ({ row }: GridRowModel) => <Launches cell launches={row.listingLaunches || []} />,
+      renderCell: ({ row }: GridRowModel) => <Launches isCell launches={row.listingLaunches || []} />,
       width: 330,
       columnKey: columnnsKeys.shared.STRING,
     },

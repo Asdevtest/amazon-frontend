@@ -42,7 +42,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
 
         return (
           <Launches
-            cell
+            isCell
             product={product}
             isLinkRequest={isLinkRequest}
             launchLabel={getLaunchName(row.type)}
@@ -60,7 +60,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Discount)}, %`} />,
       renderCell: ({ row }: GridRowModel) => (
         <CustomInputNumber
-          cell
+          isCell
           min={0}
           max={100}
           disabled={!editMode}
@@ -79,7 +79,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
       renderCell: ({ row }: GridRowModel) => (
         <CustomRangeDatePicker
-          cell
+          isCell
           minDate={dayjs()}
           disabled={!editMode}
           defaultValue={[row.dateFrom ? dayjs(row.dateFrom) : null, row.dateTo ? dayjs(row.dateTo) : null]}
@@ -95,7 +95,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       renderCell: ({ row }: GridRowModel) => (
         <CustomTextarea
-          cell
+          isCell
           allowClear
           rows={2}
           maxLength={512}
@@ -115,7 +115,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <CustomTextarea
-            cell
+            isCell
             allowClear
             disabled={!editMode || !row.expired}
             rows={2}

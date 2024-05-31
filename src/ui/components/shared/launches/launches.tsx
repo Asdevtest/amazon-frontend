@@ -19,7 +19,7 @@ import { getLaunchName } from './helpers/get-launch-name'
 
 interface LaunchesProps {
   launches: ILaunch[]
-  cell?: boolean
+  isCell?: boolean
   product?: IProduct
   launchLabel?: string
   isLinkRequest?: boolean
@@ -27,7 +27,7 @@ interface LaunchesProps {
 }
 
 export const Launches: FC<LaunchesProps> = memo(props => {
-  const { launches, cell, product, launchLabel, isLinkRequest = false, onAddRequest } = props
+  const { launches, isCell, product, launchLabel, isLinkRequest = false, onAddRequest } = props
 
   const { classes: styles, theme, cx } = useStyles()
   const [showBindingModal, setShowBindingModal] = useState(false)
@@ -36,8 +36,8 @@ export const Launches: FC<LaunchesProps> = memo(props => {
 
   return (
     <>
-      <div className={cx(styles.launches, { [styles.cell]: cell })}>
-        {launchLabel && <p className={styles.soloLaunchLabel}>{launchLabel}</p>}
+      <div className={cx(styles.launches, { [styles.cell]: isCell })}>
+        {launchLabel ? <p className={styles.soloLaunchLabel}>{launchLabel}</p> : null}
 
         {/* main part - start */}
         {launches.map((launch, index) => (
@@ -47,11 +47,11 @@ export const Launches: FC<LaunchesProps> = memo(props => {
         ))}
         {/* main part - end */}
 
-        {isLinkRequest && (
+        {isLinkRequest ? (
           <Button type="primary" size="small" onClick={handleToggleModal}>
             {t(TranslationKey['Link request'])}
           </Button>
-        )}
+        ) : null}
       </div>
 
       <Modal openModal={isLinkRequest && showBindingModal} setOpenModal={handleToggleModal}>

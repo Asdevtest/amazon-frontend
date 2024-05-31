@@ -165,8 +165,12 @@ export class ReportModalModel {
     }
   }
 
+  findLaunchIndex = (id: string) => {
+    return this.listingLaunches.findIndex(el => el._id === id)
+  }
+
   onChangeNumberCellValue: ChangeNumberCellValueType = (id, field) => event => {
-    const foundLaunchIndex = this.listingLaunches.findIndex(el => el._id === id)
+    const foundLaunchIndex = this.findLaunchIndex(id)
 
     if (foundLaunchIndex !== -1 && field === 'value') {
       const updatedLaunches = [...this.listingLaunches]
@@ -176,7 +180,7 @@ export class ReportModalModel {
   }
 
   onChangeCommentCellValue: ChangeCommentCellValueType = (id, field) => event => {
-    const foundLaunchIndex = this.listingLaunches.findIndex(el => el._id === id)
+    const foundLaunchIndex = this.findLaunchIndex(id)
 
     if (foundLaunchIndex !== -1 && (field === 'comment' || field === 'result')) {
       const updatedLaunches = [...this.listingLaunches]
@@ -186,7 +190,7 @@ export class ReportModalModel {
   }
 
   onChangeDateCellValue: ChangeDateCellValueType = (id, field) => dates => {
-    const foundLaunchIndex = this.listingLaunches.findIndex(el => el._id === id)
+    const foundLaunchIndex = this.findLaunchIndex(id)
 
     if (foundLaunchIndex !== -1 && (field === 'dateFrom' || field === 'dateTo')) {
       const transformedDatesToISOString = [

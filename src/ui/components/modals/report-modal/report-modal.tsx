@@ -64,26 +64,21 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
               className={styles.select}
               defaultValue={[product.asin]}
               options={asinOptions}
-              optionRender={option => (
+              optionRender={({ data }) => (
                 <Space>
-                  <img
-                    aria-label={option.data.value}
-                    src={option.data.image}
-                    alt={option.data.value}
-                    className={styles.optionImage}
-                  />
+                  <img aria-label={data.value} src={data.image} alt={data.value} className={styles.optionImage} />
                   <div className={styles.optionContainer}>
                     <AsinOrSkuLink
                       withCopyValue
                       withAttributeTitle="asin"
-                      link={option.data.value}
+                      link={data.value}
                       textStyles={styles.optionText}
                       iconStyles={styles.optionIcon}
                     />
                     <AsinOrSkuLink
                       withCopyValue
                       withAttributeTitle="sku"
-                      link={option.data.sku}
+                      link={data.sku}
                       textStyles={styles.optionText}
                       iconStyles={styles.optionIcon}
                     />
@@ -104,7 +99,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
           </div>
         </div>
 
-        {viewModel.requests.length > 0 && (
+        {viewModel.requests.length > 0 ? (
           <div className={styles.flexRowContainer}>
             {viewModel.requests.map(request => (
               <div key={request._id} className={styles.requestWrapper}>
@@ -139,7 +134,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
               </div>
             ))}
           </div>
-        )}
+        ) : null}
       </div>
 
       <div className={styles.tableContainer}>
