@@ -34,6 +34,7 @@ import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 import { IDestination } from '@typings/shared/destinations'
 import { IHSCode } from '@typings/shared/hs-code'
 import { IUploadFile } from '@typings/shared/upload-file'
+import { HistoryType } from '@typings/types/history'
 
 import { fieldsForSearch, filtersFields } from './client-orders-view.constants'
 import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
@@ -43,10 +44,8 @@ import { observerConfig } from './observer-config'
 
 export class ClientOrdersViewModel extends DataGridFilterTableModel {
   orders = []
-  hsCodeData: IHSCode | undefined = undefined
-
-  order: IOrder | undefined = undefined
-
+  hsCodeData?: IHSCode = undefined
+  order?: IOrder = undefined
   showOrderModal = false
   showProductModal = false
   showSetBarcodeModal = false
@@ -56,56 +55,44 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
   showMyOrderModal = false
   showEditHSCodeModal = false
   showProductDataModal = false
-
   myOrderModalSwitcherCondition = MyOrderModalSwitcherConditions.BASIC_INFORMATION
   productAndBatchModalSwitcherCondition = ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION
-
   existingProducts: any = []
   shopsData = []
-
-  selectedWarehouseOrderProduct: IProduct | undefined = undefined
-  selectedProduct: IProduct | undefined = undefined
+  selectedWarehouseOrderProduct?: IProduct = undefined
+  selectedProduct?: IProduct = undefined
   reorderOrdersData: IOrder[] = []
   uploadedFiles: IUploadFile[] = []
-
   storekeepers: IStorekeeper[] = []
   destinations: IDestination[] = []
-
-  currentBatch: IBatch | undefined = undefined
-
+  currentBatch?: IBatch = undefined
   activeProductGuid: string = ''
   onAmazon: boolean = false
 
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
   }
-
   get isPendingOrdering() {
     return this.history.location.pathname === routsPathes.CLIENT_PENDING_ORDERS
   }
-
   get userInfo() {
     return UserModel.userInfo
   }
-
   get platformSettings() {
     return UserModel.platformSettings
   }
 
-  constructor({ history }: { history: any }) {
+  constructor(history: HistoryType) {
     const rowHandlers = {
       onClickReorder: (item: IOrder, isPending: boolean) => this.onClickReorder(item, isPending),
       onClickOpenNewTab: (id: string) => this.onClickOpenNewTab(id),
       onClickWarehouseOrderButton: (guid: string) => this.onClickWarehouseOrderButton(guid),
     }
-
     const filteredStatuses = getOrderStatuses(history.location.pathname)
     const orderStatuses = filteredStatuses.map(item => OrderStatusByKey[item as keyof typeof OrderStatusByKey])
-
     const additionalPropertiesColumnMenuSettings = {
       isFormedData: { isFormed: null, onChangeIsFormed: (value: boolean) => this.onChangeIsFormed(value) },
     }
-
     const additionalPropertiesGetFilters = () => {
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
@@ -139,12 +126,11 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
 
     this.onChangeFullFieldMenuItem(orderStatuses, 'status')
     this.sortModel = getSortModel(history.location.pathname)
-
     this.history = history
-
     this.getDataGridState()
-
     this.getCurrentData()
+    this.getDestinations()
+    this.getStorekeepers()
   }
 
   onClickResetFilters() {
@@ -180,11 +166,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
         this.reorderOrdersData = []
       })
 
-      const [storekeepers, destinations] = await Promise.all([
-        StorekeeperModel.getStorekeepers(),
-        ClientModel.getDestinations(),
-      ])
-
       for (let i = 0; i < this.selectedRows.length; i++) {
         const orderId = this.selectedRows[i]
 
@@ -194,11 +175,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
           this.reorderOrdersData = [...this.reorderOrdersData, order]
         })
       }
-
-      runInAction(() => {
-        this.storekeepers = storekeepers as IStorekeeper[]
-        this.destinations = destinations as IDestination[]
-      })
 
       this.onTriggerOpenModal('showOrderModal')
       this.setRequestStatus(loadingStatus.SUCCESS)
@@ -291,18 +267,10 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
 
   async onClickContinueBtn(item: IOrder) {
     try {
-      const [storekeepers, destinations, order] = await Promise.all([
-        StorekeeperModel.getStorekeepers(),
-        ClientModel.getDestinations(),
-        ClientModel.getOrderById(item._id),
-      ])
+      const response = await ClientModel.getOrderById(item._id)
 
       runInAction(() => {
-        this.storekeepers = storekeepers as IStorekeeper[]
-
-        this.destinations = destinations as IDestination[]
-
-        this.reorderOrdersData = [order as unknown as IOrder]
+        this.reorderOrdersData = [response as unknown as IOrder]
       })
 
       this.onTriggerOpenModal('showOrderModal')
