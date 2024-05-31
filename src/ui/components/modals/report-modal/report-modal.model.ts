@@ -28,7 +28,6 @@ import {
 export class ReportModalModel {
   requestStatus: loadingStatus = loadingStatus.SUCCESS
   product?: IProduct
-  editMode?: boolean = false
   reportId?: string = undefined
   newProductPrice = 0
   description = ''
@@ -43,6 +42,7 @@ export class ReportModalModel {
     onAddRequest: (launch: ILaunch, request?: IRequest) => this.onAddRequest(launch, request),
     onRemoveLaunch: (id: string) => this.onRemoveLaunch(id),
     product: undefined,
+    editMode: false,
   }
   columnsModel: IGridColumn[] = []
 
@@ -66,10 +66,10 @@ export class ReportModalModel {
   }
 
   constructor({ product, reportId, editMode }: IReportModalModelProps) {
-    this.editMode = editMode
     this.reportId = reportId
     this.product = product
     this.columnsProps.product = product
+    this.columnsProps.editMode = editMode
     this.columnsModel = reportModalColumns(this.columnsProps)
 
     this.getListingReportById()
@@ -79,7 +79,7 @@ export class ReportModalModel {
 
   getListingReportById = async () => {
     try {
-      if (this.reportId && this.editMode) {
+      if (this.reportId) {
         this.setRequestStatus(loadingStatus.IS_LOADING)
 
         const reponse = (await ClientModel.getListingReportById(this.reportId)) as unknown as IListingReport
@@ -123,10 +123,11 @@ export class ReportModalModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
+      const removedIdToListingLaunches = this.listingLaunches.map(({ _id, expired, ...restProps }) => restProps)
       const generatedListingReport = {
         newProductPrice: this.newProductPrice,
         description: this.description,
-        listingLaunches: this.listingLaunches,
+        listingLaunches: removedIdToListingLaunches,
       }
 
       await ClientModel.updateListingReport(this.reportId, generatedListingReport)
@@ -149,7 +150,7 @@ export class ReportModalModel {
   onSelectLaunch = (value: Launches) => {
     if (value) {
       const generatedListingLaunch = {
-        _id: uuid(),
+        _id: uuid(), // needed to render elements in the table - only when adding a launch
         type: value,
         value: 0,
         dateFrom: null,
@@ -157,6 +158,7 @@ export class ReportModalModel {
         comment: '',
         requestId: null,
         result: '',
+        expired: false, // needed to control the disabled state of the field result - only when adding a launch
       }
       this.listingLaunches = [...this.listingLaunches, generatedListingLaunch]
       this.selectLaunchValue = null
@@ -187,7 +189,10 @@ export class ReportModalModel {
     const foundLaunchIndex = this.listingLaunches.findIndex(el => el._id === id)
 
     if (foundLaunchIndex !== -1 && (field === 'dateFrom' || field === 'dateTo')) {
-      const transformedDatesToISOString = [dayjs(dates?.[0]).toISOString(), dayjs(dates?.[1]).toISOString()]
+      const transformedDatesToISOString = [
+        dates?.[0] ? dayjs(dates?.[0]).toISOString() : null,
+        dates?.[1] ? dayjs(dates?.[1]).toISOString() : null,
+      ]
       const updatedLaunches = [...this.listingLaunches]
       updatedLaunches[foundLaunchIndex].dateFrom = transformedDatesToISOString[0]
       updatedLaunches[foundLaunchIndex].dateTo = transformedDatesToISOString[1]

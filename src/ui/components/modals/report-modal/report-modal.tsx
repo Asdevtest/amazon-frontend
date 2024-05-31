@@ -44,7 +44,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
     onUpdateTableData?.()
   }, [])
 
-  const modalTitle = `${viewModel.editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(
+  const modalTitle = `${editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(
     TranslationKey['report by the product'],
   )}`
   const launchTypePlaceholder = `＋ ${t(TranslationKey['Select launch type'])}`
@@ -59,6 +59,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
           <div className={styles.flexRowContainer}>
             <Select
               showSearch
+              disabled={!editMode}
               placeholder={t(TranslationKey['Select ASIN'])}
               className={styles.select}
               defaultValue={[product.asin]}
@@ -93,7 +94,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
 
             <Select
               showSearch
-              disabled={viewModel.launchOptions.length === 0}
+              disabled={viewModel.launchOptions.length === 0 || !editMode}
               placeholder={launchTypePlaceholder}
               options={viewModel.launchOptions}
               className={styles.select}
@@ -163,6 +164,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
             label="New price"
             placeholder="Enter"
             maxLength={10}
+            disabled={!editMode}
             value={viewModel.newProductPrice}
             onChange={viewModel.onChangeNewProductPrice}
           />
@@ -174,6 +176,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
             maxLength={1024}
             label="Comment"
             placeholder="Enter"
+            disabled={!editMode}
             value={viewModel.description}
             onChange={viewModel.onChangeDescription}
           />
@@ -188,7 +191,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         <div className={styles.flexRowContainer}>
           <Button
             type="primary"
-            disabled={viewModel.disabledSaveButton}
+            disabled={viewModel.disabledSaveButton || !editMode}
             loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
             onClick={handleSave}
           >

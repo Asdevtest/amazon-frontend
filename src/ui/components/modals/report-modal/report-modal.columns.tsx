@@ -28,6 +28,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
     onAddRequest,
     onRemoveLaunch,
     product,
+    editMode,
   } = props
 
   const columns: IGridColumn[] = [
@@ -62,6 +63,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           cell
           min={0}
           max={100}
+          disabled={!editMode}
           precision={0}
           maxLength={3}
           value={row.value}
@@ -79,6 +81,8 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
         <CustomRangeDatePicker
           cell
           minDate={dayjs()}
+          disabled={!editMode}
+          defaultValue={[row.dateFrom ? dayjs(row.dateFrom) : null, row.dateTo ? dayjs(row.dateTo) : null]}
           onChange={onChangeDateCellValue(row._id, 'dateFrom')} // or dateTo - same overall value
         />
       ),
@@ -96,6 +100,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           rows={2}
           maxLength={512}
           placeholder="Enter"
+          disabled={!editMode || row.expired}
           value={row.comment}
           onChange={onChangeCommentCellValue(row._id, 'comment')}
         />
@@ -108,11 +113,11 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       headerName: t(TranslationKey.Result),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Result)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <div style={{ display: 'flex', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <CustomTextarea
             cell
             allowClear
-            disabled
+            disabled={!editMode || !row.expired}
             rows={2}
             maxLength={1024}
             placeholder="Enter"
@@ -124,8 +129,8 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
             danger
             shape="circle"
             size="small"
+            disabled={!editMode}
             icon={<CrossIcon style={{ width: 12, height: 12 }} onClick={() => onRemoveLaunch(row._id)} />}
-            style={{ marginTop: 10 }}
           />
         </div>
       ),
