@@ -6,7 +6,7 @@ export const getLaunchName = (type: LaunchType, short?: boolean): string => {
     case Launches.COUPON:
       return short ? '' : 'Coupon'
     case Launches.PROMO:
-      return short ? 'Promo' : 'Promo'
+      return 'Promo'
     case Launches.PRIME_DISCOUNT:
       return short ? 'Prime D' : 'Prime discount'
     case Launches.LIGHTING_DEAL:
@@ -18,9 +18,9 @@ export const getLaunchName = (type: LaunchType, short?: boolean): string => {
     case Launches.SALES_PRICE:
       return short ? 'Sale' : 'Sales price'
     case Launches.AB_TEST:
-      return short ? 'A/B' : 'A/B test'
+      return 'A/B'
     case Launches.CUSTOM:
-      return short ? 'Custom' : 'Custom'
+      return 'Custom'
     default:
       return ''
   }

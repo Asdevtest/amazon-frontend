@@ -1,5 +1,7 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
+
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
@@ -8,10 +10,7 @@ import { IProduct } from '@typings/models/products/product'
 
 export const launchOptions = Object.values(Launches).map(value => ({
   value,
-  label: value
-    .toLowerCase()
-    .replace(/_/g, ' ')
-    .replace(/^\w/, c => c.toUpperCase()),
+  label: getLaunchName(value),
 }))
 
 export const getAsinOptions = (product: IProduct) => [

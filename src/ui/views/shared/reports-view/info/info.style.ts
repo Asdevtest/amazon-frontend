@@ -29,13 +29,14 @@ export const useStyles = makeStyles()(theme => ({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    justifyContent: 'space-between',
+    gap: 15,
   },
 
   title: {
     display: '-webkit-box',
     overflow: 'hidden',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
   },
 }))

@@ -70,7 +70,7 @@ export const IdeaRequestsCell: FC<IdeaRequestsProps> = memo(props => {
       {!withoutControls && (
         <div className={styles.ideaRequestsControls}>
           <Button styleType={ButtonStyle.SUCCESS} onClick={onClickCreateRequest}>
-            <PlusIcon /> {t(TranslationKey['Create a request'])}
+            <PlusIcon /> {t(TranslationKey['Create request'])}
           </Button>
           <Button onClick={onClickLinkRequest}>{t(TranslationKey['Link request'])}</Button>
         </div>

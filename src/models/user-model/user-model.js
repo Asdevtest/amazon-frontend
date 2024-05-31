@@ -116,7 +116,7 @@ class UserModelStatic {
         },
       )
       const response = responseData.data
-      const platformSettings = await this.getPlatformSettings()
+      const platformSettings = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
 
       runInAction(() => {
         this.userInfo = { ...this.userInfo, ...response }
@@ -153,11 +153,6 @@ class UserModelStatic {
 
       SettingsModel.setBreadcrumbsForProfile(null)
     }
-  }
-
-  async getPlatformSettings() {
-    const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
-    return response.data
   }
 
   async getUserInfoById(guid) {

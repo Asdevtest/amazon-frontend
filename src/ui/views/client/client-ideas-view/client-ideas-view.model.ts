@@ -464,7 +464,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       try {
         await RequestModel.bindIdeaToRequest(request, methodBody)
       } catch (error) {
-        console.error('error', error)
+        console.error(error)
       }
     }
 

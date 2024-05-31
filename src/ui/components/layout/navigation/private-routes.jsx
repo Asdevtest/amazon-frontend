@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useFaviconNotification } from 'react-favicon-notification'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 
@@ -19,8 +19,6 @@ export const PrivateRoutes = observer(() => {
 
   const [config, setConfig] = useFaviconNotification()
 
-  const [targetRoute, setTargetRoute] = useState('')
-
   useEffect(() => {
     if (ChatModel.unreadMessages > 0) {
       setConfig({ ...config, show: true, counter: ChatModel.unreadMessages })
@@ -30,11 +28,7 @@ export const PrivateRoutes = observer(() => {
   }, [ChatModel.unreadMessages])
 
   useEffect(() => {
-    if (location.state?.targetRoute) {
-      setTargetRoute(location.state.targetRoute)
-    } else if (location.pathname === targetRoute) {
-      setTargetRoute('')
-    } else if (UserModel.isAuthenticated()) {
+    if (UserModel.isAuthenticated()) {
       UserModel.getUsersInfoCounters()
     }
   }, [location.pathname])

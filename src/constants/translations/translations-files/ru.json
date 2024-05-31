@@ -396,7 +396,7 @@
   "Deadline": "Срок",
   "hour": "ч.",
   "No vacant applications yet": "Вакантных заявок пока нет",
-  "Create a request": "Создать заявку",
+  "Create request": "Создать заявку",
   "Total proposals": "Всего предложений",
   "Proposals are expected": "Предложений ожидают",
   "Proposals in the works": "Предложений в работе",
@@ -1050,7 +1050,7 @@
   "Money transfer link": "Ссылка на перевод денежных средств",
   "Requests and proposals for them": "Заявки и предложения по ним",
   "List of created requests": "Список созданных заявок",
-  "Opens the form to create a request": "Открывает форму для создания заявки",
+  "Opens the form to Create request": "Открывает форму для создания заявки",
   "Future request title": "Заголовок будущей заявки",
   "Maximize the details of your request": "Максимально раскройте суть Вашей заявки",
   "Indicate the date by which proposals may be received": "Укажите дату, до которой могут поступать предложения",
@@ -1180,7 +1180,7 @@
   "Form for requesting the shipment of boxes in a batch": "Форма для запроса отправки коробок в партию",
   "Total weight of the selected boxes": "Суммарный вес выбранных коробок",
   "The cost depends on the total weight and the rate you choose": "Стоимость зависит от общего веса и выбранного Вами тарифа",
-  "Create a request to send to the batch, freeze funds, then see \"My batches\"": "Создание запроса для отправки в партию, заморозка денежных средств, далее см. раздел \"Мои партии\"",
+  "Create request to send to the batch, freeze funds, then see \"My batches\"": "Создание запроса для отправки в партию, заморозка денежных средств, далее см. раздел \"Мои партии\"",
   "List of batches and management of boxes related to them": "Список партий и управление коробками, относящимся к ним",
   "Removes the box for further addition to the batch, returns to My Warehouse": "Убирает коробку для дальнейшего добавления в партию, возвращает в раздел \"Мой склад\"",
   "Returns all boxes from the selected batch to the \"Boxes ready to send\" section": "Возвращает все коробки из выбранной партии в раздел \"Коробки, готовые к отправке\"",
@@ -2272,5 +2272,7 @@
   "New price": "Новая цена",
   "Add changes to the product": "Внести изменения в продукт",
   "Enter": "Ввод",
-  "Discount": "Скидка"
+  "Discount": "Скидка",
+  "Launches reports": "Отчеты о запуске",
+  "Notify users of completed launches in": "Уведомляйте пользователей о завершенных запусках за"
 }

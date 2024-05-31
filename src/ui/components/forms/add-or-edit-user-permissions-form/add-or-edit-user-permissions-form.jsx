@@ -237,20 +237,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                     <ListItemText primary={`${item.title}`} />
                   </div>
 
-                  <div
-                    className={cx(
-                      styles.permissionGroupsToSelectCheckboxWrapper,
-                      {
-                        [styles.selectedItem]: rightSide.key === item.key,
-                      },
-                      {
-                        [styles.tabWillBeOpened]: formFields.includes(
-                          item.permissions.find(el => el.key.startsWith('SHOW_'))?._id,
-                        ),
-                      },
-                    )}
-                    onClick={() => onClickLeftCheckbox(item)}
-                  >
+                  <div className={styles.permissionGroupsToSelectCheckboxWrapper}>
                     <Checkbox
                       color="primary"
                       checked={!!item.permissions.length && item.permissions.every(el => formFields.includes(el._id))}
@@ -258,6 +245,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                         item.permissions.some(el => formFields.includes(el._id)) &&
                         !item.permissions.every(el => formFields.includes(el._id))
                       }
+                      onChange={() => onClickLeftCheckbox(item)}
                     />
                   </div>
                 </div>
@@ -303,23 +291,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                 <div key={item._id} className={styles.permGroupWrapper}>
                   <div className={styles.permissionGroupsToSelectItemWrapper} onClick={() => onSetRightSide(item)}>
                     <div className={styles.permissionGroupsToSelectItemSubWrapper}>
-                      <div
-                        className={cx(
-                          styles.permissionGroupsToSelectCheckboxWrapper,
-                          {
-                            [styles.selectedItem]: rightSide.key === item.key && showPermissions,
-                          },
-                          {
-                            [styles.tabWillBeOpened]: formFields.includes(
-                              item.permissions.find(el => el.key.startsWith('SHOW_'))?._id,
-                            ),
-                          },
-                        )}
-                        onClick={e => {
-                          e.stopPropagation()
-                          onClickLeftCheckbox(item)
-                        }}
-                      >
+                      <div className={cx(styles.permissionGroupsToSelectCheckboxWrapper)}>
                         <Checkbox
                           color="primary"
                           checked={item.permissions.every(el => formFields.includes(el._id))}
@@ -327,6 +299,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                             item.permissions.some(el => formFields.includes(el._id)) &&
                             !item.permissions.every(el => formFields.includes(el._id))
                           }
+                          onChange={() => onClickLeftCheckbox(item)}
                         />
                       </div>
                       <div

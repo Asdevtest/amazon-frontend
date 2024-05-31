@@ -24,6 +24,7 @@ import {
   TabSearchSupplier,
   TabTags,
 } from './admin-tabs'
+import { LaunchesReports } from './admin-tabs/launches-reports/launches-reports'
 
 export const AdminSettings = observer(() => {
   const { classes: styles } = useStyles()
@@ -106,6 +107,9 @@ export const AdminSettings = observer(() => {
       </TabPanel>
       <TabPanel value={viewModel.tabIndex} index={tabIndexes.tags}>
         <TabTags />
+      </TabPanel>
+      <TabPanel value={viewModel.tabIndex} index={tabIndexes.launchesReports}>
+        <LaunchesReports timeBeforeLaunchDeadline={viewModel.formFields.timeBeforeLaunchDeadline} />
       </TabPanel>
 
       {viewModel.showConfirmModal ? (
