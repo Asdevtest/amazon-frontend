@@ -2307,16 +2307,12 @@ export const NumberFieldMenuItem = memo(
       }, [filterData])
 
       useEffect(() => {
-        const filter = filterData?.filter(item => {
-          console.log('item :>> ', item)
-          console.log('nameSearchValue :>> ', nameSearchValue)
-
-          return (
+        const filter = filterData?.filter(
+          item =>
             (nameSearchValue ? Number(item) === Number(nameSearchValue) : true) &&
             (fromValue || fromValue === 0 ? Number(item) >= Number(fromValue) : true) &&
-            (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true)
-          )
-        })
+            (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true),
+        )
         setItemsForRender(filter)
       }, [nameSearchValue, fromValue, toValue])
 
