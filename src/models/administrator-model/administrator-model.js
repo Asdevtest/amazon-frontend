@@ -204,6 +204,11 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsPermissionGet()
     return response.data
   }
+
+  patchLaunchPreDeadlineValue = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsSetLaunchPreDeadlineValuePatch(body)
+    return response.data
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

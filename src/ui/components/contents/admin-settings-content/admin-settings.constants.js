@@ -9,6 +9,7 @@ export const tabLabels = [
   TranslationKey['Red flags'],
   TranslationKey['Payment methods'],
   TranslationKey.Tags,
+  TranslationKey['Launches reports'],
 ]
 
 export const tabIndexes = {
@@ -20,6 +21,7 @@ export const tabIndexes = {
   redFlags: 5,
   paymentMethods: 6,
   tags: 7,
+  launchesReports: 8,
 }
 
 export const fieldsWithoutCharsAfterDote = [
@@ -42,6 +44,7 @@ export const fieldNames = [
   'requestTimeLimitInHourForCheckingProposalBySuper',
   'volumeWeightCoefficient',
   'timeToDeadlinePendingOrder',
+  'timeBeforeLaunchDeadline',
 ]
 
 export const fieldNameObject = fieldNames.reduce((obj, fieldName) => {
