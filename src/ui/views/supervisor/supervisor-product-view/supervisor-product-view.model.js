@@ -1,4 +1,3 @@
-import { transformAndValidate } from 'class-transformer-validator'
 import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -9,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
 import { SupervisorModel } from '@models/supervisor-model'
-import { SupervisorUpdateProductContract } from '@models/supervisor-model/supervisor-model.contracts'
 import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
@@ -265,8 +263,6 @@ export class SupervisorProductViewModel {
           this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(this.curUpdateProductData, ['status'])
         })
       }
-
-      await transformAndValidate(SupervisorUpdateProductContract, this.curUpdateProductData)
 
       runInAction(() => {
         this.confirmModalSettings = {
