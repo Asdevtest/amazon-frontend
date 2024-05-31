@@ -66,14 +66,14 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     gap: 32,
-    border: '1px solid #EBEDEF',
+    border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 12,
-    background: '#F9FCFF',
+    background: theme.palette.background.general,
     position: 'absolute',
     top: 46,
     right: 29,
     padding: '13px 13px 17px 8px',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    boxShadow: `0px 2px 10px 2px ${theme.palette.boxShadow.general}`,
   },
 
   customSwitcherWrapper: {
