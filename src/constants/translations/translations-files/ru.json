@@ -685,7 +685,7 @@
   "Canceled by creator of request": "Отменено создателем запроса",
   "Canceled by Executor": "Отменено исполнителем",
   "Corrected": "Исправлено",
-  "Expired": "Время заявки истекло",
+  "Expired": "Истекло",
   "Proposal conditions accepted": "Условия предложения приняты",
   "Proposal conditions corrected": "Условия предложения изменены",
   "Proposal conditions rejected": "Условия предложения отменены",
@@ -2276,5 +2276,7 @@
   "Minimum recommended box weight, kg": "Минимальный рекомендуемый вес коробки, кг",
   "Launches reports": "Отчеты о запуске",
   "Notify users of completed launches in": "Уведомляйте пользователей о завершенных запусках за",
-  "Launches": "Запуски"
+  "Launches": "Запуски",
+  "Almost expired": "Скоро истекает",
+  "Request time has expired": "Время заявки истекло"
 }

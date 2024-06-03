@@ -2279,4 +2279,6 @@ export enum TranslationKey {
   'Launches reports' = 'Launches reports',
   'Notify users of completed launches in' = 'Notify users of completed launches in',
   'Launches' = 'Launches',
+  'Almost expired' = 'Almost expired',
+  'Request time has expired' = 'Request time has expired',
 }

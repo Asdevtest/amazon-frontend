@@ -685,7 +685,8 @@
   "Canceled by creator of request": "由创建查询的用户取消的",
   "Canceled by Executor": "由执行者取消",
   "Corrected": "修正的",
-  "Expired": "请求已过期",
+  "Request time has expired": "请求已过期",
+  "Expired": "Expired",
   "Proposal conditions accepted": "建议的条件已接受了",
   "Proposal conditions corrected": "建议的条件以改变了",
   "Proposal conditions rejected": "建议的条件已取消了",
@@ -2274,5 +2275,6 @@
   "Minimum recommended box weight, kg": "Minimum recommended box weight, kg",
   "Launches reports": "Launches reports",
   "Notify users of completed launches in": "Notify users of completed launches in",
-  "Launches": "Launches"
+  "Launches": "Launches",
+  "Almost expired": "Almost expired"
 }

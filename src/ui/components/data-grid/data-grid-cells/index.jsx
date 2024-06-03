@@ -105,3 +105,4 @@ export { WarehouseDestinationAndTariffCell } from './warehouse-destination-and-t
 export { WarehouseTariffDatesCell } from './warehouse-tariff-dates-cell/warehouse-tariff-dates-cell'
 export { WarehouseTariffDestinationCell } from './warehouse-tariff-destination-cell/warehouse-tariff-destination-cell'
 export { WarehouseTariffRatesCell } from './warehouse-tariff-rates-cell/warehouse-tariff-rates-cell'
+export { ListingNotificationMessageCell } from './launch-notification-message-cell/launch-notification-message-cell'
