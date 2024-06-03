@@ -156,7 +156,7 @@ export const timeToDeadlineInDaysAndHours = ({ date, now }) => {
 
   const hours = Math.floor((absSecondsToDeadline % (3600 * 24)) / 3600)
 
-  return !isExpired ? `${days} ${t(TranslationKey.days)} ${hours} ${t(TranslationKey.hour)}` : ''
+  return !isExpired ? `${days} ${t(TranslationKey.days)} ${hours} ${t(TranslationKey.hour)}` : t(TranslationKey.Expired)
 }
 
 export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replaceAll('&', ';')).replaceAll('%24', '$')

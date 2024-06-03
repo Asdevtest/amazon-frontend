@@ -1,7 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useMemo } from 'react'
+
+import { Tooltip } from '@mui/material'
 
 import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
 import { getLaunchStyle } from '@components/shared/launches/helpers/get-launch-style'
+
+import { formatDateWithoutYear, formatNormDateTime } from '@utils/date-time'
+
+import { ILaunch } from '@typings/shared/launch'
 
 import { useStyles } from './launch-notification-message-cell.style'
 
@@ -15,27 +22,32 @@ interface LaunchNotificationMessageCellProps {
 export const ListingNotificationMessageCell: FC<LaunchNotificationMessageCellProps> = memo(({ notification }) => {
   const { classes: styles, theme } = useStyles()
 
-  console.log('notification :>> ', notification)
-
   const title = useMemo(() => {
     return getNotificationTitle(notification.type)
   }, [notification.type])
 
   return (
     <div className={styles.wrapper}>
-      <p>{title}</p>
+      <p>{`${title}:`}</p>
 
-      {notification.launches.map((launch, index: number) => (
-        <div key={index}>
-          <p style={getLaunchStyle(launch.type, theme)} className={styles.text}>
-            {`${getLaunchName(launch.type, true)} ${launch.value} %`}
-          </p>
+      {notification.launches.map((launch: ILaunch, index: number) => {
+        const type = launch.type
+        const dateTo = launch.dateTo
 
-          {notification.type === LaunchNotificationType.ALMOST_RUNNING_OUT ? (
-            <p className={styles.text}>{`${notification.startDate} - ${notification.endDate}`}</p>
-          ) : null}
-        </div>
-      ))}
+        return (
+          <div key={index} className={styles.launchesWrapper}>
+            <p style={getLaunchStyle(type, theme)} className={styles.text}>
+              {`${getLaunchName(type, true)} ${launch.value} %`}
+            </p>
+
+            {notification.type === LaunchNotificationType.ALMOST_RUNNING_OUT ? (
+              <Tooltip title={formatNormDateTime(dateTo)}>
+                <p className={styles.text}>{formatDateWithoutYear(dateTo)}</p>
+              </Tooltip>
+            ) : null}
+          </div>
+        )
+      })}
     </div>
   )
 })

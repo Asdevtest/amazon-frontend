@@ -1,10 +1,18 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '10px',
+  },
+
+  launchesWrapper: {
+    display: 'flex',
     flexDirection: 'column',
+    gap: '5px',
   },
 
   text: {
