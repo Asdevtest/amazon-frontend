@@ -28,6 +28,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
     onAddRequest,
     onRemoveLaunch,
     product,
+    editMode,
   } = props
 
   const columns: IGridColumn[] = [
@@ -41,7 +42,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
 
         return (
           <Launches
-            cell
+            isCell
             product={product}
             isLinkRequest={isLinkRequest}
             launchLabel={getLaunchName(row.type)}
@@ -59,9 +60,10 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Discount)}, %`} />,
       renderCell: ({ row }: GridRowModel) => (
         <CustomInputNumber
-          cell
+          isCell
           min={0}
           max={100}
+          disabled={!editMode}
           precision={0}
           maxLength={3}
           value={row.value}
@@ -77,8 +79,10 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
       renderCell: ({ row }: GridRowModel) => (
         <CustomRangeDatePicker
-          cell
+          isCell
           minDate={dayjs()}
+          disabled={!editMode}
+          defaultValue={[row.dateFrom ? dayjs(row.dateFrom) : null, row.dateTo ? dayjs(row.dateTo) : null]}
           onChange={onChangeDateCellValue(row._id, 'dateFrom')} // or dateTo - same overall value
         />
       ),
@@ -91,11 +95,12 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       renderCell: ({ row }: GridRowModel) => (
         <CustomTextarea
-          cell
+          isCell
           allowClear
           rows={2}
           maxLength={512}
           placeholder="Enter"
+          disabled={!editMode || row.expired}
           value={row.comment}
           onChange={onChangeCommentCellValue(row._id, 'comment')}
         />
@@ -108,11 +113,11 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       headerName: t(TranslationKey.Result),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Result)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <div style={{ display: 'flex', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <CustomTextarea
-            cell
+            isCell
             allowClear
-            disabled
+            disabled={!editMode || !row.expired}
             rows={2}
             maxLength={1024}
             placeholder="Enter"
@@ -124,8 +129,8 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
             danger
             shape="circle"
             size="small"
+            disabled={!editMode}
             icon={<CrossIcon style={{ width: 12, height: 12 }} onClick={() => onRemoveLaunch(row._id)} />}
-            style={{ marginTop: 10 }}
           />
         </div>
       ),

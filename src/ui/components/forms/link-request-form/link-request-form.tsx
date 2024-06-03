@@ -49,16 +49,16 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
             shape="circle"
             icon={<RestartIcon />}
             loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-            onClick={viewModel.getRequestsByProductLight}
+            onClick={() => viewModel.getCurrentData()}
           />
         </div>
       </div>
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          rows={viewModel.requests}
+          rows={viewModel.currentData}
           rowCount={viewModel.rowCount}
-          columns={viewModel.columns}
+          columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
           getRowId={({ _id }: GridRowModel) => _id}
           slots={null}
@@ -68,7 +68,7 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
       </div>
 
       <div className={styles.buttons}>
-        <Button type="primary" disabled={viewModel.selectedRowsIds.length === 0} onClick={handleSave}>
+        <Button type="primary" disabled={viewModel.selectedRows.length === 0} onClick={handleSave}>
           {t(TranslationKey['Link request'])}
         </Button>
         <Button onClick={onClose}>{t(TranslationKey.Cancel)}</Button>
