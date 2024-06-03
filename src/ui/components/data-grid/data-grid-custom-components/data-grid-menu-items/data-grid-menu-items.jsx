@@ -2030,6 +2030,7 @@ export const FromToDateMenuItem = memo(
                 disablePast={false}
                 className={styles.dateInput}
                 value={fromDate}
+                slotProps={{ field: { size: 'small' } }}
                 onChange={setFromDate}
               />
             </div>
@@ -2043,6 +2044,7 @@ export const FromToDateMenuItem = memo(
                 disablePast={false}
                 className={styles.dateInput}
                 value={toDate}
+                slotProps={{ field: { size: 'small' } }}
                 onChange={setToDate}
               />
             </div>
