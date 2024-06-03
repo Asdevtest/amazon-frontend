@@ -702,10 +702,6 @@ export class SuppliersAndIdeasModel {
         this.getIdeas()
       }
 
-      runInAction(() => {
-        this.currentIdeaId = undefined
-      })
-
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
