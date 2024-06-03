@@ -100,11 +100,9 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       const additionalFilters = listingFilters?.notOnListing && listingFilters?.onListing
 
       return {
-        ...(!this.columnMenuSettings?.status?.currentFilterData?.length && {
-          statusGroup: {
-            $eq: this.statusGroup,
-          },
-        }),
+        statusGroup: {
+          $eq: this.statusGroup,
+        },
 
         ...(!additionalFilters && {
           uploadedToListing: {

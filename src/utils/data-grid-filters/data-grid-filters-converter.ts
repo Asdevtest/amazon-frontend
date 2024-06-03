@@ -136,7 +136,7 @@ export const dataGridFiltersConverter = (
 
   return {
     or: searchFieldsArray,
-    ...columnFilters,
     ...additionalOptions,
+    ...columnFilters,
   }
 }
