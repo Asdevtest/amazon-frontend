@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: 1400,
+    width: 1560,
     height: 730,
     overflowY: 'auto',
   },
