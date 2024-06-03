@@ -116,7 +116,7 @@ class UserModelStatic {
         },
       )
       const response = responseData.data
-      const platformSettings = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
+      const platformSettings = await this.getPlatformSettings()
 
       runInAction(() => {
         this.userInfo = { ...this.userInfo, ...response }
@@ -287,6 +287,11 @@ class UserModelStatic {
 
   async getPatchNote(guid) {
     const response = await restApiService.userApi.apiV1UsersPatchNotesGuidGet({ guid, noCache: true })
+    return response.data
+  }
+
+  async getPlatformSettings() {
+    const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
     return response.data
   }
 }
