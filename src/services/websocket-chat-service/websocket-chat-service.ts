@@ -61,7 +61,7 @@ export class WebsocketChatService {
     ;(Object.keys(handlers) as ChatHandlerName[]).forEach((handlerName: ChatHandlerName) => {
       const handlerCallback = handlers[handlerName]
       if (handlerToEventMapping[handlerName] && handlerCallback) {
-        // console.log(
+        // console.warn(
         //   `WebsocketChatService registerHandlers, register event: ${handlerToEventMapping[handlerName]} with handler: ${handlerName}`,
         // )
         this.socket.on(handlerToEventMapping[handlerName], handlerCallback)

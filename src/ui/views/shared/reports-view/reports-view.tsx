@@ -40,7 +40,11 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
         <div className={styles.buttonsContainer}>
           <CustomRangeDatePicker onChange={viewModel.onChangeRangeDate} />
 
-          <Button type="primary" icon={<CustomPlusIcon />} onClick={viewModel.onToggleReportModal}>
+          <Button
+            type="primary"
+            icon={<CustomPlusIcon />}
+            onClick={() => viewModel.onToggleReportModalEditMode(undefined)}
+          >
             {t(TranslationKey['New report'])}
           </Button>
         </div>
@@ -88,6 +92,7 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
             onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onPinnedColumnsChange={viewModel.handlePinColumn}
+            onRowDoubleClick={({ id }: GridRowModel) => viewModel.onToggleReportModalViewMode(id)}
           />
         </div>
       </div>

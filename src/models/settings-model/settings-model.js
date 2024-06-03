@@ -126,12 +126,12 @@ class SettingsModelStatic {
     })
 
     if (compareVersions(response.data.version, appVersion) > 0) {
-      console.log('!!!*** versions do not match')
+      console.warn('!!!*** versions do not match')
 
       this.resetLocalStorageAndCach()
     }
 
-    console.log('!!!*** versions do match')
+    console.warn('!!!*** versions do match')
   }
 
   resetLocalStorageAndCach() {

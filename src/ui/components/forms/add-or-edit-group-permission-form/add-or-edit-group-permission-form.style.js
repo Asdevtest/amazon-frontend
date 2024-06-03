@@ -4,6 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     width: '650px',
     padding: 10,
+    paddingBottom: 0,
   },
 
   mainTitle: {

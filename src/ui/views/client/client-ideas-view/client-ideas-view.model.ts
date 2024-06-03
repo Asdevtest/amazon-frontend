@@ -150,11 +150,9 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
 
     const defaultGetCurrentDataOptions = () => pageSettings.queries
     const additionalPropertiesGetFilters = () => ({
-      ...(!this.columnMenuSettings?.status?.currentFilterData?.length && {
-        statusGroup: {
-          $eq: statusGroup,
-        },
-      }),
+      statusGroup: {
+        $eq: statusGroup,
+      },
     })
 
     super({

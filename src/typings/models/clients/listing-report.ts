@@ -5,7 +5,6 @@ import { IProduct } from '../products/product'
 import { IRequest } from '../requests/request'
 
 export interface IListingLaunch {
-  _id: string
   type: Launches
   value: number
   dateFrom: string | null
@@ -13,6 +12,7 @@ export interface IListingLaunch {
   comment: string
   requestId: string | null
   result: string
+  _id?: string
   expired?: boolean
   request?: IRequest
   createdAt?: string

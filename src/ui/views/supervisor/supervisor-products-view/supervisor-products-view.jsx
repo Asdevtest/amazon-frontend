@@ -91,7 +91,7 @@ export const SupervisorProductsView = observer(() => {
           onFilterModelChange={viewModel.onChangeFilterModel}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onRowClick={({ row }) => viewModel.onClickProductModal(row?._id)}
+          onRowDoubleClick={({ row }) => viewModel.onClickProductModal(row?._id)}
         />
       </div>
 

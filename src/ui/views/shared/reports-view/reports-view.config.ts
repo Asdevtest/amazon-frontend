@@ -11,5 +11,6 @@ export const reportsViewConfig = {
   onChangeRangeDate: action.bound,
   onToggleReportModal: action.bound,
   onToggleReportModalEditMode: action.bound,
+  onToggleReportModalViewMode: action.bound,
   onGetCurrentData: action.bound,
 }

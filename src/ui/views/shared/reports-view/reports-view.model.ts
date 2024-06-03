@@ -65,9 +65,15 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     this.showReportModal = !this.showReportModal
   }
 
-  onToggleReportModalEditMode(reportId: string) {
+  onToggleReportModalEditMode(reportId?: string) {
     this.reportId = reportId
     this.reportModalEditMode = true
+    this.showReportModal = !this.showReportModal
+  }
+
+  onToggleReportModalViewMode(reportId?: string) {
+    this.reportId = reportId
+    this.reportModalEditMode = false
     this.showReportModal = !this.showReportModal
   }
 

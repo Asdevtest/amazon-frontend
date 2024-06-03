@@ -2309,7 +2309,7 @@ export const NumberFieldMenuItem = memo(
       useEffect(() => {
         const filter = filterData?.filter(
           item =>
-            (nameSearchValue ? String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
+            (nameSearchValue ? Number(item) === Number(nameSearchValue) : true) &&
             (fromValue || fromValue === 0 ? Number(item) >= Number(fromValue) : true) &&
             (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true),
         )
