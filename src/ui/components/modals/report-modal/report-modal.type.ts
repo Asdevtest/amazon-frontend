@@ -40,11 +40,9 @@ export interface ReportModalColumnsProps {
   onAddRequest: AddRequestType
   onRemoveLaunch: (id: string) => void
   product?: IProduct
-  editMode?: boolean
 }
 
 export interface IReportModalModelProps {
   product: IProduct
   reportId?: string
-  editMode?: boolean
 }

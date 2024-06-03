@@ -34,7 +34,6 @@ export class ReportModalModel {
   listingLaunches: IListingLaunch[] = []
   selectLaunchValue: Launches | null = null
   requests: IRequestWithLaunch[] = []
-
   columnsProps: ReportModalColumnsProps = {
     onChangeNumberCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeNumberCellValue(id, field),
     onChangeCommentCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeCommentCellValue(id, field),
@@ -42,7 +41,6 @@ export class ReportModalModel {
     onAddRequest: (launch: ILaunch, request?: IRequest) => this.onAddRequest(launch, request),
     onRemoveLaunch: (id: string) => this.onRemoveLaunch(id),
     product: undefined,
-    editMode: false,
   }
   columnsModel: IGridColumn[] = []
 
@@ -65,11 +63,10 @@ export class ReportModalModel {
     )
   }
 
-  constructor({ product, reportId, editMode }: IReportModalModelProps) {
+  constructor({ product, reportId }: IReportModalModelProps) {
     this.reportId = reportId
     this.product = product
     this.columnsProps.product = product
-    this.columnsProps.editMode = editMode
     this.columnsModel = reportModalColumns(this.columnsProps)
 
     this.getListingReportById()

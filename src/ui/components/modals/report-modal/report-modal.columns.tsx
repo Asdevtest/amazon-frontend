@@ -24,7 +24,6 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
     onAddRequest,
     onRemoveLaunch,
     product,
-    editMode,
   } = props
 
   const columns: IGridColumn[] = [
@@ -45,7 +44,6 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           isCell
           min={0}
           max={100}
-          disabled={!editMode}
           precision={0}
           maxLength={3}
           value={row.value}
@@ -63,7 +61,6 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
         <CustomRangeDatePicker
           isCell
           minDate={dayjs()}
-          disabled={!editMode}
           defaultValue={[row.dateFrom ? dayjs(row.dateFrom) : null, row.dateTo ? dayjs(row.dateTo) : null]}
           onChange={onChangeDateCellValue(row._id, 'dateFrom')} // or dateTo - same overall value
         />
@@ -82,7 +79,6 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           rows={2}
           maxLength={512}
           placeholder="Enter"
-          disabled={!editMode}
           value={row.comment}
           onChange={onChangeCommentCellValue(row._id, 'comment')}
         />
@@ -95,12 +91,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       headerName: t(TranslationKey.Result),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Result)} />,
       renderCell: ({ row }: GridRowModel) => (
-        <ResultCell
-          row={row}
-          editMode={editMode}
-          onChangeCommentCellValue={onChangeCommentCellValue}
-          onRemoveLaunch={onRemoveLaunch}
-        />
+        <ResultCell row={row} onChangeCommentCellValue={onChangeCommentCellValue} onRemoveLaunch={onRemoveLaunch} />
       ),
       width: 240,
     },

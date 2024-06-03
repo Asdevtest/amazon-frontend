@@ -1,0 +1,58 @@
+import { Button } from 'antd'
+import { observer } from 'mobx-react'
+import { FC } from 'react'
+
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { IRequestWithLaunch } from '@components/modals/report-modal/report-modal.type'
+import { Launches } from '@components/shared/launches'
+import { CrossIcon } from '@components/shared/svg-icons'
+
+import { t } from '@utils/translations'
+
+import { useStyles } from './requests.style'
+
+interface RequestsProps {
+  requests: IRequestWithLaunch[]
+  onRemoveRequest: (id: string) => void
+}
+
+export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest }) => {
+  const { classes: styles } = useStyles()
+
+  return requests.length > 0 ? (
+    <div className={styles.flexRowContainer}>
+      {requests.map(request => (
+        <div key={request._id} className={styles.requestWrapper}>
+          <div className={styles.requestConatainer}>
+            <p className={styles.requestText}>
+              <span className={styles.requestTextSecond}>{`${t(TranslationKey['Request type'])}: `}</span>
+              {request.spec.title}
+            </p>
+
+            <Button
+              danger
+              shape="circle"
+              size="small"
+              icon={<CrossIcon className={styles.crossIcon} onClick={() => onRemoveRequest(request._id)} />}
+              className={styles.crossButton}
+            />
+          </div>
+          <div className={styles.requestConatainer}>
+            <p className={styles.requestText}>
+              <span className={styles.requestTextSecond}>{`${t(TranslationKey.ID)}: `}</span>
+              {request.humanFriendlyId}
+            </p>
+
+            <Launches launches={[request.launch]} />
+          </div>
+          <p className={styles.requestText}>
+            <span className={styles.requestTextSecond}>{`${t(TranslationKey.Status)}: `}</span>
+            {MyRequestStatusTranslate(request.status)}
+          </p>
+        </div>
+      ))}
+    </div>
+  ) : null
+})

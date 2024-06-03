@@ -14,7 +14,6 @@ import { reportsViewConfig } from './reports-view.config'
 export class ReportsViewModel extends DataGridFilterTableModel {
   reportId?: string = undefined
   showReportModal = false
-  reportModalEditMode = false
 
   get product() {
     return this.meta?.product
@@ -54,26 +53,18 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       const transformedDatesToISOString = [dayjs(dates?.[0]).toISOString(), dayjs(dates?.[1]).toISOString()]
       this.onChangeFullFieldMenuItem(transformedDatesToISOString, 'createdAt')
       this.onGetCurrentData()
+    } else {
+      this.onClickResetFilters()
     }
-
-    this.onClickResetFilters()
   }
 
   onToggleReportModal() {
     this.reportId = undefined
-    this.reportModalEditMode = false
     this.showReportModal = !this.showReportModal
   }
 
   onToggleReportModalEditMode(reportId?: string) {
     this.reportId = reportId
-    this.reportModalEditMode = true
-    this.showReportModal = !this.showReportModal
-  }
-
-  onToggleReportModalViewMode(reportId?: string) {
-    this.reportId = reportId
-    this.reportModalEditMode = false
     this.showReportModal = !this.showReportModal
   }
 
