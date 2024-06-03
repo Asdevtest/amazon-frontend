@@ -44,7 +44,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           <Launches
             isCell
             product={product}
-            isLinkRequest={isLinkRequest}
+            isLinkRequest={isLinkRequest && editMode}
             launchLabel={getLaunchName(row.type)}
             launches={[generatedSoloLaunch]}
             onAddRequest={request => onAddRequest(generatedSoloLaunch, request)}

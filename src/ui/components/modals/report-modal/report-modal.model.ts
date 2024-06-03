@@ -103,11 +103,12 @@ export class ReportModalModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
+      const removedIdToListingLaunches = this.listingLaunches.map(({ _id, expired, ...restProps }) => restProps)
       const generatedListingReport = {
         productId: this.product?._id,
         newProductPrice: this.newProductPrice,
         description: this.description,
-        listingLaunches: this.listingLaunches,
+        listingLaunches: removedIdToListingLaunches,
       }
 
       await ClientModel.createListingReport(generatedListingReport)

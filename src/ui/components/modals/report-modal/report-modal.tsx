@@ -38,17 +38,18 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
   const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new ReportModalModel({ product, reportId, editMode }))
 
+  const editModeWithReportId = editMode && reportId
+  const modalTitle = `${
+    editModeWithReportId ? t(TranslationKey.Edit) : editMode ? t(TranslationKey.New) : t(TranslationKey.View)
+  } ${t(TranslationKey['report by the product'])}`
+  const launchTypePlaceholder = `＋ ${t(TranslationKey['Select launch type'])}`
+  const asinOptions = getAsinOptions(product)
+
   const handleSave = useCallback(() => {
-    editMode ? viewModel.updateListingReport() : viewModel.createListingReport()
+    editModeWithReportId ? viewModel.updateListingReport() : viewModel.createListingReport()
     onClose()
     onUpdateTableData?.()
   }, [])
-
-  const modalTitle = `${editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(
-    TranslationKey['report by the product'],
-  )}`
-  const launchTypePlaceholder = `＋ ${t(TranslationKey['Select launch type'])}`
-  const asinOptions = getAsinOptions(product)
 
   return (
     <div className={styles.wrapper}>
