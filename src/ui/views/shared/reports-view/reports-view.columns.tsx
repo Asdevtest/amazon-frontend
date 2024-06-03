@@ -30,17 +30,16 @@ export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewC
       field: 'action',
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-      renderCell: ({ row }: GridRowModel) =>
-        row.isActive ? (
-          <ActionButtonsCell
-            iconButton
-            fullWidth
-            isFirstButton
-            firstButtonElement={<EditIcon />}
-            firstButtonStyle={ButtonStyle.PRIMARY}
-            onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
-          />
-        ) : null,
+      renderCell: ({ row }: GridRowModel) => (
+        <ActionButtonsCell
+          iconButton
+          fullWidth
+          isFirstButton
+          firstButtonElement={<EditIcon />}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
+        />
+      ),
       disableCustomSort: true,
       disableColumnMenu: true,
       filterable: false,
