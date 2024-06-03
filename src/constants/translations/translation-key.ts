@@ -2277,4 +2277,5 @@ export enum TranslationKey {
   'Discount' = 'Discount',
   'Launches reports' = 'Launches reports',
   'Notify users of completed launches in' = 'Notify users of completed launches in',
+  'Launches' = 'Launches',
 }

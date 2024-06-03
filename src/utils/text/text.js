@@ -479,6 +479,9 @@ export const getHumanFriendlyNotificationType = type => {
     case Notification.Shop:
       return t(TranslationKey.Shop)
 
+    case Notification.Launch:
+      return t(TranslationKey.Launches)
+
     default:
       break
   }
