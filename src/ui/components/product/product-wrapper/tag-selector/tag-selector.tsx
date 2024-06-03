@@ -90,7 +90,6 @@ export const TagSelector: FC<TagSelectorProps> = memo(props => {
                 value={textValue}
                 onInput={(event: ChangeEvent<HTMLInputElement>) => {
                   setTextValue(event.target.value)
-                  event.target.value = event?.target.value.slice(0, 75) // Ограничиваем длину ввода
                 }}
               />
             )}
