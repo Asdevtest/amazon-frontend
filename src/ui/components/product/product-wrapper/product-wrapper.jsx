@@ -92,6 +92,15 @@ export const ProductWrapper = memo(
       seturUserRole(() => UserRoleCodeMap[userRole])
     }, [userRole])
 
+    useEffect(() => {
+      const url = new URL(window.location.href)
+      const tab = url.searchParams.get('show-tab')
+
+      if (tab === 'reports') {
+        setTabIndex(tabsValues.REPORTS)
+      }
+    }, [])
+
     return (
       <div className={styles.mainWrapper}>
         <CustomSwitcher

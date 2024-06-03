@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 
 import { Tooltip } from '@mui/material'
 
@@ -36,9 +37,13 @@ export const ListingNotificationMessageCell: FC<LaunchNotificationMessageCellPro
 
         return (
           <div key={index} className={styles.launchesWrapper}>
-            <p style={getLaunchStyle(type, theme)} className={styles.text}>
+            <Link
+              to={`/client/inventory/product?product-id=${notification.product?._id}&show-tab=reports`}
+              style={getLaunchStyle(type, theme)}
+              className={styles.text}
+            >
               {`${getLaunchName(type, true)} ${launch.value} %`}
-            </p>
+            </Link>
 
             {notification.type === LaunchNotificationType.ALMOST_RUNNING_OUT ? (
               <Tooltip title={formatNormDateTime(dateTo)}>
