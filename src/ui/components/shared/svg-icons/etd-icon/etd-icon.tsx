@@ -1,7 +1,7 @@
 import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon'
 
 export const EtdIcon = (props: SvgIconProps) => (
-  <SvgIcon width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ fill: 'currentColor' }} {...props}>
+  <SvgIcon width="20" height="20" viewBox="0 0 20 20" fill="none" {...props}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
