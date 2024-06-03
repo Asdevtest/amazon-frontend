@@ -22,6 +22,7 @@ import { Specs } from '@typings/enums/specs'
 export class CreateOrEditRequestViewModel {
   history = undefined
   requestStatus = loadingStatus.IS_LOADING // for first render
+  buttonStatus = loadingStatus.SUCCESS
 
   requestToEdit = undefined
   createRequestForIdeaData = undefined
@@ -125,6 +126,8 @@ export class CreateOrEditRequestViewModel {
 
   async onSubmitCreateRequest(data, files, withPublish, announcement) {
     try {
+      this.setButtonStatus(loadingStatus.IS_LOADING)
+
       if (files.length) {
         await onSubmitPostImages.call(this, { images: files.map(el => el.fileLink), type: 'uploadedFiles' })
       }
@@ -178,7 +181,9 @@ export class CreateOrEditRequestViewModel {
       } else {
         this.pushSuccess()
       }
+      this.setButtonStatus(loadingStatus.SUCCESS)
     } catch (error) {
+      this.setButtonStatus(loadingStatus.SUCCESS)
       console.error(error)
 
       this.pushSuccess()
@@ -276,10 +281,13 @@ export class CreateOrEditRequestViewModel {
 
   async checkRequestByTypeExists(id, specType) {
     try {
+      this.setButtonStatus(loadingStatus.IS_LOADING)
       const result = await RequestModel.getExistingRequestsTypeRequests(id, specType)
 
+      this.setButtonStatus(loadingStatus.SUCCESS)
       return result
     } catch (error) {
+      this.setButtonStatus(loadingStatus.SUCCESS)
       console.error(error)
     }
   }
@@ -342,5 +350,9 @@ export class CreateOrEditRequestViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  setButtonStatus(requestStatus) {
+    this.buttonStatus = requestStatus
   }
 }

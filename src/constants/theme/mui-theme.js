@@ -57,6 +57,7 @@ export const globalStyles = theme => ({
 
   '.MuiDataGrid-columnHeader': {
     padding: '0 5px !important',
+    height: '40px !important',
   },
   '.MuiDataGrid-columnHeaderCheckbox': {
     '.MuiDataGrid-columnHeaderDraggableContainer': {

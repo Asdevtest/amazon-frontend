@@ -1,7 +1,5 @@
-import { Dayjs } from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { makeObservable } from 'mobx'
-
-import { DateRange } from '@mui/x-date-pickers-pro'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
@@ -14,7 +12,9 @@ import { reportsViewColumns } from './reports-view.columns'
 import { reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
+  reportId?: string = undefined
   showReportModal = false
+  reportModalEditMode = false
 
   get product() {
     return this.meta?.product
@@ -24,7 +24,9 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   }
 
   constructor(productId: string) {
-    const rowHandlers = {}
+    const rowHandlers = {
+      onToggleReportModalEditMode: (reportId: string) => this.onToggleReportModalEditMode(reportId),
+    }
     const columnsModel = reportsViewColumns(rowHandlers)
     const filtersFields = getFilterFields(columnsModel, ['sub'])
     const mainMethodURL = `clients/products/listing_reports_by_product_id/${productId}?`
@@ -33,7 +35,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     })
 
     super({
-      getMainDataMethod: ClientModel.getListingReportByproductId,
+      getMainDataMethod: ClientModel.getListingReportByProductId,
       columnsModel,
       filtersFields,
       mainMethodURL,
@@ -42,19 +44,41 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
-    this.getDataGridState()
-    this.getCurrentData()
+    this.onGetCurrentData()
 
     makeObservable(this, reportsViewConfig)
   }
 
-  onDateRangePickerClick(value: DateRange<Dayjs>) {
-    const transformedValue = [value?.[0]?.toISOString(), value?.[1]?.toISOString()]
-    this.onChangeFullFieldMenuItem(transformedValue, 'createdAt')
-    this.getCurrentData()
+  onChangeRangeDate(dates: null | (Dayjs | null)[]) {
+    if (dates?.[0] && dates?.[1]) {
+      const transformedDatesToISOString = [dayjs(dates?.[0]).toISOString(), dayjs(dates?.[1]).toISOString()]
+      this.onChangeFullFieldMenuItem(transformedDatesToISOString, 'createdAt')
+      this.onGetCurrentData()
+    }
+
+    this.onClickResetFilters()
   }
 
   onToggleReportModal() {
+    this.reportId = undefined
+    this.reportModalEditMode = false
     this.showReportModal = !this.showReportModal
+  }
+
+  onToggleReportModalEditMode(reportId?: string) {
+    this.reportId = reportId
+    this.reportModalEditMode = true
+    this.showReportModal = !this.showReportModal
+  }
+
+  onToggleReportModalViewMode(reportId?: string) {
+    this.reportId = reportId
+    this.reportModalEditMode = false
+    this.showReportModal = !this.showReportModal
+  }
+
+  onGetCurrentData() {
+    this.getDataGridState()
+    this.getCurrentData()
   }
 }

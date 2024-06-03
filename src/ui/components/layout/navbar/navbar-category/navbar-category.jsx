@@ -39,12 +39,12 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
       case '/client/my-orders/orders':
         return (
           <div className={cx(styles.bigBadge, styles.redBadge)}>
-            {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired.length : 0}
+            {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired?.length : 0}
           </div>
         )
       case '/client/freelance/service-exchange':
-        return userInfo.freelanceNotices.length > 0 ? (
-          <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo.freelanceNotices.length}</div>
+        return userInfo.freelanceNotices?.length > 0 ? (
+          <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo.freelanceNotices?.length}</div>
         ) : null
     }
   }

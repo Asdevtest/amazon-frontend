@@ -215,10 +215,11 @@
         "@typescript-eslint/no-unused-vars": [
           "warn",
           {
-            "argsIgnorePattern": ",^_",
+            "argsIgnorePattern": "^_",
             "caughtErrorsIgnorePattern": "^_",
             "varsIgnorePattern": "^_",
-            "destructuredArrayIgnorePattern": "^_"
+            "destructuredArrayIgnorePattern": "^_",
+            "ignoreRestSiblings": true
           }
         ],
         "@typescript-eslint/explicit-function-return-type": "off",

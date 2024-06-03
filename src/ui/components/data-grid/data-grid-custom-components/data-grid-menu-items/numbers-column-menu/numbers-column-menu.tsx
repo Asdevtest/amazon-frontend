@@ -3,7 +3,6 @@ import { ChangeEvent, FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Checkbox } from '@components/shared/checkbox'
-import { CircleSpinner } from '@components/shared/circle-spinner'
 import { Input } from '@components/shared/input'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { IRadioBottonsSetting } from '@components/shared/radio-buttons/radio-buttons'
@@ -16,8 +15,8 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './numbers-column-menu.style'
 
-import { DataGridSelectAllFilters } from '../../data-grid-select-all-filters/data-grid-select-all-filters'
 import { ControlButtonsColumnMenu } from '../control-buttons-column-menu'
+import { DataWrapperColumnMenu } from '../data-wrapper-column-menu'
 
 import { useNumbersColumnMenu } from './hooks/use-numbers-column-menu'
 
@@ -105,39 +104,25 @@ export const NumbersColumnMenu: FC<NumbersColumnMenuProps> = memo(props => {
         onChange={e => setNameSearchValue(e.target.value)}
       />
 
-      <div className={styles.filterItemsWrapper}>
-        {filterRequestStatus === loadingStatus.IS_LOADING ? (
-          <div className={styles.loaderWrapper}>
-            <CircleSpinner size={50} />
-          </div>
-        ) : (
-          <>
-            {dataforRender?.length ? (
-              <>
-                <DataGridSelectAllFilters
-                  choosenItems={chosenItems}
-                  itemsForRender={dataforRender}
-                  setChoosenItems={setChosenItems}
-                />
-                {dataforRender?.map((el, index) => {
-                  const value = isWholeNumber ? el : toFixed(el)
-                  const valueChecked = chosenItems?.some(item => item === el)
+      <DataWrapperColumnMenu
+        dataforRender={dataforRender}
+        filterRequestStatus={filterRequestStatus}
+        chosenItems={chosenItems}
+        setChosenItems={setChosenItems}
+      >
+        {dataforRender?.map((el, index) => {
+          const value = isWholeNumber ? el : toFixed(el)
+          const valueChecked = chosenItems?.some(item => item === el)
 
-                  return (
-                    <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
-                      <p title={value} className={styles.filterTitle}>
-                        {value}
-                      </p>
-                    </Checkbox>
-                  )
-                })}
-              </>
-            ) : (
-              <p className={styles.noOptionText}>{t(TranslationKey['No options'])}</p>
-            )}
-          </>
-        )}
-      </div>
+          return (
+            <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
+              <p title={value} className={styles.filterTitle}>
+                {value}
+              </p>
+            </Checkbox>
+          )
+        })}
+      </DataWrapperColumnMenu>
 
       <ControlButtonsColumnMenu
         onClose={onClose}

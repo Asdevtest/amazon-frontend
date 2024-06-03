@@ -20,7 +20,11 @@ import { t } from '@utils/translations'
 import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
-export const reportsViewColumns = (rowHandlers: any) => {
+interface ReportsViewColumnsProps {
+  onToggleReportModalEditMode: (reportId: string) => void
+}
+
+export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewColumnsProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'action',
@@ -34,7 +38,7 @@ export const reportsViewColumns = (rowHandlers: any) => {
             isFirstButton
             firstButtonElement={<EditIcon />}
             firstButtonStyle={ButtonStyle.PRIMARY}
-            // onClickFirstButton={() => onClickEditBtn(row._id)}
+            onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
           />
         ) : null,
       disableCustomSort: true,
@@ -56,7 +60,7 @@ export const reportsViewColumns = (rowHandlers: any) => {
       field: 'launchType',
       headerName: t(TranslationKey['Launch type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
-      renderCell: ({ row }: GridRowModel) => <Launches cell launches={row.listingLaunches || []} />,
+      renderCell: ({ row }: GridRowModel) => <Launches isCell launches={row.listingLaunches || []} />,
       width: 330,
       columnKey: columnnsKeys.shared.STRING,
     },

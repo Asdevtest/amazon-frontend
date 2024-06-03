@@ -1,3 +1,4 @@
+import { Button } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
@@ -6,15 +7,13 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReportModal } from '@components/modals/report-modal'
-import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomDateRangePicker } from '@components/shared/date-range-picker'
+import { CustomRangeDatePicker } from '@components/shared/custom-range-date-picker'
 import { Modal } from '@components/shared/modal'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './reports-view.style'
@@ -24,11 +23,13 @@ import { ReportsViewModel } from './reports-view.model'
 
 interface ReportsViewProps {
   productId: string
+  modal?: boolean
 }
 
-export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
-  const { classes: styles } = useStyles()
+export const ReportsView: FC<ReportsViewProps> = observer(props => {
+  const { modal, productId } = props
 
+  const { classes: styles, cx } = useStyles()
   const [viewModel] = useState(() => new ReportsViewModel(productId))
 
   return (
@@ -37,15 +38,18 @@ export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
         <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} />
 
         <div className={styles.buttonsContainer}>
-          <CustomDateRangePicker onAdditionalClick={viewModel.onDateRangePickerClick} />
+          <CustomRangeDatePicker onChange={viewModel.onChangeRangeDate} />
 
-          <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onToggleReportModal}>
-            <CustomPlusIcon />
+          <Button
+            type="primary"
+            icon={<CustomPlusIcon />}
+            onClick={() => viewModel.onToggleReportModalEditMode(undefined)}
+          >
             {t(TranslationKey['New report'])}
           </Button>
         </div>
 
-        <div className={styles.tableContainer}>
+        <div className={cx(styles.tableContainer, { [styles.tableContainerModal]: modal })}>
           <CustomDataGrid
             rows={viewModel.currentData}
             rowCount={viewModel.rowCount}
@@ -88,12 +92,19 @@ export const ReportsView: FC<ReportsViewProps> = observer(({ productId }) => {
             onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onPinnedColumnsChange={viewModel.handlePinColumn}
+            onRowDoubleClick={({ id }: GridRowModel) => viewModel.onToggleReportModalViewMode(id)}
           />
         </div>
       </div>
 
       <Modal openModal={viewModel.showReportModal} setOpenModal={viewModel.onToggleReportModal}>
-        <ReportModal product={viewModel.product} onClose={viewModel.onToggleReportModal} />
+        <ReportModal
+          product={viewModel.product}
+          reportId={viewModel.reportId}
+          editMode={viewModel.reportModalEditMode}
+          onClose={viewModel.onToggleReportModal}
+          onUpdateTableData={viewModel.onGetCurrentData}
+        />
       </Modal>
     </>
   )

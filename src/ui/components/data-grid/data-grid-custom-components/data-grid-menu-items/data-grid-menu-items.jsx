@@ -2025,14 +2025,26 @@ export const FromToDateMenuItem = memo(
               <Typography title={t(TranslationKey.From)} className={styles.fromToText}>
                 {t(TranslationKey.From)}
               </Typography>
-              <DatePicker disablePast={false} className={styles.dateInput} value={fromDate} onChange={setFromDate} />
+              <DatePicker
+                maxDate={new Date()}
+                disablePast={false}
+                className={styles.dateInput}
+                value={fromDate}
+                onChange={setFromDate}
+              />
             </div>
             <div className={styles.fromToDatesSubWrapper}>
               <Typography title={t(TranslationKey.To)} className={styles.fromToText}>
                 {t(TranslationKey.To)}
               </Typography>
 
-              <DatePicker disablePast={false} className={styles.dateInput} value={toDate} onChange={setToDate} />
+              <DatePicker
+                minDate={new Date()}
+                disablePast={false}
+                className={styles.dateInput}
+                value={toDate}
+                onChange={setToDate}
+              />
             </div>
           </div>
 
@@ -2297,7 +2309,7 @@ export const NumberFieldMenuItem = memo(
       useEffect(() => {
         const filter = filterData?.filter(
           item =>
-            (nameSearchValue ? String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
+            (nameSearchValue ? Number(item) === Number(nameSearchValue) : true) &&
             (fromValue || fromValue === 0 ? Number(item) >= Number(fromValue) : true) &&
             (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true),
         )
