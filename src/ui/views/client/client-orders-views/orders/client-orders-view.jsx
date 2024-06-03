@@ -28,7 +28,7 @@ import { ClientOrdersViewModel } from './client-orders-view.model'
 export const ClientOrdersView = observer(history => {
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new ClientOrdersViewModel({ history }))
+  const [viewModel] = useState(() => new ClientOrdersViewModel(history))
 
   return (
     <>
