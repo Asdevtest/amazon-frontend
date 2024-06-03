@@ -30,7 +30,7 @@ export const resetAccessTokenByTime = (
     ChatModel.disconnect()
     ChatModel.init(accessToken)
 
-    console.log(`${new Date().toLocaleString()}. Next reset access token in ${delayInSeconds - 30} seconds`)
+    console.warn(`${new Date().toLocaleString()}. Next reset access token in ${delayInSeconds - 30} seconds`)
 
     resetAccessTokenByTime(accessToken, refreshToken)
   }, (delayInSeconds - 30) * 1000)
