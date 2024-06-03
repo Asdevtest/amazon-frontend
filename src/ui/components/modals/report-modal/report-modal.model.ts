@@ -124,7 +124,9 @@ export class ReportModalModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const removedIdToListingLaunches = this.listingLaunches.map(({ _id, expired, ...restProps }) => restProps)
+      const removedIdToListingLaunches = this.listingLaunches.map(
+        ({ expired, updatedAt, createdAt, request, ...restProps }) => restProps,
+      )
       const generatedListingReport = {
         newProductPrice: this.newProductPrice,
         description: this.description,
@@ -175,8 +177,11 @@ export class ReportModalModel {
 
     if (foundLaunchIndex !== -1 && field === 'value') {
       const updatedLaunches = [...this.listingLaunches]
-      updatedLaunches[foundLaunchIndex][field] = Number(event)
-      this.listingLaunches = updatedLaunches
+
+      runInAction(() => {
+        updatedLaunches[foundLaunchIndex][field] = Number(event)
+        this.listingLaunches = updatedLaunches
+      })
     }
   }
 
@@ -185,8 +190,11 @@ export class ReportModalModel {
 
     if (foundLaunchIndex !== -1 && (field === 'comment' || field === 'result')) {
       const updatedLaunches = [...this.listingLaunches]
-      updatedLaunches[foundLaunchIndex][field] = event.target.value
-      this.listingLaunches = updatedLaunches
+
+      runInAction(() => {
+        updatedLaunches[foundLaunchIndex][field] = event.target.value
+        this.listingLaunches = updatedLaunches
+      })
     }
   }
 
@@ -199,9 +207,12 @@ export class ReportModalModel {
         dates?.[1] ? dayjs(dates?.[1]).toISOString() : null,
       ]
       const updatedLaunches = [...this.listingLaunches]
-      updatedLaunches[foundLaunchIndex].dateFrom = transformedDatesToISOString[0]
-      updatedLaunches[foundLaunchIndex].dateTo = transformedDatesToISOString[1]
-      this.listingLaunches = updatedLaunches
+
+      runInAction(() => {
+        updatedLaunches[foundLaunchIndex].dateFrom = transformedDatesToISOString[0]
+        updatedLaunches[foundLaunchIndex].dateTo = transformedDatesToISOString[1]
+        this.listingLaunches = updatedLaunches
+      })
     }
   }
 
