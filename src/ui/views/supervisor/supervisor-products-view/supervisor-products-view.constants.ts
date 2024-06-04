@@ -30,6 +30,7 @@ export enum UserInfoStatusKeys {
   VAC_FROM_CLIENT = 'vacFromClient',
   CHECKING_PRODUCT_FROM_RESEARCHER = 'checkingProductFromResearcher',
   TEMPORARILY_DELAYED = 'temporarilyDelayed',
+  SUPPLIER_SEARCH_FROM_CLIENT = 'suplierSearchFromClient',
 }
 
 export const filterStatusConfig = [
@@ -96,7 +97,7 @@ export const filterStatusConfig = [
   {
     label: TranslationKey['Search for supplier from client'],
     value: [ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR],
-    userInfoKey: UserInfoStatusKeys.VAC_FROM_CLIENT,
+    userInfoKey: UserInfoStatusKeys.SUPPLIER_SEARCH_FROM_CLIENT,
   },
   {
     label: TranslationKey['Product check from a researcher'],
