@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
 import { makeAutoObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
-import { v4 as uuid } from 'uuid'
 
 import { ClientModel } from '@models/client-model'
 
@@ -100,12 +99,11 @@ export class ReportModalModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const removedIdToListingLaunches = this.listingLaunches.map(({ _id, expired, ...restProps }) => restProps)
       const generatedListingReport = {
         productId: this.product?._id,
         newProductPrice: this.newProductPrice,
         description: this.description,
-        listingLaunches: removedIdToListingLaunches,
+        listingLaunches: this.listingLaunches,
       }
 
       await ClientModel.createListingReport(generatedListingReport)
@@ -150,7 +148,6 @@ export class ReportModalModel {
   onSelectLaunch = (value: Launches) => {
     if (value) {
       const generatedListingLaunch = {
-        _id: uuid(), // needed to render elements in the table - only when adding a launch
         type: value,
         value: 0,
         dateFrom: null,
@@ -158,7 +155,6 @@ export class ReportModalModel {
         comment: '',
         requestId: null,
         result: '',
-        expired: false, // needed to control the disabled state of the field result - only when adding a launch
       }
       this.listingLaunches = [...this.listingLaunches, generatedListingLaunch]
       this.selectLaunchValue = null
