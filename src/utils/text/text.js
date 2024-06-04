@@ -509,3 +509,5 @@ export const formatCamelCaseString = str =>
     .replaceAll(/([a-zA-Z])(\d)/g, '$1 $2')
     .replaceAll(/(\d)([a-zA-Z])/g, '$1 $2')
     .replace(/\b\w/g, c => c.toUpperCase())
+
+export const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1)
