@@ -31,6 +31,10 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.secondary,
   },
 
+  link: {
+    color: theme.palette.primary.main,
+  },
+
   requestTypeTooltip: {
     minWidth: 60,
     maxWidth: 115,

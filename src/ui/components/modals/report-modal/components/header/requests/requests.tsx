@@ -1,6 +1,7 @@
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
@@ -10,6 +11,7 @@ import { IRequestWithLaunch } from '@components/modals/report-modal/report-modal
 import { Launches } from '@components/shared/launches'
 import { CrossIcon } from '@components/shared/svg-icons'
 
+import { getUrlToRequest } from '@utils/get-url-to-request/get-url-to-request'
 import { t } from '@utils/translations'
 
 import { useStyles } from './requests.style'
@@ -45,7 +47,9 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
           <div className={styles.requestConatainer}>
             <p className={styles.requestText}>
               <span className={styles.requestTextSecond}>{`${t(TranslationKey.ID)}:`}</span>
-              {request.humanFriendlyId}
+              <NavLink to={getUrlToRequest(request?._id)} className={styles.link} target="_blank">
+                {request?.humanFriendlyId}
+              </NavLink>
             </p>
 
             <Launches launches={[request.launch]} />
