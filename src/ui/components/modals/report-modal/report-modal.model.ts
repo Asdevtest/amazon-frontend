@@ -34,7 +34,6 @@ export class ReportModalModel {
   listingLaunches: IListingLaunch[] = []
   selectLaunchValue: Launches | null = null
   requests: IRequestWithLaunch[] = []
-
   columnsProps: ReportModalColumnsProps = {
     onChangeNumberCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeNumberCellValue(id, field),
     onChangeCommentCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeCommentCellValue(id, field),
@@ -42,7 +41,6 @@ export class ReportModalModel {
     onAddRequest: (launch: ILaunch, request?: IRequest) => this.onAddRequest(launch, request),
     onRemoveLaunch: (id: string) => this.onRemoveLaunch(id),
     product: undefined,
-    editMode: false,
   }
   columnsModel: IGridColumn[] = []
 
@@ -65,11 +63,10 @@ export class ReportModalModel {
     )
   }
 
-  constructor({ product, reportId, editMode }: IReportModalModelProps) {
+  constructor({ product, reportId }: IReportModalModelProps) {
     this.reportId = reportId
     this.product = product
     this.columnsProps.product = product
-    this.columnsProps.editMode = editMode
     this.columnsModel = reportModalColumns(this.columnsProps)
 
     this.getListingReportById()
@@ -124,7 +121,9 @@ export class ReportModalModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const removedIdToListingLaunches = this.listingLaunches.map(({ _id, expired, ...restProps }) => restProps)
+      const removedIdToListingLaunches = this.listingLaunches.map(
+        ({ expired, updatedAt, createdAt, request, ...restProps }) => restProps,
+      )
       const generatedListingReport = {
         newProductPrice: this.newProductPrice,
         description: this.description,
@@ -175,8 +174,11 @@ export class ReportModalModel {
 
     if (foundLaunchIndex !== -1 && field === 'value') {
       const updatedLaunches = [...this.listingLaunches]
-      updatedLaunches[foundLaunchIndex][field] = Number(event)
-      this.listingLaunches = updatedLaunches
+
+      runInAction(() => {
+        updatedLaunches[foundLaunchIndex][field] = Number(event)
+        this.listingLaunches = updatedLaunches
+      })
     }
   }
 
@@ -185,8 +187,11 @@ export class ReportModalModel {
 
     if (foundLaunchIndex !== -1 && (field === 'comment' || field === 'result')) {
       const updatedLaunches = [...this.listingLaunches]
-      updatedLaunches[foundLaunchIndex][field] = event.target.value
-      this.listingLaunches = updatedLaunches
+
+      runInAction(() => {
+        updatedLaunches[foundLaunchIndex][field] = event.target.value
+        this.listingLaunches = updatedLaunches
+      })
     }
   }
 
@@ -199,9 +204,12 @@ export class ReportModalModel {
         dates?.[1] ? dayjs(dates?.[1]).toISOString() : null,
       ]
       const updatedLaunches = [...this.listingLaunches]
-      updatedLaunches[foundLaunchIndex].dateFrom = transformedDatesToISOString[0]
-      updatedLaunches[foundLaunchIndex].dateTo = transformedDatesToISOString[1]
-      this.listingLaunches = updatedLaunches
+
+      runInAction(() => {
+        updatedLaunches[foundLaunchIndex].dateFrom = transformedDatesToISOString[0]
+        updatedLaunches[foundLaunchIndex].dateTo = transformedDatesToISOString[1]
+        this.listingLaunches = updatedLaunches
+      })
     }
   }
 

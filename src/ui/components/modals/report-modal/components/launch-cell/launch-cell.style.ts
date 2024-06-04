@@ -2,14 +2,16 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   wrapper: {
+    padding: '10px 0',
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
     gap: '5px 10px',
   },
 
-  cell: {
-    padding: '10px 0',
+  labelTitle: {
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   text: {

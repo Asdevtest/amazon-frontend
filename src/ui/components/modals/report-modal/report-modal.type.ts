@@ -31,18 +31,18 @@ export type ChangeDateCellValueType = (
   field: keyof IListingLaunch,
 ) => (dates: null | (Dayjs | null)[], dateStrings: string[]) => void
 
+export type AddRequestType = (launch: ILaunch, request?: IRequest) => void
+
 export interface ReportModalColumnsProps {
   onChangeNumberCellValue: ChangeNumberCellValueType
   onChangeCommentCellValue: ChangeCommentCellValueType
   onChangeDateCellValue: ChangeDateCellValueType
-  onAddRequest: (launch: ILaunch, request?: IRequest) => void
+  onAddRequest: AddRequestType
   onRemoveLaunch: (id: string) => void
   product?: IProduct
-  editMode?: boolean
 }
 
 export interface IReportModalModelProps {
   product: IProduct
   reportId?: string
-  editMode?: boolean
 }

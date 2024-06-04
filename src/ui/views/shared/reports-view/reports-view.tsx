@@ -92,7 +92,6 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
             onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onPinnedColumnsChange={viewModel.handlePinColumn}
-            onRowDoubleClick={({ id }: GridRowModel) => viewModel.onToggleReportModalViewMode(id)}
           />
         </div>
       </div>
@@ -101,7 +100,6 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
         <ReportModal
           product={viewModel.product}
           reportId={viewModel.reportId}
-          editMode={viewModel.reportModalEditMode}
           onClose={viewModel.onToggleReportModal}
           onUpdateTableData={viewModel.onGetCurrentData}
         />
