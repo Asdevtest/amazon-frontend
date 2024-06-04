@@ -71,7 +71,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         onClickDestinationBtn={viewModel.onClickDestinationBtn}
         onSearchSubmit={viewModel.onSearchSubmit}
         onClickWarehouseOrderButton={() => viewModel.onClickWarehouseOrderButton(viewModel.selectedRows?.[0])}
-        onClickCurrentTariffsBtn={viewModel.onClickCurrentTariffsBtnц}
+        onClickCurrentTariffsBtn={viewModel.onClickCurrentTariffsBtn}
       />
 
       <div className={styles.tableWrapper}>
