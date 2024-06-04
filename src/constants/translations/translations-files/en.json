@@ -2279,5 +2279,8 @@
   "Notify users of completed launches in": "Notify users of completed launches in",
   "Launches": "Launches",
   "Almost expired": "Almost expired",
-  "Request time has expired": "Request time has expired"
+  "Request time has expired": "Request time has expired",
+  "Data added successfully": "Data added successfully",
+  "Data not added": "Data not added",
+  "Data not saved": "Data not saved"
 }

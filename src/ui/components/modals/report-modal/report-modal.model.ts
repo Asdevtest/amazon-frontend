@@ -1,8 +1,13 @@
 import dayjs from 'dayjs'
 import { makeAutoObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
+
+import { t } from '@utils/translations'
 
 import { Launches } from '@typings/enums/launches'
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -116,9 +121,11 @@ export class ReportModalModel {
       await ClientModel.createListingReport(generatedListingReport)
 
       this.setRequestStatus(loadingStatus.SUCCESS)
+      toast.success(t(TranslationKey['Data added successfully']))
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
+      toast.success(t(TranslationKey['Data not added']))
     }
   }
 
@@ -138,9 +145,11 @@ export class ReportModalModel {
       await ClientModel.updateListingReport(this.reportId, generatedListingReport)
 
       this.setRequestStatus(loadingStatus.SUCCESS)
+      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
+      toast.success(t(TranslationKey['Data not saved']))
     }
   }
 
