@@ -38,7 +38,7 @@ export const LaunchesReports: FC<LaunchesReportsProps> = observer(({ timeBeforeL
 
         <InputNumber
           controls={false}
-          precision={1}
+          precision={0}
           addonAfter={selectAfter}
           value={viewModel.currentTimeBeforeLaunchDeadline}
           className={styles.input}
