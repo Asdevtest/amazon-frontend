@@ -51,6 +51,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
         { label: () => t(TranslationKey.Proposal), value: NotificationTypes.proposal },
         { label: () => t(TranslationKey.Request), value: NotificationTypes.request },
         { label: () => t(TranslationKey.Shop), value: NotificationTypes.shop },
+        { label: () => t(TranslationKey.Launches), value: NotificationTypes.launch },
         { label: () => t(TranslationKey.All), value: undefined },
       ]
     : isCurrentUserBuyer

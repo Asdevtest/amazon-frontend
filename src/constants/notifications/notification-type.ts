@@ -9,6 +9,7 @@ export const NotificationTypes: Record<string, string> = {
   proposal: 'proposal',
   request: 'request',
   shop: 'shop',
+  launch: 'launch',
 }
 
 export const getTranslationNotificationType = (type: string) => {
@@ -30,5 +31,8 @@ export const getTranslationNotificationType = (type: string) => {
 
     case NotificationTypes.shop:
       return t(TranslationKey.Shop)
+
+    case NotificationTypes.launch:
+      return t(TranslationKey.Launches)
   }
 }

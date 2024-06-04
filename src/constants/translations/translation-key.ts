@@ -2278,4 +2278,7 @@ export enum TranslationKey {
   'Minimum recommended box weight, kg' = 'Minimum recommended box weight, kg',
   'Launches reports' = 'Launches reports',
   'Notify users of completed launches in' = 'Notify users of completed launches in',
+  'Launches' = 'Launches',
+  'Almost expired' = 'Almost expired',
+  'Request time has expired' = 'Request time has expired',
 }

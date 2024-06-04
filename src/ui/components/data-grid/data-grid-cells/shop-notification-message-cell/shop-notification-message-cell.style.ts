@@ -46,9 +46,12 @@ export const useStyles = makeStyles()(theme => {
     },
 
     tooltip: {
+      display: 'flex',
+      flexDirection: 'column',
       fontSize: '14px',
       color: colorPrimary,
       backgroundColor: theme.palette.background.second,
+      whiteSpace: 'pre-wrap',
     },
   }
 })

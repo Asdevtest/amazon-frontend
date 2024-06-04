@@ -971,6 +971,8 @@ export const notificationDataConverter = data =>
             humanFriendlyId: item?.data?.[0]?.humanFriendlyId,
             title: item?.data?.[0]?.title,
           }
+        : item.type === Notification.Launch
+        ? item?.data?.[0]?.product
         : {
             ...item?.data?.items?.[0]?.product,
             humanFriendlyId: item?.data?.humanFriendlyId,

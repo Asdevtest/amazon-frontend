@@ -5,6 +5,7 @@ export enum Notification {
   'Request' = 'request',
   'Proposal' = 'proposal',
   'Shop' = 'shop',
+  'Launch' = 'launch',
 }
 
 export enum NotificationIdeaStatus {
