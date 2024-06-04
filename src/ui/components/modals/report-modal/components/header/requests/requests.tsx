@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
@@ -27,10 +27,12 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
       {requests.map(request => (
         <div key={request._id} className={styles.requestWrapper}>
           <div className={styles.requestConatainer}>
-            <p className={styles.requestText}>
-              <span className={styles.requestTextSecond}>{`${t(TranslationKey['Request type'])}: `}</span>
-              {request.spec.title}
-            </p>
+            <div className={styles.requestText}>
+              <span className={styles.requestTextSecond}>{`${t(TranslationKey['Request type'])}:`}</span>
+              <Tooltip title={request.spec.title} className={styles.requestTypeTooltip}>
+                {request.spec.title}
+              </Tooltip>
+            </div>
 
             <Button
               danger
@@ -42,14 +44,14 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
           </div>
           <div className={styles.requestConatainer}>
             <p className={styles.requestText}>
-              <span className={styles.requestTextSecond}>{`${t(TranslationKey.ID)}: `}</span>
+              <span className={styles.requestTextSecond}>{`${t(TranslationKey.ID)}:`}</span>
               {request.humanFriendlyId}
             </p>
 
             <Launches launches={[request.launch]} />
           </div>
           <p className={styles.requestText}>
-            <span className={styles.requestTextSecond}>{`${t(TranslationKey.Status)}: `}</span>
+            <span className={styles.requestTextSecond}>{`${t(TranslationKey.Status)}:`}</span>
             <span style={{ color: colorByStatus(request.status) }}>{MyRequestStatusTranslate(request.status)}</span>
           </p>
         </div>
