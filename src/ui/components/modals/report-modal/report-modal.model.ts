@@ -85,6 +85,10 @@ export class ReportModalModel {
           this.description = reponse.description
           this.newProductPrice = reponse.newProductPrice
           this.listingLaunches = reponse.listingLaunches
+          this.requests = reponse.listingLaunches?.map(listingLaunch => ({
+            ...listingLaunch.request,
+            launch: listingLaunch,
+          })) as IRequestWithLaunch[]
         })
 
         this.setRequestStatus(loadingStatus.SUCCESS)
