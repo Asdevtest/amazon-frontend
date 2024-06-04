@@ -60,19 +60,6 @@ export class ClientBoxesNotificationsViewModel extends DataGridFilterTableModel 
       mainMethodURL: 'boxes/pag/clients_light?',
     })
 
-    //   getMainDataMethod: (...args: any) => any
-    // columnsModel: GridColDef[]
-    // tableKey?: string
-    // fieldsForSearch?: string[]
-    // defaultGetCurrentDataOptions?: any
-    // filtersFields: string[]
-    // mainMethodURL: string
-    // additionalPropertiesColumnMenuSettings?: any
-    // additionalPropertiesGetFilters?: any
-    // operatorsSettings?: {
-    //   [key: string]: string
-    // }
-
     makeObservable(this, observerConfig)
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
