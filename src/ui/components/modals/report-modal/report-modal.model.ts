@@ -79,16 +79,19 @@ export class ReportModalModel {
         this.setRequestStatus(loadingStatus.IS_LOADING)
 
         const reponse = (await ClientModel.getListingReportById(this.reportId)) as unknown as IListingReport
+        const generatedRequests = reponse.listingLaunches
+          ?.filter(({ request }) => request)
+          .map(listingLaunch => ({
+            ...listingLaunch.request,
+            launch: listingLaunch,
+          })) as IRequestWithLaunch[]
 
         runInAction(() => {
           this.product = reponse.product
           this.description = reponse.description
           this.newProductPrice = reponse.newProductPrice
           this.listingLaunches = reponse.listingLaunches
-          this.requests = reponse.listingLaunches?.map(listingLaunch => ({
-            ...listingLaunch.request,
-            launch: listingLaunch,
-          })) as IRequestWithLaunch[]
+          this.requests = generatedRequests
         })
 
         this.setRequestStatus(loadingStatus.SUCCESS)
