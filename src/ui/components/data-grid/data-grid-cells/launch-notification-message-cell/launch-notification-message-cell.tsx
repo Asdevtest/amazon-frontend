@@ -14,10 +14,10 @@ import { ILaunch } from '@typings/shared/launch'
 import { useStyles } from './launch-notification-message-cell.style'
 
 import { getNotificationTitle } from './helpers/get-notification-title'
-import { LaunchNotificationType } from './launch-notification-message.type'
+import { ILaunchNotification, LaunchNotificationType } from './launch-notification-message.type'
 
 interface LaunchNotificationMessageCellProps {
-  notification: any
+  notification: ILaunchNotification
 }
 
 export const ListingNotificationMessageCell: FC<LaunchNotificationMessageCellProps> = memo(({ notification }) => {
