@@ -13,7 +13,7 @@ Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
   tracesSampleRate: 1.0,
-  tracePropagationTargets: ['localhost', /^https:\/\/yourserver\.io\/api/],
+  tracePropagationTargets: ['localhost', process.env.REACT_APP_BACKEND_API_URL],
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
 })
