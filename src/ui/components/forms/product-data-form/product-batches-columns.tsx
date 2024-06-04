@@ -151,7 +151,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
           onClickFirstButton={() => onClickChangeVariation(row?._id)}
         />
       ),
-
+      disableCustomSort: true,
       width: 190,
     },
   ]
