@@ -46,7 +46,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
-      params.row.status === BoxStatusNEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
+      params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
       params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
     styles.isDraftRow
 
@@ -71,7 +71,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         onClickDestinationBtn={viewModel.onClickDestinationBtn}
         onSearchSubmit={viewModel.onSearchSubmit}
         onClickWarehouseOrderButton={() => viewModel.onClickWarehouseOrderButton(viewModel.selectedRows?.[0])}
-        onClickCurrentTariffsBtn={viewModel.onClickCurrentTariffsBtn}
+        onClickCurrentTariffsBtn={viewModel.onClickCurrentTariffsBtnц}
       />
 
       <div className={styles.tableWrapper}>
