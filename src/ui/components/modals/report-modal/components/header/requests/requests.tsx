@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { FC } from 'react'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IRequestWithLaunch } from '@components/modals/report-modal/report-modal.type'
@@ -49,7 +50,7 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
           </div>
           <p className={styles.requestText}>
             <span className={styles.requestTextSecond}>{`${t(TranslationKey.Status)}: `}</span>
-            {MyRequestStatusTranslate(request.status)}
+            <span style={{ color: colorByStatus(request.status) }}>{MyRequestStatusTranslate(request.status)}</span>
           </p>
         </div>
       ))}
