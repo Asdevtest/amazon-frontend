@@ -144,7 +144,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: 'barcode',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      renderCell: params => <CheckboxCell checked={params.value} />,
+      renderCell: params => <CheckboxCell disabled checked={params.value} />,
       width: window.innerWidth < 1282 ? 65 : 160,
       type: 'boolean',
     },
@@ -152,7 +152,7 @@ export const clientTasksViewColumns = handlers => {
     {
       field: 'item',
       headerName: 'item',
-      renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
+      renderHeader: () => <MultilineTextHeaderCell text="item" />,
 
       renderCell: params => (
         <StringListCell

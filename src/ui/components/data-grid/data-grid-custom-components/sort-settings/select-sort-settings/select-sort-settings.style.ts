@@ -73,6 +73,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   menuItems: {
+    width: '100%',
     height: 204,
     overflowY: 'auto',
     display: 'flex',
@@ -81,10 +82,16 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   button: {
+    width: '100%',
     padding: '0 10px',
     minHeight: '30px',
     justifyContent: 'flex-start',
-    whiteSpace: 'nowrap',
     boxShadow: 'none',
+
+    '> p': {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
   },
 }))

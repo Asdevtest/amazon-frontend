@@ -110,7 +110,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: (params: GridRowParams) => <NormDateCell value={params.row.originalData.updatedAt} />,
+      renderCell: (params: GridRowParams) => <NormDateCell value={params.row.updatedAt} />,
       width: 100,
     },
   ]
