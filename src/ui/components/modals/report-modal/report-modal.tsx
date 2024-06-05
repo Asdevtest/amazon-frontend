@@ -54,7 +54,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
           columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
           columnHeaderHeight={35}
-          getRowId={({ _id }: GridRowModel) => _id}
+          getRowId={({ type }: GridRowModel) => type}
           slots={null}
           className={styles.dataGridRoot}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

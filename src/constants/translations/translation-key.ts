@@ -2281,4 +2281,7 @@ export enum TranslationKey {
   'Launches' = 'Launches',
   'Almost expired' = 'Almost expired',
   'Request time has expired' = 'Request time has expired',
+  'Data added successfully' = 'Data added successfully',
+  'Data not added' = 'Data not added',
+  'Data not saved' = 'Data not saved',
 }

@@ -2278,5 +2278,8 @@
   "Notify users of completed launches in": "Уведомляйте пользователей о завершенных запусках за",
   "Launches": "Запуски",
   "Almost expired": "Скоро истекает",
-  "Request time has expired": "Время заявки истекло"
+  "Request time has expired": "Время заявки истекло",
+  "Data added successfully": "Данные успешно добавлены",
+  "Data not added": "Данные не добавлены",
+  "Data not saved": "Данные не сохранены"
 }

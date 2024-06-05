@@ -83,7 +83,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           onChange={onChangeCommentCellValue(row._id, 'comment')}
         />
       ),
-      width: 220,
+      width: 215,
     },
 
     {
@@ -93,7 +93,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ResultCell row={row} onChangeCommentCellValue={onChangeCommentCellValue} onRemoveLaunch={onRemoveLaunch} />
       ),
-      width: 240,
+      width: 235,
     },
   ]
 
