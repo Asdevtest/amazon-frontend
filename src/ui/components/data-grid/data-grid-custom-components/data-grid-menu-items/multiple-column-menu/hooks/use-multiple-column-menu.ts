@@ -9,7 +9,7 @@ interface useNumberColumnMenuParams {
   columnMenuConfig: MultipleColumnMenuProps['columnMenuConfig']
 }
 
-export const useNumberColumnMenu = ({ fields, filtersData, columnMenuConfig }: useNumberColumnMenuParams) => {
+export const useMultipleColumnMenu = ({ fields, filtersData, columnMenuConfig }: useNumberColumnMenuParams) => {
   const [currentColumnMenu, setCurrentColumnMenu] = useState<string>(fields?.[0]?.value as string)
 
   const currentColumnMenuSettings = useMemo(() => {

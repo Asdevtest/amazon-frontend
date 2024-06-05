@@ -10,7 +10,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './multiple-column-menu.style'
 
-import { useNumberColumnMenu } from './hooks/use-multiple-column-menu'
+import { useMultipleColumnMenu } from './hooks/use-multiple-column-menu'
 
 export interface MultipleColumnMenuProps {
   fields: IRadioBottonsSetting[]
@@ -43,7 +43,7 @@ export const MultipleColumnMenu: FC<MultipleColumnMenuProps> = memo(props => {
     currentFilterData,
     CurrentColumnMenuComponent,
     currentColumnMenuSettings,
-  } = useNumberColumnMenu({ fields, filtersData, columnMenuConfig })
+  } = useMultipleColumnMenu({ fields, filtersData, columnMenuConfig })
 
   return (
     <div>
