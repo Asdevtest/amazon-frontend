@@ -106,7 +106,7 @@ export const useAdditionalInfo = ({
       ),
     },
     {
-      title: `${t(TranslationKey.Tariff)}`,
+      title: t(TranslationKey.Tariff),
       element: (
         <button
           disabled={!isOrderEditable}
