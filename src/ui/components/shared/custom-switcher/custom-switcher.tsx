@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
