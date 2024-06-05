@@ -181,7 +181,13 @@ const ClientFreelanceView = lazy(() =>
 const ClientInventoryView = lazy(() =>
   import('@views/client/client-inventory-view').then(module => ({ default: module.ClientInventoryView })),
 )
-const ReportsView = lazy(() => import('@views/shared/reports-view').then(module => ({ default: module.ReportsView })))
+const ReportsView = lazy(() =>
+  import('@views/shared/reports-view').then(module => {
+    const Component = module.ReportsView
+
+    return { default: props => <Component subView {...props} /> }
+  }),
+)
 const ClientBoxesNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-boxes-notifications-view').then(module => ({
     default: module.ClientBoxesNotificationsView,

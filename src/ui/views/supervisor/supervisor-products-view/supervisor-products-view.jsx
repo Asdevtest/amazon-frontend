@@ -43,7 +43,7 @@ export const SupervisorProductsView = observer(() => {
       <div className={styles.searchInputWrapper}>
         <SearchInput
           inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
+          value={viewModel.currentSearchValue}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
           onSubmit={viewModel.onSearchSubmit}
         />

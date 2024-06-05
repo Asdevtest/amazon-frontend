@@ -7,11 +7,15 @@ export const useStyles = makeStyles()(theme => ({
     gap: 10,
   },
 
-  buttonsContainer: {
+  flexContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 20,
+  },
+
+  searchInput: {
+    marginRight: 'auto',
   },
 
   dateRangePickerContainer: {
@@ -38,5 +42,9 @@ export const useStyles = makeStyles()(theme => ({
 
   tableContainerModal: {
     height: '44vh',
+  },
+
+  tableContainerSubView: {
+    height: '82vh',
   },
 }))
