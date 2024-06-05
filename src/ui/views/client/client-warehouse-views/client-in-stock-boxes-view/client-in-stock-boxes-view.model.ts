@@ -24,7 +24,6 @@ import { UserModel } from '@models/user-model'
 
 import { MyOrderModalSwitcherConditions } from '@components/modals/my-order-modal/components/tabs/tabs.type'
 import { ProductAndBatchModalSwitcherConditions } from '@components/modals/product-and-batch-modal/product-and-batch-modal.type'
-import { clientBoxesViewColumns } from '@components/table/table-columns/client/client-boxes-columns'
 
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
@@ -43,6 +42,7 @@ import { IHSCode } from '@typings/shared/hs-code'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
 import { IUploadFile } from '@typings/shared/upload-file'
 
+import { clientBoxesViewColumns } from './client-boxes-columns'
 import {
   defaultStatuses,
   fieldsForSearch,

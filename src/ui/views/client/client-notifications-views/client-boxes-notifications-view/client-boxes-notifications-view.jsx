@@ -61,7 +61,15 @@ export const ClientBoxesNotificationsView = observer(() => {
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+
+            columnMenu: viewModel.columnMenuSettings,
+
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -80,7 +88,7 @@ export const ClientBoxesNotificationsView = observer(() => {
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onPinnedColumnsChange={viewModel.handlePinColumn}
         />
