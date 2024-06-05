@@ -119,7 +119,7 @@ export const useAdditionalInfo = ({
               <p className={styles.tafiffText}>{currentTariffRate}</p>
             </>
           ) : (
-            <p>{t(TranslationKey.Select)}</p>
+            <p className={styles.tafiffText}>{t(TranslationKey.Select)}</p>
           )}
         </button>
       ),
