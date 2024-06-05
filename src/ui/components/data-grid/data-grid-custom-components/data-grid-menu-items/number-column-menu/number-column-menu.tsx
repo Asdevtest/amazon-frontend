@@ -4,10 +4,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Checkbox } from '@components/shared/checkbox'
 import { Input } from '@components/shared/input'
-import { RadioButtons } from '@components/shared/radio-buttons'
-import { IRadioBottonsSetting } from '@components/shared/radio-buttons/radio-buttons'
 import { SearchInput } from '@components/shared/search-input'
 
+import { FiltersObject } from '@utils/data-grid-filters'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -18,13 +17,26 @@ import { useStyles } from './number-column-menu.style'
 import { ControlButtonsColumnMenu } from '../control-buttons-column-menu'
 import { DataWrapperColumnMenu } from '../data-wrapper-column-menu'
 
-export const NumberColumnMenu: FC<any> = memo(props => {
+import { useNumberColumnMenu } from './hooks/use-number-column-menu'
+
+interface NumberColumnMenuProps {
+  field: string
+  table: string
+  filtersData: FiltersObject<number>
+  filterRequestStatus: loadingStatus
+  onClose: () => void
+  onClickFilterBtn: (field: string, table: string) => void
+  onChangeFullFieldMenuItem: (chosenItems: number[], field: string) => void
+  onClickAccept: () => void
+}
+
+export const NumberColumnMenu: FC<NumberColumnMenuProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const {
-    fields,
-    filtersData,
+    field,
     table,
+    filtersData,
     filterRequestStatus,
     onClose,
     onClickFilterBtn,
@@ -32,17 +44,34 @@ export const NumberColumnMenu: FC<any> = memo(props => {
     onClickAccept,
   } = props
 
+  console.log('filtersData', filtersData)
+
+  const {
+    dataforRender,
+    isWholeNumber,
+
+    chosenItems,
+    setChosenItems,
+
+    fromSearchValue,
+    setFromSearchValue,
+
+    toSearchValue,
+    setToSearchValue,
+
+    nameSearchValue,
+    setNameSearchValue,
+
+    onClickItem,
+  } = useNumberColumnMenu({
+    field,
+    table,
+    filtersData,
+    onClickFilterBtn,
+  })
+
   return (
     <div className={styles.columnMenuWrapper}>
-      <div className={styles.radioButtonsWrapper}>
-        <RadioButtons
-          verticalDirection
-          radioBottonsSettings={fields}
-          currentValue={currentField}
-          onClickRadioButton={selectedStatus => handleSelectField(selectedStatus as string)}
-        />
-      </div>
-
       <div className={styles.inputsWrapper}>
         <Input
           title={t(TranslationKey.From)}
@@ -90,7 +119,7 @@ export const NumberColumnMenu: FC<any> = memo(props => {
 
       <ControlButtonsColumnMenu
         onClose={onClose}
-        onChangeFullFieldMenuItem={() => onChangeFullFieldMenuItem(chosenItems, currentField)}
+        onChangeFullFieldMenuItem={() => onChangeFullFieldMenuItem(chosenItems, field)}
         onClickAccept={onClickAccept}
       />
     </div>

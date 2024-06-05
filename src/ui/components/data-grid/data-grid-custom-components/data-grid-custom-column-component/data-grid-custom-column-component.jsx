@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
+import { NumberColumnMenu, ObjectColumnMenu } from '../data-grid-menu-items'
 import {
   BatchShippingDateCellMenuItem,
   BatchTrackingCellMenuItem,
@@ -35,8 +36,8 @@ import {
   ToPayCellMenuItem,
   YesNoCellMenuItem,
 } from '../data-grid-menu-items/data-grid-menu-items'
+import { MultipleColumnMenu } from '../data-grid-menu-items/multiple-column-menu'
 import { NumbersColumnMenu } from '../data-grid-menu-items/numbers-column-menu/numbers-column-menu'
-import { ObjectColumnMenu } from '../data-grid-menu-items/object-column-menu'
 
 import { CustomMenuContainer } from './components'
 
@@ -547,12 +548,47 @@ export const DataGridCustomColumnMenuComponent = props => {
     )
   }
 
+  if ([columnnsKeys.shared.MULTIPLE].includes(currentColumn.columnKey)) {
+    return (
+      <CustomMenuContainer {...props}>
+        <MultipleColumnMenu
+          filtersData={props}
+          fields={currentColumn.fields}
+          columnMenuConfig={currentColumn.columnMenuConfig}
+          filterRequestStatus={filterRequestStatus}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </CustomMenuContainer>
+    )
+  }
+
   if ([columnnsKeys.shared.NUMBERS].includes(currentColumn.columnKey)) {
     return (
       <CustomMenuContainer {...props}>
         <NumbersColumnMenu
-          filtersData={props}
+          filtersData={props[currentColumn.field]}
           fields={currentColumn.fields}
+          table={currentColumn.table}
+          filterRequestStatus={filterRequestStatus}
+          defaultOption={currentColumn?.defaultOption}
+          onClickFilterBtn={onClickFilterBtn}
+          onClose={hideMenu}
+          onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
+          onClickAccept={onClickAccept}
+        />
+      </CustomMenuContainer>
+    )
+  }
+
+  if ([columnnsKeys.shared.NUMBER].includes(currentColumn.columnKey)) {
+    return (
+      <CustomMenuContainer {...props}>
+        <NumberColumnMenu
+          filtersData={props}
+          field={currentColumn.field}
           table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}
           defaultOption={currentColumn?.defaultOption}

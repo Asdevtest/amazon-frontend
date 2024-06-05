@@ -2284,4 +2284,5 @@ export enum TranslationKey {
   'Data added successfully' = 'Data added successfully',
   'Data not added' = 'Data not added',
   'Data not saved' = 'Data not saved',
+  'Sub user' = 'Sub user',
 }

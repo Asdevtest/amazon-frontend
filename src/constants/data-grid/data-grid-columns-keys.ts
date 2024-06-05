@@ -73,7 +73,10 @@ export const columnnsKeys = {
     TYPE: 'TYPE',
 
     NUMBERS: 'NUMBERS',
+    NUMBER: 'NUMBER',
     OBJECT_VALUE: 'OBJECT_VALUE',
+
+    MULTIPLE: 'MULTIPLE',
   },
 
   box: {

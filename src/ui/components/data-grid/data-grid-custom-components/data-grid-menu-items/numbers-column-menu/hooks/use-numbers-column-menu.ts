@@ -21,8 +21,8 @@ export const useNumbersColumnMenu = ({ fields, table, filtersData, onClickFilter
   const [nameSearchValue, setNameSearchValue] = useState('')
 
   const { filterData, currentFilterData }: { filterData: number[]; currentFilterData: number[] } = useMemo(() => {
-    return filtersData?.[currentField]
-  }, [currentField, filtersData?.[currentField]])
+    return filtersData
+  }, [currentField, filtersData])
 
   const dataforRender: number[] = useMemo(() => {
     return filterData?.filter(item => {
