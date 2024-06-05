@@ -173,6 +173,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
         />
       ),
       disableColumnMenu: true,
+      disableCustomSort: true,
       filterable: false,
       width: 190,
     },
