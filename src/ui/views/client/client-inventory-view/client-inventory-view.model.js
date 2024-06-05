@@ -1512,7 +1512,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
       const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-      await ProductModel.addSuppliersToProduct(this.selectedRows[0], [createSupplierResult.guid])
+      await ProductModel.addSuppliersToProduct(this.selectedRowId || this.selectedRows[0], [createSupplierResult.guid])
 
       await this.loadData()
 
