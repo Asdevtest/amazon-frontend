@@ -44,8 +44,6 @@ export const NumberColumnMenu: FC<NumberColumnMenuProps> = memo(props => {
     onClickAccept,
   } = props
 
-  console.log('filtersData', filtersData)
-
   const {
     dataforRender,
     isWholeNumber,
