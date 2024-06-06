@@ -2282,5 +2282,8 @@
   "Data added successfully": "Данные успешно добавлены",
   "Data not added": "Данные не добавлены",
   "Data not saved": "Данные не сохранены",
-  "Sub user": "Субпользователь"
+  "Sub user": "Субпользователь",
+  "Online": "Онлайн",
+  "Users online": "В онлайне",
+  "Search by ASIN, SKU, Title": "Поиск по ASIN, SKU, Title"
 }
