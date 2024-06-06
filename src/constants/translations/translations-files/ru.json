@@ -2281,5 +2281,6 @@
   "Request time has expired": "Время заявки истекло",
   "Data added successfully": "Данные успешно добавлены",
   "Data not added": "Данные не добавлены",
-  "Data not saved": "Данные не сохранены"
+  "Data not saved": "Данные не сохранены",
+  "Sub user": "Субпользователь"
 }

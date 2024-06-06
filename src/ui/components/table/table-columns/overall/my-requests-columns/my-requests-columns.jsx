@@ -118,7 +118,7 @@ export const myRequestsViewColumns = rowHandlers => {
       type: 'number',
       width: 62,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {

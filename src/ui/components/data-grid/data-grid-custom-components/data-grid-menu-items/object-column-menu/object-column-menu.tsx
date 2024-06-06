@@ -50,7 +50,7 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
     nameSearchValue,
     setNameSearchValue,
   } = useObjectColumnMenu({
-    currentColumn: field,
+    field,
     table,
     filtersData,
     hideEmptyObject,
