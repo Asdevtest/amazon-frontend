@@ -18,9 +18,8 @@ export const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: 300,
-    // maxHeight: 500,
     padding: '10px 0',
-    gap: 20,
+    gap: 10,
   },
 
   shopsDataWrapperBlocked: {
@@ -42,7 +41,7 @@ export const styles = theme => ({
   shopsBody: {
     width: 255,
     minHeight: 50,
-    maxHeight: 245,
+    maxHeight: 200,
     overflowY: 'auto',
     textAlign: 'center',
 
