@@ -14,11 +14,13 @@ import { CrossIcon } from '@components/shared/svg-icons'
 import { getUrlToRequest } from '@utils/get-url-to-request/get-url-to-request'
 import { t } from '@utils/translations'
 
+import { LaunchType } from '@typings/types/launch'
+
 import { useStyles } from './requests.style'
 
 interface RequestsProps {
   requests: IRequestWithLaunch[]
-  onRemoveRequest: (id: string) => void
+  onRemoveRequest: (value: LaunchType) => void
 }
 
 export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest }) => {
@@ -40,7 +42,7 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
               danger
               shape="circle"
               size="small"
-              icon={<CrossIcon className={styles.crossIcon} onClick={() => onRemoveRequest(request._id)} />}
+              icon={<CrossIcon className={styles.crossIcon} onClick={() => onRemoveRequest(request.launch.type)} />}
               className={styles.crossButton}
             />
           </div>

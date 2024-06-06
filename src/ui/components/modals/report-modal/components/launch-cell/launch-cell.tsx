@@ -34,8 +34,8 @@ export const LaunchCell: FC<LaunchCellProps> = observer(props => {
   const handleToggleModal = useCallback(() => setShowBindingModal(prev => !prev), [])
   const generatedSoloLaunch = useMemo(() => ({ type: row?.type, value: row?.value }), [row?.type, row?.value])
   const isLinkRequest = useMemo(
-    () => row?.type === LaunchesEnum.CUSTOM || row?.type === LaunchesEnum.AB_TEST,
-    [row?.type],
+    () => (row?.type === LaunchesEnum.CUSTOM || row?.type === LaunchesEnum.AB_TEST) && !!product,
+    [row?.type, product],
   )
 
   return (

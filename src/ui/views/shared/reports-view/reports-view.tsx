@@ -45,9 +45,10 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
           {subView ? (
             <CustomInputSearch
               enterButton
+              allowClear
               loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
               wrapperClassName={styles.searchInput}
-              placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+              placeholder="Search by SKU, ASIN, Title, Launch type"
               onSearch={viewModel.onSearchSubmit}
             />
           ) : null}
@@ -113,10 +114,11 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
         </div>
       </div>
 
-      <Modal openModal={viewModel.showReportModal} setOpenModal={viewModel.onToggleReportModal}>
+      <Modal missClickModalOn openModal={viewModel.showReportModal} setOpenModal={viewModel.onToggleReportModal}>
         <ReportModal
-          product={viewModel.product}
+          subView={subView}
           reportId={viewModel.reportId}
+          defaultProduct={viewModel.product}
           onClose={viewModel.onToggleReportModal}
           onUpdateTableData={viewModel.onGetCurrentData}
         />

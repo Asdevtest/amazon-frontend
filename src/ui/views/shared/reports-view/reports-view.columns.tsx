@@ -68,7 +68,9 @@ export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewC
       field: 'newProductPrice',
       headerName: t(TranslationKey['New product price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['New product price'])} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={toFixedWithDollarSign(row.newProductPrice)} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <MultilineTextCell text={String(toFixedWithDollarSign(row.newProductPrice))} />
+      ),
       width: 140,
       columnKey: columnnsKeys.shared.QUANTITY,
     },

@@ -8,6 +8,8 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 import { CrossIcon } from '@components/shared/svg-icons'
 
+import { Launches } from '@typings/enums/launches'
+
 import { useStyles } from './result-cell.style'
 
 import { ChangeCommentCellValueType } from '../../report-modal.type'
@@ -15,7 +17,7 @@ import { ChangeCommentCellValueType } from '../../report-modal.type'
 interface ResultCellProps {
   row: GridRowModel
   onChangeCommentCellValue: ChangeCommentCellValueType
-  onRemoveLaunch: (id: string) => void
+  onRemoveLaunch: (type: Launches) => void
 }
 
 export const ResultCell: FC<ResultCellProps> = observer(props => {
@@ -40,14 +42,14 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
         maxLength={1024}
         placeholder="Enter"
         value={row?.result}
-        onChange={onChangeCommentCellValue(row?._id, 'result')}
+        onChange={onChangeCommentCellValue(row.type, 'result')}
       />
 
       <Button
         danger
         shape="circle"
         size="small"
-        icon={<CrossIcon className={styles.icon} onClick={() => onRemoveLaunch(row?._id)} />}
+        icon={<CrossIcon className={styles.icon} onClick={() => onRemoveLaunch(row.type)} />}
       />
     </div>
   )

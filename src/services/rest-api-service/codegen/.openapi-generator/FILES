@@ -39,6 +39,7 @@ models/api-v1-admins-get-products-by-status-created-by.ts
 models/api-v1-admins-get-products-by-status-payment-methods.ts
 models/api-v1-admins-get-products-by-status-price-variations.ts
 models/api-v1-admins-get-products-by-status-red-flags.ts
+models/api-v1-admins-get-products-by-status-shop.ts
 models/api-v1-admins-get-products-by-status-suppliers.ts
 models/api-v1-admins-get-products-by-status-tags.ts
 models/api-v1-admins-orders-destination-storekeeper.ts
@@ -72,7 +73,6 @@ models/api-v1-boxes-clients-light-items.ts
 models/api-v1-boxes-clients-light-logics-tariff.ts
 models/api-v1-boxes-clients-light-order.ts
 models/api-v1-boxes-clients-light-product-red-flags.ts
-models/api-v1-boxes-clients-light-product-shop.ts
 models/api-v1-boxes-clients-light-product.ts
 models/api-v1-boxes-items.ts
 models/api-v1-boxes-merge-box-body.ts
@@ -343,6 +343,9 @@ models/inline-response20029-rows.ts
 models/inline-response20029.ts
 models/inline-response2003.ts
 models/inline-response20030.ts
+models/inline-response20031-all-files.ts
+models/inline-response20031-all-images.ts
+models/inline-response20031-all-video.ts
 models/inline-response20031.ts
 models/inline-response20032.ts
 models/inline-response20033.ts
@@ -350,9 +353,6 @@ models/inline-response20034.ts
 models/inline-response20035.ts
 models/inline-response20036.ts
 models/inline-response20037.ts
-models/inline-response20038-all-files.ts
-models/inline-response20038-all-images.ts
-models/inline-response20038-all-video.ts
 models/inline-response20038.ts
 models/inline-response20039.ts
 models/inline-response2004-allowed-spec.ts

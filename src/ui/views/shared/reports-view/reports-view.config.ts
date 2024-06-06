@@ -13,4 +13,4 @@ export const reportsViewConfig = {
   onGetCurrentData: action.bound,
 }
 
-export const additionalFields = ['asin', 'amazonTitle', 'skuByClient']
+export const additionalFields = ['asin', 'amazonTitle', 'skuByClient', 'launchType']
