@@ -1,4 +1,4 @@
-type FiltersObject<T> = Record<
+export type FiltersObject<T> = Record<
   string,
   {
     filterData: T[]

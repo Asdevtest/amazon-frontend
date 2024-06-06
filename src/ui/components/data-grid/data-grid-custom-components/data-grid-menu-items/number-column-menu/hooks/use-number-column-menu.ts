@@ -1,19 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
-import { IRadioBottonsSetting } from '@components/shared/radio-buttons/radio-buttons'
-
 import { wholeIntegersList } from '../../whole-integers-list'
 
-interface useNumbersColumnMenuParams {
-  fields: IRadioBottonsSetting[]
+interface useNumberColumnMenuParams {
+  field: string
   table: string
   filtersData: any
   onClickFilterBtn: (field: string, table: string) => void
 }
 
-export const useNumbersColumnMenu = ({ fields, table, filtersData, onClickFilterBtn }: useNumbersColumnMenuParams) => {
-  const [currentField, setCurrentField] = useState<string>(fields?.[0]?.value as string)
+export const useNumberColumnMenu = ({ field, table, filtersData, onClickFilterBtn }: useNumberColumnMenuParams) => {
   const [chosenItems, setChosenItems] = useState<number[]>([])
 
   const [fromSearchValue, setFromSearchValue] = useState('')
@@ -22,7 +19,7 @@ export const useNumbersColumnMenu = ({ fields, table, filtersData, onClickFilter
 
   const { filterData, currentFilterData }: { filterData: number[]; currentFilterData: number[] } = useMemo(() => {
     return filtersData
-  }, [currentField, filtersData])
+  }, [field, filtersData])
 
   const dataforRender: number[] = useMemo(() => {
     return filterData?.filter(item => {
@@ -36,8 +33,8 @@ export const useNumbersColumnMenu = ({ fields, table, filtersData, onClickFilter
   }, [filterData, nameSearchValue, fromSearchValue, toSearchValue])
 
   const isWholeNumber = useMemo(() => {
-    return wholeIntegersList.includes(currentField)
-  }, [currentField])
+    return wholeIntegersList.includes(field)
+  }, [])
 
   const onClickItem = useCallback(
     (selectedItem: number) =>
@@ -51,14 +48,9 @@ export const useNumbersColumnMenu = ({ fields, table, filtersData, onClickFilter
     [],
   )
 
-  const handleSelectField = useCallback((field: string) => {
-    setCurrentField(field)
-    onClickFilterBtn(field, table)
-  }, [])
-
   useEffect(() => {
-    onClickFilterBtn(currentField, table)
-  }, [])
+    onClickFilterBtn(field, table)
+  }, [field])
 
   useEffect(() => {
     setChosenItems(currentFilterData)
@@ -68,14 +60,8 @@ export const useNumbersColumnMenu = ({ fields, table, filtersData, onClickFilter
     dataforRender,
     isWholeNumber,
 
-    onClickItem,
-    handleSelectField,
-
     chosenItems,
     setChosenItems,
-
-    currentField,
-    setCurrentField,
 
     fromSearchValue,
     setFromSearchValue,
@@ -85,5 +71,7 @@ export const useNumbersColumnMenu = ({ fields, table, filtersData, onClickFilter
 
     nameSearchValue,
     setNameSearchValue,
+
+    onClickItem,
   }
 }
