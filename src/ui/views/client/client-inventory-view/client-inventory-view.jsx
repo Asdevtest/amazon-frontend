@@ -425,7 +425,7 @@ export const ClientInventoryView = observer(({ history }) => {
           openModal={viewModel.showEditProductTagsModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
           productId={viewModel.selectedRowId}
-          handleUpdateRow={apiRef.current.updateRows}
+          handleUpdateRow={tags => apiRef.current.updateRows([{ _id: viewModel.selectedRowId, tags }])}
         />
       ) : null}
     </>

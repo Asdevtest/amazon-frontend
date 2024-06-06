@@ -247,7 +247,7 @@ class UserModelStatic {
 
   async getUsersPresets() {
     const response = await restApiService.userApi.apiV1UsersPresetsGet()
-    return response.data
+    return response?.data
   }
 
   async postUsersPresets(body) {

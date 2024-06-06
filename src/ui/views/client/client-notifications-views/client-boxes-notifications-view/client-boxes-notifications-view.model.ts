@@ -3,7 +3,6 @@ import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
@@ -45,8 +44,10 @@ export class ClientBoxesNotificationsViewModel extends DataGridFilterTableModel 
       onTriggerOpenRejectModal: (row: IBox) => this.onTriggerOpenRejectModal(row),
     }
 
-    const defaultGetCurrentDataOptions = () => ({
-      status: BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
+    const additionalPropertiesGetFilters = () => ({
+      statusGroup: {
+        $eq: 'notified',
+      },
     })
 
     const columnsModel = clientBoxesNotificationsViewColumns(rowHandlers)
@@ -55,9 +56,9 @@ export class ClientBoxesNotificationsViewModel extends DataGridFilterTableModel 
       getMainDataMethod: BoxesModel.getBoxesForCurClientLightPag,
       columnsModel,
       tableKey: DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS,
-      defaultGetCurrentDataOptions,
       filtersFields: getFilterFields(columnsModel),
       mainMethodURL: 'boxes/pag/clients_light?',
+      additionalPropertiesGetFilters,
     })
 
     makeObservable(this, observerConfig)

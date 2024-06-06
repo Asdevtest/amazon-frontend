@@ -94,10 +94,7 @@ export class BuyerSearchSupplierByClientModel {
       await BuyerModel.pickupProduct(item._id)
 
       if (!noPush) {
-        this.history.push({
-          pathname: '/buyer/search-supplier-by-client/product',
-          search: 'product-id=' + item._id,
-        })
+        this.history.push(`/buyer/search-supplier-by-client/product?product-id=${item._id}`)
       }
     } catch (error) {
       console.error(error)
