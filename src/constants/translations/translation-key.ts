@@ -2289,4 +2289,5 @@ export enum TranslationKey {
   'Sub user' = 'Sub user',
   'Data removed successfully' = 'Data removed successfully',
   'Data not removed' = 'Data not removed',
+  'Quantity in box' = 'Quantity in box',
 }

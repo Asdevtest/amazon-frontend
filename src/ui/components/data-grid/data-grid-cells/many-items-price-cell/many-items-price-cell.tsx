@@ -8,22 +8,26 @@ interface ManyItemsPriceCellProps {
   params: any
   withoutSku?: boolean
   withQuantity?: boolean
+  withoutAsin?: boolean
 }
 
-export const ManyItemsPriceCell: FC<ManyItemsPriceCellProps> = memo(({ params, withoutSku, withQuantity }) => {
-  const { classes: styles } = useStyles()
+export const ManyItemsPriceCell: FC<ManyItemsPriceCellProps> = memo(
+  ({ params, withoutSku, withQuantity, withoutAsin }) => {
+    const { classes: styles } = useStyles()
 
-  const cell = params?.items?.map((el: any, itemIndex: number) => (
-    <OrderCell
-      key={itemIndex}
-      withoutSku={withoutSku}
-      withQuantity={withQuantity}
-      box={params}
-      product={el?.product}
-      superbox={params.amount > 1 && params.amount}
-      itemAmount={el.amount}
-    />
-  ))
+    const cell = params?.items?.map((el: any, itemIndex: number) => (
+      <OrderCell
+        key={itemIndex}
+        withoutSku={withoutSku}
+        withQuantity={withQuantity}
+        withoutAsin={withoutAsin}
+        box={params}
+        product={el?.product}
+        superbox={params.amount > 1 && params.amount}
+        itemAmount={el.amount}
+      />
+    ))
 
-  return <div className={styles.ManyItemsPriceCellMainWrapper}>{cell}</div>
-})
+    return <div className={styles.ManyItemsPriceCellMainWrapper}>{cell}</div>
+  },
+)

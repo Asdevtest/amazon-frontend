@@ -71,20 +71,18 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
         chosenItems={chosenItems}
         setChosenItems={setChosenItems}
       >
-        {dataforRender
-          ?.filter(el => el)
-          ?.map((el, index) => {
-            const value = 'name' in el ? el?.name : 'title' in el ? el?.title : ''
-            const valueChecked = chosenItems?.some(item => item?._id === el?._id)
+        {dataforRender?.map((el, index) => {
+          const value = 'name' in el ? el?.name : 'title' in el ? el?.title : ''
+          const valueChecked = chosenItems?.some(item => item?._id === el?._id)
 
-            return (
-              <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
-                <p title={value as string} className={styles.filterTitle}>
-                  {value as string}
-                </p>
-              </Checkbox>
-            )
-          })}
+          return (
+            <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
+              <p title={value as string} className={styles.filterTitle}>
+                {value as string}
+              </p>
+            </Checkbox>
+          )
+        })}
       </DataWrapperColumnMenu>
 
       <ControlButtonsColumnMenu

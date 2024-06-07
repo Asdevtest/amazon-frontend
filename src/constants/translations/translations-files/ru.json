@@ -2286,5 +2286,6 @@
   "Search by SKU, ASIN, Title, Launch type": "Поиск по SKU, ASIN, названию, типу запуска",
   "Sub user": "Субпользователь",
   "Data removed successfully": "Данные успешно удалены",
-  "Data not removed": "Данные не удалены"
+  "Data not removed": "Данные не удалены",
+  "Quantity in box": "Количество в коробке"
 }
