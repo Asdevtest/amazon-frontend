@@ -604,7 +604,7 @@ export const CreateOrEditRequestContent = memo(props => {
                           disablePast
                           minDate={minDate}
                           className={cx(styles.field, styles.datePicker)}
-                          value={formFields.request.timeoutAt}
+                          value={new Date(formFields.request.timeoutAt)}
                           onChange={e => onChangeField('request')('timeoutAt')(e)}
                         />
                         {deadlineError && (
@@ -624,7 +624,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       <div>
                         <TimePicker
                           className={cx(styles.field, styles.datePicker)}
-                          value={formFields.request.timeoutAt}
+                          value={new Date(formFields.request.timeoutAt)}
                           onChange={onChangeField('request')('timeoutAt')}
                         />
                         {deadlineError && (
