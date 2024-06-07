@@ -58,7 +58,7 @@ export const useSupplierInfo = ({
         : t(TranslationKey['No data']),
     [],
   )
-
+  console.log({ formFields })
   const supplierInfoFieldsConfig: IFieldConfig[] = [
     {
       title: t(TranslationKey['Quantity (pcs.)']),
@@ -100,8 +100,8 @@ export const useSupplierInfo = ({
     },
     {
       title: t(TranslationKey['Production time']),
-      text: formFields?.orderSupplier?.productionTerm
-        ? String(formFields?.orderSupplier?.productionTerm)
+      text: formFields?.orderSupplier
+        ? `${formFields?.orderSupplier?.minProductionTerm} - ${formFields?.orderSupplier?.maxProductionTerm}`
         : t(TranslationKey['No data']),
       element: undefined,
     },
