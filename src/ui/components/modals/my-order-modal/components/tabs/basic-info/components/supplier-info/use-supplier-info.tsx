@@ -58,7 +58,7 @@ export const useSupplierInfo = ({
         : t(TranslationKey['No data']),
     [],
   )
-  console.log({ formFields })
+
   const supplierInfoFieldsConfig: IFieldConfig[] = [
     {
       title: t(TranslationKey['Quantity (pcs.)']),
