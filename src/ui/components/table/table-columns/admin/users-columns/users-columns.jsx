@@ -27,7 +27,6 @@ export const adminUsersViewColumns = handlers => {
       renderCell: params => <NormDateCell value={params.value} />,
       columnKey: columnnsKeys.shared.DATE,
       width: 100,
-      disableCustomSort: true,
     },
 
     {
@@ -46,7 +45,6 @@ export const adminUsersViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
       columnKey: columnnsKeys.shared.STRING,
       width: 150,
-      disableCustomSort: true,
     },
 
     {
@@ -58,7 +56,6 @@ export const adminUsersViewColumns = handlers => {
       width: 100,
       columnKey: columnnsKeys.shared.STRING,
       type: 'number',
-      disableCustomSort: true,
     },
 
     {
@@ -70,7 +67,6 @@ export const adminUsersViewColumns = handlers => {
       width: 120,
       columnKey: columnnsKeys.shared.STRING,
       type: 'number',
-      disableCustomSort: true,
     },
 
     {
@@ -80,7 +76,6 @@ export const adminUsersViewColumns = handlers => {
       renderCell: ({ row }) => <TextWithCopy text={row.email} />,
       columnKey: columnnsKeys.shared.STRING,
       width: 200,
-      disableCustomSort: true,
     },
 
     {
@@ -92,7 +87,6 @@ export const adminUsersViewColumns = handlers => {
       width: 100,
       columnKey: columnnsKeys.shared.STRING,
       type: 'number',
-      disableCustomSort: true,
     },
 
     {
@@ -103,7 +97,6 @@ export const adminUsersViewColumns = handlers => {
       renderCell: ({ row }) => <MultilineTextCell text={UserRolePrettyMap[row?.role]} />,
       width: 150,
       columnKey: columnnsKeys.shared.STRING,
-      disableCustomSort: true,
     },
 
     {
@@ -114,7 +107,6 @@ export const adminUsersViewColumns = handlers => {
       renderCell: ({ row }) => <MultilineTextCell text={row?.active ? 'Active' : 'Banned'} />,
       columnKey: columnnsKeys.shared.STRING,
       width: 160,
-      disableCustomSort: true,
     },
 
     {
@@ -125,7 +117,6 @@ export const adminUsersViewColumns = handlers => {
       renderCell: params => <ProductVariationsCell showVariationButton isParentProduct={params?.row?.sub} />,
       columnKey: columnnsKeys.shared.STRING,
       width: 120,
-      disableCustomSort: true,
     },
 
     {
