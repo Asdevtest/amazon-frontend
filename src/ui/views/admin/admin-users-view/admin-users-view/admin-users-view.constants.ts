@@ -14,18 +14,4 @@ export const switcherConfig = [
   })),
 ]
 
-export const filtersFields = [
-  'name',
-  'email',
-  'role',
-  'active',
-  'rate',
-  'balance',
-  'balanceFreeze',
-  'createdAt',
-  'updatedAt',
-  'lastSeen',
-  'sub',
-]
-
 export const fieldsForSearch = ['name', 'email']

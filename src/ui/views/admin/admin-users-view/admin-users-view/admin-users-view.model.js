@@ -9,9 +9,11 @@ import { UserModel } from '@models/user-model'
 
 import { adminUsersViewColumns } from '@components/table/table-columns/admin/users-columns'
 
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { fieldsForSearch, filtersFields } from './admin-users-view.constants'
+import { fieldsForSearch } from './admin-users-view.constants'
 import { observerConfig } from './observer-config'
 
 export class AdminUsersViewModel extends DataGridFilterTableModel {
@@ -46,10 +48,12 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
       onClickUser: item => this.onClickUser(item),
     }
 
+    const columnsModel = adminUsersViewColumns(rowHandlers)
+
     super({
       getMainDataMethod: AdministratorModel.getUsers,
-      columnsModel: adminUsersViewColumns(rowHandlers),
-      filtersFields,
+      columnsModel,
+      filtersFields: getFilterFields(columnsModel),
       mainMethodURL: `admins/users/pag?`,
       fieldsForSearch,
       tableKey: DataGridTablesKeys.ADMIN_USERS,
