@@ -43,6 +43,8 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
   showBoxViewModal = false
   showAddOrEditBatchModal = false
 
+  curBox: IBox | null = null
+
   showProgress = false
 
   boxesData: IBox[] = []
@@ -308,5 +310,19 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
 
   changeViewModeHandler(value: tableProductViewMode) {
     this.productViewMode = value
+  }
+
+  async setCurrentOpenedBox(row: IBox) {
+    try {
+      const box = await BoxesModel.getBoxById(row._id)
+
+      runInAction(() => {
+        this.curBox = box as IBox
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

@@ -2287,4 +2287,5 @@ export enum TranslationKey {
   'Data not saved' = 'Data not saved',
   'Search by SKU, ASIN, Title, Launch type' = 'Search by SKU, ASIN, Title, Launch type',
   'Sub user' = 'Sub user',
+  'Quantity in box' = 'Quantity in box',
 }
