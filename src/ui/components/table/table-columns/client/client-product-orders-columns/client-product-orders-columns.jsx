@@ -168,7 +168,13 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.originalData?.orderSupplier?.productionTerm} />,
+    renderCell: params => {
+      const orderSupplier = params.row.originalData?.orderSupplier
+
+      return orderSupplier ? (
+        <MultilineTextCell text={`${orderSupplier?.minProductionTerm} - ${orderSupplier?.maxProductionTerm}`} />
+      ) : null
+    },
     width: 120,
     sortable: false,
   },
