@@ -13,7 +13,7 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { CopyValue } from '@components/shared/copy-value'
 
-import { toFixed } from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -54,7 +54,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey.Balance),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Balance)} />,
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
       width: 100,
       columnKey: columnnsKeys.shared.STRING,
       type: 'number',
@@ -66,7 +66,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey.Freeze),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Freeze)} />,
 
-      renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
+      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
       width: 120,
       columnKey: columnnsKeys.shared.STRING,
       type: 'number',
