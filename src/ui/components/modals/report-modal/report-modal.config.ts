@@ -65,7 +65,7 @@ export const reportModalConfig = {
   onAddRequest: action.bound,
   onRemoveRequest: action.bound,
   onRemoveLaunch: action.bound,
-  setRequestStatus: action.bound,
+  setRequestTableStatus: action.bound,
   updateProductAndColumns: action.bound,
   onVirtialSelectScroll: action.bound,
 }

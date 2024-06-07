@@ -34,7 +34,7 @@ import {
 } from './report-modal.type'
 
 export class ReportModalModel extends UseProductsPermissions {
-  requestStatus: loadingStatus = loadingStatus.SUCCESS
+  requestTableStatus: loadingStatus = loadingStatus.SUCCESS
   product?: IProduct
   reportId?: string
   newProductPrice = 0
@@ -92,7 +92,7 @@ export class ReportModalModel extends UseProductsPermissions {
   getListingReportById = async () => {
     try {
       if (this.reportId) {
-        this.setRequestStatus(loadingStatus.IS_LOADING)
+        this.setRequestTableStatus(loadingStatus.IS_LOADING)
 
         const response = (await ClientModel.getListingReportById(this.reportId)) as unknown as IListingReport
 
@@ -103,17 +103,17 @@ export class ReportModalModel extends UseProductsPermissions {
           this.listingLaunches = response.listingLaunches
         })
 
-        this.setRequestStatus(loadingStatus.SUCCESS)
+        this.setRequestTableStatus(loadingStatus.SUCCESS)
       }
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
+      this.setRequestTableStatus(loadingStatus.FAILED)
     }
   }
 
   createListingReport = async () => {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
+      this.setRequestTableStatus(loadingStatus.IS_LOADING)
 
       const removedIdToListingLaunches = this.listingLaunches.map(({ request, ...restProps }) => restProps)
       const generatedListingReport = {
@@ -125,18 +125,18 @@ export class ReportModalModel extends UseProductsPermissions {
 
       await ClientModel.createListingReport(generatedListingReport)
 
-      this.setRequestStatus(loadingStatus.SUCCESS)
+      this.setRequestTableStatus(loadingStatus.SUCCESS)
       toast.success(t(TranslationKey['Data added successfully']))
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
+      this.setRequestTableStatus(loadingStatus.FAILED)
       toast.error(t(TranslationKey['Data not added']))
     }
   }
 
   updateListingReport = async () => {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
+      this.setRequestTableStatus(loadingStatus.IS_LOADING)
 
       const removedIdToListingLaunches = this.listingLaunches.map(
         ({ expired, updatedAt, createdAt, request, ...restProps }) => restProps,
@@ -149,11 +149,11 @@ export class ReportModalModel extends UseProductsPermissions {
 
       await ClientModel.updateListingReport(this.reportId, generatedListingReport)
 
-      this.setRequestStatus(loadingStatus.SUCCESS)
+      this.setRequestTableStatus(loadingStatus.SUCCESS)
       toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
+      this.setRequestTableStatus(loadingStatus.FAILED)
       toast.error(t(TranslationKey['Data not saved']))
     }
   }
@@ -276,8 +276,8 @@ export class ReportModalModel extends UseProductsPermissions {
     this.listingLaunches = this.listingLaunches.filter(el => el.type !== type)
   }
 
-  setRequestStatus(requestStatus: loadingStatus) {
-    this.requestStatus = requestStatus
+  setRequestTableStatus(requestTableStatus: loadingStatus) {
+    this.requestTableStatus = requestTableStatus
   }
 
   updateProductAndColumns = (product?: IProduct) => {

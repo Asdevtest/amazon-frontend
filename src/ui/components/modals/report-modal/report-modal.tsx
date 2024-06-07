@@ -64,7 +64,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
           getRowId={({ type }: GridRowModel) => type}
           slots={null}
           className={styles.dataGridRoot}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          loading={viewModel.requestTableStatus === loadingStatus.IS_LOADING}
         />
       </div>
 
@@ -93,12 +93,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         </div>
       </div>
 
-      <Buttons
-        disabledSaveButton={viewModel.disabledSaveButton}
-        requestStatus={viewModel.requestStatus}
-        onSave={handleSave}
-        onClose={onClose}
-      />
+      <Buttons disabledSaveButton={viewModel.disabledSaveButton} onSave={handleSave} onClose={onClose} />
     </div>
   )
 })
