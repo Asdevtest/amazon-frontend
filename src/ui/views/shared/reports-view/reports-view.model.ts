@@ -9,7 +9,7 @@ import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { reportsViewColumns } from './reports-view.columns'
-import { additionalFields, reportsViewConfig } from './reports-view.config'
+import { additionalFilterFields, additionalSearchFields, reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
   reportId?: string = undefined
@@ -23,11 +23,12 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   }
 
   constructor({ productId, subView = false }: { productId: string; subView?: boolean }) {
-    const rowHandlers = {
+    const columnsProps = {
       onToggleReportModalEditMode: (reportId: string) => this.onToggleReportModalEditMode(reportId),
+      subView,
     }
-    const columnsModel = reportsViewColumns(rowHandlers)
-    const filtersFields = getFilterFields(columnsModel, ['sub'])
+    const columnsModel = reportsViewColumns(columnsProps)
+    const filtersFields = getFilterFields(columnsModel, additionalFilterFields)
     const mainMethodURL = subView
       ? 'clients/products/listing_reports?'
       : `clients/products/listing_reports_by_product_id/${productId}?`
@@ -43,7 +44,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       columnsModel,
       filtersFields,
       mainMethodURL,
-      fieldsForSearch: additionalFields,
+      fieldsForSearch: additionalSearchFields,
       tableKey: DataGridTablesKeys.PRODUCT_LISTING_REPORTS,
       defaultGetCurrentDataOptions,
     })
