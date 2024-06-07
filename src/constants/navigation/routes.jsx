@@ -1412,7 +1412,7 @@ export const privateRoutesConfigs = [
     component: ReportsView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_REPORTS_CLIENT,
+    permissionKey: permissionsKeys.client.SHOW_INVENTORY_LISTING_REPORTS,
     crumbNameKey: TranslationKey.Reports,
 
     navigationInfo: {

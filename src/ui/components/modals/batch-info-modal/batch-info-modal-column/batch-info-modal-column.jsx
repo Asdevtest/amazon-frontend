@@ -44,7 +44,7 @@ export const batchInfoModalColumn = (
 
     valueGetter: ({ row }) => row.items?.map(item => item?.product?.asin || t(TranslationKey.Missing)).join(', '),
 
-    width: 130,
+    width: 150,
   },
 
   {

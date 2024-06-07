@@ -104,7 +104,9 @@ export const navbarConfig = {
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY_REPORTS,
           checkHideSubBlock: user =>
             !isHaveMasterUser(user) ||
-            user?.permissions?.some(item => item.key === permissionsKeys.client.inventory.SHOW_REPORTS_CLIENT),
+            user?.permissions?.some(
+              item => item.key === permissionsKeys.client.inventory.SHOW_INVENTORY_LISTING_REPORTS,
+            ),
         },
       ],
       key: navBarActiveCategory.NAVBAR_INVENTORY,
