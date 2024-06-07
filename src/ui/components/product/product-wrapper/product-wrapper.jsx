@@ -119,7 +119,7 @@ export const ProductWrapper = memo(
               value: tabsValues.ORDERS,
             },
 
-            isClientOrAdmin && {
+            checkIsClient(curUserRole) && {
               label: () => t(TranslationKey.Reports),
               value: tabsValues.REPORTS,
             },

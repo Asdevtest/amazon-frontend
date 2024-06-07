@@ -9,7 +9,7 @@ import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { reportsViewColumns } from './reports-view.columns'
-import { reportsViewConfig } from './reports-view.config'
+import { additionalFields, reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
   reportId?: string = undefined
@@ -22,22 +22,28 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     return this.meta?.activeLaunches
   }
 
-  constructor(productId: string) {
+  constructor({ productId, subView = false }: { productId: string; subView?: boolean }) {
     const rowHandlers = {
       onToggleReportModalEditMode: (reportId: string) => this.onToggleReportModalEditMode(reportId),
     }
     const columnsModel = reportsViewColumns(rowHandlers)
     const filtersFields = getFilterFields(columnsModel, ['sub'])
-    const mainMethodURL = `clients/products/listing_reports_by_product_id/${productId}?`
-    const defaultGetCurrentDataOptions = () => ({
-      guid: productId,
-    })
+    const mainMethodURL = subView
+      ? 'clients/products/listing_reports?'
+      : `clients/products/listing_reports_by_product_id/${productId}?`
+    const defaultGetCurrentDataOptions = () =>
+      subView
+        ? undefined
+        : {
+            guid: productId,
+          }
 
     super({
-      getMainDataMethod: ClientModel.getListingReportByProductId,
+      getMainDataMethod: subView ? ClientModel.getListingReports : ClientModel.getListingReportByProductId,
       columnsModel,
       filtersFields,
       mainMethodURL,
+      fieldsForSearch: additionalFields,
       tableKey: DataGridTablesKeys.PRODUCT_LISTING_REPORTS,
       defaultGetCurrentDataOptions,
     })

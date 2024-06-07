@@ -1,5 +1,6 @@
 import { Launches } from '@typings/enums/launches'
 import { ICreatedBy } from '@typings/shared/created-by'
+import { ILaunch } from '@typings/shared/launch'
 
 import { IProduct } from '../products/product'
 import { IRequest } from '../requests/request'
@@ -14,7 +15,7 @@ export interface IListingLaunch {
   result: string
   _id?: string
   expired?: boolean
-  request?: IRequest
+  request?: IRequest | null
   createdAt?: string
   updatedAt?: string
 }
@@ -30,4 +31,13 @@ export interface IListingReport {
   listingLaunches: IListingLaunch[]
   createdAt: string
   updatedAt: string
+}
+
+export interface IListingReportByProductId {
+  count: number
+  meta: {
+    product: IProduct
+    activeLaunches: ILaunch[]
+  }
+  rows: IListingReport[]
 }

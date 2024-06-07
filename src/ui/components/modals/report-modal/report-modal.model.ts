@@ -1,5 +1,6 @@
+import { BaseOptionType } from 'antd/es/select'
 import dayjs from 'dayjs'
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
 import { toast } from 'react-toastify'
 
@@ -16,9 +17,12 @@ import { IProduct } from '@typings/models/products/product'
 import { IRequest } from '@typings/models/requests/request'
 import { IGridColumn } from '@typings/shared/grid-column'
 import { ILaunch } from '@typings/shared/launch'
+import { LaunchType } from '@typings/types/launch'
+
+import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { reportModalColumns } from './report-modal.columns'
-import { launchOptions } from './report-modal.config'
+import { launchOptions, reportModalConfig } from './report-modal.config'
 import {
   ChangeCommentCellValueType,
   ChangeDateCellValueType,
@@ -29,21 +33,21 @@ import {
   ReportModalColumnsProps,
 } from './report-modal.type'
 
-export class ReportModalModel {
+export class ReportModalModel extends UseProductsPermissions {
   requestStatus: loadingStatus = loadingStatus.SUCCESS
   product?: IProduct
-  reportId?: string = undefined
+  reportId?: string
   newProductPrice = 0
   description = ''
   listingLaunches: IListingLaunch[] = []
   selectLaunchValue: Launches | null = null
-  requests: IRequestWithLaunch[] = []
   columnsProps: ReportModalColumnsProps = {
-    onChangeNumberCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeNumberCellValue(id, field),
-    onChangeCommentCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeCommentCellValue(id, field),
-    onChangeDateCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeDateCellValue(id, field),
+    onChangeNumberCellValue: (type: Launches, field: keyof IListingLaunch) => this.onChangeNumberCellValue(type, field),
+    onChangeCommentCellValue: (type: Launches, field: keyof IListingLaunch) =>
+      this.onChangeCommentCellValue(type, field),
+    onChangeDateCellValue: (type: Launches, field: keyof IListingLaunch) => this.onChangeDateCellValue(type, field),
     onAddRequest: (launch: ILaunch, request?: IRequest) => this.onAddRequest(launch, request),
-    onRemoveLaunch: (id: string) => this.onRemoveLaunch(id),
+    onRemoveLaunch: (type: Launches) => this.onRemoveLaunch(type),
     product: undefined,
   }
   columnsModel: IGridColumn[] = []
@@ -66,16 +70,23 @@ export class ReportModalModel {
       )
     )
   }
+  get requests() {
+    return this.listingLaunches
+      ?.filter(({ request }) => request)
+      .map(listingLaunch => ({
+        ...listingLaunch.request,
+        launch: listingLaunch,
+      })) as IRequestWithLaunch[]
+  }
 
-  constructor({ product, reportId }: IReportModalModelProps) {
+  constructor({ reportId, defaultProduct }: IReportModalModelProps) {
+    super(ClientModel.getProductPermissionsData)
+
     this.reportId = reportId
-    this.product = product
-    this.columnsProps.product = product
-    this.columnsModel = reportModalColumns(this.columnsProps)
-
+    this.updateProductAndColumns(defaultProduct)
     this.getListingReportById()
 
-    makeAutoObservable(this, undefined, { autoBind: true })
+    makeObservable(this, reportModalConfig)
   }
 
   getListingReportById = async () => {
@@ -83,20 +94,13 @@ export class ReportModalModel {
       if (this.reportId) {
         this.setRequestStatus(loadingStatus.IS_LOADING)
 
-        const reponse = (await ClientModel.getListingReportById(this.reportId)) as unknown as IListingReport
-        const generatedRequests = reponse.listingLaunches
-          ?.filter(({ request }) => request)
-          .map(listingLaunch => ({
-            ...listingLaunch.request,
-            launch: listingLaunch,
-          })) as IRequestWithLaunch[]
+        const response = (await ClientModel.getListingReportById(this.reportId)) as unknown as IListingReport
 
         runInAction(() => {
-          this.product = reponse.product
-          this.description = reponse.description
-          this.newProductPrice = reponse.newProductPrice
-          this.listingLaunches = reponse.listingLaunches
-          this.requests = generatedRequests
+          this.updateProductAndColumns(response.product)
+          this.description = response.description
+          this.newProductPrice = response.newProductPrice
+          this.listingLaunches = response.listingLaunches
         })
 
         this.setRequestStatus(loadingStatus.SUCCESS)
@@ -111,11 +115,12 @@ export class ReportModalModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
+      const removedIdToListingLaunches = this.listingLaunches.map(({ request, ...restProps }) => restProps)
       const generatedListingReport = {
         productId: this.product?._id,
         newProductPrice: this.newProductPrice,
         description: this.description,
-        listingLaunches: this.listingLaunches,
+        listingLaunches: removedIdToListingLaunches,
       }
 
       await ClientModel.createListingReport(generatedListingReport)
@@ -125,7 +130,7 @@ export class ReportModalModel {
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
-      toast.success(t(TranslationKey['Data not added']))
+      toast.error(t(TranslationKey['Data not added']))
     }
   }
 
@@ -149,7 +154,7 @@ export class ReportModalModel {
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
-      toast.success(t(TranslationKey['Data not saved']))
+      toast.error(t(TranslationKey['Data not saved']))
     }
   }
 
@@ -177,12 +182,18 @@ export class ReportModalModel {
     }
   }
 
-  findLaunchIndex = (id: string) => {
-    return this.listingLaunches.findIndex(el => el._id === id)
+  onSelectProduct = (value: string, option: BaseOptionType) => {
+    if (value) {
+      this.updateProductAndColumns(option as IProduct)
+    }
   }
 
-  onChangeNumberCellValue: ChangeNumberCellValueType = (id, field) => event => {
-    const foundLaunchIndex = this.findLaunchIndex(id)
+  findLaunchIndex = (type: Launches) => {
+    return this.listingLaunches.findIndex(el => el.type === type)
+  }
+
+  onChangeNumberCellValue: ChangeNumberCellValueType = (type, field) => event => {
+    const foundLaunchIndex = this.findLaunchIndex(type)
 
     if (foundLaunchIndex !== -1 && field === 'value') {
       const updatedLaunches = [...this.listingLaunches]
@@ -194,8 +205,8 @@ export class ReportModalModel {
     }
   }
 
-  onChangeCommentCellValue: ChangeCommentCellValueType = (id, field) => event => {
-    const foundLaunchIndex = this.findLaunchIndex(id)
+  onChangeCommentCellValue: ChangeCommentCellValueType = (type, field) => event => {
+    const foundLaunchIndex = this.findLaunchIndex(type)
 
     if (foundLaunchIndex !== -1 && (field === 'comment' || field === 'result')) {
       const updatedLaunches = [...this.listingLaunches]
@@ -207,8 +218,8 @@ export class ReportModalModel {
     }
   }
 
-  onChangeDateCellValue: ChangeDateCellValueType = (id, field) => dates => {
-    const foundLaunchIndex = this.findLaunchIndex(id)
+  onChangeDateCellValue: ChangeDateCellValueType = (type, field) => dates => {
+    const foundLaunchIndex = this.findLaunchIndex(type)
 
     if (foundLaunchIndex !== -1 && (field === 'dateFrom' || field === 'dateTo')) {
       const transformedDatesToISOString = [
@@ -227,41 +238,58 @@ export class ReportModalModel {
 
   onAddRequest = (selectedlaunch: ILaunch, request?: IRequest) => {
     if (request) {
-      const existingRequestIndex = this.requests.findIndex(el => el.launch.type === selectedlaunch.type)
-
+      const existingLaunchIndex = this.listingLaunches.findIndex(el => el.type === selectedlaunch.type)
       const generatedRequest = {
         ...request,
         launch: selectedlaunch,
       }
 
-      if (existingRequestIndex !== -1) {
-        this.requests.splice(existingRequestIndex, 1, generatedRequest)
-      } else {
-        this.requests.push(generatedRequest)
-      }
-
-      const existingLaunchIndex = this.launches.findIndex(el => el.type === selectedlaunch.type)
-
       if (existingLaunchIndex !== -1) {
         const generatedLaunch = {
-          ...this.launches[existingLaunchIndex],
+          ...this.listingLaunches[existingLaunchIndex],
           requestId: request._id,
+          request: generatedRequest,
         }
 
-        this.launches.splice(existingLaunchIndex, 1, generatedLaunch)
+        this.listingLaunches.splice(existingLaunchIndex, 1, generatedLaunch)
       }
     }
   }
 
-  onRemoveRequest = (id: string) => {
-    this.requests = this.requests.filter(el => el._id !== id)
+  onRemoveRequest = (type: LaunchType) => {
+    if (type) {
+      const existingLaunchIndex = this.listingLaunches.findIndex(el => el.type === type)
+
+      if (existingLaunchIndex !== -1) {
+        const generatedLaunch = {
+          ...this.listingLaunches[existingLaunchIndex],
+          requestId: null,
+          request: null,
+        }
+
+        this.listingLaunches.splice(existingLaunchIndex, 1, generatedLaunch)
+      }
+    }
   }
 
-  onRemoveLaunch = (id: string) => {
-    this.listingLaunches = this.listingLaunches.filter(el => el._id !== id)
+  onRemoveLaunch = (type: Launches) => {
+    this.listingLaunches = this.listingLaunches.filter(el => el.type !== type)
   }
 
   setRequestStatus(requestStatus: loadingStatus) {
     this.requestStatus = requestStatus
+  }
+
+  updateProductAndColumns = (product?: IProduct) => {
+    this.product = product
+    this.columnsProps.product = product
+    this.columnsModel = reportModalColumns(this.columnsProps)
+  }
+
+  onVirtialSelectScroll = () => {
+    this.permissionsData = []
+    this.isCanLoadMore = true
+    this.setOptions({ offset: 0 })
+    this.getPermissionsData()
   }
 }

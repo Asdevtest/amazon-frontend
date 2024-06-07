@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReportModal } from '@components/modals/report-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRangeDatePicker } from '@components/shared/custom-range-date-picker'
 import { Modal } from '@components/shared/modal'
 import { CustomPlusIcon } from '@components/shared/svg-icons'
@@ -24,21 +25,33 @@ import { ReportsViewModel } from './reports-view.model'
 interface ReportsViewProps {
   productId: string
   modal?: boolean
+  subView?: boolean
 }
 
 export const ReportsView: FC<ReportsViewProps> = observer(props => {
-  const { modal, productId } = props
+  const { modal, productId, subView = false } = props
 
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new ReportsViewModel(productId))
+  const [viewModel] = useState(() => new ReportsViewModel({ productId, subView }))
 
   return (
     <>
       <div className={styles.wrapper}>
-        <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} />
+        {!subView ? <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} /> : null}
 
-        <div className={styles.buttonsContainer}>
+        <div className={styles.flexContainer}>
           <CustomRangeDatePicker onChange={viewModel.onChangeRangeDate} />
+
+          {subView ? (
+            <CustomInputSearch
+              enterButton
+              allowClear
+              loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+              wrapperClassName={styles.searchInput}
+              placeholder="Search by SKU, ASIN, Title, Launch type"
+              onSearch={viewModel.onSearchSubmit}
+            />
+          ) : null}
 
           <Button
             type="primary"
@@ -49,7 +62,12 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
           </Button>
         </div>
 
-        <div className={cx(styles.tableContainer, { [styles.tableContainerModal]: modal })}>
+        <div
+          className={cx(styles.tableContainer, {
+            [styles.tableContainerModal]: modal,
+            [styles.tableContainerSubView]: subView,
+          })}
+        >
           <CustomDataGrid
             rows={viewModel.currentData}
             rowCount={viewModel.rowCount}
@@ -96,10 +114,11 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
         </div>
       </div>
 
-      <Modal openModal={viewModel.showReportModal} setOpenModal={viewModel.onToggleReportModal}>
+      <Modal missClickModalOn openModal={viewModel.showReportModal} setOpenModal={viewModel.onToggleReportModal}>
         <ReportModal
-          product={viewModel.product}
+          subView={subView}
           reportId={viewModel.reportId}
+          defaultProduct={viewModel.product}
           onClose={viewModel.onToggleReportModal}
           onUpdateTableData={viewModel.onGetCurrentData}
         />

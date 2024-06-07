@@ -88,11 +88,29 @@ export const navbarConfig = {
       icon: InventoryIcon,
       title: () => t(TranslationKey.Inventory),
       route: '/client/inventory',
-      subtitles: null,
+      subtitles: [
+        {
+          subtitle: () => t(TranslationKey.Inventory),
+          subRoute: '/client/inventory',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item.key === permissionsKeys.client.inventory.SHOW_INVENTORY_CLIENT),
+        },
+
+        {
+          subtitle: () => t(TranslationKey.Reports),
+          subRoute: '/client/inventory/reports',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY_REPORTS,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item.key === permissionsKeys.client.inventory.SHOW_REPORTS_CLIENT),
+        },
+      ],
       key: navBarActiveCategory.NAVBAR_INVENTORY,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        user?.permissions?.some(item => item.key === permissionsKeys.client.SHOW_INVENTORY_CLIENT),
+        user?.permissions?.some(item => Object.values(permissionsKeys.client.inventory).includes(item.key as string)),
     },
 
     {
