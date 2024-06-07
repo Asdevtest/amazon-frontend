@@ -19,7 +19,7 @@ export const launchOptions = Object.values(Launches).map(value => ({
 
 export const getAsinOptions = (products: IPermissionsData[]) =>
   products?.map(product => ({
-    value: product?._id,
+    value: product?.asin,
     asin: product?.asin,
     sku: product?.skuByClient,
     label: `${t(TranslationKey.ASIN)}: ${product?.asin || t(TranslationKey.Missing)}`,

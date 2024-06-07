@@ -289,7 +289,7 @@ export class ReportModalModel extends UseProductsPermissions {
   onVirtialSelectScroll = () => {
     this.permissionsData = []
     this.isCanLoadMore = true
-    this.setOptions({ offset: 0 })
+    this.setOptions({ offset: 0, filters: '' })
     this.getPermissionsData()
   }
 }
