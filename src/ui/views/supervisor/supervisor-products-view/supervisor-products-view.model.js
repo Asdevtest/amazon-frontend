@@ -19,6 +19,17 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
     return UserModel.userInfo
   }
 
+  get isSomeFilterOn() {
+    const orderedYesNoFilterData = this.columnMenuSettings?.orderedYesNoFilterData
+
+    return this.filtersFields.some(
+      el =>
+        this.columnMenuSettings[el]?.currentFilterData?.length ||
+        !orderedYesNoFilterData.yes ||
+        !orderedYesNoFilterData.no,
+    )
+  }
+
   constructor() {
     const additionalPropertiesColumnMenuSettings = {
       orderedYesNoFilterData: {

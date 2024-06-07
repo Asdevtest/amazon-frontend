@@ -14,7 +14,7 @@ import { useStyles } from './buyer-search-supplier-by-client-view.style'
 
 import { BuyerSearchSupplierByClientModel } from './buyer-search-supplier-by-client-view.model'
 
-export const BuyerSearchSupplierByClientView = observer(history => {
+export const BuyerSearchSupplierByClientView = observer(({ history }) => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new BuyerSearchSupplierByClientModel({ history }))
 

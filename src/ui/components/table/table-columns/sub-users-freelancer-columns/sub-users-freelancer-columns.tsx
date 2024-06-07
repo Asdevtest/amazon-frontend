@@ -43,6 +43,7 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
       width: 215,
       renderCell: (params: GridRowParams) => <UserRolesCell user={params.row} />,
+      filterable: false,
     },
 
     {

@@ -1,3 +1,4 @@
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -46,10 +47,36 @@ export const clientRealizedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <MultilineTextCell twoLines text={params?.row?.parentProduct?.shop?.name} />,
+
       width: 100,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.IDEA_SHOPS,
-      table: DataGridFilterTables.PRODUCTS,
+
+      fields: [
+        {
+          label: () => TranslationKey['Master user'],
+          value: 0,
+        },
+        {
+          label: () => TranslationKey['Sub user'],
+          value: 1,
+        },
+      ],
+
+      columnMenuConfig: [
+        {
+          field: 'parentProductShop',
+          table: DataGridFilterTables.PRODUCTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+        },
+
+        {
+          field: 'childProductShop',
+          table: DataGridFilterTables.PRODUCTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+        },
+      ],
+
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
