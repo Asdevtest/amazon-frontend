@@ -11,6 +11,7 @@ export const reportsViewConfig = {
   onToggleReportModal: action.bound,
   onToggleReportModalEditMode: action.bound,
   onGetCurrentData: action.bound,
+  onRemoveReport: action.bound,
 }
 
 export const additionalFilterFields = ['asin', 'amazonTitle', 'skuByClient', 'sub']

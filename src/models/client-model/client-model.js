@@ -291,6 +291,11 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsGuidPatch({ guid, body })
     return response.data
   }
+
+  removeListingReport = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsGuidDelete({ guid })
+    return response.data
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

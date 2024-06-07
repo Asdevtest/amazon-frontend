@@ -2284,5 +2284,7 @@
   "Data not added": "Данные не добавлены",
   "Data not saved": "Данные не сохранены",
   "Search by SKU, ASIN, Title, Launch type": "Поиск по SKU, ASIN, названию, типу запуска",
-  "Sub user": "Субпользователь"
+  "Sub user": "Субпользователь",
+  "Data removed successfully": "Данные успешно удалены",
+  "Data not removed": "Данные не удалены"
 }

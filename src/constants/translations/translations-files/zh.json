@@ -2282,5 +2282,7 @@
   "Data not added": "Data not added",
   "Data not saved": "Data not saved",
   "Search by SKU, ASIN, Title, Launch type": "Search by SKU, ASIN, Title, Launch type",
-  "Sub user": "Sub user"
+  "Sub user": "Sub user",
+  "Data removed successfully": "Data removed successfully",
+  "Data not removed": "Data not removed"
 }

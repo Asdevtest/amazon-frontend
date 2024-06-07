@@ -13,7 +13,7 @@ import {
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 import { Launches } from '@components/shared/launches'
-import { EditIcon } from '@components/shared/svg-icons'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -23,10 +23,13 @@ import { IGridColumn } from '@typings/shared/grid-column'
 
 interface ReportsViewColumnsProps {
   onToggleReportModalEditMode: (reportId: string) => void
+  onRemoveReport: (reportId: string) => void
   subView?: boolean
 }
 
-export const reportsViewColumns = ({ onToggleReportModalEditMode, subView }: ReportsViewColumnsProps) => {
+export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
+  const { onToggleReportModalEditMode, onRemoveReport, subView } = props
+
   const asinColumn = subView
     ? {
         field: 'asin',
@@ -55,10 +58,16 @@ export const reportsViewColumns = ({ onToggleReportModalEditMode, subView }: Rep
         <ActionButtonsCell
           iconButton
           fullWidth
+          row
           isFirstButton
+          isSecondButton
+          disabledSecondButton={row.listingLaunches.length > 0}
           firstButtonElement={<EditIcon />}
           firstButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonElement={<CrossIcon />}
+          secondButtonStyle={ButtonStyle.DANGER}
           onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
+          onClickSecondButton={() => onRemoveReport(row._id)}
         />
       ),
       disableCustomSort: true,
