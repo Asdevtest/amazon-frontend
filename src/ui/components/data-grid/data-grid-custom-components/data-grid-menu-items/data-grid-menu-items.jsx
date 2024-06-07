@@ -2044,7 +2044,7 @@ export const FromToDateMenuItem = memo(
               </Typography>
 
               <DatePicker
-                minDate={new Date()}
+                minDate={new Date(fromDate)}
                 disablePast={false}
                 className={styles.dateInput}
                 value={toDate}
