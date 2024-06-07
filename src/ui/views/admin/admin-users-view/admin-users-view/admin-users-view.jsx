@@ -20,8 +20,8 @@ import { styles } from './admin-users-view.style'
 import { switcherConfig } from './admin-users-view.constants'
 import { AdminUsersViewModel } from './admin-users-view.model'
 
-export const AdminUsersViewRaw = ({ classes: styles, history }) => {
-  const [viewModel] = useState(() => new AdminUsersViewModel({ history }))
+export const AdminUsersViewRaw = ({ classes: styles }) => {
+  const [viewModel] = useState(() => new AdminUsersViewModel())
 
   return (
     <>
