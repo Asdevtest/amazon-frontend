@@ -20,7 +20,7 @@ export const UserMiniCell: FC<UserMiniCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={cx(styles.wrapper, wrapperClassName, isOnline && styles.onlineIcon)}>
+    <div className={cx(styles.wrapper, wrapperClassName, { [styles.onlineIcon]: isOnline })}>
       {userId && (
         <img src={getUserAvatarSrc(userId)} className={cx(styles.avatar, avatarClassName)} alt={`avatar-${userId}`} />
       )}
