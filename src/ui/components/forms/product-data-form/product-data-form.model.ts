@@ -64,8 +64,6 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
   }
 
   onToggleArchive() {
-    this.currentData = []
-    this.rowCount = 0
     this.batchArchive = !this.batchArchive
     this.onChangeFullFieldMenuItem([this.batchArchive], 'batchArchive')
     this.getCurrentData()
