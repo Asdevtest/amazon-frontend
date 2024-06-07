@@ -1,4 +1,3 @@
-import { Button } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
@@ -7,6 +6,7 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReportModal } from '@components/modals/report-modal'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRangeDatePicker } from '@components/shared/custom-range-date-picker'
@@ -53,13 +53,13 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
             />
           ) : null}
 
-          <Button
+          <CustomButton
             type="primary"
             icon={<CustomPlusIcon />}
             onClick={() => viewModel.onToggleReportModalEditMode(undefined)}
           >
             {t(TranslationKey['New report'])}
-          </Button>
+          </CustomButton>
         </div>
 
         <div

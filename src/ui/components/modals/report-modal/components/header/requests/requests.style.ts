@@ -48,12 +48,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '16px !important',
     height: '16px !important',
     minWidth: '16px !important',
-
-    span: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
   },
 
   crossIcon: {

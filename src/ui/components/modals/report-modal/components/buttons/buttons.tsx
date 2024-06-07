@@ -1,7 +1,8 @@
-import { Button } from 'antd'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -25,12 +26,12 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
         </Checkbox> */}
 
       <div className={styles.flexRowContainer}>
-        <Button type="primary" disabled={disabledSaveButton} onClick={onSave}>
+        <CustomButton type="primary" disabled={disabledSaveButton} onClick={onSave}>
           {t(TranslationKey.Save)}
-        </Button>
-        <Button danger onClick={onClose}>
+        </CustomButton>
+        <CustomButton danger onClick={onClose}>
           {t(TranslationKey.Cancel)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

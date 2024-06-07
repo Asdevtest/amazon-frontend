@@ -1,4 +1,3 @@
-import { Button } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useCallback, useMemo, useState } from 'react'
 
@@ -7,6 +6,7 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { LinkRequestForm } from '@components/forms/link-request-form'
+import { CustomButton } from '@components/shared/custom-button'
 import { Launches } from '@components/shared/launches'
 import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
 import { Modal } from '@components/shared/modal'
@@ -46,9 +46,9 @@ export const LaunchCell: FC<LaunchCellProps> = observer(props => {
         <Launches launches={[generatedSoloLaunch]} />
 
         {isLinkRequest ? (
-          <Button type="primary" size="small" onClick={handleToggleModal}>
+          <CustomButton type="primary" size="small" onClick={handleToggleModal}>
             {t(TranslationKey['Link request'])}
-          </Button>
+          </CustomButton>
         ) : null}
       </div>
 

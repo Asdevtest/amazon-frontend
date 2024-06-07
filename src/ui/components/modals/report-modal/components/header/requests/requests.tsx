@@ -1,4 +1,4 @@
-import { Button, Tooltip } from 'antd'
+import { Tooltip } from 'antd'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
@@ -8,6 +8,7 @@ import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IRequestWithLaunch } from '@components/modals/report-modal/report-modal.type'
+import { CustomButton } from '@components/shared/custom-button'
 import { Launches } from '@components/shared/launches'
 import { CrossIcon } from '@components/shared/svg-icons'
 
@@ -38,7 +39,7 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
               </Tooltip>
             </div>
 
-            <Button
+            <CustomButton
               danger
               shape="circle"
               size="small"
