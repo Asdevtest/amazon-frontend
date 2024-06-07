@@ -66,13 +66,13 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
     this.initHistory()
 
     this.getDataGridState()
-    this.getCurrentData()
+    this.loadData()
   }
 
   async loadData() {
     try {
       this.getDataGridState()
-      await Promise.all([this.getCurrentData(), this.getGroupPermissions(), this.getSinglePermissions()])
+      await Promise.allSettled([this.getCurrentData(), this.getGroupPermissions(), this.getSinglePermissions()])
     } catch (error) {
       console.error(error)
     }
@@ -144,7 +144,7 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showEditUserModal')
 
-      await Promise.all([this.getCurrentData(), this.getGroupPermissions(), this.getSinglePermissions()])
+      await this.getCurrentData()
 
       runInAction(() => {
         this.changeNameAndEmail = { email: '', name: '' }
