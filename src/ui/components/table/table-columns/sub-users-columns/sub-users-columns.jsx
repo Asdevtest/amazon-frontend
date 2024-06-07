@@ -28,6 +28,7 @@ export const subUsersColumns = handlers => {
       headerName: t(TranslationKey.Roles),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
       renderCell: ({ row }) => <UserRolesCell user={row} />,
+      filterable: false,
       width: 160,
     },
 

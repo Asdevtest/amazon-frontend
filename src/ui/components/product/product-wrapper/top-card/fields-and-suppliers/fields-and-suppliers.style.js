@@ -401,4 +401,22 @@ export const useStyles = makeStyles()(theme => ({
   downloadButtonIcon: {
     color: theme.palette.primary.main,
   },
+
+  tagsWrapper: {
+    width: '300px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    gap: '10px',
+
+    '> button': {
+      width: 'fit-content',
+    },
+  },
+
+  tagsTitleWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 }))
