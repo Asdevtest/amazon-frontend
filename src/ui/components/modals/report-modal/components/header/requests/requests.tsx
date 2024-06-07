@@ -42,8 +42,9 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
               danger
               shape="circle"
               size="small"
-              icon={<CrossIcon className={styles.crossIcon} onClick={() => onRemoveRequest(request.launch.type)} />}
+              icon={<CrossIcon className={styles.crossIcon} />}
               className={styles.crossButton}
+              onClick={() => onRemoveRequest(request.launch.type)}
             />
           </div>
           <div className={styles.requestConatainer}>
