@@ -139,7 +139,7 @@ export const adminUsersViewColumns = handlers => {
           disabledFirstButton={params.row?.originalData?.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
           firstButtonElement={t(TranslationKey['Edit and balance'])}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => handlers.onClickUser(params.row.originalData)}
+          onClickFirstButton={() => handlers.onClickUser(params.row)}
         />
       ),
       filterable: false,

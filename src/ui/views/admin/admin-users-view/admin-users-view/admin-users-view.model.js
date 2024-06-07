@@ -184,10 +184,6 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
     this.requestStatus = requestStatus
   }
 
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
-  }
-
   onClickChangeRole(value) {
     this.switcherCondition = value
 
