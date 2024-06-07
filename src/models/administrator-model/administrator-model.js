@@ -1,7 +1,5 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 class AdministratorModelStatic {
   getProductsChecking = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsGetCheckingProductsGet()
@@ -14,7 +12,7 @@ class AdministratorModelStatic {
   }
 
   getUsers = async data => {
-    const response = await restApiService.administratorApi.apiV1AdminsUsersPagGet(filterNullValues(data))
+    const response = await restApiService.administratorApi.apiV1AdminsUsersPagGet(data)
     return response.data
   }
 
