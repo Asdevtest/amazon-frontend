@@ -11,7 +11,7 @@ import {
   ProductVariationsCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
-import { CopyValue } from '@components/shared/copy-value'
+import { TextWithCopy } from '@components/shared/text-with-copy'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -77,12 +77,7 @@ export const adminUsersViewColumns = handlers => {
       field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
-      renderCell: ({ row }) => (
-        <>
-          <MultilineTextCell text={row.email} />
-          <CopyValue text={row.email} />
-        </>
-      ),
+      renderCell: ({ row }) => <TextWithCopy text={row.email} />,
       columnKey: columnnsKeys.shared.STRING,
       width: 200,
       disableCustomSort: true,
