@@ -15,6 +15,7 @@ export const observerConfig = {
   progressValue: observable,
   showProgress: observable,
   productViewMode: observable,
+  curBox: observable,
 
   onClickSaveHsCode: action.bound,
   onClickHsCode: action.bound,
@@ -28,4 +29,5 @@ export const observerConfig = {
   onSubmitAddOrEditBatch: action.bound,
   changeViewModeHandler: action.bound,
   onClickStorekeeperBtn: action.bound,
+  setCurrentOpenedBox: action.bound,
 }
