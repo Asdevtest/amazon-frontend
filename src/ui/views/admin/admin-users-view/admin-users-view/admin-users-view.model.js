@@ -22,7 +22,6 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
   changeNameAndEmail = { email: '', name: '' }
   editUserFormFields = undefined
   rowSelectionModel = undefined
-  requestStatus = undefined
   switcherCondition = null
 
   submitEditData = undefined

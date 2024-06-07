@@ -34,7 +34,7 @@ export const AdminUsersViewRaw = ({ classes: styles }) => {
           switchMode="medium"
           condition={viewModel.switcherCondition}
           switcherSettings={switcherConfig}
-          changeConditionHandler={value => viewModel.onClickChangeRole(value)}
+          changeConditionHandler={viewModel.onClickChangeRole}
         />
 
         <SearchInput
