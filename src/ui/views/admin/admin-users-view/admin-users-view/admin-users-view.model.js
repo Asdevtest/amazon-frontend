@@ -72,7 +72,9 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
   async loadData() {
     try {
       this.getDataGridState()
-      await Promise.allSettled([this.getCurrentData(), this.getGroupPermissions(), this.getSinglePermissions()])
+      await this.getCurrentData()
+      await this.getGroupPermissions()
+      await this.getSinglePermissions()
     } catch (error) {
       console.error(error)
     }
@@ -154,10 +156,6 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onSelectionModel(model) {
-    this.rowSelectionModel = model
-  }
-
   async onClickEditUser(row) {
     try {
       const result = await AdministratorModel.getUsersById(row._id)
@@ -182,10 +180,6 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
 
   onClickBalance(userData) {
     this.history.push('/admin/users/balance', { user: userData })
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
   }
 
   onClickChangeRole(value) {

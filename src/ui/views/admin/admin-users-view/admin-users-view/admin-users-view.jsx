@@ -17,8 +17,8 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './admin-users-view.style'
 
-import { getSwitcherConfig } from './admin-users-view.constants'
 import { AdminUsersViewModel } from './admin-users-view.model'
+import { switcherConfig } from './custom-switcher.config'
 
 export const AdminUsersViewRaw = ({ classes: styles }) => {
   const [viewModel] = useState(() => new AdminUsersViewModel())
@@ -33,7 +33,7 @@ export const AdminUsersViewRaw = ({ classes: styles }) => {
           className={styles.switcherWrapper}
           switchMode="medium"
           condition={viewModel.switcherCondition}
-          switcherSettings={getSwitcherConfig()}
+          switcherSettings={switcherConfig}
           changeConditionHandler={viewModel.onClickChangeRole}
         />
 
