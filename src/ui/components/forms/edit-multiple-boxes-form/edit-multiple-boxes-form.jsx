@@ -261,6 +261,15 @@ export const EditMultipleBoxesForm = observer(
               }
             : newBox,
         )
+      } else if (field === 'tmpShippingLabel') {
+        updatedNewBoxes = newBoxes.map(newBox =>
+          visibleBoxesIds.includes(newBox._id)
+            ? {
+                ...newBox,
+                tmpShippingLabel: sharedFields.tmpShippingLabel,
+              }
+            : newBox,
+        )
       } else if (field === 'isBarcodeLabelAttached') {
         updatedNewBoxes = newBoxes.map(newBox =>
           visibleBoxesIds.includes(newBox._id)
@@ -321,6 +330,8 @@ export const EditMultipleBoxesForm = observer(
 
       setNewBoxes(updatedNewBoxes)
     }
+
+    console.log('newBoxes', newBoxes)
 
     const onClickSubmit = () => {
       onSubmit(newBoxes, selectedBoxes)

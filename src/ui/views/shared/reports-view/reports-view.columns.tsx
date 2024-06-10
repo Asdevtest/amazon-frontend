@@ -1,5 +1,6 @@
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -114,9 +115,35 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <UserMiniCell userName={row.sub?.name || row.createdBy?.name} userId={row.sub?._id || row.createdBy?._id} />
       ),
+
+      fields: [
+        {
+          label: () => TranslationKey['Master user'],
+          value: 0,
+        },
+        {
+          label: () => TranslationKey['Sub user'],
+          value: 1,
+        },
+      ],
+
+      columnMenuConfig: [
+        {
+          field: 'createdBy',
+          table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+        },
+
+        {
+          field: 'sub',
+          table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+        },
+      ],
+
       width: 180,
       disableCustomSort: true,
-      columnKey: columnnsKeys.freelancer.FREELANCE_PROPOSALS_CREATED_BY,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
