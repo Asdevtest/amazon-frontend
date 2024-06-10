@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs'
-import { makeObservable } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -17,8 +17,10 @@ import { reportsViewColumns } from './reports-view.columns'
 import { additionalFilterFields, additionalSearchFields, reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
-  reportId?: string = undefined
+  reportId?: string
+  selectedReportId?: string
   showReportModal = false
+  showConfirmModal = false
 
   get product() {
     return this.meta?.product
@@ -30,7 +32,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   constructor({ productId, subView = false }: { productId: string; subView?: boolean }) {
     const columnsProps = {
       onToggleReportModalEditMode: (reportId: string) => this.onToggleReportModalEditMode(reportId),
-      onRemoveReport: (reportId: string) => this.onRemoveReport(reportId),
+      onClickRemoveReport: (reportId: string) => this.onClickRemoveReport(reportId),
       subView,
     }
     const columnsModel = reportsViewColumns(columnsProps)
@@ -81,11 +83,20 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     this.showReportModal = !this.showReportModal
   }
 
-  async onRemoveReport(reportId: string) {
+  onToggleConfirmModal() {
+    this.showConfirmModal = !this.showConfirmModal
+  }
+
+  onClickRemoveReport(id: string) {
+    this.selectedReportId = id
+    this.onToggleConfirmModal()
+  }
+
+  async onRemoveReport() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      await ClientModel.removeListingReport(reportId)
+      await ClientModel.removeListingReport(this.selectedReportId)
 
       toast.success(t(TranslationKey['Data removed successfully']))
 
@@ -96,6 +107,12 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
       toast.error(t(TranslationKey['Data not removed']))
+    } finally {
+      this.onToggleConfirmModal()
+
+      runInAction(() => {
+        this.selectedReportId = undefined
+      })
     }
   }
 
