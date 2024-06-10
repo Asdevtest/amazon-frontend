@@ -44,14 +44,13 @@ export const ClientBoxesNotificationsView = observer(() => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           pinnedColumns={viewModel.pinnedColumns}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
-          sortingMode="client"
-          paginationMode="client"
           getRowHeight={() => 'auto'}
           getRowId={({ _id }) => _id}
           density={viewModel.densityModel}

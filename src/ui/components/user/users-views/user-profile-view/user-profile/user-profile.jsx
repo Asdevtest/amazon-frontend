@@ -87,7 +87,7 @@ export const UserProfile = memo(props => {
             {user?.allowedRoles.length && !user?.masterUser ? (
               <div className={styles.roles}>
                 {user?.allowedRoles.map(spec => (
-                  <p key={spec?._id}>{UserRoleCodeMap[spec]}</p>
+                  <p key={spec}>{UserRoleCodeMap[spec]}</p>
                 ))}
               </div>
             ) : (

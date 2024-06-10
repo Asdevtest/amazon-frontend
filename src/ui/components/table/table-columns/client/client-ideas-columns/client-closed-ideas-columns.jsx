@@ -197,27 +197,27 @@ export const clientClosedIdeasColumns = rowHandlers => {
       fields: [
         {
           label: () => TranslationKey['Master user'],
-          value: 'createdBy',
+          value: 0,
         },
         {
           label: () => TranslationKey['Sub user'],
-          value: 'sub',
+          value: 1,
         },
       ],
 
-      columnMenuConfig: {
-        createdBy: {
+      columnMenuConfig: [
+        {
           field: 'createdBy',
           table: DataGridFilterTables.IDEAS,
           columnKey: ColumnMenuKeys.OBJECT,
         },
 
-        sub: {
+        {
           field: 'sub',
           table: DataGridFilterTables.IDEAS,
           columnKey: ColumnMenuKeys.OBJECT,
         },
-      },
+      ],
 
       width: 130,
       filterable: false,

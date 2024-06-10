@@ -156,8 +156,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       )
 
       runInAction(() => {
-        this.currentData = result?.rows || result
-        this.rowCount = result?.count || result.length
+        this.currentData = result?.rows || result || []
+        this.rowCount = result?.count || result.length || []
         this.meta = result?.meta
       })
 
@@ -165,6 +165,12 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
+
+      runInAction(() => {
+        this.currentData = []
+        this.rowCount = 0
+        this.meta = null
+      })
     }
   }
 

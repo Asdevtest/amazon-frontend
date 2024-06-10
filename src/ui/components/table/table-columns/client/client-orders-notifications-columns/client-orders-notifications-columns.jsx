@@ -45,7 +45,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'id',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
@@ -63,6 +63,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
         <MultilineTextCell text={toFixed(params.row.totalPriceChanged - params.row.totalPrice, 2)} />
       ),
       type: 'number',
+      disableCustomSort: true,
     },
 
     {
@@ -93,6 +94,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
 
       width: 250,
       renderCell: params => <OrderCell product={params.row.product} />,
+      // disableCustomSort: true,
     },
 
     {
@@ -113,6 +115,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
           />
         )
       },
+      disableCustomSort: true,
     },
 
     {
@@ -145,6 +148,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       renderCell: params => (
         <MultilineTextCell text={toFixedWithDollarSign(params.row.totalPriceChanged / params.row.amount, 2)} />
       ),
+      disableCustomSort: true,
     },
 
     {
@@ -154,6 +158,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
 
       width: 160,
       renderCell: params => <DownloadAndCopyBtnsCell value={params.row.product.barCode} />,
+      disableCustomSort: true,
     },
 
     {
@@ -171,6 +176,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
+      disableCustomSort: true,
       width: 150,
     },
 
@@ -190,6 +196,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey['Buyer comment to order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment to order'])} />,
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
+      disableCustomSort: true,
       width: 225,
     },
   ]

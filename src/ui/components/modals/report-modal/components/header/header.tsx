@@ -1,41 +1,83 @@
-import { Select } from 'antd'
-import { FC, memo } from 'react'
+import { BaseOptionType } from 'antd/es/select'
+import { FC, UIEvent, memo, useCallback, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
 import { Launches as LaunchesEnum } from '@typings/enums/launches'
 import { IProduct } from '@typings/models/products/product'
+import { LaunchType } from '@typings/types/launch'
+
+import { IPermissionsData } from '@hooks/use-products-permissions'
 
 import { useStyles } from './header.style'
 
-import { getAsinOptions } from '../../report-modal.config'
+import { getAsinOptions, getDefaultAsinOption } from '../../report-modal.config'
 import { ILaunchOption, IRequestWithLaunch } from '../../report-modal.type'
 
 import { AsinOption } from './asin-option'
 import { Requests } from './requests'
 
 interface HeaderProps {
-  product: IProduct
+  products: IPermissionsData[]
   editMode: boolean
   launchOptions: ILaunchOption[]
   selectLaunchValue: LaunchesEnum | null
   requests: IRequestWithLaunch[]
-  onRemoveRequest: (id: string) => void
+  onRemoveRequest: (value: LaunchType) => void
   onSelectLaunch: (value: LaunchesEnum) => void
+  onSelectProduct: (value: string, option: BaseOptionType) => void
+  onOpenAsinSelect: () => void
+  onSearchAsinSelect: (value: string) => void
+  onScrollAsinSelect: () => void
+  subView?: boolean
+  product?: IProduct
 }
 
 export const Header: FC<HeaderProps> = memo(props => {
-  const { product, editMode, launchOptions, selectLaunchValue, requests, onRemoveRequest, onSelectLaunch } = props
+  const {
+    products,
+    editMode,
+    launchOptions,
+    selectLaunchValue,
+    requests,
+    onRemoveRequest,
+    onSelectLaunch,
+    onSelectProduct,
+    onOpenAsinSelect,
+    onSearchAsinSelect,
+    onScrollAsinSelect,
+    subView,
+    product,
+  } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const modalTitle = `${editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(
-    TranslationKey['report by the product'],
-  )}`
-  const launchTypePlaceholder = `＋ ${t(TranslationKey['Select launch type'])}`
-  const asinOptions = getAsinOptions(product)
+  const handlePopupScroll = useCallback(
+    (e: UIEvent<HTMLElement>) => {
+      const element = e.target as HTMLElement
+      const scrollTop = element?.scrollTop
+      const containerHeight = element?.clientHeight
+      const contentHeight = element?.scrollHeight
+
+      if (contentHeight - (scrollTop + containerHeight) < 90) {
+        onScrollAsinSelect()
+      }
+    },
+    [onScrollAsinSelect],
+  )
+
+  const modalTitle = useMemo(
+    () => `${editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(TranslationKey['report by the product'])}`,
+    [editMode],
+  )
+  const asinOptions = useMemo(() => getAsinOptions(products), [products])
+  const defaultAsinOption = useMemo(() => getDefaultAsinOption(product), [product])
+  const disabledLaunchesSelect = useMemo(() => launchOptions.length === 0 || !product, [product, launchOptions.length])
+  const disabledAsinsSelect = useMemo(() => !subView || editMode, [subView, editMode])
 
   return (
     <div className={styles.header}>
@@ -43,21 +85,24 @@ export const Header: FC<HeaderProps> = memo(props => {
         <p className={styles.title}>{modalTitle}</p>
 
         <div className={styles.flexRowContainer}>
-          <Select
+          <CustomSelect
             showSearch
-            placeholder={t(TranslationKey['Select ASIN'])}
-            className={styles.select}
-            defaultValue={[product.asin]}
+            disabled={disabledAsinsSelect}
+            placeholder="Select ASIN"
+            defaultValue={defaultAsinOption}
             options={asinOptions}
             optionRender={({ data }) => <AsinOption data={data} />}
+            onDropdownVisibleChange={onOpenAsinSelect}
+            onSearch={onSearchAsinSelect}
+            onPopupScroll={handlePopupScroll}
+            onChange={onSelectProduct}
           />
 
-          <Select
+          <CustomSelect
             showSearch
-            disabled={launchOptions.length === 0}
-            placeholder={launchTypePlaceholder}
+            disabled={disabledLaunchesSelect}
+            placeholder="Select launch type"
             options={launchOptions}
-            className={styles.select}
             value={selectLaunchValue}
             onChange={onSelectLaunch}
           />

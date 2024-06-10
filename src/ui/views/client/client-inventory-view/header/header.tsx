@@ -107,6 +107,15 @@ export const Header: FC<HeaderProps> = memo(props => {
             >
               {t(TranslationKey['Product batches data'])}
             </Button>
+
+            <Button
+              tooltipInfoContent={'И спишет все деньги с карты'}
+              onClick={() => {
+                throw new Error('Тест дева')
+              }}
+            >
+              {'Удалить виндовс'}
+            </Button>
           </div>
         )}
       </div>

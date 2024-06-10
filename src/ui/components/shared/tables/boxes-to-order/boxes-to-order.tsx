@@ -41,7 +41,7 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(props => {
           disableRowSelectionOnClick
           sortingMode="client"
           paginationMode="client"
-          rows={viewModel.boxes}
+          rows={viewModel.boxes || []}
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
           getRowId={(row: GridRowModel) => row._id}

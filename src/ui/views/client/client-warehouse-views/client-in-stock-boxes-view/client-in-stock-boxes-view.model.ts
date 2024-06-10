@@ -43,12 +43,7 @@ import { ILogicTariff } from '@typings/shared/logic-tariff'
 import { IUploadFile } from '@typings/shared/upload-file'
 
 import { clientBoxesViewColumns } from './client-boxes-columns'
-import {
-  defaultStatuses,
-  fieldsForSearch,
-  filtersFields,
-  updateBoxWhiteList,
-} from './client-in-stock-boxes-view.constants'
+import { fieldsForSearch, filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
 import { observerConfig } from './observer-config'
 
 export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
@@ -186,12 +181,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const defaultGetCurrentDataOptions = () => {
       const curShops = this.columnMenuSettings.shopId.currentFilterData?.map((shop: any) => shop._id).join(',')
 
-      const curStatus = this.columnMenuSettings.status.currentFilterData.length
-        ? this.columnMenuSettings.status.currentFilterData.join(',')
-        : defaultStatuses.join(',')
-
       return {
-        status: curStatus,
+        statusGroup: 'inStock',
         destinationId: this.curDestinationId,
         shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
 
@@ -206,13 +197,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const additionalPropertiesGetFilters = () => {
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
-      const curStatus = this.columnMenuSettings.status.currentFilterData.length
-        ? this.columnMenuSettings.status.currentFilterData.join(',')
-        : defaultStatuses.join(',')
-
       return {
-        status: {
-          $eq: curStatus,
+        statusGroup: {
+          $eq: 'inStock',
         },
 
         isFormed: {

@@ -13,7 +13,7 @@ interface IOptions {
   [x: string]: any
 }
 
-interface IPermissionsData {
+export interface IPermissionsData {
   _id: string
   asin: string
   shopId: string
@@ -80,7 +80,9 @@ export class UseProductsPermissions {
     if (!this.callback) return
 
     try {
-      this.requestStatus = loadingStatus.IS_LOADING
+      runInAction(() => {
+        this.requestStatus = loadingStatus.IS_LOADING
+      })
 
       this.setOptions(options)
 
@@ -88,9 +90,8 @@ export class UseProductsPermissions {
 
       runInAction(() => {
         this.permissionsData = result.rows
+        this.requestStatus = loadingStatus.SUCCESS
       })
-
-      this.requestStatus = loadingStatus.SUCCESS
     } catch (error) {
       console.error(error)
     }
@@ -100,9 +101,11 @@ export class UseProductsPermissions {
     if (!this.callback || !this.isCanLoadMore || this.requestStatus !== loadingStatus.SUCCESS) return
 
     try {
-      this.requestStatus = loadingStatus.IS_LOADING
+      runInAction(() => {
+        this.requestStatus = loadingStatus.IS_LOADING
+        this.options.offset += this.options.limit
+      })
 
-      this.options.offset += this.options.limit
       const result = await this.callback(this.options)
 
       runInAction(() => {
@@ -113,7 +116,9 @@ export class UseProductsPermissions {
         this.isCanLoadMore = false
       }
 
-      this.requestStatus = loadingStatus.SUCCESS
+      runInAction(() => {
+        this.requestStatus = loadingStatus.SUCCESS
+      })
     } catch (error) {
       console.error(error)
     }
@@ -122,9 +127,11 @@ export class UseProductsPermissions {
   async onClickSubmitSearch(searchValue: string) {
     if (!this.callback || this.requestStatus !== loadingStatus.SUCCESS) return
     try {
-      this.requestStatus = loadingStatus.IS_LOADING
+      runInAction(() => {
+        this.requestStatus = loadingStatus.IS_LOADING
+        this.isCanLoadMore = true
+      })
 
-      this.isCanLoadMore = true
       this.setOptions({
         offset: 0,
         filters: objectToUrlQs(dataGridFiltersConverter({}, searchValue, '', [], ['skuByClient', 'asin'])),
@@ -132,7 +139,9 @@ export class UseProductsPermissions {
 
       await this.getPermissionsData()
 
-      this.requestStatus = loadingStatus.SUCCESS
+      runInAction(() => {
+        this.requestStatus = loadingStatus.SUCCESS
+      })
     } catch (error) {
       console.error(error)
     }

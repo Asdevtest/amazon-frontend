@@ -1,4 +1,4 @@
-import { Button, Tooltip } from 'antd'
+import { Tooltip } from 'antd'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
@@ -8,17 +8,20 @@ import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IRequestWithLaunch } from '@components/modals/report-modal/report-modal.type'
+import { CustomButton } from '@components/shared/custom-button'
 import { Launches } from '@components/shared/launches'
 import { CrossIcon } from '@components/shared/svg-icons'
 
 import { getUrlToRequest } from '@utils/get-url-to-request/get-url-to-request'
 import { t } from '@utils/translations'
 
+import { LaunchType } from '@typings/types/launch'
+
 import { useStyles } from './requests.style'
 
 interface RequestsProps {
   requests: IRequestWithLaunch[]
-  onRemoveRequest: (id: string) => void
+  onRemoveRequest: (value: LaunchType) => void
 }
 
 export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest }) => {
@@ -36,12 +39,13 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
               </Tooltip>
             </div>
 
-            <Button
+            <CustomButton
               danger
               shape="circle"
               size="small"
-              icon={<CrossIcon className={styles.crossIcon} onClick={() => onRemoveRequest(request._id)} />}
+              icon={<CrossIcon className={styles.crossIcon} />}
               className={styles.crossButton}
+              onClick={() => onRemoveRequest(request.launch.type)}
             />
           </div>
           <div className={styles.requestConatainer}>

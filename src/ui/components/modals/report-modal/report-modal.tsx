@@ -16,20 +16,21 @@ import { Buttons, Header } from './components'
 import { ReportModalModel } from './report-modal.model'
 
 interface ReportModalProps {
-  product: IProduct
   onClose: () => void
+  subView?: boolean
   reportId?: string
+  defaultProduct?: IProduct
   onUpdateTableData?: () => void
 }
 
 export const ReportModal: FC<ReportModalProps> = observer(props => {
-  const { product, onClose, reportId, onUpdateTableData } = props
+  const { onClose, subView, reportId, defaultProduct, onUpdateTableData } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ReportModalModel({ product, reportId }))
+  const [viewModel] = useState(() => new ReportModalModel({ reportId, defaultProduct }))
 
-  const handleSave = useCallback(() => {
-    reportId ? viewModel.updateListingReport() : viewModel.createListingReport()
+  const handleSave = useCallback(async () => {
+    viewModel.reportId ? await viewModel.updateListingReport() : await viewModel.createListingReport()
     onClose()
     onUpdateTableData?.()
   }, [])
@@ -37,13 +38,19 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
   return (
     <div className={styles.wrapper}>
       <Header
-        product={product}
-        editMode={!!reportId}
+        subView={subView}
+        product={viewModel.product}
+        products={viewModel.currentPermissionsData}
+        editMode={!!viewModel.reportId}
         launchOptions={viewModel.launchOptions}
         selectLaunchValue={viewModel.selectLaunchValue}
         requests={viewModel.requests}
         onRemoveRequest={viewModel.onRemoveRequest}
         onSelectLaunch={viewModel.onSelectLaunch}
+        onSelectProduct={viewModel.onSelectProduct}
+        onOpenAsinSelect={viewModel.onVirtialSelectScroll}
+        onSearchAsinSelect={viewModel.onClickSubmitSearch}
+        onScrollAsinSelect={viewModel.loadMoreDataHadler}
       />
 
       <div className={styles.tableContainer}>
@@ -57,7 +64,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
           getRowId={({ type }: GridRowModel) => type}
           slots={null}
           className={styles.dataGridRoot}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          loading={viewModel.requestTableStatus === loadingStatus.IS_LOADING}
         />
       </div>
 
@@ -76,6 +83,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
 
         <div className={styles.textareaContainer}>
           <CustomTextarea
+            required
             rows={3}
             maxLength={1024}
             label="Comment"
@@ -86,12 +94,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         </div>
       </div>
 
-      <Buttons
-        disabledSaveButton={viewModel.disabledSaveButton}
-        requestStatus={viewModel.requestStatus}
-        onSave={handleSave}
-        onClose={onClose}
-      />
+      <Buttons disabledSaveButton={viewModel.disabledSaveButton} onSave={handleSave} onClose={onClose} />
     </div>
   )
 })
