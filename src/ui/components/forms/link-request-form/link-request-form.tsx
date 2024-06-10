@@ -1,4 +1,3 @@
-import { Button } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useCallback, useState } from 'react'
 
@@ -6,6 +5,7 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { RestartIcon } from '@components/shared/svg-icons'
 
@@ -42,10 +42,10 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
         <p className={styles.title}>{t(TranslationKey['Link requests'])}</p>
 
         <div className={styles.buttons}>
-          <Button type="primary" onClick={viewModel.onClickCreateRequest}>
+          <CustomButton type="primary" onClick={viewModel.onClickCreateRequest}>
             {t(TranslationKey['Create request'])}
-          </Button>
-          <Button
+          </CustomButton>
+          <CustomButton
             shape="circle"
             icon={<RestartIcon />}
             loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -68,10 +68,10 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
       </div>
 
       <div className={styles.buttons}>
-        <Button type="primary" disabled={viewModel.selectedRows.length === 0} onClick={handleSave}>
+        <CustomButton type="primary" disabled={viewModel.selectedRows.length === 0} onClick={handleSave}>
           {t(TranslationKey['Link request'])}
-        </Button>
-        <Button onClick={onClose}>{t(TranslationKey.Cancel)}</Button>
+        </CustomButton>
+        <CustomButton onClick={onClose}>{t(TranslationKey.Cancel)}</CustomButton>
       </div>
     </div>
   )

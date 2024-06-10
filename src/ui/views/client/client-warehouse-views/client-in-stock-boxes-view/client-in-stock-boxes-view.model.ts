@@ -24,7 +24,6 @@ import { UserModel } from '@models/user-model'
 
 import { MyOrderModalSwitcherConditions } from '@components/modals/my-order-modal/components/tabs/tabs.type'
 import { ProductAndBatchModalSwitcherConditions } from '@components/modals/product-and-batch-modal/product-and-batch-modal.type'
-import { clientBoxesViewColumns } from '@components/table/table-columns/client/client-boxes-columns'
 
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
@@ -43,12 +42,8 @@ import { IHSCode } from '@typings/shared/hs-code'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
 import { IUploadFile } from '@typings/shared/upload-file'
 
-import {
-  defaultStatuses,
-  fieldsForSearch,
-  filtersFields,
-  updateBoxWhiteList,
-} from './client-in-stock-boxes-view.constants'
+import { clientBoxesViewColumns } from './client-boxes-columns'
+import { fieldsForSearch, filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
 import { observerConfig } from './observer-config'
 
 export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
@@ -186,12 +181,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const defaultGetCurrentDataOptions = () => {
       const curShops = this.columnMenuSettings.shopId.currentFilterData?.map((shop: any) => shop._id).join(',')
 
-      const curStatus = this.columnMenuSettings.status.currentFilterData.length
-        ? this.columnMenuSettings.status.currentFilterData.join(',')
-        : defaultStatuses.join(',')
-
       return {
-        status: curStatus,
+        statusGroup: 'inStock',
         destinationId: this.curDestinationId,
         shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
 
@@ -206,13 +197,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const additionalPropertiesGetFilters = () => {
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
-      const curStatus = this.columnMenuSettings.status.currentFilterData.length
-        ? this.columnMenuSettings.status.currentFilterData.join(',')
-        : defaultStatuses.join(',')
-
       return {
-        status: {
-          $eq: curStatus,
+        statusGroup: {
+          $eq: 'inStock',
         },
 
         isFormed: {

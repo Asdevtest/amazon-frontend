@@ -20,12 +20,28 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   requestText: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: 5,
     fontSize: 14,
     lineHeight: '19px',
   },
 
   requestTextSecond: {
     color: theme.palette.text.secondary,
+  },
+
+  link: {
+    color: theme.palette.primary.main,
+  },
+
+  requestTypeTooltip: {
+    minWidth: 60,
+    maxWidth: 115,
+    display: 'inline-block',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 
   crossButton: {

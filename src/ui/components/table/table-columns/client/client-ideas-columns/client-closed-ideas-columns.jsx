@@ -1,3 +1,4 @@
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
@@ -192,11 +193,36 @@ export const clientClosedIdeasColumns = rowHandlers => {
           userId={row.sub?._id || row?.createdBy?._id}
         />
       ),
-      width: 130,
 
+      fields: [
+        {
+          label: () => TranslationKey['Master user'],
+          value: 0,
+        },
+        {
+          label: () => TranslationKey['Sub user'],
+          value: 1,
+        },
+      ],
+
+      columnMenuConfig: [
+        {
+          field: 'createdBy',
+          table: DataGridFilterTables.IDEAS,
+          columnKey: ColumnMenuKeys.OBJECT,
+        },
+
+        {
+          field: 'sub',
+          table: DataGridFilterTables.IDEAS,
+          columnKey: ColumnMenuKeys.OBJECT,
+        },
+      ],
+
+      width: 130,
       filterable: false,
       disableCustomSort: true,
-      columnKey: columnnsKeys.client.FREELANCE_REQUESTS_CREATED_BY,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {

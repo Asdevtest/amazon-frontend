@@ -1484,7 +1484,11 @@ export const ProductMenuItem = memo(
         : 'asin',
     )
 
-    const { currentFilterData, filterData } = data[getCurrentField(currentOption)]
+    const fieledData = data[getCurrentField(currentOption)]
+
+    const filterData = fieledData?.filterData || []
+    const currentFilterData = fieledData?.currentFilterData || []
+
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -2040,7 +2044,7 @@ export const FromToDateMenuItem = memo(
               </Typography>
 
               <DatePicker
-                minDate={new Date()}
+                minDate={new Date(fromDate)}
                 disablePast={false}
                 className={styles.dateInput}
                 value={toDate}

@@ -1,3 +1,5 @@
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -11,21 +13,29 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
-import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { IBox } from '@typings/models/boxes/box'
+import { IGridColumn } from '@typings/shared/grid-column'
 
-export const clientBoxesNotificationsViewColumns = handlers => {
-  const columns = [
+interface IHandlers {
+  onTriggerOpenConfirmModal: (row: IBox) => void
+  onTriggerOpenRejectModal: (row: IBox) => void
+}
+
+export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
+  const columns: IGridColumn[] = [
     {
       field: 'humanFriendlyId',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
-      type: 'number',
       width: 60,
+
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
@@ -35,15 +45,19 @@ export const clientBoxesNotificationsViewColumns = handlers => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
+
+      columnKey: columnnsKeys.shared.DATE,
     },
 
     {
       field: 'deliveryTotalPriceChanged',
-      headerName: t(TranslationKey['Pay more']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
+      headerName: `${t(TranslationKey['Pay more'])}, $`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey['Pay more'])}, $`} />,
 
-      width: 100,
-      renderCell: params => <MultilineTextCell text={(params.value - params.row.deliveryTotalPrice).toFixed(2)} />,
+      width: 120,
+      renderCell: params => <MultilineTextCell text={params.value} />,
+
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
@@ -52,7 +66,7 @@ export const clientBoxesNotificationsViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
       width: 150,
-      renderCell: params => (
+      renderCell: ({ row }) => (
         <ActionButtonsCell
           isFirstButton
           isSecondButton
@@ -60,10 +74,11 @@ export const clientBoxesNotificationsViewColumns = handlers => {
           firstButtonStyle={ButtonStyle.PRIMARY}
           secondButtonElement={t(TranslationKey.Reject)}
           secondButtonStyle={ButtonStyle.DANGER}
-          onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(params.row)}
-          onClickSecondButton={() => handlers.onTriggerOpenRejectModal(params.row)}
+          onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(row as IBox)}
+          onClickSecondButton={() => handlers.onTriggerOpenRejectModal(row as IBox)}
         />
       ),
+
       filterable: false,
       disableCustomSort: true,
     },
@@ -100,8 +115,10 @@ export const clientBoxesNotificationsViewColumns = handlers => {
         ) : (
           <MultilineTextCell text={params.value} />
         ),
-      type: 'number',
+
       width: 100,
+
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
@@ -111,6 +128,8 @@ export const clientBoxesNotificationsViewColumns = handlers => {
 
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
       width: 130,
+
+      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
     },
 
     {
@@ -121,7 +140,9 @@ export const clientBoxesNotificationsViewColumns = handlers => {
       renderCell: params => (
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
-      width: 160,
+      width: 140,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -131,42 +152,55 @@ export const clientBoxesNotificationsViewColumns = handlers => {
 
       renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
       width: 180,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
-      // TODO: formula
-      field: 'amazonPrice',
-      headerName: t(TranslationKey['Total price']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
+      field: 'totalPrice',
+      headerName: `${t(TranslationKey['Total price'])}, $`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey['Total price'])}, $`} />,
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-      type: 'number',
-      width: 100,
+      renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
-      // TODO: formula
       field: 'finalWeight',
-      headerName: t(TranslationKey['Final weight']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
+      headerName: `${t(TranslationKey['Final weight'])}, ${t(TranslationKey.kg)}`,
+      renderHeader: () => (
+        <MultilineTextHeaderCell text={`${t(TranslationKey['Final weight'])}, ${t(TranslationKey.kg)}`} />
+      ),
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
-      type: 'number',
+      renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
+
+      columnKey: columnnsKeys.shared.QUANTITY,
+
       width: 100,
     },
 
     {
       field: 'weighGrossKgWarehouse',
-      headerName: t(TranslationKey['Gross weight']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
+      headerName: `${t(TranslationKey['Gross weight'])}, ${t(TranslationKey.kg)}`,
+      renderHeader: () => (
+        <MultilineTextHeaderCell text={`${t(TranslationKey['Gross weight'])}, ${t(TranslationKey.kg)}`} />
+      ),
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
-      type: 'number',
-      width: 100,
+      renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
+
+      columnKey: columnnsKeys.shared.QUANTITY,
+
+      width: 120,
     },
   ]
 
   for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.BOXES
+    }
+
     column.sortable = false
   }
 

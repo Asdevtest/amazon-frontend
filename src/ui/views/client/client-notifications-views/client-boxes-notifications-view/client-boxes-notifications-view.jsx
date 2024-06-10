@@ -44,14 +44,13 @@ export const ClientBoxesNotificationsView = observer(() => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           pinnedColumns={viewModel.pinnedColumns}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
-          sortingMode="client"
-          paginationMode="client"
           getRowHeight={() => 'auto'}
           getRowId={({ _id }) => _id}
           density={viewModel.densityModel}
@@ -61,7 +60,15 @@ export const ClientBoxesNotificationsView = observer(() => {
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+
+            columnMenu: viewModel.columnMenuSettings,
+
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -80,7 +87,7 @@ export const ClientBoxesNotificationsView = observer(() => {
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onPinnedColumnsChange={viewModel.handlePinColumn}
         />

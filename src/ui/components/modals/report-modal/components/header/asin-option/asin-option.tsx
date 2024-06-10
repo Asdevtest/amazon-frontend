@@ -16,12 +16,12 @@ export const AsinOption: FC<AsinOptionProps> = observer(({ data }) => {
 
   return (
     <Space>
-      <img aria-label={data.value} src={data.image} alt={data.value} className={styles.optionImage} />
+      <img aria-label={data.asin} src={data.image} alt={data.asin} className={styles.optionImage} />
       <div className={styles.optionContainer}>
         <AsinOrSkuLink
           withCopyValue
           withAttributeTitle="asin"
-          link={data.value}
+          link={data.asin}
           textStyles={styles.optionText}
           iconStyles={styles.optionIcon}
         />

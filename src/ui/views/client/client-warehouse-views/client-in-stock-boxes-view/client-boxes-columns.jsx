@@ -65,6 +65,7 @@ export const clientBoxesViewColumns = (
       renderCell: params => (
         <MultilineTextCell
           leftAlign
+          threeLines
           text={t(boxStatusTranslateKey(params.value))}
           customTextStyles={colorByBoxStatus(params.value)}
         />

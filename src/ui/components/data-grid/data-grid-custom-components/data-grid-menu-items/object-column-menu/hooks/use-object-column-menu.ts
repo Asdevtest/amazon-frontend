@@ -10,7 +10,7 @@ interface objectItemColumnMenu {
 }
 
 interface useObjectColumnMenuParams {
-  currentColumn: string
+  field: string
   table: string
   filtersData: any
   onClickFilterBtn: (field: string, table: string) => void
@@ -18,7 +18,7 @@ interface useObjectColumnMenuParams {
 }
 
 export const useObjectColumnMenu = <T extends objectItemColumnMenu>({
-  currentColumn,
+  field,
   table,
   filtersData,
   onClickFilterBtn,
@@ -72,8 +72,8 @@ export const useObjectColumnMenu = <T extends objectItemColumnMenu>({
   )
 
   useEffect(() => {
-    onClickFilterBtn(currentColumn, table)
-  }, [])
+    onClickFilterBtn(field, table)
+  }, [field])
 
   useEffect(() => {
     setChosenItems(currentFilterData)

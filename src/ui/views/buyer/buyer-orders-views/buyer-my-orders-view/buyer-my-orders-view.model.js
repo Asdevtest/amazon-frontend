@@ -821,8 +821,6 @@ export class BuyerMyOrdersViewModel {
       })
 
       toast.success(t(TranslationKey['A task was created for the warehouse: "Receive a box"']))
-
-      await this.getBoxesOfOrder(order._id)
     } catch (error) {
       console.error(error)
     }

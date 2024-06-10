@@ -111,7 +111,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   qntCell: {
-    width: 50,
+    width: 150,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
@@ -224,7 +224,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   commentCell: {
-    width: 250,
+    width: 230,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
 

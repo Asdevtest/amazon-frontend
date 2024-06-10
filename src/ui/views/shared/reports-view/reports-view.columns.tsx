@@ -8,11 +8,12 @@ import {
   ActionButtonsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
+  ProductAsinCell,
   ShortDateCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 import { Launches } from '@components/shared/launches'
-import { EditIcon } from '@components/shared/svg-icons'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -22,9 +23,32 @@ import { IGridColumn } from '@typings/shared/grid-column'
 
 interface ReportsViewColumnsProps {
   onToggleReportModalEditMode: (reportId: string) => void
+  onRemoveReport: (reportId: string) => void
+  subView?: boolean
 }
 
-export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewColumnsProps) => {
+export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
+  const { onToggleReportModalEditMode, onRemoveReport, subView } = props
+
+  const asinColumn = subView
+    ? {
+        field: 'asin',
+        headerName: t(TranslationKey.ASIN),
+        renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
+        renderCell: ({ row }: GridRowModel) => (
+          <ProductAsinCell
+            image={row.product.images[0]}
+            amazonTitle={row.product.amazonTitle}
+            asin={row.product.asin}
+            skuByClient={row.product.skuByClient}
+          />
+        ),
+        width: 280,
+        columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+        table: DataGridFilterTables.PRODUCTS,
+      }
+    : undefined
+
   const columns: IGridColumn[] = [
     {
       field: 'action',
@@ -34,10 +58,16 @@ export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewC
         <ActionButtonsCell
           iconButton
           fullWidth
+          row
           isFirstButton
+          isSecondButton
+          disabledSecondButton={row.listingLaunches.length > 0}
           firstButtonElement={<EditIcon />}
           firstButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonElement={<CrossIcon />}
+          secondButtonStyle={ButtonStyle.DANGER}
           onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
+          onClickSecondButton={() => onRemoveReport(row._id)}
         />
       ),
       disableCustomSort: true,
@@ -45,6 +75,8 @@ export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewC
       filterable: false,
       width: 95,
     },
+
+    asinColumn as IGridColumn,
 
     {
       field: 'createdAt',
@@ -68,7 +100,9 @@ export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewC
       field: 'newProductPrice',
       headerName: t(TranslationKey['New product price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['New product price'])} />,
-      renderCell: ({ row }: GridRowModel) => <MultilineTextCell text={toFixedWithDollarSign(row.newProductPrice)} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <MultilineTextCell text={String(toFixedWithDollarSign(row.newProductPrice))} />
+      ),
       width: 140,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -86,6 +120,17 @@ export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewC
     },
 
     {
+      field: 'result',
+      headerName: t(TranslationKey.Result),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Result)} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <MultilineTextCell leftAlign threeLines maxLength={200} text={row.result} />
+      ),
+      flex: 1,
+      columnKey: columnnsKeys.shared.STRING,
+    },
+
+    {
       field: 'description',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
@@ -96,17 +141,19 @@ export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewC
       columnKey: columnnsKeys.shared.STRING,
     },
 
-    {
+    /* {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <ShortDateCell value={row.updatedAt} />,
       width: 105,
       columnKey: columnnsKeys.shared.DATE,
-    },
+    }, */
   ]
 
-  for (const column of columns) {
+  const filteredColumns = columns.filter(column => column)
+
+  for (const column of filteredColumns) {
     if (!column.table) {
       column.table = DataGridFilterTables.PRODUCT_LISTING_REPORTS
     }
@@ -114,5 +161,5 @@ export const reportsViewColumns = ({ onToggleReportModalEditMode }: ReportsViewC
     column.sortable = false
   }
 
-  return columns
+  return filteredColumns
 }

@@ -47,7 +47,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           precision={0}
           maxLength={3}
           value={row.value}
-          onChange={onChangeNumberCellValue(row._id, 'value')}
+          onChange={onChangeNumberCellValue(row.type, 'value')}
         />
       ),
       width: 90,
@@ -62,7 +62,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           isCell
           minDate={dayjs()}
           defaultValue={[row.dateFrom ? dayjs(row.dateFrom) : null, row.dateTo ? dayjs(row.dateTo) : null]}
-          onChange={onChangeDateCellValue(row._id, 'dateFrom')} // or dateTo - same overall value
+          onChange={onChangeDateCellValue(row.type, 'dateFrom')} // or dateTo - same overall value
         />
       ),
       width: 260,
@@ -80,10 +80,10 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           maxLength={512}
           placeholder="Enter"
           value={row.comment}
-          onChange={onChangeCommentCellValue(row._id, 'comment')}
+          onChange={onChangeCommentCellValue(row.type, 'comment')}
         />
       ),
-      width: 220,
+      width: 215,
     },
 
     {
@@ -93,7 +93,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ResultCell row={row} onChangeCommentCellValue={onChangeCommentCellValue} onRemoveLaunch={onRemoveLaunch} />
       ),
-      width: 240,
+      width: 235,
     },
   ]
 

@@ -3,15 +3,15 @@ import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
-import { DataGridTableModel } from '@models/data-grid-table-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { ProductModel } from '@models/product-model'
 import { UserModel } from '@models/user-model'
 
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -22,7 +22,7 @@ import { IHSCode } from '@typings/shared/hs-code'
 import { clientBoxesNotificationsViewColumns } from './client-boxes-notifications-columns'
 import { observerConfig } from './observer-config'
 
-export class ClientBoxesNotificationsViewModel extends DataGridTableModel {
+export class ClientBoxesNotificationsViewModel extends DataGridFilterTableModel {
   curBox: IBox | null = null
   showBoxViewModal = false
 
@@ -44,15 +44,21 @@ export class ClientBoxesNotificationsViewModel extends DataGridTableModel {
       onTriggerOpenRejectModal: (row: IBox) => this.onTriggerOpenRejectModal(row),
     }
 
-    const defaultGetCurrentDataOptions = () => ({
-      status: BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
+    const additionalPropertiesGetFilters = () => ({
+      statusGroup: {
+        $eq: 'notified',
+      },
     })
 
+    const columnsModel = clientBoxesNotificationsViewColumns(rowHandlers)
+
     super({
-      getMainDataMethod: BoxesModel.getBoxesForCurClient,
-      columnsModel: clientBoxesNotificationsViewColumns(rowHandlers),
+      getMainDataMethod: BoxesModel.getBoxesForCurClientLightPag,
+      columnsModel,
       tableKey: DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS,
-      defaultGetCurrentDataOptions,
+      filtersFields: getFilterFields(columnsModel),
+      mainMethodURL: 'boxes/pag/clients_light?',
+      additionalPropertiesGetFilters,
     })
 
     makeObservable(this, observerConfig)
