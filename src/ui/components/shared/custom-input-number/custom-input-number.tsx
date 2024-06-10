@@ -26,7 +26,7 @@ export const CustomInputNumber: FC<CustomInputNumberProps> = memo(props => {
       {label ? (
         <p className={cx(styles.label, labelClassName)}>
           {t(TranslationKey[label as TranslationKey])}
-          <span>{required && '*'}</span>
+          {required ? <span>{'*'}</span> : null}
         </p>
       ) : null}
       <InputNumber
