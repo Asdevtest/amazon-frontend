@@ -331,8 +331,6 @@ export const EditMultipleBoxesForm = observer(
       setNewBoxes(updatedNewBoxes)
     }
 
-    console.log('newBoxes', newBoxes)
-
     const onClickSubmit = () => {
       onSubmit(newBoxes, selectedBoxes)
     }
