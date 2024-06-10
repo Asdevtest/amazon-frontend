@@ -1,5 +1,4 @@
-import { memo, useEffect } from 'react'
-import { useFaviconNotification } from 'react-favicon-notification'
+import { memo } from 'react'
 
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
@@ -32,12 +31,6 @@ export const AuthFormWrapper = memo(props => {
     onClickVersion,
   } = props
   const { classes: styles } = useStyles()
-
-  const [config, setConfig] = useFaviconNotification()
-
-  useEffect(() => {
-    setConfig({ ...config, show: false })
-  }, []) // при разлогине скидывает счетчик уведомлений в иконке во вкладке браузера
 
   return (
     <>

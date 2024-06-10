@@ -1,0 +1,15 @@
+@import 'reset';
+@import 'fonts/global';
+@import 'variables/global';
+@import 'themes/light';
+@import 'themes/dark';
+
+:root {
+  color-scheme: dark light;
+}
+
+body {
+  min-height: 100vh;
+  font: var(--font-m);
+  font-family: var(--font-family-main);
+}

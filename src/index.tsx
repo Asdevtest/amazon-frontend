@@ -1,13 +1,13 @@
 import * as Sentry from '@sentry/react'
-import ReactDOM from 'react-dom/client'
-import FaviconNotificationContextProvider from 'react-favicon-notification'
+import { createRoot } from 'react-dom/client'
 import 'reflect-metadata'
 
 import '@services/mobx-persist-configure'
 
 import { reportWebVitals } from '@utils/report-web-vitals'
 
-import { App } from './app'
+import { App } from './app/app'
+import './app/styles/index.scss'
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -18,11 +18,8 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 })
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(
-  <FaviconNotificationContextProvider>
-    <App />
-  </FaviconNotificationContextProvider>,
-)
+const container = document.getElementById('root')!
+const root = createRoot(container)
+root.render(<App />)
 
 reportWebVitals()

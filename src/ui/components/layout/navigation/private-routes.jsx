@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
-import { useFaviconNotification } from 'react-favicon-notification'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -16,16 +15,6 @@ import { resetAccessTokenByTime } from '@utils/reset'
 
 export const PrivateRoutes = observer(() => {
   const location = useLocation()
-
-  const [config, setConfig] = useFaviconNotification()
-
-  useEffect(() => {
-    if (ChatModel.unreadMessages > 0) {
-      setConfig({ ...config, show: true, counter: ChatModel.unreadMessages })
-    } else {
-      setConfig({ ...config, show: false, counter: 0 })
-    }
-  }, [ChatModel.unreadMessages])
 
   useEffect(() => {
     if (UserModel.isAuthenticated()) {

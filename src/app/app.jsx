@@ -1,5 +1,5 @@
+import * as Sentry from '@sentry/react'
 import { ConfigProvider, theme } from 'antd'
-import { observer } from 'mobx-react'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
@@ -12,6 +12,10 @@ import { darkTheme, globalStyles, lightTheme } from '@constants/theme/mui-theme'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { FallBack } from '@components/layout/fall-back'
+import { PrivateRoutes } from '@components/layout/navigation/private-routes'
+import { generatePublicRoutes } from '@components/layout/navigation/public-routes'
+import { generateRedirects } from '@components/layout/navigation/redirects'
 import { ToastifyProvider } from '@components/layout/navigation/toastify/toastify-provider'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
@@ -19,11 +23,11 @@ import { HintsContextProvider } from '@contexts/hints-context'
 
 import { UiTheme } from '@typings/enums/ui-theme'
 
-import { PrivateRoutes } from './private-routes'
-import { generatePublicRoutes } from './public-routes'
-import { generateRedirects } from './redirects'
+import { useNotifications } from './providers/notifications'
 
-export const MainNav = observer(() => {
+export const App = () => {
+  useNotifications()
+
   const [lang, setLang] = useState()
   useEffect(() => {
     setLang(SettingsModel.languageTag)
@@ -41,35 +45,30 @@ export const MainNav = observer(() => {
     [SettingsModel.uiTheme],
   )
 
-  // test custom theme for antd
   const customTheme = {
     algorithm: SettingsModel.uiTheme === UiTheme.light ? theme.defaultAlgorithm : theme.darkAlgorithm,
-    token: {
-      colorPrimary: SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4ca1de',
-      colorBgContainer: SettingsModel.uiTheme === UiTheme.light ? '#fff' : '#2B2B34',
-      colorText: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
-      borderRadius: 10,
-    },
   }
 
   return (
-    <ConfigProvider theme={customTheme} locale={lang}>
-      <ThemeProvider theme={{ ...themeMui, lang }}>
-        <HintsContextProvider hints>
-          <ToastifyProvider theme={SettingsModel.uiTheme} />
-          <GlobalStyles styles={globalStyles} />
-          <CssBaseline />
-          <Router>
-            <Suspense fallback={<CircularProgressWithLabel showBackground />}>
-              <Switch>
-                {generateRedirects()}
-                {generatePublicRoutes()}
-                <PrivateRoutes />
-              </Switch>
-            </Suspense>
-          </Router>
-        </HintsContextProvider>
-      </ThemeProvider>
-    </ConfigProvider>
+    <Sentry.ErrorBoundary showDialog fallback={<FallBack />}>
+      <ConfigProvider theme={customTheme} locale={lang}>
+        <ThemeProvider theme={{ ...themeMui, lang }}>
+          <HintsContextProvider hints>
+            <ToastifyProvider theme={SettingsModel.uiTheme} />
+            <GlobalStyles styles={globalStyles} />
+            <CssBaseline />
+            <Router>
+              <Suspense fallback={<CircularProgressWithLabel showBackground />}>
+                <Switch>
+                  {generateRedirects()}
+                  {generatePublicRoutes()}
+                  <PrivateRoutes />
+                </Switch>
+              </Suspense>
+            </Router>
+          </HintsContextProvider>
+        </ThemeProvider>
+      </ConfigProvider>
+    </Sentry.ErrorBoundary>
   )
-})
+}
