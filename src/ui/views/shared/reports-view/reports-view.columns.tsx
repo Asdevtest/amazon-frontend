@@ -120,17 +120,6 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
     },
 
     {
-      field: 'result',
-      headerName: t(TranslationKey.Result),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Result)} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <MultilineTextCell leftAlign threeLines maxLength={200} text={row.result} />
-      ),
-      flex: 1,
-      columnKey: columnnsKeys.shared.STRING,
-    },
-
-    {
       field: 'description',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
