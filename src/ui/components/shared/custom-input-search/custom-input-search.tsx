@@ -13,17 +13,24 @@ import { useStyles } from './custom-input-search.style'
 const { Search } = Input
 
 interface CustomInputSearchProps extends SearchProps, IDefaultPropsExtensionAntdComponent {
+  required?: boolean
   placeholder?: string
 }
 
 export const CustomInputSearch: FC<CustomInputSearchProps> = memo(props => {
-  const { isRow, isCell, label, placeholder, className, labelClassName, wrapperClassName, ...restProps } = props
+  const { isRow, isCell, label, required, placeholder, className, labelClassName, wrapperClassName, ...restProps } =
+    props
 
   const { classes: styles, cx } = useStyles()
 
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
-      {label ? <p className={cx(styles.label, labelClassName)}>{t(TranslationKey[label as TranslationKey])}</p> : null}
+      {label ? (
+        <p className={cx(styles.label, labelClassName)}>
+          {t(TranslationKey[label as TranslationKey])}
+          <span>{required && '*'}</span>
+        </p>
+      ) : null}
       <Search
         {...restProps}
         className={cx(styles.input, className)}

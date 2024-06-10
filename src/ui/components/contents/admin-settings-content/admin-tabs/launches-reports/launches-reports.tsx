@@ -1,8 +1,10 @@
-import { Button, InputNumber, Select } from 'antd'
+import { InputNumber, Select } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -46,9 +48,9 @@ export const LaunchesReports: FC<LaunchesReportsProps> = observer(({ timeBeforeL
         />
       </div>
 
-      <Button type="primary" loading={viewModel.isLoading} onClick={viewModel.handleSaveDeadline}>
+      <CustomButton type="primary" loading={viewModel.isLoading} onClick={viewModel.handleSaveDeadline}>
         {t(TranslationKey.Save)}
-      </Button>
+      </CustomButton>
     </div>
   )
 })

@@ -90,7 +90,7 @@ export const navbarConfig = {
       route: '/client/inventory',
       subtitles: [
         {
-          subtitle: () => t(TranslationKey.Inventory),
+          subtitle: () => t(TranslationKey.Products),
           subRoute: '/client/inventory',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY,
           checkHideSubBlock: user =>

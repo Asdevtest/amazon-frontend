@@ -13,17 +13,24 @@ import { useStyles } from './custom-select.style'
 
 interface CustomSelectProps extends Omit<SelectProps, 'options'>, IDefaultPropsExtensionAntdComponent {
   placeholder?: string
+  required?: boolean
   options: BaseOptionType[]
 }
 
 export const CustomSelect: FC<CustomSelectProps> = memo(props => {
-  const { isRow, isCell, label, placeholder, className, labelClassName, wrapperClassName, ...restProps } = props
+  const { isRow, isCell, label, required, placeholder, className, labelClassName, wrapperClassName, ...restProps } =
+    props
 
   const { classes: styles, cx } = useStyles()
 
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
-      {label ? <p className={cx(styles.label, labelClassName)}>{t(TranslationKey[label as TranslationKey])}</p> : null}
+      {label ? (
+        <p className={cx(styles.label, labelClassName)}>
+          {t(TranslationKey[label as TranslationKey])}
+          <span>{required && '*'}</span>
+        </p>
+      ) : null}
       <Select
         {...restProps}
         className={cx(styles.input, className)}

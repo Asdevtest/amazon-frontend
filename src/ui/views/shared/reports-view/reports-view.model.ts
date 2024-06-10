@@ -1,15 +1,20 @@
 import dayjs, { Dayjs } from 'dayjs'
 import { makeObservable } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { reportsViewColumns } from './reports-view.columns'
-import { additionalFields, reportsViewConfig } from './reports-view.config'
+import { additionalFilterFields, additionalSearchFields, reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
   reportId?: string = undefined
@@ -23,11 +28,13 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   }
 
   constructor({ productId, subView = false }: { productId: string; subView?: boolean }) {
-    const rowHandlers = {
+    const columnsProps = {
       onToggleReportModalEditMode: (reportId: string) => this.onToggleReportModalEditMode(reportId),
+      onRemoveReport: (reportId: string) => this.onRemoveReport(reportId),
+      subView,
     }
-    const columnsModel = reportsViewColumns(rowHandlers)
-    const filtersFields = getFilterFields(columnsModel, ['sub'])
+    const columnsModel = reportsViewColumns(columnsProps)
+    const filtersFields = getFilterFields(columnsModel, additionalFilterFields)
     const mainMethodURL = subView
       ? 'clients/products/listing_reports?'
       : `clients/products/listing_reports_by_product_id/${productId}?`
@@ -43,12 +50,12 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       columnsModel,
       filtersFields,
       mainMethodURL,
-      fieldsForSearch: additionalFields,
+      fieldsForSearch: additionalSearchFields,
       tableKey: DataGridTablesKeys.PRODUCT_LISTING_REPORTS,
       defaultGetCurrentDataOptions,
     })
 
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.sortModel = [{ field: 'createdAt', sort: 'desc' }]
     this.onGetCurrentData()
 
     makeObservable(this, reportsViewConfig)
@@ -72,6 +79,24 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   onToggleReportModalEditMode(reportId?: string) {
     this.reportId = reportId
     this.showReportModal = !this.showReportModal
+  }
+
+  async onRemoveReport(reportId: string) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      await ClientModel.removeListingReport(reportId)
+
+      toast.success(t(TranslationKey['Data removed successfully']))
+
+      this.onGetCurrentData()
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      toast.error(t(TranslationKey['Data not removed']))
+    }
   }
 
   onGetCurrentData() {
