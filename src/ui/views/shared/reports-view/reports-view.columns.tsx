@@ -66,6 +66,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           firstButtonStyle={ButtonStyle.PRIMARY}
           secondButtonElement={<CrossIcon />}
           secondButtonStyle={ButtonStyle.DANGER}
+          secondDescriptionText="Are you sure you want to delete the report?"
           onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
           onClickSecondButton={() => onClickRemoveReport(row._id)}
         />

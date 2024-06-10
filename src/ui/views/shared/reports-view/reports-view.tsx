@@ -5,7 +5,6 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ReportModal } from '@components/modals/report-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -124,20 +123,6 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
           onUpdateTableData={viewModel.onGetCurrentData}
         />
       </Modal>
-
-      {viewModel.showConfirmModal ? (
-        <ConfirmationModal
-          // @ts-ignore
-          openModal={viewModel.showConfirmModal}
-          setOpenModal={viewModel.onToggleConfirmModal}
-          title={t(TranslationKey.Attention)}
-          message={t(TranslationKey['Are you sure you want to delete the report?'])}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.onRemoveReport}
-          onClickCancelBtn={viewModel.onToggleConfirmModal}
-        />
-      ) : null}
     </>
   )
 })

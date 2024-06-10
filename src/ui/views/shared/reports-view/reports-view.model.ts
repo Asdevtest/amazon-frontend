@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs'
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -18,9 +18,7 @@ import { additionalFilterFields, additionalSearchFields, reportsViewConfig } fro
 
 export class ReportsViewModel extends DataGridFilterTableModel {
   reportId?: string
-  selectedReportId?: string
   showReportModal = false
-  showConfirmModal = false
 
   get product() {
     return this.meta?.product
@@ -32,7 +30,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   constructor({ productId, subView = false }: { productId: string; subView?: boolean }) {
     const columnsProps = {
       onToggleReportModalEditMode: (reportId: string) => this.onToggleReportModalEditMode(reportId),
-      onClickRemoveReport: (reportId: string) => this.onClickRemoveReport(reportId),
+      onClickRemoveReport: (reportId: string) => this.onRemoveReport(reportId),
       subView,
     }
     const columnsModel = reportsViewColumns(columnsProps)
@@ -83,20 +81,11 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     this.showReportModal = !this.showReportModal
   }
 
-  onToggleConfirmModal() {
-    this.showConfirmModal = !this.showConfirmModal
-  }
-
-  onClickRemoveReport(id: string) {
-    this.selectedReportId = id
-    this.onToggleConfirmModal()
-  }
-
-  async onRemoveReport() {
+  async onRemoveReport(reportId: string) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      await ClientModel.removeListingReport(this.selectedReportId)
+      await ClientModel.removeListingReport(reportId)
 
       toast.success(t(TranslationKey['Data removed successfully']))
 
@@ -107,12 +96,6 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
       toast.error(t(TranslationKey['Data not removed']))
-    } finally {
-      this.onToggleConfirmModal()
-
-      runInAction(() => {
-        this.selectedReportId = undefined
-      })
     }
   }
 
