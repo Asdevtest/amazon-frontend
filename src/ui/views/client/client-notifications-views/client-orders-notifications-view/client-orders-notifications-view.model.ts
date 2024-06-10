@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridTableModel } from '@models/data-grid-table-model'
+import { UserModel } from '@models/user-model'
 
 import { clientOrdersNotificationsViewColumns } from '@components/table/table-columns/client/client-orders-notifications-columns'
 
@@ -86,6 +87,7 @@ export class ClientOrdersNotificationsViewModel extends DataGridTableModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.orderConfirmPriceChange(order._id)
+      await UserModel.getUsersInfoCounters()
       this.onTriggerOpenModal('showConfirmModal')
       this.getCurrentData()
 
@@ -101,6 +103,7 @@ export class ClientOrdersNotificationsViewModel extends DataGridTableModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.cancelOrder(order._id)
+      await UserModel.getUsersInfoCounters()
       this.onTriggerOpenModal('showConfirmModal')
       this.getCurrentData()
 
