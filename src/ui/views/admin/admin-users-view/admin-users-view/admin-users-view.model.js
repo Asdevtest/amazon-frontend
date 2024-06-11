@@ -72,9 +72,9 @@ export class AdminUsersViewModel extends DataGridFilterTableModel {
   async loadData() {
     try {
       this.getDataGridState()
-      await this.getCurrentData()
-      await this.getGroupPermissions()
-      await this.getSinglePermissions()
+      this.getCurrentData()
+      this.getGroupPermissions()
+      this.getSinglePermissions()
     } catch (error) {
       console.error(error)
     }
