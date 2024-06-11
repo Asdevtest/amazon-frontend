@@ -47,7 +47,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
         table: DataGridFilterTables.PRODUCTS,
       }
-    : undefined
+    : null
 
   const columns: IGridColumn[] = [
     {
