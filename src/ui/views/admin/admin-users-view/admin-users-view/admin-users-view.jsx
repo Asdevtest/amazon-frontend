@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { AdminContentModal } from '@components/user/users-views/sub-users-view/admin-content-modal'
@@ -17,48 +18,67 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { styles } from './admin-users-view.style'
 
 import { AdminUsersViewModel } from './admin-users-view.model'
+import { switcherConfig } from './custom-switcher.config'
 
-export const AdminUsersViewRaw = ({ classes: styles, history }) => {
-  const [viewModel] = useState(() => new AdminUsersViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+export const AdminUsersViewRaw = ({ classes: styles }) => {
+  const [viewModel] = useState(() => new AdminUsersViewModel())
 
   return (
     <>
-      <div className={styles.searchWrapper}>
+      <div className={styles.headerWrapper}>
+        <div className={styles.usersOnlineWrapper}>
+          {t(TranslationKey['Users online'])}: {viewModel.meta?.onlineUsers}
+        </div>
+        <CustomSwitcher
+          className={styles.switcherWrapper}
+          switchMode="medium"
+          condition={viewModel.switcherCondition}
+          switcherSettings={switcherConfig}
+          changeConditionHandler={viewModel.onClickChangeRole}
+        />
+
         <SearchInput
           inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
-          placeholder={t(TranslationKey.search)}
-          onChange={viewModel.onChangeNameSearchValue}
+          value={viewModel.currentSearchValue}
+          placeholder={t(TranslationKey['Search by ASIN, SKU, Title'])}
+          onSubmit={viewModel.onSearchSubmit}
         />
       </div>
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          sortingMode="client"
-          paginationMode="client"
+          pinnedColumns={viewModel.pinnedColumns}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rowHeight={80}
           rowCount={viewModel.rowCount}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+            columnMenu: viewModel.columnMenuSettings,
+
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
           }}

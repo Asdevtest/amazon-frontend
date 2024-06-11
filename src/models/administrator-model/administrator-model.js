@@ -11,9 +11,9 @@ class AdministratorModelStatic {
     return response.data
   }
 
-  getUsers = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsUsersGet()
-    return response
+  getUsers = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsUsersPagGet(data)
+    return response.data
   }
 
   updateUser = async (guid, body) => {

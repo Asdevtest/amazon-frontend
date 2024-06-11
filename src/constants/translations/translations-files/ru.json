@@ -2290,5 +2290,9 @@
   "Quantity in box": "Количество в коробке",
   "Fine": "Списание",
   "Replenish": "Пополнение",
-  "Zero": "Ноль"
+  "Zero": "Ноль",
+  "Are you sure you want to delete the report?": "Вы уверены, что хотите удалить данный отчет?",
+  "Online": "Онлайн",
+  "Users online": "В онлайне",
+  "Search by ASIN, SKU, Title": "Поиск по ASIN, SKU, Title"
 }

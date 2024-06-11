@@ -9,7 +9,6 @@ import {
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
-  SuperboxQtyCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -105,20 +104,15 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
     },
 
     {
-      field: 'amount',
+      field: 'totalAmount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-      renderCell: params =>
-        params.row.amount > 1 ? (
-          <SuperboxQtyCell qty={params.row.amount} superbox={params.row.amount} />
-        ) : (
-          <MultilineTextCell text={params.value} />
-        ),
+      renderCell: params => <MultilineTextCell text={params.value} />,
 
       width: 100,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {

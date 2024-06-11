@@ -2293,4 +2293,8 @@ export enum TranslationKey {
   'Fine' = 'Fine',
   'Replenish' = 'Replenish',
   'Zero' = 'Zero',
+  'Are you sure you want to delete the report?' = 'Are you sure you want to delete the report?',
+  'Online' = 'Online',
+  'Users online' = 'Users online',
+  'Search by ASIN, SKU, Title' = 'Search by ASIN, SKU, Title',
 }
