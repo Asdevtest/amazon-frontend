@@ -9,4 +9,5 @@ export interface DataGridFilterTableModelParams extends DataGridTableModelParams
   operatorsSettings?: {
     [key: string]: string
   }
+  defaultFilterParams?: any
 }

@@ -71,7 +71,10 @@ export const clientBoxesViewColumns = (
         />
       ),
       valueFormatter: params => t(boxStatusTranslateKey(params.value)),
-      columnKey: columnnsKeys.box.SHOP,
+
+      transformValueMethod: boxStatusTranslateKey,
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {

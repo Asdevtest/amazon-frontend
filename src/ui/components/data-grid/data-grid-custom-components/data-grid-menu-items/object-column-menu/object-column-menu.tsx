@@ -4,29 +4,20 @@ import { FC, memo } from 'react'
 import { Checkbox } from '@components/shared/checkbox'
 import { SearchInput } from '@components/shared/search-input'
 
-import { loadingStatus } from '@typings/enums/loading-status'
+import { useStyles as useSharedStyles } from '../column-menu.style'
 
-import { useStyles } from './object-column-menu.style'
-
+import { ColumnMenuProps } from '../column-menu.type'
 import { ControlButtonsColumnMenu } from '../control-buttons-column-menu'
 import { DataWrapperColumnMenu } from '../data-wrapper-column-menu'
 
 import { useObjectColumnMenu } from './hooks/use-object-column-menu'
 
-interface IObjectColumnMenuProps {
-  field: string
-  table: string
-  filtersData: any
-  filterRequestStatus: loadingStatus
-  onClose: () => void
-  onClickFilterBtn: (field: string, table: string) => void
-  onChangeFullFieldMenuItem: (chosenItems: any[], field: string) => void
-  onClickAccept: () => void
+interface IObjectColumnMenuProps extends ColumnMenuProps<any> {
   hideEmptyObject?: boolean
 }
 
 export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
-  const { classes: styles } = useStyles()
+  const { classes: sharedStyles } = useSharedStyles()
 
   const {
     field,
@@ -58,10 +49,10 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
   })
 
   return (
-    <div className={styles.columnMenuWrapper}>
+    <div className={sharedStyles.columnMenuWrapper}>
       <SearchInput
         value={nameSearchValue}
-        inputClasses={styles.searchInput}
+        inputClasses={sharedStyles.searchInput}
         onChange={e => setNameSearchValue(e.target.value)}
       />
 
@@ -77,7 +68,7 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
 
           return (
             <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
-              <p title={value as string} className={styles.filterTitle}>
+              <p title={value as string} className={sharedStyles.filterTitle}>
                 {value as string}
               </p>
             </Checkbox>
