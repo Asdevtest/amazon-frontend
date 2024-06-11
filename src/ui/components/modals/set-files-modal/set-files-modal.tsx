@@ -31,7 +31,7 @@ export const SetFilesModal: FC<SetTransparencyProps> = memo(props => {
   const [files, setFiles] = useState<UploadFileType[]>([])
 
   useEffect(() => {
-    if (tmpFiles.length > 0) {
+    if (tmpFiles?.length > 0) {
       setFiles(tmpFiles)
     }
   }, [tmpFiles])

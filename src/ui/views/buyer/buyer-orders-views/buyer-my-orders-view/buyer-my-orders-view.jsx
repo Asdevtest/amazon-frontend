@@ -120,6 +120,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS()}
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
+          setUpdateSupplierData={viewModel.setUpdateSupplierData}
           onClickUpdataSupplierData={viewModel.onClickUpdataSupplierData}
           onClickSaveWithoutUpdateSupData={viewModel.onClickSaveWithoutUpdateSupData}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}

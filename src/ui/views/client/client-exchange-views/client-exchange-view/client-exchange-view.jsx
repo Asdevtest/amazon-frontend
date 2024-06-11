@@ -7,7 +7,6 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal/select-shops-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -19,13 +18,12 @@ import { useStyles } from './client-exchange-view.style'
 
 import { ClientExchangeViewModel } from './client-exchange-view.model'
 
-export const ClientExchangeView = observer(props => {
-  const [viewModel] = useState(() => new ClientExchangeViewModel({ history: props.history }))
+export const ClientExchangeView = observer(() => {
+  const [viewModel] = useState(() => new ClientExchangeViewModel())
   const { classes: styles } = useStyles()
 
   useEffect(() => {
     viewModel.loadData()
-    viewModel.getDataGridState()
   }, [])
 
   return (
@@ -36,8 +34,7 @@ export const ClientExchangeView = observer(props => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
-          rowHeight={100}
+          rows={viewModel.currentData}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -103,17 +100,6 @@ export const ClientExchangeView = observer(props => {
           cancelBtnText={t(TranslationKey.Cancel)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.showWarningModalText}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
         />
       ) : null}
 

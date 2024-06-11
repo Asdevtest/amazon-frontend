@@ -1,9 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: 600,
     padding: 10,
+    paddingBottom: 0,
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
@@ -68,5 +69,9 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
+    position: 'sticky',
+    bottom: 0,
+    paddingBlock: 5,
+    backgroundColor: theme.palette.background.general,
   },
 }))

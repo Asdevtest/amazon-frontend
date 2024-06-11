@@ -181,6 +181,13 @@ const ClientFreelanceView = lazy(() =>
 const ClientInventoryView = lazy(() =>
   import('@views/client/client-inventory-view').then(module => ({ default: module.ClientInventoryView })),
 )
+const ReportsView = lazy(() =>
+  import('@views/shared/reports-view').then(module => {
+    const Component = module.ReportsView
+
+    return { default: props => <Component subView {...props} /> }
+  }),
+)
 const ClientBoxesNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-boxes-notifications-view').then(module => ({
     default: module.ClientBoxesNotificationsView,
@@ -1274,12 +1281,12 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
-    crumbNameKey: TranslationKey['Create a request'],
+    crumbNameKey: TranslationKey['Create request'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
-      title: () => t(TranslationKey['Create a request']),
+      title: () => t(TranslationKey['Create request']),
     },
   },
 
@@ -1296,7 +1303,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
-      title: () => t(TranslationKey['Create a request']),
+      title: () => t(TranslationKey['Create request']),
     },
   },
 
@@ -1385,37 +1392,33 @@ export const privateRoutesConfigs = [
     },
   },
 
-  // ////////////////////////////////////////////////////////////////////////////////////////////////
-
-  // {
-  //   routePath: '/client/inventory/archive',
-  //   component: ClientInventoryView,
-  //   exact: true,
-  //   permission: [UserRole.CLIENT],
-  //   permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
-
-  //   crumbNameKey: TranslationKey.Archive,
-
-  //   navigationInfo: {
-  //     activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
-  //     activeSubCategory: '',
-  //     title: () => t(TranslationKey.Inventory),
-  //   },
-  // },
-
   {
     routePath: '/client/inventory',
     component: ClientInventoryView,
     exact: true,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
-
     crumbNameKey: TranslationKey.Inventory,
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
-      activeSubCategory: '',
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY,
       title: () => t(TranslationKey.Inventory),
+    },
+  },
+
+  {
+    routePath: '/client/inventory/reports',
+    component: ReportsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_INVENTORY_LISTING_REPORTS,
+    crumbNameKey: TranslationKey.Reports,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY_REPORTS,
+      title: () => t(TranslationKey.Reports),
     },
   },
 

@@ -14,7 +14,7 @@ export const useStyles = makeStyles()(theme => ({
   changeInputComment: {
     width: '100%',
     height: '100% !important',
-    whiteSpace: 'pre-wrap',
+    whiteSpace: 'pre-line',
     overflow: 'auto',
     fontSize: 14,
     lineHeight: '19px',

@@ -243,7 +243,7 @@ export const useStyles = makeStyles()(theme => ({
     height: '40px',
     color: theme.palette.text.general,
 
-    zIndex: 50,
+    zIndex: 7,
 
     [theme.breakpoints.down(768)]: {
       width: '121px',

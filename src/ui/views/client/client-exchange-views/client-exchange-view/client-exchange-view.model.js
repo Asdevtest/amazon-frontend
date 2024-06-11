@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,7 +24,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ClientExchangeViewModel {
-  history = undefined
   requestStatus = undefined
 
   productsVacant = []
@@ -38,10 +38,7 @@ export class ClientExchangeViewModel {
   showPrivateLabelModal = false
   showConfirmModal = false
   showSuccessModal = false
-  showWarningModal = false
   showSelectShopsModal = false
-
-  showWarningModalText = ''
 
   selectedProduct = {}
   selectedShopId = ''
@@ -77,17 +74,12 @@ export class ClientExchangeViewModel {
     return UserModel.platformSettings
   }
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
@@ -120,42 +112,33 @@ export class ClientExchangeViewModel {
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
   }
 
-  getCurrentData() {
-    return toJS(this.productsVacant)
+  get currentData() {
+    return this.productsVacant
   }
 
   async loadData() {
@@ -163,7 +146,8 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
-      await Promise.all([this.getProductsVacant(), this.getShops()])
+      this.getProductsVacant()
+      this.getShops()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -190,9 +174,6 @@ export class ClientExchangeViewModel {
       })
     } catch (error) {
       console.error(error)
-      runInAction(() => {
-        this.productsVacant = []
-      })
     }
   }
 
@@ -209,18 +190,16 @@ export class ClientExchangeViewModel {
     }
   }
 
-  async onClickLaunchPrivateLabelBtn(product) {
-    runInAction(() => {
-      this.selectedProduct = product
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['Purchasing a product card']),
-        confirmMessage: `${t(TranslationKey['You will be charged'])} ${
-          this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
-        }`,
-        onClickConfirm: () => this.onClickBuyProductBtn(),
-      }
-    })
+  onClickLaunchPrivateLabelBtn(product) {
+    this.selectedProduct = product
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['Purchasing a product card']),
+      confirmMessage: `${t(TranslationKey['You will be charged'])} ${
+        this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
+      }`,
+      onClickConfirm: () => this.onClickBuyProductBtn(),
+    }
 
     this.onTriggerOpenModal('showSelectShopsModal')
   }
@@ -303,11 +282,6 @@ export class ClientExchangeViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -346,10 +320,7 @@ export class ClientExchangeViewModel {
       this.updateUserInfo()
       this.loadData()
     } catch (error) {
-      runInAction(() => {
-        this.showWarningModalText = t(TranslationKey["You can't buy the product"])
-      })
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey["You can't buy the product"]))
 
       console.error(error)
     }
@@ -375,58 +346,29 @@ export class ClientExchangeViewModel {
     }
   }
 
-  setDataToPay(data) {
-    runInAction(() => {
-      this.dataToPay = data
-    })
-  }
-
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
-  }
-
-  onChangeManager(e) {
-    runInAction(() => {
-      this.modalManagerIndex = Number(e.target.value)
-    })
-  }
-
-  onChangeModalQty(e) {
-    runInAction(() => {
-      this.modalQty = Number(e.target.value)
-    })
-  }
-
-  onClickUsername() {
-    this.history.push('/user/subusers')
+    this[modal] = !this[modal]
   }
 
   onClickCancelBtn = () => {
     this.onTriggerOpenModal('showOrderModal')
 
-    runInAction(() => {
-      this.selectedProduct = {}
-    })
+    this.selectedProduct = undefined
 
-    this.showWarningModalText = t(TranslationKey['This item has been moved to Inventory'])
-    this.onTriggerOpenModal('showWarningModal')
+    toast.warning(t(TranslationKey['This item has been moved to Inventory']))
   }
 
   onClickOrderNowBtn = ({ ordersDataState, totalOrdersCost }) => {
-    runInAction(() => {
-      this.ordersDataStateToSubmit = ordersDataState[0]
+    this.ordersDataStateToSubmit = ordersDataState[0]
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-          ? t(TranslationKey['Pending order will be created'])
-          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => this.onLaunchPrivateLabel(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => this.onLaunchPrivateLabel(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }

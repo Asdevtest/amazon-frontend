@@ -39,7 +39,7 @@ export const BatchInfoModal = observer(
   ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, onClickHsCode, patchActualShippingCostBatch }) => {
     const { classes: styles, cx } = useStyles()
 
-    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel())
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
 
     const [isFileDownloading, setIsFileDownloading] = useState(false)
 
@@ -79,7 +79,9 @@ export const BatchInfoModal = observer(
                   item.product.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
                   String(item.order.id)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
                   String(item.order.item)?.toLowerCase().includes(nameSearchValue.toLowerCase()),
-              ) || String(el.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+              ) ||
+              String(el.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              String(el.fbaShipment)?.toLowerCase().includes(nameSearchValue.toLowerCase()),
           ),
         )
       } else {
@@ -305,10 +307,9 @@ export const BatchInfoModal = observer(
             <SearchInput
               inputClasses={styles.searchInput}
               value={nameSearchValue}
-              placeholder={getShortenStringIfLongerThanCount(
-                t(TranslationKey['Search by ASIN, Title, Order, item, ID Box']),
-                29,
-              )}
+              placeholder={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(TranslationKey.Order)}, ${t(
+                TranslationKey['Box ID'],
+              )}, FBA Shipment`}
               onChange={e => setNameSearchValue(e.target.value)}
             />
           </div>
@@ -319,7 +320,7 @@ export const BatchInfoModal = observer(
               sortingMode="client"
               paginationMode="client"
               columnVisibilityModel={viewModel.columnVisibilityModel}
-              pageSizeOptions={[50, 100]}
+              pageSizeOptions={[50, 100, 500]}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),

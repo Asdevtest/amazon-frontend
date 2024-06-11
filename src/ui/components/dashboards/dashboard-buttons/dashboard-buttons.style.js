@@ -81,7 +81,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     gap: '54px',
     height: '145px',
-    marginRight: '245px',
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
       alignItems: 'start',

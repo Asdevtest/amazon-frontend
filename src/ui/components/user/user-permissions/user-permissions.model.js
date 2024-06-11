@@ -12,7 +12,6 @@ import { SettingsModel } from '@models/settings-model'
 
 import { userPermissionsColumns } from '@components/table/table-columns/admin/user-permissions-columns'
 
-import { adminUserPermissionsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
@@ -141,9 +140,7 @@ export class UserPermissionsModel {
       const response = await PermissionsModel.getGroupPermissions()
 
       runInAction(() => {
-        this.groupPermissions = adminUserPermissionsDataConverter(response).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
+        this.groupPermissions = response.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
 
       this.setRequestStatus(loadingStatus.SUCCESS)
@@ -161,9 +158,7 @@ export class UserPermissionsModel {
       const response = await PermissionsModel.getSinglePermissions()
 
       runInAction(() => {
-        this.singlePermissions = adminUserPermissionsDataConverter(response).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
+        this.singlePermissions = response.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
 
       this.setRequestStatus(loadingStatus.SUCCESS)
@@ -183,14 +178,12 @@ export class UserPermissionsModel {
     }
   }
 
-  onCreateGroupPermission(newSinglePermissions) {
+  async onCreateGroupPermission(newSinglePermissions) {
     try {
       this.newPermissionIds = []
 
       for (let i = 0; i < newSinglePermissions.length; i++) {
-        const perm = newSinglePermissions[i]
-
-        this.createPermission(perm)
+        await this.createPermission(newSinglePermissions[i])
       }
     } catch (error) {
       console.error(error)
@@ -227,7 +220,7 @@ export class UserPermissionsModel {
     try {
       await PermissionsModel.removeSinglePermission(this.permissionIdToRemove)
       this.onTriggerOpenModal('showConfirmModal')
-      this.getSinglePermissions()
+      this.loadData()
     } catch (error) {
       console.error(error)
     }
@@ -237,7 +230,7 @@ export class UserPermissionsModel {
     try {
       await PermissionsModel.removeGroupPermission(this.permissionIdToRemove)
       this.onTriggerOpenModal('showConfirmModal')
-      this.getGroupPermissions()
+      this.loadData()
     } catch (error) {
       console.error(error)
     }
@@ -412,6 +405,8 @@ export class UserPermissionsModel {
         await OtherModel.patchPermissionJson(file)
 
         toast.success(t(TranslationKey['Permissions imported successfully']))
+
+        this.loadData()
       })
 
       input.click()

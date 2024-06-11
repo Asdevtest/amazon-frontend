@@ -28,7 +28,6 @@ import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-stock-value-modal.js'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -97,16 +96,13 @@ export const ClientInventoryView = observer(({ history }) => {
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.tableData}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-            columnMenu: {
-              ...viewModel.columnMenuSettings,
-              pinnedColumns: !!viewModel.pinnedColumns,
-            },
+            columnMenu: viewModel.columnMenuSettings,
 
             toolbar: {
               presetsSettings: {
@@ -209,7 +205,7 @@ export const ClientInventoryView = observer(({ history }) => {
           product={viewModel.selectedProductToLaunch}
           productId={viewModel.selectedProductToLaunch?._id}
           openModal={viewModel.showIdeaModal}
-          updateData={viewModel.getMainTableData}
+          updateData={viewModel.getCurrentData}
           setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
         />
       ) : null}
@@ -219,7 +215,7 @@ export const ClientInventoryView = observer(({ history }) => {
           history={history}
           openModal={viewModel.productCardModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('productCardModal')}
-          updateDataHandler={viewModel.getMainTableData}
+          updateDataHandler={viewModel.getCurrentData}
           onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
       )}
@@ -306,7 +302,7 @@ export const ClientInventoryView = observer(({ history }) => {
       >
         <SelectionSupplierModal
           product={
-            viewModel.selectedProductToLaunch || viewModel.tableData.find(el => el._id === viewModel.selectedRowId)
+            viewModel.selectedProductToLaunch || viewModel.currentData.find(el => el._id === viewModel.selectedRowId)
           }
           title={viewModel.selectedProductToLaunch && t(TranslationKey['Send product card for supplier search'])}
           onClickFinalAddSupplierButton={viewModel.onClickAddSupplierButton}
@@ -339,7 +335,7 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
         <BindInventoryGoodsToStockForm
-          product={viewModel.tableData.find(item => viewModel.selectedRows.includes(item._id))}
+          product={viewModel.currentData.find(item => viewModel.selectedRows.includes(item._id))}
           stockData={viewModel.sellerBoardDailyData}
           updateStockData={viewModel.getStockGoodsByFilters}
           onSubmit={viewModel.onSubmitBindStockGoods}
@@ -377,17 +373,6 @@ export const ClientInventoryView = observer(({ history }) => {
           title={viewModel.successModalText}
           successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
-
-      {viewModel.showInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-          title={viewModel.showInfoModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showInfoModal')}
         />
       ) : null}
 
@@ -440,7 +425,7 @@ export const ClientInventoryView = observer(({ history }) => {
           openModal={viewModel.showEditProductTagsModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
           productId={viewModel.selectedRowId}
-          handleUpdateRow={apiRef.current.updateRows}
+          handleUpdateRow={tags => apiRef.current.updateRows([{ _id: viewModel.selectedRowId, tags }])}
         />
       ) : null}
     </>

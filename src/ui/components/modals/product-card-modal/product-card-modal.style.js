@@ -4,18 +4,17 @@ export const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: 1640,
+    width: 1560,
     height: 730,
     overflowY: 'auto',
-    padding: 10,
   },
 
   clippedRoot: {
-    height: '660px',
+    height: 670,
   },
 
   footerWrapper: {
-    marginTop: 10,
+    padding: '10px 20px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

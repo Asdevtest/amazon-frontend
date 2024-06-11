@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
@@ -45,7 +46,6 @@ const filtersFields = [
 ]
 
 export class WarehouseAwaitingBatchesViewModel {
-  history = undefined
   requestStatus = undefined
 
   nameSearchValue = ''
@@ -62,20 +62,11 @@ export class WarehouseAwaitingBatchesViewModel {
 
   showAddOrEditBatchModal = false
 
-  showWarningInfoModal = false
-
   showCircularProgress = false
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   uploadedFiles = []
   progressValue = 0
   showProgress = false
-
-  languageTag = undefined
 
   hsCodeData = {}
 
@@ -136,9 +127,7 @@ export class WarehouseAwaitingBatchesViewModel {
     return this.batches
   }
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -228,13 +217,8 @@ export class WarehouseAwaitingBatchesViewModel {
       runInAction(() => {
         this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
 
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
+        toast.success(t(TranslationKey['Data saved successfully']))
       })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
       console.error(error)
     }

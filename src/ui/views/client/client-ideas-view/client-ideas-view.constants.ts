@@ -45,4 +45,16 @@ export const filtersFields = [
   'reasonReject',
   'createdBy',
   'sub',
+  'minProductionTerm',
+  'maxProductionTerm',
+]
+
+export const fieldsForSearch = [
+  'parentProductSkuByClient',
+  'parentProductAmazonTitle',
+  'parentProductAsin',
+  'childProductAmazonTitle',
+  'childProductSkuByClient',
+  'childProductAsin',
+  'title',
 ]

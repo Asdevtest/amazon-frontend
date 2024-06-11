@@ -6,15 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '16px',
-  },
-
-  cancelBtn: {
-    marginLeft: '50px',
-  },
-
-  button: {
-    minWidth: 185,
-    padding: '0 30px',
+    padding: 10,
   },
 
   descriptionField: {
@@ -26,7 +18,7 @@ export const useStyles = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginRight: '10px',
+    gap: '10px',
   },
 
   title: {

@@ -1,16 +1,17 @@
 import { transformAndValidate } from 'class-transformer-validator'
 import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 import { UserRegistrationContract } from '@models/user-model/user-model.contracts'
 
 import { getObjectKeys } from '@utils/object'
-import { setI18nConfig } from '@utils/translations'
+import { setI18nConfig, t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-
-const delayRedirectToAuthTime = 1000
 
 export class RegistrationViewModel {
   requestStatus = undefined
@@ -21,11 +22,11 @@ export class RegistrationViewModel {
   password = ''
   confirmPassword = ''
   acceptTerms = false
-  checkValidationNameOrEmail = {}
+  checkValidationNameOrEmail = {
+    emailIsUnique: true,
+    nameIsUnique: true,
+  }
   language = ''
-
-  showErrorRegistrationModal = false
-  showSuccessRegistrationModal = false
 
   formValidationErrors = {
     email: null,
@@ -68,19 +69,19 @@ export class RegistrationViewModel {
         this.checkValidationNameOrEmail = result
       })
 
-      const requestData = { name: this.name, email: this.email.toLowerCase(), password: this.password }
+      if (this.checkValidationNameOrEmail.emailIsUnique && this.checkValidationNameOrEmail.nameIsUnique) {
+        const requestData = { name: this.name, email: this.email.toLowerCase(), password: this.password }
 
-      await transformAndValidate(UserRegistrationContract, requestData)
+        await transformAndValidate(UserRegistrationContract, requestData)
 
-      await UserModel.signUp(requestData)
+        await UserModel.signUp(requestData)
 
-      this.onTriggerOpenModal('showSuccessRegistrationModal')
+        toast.success(t(TranslationKey['Successful registration']))
+
+        this.history.push('/auth')
+      }
 
       this.setRequestStatus(loadingStatus.SUCCESS)
-
-      setTimeout(() => {
-        this.history.push('/auth')
-      }, delayRedirectToAuthTime)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
     }
@@ -110,7 +111,7 @@ export class RegistrationViewModel {
       this.setField(fieldName)(event.target.value)
       runInAction(() => {
         if (this.name === '' || this.email === '') {
-          this.checkValidationNameOrEmail = {}
+          this.checkValidationNameOrEmail = undefined
         }
       })
     }

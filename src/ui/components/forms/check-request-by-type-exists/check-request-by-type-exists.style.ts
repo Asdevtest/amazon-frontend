@@ -7,6 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     width: 415,
+    padding: 10,
   },
 
   attentionText: {

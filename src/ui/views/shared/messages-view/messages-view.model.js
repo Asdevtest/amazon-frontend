@@ -1,4 +1,5 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { chatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,16 +21,10 @@ export class MessagesViewModel {
   showConfirmModal = false
   showAddNewChatByEmailModal = false
   showAddUsersToGroupChatModal = false
-  showWarningInfoModal = false
   showEditGroupChatInfoModal = false
 
   nameSearchValue = ''
   mesSearchValue = ''
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   readyImages = []
 
@@ -222,14 +217,7 @@ export class MessagesViewModel {
         )
 
         if (existedChatsUsers.includes(formFields.chosenUsers[0]?._id)) {
-          runInAction(() => {
-            this.warningInfoModalSettings = {
-              isWarning: false,
-              title: t(TranslationKey['Such dialogue already exists']),
-            }
-          })
-
-          this.onTriggerOpenModal('showWarningInfoModal')
+          toast.warning(t(TranslationKey['Such dialogue already exists']))
         } else {
           await ChatsModel.createSimpleChatByUserId(formFields.chosenUsers[0]?._id)
         }
@@ -322,7 +310,7 @@ export class MessagesViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.warn('onSubmitMessage error ', error)
+      console.error('onSubmitMessage error ', error)
     }
   }
 

@@ -37,6 +37,7 @@ import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
 import { useStyles } from './create-or-edit-request-content.style'
@@ -48,6 +49,7 @@ const stepVariant = {
 
 export const CreateOrEditRequestContent = memo(props => {
   const {
+    buttonStatus,
     announcements,
     specs,
     permissionsData,
@@ -386,7 +388,9 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
     platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price ||
-    isNeedSeoInfo
+    isNeedSeoInfo ||
+    buttonStatus === loadingStatus.IS_LOADING
+
   const minDate = dayjs().add(1, 'day')
   const isFirstStep = curStep === stepVariant.STEP_ONE
   const isSecondStep = curStep === stepVariant.STEP_TWO
@@ -600,7 +604,7 @@ export const CreateOrEditRequestContent = memo(props => {
                           disablePast
                           minDate={minDate}
                           className={cx(styles.field, styles.datePicker)}
-                          value={formFields.request.timeoutAt}
+                          value={new Date(formFields.request.timeoutAt)}
                           onChange={e => onChangeField('request')('timeoutAt')(e)}
                         />
                         {deadlineError && (
@@ -620,7 +624,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       <div>
                         <TimePicker
                           className={cx(styles.field, styles.datePicker)}
-                          value={formFields.request.timeoutAt}
+                          value={new Date(formFields.request.timeoutAt)}
                           onChange={onChangeField('request')('timeoutAt')}
                         />
                         {deadlineError && (
@@ -1122,7 +1126,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   onClick={() => (isSecondStep ? onClickCreate({ withPublish: false }) : onSuccessSubmit())}
                 >
                   {isSecondStep ? (
-                    t(TranslationKey['Create a request'])
+                    t(TranslationKey['Create request'])
                   ) : (
                     <>
                       {t(TranslationKey.Next)}

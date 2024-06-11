@@ -21,12 +21,12 @@ export const useNumbersColumnMenu = ({ fields, table, filtersData, onClickFilter
   const [nameSearchValue, setNameSearchValue] = useState('')
 
   const { filterData, currentFilterData }: { filterData: number[]; currentFilterData: number[] } = useMemo(() => {
-    return filtersData?.[currentField]
-  }, [currentField, filtersData?.[currentField]])
+    return filtersData
+  }, [currentField, filtersData])
 
   const dataforRender: number[] = useMemo(() => {
     return filterData?.filter(item => {
-      const nameSearchCondition = !nameSearchValue || String(item).toLowerCase().includes(nameSearchValue.toLowerCase())
+      const nameSearchCondition = !nameSearchValue || Number(item) === Number(nameSearchValue)
       const fromValueCondition =
         (!fromSearchValue && fromSearchValue !== '0') || Number(item) >= Number(fromSearchValue)
       const toValueCondition = (!toSearchValue && toSearchValue !== '0') || Number(item) <= Number(toSearchValue)

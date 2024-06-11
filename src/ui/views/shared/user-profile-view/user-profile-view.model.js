@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -26,14 +27,12 @@ export class ProfileViewModel {
   showAvatarEditModal = false
   showUserInfoModal = false
   showTabModal = false
-  showInfoModal = false
   showConfirmWorkResultFormModal = false
 
   checkValidationNameOrEmail = undefined
   productsVacant = []
   isUniqueProfileData = true
   wrongPassword = undefined
-  warningInfoModalTitle = ''
   tabHistory = 0
   selectedUser = undefined
   reviews = []
@@ -158,17 +157,15 @@ export class ProfileViewModel {
           await this.changeUserNameOrEmail(data)
         }
 
-        if (oldPassword || newPassword) {
+        if (oldPassword && newPassword) {
           await this.changeUserPassword(data)
         }
 
         if (!this.wrongPassword && this.isUniqueProfileData) {
           this.onTriggerOpenModal('showUserInfoModal')
-          this.warningInfoModalTitle = t(TranslationKey['Data was successfully saved'])
-          this.onTriggerOpenModal('showInfoModal')
-        }
 
-        this.loadData()
+          toast.success(t(TranslationKey['Data was successfully saved']))
+        }
       } else {
         return
       }
@@ -239,11 +236,7 @@ export class ProfileViewModel {
 
       this.onTriggerOpenModal('showAvatarEditModal')
 
-      this.warningInfoModalTitle = t(
-        TranslationKey['The avatar has been uploaded. The update will take place within a few minutes.'],
-      )
-
-      this.onTriggerOpenModal('showInfoModal')
+      toast.success(t(TranslationKey['The avatar has been uploaded. The update will take place within a few minutes.']))
     } catch (error) {
       console.error(error)
     }

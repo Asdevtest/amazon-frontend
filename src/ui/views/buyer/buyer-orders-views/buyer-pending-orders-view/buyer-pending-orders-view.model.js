@@ -56,11 +56,6 @@ export class BuyerMyOrdersViewModel {
 
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
-
   rowCount = 0
   sortModel = []
   startFilterModel = undefined

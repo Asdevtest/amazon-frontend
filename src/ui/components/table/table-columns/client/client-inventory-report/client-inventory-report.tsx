@@ -1,4 +1,4 @@
-import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { GridRenderCellParams } from '@mui/x-data-grid'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
@@ -13,13 +13,15 @@ import {
 
 import { t } from '@utils/translations'
 
-export const clientInventoryReportColumns = (): GridColDef[] => {
-  const columns = [
+import { IGridColumn } from '@typings/shared/grid-column'
+
+export const clientInventoryReportColumns = () => {
+  const columns: IGridColumn[] = [
     {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: (params: GridRenderCellParams<Date>) => <NormDateCell value={params.value} />,
+      renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
       width: 118,
 
       columnKey: columnnsKeys.shared.DATE,
@@ -35,7 +37,7 @@ export const clientInventoryReportColumns = (): GridColDef[] => {
 
       columnKey: columnnsKeys.shared.OBJECT,
 
-      sortable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -47,7 +49,7 @@ export const clientInventoryReportColumns = (): GridColDef[] => {
         <ProductAsinCell withoutTitle image={params.row?.image} asin={params.row?.asin} skuByClient={params.row?.sku} />
       ),
       width: 250,
-      sortable: false,
+      disableCustomSort: true,
 
       columnKey: columnnsKeys.client.SHOP_REPORT,
     },
@@ -254,8 +256,8 @@ export const clientInventoryReportColumns = (): GridColDef[] => {
   ]
 
   for (const column of columns) {
-    // @ts-ignore
     column.table = DataGridFilterTables.INVENTORY
+    column.sortable = false
   }
 
   return columns

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,14 +17,9 @@ import { useStyles } from './supervisor-products-view.style'
 import { filterStatusConfig, warningStatuses } from './supervisor-products-view.constants'
 import { SupervisorProductsViewModel } from './supervisor-products-view.model'
 
-export const SupervisorProductsView = observer(({ history }) => {
-  const [viewModel] = useState(() => new SupervisorProductsViewModel({ history }))
-
+export const SupervisorProductsView = observer(() => {
   const { classes: styles } = useStyles()
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const [viewModel] = useState(() => new SupervisorProductsViewModel())
 
   const customSwitcherConfig = filterStatusConfig.map(status => ({
     icon: viewModel.userInfo[status.userInfoKey] ? (
@@ -48,7 +43,7 @@ export const SupervisorProductsView = observer(({ history }) => {
       <div className={styles.searchInputWrapper}>
         <SearchInput
           inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
+          value={viewModel.currentSearchValue}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
           onSubmit={viewModel.onSearchSubmit}
         />
@@ -56,22 +51,20 @@ export const SupervisorProductsView = observer(({ history }) => {
 
       <div className={styles.dataGridWrapper}>
         <CustomDataGrid
-          checkboxSelection
           disableRowSelectionOnClick
-          rowCount={viewModel.rowCount}
-          getRowClassName={getRowClassName}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
+          pinnedColumns={viewModel.pinnedColumns}
           paginationModel={viewModel.paginationModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
             columnMenu: viewModel.columnMenuSettings,
-
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
@@ -82,25 +75,33 @@ export const SupervisorProductsView = observer(({ history }) => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
+          rowCount={viewModel.rowCount}
+          getRowClassName={getRowClassName}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
           onSortModelChange={viewModel.onChangeSortingModel}
-          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowClick={params => viewModel.onClickProductModal(params.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onRowDoubleClick={({ row }) => viewModel.onClickProductModal(row?._id)}
         />
       </div>
 
-      {viewModel.productCardModal && (
+      {viewModel.showProductModal && (
         <ProductCardModal
           role={viewModel.userInfo.role}
           history={viewModel.history}
-          openModal={viewModel.productCardModal}
-          setOpenModal={() => viewModel.onClickProductModal()}
-          updateDataHandler={() => viewModel.loadData()}
+          openModal={viewModel.showProductModal}
+          setOpenModal={viewModel.onClickProductModal}
+          updateDataHandler={viewModel.getCurrentData}
           onClickOpenNewTab={id => viewModel.onClickTableRow(id)}
         />
       )}

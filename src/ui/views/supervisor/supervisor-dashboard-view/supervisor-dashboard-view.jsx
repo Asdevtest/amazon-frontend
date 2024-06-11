@@ -40,7 +40,7 @@ export const SupervisorDashboardViewRaw = props => {
           <div className={styles.userInfoLeftWrapper}>
             <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
-            <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
+            <DashboardBalance user={viewModel.userInfo} />
           </div>
 
           <DashboardButtons user={viewModel.userInfo} routes={supervisorButtonsRoutes} />

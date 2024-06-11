@@ -24,8 +24,8 @@ import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -100,6 +100,7 @@ export const EditOrderModal = memo(
     updateSupplierData,
     onClickSaveWithoutUpdateSupData,
     onClickUpdataSupplierData,
+    setUpdateSupplierData,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -114,9 +115,6 @@ export const EditOrderModal = memo(
     const [paymentMethodsModal, setPaymentMethodsModal] = useState(false)
     const [commentModal, setCommentModalModal] = useState(false)
     const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
-    const [showWarningInfoModal, setShowWarningInfoModal] = useState(
-      order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
-    )
     const [commentToWarehouse, setCommentToWarehouse] = useState('')
     const [trackNumber, setTrackNumber] = useState({ text: '', files: [] })
     const [boxesForCreation, setBoxesForCreation] = useState([])
@@ -666,6 +664,12 @@ export const EditOrderModal = memo(
             setOrderField={setOrderField}
           />
 
+          <div className={styles.supplierCheckboxWrapper} onClick={() => setUpdateSupplierData(!updateSupplierData)}>
+            <Checkbox checked={updateSupplierData} color="primary">
+              <p className={styles.checkboxTitle}>{t(TranslationKey['Update supplier data'])}</p>
+            </Checkbox>
+          </div>
+
           <ListSuppliers
             formFields={orderFields}
             defaultSupplierId={order?.orderSupplier?._id}
@@ -823,17 +827,6 @@ export const EditOrderModal = memo(
               }
               setShowConfirmModal(!showConfirmModal)
             }}
-          />
-        ) : null}
-
-        {showWarningInfoModal ? (
-          <WarningInfoModal
-            // @ts-ignore
-            openModal={showWarningInfoModal}
-            setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
-            title={t(TranslationKey['PAY ATTENTION!!!'])}
-            btnText={t(TranslationKey.Ok)}
-            onClickBtn={() => setShowWarningInfoModal(!showWarningInfoModal)}
           />
         ) : null}
 

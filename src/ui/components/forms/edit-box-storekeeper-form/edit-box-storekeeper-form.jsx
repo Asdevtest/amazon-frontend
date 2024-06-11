@@ -31,7 +31,7 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
-import { TariffModalType } from '@typings/shared/tariff-modal'
+import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { INCHES_COEFFICIENT, POUNDS_COEFFICIENT, useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -844,7 +844,7 @@ export const EditBoxStorekeeperForm = memo(
         {showSelectionStorekeeperAndTariffModal ? (
           <SupplierApproximateCalculationsModal
             isTariffsSelect
-            tariffModalType={TariffModalType.WAREHOUSE}
+            tariffModalType={TariffModal.WAREHOUSE}
             openModal={showSelectionStorekeeperAndTariffModal}
             setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
             box={boxFields}

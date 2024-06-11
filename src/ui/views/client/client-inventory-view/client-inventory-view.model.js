@@ -80,7 +80,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   showSelectionSupplierModal = false
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
-  showInfoModal = false
   showConfirmModal = false
   showSetChipValueModal = false
   showBarcodeOrHscodeModal = false
@@ -103,7 +102,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   successModalText = ''
   confirmMessage = ''
-  showInfoModalTitle = ''
   currentBarcode = ''
   currentHscode = ''
 
@@ -135,7 +133,6 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   get platformSettings() {
     return UserModel.platformSettings
   }
-  meta = undefined
 
   constructor() {
     const additionalPropertiesColumnMenuSettings = {
@@ -151,7 +148,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
               no,
             },
           }
-          this.getMainTableData()
+          this.getCurrentData()
         },
       },
 
@@ -167,7 +164,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
               no,
             },
           }
-          this.getMainTableData()
+          this.getCurrentData()
         },
       },
 
@@ -183,7 +180,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
               isNotNeedPurchaseFilter,
             },
           }
-          this.getMainTableData()
+          this.getCurrentData()
         },
       },
 
@@ -200,7 +197,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
             },
           }
 
-          this.getMainTableData()
+          this.getCurrentData()
         },
       },
 
@@ -214,7 +211,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
               isHaveBarCodeFilter: value,
             },
           }
-          this.getMainTableData()
+          this.getCurrentData()
         },
       },
     }
@@ -253,7 +250,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       onClickEdit: productId => this.onClickEditTags(productId),
     }
 
-    const defaultGetDataMethodOptions = () => ({
+    const defaultGetCurrentDataOptions = () => ({
       preset: true,
       noCache: true,
     })
@@ -314,7 +311,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'clients/products/my_with_pag_v2?',
       fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
       tableKey: DataGridTablesKeys.CLIENT_INVENTORY,
-      defaultGetDataMethodOptions,
+      defaultGetCurrentDataOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
     })
@@ -478,7 +475,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   checkIsNoEditProductSelected() {
     return this.selectedRows.some(prodId => {
-      const findProduct = this.tableData.find(prod => prod._id === prodId)
+      const findProduct = this.currentData.find(prod => prod._id === prodId)
 
       return [
         ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
@@ -493,9 +490,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   onClickTriggerArchOrResetProducts() {
     if (this.checkIsNoEditProductSelected()) {
-      this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
+      toast.warning(t(TranslationKey['Product with invalid status selected']))
 
-      this.onTriggerOpenModal('showInfoModal')
       return
     }
 
@@ -520,7 +516,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       }
 
       this.onTriggerOpenModal('showConfirmModal')
-      await this.getMainTableData()
+      await this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -532,7 +528,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     this.isArchive ? this.history.push('/client/inventory') : this.history.push('/client/inventory?isArchive=true')
     this.isArchive = this.isArchive ? false : true
 
-    this.getMainTableData()
+    this.getCurrentData()
   }
 
   async getSuppliersPaymentMethods() {
@@ -550,7 +546,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async loadData() {
     try {
       this.getPresets()
-      this.getMainTableData()
+      this.getCurrentData()
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
@@ -683,7 +679,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         preset._id = undefined
       }
 
-      await this.getMainTableData()
+      await this.getCurrentData()
       runInAction(() => {
         this.presetsData = [...this.presetsData]
       })
@@ -735,7 +731,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         }
       }
 
-      await this.getMainTableData()
+      await this.getCurrentData()
       runInAction(() => {
         this.presetsData = [...this.presetsData]
       })
@@ -762,7 +758,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
   async onClickProductLaunch() {
     try {
-      const result = this.tableData?.find(
+      const result = this.currentData?.find(
         product => product?._id === this.selectedRows?.[0] && !product?.parentProductId,
       )
       runInAction(() => (this.selectedProductToLaunch = result))
@@ -800,7 +796,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       for await (const id of this.selectedRows) {
         await OrderModel.checkPendingOrderByProductGuid(id).then(result => {
           if (result?.length) {
-            const currentProduct = this.tableData.find(product => product?._id === id)
+            const currentProduct = this.currentData.find(product => product?._id === id)
 
             const resultObject = {
               asin: currentProduct?.asin,
@@ -866,7 +862,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     ])
 
     this.onTriggerOpenModal('showEditHSCodeModal')
-    await this.getMainTableData()
+    await this.getCurrentData()
 
     runInAction(() => {
       this.selectedProduct = undefined
@@ -882,7 +878,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       barCode: this.uploadedFiles?.[0] || tmpBarCode?.[0],
     })
 
-    this.getMainTableData()
+    this.getCurrentData()
 
     runInAction(() => {
       this.selectedProduct = undefined
@@ -900,7 +896,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       )
 
       await ClientModel.updateProduct(productId, updateProductDataFiltered)
-      await this.getMainTableData()
+      await this.getCurrentData()
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
@@ -938,7 +934,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     try {
       await ClientModel.updateProductFourMonthesStock(productId, { fourMonthesStock })
 
-      this.getMainTableData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -948,7 +944,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     try {
       await ClientModel.postAddRecommendationForStock(productId, storekeeperId, recommendedValue || 0)
 
-      this.getMainTableData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -967,7 +963,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         stockUSA: value,
       })
 
-      this.getMainTableData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -1028,7 +1024,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       toast.success(t(TranslationKey['The order has been created']))
 
-      await this.getMainTableData()
+      await this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -1110,14 +1106,11 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       this.onTriggerOpenModal('showSuccessModal')
 
-      await this.getMainTableData()
+      await this.getCurrentData()
     } catch (error) {
       console.error(error)
-      runInAction(() => {
-        this.showInfoModalTitle = t(TranslationKey.Error)
-      })
 
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey.Error))
     }
   }
 
@@ -1134,10 +1127,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   async onClickParseProductsBtn() {
     try {
       if (this.checkIsNoEditProductSelected()) {
-        runInAction(() => {
-          this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
-        })
-        this.onTriggerOpenModal('showInfoModal')
+        toast.warning(t(TranslationKey['Product with invalid status selected']))
+
         return
       }
 
@@ -1147,7 +1138,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
 
       await SellerBoardModel.refreshProducts(this.selectedRows)
 
-      await this.getMainTableData()
+      await this.getCurrentData()
 
       runInAction(() => {
         this.successModalText = t(TranslationKey['Products will be updated soon'])
@@ -1159,10 +1150,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.showCircularProgressModal = false
       })
 
-      runInAction(() => {
-        this.showInfoModalTitle = t(TranslationKey['Parsing data not updated'])
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey['Parsing data not updated']))
 
       console.error(error)
     }
@@ -1173,10 +1161,8 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.selectedProductToLaunch = undefined
 
       if (this.checkIsNoEditProductSelected()) {
-        runInAction(() => {
-          this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
-        })
-        this.onTriggerOpenModal('showInfoModal')
+        toast.warning(t(TranslationKey['Product with invalid status selected']))
+
         return
       }
 
@@ -1219,7 +1205,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
   onClickProducDataButton() {
     this.onAmazon = false
     this.isBatches = true
-    this.curProduct = this.tableData.filter(product => this.selectedRows.includes(product._id))?.[0]
+    this.curProduct = this.currentData.filter(product => this.selectedRows.includes(product._id))?.[0]
 
     this.onTriggerOpenModal('showProductDataModal')
   }
@@ -1254,7 +1240,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     try {
       await ClientModel.sendProductToSeekSomeSuppliers(this.selectedRows)
 
-      await this.getMainTableData()
+      await this.getCurrentData()
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -1269,7 +1255,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         priceForClient: priceForSeekSupplier,
       })
 
-      await this.getMainTableData()
+      await this.getCurrentData()
     } catch (error) {
       console.error(error)
     } finally {
@@ -1408,7 +1394,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
         this.successModalText = t(TranslationKey['Product added'])
       })
       this.onTriggerOpenModal('showSuccessModal')
-      await this.getMainTableData()
+      await this.getCurrentData()
     } catch (error) {
       runInAction(() => {
         this.showCircularProgressModal = false
@@ -1432,7 +1418,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.updateProductBarCode(product._id, { barCode: null })
-      await this.getMainTableData()
+      await this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -1447,7 +1433,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ProductModel.editProductsHsCods([{ productId: product._id, hsCode: '' }])
-      await this.getMainTableData()
+      await this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -1483,12 +1469,9 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       })
       this.onTriggerOpenModal('showSuccessModal')
 
-      await this.getMainTableData()
+      await this.getCurrentData()
     } catch (error) {
-      runInAction(() => {
-        this.showInfoModalTitle = t(TranslationKey["You can't bind"])
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey["You can't bind"]))
 
       console.error(error)
     }
@@ -1529,7 +1512,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
       const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
       const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
 
-      await ProductModel.addSuppliersToProduct(this.selectedRows[0], [createSupplierResult.guid])
+      await ProductModel.addSuppliersToProduct(this.selectedRowId || this.selectedRows[0], [createSupplierResult.guid])
 
       await this.loadData()
 
@@ -1540,7 +1523,7 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async getMainTableData(options) {
+  async getCurrentData(options) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -1569,20 +1552,20 @@ export class ClientInventoryViewModel extends DataGridFilterTableModel {
           sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
           storekeeper: storekeeperId,
 
-          ...this.defaultGetDataMethodOptions?.(),
+          ...this.defaultGetCurrentDataOptions?.(),
         },
       )
 
       runInAction(() => {
         this.meta = result?.meta
-        this.tableData = result?.rows || result
+        this.currentData = result?.rows || result
         this.rowCount = result?.count || result.length
       })
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.tableData = []
+      this.currentData = []
       this.rowCount = 0
       this.setRequestStatus(loadingStatus.FAILED)
     }

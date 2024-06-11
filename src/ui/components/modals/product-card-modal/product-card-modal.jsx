@@ -34,7 +34,6 @@ import { useStyles } from './product-card-modal.style'
 import { ConfirmationModal } from '../confirmation-modal'
 import { EditHSCodeModal } from '../edit-hs-code-modal'
 import { SuccessInfoModal } from '../success-info-modal'
-import { WarningInfoModal } from '../warning-info-modal'
 
 export const ProductCardModal = observer(props => {
   const { openModal, setOpenModal, history, onClickOpenNewTab, role, updateDataHandler } = props
@@ -239,17 +238,6 @@ export const ProductCardModal = observer(props => {
           )}
         </div>
       )}
-
-      {viewModel?.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel?.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel?.warningModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        />
-      ) : null}
 
       {viewModel?.showConfirmModal ? (
         <ConfirmationModal

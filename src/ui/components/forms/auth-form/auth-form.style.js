@@ -1,68 +1,28 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  formFields: {
+  form: {
+    width: 540,
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  input: {
+    height: '36px',
+    backgroundColor: 'inherit',
   },
 
   field: {
-    flexBasis: '100%',
-    position: 'relative',
-  },
-
-  checkboxWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  checkbox: {
-    marginLeft: '-12px',
+    margin: 0,
   },
 
   label: {
+    marginBottom: 5,
     fontSize: '14px',
-    cursor: 'pointer',
-    color: theme.palette.text.general,
-  },
-
-  formFooter: {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(2.5),
-    width: '100%',
-  },
-
-  loginBtn: {
-    width: 200,
-    height: 40,
-    color: '#fff',
-    boxShadow: 'none',
-
-    '&:hover, &:active': {
-      boxShadow: 'none',
-    },
-
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-
-  forgotPassword: {
-    marginLeft: '20px',
-    fontSize: '14px',
-    transition: '0.3s ease',
-    cursor: 'pointer',
-
+    lineHeight: '19px',
     color: theme.palette.text.second,
-
-    '&:hover': {
-      color: theme.palette.primary.main,
-      fontWeight: '500',
-    },
   },
 
   inputAdornment: {
@@ -80,15 +40,34 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
-  input: {
-    height: '34px',
-    backgroundColor: 'inherit',
-    color: theme.palette.text.general,
+  formFooter: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
   },
 
-  labelField: {
+  checkboxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  forgotPassword: {
     fontSize: '14px',
+    lineHeight: '19px',
+    cursor: 'pointer',
+    transition: '0.3s ease',
     color: theme.palette.text.second,
+
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
+  },
+
+  rememberText: {
+    fontSize: '14px',
     lineHeight: '19px',
   },
 }))

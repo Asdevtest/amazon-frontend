@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { IFields, SetFields } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
 import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration'
-import { TooltipAttention } from '@components/shared/svg-icons'
+import { TooltipAttentionIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -46,7 +46,7 @@ export const RemarksTab: FC<RemarksTabProps> = memo(props => {
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <div className={styles.flexContainer}>
-          <TooltipAttention className={styles.icon} />
+          <TooltipAttentionIcon className={styles.icon} />
           <p className={cx(styles.text, styles.remarkText)}>{t(TranslationKey.Remarks)}</p>
         </div>
 

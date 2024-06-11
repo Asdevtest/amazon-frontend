@@ -31,7 +31,7 @@ import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
-import { TariffModalType } from '@typings/shared/tariff-modal'
+import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -491,11 +491,11 @@ export const EditBoxForm = memo(
                             t(TranslationKey['Not chosen'])
                           }
                           data={
-                            destinationId
+                            boxFields?.variationTariffId
                               ? destinations.filter(
-                                  el => el?._id === (destinationId || formItem?.variationTariff?.destinationId),
+                                  el => el?._id === (destinationId || boxFields?.variationTariff?.destinationId),
                                 )
-                              : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
+                              : destinations.filter(el => el.storekeeper?._id !== boxFields?.storekeeper._id)
                           }
                           searchFields={['name']}
                           favourites={destinationsFavourites}
@@ -714,7 +714,7 @@ export const EditBoxForm = memo(
         {showSelectionStorekeeperAndTariffModal ? (
           <SupplierApproximateCalculationsModal
             isTariffsSelect
-            tariffModalType={TariffModalType.WAREHOUSE}
+            tariffModalType={TariffModal.WAREHOUSE}
             openModal={showSelectionStorekeeperAndTariffModal}
             setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
             box={boxFields}

@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
 
 import { t } from '@utils/translations'
@@ -37,17 +36,6 @@ export const SupervisorProductView = observer(({ history }) => {
           onChangeField={viewModel.onChangeProductFields}
           onClickParseProductData={viewModel.onClickParseProductData}
           onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
-        />
-      ) : null}
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.warningModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
         />
       ) : null}
 

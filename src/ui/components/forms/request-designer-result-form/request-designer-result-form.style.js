@@ -160,7 +160,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 10,
     right: 10,
-    zIndex: 50,
+    zIndex: 7,
   },
 
   imageObjIndex: {
@@ -283,7 +283,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     right: -18,
     top: -18,
-    zIndex: 50,
+    zIndex: 7,
 
     cursor: 'pointer',
     transition: '.3s ease',

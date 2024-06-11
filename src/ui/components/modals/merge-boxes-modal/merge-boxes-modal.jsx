@@ -30,8 +30,8 @@ import { t } from '@utils/translations'
 import { ButtonVariant } from '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { TariffModal } from '@typings/enums/tariff-modal'
 import { UiTheme } from '@typings/enums/ui-theme'
-import { TariffModalType } from '@typings/shared/tariff-modal'
 
 import { INCHES_COEFFICIENT, POUNDS_COEFFICIENT, useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -473,7 +473,7 @@ export const MergeBoxesModal = ({
       {showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
           isTariffsSelect
-          tariffModalType={TariffModalType.WAREHOUSE}
+          tariffModalType={TariffModal.WAREHOUSE}
           openModal={showSelectionStorekeeperAndTariffModal}
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           box={boxBody}

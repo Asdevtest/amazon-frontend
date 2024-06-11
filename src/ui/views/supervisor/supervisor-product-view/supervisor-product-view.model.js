@@ -1,5 +1,5 @@
-import { transformAndValidate } from 'class-transformer-validator'
 import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
 import { SupervisorModel } from '@models/supervisor-model'
-import { SupervisorUpdateProductContract } from '@models/supervisor-model/supervisor-model.contracts'
 import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
@@ -52,12 +51,10 @@ export class SupervisorProductViewModel {
 
   curUpdateProductData = undefined
   confirmMessage = ''
-  warningModalTitle = ''
 
-  showWarningModal = false
   showConfirmModal = false
 
-  formFields = formFieldsDefault
+  formFields = { ...formFieldsDefault }
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -96,12 +93,8 @@ export class SupervisorProductViewModel {
   }
 
   async loadData() {
-    try {
-      await this.getProductById()
-      await this.getProductsVariations()
-    } catch (error) {
-      console.error(error)
-    }
+    await this.getProductById()
+    this.getProductsVariations()
   }
 
   async getProductsVariations() {
@@ -196,16 +189,14 @@ export class SupervisorProductViewModel {
         this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] &&
         this.product.currentSupplierId
       ) {
-        this.warningModalTitle = warningModalTitleVariants().PRICE_WAS_NOT_ACCEPTABLE
+        toast.warning(warningModalTitleVariants().PRICE_WAS_NOT_ACCEPTABLE)
       } else if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) {
-        this.warningModalTitle = warningModalTitleVariants().SUPPLIER_WAS_NOT_FOUND_BY_BUYER
+        toast.warning(warningModalTitleVariants().SUPPLIER_WAS_NOT_FOUND_BY_BUYER)
       } else if (!this.product.currentSupplierId) {
-        this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
+        toast.warning(warningModalTitleVariants().NO_SUPPLIER)
       } else {
-        this.warningModalTitle = warningModalTitleVariants().ERROR
+        toast.warning(warningModalTitleVariants().ERROR)
       }
-
-      this.onTriggerOpenModal('showWarningModal')
     } else {
       this.product = { ...this.product, status: ProductStatusByKey[statusKey] }
     }
@@ -273,8 +264,6 @@ export class SupervisorProductViewModel {
         })
       }
 
-      await transformAndValidate(SupervisorUpdateProductContract, this.curUpdateProductData)
-
       runInAction(() => {
         this.confirmModalSettings = {
           isWarning: false,
@@ -288,10 +277,7 @@ export class SupervisorProductViewModel {
       if (this.confirmModalSettings.message) {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        runInAction(() => {
-          this.warningModalTitle = warningModalTitleVariants().CHOOSE_STATUS
-        })
-        this.onTriggerOpenModal('showWarningModal')
+        toast.warning(warningModalTitleVariants().CHOOSE_STATUS)
       }
     } catch (error) {
       console.error(error)
@@ -338,9 +324,11 @@ export class SupervisorProductViewModel {
 
       await SupervisorModel.updateProduct(this.product._id, dataToUpdate)
 
-      this.setOpenModal()
+      if (this.setOpenModal) {
+        this.setOpenModal()
+      }
 
-      this.loadData()
+      await this.loadData()
 
       updateDataHandler && (await updateDataHandler())
 
@@ -430,19 +418,14 @@ export class SupervisorProductViewModel {
         })
       }
 
-      runInAction(() => {
-        this.warningModalTitle = t(TranslationKey['Success parse'])
-      })
-      this.onTriggerOpenModal('showWarningModal')
+      toast.success(t(TranslationKey['Success parse']))
+
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
-      runInAction(() => {
-        this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
-      })
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey['Parsing error']) + '\n' + String(error))
     }
   }
 

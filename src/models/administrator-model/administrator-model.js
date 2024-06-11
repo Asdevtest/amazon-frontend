@@ -11,9 +11,9 @@ class AdministratorModelStatic {
     return response.data
   }
 
-  getUsers = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsUsersGet()
-    return response
+  getUsers = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsUsersPagGet(data)
+    return response.data
   }
 
   updateUser = async (guid, body) => {
@@ -202,6 +202,11 @@ class AdministratorModelStatic {
 
   exportPermissions = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsPermissionGet()
+    return response.data
+  }
+
+  patchLaunchPreDeadlineValue = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsSetLaunchPreDeadlineValuePatch(body)
     return response.data
   }
 }

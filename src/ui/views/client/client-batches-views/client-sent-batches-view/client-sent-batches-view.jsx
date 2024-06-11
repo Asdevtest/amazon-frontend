@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
@@ -27,10 +26,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new ClientSentBatchesViewModel({ history }))
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   return (
     <>
       <div className={styles.btnsWrapper}>
@@ -41,13 +36,13 @@ export const ClientSentBatchesView = observer(({ history }) => {
         <SearchInput
           key="client_batches_awaiting-batch_search_input"
           inputClasses={styles.searchInput}
-          value={viewModel.nameSearchValue}
+          value={viewModel.currentSearchValue}
           placeholder={t(TranslationKey['Search by ASIN, Title, Batch ID, Order ID'])}
           onSubmit={viewModel.onSearchSubmit}
         />
 
         <Button
-          disabled={!viewModel.selectedBatches.length}
+          disabled={!viewModel.selectedRows.length}
           styleType={ButtonStyle.DANGER}
           variant={ButtonVariant.OUTLINED}
           onClick={viewModel.onClickTriggerArchOrResetProducts}
@@ -72,7 +67,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
               .filter(storekeeper => storekeeper.boxesCount !== 0)
               .sort((a, b) => a.name?.localeCompare(b.name))
               .map(storekeeper => ({ label: () => storekeeper.name, value: storekeeper._id })),
-            { label: () => t(TranslationKey['All warehouses']), value: undefined },
+            { label: () => t(TranslationKey['All warehouses']), value: '' },
           ]}
           changeConditionHandler={viewModel.onClickStorekeeperBtn}
         />
@@ -85,10 +80,12 @@ export const ClientSentBatchesView = observer(({ history }) => {
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
+          pinnedColumns={viewModel.pinnedColumns}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -104,6 +101,11 @@ export const ClientSentBatchesView = observer(({ history }) => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
           columns={viewModel.columnsModel}
@@ -113,7 +115,8 @@ export const ClientSentBatchesView = observer(({ history }) => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -146,24 +149,12 @@ export const ClientSentBatchesView = observer(({ history }) => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           isWarning={viewModel.confirmModalSettings?.isWarning}
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       ) : null}
     </>

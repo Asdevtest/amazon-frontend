@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
@@ -13,12 +14,14 @@ export interface ISwitcherSettings {
 }
 
 interface CustomSwitcherProps {
+  condition: any
+  switcherSettings: ISwitcherSettings[]
+  changeConditionHandler: (condition: any) => void
   fullWidth?: boolean
   switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header'
-  switcherSettings: ISwitcherSettings[]
-  condition: any
+  className?: string
+  circle?: boolean
   customCondition?: (value: any) => boolean
-  changeConditionHandler: (condition: any) => void
 }
 
 export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
@@ -28,6 +31,8 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
     condition,
     switcherSettings,
     fullWidth,
+    className,
+    circle,
     changeConditionHandler,
     customCondition,
   } = props
@@ -40,11 +45,15 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
 
   return (
     <div
-      className={cx(styles.switcherWrapper, {
-        [styles.fullWidthWrapper]: fullWidth,
-        [styles.headerStylesSwitcherWrapper]: switchMode === 'header',
-        [styles.mediumGapWrapper]: switchMode === 'medium',
-      })}
+      className={cx(
+        styles.switcherWrapper,
+        {
+          [styles.fullWidthWrapper]: fullWidth,
+          [styles.headerStylesSwitcherWrapper]: switchMode === 'header',
+          [styles.mediumGapWrapper]: switchMode === 'medium',
+        },
+        className,
+      )}
     >
       {switchOptionsToRender.map((option, optionIndex) => (
         <div
@@ -64,6 +73,7 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
               [styles.activeOption]: isEqual(condition, option.value) || customCondition?.(option.value),
               [styles.headerActiveOptionStyles]:
                 switchMode === 'header' && (isEqual(condition, option.value) || customCondition?.(option.value)),
+              [styles.circleOptionStyles]: circle,
             })}
             onClick={() => {
               if (!isEqual(condition, option.value) || !customCondition?.(option.value)) {

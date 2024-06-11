@@ -90,7 +90,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
 
     const columns = SupplierApproximateCalculationsColumns(columnHandlers) as GridColDef[]
 
-    const defaultGetDataMethodOptions = () => ({
+    const defaultGetCurrentDataOptions = () => ({
       // FIXME: remove guid
       guid: this.productId || '',
       ...(ideaId ? { ideaId } : {}),
@@ -107,7 +107,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
         supplierId ? 'supplierId=' + supplierId + '&' : ''
       }${ideaId ? 'ideaId=' + ideaId + '&' : ''}`,
       fieldsForSearch: ['name', 'destinationName'],
-      defaultGetDataMethodOptions,
+      defaultGetCurrentDataOptions,
     })
 
     if (onClickSubmit) {
@@ -175,13 +175,13 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   async setCurrentStorekeeper(storekeeperId: string) {
     this.currentStorekeeperId = storekeeperId
     this.onChangeFullFieldMenuItem([storekeeperId], 'storekeeper')
-    this.getMainTableData()
+    this.getCurrentData()
   }
 
   onClickResetFilters() {
     this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
     this.onChangeFullFieldMenuItem([this.storekeepers[0]?.value], 'storekeeper')
-    this.getMainTableData()
+    this.getCurrentData()
   }
 
   async getBoxData() {
@@ -210,7 +210,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this.supplierId = orderSupplierId
     this.orderId = orderId
     this.setMainMethodURL(productId, orderSupplierId)
-    this.getMainTableData()
+    this.getCurrentData()
   }
 
   handleChangeStrictVariation(isStrictVariationSelect: boolean) {

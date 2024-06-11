@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,8 +21,8 @@ import { OrdersModel } from './orders.model'
 
 export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   const { classes: styles, cx } = useStyles()
-  const history = useHistory()
-  const model = useRef(new OrdersModel({ history, productId, showAtProcessOrders }))
+
+  const model = useRef(new OrdersModel({ productId, showAtProcessOrders }))
 
   const {
     orderStatusData,
@@ -63,7 +62,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
   return (
     <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
       <CustomDataGrid
-        columnVisibilityModel={model.current.columnVisibilityModel}
+        columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}
         rows={getCurrentData()}
         sortingMode="client"

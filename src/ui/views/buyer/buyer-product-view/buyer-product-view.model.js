@@ -1,4 +1,5 @@
 import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -35,7 +36,6 @@ export class BuyerProductViewModel {
   product = undefined
   productBase = undefined
   curUpdateProductData = {}
-  warningModalTitle = ''
 
   hsCodeData = {}
 
@@ -43,7 +43,6 @@ export class BuyerProductViewModel {
 
   showEditHSCodeModal = false
 
-  showWarningModal = false
   showConfirmModal = false
   showSuccessModal = false
 
@@ -62,8 +61,7 @@ export class BuyerProductViewModel {
   progressValue = 0
   showProgress = false
 
-  formFields = formFieldsDefault
-
+  formFields = { ...formFieldsDefault }
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   get userInfo() {
@@ -165,8 +163,6 @@ export class BuyerProductViewModel {
 
   async onRemoveSupplier(supplierId) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
       await ProductModel.removeSuppliersFromProduct(this.product._id, [supplierId])
 
       runInAction(() => {
@@ -178,11 +174,8 @@ export class BuyerProductViewModel {
       await SupplierModel.removeSupplier(supplierId)
 
       await this.onSaveForceProductData()
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -246,20 +239,17 @@ export class BuyerProductViewModel {
 
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        runInAction(() => {
-          this.warningModalTitle =
-            this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] ||
+        toast.warning(
+          this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] ||
             this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] ||
             this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] ||
             this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]
-              ? warningModalTitleVariants().CHOOSE_STATUS
-              : warningModalTitleVariants().NO_SUPPLIER
-          this.onTriggerOpenModal('showWarningModal')
-        })
+            ? warningModalTitleVariants().CHOOSE_STATUS
+            : warningModalTitleVariants().NO_SUPPLIER,
+        )
       }
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
@@ -303,17 +293,12 @@ export class BuyerProductViewModel {
 
   async onSaveProductData(updateDataHandler) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
       await BuyerModel.updateProduct(this.product._id, this.curUpdateProductData)
       await this.loadData()
 
       updateDataHandler && (await updateDataHandler())
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -344,8 +329,6 @@ export class BuyerProductViewModel {
 
   async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
@@ -395,11 +378,8 @@ export class BuyerProductViewModel {
       }
 
       this.onSaveForceProductData()
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

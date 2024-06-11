@@ -4,6 +4,7 @@ export const useStyles = makeStyles()(() => ({
   modalWrapper: {
     minWidth: '100px',
     minHeight: '50px',
+    padding: 10,
   },
 
   modalTitleWrapper: {

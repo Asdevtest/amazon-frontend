@@ -6,7 +6,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import { Checkbox, InputAdornment, Typography } from '@mui/material'
+import { Checkbox, InputAdornment } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,18 +21,10 @@ import { validationMessagesArray } from '@utils/validation'
 import { useStyles } from './registration-form.style'
 
 export const RegistrationForm = memo(props => {
-  const {
-    formFields,
-    disableRegisterButton,
-    onChangeFormField,
-    onSubmit,
-    checkValidationNameOrEmail,
-    isRecoverPassword,
-  } = props
-  const { classes: styles, cx } = useStyles()
+  const { formFields, disableRegisterButton, onChangeFormField, onSubmit, checkValidationNameOrEmail } = props
 
+  const { classes: styles, cx } = useStyles()
   const [visibilityPass, setVisibilityPass] = useState(false)
-  const [visibilityOldPass, setVisibilityOldPass] = useState(false)
   const [errorOneNumber, setErrorOneNumber] = useState(false)
   const [errorUppercaseLetter, setErrorUppercaseLetter] = useState(false)
   const [errorLowercaseLetter, setErrorLowercaseLetter] = useState(false)
@@ -47,6 +39,7 @@ export const RegistrationForm = memo(props => {
   const regExpLowerCase = /(?=.*[a-z])/g
   const regExpEngLetter = /(?=.*[A-Za-z])/
   const regExpRuLetter = /(?=.*[А-Яа-я])/
+  const regExpEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
 
   useEffect(() => {
     if (formFields.password.length < 6) {
@@ -89,19 +82,15 @@ export const RegistrationForm = memo(props => {
     } else {
       setEqualityError(false)
     }
-  }, [formFields.password, formFields.confirmPassword, errorOneNumber, errorUppercaseLetter, SettingsModel.languageTag])
+  }, [formFields.password, formFields.confirmPassword, SettingsModel.languageTag])
 
   const onSubmitForm = event => {
     event.preventDefault()
-    setSubmit(true)
-    !errorLowercaseLetter &&
-      !errorMinLength &&
-      !errorOneNumber &&
-      !errorUppercaseLetter &&
-      !errorMaxLength &&
-      !equalityError &&
-      !errorNoEngLetter &&
-      onSubmit()
+    setSubmit(prev => !prev)
+
+    onSubmit()
+
+    setTimeout(() => setSubmit(prev => !prev), 5000)
   }
 
   const showError =
@@ -110,215 +99,155 @@ export const RegistrationForm = memo(props => {
     (submit && errorOneNumber) ||
     (submit && errorUppercaseLetter) ||
     (submit && errorMaxLength)
-
   const disabledButton =
     formFields.name === '' ||
     formFields.email === '' ||
     formFields.password === '' ||
     !formFields.acceptTerms ||
-    disableRegisterButton
+    disableRegisterButton ||
+    formFields.password !== formFields.confirmPassword
 
   return (
-    <form className={styles.root} onSubmit={onSubmitForm}>
-      <div className={styles.formFields}>
-        {!isRecoverPassword ? (
-          <>
-            <Field
-              withIcon
-              inputProps={{ maxLength: 30 }}
-              inputClasses={styles.input}
-              containerClasses={styles.field}
-              labelClasses={styles.labelField}
-              label={t(TranslationKey.Name)}
-              placeholder={t(TranslationKey.Name)}
-              error={
-                checkValidationNameOrEmail?.nameIsUnique === false &&
-                t(TranslationKey['A user with this name already exists'])
-              }
-              value={formFields.name}
-              startAdornment={
-                <InputAdornment position="end" className={styles.inputAdornment}>
-                  <PersonIcon color="primary" />
-                </InputAdornment>
-              }
-              onChange={onChangeFormField('name')}
-            />
-            <Field
-              withIcon
-              autoComplete="username"
-              inputProps={{ maxLength: 30 }}
-              inputClasses={styles.input}
-              containerClasses={styles.field}
-              labelClasses={styles.labelField}
-              label={t(TranslationKey.Email)}
-              placeholder={t(TranslationKey.Email)}
-              type="email"
-              error={
-                checkValidationNameOrEmail?.emailIsUnique === false
-                  ? t(TranslationKey['A user with this email already exists'])
-                  : ''
-              }
-              value={formFields.email}
-              startAdornment={
-                <InputAdornment position="end" className={styles.inputAdornment}>
-                  <MailOutlineIcon color="primary" />
-                </InputAdornment>
-              }
-              onChange={onChangeFormField('email')}
-              onKeyPress={event => {
-                const charCode = event.which || event.keyCode
-                const char = String.fromCharCode(charCode)
-                const emailRegex = /^[a-zA-Z0-9._%+-@]+$/
+    <form className={styles.form} onSubmit={onSubmitForm}>
+      <Field
+        withIcon
+        inputProps={{ maxLength: 30 }}
+        inputClasses={styles.input}
+        containerClasses={styles.field}
+        labelClasses={styles.label}
+        label={t(TranslationKey.Name)}
+        placeholder={t(TranslationKey.Name)}
+        error={
+          submit &&
+          !checkValidationNameOrEmail?.nameIsUnique &&
+          t(TranslationKey['A user with this name already exists'])
+        }
+        value={formFields.name}
+        startAdornment={
+          <InputAdornment position="end" className={styles.inputAdornment}>
+            <PersonIcon color="primary" />
+          </InputAdornment>
+        }
+        onChange={onChangeFormField('name')}
+      />
 
-                if (!emailRegex.test(char)) {
-                  event.preventDefault()
-                }
-              }}
-            />
-          </>
-        ) : null}
-        {isRecoverPassword && (
-          <div className={styles.field}>
-            <Field
-              disabled={isRecoverPassword}
-              withIcon={!isRecoverPassword}
-              inputProps={{ maxLength: 128 }}
-              labelClasses={styles.labelField}
-              error={showError}
-              inputClasses={styles.input}
-              label={t(TranslationKey['Old password'])}
-              placeholder={t(TranslationKey.Password)}
-              type={!visibilityOldPass ? 'password' : 'text'}
-              value={formFields.password}
-              startAdornment={
-                !isRecoverPassword ? (
-                  <InputAdornment position="end" className={styles.inputAdornment}>
-                    <LockIcon color="primary" />
-                  </InputAdornment>
-                ) : null
-              }
-              endAdornment={
-                <InputAdornment
-                  position="start"
-                  className={styles.inputAdornmentVisibility}
-                  onClick={() => setVisibilityOldPass(!visibilityOldPass)}
-                >
-                  {visibilityOldPass ? (
-                    <VisibilityIcon className={styles.visibilityIcon} />
-                  ) : (
-                    <VisibilityOffIcon className={styles.visibilityIcon} />
-                  )}
-                </InputAdornment>
-              }
-              onChange={onChangeFormField('password')}
-            />
-          </div>
+      <div className={styles.fieldContainer}>
+        <Field
+          withIcon
+          type="text"
+          autoComplete="username"
+          inputProps={{ maxLength: 30 }}
+          inputClasses={styles.input}
+          containerClasses={styles.field}
+          labelClasses={styles.label}
+          label={t(TranslationKey.Email)}
+          placeholder={t(TranslationKey.Email)}
+          error={
+            submit &&
+            regExpEmail.test(formFields.email) &&
+            !checkValidationNameOrEmail?.emailIsUnique &&
+            t(TranslationKey['A user with this email already exists'])
+          }
+          value={formFields.email}
+          startAdornment={
+            <InputAdornment position="end" className={styles.inputAdornment}>
+              <MailOutlineIcon color="primary" />
+            </InputAdornment>
+          }
+          onChange={onChangeFormField('email')}
+        />
+
+        {submit && !regExpEmail.test(formFields.email) && (
+          <p className={cx(styles.validationText, styles.red)}>{`${formFields.email} ${t(
+            TranslationKey['is not a valid email address'],
+          )}`}</p>
         )}
+      </div>
 
-        <div className={styles.field}>
-          <Field
-            autoComplete="new-password"
-            disabled={isRecoverPassword}
-            withIcon={!isRecoverPassword}
-            inputProps={{ maxLength: 128 }}
-            labelClasses={styles.labelField}
-            error={showError}
-            inputClasses={styles.input}
-            label={isRecoverPassword ? t(TranslationKey['New password']) : t(TranslationKey.Password)}
-            placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
-            value={formFields.password}
-            startAdornment={
-              !isRecoverPassword ? (
-                <InputAdornment position="end" className={styles.inputAdornment}>
-                  <LockIcon color="primary" />
-                </InputAdornment>
-              ) : null
-            }
-            endAdornment={
-              <InputAdornment
-                position="start"
-                className={styles.inputAdornmentVisibility}
-                onClick={() => setVisibilityPass(!visibilityPass)}
-              >
-                {visibilityPass ? (
-                  <VisibilityIcon className={styles.visibilityIcon} />
-                ) : (
-                  <VisibilityOffIcon className={styles.visibilityIcon} />
-                )}
-              </InputAdornment>
-            }
-            onChange={onChangeFormField('password')}
-          />
-
-          <div className={styles.validationMessage}>
-            {validationMessagesArray(
-              errorMinLength,
-              errorOneNumber,
-              errorUppercaseLetter,
-              errorLowercaseLetter,
-              errorNoEngLetter,
-            ).map((text, index) => (
-              <span key={index} className={cx(styles.validationText, { [styles.red]: submit && text.error })}>
-                {text.name}
-              </span>
-            ))}
-          </div>
-          <div className={styles.validationHiddenMessage}>
-            <Typography
-              className={cx(
-                styles.validationHiddenText,
-                { [styles.red]: submit && errorMaxLength },
-                { [styles.visibility]: errorMaxLength },
-              )}
+      <div className={styles.fieldContainer}>
+        <Field
+          withIcon
+          autoComplete="new-password"
+          inputProps={{ maxLength: 128 }}
+          labelClasses={styles.label}
+          error={showError}
+          inputClasses={styles.input}
+          containerClasses={styles.field}
+          label={t(TranslationKey.Password)}
+          placeholder={t(TranslationKey.Password)}
+          type={visibilityPass ? 'text' : 'password'}
+          value={formFields.password}
+          startAdornment={
+            <InputAdornment position="end" className={styles.inputAdornment}>
+              <LockIcon color="primary" />
+            </InputAdornment>
+          }
+          endAdornment={
+            <InputAdornment
+              position="start"
+              className={styles.inputAdornmentRight}
+              onClick={() => setVisibilityPass(prev => !prev)}
             >
-              {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
-            </Typography>
-          </div>
+              {visibilityPass ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </InputAdornment>
+          }
+          onChange={onChangeFormField('password')}
+        />
+
+        <div className={styles.validationMessages}>
+          {validationMessagesArray(
+            errorMinLength,
+            errorOneNumber,
+            errorUppercaseLetter,
+            errorLowercaseLetter,
+            errorNoEngLetter,
+          ).map((text, index) => (
+            <span key={index} className={cx(styles.validationText, { [styles.red]: submit && text.error })}>
+              {text.name}
+            </span>
+          ))}
         </div>
-        <div className={styles.field}>
-          <Field
-            autoComplete="new-password"
-            disabled={isRecoverPassword}
-            withIcon={!isRecoverPassword}
-            inputProps={{ maxLength: 128 }}
-            labelClasses={styles.labelField}
-            error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
-            inputClasses={styles.input}
-            label={
-              isRecoverPassword ? t(TranslationKey['Re-enter the new password']) : t(TranslationKey['Re-type Password'])
-            }
-            placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
-            value={formFields.confirmPassword}
-            startAdornment={
-              !isRecoverPassword ? (
-                <InputAdornment position="end" className={styles.inputAdornment}>
-                  <LockIcon color="primary" />
-                </InputAdornment>
-              ) : null
-            }
-            onChange={onChangeFormField('confirmPassword')}
-          />
+
+        {formFields.password.length > 32 && (
+          <p className={cx(styles.validationText, styles.red)}>
+            {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}.`}
+          </p>
+        )}
+      </div>
+
+      <Field
+        withIcon
+        autoComplete="new-password"
+        inputProps={{ maxLength: 128 }}
+        labelClasses={styles.label}
+        error={equalityError && t(TranslationKey["Passwords don't match"])}
+        inputClasses={styles.input}
+        containerClasses={styles.field}
+        label={t(TranslationKey['Re-type Password'])}
+        placeholder={t(TranslationKey.Password)}
+        type={!visibilityPass ? 'password' : 'text'}
+        value={formFields.confirmPassword}
+        startAdornment={
+          <InputAdornment position="end" className={styles.inputAdornment}>
+            <LockIcon color="primary" />
+          </InputAdornment>
+        }
+        onChange={onChangeFormField('confirmPassword')}
+      />
+
+      <div className={styles.footer}>
+        <Checkbox color="primary" checked={formFields.acceptTerms} onClick={onChangeFormField('acceptTerms')} />
+
+        <div className={styles.termsContainer}>
+          <p>{t(TranslationKey['Agree with'])}</p>
+
+          <Link href="#" to="/terms" target="_blank" rel="noopener" className={styles.link}>
+            {t(TranslationKey['Terms & Conditions'])}
+          </Link>
         </div>
       </div>
-      {!isRecoverPassword ? (
-        <>
-          <div className={styles.formFooter} onClick={onChangeFormField('acceptTerms')}>
-            <Checkbox className={styles.checkbox} color="primary" checked={formFields.acceptTerms} />
 
-            <div className={styles.labelWrapper}>
-              <Typography className={styles.label}>{t(TranslationKey['Agree with']) + ' '}</Typography>
-              <Link href="#" to="/terms" target="_blank" rel="noopener" className={styles.link}>
-                {t(TranslationKey['Terms & Conditions'])}
-              </Link>
-            </div>
-          </div>
-          <Button disabled={disabledButton} className={styles.button}>
-            {t(TranslationKey.Registration)}
-          </Button>
-        </>
-      ) : null}
+      <Button disabled={disabledButton}>{t(TranslationKey.Registration)}</Button>
     </form>
   )
 })

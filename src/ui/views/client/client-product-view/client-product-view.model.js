@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
@@ -50,11 +50,9 @@ export class ClientProductViewModel {
   shopsData = []
 
   curUpdateProductData = undefined
-  warningModalTitle = ''
 
   paymentMethods = []
 
-  showWarningModal = false
   showConfirmModal = false
   showBindProductModal = false
 
@@ -133,7 +131,6 @@ export class ClientProductViewModel {
       })
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -155,7 +152,6 @@ export class ClientProductViewModel {
       this.onTriggerOpenModal('showBindProductModal')
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -403,7 +399,7 @@ export class ClientProductViewModel {
       })
 
       const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
-        toJS(this.product),
+        this.product,
         fieldsOfProductAllowedToUpdate,
         true,
         (key, value) => {
@@ -434,6 +430,7 @@ export class ClientProductViewModel {
               return value
           }
         },
+        true,
       )
 
       if (withoutStatus) {
@@ -458,9 +455,7 @@ export class ClientProductViewModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      if (this.imagesForLoad?.length) {
-        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-      }
+      await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
 
       await ClientModel.updateProduct(
         this.product._id,
@@ -689,10 +684,7 @@ export class ClientProductViewModel {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
-      runInAction(() => {
-        this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
-      })
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey['Parsing error']) + '\n' + String(error))
     }
   }
 }

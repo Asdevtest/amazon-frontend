@@ -3,7 +3,7 @@ import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
-import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -108,7 +108,7 @@ export const clientInventoryColumns = ({
       field: 'strategyStatus',
       headerName: t(TranslationKey.Strategy),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
-      renderCell: params => <MultilineStatusCell status={mapProductStrategyStatusEnum[params.value]} />,
+      renderCell: params => <MultilineStatusCell status={productStrategyStatusesEnum[params.value]} />,
       width: 140,
       columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
     },
@@ -298,14 +298,35 @@ export const clientInventoryColumns = ({
     },
 
     {
-      field: 'currentSupplierProductionTerm',
+      field: 'currentSupplierMinProductionTerm',
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
-      renderCell: params => <MultilineTextCell text={params.row.currentSupplier?.productionTerm} />,
-      valueGetter: params => params.row.currentSupplier?.productionTerm,
+      renderCell: params => {
+        const currentSupplier = params.row.currentSupplier
+
+        return currentSupplier ? (
+          <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+        ) : null
+      },
+      valueGetter: params => {
+        const currentSupplier = params.row.currentSupplier
+
+        return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
+      },
+      fields: [
+        {
+          label: () => t(TranslationKey['Min. production time, days']),
+          value: 'currentSupplierMinProductionTerm',
+        },
+        {
+          label: () => t(TranslationKey['Max. production time, days']),
+          value: 'currentSupplierMaxProductionTerm',
+        },
+      ],
       width: 120,
       sortable: false,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBERS,
+      table: DataGridFilterTables.PRODUCTS,
     },
 
     {

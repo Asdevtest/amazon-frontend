@@ -4,11 +4,10 @@ export const observerConfig = {
   filtersFields: observable,
   mainMethodURL: observable,
   columnMenuSettings: observable,
-  currentSearchValue: observable,
-  fieldsForSearch: observable,
+
   additionalPropertiesColumnMenuSettings: observable,
   additionalPropertiesGetFilters: observable,
-  pinnedColumns: observable,
+  operatorsSettings: observable,
 
   isSomeFilterOn: computed,
 
@@ -19,9 +18,12 @@ export const observerConfig = {
   onClickFilterBtn: action.bound,
   onClickResetFilters: action.bound,
   setFilterRequestStatus: action.bound,
-  handlePinColumn: action.bound,
 
-  getMainTableData: override,
-  setDataGridState: override,
-  getDataGridState: override,
+  getCurrentData: override,
+
+  onColumnVisibilityModelChange: override,
+  onChangeSortingModel: override,
+  onChangeFilterModel: override,
+  onPaginationModelChange: override,
+  currentSearchValue: override,
 }

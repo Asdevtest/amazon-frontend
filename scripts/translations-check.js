@@ -51,5 +51,5 @@ for (let index = 0; index < Object.keys(translationKeys).length; index++) {
 if (hasError) {
   throw Error('translations-check had errors, please review them in console')
 } else {
-  console.log('translations-check succeed')
+  console.warn('translations-check succeed')
 }

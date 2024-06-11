@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { operationTypes } from '@constants/keys/operation-types'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { BoxSplit } from '@components/shared/boxes/box-split'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
@@ -45,8 +45,6 @@ export const RedistributeBox = observer(
     })
     const [priority, setPriority] = useState()
     const [priorityReason, setPriorityReason] = useState()
-
-    const [showNewBoxAttention, setShowNewBoxAttention] = useState(true)
 
     const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
 
@@ -178,6 +176,16 @@ export const RedistributeBox = observer(
         !priorityReason?.length) ||
       selectedBox?.status !== BoxStatus.IN_STOCK
 
+    useEffect(() => {
+      toast.warning(
+        t(
+          TranslationKey[
+            'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
+          ],
+        ),
+      )
+    }, [])
+
     return (
       <div className={styles.wrapper}>
         <div className={styles.modalTitleWrapper}>
@@ -270,29 +278,11 @@ export const RedistributeBox = observer(
             variant={ButtonVariant.OUTLINED}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelButton)}
-            onClick={() => {
-              onTriggerOpenModal('showRedistributeBoxModal')
-              setShowNewBoxAttention(false)
-            }}
+            onClick={() => onTriggerOpenModal('showRedistributeBoxModal')}
           >
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
-
-        {showNewBoxAttention ? (
-          <WarningInfoModal
-            // @ts-ignore
-            openModal={showNewBoxAttention}
-            setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
-            title={t(
-              TranslationKey[
-                'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
-              ],
-            )}
-            btnText={t(TranslationKey.Ok)}
-            onClickBtn={() => setShowNewBoxAttention(!showNewBoxAttention)}
-          />
-        ) : null}
       </div>
     )
   },

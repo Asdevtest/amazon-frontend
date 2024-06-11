@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -15,14 +16,12 @@ export class CreateOrEditProposalViewModel {
   history = undefined
   requestStatus = undefined
 
-  infoModalText = ''
   uploadedFiles = []
   request = undefined
   proposalToEdit = undefined
   progressValue = 0
   showProgress = false
 
-  showInfoModal = false
   showResultModal = false
 
   get userInfo() {
@@ -61,17 +60,14 @@ export class CreateOrEditProposalViewModel {
           linksToMediaFiles: dataWithFiles.linksToMediaFiles,
         })
       }
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Proposal changed'])
-      })
+
+      toast.success(t(TranslationKey['Proposal changed']))
+
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
       console.error(error)
 
-      runInAction(() => {
-        this.infoModalText = error.body.message
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(error.body.message)
     }
   }
 
@@ -85,23 +81,17 @@ export class CreateOrEditProposalViewModel {
 
       await RequestModel.pickupRequestById(this.request.request._id, dataWithFiles)
 
-      runInAction(() => (this.infoModalText = t(TranslationKey['Proposal created by'])))
+      toast.success(t(TranslationKey['Proposal created by']))
 
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
       console.error(error)
 
-      runInAction(
-        () =>
-          (this.infoModalText = t(TranslationKey['There are unresolved proposals for this request in your queue.'])),
-      )
-
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey['There are unresolved proposals for this request in your queue.']))
     }
   }
 
   onClickOkInfoModal() {
-    this.onTriggerOpenModal('showInfoModal')
     this.onClickBackBtn()
   }
 

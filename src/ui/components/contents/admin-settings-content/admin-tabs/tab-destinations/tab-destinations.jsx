@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,12 +20,7 @@ import { AdminSettingsDestinationsModel } from './tab-destinations.model'
 
 export const TabDestinations = observer(() => {
   const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new AdminSettingsDestinationsModel())
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   return (
     <div className={styles.wrapper}>
@@ -42,7 +37,7 @@ export const TabDestinations = observer(() => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
-          rowHeight={70}
+          getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

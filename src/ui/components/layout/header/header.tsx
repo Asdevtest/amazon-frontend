@@ -23,7 +23,7 @@ import { SimpleMessagesNotification } from '@components/layout/notifications/sim
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { DialogModal } from '@components/shared/dialog-modal'
 import { LanguageSelector } from '@components/shared/selectors/language-selector'
-import { ExitIcon, HintsOff, HintsOn, MenuIcon } from '@components/shared/svg-icons'
+import { ExitIcon, HintsOffIcon, HintsOnIcon, MenuIcon } from '@components/shared/svg-icons'
 
 import { checkIsResearcher } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -156,13 +156,13 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
 
           <div className={styles.tooltipWrapper} onClick={() => setHints(!hints)}>
             {showHints ? (
-              <HintsOn
+              <HintsOnIcon
                 className={cx(styles.hintsIcon, styles.hintsIconActive)}
                 fontSize={'small'}
                 viewBox={'0 0 18 18'}
               />
             ) : (
-              <HintsOff className={styles.hintsIcon} fontSize={'small'} viewBox={'0 0 18 18'} />
+              <HintsOffIcon className={styles.hintsIcon} fontSize={'small'} viewBox={'0 0 18 18'} />
             )}
             {showHints ? (
               <p className={styles.hintsTextActive}>{t(TranslationKey['Hints included'])}</p>
@@ -176,7 +176,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
 
         <div className={styles.allowedRolesMainWrapper}>
           <CustomSwitcher
-            switchMode={'header'}
+            switchMode="header"
             condition={role}
             switcherSettings={roles}
             changeConditionHandler={onChangeUserInfo}

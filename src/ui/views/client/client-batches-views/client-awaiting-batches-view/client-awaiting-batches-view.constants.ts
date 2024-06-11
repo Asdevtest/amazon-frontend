@@ -18,3 +18,5 @@ export const filtersFields = [
   'arrivalDate',
   'quantityBoxes',
 ]
+
+export const fieldsForSearch = ['amazonTitle', 'humanFriendlyId', 'asin', 'orderHumanFriendlyId']

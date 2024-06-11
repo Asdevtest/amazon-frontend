@@ -2,7 +2,7 @@ import { Radio } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextCell, RenderFieldValueCell, SmallRowImageCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextCell, SmallRowImageCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
 import { DeleteIcon } from '@components/shared/svg-icons'
 
@@ -72,7 +72,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'title',
     headerName: 'Title',
-    renderCell: params => <RenderFieldValueCell value={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
     width: 120,
     filterable: false,
     sortable: false,

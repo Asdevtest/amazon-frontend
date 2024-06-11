@@ -32,7 +32,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'fixed',
     bottom: 50,
     right: 50,
-    zIndex: 50,
+    zIndex: 7,
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
