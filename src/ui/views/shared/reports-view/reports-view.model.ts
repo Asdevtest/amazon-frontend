@@ -17,7 +17,7 @@ import { reportsViewColumns } from './reports-view.columns'
 import { additionalFilterFields, additionalSearchFields, reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
-  reportId?: string = undefined
+  reportId?: string
   showReportModal = false
 
   get product() {
@@ -30,7 +30,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   constructor({ productId, subView = false }: { productId: string; subView?: boolean }) {
     const columnsProps = {
       onToggleReportModalEditMode: (reportId: string) => this.onToggleReportModalEditMode(reportId),
-      onRemoveReport: (reportId: string) => this.onRemoveReport(reportId),
+      onClickRemoveReport: (reportId: string) => this.onRemoveReport(reportId),
       subView,
     }
     const columnsModel = reportsViewColumns(columnsProps)

@@ -24,12 +24,12 @@ import { IGridColumn } from '@typings/shared/grid-column'
 
 interface ReportsViewColumnsProps {
   onToggleReportModalEditMode: (reportId: string) => void
-  onRemoveReport: (reportId: string) => void
+  onClickRemoveReport: (reportId: string) => void
   subView?: boolean
 }
 
 export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
-  const { onToggleReportModalEditMode, onRemoveReport, subView } = props
+  const { onToggleReportModalEditMode, onClickRemoveReport, subView } = props
 
   const asinColumn = subView
     ? {
@@ -67,8 +67,9 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           firstButtonStyle={ButtonStyle.PRIMARY}
           secondButtonElement={<CrossIcon />}
           secondButtonStyle={ButtonStyle.DANGER}
+          secondDescriptionText="Are you sure you want to delete the report?"
           onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
-          onClickSecondButton={() => onRemoveReport(row._id)}
+          onClickSecondButton={() => onClickRemoveReport(row._id)}
         />
       ),
       disableCustomSort: true,
