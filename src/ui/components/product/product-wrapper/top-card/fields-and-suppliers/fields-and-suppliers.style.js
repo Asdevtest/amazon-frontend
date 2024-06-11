@@ -45,6 +45,10 @@ export const useStyles = makeStyles()(theme => ({
     width: 'calc(100% - 110px)',
   },
 
+  error: {
+    borderColor: 'red',
+  },
+
   text: {
     color: theme.palette.text.general,
     fontSize: '14px',
