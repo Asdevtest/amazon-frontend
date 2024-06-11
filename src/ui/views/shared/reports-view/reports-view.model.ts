@@ -17,7 +17,7 @@ import { reportsViewColumns } from './reports-view.columns'
 import { additionalFilterFields, additionalSearchFields, reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
-  reportId?: string = undefined
+  reportId?: string
   showReportModal = false
 
   get product() {
@@ -30,20 +30,38 @@ export class ReportsViewModel extends DataGridFilterTableModel {
   constructor({ productId, subView = false }: { productId: string; subView?: boolean }) {
     const columnsProps = {
       onToggleReportModalEditMode: (reportId: string) => this.onToggleReportModalEditMode(reportId),
-      onRemoveReport: (reportId: string) => this.onRemoveReport(reportId),
+      onClickRemoveReport: (reportId: string) => this.onRemoveReport(reportId),
       subView,
     }
     const columnsModel = reportsViewColumns(columnsProps)
+
     const filtersFields = getFilterFields(columnsModel, additionalFilterFields)
+
     const mainMethodURL = subView
       ? 'clients/products/listing_reports?'
       : `clients/products/listing_reports_by_product_id/${productId}?`
+
     const defaultGetCurrentDataOptions = () =>
       subView
         ? undefined
         : {
             guid: productId,
           }
+
+    const additionalPropertiesGetFilters = () => {
+      const createdAtFilterData = this.columnMenuSettings?.createdAt?.currentFilterData
+
+      return {
+        ...(createdAtFilterData?.length && createdAtFilterData?.length === 2
+          ? {
+              createdAt: {
+                $gte: createdAtFilterData[0],
+                $lte: createdAtFilterData[1],
+              },
+            }
+          : {}),
+      }
+    }
 
     super({
       getMainDataMethod: subView ? ClientModel.getListingReports : ClientModel.getListingReportByProductId,
@@ -53,6 +71,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       fieldsForSearch: additionalSearchFields,
       tableKey: DataGridTablesKeys.PRODUCT_LISTING_REPORTS,
       defaultGetCurrentDataOptions,
+      additionalPropertiesGetFilters,
     })
 
     this.sortModel = [{ field: 'createdAt', sort: 'desc' }]

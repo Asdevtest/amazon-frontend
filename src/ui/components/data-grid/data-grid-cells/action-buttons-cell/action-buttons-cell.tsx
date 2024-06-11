@@ -1,6 +1,11 @@
+import { Popconfirm } from 'antd'
 import { FC, memo } from 'react'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { Button } from '@components/shared/button'
+
+import { t } from '@utils/translations'
 
 import { useStyles } from './action-buttons-cell.style'
 
@@ -34,6 +39,9 @@ import { ActionButtonsCellProps } from './action-buttons-cell.type'
  * @param {boolean} disabledFirstButton - Indicates if the first button should be disabled.
  * @param {boolean} disabledSecondButton - Indicates if the second button should be disabled.
  * @param {boolean} disabledThirdButton - Indicates if the third button should be disabled.
+ * @param {string} firstDescriptionText - Description of actions in the confirm modal window - first button.
+ * @param {string} secondDescriptionText - Description of actions in the confirm modal window - second button.
+ * @param {string} thirdDescriptionText - Description of actions in the confirm modal window - third button.
  * @param {Function} onClickFirstButton - The callback function for when the first button is clicked.
  * @param {Function} onClickSecondButton - The callback function for when the second button is clicked.
  * @param {Function} onClickThirdButton - The callback function for when the third button is clicked.
@@ -52,23 +60,40 @@ export const ActionButtonsCell: FC<ActionButtonsCellProps> = memo(props => {
         buttonWrapperClassName,
       )}
     >
-      {getButtonActionsConfig(props).map((button, index) =>
-        button.showButton ? (
-          <Button
+      {getButtonActionsConfig(props).map((button, index) => {
+        const { showButton, disabled, variant, styleType, tooltipText, buttonElement, descriptionText, onClick } =
+          button
+
+        if (!showButton) {
+          return null
+        }
+
+        const buttonProps = {
+          isTableButton: true,
+          iconButton,
+          disabled,
+          variant,
+          styleType,
+          tooltipInfoContent: tooltipText,
+          className: buttonClassName,
+          children: buttonElement,
+          onClick,
+        }
+
+        return descriptionText ? (
+          <Popconfirm
             key={index}
-            isTableButton
-            iconButton={iconButton}
-            disabled={button.disabled}
-            variant={button.variant}
-            styleType={button.styleType}
-            tooltipInfoContent={button.tooltipText}
-            className={buttonClassName}
-            onClick={button.onclick}
+            title={t(TranslationKey[descriptionText as TranslationKey])}
+            okText={t(TranslationKey.Yes)}
+            cancelText={t(TranslationKey.No)}
+            onConfirm={onClick}
           >
-            {button.buttonElement}
-          </Button>
-        ) : null,
-      )}
+            <Button {...buttonProps} onClick={undefined} />
+          </Popconfirm>
+        ) : (
+          <Button key={index} {...buttonProps} />
+        )
+      })}
     </div>
   )
 })

@@ -2290,6 +2290,7 @@ export enum TranslationKey {
   'Data removed successfully' = 'Data removed successfully',
   'Data not removed' = 'Data not removed',
   'Quantity in box' = 'Quantity in box',
+  'Are you sure you want to delete the report?' = 'Are you sure you want to delete the report?',
   'Online' = 'Online',
   'Users online' = 'Users online',
   'Search by ASIN, SKU, Title' = 'Search by ASIN, SKU, Title',

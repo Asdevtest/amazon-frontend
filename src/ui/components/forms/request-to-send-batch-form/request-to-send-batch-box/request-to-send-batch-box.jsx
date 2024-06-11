@@ -285,7 +285,7 @@ export const RequestToSendBatchBox = memo(
                   download
                   target="_blank"
                   rel="noreferrer noopener"
-                  href={box.shippingLabel}
+                  href={getAmazonImageUrl(box.shippingLabel, true)}
                   className={styles.downloadLink}
                 >
                   {t(TranslationKey.download)}

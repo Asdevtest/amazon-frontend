@@ -1,5 +1,6 @@
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,12 +24,12 @@ import { IGridColumn } from '@typings/shared/grid-column'
 
 interface ReportsViewColumnsProps {
   onToggleReportModalEditMode: (reportId: string) => void
-  onRemoveReport: (reportId: string) => void
+  onClickRemoveReport: (reportId: string) => void
   subView?: boolean
 }
 
 export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
-  const { onToggleReportModalEditMode, onRemoveReport, subView } = props
+  const { onToggleReportModalEditMode, onClickRemoveReport, subView } = props
 
   const asinColumn = subView
     ? {
@@ -47,7 +48,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
         table: DataGridFilterTables.PRODUCTS,
       }
-    : undefined
+    : null
 
   const columns: IGridColumn[] = [
     {
@@ -66,8 +67,9 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           firstButtonStyle={ButtonStyle.PRIMARY}
           secondButtonElement={<CrossIcon />}
           secondButtonStyle={ButtonStyle.DANGER}
+          secondDescriptionText="Are you sure you want to delete the report?"
           onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
-          onClickSecondButton={() => onRemoveReport(row._id)}
+          onClickSecondButton={() => onClickRemoveReport(row._id)}
         />
       ),
       disableCustomSort: true,
@@ -114,20 +116,35 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <UserMiniCell userName={row.sub?.name || row.createdBy?.name} userId={row.sub?._id || row.createdBy?._id} />
       ),
+
+      fields: [
+        {
+          label: () => TranslationKey['Master user'],
+          value: 0,
+        },
+        {
+          label: () => TranslationKey['Sub user'],
+          value: 1,
+        },
+      ],
+
+      columnMenuConfig: [
+        {
+          field: 'createdBy',
+          table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+        },
+
+        {
+          field: 'sub',
+          table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
+          columnKey: ColumnMenuKeys.OBJECT,
+        },
+      ],
+
       width: 180,
       disableCustomSort: true,
-      columnKey: columnnsKeys.freelancer.FREELANCE_PROPOSALS_CREATED_BY,
-    },
-
-    {
-      field: 'result',
-      headerName: t(TranslationKey.Result),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Result)} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <MultilineTextCell leftAlign threeLines maxLength={200} text={row.result} />
-      ),
-      flex: 1,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
