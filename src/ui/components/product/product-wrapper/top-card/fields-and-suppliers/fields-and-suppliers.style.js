@@ -46,7 +46,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   error: {
-    borderColor: 'red',
+    borderColor: theme.palette.text.red,
   },
 
   text: {
