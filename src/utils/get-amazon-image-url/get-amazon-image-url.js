@@ -11,14 +11,13 @@ import {
   checkIsGif,
   checkIsHasHttp,
   checkIsImageInludesPostfixes,
-  checkIsImageLink,
   checkIsMediaFileLink,
   checkIsVideoLink,
 } from '@utils/checks'
 import { removeText } from '@utils/text'
 
 export const getAmazonImageUrl = (str, isBig) => {
-  if (!str || str?.endsWith('.com') || !checkIsImageLink(str)) {
+  if (!str || str?.endsWith('.com')) {
     return '/assets/img/no-photo.jpg'
   }
 

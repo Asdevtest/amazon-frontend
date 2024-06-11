@@ -107,13 +107,6 @@ export const dataGridFiltersConverter = (
       return acc
     }
 
-    if (Array.isArray(filterList) && filterList.length === 2 && ['createdAt', 'updatedAt'].includes(column)) {
-      return (acc = {
-        ...acc,
-        createdAt: { $gte: filterList[0], $lte: filterList[1] },
-      })
-    }
-
     let finalFilterString = ''
 
     filterList.forEach(item => {
@@ -136,7 +129,7 @@ export const dataGridFiltersConverter = (
 
   return {
     or: searchFieldsArray,
-    ...additionalOptions,
     ...columnFilters,
+    ...additionalOptions,
   }
 }
