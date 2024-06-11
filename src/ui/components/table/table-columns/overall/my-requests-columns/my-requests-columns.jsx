@@ -1,5 +1,6 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import {
   colorByDifficultyLevel,
   difficultyLevelByCode,
@@ -129,8 +130,9 @@ export const myRequestsViewColumns = rowHandlers => {
       renderCell: params => <MultilineRequestStatusCell status={params.value} />,
       width: 120,
       filterable: false,
+      transformValueMethod: MyRequestStatusTranslate,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
 
-      columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
       disableCustomSort: true,
     },
 

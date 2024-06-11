@@ -8,6 +8,7 @@ export const observerConfig = {
   additionalPropertiesColumnMenuSettings: observable,
   additionalPropertiesGetFilters: observable,
   operatorsSettings: observable,
+  defaultFilterParams: observable,
 
   isSomeFilterOn: computed,
 
