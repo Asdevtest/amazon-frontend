@@ -15,10 +15,10 @@ import { IPermissionsData } from '@hooks/use-products-permissions'
 
 import { useStyles } from './header.style'
 
-import { getAsinOptions, getDefaultAsinOption } from '../../report-modal.config'
 import { ILaunchOption, IRequestWithLaunch } from '../../report-modal.type'
 
 import { AsinOption } from './asin-option'
+import { getAsinOptions, getDefaultAsinOption } from './header.config'
 import { Requests } from './requests'
 
 interface HeaderProps {
