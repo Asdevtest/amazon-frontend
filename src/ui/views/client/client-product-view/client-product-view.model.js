@@ -619,7 +619,6 @@ export class ClientProductViewModel {
   }
 
   async onClickParseProductData(product) {
-    console.log('onClickParseProductData', { product: JSON.parse(JSON.stringify(product)) })
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
