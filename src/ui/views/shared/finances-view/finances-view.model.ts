@@ -33,6 +33,7 @@ export class FinancesViewModel extends DataGridFilterTableModel {
       getMainDataMethod: OtherModel.getFinancesPag,
       columnsModel,
       filtersFields: getFilterFields(columnsModel, ['skuByClient', 'amazonTitle']),
+      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
       mainMethodURL: 'other/payments/pag/my?',
       tableKey: DataGridTablesKeys.SHARED_FINANCES,
       additionalPropertiesGetFilters,

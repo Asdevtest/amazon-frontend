@@ -57,8 +57,9 @@ export const financesViewColumns = () => {
 
       width: 110,
       renderCell: params => <MultilineTextCell text={getPaymentTypeTranslations(params.value)} />,
+      transformValueMethod: getPaymentTypeTranslations,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -103,6 +104,10 @@ export const financesViewColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
       renderCell: params => <MultilineTextCell text={getEntityTypeTranslations(params.value)} />,
+      transformValueMethod: getEntityTypeTranslations,
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+
       width: 110,
     },
 
@@ -114,7 +119,7 @@ export const financesViewColumns = () => {
       flex: 1,
       renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
   ]
 
