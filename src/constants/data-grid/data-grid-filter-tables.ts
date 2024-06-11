@@ -10,6 +10,7 @@ export enum DataGridFilterTables {
   PPC_SALES_DAYS = 'ppcSalesDays',
 
   PRODUCTS = 'products',
+  USERS = 'users',
   STOREKEEPERS = 'storekeepers',
   SUPPLIERS = 'suppliers',
   BATCHES = 'batches',
