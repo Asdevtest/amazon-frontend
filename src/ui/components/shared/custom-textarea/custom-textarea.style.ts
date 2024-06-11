@@ -13,6 +13,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   row: {
+    alignItems: 'center',
     flexDirection: 'row',
   },
 

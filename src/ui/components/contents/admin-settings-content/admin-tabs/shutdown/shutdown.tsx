@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 import { AiOutlinePoweroff } from 'react-icons/ai'
+import { PiAlarmDuotone } from 'react-icons/pi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -32,6 +33,8 @@ export const Shutdown: FC<ShutdownProps> = observer(() => {
         <div className={styles.flexRowContainer}>
           <p className={styles.notifyText}>{t(TranslationKey['Notify users before disconnecting']) + '!'}</p>
           <CustomSwitch
+            disabled={viewModel.shutdownDelayChecked}
+            value={viewModel.serverEnabled}
             checkedChildren={t(TranslationKey.On)}
             unCheckedChildren={t(TranslationKey.Off)}
             onChange={viewModel.onToggleServer}
@@ -41,10 +44,16 @@ export const Shutdown: FC<ShutdownProps> = observer(() => {
 
       <div className={cx(styles.flexRowContainer, styles.spaceBetween, styles.fixedHeight)}>
         <div className={cx(styles.leftContainer, styles.flexColumnContainer)}>
-          <CustomCheckbox>{t(TranslationKey['Shutdown delay'])}</CustomCheckbox>
+          <CustomCheckbox value={viewModel.shutdownDelayChecked} onChange={viewModel.onChangeShutdownDelay}>
+            {t(TranslationKey['Shutdown delay'])}
+          </CustomCheckbox>
 
           <div className={styles.center}>
-            <CustomTimer targetDate={new Date(new Date().getTime() + 10 * 60000)} startIcon={<AiOutlinePoweroff />} />
+            {viewModel.shutdownDelayChecked ? (
+              <CustomTimer targetDate={new Date(new Date().getTime() + 10 * 60000)} startIcon={<AiOutlinePoweroff />} />
+            ) : (
+              <PiAlarmDuotone className={styles.iconAlarm} />
+            )}
           </div>
         </div>
 

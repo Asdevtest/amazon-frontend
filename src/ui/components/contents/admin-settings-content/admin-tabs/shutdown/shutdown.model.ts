@@ -1,7 +1,9 @@
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 export class ShutdownModel {
   serverEnabled = false
+  shutdownDelayChecked = false
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -17,5 +19,9 @@ export class ShutdownModel {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  onChangeShutdownDelay(e: CheckboxChangeEvent) {
+    this.shutdownDelayChecked = e.target.checked
   }
 }

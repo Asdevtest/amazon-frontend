@@ -56,4 +56,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  iconAlarm: {
+    width: 60,
+    height: 60,
+    color: theme.palette.primary.main,
+  },
 }))

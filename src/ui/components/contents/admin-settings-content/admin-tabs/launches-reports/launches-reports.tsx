@@ -1,16 +1,17 @@
-import { InputNumber, Select } from 'antd'
+import { Select } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomInputNumber } from '@components/shared/custom-input-number'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './launches-reports.style'
 
-import { getSelectConfig } from './helpers/get-select-config'
+import { getSelectConfig } from './launches-reports.config'
 import { LaunchesReportsModel } from './launches-reports.model'
 
 interface LaunchesReportsProps {
@@ -26,29 +27,27 @@ export const LaunchesReports: FC<LaunchesReportsProps> = observer(({ timeBeforeL
     <Select
       value={viewModel.dateType}
       options={getSelectConfig()}
-      className={styles.selectAfter}
-      onChange={viewModel.handleChangeDateType}
+      className={styles.select}
+      onChange={viewModel.onChangeDateType}
     />
   )
 
   return (
     <div className={styles.wrapper}>
-      <p>{t(TranslationKey['Launches reports'])}</p>
+      <p className={styles.title}>{t(TranslationKey['Launches reports'])}</p>
 
-      <div className={styles.inputWrapper}>
-        <p>{t(TranslationKey['Notify users of completed launches in'])}</p>
+      <CustomInputNumber
+        isRow
+        precision={0}
+        label="Notify users of completed launches in"
+        addonAfter={selectAfter}
+        value={viewModel.currentTimeBeforeLaunchDeadline}
+        className={styles.input}
+        labelClassName={styles.label}
+        onChange={viewModel.onChangeDeadline}
+      />
 
-        <InputNumber
-          controls={false}
-          precision={0}
-          addonAfter={selectAfter}
-          value={viewModel.currentTimeBeforeLaunchDeadline}
-          className={styles.input}
-          onChange={viewModel.handleChangeDeadline}
-        />
-      </div>
-
-      <CustomButton type="primary" loading={viewModel.isLoading} onClick={viewModel.handleSaveDeadline}>
+      <CustomButton type="primary" loading={viewModel.isLoading} onClick={viewModel.onSaveDeadline}>
         {t(TranslationKey.Save)}
       </CustomButton>
     </div>
