@@ -1,5 +1,5 @@
 export enum PaymentType {
-  PRODUCT = 'PRODUCT',
-  ORDER = 'ORDER',
-  BOX = 'BOX',
+  FINE = 'FINE',
+  REPLENISH = 'REPLENISH',
+  ZERO = 'ZERO',
 }

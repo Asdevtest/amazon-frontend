@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -12,10 +12,18 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    flex: 1,
+    flex: '1',
+    overflow: 'auto',
+    padding: '3px',
   },
 
   searchInput: {
     width: '320px',
+  },
+
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 }))

@@ -6,6 +6,7 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 
 import { t } from '@utils/translations'
@@ -15,6 +16,8 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { useStyles } from './finances-view.style'
 
 import { FinancesViewModel } from './finances-view.model'
+import { getEntityTypeConfig } from './helpers/get-entity-type-config'
+import { getPaymentTypeConfig } from './helpers/get-payment-type-config'
 
 export const FinancesView = observer(() => {
   const { classes: styles } = useStyles()
@@ -23,11 +26,27 @@ export const FinancesView = observer(() => {
 
   return (
     <div className={styles.wrapper}>
-      <SearchInput
-        inputClasses={styles.searchInput}
-        placeholder={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.SKU)}, ${t(TranslationKey.Title)}`}
-        value={viewModel.currentSearchValue}
-        onSubmit={viewModel.onSearchSubmit}
+      <div className={styles.header}>
+        <CustomSwitcher
+          switchMode="medium"
+          condition={viewModel?.paymentType}
+          switcherSettings={getPaymentTypeConfig()}
+          changeConditionHandler={viewModel?.handleSetPaymentType}
+        />
+
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.SKU)}, ${t(TranslationKey.Title)}`}
+          value={viewModel.currentSearchValue}
+          onSubmit={viewModel.onSearchSubmit}
+        />
+      </div>
+
+      <CustomSwitcher
+        switchMode="medium"
+        condition={viewModel?.entityType}
+        switcherSettings={getEntityTypeConfig()}
+        changeConditionHandler={viewModel?.handleSetEntityType}
       />
 
       <div className={styles.tableWrapper}>

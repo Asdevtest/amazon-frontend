@@ -587,7 +587,7 @@ export const DataGridCustomColumnMenuComponent = props => {
     return (
       <CustomMenuContainer {...props}>
         <NumberColumnMenu
-          filtersData={props}
+          filtersData={props[currentColumn.field]}
           field={currentColumn.field}
           table={currentColumn.table}
           filterRequestStatus={filterRequestStatus}

@@ -1,6 +1,6 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { getPaymentTypeTranslations } from '@constants/finances/get-payment-type-translations'
+import { getEntityTypeTranslations, getPaymentTypeTranslations } from '@constants/finances/get-type-translations'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -8,11 +8,10 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   ProductAsinCell,
-  ScrollingCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
-import { capitalizeFirstLetter, toFixedWithDollarSign } from '@utils/text'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -51,26 +50,27 @@ export const financesViewColumns = () => {
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
 
-    // TODO: no data
     {
-      field: 'type',
+      field: 'paymentType',
       headerName: t(TranslationKey.Type),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-      width: 90,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 110,
+      renderCell: params => <MultilineTextCell text={getPaymentTypeTranslations(params.value)} />,
+
+      columnKey: columnnsKeys.shared.STRING,
     },
 
     {
       field: 'sum',
-      headerName: t(TranslationKey.Sum),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Sum)} />,
+      headerName: `${t(TranslationKey.Sum)}, $`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Sum)}, $`} />,
 
       width: 110,
 
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+      renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -98,12 +98,12 @@ export const financesViewColumns = () => {
     },
 
     {
-      field: 'paymentType',
+      field: 'entityType',
       headerName: t(TranslationKey.Category),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
-      renderCell: params => <MultilineTextCell text={getPaymentTypeTranslations(params.value)} />,
-      width: 90,
+      renderCell: params => <MultilineTextCell text={getEntityTypeTranslations(params.value)} />,
+      width: 110,
     },
 
     {

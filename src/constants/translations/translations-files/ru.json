@@ -2287,5 +2287,8 @@
   "Sub user": "Субпользователь",
   "Data removed successfully": "Данные успешно удалены",
   "Data not removed": "Данные не удалены",
-  "Quantity in box": "Количество в коробке"
+  "Quantity in box": "Количество в коробке",
+  "Fine": "Списание",
+  "Replenish": "Пополнение",
+  "Zero": "Ноль"
 }
