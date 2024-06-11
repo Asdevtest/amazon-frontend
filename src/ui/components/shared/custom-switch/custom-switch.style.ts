@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: 225,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
@@ -14,6 +13,10 @@ export const useStyles = makeStyles()(theme => ({
 
   row: {
     flexDirection: 'row',
+  },
+
+  switch: {
+    width: 'max-content',
   },
 
   label: {

@@ -1,7 +1,15 @@
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
+import { AiOutlinePoweroff } from 'react-icons/ai'
 
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
+import { CustomDivider } from '@components/shared/custom-divider'
+import { CustomSwitch } from '@components/shared/custom-switch'
+import { CustomTextarea } from '@components/shared/custom-textarea'
+import { CustomTimer } from '@components/shared/custom-timer'
 
 import { t } from '@utils/translations'
 
@@ -12,36 +20,45 @@ import { ShutdownModel } from './shutdown.model'
 interface ShutdownProps {}
 
 export const Shutdown: FC<ShutdownProps> = observer(() => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [viewModel] = useState(() => new ShutdownModel())
 
   return (
-    <div className={styles.wrapper}>
-      <div>
-        <div className={styles.flexRowContainer}>
-          <p>{t(TranslationKey['Access for users'])}</p>
-          <p>{t(TranslationKey['Notify users before disconnecting']) + '!'}</p>
-        </div>
+    <div className={cx(styles.wrapper, styles.flexColumnContainer)}>
+      <div className={cx(styles.flexRowContainer, styles.spaceBetween)}>
+        <p className={styles.title}>{t(TranslationKey['Access for users'])}</p>
 
-        <div></div>
+        <div className={styles.flexRowContainer}>
+          <p className={styles.notifyText}>{t(TranslationKey['Notify users before disconnecting']) + '!'}</p>
+          <CustomSwitch
+            checkedChildren={t(TranslationKey.On)}
+            unCheckedChildren={t(TranslationKey.Off)}
+            onChange={viewModel.onToggleServer}
+          />
+        </div>
       </div>
 
-      <div>
-        <div>
-          <div></div>
+      <div className={cx(styles.flexRowContainer, styles.spaceBetween, styles.fixedHeight)}>
+        <div className={cx(styles.leftContainer, styles.flexColumnContainer)}>
+          <CustomCheckbox>{t(TranslationKey['Shutdown delay'])}</CustomCheckbox>
 
-          <div></div>
-        </div>
-        <div>
-          <p></p>
-
-          <div>
-            <p></p>
-            <p></p>
+          <div className={styles.center}>
+            <CustomTimer targetDate={new Date(new Date().getTime() + 10 * 60000)} startIcon={<AiOutlinePoweroff />} />
           </div>
+        </div>
 
-          <div></div>
+        <CustomDivider type="vertical" className={styles.divider} />
+
+        <div className={cx(styles.rightContainer, styles.flexColumnContainer)}>
+          <p className={styles.title}>{t(TranslationKey['Notice to users'])}</p>
+
+          <CustomTextarea allowClear rows={5} />
+
+          <div className={cx(styles.flexRowContainer, styles.spaceBetween)}>
+            <CustomButton type="primary">{t(TranslationKey.Send)}</CustomButton>
+            <CustomButton type="primary">{t(TranslationKey.Edit)}</CustomButton>
+          </div>
         </div>
       </div>
     </div>

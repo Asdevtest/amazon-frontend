@@ -11,7 +11,49 @@ export const useStyles = makeStyles()(theme => ({
   flexRowContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
     gap: 20,
+  },
+
+  flexColumnContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  spaceBetween: {
+    justifyContent: 'space-between',
+  },
+
+  title: {
+    fontWeight: 600,
+  },
+
+  notifyText: {
+    color: theme.palette.text.red,
+  },
+
+  leftContainer: {
+    width: '20%',
+    height: '100%',
+    justifyContent: 'flex-start',
+  },
+
+  divider: {
+    height: '100%',
+  },
+
+  rightContainer: {
+    width: '80%',
+  },
+
+  fixedHeight: {
+    height: 215,
+  },
+
+  center: {
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }))

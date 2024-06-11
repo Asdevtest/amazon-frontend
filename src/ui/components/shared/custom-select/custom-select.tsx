@@ -33,7 +33,7 @@ export const CustomSelect: FC<CustomSelectProps> = memo(props => {
       ) : null}
       <Select
         {...restProps}
-        className={cx(styles.input, className)}
+        className={className}
         placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
       />
     </div>

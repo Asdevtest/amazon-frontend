@@ -40,7 +40,6 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
         disabled={disabledResultField}
         rows={2}
         maxLength={1024}
-        placeholder="Enter"
         value={row?.result}
         onChange={onChangeCommentCellValue(row.type, 'result')}
       />

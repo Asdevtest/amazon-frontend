@@ -22,7 +22,7 @@ import { SettingsModel } from '@models/settings-model'
 import { SimpleMessagesNotification } from '@components/layout/notifications/simple-messages-notification'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { DialogModal } from '@components/shared/dialog-modal'
-import { LanguageSelector } from '@components/shared/selectors/language-selector'
+import { LanguageSelector } from '@components/shared/language-selector'
 import { ExitIcon, HintsOffIcon, HintsOnIcon, MenuIcon } from '@components/shared/svg-icons'
 
 import { checkIsResearcher } from '@utils/checks'

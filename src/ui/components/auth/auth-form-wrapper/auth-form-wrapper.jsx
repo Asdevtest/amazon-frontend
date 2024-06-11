@@ -11,7 +11,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal/confirmation-modal.jsx'
-import { LanguageSelector } from '@components/shared/selectors/language-selector/language-selector.jsx'
+import { LanguageSelector } from '@components/shared/language-selector/language-selector'
 
 import { t } from '@utils/translations'
 
