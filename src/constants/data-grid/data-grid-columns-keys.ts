@@ -75,6 +75,7 @@ export const columnnsKeys = {
     NUMBERS: 'NUMBERS',
     NUMBER: 'NUMBER',
     OBJECT_VALUE: 'OBJECT_VALUE',
+    STRING_VALUE: 'STRING_VALUE',
 
     MULTIPLE: 'MULTIPLE',
   },

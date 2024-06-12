@@ -1,16 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { HookParams } from '../../column-menu.type'
 import { wholeIntegersList } from '../../whole-integers-list'
 
-interface useNumberColumnMenuParams {
-  field: string
-  table: string
-  filtersData: any
-  onClickFilterBtn: (field: string, table: string) => void
-}
-
-export const useNumberColumnMenu = ({ field, table, filtersData, onClickFilterBtn }: useNumberColumnMenuParams) => {
+export const useNumberColumnMenu = ({ field, table, filtersData, onClickFilterBtn }: HookParams<number>) => {
   const [chosenItems, setChosenItems] = useState<number[]>([])
 
   const [fromSearchValue, setFromSearchValue] = useState('')

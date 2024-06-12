@@ -1,28 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  buttonsWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '20px',
-  },
-
-  columnMenuWrapper: {
-    display: 'flex',
-    width: '300px',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    gap: '10px',
-  },
-
-  radioButtonsWrapper: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-
+export const useStyles = makeStyles()(() => ({
   inputsWrapper: {
     width: '100%',
     display: 'flex',
@@ -37,39 +15,5 @@ export const useStyles = makeStyles()(theme => ({
 
   inputInnerSpace: {
     width: '100%',
-  },
-
-  searchInput: {
-    width: '100%',
-    height: '30px',
-  },
-
-  noOptionText: {
-    color: theme.palette.text.second,
-  },
-
-  filterItemsWrapper: {
-    width: '100%',
-    height: '245px',
-    overflowY: 'auto',
-    textAlign: 'center',
-
-    boxShadow: theme.palette.boxShadow.filter,
-  },
-
-  filterTitle: {
-    width: '100%',
-    textAlign: 'left',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-
-  loaderWrapper: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 }))

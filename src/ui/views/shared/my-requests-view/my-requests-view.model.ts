@@ -100,10 +100,6 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       const additionalFilters = listingFilters?.notOnListing && listingFilters?.onListing
 
       return {
-        statusGroup: {
-          $eq: this.statusGroup,
-        },
-
         ...(!additionalFilters && {
           uploadedToListing: {
             $eq: listingFilters?.onListing,
@@ -111,6 +107,12 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
         }),
       }
     }
+
+    const defaultFilterParams = () => ({
+      statusGroup: {
+        $eq: this.statusGroup,
+      },
+    })
 
     super({
       getMainDataMethod: RequestModel.getRequests,
@@ -122,6 +124,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       defaultGetCurrentDataOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
+      defaultFilterParams,
     })
     makeObservable(this, observerConfig)
 
