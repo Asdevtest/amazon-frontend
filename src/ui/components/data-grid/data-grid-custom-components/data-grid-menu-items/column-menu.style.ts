@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(() => ({
     width: '300px',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '20px',
+    padding: '10px 20px 20px 20px',
     gap: '10px',
   },
 

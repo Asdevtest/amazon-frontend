@@ -1107,9 +1107,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
           variationTariffId: boxData.variationTariffId,
-          shippingLabel: this.uploadedFiles?.length
-            ? this.uploadedFiles[0]
-            : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+          shippingLabel: boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
 
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
@@ -1205,9 +1203,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             isShippingLabelAttachedByStorekeeper:
               sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
             items: requestBoxItems,
-            shippingLabel: this.uploadedFiles?.length
-              ? this.uploadedFiles[0]
-              : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+            shippingLabel: boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           },
           updateBoxWhiteList,
         )
