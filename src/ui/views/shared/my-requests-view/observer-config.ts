@@ -23,8 +23,10 @@ export const observerConfig = {
   onlyWaitedProposals: observable,
   acceptProposalResultSetting: observable,
   statusGroup: observable,
+  _dataGridApi: observable,
 
   userInfo: computed,
+  dataGridApi: computed,
 
   onClickChangeCatigory: action.bound,
   loadData: action.bound,
@@ -56,4 +58,5 @@ export const observerConfig = {
   onSendInForRework: action.bound,
   onClickProposalResultAccept: action.bound,
   onClickProposalResultAcceptForm: action.bound,
+  handleChangeRequestComment: action.bound,
 }
