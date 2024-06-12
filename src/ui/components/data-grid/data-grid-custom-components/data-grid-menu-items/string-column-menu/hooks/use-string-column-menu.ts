@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { IFilter } from '@utils/data-grid-filters'
+
 import { HookParams } from '../../column-menu.type'
 
 export const useStringColumnMenu = ({ field, table, filtersData, onClickFilterBtn }: HookParams<string>) => {
@@ -7,7 +9,7 @@ export const useStringColumnMenu = ({ field, table, filtersData, onClickFilterBt
 
   const [searchValue, setSearchValue] = useState('')
 
-  const { filterData, currentFilterData }: { filterData: string[]; currentFilterData: string[] } = useMemo(() => {
+  const { filterData, currentFilterData }: IFilter<string> = useMemo(() => {
     return filtersData
   }, [field, filtersData])
 
