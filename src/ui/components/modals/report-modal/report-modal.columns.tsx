@@ -42,7 +42,6 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <CustomInputNumber
           isCell
-          min={0}
           max={100}
           precision={0}
           maxLength={3}

@@ -24,6 +24,10 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
+  flexEnd: {
+    justifyContent: 'flex-end',
+  },
+
   title: {
     fontWeight: 600,
   },
@@ -33,7 +37,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   leftContainer: {
-    width: '20%',
+    width: '15%',
     height: '100%',
     justifyContent: 'flex-start',
   },
@@ -43,7 +47,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   rightContainer: {
-    width: '80%',
+    width: '85%',
   },
 
   fixedHeight: {
@@ -61,5 +65,13 @@ export const useStyles = makeStyles()(theme => ({
     width: 60,
     height: 60,
     color: theme.palette.primary.main,
+  },
+
+  input: {
+    width: 160,
+  },
+
+  select: {
+    width: 100,
   },
 }))
