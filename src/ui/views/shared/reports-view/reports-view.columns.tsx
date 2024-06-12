@@ -145,12 +145,14 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           field: 'createdBy',
           table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
           columnKey: ColumnMenuKeys.OBJECT,
+          hideEmptyObject: true,
         },
 
         {
           field: 'sub',
           table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
           columnKey: ColumnMenuKeys.OBJECT,
+          hideEmptyObject: true,
         },
       ],
 
