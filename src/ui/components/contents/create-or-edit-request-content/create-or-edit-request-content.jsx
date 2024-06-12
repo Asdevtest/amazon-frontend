@@ -396,6 +396,8 @@ export const CreateOrEditRequestContent = memo(props => {
   const isSecondStep = curStep === stepVariant.STEP_TWO
   const showScrollArrows = isFirstStep && (showScrollUp || showScrollDown)
 
+  console.log('formFields.request.timeoutAt', formFields.request.timeoutAt)
+
   return (
     <>
       <div ref={componentRef} className={styles.mainWrapper}>
@@ -604,7 +606,7 @@ export const CreateOrEditRequestContent = memo(props => {
                           disablePast
                           minDate={minDate}
                           className={cx(styles.field, styles.datePicker)}
-                          value={new Date(formFields.request.timeoutAt)}
+                          value={formFields.request.timeoutAt ? new Date(formFields.request.timeoutAt) : null}
                           onChange={e => onChangeField('request')('timeoutAt')(e)}
                         />
                         {deadlineError && (
@@ -624,7 +626,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       <div>
                         <TimePicker
                           className={cx(styles.field, styles.datePicker)}
-                          value={new Date(formFields.request.timeoutAt)}
+                          value={formFields.request.timeoutAt ? new Date(formFields.request.timeoutAt) : null}
                           onChange={onChangeField('request')('timeoutAt')}
                         />
                         {deadlineError && (
