@@ -304,7 +304,7 @@ export class LogisticsTariffsModel {
           maxWeight: destinationVariation?.maxWeight,
           pricePerKgRmb: destinationVariation?.pricePerKgRmb,
           pricePerKgUsd: destinationVariation?.pricePerKgUsd,
-          minBoxWeight: +destinationVariation?.minBoxWeight,
+          minBoxWeight: Number(destinationVariation?.minBoxWeight),
         })),
       })
 
@@ -345,7 +345,7 @@ export class LogisticsTariffsModel {
           maxWeight: destinationVariation?.maxWeight,
           pricePerKgRmb: destinationVariation?.pricePerKgRmb,
           pricePerKgUsd: destinationVariation?.pricePerKgUsd,
-          minBoxWeight: +destinationVariation?.minBoxWeight,
+          minBoxWeight: Number(destinationVariation?.minBoxWeight),
         })),
       })
 
