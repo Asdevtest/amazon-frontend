@@ -23,10 +23,9 @@ export const observerConfig = {
   onlyWaitedProposals: observable,
   acceptProposalResultSetting: observable,
   statusGroup: observable,
-  _dataGridApi: observable,
+  dataGridApi: observable,
 
   userInfo: computed,
-  dataGridApi: computed,
 
   onClickChangeCatigory: action.bound,
   loadData: action.bound,

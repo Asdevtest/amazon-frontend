@@ -42,7 +42,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   showConfirmWithCommentModal = false
   isAcceptedProposals = false
 
-  _dataGridApi: any = null
+  dataGridApi: any = null
   selectedIndex = null
   selectedRequests = []
   researchIdToRemove = undefined
@@ -76,14 +76,6 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   statusGroup = SwitcherCondition.IN_PROGRESS
 
   acceptProposalResultSetting = {}
-
-  get dataGridApi() {
-    return this._dataGridApi
-  }
-
-  set dataGridApi(api: any) {
-    this._dataGridApi = api
-  }
 
   constructor({ dataGridApi }: { dataGridApi: MutableRefObject<any> }) {
     const rowHandlers = {
