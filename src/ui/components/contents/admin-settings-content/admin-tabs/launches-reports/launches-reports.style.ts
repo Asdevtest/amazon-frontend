@@ -6,34 +6,26 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     gap: '20px',
-
-    padding: '15px 20px 20px 20px',
+    padding: 20,
     borderRadius: '20px',
     backgroundColor: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
-
-    '> p': {
-      fontSize: '16px',
-      fontWeight: 700,
-    },
   },
 
-  inputWrapper: {
-    display: 'flex',
-    gap: '20px',
-    alignItems: 'center',
-
-    '> p': {
-      fontSize: '14px',
-      fontWeight: '600',
-    },
+  title: {
+    fontWeight: 600,
   },
 
-  selectAfter: {
-    width: '80px',
+  label: {
+    fontSize: 14,
+    fontWeight: 600,
+  },
+
+  select: {
+    width: 80,
   },
 
   input: {
-    width: '200px',
+    width: 160,
   },
 }))

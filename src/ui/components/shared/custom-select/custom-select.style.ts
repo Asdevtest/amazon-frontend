@@ -13,11 +13,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   row: {
+    alignItems: 'center',
     flexDirection: 'row',
-  },
-
-  input: {
-    width: '100%',
   },
 
   label: {

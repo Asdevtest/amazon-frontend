@@ -2288,8 +2288,12 @@
   "Data removed successfully": "Данные успешно удалены",
   "Data not removed": "Данные не удалены",
   "Quantity in box": "Количество в коробке",
+  "Shutdown": "Отключение",
   "Are you sure you want to delete the report?": "Вы уверены, что хотите удалить данный отчет?",
   "Online": "Онлайн",
   "Users online": "В онлайне",
-  "Search by ASIN, SKU, Title": "Поиск по ASIN, SKU, Title"
+  "Search by ASIN, SKU, Title": "Поиск по ASIN, SKU, Title",
+  "On": "Вкл",
+  "Off": "Выкл",
+  "Shutdown delay": "Таймер выключения"
 }

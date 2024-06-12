@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
@@ -17,8 +16,8 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'row',
   },
 
-  textarea: {
-    width: '100%',
+  switch: {
+    width: 'max-content',
   },
 
   label: {

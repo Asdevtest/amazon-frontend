@@ -78,7 +78,6 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           allowClear
           rows={2}
           maxLength={512}
-          placeholder="Enter"
           value={row.comment}
           onChange={onChangeCommentCellValue(row.type, 'comment')}
         />
