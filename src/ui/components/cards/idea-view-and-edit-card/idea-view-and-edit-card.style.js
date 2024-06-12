@@ -214,6 +214,7 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    maxWidth: 435,
   },
 
   shortFieldsSubWrapper: {
@@ -274,7 +275,7 @@ export const useStyles = makeStyles()(theme => ({
   input: {
     height: '40px',
     borderRadius: '7px',
-    width: 'calc(100% - 110px)',
+    width: 'max-content',
   },
 
   inputWrapper: {
