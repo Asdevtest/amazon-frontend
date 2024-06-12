@@ -49,6 +49,17 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         table: DataGridFilterTables.PRODUCTS,
       }
     : null
+  const shopColumn = subView
+    ? {
+        field: 'shop',
+        headerName: t(TranslationKey.Shop),
+        renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+        renderCell: ({ row }: GridRowModel) => <MultilineTextCell twoLines text={row.product?.shop?.name} />,
+        width: 120,
+        disableCustomSort: true,
+        columnKey: columnnsKeys.shared.OBJECT,
+      }
+    : null
 
   const columns: IGridColumn[] = [
     {
@@ -79,6 +90,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
     },
 
     asinColumn as IGridColumn,
+    shopColumn as IGridColumn,
 
     {
       field: 'createdAt',
