@@ -79,6 +79,14 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
           {box.items.length > 6 && <p className={cx(styles.itemText, styles.itemTextPoints)}>...</p>}
         </div>
         {error && <span className={styles.error}>{error}</span>}
+
+        {((box && box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0) ||
+          box?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) && (
+          <span className={styles.needPay}>{`${t(TranslationKey['Extra payment required!'])} (${toFixedWithDollarSign(
+            box.deliveryTotalPriceChanged - box.deliveryTotalPrice,
+            2,
+          )})`}</span>
+        )}
       </div>
     </Tooltip>
   )
