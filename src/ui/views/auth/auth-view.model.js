@@ -73,21 +73,11 @@ export class AuthViewModel {
       }
     })
 
-  async onSubmitForm() {
+  async signIn() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await UserModel.signIn(this.email.toLowerCase(), this.password)
-      await UserModel.getUserInfo()
-      await UserModel.getUsersInfoCounters()
-
-      if (UserModel.accessToken) {
-        const allowedRoutes = privateRoutesConfigs.filter(route =>
-          route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
-        )
-
-        this.history.push(allowedRoutes[0].routePath)
-      }
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -96,6 +86,19 @@ export class AuthViewModel {
       })
 
       this.setRequestStatus(loadingStatus.FAILED)
+    }
+  }
+
+  async onSubmitForm() {
+    await this.signIn()
+    await UserModel.getUserInfo()
+
+    if (UserModel.accessToken) {
+      const allowedRoutes = privateRoutesConfigs.filter(route =>
+        route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
+      )
+
+      this.history.push(allowedRoutes[0].routePath)
     }
   }
 
