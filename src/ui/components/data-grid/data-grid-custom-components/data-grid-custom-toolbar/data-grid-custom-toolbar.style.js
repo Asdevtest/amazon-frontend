@@ -4,9 +4,6 @@ export const useStyles = makeStyles()(theme => ({
   wrapperToolbar: {
     width: '100%',
     padding: '5px',
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
   },
 
   toolbar: {
