@@ -36,7 +36,7 @@ class RequestProposalModelStatic {
       guid,
       noCache: true,
     })
-    return response.data
+    return response?.data || []
   }
 
   getRequestProposalsCustom = async guid => {
