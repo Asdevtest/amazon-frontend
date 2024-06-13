@@ -1,32 +1,21 @@
-import { makeAutoObservable, makeObservable, runInAction, toJS } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 
 import { BuyerModel } from '@models/buyer-model'
 import { DataGridTableModel, filterModelInitialValue } from '@models/data-grid-table-model'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
-import { buyerVacantOrdersDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-
-import { loadingStatus } from '@typings/enums/loading-status'
+import { IOrder } from '@typings/models/orders/order'
 
 import { buyerFreeOrdersViewColumns } from './buyer-free-orders-columns'
 import { observerConfig } from './observer-config'
 
 export class BuyerFreeOrdersViewModel extends DataGridTableModel {
-  curOrder = undefined
-  selectedRowIds = []
-  ordersVacant = []
+  curOrder: IOrder | null = null
+
   showTwoVerticalChoicesModal = false
-
-  sortModel = []
-  filterModel = filterModelInitialValue
-
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
 
   get isSomeFilterOn() {
     return !!this.filterModel?.items?.length
@@ -34,7 +23,7 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
 
   constructor() {
     const rowHandlers = {
-      onClickTableRowBtn: item => this.onClickTableRowBtn(item),
+      onClickTableRowBtn: (order: IOrder) => this.onClickTableRowBtn(order),
     }
 
     const columnsModel = buyerFreeOrdersViewColumns(rowHandlers)
@@ -42,14 +31,19 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
     super({
       getMainDataMethod: BuyerModel.getOrdersVacant,
       columnsModel,
+      tableKey: DataGridTablesKeys.BUYER_FREE_ORDERS,
     })
 
     makeObservable(this, observerConfig)
+
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+
     this.initHistory()
 
     const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
 
     if (orderId) {
+      // @ts-ignore
       this.history.push(`${history?.location?.pathname}`)
       this.onChangeFilterModel({
         items: [
@@ -60,119 +54,47 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
           },
         ],
       })
-
-      this.getOrdersVacant()
-    }
-  }
-
-  onChangeFilterModel(model) {
-    this.filterModel = model
-    this.setDataGridState()
-  }
-
-  onPaginationModelChange(model) {
-    this.paginationModel = model
-    this.setDataGridState()
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      // filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.BUYER_FREE_ORDERS)
-  }
+    this.getDataGridState()
 
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.BUYER_FREE_ORDERS)
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      // this.filterModel = toJS(state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-    this.setDataGridState()
-  }
-
-  onSelectionModel(model) {
-    this.selectedRowIds = model
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-    this.setDataGridState()
-  }
-
-  loadData() {
-    try {
-      this.getDataGridState()
-      this.getOrdersVacant()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async getOrdersVacant() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      const result = await BuyerModel.getOrdersVacant()
-
-      runInAction(() => {
-        this.ordersVacant = buyerVacantOrdersDataConverter(result).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
-      })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
-    }
+    this.getCurrentData()
   }
 
   goToMyOrders() {
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
 
     this.history.push(
-      this.curOrder.status === OrderStatusByKey[OrderStatus.FORMED]
+      this.curOrder?.status === OrderStatusByKey[OrderStatus.FORMED as keyof typeof OrderStatusByKey]
         ? '/buyer/pending-orders'
         : '/buyer/not-paid-orders',
-      { orderId: this.curOrder._id },
+      { orderId: this.curOrder?._id },
     )
   }
 
-  async onClickTableRowBtn(order, noPush) {
-    const { status, buyer } = order.originalData
+  async onClickTableRowBtn(order: IOrder, noPush: boolean = false) {
+    const { status, buyer, _id } = order
 
     try {
-      if (!buyer || status === OrderStatusByKey[OrderStatus.FORMED] || status === OrderStatusByKey[OrderStatus.NEW]) {
-        await BuyerModel.pickupOrder(order.originalData._id)
+      if (
+        !buyer ||
+        status === OrderStatusByKey[OrderStatus.FORMED as keyof typeof OrderStatusByKey] ||
+        status === OrderStatusByKey[OrderStatus.NEW as keyof typeof OrderStatusByKey]
+      ) {
+        await BuyerModel.pickupOrder(_id)
       } else {
-        await BuyerModel.setOrdersAtProcess(order.originalData._id)
+        await BuyerModel.setOrdersAtProcess(_id)
       }
 
       if (!noPush) {
         runInAction(() => {
-          this.curOrder = order.originalData
+          this.curOrder = order
         })
 
         this.onTriggerOpenModal('showTwoVerticalChoicesModal')
       }
 
-      this.loadData()
+      this.getCurrentData()
 
       UserModel.getUsersInfoCounters()
     } catch (error) {
@@ -182,8 +104,8 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
 
   async onPickupSomeItems() {
     try {
-      for (let i = 0; i < this.selectedRowIds.length; i++) {
-        const selectedItem = this.ordersVacant.find(item => item.originalData._id === this.selectedRowIds[i])
+      for (let i = 0; i < this.selectedRows.length; i++) {
+        const selectedItem = this.currentData.find(item => item._id === this.selectedRows[i])
 
         if (selectedItem) {
           await this.onClickTableRowBtn(selectedItem, true)
@@ -191,11 +113,11 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
       }
 
       runInAction(() => {
-        this.selectedRowIds = []
+        this.selectedRows = []
       })
 
       UserModel.getUsersInfoCounters()
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
@@ -203,11 +125,7 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
 
   onClickContinueWorkButton() {
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
-    this.loadData()
-  }
-
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
+    this.getCurrentData()
   }
 
   onClickResetFilters() {

@@ -37,28 +37,28 @@ export class ClientFreelanceNotificationsViewModel extends DataGridTableModel {
     makeObservable(this, observerConfig)
   }
 
-  async getNotifications() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-      const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
+  // async getNotifications() {
+  //   try {
+  //     this.setRequestStatus(loadingStatus.IS_LOADING)
+  //     const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
 
-      runInAction(() => {
-        this.rowCount = response?.data?.freelanceNotices?.length
-        this.notifications = response.data.freelanceNotices.map(el => {
-          return {
-            ...el.request,
-            chatId: el.chatId,
-            unreadMessages: el.unreadMessages,
-          }
-        })
-      })
+  //     runInAction(() => {
+  //       this.rowCount = response?.data?.freelanceNotices?.length
+  //       this.notifications = response.data.freelanceNotices.map(el => {
+  //         return {
+  //           ...el.request,
+  //           chatId: el.chatId,
+  //           unreadMessages: el.unreadMessages,
+  //         }
+  //       })
+  //     })
 
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
-    }
-  }
+  //     this.setRequestStatus(loadingStatus.SUCCESS)
+  //   } catch (error) {
+  //     console.error(error)
+  //     this.setRequestStatus(loadingStatus.FAILED)
+  //   }
+  // }
 
   async getCurrentData() {
     try {

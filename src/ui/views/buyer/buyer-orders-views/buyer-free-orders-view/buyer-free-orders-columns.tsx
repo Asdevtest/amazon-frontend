@@ -8,7 +8,6 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
   ProductAsinCell,
   UserLinkCell,
@@ -18,12 +17,17 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
-export const buyerFreeOrdersViewColumns = handlers => {
+interface IHandlers {
+  onClickTableRowBtn: (order: IOrder) => void
+}
+
+export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
     {
-      field: 'ID',
+      field: 'id',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
@@ -37,9 +41,9 @@ export const buyerFreeOrdersViewColumns = handlers => {
       renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
       renderCell: params => (
         <PriorityAndChinaDeliverCell
-          priority={params.row.originalData.priority}
-          chinaDelivery={params.row.originalData.expressChinaDelivery}
-          status={params.row.originalData.status}
+          priority={params.row.priority}
+          chinaDelivery={params.row.expressChinaDelivery}
+          status={params.row.status}
         />
       ),
       width: 80,
@@ -55,11 +59,11 @@ export const buyerFreeOrdersViewColumns = handlers => {
       renderCell: params => (
         <ActionButtonsCell
           isFirstButton
-          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row._id}
           firstButtonTooltipText={t(TranslationKey['To assign the order to Byer'])}
           firstButtonElement={t(TranslationKey['Get to work'])}
           firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => handlers.onClickTableRowBtn(params.row)}
+          onClickFirstButton={() => handlers.onClickTableRowBtn(params.row as IOrder)}
         />
       ),
       width: 180,
@@ -72,7 +76,7 @@ export const buyerFreeOrdersViewColumns = handlers => {
       headerName: 'ASIN',
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
       renderCell: params => {
-        const product = params.row.originalData.product
+        const product = params.row.product
 
         return (
           <ProductAsinCell
@@ -110,7 +114,7 @@ export const buyerFreeOrdersViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: params => (
         <DownloadAndCopyBtnsCell
-          value={params.value}
+          value={params.row.product?.barCode}
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
         />
       ),
@@ -122,14 +126,14 @@ export const buyerFreeOrdersViewColumns = handlers => {
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
-        const currentSupplier = params.row?.originalData?.orderSupplier
+        const currentSupplier = params.row?.orderSupplier
 
         return (
           <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
         )
       },
       valueGetter: params => {
-        const currentSupplier = params.row?.originalData?.orderSupplier
+        const currentSupplier = params.row?.orderSupplier
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
@@ -159,7 +163,7 @@ export const buyerFreeOrdersViewColumns = handlers => {
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
       renderCell: params => (
-        <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
+        <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
       width: 155,
     },
@@ -169,7 +173,7 @@ export const buyerFreeOrdersViewColumns = handlers => {
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: params => (
-        <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
+        <UserLinkCell blackText name={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
       width: 120,
     },
@@ -178,7 +182,7 @@ export const buyerFreeOrdersViewColumns = handlers => {
       field: 'warehouses',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
       width: 160,
     },
 

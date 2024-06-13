@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,6 +10,7 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IOrder } from '@typings/models/orders/order'
 
 import { useStyles } from './buyer-free-orders-view.style'
 
@@ -20,17 +21,11 @@ export const BuyerFreeOrdersView = observer(() => {
 
   const [viewModel] = useState(() => new BuyerFreeOrdersViewModel())
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   return (
     <>
-      <div className={styles.btnsWrapper}>
-        <Button disabled={viewModel.selectedRowIds.length === 0} onClick={viewModel.onPickupSomeItems}>
-          {t(TranslationKey['Take on the work of the selected'])}
-        </Button>
-      </div>
+      <Button disabled={viewModel.selectedRows.length === 0} onClick={viewModel.onPickupSomeItems}>
+        {t(TranslationKey['Take on the work of the selected'])}
+      </Button>
 
       <div className={styles.dataGridWrapper}>
         <CustomDataGrid
@@ -38,12 +33,18 @@ export const BuyerFreeOrdersView = observer(() => {
           disableRowSelectionOnClick
           sortingMode="client"
           paginationMode="client"
+          rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
+          pinnedColumns={viewModel.pinnedColumns}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowId={(row: IOrder) => row._id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -60,8 +61,7 @@ export const BuyerFreeOrdersView = observer(() => {
               },
             },
           }}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
