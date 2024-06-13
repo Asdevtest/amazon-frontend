@@ -49,17 +49,6 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
     },
 
     {
-      field: 'deliveryTotalPriceChanged',
-      headerName: `${t(TranslationKey['Pay more'])}, $`,
-      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey['Pay more'])}, $`} />,
-
-      width: 120,
-      renderCell: params => <MultilineTextCell text={params.value} />,
-
-      columnKey: columnnsKeys.shared.QUANTITY,
-    },
-
-    {
       field: 'action',
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
@@ -122,7 +111,7 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
 
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
       width: 130,
-
+      disableCustomSort: true,
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
     },
 
@@ -135,7 +124,8 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
         <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
       width: 140,
-
+      disableCustomSort: true,
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
@@ -147,6 +137,8 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
       renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row)} />,
       width: 180,
 
+      disableCustomSort: true,
+      hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 

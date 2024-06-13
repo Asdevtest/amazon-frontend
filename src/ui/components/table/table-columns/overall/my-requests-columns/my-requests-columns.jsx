@@ -9,6 +9,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ChangeInputCommentCell,
   CheckboxCell,
   ManyUserLinkCell,
   MultilineRequestStatusCell,
@@ -246,6 +247,22 @@ export const myRequestsViewColumns = rowHandlers => {
       width: 100,
       // type: 'date',
       columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
+      field: 'note',
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+      width: 335,
+      renderCell: ({ row }) => (
+        <ChangeInputCommentCell
+          rowsCount={3}
+          text={row?.detailsCustom?.comment}
+          onClickSubmit={comment => rowHandlers.onClickSaveComment(row?._id, comment)}
+        />
+      ),
+      filterable: false,
+      disableCustomSort: true,
     },
 
     {

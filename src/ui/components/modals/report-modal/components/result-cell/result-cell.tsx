@@ -1,12 +1,17 @@
+import { Popconfirm } from 'antd'
 import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
-import { FC, useMemo } from 'react'
+import { FC, useCallback, useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 import { CrossIcon } from '@components/shared/svg-icons'
+
+import { t } from '@utils/translations'
 
 import { Launches } from '@typings/enums/launches'
 
@@ -24,13 +29,13 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
   const { row, onChangeCommentCellValue, onRemoveLaunch } = props
 
   const { classes: styles } = useStyles()
-
   const currentDateRange = useMemo(() => [row?.dateTo, row?.dateFrom], [])
   const changedDateRange = useMemo(() => [row?.dateTo, row?.dateFrom], [row?.dateTo, row?.dateFrom])
   const disabledResultField = useMemo(
     () => !row?.expired || !isEqual(currentDateRange, changedDateRange),
     [row?.expired, currentDateRange, changedDateRange],
   )
+  const handleRemoveLaunch = useCallback(() => onRemoveLaunch(row.type), [onRemoveLaunch, row.type])
 
   return (
     <div className={styles.wrapper}>
@@ -44,13 +49,14 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
         onChange={onChangeCommentCellValue(row.type, 'result')}
       />
 
-      <CustomButton
-        danger
-        shape="circle"
-        size="small"
-        icon={<CrossIcon className={styles.icon} />}
-        onClick={() => onRemoveLaunch(row.type)}
-      />
+      <Popconfirm
+        title={t(TranslationKey['Are you sure you want to remove this launch?'])}
+        okText={t(TranslationKey.Yes)}
+        cancelText={t(TranslationKey.No)}
+        onConfirm={handleRemoveLaunch}
+      >
+        <CustomButton danger shape="circle" size="small" icon={<CrossIcon className={styles.icon} />} />
+      </Popconfirm>
     </div>
   )
 })

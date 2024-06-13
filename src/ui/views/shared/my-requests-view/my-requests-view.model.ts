@@ -2,6 +2,8 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
+import { MutableRefObject } from 'react'
+import { toast } from 'react-toastify'
 
 import { GridColDef } from '@mui/x-data-grid-premium'
 
@@ -40,6 +42,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   showConfirmWithCommentModal = false
   isAcceptedProposals = false
 
+  dataGridApi: any = null
   selectedIndex = null
   selectedRequests = []
   researchIdToRemove = undefined
@@ -74,11 +77,12 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
 
   acceptProposalResultSetting = {}
 
-  constructor() {
+  constructor({ dataGridApi }: { dataGridApi: MutableRefObject<any> }) {
     const rowHandlers = {
       onToggleUploadedToListing: (id: string, uploadedToListingState: boolean) =>
         this.onToggleUploadedToListing(id, uploadedToListingState),
       onClickOpenInNewTab: (id: string) => this.onClickOpenInNewTab(id),
+      onClickSaveComment: (id: string, comment: string) => this.handleChangeRequestComment(id, comment),
     }
 
     const defaultGetCurrentDataOptions = () => ({
@@ -127,6 +131,8 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       defaultFilterParams,
     })
     makeObservable(this, observerConfig)
+
+    this.dataGridApi = dataGridApi
 
     this.initHistory()
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
@@ -515,6 +521,22 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       this.onTriggerOpenModal('showRequestDetailModal')
 
       this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async handleChangeRequestComment(id: string, comment: string) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      await RequestModel.patchRequestCommentByGuid(id, { comment })
+
+      this.dataGridApi.current.updateRows([{ _id: id, detailsCustom: { comment } }])
+
+      toast.success(t(TranslationKey['Data saved successfully']))
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
     }
