@@ -52,6 +52,8 @@ models/api-v1-admins-orders-logics-tariff.ts
 models/api-v1-admins-orders-variation-tariff.ts
 models/api-v1-admins-payments-created-by.ts
 models/api-v1-admins-products-vac-checkedby.ts
+models/api-v1-admins-set-setting-tech-pause-body.ts
+models/api-v1-admins-set-setting-tech-pause.ts
 models/api-v1-admins-tasks-light-boxes.ts
 models/api-v1-admins-tasks-light-storekeeper.ts
 models/api-v1-admins-tasks-light-variation-tariff.ts

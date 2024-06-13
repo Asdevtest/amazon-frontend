@@ -1,4 +1,3 @@
-import { Select } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 
@@ -6,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
+import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
@@ -24,7 +24,7 @@ export const LaunchesReports: FC<LaunchesReportsProps> = observer(({ timeBeforeL
   const [viewModel] = useState(() => new LaunchesReportsModel({ timeBeforeLaunchDeadline }))
 
   const selectAfter = (
-    <Select
+    <CustomSelect
       value={viewModel.dateType}
       options={getSelectConfig()}
       className={styles.select}

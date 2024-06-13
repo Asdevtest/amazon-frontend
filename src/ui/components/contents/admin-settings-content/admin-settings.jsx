@@ -113,7 +113,7 @@ export const AdminSettings = observer(() => {
         <LaunchesReports timeBeforeLaunchDeadline={viewModel.formFields.timeBeforeLaunchDeadline} />
       </TabPanel>
       <TabPanel value={viewModel.tabIndex} index={tabIndexes.shutdown}>
-        <Shutdown />
+        <Shutdown techPause={viewModel.techPause} />
       </TabPanel>
 
       {viewModel.showConfirmModal ? (
