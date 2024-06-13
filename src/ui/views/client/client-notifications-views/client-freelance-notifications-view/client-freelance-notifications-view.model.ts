@@ -82,17 +82,6 @@ export class ClientFreelanceNotificationsViewModel extends DataGridTableModel {
     }
   }
 
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS)
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
   onClickReply(requestId: string, chatId: string) {
     // @ts-ignore
     if (UserRoleCodeMap[UserModel?.userInfo?.role] === UserRole.FREELANCER) {

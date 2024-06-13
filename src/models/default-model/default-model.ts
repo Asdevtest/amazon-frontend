@@ -11,7 +11,7 @@ import { observerConfig } from './observer.config'
 
 export class DefaultModel extends ModalsModel {
   requestStatus: loadingStatus = loadingStatus.SUCCESS
-  currentData: any = []
+  currentData: any[] = []
   rowCount: number = 0
   meta?: any = null
 
