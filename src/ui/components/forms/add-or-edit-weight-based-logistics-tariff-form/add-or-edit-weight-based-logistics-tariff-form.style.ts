@@ -333,7 +333,7 @@ export const useStyles = makeStyles()(theme => ({
   minBoxWeightContainerBtn: {
     display: 'flex',
     alignItems: 'center',
-    gap: 5,
+    gap: 10,
     height: 30,
   },
 
@@ -353,5 +353,7 @@ export const useStyles = makeStyles()(theme => ({
 
   applyToAll: {
     lineHeight: '19px',
+    alignItems: 'center',
+    gap: 10,
   },
 }))

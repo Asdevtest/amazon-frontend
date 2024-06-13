@@ -16,7 +16,7 @@ import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { ClsIcon, EtaIcon, EtdIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { ClsIcon, EtaIcon, EtdIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
@@ -697,13 +697,14 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                   </div>
 
                   <div className={styles.minBoxWeightContainerBtn}>
-                    <Typography className={styles.applyToAll}>{t(TranslationKey['Apply to all'])}</Typography>
-
                     <Text
                       tooltipInfoContent={t(
                         TranslationKey['Apply the value "min recommended box weight" to all variations in the tariff'],
                       )}
-                    ></Text>
+                      containerClasses={styles.applyToAll}
+                    >
+                      {t(TranslationKey['Apply to all'])}
+                    </Text>
 
                     <Button className={styles.applyButton} onClick={() => onApplyMinBoxWeightToAll(variantIndex)}>
                       {t(TranslationKey.Apply)}
