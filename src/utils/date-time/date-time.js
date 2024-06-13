@@ -1,13 +1,4 @@
-import {
-  compareAsc,
-  compareDesc,
-  format,
-  formatDistance,
-  formatDistanceStrict,
-  formatISO,
-  isValid,
-  parseISO,
-} from 'date-fns'
+import { compareAsc, compareDesc, format, formatDistanceStrict, formatISO, isValid, parseISO } from 'date-fns'
 import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 
@@ -127,12 +118,6 @@ export const formatDateDayMonthYear = date =>
     locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
   })
 
-export const formatDateDistanceFromNow = date =>
-  formatDistance(parseISO(date), new Date(), {
-    addSuffix: true,
-    locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
-  })
-
 export const sortObjectsArrayByFiledDate = fieldName => (a, b) => compareDesc(a[fieldName], b[fieldName])
 
 export const sortObjectsArrayByFiledDateWithParseISO = fieldName => (a, b) =>
@@ -140,41 +125,6 @@ export const sortObjectsArrayByFiledDateWithParseISO = fieldName => (a, b) =>
 
 export const sortObjectsArrayByFiledDateWithParseISOAsc = fieldName => (a, b) =>
   compareAsc(parseISO(a[fieldName]), parseISO(b[fieldName]))
-
-export const sortObjectsArrayByFiledDateAsc = fieldName => (a, b) => compareAsc(a[fieldName], b[fieldName])
-
-export const sortObjectsArrayByArrayObjectFiledDateWithParseISO = (array, fieldName, object) =>
-  array
-    ?.slice()
-    ?.sort((a, b) => {
-      const first = a && object && a[object] && Math.max(...a[object].map(obj => parseISO(obj[fieldName])))
-      const second = b && object && b[object] && Math.max(...b[object].map(obj => parseISO(obj[fieldName])))
-
-      if (first < second) {
-        return -1
-      }
-      if (first > second) {
-        return 1
-      }
-      return 0
-    })
-    .reverse()
-
-export const sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc = (array, fieldName, object) =>
-  array?.slice()?.sort((a, b) => {
-    const first = a && object && a[object] && Math.max(...a[object].map(obj => parseISO(obj[fieldName])))
-    const second = b && object && b[object] && Math.max(...b[object].map(obj => parseISO(obj[fieldName])))
-
-    if (first < second) {
-      return -1
-    }
-    if (first > second) {
-      return 1
-    }
-    return 0
-
-    // compareAsc(first, second)
-  })
 
 export const getDaysHoursMinutesForMinuter = minutes => ({
   days: Math.floor(minutes / 1440),
@@ -193,8 +143,6 @@ export const getLocalToUTCDate = date => {
   return new Date(date.valueOf() - date.getTimezoneOffset() * ONE_HOUR_IN_MILLISECONDS)?.toISOString()
 }
 
-export const formatDateToDefaultInputDate = dateString => format(new Date(dateString), 'yyyy-MM-dd')
-
 export const getMinutesDifferenceFromNow = dateString => {
   const currentTime = new Date()
   const inputDate = new Date(dateString)
@@ -204,3 +152,5 @@ export const getMinutesDifferenceFromNow = dateString => {
 
   return timeDifferenceInMinutes > 0 ? timeDifferenceInMinutes : 0
 }
+
+export const getDateWithoutTime = date => (date ? date.format('YYYY-MM-DD') : null)

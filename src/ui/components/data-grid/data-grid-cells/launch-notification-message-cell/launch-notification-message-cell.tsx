@@ -7,7 +7,8 @@ import { Tooltip } from '@mui/material'
 import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
 import { getLaunchStyle } from '@components/shared/launches/helpers/get-launch-style'
 
-import { formatDateWithoutYear, formatNormDateTime } from '@utils/date-time'
+import { formatDateWithoutYear } from '@utils/date-time'
+import { timeToDeadlineInHoursAndMins } from '@utils/text'
 
 import { ILaunch } from '@typings/shared/launch'
 
@@ -46,7 +47,7 @@ export const ListingNotificationMessageCell: FC<LaunchNotificationMessageCellPro
             </Link>
 
             {notification.type === LaunchNotificationType.ALMOST_RUNNING_OUT ? (
-              <Tooltip title={formatNormDateTime(dateTo)}>
+              <Tooltip title={timeToDeadlineInHoursAndMins({ date: dateTo, withSeconds: true, now: new Date() })}>
                 <p className={styles.text}>{formatDateWithoutYear(dateTo)}</p>
               </Tooltip>
             ) : null}

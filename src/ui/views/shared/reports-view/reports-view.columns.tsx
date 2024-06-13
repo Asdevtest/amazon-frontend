@@ -78,7 +78,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           firstButtonStyle={ButtonStyle.PRIMARY}
           secondButtonElement={<CrossIcon />}
           secondButtonStyle={ButtonStyle.DANGER}
-          secondDescriptionText="Are you sure you want to delete the report?"
+          secondDescriptionText="Are you sure you want to remove the report?"
           onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
           onClickSecondButton={() => onClickRemoveReport(row._id)}
         />
@@ -145,12 +145,14 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           field: 'createdBy',
           table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
           columnKey: ColumnMenuKeys.OBJECT,
+          hideEmptyObject: true,
         },
 
         {
           field: 'sub',
           table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
           columnKey: ColumnMenuKeys.OBJECT,
+          hideEmptyObject: true,
         },
       ],
 

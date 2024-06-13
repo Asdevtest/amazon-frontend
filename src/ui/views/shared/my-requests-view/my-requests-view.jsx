@@ -2,6 +2,7 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import { Typography } from '@mui/material'
+import { useGridApiContext, useGridApiRef } from '@mui/x-data-grid-premium'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
@@ -34,7 +35,9 @@ import { MyRequestsViewModel } from './my-requests-view.model'
 export const MyRequestsView = observer(() => {
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new MyRequestsViewModel())
+  const apiRef = useGridApiRef()
+
+  const [viewModel] = useState(() => new MyRequestsViewModel({ dataGridApi: apiRef }))
 
   const getCellClassName = params =>
     params.row.countProposalsByStatuses.waitedProposals &&
@@ -87,6 +90,7 @@ export const MyRequestsView = observer(() => {
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
+          apiRef={viewModel.dataGridApi}
           getCellClassName={getCellClassName}
           getRowClassName={getRowClassName}
           pinnedColumns={viewModel.pinnedColumns}
@@ -129,7 +133,7 @@ export const MyRequestsView = observer(() => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowClick={e => viewModel.handleOpenRequestDetailModal(e)}
+          onRowDoubleClick={e => viewModel.handleOpenRequestDetailModal(e)}
           onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
