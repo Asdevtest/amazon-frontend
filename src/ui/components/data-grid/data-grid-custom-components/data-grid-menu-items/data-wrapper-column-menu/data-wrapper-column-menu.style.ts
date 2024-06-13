@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   filterItemsWrapper: {
     width: '100%',
-    height: '245px',
+    height: '200px',
     overflowY: 'auto',
     textAlign: 'center',
 

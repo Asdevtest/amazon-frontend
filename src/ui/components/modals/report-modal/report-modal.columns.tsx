@@ -42,7 +42,6 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <CustomInputNumber
           isCell
-          min={0}
           max={100}
           precision={0}
           maxLength={3}
@@ -78,7 +77,6 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           allowClear
           rows={2}
           maxLength={512}
-          placeholder="Enter"
           value={row.comment}
           onChange={onChangeCommentCellValue(row.type, 'comment')}
         />

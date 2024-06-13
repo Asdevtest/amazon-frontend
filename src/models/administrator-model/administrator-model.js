@@ -99,8 +99,8 @@ class AdministratorModelStatic {
     return response.data
   }
 
-  toggleServer = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsToggleServerPatch()
+  toggleServer = async (turn, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsToggleServerPatch({ turn, body })
     return response.data
   }
 

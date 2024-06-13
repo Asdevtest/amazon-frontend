@@ -240,6 +240,8 @@ export const NavbarCollapse = ({
   const renderSubCategory = (subIndex, subCategory) => {
     const highPriorityNotificationCount =
       showHighPriorityNotification && getNotificationCountBySubRoute(subCategory.subRoute)
+    const subCategoryTitle = subCategory?.subtitle()
+    const isTooltipVisible = !shortNavbar && subCategoryTitle !== category?.title()
 
     return (
       <Button
@@ -247,8 +249,8 @@ export const NavbarCollapse = ({
         tooltipPosition="center"
         className={cx(styles.menuItem, { [styles.selected]: subIndex === activeSubCategory })}
         styleType={ButtonStyle.TRANSPARENT}
-        tooltipInfoContent={!shortNavbar && renderTooltipTitle(subCategory?.subtitle(), userInfo.role)}
-        tooltipAttentionContent={!shortNavbar && renderAttentionTooltipTitle(subCategory?.subtitle(), userInfo.role)}
+        tooltipInfoContent={isTooltipVisible && renderTooltipTitle(subCategoryTitle, userInfo.role)}
+        tooltipAttentionContent={isTooltipVisible && renderAttentionTooltipTitle(subCategoryTitle, userInfo.role)}
       >
         <NavbarSubCategory
           button

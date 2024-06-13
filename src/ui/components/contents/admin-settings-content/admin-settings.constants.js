@@ -10,6 +10,7 @@ export const tabLabels = [
   TranslationKey['Payment methods'],
   TranslationKey.Tags,
   TranslationKey['Launches reports'],
+  TranslationKey.Shutdown,
 ]
 
 export const tabIndexes = {
@@ -22,6 +23,7 @@ export const tabIndexes = {
   paymentMethods: 6,
   tags: 7,
   launchesReports: 8,
+  shutdown: 9,
 }
 
 export const fieldsWithoutCharsAfterDote = [

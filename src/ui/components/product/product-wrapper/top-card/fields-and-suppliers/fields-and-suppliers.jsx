@@ -195,6 +195,7 @@ export const FieldsAndSuppliers = memo(props => {
                       checkIsClient(curUserRole) &&
                       !product?.archive
                     ),
+                    [styles.error]: formFieldsValidationErrors.asin,
                   })}
                   onChange={onChangeField?.('asin')}
                 />

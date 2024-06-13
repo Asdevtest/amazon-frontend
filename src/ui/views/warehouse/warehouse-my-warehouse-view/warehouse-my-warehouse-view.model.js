@@ -502,9 +502,7 @@ export class WarehouseMyWarehouseViewModel {
           ...boxData,
           images: this.uploadedImages?.length ? this.uploadedImages : boxData.images,
           items: requestBoxItems,
-          shippingLabel: this.uploadedFiles?.length
-            ? this.uploadedFiles[0]
-            : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+          shippingLabel: boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,

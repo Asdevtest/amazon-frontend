@@ -6,12 +6,8 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReportModal } from '@components/modals/report-modal'
-import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomInputSearch } from '@components/shared/custom-input-search'
-import { CustomRangeDatePicker } from '@components/shared/custom-range-date-picker'
 import { Modal } from '@components/shared/modal'
-import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -19,6 +15,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './reports-view.style'
 
+import { Header } from './header'
 import { Info } from './info'
 import { ReportsViewModel } from './reports-view.model'
 
@@ -39,28 +36,13 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
       <div className={styles.wrapper}>
         {!subView ? <Info product={viewModel.product} activeLaunches={viewModel.activeLaunches} /> : null}
 
-        <div className={styles.flexContainer}>
-          <CustomRangeDatePicker onChange={viewModel.onChangeRangeDate} />
-
-          {subView ? (
-            <CustomInputSearch
-              enterButton
-              allowClear
-              loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-              wrapperClassName={styles.searchInput}
-              placeholder="Search by SKU, ASIN, Title, Launch type"
-              onSearch={viewModel.onSearchSubmit}
-            />
-          ) : null}
-
-          <CustomButton
-            type="primary"
-            icon={<CustomPlusIcon />}
-            onClick={() => viewModel.onToggleReportModalEditMode(undefined)}
-          >
-            {t(TranslationKey['New report'])}
-          </CustomButton>
-        </div>
+        <Header
+          subView={subView}
+          requestStatus={viewModel.requestStatus}
+          onSearchSubmit={viewModel.onSearchSubmit}
+          onChangeRangeDate={viewModel.onChangeRangeDate}
+          onToggleReportModalEditMode={viewModel.onToggleReportModalEditMode}
+        />
 
         <div
           className={cx(styles.tableContainer, {

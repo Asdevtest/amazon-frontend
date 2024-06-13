@@ -45,9 +45,6 @@ const AdminProductView = lazy(() =>
 const AdminSettingsView = lazy(() =>
   import('@views/admin/admin-settings-view').then(module => ({ default: module.AdminSettingsView })),
 )
-const AdminTechnicalView = lazy(() =>
-  import('@views/admin/admin-technical-view').then(module => ({ default: module.AdminTechnicalView })),
-)
 const AdminUserPermissionsView = lazy(() =>
   import('@views/admin/admin-user-permissions-view').then(module => ({ default: module.AdminUserPermissionsView })),
 )
@@ -2659,20 +2656,6 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Settings,
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
-      activeSubCategory: '',
-      title: () => t(TranslationKey.Settings),
-    },
-  },
-
-  {
-    routePath: '/admin/settings/technical-works',
-    component: AdminTechnicalView,
-    exact: false,
-    permission: [UserRole.ADMIN],
-    crumbNameKey: TranslationKey['Technical work and notices'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
