@@ -2277,6 +2277,7 @@ export enum TranslationKey {
   'Enter' = 'Enter',
   'Discount' = 'Discount',
   'Minimum recommended box weight, kg' = 'Minimum recommended box weight, kg',
+  'Apply the value "min recommended box weight" to all variations in the tariff' = 'Apply the value "min recommended box weight" to all variations in the tariff',
   'Launches reports' = 'Launches reports',
   'Notify users of completed launches in' = 'Notify users of completed launches in',
   'Launches' = 'Launches',
@@ -2299,4 +2300,5 @@ export enum TranslationKey {
   'Off' = 'Off',
   'Shutdown delay' = 'Shutdown delay',
   'Are you sure you want to remove this launch?' = 'Are you sure you want to remove this launch?',
+  'Time until server shutdown' = 'Time until server shutdown',
 }

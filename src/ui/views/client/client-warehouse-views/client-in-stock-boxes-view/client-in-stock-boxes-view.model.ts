@@ -1094,6 +1094,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           type: 'uploadedFiles',
           withoutShowProgress: true,
         })
+
+        boxData.shippingLabel = this.uploadedFiles?.[0]
       }
 
       if (

@@ -2275,6 +2275,7 @@
   "Enter": "Ввод",
   "Discount": "Скидка",
   "Minimum recommended box weight, kg": "Минимальный рекомендуемый вес коробки, кг",
+  "Apply the value \"min recommended box weight\" to all variations in the tariff": "Применить значение \"Мин рекомендуемый вес коробки\" ко всем вариациям в тарифе",
   "Launches reports": "Отчеты о запуске",
   "Notify users of completed launches in": "Уведомляйте пользователей о завершенных запусках за",
   "Launches": "Запуски",
@@ -2296,5 +2297,6 @@
   "On": "Вкл",
   "Off": "Выкл",
   "Shutdown delay": "Таймер выключения",
-  "Are you sure you want to remove this launch?": "Вы уверены, что хотите удалить данный запуск?"
+  "Are you sure you want to remove this launch?": "Вы уверены, что хотите удалить данный запуск?",
+  "Time until server shutdown": "Время до выключения сервера"
 }
