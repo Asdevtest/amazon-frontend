@@ -1104,8 +1104,8 @@ export const BoxestatusMenuItem = memo(
           ].map(item => (
             <div key={item} className={styles.orderStatus} onClick={() => onClickItem(item)}>
               <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
-              <div title={t(boxStatusTranslateKey(item))} className={styles.orderStatusName}>
-                {t(boxStatusTranslateKey(item))}
+              <div title={boxStatusTranslateKey(item)} className={styles.orderStatusName}>
+                {boxStatusTranslateKey(item)}
               </div>
             </div>
           ))}
