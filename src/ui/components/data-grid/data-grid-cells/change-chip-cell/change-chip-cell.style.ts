@@ -26,9 +26,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   barcodeChipIcon: {
-    color: 'rgba(255,255,255,0.26)',
+    color: `${theme.palette.common.white} !important`,
     '&:hover, &:focus': {
-      color: 'rgba(255,255,255,0.46)',
+      opacity: 0.8,
     },
   },
 
