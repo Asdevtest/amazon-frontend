@@ -625,57 +625,58 @@ export class ClientProductViewModel {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
 
-      if (product.asin) {
-        const amazonResult = await ProductModel.parseAmazon(product.asin)
-        this.weightParserAmazon = amazonResult.weight || 0
-
-        if (!amazonResult.price) {
-          throw new Error('price <= 0')
-        }
-
-        runInAction(() => {
-          if (Object.keys(amazonResult).length > 5) {
-            this.product = {
-              ...this.product,
-              ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
-              weight:
-                this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                  ? this.product.weight
-                  : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-
-              amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
-              amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
-            }
-
-            this.imagesForLoad = amazonResult.images
-          }
-          updateProductAutoCalculatedFields.call(this)
-        })
-
-        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, amazonResult.price)
-        this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
-
-        runInAction(() => {
-          if (Object.keys(sellerCentralResult).length > 5) {
-            this.product = {
-              ...this.product,
-              ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
-              weight:
-                this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                  ? this.product.weight
-                  : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-
-              amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
-              amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
-            }
-          }
-          updateProductAutoCalculatedFields.call(this)
-        })
-      } else {
+      if (!product.asin) {
         runInAction(() => {
           this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN']) }
         })
+        throw new Error(t(TranslationKey['No ASIN']))
       }
+
+      const amazonResult = await ProductModel.parseAmazon(product.asin)
+      this.weightParserAmazon = amazonResult.weight || 0
+
+      if (!amazonResult.price) {
+        throw new Error('price <= 0')
+      }
+
+      runInAction(() => {
+        if (Object.keys(amazonResult).length > 5) {
+          this.product = {
+            ...this.product,
+            ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
+            weight:
+              this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                ? this.product.weight
+                : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+            amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
+            amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
+          }
+
+          this.imagesForLoad = amazonResult.images
+        }
+        updateProductAutoCalculatedFields.call(this)
+      })
+
+      const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, amazonResult.price)
+      this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
+
+      runInAction(() => {
+        if (Object.keys(sellerCentralResult).length > 5) {
+          this.product = {
+            ...this.product,
+            ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
+            weight:
+              this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                ? this.product.weight
+                : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+            amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
+            amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
+          }
+        }
+        updateProductAutoCalculatedFields.call(this)
+      })
 
       toast.success(t(TranslationKey['Success parse']))
 

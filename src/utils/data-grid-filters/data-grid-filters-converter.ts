@@ -83,6 +83,7 @@ export const dataGridFiltersConverter = (
   searchFields: string[] = [],
   additionalOptions?: Record<string, unknown>,
   operatorsSettings?: OperatorsSettingsType,
+  defaultFilterParams?: Record<string, unknown>,
 ): FilterList => {
   // * Проходимся по списку колонок для поиска и создаем фильтр для каждой
   const searchFieldsArray: FilterObject[] = searchValue
@@ -107,13 +108,6 @@ export const dataGridFiltersConverter = (
       return acc
     }
 
-    if (Array.isArray(filterList) && filterList.length === 2 && ['createdAt', 'updatedAt'].includes(column)) {
-      return (acc = {
-        ...acc,
-        createdAt: { $gte: filterList[0], $lte: filterList[1] },
-      })
-    }
-
     let finalFilterString = ''
 
     filterList.forEach(item => {
@@ -136,7 +130,8 @@ export const dataGridFiltersConverter = (
 
   return {
     or: searchFieldsArray,
-    ...additionalOptions,
+    ...defaultFilterParams,
     ...columnFilters,
+    ...additionalOptions,
   }
 }

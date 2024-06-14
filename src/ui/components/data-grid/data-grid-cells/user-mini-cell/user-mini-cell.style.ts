@@ -6,6 +6,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    position: 'relative',
   },
 
   avatar: {
@@ -16,5 +17,18 @@ export const useStyles = makeStyles()(() => ({
 
   userName: {
     maxWidth: 120,
+  },
+
+  onlineIcon: {
+    '&:before': {
+      content: '""',
+      position: 'absolute',
+      bottom: 10,
+      right: -1,
+      width: 7,
+      height: 7,
+      backgroundColor: '#28a745',
+      borderRadius: '50%',
+    },
   },
 }))

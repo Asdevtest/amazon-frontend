@@ -94,7 +94,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
 
       width: 250,
       renderCell: params => <OrderCell product={params.row.product} />,
-      // disableCustomSort: true,
+      disableCustomSort: true,
     },
 
     {
@@ -184,11 +184,14 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       field: 'grossWeightKg',
       headerName: t(TranslationKey['Total weight']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
-      type: 'number',
-      width: 100,
       renderCell: params => (
         <MultilineTextCell text={toFixedWithKg(params.row.product.weight * params.row.amount, 2)} />
       ),
+
+      disableCustomSort: true,
+
+      type: 'number',
+      width: 100,
     },
 
     {

@@ -11,6 +11,8 @@ export interface ISupplier {
   images: Array<string>
   comment: string
   yuanRate: number
+  minProductionTerm: number
+  maxProductionTerm: number
   multiplicity: boolean
   priceInYuan: number
   batchDeliveryCostInDollar: number

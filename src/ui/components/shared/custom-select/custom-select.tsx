@@ -28,12 +28,12 @@ export const CustomSelect: FC<CustomSelectProps> = memo(props => {
       {label ? (
         <p className={cx(styles.label, labelClassName)}>
           {t(TranslationKey[label as TranslationKey])}
-          <span>{required && '*'}</span>
+          {required ? <span>{'*'}</span> : null}
         </p>
       ) : null}
       <Select
         {...restProps}
-        className={cx(styles.input, className)}
+        className={cx(styles.select, className)}
         placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
       />
     </div>

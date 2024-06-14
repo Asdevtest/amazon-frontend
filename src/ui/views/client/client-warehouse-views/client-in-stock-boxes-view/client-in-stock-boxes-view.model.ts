@@ -182,7 +182,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       const curShops = this.columnMenuSettings.shopId.currentFilterData?.map((shop: any) => shop._id).join(',')
 
       return {
-        statusGroup: 'inStock',
         destinationId: this.curDestinationId,
         shopId: this.columnMenuSettings.shopId.currentFilterData ? curShops : null,
 
@@ -198,10 +197,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
 
       return {
-        statusGroup: {
-          $eq: 'inStock',
-        },
-
         isFormed: {
           $eq: isFormedFilter,
         },
@@ -214,6 +209,12 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       }
     }
 
+    const defaultFilterParams = () => ({
+      statusGroup: {
+        $eq: 'inStock',
+      },
+    })
+
     super({
       getMainDataMethod: BoxesModel.getBoxesForCurClientLightPag,
       columnsModel,
@@ -224,6 +225,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       defaultGetCurrentDataOptions,
       additionalPropertiesColumnMenuSettings,
       additionalPropertiesGetFilters,
+      defaultFilterParams,
     })
 
     makeObservable(this, observerConfig)
@@ -1092,6 +1094,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           type: 'uploadedFiles',
           withoutShowProgress: true,
         })
+
+        boxData.shippingLabel = this.uploadedFiles?.[0]
       }
 
       if (
@@ -1105,9 +1109,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
           variationTariffId: boxData.variationTariffId,
-          shippingLabel: this.uploadedFiles?.length
-            ? this.uploadedFiles[0]
-            : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+          shippingLabel: boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
 
           isShippingLabelAttachedByStorekeeper:
             boxData.shippingLabel !== sourceData.shippingLabel
@@ -1203,9 +1205,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             isShippingLabelAttachedByStorekeeper:
               sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
             items: requestBoxItems,
-            shippingLabel: this.uploadedFiles?.length
-              ? this.uploadedFiles[0]
-              : boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+            shippingLabel: boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           },
           updateBoxWhiteList,
         )

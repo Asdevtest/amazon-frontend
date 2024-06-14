@@ -47,6 +47,10 @@ export const ProductParameters = ({
     />
   )
 
+  const productionTerm = order.orderSupplier
+    ? `${order.orderSupplier.minProductionTerm} - ${order.orderSupplier.maxProductionTerm}`
+    : t(TranslationKey['No data'])
+
   return (
     <div className={styles.container}>
       <Field
@@ -83,7 +87,7 @@ export const ProductParameters = ({
           </div>
         }
       />
-      <OrderParameter label={t(TranslationKey['Production time'])} value={order.orderSupplier?.productionTerm} />
+      <OrderParameter label={t(TranslationKey['Production time'])} value={productionTerm} />
 
       <Field
         oneLine

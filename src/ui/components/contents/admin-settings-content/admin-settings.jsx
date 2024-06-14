@@ -15,6 +15,7 @@ import { useStyles } from './admin-settings.style'
 import { tabIndexes, tabLabels } from './admin-settings.constants'
 import { AdminSettingsModel } from './admin-settings.model'
 import {
+  Shutdown,
   TabDestinations,
   TabFreelance,
   TabMain,
@@ -110,6 +111,9 @@ export const AdminSettings = observer(() => {
       </TabPanel>
       <TabPanel value={viewModel.tabIndex} index={tabIndexes.launchesReports}>
         <LaunchesReports timeBeforeLaunchDeadline={viewModel.formFields.timeBeforeLaunchDeadline} />
+      </TabPanel>
+      <TabPanel value={viewModel.tabIndex} index={tabIndexes.shutdown}>
+        <Shutdown techPause={viewModel.techPause} />
       </TabPanel>
 
       {viewModel.showConfirmModal ? (

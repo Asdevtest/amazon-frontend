@@ -149,7 +149,8 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
     const statusGroup = pageSettings.statusGroup
 
     const defaultGetCurrentDataOptions = () => pageSettings.queries
-    const additionalPropertiesGetFilters = () => ({
+
+    const defaultFilterParams = () => ({
       statusGroup: {
         $eq: statusGroup,
       },
@@ -163,7 +164,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey,
       defaultGetCurrentDataOptions,
-      additionalPropertiesGetFilters,
+      defaultFilterParams,
     })
 
     makeObservable(this, observerConfig)

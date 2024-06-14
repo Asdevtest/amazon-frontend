@@ -2274,6 +2274,7 @@
   "Enter": "Enter",
   "Discount": "Discount",
   "Minimum recommended box weight, kg": "Minimum recommended box weight, kg",
+  "Apply the value \"min recommended box weight\" to all variations in the tariff": "Apply the value \"min recommended box weight\" to all variations in the tariff",
   "Launches reports": "Launches reports",
   "Notify users of completed launches in": "Notify users of completed launches in",
   "Launches": "Launches",
@@ -2285,5 +2286,14 @@
   "Sub user": "Sub user",
   "Data removed successfully": "Data removed successfully",
   "Data not removed": "Data not removed",
-  "Quantity in box": "Quantity in box"
+  "Quantity in box": "Quantity in box",
+  "Shutdown": "Shutdown",
+  "Are you sure you want to remove the report?": "Are you sure you want to remove the report?",
+  "Online": "Online",
+  "Users online": "Users online",
+  "Search by ASIN, SKU, Title": "Search by ASIN, SKU, Title",
+  "On": "On",
+  "Off": "Off",
+  "Shutdown delay": "Shutdown delay",
+  "Are you sure you want to remove this launch?": "Are you sure you want to remove this launch?"
 }

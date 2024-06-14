@@ -68,7 +68,7 @@ export const BuyerMyProductsViewRaw = props => {
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             rows={viewModel.currentData}
-            rowHeight={160}
+            getRowHeight={() => 'auto'}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
             loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

@@ -54,6 +54,9 @@ export const getButtonActionsConfig = ({
   disabledFirstButton,
   disabledSecondButton,
   disabledThirdButton,
+  firstDescriptionText,
+  secondDescriptionText,
+  thirdDescriptionText,
   onClickFirstButton,
   onClickSecondButton,
   onClickThirdButton,
@@ -65,7 +68,8 @@ export const getButtonActionsConfig = ({
     styleType: getButtonStyle(firstButtonStyle),
     variant: getButtonVariant(firstButtonVariant),
     disabled: disabledFirstButton,
-    onclick: handleClickButton(onClickFirstButton),
+    descriptionText: firstDescriptionText,
+    onClick: handleClickButton(onClickFirstButton),
   },
   {
     showButton: isSecondButton,
@@ -74,7 +78,8 @@ export const getButtonActionsConfig = ({
     styleType: getButtonStyle(secondButtonStyle),
     variant: getButtonVariant(secondButtonVariant),
     disabled: disabledSecondButton,
-    onclick: handleClickButton(onClickSecondButton),
+    descriptionText: secondDescriptionText,
+    onClick: handleClickButton(onClickSecondButton),
   },
   {
     showButton: isThirdButton,
@@ -83,6 +88,7 @@ export const getButtonActionsConfig = ({
     styleType: getButtonStyle(thirdButtonStyle),
     variant: getButtonVariant(thirdButtonVariant),
     disabled: disabledThirdButton,
-    onclick: handleClickButton(onClickThirdButton),
+    descriptionText: thirdDescriptionText,
+    onClick: handleClickButton(onClickThirdButton),
   },
 ]

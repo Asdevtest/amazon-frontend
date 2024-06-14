@@ -420,6 +420,8 @@ export class WarehouseMyWarehouseViewModel {
         type: 'uploadedFiles',
         withoutShowProgress: true,
       })
+
+      boxData.shippingLabel = this.uploadedFiles[0]
     }
 
     if (!isMultipleEdit && boxData.tmpTrackNumberFile?.length) {
@@ -502,9 +504,7 @@ export class WarehouseMyWarehouseViewModel {
           ...boxData,
           images: this.uploadedImages?.length ? this.uploadedImages : boxData.images,
           items: requestBoxItems,
-          shippingLabel: this.uploadedFiles?.length
-            ? this.uploadedFiles[0]
-            : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+          shippingLabel: boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,

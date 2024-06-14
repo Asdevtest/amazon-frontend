@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { t } from '@utils/translations'
 
@@ -37,7 +38,9 @@ export const SupervisorProductView = observer(({ history }) => {
           onClickParseProductData={viewModel.onClickParseProductData}
           onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
         />
-      ) : null}
+      ) : (
+        <CircularProgressWithLabel />
+      )}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

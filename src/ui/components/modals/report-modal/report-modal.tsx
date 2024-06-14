@@ -74,7 +74,6 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
             addonAfter="$"
             precision={2}
             label="New price"
-            placeholder="Enter"
             maxLength={10}
             value={viewModel.newProductPrice}
             onChange={viewModel.onChangeNewProductPrice}
@@ -87,7 +86,6 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
             rows={3}
             maxLength={1024}
             label="Comment"
-            placeholder="Enter"
             value={viewModel.description}
             onChange={viewModel.onChangeDescription}
           />

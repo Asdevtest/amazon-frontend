@@ -28,7 +28,7 @@ export const CustomRangeDatePicker: FC<CustomRangeDatePickerProps> = memo(props 
       {label ? (
         <p className={cx(styles.label, labelClassName)}>
           {t(TranslationKey[label as TranslationKey])}
-          <span>{required && '*'}</span>
+          {required ? <span>{'*'}</span> : null}
         </p>
       ) : null}
       <RangePicker allowClear presets={rangePresets} {...restProps} className={cx(styles.datePicker, className)} />

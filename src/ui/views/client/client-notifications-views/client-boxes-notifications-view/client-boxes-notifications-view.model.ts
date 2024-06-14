@@ -44,7 +44,7 @@ export class ClientBoxesNotificationsViewModel extends DataGridFilterTableModel 
       onTriggerOpenRejectModal: (row: IBox) => this.onTriggerOpenRejectModal(row),
     }
 
-    const additionalPropertiesGetFilters = () => ({
+    const defaultFilterParams = () => ({
       statusGroup: {
         $eq: 'notified',
       },
@@ -58,7 +58,7 @@ export class ClientBoxesNotificationsViewModel extends DataGridFilterTableModel 
       tableKey: DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS,
       filtersFields: getFilterFields(columnsModel),
       mainMethodURL: 'boxes/pag/clients_light?',
-      additionalPropertiesGetFilters,
+      defaultFilterParams,
     })
 
     makeObservable(this, observerConfig)

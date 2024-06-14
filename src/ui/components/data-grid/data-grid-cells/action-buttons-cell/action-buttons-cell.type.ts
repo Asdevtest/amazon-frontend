@@ -25,6 +25,9 @@ export interface ActionButtonsCellProps {
   disabledFirstButton?: boolean
   disabledSecondButton?: boolean
   disabledThirdButton?: boolean
+  firstDescriptionText?: string
+  secondDescriptionText?: string
+  thirdDescriptionText?: string
   onClickFirstButton?: () => void
   onClickSecondButton?: () => void
   onClickThirdButton?: () => void

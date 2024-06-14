@@ -15,10 +15,10 @@ import { IPermissionsData } from '@hooks/use-products-permissions'
 
 import { useStyles } from './header.style'
 
-import { getAsinOptions, getDefaultAsinOption } from '../../report-modal.config'
 import { ILaunchOption, IRequestWithLaunch } from '../../report-modal.type'
 
 import { AsinOption } from './asin-option'
+import { getAsinOptions, getDefaultAsinOption } from './header.config'
 import { Requests } from './requests'
 
 interface HeaderProps {
@@ -87,9 +87,11 @@ export const Header: FC<HeaderProps> = memo(props => {
         <div className={styles.flexRowContainer}>
           <CustomSelect
             showSearch
+            filterOption={false}
             disabled={disabledAsinsSelect}
+            defaultActiveFirstOption={false}
             placeholder="Select ASIN"
-            defaultValue={defaultAsinOption}
+            value={defaultAsinOption}
             options={asinOptions}
             optionRender={({ data }) => <AsinOption data={data} />}
             onDropdownVisibleChange={onOpenAsinSelect}
