@@ -5,12 +5,9 @@
 @import 'themes/light';
 @import 'themes/dark';
 
-:root {
-  color-scheme: dark light;
-}
-
 body {
   min-height: 100vh;
+  color: var(--text-color);
   font: var(--font-m);
   font-family: var(--font-family-main);
 }

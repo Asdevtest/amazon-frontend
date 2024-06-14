@@ -1,14 +1,13 @@
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
 import { Redirect, Route, useLocation } from 'react-router-dom'
+import { Layout } from 'src/widgets/layout'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 
 import { ChatModel } from '@models/chat-model'
 import { UserModel } from '@models/user-model'
-
-import { Layout } from '@components/layout'
 
 import { isHaveMasterUser } from '@utils/checks'
 import { resetAccessTokenByTime } from '@utils/reset'

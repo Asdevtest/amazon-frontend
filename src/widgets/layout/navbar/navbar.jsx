@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { NavbarDrawerContent } from 'src/widgets/layout/navbar/navbar-drawer-content'
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
@@ -8,7 +9,6 @@ import { navbarConfig } from '@constants/navigation/navbar'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VersionHistoryForm } from '@components/forms/version-history-form'
-import { NavbarDrawerContent } from '@components/layout/navbar/navbar-drawer-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { FeedBackModal } from '@components/modals/feedback-modal'
 import { DrawerModal } from '@components/shared/drawer-modal'

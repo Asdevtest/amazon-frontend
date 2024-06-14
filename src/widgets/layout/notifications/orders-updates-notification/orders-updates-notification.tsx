@@ -1,6 +1,8 @@
 import { format } from 'date-fns'
 import { History } from 'history'
 import { FC } from 'react'
+import { OrdersUpdatesNotificationRow } from 'src/widgets/layout/notifications/orders-updates-notification/orders-updates-notification-row'
+import { OrdersUpdatesNotificationItem } from 'src/widgets/layout/notifications/orders-updates-notification/orders-updates-notification-types'
 
 import { Avatar, Typography } from '@mui/material'
 
@@ -8,13 +10,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { OrdersUpdatesNotificationRow } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-row'
-import { OrdersUpdatesNotificationItem } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-types'
-import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.style'
-
 import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
+
+import { useOrdersUpdatesNotificationStyle } from 'src/widgets/layout/notifications/orders-updates-notification/orders-updates-notification.style'
 
 interface OrdersUpdatesNotificationProps {
   noticeItem: {

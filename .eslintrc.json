@@ -121,7 +121,7 @@
     "guard-for-in": "error",
     "id-blacklist": ["error", "any", "Number", "String", "string", "Boolean", "Undefined"],
     "id-match": "error",
-    "import/no-default-export": "error",
+    "import/no-default-export": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-internal-modules": "off",
     "import/order": "off",

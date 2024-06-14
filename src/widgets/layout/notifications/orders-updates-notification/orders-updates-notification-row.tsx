@@ -1,10 +1,10 @@
 import { History } from 'history'
-import { FC, memo } from 'react'
+import { FC } from 'react'
+import { OrdersUpdatesNotificationItem } from 'src/widgets/layout/notifications/orders-updates-notification/orders-updates-notification-types'
 
 import { Link, Typography } from '@mui/material'
 
-import { OrdersUpdatesNotificationItem } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-types'
-import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.style'
+import { useOrdersUpdatesNotificationStyle } from 'src/widgets/layout/notifications/orders-updates-notification/orders-updates-notification.style'
 
 interface OrdersUpdatesNotificationRowProps {
   orders: OrdersUpdatesNotificationItem[]

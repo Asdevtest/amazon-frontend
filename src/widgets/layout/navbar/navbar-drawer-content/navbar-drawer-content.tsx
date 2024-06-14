@@ -1,4 +1,7 @@
 import { FC, Fragment, memo, useEffect, useState } from 'react'
+import { NavbarCategory } from 'src/widgets/layout/navbar'
+import { NavbarCollapse } from 'src/widgets/layout/navbar/navbar-collapse'
+import { NavbarModel } from 'src/widgets/layout/navbar/navbar.model'
 
 import { List } from '@mui/material'
 
@@ -9,9 +12,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { NavbarCategory } from '@components/layout/navbar'
-import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
-import { NavbarModel } from '@components/layout/navbar/navbar.model'
 import { FeedbackIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'

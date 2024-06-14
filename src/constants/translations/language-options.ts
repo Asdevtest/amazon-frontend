@@ -1,22 +1,22 @@
 import { LanguageKey } from '@typings/enums/language-key'
 
 export interface LanguageOption {
-  key: LanguageKey
   label: string
+  value: LanguageKey
 }
 
 export const languageOptions: LanguageOption[] = [
   {
-    key: LanguageKey.en,
-    label: 'English',
+    label: 'En',
+    value: LanguageKey.en,
   },
   {
-    key: LanguageKey.ru,
-    label: 'Русский',
+    label: 'Ru',
+    value: LanguageKey.ru,
   },
 
   {
-    key: LanguageKey.zh,
     label: '中国',
+    value: LanguageKey.zh,
   },
 ]

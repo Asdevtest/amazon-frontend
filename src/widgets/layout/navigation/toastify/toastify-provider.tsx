@@ -2,15 +2,13 @@ import { FC } from 'react'
 import { Theme, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { useStyles } from '@components/layout/navigation/toastify/toastify.style'
+import classes from './toastify.module.scss'
 
 interface ToastifyProviderProps {
   theme: Theme
 }
 
 export const ToastifyProvider: FC<ToastifyProviderProps> = (/* { theme } */) => {
-  const { classes: styles } = useStyles()
-
   return (
     <ToastContainer
       hideProgressBar
@@ -20,7 +18,7 @@ export const ToastifyProvider: FC<ToastifyProviderProps> = (/* { theme } */) => 
       autoClose={3000}
       theme="colored" // {theme}
       closeOnClick={false}
-      className={styles.toastContainer}
+      className={classes.toastContainer}
       position="bottom-right"
     />
   )

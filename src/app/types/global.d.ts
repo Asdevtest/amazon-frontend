@@ -11,3 +11,11 @@ declare module '@mui/material/styles' {
 declare module 'react-highlight-words'
 declare module 'favico.js'
 declare module 'he'
+
+declare module '*.scss' {
+  interface IClassNames {
+    [className: string]: string
+  }
+  const classNames: IClassNames
+  export = classNames
+}

@@ -8,11 +8,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { useBoxNotificationStyles } from '@components/layout/notifications/boxes-updates-notification/boxes-updates-notification.style'
-
 import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
+
+import { useBoxNotificationStyles } from 'src/widgets/layout/notifications/boxes-updates-notification/boxes-updates-notification.style'
 
 export interface BoxProduct {
   _id: string

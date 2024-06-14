@@ -1,0 +1,23 @@
+.sider {
+  flex: 0 0 80px !important;
+  max-width: 80px !important;
+  min-width: 80px !important;
+  width: 80px !important;
+
+  &:hover {
+    flex: 0 0 240px !important;
+    max-width: 240px !important;
+    min-width: 240px !important;
+    width: 240px !important;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 7;
+    transition: all 0.5s ease;
+  }
+}
+
+.theme {
+  background: var(--bg-color);
+}
