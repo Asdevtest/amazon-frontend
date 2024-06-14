@@ -626,7 +626,7 @@ export const DataGridCustomColumnMenuComponent = props => {
         <ObjectColumnMenu
           field={currentColumn.field}
           table={currentColumn.table}
-          emptyObject={currentColumn.emptyObject}
+          hideEmptyObject={currentColumn.hideEmptyObject}
           filtersData={props[currentColumn.field]}
           filterRequestStatus={filterRequestStatus}
           onClose={hideMenu}

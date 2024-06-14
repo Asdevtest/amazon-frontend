@@ -18,6 +18,14 @@ export const useStyles = makeStyles()(theme => ({
 
     '.Toastify__toast-body': {
       padding: 0,
+
+      'div:last-child': {
+        color: '#001029',
+      },
+    },
+
+    '.Toastify__close-button': {
+      color: '#001029',
     },
   },
 }))

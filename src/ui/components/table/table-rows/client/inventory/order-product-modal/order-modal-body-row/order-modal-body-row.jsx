@@ -136,6 +136,10 @@ export const OrderModalBodyRow = ({
     }
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
 
+  const productionTerm = item.currentSupplier
+    ? `${item.currentSupplier.minProductionTerm} - ${item.currentSupplier.maxProductionTerm}`
+    : t(TranslationKey['No data'])
+
   return (
     <>
       <TableRow
@@ -357,9 +361,7 @@ export const OrderModalBodyRow = ({
               containerClasses={styles.containerField}
               labelClasses={styles.labelField}
               label={`${t(TranslationKey['Production time'])}, ${t(TranslationKey.days)}`}
-              inputComponent={
-                <Typography className={styles.sumText}>{item.currentSupplier?.productionTerm}</Typography>
-              }
+              inputComponent={<Typography className={styles.sumText}>{productionTerm}</Typography>}
             />
 
             <Field

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,11 +9,11 @@ import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
+import { IVariationTariff } from '@typings/shared/variation-tariff'
 
 const INCHES_COEFFICIENT = 2.54 // 1 inch = 2.54 cm
 const POUNDS_COEFFICIENT = 0.4536 // 1 lb = 0.4536 kg
 const DEFAULT_VOLUME_WEIGHT_COEFFICIENT = 6000 // if don't get value from UserModel
-const MIN_ALLOW_WEIGHT = 12
 
 export enum Entities {
   WAREHOUSE = 'warehouse',
@@ -33,6 +33,7 @@ interface IDimensions {
   width?: number
   length?: number
   weight?: number
+  variationTariff?: IVariationTariff
 }
 
 interface IUseDimension {
@@ -48,6 +49,10 @@ export const useShowDimensions = ({
   calculationField,
   defaultDimension = Dimensions.EU,
 }: IUseDimension) => {
+  const minAllowWeight = useMemo(() => {
+    return data?.variationTariff?.minBoxWeight || 0
+  }, [data?.variationTariff?.minBoxWeight])
+
   const [dimensions, setDimensions] = useState({
     length: 0,
     width: 0,
@@ -130,7 +135,7 @@ export const useShowDimensions = ({
       weight: convertedWeight,
       volumeWeight: convertedVolumeWeight,
       finalWeight: toFixed(Math.max(convertedWeight, convertedVolumeWeight)),
-      totalWeight: toFixed(sizeSetting === Dimensions.EU ? MIN_ALLOW_WEIGHT : MIN_ALLOW_WEIGHT / POUNDS_COEFFICIENT),
+      totalWeight: toFixed(sizeSetting === Dimensions.EU ? minAllowWeight : minAllowWeight / POUNDS_COEFFICIENT),
       dimensionsSize: getDimensionsSize(sizeSetting),
       unitsSize: getUnitsSize(sizeSetting),
     }))

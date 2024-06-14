@@ -92,6 +92,7 @@ export class AuthViewModel {
   async onSubmitForm() {
     await this.signIn()
     await UserModel.getUserInfo()
+    await UserModel.getUsersInfoCounters()
 
     if (UserModel.accessToken) {
       const allowedRoutes = privateRoutesConfigs.filter(route =>

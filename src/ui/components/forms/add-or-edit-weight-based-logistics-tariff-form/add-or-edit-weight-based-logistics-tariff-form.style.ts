@@ -52,8 +52,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 40,
   },
 
-  regionFieldInput: {},
-
   deliveryFieldInput: {
     width: '60%',
   },
@@ -214,7 +212,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   blockItemContainer: {
-    width: '180px !important',
+    width: '200px !important',
     margin: '0 !important',
   },
 
@@ -246,6 +244,7 @@ export const useStyles = makeStyles()(theme => ({
   weightItemWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 10,
   },
 
@@ -263,7 +262,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   weightInput: {
-    width: 70,
+    width: 'fit-content',
     height: 40,
   },
 
@@ -315,7 +314,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-start',
     display: 'flex',
     gap: 10,
-    paddingTop: 30,
+    paddingTop: 33,
     minWidth: 53,
   },
 
@@ -334,7 +333,8 @@ export const useStyles = makeStyles()(theme => ({
   minBoxWeightContainerBtn: {
     display: 'flex',
     alignItems: 'center',
-    gap: 5,
+    gap: 10,
+    height: 30,
   },
 
   applyButton: {
@@ -351,15 +351,9 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  tooltipIcon: {
-    '&&': {
-      fill: theme.palette.primary.main,
-      width: 14,
-      height: 14,
-    },
-  },
-
   applyToAll: {
     lineHeight: '19px',
+    alignItems: 'center',
+    gap: 10,
   },
 }))
