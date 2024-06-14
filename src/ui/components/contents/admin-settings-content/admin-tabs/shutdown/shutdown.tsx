@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
-import { AiOutlinePoweroff } from 'react-icons/ai'
 import { PiAlarmDuotone } from 'react-icons/pi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,7 +11,6 @@ import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSwitch } from '@components/shared/custom-switch'
 import { CustomTextarea } from '@components/shared/custom-textarea'
-import { CustomTimer } from '@components/shared/custom-timer'
 
 import { t } from '@utils/translations'
 
@@ -44,13 +42,7 @@ export const Shutdown: FC<ShutdownProps> = observer(({ techPause }) => {
   return (
     <div className={cx(styles.wrapper, styles.flexColumnContainer)}>
       <div className={cx(styles.flexRowContainer, styles.spaceBetween)}>
-        <div className={cx(styles.flexRowContainer, styles.spaceBetween)}>
-          <p className={styles.title}>{t(TranslationKey['Access for users'])}</p>
-
-          {viewModel.countdown > 0 ? (
-            <CustomTimer targetDate={new Date(new Date().getTime() + 10 * 60000)} startIcon={<AiOutlinePoweroff />} />
-          ) : null}
-        </div>
+        <p className={styles.title}>{t(TranslationKey['Access for users'])}</p>
 
         <div className={styles.flexRowContainer}>
           <p className={styles.notifyText}>{t(TranslationKey['Notify users before disconnecting']) + '!'}</p>
@@ -67,7 +59,7 @@ export const Shutdown: FC<ShutdownProps> = observer(({ techPause }) => {
 
       <div className={cx(styles.flexRowContainer, styles.spaceBetween, styles.fixedHeight)}>
         <div className={cx(styles.leftContainer, styles.flexColumnContainer)}>
-          <CustomCheckbox value={viewModel.shutdownDelayChecked} onChange={viewModel.onChangeShutdownDelay}>
+          <CustomCheckbox checked={viewModel.shutdownDelayChecked} onChange={viewModel.onChangeShutdownDelay}>
             {t(TranslationKey['Shutdown delay'])}
           </CustomCheckbox>
 
@@ -79,7 +71,7 @@ export const Shutdown: FC<ShutdownProps> = observer(({ techPause }) => {
                 addonAfter={selectAfter}
                 value={viewModel.timePartValue}
                 wrapperClassName={styles.input}
-                onChange={viewModel.onChangeCountdown}
+                onChange={viewModel.onChangeTimePartValue}
               />
             ) : (
               <PiAlarmDuotone className={styles.iconAlarm} />

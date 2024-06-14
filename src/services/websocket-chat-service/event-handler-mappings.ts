@@ -13,6 +13,8 @@ export enum ChatEventListenName {
   NOTICE_USER_IDEA = 'Notify:User:idea',
   NOTICE_USER_ORDERS_UPDATES = 'Notify:User:order',
   NOTICE_USER_BOXES_UPDATES = 'Notify:User:box',
+
+  NOTICE_TOGGLE_SERVER = 'Notify:users-active',
 }
 
 export enum ChatHandlerName {
@@ -27,6 +29,7 @@ export enum ChatHandlerName {
   onReadMessage = 'onReadMessage',
   onTypingMessage = 'onTypingMessage',
   onUserBoxesUpdate = 'onUserBoxesUpdate',
+  onGetServerSettings = 'onGetServerSettings',
 }
 
 export const eventToHandlerMapping: Record<ChatEventListenName, ChatHandlerName> = {
@@ -43,6 +46,8 @@ export const eventToHandlerMapping: Record<ChatEventListenName, ChatHandlerName>
   [ChatEventListenName.CHAT_APP_NEW_CHAT]: ChatHandlerName.onNewChat,
   [ChatEventListenName.CHAT_APP_MESSAGE_READ]: ChatHandlerName.onReadMessage,
   [ChatEventListenName.CHAT_APP_MESSAGE_TYPING]: ChatHandlerName.onTypingMessage,
+
+  [ChatEventListenName.NOTICE_TOGGLE_SERVER]: ChatHandlerName.onGetServerSettings,
 }
 
 type InvertResult<T extends Record<PropertyKey, PropertyKey>> = {

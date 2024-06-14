@@ -2300,4 +2300,5 @@ export enum TranslationKey {
   'Off' = 'Off',
   'Shutdown delay' = 'Shutdown delay',
   'Are you sure you want to remove this launch?' = 'Are you sure you want to remove this launch?',
+  'Time until server shutdown' = 'Time until server shutdown',
 }
