@@ -1,5 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
+import { GridRowParams } from '@mui/x-data-grid-premium'
 
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,19 +14,16 @@ import { SearchInput } from '@components/shared/search-input'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IOrder } from '@typings/models/orders/order'
 
 import { useStyles } from './buyer-pending-orders-view.style'
 
 import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 
-export const BuyerPendingOrdersView = observer(({ history }) => {
+export const BuyerPendingOrdersView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const [viewModel] = useState(() => new BuyerMyOrdersViewModel())
 
   return (
     <>
@@ -38,37 +37,47 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
 
       <div className={styles.dataGridWrapper}>
         <CustomDataGrid
+          pinnedColumns={viewModel.pinnedColumns}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
-          sortingMode="client"
-          paginationMode="client"
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={(row: IOrder) => row._id}
+          rowSelectionModel={viewModel.selectedRows}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-            columnMenu: { orderStatusData: viewModel.orderStatusData },
-
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
+          onRowDoubleClick={(params: GridRowParams) => viewModel.onClickOrder(params.row._id)}
         />
       </div>
 
@@ -78,6 +87,7 @@ export const BuyerPendingOrdersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
       >
         <EditOrderModal
+          // @ts-ignore
           isPendingOrder
           platformSettings={viewModel.platformSettings}
           paymentMethods={viewModel.paymentMethods}
