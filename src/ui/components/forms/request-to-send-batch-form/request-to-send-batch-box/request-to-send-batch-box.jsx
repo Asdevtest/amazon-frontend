@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { Dimensions } from '@components/shared/dimensions'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox, calculateDeliveryCostPerPcs } from '@utils/calculation'
@@ -15,6 +16,7 @@ import { getShortenStringIfLongerThanCount, toFixedWithDollarSign, toFixedWithKg
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { Dimensions as DimensionsEnum } from '@typings/enums/dimensions'
 
 import { useStyles } from './request-to-send-batch-box.style'
 
@@ -258,8 +260,10 @@ export const RequestToSendBatchBox = memo(
             </Typography>
           </div>
 
-          {calcFinalWeightForBox(box, volumeWeightCoefficient) < 12 ? (
-            <Typography className={styles.alertText}>{`(${t(TranslationKey['Weight less than 12 kg!'])})`}</Typography>
+          {calcFinalWeightForBox(box, volumeWeightCoefficient) < box?.variationTariff?.minBoxWeight || 0 ? (
+            <Typography className={styles.alertText}>{`${t(TranslationKey['Weight less than'])} ${
+              box?.variationTariff?.minBoxWeight
+            } ${t(TranslationKey.kg)}!`}</Typography>
           ) : null}
 
           {box.amount > 1 ? (

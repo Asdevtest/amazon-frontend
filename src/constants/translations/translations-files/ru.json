@@ -2297,5 +2297,6 @@
   "On": "Вкл",
   "Off": "Выкл",
   "Shutdown delay": "Таймер выключения",
-  "Are you sure you want to remove this launch?": "Вы уверены, что хотите удалить данный запуск?"
+  "Are you sure you want to remove this launch?": "Вы уверены, что хотите удалить данный запуск?",
+  "Time until server shutdown": "Время до выключения сервера"
 }

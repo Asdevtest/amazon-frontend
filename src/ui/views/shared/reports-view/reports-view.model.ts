@@ -83,7 +83,11 @@ export class ReportsViewModel extends DataGridFilterTableModel {
 
   onChangeRangeDate(dates: null | (Dayjs | null)[]) {
     if (dates?.[0] && dates?.[1]) {
-      const transformedDatesToISOString = [getDateWithoutTime(dates?.[0]), getDateWithoutTime(dates?.[1])]
+      const lteDateValueForBackendPostgreSQL = dates?.[1].add(1, 'day')
+      const transformedDatesToISOString = [
+        getDateWithoutTime(dates?.[0]),
+        getDateWithoutTime(lteDateValueForBackendPostgreSQL),
+      ]
       this.onChangeFullFieldMenuItem(transformedDatesToISOString, 'createdAt')
       this.onGetCurrentData()
     } else {
