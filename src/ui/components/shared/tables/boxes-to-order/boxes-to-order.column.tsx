@@ -25,7 +25,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
       <MultilineTextCell
         leftAlign
         customTextStyles={colorByBoxStatus(row.status)}
-        text={t(boxStatusTranslateKey(row.status))}
+        text={boxStatusTranslateKey(row.status)}
       />
     ),
     filterable: false,
