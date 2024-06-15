@@ -23,7 +23,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       columnKey: columnnsKeys.shared.DATE,
       width: 100,
@@ -32,7 +32,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'isOnline',
       headerName: t(TranslationKey.Online),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Online)} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Online)} />,
 
       renderCell: params => <UserMiniCell userId={params?.id} isOnline={params?.row?.isOnline} />,
       width: 90,
@@ -42,7 +42,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'name',
       headerName: t(TranslationKey.Name),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Name)} />,
       columnKey: columnnsKeys.shared.STRING,
       width: 150,
     },
@@ -50,7 +50,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'balance',
       headerName: t(TranslationKey.Balance),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Balance)} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Balance)} />,
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
       width: 100,
@@ -61,7 +61,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'balanceFreeze',
       headerName: t(TranslationKey.Freeze),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Freeze)} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Freeze)} />,
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
       width: 120,
@@ -72,7 +72,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'email',
       headerName: t(TranslationKey.Email),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Email)} />,
       renderCell: ({ row }) => <TextWithCopy text={row.email} />,
       columnKey: columnnsKeys.shared.STRING,
       width: 200,
@@ -81,7 +81,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'rate',
       headerName: t(TranslationKey.Rate),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate)} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Rate)} />,
 
       renderCell: params => <MultilineTextCell text={params.value} />,
       width: 100,
@@ -92,7 +92,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'role',
       headerName: t(TranslationKey.Role),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Role)} />,
 
       renderCell: ({ row }) => <MultilineTextCell text={UserRolePrettyMap[row?.role]} />,
       width: 150,
@@ -102,7 +102,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'active',
       headerName: t(TranslationKey['User status']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['User status'])} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey['User status'])} />,
 
       renderCell: ({ row }) => <MultilineTextCell text={row?.active ? 'Active' : 'Banned'} />,
       columnKey: columnnsKeys.shared.STRING,
@@ -112,7 +112,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'isSubUser',
       headerName: t(TranslationKey['Sub status']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Sub status'])} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey['Sub status'])} />,
 
       renderCell: params => <ProductVariationsCell showVariationButton isParentProduct={params?.row?.sub} />,
       columnKey: columnnsKeys.shared.STRING,
@@ -122,7 +122,7 @@ export const adminUsersViewColumns = handlers => {
     {
       field: 'actions',
       headerName: t(TranslationKey.Actions),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Actions)} />,
 
       renderCell: params => (
         <ActionButtonsCell
