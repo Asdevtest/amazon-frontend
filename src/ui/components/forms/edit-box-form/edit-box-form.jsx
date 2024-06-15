@@ -401,11 +401,7 @@ export const EditBoxForm = memo(
                               )}
 
                               {!isTransparencyFileAlreadyAttachedByTheSupplier &&
-                              !isTransparencyFileAttachedByTheStorekeeper ? (
-                                <p className={cx({ [styles.noBarCodeGlued]: item.product.transparency })}>
-                                  {`${t(TranslationKey.Transparency)}: ${t(TranslationKey['Not glued!'])}`}
-                                </p>
-                              ) : isTransparencyFileAlreadyAttachedByTheSupplier ? (
+                              !isTransparencyFileAttachedByTheStorekeeper ? null : isTransparencyFileAlreadyAttachedByTheSupplier ? (
                                 <Checkbox
                                   reverted
                                   disabled
