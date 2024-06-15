@@ -135,7 +135,7 @@ export const adminUsersViewColumns = handlers => {
       ),
       filterable: false,
       sortable: false,
-      width: 150,
+      width: 205,
     },
   ]
 
