@@ -40,7 +40,7 @@ export const AdminUsersViewRaw = ({ classes: styles }) => {
         <SearchInput
           inputClasses={styles.searchInput}
           value={viewModel.currentSearchValue}
-          placeholder={t(TranslationKey['Search by ASIN, SKU, Title'])}
+          placeholder={t(TranslationKey['Search by name, email'])}
           onSubmit={viewModel.onSearchSubmit}
         />
       </div>

@@ -2295,7 +2295,6 @@ export enum TranslationKey {
   'Are you sure you want to remove the report?' = 'Are you sure you want to remove the report?',
   'Online' = 'Online',
   'Users online' = 'Users online',
-  'Search by ASIN, SKU, Title' = 'Search by ASIN, SKU, Title',
   'On' = 'On',
   'Off' = 'Off',
   'Shutdown delay' = 'Shutdown delay',
