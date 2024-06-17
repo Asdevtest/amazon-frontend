@@ -1144,6 +1144,8 @@ export class ClientInStockBoxesViewModel {
           type: 'uploadedFiles',
           withoutShowProgress: true,
         })
+
+        boxData.shippingLabel = this.uploadedFiles?.[0]
       }
 
       if (
