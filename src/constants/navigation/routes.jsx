@@ -414,9 +414,6 @@ const VacantRequestsView = lazy(() =>
 const SupervisorDashboardView = lazy(() =>
   import('@views/supervisor/supervisor-dashboard-view').then(module => ({ default: module.SupervisorDashboardView })),
 )
-const SupervisorFreelanceView = lazy(() =>
-  import('@views/supervisor/supervisor-freelance-view').then(module => ({ default: module.SupervisorFreelanceView })),
-)
 const SupervisorProductView = lazy(() =>
   import('@views/supervisor/supervisor-product-view/supervisor-product-view').then(module => ({
     default: module.SupervisorProductView,
@@ -443,7 +440,6 @@ const SupervisorReadyToCheckView = lazy(() =>
 const SupervisorSettingsView = lazy(() =>
   import('@views/supervisor/supervisor-settings-view').then(module => ({ default: module.SupervisorSettingsView })),
 )
-const TermsView = lazy(() => import('@views/terms').then(module => ({ default: module.TermsView })))
 const WarehouseAwaitingBatchesView = lazy(() =>
   import('@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view').then(module => ({
     default: module.WarehouseAwaitingBatchesView,
@@ -521,12 +517,6 @@ export const publicRoutesConfigs = [
   {
     routePath: '/registration',
     component: RegistrationView,
-    exact: false,
-  },
-
-  {
-    routePath: '/terms',
-    component: TermsView,
     exact: false,
   },
 ]
@@ -1954,21 +1944,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
       activeSubCategory: '',
       title: () => t(TranslationKey.Dashboard),
-    },
-  },
-
-  {
-    routePath: '/supervisor/freelance',
-    component: SupervisorFreelanceView,
-    exact: true,
-    permission: [UserRole.SUPERVISOR],
-
-    crumbNameKey: TranslationKey.Freelance,
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
-      activeSubCategory: '',
-      title: () => t(TranslationKey.Freelance),
     },
   },
 
