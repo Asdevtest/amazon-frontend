@@ -22,9 +22,13 @@ Sentry.init({
     Sentry.replayIntegration(),
   ],
   tracesSampleRate: 1.0,
-  tracePropagationTargets: [/^https:\/\/amazon-frontend-test123\.vercel\.app/],
+  denyUrls: ['localhost', '127.0.0.1'],
+  allowUrls: ['amazon-frontend-test123', 'amazon-frontend-test123.vercel.app'],
+  tracePropagationTargets: ['amazon-frontend-test123', 'amazon-frontend-test123.vercel.app'],
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
+  environment: 'production',
+  release: 'frontend-1.0.0',
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
