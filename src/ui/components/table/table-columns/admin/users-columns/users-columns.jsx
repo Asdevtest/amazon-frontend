@@ -110,7 +110,7 @@ export const adminUsersViewColumns = handlers => {
     },
 
     {
-      field: 'isSubUser',
+      field: 'sub',
       headerName: t(TranslationKey['Sub status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Sub status'])} />,
 
