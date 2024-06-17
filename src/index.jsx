@@ -27,8 +27,7 @@ Sentry.init({
   tracePropagationTargets: ['amazon-frontend-test123', 'amazon-frontend-test123.vercel.app'],
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
-  environment: 'production',
-  release: 'frontend-1.0.0',
+  environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

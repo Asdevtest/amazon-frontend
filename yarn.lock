@@ -2677,7 +2677,7 @@
     "@sentry/types" "8.9.2"
     "@sentry/utils" "8.9.2"
 
-"@sentry/react@^8.7.0":
+"@sentry/react@^8.9.2":
   version "8.9.2"
   resolved "https://registry.yarnpkg.com/@sentry/react/-/react-8.9.2.tgz#20394eede1c0df46b38a43f7b17821f6e70638de"
   integrity sha512-RK4tnkmGg1U9bAjMkY7iyKvZf1diGHYi5o8eOIrJ29OTg3c73C3/MyEuqAlP386tLglcQBn22u9JeP6g4yfiFg==
