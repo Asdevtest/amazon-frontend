@@ -25,10 +25,9 @@ import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 import { PaymentAllSuppliers } from './payment-all-suppliers/payment-all-suppliers'
 
 export const BuyerMyOrdersView = observer(({ history }) => {
-  
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history }))
+  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ pathname: history.location.pathname }))
 
   useEffect(() => {
     viewModel.loadData()
@@ -138,10 +137,10 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           title={viewModel.confirmModalSettings.title}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
       ) : null}

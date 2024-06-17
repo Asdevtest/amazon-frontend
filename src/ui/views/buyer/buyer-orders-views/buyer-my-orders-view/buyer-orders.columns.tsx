@@ -29,8 +29,18 @@ import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } fr
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, isShowPartialPayment = false) => {
-  const arr = [
+import { IOrder } from '@typings/models/orders/order'
+import { IGridColumn } from '@typings/shared/grid-column'
+
+interface buyerOrdersColumnsParams {
+  rowHandlers: {
+    onClickPaymentMethodsCell: (row: IOrder) => void
+  }
+  isShowPartialPayment: boolean
+}
+
+export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerOrdersColumnsParams) => {
+  const columns: IGridColumn[] = [
     {
       field: 'id',
       headerName: t(TranslationKey.ID) + ' / item',
@@ -375,7 +385,7 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
   ]
 
   if (isShowPartialPayment) {
-    arr.splice(9, 0, {
+    columns.splice(9, 0, {
       field: 'partiallyPaid',
       headerName: t(TranslationKey['Paid for']) + ', Ұ',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Paid for']) + ', Ұ'} />,
@@ -387,5 +397,5 @@ export const BuyerReadyForPaymentColumns = (rowHandlers, getColumnMenuSettings, 
     })
   }
 
-  return arr
+  return columns
 }

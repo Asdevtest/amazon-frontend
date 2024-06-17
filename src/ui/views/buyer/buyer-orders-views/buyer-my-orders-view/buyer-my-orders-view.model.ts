@@ -1,8 +1,6 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { routsPathes } from '@constants/navigation/routs-pathes'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,219 +8,106 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BoxesModel } from '@models/boxes-model'
 import { BuyerModel } from '@models/buyer-model'
-import { GeneralModel } from '@models/general-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { ProductModel } from '@models/product-model'
 import { SupplierModel } from '@models/supplier-model'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
-import { BuyerReadyForPaymentColumns } from '@components/table/table-columns/buyer/buyer-ready-for-payment-columns'
-
-import { buyerMyOrdersDataConverter } from '@utils/data-grid-data-converters'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IOrderPayment } from '@typings/models/buyers/order-payment-by-status'
+import { IOrder } from '@typings/models/orders/order'
+import { IHSCode } from '@typings/shared/hs-code'
 
-import { filtersFields, updateOrderKeys } from './buyer-my-orders-view.constants'
+import { fieldsForSearch, updateOrderKeys } from './buyer-my-orders-view.constants'
+import { buyerOrdersColumns } from './buyer-orders.columns'
+import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
+import { getShowPartialPayment } from './helpers/get-show-partial-payment'
+import { getStatusGroup } from './helpers/get-status-group'
+import { observerConfig } from './observer-config'
 
-export class BuyerMyOrdersViewModel {
-  history = undefined
-  requestStatus = undefined
-
+export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
   orderStatusDataBase = []
   chosenStatus = []
   filteredStatus = []
   paymentMethods = []
   ordersMy = []
   baseNoConvertedOrders = []
-  isReadyForPayment = undefined
   createBoxesResult = []
-  paymentAmount = undefined
-  nameSearchValue = ''
-  selectedOrder = undefined
-  barcode = ''
+  paymentAmount: IOrderPayment | null = null
+
+  selectedOrder: IOrder | null = null
+
   currentOrder = undefined
   updateSupplierData = false
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
   progressValue = 0
   showProgress = false
   readyImages = []
-  hsCodeData = undefined
+  hsCodeData: IHSCode | null = null
 
   showOrderModal = false
   showConfirmModal = false
   showPaymentMethodsModal = false
 
-  confirmModalSettings = {
-    title: '',
-    isWarning: false,
-    confirmMessage: '',
-    onClickConfirm: () => {},
-  }
-
-  rowHandlers = {
-    onClickPaymentMethodsCell: row => this.onClickPaymentMethodsCell(row),
-  }
-
-  rowCount = 0
-  sortModel = []
-  startFilterModel = undefined
-  filterModel = { items: [] }
-  densityModel = 'compact'
-  columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, false)
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
-  columnMenuSettings = {
-    onClickFilterBtn: field => this.onClickFilterBtn(field),
-    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: () => {
-      this.onLeaveColumnField()
-      this.getOrdersMy()
-      this.getDataGridState()
-    },
-
-    filterRequestStatus: undefined,
-
-    ...dataGridFiltersInitializer(filtersFields),
-  }
-
-  get currentData() {
-    return this.ordersMy
-  }
-
   get userInfo() {
     return UserModel.userInfo
-  }
-
-  get orderStatusData() {
-    return {
-      orderStatusDataBase: this.orderStatusDataBase,
-      chosenStatus: this.chosenStatus,
-      onClickOrderStatusData: this.onClickOrderStatusData,
-    }
-  }
-
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
   get platformSettings() {
     return UserModel.platformSettings
   }
 
-  constructor({ history }) {
-    this.history = history
-
-    if (
-      routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname ||
-      routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT === history.location.pathname
-    ) {
-      this.columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, true)
+  constructor({ pathname }: { pathname: string }) {
+    const rowHandlers = {
+      onClickPaymentMethodsCell: (row: IOrder) => this.onClickPaymentMethodsCell(row),
     }
 
+    const isShowPartialPayment = getShowPartialPayment(pathname)
+
+    const columnsModel = buyerOrdersColumns({ rowHandlers, isShowPartialPayment })
+
+    const statusGroup = getStatusGroup(pathname)
+
+    const defaultFilterParams = () => ({
+      statusGroup: {
+        $eq: statusGroup,
+      },
+    })
+
+    super({
+      getMainDataMethod: BuyerModel.getOrdersMyPag,
+      columnsModel,
+      filtersFields: getFilterFields(columnsModel, ['amazonTitle', 'skuByClient']),
+      mainMethodURL: 'buyers/orders/pag/my?',
+      fieldsForSearch,
+      tableKey: getDataGridTableKey(pathname),
+      defaultFilterParams,
+    })
+
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+
+    this.getDataGridState()
+    this.getCurrentData()
+    this.getBuyersOrdersPaymentByStatus()
+    this.getSuppliersPaymentMethods()
+
     const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
+
     if (orderId) {
-      this.history.push(`${history.location.pathname}`)
       this.onClickOrder(orderId)
     }
 
-    if (history.location.state?.orderId) {
-      this.onClickOrder(history.location.state.orderId)
-
-      const state = { ...history.location.state }
-      delete state.orderId
-      history.replace({ ...history.location, state })
-    }
-
-    if (history.location?.state?.dataGridFilter) {
-      this.startFilterModel = history.location.state.dataGridFilter
-    }
-
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
-
-  async onClickFilterBtn(column) {
-    try {
-      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
-
-      const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
-
-      const endpoint = `buyers/orders/pag/my?filters=${this.getFilter(column)}${
-        orderStatus ? ';&' + 'status=' + orderStatus : ''
-      }`
-
-      const data = await GeneralModel.getDataForColumn(getTableByColumn(column, 'orders'), column, endpoint)
-
-      if (this.columnMenuSettings[column]) {
-        runInAction(() => {
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [column]: { ...this.columnMenuSettings[column], filterData: data },
-          }
-        })
-      }
-
-      this.setFilterRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setFilterRequestStatus(loadingStatus.FAILED)
-
-      console.error(error)
-    }
-  }
-
-  getFilter(exclusion) {
-    return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
-        'amazonTitle',
-        'asin',
-        'id',
-        'item',
-        'skuByClient',
-      ]),
-    )
+    makeObservable(this, observerConfig)
   }
 
   setUpdateSupplierData(value) {
     this.updateSupplierData = value
-  }
-
-  setOrderStatus = pathname => {
-    if (pathname) {
-      switch (pathname) {
-        case routsPathes.BUYER_MY_ORDERS_NEED_TRACK_NUMBER:
-          return [OrderStatus.PAID_TO_SUPPLIER]
-        case routsPathes.BUYER_MY_ORDERS_INBOUND:
-          return [OrderStatus.TRACK_NUMBER_ISSUED]
-        case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
-          return [OrderStatus.VERIFY_RECEIPT]
-        case routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT:
-          return [OrderStatus.READY_FOR_PAYMENT]
-        case routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID:
-          return [OrderStatus.PARTIALLY_PAID]
-        case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
-          return [OrderStatus.IN_STOCK, OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT]
-
-        case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
-          return [
-            OrderStatus.AT_PROCESS,
-            OrderStatus.PAID_TO_SUPPLIER,
-            OrderStatus.TRACK_NUMBER_ISSUED,
-            OrderStatus.VERIFY_RECEIPT,
-            OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
-            OrderStatus.IN_STOCK,
-            OrderStatus.CANCELED_BY_BUYER,
-            OrderStatus.CANCELED_BY_CLIENT,
-            OrderStatus.READY_FOR_PAYMENT,
-            OrderStatus.PARTIALLY_PAID,
-          ]
-        default:
-          return [OrderStatus.AT_PROCESS, OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
-      }
-    }
   }
 
   async getBuyersOrdersPaymentByStatus() {
@@ -261,31 +146,6 @@ export class BuyerMyOrdersViewModel {
         this.paymentAmount = response
       })
     }
-  }
-
-  onClickOrderStatusData(status) {
-    if (status) {
-      if (status === 'ALL') {
-        this.chosenStatus = []
-      } else {
-        if (this.chosenStatus.some(item => item === status)) {
-          this.chosenStatus = this.chosenStatus.filter(item => item !== status)
-        } else {
-          this.chosenStatus.push(status)
-        }
-      }
-    }
-
-    this.getOrdersMy()
-  }
-
-  setDefaultStatuses() {
-    if (!this.chosenStatus.length) {
-      this.filteredStatus = this.setOrderStatus(this.history.location.pathname)
-    } else {
-      this.filteredStatus = this.chosenStatus
-    }
-    this.orderStatusDataBase = this.setOrderStatus(this.history.location.pathname)
   }
 
   async getSuppliersPaymentMethods() {
@@ -364,12 +224,12 @@ export class BuyerMyOrdersViewModel {
         this.confirmModalSettings = {
           title: t(TranslationKey.Attention),
           isWarning: false,
-          confirmMessage: t(
+          message: t(
             TranslationKey[
               'The price per unit in the order is different from the supplier price, do you want to continue?'
             ],
           ),
-          onClickConfirm: () => {
+          onSubmit: () => {
             this.onSubmitSaveOrder(DataForSaveOrder)
             this.onTriggerOpenModal('showConfirmModal')
           },
@@ -417,77 +277,9 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  onChangeFilterModel(model) {
-    this.filterModel = model
-
-    this.setDataGridState()
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
-  }
-
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(this.setDataGridTablesKeys(this.history.location.pathname))
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(
-        this.startFilterModel
-          ? {
-              ...this.startFilterModel,
-              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-            }
-          : state.filterModel,
-      )
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-
-    this.setDataGridState()
-    this.getOrdersMy()
-  }
-
-  async setColumnsModel() {
-    const response = await this.setOrderStatus(this.history.location.pathname)
-
-    runInAction(() => {
-      this.isReadyForPayment = response.some(status => status === OrderStatus.READY_FOR_PAYMENT)
-    })
-  }
-
   onClickPaymentMethodsCell(row) {
     this.currentOrder = row
-
     this.onTriggerOpenModal('showPaymentMethodsModal')
-  }
-
-  async loadData() {
-    try {
-      await this.setColumnsModel()
-      this.getDataGridState()
-      await this.getOrdersMy()
-
-      this.getBuyersOrdersPaymentByStatus()
-      this.getSuppliersPaymentMethods()
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async onSaveOrderItem(orderId, orderItem) {
@@ -496,21 +288,21 @@ export class BuyerMyOrdersViewModel {
 
       toast.success(t(TranslationKey['Data saved successfully']))
 
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onClickOrder(orderId) {
+  async onClickOrder(orderId: string) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
 
       runInAction(() => {
-        this.selectedOrder = orderData
+        this.selectedOrder = orderData as unknown as IOrder
       })
 
-      await this.onClickHsCode(orderData.product._id)
+      await this.onClickHsCode(orderData?.product?._id)
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
@@ -524,7 +316,7 @@ export class BuyerMyOrdersViewModel {
         buyerComment: this.dataToCancelOrder.buyerComment,
       })
       await UserModel.getUsersInfoCounters()
-      this.loadData()
+      this.getCurrentData()
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
@@ -551,7 +343,7 @@ export class BuyerMyOrdersViewModel {
 
         await BuyerModel.patchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
 
-        this.loadData()
+        this.getCurrentData()
       } catch (error) {
         console.error(error)
         this.setRequestStatus(loadingStatus.FAILED)
@@ -668,10 +460,9 @@ export class BuyerMyOrdersViewModel {
           this.confirmModalSettings = {
             title: t(TranslationKey['Attention. Are you sure?']),
             isWarning: true,
-            confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
-            onClickConfirm: () => {
-              this.onSubmitCancelOrder()
-            },
+            message: t(TranslationKey['Are you sure you want to cancel the order?']),
+            onSubmit: () => this.onSubmitCancelOrder(),
+            onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
           }
         })
 
@@ -698,7 +489,7 @@ export class BuyerMyOrdersViewModel {
         UserModel.getUsersInfoCounters()
       }
 
-      this.loadData()
+      this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -836,74 +627,12 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
-
-    this.getOrdersMy()
-  }
-
-  async getOrdersMy() {
-    try {
-      this.setDefaultStatuses()
-      const orderStatuses = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
-      const currentStatuses = this.columnMenuSettings.status?.currentFilterData.join(',')
-
-      const result = await BuyerModel.getOrdersMyPag({
-        filters: this.getFilter(),
-
-        limit: this.paginationModel.pageSize,
-        offset: this.paginationModel.page * this.paginationModel.pageSize,
-
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-
-        status: this.columnMenuSettings.status?.currentFilterData.length ? currentStatuses : orderStatuses,
-      })
-
-      runInAction(() => {
-        this.rowCount = result.count
-
-        this.baseNoConvertedOrders = result.rows
-
-        this.ordersMy = buyerMyOrdersDataConverter(result.rows)
-      })
-    } catch (error) {
-      runInAction(() => {
-        this.baseNoConvertedOrders = []
-        this.ordersMy = []
-      })
-      console.error(error)
-    }
-  }
-
-  onTriggerOpenModal(modal) {
-    this[modal] = !this[modal]
-  }
-
-  onPaginationModelChange(model) {
-    this.paginationModel = model
-
-    this.setDataGridState()
-    this.getOrdersMy()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-
-    this.setDataGridState()
-    this.getOrdersMy()
-  }
-
-  onLeaveColumnField() {
-    this.onHover = null
-  }
-
-  async onClickHsCode(productId) {
+  async onClickHsCode(productId: string) {
     try {
       const response = await ProductModel.getProductsHsCodeByGuid(productId)
 
       runInAction(() => {
-        this.hsCodeData = response
+        this.hsCodeData = response as unknown as IHSCode
       })
     } catch (error) {
       console.error(error)

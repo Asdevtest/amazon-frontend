@@ -83,13 +83,12 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
 
     this.getSuppliersPaymentMethods()
 
-    // if (history?.location?.state?.orderId) {
-    //   this.onClickOrder(history?.location?.state?.orderId)
+    const url = new URL(window.location.href)
+    const orderId = url?.searchParams?.get('orderId')
 
-    //   const state = { ...history.location?.state }
-    //   delete state.orderId
-    //   history.replace({ ...history?.location, state })
-    // }
+    if (orderId) {
+      this.onClickOrder(orderId)
+    }
   }
 
   async onSaveOrderItem(orderId: string, orderItem: IOrder) {

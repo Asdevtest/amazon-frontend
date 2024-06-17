@@ -66,9 +66,8 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
 
     this.history.push(
       this.curOrder?.status === OrderStatusByKey[OrderStatus.FORMED as keyof typeof OrderStatusByKey]
-        ? '/buyer/pending-orders'
-        : '/buyer/not-paid-orders',
-      { orderId: this.curOrder?._id },
+        ? `/buyer/pending-orders?orderId=${this.curOrder?._id}`
+        : `/buyer/not-paid-orders?orderId=${this.curOrder?._id}`,
     )
   }
 
