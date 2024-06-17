@@ -88,9 +88,11 @@ export class WarehouseMyWarehouseViewModel {
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
     onChangeUnitsOption: option => this.onChangeUnitsOption(option),
   }
+
   uploadedImages = []
   uploadedFiles = []
   uploadedTransparencyFiles = []
+
   progressValue = 0
   showProgress = false
 
@@ -555,6 +557,13 @@ export class WarehouseMyWarehouseViewModel {
         }
       })
       this.onTriggerOpenModal('showWarningInfoModal')
+    } finally {
+      runInAction(() => {
+        this.uploadedImages = []
+        this.uploadedFiles = []
+        this.tmpTrackNumberFile = []
+        this.uploadedTransparencyFiles = []
+      })
     }
   }
 

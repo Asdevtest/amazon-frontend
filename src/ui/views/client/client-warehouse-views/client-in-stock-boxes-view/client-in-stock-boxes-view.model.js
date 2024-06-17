@@ -1303,6 +1303,13 @@ export class ClientInStockBoxesViewModel {
       }
 
       toast.warning(t(TranslationKey['The box is unchanged']))
+    } finally {
+      runInAction(() => {
+        this.uploadedImages = []
+        this.uploadedFiles = []
+        this.tmpTrackNumberFile = []
+        this.uploadedTransparencyFiles = []
+      })
     }
   }
 
