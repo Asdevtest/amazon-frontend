@@ -114,7 +114,7 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey['Sub status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Sub status'])} />,
 
-      renderCell: params => <ProductVariationsCell showVariationButton isParentProduct={params?.row?.sub} />,
+      renderCell: params => <ProductVariationsCell showVariationButton isParentProduct={!params?.row?.sub} />,
       columnKey: columnnsKeys.shared.STRING,
       width: 120,
     },
