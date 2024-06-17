@@ -1248,7 +1248,6 @@ export enum TranslationKey {
   'Continue working with the user' = 'Continue working with the user',
   'Selected lot contains a box for which you need to confirm the price change' = 'Selected lot contains a box for which you need to confirm the price change',
   'Order files' = 'Order files',
-  'New files' = 'New files',
   'User reviews' = 'User reviews',
   'A new product card will appear in the inventory' = 'A new product card will appear in the inventory',
   'Product code field is required for this action' = 'Product code field is required for this action',
