@@ -703,6 +703,7 @@ export const EditBoxForm = memo(
           <SetShippingLabelModal
             tmpShippingLabel={boxFields.tmpShippingLabel}
             item={boxFields}
+            requestStatus={requestStatus}
             onClickSaveShippingLabel={shippingLabel => {
               setShippingLabel()(shippingLabel)
               setShowSetShippingLabelModal(!showSetShippingLabelModal)
