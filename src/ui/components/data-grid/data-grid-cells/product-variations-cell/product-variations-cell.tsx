@@ -1,12 +1,6 @@
 import { FC, memo } from 'react'
 
-import { Tooltip } from '@mui/material'
-
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { ParentProductIcon, VariationProductIcon } from '@components/shared/svg-icons'
-
-import { t } from '@utils/translations'
 
 import { useStyles } from './product-variations-cell.style'
 
@@ -23,26 +17,19 @@ export const ProductVariationsCell: FC<ProductVariationsCellProps> = memo(
     return (
       <div className={styles.productVariationsCellWrapper}>
         {showVariationButton ? (
-          <Tooltip
-            arrow
-            title={t(TranslationKey['Product variations'])}
-            placement="top"
-            classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
+          <button
+            className={styles.iconWrapper}
+            onClick={e => {
+              e.stopPropagation()
+              onClickVariationButton()
+            }}
           >
-            <button
-              className={styles.iconWrapper}
-              onClick={e => {
-                e.stopPropagation()
-                onClickVariationButton()
-              }}
-            >
-              {isParentProduct ? (
-                <ParentProductIcon className={styles.shareLinkIcon} />
-              ) : (
-                <VariationProductIcon className={styles.shareLinkIcon} />
-              )}
-            </button>
-          </Tooltip>
+            {isParentProduct ? (
+              <ParentProductIcon className={styles.shareLinkIcon} />
+            ) : (
+              <VariationProductIcon className={styles.shareLinkIcon} />
+            )}
+          </button>
         ) : null}
       </div>
     )
