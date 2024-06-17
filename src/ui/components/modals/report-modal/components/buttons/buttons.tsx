@@ -29,9 +29,7 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
         <CustomButton type="primary" disabled={disabledSaveButton} onClick={onSave}>
           {t(TranslationKey.Save)}
         </CustomButton>
-        <CustomButton danger onClick={onClose}>
-          {t(TranslationKey.Cancel)}
-        </CustomButton>
+        <CustomButton onClick={onClose}>{t(TranslationKey.Cancel)}</CustomButton>
       </div>
     </div>
   )
