@@ -64,8 +64,8 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     super({
       getMainDataMethod: BuyerModel.getOrdersMyPag,
       columnsModel,
-      filtersFields: getFilterFields(columnsModel),
-      mainMethodURL: 'buyers/orders/pag/my',
+      filtersFields: getFilterFields(columnsModel, ['amazonTitle', 'skuByClient']),
+      mainMethodURL: 'buyers/orders/pag/my?',
       fieldsForSearch,
       tableKey: DataGridTablesKeys.BUYER_PENDING_ORDERS,
       defaultFilterParams,

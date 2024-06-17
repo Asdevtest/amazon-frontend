@@ -1,6 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AsinCell, MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 
@@ -20,6 +20,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
       renderCell: params => <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={params.row.request.asin} />,
       width: 190,
+      disableCustomSort: true,
     },
 
     {
@@ -28,6 +29,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
       renderCell: params => <MultilineTextCell text={params.row.request.title} />,
       width: 200,
+      disableCustomSort: true,
     },
 
     {
@@ -36,13 +38,15 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
       renderCell: params => <MultilineTextCell threeLines text={params.row?.request?.spec?.title} />,
       width: 200,
+      disableCustomSort: true,
     },
 
     {
       field: 'humanFriendlyId',
       headerName: `ID ${t(TranslationKey.Requests)}`,
       renderHeader: () => <MultilineTextHeaderCell text={`ID ${t(TranslationKey.Requests)}`} />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <MultilineTextCell text={params.row?.request?.humanFriendlyId} />,
+      disableCustomSort: true,
     },
 
     {
@@ -68,7 +72,6 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
         </Button>
       ),
       disableCustomSort: true,
-      width: 140,
     },
   ]
 

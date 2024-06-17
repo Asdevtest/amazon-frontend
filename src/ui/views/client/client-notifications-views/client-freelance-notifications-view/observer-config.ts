@@ -1,5 +1,5 @@
-import { override } from 'mobx'
+import { action } from 'mobx'
 
 export const observerConfig = {
-  getCurrentData: override,
+  onClickReply: action.bound,
 }

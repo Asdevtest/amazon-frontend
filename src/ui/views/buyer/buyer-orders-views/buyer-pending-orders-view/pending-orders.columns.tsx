@@ -29,23 +29,26 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <MultilineTextCell text={params.value} />,
       sortable: true,
+
       columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
-      field: 'priorityAndChinaDelivery',
+      field: 'priority',
       headerName: t(TranslationKey.Priority),
       renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
       width: 90,
       renderCell: params => (
         <PriorityAndChinaDeliverCell
-          priority={params.row.priority}
+          priority={params.value}
           chinaDelivery={params.row.expressChinaDelivery}
           status={params.row.status}
         />
       ),
+
       disableCustomSort: true,
-      filterable: false,
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -66,7 +69,11 @@ export const pendingOrdersColumns = () => {
           />
         )
       },
+
+      table: DataGridFilterTables.PRODUCTS,
       disableCustomSort: true,
+
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {

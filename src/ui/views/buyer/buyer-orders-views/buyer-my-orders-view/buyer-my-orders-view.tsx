@@ -25,6 +25,7 @@ import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 import { PaymentAllSuppliers } from './payment-all-suppliers/payment-all-suppliers'
 
 export const BuyerMyOrdersView = observer(({ history }) => {
+  
   const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history }))

@@ -10,6 +10,7 @@ import { ClientFreelanceNotificationsViewModel } from '@views/client/client-noti
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IFreelanceNotice } from '@typings/shared/info-counters'
 
 import { useStyles } from './client-freelance-notifications-view.style'
 
@@ -31,7 +32,7 @@ export const ClientFreelanceNotificationsView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={row => row?.request._id}
+        getRowId={(row: IFreelanceNotice) => row?.chatId}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -41,26 +42,19 @@ export const ClientFreelanceNotificationsView = observer(() => {
             title: t(TranslationKey.Filter),
           },
 
-          // columnMenu: viewModel.columnMenuSettings,
+          toolbar: {
+            columsBtnSettings: {
+              columnsModel: viewModel.columnsModel,
+              columnVisibilityModel: viewModel.columnVisibilityModel,
+              onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
 
-          // toolbar: {
-          //   resetFiltersBtnSettings: {
-          //     onClickResetFilters: viewModel.onClickResetFilters,
-          //     isSomeFilterOn: viewModel.isSomeFilterOn,
-          //   },
-
-          //   columsBtnSettings: {
-          //     columnsModel: viewModel.columnsModel,
-          //     columnVisibilityModel: viewModel.columnVisibilityModel,
-          //     onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-          //   },
-
-          //   sortSettings: {
-          //     sortModel: viewModel.sortModel,
-          //     columnsModel: viewModel.columnsModel,
-          //     onSortModelChange: viewModel.onChangeSortingModel,
-          //   },
-          // },
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
+            },
+          },
         }}
         onRowSelectionModelChange={viewModel.onSelectionModel}
         onSortModelChange={viewModel.onChangeSortingModel}

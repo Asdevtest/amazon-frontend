@@ -67,6 +67,7 @@ export class BuyerMyOrdersViewModel {
   rowHandlers = {
     onClickPaymentMethodsCell: row => this.onClickPaymentMethodsCell(row),
   }
+
   rowCount = 0
   sortModel = []
   startFilterModel = undefined
@@ -183,44 +184,6 @@ export class BuyerMyOrdersViewModel {
         'skuByClient',
       ]),
     )
-  }
-
-  setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings.filterRequestStatus = requestStatus
-  }
-
-  onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings[field].currentFilterData = value
-  }
-
-  onClickResetFilters() {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-
-      ...dataGridFiltersInitializer(filtersFields),
-    }
-
-    this.getOrdersMy()
-    this.getDataGridState()
-  }
-
-  setDataGridTablesKeys = pathname => {
-    if (pathname) {
-      switch (pathname) {
-        case routsPathes.BUYER_MY_ORDERS_NEED_TRACK_NUMBER:
-          return OrderStatusByKey[DataGridTablesKeys.BUYER_MY_ORDERS_NEED_TRACK_NUMBER]
-        case routsPathes.BUYER_MY_ORDERS_INBOUND:
-          return DataGridTablesKeys.BUYER_MY_ORDERS_INBOUND
-        case routsPathes.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED:
-          return DataGridTablesKeys.BUYER_MY_ORDERS_CONFIRMATION_REQUIRED
-        case routsPathes.BUYER_MY_ORDERS_CLOSED_AND_CANCELED:
-          return DataGridTablesKeys.BUYER_MY_ORDERS_CLOSED_AND_CANCELED
-        case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
-          return DataGridTablesKeys.BUYER_MY_ORDERS_ALL_ORDERS
-        default:
-          return DataGridTablesKeys.BUYER_MY_ORDERS_NOT_PAID
-      }
-    }
   }
 
   setUpdateSupplierData(value) {
