@@ -24,6 +24,16 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
     },
 
     {
+      field: 'shopId',
+      headerName: t(TranslationKey.Shop),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+      renderCell: ({ row }) => <MultilineTextCell twoLines text={row?.request?.product?.shop?.name} />,
+      valueGetter: ({ row }) => row?.request?.product?.shop?.name,
+      width: 90,
+      disableCustomSort: true,
+    },
+
+    {
       field: 'title',
       headerName: t(TranslationKey['Request title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
