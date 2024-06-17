@@ -16,6 +16,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    marginRight: 10,
   },
 
   items: {
@@ -63,5 +64,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
+  },
+
+  needPay: {
+    color: 'red',
+    fontWeight: 'bold',
+    width: 'fit-content',
   },
 }))
