@@ -1,16 +1,19 @@
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable, reaction, runInAction } from 'mobx'
 
-import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
+
+import { DataGridTableModel } from '@models/data-grid-table-model'
 import { OtherModel } from '@models/other-model'
 import { UserModel } from '@models/user-model'
 
 import { supervisorSettingsViewColumns } from './supervisor-settings-view.columns'
-import { supervisorSettingsConfig } from './supervisor-settings-view.config'
+import { fieldsForSearch, supervisorSettingsConfig, tabsValues } from './supervisor-settings-view.config'
 
-export class SupervisorSettingsViewModel extends DataGridFilterTableModel {
-  asins = []
+export class SupervisorSettingsViewModel extends DataGridTableModel {
   failedData = undefined
   asinsToEdit = undefined
+  condition = tabsValues.ONLINE_ARBITRAGE_CHINA
 
   showAsinCheckerModal = false
   showEditAsinCheckerModal = false
@@ -23,18 +26,32 @@ export class SupervisorSettingsViewModel extends DataGridFilterTableModel {
 
   constructor() {
     const columnsProps = {
-      onClickRemoveBtn: row => this.onClickRemoveBtn(row),
-      onClickEditBtn: row => this.onClickEditBtn(row),
+      onRemoveAsin: id => this.onRemoveAsin(id),
+      onEditAsin: data => this.onEditAsin(data),
     }
     const columnsModel = supervisorSettingsViewColumns(columnsProps)
 
     super({
       getMainDataMethod: OtherModel.getAsins,
       columnsModel,
+      fieldsForSearch,
+      tableKey: DataGridTablesKeys.SUPERVISOR_SETTINGS,
     })
 
+    this.sortModel = [{ field: 'asin', sort: 'desc' }]
     this.getDataGridState()
     this.getCurrentData()
+
+    // tabs filter by condition on front
+    reaction(
+      () => this.condition,
+      async () => {
+        await this.getCurrentData()
+        this.currentData = this.currentData.filter(
+          item => item.strategy === mapProductStrategyStatusEnumToKey[this.condition].toString(),
+        )
+      },
+    )
 
     makeObservable(this, supervisorSettingsConfig)
   }
@@ -57,43 +74,43 @@ export class SupervisorSettingsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onEditAsins(id, data) {
+  async onSubmitEditAsin(id, data) {
     try {
       await OtherModel.editAsins(id, data)
 
       this.onTriggerOpenModal('showEditAsinCheckerModal')
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
+  }
+
+  onEditAsin(row) {
+    this.asinsToEdit = row
+    this.onTriggerOpenModal('showEditAsinCheckerModal')
   }
 
   async onRemoveAsin(id) {
     try {
       await OtherModel.removeAsin(id)
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onRemoveAsins(ids) {
+  async onRemoveAsins() {
     try {
-      await OtherModel.removeAsins(ids)
+      await OtherModel.removeAsins(this.selectedRows)
+
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  onClickRemoveBtn(id) {
-    this.onRemoveAsin(id)
-  }
-
-  onClickRemoveSelectedBtn() {
-    this.onRemoveAsins(this.selectedRows)
-  }
-
-  onClickEditBtn(row) {
-    this.asinsToEdit = row
-
-    this.onTriggerOpenModal('showEditAsinCheckerModal')
+  onChangeСondition = value => {
+    this.condition = value
   }
 }

@@ -1,3 +1,4 @@
+import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
@@ -23,55 +24,57 @@ import { switcherSettings } from './supervisor-settings-view.config'
 import { SupervisorSettingsViewModel } from './supervisor-settings-view.model'
 
 export const SupervisorSettingsView = observer(() => {
-  const [viewModel] = useState(() => new SupervisorSettingsViewModel())
-
   const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new SupervisorSettingsViewModel())
 
   return (
     <>
       <CustomSwitcher
         switchMode="medium"
-        condition={viewModel.tabIndex}
+        condition={viewModel.condition}
         switcherSettings={switcherSettings}
-        changeConditionHandler={viewModel.setTabIndex}
+        changeConditionHandler={viewModel.onChangeСondition}
       />
 
       <div className={styles.flexContainer}>
         <SearchInput
-          inputClasses={viewModel.styles.searchInput}
-          value={viewModel.nameSearchValue}
+          inputClasses={styles.searchInput}
+          value={viewModel.currentSearchValue}
           placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-          onChange={viewModel.onChangeNameSearchValue}
+          onChange={viewModel.onChangeUnserverSearchValue}
         />
 
         <div className={styles.flexContainer}>
-          <Button
-            styleType={ButtonStyle.DANGER}
-            disabled={!viewModel.selectedRowIds?.length}
-            className={styles.button}
-            onClick={viewModel.onClickRemoveSelectedBtn}
+          <Popconfirm
+            title={t(TranslationKey['Are you sure you want to delete the selected ASINs?'])}
+            okText={t(TranslationKey.Yes)}
+            cancelText={t(TranslationKey.No)}
+            onConfirm={viewModel.onRemoveAsins}
           >
-            {t(TranslationKey['Delete selected ASINs'])}
-          </Button>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            className={styles.button}
-            onClick={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
-          >
-            {'ASIN checker'}
+            <Button styleType={ButtonStyle.DANGER} disabled={!viewModel.selectedRows.length}>
+              {t(TranslationKey['Delete selected ASINs'])}
+            </Button>
+          </Popconfirm>
+
+          <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}>
+            ASIN checker
           </Button>
         </div>
       </div>
+
       <div className={styles.dataGridWrapper}>
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          sortingMode="client"
+          paginationMode="client"
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           pinnedColumns={viewModel.pinnedColumns}
+          rowSelectionModel={viewModel.selectedRows}
           paginationModel={viewModel.paginationModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
-          rows={viewModel.currentData}
+          rows={viewModel.filteredData}
           getRowHeight={() => 'auto'}
           getRowId={({ _id }) => _id}
           slotProps={{
@@ -102,212 +105,32 @@ export const SupervisorSettingsView = observer(() => {
           onPinnedColumnsChange={viewModel.handlePinColumn}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         />
       </div>
-
-      {/* <TabPanel value={tabIndex} index={tabsValues.DROPSHIPPING}>
-        <div className={styles.flexContainer}>
-          <SearchInput
-            inputClasses={styles.searchInput}
-            value={nameSearchValue}
-            placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-            onChange={onChangeNameSearchValue}
-          />
-          <div className={styles.flexContainer}>
-            <Button
-              styleType={ButtonStyle.DANGER}
-              disabled={!selectedRowIds?.length}
-              className={styles.button}
-              onClick={onClickRemoveSelectedBtn}
-            >
-              {t(TranslationKey['Delete selected ASINs'])}
-            </Button>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              className={styles.button}
-              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
-            >
-              {'ASIN checker'}
-            </Button>
-          </div>
-        </div>
-        <div className={styles.dataGridWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            disableRowSelectionOnClick
-            sortModel={sortModel}
-            filterModel={filterModel}
-            columnVisibilityModel={gpModel.current.columnVisibilityModel}
-            paginationModel={gpModel.current.paginationModel}
-            rows={getCurrentData()}
-            getRowId={row => row._id}
-            rowHeight={120}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel,
-                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
-                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            density={densityModel}
-            columns={columnsModel}
-            loading={requestStatus === loadingStatus.IS_LOADING}
-            onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onPaginationModelChange}
-            onFilterModelChange={onChangeFilterModel}
-            onRowSelectionModelChange={onSelectionModel}
-          />
-        </div>
-      </TabPanel> */}
-
-      {/* <TabPanel value={tabIndex} index={tabsValues.PRIVATE_LABEL}>
-        <div className={styles.flexContainer}>
-          <SearchInput
-            inputClasses={styles.searchInput}
-            value={nameSearchValue}
-            placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-            onChange={onChangeNameSearchValue}
-          />
-          <div className={styles.flexContainer}>
-            <Button
-              styleType={ButtonStyle.DANGER}
-              disabled={!selectedRowIds?.length}
-              className={styles.button}
-              onClick={onClickRemoveSelectedBtn}
-            >
-              {t(TranslationKey['Delete selected ASINs'])}
-            </Button>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              className={styles.button}
-              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
-            >
-              ASIN checker
-            </Button>
-          </div>
-        </div>
-        <div className={styles.dataGridWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            disableRowSelectionOnClick
-            sortModel={sortModel}
-            filterModel={filterModel}
-            columnVisibilityModel={gpModel.current.columnVisibilityModel}
-            paginationModel={gpModel.current.paginationModel}
-            rows={getCurrentData()}
-            getRowId={row => row._id}
-            rowHeight={120}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel,
-                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
-                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            density={densityModel}
-            columns={columnsModel}
-            loading={requestStatus === loadingStatus.IS_LOADING}
-            onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onPaginationModelChange}
-            onFilterModelChange={onChangeFilterModel}
-            onRowSelectionModelChange={onSelectionModel}
-          />
-        </div>
-      </TabPanel> */}
-
-      {/* <TabPanel value={tabIndex} index={tabsValues.WHOLE_SALE_USA}>
-        <div className={styles.flexContainer}>
-          <SearchInput
-            inputClasses={styles.searchInput}
-            value={nameSearchValue}
-            placeholder={t(TranslationKey['Search by ASIN, Reason'])}
-            onChange={onChangeNameSearchValue}
-          />
-          <div className={styles.flexContainer}>
-            <Button
-              styleType={ButtonStyle.DANGER}
-              disabled={!selectedRowIds?.length}
-              className={styles.button}
-              onClick={onClickRemoveSelectedBtn}
-            >
-              {t(TranslationKey['Delete selected ASINs'])}
-            </Button>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              className={styles.button}
-              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
-            >
-              ASIN checker
-            </Button>
-          </div>
-        </div>
-
-        <div className={styles.dataGridWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            disableRowSelectionOnClick
-            sortModel={sortModel}
-            filterModel={filterModel}
-            columnVisibilityModel={gpModel.current.columnVisibilityModel}
-            paginationModel={gpModel.current.paginationModel}
-            rows={getCurrentData()}
-            getRowId={row => row._id}
-            rowHeight={120}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
-              },
-              toolbar: {
-                columsBtnSettings: {
-                  columnsModel,
-                  columnVisibilityModel: gpModel.current.columnVisibilityModel,
-                  onColumnVisibilityModelChange: gpModel.current.onColumnVisibilityModelChange,
-                },
-              },
-            }}
-            columns={columnsModel}
-            loading={requestStatus === loadingStatus.IS_LOADING}
-            onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onPaginationModelChange}
-            onFilterModelChange={onChangeFilterModel}
-            onRowSelectionModelChange={onSelectionModel}
-          />
-        </div>
-      </TabPanel> */}
-
-      <Modal
-        openModal={viewModel.showAsinCheckerModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
-      >
-        <AsinProxyCheckerForm
-          user={viewModel.userInfo}
-          strategy={viewModel.tabIndex}
-          onSubmit={viewModel.onSubmitAsins}
-          onClose={() => viewModel.onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
-        />
-      </Modal>
 
       <Modal
         openModal={viewModel.showEditAsinCheckerModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditAsinCheckerModal')}
       >
         <EditAsinCheckerModal
-          strategy={viewModel.tabIndex}
           asinsToEdit={viewModel.asinsToEdit}
-          onSubmit={viewModel.onEditAsins}
+          onSubmit={viewModel.onSubmitEditAsin}
           onClose={() => viewModel.onTriggerOpenModal('showEditAsinCheckerModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showAsinCheckerModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
+      >
+        <AsinProxyCheckerForm
+          user={viewModel.userInfo}
+          strategy={viewModel.condition}
+          onSubmit={viewModel.onSubmitAsins}
+          onClose={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
         />
       </Modal>
 

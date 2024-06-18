@@ -15,6 +15,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
+    marginTop: 10,
     border: `1px solid ${theme.palette.primary.main}`,
     width: 300,
     height: 36,

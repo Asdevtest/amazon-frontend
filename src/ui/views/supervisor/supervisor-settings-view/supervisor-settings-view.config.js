@@ -1,23 +1,21 @@
-import { action, computed, observable, override } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 export const supervisorSettingsConfig = {
-  asins: observable,
-  failedData: override,
-  asinsToEdit: override,
-  showAsinCheckerModal: override,
-  showEditAsinCheckerModal: override,
-  showFailedAsinsModal: override,
-  showConfirmCloseAsinCheckerModal: override,
+  condition: observable,
+  failedData: observable,
+  asinsToEdit: observable,
+  showAsinCheckerModal: observable,
+  showEditAsinCheckerModal: observable,
+  showFailedAsinsModal: observable,
 
   userInfo: computed,
 
   onSubmitAsins: action.bound,
-  nEditAsins: action.bound,
+  onSubmitEditAsin: action.bound,
+  onEditAsin: action.bound,
   onRemoveAsin: action.bound,
   onRemoveAsins: action.bound,
-  onClickRemoveBtn: action.bound,
-  onClickRemoveSelectedBtn: action.bound,
-  onClickEditBtn: action.bound,
+  onChangeСondition: action.bound,
 }
 
 export const tabsValues = {
@@ -33,3 +31,5 @@ export const switcherSettings = [
   { label: () => 'PRIVATE LABEL', value: tabsValues.PRIVATE_LABEL },
   { label: () => 'WHOLE SALE USA', value: tabsValues.WHOLE_SALE_USA },
 ]
+
+export const fieldsForSearch = ['asin', 'reason']
