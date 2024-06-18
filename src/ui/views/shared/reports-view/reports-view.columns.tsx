@@ -58,6 +58,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         width: 120,
         disableCustomSort: true,
         columnKey: columnnsKeys.shared.OBJECT,
+        table: DataGridFilterTables.PRODUCTS,
       }
     : null
 
@@ -89,8 +90,8 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       width: 95,
     },
 
-    asinColumn as IGridColumn,
     shopColumn as IGridColumn,
+    asinColumn as IGridColumn,
 
     {
       field: 'createdAt',

@@ -431,8 +431,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   async onClickSaveShippingLabel(tmpShippingLabel: IUploadFile[]) {
     if (tmpShippingLabel.length) {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       // @ts-ignore
       await onSubmitPostImages.call(this, { images: tmpShippingLabel, type: 'uploadedFiles' })
+      this.setRequestStatus(loadingStatus.SUCCESS)
     }
 
     if (this.selectedBox?.shippingLabel === null) {

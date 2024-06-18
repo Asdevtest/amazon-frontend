@@ -396,8 +396,6 @@ export const CreateOrEditRequestContent = memo(props => {
   const isSecondStep = curStep === stepVariant.STEP_TWO
   const showScrollArrows = isFirstStep && (showScrollUp || showScrollDown)
 
-  console.log('formFields.request.timeoutAt', formFields.request.timeoutAt)
-
   return (
     <>
       <div ref={componentRef} className={styles.mainWrapper}>
