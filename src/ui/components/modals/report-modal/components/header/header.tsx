@@ -30,7 +30,7 @@ interface HeaderProps {
   onRemoveRequest: (value: LaunchType) => void
   onSelectLaunch: (value: LaunchesEnum) => void
   onSelectProduct: (value: string, option: BaseOptionType) => void
-  onOpenAsinSelect: () => void
+  onGetProducts: () => void
   onSearchAsinSelect: (value: string) => void
   onScrollAsinSelect: () => void
   subView?: boolean
@@ -47,7 +47,7 @@ export const Header: FC<HeaderProps> = memo(props => {
     onRemoveRequest,
     onSelectLaunch,
     onSelectProduct,
-    onOpenAsinSelect,
+    onGetProducts,
     onSearchAsinSelect,
     onScrollAsinSelect,
     subView,
@@ -94,7 +94,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             value={defaultAsinOption}
             options={asinOptions}
             optionRender={({ data }) => <AsinOption data={data} />}
-            onDropdownVisibleChange={onOpenAsinSelect}
+            onDropdownVisibleChange={onGetProducts}
             onSearch={onSearchAsinSelect}
             onPopupScroll={handlePopupScroll}
             onChange={onSelectProduct}

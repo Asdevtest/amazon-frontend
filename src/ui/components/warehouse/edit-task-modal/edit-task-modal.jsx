@@ -110,8 +110,6 @@ export const EditTaskModal = memo(
                 item?.isTransparencyFileAlreadyAttachedByTheSupplier || false,
               isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper || false,
             })),
-
-            tmpImages: [],
             images: box?.images || [],
           }),
       ),
@@ -155,10 +153,9 @@ export const EditTaskModal = memo(
 
     const receiveNotFromBuyer = isReciveTypeTask && (isManyItemsInSomeBox || noTariffInSomeBox)
 
-    const isSomeBoxHasntImageToRecive =
-      isReciveTypeTask && newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
+    const isSomeBoxHasntImageToRecive = isReciveTypeTask && newBoxes.some(box => !box?.images?.length)
 
-    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.tmpImages?.length)
+    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.images?.length)
 
     const isTaskChangeBarcodeOrTransparency =
       isEditTask &&

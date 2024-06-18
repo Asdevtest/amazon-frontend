@@ -195,16 +195,8 @@ const Box = memo(props => {
                 <Typography className={styles.photoAndFilesTitle}>{`${t(
                   TranslationKey['Photos and documents of the box'],
                 )}:`}</Typography>
-                {isNewBox && box.tmpImages?.length ? (
-                  <Typography className={styles.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
-                    box.tmpImages?.length - box.images.length
-                  })`}</Typography>
-                ) : null}
 
-                <SlideshowGallery
-                  slidesToShow={2}
-                  files={isNewBox && box.tmpImages?.length ? box.tmpImages : box.images}
-                />
+                <SlideshowGallery slidesToShow={2} files={box.images} />
               </div>
 
               <div className={styles.photoWrapper}>
