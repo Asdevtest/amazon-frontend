@@ -1,8 +1,7 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { userRoleTranslateKey, userStatusTranslateKey } from '@constants/statuses/user-status'
+import { userRoleTranslateKey, userStatusTranslateKey, userSubStatusTranlateKey } from '@constants/statuses/user-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -119,7 +118,8 @@ export const adminUsersViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey['Sub status'])} />,
 
       renderCell: params => <ProductVariationsCell showVariationButton isParentProduct={!params?.row?.sub} />,
-      columnKey: columnnsKeys.shared.STRING,
+      transformValueMethod: userSubStatusTranlateKey,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 120,
     },
 
