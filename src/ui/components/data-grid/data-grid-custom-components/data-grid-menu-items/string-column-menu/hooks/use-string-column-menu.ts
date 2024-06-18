@@ -14,7 +14,7 @@ export const useStringColumnMenu = ({ field, table, filtersData, onClickFilterBt
   }, [field, filtersData])
 
   const dataforRender: string[] = useMemo(() => {
-    return filterData?.filter(item => item.toLowerCase().includes(searchValue.toLowerCase()))
+    return filterData?.filter(item => String(item).toLowerCase().includes(searchValue.toLowerCase()))
   }, [filterData, searchValue])
 
   const onClickItem = useCallback((value: string) => {
