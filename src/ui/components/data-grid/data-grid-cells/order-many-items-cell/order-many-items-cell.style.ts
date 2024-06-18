@@ -14,6 +14,7 @@ export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     padding: '10px 0',
     display: 'flex',
+    flexWrap: 'wrap',
     alignItems: 'center',
     gap: 10,
     marginRight: 10,
