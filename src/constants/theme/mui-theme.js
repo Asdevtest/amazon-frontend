@@ -495,6 +495,11 @@ export const lightTheme = createTheme({
         color: '#5C6A7A',
         outline: '1px solid #E0E0E0',
       },
+      price_change: {
+        bbackground: '#F6F6F6',
+        color: '#5C6A7A',
+        outline: '1px solid #E0E0E0',
+      },
     },
   },
 })
@@ -1037,6 +1042,10 @@ export const darkTheme = createTheme({
         outline: '1px solid #8263B5',
       },
       custom: {
+        color: '#667085',
+        outline: '1px solid #667085',
+      },
+      price_change: {
         color: '#667085',
         outline: '1px solid #667085',
       },

@@ -8,4 +8,5 @@ export enum Launches {
   'SALES_PRICE' = 'SALES_PRICE',
   'AB_TEST' = 'AB_TEST',
   'CUSTOM' = 'CUSTOM',
+  'PRICE_CHANGE' = 'PRICE_CHANGE',
 }

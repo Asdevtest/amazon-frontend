@@ -462,6 +462,7 @@ export const MergeBoxesModal = ({
         <SetShippingLabelModal
           tmpShippingLabel={boxBody.tmpShippingLabel}
           item={boxBody}
+          requestStatus={requestStatus}
           onClickSaveShippingLabel={shippingLabel => {
             setShippingLabel()(shippingLabel)
             setShowSetShippingLabelModal(!showSetShippingLabelModal)
