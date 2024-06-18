@@ -14,7 +14,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AuthViewModel {
   history = undefined
-  requestStatus = undefined
+  requestStatus = loadingStatus.SUCCESS
 
   showConfirmModal = false
 
@@ -78,21 +78,20 @@ export class AuthViewModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await UserModel.signIn(this.email.toLowerCase(), this.password)
+      await UserModel.getUserInfo()
+      await UserModel.getUsersInfoCounters()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
+      this.setRequestStatus(loadingStatus.FAILED)
       runInAction(() => {
         this.error = error
       })
-
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onSubmitForm() {
     await this.signIn()
-    await UserModel.getUserInfo()
-    await UserModel.getUsersInfoCounters()
 
     if (UserModel.accessToken) {
       const allowedRoutes = privateRoutesConfigs.filter(route =>
