@@ -285,8 +285,8 @@ export const EditBoxForm = memo(
                       const isTransparencyFileAttachedByTheStorekeeper =
                         item?.isTransparencyFileAttachedByTheStorekeeper
 
-                      const isCheckboxNotVisible =
-                        !isTransparencyFileAlreadyAttachedByTheSupplier && !isTransparencyFileAttachedByTheStorekeeper
+                      const isCheckboxVisible =
+                        isTransparencyFileAlreadyAttachedByTheSupplier && isTransparencyFileAttachedByTheStorekeeper
                       const isCheckboxChecked =
                         isTransparencyFileAlreadyAttachedByTheSupplier || isTransparencyFileAttachedByTheStorekeeper
                       const checkboxText = isTransparencyFileAlreadyAttachedByTheSupplier
@@ -408,11 +408,11 @@ export const EditBoxForm = memo(
                                 </div>
                               )}
 
-                              {isCheckboxNotVisible ? null : (
+                              {isCheckboxVisible ? (
                                 <Checkbox reverted disabled checked={isCheckboxChecked} className={styles.checkbox}>
                                   <p className={styles.standartLabel}>{checkboxText}</p>
                                 </Checkbox>
-                              )}
+                              ) : null}
                             </div>
                           </div>
 
