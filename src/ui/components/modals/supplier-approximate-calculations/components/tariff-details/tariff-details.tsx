@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { formatDateWithoutTime } from '@utils/date-time'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ILogicTariff } from '@typings/shared/logic-tariff'
@@ -56,7 +57,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
 
             return (
               <div key={variation?._id} className={styles.destinationVariationWrapper}>
-                <p>{variation.destination?.name}</p>
+                <p className={styles.destinationName}>{variation.destination?.name}</p>
 
                 <div className={cx(styles.destination, { [styles.withoutCheckbox]: !isTariffsSelect })}>
                   {isTariffsSelect ? (
@@ -80,39 +81,41 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                   </p>
                 </div>
 
-                <p>{variation.pricePerKgRmb}</p>
+                <p className={styles.price}>{toFixed(variation.pricePerKgRmb)}</p>
 
-                <p>{variation.pricePerKgUsd}</p>
-
-                <div className={styles.dateParamWrapper}>
-                  {dateConfig.map(({ param, icon, tooltipText }) => (
-                    <div key={param} className={styles.dateParam}>
-                      <div className={styles.iconWrapper}>
-                        {icon}
-
-                        <Tooltip arrow title={tooltipText} className={styles.tooltip}>
-                          <div>
-                            <TooltipInfoIcon />
-                          </div>
-                        </Tooltip>
-                      </div>
-                      <p>{formatDateWithoutTime(tariff?.[param as keyof ILogicTariff])}</p>
-                    </div>
-                  ))}
-                </div>
+                <p className={styles.price}>{toFixed(variation.pricePerKgUsd)}</p>
               </div>
             )
           })}
+        </div>
 
-          <p>{tariff.deliveryTimeInDay}</p>
+        <div className={styles.dateParamWrapper}>
+          {dateConfig.map(({ param, icon, tooltipText }) => (
+            <div key={param} className={styles.dateParam}>
+              <div className={styles.iconWrapper}>
+                {icon}
 
-          <p>{tariff.costUnitWithDeliveryToChina}</p>
+                <Tooltip arrow title={tooltipText} className={styles.tooltip}>
+                  <div>
+                    <TooltipInfoIcon />
+                  </div>
+                </Tooltip>
+              </div>
+              <p>{formatDateWithoutTime(tariff?.[param as keyof ILogicTariff])}</p>
+            </div>
+          ))}
+        </div>
 
+        <p className={styles.deliveryTime}>{tariff.deliveryTimeInDay}</p>
+
+        <p className={styles.deliveryTime}>{toFixed(tariff.costUnitWithDeliveryToChina)}</p>
+
+        <div className={styles.weightWrapper}>
           {tariff.destinationVariations?.map(variation => (
-            <div key={variation?._id}>
-              <p>{variation?.destination?.costUnitWithDeliveryToUsa}</p>
+            <div key={variation?._id} className={styles.destinationVariationWrapper}>
+              <p>{toFixed(variation?.destination?.costUnitWithDeliveryToUsa)}</p>
 
-              <p>{variation?.destination?.roi}</p>
+              <p>{toFixed(variation?.destination?.roi)}</p>
             </div>
           ))}
         </div>

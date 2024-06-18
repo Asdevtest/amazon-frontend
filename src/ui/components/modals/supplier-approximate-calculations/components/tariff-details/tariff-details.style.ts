@@ -10,9 +10,15 @@ export const useStyles = makeStyles()(theme => {
 
     tariffDetails: {
       width: '190px',
+      padding: '10px',
       display: 'flex',
       flexDirection: 'column',
       gap: '10px',
+    },
+
+    destinationName: {
+      width: '100px',
+      textAlign: 'center',
     },
 
     tariffTitle: {
@@ -35,24 +41,34 @@ export const useStyles = makeStyles()(theme => {
 
     destinationVariationsWrapper: {
       display: 'flex',
+      flexDirection: 'column',
     },
 
     destination: {
       display: 'flex',
+      width: '140px',
+      gap: '5px',
     },
 
     withoutCheckbox: {
       paddingLeft: '40px',
     },
 
+    price: {
+      width: '80px',
+      textAlign: 'center',
+    },
+
     destinationVariationWrapper: {
       display: 'flex',
-      gap: '10px',
+      alignItems: 'center',
+      height: '50px',
     },
 
     dateParamWrapper: {
       display: 'flex',
       flexDirection: 'column',
+      width: '140px',
       gap: '10px',
       justifyContent: 'center',
       alignItems: 'center',
@@ -92,6 +108,20 @@ export const useStyles = makeStyles()(theme => {
       svg: {
         width: '13px !important',
         height: '13px !important',
+      },
+    },
+
+    deliveryTime: {
+      width: '145px',
+      textAlign: 'center',
+    },
+
+    weightWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+
+      p: {
+        width: '130px',
       },
     },
   }
