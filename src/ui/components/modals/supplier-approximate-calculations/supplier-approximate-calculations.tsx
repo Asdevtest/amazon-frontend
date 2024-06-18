@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 
-import { GridCellParams, GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid-premium'
+import { DataGridPremiumProps, GridCellParams, GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid-premium'
+import { DataGridProProps } from '@mui/x-data-grid-pro'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,8 +24,8 @@ import { INewDataOfVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './supplier-approximate-calculations.style'
 
+import { ProductCard, TariffDetails } from './components'
 import { getTitleModal } from './helpers/get-modal-title'
-import { ProductCard } from './product-card'
 import { SupplierApproximateCalculationsModel } from './supplier-approximate-calculations.model'
 
 interface SupplierApproximateCalculationsModalProps {
@@ -86,6 +87,24 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
       !!viewModel.initialDestinationId &&
       viewModel.isStrictVariationSelect)
 
+  const getDetailPanelHeight = useCallback(() => {
+    return 'auto'
+  }, [])
+
+  const getDetailPanelContent = useCallback<NonNullable<DataGridPremiumProps['getDetailPanelContent']>>(
+    params => (
+      <TariffDetails
+        tariff={params.row}
+        isTariffsSelect={isTariffsSelect}
+        currentVariationId={viewModel.currentVariationId}
+        initialDestinationId={viewModel.initialDestinationId}
+        isStrictVariationSelect={viewModel.isStrictVariationSelect}
+        onClickChangeVariation={viewModel.handleSetVariation}
+      />
+    ),
+    [],
+  )
+
   return (
     <Modal isSecondBackground openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.root}>
@@ -132,6 +151,8 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
         <div className={styles.tableWrapper}>
           <CustomDataGrid
             disableRowSelectionOnClick
+            getDetailPanelHeight={getDetailPanelHeight}
+            getDetailPanelContent={getDetailPanelContent}
             rowCount={viewModel?.rowCount}
             sortModel={viewModel?.sortModel}
             filterModel={viewModel?.filterModel}
