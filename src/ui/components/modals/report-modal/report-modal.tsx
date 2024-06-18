@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { FC, useCallback, useState } from 'react'
+import { PiArrowsDownUpThin } from 'react-icons/pi'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -37,6 +38,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
 
   return (
     <div className={styles.wrapper}>
+      <PiArrowsDownUpThin />
       <Header
         subView={subView}
         product={viewModel.product}

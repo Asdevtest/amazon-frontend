@@ -21,7 +21,11 @@ export const Launches: FC<LaunchesProps> = memo(props => {
   return (
     <div className={cx(styles.wrapper, { [styles.cell]: isCell })}>
       {launches.map((launch, index) => (
-        <p key={index} style={getLaunchStyle(launch.type, theme)} className={styles.text}>
+        <p
+          key={index}
+          style={getLaunchStyle(launch.type, theme)}
+          className={cx(styles.text, { [styles.expired]: launch.expired })}
+        >
           {`${getLaunchName(launch.type, true)} ${getLaunchValue(launch.value)}`}
         </p>
       ))}
