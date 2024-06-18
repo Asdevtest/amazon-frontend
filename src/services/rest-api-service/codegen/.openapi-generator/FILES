@@ -133,6 +133,9 @@ models/api-v1-storekeepers-tariff-warehouses.ts
 models/api-v1-suppliers-box-properties.ts
 models/api-v1-suppliers-payment-methods.ts
 models/api-v1-suppliers-price-variations.ts
+models/api-v1-users-freelance-notices-request-product.ts
+models/api-v1-users-freelance-notices-request-spec.ts
+models/api-v1-users-freelance-notices-request.ts
 models/bad-request-error.ts
 models/check-is-unique-name-or-email-req-schema.ts
 models/check-is-unique-name-or-email-schema.ts
@@ -301,9 +304,11 @@ models/inline-object99.ts
 models/inline-response200.ts
 models/inline-response2001.ts
 models/inline-response20010.ts
+models/inline-response200100-author.ts
 models/inline-response200100-rows.ts
-models/inline-response200100-shop.ts
 models/inline-response200100.ts
+models/inline-response200101-rows.ts
+models/inline-response200101-shop.ts
 models/inline-response200101.ts
 models/inline-response200102.ts
 models/inline-response200103.ts
@@ -312,9 +317,10 @@ models/inline-response200105.ts
 models/inline-response200106.ts
 models/inline-response200107.ts
 models/inline-response200108.ts
-models/inline-response200109-details.ts
 models/inline-response200109.ts
 models/inline-response20011.ts
+models/inline-response200110-details.ts
+models/inline-response200110.ts
 models/inline-response20012.ts
 models/inline-response20013.ts
 models/inline-response20014.ts
@@ -494,8 +500,6 @@ models/inline-response20096.ts
 models/inline-response20097-rows.ts
 models/inline-response20097.ts
 models/inline-response20098.ts
-models/inline-response20099-author.ts
-models/inline-response20099-rows.ts
 models/inline-response20099.ts
 models/inline-response201.ts
 models/inline-response2011.ts
@@ -544,7 +548,6 @@ models/user-admin-full-schema.ts
 models/user-full-schema-note.ts
 models/user-full-schema.ts
 models/user-info-schema-allowed-spec.ts
-models/user-info-schema-freelance-notices.ts
 models/user-info-schema-ideas.ts
 models/user-info-schema-master-user.ts
 models/user-info-schema-my-proposals.ts
@@ -552,8 +555,6 @@ models/user-info-schema-need-confirm-price-change.ts
 models/user-info-schema-need-update-tariff.ts
 models/user-info-schema-permission-groups.ts
 models/user-info-schema-permissions.ts
-models/user-info-schema-request-spec.ts
-models/user-info-schema-request.ts
 models/user-info-schema.ts
 models/user-register-schema.ts
 models/user-setting-input-schema-data.ts

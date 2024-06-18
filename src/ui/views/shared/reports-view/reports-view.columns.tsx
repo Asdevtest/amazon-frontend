@@ -90,8 +90,8 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       width: 95,
     },
 
-    asinColumn as IGridColumn,
     shopColumn as IGridColumn,
+    asinColumn as IGridColumn,
 
     {
       field: 'createdAt',
