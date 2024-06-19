@@ -762,6 +762,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           }
 
           resBoxes.push(boxToPush)
+
+          runInAction(() => {
+            this.uploadedFiles = []
+          })
         }
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes as any)
