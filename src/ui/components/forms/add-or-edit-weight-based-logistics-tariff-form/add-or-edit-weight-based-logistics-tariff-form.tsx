@@ -664,7 +664,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
 
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
                           onChangeDestinationVariations('maxWeight')(variantIndex)(input)
                         }
                       }}
