@@ -4,4 +4,5 @@ export interface ILaunch {
   type: LaunchType
   value: number
   dateTo?: string
+  expired?: boolean
 }

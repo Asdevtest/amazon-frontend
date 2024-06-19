@@ -11,3 +11,7 @@ export const userStatusTranslateKey = (isActive: boolean) => {
 export const userRoleTranslateKey = (role: number) => {
   return UserRolePrettyMap[role]
 }
+
+export const userSubStatusTranlateKey = (isSub: boolean) => {
+  return isSub ? 'Sub' : 'Master'
+}
