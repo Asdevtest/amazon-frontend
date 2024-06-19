@@ -120,7 +120,6 @@ export const adminUsersViewColumns = handlers => {
       renderCell: params => (
         <ProductVariationsCell showVariationButton isParentProduct={!params?.row?.sub} isTooltipVisible={false} />
       ),
-      columnKey: columnnsKeys.shared.STRING,
       transformValueMethod: userSubStatusTranlateKey,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 120,
