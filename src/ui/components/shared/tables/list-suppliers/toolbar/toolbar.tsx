@@ -152,7 +152,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
         {showViewCalculationButton ? (
           <Button
             variant={ButtonVariant.OUTLINED}
-            // tooltipAttentionContent={!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data'])}
             disabled={!boxPropertiesIsFullAndMainsValues}
             className={styles.buttonWithText}
             onClick={onSupplierApproximateCalculationsModal}
@@ -164,7 +163,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
         {showAddSupplierButton ? (
           <Button
             iconButton
-            // tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
             className={styles.button}
             disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea}
             onClick={() => onSupplierActions(ModalModes.ADD)}
@@ -176,7 +174,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
         {showEditSupplierButton ? (
           <Button
             iconButton
-            // tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
             tooltipAttentionContent={tooltipAttentionContentEditSupplierButton}
             className={styles.button}
             disabled={disabledEditSupplierButton}
@@ -197,7 +194,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             iconButton
             styleType={ButtonStyle.DANGER}
             className={styles.button}
-            // tooltipInfoContent={t(TranslationKey['Remove the current supplier'])}
             disabled={isAtProcessOrder}
             onClick={() => onSupplierActions(ModalModes.ACCERT_REVOKE)}
           >
@@ -210,7 +206,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
             iconButton
             styleType={ButtonStyle.SUCCESS}
             className={styles.button}
-            // tooltipInfoContent={t(TranslationKey['Select a supplier as the current supplier'])}
             disabled={isAtProcessOrder}
             onClick={() => onSupplierActions(ModalModes.ACCEPT)}
           >
@@ -222,7 +217,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           <Button
             iconButton
             styleType={ButtonStyle.DANGER}
-            // tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
             className={styles.button}
             onClick={() => onSupplierActions(ModalModes.DELETE)}
           >
