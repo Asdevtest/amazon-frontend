@@ -31,8 +31,24 @@ export const DashboardButtons = ({ user }) => {
     (user.freelanceNotices?.length || 0) +
     (user.notificationCounter || 0)
 
+  const isNotificationsShown =
+    !checkIsResearcher(UserRoleCodeMap[user.role]) && !checkIsStorekeeper(UserRoleCodeMap[user.role])
+
   return (
     <div className={styles.buttonsWrapper}>
+      {isNotificationsShown ? (
+        <div className={styles.buttonWrapper}>
+          <button
+            className={styles.iconWrapper}
+            onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
+          >
+            <MyNotificationsIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
+            {Number(notices) > 0 ? <div className={styles.badge}>{notices}</div> : null}
+          </button>
+
+          <Typography className={styles.title}>{t(TranslationKey.Notifications)}</Typography>
+        </div>
+      ) : null}
       <div className={styles.buttonWrapper}>
         <button
           className={styles.iconWrapper}
