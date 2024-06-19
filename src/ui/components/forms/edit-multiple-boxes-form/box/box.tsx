@@ -348,7 +348,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     label={t(TranslationKey.Quantity)}
                     className={styles.orderInput}
                     labelClasses={styles.label}
-                    value={isMasterBox ? box.amount : order.amount}
+                    value={order.amount}
                     tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
                   />
 
