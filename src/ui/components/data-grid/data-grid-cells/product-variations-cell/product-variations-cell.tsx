@@ -14,35 +14,44 @@ interface ProductVariationsCellProps {
   showVariationButton: boolean
   isParentProduct: boolean
   onClickVariationButton: () => void
+  isTooltipVisible?: boolean
 }
 
 export const ProductVariationsCell: FC<ProductVariationsCellProps> = memo(
-  ({ showVariationButton, isParentProduct, onClickVariationButton }) => {
+  ({ showVariationButton, isParentProduct, onClickVariationButton, isTooltipVisible = true }) => {
     const { classes: styles } = useStyles()
+
+    const renderButton = () => (
+      <button
+        className={styles.iconWrapper}
+        onClick={e => {
+          e.stopPropagation()
+          onClickVariationButton()
+        }}
+      >
+        {isParentProduct ? (
+          <ParentProductIcon className={styles.shareLinkIcon} />
+        ) : (
+          <VariationProductIcon className={styles.shareLinkIcon} />
+        )}
+      </button>
+    )
 
     return (
       <div className={styles.productVariationsCellWrapper}>
         {showVariationButton ? (
-          <Tooltip
-            arrow
-            title={t(TranslationKey['Product variations'])}
-            placement="top"
-            classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
-          >
-            <button
-              className={styles.iconWrapper}
-              onClick={e => {
-                e.stopPropagation()
-                onClickVariationButton()
-              }}
+          isTooltipVisible ? (
+            <Tooltip
+              arrow
+              title={t(TranslationKey['Product variations'])}
+              placement="top"
+              classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
             >
-              {isParentProduct ? (
-                <ParentProductIcon className={styles.shareLinkIcon} />
-              ) : (
-                <VariationProductIcon className={styles.shareLinkIcon} />
-              )}
-            </button>
-          </Tooltip>
+              {renderButton()}
+            </Tooltip>
+          ) : (
+            renderButton()
+          )
         ) : null}
       </div>
     )
