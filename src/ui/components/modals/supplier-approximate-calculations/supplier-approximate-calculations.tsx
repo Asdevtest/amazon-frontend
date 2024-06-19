@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { FC, useCallback, useState } from 'react'
 
 import { DataGridPremiumProps, GridCellParams, GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid-premium'
-import { DataGridProProps } from '@mui/x-data-grid-pro'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -102,7 +101,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
         onClickChangeVariation={viewModel.handleSetVariation}
       />
     ),
-    [],
+    [isTariffsSelect, viewModel.currentVariationId, viewModel.initialDestinationId, viewModel.isStrictVariationSelect],
   )
 
   return (

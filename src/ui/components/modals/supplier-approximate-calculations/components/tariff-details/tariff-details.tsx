@@ -13,10 +13,17 @@ import { ILogicTariff } from '@typings/shared/logic-tariff'
 
 import { useStyles } from './tariff-details.style'
 
+import { IVariationParams } from '../../supplier-approximate-calculations.type'
+
 import { dateConfig } from './date.config'
 
 interface TariffDetailsProps {
   tariff: ILogicTariff
+  currentVariationId?: string
+  isTariffsSelect?: boolean
+  initialDestinationId?: string
+  isStrictVariationSelect?: boolean
+  onClickChangeVariation: ({ variationId, destinationId, logicsTariffId }: IVariationParams) => void
 }
 
 export const TariffDetails: FC<TariffDetailsProps> = memo(
@@ -33,8 +40,8 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
     const { name: title, description } = tariff
 
     return (
-      <div className={styles.root}>
-        <div className={styles.tariffDetails}>
+      <div className={cx(styles.root, styles.borderBotton)}>
+        <div className={cx(styles.tariffDetails, styles.borderBotton)}>
           <p title={title} className={cx(styles.tariffTitle, styles.tariffDescription)}>
             {title || t(TranslationKey.Missing)}
           </p>
@@ -45,7 +52,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
           ) : null}
         </div>
 
-        <div className={styles.destinationVariationsWrapper}>
+        <div className={cx(styles.destinationVariationsWrapper, styles.borderRight, styles.borderLeft)}>
           {tariff.destinationVariations?.map(variation => {
             const isActiveSelectedVariation = variation?._id === currentVariationId
             const destinationId = variation?.destination?._id
@@ -56,8 +63,8 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
             const weightText = `${minWeight} - ${maxWeight}`
 
             return (
-              <div key={variation?._id} className={styles.destinationVariationWrapper}>
-                <p className={styles.destinationName}>{variation.destination?.name}</p>
+              <div key={variation?._id} className={cx(styles.destinationVariationWrapper, styles.borderBotton)}>
+                <p className={cx(styles.destinationName, styles.tariffDescription)}>{variation.destination?.name}</p>
 
                 <div className={cx(styles.destination, { [styles.withoutCheckbox]: !isTariffsSelect })}>
                   {isTariffsSelect ? (
@@ -89,7 +96,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
           })}
         </div>
 
-        <div className={styles.dateParamWrapper}>
+        <div className={cx(styles.dateParamWrapper, styles.borderBotton)}>
           {dateConfig.map(({ param, icon, tooltipText }) => (
             <div key={param} className={styles.dateParam}>
               <div className={styles.iconWrapper}>
@@ -106,18 +113,36 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
           ))}
         </div>
 
-        <p className={styles.deliveryTime}>{tariff.deliveryTimeInDay}</p>
+        <div className={cx(styles.deliveryTimeWrapper, styles.borderRight, styles.borderLeft, styles.borderBotton)}>
+          <p>{tariff.deliveryTimeInDay}</p>
+        </div>
 
-        <p className={styles.deliveryTime}>{toFixed(tariff.costUnitWithDeliveryToChina)}</p>
+        <div className={cx(styles.costUnitWrapper, styles.borderBotton)}>
+          <p>{toFixed(tariff.costUnitWithDeliveryToChina)}</p>
+        </div>
 
-        <div className={styles.weightWrapper}>
-          {tariff.destinationVariations?.map(variation => (
-            <div key={variation?._id} className={styles.destinationVariationWrapper}>
-              <p>{toFixed(variation?.destination?.costUnitWithDeliveryToUsa)}</p>
+        <div className={cx(styles.weightWrapper)}>
+          {tariff.destinationVariations?.map(variation => {
+            const roi = Number(variation?.destination?.roi)
 
-              <p>{toFixed(variation?.destination?.roi)}</p>
-            </div>
-          ))}
+            return (
+              <div key={variation?._id} className={cx(styles.destinationVariationWrapper, styles.borderBotton)}>
+                <div className={cx(styles.destinationCostUnitWrapper, styles.borderRight, styles.borderLeft)}>
+                  <p>{toFixed(variation?.destination?.costUnitWithDeliveryToUsa)}</p>
+                </div>
+
+                <div
+                  className={cx(styles.destinationRoiWrapper, styles.borderRight, {
+                    [styles.badRoi]: roi < 100,
+                    [styles.normalRoi]: roi >= 100 && roi < 130,
+                    [styles.goodRoi]: roi >= 130,
+                  })}
+                >
+                  <p>{toFixed(variation?.destination?.roi)}</p>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     )
