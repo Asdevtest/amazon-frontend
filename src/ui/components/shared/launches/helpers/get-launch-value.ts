@@ -1,1 +1,1 @@
-export const getLaunchValue = (value: number) => (value ? `${value} %` : '')
+export const getLaunchValue = (value: number) => (value ? `${value}%` : '')

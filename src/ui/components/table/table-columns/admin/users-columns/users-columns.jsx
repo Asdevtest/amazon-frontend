@@ -117,7 +117,10 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey['Sub status']),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey['Sub status'])} />,
 
-      renderCell: params => <ProductVariationsCell showVariationButton isParentProduct={!params?.row?.sub} />,
+      renderCell: params => (
+        <ProductVariationsCell showVariationButton isParentProduct={!params?.row?.sub} isTooltipVisible={false} />
+      ),
+      columnKey: columnnsKeys.shared.STRING,
       transformValueMethod: userSubStatusTranlateKey,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 120,
@@ -139,6 +142,7 @@ export const adminUsersViewColumns = handlers => {
       ),
       filterable: false,
       sortable: false,
+      disableCustomSort: true,
       width: 205,
     },
   ]

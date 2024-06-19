@@ -23,7 +23,7 @@ export const getLaunchStyle = (type: LaunchType, theme: any) => {
     case Launches.CUSTOM:
       return theme.palette.launch.custom
     case Launches.PRICE_CHANGE:
-      return theme.palette.launch.custom // change theme styles
+      return theme.palette.launch.price_change
     default:
       return undefined
   }
