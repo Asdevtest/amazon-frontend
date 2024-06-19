@@ -19,6 +19,8 @@ import { LaunchType } from '@typings/types/launch'
 
 import { useStyles } from './requests.style'
 
+const MAX_SPEC_TITLE_LENGTH_WITHOUT_TOOLTIP = 12
+
 interface RequestsProps {
   requests: IRequestWithLaunch[]
   onRemoveRequest: (value: LaunchType) => void
@@ -30,7 +32,8 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
   return requests.length > 0 ? (
     <div className={styles.flexRowContainer}>
       {requests.map(request => {
-        const specTitleTooltip = request.spec.title.length > 12 ? request.spec.title : ''
+        const specTitleTooltip =
+          request.spec.title.length > MAX_SPEC_TITLE_LENGTH_WITHOUT_TOOLTIP ? request.spec.title : ''
 
         return (
           <div key={request._id} className={styles.requestWrapper}>
