@@ -29,41 +29,45 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
 
   return requests.length > 0 ? (
     <div className={styles.flexRowContainer}>
-      {requests.map(request => (
-        <div key={request._id} className={styles.requestWrapper}>
-          <div className={styles.requestConatainer}>
-            <div className={styles.requestText}>
-              <span className={styles.requestTextSecond}>{`${t(TranslationKey['Request type'])}:`}</span>
-              <Tooltip title={request.spec.title} className={styles.requestTypeTooltip}>
-                {request.spec.title}
-              </Tooltip>
+      {requests.map(request => {
+        const specTitleTooltip = request.spec.title.length > 12 ? request.spec.title : ''
+
+        return (
+          <div key={request._id} className={styles.requestWrapper}>
+            <div className={styles.requestConatainer}>
+              <div className={styles.requestText}>
+                <span className={styles.requestTextSecond}>{`${t(TranslationKey['Request type'])}:`}</span>
+                <Tooltip title={specTitleTooltip} className={styles.requestTypeTooltip}>
+                  {request.spec.title}
+                </Tooltip>
+              </div>
+
+              <CustomButton
+                danger
+                shape="circle"
+                size="small"
+                icon={<CrossIcon className={styles.crossIcon} />}
+                className={styles.crossButton}
+                onClick={() => onRemoveRequest(request.launch.type)}
+              />
             </div>
+            <div className={styles.requestConatainer}>
+              <p className={styles.requestText}>
+                <span className={styles.requestTextSecond}>{`${t(TranslationKey.ID)}:`}</span>
+                <NavLink to={getUrlToRequest(request?._id)} className={styles.link} target="_blank">
+                  {request?.humanFriendlyId}
+                </NavLink>
+              </p>
 
-            <CustomButton
-              danger
-              shape="circle"
-              size="small"
-              icon={<CrossIcon className={styles.crossIcon} />}
-              className={styles.crossButton}
-              onClick={() => onRemoveRequest(request.launch.type)}
-            />
-          </div>
-          <div className={styles.requestConatainer}>
+              <Launches launches={[request.launch]} />
+            </div>
             <p className={styles.requestText}>
-              <span className={styles.requestTextSecond}>{`${t(TranslationKey.ID)}:`}</span>
-              <NavLink to={getUrlToRequest(request?._id)} className={styles.link} target="_blank">
-                {request?.humanFriendlyId}
-              </NavLink>
+              <span className={styles.requestTextSecond}>{`${t(TranslationKey.Status)}:`}</span>
+              <span style={{ color: colorByStatus(request.status) }}>{MyRequestStatusTranslate(request.status)}</span>
             </p>
-
-            <Launches launches={[request.launch]} />
           </div>
-          <p className={styles.requestText}>
-            <span className={styles.requestTextSecond}>{`${t(TranslationKey.Status)}:`}</span>
-            <span style={{ color: colorByStatus(request.status) }}>{MyRequestStatusTranslate(request.status)}</span>
-          </p>
-        </div>
-      ))}
+        )
+      })}
     </div>
   ) : null
 })
