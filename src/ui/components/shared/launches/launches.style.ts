@@ -22,4 +22,8 @@ export const useStyles = makeStyles()(() => ({
     fontWeight: 600,
     borderRadius: '22px',
   },
+
+  expired: {
+    textDecoration: 'line-through solid 2px',
+  },
 }))
