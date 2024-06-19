@@ -28,6 +28,10 @@ export const CustomTimer: FC<CustomTimerProps> = memo(props => {
     ? `${t(TranslationKey[tooltipText as TranslationKey])}: ${days} : ${hours} : ${minutes} : ${seconds}`
     : ''
 
+  if (Number(days) + Number(hours) + Number(minutes) + Number(seconds) === 0) {
+    return null
+  }
+
   return (
     <Tooltip
       title={tooltip}
