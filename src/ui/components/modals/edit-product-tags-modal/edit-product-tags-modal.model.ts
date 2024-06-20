@@ -193,7 +193,7 @@ export class EditProductTagModel {
   async handleBindTagsToProduct(handleUpdateRow: IHandleUpdateRow) {
     try {
       await ProductModel.editProductTags(this.productId, { tags: this.selectedTags?.map(tag => tag?._id) })
-      handleUpdateRow([{ _id: this.productId, tags: this.selectedTags }])
+      handleUpdateRow(this.selectedTags)
     } catch (error) {
       console.error(error)
     }

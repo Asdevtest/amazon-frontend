@@ -14,8 +14,10 @@ export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     padding: '10px 0',
     display: 'flex',
+    flexWrap: 'wrap',
     alignItems: 'center',
     gap: 10,
+    marginRight: 10,
   },
 
   items: {
@@ -63,5 +65,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
+  },
+
+  needPay: {
+    color: 'red',
+    fontWeight: 'bold',
+    width: 'fit-content',
   },
 }))

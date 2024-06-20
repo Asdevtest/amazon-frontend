@@ -23,9 +23,8 @@ import { AdminSettingsFreelanceModel } from './tab-freelance.model'
 export const TabFreelance = observer(props => {
   const { formFields, isFormFieldsChanged, onSubmit, onChangeField } = props
 
-  const [viewModel] = useState(() => new AdminSettingsFreelanceModel())
-
   const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new AdminSettingsFreelanceModel())
 
   const disabledSubmit =
     !isFormFieldsChanged ||

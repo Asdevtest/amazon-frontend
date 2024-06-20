@@ -51,7 +51,6 @@ export const MemberSelect: FC<Props> = observer(
           </Select>
 
           <SaveIcon
-            disabled={isDisabled}
             className={cx(styles.saveIcon, {
               [styles.disableIcon]: isDisabled,
             })}

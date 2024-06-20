@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -28,11 +28,7 @@ import { ClientOrdersViewModel } from './client-orders-view.model'
 export const ClientOrdersView = observer(history => {
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new ClientOrdersViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const [viewModel] = useState(() => new ClientOrdersViewModel(history))
 
   return (
     <>
@@ -41,7 +37,7 @@ export const ClientOrdersView = observer(history => {
           <div className={styles.topHeaderBtnsSubWrapper}>
             <Button
               styleType={ButtonStyle.SUCCESS}
-              disabled={!viewModel.selectedRowIds.length}
+              disabled={!viewModel.selectedRows.length}
               className={styles.button}
               onClick={viewModel.onClickManyReorder}
             >
@@ -50,7 +46,7 @@ export const ClientOrdersView = observer(history => {
 
             <Button
               styleType={ButtonStyle.DANGER}
-              disabled={!viewModel.selectedRowIds.length}
+              disabled={!viewModel.selectedRows.length}
               className={cx(styles.button, styles.buttonDanger)}
               onClick={viewModel.onConfirmCancelManyReorder}
             >
@@ -74,6 +70,7 @@ export const ClientOrdersView = observer(history => {
         <CustomDataGrid
           disableRowSelectionOnClick
           checkboxSelection={viewModel.isPendingOrdering}
+          pinnedColumns={viewModel.pinnedColumns}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -81,6 +78,7 @@ export const ClientOrdersView = observer(history => {
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={row => row._id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -96,9 +94,14 @@ export const ClientOrdersView = observer(history => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          rowSelectionModel={viewModel.selectedRowIds}
+          rowSelectionModel={viewModel.selectedRows}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -107,7 +110,8 @@ export const ClientOrdersView = observer(history => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowClick={({ id }) => viewModel.onClickMyOrderModal(id)}
+          onRowClick={params => viewModel.onClickMyOrderModal(params.row._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -189,12 +193,12 @@ export const ClientOrdersView = observer(history => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           isWarning={viewModel.confirmModalSettings?.isWarning}
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />
       ) : null}
 

@@ -7,10 +7,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   paymentMethodTitleWrapper: {
-    marginLeft: -12,
+    marginLeft: -3,
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    marginBottom: 10,
   },
 
   paymentMethodIcon: {

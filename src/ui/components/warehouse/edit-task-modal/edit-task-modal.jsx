@@ -17,7 +17,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { BoxArrow } from '@components/shared/svg-icons'
+import { BoxArrowIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
@@ -110,8 +110,6 @@ export const EditTaskModal = memo(
                 item?.isTransparencyFileAlreadyAttachedByTheSupplier || false,
               isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper || false,
             })),
-
-            tmpImages: [],
             images: box?.images || [],
           }),
       ),
@@ -155,10 +153,9 @@ export const EditTaskModal = memo(
 
     const receiveNotFromBuyer = isReciveTypeTask && (isManyItemsInSomeBox || noTariffInSomeBox)
 
-    const isSomeBoxHasntImageToRecive =
-      isReciveTypeTask && newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
+    const isSomeBoxHasntImageToRecive = isReciveTypeTask && newBoxes.some(box => !box?.images?.length)
 
-    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.tmpImages?.length)
+    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.images?.length)
 
     const isTaskChangeBarcodeOrTransparency =
       isEditTask &&
@@ -193,7 +190,7 @@ export const EditTaskModal = memo(
               {isReciveTypeTask ? (
                 <div className={styles.boxSvgContainer}>
                   <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
-                  <BoxArrow className={styles.boxArrowSvg} />
+                  <BoxArrowIcon className={styles.boxArrowSvg} />
                 </div>
               ) : (
                 renderTypeTaskBoxes(task.operationType)

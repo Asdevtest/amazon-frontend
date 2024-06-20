@@ -1,8 +1,10 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { SettingsModel } from '@models/settings-model'
 
 import { BoxForm } from '@components/forms/box-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
@@ -19,7 +21,6 @@ import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
 import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -30,7 +31,7 @@ import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { TariffModalType } from '@typings/shared/tariff-modal'
+import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { useStyles } from './client-in-stock-boxes-view.style'
 
@@ -42,10 +43,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
   const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
@@ -64,7 +61,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         curDestinationId={viewModel.curDestinationId}
         clientDestinations={viewModel.clientDestinations}
         selectedRows={viewModel.selectedRows}
-        selectedBoxes={viewModel.selectedBoxes}
         onClickRequestToSendBatch={viewModel.onClickRequestToSendBatch}
         onClickMergeBtn={viewModel.onClickMergeBtn}
         onClickSplitBtn={viewModel.onClickSplitBtn}
@@ -74,7 +70,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         onClickStorekeeperBtn={viewModel.onClickStorekeeperBtn}
         onClickDestinationBtn={viewModel.onClickDestinationBtn}
         onSearchSubmit={viewModel.onSearchSubmit}
-        onClickWarehouseOrderButton={() => viewModel.onClickWarehouseOrderButton(viewModel.selectedBoxes?.[0])}
+        onClickWarehouseOrderButton={() => viewModel.onClickWarehouseOrderButton(viewModel.selectedRows?.[0])}
         onClickCurrentTariffsBtn={viewModel.onClickCurrentTariffsBtn}
       />
 
@@ -82,13 +78,14 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
+          pinnedColumns={viewModel.pinnedColumns}
           isRowSelectable={params =>
             params.row.isDraft === false &&
             params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
             params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
           }
           getRowClassName={getRowClassName}
-          rowSelectionModel={viewModel.selectedBoxes}
+          rowSelectionModel={viewModel.selectedRows}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -96,6 +93,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={row => row._id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -107,19 +105,23 @@ export const ClientInStockBoxesView = observer(({ history }) => {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onColumnHeaderEnter={params => {
-            viewModel.onHoverColumnField(params.field)
-          }}
           onColumnHeaderLeave={viewModel.onLeaveColumnField}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
@@ -127,8 +129,9 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onCellDoubleClick={params =>
-            !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
+            !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
           }
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -144,7 +147,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          formItem={viewModel.boxesMy.find(box => box._id === viewModel.selectedBoxes.slice()[0])?.originalData}
+          formItem={viewModel.currentData.find(box => box._id === viewModel.selectedRows.slice()[0])}
           onSubmit={viewModel.onClickConfirmCreateChangeTasks}
           onTriggerOpenModal={() => viewModel.onTriggerOpenModal('showEditBoxModal')}
         />
@@ -161,10 +164,9 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           storekeepers={viewModel.storekeepersData}
           requestStatus={viewModel.requestStatus}
           addNewBoxModal={viewModel.showRedistributeBoxAddNewBoxModal}
-          setAddNewBoxModal={value => viewModel.onModalRedistributeBoxAddNewBox(value)}
           selectedBox={
-            viewModel.selectedBoxes.length &&
-            viewModel.boxesMy.find(box => box._id === viewModel.selectedBoxes.slice()[0])?.originalData
+            viewModel.selectedRows.length &&
+            viewModel.currentData.find(box => box._id === viewModel.selectedRows.slice()[0])
           }
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -182,9 +184,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={viewModel.boxesMy
-            .filter(el => viewModel.selectedBoxes.includes(el._id))
-            .map(box => box.originalData)}
+          selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           onSubmit={viewModel.onClickSubmitEditMultipleBoxes}
@@ -200,9 +200,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         <GroupingBoxesForm
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={viewModel.boxesMy
-            .filter(el => viewModel.selectedBoxes.includes(el._id))
-            .map(box => box.originalData)}
+          selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}
           onSubmit={viewModel.onClickSubmitGroupingBoxes}
           onCloseModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
         />
@@ -217,16 +215,10 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={
-            (viewModel.selectedBoxes.length &&
-              viewModel.boxesMy
-                .filter(box => viewModel.selectedBoxes.includes(box._id))
-                ?.map(box => box.originalData)) ||
-            []
-          }
+          selectedBoxes={viewModel.currentData.filter(box => viewModel.selectedRows.includes(box._id))}
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
-          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          setDestinationsFavouritesItem={SettingsModel.setDestinationsFavouritesItem}
           setOpenModal={() => viewModel.onTriggerOpenModal('showMergeBoxModal')}
           onRemoveBoxFromSelected={viewModel.onRemoveBoxFromSelected}
           onSubmit={viewModel.onClickConfirmCreateMergeTasks}
@@ -242,11 +234,9 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           storekeepersData={viewModel.storekeepersData}
           closeModal={viewModel.triggerRequestToSendBatchModal}
           boxesDeliveryCosts={viewModel.boxesDeliveryCosts}
-          selectedBoxes={viewModel.selectedBoxes}
+          selectedBoxes={viewModel.selectedRows}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          boxesMy={viewModel.boxesMy
-            .filter(box => viewModel.selectedBoxes.includes(box._id))
-            .map(box => box.originalData)}
+          boxesMy={viewModel.currentData.filter(box => viewModel.selectedRows.includes(box._id))}
           setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickSendBoxesToBatch={viewModel.onClickSendBoxesToBatch}
           onClickRemoveBoxFromBatch={viewModel.onClickRemoveBoxFromBatch}
@@ -260,11 +250,11 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={viewModel.confirmModalSettings.onClickCancelBtn}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />
       ) : null}
       <Modal
@@ -285,6 +275,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}
       >
         <SetShippingLabelModal
+          requestStatus={viewModel.requestStatus}
           item={viewModel.selectedBox}
           onClickSaveShippingLabel={viewModel.onClickSaveShippingLabel}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}
@@ -304,7 +295,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
 
       {viewModel.showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
-          tariffModalType={TariffModalType[viewModel.changeItem ? 'WAREHOUSE' : 'TARIFFS']}
+          tariffModalType={TariffModal[viewModel.changeItem ? 'WAREHOUSE' : 'TARIFFS']}
           isTariffsSelect={viewModel.changeItem}
           isHideCalculation={!viewModel.changeItem}
           openModal={viewModel.showSelectionStorekeeperAndTariffModal}
@@ -382,17 +373,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
         />
       </Modal>
-
-      {viewModel.showSuccessInfoModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-          title={viewModel.modalEditSuccessMessage}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-        />
-      ) : null}
 
       <Modal
         openModal={viewModel.showSetChipValueModal}

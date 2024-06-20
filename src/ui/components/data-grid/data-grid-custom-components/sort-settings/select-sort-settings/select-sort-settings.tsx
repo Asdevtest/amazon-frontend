@@ -44,19 +44,24 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
         />
 
         <div className={styles.menuItems}>
-          {filteredItems.map((item, index) => (
-            <Button
-              key={index}
-              className={styles.button}
-              styleType={ButtonStyle.DEFAULT}
-              onClick={() => {
-                onClickField(item._id)
-                onToggleSelect()
-              }}
-            >
-              {item.name}
-            </Button>
-          ))}
+          {filteredItems.map((item, index) => {
+            const name = item.name
+
+            return (
+              <Button
+                key={index}
+                title={name}
+                className={styles.button}
+                styleType={ButtonStyle.DEFAULT}
+                onClick={() => {
+                  onClickField(item._id)
+                  onToggleSelect()
+                }}
+              >
+                <p>{name}</p>
+              </Button>
+            )
+          })}
         </div>
       </div>
     </div>

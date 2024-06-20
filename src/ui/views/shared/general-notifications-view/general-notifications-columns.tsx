@@ -32,7 +32,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
         <ProductAsinCell
           withoutSku={!!userInfo?.role && UserRoleCodeMap[userInfo.role] === UserRole.FREELANCER}
           skuByClient={params.row.product?.skuByClient || params.row.parentProduct?.skuByClient}
-          image={params.row.product?.images?.slice()[0]}
+          image={params.row.product?.images?.[0]}
           amazonTitle={params.row.product?.amazonTitle}
           asin={params.row.product?.asin}
         />
@@ -104,6 +104,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
   ]
 
   if (checkIsFreelancer(UserRoleCodeMap[userInfo?.role || 0])) {
+    // @ts-ignore
     renderCells.splice(1, 0, {
       field: 'user',
       headerName: t(TranslationKey.Performer),
@@ -118,7 +119,6 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
         )
       },
       width: 145,
-      columnKey: columnnsKeys.shared.OBJECT,
     })
   }
 

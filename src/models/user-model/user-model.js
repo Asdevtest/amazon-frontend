@@ -155,11 +155,6 @@ class UserModelStatic {
     }
   }
 
-  async getPlatformSettings() {
-    const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
-    return response.data
-  }
-
   async getUserInfoById(guid) {
     try {
       const response = await restApiService.userApi.apiV1UsersInfoGuidGet({ guid })
@@ -252,7 +247,7 @@ class UserModelStatic {
 
   async getUsersPresets() {
     const response = await restApiService.userApi.apiV1UsersPresetsGet()
-    return response.data
+    return response?.data
   }
 
   async postUsersPresets(body) {
@@ -292,6 +287,11 @@ class UserModelStatic {
 
   async getPatchNote(guid) {
     const response = await restApiService.userApi.apiV1UsersPatchNotesGuidGet({ guid, noCache: true })
+    return response.data
+  }
+
+  async getPlatformSettings() {
+    const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
     return response.data
   }
 }

@@ -45,6 +45,10 @@ export const useStyles = makeStyles()(theme => ({
     width: 'calc(100% - 110px)',
   },
 
+  error: {
+    borderColor: theme.palette.text.red,
+  },
+
   text: {
     color: theme.palette.text.general,
     fontSize: '14px',
@@ -377,6 +381,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
+    marginBottom: 30,
   },
 
   seoContainer: {
@@ -399,5 +404,23 @@ export const useStyles = makeStyles()(theme => ({
 
   downloadButtonIcon: {
     color: theme.palette.primary.main,
+  },
+
+  tagsWrapper: {
+    width: '300px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    gap: '10px',
+
+    '> button': {
+      width: 'fit-content',
+    },
+  },
+
+  tagsTitleWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 }))

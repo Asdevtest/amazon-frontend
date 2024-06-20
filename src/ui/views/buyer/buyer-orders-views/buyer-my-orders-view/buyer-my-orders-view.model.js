@@ -57,10 +57,6 @@ export class BuyerMyOrdersViewModel {
   showConfirmModal = false
   showPaymentMethodsModal = false
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
   confirmModalSettings = {
     title: '',
     isWarning: false,
@@ -825,8 +821,6 @@ export class BuyerMyOrdersViewModel {
       })
 
       toast.success(t(TranslationKey['A task was created for the warehouse: "Receive a box"']))
-
-      await this.getBoxesOfOrder(order._id)
     } catch (error) {
       console.error(error)
     }

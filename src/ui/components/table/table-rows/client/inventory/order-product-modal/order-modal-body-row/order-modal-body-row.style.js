@@ -124,13 +124,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   containerField: {
-    width: 'max-content !important',
     margin: '0 !important',
   },
 
   containerFieldCell: {
-    width: '120px !important',
-
     '> p': {
       position: 'absolute',
       bottom: 0,

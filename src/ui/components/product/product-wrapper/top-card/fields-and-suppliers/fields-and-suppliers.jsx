@@ -6,15 +6,13 @@ import { UserRole } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import {
   ProductStrategyStatus,
-  mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
+  productStrategyStatusesEnum,
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { GeneralModel } from '@models/general-model'
-
 import { UserLinkCell } from '@components/data-grid/data-grid-cells'
-import { TagSelector } from '@components/product/product-wrapper/tag-selector'
+import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
@@ -23,7 +21,8 @@ import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { CustomPlusIcon, DownloadRoundIcon } from '@components/shared/svg-icons'
+import { CustomPlusIcon, DownloadRoundIcon, EditIcon } from '@components/shared/svg-icons'
+import { TagList } from '@components/shared/tag-list'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
@@ -64,6 +63,7 @@ export const FieldsAndSuppliers = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const [edit, setEdit] = useState(true)
+  const [showEditProductTagsModal, setShowEditProductTagsModal] = useState(false)
 
   const onChangeShop = shopId => {
     onChangeField?.('shopId')({ target: { value: shopId } })
@@ -195,6 +195,7 @@ export const FieldsAndSuppliers = memo(props => {
                       checkIsClient(curUserRole) &&
                       !product?.archive
                     ),
+                    [styles.error]: formFieldsValidationErrors.asin,
                   })}
                   onChange={onChangeField?.('asin')}
                 />
@@ -293,7 +294,7 @@ export const FieldsAndSuppliers = memo(props => {
                     className={styles.nativeSelect}
                     onChange={onChangeField?.('strategyStatus')}
                   >
-                    {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
+                    {Object.keys(productStrategyStatusesEnum).map((statusCode, statusIndex) => (
                       <MenuItem
                         key={statusIndex}
                         value={statusCode}
@@ -302,7 +303,7 @@ export const FieldsAndSuppliers = memo(props => {
                           checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
                         }
                       >
-                        {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
+                        {productStrategyStatusesEnum[statusCode]?.replace(/_/g, ' ')}
                       </MenuItem>
                     ))}
                   </Select>
@@ -313,19 +314,19 @@ export const FieldsAndSuppliers = memo(props => {
         </div>
 
         {(showActionBtns || !!product?.tags?.length) && (
-          <Box maxWidth={300}>
-            <div className={styles.subUsersTitleWrapper}>
-              <Typography className={styles.subUsersTitle}>{t(TranslationKey['Product tags'])}</Typography>
+          <div className={styles.tagsWrapper}>
+            <div className={styles.tagsTitleWrapper}>
+              <p className={styles.subUsersTitle}>{t(TranslationKey['Product tags'])}</p>
+
+              {showActionBtns && !checkIsSupervisor(curUserRole) && !checkIsBuyer(curUserRole) ? (
+                <Button iconButton onClick={() => setShowEditProductTagsModal(true)}>
+                  <EditIcon />
+                </Button>
+              ) : null}
             </div>
-            <TagSelector
-              isEditMode={showActionBtns}
-              handleSaveTags={tags => onChangeField?.('tags')({ target: { value: tags } })}
-              currentTags={product?.tags}
-              getTags={GeneralModel.getTagList}
-              prefix="# "
-              placeholder={'# ' + t(TranslationKey['Input tag'])}
-            />
-          </Box>
+
+            <TagList selectedTags={product?.tags} />
+          </div>
         )}
 
         {(isEditRedFlags || !!product?.redFlags?.length) && (
@@ -599,6 +600,15 @@ export const FieldsAndSuppliers = memo(props => {
             }
           />
         </div>
+      ) : null}
+
+      {showEditProductTagsModal ? (
+        <EditProductTags
+          openModal={showEditProductTagsModal}
+          setOpenModal={() => setShowEditProductTagsModal(false)}
+          productId={product?._id}
+          handleUpdateRow={tags => onChangeField?.('tags')({ target: { value: tags } })}
+        />
       ) : null}
     </Grid>
   )

@@ -6,8 +6,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
@@ -42,7 +42,9 @@ export const BuyerProductView = observer(({ history }) => {
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
           onRemoveSupplier={viewModel.onRemoveSupplier}
         />
-      ) : null}
+      ) : (
+        <CircularProgressWithLabel />
+      )}
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}
@@ -54,17 +56,6 @@ export const BuyerProductView = observer(({ history }) => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.warningModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

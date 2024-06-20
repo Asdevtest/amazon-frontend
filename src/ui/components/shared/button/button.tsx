@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, FC, ReactElement, memo, useContext } from 'react'
 
 import { Tooltip } from '@mui/material'
 
-import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { TooltipAttentionIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { HintsContext } from '@contexts/hints-context'
 
@@ -104,7 +104,7 @@ export const Button: FC<ButtonProps> = memo(props => {
           <Tooltip arrow title={tooltipAttentionContent || tooltipInfoContent}>
             <div>
               {tooltipAttentionContent ? (
-                <TooltipAttention className={cx(styles.tooltip, { [styles.tableTooltip]: isTableButton })} />
+                <TooltipAttentionIcon className={cx(styles.tooltip, { [styles.tableTooltip]: isTableButton })} />
               ) : (
                 <TooltipInfoIcon
                   className={cx(styles.tooltip, styles.tooltipInfo, { [styles.tableTooltip]: isTableButton })}

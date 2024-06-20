@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -7,7 +7,6 @@ import { AddOrEditBatchForm } from '@components/forms/add-or-edit-batch-form'
 import { BatchInfoModal } from '@components/modals/batch-info-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { HeaderTable } from '@components/table/header-table/header-table'
@@ -20,29 +19,28 @@ import { useStyles } from './client-awaiting-batches-view.style'
 
 import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
 
-export const ClientAwaitingBatchesView = observer(({ history }) => {
+export const ClientAwaitingBatchesView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel())
 
   return (
     <>
       <HeaderTable viewModel={viewModel} />
+
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
-          rowSelectionModel={viewModel.selectedBatches}
+          rowSelectionModel={viewModel.selectedRows}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
+          pinnedColumns={viewModel.pinnedColumns}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -62,6 +60,11 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
           onRowSelectionModelChange={viewModel.onSelectionModel}
@@ -69,7 +72,8 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
+          onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -78,7 +82,6 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
       >
         <AddOrEditBatchForm
-          userRole={viewModel.userInfo.role}
           progressValue={viewModel.progressValue}
           showProgress={viewModel.showProgress}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
@@ -124,18 +127,6 @@ export const ClientAwaitingBatchesView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={viewModel.onClickCancelSendToBatchBtn}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       ) : null}
     </>

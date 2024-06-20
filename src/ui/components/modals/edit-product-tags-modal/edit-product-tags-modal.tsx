@@ -4,10 +4,9 @@ import { FC, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CircleSpinner } from '@components/shared/circle-spinner'
 import { Modal } from '@components/shared/modal'
 import { TagsSelect } from '@components/shared/selects/tags-select'
-import { TagItem } from '@components/shared/tag-item'
+import { TagList } from '@components/shared/tag-list'
 
 import { t } from '@utils/translations'
 
@@ -27,7 +26,7 @@ interface EditProductTagsProps {
 }
 
 export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const { openModal, setOpenModal, productId, handleUpdateRow } = props
 
@@ -38,21 +37,11 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
       <div className={styles.container}>
         <p className={styles.title}>{t(TranslationKey['Edit product tags'])}</p>
 
-        {viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING ? (
-          <div className={cx(styles.tagsList, styles.noTagsWrapper)}>
-            <CircleSpinner size={50} />
-          </div>
-        ) : (
-          <div className={cx(styles.tagsList, { [styles.noTagsWrapper]: !viewModel.selectedTags?.length })}>
-            {viewModel.selectedTags?.length ? (
-              viewModel.selectedTags?.map(tag => (
-                <TagItem key={tag._id} option={tag.title} onClickRemove={() => viewModel.handleClickTag(tag)} />
-              ))
-            ) : (
-              <p className={styles.noTagsText}>{t(TranslationKey['No data'])}</p>
-            )}
-          </div>
-        )}
+        <TagList
+          isLoading={viewModel.requestTagsByIdStatus === loadingStatus.IS_LOADING}
+          selectedTags={viewModel.selectedTags}
+          handleClickTag={viewModel.handleClickTag}
+        />
 
         <TagsSelect
           isloadingTags={viewModel.requestStatus === loadingStatus.IS_LOADING}

@@ -9,15 +9,14 @@ import { OrderContent } from '@components/contents/order-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
 import { ClientOrderViewModel } from './client-order-view.model'
 
-export const ClientOrderView = observer(({ history }) => {
-  const [viewModel] = useState(() => new ClientOrderViewModel({ history }))
+export const ClientOrderView = observer(() => {
+  const [viewModel] = useState(() => new ClientOrderViewModel())
 
   useEffect(() => {
     viewModel.loadData()
@@ -88,18 +87,6 @@ export const ClientOrderView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.Cancel)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       ) : null}
     </>

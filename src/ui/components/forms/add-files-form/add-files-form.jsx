@@ -35,9 +35,11 @@ export const AddFilesForm = props => {
 
       <UploadFilesInput withoutTitles images={editingItem.tmpImages} setImages={setImagesOfItem} />
 
-      <Button styleType={ButtonStyle.SUCCESS} onClick={onSubmith}>
-        {t(TranslationKey.Save)}
-      </Button>
+      <div className={styles.btnsWrapper}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={onSubmith}>
+          {t(TranslationKey.Save)}
+        </Button>
+      </div>
     </div>
   )
 }

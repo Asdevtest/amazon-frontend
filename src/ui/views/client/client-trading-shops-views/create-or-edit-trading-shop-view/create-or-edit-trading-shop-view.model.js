@@ -1,4 +1,5 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,13 +10,7 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditTradingShopViewModel {
   history = undefined
-
-  showInfoModal = false
-
   requestToEdit = undefined
-
-  infoModalText = ''
-
   uploadedFiles = []
   progressValue = 0
   showProgress = false
@@ -40,17 +35,10 @@ export class CreateOrEditTradingShopViewModel {
 
       await ShopSellModel.createShopSell(dataWithFiles)
 
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['An request has been created'])
-      })
+      toast.success(t(TranslationKey['An request has been created']))
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The request was not created'])
-      })
-    } finally {
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey['The request was not created']))
     }
   }
 
@@ -64,23 +52,11 @@ export class CreateOrEditTradingShopViewModel {
 
       await ShopSellModel.editShopSell(this.requestToEdit._id, dataWithFiles)
 
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The request has been changed'])
-      })
+      toast.success(t(TranslationKey['The request has been changed']))
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The request has not been changed'])
-      })
-    } finally {
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey['The request has not been changed']))
     }
-  }
-
-  onClickOkInfoModal() {
-    this.onTriggerOpenModal('showInfoModal')
-    this.history.goBack()
   }
 
   onTriggerOpenModal(modal) {

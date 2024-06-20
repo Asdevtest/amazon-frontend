@@ -17,6 +17,7 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    padding: '0px 15px',
 
     button: {
       height: 30,

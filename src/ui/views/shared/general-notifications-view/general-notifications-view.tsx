@@ -51,6 +51,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
         { label: () => t(TranslationKey.Proposal), value: NotificationTypes.proposal },
         { label: () => t(TranslationKey.Request), value: NotificationTypes.request },
         { label: () => t(TranslationKey.Shop), value: NotificationTypes.shop },
+        { label: () => t(TranslationKey.Launches), value: NotificationTypes.launch },
         { label: () => t(TranslationKey.All), value: undefined },
       ]
     : isCurrentUserBuyer
@@ -105,7 +106,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
+          rows={viewModel.currentConvertedData}
           columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
@@ -148,7 +149,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           openModal={viewModel.showIdeaModal}
           setOpenModal={() => viewModel.toggleVariationHandler('showIdeaModal')}
           updateData={() => {
-            viewModel.getMainTableData()
+            viewModel.getCurrentData()
             UserModel.getUserInfo()
           }}
           product={viewModel.currentProduct}

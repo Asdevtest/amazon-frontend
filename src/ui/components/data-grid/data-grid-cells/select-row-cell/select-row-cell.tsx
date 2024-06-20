@@ -6,8 +6,8 @@ import { useStyles } from './select-row-cell.style'
 interface SelectRowCellProps {
   checkboxComponent: JSX.Element
   onClickShareIcon: () => void
-  isShowSheldGreen: boolean
-  isShowSheldYellow: boolean
+  isShowSheldGreen?: boolean
+  isShowSheldYellow?: boolean
 }
 
 export const SelectRowCell: FC<SelectRowCellProps> = memo(

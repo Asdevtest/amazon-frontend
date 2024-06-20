@@ -12,7 +12,6 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
@@ -139,17 +138,6 @@ export const AnotherUserProfileViewRaw = props => {
           cancelBtnText={t(TranslationKey.Cancel)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.showWarningModalText}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
         />
       ) : null}
 

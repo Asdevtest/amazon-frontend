@@ -29,7 +29,6 @@ export const observerConfig = {
   showSelectionSupplierModal: observable,
   showSendOwnProductModal: observable,
   showBindInventoryGoodsToStockModal: observable,
-  showInfoModal: observable,
   showConfirmModal: observable,
   showSetChipValueModal: observable,
   showBarcodeOrHscodeModal: observable,
@@ -50,10 +49,9 @@ export const observerConfig = {
   readyImages: observable,
   progressValue: observable,
   showProgress: observable,
-  meta: observable,
 
   isSomeFilterOn: override,
-  getMainTableData: override,
+  getCurrentData: override,
 
   userInfo: computed,
   destinationsFavourites: computed,

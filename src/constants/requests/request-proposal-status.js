@@ -42,7 +42,7 @@ export const RequestProposalStatusTranslate = s => {
     case RequestProposalStatus.CREATED:
       return t(TranslationKey.Created)
     case RequestProposalStatus.EXPIRED:
-      return t(TranslationKey.Expired)
+      return t(TranslationKey['Request time has expired'])
     case RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED:
       return t(TranslationKey['Proposal conditions accepted'])
     case RequestProposalStatus.OFFER_CONDITIONS_CORRECTED:
@@ -153,7 +153,7 @@ export const MyRequestStatusTranslate = s => {
     case MyRequestStatus.TO_CORRECT_BY_SUPERVISOR:
       return t(TranslationKey['To correct by Supervisor'])
     case MyRequestStatus.EXPIRED:
-      return t(TranslationKey.Expired)
+      return t(TranslationKey['Request time has expired'])
     case MyRequestStatus.READY_TO_VERIFY:
       return t(TranslationKey['Ready to verify'])
     case MyRequestStatus.CANCELED_BY_SUPERVISOR:

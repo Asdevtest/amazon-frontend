@@ -23,7 +23,6 @@ import { getActiveStatuses } from './helpers/get-active-statuses'
 import { canceledStatus, completedStatus, selectedStatus } from './orders.constant'
 
 export class OrdersModel {
-  history = undefined
   requestStatus = undefined
 
   productId = undefined
@@ -70,9 +69,7 @@ export class OrdersModel {
     return UserModel.platformSettings
   }
 
-  constructor({ history, productId, showAtProcessOrders }) {
-    this.history = history
-
+  constructor({ productId, showAtProcessOrders }) {
     this.productId = productId
 
     this.isCheckedStatusByFilter = getActiveStatuses(showAtProcessOrders)

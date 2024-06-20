@@ -39,7 +39,7 @@ class ProductModelStatic {
 
   getVacProductByUserId = async guid => {
     const response = await restApiService.product.apiV1ProductsByCreatorGuidGet({ guid })
-    return response.data
+    return response?.data ?? []
   }
 
   getProductsHsCodeByGuid = async guid => {

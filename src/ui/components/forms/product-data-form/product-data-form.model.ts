@@ -20,7 +20,7 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
   showBatchInfoModal = false
 
   get rows() {
-    return this.tableData
+    return this.currentData
   }
 
   constructor({ product, isBatches, onAmazon }: { product: IProduct; onAmazon: boolean; isBatches?: boolean }) {
@@ -28,7 +28,7 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
       onClickChangeVariation: (id: string) => this.onClickShowBatchInfoModal(id),
     }
     const columns = isBatches ? productBatchesColumns(columnHandlers) : productBoxesColumns(columnHandlers)
-    const defaultGetDataMethodOptions = () => ({
+    const defaultGetCurrentDataOptions = () => ({
       guid: product._id,
       onAmazon,
       batchArchive: this.batchArchive,
@@ -42,11 +42,11 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
         ? `batches/by_product/${product._id}?`
         : `boxes/clients/product_in_batch/${product._id}?onAmazon=${onAmazon}&`,
       fieldsForSearch: searchFields,
-      defaultGetDataMethodOptions,
+      defaultGetCurrentDataOptions,
     })
     this.sortModel = [{ field: 'humanFriendlyId', sort: 'desc' }]
     this.onChangeFullFieldMenuItem([false], 'batchArchive')
-    this.getMainTableData()
+    this.getCurrentData()
 
     makeObservable(this, productDataFormConfig)
   }
@@ -66,7 +66,7 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
   onToggleArchive() {
     this.batchArchive = !this.batchArchive
     this.onChangeFullFieldMenuItem([this.batchArchive], 'batchArchive')
-    this.getMainTableData()
+    this.getCurrentData()
   }
 
   async patchActualShippingCostBatch(id: string, cost: number) {

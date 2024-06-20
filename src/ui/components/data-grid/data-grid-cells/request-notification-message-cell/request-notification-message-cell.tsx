@@ -2,13 +2,11 @@
 import { FC, memo } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { UserRole, UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatusColor, RequestProposalStatusTranslate } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserModel } from '@models/user-model'
-
 import { formatNormDateTime } from '@utils/date-time'
+import { getUrlToRequest } from '@utils/get-url-to-request/get-url-to-request'
 import { t } from '@utils/translations'
 
 import { useStyles } from './request-notification-message-cell.style'
@@ -22,16 +20,6 @@ export const RequestNotificationMessageCell: FC<RequestNotificationMessageCellPr
 
   const isStatusChanged = !!notification?.status
   const isDeadlineExpires = !!notification?.timeoutAt
-  // @ts-ignore
-  const userRole = UserModel?.userInfo?.role
-
-  const getUrlToRequest = (id: string) => {
-    if (UserRoleCodeMap[userRole] === UserRole.FREELANCER) {
-      return `/${UserRoleCodeMapForRoutes[userRole]}/freelance/my-proposals/custom-search-request?request-id=${id}`
-    } else {
-      return `/${UserRoleCodeMapForRoutes[userRole]}/freelance/my-requests/custom-request?request-id=${id}`
-    }
-  }
 
   return (
     <p>

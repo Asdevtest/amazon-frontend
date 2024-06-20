@@ -2,6 +2,7 @@
 import {
   BoxNotificationMessageCell,
   IdeaNotificationMessageCell,
+  ListingNotificationMessageCell,
   OrderNotificationMessageCell,
   RequestNotificationMessageCell,
   ShopNotificationMessageCell,
@@ -34,6 +35,8 @@ export const NotificationMessageCell: FC<NotificationMessageCellProps> = memo(
       )}
 
       {notificationType === Notification.Shop && <ShopNotificationMessageCell notification={notification} />}
+
+      {notificationType === Notification.Launch ? <ListingNotificationMessageCell notification={notification} /> : null}
     </>
   ),
 )

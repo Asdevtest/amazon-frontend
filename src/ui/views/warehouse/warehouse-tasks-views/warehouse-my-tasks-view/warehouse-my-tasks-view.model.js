@@ -43,11 +43,8 @@ export class WarehouseMyTasksViewModel {
   progressValue = 0
 
   showEditTaskModal = false
-  showNoDimensionsErrorModal = false
   selectedTask = undefined
-  showBarcodeModal = false
   showEditBoxModal = false
-  showCancelTaskModal = false
   showConfirmModal = false
   showEditPriorityData = false
 
@@ -293,10 +290,8 @@ export class WarehouseMyTasksViewModel {
 
   async updateBox(id, data) {
     try {
-      if (data.tmpImages.length > 0) {
-        await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'imagesOfBox' })
-        data = { ...data, images: [...this.imagesOfBox] }
-      }
+      await onSubmitPostImages.call(this, { images: data.images, type: 'imagesOfBox' })
+      data = { ...data, images: [...this.imagesOfBox] }
 
       const boxItems = data.items.map(item => ({
         orderId: item?.order?._id,
@@ -365,7 +360,7 @@ export class WarehouseMyTasksViewModel {
             heightCmWarehouse: Number(newBoxes[i].heightCmWarehouse),
             weighGrossKgWarehouse: Number(newBoxes[i].weighGrossKgWarehouse),
           },
-          ['tmpImages'],
+          ['images'],
         )
 
         await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
@@ -380,9 +375,7 @@ export class WarehouseMyTasksViewModel {
             this.imagesOfBox = []
           })
 
-          if (box.tmpImages.length > 0) {
-            await onSubmitPostImages.call(this, { images: box.tmpImages, type: 'imagesOfBox' })
-          }
+          await onSubmitPostImages.call(this, { images: box.images, type: 'imagesOfBox' })
 
           const newBox = getObjectFilteredByKeyArrayWhiteList(
             {
@@ -398,7 +391,7 @@ export class WarehouseMyTasksViewModel {
                 isTransparencyFileAttachedByTheStorekeeper: el.isTransparencyFileAttachedByTheStorekeeper,
                 transparencyFile: el.transparencyFile,
               })),
-              images: this.imagesOfBox || box.images,
+              images: this.imagesOfBox,
             },
             [
               'amount',

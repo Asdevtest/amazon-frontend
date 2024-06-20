@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRole, UserRoleCodeMap, UserRoleCodeMapForRoutes, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
@@ -77,9 +78,7 @@ export class AnotherProfileViewModel {
 
   showConfirmModal = false
   showOrderModal = false
-  showWarningModal = false
   showSuccessModal = false
-  showWarningModalText = ''
   showSelectShopsModal = false
 
   selectedProduct = undefined
@@ -154,8 +153,7 @@ export class AnotherProfileViewModel {
 
     this.selectedProduct = {}
 
-    this.showWarningModalText = t(TranslationKey['This item has been moved to Inventory'])
-    this.onTriggerOpenModal('showWarningModal')
+    toast.warning(t(TranslationKey['This item has been moved to Inventory']))
   }
 
   onClickLaunchPrivateLabelBtn(product) {
@@ -235,8 +233,7 @@ export class AnotherProfileViewModel {
 
       this.loadData()
     } catch (error) {
-      this.showWarningModalText = t(TranslationKey["You can't buy the product"])
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey["You can't buy the product"]))
 
       console.error(error)
     }

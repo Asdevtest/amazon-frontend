@@ -6,11 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model/data-grid-filter-table-model'
-import {
-  filterModelInitialValue,
-  paginationModelInitialValue,
-  sortModelInitialValue,
-} from '@models/data-grid-table-model'
+import { filterModelInitialValue, paginationModelInitialValue } from '@models/data-grid-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 import { ShopModel } from '@models/shop-model'
 
@@ -29,11 +25,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   inventoryProducts: any = []
 
   showBindStockGoodsToInventoryModal = false
-
-  showWarningInfoModal = false
-
   showConfirmModal = false
-
   showSelectShopsModal = false
   shopsData: any = []
 
@@ -52,6 +44,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.history = history
 
     this.tabKey = currentTabsValues
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
 
     this.getDataGridState()
     this.initUserSettings()
@@ -71,10 +64,14 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     this.setColumnMenuSettings(filtersFields)
     this.mainMethodURL = mainMethodURL
     this.tableKey = tableKey
-    this.sortModel = sortModelInitialValue
+
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.paginationModel = paginationModelInitialValue
+
     this.filterModel = filterModelInitialValue
     this.fieldsForSearch = fieldsForSearch
+
+    this.getTableData()
   }
 
   initUserSettings() {
@@ -117,7 +114,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       const requestBody = []
 
       for (const row of this.selectedRows) {
-        const selectedRow = this.tableData?.find(item => item._id === row)
+        const selectedRow = this.currentData?.find(item => item._id === row)
 
         if (selectedRow) {
           requestBody.push({
@@ -133,16 +130,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey.Created),
-          buttonText: t(TranslationKey.Ok),
-          onSubmit: () => this.onTriggerOpenModal('showWarningInfoModal'),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey.Created))
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
@@ -150,18 +138,16 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   }
 
   deleteReportHandler() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        title: t(TranslationKey.Attention),
-        message: t(TranslationKey['Are you sure?']),
-        onSubmit: () => {
-          this.submitDeleteReportHandler()
-          this.onTriggerOpenModal('showConfirmModal')
-        },
-        onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey.Attention),
+      message: t(TranslationKey['Are you sure?']),
+      onSubmit: () => {
+        this.submitDeleteReportHandler()
+        this.onTriggerOpenModal('showConfirmModal')
+      },
+      onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
@@ -172,7 +158,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
       await SellerBoardModel.deleteIntegrationsReport(this.tabKey, this.selectedRows)
 
-      await this.getMainTableData()
+      await this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -226,26 +212,10 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       await SellerBoardModel.bindStockProductsBySku(data)
       this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['The product is bound']),
-          buttonText: t(TranslationKey.Ok),
-          onSubmit: () => this.onTriggerOpenModal('showWarningInfoModal'),
-        }
-      })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['The product is bound']))
     } catch (error) {
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey["You can't bind"]),
-          buttonText: t(TranslationKey.Ok),
-          onSubmit: () => this.onTriggerOpenModal('showWarningInfoModal'),
-        }
-      })
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.error(t(TranslationKey["You can't bind"]))
+
       console.error(error)
     }
   }
@@ -287,6 +257,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
   getTableData() {
     this.getDataGridState()
-    this.getMainTableData()
+    this.getCurrentData()
   }
 }

@@ -21,11 +21,7 @@ export const AddAsinIdeaActionsCell: FC<AddAsinIdeaActionsCellProps> = memo(({ r
     isTableButton
     fullWidth
     styleType={ButtonStyle.SUCCESS}
-    disabled={
-      row.originalData.variation
-        ? !row?.originalData?.childProduct?.barCode
-        : !row?.originalData?.parentProduct?.barCode
-    }
+    disabled={row.variation ? !row?.childProduct?.barCode : !row?.parentProduct?.barCode}
     onClick={() => rowHandlers.onClickAcceptOnAddingAsin(row._id)}
   >
     {t(TranslationKey.Accept)}

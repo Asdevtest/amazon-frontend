@@ -9,6 +9,7 @@ export const useStyles = makeStyles()(theme => ({
     height: '80vh',
     minHeight: 440,
     overflowY: 'auto',
+    padding: 10,
   },
 
   supWrapper: {

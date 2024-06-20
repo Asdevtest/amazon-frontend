@@ -12,7 +12,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field/field'
@@ -27,13 +26,7 @@ import { AdminSettingsPaymentMethodsModel } from './tab-payment-methods.model'
 
 export const TabPaymentMethods = observer(() => {
   const { classes: styles, cx } = useStyles()
-
   const [viewModel] = useState(() => new AdminSettingsPaymentMethodsModel())
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   const [isDisableButton, setIsDisableButton] = useState(true)
 
   useEffect(() => {
@@ -122,17 +115,6 @@ export const TabPaymentMethods = observer(() => {
           </Button>
         </div>
       )}
-
-      {viewModel.showInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showInfoModal}
-          setOpenModal={viewModel.onClickToggleInfoModal}
-          title={viewModel.infoModalText}
-          btnText={t(TranslationKey.Close)}
-          onClickBtn={viewModel.onClickToggleInfoModal}
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

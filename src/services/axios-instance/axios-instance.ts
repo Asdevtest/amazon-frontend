@@ -112,7 +112,8 @@ export const getAxiosInstance = () => {
           toastId: 'accessDenied',
         })
         return Promise.reject(error)
-      } else {
+      } else if (error.response?.data?.statusCode === 500) {
+        toast.error(t(TranslationKey['Something went wrong']))
         return Promise.reject(error)
       }
     },

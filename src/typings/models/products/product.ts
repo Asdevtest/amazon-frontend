@@ -82,6 +82,7 @@ export interface IProduct {
   fbaFbmStockSum: number
   ideasOnCheck: number
   ideasFinished: number
+  buyerId: number
   ideasClosed: number
   subUsers: ICreatedBy
   redFlags: IRedFlag[]
@@ -94,6 +95,7 @@ export interface IProduct {
   stockCost: number
   productsInWarehouseSchema: Array<object>
   orders: Array<IOrder>
+  shop: ICreatedBy
 }
 
 export interface IBoxAmount {

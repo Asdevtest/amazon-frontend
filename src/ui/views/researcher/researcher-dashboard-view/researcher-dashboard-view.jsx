@@ -1,10 +1,6 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useState } from 'react'
 
-import { Paper, Typography } from '@mui/material'
-
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { getResearcherDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,64 +9,51 @@ import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
 import { UserLink } from '@components/user/user-link'
 
-import { checkIsResearcher } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { styles } from './researcher-dashboard-view.style'
+import { isResearcher } from '@typings/guards/roles'
+
+import { useStyles } from './researcher-dashboard-view.style'
 
 import { ResearcherDashboardViewModel } from './researcher-dashboard-view.model'
 
-export const ResearcherDashboardViewRaw = props => {
-  const [viewModel] = useState(() => new ResearcherDashboardViewModel({ history: props.history }))
-  const { classes: styles } = props
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
-  const researcherButtonsRoutes = {
-    notifications: '',
-    messages: 'messages',
-  }
+export const ResearcherDashboardView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new ResearcherDashboardViewModel({ history }))
 
   return (
     <>
-      <div>
-        <Paper className={styles.userInfoWrapper}>
-          <div className={styles.userInfoLeftWrapper}>
-            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
+      <div className={styles.userInfoWrapper}>
+        <div className={styles.flexContainer}>
+          <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
-            {!checkIsResearcher(UserRoleCodeMap[viewModel.userInfo.role]) && (
-              <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
-            )}
+          {!isResearcher(viewModel.userInfo.role) && <DashboardBalance user={viewModel.userInfo} />}
+        </div>
+
+        <DashboardButtons user={viewModel.userInfo} />
+
+        {viewModel.userInfo.masterUser && (
+          <div className={styles.flexContainer}>
+            <p>{t(TranslationKey['Master user']) + ':'}</p>
+
+            <UserLink
+              blackText
+              name={viewModel.userInfo.masterUser?.name}
+              userId={viewModel.userInfo.masterUser?._id}
+            />
           </div>
-
-          <DashboardButtons user={viewModel.userInfo} routes={researcherButtonsRoutes} />
-
-          {viewModel.userInfo.masterUser && (
-            <div className={styles.masterUserWrapper}>
-              <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
-
-              <UserLink
-                blackText
-                name={viewModel.userInfo.masterUser?.name}
-                userId={viewModel.userInfo.masterUser?._id}
-              />
-            </div>
-          )}
-        </Paper>
-        {getResearcherDashboardCardConfig().map(item => (
-          <DashboardOneLineCardsList
-            key={item.key}
-            config={item}
-            valuesData={viewModel.dashboardData}
-            onClickViewMore={viewModel.onClickInfoCardViewMode}
-          />
-        ))}
+        )}
       </div>
+
+      {getResearcherDashboardCardConfig().map(item => (
+        <DashboardOneLineCardsList
+          key={item.key}
+          config={item}
+          valuesData={viewModel.dashboardData}
+          onClickViewMore={viewModel.onClickInfoCardViewMode}
+        />
+      ))}
     </>
   )
-}
-
-export const ResearcherDashboardView = withStyles(observer(ResearcherDashboardViewRaw), styles)
+})

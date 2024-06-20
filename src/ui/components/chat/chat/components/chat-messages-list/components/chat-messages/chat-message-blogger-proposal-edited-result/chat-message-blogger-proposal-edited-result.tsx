@@ -103,7 +103,6 @@ export const ChatMessageBloggerProposalEditedResult: FC<Props> = ({ message, isS
                 </>
               }
             />
-            lS
           </div>
         </div>
       </div>

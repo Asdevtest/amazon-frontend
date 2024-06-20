@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { action, makeAutoObservable, reaction } from 'mobx'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { privateRoutesConfigs } from '@constants/navigation/routes'
@@ -14,7 +14,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AuthViewModel {
   history = undefined
-  requestStatus = undefined
+  requestStatus = loadingStatus.SUCCESS
 
   showConfirmModal = false
 
@@ -91,10 +91,7 @@ export class AuthViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
-
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }

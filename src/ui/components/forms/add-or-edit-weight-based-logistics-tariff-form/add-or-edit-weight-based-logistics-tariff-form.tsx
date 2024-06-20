@@ -16,6 +16,8 @@ import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { ClsIcon, EtaIcon, EtdIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { toFixed } from '@utils/text'
@@ -50,6 +52,7 @@ interface DestinationVariationsContentProps {
   onChangeDestinationVariations: (fieldName: string) => (index: number) => (value: string | number) => void
   onClickAddDestinationVariation: (index: number) => void
   onClickRemoveDestinationVariation: (index: number) => void
+  onApplyMinBoxWeightToAll: (index: number) => void
 }
 
 interface AddOrEditWeightBasedLogisticsTariffFormProps {
@@ -91,6 +94,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       maxWeight: '',
       pricePerKgRmb: '',
       pricePerKgUsd: '',
+      minBoxWeight: '',
     }
 
     const initialState = {
@@ -150,6 +154,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           maxWeight: item.maxWeight,
           pricePerKgRmb: item.pricePerKgRmb,
           pricePerKgUsd: item.pricePerKgUsd,
+          minBoxWeight: item?.minBoxWeight,
         })),
         deliveryTimeInDay: tariff.deliveryTimeInDay,
       }))
@@ -292,108 +297,106 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
       return true // All weight ranges are valid
     }
 
+    const onApplyMinBoxWeightToAll = (variantIndex: number) => {
+      setFormFields(prevState => {
+        const { minBoxWeight } = prevState.destinationVariations[variantIndex]
+
+        const newDestinationVariations = prevState.destinationVariations.map(variant => ({
+          ...variant,
+          minBoxWeight,
+        }))
+
+        return {
+          ...prevState,
+          destinationVariations: newDestinationVariations,
+        }
+      })
+    }
+
     return (
       <div className={styles.root}>
         <Typography className={styles.modalTitle}>{t(TranslationKey['Adding tariff'])}</Typography>
 
         <div className={styles.nameWrapper}>
-          <div className={styles.fieldsWrapper}>
-            <Field
-              label={t(TranslationKey.Title) + '*'}
-              // @ts-ignore
-              placeholder={t(TranslationKey['Service name'])}
-              value={formFields.name}
-              // @ts-ignore
-              inputProps={{ maxLength: 50 }}
-              inputClasses={styles.fieldInput}
-              labelClasses={styles.fieldLabel}
-              containerClasses={styles.fieldContainer}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeField('name')(e.target.value)}
-            />
+          <Field
+            label={t(TranslationKey.Title) + '*'}
+            // @ts-ignore
+            placeholder={t(TranslationKey['Service name'])}
+            value={formFields.name}
+            // @ts-ignore
+            inputProps={{ maxLength: 50 }}
+            inputClasses={styles.fieldInput}
+            labelClasses={styles.fieldLabel}
+            containerClasses={styles.fieldContainer}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeField('name')(e.target.value)}
+          />
 
-            <Field
-              inputClasses={styles.fieldInput}
-              labelClasses={styles.fieldLabel}
-              // @ts-ignore
-              inputProps={{ maxLength: 10 }}
-              containerClasses={styles.fieldContainer}
-              value={formFields.deliveryTimeInDay}
-              placeholder={t(TranslationKey['Amount of days'])}
-              label={t(TranslationKey['Delivery time, days']) + '*'}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                if (regex.test(e.target.value) || e.target.value === '') {
-                  onChangeField('deliveryTimeInDay')(e.target.value)
-                }
-              }}
-            />
-          </div>
-
-          <div className={styles.fieldsWrapper}>
-            {/* <Field
-              inputClasses={styles.fieldInput}
-              labelClasses={styles.fieldLabel}
-              // @ts-ignore
-              inputProps={{ maxLength: 50 }}
-              containerClasses={styles.fieldContainer}
-              value={formFields.deliveryTimeInDay}
-              placeholder={t(TranslationKey['Amount of days'])}
-              label={t(TranslationKey['Minimum weight']) + ', ' + t(TranslationKey.kg)}
-              onChange={onChangeField('days')}
-            /> */}
-
-            <Field
-              label={t(TranslationKey['Add data from tariff'])}
-              inputClasses={styles.fieldInput}
-              labelClasses={styles.fieldLabel}
-              containerClasses={styles.fieldContainer}
-              inputComponent={
-                /* @ts-ignore */
-                <WithSearchSelect
-                  // @ts-ignore
-                  grayBorder
-                  blackSelectedItem
-                  darkIcon
-                  chosenItemNoHover
-                  data={logisticsTariffsData}
-                  width={'100%'}
-                  searchFields={['name']}
-                  fieldNamesWrapperStyles={styles.fieldNamesWrapperStyles}
-                  buttonStyles={styles.buttonStyles}
-                  fieldNameStyles={styles.fieldNameStyles}
-                  customItemsWrapper={styles.customItemsWrapper}
-                  customSubMainWrapper={styles.customSubMainWrapper}
-                  customSearchInput={styles.customSearchInput}
-                  selectedItemName={
-                    (!!selectedLogisticTariff && selectedLogisticTariff.name) || t(TranslationKey['Select Tariff'])
-                  }
-                  onClickSelect={(el: ILogicTariff) => onSetDataFromTariff(el)}
-                />
+          <Field
+            inputClasses={[styles.fieldInput, styles.deliveryFieldInput]}
+            labelClasses={styles.fieldLabel}
+            // @ts-ignore
+            inputProps={{ maxLength: 10 }}
+            containerClasses={styles.fieldContainer}
+            value={formFields.deliveryTimeInDay}
+            placeholder={t(TranslationKey['Amount of days'])}
+            label={t(TranslationKey['Delivery time, days']) + '*'}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              if (regex.test(e.target.value) || e.target.value === '') {
+                onChangeField('deliveryTimeInDay')(e.target.value)
               }
-            />
-          </div>
+            }}
+          />
+
+          <Field
+            label={t(TranslationKey['Add data from tariff'])}
+            inputClasses={[styles.fieldInput, styles.tariffFieldInput]}
+            labelClasses={styles.fieldLabel}
+            containerClasses={styles.fieldContainer}
+            inputComponent={
+              /* @ts-ignore */
+              <WithSearchSelect
+                // @ts-ignore
+                grayBorder
+                blackSelectedItem
+                darkIcon
+                chosenItemNoHover
+                data={logisticsTariffsData}
+                width={'245px'}
+                searchFields={['name']}
+                fieldNamesWrapperStyles={styles.fieldNamesWrapperStyles}
+                buttonStyles={styles.buttonStyles}
+                fieldNameStyles={styles.fieldNameStyles}
+                customItemsWrapper={styles.customItemsWrapper}
+                customSubMainWrapper={styles.customSubMainWrapper}
+                customSearchInput={styles.customSearchInput}
+                selectedItemName={
+                  (!!selectedLogisticTariff && selectedLogisticTariff.name) || t(TranslationKey['Select Tariff'])
+                }
+                onClickSelect={(el: ILogicTariff) => onSetDataFromTariff(el)}
+              />
+            }
+          />
         </div>
 
-        <div>
-          <div className={styles.rateWrapper}>
-            <Typography className={styles.modalTitle}>{t(TranslationKey.Rates)}</Typography>
+        <div className={styles.rateWrapper}>
+          <div className={styles.customSwitcherWrapper}>
+            <CustomSwitcher
+              condition={currentCurrency}
+              switcherSettings={[
+                {
+                  label: () => currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || '',
+                  value: currencyTypes.DOLLAR,
+                },
+                {
+                  label: () => currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || '',
+                  value: currencyTypes.YUAN,
+                },
+              ]}
+              changeConditionHandler={setCurrentCurrency}
+            />
+          </div>
 
-            <div className={styles.customSwitcherWrapper}>
-              <CustomSwitcher
-                condition={currentCurrency}
-                switcherSettings={[
-                  {
-                    label: () => currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || '',
-                    value: currencyTypes.DOLLAR,
-                  },
-                  {
-                    label: () => currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || '',
-                    value: currencyTypes.YUAN,
-                  },
-                ]}
-                changeConditionHandler={setCurrentCurrency}
-              />
-            </div>
-
+          <div className={styles.rateContainer}>
             <div className={styles.currentRateWrapper}>
               <Typography className={styles.currentRate}>{t(TranslationKey['Current exchange rate'])}</Typography>
               <Typography className={styles.currentRateText}>{sourceYuanToDollarRate}</Typography>
@@ -414,7 +417,9 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               }}
             />
           </div>
+        </div>
 
+        <div>
           <DestinationVariationsContent
             destinationVariations={formFields.destinationVariations}
             destinationData={destinationData}
@@ -424,6 +429,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
             onClickAddDestinationVariation={onClickAddDestinationVariation}
             onClickRemoveDestinationVariation={onClickRemoveDestinationVariation}
             onChangeDestinationVariations={onChangeDestinationVariations}
+            onApplyMinBoxWeightToAll={onApplyMinBoxWeightToAll}
           />
 
           {formFields.destinationVariations.length > 1 && !isWeightRangeValid && (
@@ -447,7 +453,16 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     [styles.deadlineError]: checkDateByDeadline(formFields.cls),
                   })}
                 >
-                  <DatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
+                  <DatePicker
+                    disablePast
+                    slotProps={{
+                      textField: {
+                        InputProps: { startAdornment: <ClsIcon className={styles.datePickerIcon} /> },
+                      },
+                    }}
+                    value={formFields.cls}
+                    onChange={onChangeField('cls')}
+                  />
                   {!!formFields.cls && checkDateByDeadline(formFields.cls) && (
                     <p className={styles.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
@@ -467,7 +482,16 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     [styles.deadlineError]: checkDateByDeadline(formFields.etd),
                   })}
                 >
-                  <DatePicker disablePast value={formFields.etd} onChange={onChangeField('etd')} />
+                  <DatePicker
+                    disablePast
+                    value={formFields.etd}
+                    slotProps={{
+                      textField: {
+                        InputProps: { startAdornment: <EtdIcon className={styles.datePickerIcon} /> },
+                      },
+                    }}
+                    onChange={onChangeField('etd')}
+                  />
 
                   {!!formFields.etd && checkDateByDeadline(formFields.etd) && (
                     <p className={styles.deadlineErrorText}>
@@ -488,7 +512,16 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
                     [styles.deadlineError]: checkDateByDeadline(formFields.eta),
                   })}
                 >
-                  <DatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
+                  <DatePicker
+                    disablePast
+                    value={formFields.eta}
+                    slotProps={{
+                      textField: {
+                        InputProps: { startAdornment: <EtaIcon className={styles.datePickerIcon} /> },
+                      },
+                    }}
+                    onChange={onChangeField('eta')}
+                  />
                   {!!formFields.eta && checkDateByDeadline(formFields.eta) && (
                     <p className={styles.deadlineErrorText}>
                       {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
@@ -549,6 +582,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
     onChangeDestinationVariations,
     onClickAddDestinationVariation,
     onClickRemoveDestinationVariation,
+    onApplyMinBoxWeightToAll,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -630,13 +664,53 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
 
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
                           onChangeDestinationVariations('maxWeight')(variantIndex)(input)
                         }
                       }}
                     />
                   </div>
                 </div>
+              }
+            />
+
+            <Field
+              label={t(TranslationKey['Minimum recommended box weight, kg'])}
+              labelClasses={[styles.fieldLabel, styles.minBoxWeightFieldLabel]}
+              containerClasses={styles.minBoxWeightContainer}
+              inputComponent={
+                <>
+                  <div className={styles.minBoxWeightWrapper}>
+                    <Input
+                      placeholder={'0.00'}
+                      value={toFixed(variant.minBoxWeight, 2) || ''}
+                      inputProps={{ maxLength: 7 }}
+                      className={styles.fieldInput}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        const input = e.target.value
+
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
+                          onChangeDestinationVariations('minBoxWeight')(variantIndex)(input)
+                        }
+                      }}
+                    />
+                  </div>
+
+                  <div className={styles.minBoxWeightContainerBtn}>
+                    <Text
+                      tooltipInfoContent={t(
+                        TranslationKey['Apply the value "min recommended box weight" to all variations in the tariff'],
+                      )}
+                      containerClasses={styles.applyToAll}
+                    >
+                      {t(TranslationKey['Apply to all'])}
+                    </Text>
+
+                    <Button className={styles.applyButton} onClick={() => onApplyMinBoxWeightToAll(variantIndex)}>
+                      {t(TranslationKey.Apply)}
+                    </Button>
+                  </div>
+                </>
               }
             />
 
@@ -657,7 +731,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                           : ''
                       }
                       inputProps={{ maxLength: 7 }}
-                      className={styles.regionFieldInput}
+                      className={styles.fieldInput}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
 
@@ -673,24 +747,21 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                       {currencyTypesToHumanFriendlyValue(currentCurrency)}
                     </Typography>
                   </div>
-
-                  <div className={styles.controlOptionsButtons}>
-                    {destinationVariations.length > 1 && (
-                      <Button
-                        className={styles.plusButton}
-                        onClick={() => onClickRemoveDestinationVariation(variantIndex)}
-                      >
-                        <RemoveIcon className={styles.plusIcon} />
-                      </Button>
-                    )}
-
-                    <Button className={styles.plusButton} onClick={() => onClickAddDestinationVariation(variantIndex)}>
-                      <AddIcon className={styles.plusIcon} />
-                    </Button>
-                  </div>
                 </div>
               }
             />
+
+            <div className={styles.controlOptionsButtons}>
+              {destinationVariations.length > 1 && (
+                <Button className={styles.plusButton} onClick={() => onClickRemoveDestinationVariation(variantIndex)}>
+                  <RemoveIcon className={styles.plusIcon} />
+                </Button>
+              )}
+
+              <Button className={styles.plusButton} onClick={() => onClickAddDestinationVariation(variantIndex)}>
+                <AddIcon className={styles.plusIcon} />
+              </Button>
+            </div>
           </div>
         ))}
       </>

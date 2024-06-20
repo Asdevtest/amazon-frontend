@@ -58,6 +58,7 @@ export const UserPermissions = observer(() => {
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -79,6 +80,7 @@ export const UserPermissions = observer(() => {
       </div>
 
       <Modal
+        missClickModalOn
         openModal={viewModel.showAddOrEditGroupPermissionModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditGroupPermissionModal')}
       >
@@ -93,6 +95,7 @@ export const UserPermissions = observer(() => {
       </Modal>
 
       <Modal
+        missClickModalOn
         openModal={viewModel.showAddOrEditSinglePermissionModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSinglePermissionModal')}
       >

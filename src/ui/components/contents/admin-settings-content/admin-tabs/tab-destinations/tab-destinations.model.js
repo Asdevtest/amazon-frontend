@@ -16,29 +16,26 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AdminSettingsDestinationsModel {
   requestStatus = undefined
-
   destinations = []
+  destinationToEdit = undefined
+  destinationIdToRemove = undefined
 
   showConfirmModal = false
+  confirmModalSettings = {
+    isWarning: true,
+    message: '',
+    onClickSuccess: () => {},
+  }
   showAddOrEditDestinationModal = false
 
   sortModel = []
   filterModel = { items: [] }
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
-  destinationToEdit = undefined
-  destinationIdToRemove = undefined
-  confirmModalSettings = {
-    isWarning: true,
-    message: '',
-    onClickSuccess: () => {},
-  }
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
-
   columnsModel = destinationsColumns(this.rowHandlers)
 
   get currentData() {
@@ -46,17 +43,14 @@ export class AdminSettingsDestinationsModel {
   }
 
   constructor() {
+    this.loadData()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   loadData() {
-    try {
-      this.getDataGridState()
-
-      this.getDestinations()
-    } catch (error) {
-      console.error(error)
-    }
+    this.getDataGridState()
+    this.getDestinations()
   }
 
   setRequestStatus(requestStatus) {
@@ -77,7 +71,6 @@ export class AdminSettingsDestinationsModel {
     } catch (error) {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
-      this.destinations = []
     }
   }
 
@@ -105,13 +98,11 @@ export class AdminSettingsDestinationsModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
   }
 
@@ -121,7 +112,6 @@ export class AdminSettingsDestinationsModel {
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
   }
 
@@ -132,19 +122,16 @@ export class AdminSettingsDestinationsModel {
       message: t(TranslationKey['Are you sure you want to delete the destination?']),
       onClickSuccess: () => this.onRemoveDestination(),
     }
-
     this.onClickToggleConfirmModal()
   }
 
   onClickEditBtn(row) {
     this.destinationToEdit = row
-
     this.onClickToggleAddOrEditModal()
   }
 
   onClickAddBtn() {
     this.destinationToEdit = undefined
-
     this.onClickToggleAddOrEditModal()
   }
 
@@ -154,7 +141,6 @@ export class AdminSettingsDestinationsModel {
       message: t(TranslationKey['The data will not be saved!']),
       onClickSuccess: () => this.cancelTheOrder(),
     }
-
     this.onClickToggleConfirmModal()
   }
 
@@ -166,9 +152,7 @@ export class AdminSettingsDestinationsModel {
   async onCreateDestination(data) {
     try {
       await AdministratorModel.createDestination(data)
-
       this.onClickToggleAddOrEditModal()
-
       this.loadData()
     } catch (error) {
       console.error(error)
@@ -178,9 +162,7 @@ export class AdminSettingsDestinationsModel {
   async onEditDestination(data, destinationId) {
     try {
       await AdministratorModel.editDestination(destinationId, data)
-
       this.onClickToggleAddOrEditModal()
-
       this.loadData()
     } catch (error) {
       console.error(error)
@@ -190,9 +172,7 @@ export class AdminSettingsDestinationsModel {
   async onRemoveDestination() {
     try {
       await AdministratorModel.removeDestination(this.destinationIdToRemove)
-
       this.onClickToggleConfirmModal()
-
       this.loadData()
     } catch (error) {
       console.error(error)

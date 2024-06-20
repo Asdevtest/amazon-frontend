@@ -70,14 +70,14 @@ export class BoxesToOrderModel {
       const response = await BoxesModel.getBoxesOfOrder(this.order?._id)
 
       const transformedBoxes = response
-        .map(box => ({
+        ?.map(box => ({
           ...box,
           asin: this.order?.product?.asin || '',
           boxProductPreview: this.order?.product?.images?.[0] || '',
           amazonTitle: this.order?.product?.amazonTitle || '',
           skuByClient: this.order?.product?.skuByClient || '',
         }))
-        .sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        ?.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
 
       runInAction(() => {
         this.boxes = transformedBoxes as unknown as IOrderBoxSupplemented[]

@@ -1,5 +1,6 @@
 import isEqual from 'lodash.isequal'
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,20 +13,15 @@ import { t } from '@utils/translations'
 import { fieldsWithoutCharsAfterDote, startValueFields } from './admin-settings.constants'
 
 export class AdminSettingsModel {
-  requestStatus = undefined
-
-  serverProxy = []
-
   showAsinCheckerModal = false
-  infoModalText = ''
-  showInfoModal = false
   showConfirmModal = false
   confirmModalSettings = {
     message: '',
     onClickSuccess: () => {},
     onClickFailed: () => {},
   }
-
+  techPause = undefined
+  serverProxy = []
   formFields = startValueFields
   prevFormFields = undefined
   tabIndex = 0
@@ -37,21 +33,14 @@ export class AdminSettingsModel {
   }
 
   constructor() {
+    this.loadData()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   loadData() {
-    try {
-      this.getAdminSettings()
-
-      this.getServerProxy()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
+    this.getAdminSettings()
+    this.getServerProxy()
   }
 
   async getAdminSettings() {
@@ -61,6 +50,7 @@ export class AdminSettingsModel {
       runInAction(() => {
         this.formFields = response?.dynamicSettings
         this.prevFormFields = response?.dynamicSettings
+        this.techPause = response?.dynamicSettings?.techPause
       })
     } catch (error) {
       console.error(error)
@@ -70,13 +60,7 @@ export class AdminSettingsModel {
   async onCreateAdminSettings() {
     try {
       await AdministratorModel.setSettings(this.formFields)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The settings are saved.'])
-      })
-
-      this.onClickToggleInfoModal()
-
+      toast.success(t(TranslationKey['The settings are saved.']))
       this.getAdminSettings()
 
       runInAction(() => {
@@ -84,12 +68,7 @@ export class AdminSettingsModel {
       })
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The settings are not saved.'])
-      })
-
-      this.onClickToggleInfoModal()
+      toast.error(t(TranslationKey['The settings are not saved.']))
     }
   }
 
@@ -107,7 +86,6 @@ export class AdminSettingsModel {
       ...this.formFields,
       [fieldName]: event.target.value,
     }
-
     this.isFormFieldsChanged = this.prevFormFields[fieldName] !== Number(event.target.value)
   }
 
@@ -127,7 +105,6 @@ export class AdminSettingsModel {
           this.onClickToggleConfirmModal()
         },
       }
-
       this.onClickToggleConfirmModal()
     }
   }
@@ -147,22 +124,11 @@ export class AdminSettingsModel {
   async onCreateProxy(proxy) {
     try {
       await AdministratorModel.createProxy(proxy)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The proxy servers are saved.'])
-      })
-
-      this.onClickToggleInfoModal()
-
+      toast.success(t(TranslationKey['The proxy servers are saved.']))
       this.getServerProxy()
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The proxy servers are not saved.'])
-      })
-
-      this.onClickToggleInfoModal()
+      toast.error(t(TranslationKey['he proxy servers are not saved.']))
     }
   }
 
@@ -178,10 +144,6 @@ export class AdminSettingsModel {
     if (this.isProxyServersChanged) {
       this.onCreateProxy(proxy)
     }
-  }
-
-  onClickToggleInfoModal() {
-    this.onTriggerOpenModal('showInfoModal')
   }
 
   onClickToggleProxyModal() {

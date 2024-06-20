@@ -1,4 +1,7 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
 
@@ -6,96 +9,62 @@ import { buyerSearchSuppliersViewColumns } from '@components/table/table-columns
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class BuyerSearchSupplierByClientModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-
   productsVacant = []
-
-  showInfoModal = false
-
   selectedRowIds = []
 
   rowHandlers = {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
-
   paginationModel = { page: 0, pageSize: 15 }
   columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers)
   columnVisibilityModel = {}
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
-    makeAutoObservable(this, undefined, { autoBind: true })
+  get currentData() {
+    return this.productsVacant
   }
 
-  getCurrentData() {
-    return toJS(this.productsVacant)
+  constructor({ history }) {
+    this.history = history
+
+    makeAutoObservable(this, undefined, { autoBind: true })
+
+    this.getProductsVacant()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-  }
-
-  async loadData() {
-    try {
-      runInAction(() => {
-        this.requestStatus = loadingStatus.IS_LOADING
-      })
-      await this.getProductsVacant()
-      runInAction(() => {
-        this.requestStatus = loadingStatus.SUCCESS
-      })
-    } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatus.FAILED
-      })
-      console.error(error)
-    }
+    this.paginationModel = model
   }
 
   async getProductsVacant() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
-      runInAction(() => {
-        this.error = undefined
-      })
 
-      const isCreatedByClient = true
+      const result = await BuyerModel.getProductsVacant(true)
 
-      const result = await BuyerModel.getProductsVacant(isCreatedByClient)
       runInAction(() => {
         this.productsVacant = depersonalizedPickDataConverter(
           result.sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt')),
         )
       })
+
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-
-      runInAction(() => {
-        this.productsVacant = []
-      })
       console.error(error)
     }
   }
@@ -111,8 +80,10 @@ export class BuyerSearchSupplierByClientModel {
       runInAction(() => {
         this.selectedRowIds = []
       })
-      this.onTriggerOpenModal('showInfoModal')
-      this.loadData()
+
+      toast.success(t(TranslationKey['Taken to Work']))
+
+      this.getProductsVacant()
     } catch (error) {
       console.error(error)
     }
@@ -123,10 +94,7 @@ export class BuyerSearchSupplierByClientModel {
       await BuyerModel.pickupProduct(item._id)
 
       if (!noPush) {
-        this.history.push({
-          pathname: '/buyer/search-supplier-by-client/product',
-          search: 'product-id=' + item._id,
-        })
+        this.history.push(`/buyer/search-supplier-by-client/product?product-id=${item._id}`)
       }
     } catch (error) {
       console.error(error)
@@ -134,20 +102,10 @@ export class BuyerSearchSupplierByClientModel {
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

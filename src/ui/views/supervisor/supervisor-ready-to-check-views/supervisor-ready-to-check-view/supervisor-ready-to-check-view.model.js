@@ -1,7 +1,9 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SupervisorModel } from '@models/supervisor-model'
 import { TableSettingsModel } from '@models/table-settings'
@@ -10,14 +12,13 @@ import { depersonalizedPickColumns } from '@components/table/table-columns/deper
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SupervisorReadyToCheckViewModel {
   history = undefined
   requestStatus = undefined
-
-  showInfoModal = false
 
   selectedRowIds = []
 
@@ -88,7 +89,7 @@ export class SupervisorReadyToCheckViewModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const result = await SupervisorModel.getProductsVacant()
+      const result = await SupervisorModel.getProductsVacant(false)
 
       runInAction(() => {
         this.productsReadyToCheck = depersonalizedPickDataConverter(
@@ -120,7 +121,8 @@ export class SupervisorReadyToCheckViewModel {
       runInAction(() => {
         this.selectedRowIds = []
       })
-      this.onTriggerOpenModal('showInfoModal')
+
+      toast.success(t(TranslationKey['Taken to Work']))
 
       this.loadData()
     } catch (error) {

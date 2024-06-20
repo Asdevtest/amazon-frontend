@@ -3,7 +3,7 @@ import { CSSProperties, FC, PropsWithChildren, ReactElement, memo, useContext, u
 import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
-import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { TooltipAttentionIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { HintsContext } from '@contexts/hints-context'
 
@@ -68,7 +68,7 @@ export const Text: FC<TextProps> = memo(props => {
               onOpen={() => setOpenAttentionTooltip(true)}
             >
               <button onClick={() => setOpenAttentionTooltip(true)}>
-                <TooltipAttention className={styles.tooltip} />
+                <TooltipAttentionIcon className={styles.tooltip} />
               </button>
             </Tooltip>
           ) : null}

@@ -14,5 +14,6 @@ export const useStyles = makeStyles()(() => ({
 
   fullWidth: {
     width: '100%',
+    alignItems: 'center',
   },
 }))

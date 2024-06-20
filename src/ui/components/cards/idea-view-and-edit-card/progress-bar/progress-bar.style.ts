@@ -20,8 +20,8 @@ export const useStyles = makeStyles()(theme => ({
   settingItem: {
     display: 'flex',
     alignItems: 'center',
-    height: '40px',
-    padding: '0 8px',
+    height: '30px',
+    padding: '0 10px',
     position: 'relative',
   },
 
@@ -37,10 +37,10 @@ export const useStyles = makeStyles()(theme => ({
       transform: 'translateX(100%)',
       top: 0,
       right: 0,
-      borderWidth: '20px 0 20px 7px',
+      borderWidth: '15px 0 15px 10px',
       borderStyle: 'solid',
       borderColor: `transparent ${theme.palette.primary.main}`,
-      zIndex: 3,
+      zIndex: 7,
     },
   },
 
@@ -59,7 +59,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   settingItemTitle: {
-    fontSize: '14px',
+    fontSize: '12px',
+    lineHeight: '16px',
     fontWeight: 600,
     color: theme.palette.primary.main,
     whiteSpace: 'nowrap',

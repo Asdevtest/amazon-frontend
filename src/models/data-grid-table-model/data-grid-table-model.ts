@@ -1,32 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable } from 'mobx'
 import { ChangeEvent } from 'react'
 
-import {
-  GridCallbackDetails,
-  GridColDef,
-  GridColumnVisibilityModel,
-  GridFilterModel,
-  GridPaginationModel,
-  GridSortModel,
-} from '@mui/x-data-grid'
+import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
+import { GridPinnedColumns } from '@mui/x-data-grid-premium'
 
-import { ModalsModel } from '@models/model-with-modals'
-import { SettingsModel } from '@models/settings-model'
+import { DefaultModel } from '@models/default-model'
+import { TableSettingsModel } from '@models/table-settings'
 
-import { loadingStatus } from '@typings/enums/loading-status'
+import { IGridColumn } from '@typings/shared/grid-column'
 
 import { DataGridTableModelParams } from './data-grid-table-model.type'
 import { filterModelInitialValue, paginationModelInitialValue } from './model-config'
 import { observerConfig } from './observer-config'
 
-export class DataGridTableModel extends ModalsModel {
-  requestStatus: loadingStatus = loadingStatus.SUCCESS
-
-  unserverSearchValue: string = ''
+export class DataGridTableModel extends DefaultModel {
+  currentSearchValue: string = ''
 
   densityModel = 'compact'
-  rowCount = 0
   sortModel: any = undefined
   paginationModel: GridPaginationModel = paginationModelInitialValue
   filterModel: GridFilterModel = filterModelInitialValue
@@ -34,19 +25,42 @@ export class DataGridTableModel extends ModalsModel {
   selectedRows: string[] = []
   tableKey: string | undefined = undefined
 
-  getMainDataMethod: any
-  columnsModel: GridColDef[] = []
-  tableData: any[] = []
+  columnsModel: IGridColumn[] = []
 
-  defaultGetDataMethodOptions: any
+  fieldsForSearch: string[] = []
 
-  constructor({ getMainDataMethod, columnsModel, tableKey, defaultGetDataMethodOptions }: DataGridTableModelParams) {
-    super()
+  pinnedColumns: GridPinnedColumns = {
+    left: [],
+    right: [],
+  }
 
-    this.getMainDataMethod = getMainDataMethod
+  get filteredData() {
+    if (this.fieldsForSearch?.length) {
+      return this.currentData?.filter(item =>
+        this.fieldsForSearch.some(field =>
+          item?.[field]?.toLowerCase().includes(this.currentSearchValue.toLowerCase()),
+        ),
+      )
+    } else {
+      return this.currentData
+    }
+  }
+
+  constructor({
+    getMainDataMethod,
+    columnsModel,
+    tableKey,
+    defaultGetCurrentDataOptions,
+    fieldsForSearch,
+  }: DataGridTableModelParams) {
+    super({ getMainDataMethod, defaultGetCurrentDataOptions })
+
+    if (fieldsForSearch) {
+      this.fieldsForSearch = fieldsForSearch
+    }
+
     this.columnsModel = columnsModel
     this.tableKey = tableKey
-    this.defaultGetDataMethodOptions = defaultGetDataMethodOptions
 
     makeObservable(this, observerConfig)
   }
@@ -59,14 +73,17 @@ export class DataGridTableModel extends ModalsModel {
       filterModel: this.filterModel,
       paginationModel: this.paginationModel,
       columnVisibilityModel: this.columnVisibilityModel,
+      pinnedColumns: this.pinnedColumns,
     }
 
-    SettingsModel.setDataGridState(requestState, this.tableKey)
+    TableSettingsModel.saveTableSettings(requestState, this.tableKey)
   }
 
   getDataGridState() {
     if (!this.tableKey) return
-    const state = SettingsModel.dataGridState[this.tableKey as keyof typeof SettingsModel.dataGridState]
+
+    // @ts-ignore
+    const state = TableSettingsModel.getTableSettings(this.tableKey)
 
     if (state) {
       // @ts-ignore
@@ -77,14 +94,28 @@ export class DataGridTableModel extends ModalsModel {
       this.paginationModel = state?.paginationModel
       // @ts-ignore
       this.columnVisibilityModel = state?.columnVisibilityModel
+      // @ts-ignore
+      this.pinnedColumns = state?.pinnedColumns
     }
   }
 
-  onColumnVisibilityModelChange(model: GridColumnVisibilityModel, details: GridCallbackDetails, isNotServer?: boolean) {
+  onColumnVisibilityModelChange(model: GridColumnVisibilityModel) {
     this.columnVisibilityModel = model
-    if (!isNotServer) {
-      this.getMainTableData()
-    }
+    this.setDataGridState()
+  }
+
+  onChangeSortingModel(sortModel: GridSortModel) {
+    this.sortModel = sortModel
+    this.setDataGridState()
+  }
+
+  onChangeFilterModel(model: GridFilterModel) {
+    this.filterModel = model
+    this.setDataGridState()
+  }
+
+  onPaginationModelChange(model: GridPaginationModel) {
+    this.paginationModel = model
     this.setDataGridState()
   }
 
@@ -92,55 +123,13 @@ export class DataGridTableModel extends ModalsModel {
     this.selectedRows = selectedRows
   }
 
-  onChangeSortingModel(sortModel: GridSortModel, details: GridCallbackDetails, isNotServer?: boolean) {
-    this.sortModel = sortModel
-
-    if (!isNotServer) {
-      this.getMainTableData()
-    }
-    this.setDataGridState()
-  }
-
-  onChangeFilterModel(model: GridFilterModel, details: GridCallbackDetails, isNotServer?: boolean) {
-    this.filterModel = model
-    if (!isNotServer) {
-      this.getMainTableData()
-    }
-    this.setDataGridState()
-  }
-
-  onPaginationModelChange(model: GridPaginationModel, details: GridCallbackDetails, isNotServer?: boolean) {
-    this.paginationModel = model
-    if (!isNotServer) {
-      this.getMainTableData()
-    }
-    this.setDataGridState()
-  }
-
-  async getMainTableData(options?: any) {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      const result = await this?.getMainDataMethod(options || this.defaultGetDataMethodOptions?.())
-
-      runInAction(() => {
-        this.tableData = result?.rows || result
-        this.rowCount = result?.count || result.length
-      })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
-    }
-  }
-
-  setRequestStatus(requestStatus: loadingStatus) {
-    this.requestStatus = requestStatus
-  }
-
   onChangeUnserverSearchValue(e: ChangeEvent<HTMLInputElement>) {
-    this.unserverSearchValue = e.target.value
+    this.currentSearchValue = e.target.value
+  }
+
+  handlePinColumn(pinnedColumns: GridPinnedColumns) {
+    this.pinnedColumns = pinnedColumns
+    this.setDataGridState()
   }
 
   handleHideColumns(columnsToHide: string[]) {

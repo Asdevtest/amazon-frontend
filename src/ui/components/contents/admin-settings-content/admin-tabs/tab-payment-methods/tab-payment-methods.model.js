@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,8 +13,6 @@ import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 import { isString } from '@typings/guards'
 
 export class AdminSettingsPaymentMethodsModel {
-  infoModalText = undefined
-  showInfoModal = false
   showConfirmModal = false
   confirmModalSettings = {
     isWarning: false,
@@ -25,20 +24,13 @@ export class AdminSettingsPaymentMethodsModel {
   method = { title: '', iconImage: '' }
   isValidUrl = false
   currentImageName = undefined
-
   isEdit = false
   editPaymentMethodId = undefined
 
   constructor() {
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
+    this.getPaymentMethods()
 
-  loadData() {
-    try {
-      this.getPaymentMethods()
-    } catch (error) {
-      console.error(error)
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async getPaymentMethods() {
@@ -56,54 +48,30 @@ export class AdminSettingsPaymentMethodsModel {
   async createPaymentMethod(paymentMethod) {
     try {
       await SupplierModel.addSuppliersPaymentMethod(paymentMethod)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Payment method successfully saved'])
-      })
-
-      this.onClickToggleInfoModal()
-
-      this.loadData()
+      toast.success(t(TranslationKey['Payment method successfully saved']))
+      this.getPaymentMethods()
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Payment method is not saved'])
-      })
-
-      this.onClickToggleInfoModal()
+      toast.error(t(TranslationKey['Payment method is not saved']))
     }
   }
 
   async editPaymentMethod(id, paymentMethod) {
     try {
       await SupplierModel.editSuppliersPaymentMethod(id, paymentMethod)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Payment method successfully saved'])
-      })
-
-      this.onClickToggleInfoModal()
-
-      this.loadData()
+      toast.success(t(TranslationKey['Payment method successfully saved']))
+      this.getPaymentMethods()
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Payment method is not saved'])
-      })
-
-      this.onClickToggleInfoModal()
+      toast.error(t(TranslationKey['Payment method is not saved']))
     }
   }
 
   async onRemovePaymentMethod(id) {
     try {
       await AdministratorModel.removePaymentMethod(id)
-
       this.onClickToggleConfirmModal()
-
-      this.loadData()
+      this.getPaymentMethods()
     } catch (error) {
       console.error(error)
     }
@@ -115,7 +83,6 @@ export class AdminSettingsPaymentMethodsModel {
       message: t(TranslationKey['Are you sure you want to delete the payment method?']),
       onClickSuccess: () => this.onRemovePaymentMethod(id),
     }
-
     this.onClickToggleConfirmModal()
   }
 
@@ -186,7 +153,6 @@ export class AdminSettingsPaymentMethodsModel {
 
     if (file) {
       this.currentImageName = file.name
-
       reader.onload = async e => {
         const isValidImageUrl = await checkIsImageUrlValid(e.target.result)
 
@@ -200,15 +166,10 @@ export class AdminSettingsPaymentMethodsModel {
       }
 
       event.target.value = ''
-
       reader.readAsDataURL(file)
     } else {
       this.method.iconImage = ''
     }
-  }
-
-  onClickToggleInfoModal() {
-    this.onTriggerOpenModal('showInfoModal')
   }
 
   onClickToggleConfirmModal() {

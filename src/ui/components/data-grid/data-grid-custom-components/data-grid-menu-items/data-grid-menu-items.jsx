@@ -51,6 +51,7 @@ export const IsFormedMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       columnKey,
       onChangeFullFieldMenuItem,
@@ -61,7 +62,7 @@ export const IsFormedMenuItem = memo(
 
       const handleCategory = e => {
         if (e.target.value === 'second') {
-          onClickFilterBtn(field)
+          onClickFilterBtn(field, table)
         }
         setCurrentOption(e.target.value)
       }
@@ -142,6 +143,7 @@ export const IsFormedMenuItem = memo(
                 asBlock
                 data={data}
                 field={field}
+                table={table}
                 filterRequestStatus={filterRequestStatus}
                 columnKey={columnKey}
                 onClickFilterBtn={onClickFilterBtn}
@@ -600,14 +602,15 @@ export const CreatedByMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
     }) => {
       useEffect(() => {
-        onClickFilterBtn('createdBy')
-        onClickFilterBtn('sub')
+        onClickFilterBtn('createdBy', table)
+        onClickFilterBtn('sub', table)
       }, [])
 
       const filterData = [...data.createdBy.filterData, ...data.sub.filterData] || []
@@ -617,7 +620,7 @@ export const CreatedByMenuItem = memo(
 
       const onClickItem = obj => {
         if (choosenItems.some(item => item._id === obj._id)) {
-          setChoosenItems(choosenItems.slice().filter(item => item._id !== obj._id))
+          setChoosenItems(choosenItems.filter(item => item._id !== obj._id))
         } else {
           setChoosenItems([...choosenItems, obj])
         }
@@ -629,19 +632,19 @@ export const CreatedByMenuItem = memo(
 
       useEffect(() => {
         setItemsForRender(
-          filterData
-            .filter(el => el)
-            .sort(
-              (a, b) =>
-                currentFilterData.length &&
-                Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
-            ),
+          filterData.sort(
+            (a, b) =>
+              currentFilterData.length &&
+              Number(choosenItems?.some(item => item === b)) - Number(choosenItems?.some(item => item === a)),
+          ),
         )
       }, [data.createdBy.filterData, data.sub.filterData])
 
       useEffect(() => {
         if (nameSearchValue) {
-          const filter = filterData?.filter(item => item?.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+          const filter = filterData?.filter(item =>
+            String(item?.name).toLowerCase().includes(nameSearchValue.toLowerCase()),
+          )
           setItemsForRender(filter)
         } else {
           setItemsForRender(filterData)
@@ -702,20 +705,20 @@ export const CreatedByMenuItem = memo(
               onClick={e => {
                 onClose(e)
 
+                let choosenSub = []
                 if (choosenItems?.some(item => data?.sub?.filterData?.some(obj => obj?._id === item?._id))) {
-                  const choosenSub = choosenItems.filter(item =>
-                    data?.sub?.filterData?.some(obj => obj?._id === item?._id),
-                  )
-                  onChangeFullFieldMenuItem(choosenSub, 'sub')
+                  choosenSub = choosenItems.filter(item => data?.sub?.filterData?.some(obj => obj?._id === item?._id))
                 }
+                onChangeFullFieldMenuItem(choosenSub, 'sub')
 
+                let choosenCreatedBy = []
                 if (choosenItems.some(item => data?.createdBy?.filterData?.some(obj => obj?._id === item?._id))) {
-                  const choosenCreatedBy = choosenItems.filter(item =>
+                  choosenCreatedBy = choosenItems.filter(item =>
                     data?.createdBy?.filterData?.some(obj => obj?._id === item?._id),
                   )
-                  onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
-                  // onChangeFullFieldMenuItem(choosenCreatedBy, 'sub')
                 }
+                onChangeFullFieldMenuItem(choosenCreatedBy, 'createdBy')
+
                 onClickAccept()
               }}
             >
@@ -893,6 +896,7 @@ export const IdeaShopsFieldMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       filterRequestStatus,
       addNullObj,
       onChangeFullFieldMenuItem,
@@ -932,7 +936,7 @@ export const IdeaShopsFieldMenuItem = memo(
 
       useEffect(() => {
         for (const item of field) {
-          onClickFilterBtn(item)
+          onClickFilterBtn(item, table)
         }
       }, [])
 
@@ -1100,8 +1104,8 @@ export const BoxestatusMenuItem = memo(
           ].map(item => (
             <div key={item} className={styles.orderStatus} onClick={() => onClickItem(item)}>
               <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
-              <div title={t(boxStatusTranslateKey(item))} className={styles.orderStatusName}>
-                {t(boxStatusTranslateKey(item))}
+              <div title={boxStatusTranslateKey(item)} className={styles.orderStatusName}>
+                {boxStatusTranslateKey(item)}
               </div>
             </div>
           ))}
@@ -1284,13 +1288,14 @@ export const PriorityMenuItem = memo(
       onClose,
       data,
       field,
+      table,
       columnKey,
       onChangeFullFieldMenuItem,
       onClickAccept,
       onClickFilterBtn,
     }) => {
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const isOrder = ['MY_ORDERS_PRIORITY', 'ORDERS_PRIORITY'].includes(columnKey)
@@ -1479,7 +1484,11 @@ export const ProductMenuItem = memo(
         : 'asin',
     )
 
-    const { currentFilterData, filterData } = data[getCurrentField(currentOption)]
+    const fieledData = data[getCurrentField(currentOption)]
+
+    const filterData = fieledData?.filterData || []
+    const currentFilterData = fieledData?.currentFilterData || []
+
     const [choosenItems, setChoosenItems] = useState(currentFilterData)
     const [itemsForRender, setItemsForRender] = useState(filterData || [])
     const [nameSearchValue, setNameSearchValue] = useState('')
@@ -1638,6 +1647,7 @@ export const OrderOrItemMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -1647,7 +1657,7 @@ export const OrderOrItemMenuItem = memo(
       const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'id')
 
       useEffect(() => {
-        onClickFilterBtn(currentOption)
+        onClickFilterBtn(currentOption, table)
 
         if (currentOption === 'item') {
           onChangeFullFieldMenuItem([], 'id')
@@ -1706,11 +1716,11 @@ export const OrderOrItemMenuItem = memo(
                 onChange={e => setCurrentOption(e.target.value)}
               >
                 <FormControlLabel
-                  title={t(TranslationKey['№Order'])}
+                  title={t(TranslationKey['№ Order'])}
                   className={styles.radioOption}
                   value="id"
                   control={<Radio className={styles.radioControl} />}
-                  label={t(TranslationKey['№Order'])}
+                  label={t(TranslationKey['№ Order'])}
                 />
                 <FormControlLabel
                   title={'№Item'}
@@ -1797,6 +1807,7 @@ export const DestinationMenuItem = memo(
       classes: styles,
       onClose,
       data,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -1804,7 +1815,7 @@ export const DestinationMenuItem = memo(
     } = props
 
     const [currentOption, setCurrentOption] = useState(
-      data.logicsTariffId.currentFilterData.length ? 'logicsTariffId' : 'destinationId',
+      data.logicsTariff.currentFilterData.length ? 'logicsTariff' : 'destination',
     )
 
     const filterData = data[currentOption]?.filterData
@@ -1815,7 +1826,7 @@ export const DestinationMenuItem = memo(
     const [nameSearchValue, setNameSearchValue] = useState('')
 
     useEffect(() => {
-      onClickFilterBtn(currentOption)
+      onClickFilterBtn(currentOption, table)
     }, [currentOption])
 
     useEffect(() => {
@@ -1873,14 +1884,14 @@ export const DestinationMenuItem = memo(
               <FormControlLabel
                 title={t(TranslationKey.Destination)}
                 className={styles.radioOption}
-                value="destinationId"
+                value="destination"
                 control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Destination)}
               />
               <FormControlLabel
                 title={t(TranslationKey.Tariff)}
                 className={styles.radioOption}
-                value="logicsTariffId"
+                value="logicsTariff"
                 control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Tariff)}
               />
@@ -2018,14 +2029,28 @@ export const FromToDateMenuItem = memo(
               <Typography title={t(TranslationKey.From)} className={styles.fromToText}>
                 {t(TranslationKey.From)}
               </Typography>
-              <DatePicker disablePast={false} className={styles.dateInput} value={fromDate} onChange={setFromDate} />
+              <DatePicker
+                maxDate={new Date()}
+                disablePast={false}
+                className={styles.dateInput}
+                value={fromDate}
+                slotProps={{ field: { size: 'small' } }}
+                onChange={setFromDate}
+              />
             </div>
             <div className={styles.fromToDatesSubWrapper}>
               <Typography title={t(TranslationKey.To)} className={styles.fromToText}>
                 {t(TranslationKey.To)}
               </Typography>
 
-              <DatePicker disablePast={false} className={styles.dateInput} value={toDate} onChange={setToDate} />
+              <DatePicker
+                minDate={new Date(fromDate)}
+                disablePast={false}
+                className={styles.dateInput}
+                value={toDate}
+                slotProps={{ field: { size: 'small' } }}
+                onChange={setToDate}
+              />
             </div>
           </div>
 
@@ -2096,7 +2121,7 @@ export const FromToDateMenuItem = memo(
 
 export const DateDetailsMenuItem = memo(
   withStyles(
-    ({ classes: styles, onClose, data, field, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
+    ({ classes: styles, onClose, data, field, table, onChangeFullFieldMenuItem, onClickAccept, onClickFilterBtn }) => {
       const [searchType, setSearchType] = useState('days')
       const [searchFrom, setSearchFrom] = useState('')
       const [searchTo, setSearchTo] = useState('')
@@ -2104,7 +2129,7 @@ export const DateDetailsMenuItem = memo(
       const [disableButton, setDisableButton] = useState(false)
 
       useEffect(() => {
-        onClickFilterBtn(field)
+        onClickFilterBtn(field, table)
       }, [])
 
       const handleSearchTypeChange = event => {
@@ -2290,7 +2315,7 @@ export const NumberFieldMenuItem = memo(
       useEffect(() => {
         const filter = filterData?.filter(
           item =>
-            (nameSearchValue ? String(item).toLowerCase().includes(nameSearchValue?.toLowerCase()) : true) &&
+            (nameSearchValue ? Number(item) === Number(nameSearchValue) : true) &&
             (fromValue || fromValue === 0 ? Number(item) >= Number(fromValue) : true) &&
             (toValue || toValue === 0 ? Number(item) <= Number(toValue) : true),
         )
@@ -2781,6 +2806,7 @@ export const BatchTrackingCellMenuItem = memo(
       classes: styles,
       data,
       field,
+      table,
       filterRequestStatus,
       onClickFilterBtn,
       onChangeFullFieldMenuItem,
@@ -2815,6 +2841,7 @@ export const BatchTrackingCellMenuItem = memo(
           <NormalFieldMenuItem
             data={data[currentTab]}
             field={currentTab}
+            table={table}
             filterRequestStatus={filterRequestStatus}
             columnKey={currentTab}
             onClickFilterBtn={onClickFilterBtn}
@@ -2828,6 +2855,7 @@ export const BatchTrackingCellMenuItem = memo(
           <FromToDateMenuItem
             data={data[currentTab]}
             field={currentTab}
+            table={table}
             filterRequestStatus={filterRequestStatus}
             onClickFilterBtn={onClickFilterBtn}
             onClose={onClose}

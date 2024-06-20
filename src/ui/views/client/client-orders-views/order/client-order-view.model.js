@@ -14,8 +14,6 @@ import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 export class ClientOrderViewModel {
-  history = undefined
-
   orderId = undefined
   storekeepers = []
   destinations = []
@@ -26,7 +24,6 @@ export class ClientOrderViewModel {
 
   showConfirmModal = false
   showSetBarcodeModal = false
-  showWarningInfoModal = false
   showOrderModal = false
 
   confirmModalSettings = {
@@ -34,10 +31,6 @@ export class ClientOrderViewModel {
     confirmTitle: '',
     confirmMessage: '',
     onClickConfirm: () => {},
-  }
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
   }
 
   get userInfo() {
@@ -52,9 +45,7 @@ export class ClientOrderViewModel {
     return UserModel.platformSettings
   }
 
-  constructor({ history }) {
-    this.history = history
-
+  constructor() {
     const url = new URL(window.location.href)
     this.orderId = url.searchParams.get('orderId')
 
@@ -250,16 +241,9 @@ export class ClientOrderViewModel {
 
       this.loadData()
 
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
-      })
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       await this.getOrderById()
-
-      this.onTriggerOpenModal('showWarningInfoModal')
     } catch (error) {
       console.error(error)
     }

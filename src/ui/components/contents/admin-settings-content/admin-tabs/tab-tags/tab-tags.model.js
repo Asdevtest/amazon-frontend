@@ -16,11 +16,17 @@ import { tagsColumns } from './tags-columns'
 
 export class AdminSettingsTagsModel {
   tags = []
-
   requestStatus = undefined
   nameSearchValue = ''
+  tagToEdit = undefined
+  tagIdToRemove = ''
 
   showConfirmModal = false
+  confirmModalSettings = {
+    isWarning: true,
+    message: '',
+    onClickSuccess: () => {},
+  }
   showAddOrEditTagModal = false
 
   sortModel = []
@@ -28,19 +34,10 @@ export class AdminSettingsTagsModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
   rowSelectionModel = []
-
-  tagToEdit = undefined
-  tagIdToRemove = ''
-  confirmModalSettings = {
-    isWarning: true,
-    message: '',
-    onClickSuccess: () => {},
-  }
   rowHandlers = {
     onClickEditBtn: row => this.onClickEditBtn(row),
     onClickRemoveBtn: row => this.onClickRemoveTagBtn(row),
   }
-
   columnsModel = tagsColumns(this.rowHandlers)
 
   get currentData() {
@@ -52,17 +49,14 @@ export class AdminSettingsTagsModel {
   }
 
   constructor() {
+    this.loadData()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   loadData() {
-    try {
-      this.getDataGridState()
-
-      this.getTags()
-    } catch (error) {
-      console.error(error)
-    }
+    this.getDataGridState()
+    this.getTags()
   }
 
   setRequestStatus(requestStatus) {
@@ -82,7 +76,6 @@ export class AdminSettingsTagsModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       console.error(error)
-      this.tags = []
       this.setRequestStatus(loadingStatus.FAILED)
     }
   }
@@ -111,13 +104,11 @@ export class AdminSettingsTagsModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.setDataGridState()
   }
 
@@ -127,7 +118,6 @@ export class AdminSettingsTagsModel {
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
     this.setDataGridState()
   }
 
@@ -142,7 +132,6 @@ export class AdminSettingsTagsModel {
       message: t(TranslationKey['Are you sure you want to delete the tag?']),
       onClickSuccess: () => this.onRemoveTag(),
     }
-
     this.onClickToggleConfirmModal()
   }
 
@@ -152,13 +141,11 @@ export class AdminSettingsTagsModel {
       message: t(TranslationKey['Are you sure you want to delete the tag?']),
       onClickSuccess: () => this.onRemoveTags(),
     }
-
     this.onClickToggleConfirmModal()
   }
 
   onClickEditBtn(row) {
     this.tagToEdit = row
-
     this.onClickToggleAddOrEditModal()
   }
 
@@ -168,7 +155,6 @@ export class AdminSettingsTagsModel {
 
   onClickAddBtn() {
     this.tagToEdit = undefined
-
     this.onClickToggleAddOrEditModal()
   }
 
@@ -178,7 +164,6 @@ export class AdminSettingsTagsModel {
       message: t(TranslationKey['The data will not be saved!']),
       onClickSuccess: () => this.cancelTheOrder(),
     }
-
     this.onClickToggleConfirmModal()
   }
 
@@ -190,9 +175,7 @@ export class AdminSettingsTagsModel {
   async onCreateTag(titleTag) {
     try {
       await GeneralModel.createTag(titleTag)
-
       this.onClickToggleAddOrEditModal()
-
       this.loadData()
     } catch (error) {
       console.error(error)
@@ -202,9 +185,7 @@ export class AdminSettingsTagsModel {
   async onEditTag(id, data) {
     try {
       await AdministratorModel.editTag(id, data)
-
       this.onClickToggleAddOrEditModal()
-
       this.loadData()
     } catch (error) {
       console.error(error)
@@ -214,9 +195,7 @@ export class AdminSettingsTagsModel {
   async onRemoveTag() {
     try {
       await AdministratorModel.removeTags([this.tagIdToRemove])
-
       this.onClickToggleConfirmModal()
-
       this.loadData()
     } catch (error) {
       console.error(error)
@@ -226,9 +205,7 @@ export class AdminSettingsTagsModel {
   async onRemoveTags() {
     try {
       await AdministratorModel.removeTags(this.rowSelectionModel)
-
       this.onClickToggleConfirmModal()
-
       this.loadData()
     } catch (error) {
       console.error(error)

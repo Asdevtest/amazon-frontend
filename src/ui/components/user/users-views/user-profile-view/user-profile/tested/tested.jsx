@@ -1,7 +1,7 @@
 import CheckIcon from '@mui/icons-material/Check'
 import { Box, Paper, Typography } from '@mui/material'
 
-import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
@@ -26,7 +26,7 @@ export const Tested = ({ user }) => {
 
       {user.allowedStrategies.length ? (
         user.allowedStrategies?.map((strategy, i) => (
-          <CheckedStrategyRow key={i} label={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[strategy])} />
+          <CheckedStrategyRow key={i} label={humanFriendlyStategyStatus(productStrategyStatusesEnum[strategy])} />
         ))
       ) : (
         <Typography className={styles.miss}>{t(TranslationKey['No passed strategies'])}</Typography>

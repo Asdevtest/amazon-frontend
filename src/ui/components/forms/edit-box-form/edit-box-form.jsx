@@ -31,7 +31,7 @@ import { t } from '@utils/translations'
 
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
-import { TariffModalType } from '@typings/shared/tariff-modal'
+import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -285,6 +285,14 @@ export const EditBoxForm = memo(
                       const isTransparencyFileAttachedByTheStorekeeper =
                         item?.isTransparencyFileAttachedByTheStorekeeper
 
+                      const isCheckboxVisible =
+                        isTransparencyFileAlreadyAttachedByTheSupplier && isTransparencyFileAttachedByTheStorekeeper
+                      const isCheckboxChecked =
+                        isTransparencyFileAlreadyAttachedByTheSupplier || isTransparencyFileAttachedByTheStorekeeper
+                      const checkboxText = isTransparencyFileAlreadyAttachedByTheSupplier
+                        ? t(TranslationKey['Transparency codes glued by the supplier'])
+                        : t(TranslationKey['Transparency codes are glued by storekeeper'])
+
                       return (
                         <div key={index} className={styles.productWrapper}>
                           <div className={styles.leftProductColumn}>
@@ -400,34 +408,11 @@ export const EditBoxForm = memo(
                                 </div>
                               )}
 
-                              {!isTransparencyFileAlreadyAttachedByTheSupplier &&
-                              !isTransparencyFileAttachedByTheStorekeeper ? (
-                                <p className={cx({ [styles.noBarCodeGlued]: item.product.transparency })}>
-                                  {`${t(TranslationKey.Transparency)}: ${t(TranslationKey['Not glued!'])}`}
-                                </p>
-                              ) : isTransparencyFileAlreadyAttachedByTheSupplier ? (
-                                <Checkbox
-                                  reverted
-                                  disabled
-                                  checked={isTransparencyFileAlreadyAttachedByTheSupplier}
-                                  className={styles.checkbox}
-                                >
-                                  <p className={styles.standartLabel}>
-                                    {t(TranslationKey['Transparency codes glued by the supplier'])}
-                                  </p>
+                              {isCheckboxVisible ? (
+                                <Checkbox reverted disabled checked={isCheckboxChecked} className={styles.checkbox}>
+                                  <p className={styles.standartLabel}>{checkboxText}</p>
                                 </Checkbox>
-                              ) : (
-                                <Checkbox
-                                  reverted
-                                  disabled
-                                  checked={isTransparencyFileAttachedByTheStorekeeper}
-                                  className={styles.checkbox}
-                                >
-                                  <p className={styles.standartLabel}>
-                                    {t(TranslationKey['Transparency codes are glued by storekeeper'])}
-                                  </p>
-                                </Checkbox>
-                              )}
+                              ) : null}
                             </div>
                           </div>
 
@@ -491,11 +476,11 @@ export const EditBoxForm = memo(
                             t(TranslationKey['Not chosen'])
                           }
                           data={
-                            destinationId
+                            boxFields?.variationTariffId
                               ? destinations.filter(
-                                  el => el?._id === (destinationId || formItem?.variationTariff?.destinationId),
+                                  el => el?._id === (destinationId || boxFields?.variationTariff?.destinationId),
                                 )
-                              : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
+                              : destinations.filter(el => el.storekeeper?._id !== boxFields?.storekeeper._id)
                           }
                           searchFields={['name']}
                           favourites={destinationsFavourites}
@@ -703,6 +688,7 @@ export const EditBoxForm = memo(
           <SetShippingLabelModal
             tmpShippingLabel={boxFields.tmpShippingLabel}
             item={boxFields}
+            requestStatus={requestStatus}
             onClickSaveShippingLabel={shippingLabel => {
               setShippingLabel()(shippingLabel)
               setShowSetShippingLabelModal(!showSetShippingLabelModal)
@@ -714,7 +700,7 @@ export const EditBoxForm = memo(
         {showSelectionStorekeeperAndTariffModal ? (
           <SupplierApproximateCalculationsModal
             isTariffsSelect
-            tariffModalType={TariffModalType.WAREHOUSE}
+            tariffModalType={TariffModal.WAREHOUSE}
             openModal={showSelectionStorekeeperAndTariffModal}
             setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
             box={boxFields}

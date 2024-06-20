@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { SelectChangeEvent } from '@mui/material/Select/SelectInput'
 
@@ -31,9 +32,6 @@ export class ManagementTabViewModel {
   private dataIds: DataIdsType = this.initialDataIds
   private product: IProduct | undefined = undefined
 
-  infoModalText: string | undefined = undefined
-  showInfoModal = false
-
   client: MemberType = this.initialMember
   clients: MemberType[] = []
   buyer: MemberType = this.initialMember
@@ -54,6 +52,8 @@ export class ManagementTabViewModel {
   isEditableResearcher = false
 
   constructor() {
+    this.onComponentDidMount()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -143,19 +143,13 @@ export class ManagementTabViewModel {
 
       this.updateDataIdsAndDisabledFlags()
 
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The members are saved!'])
-      })
-
-      this.onTriggerOpenModal()
+      toast.success(t(TranslationKey['The members are saved!']))
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error: any) {
-      runInAction(() => {
-        this.infoModalText = `${error.body.message}!`
-      })
+      toast.error(`${error.body.message}!`)
 
-      this.onTriggerOpenModal()
+      console.error(error)
 
       this.setRequestStatus(loadingStatus.FAILED)
     }
@@ -224,15 +218,5 @@ export class ManagementTabViewModel {
     defaultMember: MemberType,
   ): MemberType {
     return members.find(member => member._id === memberId) || defaultMember
-  }
-
-  onClickToggleInfoModal() {
-    this.onComponentDidMount()
-
-    this.onTriggerOpenModal()
-  }
-
-  onTriggerOpenModal() {
-    this.showInfoModal = !this.showInfoModal
   }
 }

@@ -8,7 +8,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { Checkbox, ListItemText, MenuItem, Rating, Select, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -559,14 +559,14 @@ export const AdminUserEditContent = observer(
                   className={styles.standartText}
                   value={formFields.allowedStrategies}
                   renderValue={selected =>
-                    selected.map(el => humanFriendlyStategyStatus(mapProductStrategyStatusEnum[el])).join(', ')
+                    selected.map(el => humanFriendlyStategyStatus(productStrategyStatusesEnum[el])).join(', ')
                   }
                   onChange={onChangeFormField('allowedStrategies')}
                 >
-                  {Object.keys(mapProductStrategyStatusEnum).map((strategy, index) => (
+                  {Object.keys(productStrategyStatusesEnum).map((strategy, index) => (
                     <MenuItem key={index} className={styles.standartText} value={Number(strategy)}>
                       <Checkbox color="primary" checked={formFields.allowedStrategies.includes(Number(strategy))} />
-                      <ListItemText primary={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[strategy])} />
+                      <ListItemText primary={humanFriendlyStategyStatus(productStrategyStatusesEnum[strategy])} />
                     </MenuItem>
                   ))}
                 </Select>

@@ -15,7 +15,7 @@ import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { BoxArrow } from '@components/shared/svg-icons'
+import { BoxArrowIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount } from '@utils/text'
@@ -195,16 +195,8 @@ const Box = memo(props => {
                 <Typography className={styles.photoAndFilesTitle}>{`${t(
                   TranslationKey['Photos and documents of the box'],
                 )}:`}</Typography>
-                {isNewBox && box.tmpImages?.length ? (
-                  <Typography className={styles.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
-                    box.tmpImages?.length - box.images.length
-                  })`}</Typography>
-                ) : null}
 
-                <SlideshowGallery
-                  slidesToShow={2}
-                  files={isNewBox && box.tmpImages?.length ? box.tmpImages : box.images}
-                />
+                <SlideshowGallery slidesToShow={2} files={box.images} />
               </div>
 
               <div className={styles.photoWrapper}>
@@ -340,7 +332,7 @@ const ReceiveBoxes = memo(({ taskType, onClickOpenModal }) => {
     <div className={styles.receiveBoxWrapper}>
       <div className={styles.boxImageContainer}>
         <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
-        <BoxArrow className={styles.boxArrowSvg} />
+        <BoxArrowIcon className={styles.boxArrowSvg} />
       </div>
 
       <Typography className={styles.receiveBoxTitle}>

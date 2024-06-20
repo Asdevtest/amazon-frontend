@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +14,6 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class IntegrationsModel {
-  history = undefined
   requestStatus = undefined
 
   productId = undefined
@@ -21,7 +21,6 @@ export class IntegrationsModel {
 
   showBindInventoryGoodsToStockModal = false
   showSuccessModal = false
-  showInfoModal = false
 
   successInfoModalText = ''
 
@@ -39,10 +38,9 @@ export class IntegrationsModel {
     return this.sellerBoardData
   }
 
-  constructor({ history, productId }) {
-    this.history = history
-
+  constructor({ productId }) {
     this.productId = productId
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -55,9 +53,7 @@ export class IntegrationsModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
   }
 
   async onClickBindInventoryGoodsToStockBtn() {
@@ -94,9 +90,7 @@ export class IntegrationsModel {
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   async getStockGoodsByFilters(filter, isRecCall) {
@@ -142,7 +136,7 @@ export class IntegrationsModel {
 
       this.loadData()
     } catch (error) {
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey["You can't bind"]))
 
       console.error(error)
     }
@@ -157,16 +151,11 @@ export class IntegrationsModel {
       })
     } catch (error) {
       console.error(error)
-
-      runInAction(() => {
-        this.sellerBoardData = []
-      })
     }
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
     this.loadData()
   }
 
