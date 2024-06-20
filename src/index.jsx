@@ -11,6 +11,12 @@ import { reportWebVitals } from '@utils/report-web-vitals'
 
 import { App } from './app'
 
+console.log(
+  process.env.REACT_APP_SENTRY_PROD_URL,
+  process.env.REACT_APP_SENTRY_STAGE_URL,
+  process.env.REACT_APP_SENTRY_TEST_URL,
+)
+
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [
@@ -23,9 +29,9 @@ Sentry.init({
   tracesSampleRate: 1.0,
   tracePropagationTargets: [
     /^\//,
-    /^https:\/\/api\.aseller\.io\/?/,
-    /^https:\/\/api\.aseller\.cat\/?/,
-    /^https:\/\/amazonapi\.fvds\.ru\/?/,
+    process.env.REACT_APP_SENTRY_PROD_URL,
+    process.env.REACT_APP_SENTRY_STAGE_URL,
+    process.env.REACT_APP_SENTRY_TEST_URL,
   ],
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
