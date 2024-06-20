@@ -114,6 +114,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
                 [styles.cursorPointer]: cursorPointer,
               }),
             }}
+            // @ts-ignore
             renderValue={selected => selectContentToRender(selected, !!onlyRead && onlyRead)}
             className={cx(styles.paymentMethodsField, {
               [styles.grayBorder]: (onlyRead && isEmpty) || onlyRead,

@@ -16,6 +16,9 @@ export const observerConfig = {
   showConfirmModal: observable,
   showPaymentMethodsModal: observable,
 
+  showProgress: observable,
+  progressValue: observable,
+
   userInfo: computed,
   platformSettings: computed,
 

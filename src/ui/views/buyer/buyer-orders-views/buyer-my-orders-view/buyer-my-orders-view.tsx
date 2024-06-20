@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
+import { GridRowClassNameParams } from '@mui/x-data-grid-premium'
 
 import { routsPathes } from '@constants/navigation/routs-pathes'
-import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
@@ -17,6 +18,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IOrder } from '@typings/models/orders/order'
 
 import { useStyles } from './buyer-my-orders-view.style'
 
@@ -24,21 +26,18 @@ import { attentionStatuses, paymentMethodsReadOnlyStatuses } from './buyer-my-or
 import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 import { PaymentAllSuppliers } from './payment-all-suppliers/payment-all-suppliers'
 
-export const BuyerMyOrdersView = observer(({ history }) => {
+export const BuyerMyOrdersView = observer(({ history }: any) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ pathname: history.location.pathname }))
+  const pathname = history.location.pathname
 
-  const getRowClassName = params =>
+  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ pathname }))
+
+  const getRowClassName = (params: GridRowClassNameParams) =>
+    // @ts-ignore
     attentionStatuses.includes(params.row.status) &&
     history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
     styles.attentionRow
-
-  const isNoPaidedOrders = viewModel.orderStatusDataBase.some(
-    status =>
-      Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
-      Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
-  )
 
   return (
     <>
@@ -52,8 +51,10 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         />
 
         <PaymentAllSuppliers
+          // @ts-ignore
           paymentAmount={viewModel.paymentAmount}
-          isNoPaidedOrders={isNoPaidedOrders}
+          isNoPaidedOrders={pathname === routsPathes.BUYER_MY_ORDERS_INBOUND}
+          // @ts-ignore
           yuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
         />
       </div>
@@ -61,6 +62,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
       <div className={styles.dataGridWrapper}>
         <CustomDataGrid
           getRowClassName={getRowClassName}
+          pinnedColumns={viewModel.pinnedColumns}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -68,12 +70,16 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={(row: IOrder) => row._id}
+          rowSelectionModel={viewModel.selectedRows}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
-            columnMenu: { ...viewModel.columnMenuSettings, orderStatusData: viewModel.orderStatusData },
-
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
@@ -84,16 +90,19 @@ export const BuyerMyOrdersView = observer(({ history }) => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
+          onRowDoubleClick={(e: GridRowClassNameParams) => viewModel.onClickOrder(e.row._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -106,6 +115,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         }}
       >
         <EditOrderModal
+          // @ts-ignore
           platformSettings={viewModel.platformSettings}
           paymentMethods={viewModel.paymentMethods}
           userInfo={viewModel.userInfo}
@@ -147,15 +157,16 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
       >
         <PaymentMethodsForm
+          // @ts-ignore
           readOnly={paymentMethodsReadOnlyStatuses.includes(viewModel.currentOrder?.status)}
+          // @ts-ignore
           orderPayments={viewModel.currentOrder?.payments}
           allPayments={viewModel.paymentMethods}
+          // @ts-ignore
           onClickSaveButton={state => viewModel.saveOrderPayment(viewModel.currentOrder, state)}
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
         />
       </Modal>
-
-      {viewModel.requestStatus === loadingStatus.IS_LOADING && <CircularProgressWithLabel />}
     </>
   )
 })

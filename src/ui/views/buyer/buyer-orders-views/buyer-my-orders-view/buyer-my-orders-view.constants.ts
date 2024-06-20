@@ -54,17 +54,17 @@ export const filtersFields = [
 ]
 
 export const attentionStatuses = [
-  OrderStatusByKey[OrderStatus.AT_PROCESS],
-  OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
-  OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
+  OrderStatusByKey[OrderStatus.AT_PROCESS as keyof typeof OrderStatusByKey],
+  OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER as keyof typeof OrderStatusByKey],
+  OrderStatusByKey[OrderStatus.VERIFY_RECEIPT as keyof typeof OrderStatusByKey],
 ]
 
 export const paymentMethodsReadOnlyStatuses = [
-  OrderStatusByKey[OrderStatus.PARTIALLY_PAID],
-  OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
-  OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
-  OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
-  OrderStatusByKey[OrderStatus.IN_STOCK],
-  OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
-  OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+  OrderStatusByKey[OrderStatus.PARTIALLY_PAID as keyof typeof OrderStatusByKey],
+  OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER as keyof typeof OrderStatusByKey],
+  OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED as keyof typeof OrderStatusByKey],
+  OrderStatusByKey[OrderStatus.VERIFY_RECEIPT as keyof typeof OrderStatusByKey],
+  OrderStatusByKey[OrderStatus.IN_STOCK as keyof typeof OrderStatusByKey],
+  OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER as keyof typeof OrderStatusByKey],
+  OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT as keyof typeof OrderStatusByKey],
 ]

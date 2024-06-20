@@ -1,3 +1,4 @@
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { OrderStatusByCode, OrderStatusTranslate, orderColorByStatus } from '@constants/orders/order-status'
@@ -48,7 +49,7 @@ export const pendingOrdersColumns = () => {
 
       disableCustomSort: true,
 
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.buyer.ORDERS_PRIORITY,
     },
 
     {
@@ -70,10 +71,42 @@ export const pendingOrdersColumns = () => {
         )
       },
 
-      table: DataGridFilterTables.PRODUCTS,
+      fields: [
+        {
+          label: () => t(TranslationKey.ASIN),
+          value: 0,
+        },
+        {
+          label: () => t(TranslationKey.SKU),
+          value: 1,
+        },
+        {
+          label: () => t(TranslationKey.Title),
+          value: 2,
+        },
+      ],
+
+      columnMenuConfig: [
+        {
+          field: 'asin',
+          table: DataGridFilterTables.PRODUCTS,
+          columnKey: ColumnMenuKeys.STRING,
+        },
+        {
+          field: 'skuByClient',
+          table: DataGridFilterTables.PRODUCTS,
+          columnKey: ColumnMenuKeys.STRING,
+        },
+        {
+          field: 'amazonTitle',
+          table: DataGridFilterTables.PRODUCTS,
+          columnKey: ColumnMenuKeys.STRING,
+        },
+      ],
+
       disableCustomSort: true,
 
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
@@ -90,6 +123,11 @@ export const pendingOrdersColumns = () => {
           />
         )
       },
+
+      transformValueMethod: value =>
+        OrderStatusTranslate(OrderStatusByCode[Number(value) as keyof typeof OrderStatusByCode]),
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+
       disableCustomSort: true,
     },
 
@@ -100,7 +138,7 @@ export const pendingOrdersColumns = () => {
       renderCell: params => <MultilineTextCell text={params.value} />,
 
       width: 90,
-      type: 'number',
+      columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
     },
 
@@ -110,8 +148,9 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.totalPrice, 2)} />,
-      type: 'number',
+
       width: 90,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -137,8 +176,11 @@ export const pendingOrdersColumns = () => {
       renderCell: params => (
         <UserMiniCell userName={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
+
       width: 120,
       disableCustomSort: true,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {

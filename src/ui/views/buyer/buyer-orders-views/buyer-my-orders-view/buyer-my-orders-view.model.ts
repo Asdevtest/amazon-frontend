@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -23,7 +24,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { IOrderPayment } from '@typings/models/buyers/order-payment-by-status'
 import { IOrder } from '@typings/models/orders/order'
 import { IHSCode } from '@typings/shared/hs-code'
-import { IPaymentMethod } from '@typings/shared/payment-method'
 
 import { fieldsForSearch, updateOrderKeys } from './buyer-my-orders-view.constants'
 import { buyerOrdersColumns } from './buyer-orders.columns'
@@ -34,20 +34,23 @@ import { getStatusesOrderPayment } from './helpers/get-statuses-order-payment'
 import { observerConfig } from './observer-config'
 
 export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
-  orderStatusDataBase: string[] = []
-  paymentMethods: IPaymentMethod[] = []
+  orderStatusDataBase: string = ''
+  paymentMethods: any[] = []
 
   createBoxesResult = []
   paymentAmount: IOrderPayment | null = null
 
   selectedOrder: IOrder | null = null
 
-  currentOrder = undefined
+  currentOrder: IOrder | null = null
   updateSupplierData = false
-  dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
+  dataToCancelOrder: { orderId: string; buyerComment: string } = { orderId: '', buyerComment: '' }
 
   readyImages: string[] = []
   hsCodeData: IHSCode | null = null
+
+  showProgress: boolean = false
+  progressValue: number = 0
 
   showOrderModal = false
   showConfirmModal = false
@@ -106,44 +109,16 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     makeObservable(this, observerConfig)
   }
 
-  setUpdateSupplierData(value) {
+  setUpdateSupplierData(value: boolean) {
     this.updateSupplierData = value
   }
 
   async getBuyersOrdersPaymentByStatus() {
-    if (
-      Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
-    ) {
-      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
+    if (this.orderStatusDataBase) {
+      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(this.orderStatusDataBase)
 
       runInAction(() => {
-        this.paymentAmount = response
-      })
-    } else if (
-      Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
-    ) {
-      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
-
-      runInAction(() => {
-        this.paymentAmount = response
-      })
-    } else if (
-      this.orderStatusDataBase.some(
-        status =>
-          Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.AT_PROCESS]) ||
-          Number(OrderStatusByKey[status]) === Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
-      ) &&
-      this.orderStatusDataBase.length === 2
-    ) {
-      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(
-        [
-          Number(OrderStatusByKey[OrderStatus.AT_PROCESS]),
-          Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
-        ].join(','),
-      )
-
-      runInAction(() => {
-        this.paymentAmount = response
+        this.paymentAmount = response as unknown as IOrderPayment
       })
     }
   }
@@ -165,12 +140,22 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn({
+    supplier,
+    itemId,
+    editPhotosOfSupplier,
+    editPhotosOfUnit,
+  }: {
+    supplier: any
+    itemId: string
+    editPhotosOfSupplier: string[]
+    editPhotosOfUnit: string[]
+  }) {
     try {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
+        paymentMethods: supplier.paymentMethods.map((item: any) => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         heightUnit: supplier?.heightUnit || null,
@@ -179,12 +164,14 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         weighUnit: supplier?.weighUnit || null,
       }
 
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
       supplier = {
         ...supplier,
         images: this.readyImages,
       }
 
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
       supplier = {
         ...supplier,
@@ -208,18 +195,21 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
       }
 
-      const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
+      const orderData = await BuyerModel.getOrderById(this.selectedOrder?._id)
 
       runInAction(() => {
-        this.selectedOrder = orderData
+        this.selectedOrder = orderData as unknown as IOrder
       })
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onClickSaveWithoutUpdateSupData(DataForSaveOrder, orderFields) {
-    if (orderFields.status !== OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] && orderFields.status < 20) {
+  async onClickSaveWithoutUpdateSupData(DataForSaveOrder: any, orderFields: any) {
+    if (
+      orderFields.status !== OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER as keyof typeof OrderStatusByKey] &&
+      orderFields.status < 20
+    ) {
       runInAction(() => {
         this.confirmModalSettings = {
           title: t(TranslationKey.Attention),
@@ -233,6 +223,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
             this.onSubmitSaveOrder(DataForSaveOrder)
             this.onTriggerOpenModal('showConfirmModal')
           },
+          onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
         }
       })
 
@@ -242,13 +233,22 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickUpdataSupplierData({ supplier, productId, orderFields }) {
+  async onClickUpdataSupplierData({
+    supplier,
+    productId,
+    orderFields,
+  }: {
+    supplier: any
+    productId: string
+    orderFields: any
+  }) {
     this.updateSupplierData = false
 
     try {
       supplier = {
         ...supplier,
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
+        paymentMethods: supplier.paymentMethods.map((item: any) => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
+        // @ts-ignore
         yuanRate: this.platformSettings?.yuanToDollarRate,
         amount: orderFields.amount,
         price: orderFields.price,
@@ -267,7 +267,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
       }
 
-      const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
+      const orderData = (await BuyerModel.getOrderById(this.selectedOrder?._id)) as unknown as IOrder
 
       runInAction(() => {
         this.selectedOrder = orderData
@@ -277,12 +277,12 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickPaymentMethodsCell(row) {
+  onClickPaymentMethodsCell(row: IOrder) {
     this.currentOrder = row
     this.onTriggerOpenModal('showPaymentMethodsModal')
   }
 
-  async onSaveOrderItem(orderId, orderItem) {
+  async onSaveOrderItem(orderId: string, orderItem: IOrder) {
     try {
       await BuyerModel.changeOrderItem(orderId, orderItem)
 
@@ -302,6 +302,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         this.selectedOrder = orderData as unknown as IOrder
       })
 
+      // @ts-ignore
       await this.onClickHsCode(orderData?.product?._id)
 
       this.onTriggerOpenModal('showOrderModal')
@@ -324,12 +325,15 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async saveOrderPayment(order, orderPayments) {
-    if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
+  async saveOrderPayment(order: IOrder, orderPayments: any) {
+    if (
+      Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT as keyof typeof OrderStatusByKey])
+    ) {
       try {
         const validOrderPayments = []
 
         for (const payment of orderPayments) {
+          // @ts-ignore
           await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
 
           const updatedPayment = {
@@ -361,6 +365,16 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     commentToWarehouse,
     editPaymentDetailsPhotos,
     orderPayments,
+  }: {
+    order: IOrder
+    orderFields: any
+    boxesForCreation: any
+    photosToLoad: any
+    hsCode: IHSCode
+    trackNumber: string
+    commentToWarehouse: string
+    editPaymentDetailsPhotos: any
+    orderPayments: any
   }) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
@@ -383,12 +397,14 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         partialPaymentAmountRmb: Number(orderFields.partialPaymentAmountRmb) || 0,
       }
 
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
       orderFields = {
         ...orderFields,
         images: this.readyImages,
       }
 
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: editPaymentDetailsPhotos, type: 'readyImages' })
       orderFields = {
         ...orderFields,
@@ -402,40 +418,46 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       if (
         boxesForCreation.length > 0 &&
         !isMismatchOrderPrice &&
-        orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`
+        orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER as keyof typeof OrderStatusByKey]}`
       ) {
         await this.onSubmitCreateBoxes({ order, boxesForCreation, trackNumber, commentToWarehouse })
       }
 
       if (
-        orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
-        orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+        orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS as keyof typeof OrderStatusByKey] ||
+        orderFields.status ===
+          OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE as keyof typeof OrderStatusByKey]
       ) {
         if (toFixed(orderFields.totalPriceChanged, 2) !== toFixed(orderFields.totalPrice, 2)) {
           await BuyerModel.setOrderTotalPriceChanged(order._id, { totalPriceChanged: orderFields.totalPriceChanged })
         }
       }
 
-      if (orderFields.status === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`) {
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.AT_PROCESS as keyof typeof OrderStatusByKey]}`) {
         await BuyerModel.setOrdersAtProcess(order._id)
       }
 
-      if (orderFields.status === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`) {
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER as keyof typeof OrderStatusByKey]}`) {
         await BuyerModel.orderPayToSupplier(order._id)
       }
 
-      if (orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`) {
+      if (
+        orderFields.status === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED as keyof typeof OrderStatusByKey]}`
+      ) {
         await BuyerModel.orderTrackNumberIssued(order._id)
       }
 
-      if (orderFields.status === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`) {
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.IN_STOCK as keyof typeof OrderStatusByKey]}`) {
         await BuyerModel.orderSetInStock(order._id, { refundPrice: Number(orderFields.tmpRefundToClient) })
       }
 
-      if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
+      if (
+        orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT as keyof typeof OrderStatusByKey]}`
+      ) {
         const validOrderPayments = []
 
         for (const payment of orderPayments) {
+          // @ts-ignore
           await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
 
           const updatedPayment = {
@@ -450,11 +472,13 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         await BuyerModel.orderReadyForPayment(order._id, { orderPayments: validOrderPayments })
       }
 
-      if (orderFields.status === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID]}`) {
+      if (orderFields.status === `${OrderStatusByKey[OrderStatus.PARTIALLY_PAID as keyof typeof OrderStatusByKey]}`) {
         await BuyerModel.orderPartiallyPaid(order._id)
       }
 
-      if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
+      if (
+        orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER as keyof typeof OrderStatusByKey]}`
+      ) {
         runInAction(() => {
           this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
           this.confirmModalSettings = {
@@ -481,7 +505,9 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         ])
       }
 
-      if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
+      if (
+        orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER as keyof typeof OrderStatusByKey]}`
+      ) {
         runInAction(() => {
           this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
         })
@@ -499,7 +525,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSaveOrder(order, updateOrderData) {
+  async onSaveOrder(order: IOrder, updateOrderData: any) {
     try {
       const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         {
@@ -507,7 +533,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
           orderSupplierId: updateOrderData.orderSupplier._id,
           amount: updateOrderData?.amount,
           priceInYuan: updateOrderData.priceInYuan,
-          priceBatchDeliveryInYuan: updateOrderData.priceBatchDeliveryInYuan,
+          priceBatchDeliveryInYuan: updateOrderData?.priceBatchDeliveryInYuan,
         },
         updateOrderKeys,
         true,
@@ -520,13 +546,24 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitCreateBoxes({ order, boxesForCreation, trackNumber, commentToWarehouse }) {
+  async onSubmitCreateBoxes({
+    order,
+    boxesForCreation,
+    trackNumber,
+    commentToWarehouse,
+  }: {
+    order: IOrder
+    boxesForCreation: any
+    trackNumber: any
+    commentToWarehouse: string
+  }) {
     try {
       runInAction(() => {
         this.createBoxesResult = []
       })
 
       if (trackNumber?.files.length) {
+        // @ts-ignore
         await onSubmitPostImages.call(this, { images: trackNumber.files, type: 'readyImages' })
       }
 
@@ -537,7 +574,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
           trackNumberFile: this.readyImages.length ? this.readyImages : [],
         }
 
-        await this.onCreateBox(elementOrderBox, order)
+        await this.onCreateBox(elementOrderBox)
 
         if (elementOrderBox.tmpUseToUpdateSupplierBoxDimensions) {
           const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
@@ -569,9 +606,12 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
         priority:
-          order.priority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC]
-            ? mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT]
-            : mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
+          order.priority ===
+          mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC as keyof typeof mapTaskPriorityStatusEnumToKey]
+            ? mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT as keyof typeof mapTaskPriorityStatusEnumToKey]
+            : mapTaskPriorityStatusEnumToKey[
+                TaskPriorityStatus.STANDART as keyof typeof mapTaskPriorityStatusEnumToKey
+              ],
       })
 
       toast.success(t(TranslationKey['A task was created for the warehouse: "Receive a box"']))
@@ -580,7 +620,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onCreateBox(formFields) {
+  async onCreateBox(formFields: any) {
     try {
       const createBoxData = {
         ...getObjectFilteredByKeyArrayBlackList(formFields, [
@@ -606,7 +646,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
           {
             productId: formFields.items[0].product._id,
             amount: formFields.items[0].amount,
-            orderId: this.selectedOrder._id,
+            orderId: this.selectedOrder?._id,
 
             transparencyFile: formFields?.items?.[0]?.transparencyFile || '',
             isBarCodeAlreadyAttachedByTheSupplier: formFields?.items?.[0]?.isBarCodeAlreadyAttachedByTheSupplier,
@@ -619,6 +659,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       const createBoxResult = await BoxesModel.createBox(createBoxData)
 
       runInAction(() => {
+        // @ts-ignore
         this.createBoxesResult = [...this.createBoxesResult, createBoxResult.guid]
       })
       return

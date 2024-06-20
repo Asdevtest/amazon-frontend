@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Checkbox } from '@mui/material'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
@@ -18,7 +19,6 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   PaymentMethodsCell,
   PriorityAndChinaDeliverCell,
   ProductAsinCell,
@@ -114,9 +114,9 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: params => (
         <MultilineTextCell
-          text={OrderStatusTranslate(OrderStatusByCode[params.row.status])}
+          text={OrderStatusTranslate(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
           maxLength={50}
-          color={orderColorByStatus(OrderStatusByCode[params.row.status])}
+          color={orderColorByStatus(OrderStatusByCode[params.row.status as keyof typeof OrderStatusByCode])}
         />
       ),
       width: 140,
@@ -155,11 +155,11 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
       renderCell: params => (
         <PaymentMethodsCell
-          paymentMethods={params.row.payments?.map(payment => payment.paymentMethod)}
-          onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row)}
+          paymentMethods={params.row.payments?.map((payment: any) => payment.paymentMethod)}
+          onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row as IOrder)}
         />
       ),
-      valueGetter: params => params.row.payments.map(payment => payment?.paymentMethod?.title).join(', '),
+      valueGetter: params => params.row.payments.map((payment: any) => payment?.paymentMethod?.title).join(', '),
       width: 180,
       sortable: false,
 
@@ -273,10 +273,10 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
           color={
             Math.abs(getDistanceBetweenDatesInSeconds(params.row.paymentDateToSupplier)) >
               convertDaysToSeconds(params.row.orderSupplier?.productionTerm) &&
-            params.row.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
+            params.row.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER as keyof typeof OrderStatusByKey] &&
             !!params.row.orderSupplier?.productionTerm
               ? '#FF1616'
-              : null
+              : ''
           }
           text={params.row.paymentDateToSupplier ? formatDate(params.row.paymentDateToSupplier) : ''}
         />
