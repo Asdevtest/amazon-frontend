@@ -173,14 +173,14 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       columnKey: columnnsKeys.shared.STRING,
     },
 
-    /* {
+    {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <ShortDateCell value={row.updatedAt} />,
       width: 105,
       columnKey: columnnsKeys.shared.DATE,
-    }, */
+    },
   ]
 
   const filteredColumns = columns.filter(column => column)
