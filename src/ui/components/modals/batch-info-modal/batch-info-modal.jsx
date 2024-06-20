@@ -28,7 +28,7 @@ import {
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
 import { formatDateWithoutTime } from '@utils/date-time'
-import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './batch-info-modal.style'
