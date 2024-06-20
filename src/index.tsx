@@ -7,11 +7,11 @@ import '@services/mobx-persist-configure'
 import { reportWebVitals } from '@utils/report-web-vitals'
 
 import { App } from './app/app'
-import { ThemeProvider } from './app/providers/theme-provider'
+import { ThemeProvider } from './app/providers/theme'
 import './app/styles/index.scss'
 import './shared/config/i18n'
 import './shared/config/sentry'
-import { FallBack } from './widgets/layout/fall-back'
+import { FallBack } from './widgets/fall-back'
 
 const container = document.getElementById('root')!
 const root = createRoot(container)

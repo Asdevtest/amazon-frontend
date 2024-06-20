@@ -15,7 +15,7 @@ import { CustomTimer } from '@components/shared/custom-timer'
 
 import { Roles } from '@typings/enums/roles'
 
-import { Theme, useTheme } from '../../../app/providers/theme-provider'
+import { Theme, useTheme } from '../../app/providers/theme'
 
 import { HeaderModel } from './header.model'
 import classes from './header.module.scss'

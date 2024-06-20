@@ -2,9 +2,10 @@ import { Layout as AntLayout, Breadcrumb } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 import { FC, PropsWithChildren } from 'react'
 
-import { Header } from './header'
+import { Header } from '../header'
+import { Sider } from '../sider'
+
 import classes from './layout.module.scss'
-import { Sider } from './sider'
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (

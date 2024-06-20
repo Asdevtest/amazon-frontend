@@ -1,10 +1,10 @@
 import { ConfigProvider, theme as antTheme } from 'antd'
 
 import { Layout } from '../widgets/layout'
-import { ToastifyProvider } from '../widgets/layout/navigation/toastify/toastify-provider'
+import { ToastifyProvider } from '../widgets/navigation/toastify/toastify-provider'
 
 import { useNotifications } from './providers/notifications'
-import { Theme, useTheme } from './providers/theme-provider'
+import { Theme, useTheme } from './providers/theme'
 
 export const App = () => {
   useNotifications()
