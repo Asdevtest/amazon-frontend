@@ -1,6 +1,7 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { UserRole, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { userRoleTranslateKey, userStatusTranslateKey, userSubStatusTranlateKey } from '@constants/statuses/user-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -94,9 +95,10 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey.Role),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Role)} />,
 
-      renderCell: ({ row }) => <MultilineTextCell text={UserRolePrettyMap[row?.role]} />,
+      renderCell: ({ row }) => <MultilineTextCell text={userRoleTranslateKey(row?.role)} />,
       width: 150,
-      columnKey: columnnsKeys.shared.STRING,
+      transformValueMethod: userRoleTranslateKey,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -104,8 +106,9 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey['User status']),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey['User status'])} />,
 
-      renderCell: ({ row }) => <MultilineTextCell text={row?.active ? 'Active' : 'Banned'} />,
-      columnKey: columnnsKeys.shared.STRING,
+      renderCell: ({ row }) => <MultilineTextCell text={userStatusTranslateKey(row?.active)} />,
+      transformValueMethod: userStatusTranslateKey,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 160,
     },
 
@@ -114,8 +117,11 @@ export const adminUsersViewColumns = handlers => {
       headerName: t(TranslationKey['Sub status']),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey['Sub status'])} />,
 
-      renderCell: params => <ProductVariationsCell showVariationButton isParentProduct={!params?.row?.sub} />,
-      columnKey: columnnsKeys.shared.STRING,
+      renderCell: params => (
+        <ProductVariationsCell showVariationButton isParentProduct={!params?.row?.sub} isTooltipVisible={false} />
+      ),
+      transformValueMethod: userSubStatusTranlateKey,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 120,
     },
 
@@ -135,6 +141,7 @@ export const adminUsersViewColumns = handlers => {
       ),
       filterable: false,
       sortable: false,
+      disableCustomSort: true,
       width: 205,
     },
   ]

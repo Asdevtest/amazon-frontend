@@ -53,11 +53,11 @@ export const clientRealizedIdeasColumns = rowHandlers => {
 
       fields: [
         {
-          label: () => TranslationKey['Master user'],
+          label: () => t(TranslationKey['Parent product']),
           value: 0,
         },
         {
-          label: () => TranslationKey['Sub user'],
+          label: () => t(TranslationKey['Child product']),
           value: 1,
         },
       ],

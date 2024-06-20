@@ -6,6 +6,7 @@ import { getLaunchStyle } from './helpers/get-launch-style'
 import { useStyles } from './launches.style'
 
 import { getLaunchName } from './helpers/get-launch-name'
+import { getLaunchValue } from './helpers/get-launch-value'
 
 interface LaunchesProps {
   launches: ILaunch[]
@@ -20,8 +21,12 @@ export const Launches: FC<LaunchesProps> = memo(props => {
   return (
     <div className={cx(styles.wrapper, { [styles.cell]: isCell })}>
       {launches.map((launch, index) => (
-        <p key={index} style={getLaunchStyle(launch.type, theme)} className={styles.text}>
-          {`${getLaunchName(launch.type, true)} ${launch.value} %`}
+        <p
+          key={index}
+          style={getLaunchStyle(launch.type, theme)}
+          className={cx(styles.text, { [styles.expired]: launch.expired })}
+        >
+          {`${getLaunchName(launch.type, true)} ${getLaunchValue(launch.value)}`}
         </p>
       ))}
     </div>

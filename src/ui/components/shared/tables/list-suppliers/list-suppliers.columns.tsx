@@ -43,7 +43,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     ),
     filterable: false,
     sortable: false,
-    width: 150,
+    width: 145,
   },
 
   {
@@ -144,7 +144,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) => <MultilineTextCell leftAlign threeLines maxLength={60} text={row.comment} />,
     filterable: false,
     sortable: false,
-    width: 200,
+    width: 195,
   },
 
   {
@@ -153,7 +153,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) => <UserMiniCell userName={row.createdBy.name} userId={row.createdBy._id} />,
     filterable: false,
     sortable: false,
-    width: 180,
+    width: 175,
   },
 
   {

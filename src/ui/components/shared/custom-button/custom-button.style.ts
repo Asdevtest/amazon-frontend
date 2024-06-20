@@ -5,6 +5,10 @@ export const useStyles = makeStyles()(() => ({
     padding: '10px 0',
   },
 
+  button: {
+    borderRadius: 16, // delete when completely switching to antd
+  },
+
   iconButton: {
     span: {
       display: 'flex',

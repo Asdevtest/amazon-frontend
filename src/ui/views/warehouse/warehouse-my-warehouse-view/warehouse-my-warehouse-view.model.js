@@ -708,6 +708,11 @@ export class WarehouseMyWarehouseViewModel {
           }
 
           resBoxes.push(boxToPush)
+
+          runInAction(() => {
+            this.uploadedFiles = []
+            this.uploadedImages = []
+          })
         }
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)

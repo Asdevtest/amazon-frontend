@@ -21,6 +21,8 @@ export const getLaunchName = (type: LaunchType, short?: boolean): string => {
       return 'A/B'
     case Launches.CUSTOM:
       return 'Custom'
+    case Launches.PRICE_CHANGE:
+      return short ? 'Price' : 'Price change'
     default:
       return ''
   }

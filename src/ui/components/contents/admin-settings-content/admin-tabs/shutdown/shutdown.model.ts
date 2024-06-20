@@ -16,6 +16,7 @@ export class ShutdownModel {
   noticeMessage = DEFAULT_NOTICE_MESSAGE
   timePart: TimeParts = TimeParts.MINUTES
   timePartValue = 0
+  countdown = 0
 
   get disabledSendButton() {
     return !this.shutdownDelayChecked || this.noticeMessage.trim().length === 0 || this.timePartValue === 0
@@ -31,6 +32,10 @@ export class ShutdownModel {
   async onToggleServer() {
     try {
       if (this.shutdownDelayChecked) {
+        runInAction(() => {
+          this.countdown = 0
+        })
+
         const turn = 'off'
         const convertedPartValueToMilliseconds = this.timePartValue * timeToMilliseconds[this.timePart]
         const data = {
@@ -39,8 +44,11 @@ export class ShutdownModel {
         }
 
         await AdministratorModel.toggleServer(turn, data)
+        await this.getAdminSettings()
 
-        this.getAdminSettings()
+        setTimeout(() => {
+          this.serverEnabled = false
+        }, this.countdown)
       } else {
         const response = await AdministratorModel.toggleServer()
 
@@ -61,6 +69,7 @@ export class ShutdownModel {
 
       runInAction(() => {
         this.noticeMessage = response?.dynamicSettings?.techPause?.body?.message
+        this.countdown = response?.dynamicSettings?.techPause?.body?.countdown
       })
     } catch (error) {
       console.error(error)
