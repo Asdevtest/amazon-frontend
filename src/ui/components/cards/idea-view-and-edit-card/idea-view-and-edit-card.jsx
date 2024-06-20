@@ -746,7 +746,7 @@ export const IdeaViewAndEditCard = observer(
                     styleType={ButtonStyle.SUCCESS}
                     tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                     disabled={idea.childProduct}
-                    className={[styles.actionButton]}
+                    className={styles.actionButton}
                     onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
                   >
                     {t(TranslationKey['Create a product card'])}
