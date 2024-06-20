@@ -23,21 +23,20 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { IOrderPayment } from '@typings/models/buyers/order-payment-by-status'
 import { IOrder } from '@typings/models/orders/order'
 import { IHSCode } from '@typings/shared/hs-code'
+import { IPaymentMethod } from '@typings/shared/payment-method'
 
 import { fieldsForSearch, updateOrderKeys } from './buyer-my-orders-view.constants'
 import { buyerOrdersColumns } from './buyer-orders.columns'
 import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
 import { getShowPartialPayment } from './helpers/get-show-partial-payment'
 import { getStatusGroup } from './helpers/get-status-group'
+import { getStatusesOrderPayment } from './helpers/get-statuses-order-payment'
 import { observerConfig } from './observer-config'
 
 export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
-  orderStatusDataBase = []
-  chosenStatus = []
-  filteredStatus = []
-  paymentMethods = []
-  ordersMy = []
-  baseNoConvertedOrders = []
+  orderStatusDataBase: string[] = []
+  paymentMethods: IPaymentMethod[] = []
+
   createBoxesResult = []
   paymentAmount: IOrderPayment | null = null
 
@@ -46,9 +45,8 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
   currentOrder = undefined
   updateSupplierData = false
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
-  progressValue = 0
-  showProgress = false
-  readyImages = []
+
+  readyImages: string[] = []
   hsCodeData: IHSCode | null = null
 
   showOrderModal = false
@@ -91,6 +89,8 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     })
 
     this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+
+    this.orderStatusDataBase = getStatusesOrderPayment(pathname)
 
     this.getDataGridState()
     this.getCurrentData()

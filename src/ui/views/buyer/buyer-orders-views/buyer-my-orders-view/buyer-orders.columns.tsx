@@ -21,6 +21,7 @@ import {
   OrderCell,
   PaymentMethodsCell,
   PriorityAndChinaDeliverCell,
+  ProductAsinCell,
   UserLinkCell,
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
@@ -60,9 +61,9 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
       renderCell: params => (
         <PriorityAndChinaDeliverCell
-          priority={params.row.originalData.priority}
-          chinaDelivery={params.row.originalData.expressChinaDelivery}
-          status={params.row.originalData.status}
+          priority={params.row.priority}
+          chinaDelivery={params.row.expressChinaDelivery}
+          status={params.row.status}
         />
       ),
       sortable: false,
@@ -75,13 +76,22 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       field: 'asin',
       headerName: 'ASIN',
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
-      renderCell: params => <OrderCell product={params.row.originalData.product} />,
-      sortable: false,
-      valueGetter: params =>
-        `ASIN: ${params.row.originalData.product.asin ?? ''}, SKU: ${
-          params.row.originalData.product.skuByClient ?? ''
-        }`,
+
+      renderCell: params => {
+        const product = params.row.product
+
+        return (
+          <ProductAsinCell
+            image={product?.images?.[0]}
+            amazonTitle={product?.amazonTitle}
+            asin={product?.asin}
+            skuByClient={product?.skuByClient}
+          />
+        )
+      },
       width: 280,
+      sortable: false,
+      valueGetter: params => `ASIN: ${params.row.product.asin ?? ''}, SKU: ${params.row.product.skuByClient ?? ''}`,
 
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
@@ -90,10 +100,8 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       field: 'paymentDetailsAttached',
       headerName: t(TranslationKey['Payment documents']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment documents'])} />,
-      renderCell: params => (
-        <Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.originalData.paymentDetailsAttached} />
-      ),
-      valueGetter: params => params.row.originalData.paymentDetailsAttached,
+      renderCell: params => <Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.paymentDetailsAttached} />,
+      valueGetter: params => params.row.paymentDetailsAttached,
       width: 120,
       align: 'center',
 
@@ -106,9 +114,9 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: params => (
         <MultilineTextCell
-          text={OrderStatusTranslate(OrderStatusByCode[params.row.originalData.status])}
+          text={OrderStatusTranslate(OrderStatusByCode[params.row.status])}
           maxLength={50}
-          color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
+          color={orderColorByStatus(OrderStatusByCode[params.row.status])}
         />
       ),
       width: 140,
@@ -133,8 +141,8 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       field: 'totalPrice',
       headerName: t(TranslationKey.Price),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
-      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.originalData.totalPrice, 2)} />,
-      valueGetter: params => toFixedWithDollarSign(params.row.originalData.totalPrice, 2),
+      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.row.totalPrice, 2)} />,
+      valueGetter: params => toFixedWithDollarSign(params.row.totalPrice, 2),
       width: 90,
       type: 'number',
 
@@ -144,19 +152,14 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
     {
       field: 'paymentMethod',
       headerName: t(TranslationKey['Payment methods']),
-      renderHeader: params => (
-        <MultilineTextHeaderCell
-          text={t(TranslationKey['Payment methods'])}
-          isFilterActive={getColumnMenuSettings()?.[params.field]?.currentFilterData?.length}
-        />
-      ),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
       renderCell: params => (
         <PaymentMethodsCell
-          paymentMethods={params.row.originalData.payments?.map(payment => payment.paymentMethod)}
-          onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row.originalData)}
+          paymentMethods={params.row.payments?.map(payment => payment.paymentMethod)}
+          onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row)}
         />
       ),
-      valueGetter: params => params.row.originalData.payments.map(payment => payment?.paymentMethod?.title).join(', '),
+      valueGetter: params => params.row.payments.map(payment => payment?.paymentMethod?.title).join(', '),
       width: 180,
       sortable: false,
 
@@ -171,22 +174,12 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       renderCell: params => (
         <MultilineTextCell
           text={
-            toFixed(
-              params.row.originalData.partialPayment
-                ? params.row.originalData.partialPaymentAmountRmb
-                : params.row.originalData.priceInYuan,
-              2,
-            ) || '0'
+            toFixed(params.row.partialPayment ? params.row.partialPaymentAmountRmb : params.row.priceInYuan, 2) || '0'
           }
         />
       ),
       valueGetter: params =>
-        toFixed(
-          params.row.originalData.partialPayment
-            ? params.row.originalData.partialPaymentAmountRmb
-            : params.row.originalData.priceInYuan,
-          2,
-        ) || '0',
+        toFixed(params.row.partialPayment ? params.row.partialPaymentAmountRmb : params.row.priceInYuan, 2) || '0',
       type: 'number',
       width: 115,
 
@@ -214,7 +207,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
       renderCell: params => (
-        <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
+        <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
       ),
       width: 120,
       sortable: false,
@@ -228,14 +221,14 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
       renderCell: params => {
-        const currentSupplier = params.row.originalData.orderSupplier
+        const currentSupplier = params.row.orderSupplier
 
         return (
           <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
         )
       },
       valueGetter: params => {
-        const currentSupplier = params.row.originalData.orderSupplier
+        const currentSupplier = params.row.orderSupplier
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
@@ -263,12 +256,8 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       headerName: t(TranslationKey.Deadline),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params =>
-        params.row.originalData.status < 20 ? (
-          <DeadlineCell deadline={params.row.deadline} />
-        ) : (
-          <MultilineTextCell text={'-'} />
-        ),
-      valueGetter: params => (params.row.originalData.deadline ? formatDate(params.row.originalData.deadline) : ''),
+        params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <MultilineTextCell text={'-'} />,
+      valueGetter: params => (params.row.deadline ? formatDate(params.row.deadline) : ''),
       width: 100,
 
       columnKey: columnnsKeys.shared.DATE,
@@ -282,21 +271,17 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
         <MultilineTextCell
           withLineBreaks
           color={
-            Math.abs(getDistanceBetweenDatesInSeconds(params.row.originalData.paymentDateToSupplier)) >
-              convertDaysToSeconds(params.row.originalData.orderSupplier?.productionTerm) &&
-            params.row.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
-            !!params.row.originalData.orderSupplier?.productionTerm
+            Math.abs(getDistanceBetweenDatesInSeconds(params.row.paymentDateToSupplier)) >
+              convertDaysToSeconds(params.row.orderSupplier?.productionTerm) &&
+            params.row.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
+            !!params.row.orderSupplier?.productionTerm
               ? '#FF1616'
               : null
           }
-          text={
-            params.row.originalData.paymentDateToSupplier
-              ? formatDate(params.row.originalData.paymentDateToSupplier)
-              : ''
-          }
+          text={params.row.paymentDateToSupplier ? formatDate(params.row.paymentDateToSupplier) : ''}
         />
       ),
-      valueGetter: params => formatDate(params.row.originalData.paymentDateToSupplier) ?? '',
+      valueGetter: params => formatDate(params.row.paymentDateToSupplier) ?? '',
       width: 115,
 
       columnKey: columnnsKeys.shared.DATE,
@@ -317,7 +302,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: params => (
-        <UserMiniCell userName={params.value} userId={params.row.originalData.product.client?._id} />
+        <UserMiniCell userName={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
       width: 180,
       sortable: false,
@@ -329,8 +314,8 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       field: 'destination',
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-      renderCell: params => <MultilineTextCell leftAlign threeLines text={params.row.originalData.destination?.name} />,
-      valueGetter: params => params.row.originalData.destination?.name,
+      renderCell: params => <MultilineTextCell leftAlign threeLines text={params.row.destination?.name} />,
+      valueGetter: params => params.row.destination?.name,
       width: 130,
       sortable: false,
 
@@ -389,7 +374,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       field: 'partiallyPaid',
       headerName: t(TranslationKey['Paid for']) + ', Ұ',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Paid for']) + ', Ұ'} />,
-      renderCell: params => <MultilineTextCell text={toFixed(params.row.originalData.partiallyPaid, 2) || '0'} />,
+      renderCell: params => <MultilineTextCell text={toFixed(params.row.partiallyPaid, 2) || '0'} />,
       width: 110,
       type: 'number',
 

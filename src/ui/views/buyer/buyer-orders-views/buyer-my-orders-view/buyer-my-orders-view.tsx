@@ -29,12 +29,8 @@ export const BuyerMyOrdersView = observer(({ history }) => {
 
   const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ pathname: history.location.pathname }))
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   const getRowClassName = params =>
-    attentionStatuses.includes(params.row.originalData.status) &&
+    attentionStatuses.includes(params.row.status) &&
     history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
     styles.attentionRow
 
