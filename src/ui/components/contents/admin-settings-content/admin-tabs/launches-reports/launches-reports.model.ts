@@ -34,15 +34,15 @@ export class LaunchesReportsModel {
     }
   }
 
-  handleChangeDeadline(value: number | null) {
-    this.currentTimeBeforeLaunchDeadline = value || 0
+  onChangeDeadline(value: number | string | null) {
+    this.currentTimeBeforeLaunchDeadline = Number(value)
   }
 
-  handleChangeDateType(value: LaunchesReportsDateType) {
+  onChangeDateType(value: LaunchesReportsDateType) {
     this.dateType = value
   }
 
-  async handleSaveDeadline() {
+  async onSaveDeadline() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       let value = this.currentTimeBeforeLaunchDeadline

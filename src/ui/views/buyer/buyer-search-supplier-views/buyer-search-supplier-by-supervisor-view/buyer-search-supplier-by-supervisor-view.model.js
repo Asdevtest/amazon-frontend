@@ -48,9 +48,9 @@ export class BuyerSearchSupplierBySupervisorModel {
     this.paginationModel = model
   }
 
-  async getProductsVacant() {
+  async getProductsVacant(isCreatedByClient) {
     try {
-      const result = await BuyerModel.getProductsVacant()
+      const result = await BuyerModel.getProductsVacant(isCreatedByClient)
 
       runInAction(() => {
         this.productsVacant = depersonalizedPickDataConverter(
@@ -85,6 +85,7 @@ export class BuyerSearchSupplierBySupervisorModel {
   async onClickTableRowBtn(item, noPush) {
     try {
       await BuyerModel.pickupProduct(item._id)
+      this.getProductsVacant(true)
 
       if (!noPush) {
         this.history.push({

@@ -25,6 +25,11 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
+  const isPriceIncreased = box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0
+  const needsConfirmation = box.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE
+  const extraPaymentAmount = toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)
+  const extraPaymentText = `${t(TranslationKey['Extra payment required!'])} (${extraPaymentAmount})`
+
   const renderTooltip = () => (
     <div className={styles.tooltipWrapper}>
       {box.items.map((item: any, itemIndex: number) => {
@@ -79,6 +84,8 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
           {box.items.length > 6 && <p className={cx(styles.itemText, styles.itemTextPoints)}>...</p>}
         </div>
         {error && <span className={styles.error}>{error}</span>}
+
+        {needsConfirmation || isPriceIncreased ? <span className={styles.needPay}>{extraPaymentText}</span> : null}
       </div>
     </Tooltip>
   )

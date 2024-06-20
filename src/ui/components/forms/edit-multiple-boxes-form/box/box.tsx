@@ -348,7 +348,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     label={t(TranslationKey.Quantity)}
                     className={styles.orderInput}
                     labelClasses={styles.label}
-                    value={isMasterBox ? box.amount : order.amount}
+                    value={order.amount}
                     tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
                   />
 
@@ -432,8 +432,10 @@ export const Box: FC<BoxProps> = memo(props => {
                 inputComponent={
                   <ChangeChipCell
                     isChipOutTable
-                    text={!box.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''}
-                    value={box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0]}
+                    text={
+                      !box.shippingLabel && !box.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''
+                    }
+                    value={box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0] || box.shippingLabel}
                     onClickChip={onClickShippingLabel}
                     onDeleteChip={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
                   />

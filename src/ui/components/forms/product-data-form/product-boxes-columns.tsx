@@ -42,7 +42,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: ({ row }: GridRowModel) => (
         <MultilineTextCell
-          text={t(boxStatusTranslateKey(row?.status)) || '-'}
+          text={boxStatusTranslateKey(row?.status) || '-'}
           customTextStyles={colorByBoxStatus(row?.status)}
         />
       ),

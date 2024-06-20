@@ -8,3 +8,4 @@ export type LaunchType =
   | 'SALES_PRICE'
   | 'AB_TEST'
   | 'CUSTOM'
+  | 'PRICE_CHANGE'

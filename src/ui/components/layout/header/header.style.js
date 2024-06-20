@@ -98,7 +98,7 @@ export const useStyles = makeStyles()(theme => ({
 
   userRoleTitle: {
     color: theme.palette.text.second,
-    marginRight: 15,
+    margin: '0 15px',
 
     [theme.breakpoints.down(1600)]: {
       display: 'none',

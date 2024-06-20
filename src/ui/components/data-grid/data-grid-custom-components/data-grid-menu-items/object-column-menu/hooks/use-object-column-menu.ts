@@ -3,33 +3,33 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { IFilter } from '@utils/data-grid-filters'
 import { t } from '@utils/translations'
 
-interface objectItemColumnMenu {
-  _id: string
+import { HookParams } from '../../column-menu.type'
+
+interface ObjectItemColumnMenu {
+  _id: string | null
 }
 
-interface useObjectColumnMenuParams {
-  field: string
-  table: string
-  filtersData: any
-  onClickFilterBtn: (field: string, table: string) => void
+interface useObjectColumnMenuParams<T> extends HookParams<T> {
   hideEmptyObject?: boolean
 }
 
-export const useObjectColumnMenu = <T extends objectItemColumnMenu>({
+export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
   field,
   table,
   filtersData,
   onClickFilterBtn,
   hideEmptyObject,
-}: useObjectColumnMenuParams) => {
+}: useObjectColumnMenuParams<T>) => {
   const [chosenItems, setChosenItems] = useState<T[]>([])
 
   const [nameSearchValue, setNameSearchValue] = useState('')
 
-  const { filterData, currentFilterData }: { filterData: T[]; currentFilterData: T[] } = useMemo(() => {
+  const { filterData, currentFilterData }: IFilter<T> = useMemo(() => {
     if (!hideEmptyObject) {
+      // @ts-ignore
       filtersData?.filterData?.push({
         _id: null,
         title: t(TranslationKey.Empty),

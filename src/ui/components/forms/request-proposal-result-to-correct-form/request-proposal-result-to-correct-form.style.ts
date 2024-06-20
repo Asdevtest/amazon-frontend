@@ -21,6 +21,7 @@ export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '18px',
     lineHeight: '140%',
+    marginBottom: 5,
   },
 
   reasonInput: {
@@ -34,7 +35,7 @@ export const useStyles = makeStyles()(theme => ({
 
   inputsWrapper: {
     display: 'flex',
-    gap: 20,
+    gap: 30,
   },
 
   inputWrapper: {
@@ -51,7 +52,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   input: {
-    width: '100px',
+    width: '80px',
     border: 'none',
     padding: 0,
     margin: 0,

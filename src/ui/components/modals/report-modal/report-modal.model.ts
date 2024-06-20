@@ -1,6 +1,6 @@
 import { BaseOptionType } from 'antd/es/select'
 import dayjs from 'dayjs'
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable, reaction, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
 import { toast } from 'react-toastify'
 
@@ -22,7 +22,7 @@ import { LaunchType } from '@typings/types/launch'
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { reportModalColumns } from './report-modal.columns'
-import { launchOptions, reportModalConfig } from './report-modal.config'
+import { excludedLaunches, launchOptions, reportModalConfig } from './report-modal.config'
 import {
   ChangeCommentCellValueType,
   ChangeDateCellValueType,
@@ -40,6 +40,7 @@ export class ReportModalModel extends UseProductsPermissions {
   newProductPrice = 0
   description = ''
   listingLaunches: IListingLaunch[] = []
+  launchOptions: ILaunchOption[] = []
   selectLaunchValue: Launches | null = null
   columnsProps: ReportModalColumnsProps = {
     onChangeNumberCellValue: (type: Launches, field: keyof IListingLaunch) => this.onChangeNumberCellValue(type, field),
@@ -55,16 +56,13 @@ export class ReportModalModel extends UseProductsPermissions {
   get launches() {
     return this.listingLaunches
   }
-  get launchOptions(): ILaunchOption[] {
-    return launchOptions.filter(({ value }) => !this.listingLaunches.some(({ type }) => type === value))
-  }
   get disabledSaveButton() {
     return (
+      !this.product?._id ||
       this.description.trim().length === 0 ||
       this.listingLaunches.some(
         launch =>
-          launch.value === 0 ||
-          launch.comment.trim().length === 0 ||
+          (!excludedLaunches.includes(launch.type) && launch.value === 0) ||
           launch.dateFrom === null ||
           launch.dateTo === null,
       )
@@ -85,6 +83,18 @@ export class ReportModalModel extends UseProductsPermissions {
     this.reportId = reportId
     this.updateProductAndColumns(defaultProduct)
     this.getListingReportById()
+
+    if (defaultProduct) {
+      this.onGetListingReportByProductId(defaultProduct._id)
+    }
+
+    reaction(
+      () => this.listingLaunches,
+      () =>
+        (this.launchOptions = launchOptions.filter(
+          ({ value }) => !this.listingLaunches.some(({ type }) => type === value),
+        )),
+    )
 
     makeObservable(this, reportModalConfig)
   }
@@ -185,6 +195,7 @@ export class ReportModalModel extends UseProductsPermissions {
   onSelectProduct = (value: string, option: BaseOptionType) => {
     if (value) {
       this.updateProductAndColumns(option as IProduct)
+      this.onGetListingReportByProductId(value) // value is productId
     }
   }
 
@@ -286,10 +297,26 @@ export class ReportModalModel extends UseProductsPermissions {
     this.columnsModel = reportModalColumns(this.columnsProps)
   }
 
-  onVirtialSelectScroll = () => {
+  onGetProducts = () => {
     this.permissionsData = []
     this.isCanLoadMore = true
     this.setOptions({ offset: 0, filters: '' })
     this.getPermissionsData()
+  }
+
+  onGetListingReportByProductId = async (id: string) => {
+    try {
+      const response = await ClientModel.getListingReportByProductId({ guid: id })
+      const activeLaunches = response?.rows?.flatMap(({ listingLaunches }) => listingLaunches) as ILaunch[]
+
+      runInAction(
+        () =>
+          (this.launchOptions = launchOptions.filter(
+            ({ value }) => !activeLaunches.some(({ type }) => type === value),
+          )),
+      )
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

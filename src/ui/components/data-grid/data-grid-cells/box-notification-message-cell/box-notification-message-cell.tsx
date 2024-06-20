@@ -19,7 +19,7 @@ export const BoxNotificationMessageCell: FC<BoxNotificationMessageCellProps> = m
   const humanFriendlyId = notification?.humanFriendlyId
 
   const goToBox = () => {
-    history.push(`/client/warehouse/in-stock?storekeeper-id=null&box-id=${humanFriendlyId}`)
+    history.push(`/client/warehouse/in-stock?box-id=${humanFriendlyId}`)
   }
 
   return (

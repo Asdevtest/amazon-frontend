@@ -3,6 +3,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Badge } from '@components/shared/badge'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -74,6 +75,7 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
               .map(storekeeper => ({
                 label: () => storekeeper.name || '',
                 value: storekeeper._id,
+                icon: <Badge>{storekeeper.boxesCount}</Badge>,
               })),
             { label: () => t(TranslationKey['All warehouses']) || '', value: '' },
           ]}

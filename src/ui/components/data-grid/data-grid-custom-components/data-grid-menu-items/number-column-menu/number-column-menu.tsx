@@ -6,32 +6,21 @@ import { Checkbox } from '@components/shared/checkbox'
 import { Input } from '@components/shared/input'
 import { SearchInput } from '@components/shared/search-input'
 
-import { FiltersObject } from '@utils/data-grid-filters'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { loadingStatus } from '@typings/enums/loading-status'
-
+import { useStyles as useSharedStyles } from '../column-menu.style'
 import { useStyles } from './number-column-menu.style'
 
+import { ColumnMenuProps } from '../column-menu.type'
 import { ControlButtonsColumnMenu } from '../control-buttons-column-menu'
 import { DataWrapperColumnMenu } from '../data-wrapper-column-menu'
 
 import { useNumberColumnMenu } from './hooks/use-number-column-menu'
 
-interface NumberColumnMenuProps {
-  field: string
-  table: string
-  filtersData: FiltersObject<number>
-  filterRequestStatus: loadingStatus
-  onClose: () => void
-  onClickFilterBtn: (field: string, table: string) => void
-  onChangeFullFieldMenuItem: (chosenItems: number[], field: string) => void
-  onClickAccept: () => void
-}
-
-export const NumberColumnMenu: FC<NumberColumnMenuProps> = memo(props => {
+export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
   const { classes: styles } = useStyles()
+  const { classes: sharedStyles } = useSharedStyles()
 
   const {
     field,
@@ -69,7 +58,7 @@ export const NumberColumnMenu: FC<NumberColumnMenuProps> = memo(props => {
   })
 
   return (
-    <div className={styles.columnMenuWrapper}>
+    <div className={sharedStyles.columnMenuWrapper}>
       <div className={styles.inputsWrapper}>
         <Input
           title={t(TranslationKey.From)}
@@ -91,7 +80,7 @@ export const NumberColumnMenu: FC<NumberColumnMenuProps> = memo(props => {
 
       <SearchInput
         value={nameSearchValue}
-        inputClasses={styles.searchInput}
+        inputClasses={sharedStyles.searchInput}
         onChange={e => setNameSearchValue(e.target.value)}
       />
 
@@ -107,7 +96,7 @@ export const NumberColumnMenu: FC<NumberColumnMenuProps> = memo(props => {
 
           return (
             <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
-              <p title={value} className={styles.filterTitle}>
+              <p title={value} className={sharedStyles.filterTitle}>
                 {value}
               </p>
             </Checkbox>

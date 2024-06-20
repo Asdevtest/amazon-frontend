@@ -20,7 +20,7 @@ export class AdminSettingsModel {
     onClickSuccess: () => {},
     onClickFailed: () => {},
   }
-
+  techPause = undefined
   serverProxy = []
   formFields = startValueFields
   prevFormFields = undefined
@@ -50,6 +50,7 @@ export class AdminSettingsModel {
       runInAction(() => {
         this.formFields = response?.dynamicSettings
         this.prevFormFields = response?.dynamicSettings
+        this.techPause = response?.dynamicSettings?.techPause
       })
     } catch (error) {
       console.error(error)

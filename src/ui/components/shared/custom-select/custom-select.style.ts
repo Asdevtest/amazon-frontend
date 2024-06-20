@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: 225,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
@@ -13,11 +12,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   row: {
+    alignItems: 'center',
     flexDirection: 'row',
   },
 
-  input: {
-    width: '100%',
+  select: {
+    width: 225,
   },
 
   label: {

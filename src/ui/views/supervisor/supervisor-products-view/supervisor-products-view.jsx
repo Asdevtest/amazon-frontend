@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
+import { Badge } from '@components/shared/badge'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
@@ -22,9 +23,7 @@ export const SupervisorProductsView = observer(() => {
   const [viewModel] = useState(() => new SupervisorProductsViewModel())
 
   const customSwitcherConfig = filterStatusConfig.map(status => ({
-    icon: viewModel.userInfo[status.userInfoKey] ? (
-      <span className={styles.badge}>{viewModel.userInfo[status.userInfoKey]}</span>
-    ) : null,
+    icon: viewModel.userInfo[status.userInfoKey] ? <Badge>{viewModel.userInfo[status.userInfoKey]}</Badge> : null,
     label: () => t(status.label),
     value: status.value,
   }))

@@ -495,6 +495,14 @@ export const lightTheme = createTheme({
         color: '#5C6A7A',
         outline: '1px solid #E0E0E0',
       },
+      price_change: {
+        color: '#007bff',
+        outline: '1px solid #007bff',
+        backgroundImage: 'url(/assets/img/launches/arrows_blue_light.svg)',
+        backgroundPosition: '90% 50%',
+        backgroundRepeat: 'no-repeat',
+        padding: '5px 23px 5px 10px',
+      },
     },
   },
 })
@@ -1039,6 +1047,14 @@ export const darkTheme = createTheme({
       custom: {
         color: '#667085',
         outline: '1px solid #667085',
+      },
+      price_change: {
+        color: '#4CA1DE',
+        outline: '1px solid #4CA1DE',
+        backgroundImage: 'url(/assets/img/launches/arrows_blue_dark.svg)',
+        backgroundPosition: '92% 50%',
+        backgroundRepeat: 'no-repeat',
+        padding: '5px 23px 5px 10px',
       },
     },
   },

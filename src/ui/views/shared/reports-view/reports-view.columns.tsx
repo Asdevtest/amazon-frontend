@@ -49,6 +49,18 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         table: DataGridFilterTables.PRODUCTS,
       }
     : null
+  const shopColumn = subView
+    ? {
+        field: 'shop',
+        headerName: t(TranslationKey.Shop),
+        renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
+        renderCell: ({ row }: GridRowModel) => <MultilineTextCell twoLines text={row.product?.shop?.name} />,
+        width: 120,
+        disableCustomSort: true,
+        columnKey: columnnsKeys.shared.OBJECT,
+        table: DataGridFilterTables.PRODUCTS,
+      }
+    : null
 
   const columns: IGridColumn[] = [
     {
@@ -67,7 +79,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           firstButtonStyle={ButtonStyle.PRIMARY}
           secondButtonElement={<CrossIcon />}
           secondButtonStyle={ButtonStyle.DANGER}
-          secondDescriptionText="Are you sure you want to delete the report?"
+          secondDescriptionText="Are you sure you want to remove the report?"
           onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
           onClickSecondButton={() => onClickRemoveReport(row._id)}
         />
@@ -78,6 +90,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       width: 95,
     },
 
+    shopColumn as IGridColumn,
     asinColumn as IGridColumn,
 
     {
@@ -133,12 +146,14 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           field: 'createdBy',
           table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
           columnKey: ColumnMenuKeys.OBJECT,
+          hideEmptyObject: true,
         },
 
         {
           field: 'sub',
           table: DataGridFilterTables.PRODUCT_LISTING_REPORTS,
           columnKey: ColumnMenuKeys.OBJECT,
+          hideEmptyObject: true,
         },
       ],
 
@@ -158,14 +173,14 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       columnKey: columnnsKeys.shared.STRING,
     },
 
-    /* {
+    {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <ShortDateCell value={row.updatedAt} />,
       width: 105,
       columnKey: columnnsKeys.shared.DATE,
-    }, */
+    },
   ]
 
   const filteredColumns = columns.filter(column => column)

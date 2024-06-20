@@ -20,7 +20,7 @@ export const DashboardButtons = ({ user }) => {
   const unreadMessages = ChatModel.unreadMessages
 
   const routes = {
-    notifications: '',
+    notifications: 'notifications/general-notifications-view',
     messages: 'messages',
   }
 
@@ -31,43 +31,46 @@ export const DashboardButtons = ({ user }) => {
     (user.freelanceNotices?.length || 0) +
     (user.notificationCounter || 0)
 
+  const isNotificationsShown =
+    !checkIsResearcher(UserRoleCodeMap[user.role]) && !checkIsStorekeeper(UserRoleCodeMap[user.role])
+
   return (
     <div className={styles.buttonsWrapper}>
-      {!checkIsResearcher(UserRoleCodeMap[user.role]) && (
-        <div
-          className={styles.buttonWrapper}
-          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
-        >
-          <div className={styles.iconWrapper}>
+      {isNotificationsShown ? (
+        <div className={styles.buttonWrapper}>
+          <button
+            className={styles.iconWrapper}
+            onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
+          >
             <MyNotificationsIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
             {Number(notices) > 0 ? <div className={styles.badge}>{notices}</div> : null}
-          </div>
+          </button>
 
           <Typography className={styles.title}>{t(TranslationKey.Notifications)}</Typography>
         </div>
-      )}
-      <div
-        className={styles.buttonWrapper}
-        onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.messages}`)}
-      >
-        <div className={styles.iconWrapper}>
+      ) : null}
+      <div className={styles.buttonWrapper}>
+        <button
+          className={styles.iconWrapper}
+          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.messages}`)}
+        >
           <MessageIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
 
           {Number(unreadMessages) > 0 ? <div className={styles.badge}>{unreadMessages}</div> : null}
-        </div>
+        </button>
 
         <Typography className={styles.title}>{t(TranslationKey.Messages)}</Typography>
       </div>
       {checkIsAdmin(UserRoleCodeMap[user.role]) ||
       checkIsStorekeeper(UserRoleCodeMap[user.role]) ||
       checkIsSupervisor(UserRoleCodeMap[user.role]) ? (
-        <div
-          className={styles.buttonWrapper}
-          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}
-        >
-          <div className={styles.iconWrapper}>
+        <div className={styles.buttonWrapper}>
+          <button
+            className={styles.iconWrapper}
+            onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}
+          >
             <SettingsIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
-          </div>
+          </button>
 
           <Typography className={styles.title}>
             {checkIsStorekeeper(UserRoleCodeMap[user.role])

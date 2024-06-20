@@ -1,7 +1,7 @@
 export const styles = theme => ({
   headerWrapper: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 
@@ -18,7 +18,7 @@ export const styles = theme => ({
 
   usersOnlineWrapper: {
     position: 'relative',
-    minWidth: 125,
+    minWidth: 205,
     '&:after': {
       content: '""',
       position: 'absolute',

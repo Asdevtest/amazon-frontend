@@ -21,8 +21,9 @@ import { SettingsModel } from '@models/settings-model'
 
 import { SimpleMessagesNotification } from '@components/layout/notifications/simple-messages-notification'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomTimer } from '@components/shared/custom-timer'
 import { DialogModal } from '@components/shared/dialog-modal'
-import { LanguageSelector } from '@components/shared/selectors/language-selector'
+import { LanguageSelector } from '@components/shared/language-selector'
 import { ExitIcon, HintsOffIcon, HintsOnIcon, MenuIcon } from '@components/shared/svg-icons'
 
 import { checkIsResearcher } from '@utils/checks'
@@ -59,6 +60,7 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
     simpleMessageCrmItemId,
     allowedRoles,
     showHints,
+    toggleServerSettings,
     clearSnackNoticeByKey: markNotificationAsReaded,
     onClickMessage,
     checkMessageIsRead,
@@ -171,6 +173,13 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
             )}
           </div>
         </div>
+
+        {toggleServerSettings?.approximateShutdownTime ? (
+          <CustomTimer
+            targetDate={toggleServerSettings?.approximateShutdownTime}
+            tooltipText="Time until server shutdown"
+          />
+        ) : null}
 
         <p className={styles.userRoleTitle}>{t(TranslationKey['Your role:'])}</p>
 

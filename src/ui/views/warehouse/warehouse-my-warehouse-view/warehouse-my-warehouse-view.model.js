@@ -82,9 +82,11 @@ export class WarehouseMyWarehouseViewModel {
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
     onChangeUnitsOption: option => this.onChangeUnitsOption(option),
   }
+
   uploadedImages = []
   uploadedFiles = []
   uploadedTransparencyFiles = []
+
   progressValue = 0
   showProgress = false
 
@@ -420,6 +422,8 @@ export class WarehouseMyWarehouseViewModel {
         type: 'uploadedFiles',
         withoutShowProgress: true,
       })
+
+      boxData.shippingLabel = this.uploadedFiles[0]
     }
 
     if (!isMultipleEdit && boxData.tmpTrackNumberFile?.length) {
@@ -502,9 +506,7 @@ export class WarehouseMyWarehouseViewModel {
           ...boxData,
           images: this.uploadedImages?.length ? this.uploadedImages : boxData.images,
           items: requestBoxItems,
-          shippingLabel: this.uploadedFiles?.length
-            ? this.uploadedFiles[0]
-            : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+          shippingLabel: boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,
@@ -708,6 +710,11 @@ export class WarehouseMyWarehouseViewModel {
           }
 
           resBoxes.push(boxToPush)
+
+          runInAction(() => {
+            this.uploadedFiles = []
+            this.uploadedImages = []
+          })
         }
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)

@@ -1,3 +1,5 @@
+import { t } from '@utils/translations'
+
 import { TranslationKey } from '../translations/translation-key'
 
 export const BoxStatus = {
@@ -15,23 +17,23 @@ export const BoxStatus = {
 export const boxStatusTranslateKey = status => {
   switch (status) {
     case BoxStatus.NEW:
-      return TranslationKey['On the way to the warehouse']
+      return t(TranslationKey['On the way to the warehouse'])
     case BoxStatus.IN_STOCK:
-      return TranslationKey['In stock']
+      return t(TranslationKey['In stock'])
     case BoxStatus.REQUESTED_SEND_TO_BATCH:
-      return TranslationKey['Awaiting shipment in batches']
+      return t(TranslationKey['Awaiting shipment in batches'])
     case BoxStatus.IN_BATCH_ON_THE_WAY:
-      return TranslationKey['Sent in batches']
+      return t(TranslationKey['Sent in batches'])
     case BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE:
-      return TranslationKey['Needs confirmation of shipping cost']
+      return t(TranslationKey['Needs confirmation of shipping cost'])
     case BoxStatus.IN_BATCH:
-      return TranslationKey['Awaiting shipment in batches']
+      return t(TranslationKey['Awaiting shipment in batches'])
     case BoxStatus.ACCEPTED_IN_PROCESSING:
-      return TranslationKey['Accepted in processing']
+      return t(TranslationKey['Accepted in processing'])
     case BoxStatus.NEED_TO_UPDATE_THE_TARIFF:
-      return TranslationKey['Need to update the tariff']
+      return t(TranslationKey['Need to update the tariff'])
     default:
-      return TranslationKey['No status']
+      return t(TranslationKey['No status'])
   }
 }
 

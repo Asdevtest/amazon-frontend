@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs'
+import { Dayjs } from 'dayjs'
 import { makeObservable } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -9,6 +9,7 @@ import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+import { getDateWithoutTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -74,7 +75,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       additionalPropertiesGetFilters,
     })
 
-    this.sortModel = [{ field: 'createdAt', sort: 'desc' }]
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.onGetCurrentData()
 
     makeObservable(this, reportsViewConfig)
@@ -82,7 +83,11 @@ export class ReportsViewModel extends DataGridFilterTableModel {
 
   onChangeRangeDate(dates: null | (Dayjs | null)[]) {
     if (dates?.[0] && dates?.[1]) {
-      const transformedDatesToISOString = [dayjs(dates?.[0]).toISOString(), dayjs(dates?.[1]).toISOString()]
+      const lteDateValueForBackendPostgreSQL = dates?.[1].add(1, 'day')
+      const transformedDatesToISOString = [
+        getDateWithoutTime(dates?.[0]),
+        getDateWithoutTime(lteDateValueForBackendPostgreSQL),
+      ]
       this.onChangeFullFieldMenuItem(transformedDatesToISOString, 'createdAt')
       this.onGetCurrentData()
     } else {

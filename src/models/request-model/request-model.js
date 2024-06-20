@@ -93,6 +93,11 @@ class RequestModelStatic {
     const response = await restApiService.SearchRequestApi.apiV1RequestsCompletedGuidPatch({ guid })
     return response.data
   }
+
+  patchRequestCommentByGuid = async (guid, body) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomDetailsGuidPatch({ guid, body })
+    return response.data
+  }
 }
 
 export const RequestModel = new RequestModelStatic()

@@ -1,5 +1,6 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import {
   colorByDifficultyLevel,
   difficultyLevelByCode,
@@ -8,6 +9,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ChangeInputCommentCell,
   CheckboxCell,
   ManyUserLinkCell,
   MultilineRequestStatusCell,
@@ -129,8 +131,9 @@ export const myRequestsViewColumns = rowHandlers => {
       renderCell: params => <MultilineRequestStatusCell status={params.value} />,
       width: 120,
       filterable: false,
+      transformValueMethod: MyRequestStatusTranslate,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
 
-      columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
       disableCustomSort: true,
     },
 
@@ -244,6 +247,22 @@ export const myRequestsViewColumns = rowHandlers => {
       width: 100,
       // type: 'date',
       columnKey: columnnsKeys.shared.DATE,
+    },
+
+    {
+      field: 'note',
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+      width: 335,
+      renderCell: ({ row }) => (
+        <ChangeInputCommentCell
+          rowsCount={3}
+          text={row?.detailsCustom?.comment}
+          onClickSubmit={comment => rowHandlers.onClickSaveComment(row?._id, comment)}
+        />
+      ),
+      filterable: false,
+      disableCustomSort: true,
     },
 
     {
