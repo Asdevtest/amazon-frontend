@@ -307,7 +307,7 @@ export class ReportModalModel extends UseProductsPermissions {
   onGetListingReportByProductId = async (id: string) => {
     try {
       const response = await ClientModel.getListingReportByProductId({ guid: id })
-      const activeLaunches = response?.meta?.activeLaunches as IListingLaunch[]
+      const activeLaunches = response?.rows?.flatMap(({ listingLaunches }) => listingLaunches) as ILaunch[]
 
       runInAction(
         () =>

@@ -1,17 +1,9 @@
-import { withStyles } from 'tss-react/mui'
+import { FC, PropsWithChildren, memo } from 'react'
 
-import { Badge as MuiBadge } from '@mui/material'
+import { useStyles } from './badge.style'
 
-import { styles } from './badge.style'
+export const Badge: FC<PropsWithChildren> = memo(({ children }) => {
+  const { classes: styles } = useStyles()
 
-interface Props {
-  badgeContent: number
-  classes: {
-    [key: string]: string
-  }
-  showZero: boolean
-}
-
-const BadgeRaw: React.FC<Props> = props => <MuiBadge {...props} />
-
-export const Badge = withStyles(BadgeRaw, styles)
+  return <span className={styles.badge}>{children}</span>
+})
