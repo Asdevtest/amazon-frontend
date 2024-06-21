@@ -1,13 +1,14 @@
 import { Layout as AntLayout, Breadcrumb } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 import { FC, PropsWithChildren } from 'react'
+import { Outlet } from 'react-router-dom'
 
 import { Header } from '../header'
 import { Sider } from '../sider'
 
 import classes from './layout.module.scss'
 
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
+export const Layout: FC<PropsWithChildren> = () => {
   return (
     <AntLayout className={classes.root}>
       <Sider />
@@ -22,7 +23,9 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
 
-          <Content>{children}</Content>
+          <Content>
+            <Outlet />
+          </Content>
         </AntLayout>
       </AntLayout>
     </AntLayout>

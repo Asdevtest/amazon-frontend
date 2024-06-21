@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoIosNotificationsOff, IoIosNotificationsOutline } from 'react-icons/io'
 import { PiMoonLight, PiSunLight } from 'react-icons/pi'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { languageOptions } from '@constants/translations/language-options'
@@ -25,7 +25,7 @@ interface Props {
 }
 
 export const Header: FC<Props> = observer(({ title }) => {
-  const history = useHistory()
+  // const history = useHistory()
   const [viewModel] = useState(() => new HeaderModel(history))
   const [isEnabledNotifications, setIsEnabledNotifications] = useState(true)
 
@@ -51,11 +51,11 @@ export const Header: FC<Props> = observer(({ title }) => {
     toast.dismiss()
     toast.clearWaitingQueue()
     viewModel.onExitFromRole()
-    history.push('/auth')
+    // history.push('/auth')
   }
 
   const onClickProfile = () => {
-    history.push(`/profile`)
+    // history.push(`/profile`)
   }
 
   const onToggleNotifications = () => {

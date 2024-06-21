@@ -1,5 +1,7 @@
 import { ConfigProvider, theme as antTheme } from 'antd'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
+import { Contact } from '../widgets/contacts'
 import { Layout } from '../widgets/layout'
 import { ToastifyProvider } from '../widgets/navigation/toastify/toastify-provider'
 
@@ -14,10 +16,23 @@ export const App = () => {
     algorithm: theme === Theme.LIGHT ? antTheme.defaultAlgorithm : antTheme.darkAlgorithm,
   }
 
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Layout />,
+      children: [
+        {
+          path: 'contacts/:contactId',
+          element: <Contact />,
+        },
+      ],
+    },
+  ])
+
   return (
     <ConfigProvider theme={customTheme} locale="en">
       <ToastifyProvider theme={theme} />
-      <Layout />
+      <RouterProvider router={router} />
     </ConfigProvider>
   )
 }
