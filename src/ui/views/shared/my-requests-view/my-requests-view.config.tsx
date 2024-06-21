@@ -1,5 +1,11 @@
 import { action, computed, observable } from 'mobx'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
+
+import { SwitcherCondition } from './my-requests-view.type'
+
 export const observerConfig = {
   showRequestForm: observable,
   showConfirmModal: observable,
@@ -11,7 +17,6 @@ export const observerConfig = {
   showConfirmWorkResultFormModal: observable,
   showMainRequestResultModal: observable,
   showRequestResultModal: observable,
-
   selectedIndex: observable,
   selectedRequests: observable,
   researchIdToRemove: observable,
@@ -24,10 +29,11 @@ export const observerConfig = {
   acceptProposalResultSetting: observable,
   statusGroup: observable,
   dataGridApi: observable,
+  radioButtonOption: observable,
 
   userInfo: computed,
 
-  onClickChangeCatigory: action.bound,
+  onChangeradioButtonOption: action.bound,
   loadData: action.bound,
   onClickAddBtn: action.bound,
   onClickEditBtn: action.bound,
@@ -59,3 +65,41 @@ export const observerConfig = {
   onClickProposalResultAcceptForm: action.bound,
   handleChangeRequestComment: action.bound,
 }
+
+export const filtersFields = [
+  'humanFriendlyId',
+  'updatedAt',
+  'status',
+  'title',
+  'spec',
+  'price',
+  'timeoutAt',
+  'asin',
+  'skuByClient',
+  'amazonTitle',
+  'createdBy',
+  'sub',
+  'subUsers',
+  'priority',
+  'createdAt',
+  'announcementCreatedBy',
+  'taskComplexity',
+  'shopId',
+]
+
+export const radioButtonOptions = [
+  {
+    label: t(TranslationKey['Requests in progress']),
+    value: SwitcherCondition.IN_PROGRESS,
+  },
+  {
+    label: t(TranslationKey['Ready to check']),
+    value: SwitcherCondition.READY_TO_CHECK,
+  },
+  {
+    label: t(TranslationKey['Completed requests']),
+    value: SwitcherCondition.COMPLETED,
+  },
+]
+
+export const fieldsForSearch = ['title', 'humanFriendlyId', 'asin']

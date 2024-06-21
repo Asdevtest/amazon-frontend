@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import { Typography } from '@mui/material'
-import { useGridApiContext, useGridApiRef } from '@mui/x-data-grid-premium'
+import { useGridApiRef } from '@mui/x-data-grid-premium'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
@@ -17,7 +17,7 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -29,7 +29,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './my-requests-view.style'
 
-import { switcherConfig } from './my-requests-view.constants'
+import { radioButtonOptions } from './my-requests-view.config'
 import { MyRequestsViewModel } from './my-requests-view.model'
 
 export const MyRequestsView = observer(() => {
@@ -62,7 +62,13 @@ export const MyRequestsView = observer(() => {
   return (
     <>
       <div className={styles.header}>
-        <div />
+        <CustomRadioButton
+          size="large"
+          buttonStyle="solid"
+          defaultValue={viewModel.radioButtonOption}
+          options={radioButtonOptions}
+          onChange={viewModel.onChangeradioButtonOption}
+        />
 
         <SearchInput
           inputClasses={styles.searchInput}
@@ -79,14 +85,6 @@ export const MyRequestsView = observer(() => {
           {t(TranslationKey['Create request'])}
         </Button>
       </div>
-
-      <CustomSwitcher
-        fullWidth
-        switchMode="big"
-        condition={viewModel.switcherCondition}
-        switcherSettings={switcherConfig}
-        changeConditionHandler={viewModel.onClickChangeCatigory}
-      />
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid

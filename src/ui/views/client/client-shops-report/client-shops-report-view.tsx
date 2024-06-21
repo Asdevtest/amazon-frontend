@@ -10,7 +10,7 @@ import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-good
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
@@ -21,9 +21,9 @@ import { ShopReportsTabsValues } from '@typings/enums/shop-report'
 
 import { useStyles } from './client-shops-report-view.style'
 
+import { radioButtonOptions } from './client-shops-report-view.config'
 import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
-import { switcherConfig } from './switcher.config'
 
 export const ClientShopsReportView = observer(({ history }: { history: any }) => {
   const { classes: styles } = useStyles()
@@ -32,22 +32,22 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
 
   return (
     <div className={styles.root}>
-      <CustomSwitcher
-        fullWidth
-        switchMode="big"
-        condition={viewModel.tabKey}
-        switcherSettings={switcherConfig}
-        changeConditionHandler={viewModel.changeTabHandler}
+      <CustomRadioButton
+        size="large"
+        buttonStyle="solid"
+        options={radioButtonOptions}
+        defaultValue={viewModel.radioButtonOption}
+        onChange={viewModel.onChangeradioButtonOption}
       />
 
       <ControllButtons
         currentSearchValue={viewModel.currentSearchValue}
-        currentTabKey={viewModel.tabKey}
+        currentTabKey={viewModel.radioButtonOption}
         selectedRows={viewModel.selectedRows}
         onClickMoveGoodsToInventory={viewModel.moveGoodsToInventoryHandler}
         onClickBindStockGoodsToInventory={viewModel.bindStockGoodsToInventoryHandler}
         onClickDeleteBtn={viewModel.deleteReportHandler}
-        onChangeSearchValue={viewModel.onSearchSubmit}
+        onSearchSubmit={viewModel.onSearchSubmit}
       />
 
       <div className={styles.tabledWrapper}>

@@ -28,7 +28,7 @@ export const CustomInputSearch: FC<CustomInputSearchProps> = memo(props => {
       {label ? (
         <p className={cx(styles.label, labelClassName)}>
           {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>{'*'}</span> : null}
+          {required ? <span>*</span> : null}
         </p>
       ) : null}
       <Search
