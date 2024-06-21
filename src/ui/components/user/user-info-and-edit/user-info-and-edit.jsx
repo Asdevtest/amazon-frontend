@@ -1,37 +1,26 @@
-import { Tabs } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+
+import { Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
+import { useStyles } from './user-info-and-edit.style'
+
 import { UserBalance } from './user-balance'
 import { UserEdit } from './user-edit'
-import { useClassNames } from './user-info-and-edit.style'
-
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <div>{children}</div>}
-  </div>
-)
 
 export const UserInfoAndEdit = observer(({ user }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
-  const [tabIndex, setTabIndex] = React.useState(0)
+  const [tabIndex, setTabIndex] = useState(0)
 
   const [updatedUser, setUpdatedUser] = useState(user)
 
@@ -40,13 +29,13 @@ export const UserInfoAndEdit = observer(({ user }) => {
   }, [SettingsModel.languageTag, user])
 
   return (
-    <React.Fragment>
+    <>
       {SettingsModel.languageTag && (
         <Tabs
           variant={'fullWidth'}
           classes={{
-            root: classNames.row,
-            indicator: classNames.indicator,
+            root: styles.row,
+            indicator: styles.indicator,
           }}
           value={tabIndex}
           onChange={(e, index) => setTabIndex(index)}
@@ -62,6 +51,6 @@ export const UserInfoAndEdit = observer(({ user }) => {
       <TabPanel value={tabIndex} index={1}>
         <UserBalance userId={updatedUser._id} />
       </TabPanel>
-    </React.Fragment>
+    </>
   )
 })

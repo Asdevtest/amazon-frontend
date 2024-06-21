@@ -1,30 +1,27 @@
-import { cx } from '@emotion/css'
+import { memo, useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import { Box, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
 import MuiListItem from '@mui/material/ListItem'
 
-import { observer } from 'mobx-react'
-import { Link } from 'react-router-dom'
-import { withStyles } from 'tss-react/mui'
-
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { HighPriorityValue } from '@components/shared/high-priority-value'
 
 import { renderTooltipTitle } from '@utils/renders'
 
-import { styles } from './navbar-category.style'
+import { HintsContext } from '@contexts/hints-context'
 
-const NavBarCategoryRaw = observer(({ badge, classes: classNames, isSelected, userInfo, category, shortNavbar }) => {
-  const subRoutes = category.subtitles
-    ?.map(subCategory =>
-      subCategory.checkHideSubBlock
-        ? subCategory.checkHideSubBlock(userInfo)
-          ? subCategory.subRoute
-          : null
-        : subCategory.subRoute,
-    )
-    .filter(el => el !== null)
+import { ButtonStyle } from '@typings/enums/button-style'
 
+import { useStyles } from './navbar-category.style'
+
+export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, shortNavbar }) => {
+  const { classes: styles, cx } = useStyles()
+
+  const [subRoutes, setSubRoutes] = useState([])
   const isRedBadge = category.route?.includes('/buyer/free-orders')
+
+  const { hints } = useContext(HintsContext)
 
   const getHighPriorityValue = route => {
     switch (route) {
@@ -38,24 +35,44 @@ const NavBarCategoryRaw = observer(({ badge, classes: classNames, isSelected, us
   const getBigBadge = route => {
     switch (route) {
       case '/buyer/pending-orders':
-        return <div className={cx(classNames.bigBadge, classNames.redBadge)}>{userInfo.pendingOrdersByDeadline}</div>
+        return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo.pendingOrdersByDeadline}</div>
       case '/client/my-orders/orders':
         return (
-          <div className={cx(classNames.bigBadge, classNames.redBadge)}>
-            {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired.length : 0}
+          <div className={cx(styles.bigBadge, styles.redBadge)}>
+            {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired?.length : 0}
           </div>
         )
+      case '/client/freelance/service-exchange':
+        return userInfo.freelanceNotices?.length > 0 ? (
+          <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo.freelanceNotices?.length}</div>
+        ) : null
     }
   }
 
+  const getSubRoutes = () => {
+    return category.subtitles
+      ?.map(subCategory =>
+        subCategory.checkHideSubBlock
+          ? subCategory.checkHideSubBlock(userInfo)
+            ? subCategory.subRoute
+            : null
+          : subCategory.subRoute,
+      )
+      .filter(el => el !== null)
+  }
+
   const highPriorityValue = getHighPriorityValue(category.route)
-  // console.log('badge', badge, category)
+
+  useEffect(() => {
+    setSubRoutes(getSubRoutes())
+  }, [category])
 
   return (
     <Button
       tooltipPosition="center"
-      tooltipInfoContent={!shortNavbar && renderTooltipTitle(category.title, userInfo.role)}
-      className={classNames.menuItem}
+      tooltipInfoContent={hints && !shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
+      className={styles.menuItem}
+      styleType={ButtonStyle.TRANSPARENT}
     >
       <MuiListItem
         disableGutters
@@ -63,31 +80,31 @@ const NavBarCategoryRaw = observer(({ badge, classes: classNames, isSelected, us
         component={Link}
         to={subRoutes?.[0] || category.route}
         classes={{
-          root: cx(classNames.root, { [classNames.shortNavbarRoot]: shortNavbar }),
-          selected: classNames.selected,
+          root: cx(styles.root, { [styles.shortNavbarRoot]: shortNavbar }),
+          selected: styles.selected,
         }}
       >
         <ListItemIcon
-          className={cx(classNames.iconWrapper, {
-            [classNames.selectedIcon]: isSelected,
-            [classNames.notSelected]: !isSelected,
+          className={cx(styles.iconWrapper, {
+            [styles.selectedIcon]: isSelected,
+            [styles.notSelected]: !isSelected,
           })}
         >
           <SvgIcon
             inheritviewbox="true"
-            className={cx(classNames.icon, { [classNames.selectedIcon]: isSelected })}
+            className={cx(styles.icon, { [styles.selectedIcon]: isSelected })}
             component={category.icon}
           />
 
-          {badge ? (
-            <div className={cx(classNames.badge, { [classNames.redBadge]: isRedBadge })}>{badge}</div>
+          {Number(badge) > 0 ? (
+            <div className={cx(styles.badge, { [styles.redBadge]: isRedBadge })}>{badge}</div>
           ) : undefined}
         </ListItemIcon>
-        {!shortNavbar && ( // убрать условие если нужно вернуть старый вид
+        {!shortNavbar && (
           <ListItemText
             disableTypography
-            className={cx({ [classNames.listItemSelected]: isSelected })}
-            primary={category.title}
+            className={cx({ [styles.listItemSelected]: isSelected })}
+            primary={category.title()}
           />
         )}
 
@@ -96,9 +113,9 @@ const NavBarCategoryRaw = observer(({ badge, classes: classNames, isSelected, us
             <HighPriorityValue value={highPriorityValue} />
           </Box>
         )}
-        {/* {subRoutes?.[0] || category.route} */}
+
         {!shortNavbar && (
-          <div className={cx({ [classNames.bigBadgePadding]: category.title })}>
+          <div className={cx({ [styles.bigBadgePadding]: category.title })}>
             {getBigBadge(subRoutes?.[0] || category.route)}
           </div>
         )}
@@ -106,5 +123,3 @@ const NavBarCategoryRaw = observer(({ badge, classes: classNames, isSelected, us
     </Button>
   )
 })
-
-export const NavbarCategory = withStyles(NavBarCategoryRaw, styles)

@@ -1,43 +1,51 @@
-/* eslint-disable no-unused-vars */
+import { isPast, isToday, isTomorrow } from 'date-fns'
+import { memo, useEffect, useState } from 'react'
+
 import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { isPast, isToday, isValid } from 'date-fns'
-
 import { TranslationKey } from '@constants/translations/translation-key'
+
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
+import { Text } from '@components/shared/text'
 import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { checkIsPositiveNum, isNotUndefined } from '@utils/checks'
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './order-product-modal.style'
+import { useStyles } from './order-product-modal.style'
 
-export const OrderProductModal = ({
-  platformSettings,
-  destinations,
-  storekeepers,
-  onTriggerOpenModal,
-  selectedProductsData,
-  onDoubleClickBarcode,
-  onSubmit,
-  onClickCancel,
-  reorderOrdersData,
-  destinationsFavourites,
-  setDestinationsFavouritesItem,
-  isPendingOrdering,
-}) => {
-  const { classes: classNames } = useClassNames()
+import { SetFilesModal } from '../set-files-modal'
+
+export const OrderProductModal = memo(props => {
+  const { classes: styles } = useStyles()
+
+  const {
+    platformSettings,
+    destinations,
+    storekeepers,
+    onTriggerOpenModal,
+    selectedProductsData,
+    onDoubleClickBarcode,
+    onSubmit,
+    onClickCancel,
+    reorderOrdersData,
+    destinationsFavourites,
+    setDestinationsFavouritesItem,
+    isPendingOrdering,
+    isSetDeadline,
+    isInventory,
+    statusesForChecking,
+  } = props
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
+  const [showSetFilesModal, setShowSetFilesModal] = useState(false)
+  const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
 
   const [isPendingOrder, setIsPendingOrder] = useState(false)
   const [isResearchSupplier, setIsResearchSupplier] = useState(false)
@@ -54,79 +62,157 @@ export const OrderProductModal = ({
 
   const [productsForRender, setProductsForRender] = useState(
     reorderOrdersData?.length
-      ? reorderOrdersData.map(reorderOrder => ({
-          ...reorderOrder.product,
+      ? reorderOrdersData.map(reorderOrder => {
+          const validDate = new Date(reorderOrder.deadline)
+          const isValidDeadline = !(isPast(validDate) || isToday(validDate) || isTomorrow(validDate))
+          const isSetCurrentDeadline =
+            ((isSetDeadline && statusesForChecking.some(status => status === reorderOrder.status)) ||
+              isPendingOrdering) &&
+            isValidDeadline
 
-          amount: reorderOrder.amount,
+          return {
+            ...reorderOrder.product,
 
-          destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
-            ? reorderOrder.destination?._id
-            : '',
-          storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
-            ? reorderOrder.storekeeper?._id
-            : '',
-          logicsTariffId: storekeepers
-            .find(el => el._id === reorderOrder.storekeeper?._id)
-            ?.tariffLogistics.map(el => el._id)
-            .includes(reorderOrder.logicsTariff?._id)
-            ? reorderOrder.logicsTariff?._id
-            : '',
-          expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
-          priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-          deadline: reorderOrder.deadline || '',
-        }))
+            amount: reorderOrder.amount,
+            clientComment: isPendingOrdering ? reorderOrder.clientComment : '',
+
+            destination: {
+              _id: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            },
+            logicsTariff: {
+              _id: storekeepers
+                .find(el => el._id === reorderOrder.storekeeper?._id)
+                ?.tariffLogistics.map(el => el._id)
+                .includes(reorderOrder.logicsTariff?._id)
+                ? reorderOrder.logicsTariff?._id
+                : '',
+            },
+            variationTariff: {
+              ...reorderOrder?.variationTariff,
+            },
+            // @refactor: need to create function
+            destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
+
+            logicsTariffId: storekeepers
+              .find(el => el._id === reorderOrder.storekeeper?._id)
+              ?.tariffLogistics.map(el => el._id)
+              .includes(reorderOrder.logicsTariff?._id)
+              ? reorderOrder.logicsTariff?._id
+              : '',
+            variationTariffId: reorderOrder?.variationTariffId,
+            expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
+            priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
+            deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
+            productId: reorderOrder.product?._id,
+          }
+        })
       : selectedProductsData.map(product => ({
           ...product,
           amount: 1,
+          clientComment: isPendingOrdering ? product.clientComment : '',
           expressChinaDelivery: false,
           priority: '30',
+          deadline: null,
+          variationTariffId: product.variationTariff?._id,
+
+          destination: {
+            _id: null,
+          },
+          logicsTariff: {
+            _id: null,
+          },
+          variationTariff: {
+            _id: null,
+          },
+          productId: product?._id,
         })),
   )
 
   const [orderState, setOrderState] = useState(
     reorderOrdersData?.length
-      ? reorderOrdersData.map(reorderOrder => ({
-          amount: reorderOrder.amount,
-          clientComment: '',
-          barCode: reorderOrder.product.barCode || '',
-          productId: reorderOrder.product._id,
-          images: [],
-          tmpBarCode: [],
+      ? reorderOrdersData.map(reorderOrder => {
+          const validDate = new Date(reorderOrder.deadline)
+          const isValidDeadline = !(isPast(validDate) || isToday(validDate) || isTomorrow(validDate))
+          const isSetCurrentDeadline =
+            ((isSetDeadline && statusesForChecking.some(status => status === reorderOrder.status)) ||
+              isPendingOrdering) &&
+            isValidDeadline
 
-          destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
-            ? reorderOrder.destination?._id
-            : '',
-          storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
-            ? reorderOrder.storekeeper?._id
-            : '',
-          logicsTariffId: storekeepers
-            .find(el => el._id === reorderOrder.storekeeper?._id)
-            ?.tariffLogistics.map(el => el._id)
-            .includes(reorderOrder.logicsTariff?._id)
-            ? reorderOrder.logicsTariff?._id
-            : '',
-          expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
-          priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-          _id: reorderOrder._id,
-          deadline: reorderOrder.deadline || '',
-          // buyerId: reorderOrder.buyer?._id || null,
-        }))
+          return {
+            amount: reorderOrder.amount,
+            clientComment: isPendingOrdering ? reorderOrder.clientComment : '',
+            barCode: reorderOrder?.product?.barCode || '',
+            tmpBarCode: [],
+
+            transparency: reorderOrder?.product?.transparency,
+            transparencyFile: '',
+            tmpTransparencyFile: [],
+
+            productId: reorderOrder.product._id,
+            images: [],
+
+            destination: {
+              _id: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            },
+            logicsTariff: {
+              _id: storekeepers
+                .find(el => el._id === reorderOrder.storekeeper?._id)
+                ?.tariffLogistics.map(el => el._id)
+                .includes(reorderOrder.logicsTariff?._id)
+                ? reorderOrder.logicsTariff?._id
+                : '',
+            },
+            variationTariff: {
+              ...reorderOrder?.variationTariff,
+            },
+
+            // @refactor: need to create function
+            destinationId: destinations?.find(el => el._id === reorderOrder?.destination?._id)?._id || '',
+            storekeeperId: storekeepers?.find(el => el._id === reorderOrder?.storekeeper?._id)?._id || '',
+            variationTariffId: reorderOrder?.variationTariffId,
+            logicsTariffId: storekeepers
+              .find(el => el._id === reorderOrder.storekeeper?._id)
+              ?.tariffLogistics.map(el => el._id)
+              .includes(reorderOrder.logicsTariff?._id)
+              ? reorderOrder.logicsTariff?._id
+              : '',
+            expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
+            priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
+            _id: reorderOrder._id,
+            deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
+            buyerId: reorderOrder.buyer?._id || null,
+          }
+        })
       : selectedProductsData.map(product => ({
           amount: 1,
-          clientComment: '',
-          barCode: product.barCode || '',
+          clientComment: isPendingOrdering ? product.clientComment : '',
+          barCode: product?.barCode || '',
           productId: product._id,
           images: [],
           deadline: null,
+
+          transparency: product.transparency,
           tmpBarCode: [],
+          tmpTransparencyFile: [],
+
+          destination: {
+            _id: null,
+          },
+          logicsTariff: {
+            _id: null,
+          },
+          variationTariff: {
+            _id: null,
+          },
 
           destinationId: null,
 
-          storekeeperId: '',
-          logicsTariffId: '',
+          storekeeperId: null,
+          logicsTariffId: null,
           expressChinaDelivery: false,
           priority: '30',
-          // buyerId: product.buyer?._id || null,
+          buyerId: product.buyer?._id || null,
         })),
   )
 
@@ -161,6 +247,15 @@ export const OrderProductModal = ({
       newStateOrderState[index][fieldsName] = parseInt(value) || 0
 
       newRenderOrderState[index][fieldsName] = parseInt(value) || 0
+    } else if (fieldsName === 'tariff') {
+      newStateOrderState[index] = {
+        ...newStateOrderState[index],
+        ...value,
+      }
+      newRenderOrderState[index] = {
+        ...newRenderOrderState[index],
+        ...value,
+      }
     } else {
       newStateOrderState[index][fieldsName] = value
 
@@ -177,24 +272,20 @@ export const OrderProductModal = ({
   )
 
   const onClickSubmit = () => {
-    const ordersData = orderState.map((el, i) =>
-      getObjectFilteredByKeyArrayBlackList(
-        {
-          ...el,
-          destinationId: el.destinationId ? el.destinationId : null,
-          totalPrice: productsForRender[i]?.currentSupplier?.price
-            ? (productsForRender[i]?.currentSupplier.price +
-                productsForRender[i]?.currentSupplier.batchDeliveryCostInDollar /
-                  productsForRender[i]?.currentSupplier.amount) *
-              el?.amount
-            : 0,
+    const ordersData = orderState.map((el, i) => ({
+      ...el,
+      destinationId: el.destinationId ? el.destinationId : null,
+      totalPrice: productsForRender[i]?.currentSupplier?.price
+        ? (productsForRender[i]?.currentSupplier.price +
+            productsForRender[i]?.currentSupplier.batchDeliveryCostInDollar /
+              productsForRender[i]?.currentSupplier.amount) *
+          el?.amount
+        : 0,
 
-          needsResearch: isResearchSupplier,
-          tmpIsPendingOrder: isPendingOrder,
-        },
-        el.deadline ? [] : ['deadline'],
-      ),
-    )
+      needsResearch: isResearchSupplier,
+      tmpIsPendingOrder: isPendingOrder,
+      images: [], // reset images to create an order(onClickSubmit), because in the useTariffVariations they are added again - need to fix order product modal
+    }))
 
     onSubmit({
       ordersDataState: ordersData,
@@ -206,124 +297,119 @@ export const OrderProductModal = ({
   }
 
   const storekeeperEqualsDestination = orderState.some(
-    order => order.storekeeperId === destinations.find(el => el._id === order.destinationId)?.storekeeper?._id,
+    order => order?.storekeeperId === destinations?.find(el => el?._id === order?.destinationId)?.storekeeper?._id,
   )
 
   const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplier)
 
   const disabledSubmit =
-    orderState.some(
-      (order, index) =>
+    orderState.some((order, index) => {
+      const isDeadlineTodayOrTomorrow =
+        isPast(new Date(order.deadline)) || isToday(new Date(order.deadline)) || isTomorrow(new Date(order.deadline))
+
+      return (
         (productsForRender[index].currentSupplier &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
             platformSettings.orderAmountLimit) ||
-        order.storekeeperId === '' ||
-        order.logicsTariffId === '' ||
+        !order.storekeeperId ||
+        !order.logicsTariffId ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        (order.deadline && (!isValid(order.deadline) || isPast(order.deadline) || isToday(order.deadline))) ||
+        ((!!isInventory || !!reorderOrdersData?.length) && !!isPendingOrdering && isDeadlineTodayOrTomorrow) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
-          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0),
-    ) ||
+          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
+      )
+    }) ||
     storekeeperEqualsDestination ||
-    // productsForRender.some(item => !item.currentSupplier) ||
     (!isHaveSomeSupplier && productsForRender.some(order => !order.deadline)) ||
     !orderState.length ||
-    submitIsClicked
+    submitIsClicked ||
+    (orderState.some(order => order.transparency && !order.transparencyFile && !order.tmpTransparencyFile.length) &&
+      !isPendingOrder)
 
   return (
-    <div>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
-      <TableContainer className={classNames.tableWrapper}>
-        <Table className={classNames.table}>
+    <div className={styles.wrapper}>
+      <Typography className={styles.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
+      <TableContainer className={styles.tableWrapper}>
+        <Table className={styles.table}>
           <TableHead>
-            <TableRow className={classNames.tableRow}>
-              <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
-              <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
-              <TableCell className={classNames.priceCell}>
-                <Button
-                  disabled
-                  className={classNames.priceCellBtn}
+            <TableRow className={styles.tableRow}>
+              <TableCell className={styles.productCell}>
+                <p className={styles.cellText}>{t(TranslationKey.Product)}</p>
+              </TableCell>
+              <TableCell className={styles.priceCell}>
+                <Text
+                  className={styles.priceCellBtn}
                   tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
                 >
-                  {t(TranslationKey['Price per unit.']) + ' $'}
-                </Button>
+                  {t(TranslationKey['Price without delivery']) + ' $'}
+                </Text>
               </TableCell>
 
-              <TableCell className={classNames.deliveryCell}>
-                <Button
-                  disabled
-                  className={classNames.deliveryCellBtn}
+              <TableCell className={styles.deliveryCell}>
+                <Text
+                  className={styles.deliveryCellBtn}
                   tooltipInfoContent={t(TranslationKey['Delivery costs to the prep center'])}
                 >
                   {t(TranslationKey['Delivery per unit.']) + ' $'}
-                </Button>
+                </Text>
               </TableCell>
-              <TableCell className={classNames.qntCell}>
-                <Button
-                  disabled
-                  className={classNames.qntCellBtn}
+              <TableCell className={styles.qntCell}>
+                <Text
+                  className={styles.qntCellBtn}
                   tooltipInfoContent={t(TranslationKey['Specify the amount of goods you want to order'])}
                 >
                   {t(TranslationKey.Quantity)}
-                </Button>
+                </Text>
               </TableCell>
-              <TableCell className={classNames.totalCell}>
-                <Button
-                  disabled
-                  className={classNames.totalCellBtn}
+              <TableCell className={styles.totalCell}>
+                <Text
+                  className={styles.totalCellBtn}
                   tooltipInfoContent={t(TranslationKey['Order amount for a specific product'])}
                 >
                   {t(TranslationKey.Total) + ' $'}
-                </Button>
+                </Text>
               </TableCell>
-              <TableCell className={classNames.totalCell}>
-                <Button disabled className={classNames.totalCellBtn}>
-                  {t(TranslationKey['Price variations'])}
-                </Button>
+              <TableCell className={styles.totalCell}>
+                <Text className={styles.totalCellBtn}>{t(TranslationKey['Price variations'])}</Text>
               </TableCell>
-              <TableCell className={classNames.barCodeCell}>
-                <Button
-                  disabled
-                  className={classNames.barCodeCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Product barcode'])}
-                >
-                  {t(TranslationKey.BarCode)}
-                </Button>
+              <TableCell className={styles.barCodeCell}>
+                <Text className={styles.barCodeCellBtn}>
+                  {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency codes'])}`}
+                </Text>
               </TableCell>
-              <TableCell className={classNames.tariffCell}>
-                <Button
-                  disabled
-                  className={classNames.tariffCellBtn}
+              <TableCell className={styles.tariffCell}>
+                <Text
+                  className={styles.tariffCellBtn}
                   tooltipInfoContent={t(
                     TranslationKey['Choose a prep center in China and the rate at which the delivery will take place'],
                   )}
                 >
                   {`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}
-                </Button>
+                </Text>
               </TableCell>
-              <TableCell className={classNames.warehouseCell}>
-                <Button
-                  disabled
-                  className={classNames.warehouseCellBtn}
+              <TableCell className={styles.warehouseCell}>
+                <Text
+                  className={styles.warehouseCellBtn}
                   tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
                 >
                   {t(TranslationKey.Destination)}
-                </Button>
+                </Text>
               </TableCell>
 
-              <TableCell className={classNames.commentCell}>
-                <Button
-                  disabled
-                  className={classNames.commentCellBtn}
+              <TableCell className={styles.commentCell}>
+                <Text
+                  className={styles.commentCellBtn}
                   tooltipInfoContent={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
                 >
                   {t(TranslationKey['Client comment'])}
-                </Button>
+                </Text>
               </TableCell>
-              <TableCell className={classNames.deadlineCell}>{'Deadline'}</TableCell>
+              <TableCell className={styles.deadlineCell}>
+                <Text className={styles.cellText}>{'Deadline'}</Text>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -346,13 +432,18 @@ export const OrderProductModal = ({
                   setOrderStateFiled(index)('expressChinaDelivery')(!product.expressChinaDelivery)
                 }}
                 onClickSetDestinationFavourite={setDestinationsFavouritesItem}
+                onDoubleClickBarcode={onDoubleClickBarcode}
                 onClickBarcode={() => {
                   setTmpOrderIndex(index)
                   triggerBarcodeModal()
                 }}
-                onDoubleClickBarcode={onDoubleClickBarcode}
+                onClickTransparency={value => {
+                  setShowSetFilesModal(true)
+                  setFilesConditions(value)
+                }}
                 onDeleteBarcode={() => {
                   setOrderStateFiled(index)('barCode')('')
+                  setOrderStateFiled(index)('tmpBarCode')([])
                 }}
                 onRemoveProduct={onRemoveProduct}
               />
@@ -361,22 +452,32 @@ export const OrderProductModal = ({
         </Table>
       </TableContainer>
 
-      <div className={classNames.sumWrapper}>
-        <Typography className={classNames.sumText}>{`${t(
-          TranslationKey['Total amount'],
-        )}: ${totalOrdersCost}`}</Typography>
+      <div className={styles.sumWrapper}>
+        <Typography className={styles.sumText}>{`${t(TranslationKey['Total amount'])}: ${totalOrdersCost}`}</Typography>
       </div>
 
-      <div className={classNames.buttonsWrapper}>
-        <div className={classNames.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
-          <Checkbox checked={isResearchSupplier} color="primary" />
-          <Typography className={classNames.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
+      <div className={styles.buttonsWrapper}>
+        <div className={styles.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
+          <Checkbox
+            checked={isResearchSupplier}
+            color="primary"
+            classes={{
+              root: styles.checkbox,
+            }}
+          />
+          <Typography className={styles.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
         </div>
 
         {!isPendingOrdering ? (
-          <div className={classNames.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
-            <Checkbox checked={isPendingOrder} color="primary" />
-            <Typography className={classNames.sumText}>{t(TranslationKey['Pending order'])}</Typography>
+          <div className={styles.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
+            <Checkbox
+              checked={isPendingOrder}
+              color="primary"
+              classes={{
+                root: styles.checkbox,
+              }}
+            />
+            <Typography className={styles.sumText}>{t(TranslationKey['Pending order'])}</Typography>
           </div>
         ) : null}
 
@@ -387,7 +488,7 @@ export const OrderProductModal = ({
           tooltipAttentionContent={
             storekeeperEqualsDestination && t(TranslationKey['Storekeeper and destination match'])
           }
-          className={(classNames.modalButton, classNames.buyNowBtn)}
+          className={(styles.modalButton, styles.buyNowBtn)}
           disabled={disabledSubmit}
           onClick={onClickSubmit}
         >
@@ -396,7 +497,7 @@ export const OrderProductModal = ({
 
         <Button
           tooltipInfoContent={t(TranslationKey['Close the checkout window without saving'])}
-          className={(classNames.modalButton, classNames.cancelBtn)}
+          className={(styles.modalButton, styles.cancelBtn)}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
         >
           {t(TranslationKey.Cancel)}
@@ -405,15 +506,27 @@ export const OrderProductModal = ({
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
         <SetBarcodeModal
           tmpCode={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex].tmpBarCode}
-          item={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]}
+          barCode={isNotUndefined(tmpOrderIndex) && orderState[tmpOrderIndex]?.barCode}
           onClickSaveBarcode={barCode => {
             setOrderStateFiled(tmpOrderIndex)('tmpBarCode')(barCode)
-            triggerBarcodeModal()
             setTmpOrderIndex(undefined)
           }}
           onCloseModal={triggerBarcodeModal}
         />
       </Modal>
+      <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
+        <SetFilesModal
+          modalTitle={t(TranslationKey.Transparency)}
+          LabelTitle={t(TranslationKey['Transparency codes'])}
+          currentFiles={filesConditions.currentFiles}
+          tmpFiles={filesConditions.tmpFiles}
+          onClickSave={value => {
+            setOrderStateFiled(filesConditions.index)('tmpTransparencyFile')(value)
+            setShowSetFilesModal(false)
+          }}
+          onCloseModal={setShowSetFilesModal}
+        />
+      </Modal>
     </div>
   )
-}
+})

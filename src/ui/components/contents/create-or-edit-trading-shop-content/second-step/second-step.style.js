@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   chartSubLabel: {
     fontWeight: '600',
     fontSize: '14px',
@@ -55,7 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: '#006CFF',
     borderRadius: '4px',
     color: '#fff',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.1)',
@@ -193,7 +193,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '22px',
     fontSize: '18px',
     color: '#00B746',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.1)',
@@ -201,7 +201,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   chartIcon: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.1)',

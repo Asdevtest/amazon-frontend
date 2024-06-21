@@ -1,24 +1,26 @@
-import { TextareaAutosize, Typography } from '@mui/material'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import { TextareaAutosize, Typography } from '@mui/material'
 
 import { renderSettingsRuLabelByKey } from '@constants/keys/user-settings-labels-to-render'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './user-settings-form.style'
+
 import { UserSettingsModel } from './user-settings-form.model'
-import { useClassNames } from './user-settings-form.style'
 
 export const UserSettingsForm = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const asModel = useRef(new UserSettingsModel({ history }))
 
@@ -46,9 +48,9 @@ export const UserSettingsForm = observer(() => {
   }
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={styles.mainWrapper}>
       {!sourceUserSettings && (
-        <Typography className={classNames.noSettingsWarning}>{t(TranslationKey['No user settings'])}</Typography>
+        <Typography className={styles.noSettingsWarning}>{t(TranslationKey['No user settings'])}</Typography>
       )}
 
       {userSettingsAvailable.map((item, i) => (
@@ -57,7 +59,7 @@ export const UserSettingsForm = observer(() => {
           label={renderSettingsRuLabelByKey(item.key)}
           inputComponent={
             <TextareaAutosize
-              className={classNames.textField}
+              className={styles.textField}
               value={userSettings?.[item.key] || ''}
               onChange={onChangeField([item.key])}
             />
@@ -65,9 +67,9 @@ export const UserSettingsForm = observer(() => {
         />
       ))}
 
-      <div className={classNames.placeAddBtnWrapper}>
+      <div className={styles.placeAddBtnWrapper}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={JSON.stringify(sourceUserSettings) === JSON.stringify(userSettings)}
           onClick={() => (sourceUserSettings ? onEditSubmit() : onCreateSubmit())}
         >
@@ -75,15 +77,16 @@ export const UserSettingsForm = observer(() => {
         </Button>
       </div>
 
-      <SuccessInfoModal
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={t(TranslationKey['Data accepted'])}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={t(TranslationKey['Data accepted'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
     </div>
   )
 })

@@ -1,18 +1,16 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
-
-import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { AnnouncementsModel } from '@models/announcements-model'
-import { ChatModel } from '@models/chat-model'
+import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
-import { RequestProposalModel } from '@models/request-proposal'
+
+import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ServicesDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   requestId = undefined
   announcementId = undefined
@@ -21,38 +19,34 @@ export class ServicesDetailCustomViewModel {
   announcementData = undefined
 
   requestProposals = undefined
-  showWarningModal = false
-  showConfirmModal = false
+  showReviewModal = false
+
+  currentReviews = []
+  currentReviewModalUser = undefined
 
   loadedFiles = []
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
-
-  constructor({ history, location }) {
+  constructor({ history }) {
     runInAction(() => {
       this.history = history
 
-      if (location.state) {
-        // console.log(location.state)
-        this.requestId = location.state.requestId
-        this.announcementId = location.state.announcementId
-      }
+      const url = new URL(window.location.href)
+
+      this.requestId = url.searchParams.get('requestId')
+      this.announcementId = url.searchParams.get('announcementId')
     })
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getCustomRequestById()
       this.getAnnouncementsDataById()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -64,10 +58,7 @@ export class ServicesDetailCustomViewModel {
         this.request = requestData
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -78,8 +69,7 @@ export class ServicesDetailCustomViewModel {
         this.announcementData = result
       })
     } catch (error) {
-      this.error = error
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -100,8 +90,26 @@ export class ServicesDetailCustomViewModel {
   }
 
   onClickSuggestDealBtn() {
-    this.history.push('/freelancer/freelance/my-services/service-detailds/custom-service-type/create-proposal', {
-      request: toJS(this.request),
-    })
+    this.history.push(
+      `/freelancer/freelance/my-services/service-detailds/custom-service-type/create-proposal?requestId=${this.request?.request?._id}`,
+    )
+  }
+
+  async getReviews(guid) {
+    try {
+      const result = await FeedbackModel.getFeedback(guid)
+
+      runInAction(() => {
+        this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onClickReview(user) {
+    await this.getReviews(user._id)
+    this.currentReviewModalUser = user
+    this.onTriggerOpenModal('showReviewModal')
   }
 }

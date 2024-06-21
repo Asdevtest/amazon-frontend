@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   title: {
     fontSize: 14,
     color: theme.palette.text.second,
@@ -38,7 +38,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.second,
     // backgroundColor: theme.palette.background.third,
 
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
 
     transition: '0.3s ease',
     '&:hover': {
@@ -57,9 +57,11 @@ export const useClassNames = makeStyles()(theme => ({
     top: 2,
     right: 5,
     height: 28,
-    width: 28,
+    minWidth: 28,
+    width: 'fit-content',
+    padding: '1px 6px',
     backgroundColor: theme.palette.primary.main,
-    borderRadius: '50%',
+    borderRadius: '30px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -79,7 +81,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
     gap: '54px',
     height: '145px',
-    marginRight: '245px',
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
       alignItems: 'start',

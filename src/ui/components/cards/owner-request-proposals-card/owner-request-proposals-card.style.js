@@ -1,13 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   cardMainWrapper: {
     height: '320px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: '4px',
-    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
+    boxShadow: theme.palette.boxShadow.paper,
     padding: '30px 40px',
   },
 
@@ -15,15 +15,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-
-  userInfoMainWrapper: {
-    width: '100%',
-  },
-
-  cardWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
   },
 
   cardImg: {
@@ -61,14 +52,6 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#F44336',
-    },
-  },
-
-  successBtn: {
-    backgroundColor: '#4CAF50',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#4CAF50',
     },
   },
 
@@ -120,6 +103,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   userRating: {
     marginLeft: '49px',
+    opacity: '1 !important', // undisabled style
   },
 
   userNameWrapper: {
@@ -149,20 +133,13 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.text.general,
-  },
-
-  photoWrapper: {
-    marginLeft: '60px',
-    width: '391px',
-    height: '152px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    wordBreak: 'break-all',
   },
 
   cardContentWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 40,
   },
 
   cardSubContentWrapper: {
@@ -196,7 +173,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: '400',
     color: theme.palette.primary.main,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   standartText: {

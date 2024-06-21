@@ -1,17 +1,14 @@
-/* eslint-disable unicorn/filename-case */
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainContainer: {
-    width: '100%',
     height: '100%',
   },
 
   window: {
-    width: '100%',
-
     overflow: 'hidden',
     height: '100%',
+    width: '100%',
   },
 
   allPages: {
@@ -66,18 +63,24 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '100%',
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+
+  modal: {
+    maxWidth: '100%',
   },
 
   headerCarouselDocumentsWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     height: '100%',
   },
 
   numberOfFiles: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '10px',
     '& > :first-of-type': {
       fontSize: '14px',
     },
@@ -87,7 +90,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: '10px',
     '& > :first-of-type': {
       fontSize: '14px',
     },

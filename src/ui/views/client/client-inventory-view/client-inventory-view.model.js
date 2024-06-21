@@ -1,137 +1,59 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeObservable, reaction, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
-import { RequestStatus } from '@constants/requests/request-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { creatSupplier } from '@constants/white-list'
+import { creatSupplier, createOrderRequestWhiteList } from '@constants/white-list'
 
-import { BatchesModel } from '@models/batches-model'
-import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
-import { GeneralModel } from '@models/general-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
 import { OtherModel } from '@models/other-model'
 import { ProductModel } from '@models/product-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 import { SettingsModel } from '@models/settings-model'
-import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
-import { clientInventoryColumns } from '@components/table/table-columns/client/client-inventory-columns'
-
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
-import { addIdDataConverter, clientInventoryDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
-import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
+import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const fieldsOfProductAllowedToUpdate = [
-  'dirdecision',
-  'researcherFine',
-  'researcherFineComment',
-  'supervisorFine',
-  'supervisorFineComment',
-  'barCode',
-  'clientComment',
-]
+import { loadingStatus } from '@typings/enums/loading-status'
 
-const fieldsOfProductAllowedToCreate = [
-  'lamazon',
-  'lsupplier',
-  'bsr',
-  'status',
-  'amazon',
-  'fbafee',
-  'reffee',
-  'delivery',
-  'icomment',
-  'fba',
-  'profit',
-  'margin',
-  'images',
-  'width',
-  'height',
-  'length',
-  'amazonTitle',
-  'amazonDetail',
-  'amazonDescription',
-  'category',
-  'weight',
-  'minpurchase',
-  'fbaamount',
-  'strategyStatus',
-  'currentSupplierId',
-  'asin',
-]
+import { clientInventoryColumns } from './client-inventory-columns'
+import {
+  TAGS,
+  additionalFilterFields,
+  defaultHiddenColumns,
+  fieldsOfProductAllowedToCreate,
+  fieldsOfProductAllowedToUpdate,
+} from './client-inventory-view.constants'
+import { observerConfig } from './model-observer.config'
 
-const filtersFields = [
-  'shopIds',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'strategyStatus',
-  'amountInOrders',
-  'inTransfer',
-  'stockUSA',
-  'boxAmounts',
-  'sumStock',
-  'amazon',
-  'createdAt',
-  'updatedAt',
-  'profit',
-  'fbafee',
-  'status',
-  'reservedSum',
-  'sentToFbaSum',
-  'fbaFbmStockSum',
-  'ideasOnCheck',
-  'stockCost',
-  'purchaseQuantity',
-  'ideasClosed',
-  'ideasVerified',
-  'tags',
-  'redFlags',
-]
-
-const defaultHiddenFields = ['strategyStatus', 'createdAt', 'updatedAt']
-
-export class ClientInventoryViewModel {
-  history = undefined
-  requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
-
+export class ClientInventoryViewModel extends DataGridFilterTableModel {
   product = undefined
   ordersDataStateToSubmit = undefined
 
-  baseNoConvertedProducts = undefined
-  productsMy = []
-  productsMyBase = []
-  withoutProduct = false
-  withProduct = false
-  user = undefined
-  orders = []
-  ideasData = []
-  selectedRowIds = []
   sellerBoardDailyData = []
   storekeepers = []
   destinations = []
-  shopsData = []
-  currentShops = []
-  ideaId = ''
+  ideaId = undefined
   isArchive = false
-  batchesData = []
+
+  presetsData = []
+  productsTags = []
+  activeProductsTags = []
 
   receivedFiles = undefined
 
@@ -139,31 +61,25 @@ export class ClientInventoryViewModel {
 
   hsCodeData = {}
 
-  existingOrders = []
-  checkPendingData = []
-
   curProduct = undefined
 
-  // isNeedPurchaseFilter = null
+  productsToLaunch = []
+  productVariations = []
+  selectedProductToLaunch = undefined
 
-  nameSearchValue = ''
+  dataForOrderModal = []
+
+  existingProducts = []
+  selectedProduct = undefined
 
   selectedRowId = undefined
-  yuanToDollarRate = undefined
-  platformSettings = undefined
-
   showOrderModal = false
   showSuccessModal = false
-
   showCheckPendingOrderFormModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
-  showAddOrEditSupplierModal = false
-  selectedProduct = undefined
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
-  showAddSupplierToIdeaFromInventoryModal = false
-  showInfoModal = false
   showConfirmModal = false
   showSetChipValueModal = false
   showBarcodeOrHscodeModal = false
@@ -171,149 +87,42 @@ export class ClientInventoryViewModel {
   showCircularProgressModal = false
   showAddSuppliersModal = false
   showSetStockUsValueModal = false
-  showProductLotDataModal = false
+  showProductDataModal = false
   showGetFilesModal = false
   showEditHSCodeModal = false
+  productCardModal = false
+  showProductLaunch = false
+  showIdeaModal = false
+  showProductVariationsForm = false
+  showAddOrEditSupplierModal = false
+  showEditProductTagsModal = false
+
+  onAmazon = false
+  isBatches = false
 
   successModalText = ''
   confirmMessage = ''
-  showInfoModalTitle = ''
-  priceForSeekSupplier = 0
   currentBarcode = ''
   currentHscode = ''
-  isModalOpen = false
-
-  onHover = null
-
-  isTransfer = false
-
-  showAcceptMessage = undefined
-  acceptMessage = undefined
-
-  columnMenuSettings = {
-    onClickFilterBtn: field => this.onClickFilterBtn(field),
-    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: () => {
-      this.onLeaveColumnField()
-      this.getProductsMy()
-      this.getDataGridState()
-    },
-
-    filterRequestStatus: undefined,
-
-    isNeedPurchaseFilterData: {
-      isNeedPurchaseFilter: true,
-      isNotNeedPurchaseFilter: true,
-      onChangeIsNeedPurchaseFilter: (value, value2) => this.onChangeIsNeedPurchaseFilter(value, value2),
-    },
-
-    isHaveBarCodeFilterData: {
-      isHaveBarCodeFilter: null,
-      onChangeIsHaveBarCodeFilter: value => this.onChangeIsHaveBarCodeFilter(value),
-    },
-
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
-  }
-
-  barCodeHandlers = {
-    onClickBarcode: item => this.onClickBarcode(item),
-    onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
-    onDeleteBarcode: item => this.onDeleteBarcode(item),
-    showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
-  }
-
-  hsCodeHandlers = {
-    onClickHsCode: item => this.onClickHsCode(item),
-    onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
-    onDeleteHsCode: item => this.onDeleteHsCode(item),
-    showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
-  }
-
-  fourMonthesStockHandlers = {
-    onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
-  }
-
-  stockUsHandlers = {
-    onClickSaveStockUs: (item, value) => this.onClickSaveStockUs(item, value),
-  }
-
-  otherHandlers = {
-    onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
-    onClickInTransfer: productId => this.onClickInTransfer(productId),
-    onClickOrderCell: productId => this.onClickOrderCell(productId),
-  }
-
-  confirmModalSettings = {
-    isWarning: false,
-    confirmTitle: '',
-    confirmMessage: '',
-    onClickConfirm: () => {},
-  }
-
-  currentData = []
 
   readyImages = []
   progressValue = 0
   showProgress = false
 
-  rowCount = 0
-  sortModel = []
-  filterModel = { items: [] }
-  densityModel = 'compact'
-  columnsModel = clientInventoryColumns(
-    this.barCodeHandlers,
-    this.hsCodeHandlers,
-    this.fourMonthesStockHandlers,
-    this.stockUsHandlers,
-    this.otherHandlers,
-    () => this.columnMenuSettings,
-    () => this.onHover,
-  )
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
+  getCustomSortFields = []
 
   get userInfo() {
     return UserModel.userInfo
   }
 
   get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
-  }
-
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-    })
-
-    if (location.state) {
-      runInAction(() => {
-        this.isArchive = location.state.isArchive
-        this.isModalOpen = location.state.isModalOpen
-      })
-
-      const state = { ...history.location.state }
-      delete state.isModalOpen
-      history.replace({ ...history.location, state })
-    }
-
-    makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.productsMy,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
+    return (
+      this.filtersFields.some(el => this.columnMenuSettings?.[el]?.currentFilterData?.length) ||
+      !(
+        this.columnMenuSettings?.transparencyYesNoFilterData?.yes &&
+        this.columnMenuSettings?.transparencyYesNoFilterData?.no
+      ) ||
+      !(this.columnMenuSettings?.childrenYesNoFilterData?.yes && this.columnMenuSettings?.childrenYesNoFilterData?.no)
     )
   }
 
@@ -321,47 +130,286 @@ export class ClientInventoryViewModel {
     return SettingsModel.destinationsFavourites
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
+  constructor() {
+    const additionalPropertiesColumnMenuSettings = {
+      transparencyYesNoFilterData: {
+        yes: true,
+        no: true,
+        handleFilters: (yes, no) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            transparencyYesNoFilterData: {
+              ...this.columnMenuSettings.transparencyYesNoFilterData,
+              yes,
+              no,
+            },
+          }
+          this.getCurrentData()
+        },
+      },
+
+      childrenYesNoFilterData: {
+        yes: true,
+        no: true,
+        handleFilters: (yes, no) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            childrenYesNoFilterData: {
+              ...this.columnMenuSettings.childrenYesNoFilterData,
+              yes,
+              no,
+            },
+          }
+          this.getCurrentData()
+        },
+      },
+
+      isNeedPurchaseFilterData: {
+        isNeedPurchaseFilter: true,
+        isNotNeedPurchaseFilter: true,
+        onChangeIsNeedPurchaseFilter: (isNotNeedPurchaseFilter, isNeedPurchaseFilter) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isNeedPurchaseFilterData: {
+              ...this.columnMenuSettings.isNeedPurchaseFilterData,
+              isNeedPurchaseFilter,
+              isNotNeedPurchaseFilter,
+            },
+          }
+          this.getCurrentData()
+        },
+      },
+
+      isNeedRefillFilterData: {
+        isNeedPurchaseFilter: true,
+        isNotNeedPurchaseFilter: true,
+        onChangeIsNeedPurchaseFilter: (isNotNeedPurchaseFilter, isNeedPurchaseFilter) => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isNeedRefillFilterData: {
+              ...this.columnMenuSettings.isNeedRefillFilterData,
+              isNeedPurchaseFilter,
+              isNotNeedPurchaseFilter,
+            },
+          }
+
+          this.getCurrentData()
+        },
+      },
+
+      isHaveBarCodeFilterData: {
+        isHaveBarCodeFilter: null,
+        onChangeIsHaveBarCodeFilter: value => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            isHaveBarCodeFilterData: {
+              ...this.columnMenuSettings.isHaveBarCodeFilterData,
+              isHaveBarCodeFilter: value,
+            },
+          }
+          this.getCurrentData()
+        },
+      },
+    }
+
+    const barCodeHandlers = {
+      onClickBarcode: item => this.onClickBarcode(item),
+      onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
+      onDeleteBarcode: item => this.onDeleteBarcode(item),
+      showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
+    }
+
+    const hsCodeHandlers = {
+      onClickHsCode: item => this.onClickHsCode(item),
+      onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
+      onDeleteHsCode: item => this.onDeleteHsCode(item),
+      showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
+    }
+
+    const fourMonthesStockHandlers = {
+      onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
+      editRecommendationForStockByGuid: (productId, storekeeperId, recommendedValue) =>
+        this.editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue),
+    }
+
+    const stockUsHandlers = {
+      onClickSaveStockUs: (item, value) => this.onClickSaveStockUs(item, value),
+    }
+
+    const otherHandlers = {
+      onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
+      onOpenProductDataModal: (product, onAmazon) => this.onOpenProductDataModal(product, onAmazon),
+      onClickOrderCell: productId => this.onClickOrderCell(productId),
+      onClickShowProduct: row => this.onClickShowProduct(row),
+      onClickVariationButton: id => this.onClickVariationButton(id),
+      onClickTag: tag => this.setActiveProductsTagFromTable(tag),
+      onClickEdit: productId => this.onClickEditTags(productId),
+    }
+
+    const defaultGetCurrentDataOptions = () => ({
+      preset: true,
+      noCache: true,
+    })
+
+    const additionalPropertiesGetFilters = () => {
+      const isNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
+      const isNotNeedPurchaseFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
+      const purchaseQuantityAboveZero = !(isNeedPurchaseFilter && isNotNeedPurchaseFilter)
+
+      const isNeedRefillFilterData = this.columnMenuSettings.isNeedRefillFilterData.isNeedPurchaseFilter
+      const isNotNeedRefillFilterData = this.columnMenuSettings.isNeedRefillFilterData.isNotNeedPurchaseFilter
+      const isNeedRefillFilter = !(isNeedRefillFilterData && isNotNeedRefillFilterData)
+
+      return {
+        ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
+          barCode: {
+            [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true,
+          },
+        }),
+        ...(this.columnMenuSettings.transparencyYesNoFilterData.yes &&
+        this.columnMenuSettings.transparencyYesNoFilterData.no
+          ? {}
+          : {
+              transparency: { $eq: this.columnMenuSettings.transparencyYesNoFilterData.yes },
+            }),
+        ...(this.columnMenuSettings.childrenYesNoFilterData.yes && this.columnMenuSettings.childrenYesNoFilterData.no
+          ? {}
+          : {
+              isChild: { $eq: this.columnMenuSettings.childrenYesNoFilterData.yes },
+            }),
+
+        ...(isNeedRefillFilter && {
+          toRefill: isNotNeedRefillFilterData ? { $eq: 0 } : { $gt: 0 },
+        }),
+
+        ...(purchaseQuantityAboveZero && {
+          purchaseQuantityAboveZero: { $eq: isNeedPurchaseFilter },
+        }),
+        ...(this.isArchive && {
+          archive: { $eq: true },
+        }),
+      }
+    }
+
+    const columns = clientInventoryColumns({
+      barCodeHandlers,
+      hsCodeHandlers,
+      fourMonthesStockHandlers,
+      stockUsHandlers,
+      otherHandlers,
+    })
+    const filtersFields = getFilterFields(columns, additionalFilterFields)
+
+    super({
+      getMainDataMethod: ClientModel.getProductsMyFilteredByShopIdWithPag,
+      columnsModel: columns,
+      filtersFields,
+      mainMethodURL: 'clients/products/my_with_pag_v2?',
+      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
+      tableKey: DataGridTablesKeys.CLIENT_INVENTORY,
+      defaultGetCurrentDataOptions,
+      additionalPropertiesColumnMenuSettings,
+      additionalPropertiesGetFilters,
+    })
+
+    this.sortModel = [{ field: 'sumStock', sort: 'desc' }]
+
+    this.handleHideColumns(defaultHiddenColumns)
+
+    this.getDataGridState()
+
+    const url = new URL(window.location.href)
+    this.isArchive = url.searchParams.get('isArchive') || false
+
+    makeObservable(this, observerConfig)
+
+    this.loadData()
+
+    const getValidColumns = async () => {
+      const activeFields = this.presetsData.reduce((acc, el) => {
+        if (el?._id) {
+          acc[el.table] = []
+          for (const field of el.fields) {
+            if (field?.checked) {
+              acc[el.table].push(field?.field)
+            }
+          }
+        }
+
+        return acc
+      }, {})
+
+      const newColumns = clientInventoryColumns({
+        barCodeHandlers,
+        hsCodeHandlers,
+        fourMonthesStockHandlers,
+        stockUsHandlers,
+        otherHandlers,
+        additionalFields: activeFields,
+        storekeepers: this.meta?.storekeepers,
+      })
+
+      const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
+
+      this.columnsModel = newColumns
+      this.filtersFields = newFiltersFields
+      this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
+      this.getDataGridState()
+    }
+
+    reaction(
+      () => this.presetsData,
+      () => getValidColumns(),
+    )
+
+    reaction(
+      () => this.meta?.storekeepers?.length,
+      () => {
+        for (const storekeeper of this.meta.storekeepers) {
+          const currentColumnName = `toRefill${storekeeper?._id}`
+
+          if (!this.columnVisibilityModel?.[currentColumnName] && !storekeeper?.isUserPreprocessingCenterUSA) {
+            this.columnVisibilityModel[currentColumnName] = false
+          }
+        }
+
+        getValidColumns()
+      },
+    )
+  }
+
   setDestinationsFavouritesItem(item) {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
-
-    this.setDataGridState()
-  }
-
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
-    this.setDataGridState()
-    this.getProductsMy()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    console.log('model', model)
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
-    this.setDataGridState()
-    this.getProductsMy()
-  }
-
-  onClickShowProduct(row) {
-    const win = window.open(
-      `${window.location.origin}/client/inventory/product?product-id=${row.originalData._id}`,
-      '_blank',
-    )
+  onClickShowProduct(id) {
+    const win = window.open(`${window.location.origin}/client/inventory/product?product-id=${id}`, '_blank')
 
     win.focus()
   }
 
+  onClickProductModal(row) {
+    if (window.getSelection().toString()) {
+      return
+    }
+
+    if (row) {
+      this.isArchive
+        ? this.history.push(`/client/inventory?product-id=${row._id}&isArchive=true`)
+        : this.history.push(`/client/inventory?product-id=${row._id}`)
+    } else {
+      this.isArchive ? this.history.push(`/client/inventory?isArchive=true`) : this.history.push(`/client/inventory`)
+    }
+
+    this.onTriggerOpenModal('productCardModal')
+  }
+
   onClickPandingOrder(id) {
-    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?orderId${id}`, '_blank')
+    const win = window.open(`${window.location.origin}/client/my-orders/pending-orders/order?orderId=${id}`, '_blank')
     win.focus()
   }
 
@@ -375,82 +423,32 @@ export class ClientInventoryViewModel {
   }
 
   onClickOrderCell(productId) {
-    const win = window.open(
-      `${window.location.origin}/client/inventory/product?product-id=${productId}&show-tab=orders`,
-      '_blank',
-    )
-
-    win.focus()
-  }
-
-  onHoverColumnField(field) {
-    this.onHover = field
-  }
-
-  onLeaveColumnField() {
-    this.onHover = null
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    if (productId) {
+      this.isArchive
+        ? this.history.push(`/client/inventory?product-id=${productId}&isArchive=true&show-tab=orders`)
+        : this.history.push(`/client/inventory?product-id=${productId}&show-tab=orders`)
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_INVENTORY)
+    this.onTriggerOpenModal('productCardModal')
   }
 
-  getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_INVENTORY]
+  async onClickVariationButton(id) {
+    try {
+      const result = await ProductModel.getProductsVariationsByGuid(id)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
-  }
+      runInAction(() => {
+        this.productVariations = result
+      })
 
-  setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
-    this.setDataGridState()
-
-    this.getProductsMy()
-  }
-
-  onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
-  }
-
-  getCurrentData() {
-    return toJS(this.productsMy)
-  }
-
-  onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
-
-    this.getProductsMy()
+      this.onTriggerOpenModal('showProductVariationsForm')
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async uploadTemplateFile(file) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.showProgress = true
       })
@@ -468,16 +466,16 @@ export class ClientInventoryViewModel {
       })
 
       this.onTriggerOpenModal('showGetFilesModal')
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   checkIsNoEditProductSelected() {
-    return this.selectedRowIds.some(prodId => {
-      const findProduct = this.productsMy.find(prod => prod._id === prodId)
+    return this.selectedRows.some(prodId => {
+      const findProduct = this.currentData.find(prod => prod._id === prodId)
 
       return [
         ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
@@ -486,109 +484,341 @@ export class ClientInventoryViewModel {
         ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
         ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
         ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-      ].includes(ProductStatusByCode[findProduct?.originalData.status])
+      ].includes(ProductStatusByCode[findProduct?.status])
     })
   }
 
   onClickTriggerArchOrResetProducts() {
     if (this.checkIsNoEditProductSelected()) {
-      runInAction(() => {
-        this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.warning(t(TranslationKey['Product with invalid status selected']))
+
       return
     }
 
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: this.isArchive ? false : true,
-        confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a card']),
-        confirmMessage: this.isArchive
-          ? t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?'])
-          : t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
-        onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: this.isArchive ? false : true,
+      confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a card']),
+      confirmMessage: this.isArchive
+        ? t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?'])
+        : t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
+      onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onSubmitTriggerArchOrResetProducts() {
     try {
-      for (let i = 0; i < this.selectedRowIds.length; i++) {
-        const productId = this.selectedRowIds[i]
+      for (let i = 0; i < this.selectedRows.length; i++) {
+        const productId = this.selectedRows[i]
 
         await ClientModel.updateProduct(productId, { archive: this.isArchive ? false : true })
       }
 
       this.onTriggerOpenModal('showConfirmModal')
-      await this.loadData()
+      await this.getCurrentData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   onTriggerArchive() {
-    runInAction(() => {
-      this.selectedRowIds = []
-    })
+    this.selectedRows = []
 
-    this.isArchive
-      ? this.history.push('/client/inventory', { isArchive: !this.isArchive })
-      : this.history.push('/client/inventory/archive', { isArchive: !this.isArchive })
+    this.isArchive ? this.history.push('/client/inventory') : this.history.push('/client/inventory?isArchive=true')
+    this.isArchive = this.isArchive ? false : true
+
+    this.getCurrentData()
   }
 
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
+
+      runInAction(() => {
+        this.paymentMethods = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      this.getDataGridState()
-
-      await Promise.all([this.getShops(), this.getProductsMy()])
-
-      this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.getPresets()
+      this.getCurrentData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+    }
+  }
+
+  setActiveProductsTag(tags) {
+    this.columnMenuSettings?.onChangeFullFieldMenuItem(tags, TAGS)
+    this.columnMenuSettings?.onClickAccept()
+  }
+
+  setActiveProductsTagFromTable(tag) {
+    const index = this.columnMenuSettings?.tags?.currentFilterData?.findIndex(
+      currentTag => currentTag?._id === tag?._id,
+    )
+
+    const newTags = [...this.columnMenuSettings.tags.currentFilterData]
+
+    if (index > -1) {
+      newTags.splice(index, 1)
+    } else {
+      newTags.push(tag)
+    }
+
+    this.setActiveProductsTag(newTags)
+  }
+
+  async getPresets() {
+    try {
+      const currentPresets = await this.getCurrentPresets()
+      const allPresets = await this.getAllPresets()
+
+      const presetsData = []
+
+      if (currentPresets) {
+        for (const preset of allPresets) {
+          const presetData = {}
+          const existPreset = currentPresets.find(currentPreset => currentPreset?.table === preset?.table)
+
+          if (existPreset) {
+            presetData._id = existPreset?._id
+            presetData.table = existPreset?.table
+
+            const existFields = existPreset?.fields?.map(field => ({
+              field,
+              checked: true,
+              name: formatCamelCaseString(field),
+            }))
+
+            const notExistFields = preset?.fields
+              ?.filter(field => !existPreset?.fields?.includes(field))
+              ?.map(field => ({
+                field,
+                checked: false,
+                name: formatCamelCaseString(field),
+              }))
+
+            presetData.fields = [...existFields, ...notExistFields]
+          } else {
+            presetData._id = undefined
+            presetData.table = preset?.table
+            presetData.fields = preset?.fields?.map(field => ({
+              field,
+              checked: false,
+              name: formatCamelCaseString(field),
+            }))
+          }
+
+          presetsData.push(presetData)
+        }
+      } else {
+        for (const preset of allPresets) {
+          const presetData = {}
+
+          presetData.fields = preset?.fields?.map(field => ({
+            field,
+            checked: false,
+            name: formatCamelCaseString(field),
+          }))
+          presetData.table = preset?.table
+          presetData._id = undefined
+
+          presetsData.push(presetData)
+        }
+      }
+
+      runInAction(() => {
+        this.presetsData = presetsData
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getAllPresets() {
+    try {
+      const result = await OtherModel.getPresets()
+
+      return result
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getCurrentPresets() {
+    try {
+      const result = await UserModel.getUsersPresets()
+
+      return result
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async resetPresetsHandler() {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      for await (const preset of this.presetsData) {
+        if (!preset?._id) {
+          continue
+        }
+
+        await UserModel.deleteUsersPresetsByGuid(preset?._id)
+
+        preset.fields = preset?.fields?.map(field => ({
+          ...field,
+          checked: false,
+        }))
+        preset._id = undefined
+      }
+
+      await this.getCurrentData()
+      runInAction(() => {
+        this.presetsData = [...this.presetsData]
+      })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+    }
+  }
+
+  async savePresetsHandler(presetsData) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      for await (const preset of presetsData) {
+        const presetId = preset?._id
+        const presetTable = preset?.table
+        const presetEndpoint = 'clients/products/my_with_pag_v2'
+        const fields = preset?.fields?.filter(field => field?.checked)?.map(field => field?.field)
+
+        if (!presetId) {
+          if (!fields?.length) {
+            continue
+          }
+
+          const body = {
+            endpoint: presetEndpoint,
+            table: presetTable,
+            fields,
+          }
+
+          const response = await UserModel.postUsersPresets(body)
+
+          preset._id = response.guid
+        } else {
+          if (!fields?.length) {
+            await UserModel.deleteUsersPresetsByGuid(presetId)
+            preset._id = undefined
+          } else {
+            const body = {
+              endpoint: presetEndpoint,
+              table: presetTable,
+              fields,
+            }
+
+            await UserModel.patchUsersPresetsByGuid(presetId, body)
+          }
+        }
+      }
+
+      await this.getCurrentData()
+      runInAction(() => {
+        this.presetsData = [...this.presetsData]
+      })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+    }
+  }
+
+  async onClickVariationRadioButton() {
+    try {
+      const result = await ClientModel.getProductPermissionsData({ isChild: false })
+
+      runInAction(() => {
+        this.productsToLaunch = result.rows
+      })
+    } catch (error) {
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+    }
+  }
+
+  async onClickProductLaunch() {
+    try {
+      const result = this.currentData?.find(
+        product => product?._id === this.selectedRows?.[0] && !product?.parentProductId,
+      )
+      runInAction(() => (this.selectedProductToLaunch = result))
+
+      this.onTriggerOpenModal('showProductLaunch')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onClickNextButton(chosenProduct) {
+    runInAction(() => (this.selectedProductToLaunch = chosenProduct))
+
+    if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.buyer?._id) {
+      this.confirmModalSettings = {
+        isWarning: true,
+        confirmMessage: t(TranslationKey['The card does not fit, send to supplier search']),
+        onClickConfirm: () => {
+          this.onTriggerOpenModal('showSelectionSupplierModal')
+          this.onTriggerOpenModal('showConfirmModal')
+          this.onTriggerOpenModal('showProductLaunch')
+        },
+      }
+      this.onTriggerOpenModal('showConfirmModal')
+    } else {
+      this.onTriggerOpenModal('showProductLaunch')
+      this.onTriggerOpenModal('showIdeaModal')
     }
   }
 
   async onClickOrderBtn() {
     try {
-      runInAction(() => {
-        this.showCircularProgressModal = true
-      })
+      const resultArray = []
 
-      const pendingOrders = []
-      const correctIds = []
+      for await (const id of this.selectedRows) {
+        await OrderModel.checkPendingOrderByProductGuid(id).then(result => {
+          if (result?.length) {
+            const currentProduct = this.currentData.find(product => product?._id === id)
 
-      for await (const id of this.selectedRowIds) {
-        const res = await OrderModel.checkPendingOrderByProductGuid(id)
+            const resultObject = {
+              asin: currentProduct?.asin,
+              orders: result,
+            }
 
-        if (res.length > 0) {
-          correctIds.push(id)
-          pendingOrders.push(res)
-        }
+            resultArray.push(resultObject)
+          }
+        })
       }
 
-      this.checkPendingData = pendingOrders
-
-      if (this.checkPendingData.length > 0) {
-        this.existingOrders = this.currentData
-          .filter(product => correctIds.includes(product.id))
-          .map(prod => prod.originalData)
+      if (resultArray?.length) {
+        runInAction(() => {
+          this.existingProducts = resultArray
+        })
 
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       } else {
         await this.onClickContinueBtn()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     } finally {
       runInAction(() => {
         this.showCircularProgressModal = false
@@ -597,16 +827,16 @@ export class ClientInventoryViewModel {
   }
 
   async onClickContinueBtn() {
-    const [storekeepers, destinations, result] = await Promise.all([
+    const [storekeepers, destinations, dataForOrder] = await Promise.all([
       StorekeeperModel.getStorekeepers(),
       ClientModel.getDestinations(),
-      UserModel.getPlatformSettings(),
+      ClientModel.getProductsInfoForOrders(this.selectedRows.join(',')),
     ])
 
     runInAction(() => {
       this.storekeepers = storekeepers
       this.destinations = destinations
-      this.platformSettings = result
+      this.dataForOrderModal = dataForOrder
     })
 
     this.onTriggerOpenModal('showOrderModal')
@@ -616,426 +846,8 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async getShops() {
-    try {
-      // Старый метод
-      // const result = await ShopModel.getMyShops()
-
-      const result = await ShopModel.getMyShopNames()
-
-      runInAction(() => {
-        this.shopsData = addIdDataConverter(result)
-      })
-    } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
   onClickPrevButton = () => {
-    this.onTriggerOpenModal('showAddOrEditSupplierModal')
     this.onTriggerOpenModal('showSelectionSupplierModal')
-  }
-
-  async getIdeas() {
-    try {
-      const result = await IdeaModel.getIdeas(this.selectedRowIds.slice()[0])
-
-      runInAction(() => {
-        this.ideasData = [...result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))]
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // onClickShopBtn(shop) {
-  //   runInAction(() => {
-  //     if (shop) {
-  //       if (shop === 'ALL') {
-  //         this.currentShops = []
-  //       } else {
-  //         if (this.currentShops.some(item => item === shop)) {
-  //           this.currentShops = this.currentShops.filter(item => item !== shop)
-  //         } else {
-  //           this.currentShops.push(shop)
-  //         }
-  //       }
-  //     }
-  //   })
-
-  //   const noProductBaseUpdate = true
-  //   this.getProductsMy(noProductBaseUpdate)
-
-  //   runInAction(() => {
-  //     this.withoutProduct = false
-  //     this.withProduct = false
-  //   })
-  // }
-
-  // async onClickWithoutProductsShopBtn() {
-  //   runInAction(() => {
-  //     this.currentShops = []
-  //     this.withoutProduct = true
-  //     this.withProduct = false
-  //   })
-
-  //   await this.getProductsMy()
-  //   runInAction(() => {
-  //     this.productsMy = this.productsMy.filter(product => !product.originalData.shopIds?.length)
-  //   })
-  // }
-
-  // async onClickWithProductsShopBtn() {
-  //   runInAction(() => {
-  //     this.currentShops = []
-  //     this.withoutProduct = false
-  //     this.withProduct = true
-  //   })
-
-  //   await this.getProductsMy()
-  //   runInAction(() => {
-  //     this.productsMy = this.productsMy.filter(product => product.originalData.shopIds?.length)
-  //   })
-  // }
-
-  onChangeIsNeedPurchaseFilter(isNotNeedPurchaseFilter, isNeedPurchaseFilter) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        isNeedPurchaseFilterData: {
-          ...this.columnMenuSettings.isNeedPurchaseFilterData,
-          isNeedPurchaseFilter,
-          isNotNeedPurchaseFilter,
-        },
-      }
-    })
-
-    this.getProductsMy()
-  }
-
-  onChangeIsHaveBarCodeFilter(value) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        isHaveBarCodeFilterData: {
-          ...this.columnMenuSettings.isHaveBarCodeFilterData,
-          isHaveBarCodeFilter: value,
-        },
-      }
-    })
-
-    this.getProductsMy()
-  }
-
-  setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
-  }
-
-  async onClickFilterBtn(column) {
-    try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
-
-      const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      const shopFilter = shops
-        ? shops
-        : this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds'
-        ? curShops
-        : null
-
-      const purchaseQuantityAboveZero =
-        this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
-        this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-          ? ''
-          : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
-
-      // console.log('shopFilter', shopFilter)
-
-      const data = await GeneralModel.getDataForColumn(
-        getTableByColumn(column, 'products'),
-        column,
-
-        `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-          shopFilter ? `;[shopIds][$eq]=${shopFilter}` : ''
-        }&purchaseQuantityAboveZero=${purchaseQuantityAboveZero}`,
-      )
-
-      if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
-      }
-      this.setFilterRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
-
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
-  }
-
-  onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
-
-    this.getProductsMy()
-    this.getDataGridState()
-  }
-
-  getFilter(exclusion) {
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
-        .join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
-
-    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
-
-    const strategyStatusFilter =
-      exclusion !== 'strategyStatus' && this.columnMenuSettings.strategyStatus.currentFilterData.join(',')
-    const amountInOrdersFilter =
-      exclusion !== 'amountInOrders' && this.columnMenuSettings.amountInOrders.currentFilterData.join(',')
-    const stockUSAFilter = exclusion !== 'stockUSA' && this.columnMenuSettings.stockUSA.currentFilterData.join(',')
-    const inTransferFilter =
-      exclusion !== 'inTransfer' && this.columnMenuSettings.inTransfer.currentFilterData.join(',')
-    const boxAmountsFilter =
-      exclusion !== 'boxAmounts' && this.columnMenuSettings.boxAmounts.currentFilterData.map(el => el._id).join(',')
-    const sumStockFilter = exclusion !== 'sumStock' && this.columnMenuSettings.sumStock.currentFilterData.join(',')
-    const amazonFilter = exclusion !== 'amazon' && this.columnMenuSettings.amazon.currentFilterData.join(',')
-    const profitFilter = exclusion !== 'profit' && this.columnMenuSettings.profit.currentFilterData.join(',')
-    const fbafeeFilter = exclusion !== 'fbafee' && this.columnMenuSettings.fbafee.currentFilterData.join(',')
-    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-    const ideaCountFilter =
-      exclusion !== 'ideasOnCheck' && this.columnMenuSettings.ideasOnCheck.currentFilterData.join(',')
-
-    const fbaFbmStockSumFilter =
-      exclusion !== 'fbaFbmStockSum' && this.columnMenuSettings.fbaFbmStockSum.currentFilterData.join(',')
-    const reservedSumFilter =
-      exclusion !== 'reservedSum' && this.columnMenuSettings.reservedSum.currentFilterData.join(',')
-    const sentToFbaSumFilter =
-      exclusion !== 'sentToFbaSum' && this.columnMenuSettings.sentToFbaSum.currentFilterData.join(',')
-
-    const stockCostFilter = exclusion !== 'stockCost' && this.columnMenuSettings.stockCost.currentFilterData.join(',')
-
-    const purchaseQuantityFilter =
-      exclusion !== 'purchaseQuantity' && this.columnMenuSettings.purchaseQuantity.currentFilterData.join(',')
-
-    const ideasClosedFilter =
-      exclusion !== 'ideasClosed' && this.columnMenuSettings.ideasClosed.currentFilterData.join(',')
-    const ideasVerifiedFilter =
-      exclusion !== 'ideasVerified' && this.columnMenuSettings.ideasVerified.currentFilterData.join(',')
-
-    const tagsFilter =
-      exclusion !== 'tags' && this.columnMenuSettings.tags.currentFilterData.map(el => el._id).join(',')
-
-    const redFlagsFilter =
-      exclusion !== 'redFlags' && this.columnMenuSettings.redFlags.currentFilterData.map(el => el._id).join(',')
-
-    const filter = objectToUrlQs({
-      archive: { $eq: this.isArchive },
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
-      ],
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(createdAtFilter && {
-        createdAt: { $eq: createdAtFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-
-      ...(strategyStatusFilter && {
-        strategyStatus: { $eq: strategyStatusFilter },
-      }),
-
-      ...(amountInOrdersFilter && {
-        amountInOrders: { $eq: amountInOrdersFilter },
-      }),
-
-      ...(stockUSAFilter && {
-        stockUSA: { $eq: stockUSAFilter },
-      }),
-      ...(inTransferFilter && {
-        inTransfer: { $eq: inTransferFilter },
-      }),
-      ...(boxAmountsFilter && {
-        boxAmounts: { $eq: boxAmountsFilter },
-      }),
-
-      ...(sumStockFilter && {
-        sumStock: { $eq: sumStockFilter },
-      }),
-
-      ...(amazonFilter && {
-        amazon: { $eq: amazonFilter },
-      }),
-      ...(profitFilter && {
-        profit: { $eq: profitFilter },
-      }),
-      ...(fbafeeFilter && {
-        fbafee: { $eq: fbafeeFilter },
-      }),
-
-      ...(statusFilter && {
-        status: { $eq: statusFilter },
-      }),
-
-      ...(fbaFbmStockSumFilter && {
-        fbaFbmStockSum: { $eq: fbaFbmStockSumFilter },
-      }),
-      ...(reservedSumFilter && {
-        reservedSum: { $eq: reservedSumFilter },
-      }),
-      ...(sentToFbaSumFilter && {
-        sentToFbaSum: { $eq: sentToFbaSumFilter },
-      }),
-
-      ...(ideaCountFilter && {
-        ideasOnCheck: { $eq: ideaCountFilter },
-      }),
-
-      ...(this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter !== null && {
-        barCode: { [this.columnMenuSettings.isHaveBarCodeFilterData.isHaveBarCodeFilter ? '$null' : '$notnull']: true },
-      }),
-
-      ...(stockCostFilter && {
-        stockCost: { $eq: stockCostFilter },
-      }),
-
-      ...(purchaseQuantityFilter && {
-        purchaseQuantity: { $eq: purchaseQuantityFilter },
-      }),
-
-      ...(ideasClosedFilter && {
-        ideasClosed: { $eq: ideasClosedFilter },
-      }),
-
-      ...(ideasVerifiedFilter && {
-        ideasVerified: { $eq: ideasVerifiedFilter },
-      }),
-
-      ...(tagsFilter && {
-        tags: { $eq: tagsFilter },
-      }),
-
-      ...(redFlagsFilter && {
-        redFlags: { $eq: redFlagsFilter },
-      }),
-    })
-
-    return filter
-  }
-
-  async getProductsMy(noProductBaseUpdate) {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
-
-      const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-
-      const purchaseQuantityAboveZero =
-        this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter &&
-        this.columnMenuSettings.isNeedPurchaseFilterData.isNotNeedPurchaseFilter
-          ? null
-          : this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
-
-      const result = await ClientModel.getProductsMyFilteredByShopIdWithPag({
-        filters: this.getFilter(), // this.nameSearchValue ? filter : null,
-
-        shopIds: shops ? shops : this.columnMenuSettings.shopIds.currentFilterData ? curShops : null,
-
-        purchaseQuantityAboveZero,
-
-        limit: this.paginationModel.pageSize,
-        offset: this.paginationModel.page * this.paginationModel.pageSize,
-
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-      })
-
-      runInAction(() => {
-        this.baseNoConvertedProducts = result
-
-        this.rowCount = result.count
-
-        this.productsMy = clientInventoryDataConverter(result.rows, this.shopsData)
-
-        if (!noProductBaseUpdate) {
-          this.productsMyBase = clientInventoryDataConverter(result.rows, this.shopsData)
-        }
-      })
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-      runInAction(() => {
-        this.rowCount = 0
-
-        this.productsMy = []
-        this.baseNoConvertedProducts = []
-      })
-
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
-    }
   }
 
   async onClickSaveHsCode(hsCode) {
@@ -1050,7 +862,7 @@ export class ClientInventoryViewModel {
     ])
 
     this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
+    await this.getCurrentData()
 
     runInAction(() => {
       this.selectedProduct = undefined
@@ -1058,20 +870,16 @@ export class ClientInventoryViewModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    runInAction(() => {
-      this.uploadedFiles = []
-    })
-
     if (tmpBarCode.length) {
       await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
     }
 
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
+    await ClientModel.updateProductBarCode(this.selectedProduct._id, {
+      barCode: this.uploadedFiles?.[0] || tmpBarCode?.[0],
+    })
 
-    const noProductBaseUpdate = true
-    this.getProductsMy(noProductBaseUpdate)
+    this.getCurrentData()
 
-    this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
       this.selectedProduct = undefined
     })
@@ -1079,7 +887,7 @@ export class ClientInventoryViewModel {
 
   async onSaveProductData(productId, updateProductData) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const updateProductDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         toJS(updateProductData),
@@ -1088,11 +896,11 @@ export class ClientInventoryViewModel {
       )
 
       await ClientModel.updateProduct(productId, updateProductDataFiltered)
-      await this.loadData()
-      this.setActionStatus(loadingStatuses.success)
+      await this.getCurrentData()
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
       if (error.body && error.body.message) {
         runInAction(() => {
           this.error = error.body.message
@@ -1107,28 +915,45 @@ export class ClientInventoryViewModel {
   }
 
   async onClickHsCode(item) {
-    this.setSelectedProduct(item)
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
-    // console.log(this.hsCodeData)
+    try {
+      this.setSelectedProduct(item)
 
-    this.onTriggerOpenModal('showEditHSCodeModal')
+      const response = await ProductModel.getProductsHsCodeByGuid(this.selectedProduct._id)
+
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+
+      this.onTriggerOpenModal('showEditHSCodeModal')
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async onClickSaveFourMonthesStockValue(productId, fourMonthesStock) {
     try {
       await ClientModel.updateProductFourMonthesStock(productId, { fourMonthesStock })
 
-      this.getProductsMy()
+      this.getCurrentData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
+    }
+  }
+
+  async editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue) {
+    try {
+      await ClientModel.postAddRecommendationForStock(productId, storekeeperId, recommendedValue || 0)
+
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
     }
   }
 
   showBarcodeOrHscode(barcode, hscode) {
-    runInAction(() => {
-      this.currentHscode = hscode
-      this.currentBarcode = barcode
-    })
+    this.currentHscode = hscode
+    this.currentBarcode = barcode
+
     this.onTriggerOpenModal('showBarcodeOrHscodeModal')
   }
 
@@ -1138,81 +963,73 @@ export class ClientInventoryViewModel {
         stockUSA: value,
       })
 
-      this.getProductsMy()
+      this.getCurrentData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   onConfirmSubmitOrderProductModal({ ordersDataState, totalOrdersCost }) {
-    runInAction(() => {
-      this.ordersDataStateToSubmit = ordersDataState
+    this.ordersDataStateToSubmit = ordersDataState
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-          ? t(TranslationKey['Pending order will be created'])
-          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => this.onSubmitOrderProductModal(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onSubmitOrderProductModal()
+      },
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onSubmitOrderProductModal() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
-        this.error = undefined
+        this.showProgress = true
       })
+
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
-        const orderObject = this.ordersDataStateToSubmit[i]
-
-        runInAction(() => {
-          this.uploadedFiles = []
-        })
+        let orderObject = this.ordersDataStateToSubmit[i]
 
         if (orderObject.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
-
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: this.uploadedFiles[0] })
         } else if (!orderObject.barCode) {
           await ClientModel.updateProductBarCode(orderObject.productId, { barCode: null })
         }
 
+        if (orderObject.tmpTransparencyFile.length) {
+          await onSubmitPostImages.call(this, { images: orderObject.tmpTransparencyFile, type: 'uploadedFiles' })
+
+          orderObject = {
+            ...orderObject,
+            transparencyFile: this.uploadedFiles[0],
+          }
+        }
+
         await this.createOrder(orderObject)
       }
 
-      if (!this.error) {
-        // runInAction(() => {
-        //   this.successModalText = t(TranslationKey['The order has been created'])
-        // })
-        // this.onTriggerOpenModal('showSuccessModal')
+      runInAction(() => {
+        this.showProgress = false
+      })
 
-        runInAction(() => {
-          this.acceptMessage = t(TranslationKey['The order has been created'])
-          this.showAcceptMessage = true
-          if (this.showAcceptMessage) {
-            setTimeout(() => {
-              this.acceptMessage = ''
-              this.showAcceptMessage = false
-            }, 3000)
-          }
-        })
-      }
-      this.onTriggerOpenModal('showConfirmModal')
-      // this.onTriggerOpenModal('showOrderModal')
-      const noProductBaseUpdate = true
-      await this.getProductsMy(noProductBaseUpdate)
+      toast.success(t(TranslationKey['The order has been created']))
 
-      this.setActionStatus(loadingStatuses.success)
+      await this.getCurrentData()
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
       runInAction(() => {
         this.error = error
       })
@@ -1221,28 +1038,17 @@ export class ClientInventoryViewModel {
 
   async createOrder(orderObject) {
     try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-        '_id',
-      ])
+      const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
       if (orderObject.tmpIsPendingOrder) {
         await ClientModel.createFormedOrder(requestData)
       } else {
         await ClientModel.createOrder(requestData)
       }
-
-      await this.updateUserInfo()
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
-      runInAction(() => {
-        this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
-        this.error = error
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(`${t(TranslationKey["You can't order"])} "${error.body.message}"`)
     }
   }
 
@@ -1253,50 +1059,39 @@ export class ClientInventoryViewModel {
         this.ideaId = resId.guid
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
-  async createSupplierSearchRequest(curId, ideaData, data) {
+  async onSubmitSaveSupplier({ supplier, makeMainSupplier, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      if (curId) {
-        await IdeaModel.createSupplierSearchRequestForIdea(curId, data)
-        await IdeaModel.editSupplierSearchRequestStatus(curId, {
-          requestStatus: RequestStatus.READY_TO_VERIFY_BY_SUPERVISOR,
-        })
-      } else {
-        await this.createIdea(ideaData)
-        await IdeaModel.createSupplierSearchRequestForIdea(this.ideaId, data)
-        await IdeaModel.editSupplierSearchRequestStatus(this.ideaId, {
-          requestStatus: RequestStatus.READY_TO_VERIFY_BY_SUPERVISOR,
-        })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onSubmitSaveSupplier({ supplier, photosOfSupplier, addMore, makeMainSupplier }) {
-    try {
-      runInAction(() => {
-        this.readyImages = []
-      })
-
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-      }
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
-        images: supplier.images.concat(this.readyImages),
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
       }
 
-      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
+      }
+
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier, undefined, undefined, true)
       const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
       await ProductModel.addSuppliersToProduct(this.selectedRowId, [createSupplierResult.guid])
 
       if (makeMainSupplier) {
@@ -1308,46 +1103,32 @@ export class ClientInventoryViewModel {
       runInAction(() => {
         this.successModalText = t(TranslationKey['Supplier added'])
       })
+
       this.onTriggerOpenModal('showSuccessModal')
 
-      this.loadData()
-
-      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
+      await this.getCurrentData()
     } catch (error) {
-      !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
+      console.error(error)
 
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-        this.showInfoModalTitle = t(TranslationKey.Error)
-      })
-
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey.Error))
     }
   }
 
   async onClickAddSupplierButton() {
     try {
-      const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getSuppliersPaymentMethods()])
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.platformSettings = result
-      })
+      this.getSuppliersPaymentMethods()
 
       this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickParseProductsBtn() {
     try {
       if (this.checkIsNoEditProductSelected()) {
-        runInAction(() => {
-          this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
-        })
-        this.onTriggerOpenModal('showInfoModal')
+        toast.warning(t(TranslationKey['Product with invalid status selected']))
+
         return
       }
 
@@ -1355,9 +1136,9 @@ export class ClientInventoryViewModel {
         this.showCircularProgressModal = true
       })
 
-      await SellerBoardModel.refreshProducts(this.selectedRowIds)
+      await SellerBoardModel.refreshProducts(this.selectedRows)
 
-      this.loadData()
+      await this.getCurrentData()
 
       runInAction(() => {
         this.successModalText = t(TranslationKey['Products will be updated soon'])
@@ -1369,27 +1150,24 @@ export class ClientInventoryViewModel {
         this.showCircularProgressModal = false
       })
 
-      runInAction(() => {
-        this.showInfoModalTitle = t(TranslationKey['Parsing data not updated'])
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey['Parsing data not updated']))
 
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickAddSupplierBtn() {
     try {
+      this.selectedProductToLaunch = undefined
+
       if (this.checkIsNoEditProductSelected()) {
-        runInAction(() => {
-          this.showInfoModalTitle = t(TranslationKey['Product with invalid status selected'])
-        })
-        this.onTriggerOpenModal('showInfoModal')
+        toast.warning(t(TranslationKey['Product with invalid status selected']))
+
         return
       }
 
-      if (this.selectedRowIds.length > 1) {
-        const result = await ClientModel.calculatePriceToSeekSomeSuppliers(this.selectedRowIds)
+      if (this.selectedRows.length > 1) {
+        const result = await ClientModel.calculatePriceToSeekSomeSuppliers(this.selectedRows)
         runInAction(() => {
           this.confirmMessage = this.confirmModalSettings = {
             isWarning: false,
@@ -1405,74 +1183,41 @@ export class ClientInventoryViewModel {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
         runInAction(() => {
-          this.selectedRowId = this.selectedRowIds[0]
+          this.selectedRowId = this.selectedRows[0]
         })
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
-      this.getIdeas()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
-  async onClickInTransfer(productId) {
-    try {
-      const result = await BoxesModel.getBoxesInTransfer(productId)
-      runInAction(() => {
-        this.isTransfer = true
+  onOpenProductDataModal(product, onAmazon) {
+    runInAction(() => {
+      this.curProduct = product
+      this.onAmazon = onAmazon
+      this.isBatches = false
+    })
 
-        this.batchesData = result
-
-        this.curProduct = this.currentData.filter(product => productId === product.id).map(prod => prod.originalData)
-      })
-      this.onTriggerOpenModal('showProductLotDataModal')
-    } catch (error) {
-      console.log(error)
-    }
+    this.onTriggerOpenModal('showProductDataModal')
   }
 
-  async onClickProductLotDataBtn() {
-    try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], { archive: false })
-      runInAction(() => {
-        this.isTransfer = false
-        this.batchesData = result
+  onClickProducDataButton() {
+    this.onAmazon = false
+    this.isBatches = true
+    this.curProduct = this.currentData.filter(product => this.selectedRows.includes(product._id))?.[0]
 
-        this.curProduct = this.currentData
-          .filter(product => this.selectedRowIds.includes(product.id))
-          .map(prod => prod.originalData)
-      })
-      this.onTriggerOpenModal('showProductLotDataModal')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickToggleArchiveProductLotData(isArchive) {
-    try {
-      const result = await BatchesModel.getBatchesbyProduct(this.selectedRowIds[0], { archive: isArchive })
-      runInAction(() => {
-        this.batchesData = result
-      })
-    } catch (error) {
-      console.log(error)
-
-      runInAction(() => {
-        this.batchesData = []
-      })
-    }
+    this.onTriggerOpenModal('showProductDataModal')
   }
 
   async onSubmitCalculateSeekSupplier(clientComment) {
     try {
-      runInAction(() => {
-        this.clientComment = clientComment
-      })
-
-      const result = await ClientModel.calculatePriceToSeekSupplier(this.selectedRowId)
+      const result = await ClientModel.calculatePriceToSeekSupplier(
+        this.selectedProductToLaunch?._id || this.selectedRowId,
+      )
 
       runInAction(() => {
-        this.priceForSeekSupplier = result.priceForClient
+        const priceForSeekSupplier = result.priceForClient
 
         this.confirmMessage = this.confirmModalSettings = {
           isWarning: false,
@@ -1481,42 +1226,41 @@ export class ClientInventoryViewModel {
             result.priceForClient,
             2,
           )}.\n ${t(TranslationKey['Apply?'])}`,
-          onClickConfirm: () => this.onSubmitSeekSupplier(),
+          onClickConfirm: () => this.onSubmitSeekSupplier(clientComment, priceForSeekSupplier),
         }
       })
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onSubmitSeekSomeSuppliers() {
     try {
-      await ClientModel.sendProductToSeekSomeSuppliers(this.selectedRowIds)
+      await ClientModel.sendProductToSeekSomeSuppliers(this.selectedRows)
 
-      this.loadData()
+      await this.getCurrentData()
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
-  async onSubmitSeekSupplier() {
+  async onSubmitSeekSupplier(clientComment, priceForSeekSupplier) {
     try {
-      await ClientModel.sendProductToSeekSupplier(this.selectedRowId, {
-        clientComment: this.clientComment,
-        priceForClient: this.priceForSeekSupplier,
+      await ClientModel.sendProductToSeekSupplier(this.selectedProductToLaunch?._id || this.selectedRowId, {
+        clientComment,
+        priceForClient: priceForSeekSupplier,
       })
 
-      this.loadData()
-
-      this.onTriggerOpenModal('showConfirmModal')
-
-      this.onTriggerOpenModal('showSelectionSupplierModal')
+      await this.getCurrentData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
+    } finally {
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showSelectionSupplierModal')
     }
   }
 
@@ -1542,7 +1286,7 @@ export class ClientInventoryViewModel {
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1568,7 +1312,7 @@ export class ClientInventoryViewModel {
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1650,23 +1394,13 @@ export class ClientInventoryViewModel {
         this.successModalText = t(TranslationKey['Product added'])
       })
       this.onTriggerOpenModal('showSuccessModal')
-      const noProductBaseUpdate = true
-      await this.getProductsMy(noProductBaseUpdate)
-
-      // this.onTriggerOpenModal('showSendOwnProductModal')
+      await this.getCurrentData()
     } catch (error) {
       runInAction(() => {
         this.showCircularProgressModal = false
       })
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
-  }
-
-  async updateUserInfo() {
-    await UserModel.getUserInfo()
   }
 
   onDoubleClickBarcode = item => {
@@ -1681,34 +1415,30 @@ export class ClientInventoryViewModel {
 
   async onDeleteBarcode(product) {
     try {
-      await ClientModel.updateProductBarCode(product._id, { barCode: null })
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      this.loadData()
+      await ClientModel.updateProductBarCode(product._id, { barCode: null })
+      await this.getCurrentData()
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+
+      console.error(error)
     }
   }
 
   async onDeleteHsCode(product) {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       await ProductModel.editProductsHsCods([{ productId: product._id, hsCode: '' }])
+      await this.getCurrentData()
 
-      this.loadData()
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickBindInventoryGoodsToStockBtn() {
-    try {
-      this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
-    } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -1717,19 +1447,14 @@ export class ClientInventoryViewModel {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
       runInAction(() => {
-        this.sellerBoardDailyData = addIdDataConverter(result)
+        this.sellerBoardDailyData = addIdDataConverter(result?.rows)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       if (isRecCall) {
         this.getStockGoodsByFilters()
       } else {
         this.sellerBoardDailyData = []
-        if (error.body && error.body.message) {
-          runInAction(() => {
-            this.error = error.body.message
-          })
-        }
       }
     }
   }
@@ -1744,39 +1469,110 @@ export class ClientInventoryViewModel {
       })
       this.onTriggerOpenModal('showSuccessModal')
 
-      this.loadData()
+      await this.getCurrentData()
     } catch (error) {
-      runInAction(() => {
-        this.showInfoModalTitle = t(TranslationKey["You can't bind"])
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey["You can't bind"]))
 
-      console.log(error)
+      console.error(error)
     }
   }
 
-  onChangeCurPage(e) {
-    runInAction(() => {
-      this.curPage = e
-    })
-    this.getProductsMy()
-  }
-
-  onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
-  }
-
   setSelectedProduct(item) {
-    runInAction(() => {
-      this.selectedProduct = item
-    })
+    this.selectedProduct = item
   }
 
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      supplier = {
+        ...supplier,
+        amount: parseFloat(supplier?.amount) || '',
+        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
+        minlot: parseInt(supplier?.minlot) || '',
+        price: parseFloat(supplier?.price) || '',
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        images: this.readyImages,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
+      }
+
+      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
+      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
+
+      await ProductModel.addSuppliersToProduct(this.selectedRowId || this.selectedRows[0], [createSupplierResult.guid])
+
+      await this.loadData()
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+    }
+  }
+
+  async getCurrentData(options) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      const toRefill = 'toRefill'
+      const amountInBoxes = 'amountInBoxes'
+
+      let storekeeperId
+      let sortField = this.sortModel?.[0]?.field
+
+      if (sortField?.includes(toRefill)) {
+        storekeeperId = sortField?.replace(toRefill, '')
+        sortField = toRefill
+      } else if (sortField?.includes(amountInBoxes)) {
+        storekeeperId = sortField?.replace(amountInBoxes, '')
+        sortField = amountInBoxes
+      }
+
+      const result = await this.getMainDataMethod(
+        options || {
+          filters: this.getFilters(),
+
+          limit: this.paginationModel.pageSize,
+          offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+          sortField: this.sortModel.length ? sortField : 'updatedAt',
+          sortType: this.sortModel.length ? this.sortModel?.[0]?.sort?.toUpperCase() : 'DESC',
+          storekeeper: storekeeperId,
+
+          ...this.defaultGetCurrentDataOptions?.(),
+        },
+      )
+
+      runInAction(() => {
+        this.meta = result?.meta
+        this.currentData = result?.rows || result
+        this.rowCount = result?.count || result.length
+      })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      console.error(error)
+      this.currentData = []
+      this.rowCount = 0
+      this.setRequestStatus(loadingStatus.FAILED)
+    }
+  }
+
+  async onClickEditTags(productId) {
+    this.selectedRowId = productId
+    this.onTriggerOpenModal('showEditProductTagsModal')
   }
 }

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,11 +10,12 @@ import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices
 
 import { t } from '@utils/translations'
 
+import { useStyles } from './user-edit.style'
+
 import { UserEditModel } from './user-edit.model'
-import { useClassNames } from './user-edit.style'
 
 export const UserEdit = observer(({ user }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const model = useRef(new UserEditModel({ history, user }))
 
@@ -37,16 +37,18 @@ export const UserEdit = observer(({ user }) => {
     submitEditUserForm,
     goToUsers,
     userData,
+    specs,
     onClickBottomBtn,
   } = model.current
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={styles.mainWrapper}>
       {singlePermissions ? (
         <AdminUserEditContent
           // wrongPassword={wrongPassword}
           checkValidationNameOrEmail={checkValidationNameOrEmail}
           changeFields={changeFields}
+          specs={specs}
           singlePermissions={singlePermissions}
           groupPermissions={groupPermissions}
           editUserFormFields={userData}
@@ -56,27 +58,33 @@ export const UserEdit = observer(({ user }) => {
         />
       ) : null}
 
-      <ConfirmationModal
-        isWarning={confirmModalSettings.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <TwoVerticalChoicesModal
-        openModal={showTwoVerticalChoicesModal}
-        setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
-        title={t(TranslationKey['Data saved successfully'])}
-        topBtnText={t(TranslationKey['Back to Users'])}
-        bottomBtnText={t(TranslationKey['Continue working with the user'])}
-        onClickTopBtn={() => goToUsers()}
-        onClickBottomBtn={onClickBottomBtn}
-      />
+      {showTwoVerticalChoicesModal ? (
+        <TwoVerticalChoicesModal
+          // @ts-ignore
+          openModal={showTwoVerticalChoicesModal}
+          setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
+          title={t(TranslationKey['Data saved successfully'])}
+          topBtnText={t(TranslationKey['Back to Users'])}
+          bottomBtnText={t(TranslationKey['Continue working with the user'])}
+          onClickTopBtn={() => goToUsers()}
+          onClickBottomBtn={onClickBottomBtn}
+        />
+      ) : null}
     </div>
   )
 })

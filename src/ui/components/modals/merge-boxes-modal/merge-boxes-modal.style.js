@@ -1,6 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
+  root: {
+    position: 'relative',
+    padding: 10,
+  },
   heightFieldAuto: {
     height: '86px',
     padding: 0,
@@ -30,7 +34,10 @@ export const useClassNames = makeStyles()(theme => ({
     outline: '2px solid #F5CF00',
   },
 
-  buttonsWrapper: { display: 'flex', gap: '10px' },
+  buttonsWrapper: {
+    display: 'flex',
+    gap: '20px',
+  },
 
   box: {
     minWidth: '300px',
@@ -64,34 +71,6 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
-  barcodeChip: {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    fontSize: '13px',
-    borderRadius: '4px',
-    width: 230,
-    height: '40px',
-  },
-  barcodeChipHover: {
-    '&:hover, &:focus': {
-      backgroundColor: theme.palette.primary.main,
-    },
-  },
-  barcodeChipIcon: {
-    color: 'rgba(255,255,255,0.26)',
-    '&:hover, &:focus': {
-      color: 'rgba(255,255,255,0.46)',
-    },
-  },
-  barcodeChiplabel: {
-    width: '300px',
-    textAlign: 'center',
-  },
-
-  barcodeChipExists: {
-    backgroundcolor: theme.palette.text.general,
-  },
-
   mainWrapper: {
     display: 'flex',
     gap: '40px',
@@ -113,7 +92,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   storekeeperBtnDefault: {
-    color: theme.palette.text.general,
+    color: '#ffff',
 
     width: 230,
     height: '40px !important',
@@ -170,9 +149,15 @@ export const useClassNames = makeStyles()(theme => ({
   },
   modalFooter: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: '40px',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    gap: 20,
+
+    position: 'sticky',
+    bottom: 0,
+    right: 0,
+    marginRight: 5,
   },
   modalAlternateFooter: {
     display: 'flex',
@@ -217,13 +202,24 @@ export const useClassNames = makeStyles()(theme => ({
     width: 148,
     height: 151,
     objectFit: 'contain',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
   asinTextWrapper: {
     display: 'flex',
     gap: 5,
   },
-  customSwitcherWrapper: {
-    width: 'fit-content',
+  blockOfNewBoxWrapper: {
+    height: '100%',
+    width: 525,
+    padding: '10px 20px',
+    backgroundColor: theme.palette.background.second,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+  sizesTitleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 40,
   },
 }))

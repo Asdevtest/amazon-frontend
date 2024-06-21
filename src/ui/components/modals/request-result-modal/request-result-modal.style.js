@@ -1,109 +1,103 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  modalMainWrapper: {
+export const useStyles = makeStyles()(theme => ({
+  wrapper: {
     width: 540,
-    minHeight: 500,
-
-    padding: '0 10px',
+    padding: 10,
   },
-  modalTitle: {
-    fontWeight: 600,
+
+  title: {
     fontSize: 18,
-    lineHeight: '140%',
-
+    lineHeight: '25px',
+    fontWeight: 600,
     color: theme.palette.text.main,
-
     marginBottom: 20,
   },
+
   label: {
-    fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
-
     marginBottom: 10,
   },
-  numberInputField: {
-    marginBottom: 20,
-  },
+
   input: {
     height: 40,
-  },
-  pubInput: {
-    width: '100%',
-    height: 40,
-    borderRadius: 4,
-    padding: '0 5px',
-    '&:before, &:after': {
-      border: 'none',
-    },
+    borderRadius: 7,
   },
 
-  buttonsWrapper: {
-    display: 'flex',
-    gap: 40,
-    justifyContent: 'flex-end',
+  inputContainer: {
+    marginBottom: 0,
   },
+
+  linkPublicationContainer: {
+    marginBottom: 10,
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: 20,
+  },
+
+  marginBottomDefault: {
+    marginBottom: 20,
+  },
+
   button: {
     padding: '0 25px',
   },
-  cancelButton: {
-    color: theme.palette.text.general,
-  },
 
-  linksWrapper: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+  links: {
     marginBottom: 20,
-  },
-  inputWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-    gap: 20,
-  },
-  linksSubWrapper: {
-    width: '100%',
+    padding: '0 10px',
     maxHeight: 130,
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    marginTop: 10,
-    gap: 5,
-    padding: '0 5px 0 15px',
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    borderRadius: 7,
+    boxShadow: 'inset 0 -4px 13px rgba(135, 135, 135, 0.15)',
   },
+
   linkWrapper: {
-    width: '100%',
+    minHeight: 40,
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  linkTextWrapper: {
-    width: '80%',
+
+  linkText: {
+    width: '95%',
     overflow: 'auto',
     whiteSpace: 'nowrap',
+    color: theme.palette.primary.main,
   },
+
   linksBtnsWrapper: {
     display: 'flex',
     alignItems: 'center',
+    gap: 5,
   },
+
   deleteBtn: {
+    width: '20px !important',
+    height: '20px !important',
     color: theme.palette.text.second,
-    width: '20px',
-    height: '20px',
+    cursor: 'pointer',
   },
-  commentFieldWrapper: {
-    marginBottom: 20,
-  },
+
   commentField: {
     height: 'auto',
   },
+
   dragAndDropWrapper: {
     marginBottom: 20,
+  },
+
+  buttonsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: 40,
+  },
+
+  cancelButton: {
+    color: theme.palette.text.general,
   },
 }))

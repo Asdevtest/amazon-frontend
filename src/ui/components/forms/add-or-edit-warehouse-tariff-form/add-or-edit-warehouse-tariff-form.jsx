@@ -1,21 +1,22 @@
-import { Typography } from '@mui/material'
-
-import React, { useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useState } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-warehouse-tariff-form.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './add-or-edit-warehouse-tariff-form.style'
 
 export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -63,16 +64,16 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
     submitIsClicked
 
   return (
-    <div className={classNames.root}>
-      <Typography variant="h5" className={classNames.modalTitle}>
+    <div className={styles.root}>
+      <Typography variant="h5" className={styles.modalTitle}>
         {t(TranslationKey['Adding tariff'])}
       </Typography>
 
-      <div className={classNames.form}>
+      <div className={styles.form}>
         <Field
           label={t(TranslationKey.Title)}
           inputProps={{ maxLength: 50 }}
-          labelClasses={classNames.fieldLabel}
+          labelClasses={styles.fieldLabel}
           tooltipInfoContent={t(TranslationKey['Rate name'])}
           value={formFields.name}
           placeholder={t(TranslationKey.Title)}
@@ -82,7 +83,7 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
         <Field
           label={t(TranslationKey['Service cost per kg, $']) + '*'}
           inputProps={{ maxLength: 10 }}
-          labelClasses={classNames.fieldLabel}
+          labelClasses={styles.fieldLabel}
           tooltipInfoContent={t(TranslationKey['The cost of providing the service'])}
           value={formFields.price}
           onChange={onChangeField('price')}
@@ -93,33 +94,28 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
           minRows={4}
           maxRows={4}
           inputProps={{ maxLength: 255 }}
-          labelClasses={classNames.fieldLabel}
+          labelClasses={styles.fieldLabel}
           tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
-          className={classNames.descriptionField}
+          className={styles.descriptionField}
           label={t(TranslationKey.Description)}
           value={formFields.description}
           onChange={onChangeField('description')}
         />
       </div>
 
-      <div className={classNames.btnsWrapper}>
+      <div className={styles.btnsWrapper}>
         <Button
-          success
-          disableElevation
-          className={classNames.button}
+          styleType={ButtonStyle.SUCCESS}
+          className={styles.button}
           disabled={disableSubmitBtn}
-          color="primary"
-          variant="contained"
           onClick={onSubmit}
         >
           {t(TranslationKey.Add)}
         </Button>
 
         <Button
-          disableElevation
-          className={[classNames.button, classNames.closeButton]}
-          color="primary"
-          variant="text"
+          variant={ButtonVariant.OUTLINED}
+          className={[styles.button, styles.closeButton]}
           onClick={() => onCloseModal()}
         >
           {t(TranslationKey.Cancel)}

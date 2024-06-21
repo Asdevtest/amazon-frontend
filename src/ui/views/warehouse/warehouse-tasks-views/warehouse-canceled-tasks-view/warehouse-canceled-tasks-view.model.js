@@ -1,12 +1,11 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { OtherModel } from '@models/other-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { warehouseCanceledTasksViewColumns } from '@components/table/table-columns/warehouse/canceled-tasks-columns'
@@ -14,15 +13,14 @@ import { warehouseCanceledTasksViewColumns } from '@components/table/table-colum
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
 import { objectToUrlQs } from '@utils/text'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class WarehouseCanceledTasksViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   tasksMy = []
   curOpenedTask = {}
-
-  volumeWeightCoefficient = undefined
 
   nameSearchValue = ''
 
@@ -31,11 +29,11 @@ export class WarehouseCanceledTasksViewModel {
 
   selectedTasks = []
 
-  rowCount = 0
-
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
+
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   paginationModel = { page: 0, pageSize: 15 }
@@ -45,17 +43,22 @@ export class WarehouseCanceledTasksViewModel {
 
   showTaskInfoModal = false
 
+  get currentData() {
+    return this.tasksMy
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
   }
 
   setDataGridState() {
@@ -66,11 +69,11 @@ export class WarehouseCanceledTasksViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS)
 
     runInAction(() => {
       if (state) {
@@ -82,117 +85,96 @@ export class WarehouseCanceledTasksViewModel {
     })
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getTasksMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getTasksMy()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
+
     this.setDataGridState()
     this.getTasksMy()
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getTasksMy()
   }
 
   onClickOperationTypeBtn(type) {
-    runInAction(() => {
-      this.curTaskType = type
-    })
+    this.curTaskType = type
+
     this.getTasksMy()
   }
 
   onClickTaskPriorityBtn(type) {
-    runInAction(() => {
-      this.curTaskPriority = type
-    })
+    this.curTaskPriority = type
+
     this.getTasksMy()
   }
 
-  getCurrentData() {
-    return toJS(this.tasksMy)
-  }
-
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedTasks = model
-    })
+    this.selectedTasks = model
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.success)
+          this.setRequestStatus(loadingStatus.SUCCESS)
         }
       })
     })
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getTasksMy()
+      this.getTasksMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async setCurrentOpenedTask(item) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(item._id),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(item._id)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-
-        this.curOpenedTask = task
+        this.curOpenedTask = response
       })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getTasksMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -227,25 +209,20 @@ export class WarehouseCanceledTasksViewModel {
       runInAction(() => {
         this.rowCount = result.count
 
-        // this.tasksMyBase = result.rows
-
         this.tasksMy = warehouseTasksDataConverter(result.rows.map(el => ({ ...el, beforeBoxes: el.boxesBefore })))
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
-        this.error = error
         this.tasksMy = []
       })
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

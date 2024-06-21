@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     alignItems: 'flex-start',
@@ -20,16 +20,18 @@ export const useClassNames = makeStyles()(theme => ({
   applyButton: {
     height: 26,
     width: 65,
-    marginLeft: 5,
     fontSize: 11,
   },
 
   img: {
     width: '128px',
+    minWidth: '128px',
+    maxWidth: '128px',
     height: '128px',
     marginRight: '4px',
     objectFit: 'contain',
     objectPosition: 'center',
+
     [theme.breakpoints.down(768)]: {
       width: '85px',
       height: '85px',
@@ -45,15 +47,15 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '19px',
     width: '280px',
-    maxHeight: '152px',
+    whiteSpace: 'pre-wrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    overflowY: 'auto',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
     color: theme.palette.text.general,
+
     [theme.breakpoints.down(1282)]: {
-      width: '100%',
-    },
-    [theme.breakpoints.down(768)]: {
       width: '100%',
     },
   },
@@ -224,7 +226,8 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   checkboxContainer: {
-    width: 'fit-content !important',
+    justifyContent: 'space-between',
+    width: '100%',
     margin: 0,
     padding: 0,
   },
@@ -232,6 +235,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'space-between',
+    gap: '10px',
+
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
@@ -242,6 +247,10 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '120px',
     },
+  },
+
+  redText: {
+    color: theme.palette.text.red,
   },
 
   attributeFooterWrapperMobile: {

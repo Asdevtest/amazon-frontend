@@ -1,26 +1,23 @@
-import { Typography, Link, Chip } from '@mui/material'
+import { useState } from 'react'
 
-import React, { useState } from 'react'
+import { Link, Typography } from '@mui/material'
 
-import clsx from 'clsx'
-
-import {
-  getConversion,
-  getWeightSizesType,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-} from '@constants/configs/sizes-settings'
+import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CopyValue } from '@components/shared/copy-value'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { Field } from '@components/shared/field'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 
-import { toFixed, checkAndMakeAbsoluteUrl, trimBarcode } from '@utils/text'
+import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './product-parameters.style'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { Dimensions } from '@typings/enums/dimensions'
+
+import { useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
+
+import { useStyles } from './product-parameters.style'
 
 export const ProductParameters = ({
   order,
@@ -31,40 +28,43 @@ export const ProductParameters = ({
   onClickBarcode,
   onDeleteBarcode,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-  const lengthConversion = getConversion(sizeSetting, inchesCoefficient)
-  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
-  const weightSizesType = getWeightSizesType(sizeSetting)
+  const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+  const { length, width, height, weight, unitsSize } = useShowDimensions({
+    data: order.product,
+    sizeSetting,
+    defaultDimension: Dimensions.US,
+  })
 
   const OrderParameter = ({ label, value }) => (
     <Field
       oneLine
       label={label}
-      containerClasses={classNames.parameterTableCellWrapper}
-      labelClasses={classNames.fieldLabel}
-      inputComponent={<Typography className={classNames.text}>{value}</Typography>}
+      containerClasses={styles.parameterTableCellWrapper}
+      labelClasses={styles.fieldLabel}
+      inputComponent={<Typography className={styles.text}>{value}</Typography>}
     />
   )
 
+  const productionTerm = order.orderSupplier
+    ? `${order.orderSupplier.minProductionTerm} - ${order.orderSupplier.maxProductionTerm}`
+    : t(TranslationKey['No data'])
+
   return (
-    <div className={classNames.container}>
+    <div className={styles.container}>
       <Field
         oneLine
         disabled={!isCanChange}
         inputProps={{ maxLength: 8 }}
         label={t(TranslationKey['Quantity (pcs.)'])}
-        inputClasses={classNames.amountInput}
-        classes={{ input: classNames.amountInput }}
-        containerClasses={classNames.parameterTableCellWrapper}
-        labelClasses={classNames.fieldLabel}
+        inputClasses={styles.amountInput}
+        classes={{ input: styles.amountInput }}
+        containerClasses={styles.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         value={formFields.amount}
         onChange={onChangeField('amount')}
       />
-      {/* // было */}
-      {/* <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.orderSupplier?.price, 2)} /> */}
       <OrderParameter
         label={t(TranslationKey['Purchase price'])}
         value={toFixed(order?.totalPrice / order?.amount, 2)}
@@ -73,102 +73,85 @@ export const ProductParameters = ({
       <Field
         oneLine
         label={t(TranslationKey.Supplier)}
-        containerClasses={classNames.parameterTableCellWrapper}
-        labelClasses={classNames.fieldLabel}
+        containerClasses={styles.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         inputComponent={
           <div>
-            {order.orderSupplier?.link === 'access denied' ? (
-              <Typography className={classNames.scrollingText}>{order.orderSupplier?.link}</Typography>
+            {order.orderSupplier?.link === ACCESS_DENIED ? (
+              <Typography className={styles.scrollingText}>{order.orderSupplier?.link}</Typography>
             ) : (
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplier?.link)}>
-                <Typography className={classNames.scrollingText}>{order.orderSupplier?.link}</Typography>
+                <Typography className={styles.scrollingText}>{order.orderSupplier?.link}</Typography>
               </Link>
             )}
           </div>
         }
       />
-      <OrderParameter label={t(TranslationKey['Production time'])} value={order.orderSupplier?.productionTerm} />
-      <OrderParameter
-        label={t(TranslationKey['Maximum delivery price per unit'])}
-        value={toFixed(order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount, 2)}
-      />
+      <OrderParameter label={t(TranslationKey['Production time'])} value={productionTerm} />
+
       <Field
         oneLine
         label={t(TranslationKey.Dimensions)}
-        containerClasses={classNames.parameterTableCellWrapper}
-        labelClasses={classNames.fieldLabel}
+        containerClasses={styles.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         inputComponent={
-          <div className={classNames.sizesWrapper}>
-            <CustomSwitcher
-              condition={sizeSetting}
-              nameFirstArg={unitsOfChangeOptions.EU}
-              nameSecondArg={unitsOfChangeOptions.US}
-              firstArgValue={unitsOfChangeOptions.EU}
-              secondArgValue={unitsOfChangeOptions.US}
-              changeConditionHandler={condition => setSizeSetting(condition)}
-            />
+          <div className={styles.sizesWrapper}>
+            <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
 
-            <Typography className={classNames.text}>{`
+            <Typography className={styles.text}>{`
             ${
               order.product.width && order.product.height && order.product.length
-                ? toFixed(order.product.width / lengthConversion, 2) +
-                  ' x ' +
-                  toFixed(order.product.height / lengthConversion, 2) +
-                  ' x ' +
-                  toFixed(order.product.length / lengthConversion, 2)
+                ? `${width} x ${height} x ${length}`
                 : t(TranslationKey['No data'])
             }`}</Typography>
           </div>
         }
       />
-      <OrderParameter
-        label={t(TranslationKey.Weight)}
-        value={`${toFixed(order.product.weight / weightConversion, 2)} ${weightSizesType}`}
-      />
+      <OrderParameter label={t(TranslationKey.Weight)} value={`${weight} ${unitsSize}`} />
       <Field
         oneLine
         label={t(TranslationKey.BarCode)}
-        containerClasses={classNames.parameterTableCellWrapper}
-        labelClasses={classNames.fieldLabel}
+        containerClasses={styles.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
         inputComponent={
           <>
             {isCanChange ? (
-              <Chip
-                classes={{
-                  root: classNames.barcodeChip,
-                  clickable: classNames.barcodeChipHover,
-                  deletable: classNames.barcodeChipHover,
-                  deleteIcon: classNames.barcodeChipIcon,
-                }}
-                className={clsx({ [classNames.barcodeChipExists]: formFields.product.barCode })}
-                size="small"
-                label={
-                  formFields.tmpBarCode.length
-                    ? t(TranslationKey['File added'])
-                    : formFields.product.barCode
-                    ? trimBarcode(formFields.product.barCode)
-                    : t(TranslationKey['Set Barcode'])
+              <ChangeChipCell
+                isChipOutTable
+                text={!formFields.product.barCode && !formFields.tmpBarCode.length && t(TranslationKey['Set Barcode'])}
+                value={
+                  formFields.tmpBarCode?.[0]?.file?.name || formFields.tmpBarCode?.[0] || formFields.product.barCode
                 }
-                onClick={() => onClickBarcode()}
-                onDelete={!formFields.product.barCode ? undefined : () => onDeleteBarcode()}
+                onClickChip={() => onClickBarcode()}
+                onDeleteChip={() => onDeleteBarcode()}
               />
             ) : (
-              <div>
-                {order.product.barCode ? (
-                  <div className={classNames.barCodeWrapper}>
-                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.barCode)}>
-                      <Typography className={classNames.scrollingText}>{t(TranslationKey.View)}</Typography>
-                    </Link>
-                    <CopyValue text={order.product.barCode} />
-                  </div>
-                ) : (
-                  <Typography className={classNames.standartText}>{t(TranslationKey['Not available'])}</Typography>
-                )}
-              </div>
+              <LabelWithCopy
+                lableLinkTitleSize="medium"
+                labelValue={order.product.barCode}
+                lableLinkTitle={t(TranslationKey.View)}
+              />
             )}
           </>
         }
       />
+
+      <Field
+        oneLine
+        label={t(TranslationKey['Transparency codes'])}
+        containerClasses={styles.parameterTableCellWrapper}
+        labelClasses={styles.fieldLabel}
+        inputComponent={
+          <>
+            <LabelWithCopy
+              lableLinkTitleSize="medium"
+              labelValue={order.transparencyFile}
+              lableLinkTitle={t(TranslationKey.View)}
+            />
+          </>
+        }
+      />
+
       {collapsed && (
         <OrderParameter label={t(TranslationKey['Additional parameter'])} value={t(TranslationKey.Value)} />
       )}

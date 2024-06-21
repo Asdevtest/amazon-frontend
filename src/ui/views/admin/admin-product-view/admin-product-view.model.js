@@ -1,8 +1,6 @@
-import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
-import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
@@ -35,121 +33,37 @@ const formFieldsDefault = {
 export class AdminProductViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-
-  // inInventory = undefined
 
   productId = undefined
   product = undefined
-  curUpdateProductData = {}
-  confirmMessage = ''
-  storekeepersData = []
 
-  selectedSupplier = undefined
-  showAddOrEditSupplierModal = false
-  showNoSuplierErrorModal = false
-  showConfirmModal = false
-
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
-
-  supplierModalReadOnly = false
-
-  readyImages = []
-  progressValue = 0
-  showProgress = false
-
-  formFields = { ...formFieldsDefault }
-
-  formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+  formFieldsValidationErrors = getNewObjectWithDefaultValue(formFieldsDefault, undefined)
 
   get userInfo() {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
-  constructor({ history /* , location */ }) {
+  constructor({ history }) {
     const url = new URL(window.location.href)
 
-    runInAction(() => {
-      this.history = history
-      this.productId = url.searchParams.get('product-id')
-    })
+    this.history = history
+    this.productId = url.searchParams.get('product-id')
 
-    // if (location.state) {
-    //   runInAction(() => {
-    //     this.inInventory = location.state.inInventory
-    //   })
-    // }
+    this.getProductById()
+
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.languageTag,
-      () =>
-        runInAction(() => {
-          this.product = this.product ? { ...this.product } : undefined
-        }),
-    )
-  }
-
-  async loadData() {
-    try {
-      await this.getProductById()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickSupplierButtons(actionType) {
-    switch (actionType) {
-      case 'view':
-        runInAction(() => {
-          this.supplierModalReadOnly = true
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-    }
-  }
-
-  async getStorekeepers() {
-    try {
-      const result = await StorekeeperModel.getStorekeepers()
-
-      this.storekeepersData = result
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   async getProductById() {
     try {
-      const result = await ProductModel.getProductById(this.productId)
+      const response = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
-        runInAction(() => {
-          this.product = result
-        })
-
+        this.product = response
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
-      console.log(error)
-    }
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-      runInAction(() => {
-        this.selectedSupplier = undefined
-      })
-    } else {
-      runInAction(() => {
-        this.selectedSupplier = supplier
-      })
+      console.error(error)
     }
   }
 
@@ -162,40 +76,11 @@ export class AdminProductViewModel {
     }
   }
 
-  onChangeProductFields() {}
-
-  onChangeProduct(e, value) {
-    runInAction(() => {
-      this.product = value
-    })
-  }
-
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
-      }
-
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
+  onTriggerOpenModal(modalState) {
+    this[modalState] = !this[modalState]
   }
 }

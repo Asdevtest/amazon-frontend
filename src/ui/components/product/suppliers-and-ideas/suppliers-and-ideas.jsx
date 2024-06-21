@@ -1,45 +1,65 @@
-/* eslint-disable no-unused-vars */
+import { observer } from 'mobx-react'
+import { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
+
 import { Typography } from '@mui/material'
 
-import React, { useEffect, useRef, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { useHistory } from 'react-router-dom'
-
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
+import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
+import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { CommentsModal } from '@components/modals/comments-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { RequestResultModal } from '@components/modals/request-result-modal'
+import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
+import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { AddOrEditSupplierModalContent } from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
-import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
-import { useClassNames } from './suppliers-and-ideas.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const SuppliersAndIdeas = observer(({ productId, product }) => {
-  const { classes: classNames } = useClassNames()
-  const history = useHistory()
-  const model = useRef(new SuppliersAndIdeasModel({ history, productId, product }))
+import { useStyles } from './suppliers-and-ideas.style'
+
+import { SuppliersAndIdeasModel } from './suppliers-and-ideas.model'
+
+export const SuppliersAndIdeas = observer(props => {
+  const { productId, product, isModalView, currentIdeaId, isCreate, closeModalHandler, updateData } = props
+  const { classes: styles } = useStyles()
+
+  const { search } = useLocation()
+  const queries = new URLSearchParams(search)
+  const selectedIdeaId = queries.get('ideaId')
+  const ideaRef = useRef(null)
+
+  const model = useRef(
+    new SuppliersAndIdeasModel({
+      productId,
+      product,
+      isModalView,
+      currentIdeaId,
+      isCreate,
+      closeModalHandler,
+      updateData,
+    }),
+  )
 
   useEffect(() => {
     model.current.loadData()
   }, [])
 
   const {
-    supplierModalReadOnly,
     requestStatus,
-    yuanToDollarRate,
-    volumeWeightCoefficient,
-    selectedSupplier,
     curUser,
     curIdea,
     inEdit,
@@ -49,128 +69,299 @@ export const SuppliersAndIdeas = observer(({ productId, product }) => {
     showProgress,
     showConfirmModal,
     showSuccessModal,
-    showAddOrEditSupplierModal,
     confirmModalSettings,
-    successModalTitle,
-    paymentMethods,
+    currentProduct,
+    productToOrder,
+    currentProposal,
+    showRequestDesignerResultModal,
+    showMainRequestResultModal,
+    showRequestBloggerResultModal,
+    showBindingModal,
+    requestsForProduct,
+    successModalSettings,
+    showOrderModal,
+    platformSettings,
+    destinations,
+    storekeepers,
+    showSetBarcodeModal,
+    selectedProduct,
+    currentRequest,
+    showSelectionSupplierModal,
+    currentData,
+    languageTag,
+    showCommentsModal,
+    setRejectStatusHandler,
+    onClickToOrder,
+    onClickSaveBarcode,
+    onDoubleClickBarcode,
+    onClickCreateRequestButton,
+    onClickBindButton,
+    onClickUnbindButton,
+    onClickLinkRequestButton,
+    onClickResultButton,
+    onClickRejectButton,
+    onClickReoperButton,
+    onClickAcceptButton,
     onTriggerOpenModal,
-    onClickRemoveIdea,
+    onClickCloseIdea,
     onCreateIdea,
     onClickCancelBtn,
     onClickSaveBtn,
-    onClickSaveIcon,
     onSetCurIdea,
     onEditIdea,
     onClickCreateProduct,
-    onClickSupplierButtons,
-
-    onChangeSelectedSupplier,
-    onTriggerAddOrEditSupplierModal,
+    onClickOpenNewTab,
+    onClickOpenProduct,
+    onClickRequestId,
     onClickSaveSupplierBtn,
+    onConfirmSubmitOrderProductModal,
+    onSubmitCalculateSeekSupplier,
+    onRemoveSupplier,
   } = model.current
 
-  const [updatedIdea, setUpdatedIdea] = useState(curIdea)
-
   useEffect(() => {
-    setUpdatedIdea(() => ({ ...curIdea }))
-  }, [SettingsModel.languageTag, curIdea])
+    if (selectedIdeaId) {
+      ideaRef?.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [selectedIdeaId, ideasData])
+
+  const showAddProductIdeaButton =
+    (checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
+    !inCreate &&
+    !inEdit &&
+    !isModalView &&
+    currentProduct.status >= 200
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.btnsWrapper}>
-        {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
-        !inCreate &&
-        !inEdit ? (
-          <Button success variant="contained" onClick={onCreateIdea}>
-            {t(TranslationKey['Add a product idea'])}{' '}
+    <div className={styles.mainWrapper}>
+      {showAddProductIdeaButton && (
+        <div className={styles.btnsWrapper}>
+          <Button
+            styleType={ButtonStyle.SUCCESS}
+            disabled={!!product.parentProductId}
+            tooltipInfoContent={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
+            variant="contained"
+            onClick={onCreateIdea}
+          >
+            {t(TranslationKey['Add a product idea'])}
           </Button>
-        ) : null}
-      </div>
-
-      {inCreate ? (
-        <IdeaViewAndEditCard
-          inCreate
-          curUser={curUser}
-          curIdea={updatedIdea}
-          selectedSupplier={selectedSupplier}
-          onClickSaveBtn={onClickSaveBtn}
-          onClickCancelBtn={onClickCancelBtn}
-          onSetCurIdea={onSetCurIdea}
-          onClickSupplierBtns={onClickSupplierButtons}
-          onClickSupplier={onChangeSelectedSupplier}
-        />
-      ) : null}
-
-      {SettingsModel.languageTag && ideasData.length ? (
-        ideasData.map(idea => (
-          <IdeaViewAndEditCard
-            key={idea._id}
-            curUser={curUser}
-            curIdea={updatedIdea}
-            inEdit={inEdit}
-            idea={idea}
-            selectedSupplier={selectedSupplier}
-            onCreateProduct={onClickCreateProduct}
-            onClickSaveBtn={onClickSaveBtn}
-            onClickCancelBtn={onClickCancelBtn}
-            onRemove={onClickRemoveIdea}
-            onSetCurIdea={onSetCurIdea}
-            onEditIdea={onEditIdea}
-            onClickSupplierBtns={onClickSupplierButtons}
-            onClickSupplier={onChangeSelectedSupplier}
-            onClickSaveIcon={onClickSaveIcon}
-          />
-        ))
-      ) : (
-        <div className={classNames.emptyTableWrapper}>
-          <img src="/assets/icons/empty-table.svg" />
-          <Typography variant="h5" className={classNames.emptyTableText}>
-            {t(TranslationKey['No ideas yet'])}
-          </Typography>
         </div>
       )}
 
+      {inCreate && (
+        <IdeaViewAndEditCard
+          inCreate
+          languageTag={languageTag}
+          isModalView={isModalView}
+          curUser={curUser}
+          curIdea={curIdea}
+          currentProduct={currentProduct}
+          onClickSaveBtn={onClickSaveBtn}
+          onClickCancelBtn={onClickCancelBtn}
+          onSetCurIdea={onSetCurIdea}
+          onClickOpenProduct={onClickOpenProduct}
+          onClickSaveSupplierBtn={onClickSaveSupplierBtn}
+          onRemoveSupplier={onRemoveSupplier}
+        />
+      )}
+
+      {isModalView && !isCreate && (
+        <>
+          {requestStatus === loadingStatus.IS_LOADING ? (
+            <CircularProgressWithLabel />
+          ) : curIdea ? (
+            <IdeaViewAndEditCard
+              isModalView
+              languageTag={languageTag}
+              curUser={curUser}
+              curIdea={curIdea}
+              inEdit={inEdit}
+              idea={curIdea}
+              currentProduct={currentProduct}
+              onCreateProduct={onClickCreateProduct}
+              onClickSaveBtn={onClickSaveBtn}
+              onClickCancelBtn={onClickCancelBtn}
+              onClickCreateRequestButton={onClickCreateRequestButton}
+              onClickLinkRequestButton={onClickLinkRequestButton}
+              onClickAcceptButton={onClickAcceptButton}
+              onClickCloseIdea={onClickCloseIdea}
+              onClickRejectButton={onClickRejectButton}
+              onClickReoperButton={onClickReoperButton}
+              onClickResultButton={onClickResultButton}
+              onSetCurIdea={onSetCurIdea}
+              onEditIdea={onEditIdea}
+              onClickOpenNewTab={onClickOpenNewTab}
+              onClickOpenProduct={onClickOpenProduct}
+              onClickToOrder={onClickToOrder}
+              onClickRequestId={onClickRequestId}
+              onClickUnbindButton={onClickUnbindButton}
+              onClickSaveSupplierBtn={onClickSaveSupplierBtn}
+              onRemoveSupplier={onRemoveSupplier}
+            />
+          ) : (
+            <div className={styles.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <Typography variant="h5" className={styles.emptyTableText}>
+                {t(TranslationKey['No ideas yet'])}
+              </Typography>
+            </div>
+          )}
+        </>
+      )}
+
+      {!isModalView && !isCreate && (
+        <>
+          {requestStatus === loadingStatus.IS_LOADING ? (
+            <CircularProgressWithLabel />
+          ) : currentData?.length ? (
+            currentData.map(idea => (
+              <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
+                <IdeaViewAndEditCard
+                  curUser={curUser}
+                  curIdea={curIdea}
+                  inEdit={inEdit}
+                  idea={idea}
+                  languageTag={languageTag}
+                  currentProduct={currentProduct}
+                  selectedIdea={selectedIdeaId}
+                  onCreateProduct={onClickCreateProduct}
+                  onClickSaveBtn={onClickSaveBtn}
+                  onClickCancelBtn={onClickCancelBtn}
+                  onClickCreateRequestButton={onClickCreateRequestButton}
+                  onClickLinkRequestButton={onClickLinkRequestButton}
+                  onClickAcceptButton={onClickAcceptButton}
+                  onClickCloseIdea={onClickCloseIdea}
+                  onClickRejectButton={onClickRejectButton}
+                  onClickReoperButton={onClickReoperButton}
+                  onClickResultButton={onClickResultButton}
+                  onSetCurIdea={onSetCurIdea}
+                  onEditIdea={onEditIdea}
+                  onClickOpenProduct={onClickOpenProduct}
+                  onClickToOrder={onClickToOrder}
+                  onClickRequestId={onClickRequestId}
+                  onClickUnbindButton={onClickUnbindButton}
+                  onClickSaveSupplierBtn={onClickSaveSupplierBtn}
+                  onRemoveSupplier={onRemoveSupplier}
+                />
+              </div>
+            ))
+          ) : (
+            <div className={styles.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <Typography variant="h5" className={styles.emptyTableText}>
+                {t(TranslationKey['No ideas yet'])}
+              </Typography>
+            </div>
+          )}
+        </>
+      )}
+
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={successModalSettings.modalTitle}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={successModalSettings.onClickSuccessBtn}
+        />
+      ) : null}
+
       <Modal
-        missClickModalOn={!supplierModalReadOnly}
-        openModal={showAddOrEditSupplierModal}
-        setOpenModal={onTriggerAddOrEditSupplierModal}
+        openModal={showRequestDesignerResultModal}
+        setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
       >
-        <AddOrEditSupplierModalContent
-          paymentMethods={paymentMethods}
-          onlyRead={supplierModalReadOnly}
-          requestStatus={requestStatus}
-          sourceYuanToDollarRate={yuanToDollarRate}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          supplier={selectedSupplier}
-          showProgress={showProgress}
-          progressValue={progressValue}
-          onClickSaveBtn={onClickSaveSupplierBtn}
-          onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={curUser}
+          request={{ request: currentRequest }}
+          proposal={currentProposal}
+          setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={confirmModalSettings.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showMainRequestResultModal ? (
+        <MainRequestResultModal
+          readOnly
+          customProposal={currentProposal}
+          userInfo={curUser}
+          openModal={showMainRequestResultModal}
+          onOpenModal={() => onTriggerOpenModal('showMainRequestResultModal')}
+        />
+      ) : null}
 
-      <SuccessInfoModal
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={successModalTitle}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+      {showRequestBloggerResultModal ? (
+        <RequestResultModal
+          // @ts-ignore
+          request={currentRequest}
+          proposal={currentProposal}
+          openModal={showRequestBloggerResultModal}
+          setOpenModal={() => onTriggerOpenModal('showRequestBloggerResultModal')}
+        />
+      ) : null}
+
+      <Modal openModal={showBindingModal} setOpenModal={() => onTriggerOpenModal('showBindingModal')}>
+        <BindIdeaToRequestForm requests={requestsForProduct} onClickBindButton={onClickBindButton} />
+      </Modal>
+
+      <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
+        <OrderProductModal
+          platformSettings={platformSettings}
+          destinations={destinations}
+          storekeepers={storekeepers}
+          selectedProductsData={[productToOrder]}
+          onTriggerOpenModal={onTriggerOpenModal}
+          onDoubleClickBarcode={onDoubleClickBarcode}
+          onSubmit={onConfirmSubmitOrderProductModal}
+        />
+      </Modal>
+
+      <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
+        <SetBarcodeModal
+          barCode={selectedProduct?.barCode}
+          onClickSaveBarcode={onClickSaveBarcode}
+          onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={showSelectionSupplierModal}
+        setOpenModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
+      >
+        <SelectionSupplierModal
+          product={currentProduct}
+          title={t(TranslationKey['Send product card for supplier search'])}
+          onSubmitSeekSupplier={onSubmitCalculateSeekSupplier}
+          onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
+        />
+      </Modal>
+
+      {showCommentsModal ? (
+        <CommentsModal
+          required
+          readOnly={false}
+          maxLength={MAX_DEFAULT_INPUT_VALUE}
+          title={t(TranslationKey['Reason for rejection'])}
+          openModal={showCommentsModal}
+          onOpenModal={() => onTriggerOpenModal('showCommentsModal')}
+          onChangeField={setRejectStatusHandler}
+        />
+      ) : null}
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>

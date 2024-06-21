@@ -1,134 +1,106 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { useState } from 'react'
+
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { Drawer } from '@mui/material'
 
-import React, { useEffect, useRef, useState } from 'react'
-import { observer } from 'mobx-react'
 import { navbarConfig } from '@constants/navigation/navbar'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-import { NavbarModel } from './navbar.model'
-import { useClassNames } from './navbar.style'
+import { VersionHistoryForm } from '@components/forms/version-history-form'
 import { NavbarDrawerContent } from '@components/layout/navbar/navbar-drawer-content'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { FeedBackModal } from '@components/modals/feedback-modal'
+import { DrawerModal } from '@components/shared/drawer-modal'
+import { Modal } from '@components/shared/modal'
+import { LogoIcon, ShortLogoIcon } from '@components/shared/svg-icons'
 
-export const Navbar = observer(
-  ({ activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory }) => {
-    const { classes: classNames } = useClassNames()
+import { t } from '@utils/translations'
 
-    const viewModel = useRef(new NavbarModel())
+import { useStyles } from './navbar.style'
 
-    const {
-      confirmModalSettings,
-      showFeedbackModal,
-      showWarningModal,
-      showConfirmModal,
-      alertShieldSettings,
-      onTriggerOpenModal,
-      sendFeedbackAboutPlatform,
-      onClickVersion,
-      userInfo,
-    } = viewModel.current
+import { NavbarModel } from './navbar.model'
 
-    const [showOverlayNavBar, setShowOverlayNavBar] = useState(false)
+export const Navbar = observer(props => {
+  const { shortNavbar, activeCategory, activeSubCategory, isOpenModal, onShowNavbar, onToggleModal } = props
 
-    const [curNavbar, setCurNavbar] = useState(navbarConfig())
-    const [shortNavbar, setShortNavbar] = useState(() => {
-      const saved = localStorage.getItem('shortNavbar')
-      const initialValue = JSON.parse(saved)
-      return initialValue || window.innerWidth < 1282 ? true : false
-    })
-    useEffect(() => {
-      setCurNavbar(navbarConfig())
-    }, [SettingsModel.languageTag])
+  const { classes: styles, cx } = useStyles()
+  const [viewModel] = useState(new NavbarModel())
+  const [curNavbar] = useState(navbarConfig)
 
-    useEffect(() => {
-      localStorage.setItem('shortNavbar', JSON.stringify(shortNavbar))
-    }, [shortNavbar])
-
-    return (
-      <div className={classNames.mainWrapper}>
-        {!showOverlayNavBar && (
-          <Drawer
-            open={false}
-            classes={{
-              root: cx(classNames.root, { [classNames.hideNavbar]: shortNavbar }),
-              paper: cx(classNames.paper, classNames.positionStatic),
-            }}
-            variant="permanent"
+  return (
+    <>
+      <div className={styles.navbar}>
+        <div className={styles.logoWrapper}>
+          {shortNavbar ? <ShortLogoIcon className={styles.logoIconShort} /> : <LogoIcon className={styles.logoIcon} />}
+          <div
+            id="hideAndShowIcon"
+            className={cx(styles.hideAndShowIconWrapper, { [styles.hideAndShowIcon]: shortNavbar })}
+            onClick={onShowNavbar}
           >
-            <NavbarDrawerContent
-              shortNavbar={shortNavbar}
-              setShortNavbar={setShortNavbar}
-              showOverlayNavBar={showOverlayNavBar}
-              setShowOverlayNavBar={setShowOverlayNavBar}
-              confirmModalSettings={confirmModalSettings}
-              alertShieldSettings={alertShieldSettings}
-              curNavbar={curNavbar}
-              userInfo={userInfo}
-              activeCategory={activeCategory}
-              viewModel={viewModel.current}
-              activeSubCategory={activeSubCategory}
-              sendFeedbackAboutPlatform={sendFeedbackAboutPlatform}
-              showFeedbackModal={showFeedbackModal}
-              showWarningModal={showWarningModal}
-              showConfirmModal={showConfirmModal}
-              onTriggerOpenModal={onTriggerOpenModal}
-              onChangeSubCategory={onChangeSubCategory}
-              onClickVersion={onClickVersion}
-            />
-          </Drawer>
-        )}
-
-        {showOverlayNavBar && (
-          <Drawer
-            open
-            anchor="left"
-            classes={{
-              root: classNames.root,
-              paper: cx(classNames.paper, { [classNames.moreWidth]: window.innerWidth < 1282 }),
-            }}
-            onClose={() => {
-              setDrawerOpen()
-              setShortNavbar(!shortNavbar)
-              setShowOverlayNavBar(!showOverlayNavBar)
-            }}
-          >
-            <NavbarDrawerContent
-              shortNavbar={shortNavbar}
-              setShortNavbar={setShortNavbar}
-              showOverlayNavBar={showOverlayNavBar}
-              setShowOverlayNavBar={setShowOverlayNavBar}
-              alertShieldSettings={alertShieldSettings}
-              confirmModalSettings={confirmModalSettings}
-              curNavbar={curNavbar}
-              userInfo={userInfo}
-              activeCategory={activeCategory}
-              viewModel={viewModel.current}
-              activeSubCategory={activeSubCategory}
-              sendFeedbackAboutPlatform={sendFeedbackAboutPlatform}
-              showFeedbackModal={showFeedbackModal}
-              showWarningModal={showWarningModal}
-              showConfirmModal={showConfirmModal}
-              onTriggerOpenModal={onTriggerOpenModal}
-              onChangeSubCategory={onChangeSubCategory}
-              onClickVersion={onClickVersion}
-            />
-          </Drawer>
-        )}
-
-        <div
-          className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: shortNavbar })}
-          onClick={() => setShortNavbar(!shortNavbar)}
-        >
-          {shortNavbar ? (
-            <ArrowForwardIosIcon className={classNames.arrowIcon} />
-          ) : (
-            <ArrowBackIosIcon className={classNames.arrowIcon} />
-          )}
+            {shortNavbar ? (
+              <ArrowForwardIosIcon className={styles.arrowIcon} />
+            ) : (
+              <ArrowBackIosIcon className={styles.arrowIcon} />
+            )}
+          </div>
         </div>
+
+        <DrawerModal open={isOpenModal} onClose={onToggleModal}>
+          <NavbarDrawerContent
+            shortNavbar={shortNavbar}
+            curNavbar={curNavbar}
+            userInfo={viewModel.userInfo}
+            activeCategory={activeCategory}
+            unreadMessages={viewModel.unreadMessages}
+            activeSubCategory={activeSubCategory}
+            sendFeedbackAboutPlatform={viewModel.sendFeedbackAboutPlatform}
+            showFeedbackModal={viewModel.showFeedbackModal}
+            onTriggerOpenModal={viewModel.onTriggerOpenModal}
+            onClickVersion={viewModel.onClickVersion}
+            onToggleModal={onToggleModal}
+          />
+        </DrawerModal>
       </div>
-    )
-  },
-)
+
+      {viewModel.showFeedbackModal ? (
+        <FeedBackModal
+          // @ts-ignore
+          openModal={viewModel.showFeedbackModal}
+          onSubmit={viewModel.sendFeedbackAboutPlatform}
+          onClose={() => viewModel.onTriggerOpenModal('showFeedbackModal')}
+        />
+      ) : null}
+
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          isWarning={viewModel.confirmModalSettings.isWarning}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+
+      <Modal
+        openModal={viewModel.showVersionHistoryModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showVersionHistoryModal')}
+      >
+        <VersionHistoryForm
+          title={t(TranslationKey['Version history of releases'])}
+          selectedPatchNote={viewModel.patchNote}
+          patchNotes={viewModel.patchNotes}
+          onScrollPatchNotes={viewModel.loadMoreDataHadler}
+          onResetPatchNote={viewModel.onResetPatchNote}
+          onViewPatchNote={viewModel.getPatchNote}
+          onClickResetVersion={viewModel.onClickResetVersion}
+        />
+      </Modal>
+    </>
+  )
+})

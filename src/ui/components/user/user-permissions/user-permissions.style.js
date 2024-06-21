@@ -1,11 +1,26 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
-  root: {
-    width: '100%',
-    boxShadow: 'inset 0 -1px 0 0 #E6ECF0',
+export const useStyles = makeStyles()(() => ({
+  wrapper: {
+    marginTop: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
   },
-  indicator: {
-    backgroundColor: '#1da1f2',
+
+  customSwitcherContainer: {
+    width: '30%',
+  },
+
+  buttons: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '20px',
+  },
+
+  datagridWrapper: {
+    height: 'calc(100vh - 200px)',
+    width: '100%',
   },
 }))

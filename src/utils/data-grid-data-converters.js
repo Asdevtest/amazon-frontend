@@ -1,16 +1,14 @@
+import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import {
-  ProductStatus,
-  ProductStatusByCode,
-  ProductStatusByKey,
-  productStatusTranslateKey,
-} from '@constants/product/product-status'
-import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
-import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
-import { OrderStatusByCode, OrderStatusTranslate } from '@constants/statuses/order-status'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
+import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
+import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
+import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { Notification } from '@typings/enums/notification'
 
 import {
   calcFinalWeightForBox,
@@ -22,9 +20,8 @@ import {
   getTariffRateForBoxOrOrder,
   roundSafely,
 } from './calculation'
-import { getFullTariffTextForBoxOrOrder, getNewTariffTextForBoxOrOrder } from './text'
+import { getNewTariffTextForBoxOrOrder, toFixed } from './text'
 import { t } from './translations'
-import { tariffTypes } from '@constants/keys/tariff-types'
 
 export const addIdDataConverter = data =>
   data.map((item, index) => ({ ...item, originalData: item, id: item._id ? item._id : index }))
@@ -57,13 +54,13 @@ export const feedBackDataConverter = data =>
     id: item._id,
     _id: item._id,
 
-    media: item.media,
+    files: item.media,
     text: item.text,
     userName: item.user.name,
     updatedAt: item.updatedAt,
   }))
 
-export const myRequestsDataConverter = data =>
+export const myRequestsDataConverter = (data, shopsData) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -81,8 +78,10 @@ export const myRequestsDataConverter = data =>
     atWorkProposals: item?.countProposalsByStatuses?.atWorkProposals,
     verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
     waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
-    typeTask: item?.typeTask,
+    spec: item?.spec,
     uploadedToListing: item?.uploadedToListing,
+    taskComplexity: item?.taskComplexity,
+    shopId: shopsData?.find(el => el._id === item?.product?.shopId)?.name || '',
   }))
 
 export const researcherCustomRequestsDataConverter = data =>
@@ -94,28 +93,6 @@ export const researcherCustomRequestsDataConverter = data =>
     name: item.details.name,
     maxAmountOfProposals: item.request.maxAmountOfProposals,
     price: item.request.price,
-  }))
-
-export const researcherProductsDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    status: [
-      ProductStatusByKey[ProductStatus.NEW_PRODUCT],
-      ProductStatusByKey[ProductStatus.DEFAULT],
-      ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
-      // ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
-      ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
-      ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP],
-    ].includes(item.status)
-      ? t(productStatusTranslateKey(ProductStatusByCode[item.status]))
-      : 'OK',
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-    createdAt: item.createdAt,
-    amazon: item.amazon,
-    bsr: item.bsr,
-    asin: item.asin,
-    id: item._id,
-    supervisorComment: item.checkednotes,
   }))
 
 export const researcherFinancesDataConverter = data =>
@@ -140,25 +117,6 @@ export const supervisorFinancesDataConverter = data =>
     sum: item.sum,
   }))
 
-export const supervisorProductsDataConverter = data =>
-  data?.map(item => ({
-    originalData: item,
-
-    status: item.status,
-    statusForAttention: ProductStatusByCode[item.status],
-    researcherName: item.createdBy?.name,
-    buyerName: item.buyer?.name,
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    amazon: item.amazon,
-    bsr: item.bsr,
-    id: item._id,
-    fbafee: item.fbafee,
-    asin: item.asin,
-    ordered: item.ordered,
-  }))
-
 export const buyerFinancesDataConverter = data =>
   data.map(item => ({
     originalData: item,
@@ -176,13 +134,14 @@ export const buyerProductsDataConverter = data =>
 
     status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
     statusForAttention: ProductStatusByCode[item.status],
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
 
     ideasOnCheck: item.ideasOnCheck,
     ideasVerified: item.ideasVerified,
     ideasClosed: item.ideasClosed,
+    ideasFinished: item?.ideasFinished,
 
     amazon: item.amazon,
     profit: item.profit,
@@ -239,6 +198,8 @@ export const buyerVacantOrdersDataConverter = data =>
     client: item.product.client?.name,
     needsResearch: item.needsResearch,
     deadline: item.deadline,
+    productionTerm: item?.orderSupplier?.productionTerm,
+    totalPrice: item?.totalPrice,
   }))
 
 export const clientProductsDataConverter = data =>
@@ -249,7 +210,7 @@ export const clientProductsDataConverter = data =>
     buyerName: item.buyer?.name,
     supervisorName: item.checkedBy?.name,
 
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -265,13 +226,13 @@ export const clientProductsDataConverter = data =>
     id: item._id,
   }))
 
-export const clientInventoryDataConverter = (data, shopsData) =>
+export const clientInventoryDataConverter = data =>
   data.map(item => ({
     originalData: item,
 
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
     status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -301,16 +262,15 @@ export const clientInventoryDataConverter = (data, shopsData) =>
     purchaseQuantity: item.purchaseQuantity,
 
     hsCode: item.hsCode,
+    transparency: item.transparency,
 
     fourMonthesStock: item.fourMonthesStock,
     clientComment: item.clientComment,
     stockUSA: item.stockUSA,
 
     ideasOnCheck: item.ideasOnCheck,
-    ideasVerified: item.ideasVerified,
+    ideasFinished: item.ideasFinished,
     ideasClosed: item.ideasClosed,
-
-    shopIds: shopsData?.find(el => el._id === item.shopIds?.[0])?.name || '',
   }))
 
 export const clientCustomRequestsDataConverter = data =>
@@ -375,8 +335,7 @@ export const clientOrdersDataConverter = (data, shopsData) =>
     needsResearch: item.needsResearch,
     buyerComment: item.buyerComment,
     clientComment: item.clientComment,
-    shopIds: shopsData?.find(el => el._id === item.product.shopIds?.[0])?.name || '',
-    // shopIds: item.product.shopIds?.[0],
+    shopId: shopsData?.find(el => el._id === item.product.shopId)?.name || '',
   }))
 
 export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shopsData) =>
@@ -395,7 +354,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
 
-    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
     status: item.status,
@@ -425,13 +384,10 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient, shop
       .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
 
-    shopIds: Array.from(
+    shopId: Array.from(
       new Set(
         `${item.items.reduce(
-          (ac, cur) =>
-            (ac +=
-              cur.product.shopIds?.reduce((a, c) => (a += shopsData?.find(el => el._id === c)?.name + ', '), '') +
-              ', '),
+          (ac, cur) => (ac += shopsData?.find(el => el._id === cur.product.shopId)?.name + ', '),
           '',
         )}`
           .replace(/undefined/g, '')
@@ -510,7 +466,7 @@ export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item._id,
 
     destination: item.boxes[0].destination?.name,
-    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
+    tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
     humanFriendlyId: item.humanFriendlyId,
     storekeeper: item.storekeeper?.name,
 
@@ -577,38 +533,18 @@ export const warehouseFinancesDataConverter = data =>
 export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
+    ...item,
+
     id: item._id,
-    _id: item._id,
 
-    destination: item.boxes[0].destination?.name,
     tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
-    humanFriendlyId: item.humanFriendlyId,
-
-    title: item.title,
-
-    updatedAt: item.updatedAt,
-
-    storekeeper: item.storekeeper?.name,
 
     volumeWeight: item.boxes.reduce(
       (prev, box) => (prev = prev + calcVolumeWeightForBox(box, volumeWeightCoefficient)),
       0,
     ),
 
-    // finalWeight: item.boxes.reduce(
-    //   (prev, box) => (prev = prev + calcFinalWeightForBox(box, volumeWeightCoefficient)),
-    //   0,
-    // ),
-    finalWeight: item.finalWeight,
-
-    totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
-    // totalPrice: getTariffRateForBoxOrOrder(item) * item.finalWeight,
-
-    // deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
-
     deliveryTotalPrice: getTariffRateForBoxOrOrder(item.boxes[0]) * item.finalWeight,
-    arrivalDate: item?.arrivalDate,
-    trackingNumber: item?.trackingNumber,
   }))
 
 export const warehouseTasksDataConverter = data =>
@@ -704,7 +640,7 @@ export const adminProductsDataConverter = data =>
     originalData: item,
 
     status: ProductStatusByCode[item.status],
-    strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
+    strategyStatus: productStrategyStatusesEnum[item.strategyStatus],
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -749,7 +685,6 @@ export const adminOrdersDataConverter = data =>
 export const adminTasksDataConverter = data =>
   data.map(item => ({
     originalData: item,
-
     id: item._id,
     operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item.operationType]],
     status: mapTaskStatusKeyToEnum[item.status],
@@ -765,7 +700,7 @@ export const adminBoxesDataConverter = data =>
     id: item._id,
     _id: item._id,
 
-    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
+    amount: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
     amazonPrice: calcPriceForBox(item),
 
@@ -856,33 +791,7 @@ export const adminUsersDataConverter = data =>
     balanceFreeze: item.balanceFreeze,
     email: item.email,
     rate: item.rate,
-    isSubUser: item.masterUser ? 'SUB-USER' : 'USER',
-  }))
-
-export const adminSinglePermissionsDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    id: item._id,
-    role: UserRoleCodeMap[item.role],
-
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    key: item.key,
-    title: item.title,
-    description: item.description,
-  }))
-
-export const adminGroupPermissionsDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    id: item._id,
-    role: UserRoleCodeMap[item.role],
-
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    key: item.key,
-    title: item.title,
-    description: item.description,
+    sub: item.masterUser ? 'SUB-USER' : 'USER',
   }))
 
 export const freelancerServiceDetaildsDataConverter = data =>
@@ -907,7 +816,7 @@ export const SourceFilesDataConverter = data =>
     sourceFile: item?.sourceFile,
     comments: item?.comments,
     proposal: item?.proposal,
-    typeTask: item?.typeTask,
+    spec: item?.spec,
     productId: item?.productId,
 
     performer: item?.createdBy,
@@ -937,7 +846,7 @@ export const supplierApproximateCalculationsDataConverter = (
           volumeWeightCoefficient,
       ) || 0,
       parseFloat(supplier?.boxProperties?.boxWeighGrossKg) || 0,
-    ) / supplier.boxProperties.amountInBox
+    ) / supplier?.boxProperties?.amountInBox || 0
 
   return tariffLogistics
     ?.filter(tariffLogistic => tariffLogistic.tariffType === tariffTypes.WITHOUT_WEIGHT_LOGISTICS_TARIFF)
@@ -954,7 +863,10 @@ export const supplierApproximateCalculationsDataConverter = (
         ) *
           fInalWeightOfUnit
 
-      const roi = ((product.amazon - calcTotalFbaForProduct(product) - costDeliveryToUsa) / costDeliveryToUsa) * 100
+      const roi =
+        (((product.amazon || product?.approximatePrice) - calcTotalFbaForProduct(product) - costDeliveryToUsa) /
+          costDeliveryToUsa) *
+        100
 
       return {
         originalData: item,
@@ -974,7 +886,7 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
   supplier,
   volumeWeightCoefficient,
 ) => {
-  const fInalWeightOfUnit =
+  const finalWeightOfUnit =
     Math.max(
       roundSafely(
         (supplier.boxProperties?.boxLengthCm *
@@ -983,7 +895,7 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
           volumeWeightCoefficient,
       ) || 0,
       parseFloat(supplier?.boxProperties?.boxWeighGrossKg) || 0,
-    ) / supplier.boxProperties.amountInBox
+    ) / supplier?.boxProperties?.amountInBox
 
   return tariffLogistics
     ?.filter(tariffLogistic => tariffLogistic.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF)
@@ -992,12 +904,22 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
         (+supplier?.price * (+supplier?.amount || 0) + +supplier?.batchDeliveryCostInDollar) / +supplier?.amount
 
       const destinationVariations = tariffLogistic?.destinationVariations?.map(destinationVariation => {
-        const deliveryToUsa = costDeliveryToChina + destinationVariation?.pricePerKgUsd * fInalWeightOfUnit
+        const deliveryToUsa = costDeliveryToChina + destinationVariation?.pricePerKgUsd * finalWeightOfUnit
 
         return {
-          ...destinationVariation,
-          roi: ((product?.amazon - calcTotalFbaForProduct(product) - deliveryToUsa) / deliveryToUsa) * 100,
-          costDeliveryToUsa: deliveryToUsa,
+          /* ...destinationVariation, */
+          roi:
+            toFixed(
+              (((product?.amazon || product?.approximatePrice || 0) - calcTotalFbaForProduct(product) - deliveryToUsa) /
+                deliveryToUsa) *
+                100,
+              2,
+            ) + ' %',
+          costDeliveryToUsa: toFixed(deliveryToUsa, 2),
+          weight: `${!!destinationVariation.minWeight && t(TranslationKey.From) + ' '}${
+            destinationVariation.minWeight
+          } ${!!destinationVariation.maxWeight && t(TranslationKey.To) + ' '}${destinationVariation.maxWeight}`,
+          destinationName: destinationVariation.destination.name,
         }
       })
 
@@ -1005,8 +927,72 @@ export const supplierWeightBasedApproximateCalculationsDataConverter = (
         id: i,
         originalData: tariffLogistic,
         name: tariffLogistic?.name,
-        costDeliveryToChina,
+        costDeliveryToChina: toFixed(costDeliveryToChina, 2),
         destinationVariations,
       }
     })
 }
+
+export const notificationDataConverter = data =>
+  data.map(item => ({
+    ...item,
+    originalData: item,
+    id: item?._id,
+    product:
+      item.type === Notification.Idea
+        ? {
+            ...item?.data?.[0]?.parentProduct,
+            title: item?.data?.[0]?.productName,
+          }
+        : item.type === Notification.Order
+        ? item?.data?.[0]?.product
+          ? {
+              ...item?.data?.[0]?.product,
+              humanFriendlyId: item?.data?.[0]?.id,
+            }
+          : item?.data?.needConfirmOrders?.[0]?.product
+          ? {
+              ...item?.data?.needConfirmOrders?.[0]?.product,
+              humanFriendlyId: item?.data?.needConfirmOrders?.[0]?.id,
+            }
+          : {
+              ...item?.data?.vacOrders?.[0]?.product,
+              humanFriendlyId: item?.data?.vacOrders?.[0]?.id,
+            }
+        : item.type === Notification.Proposal
+        ? {
+            ...item?.data?.[0]?.request?.product,
+            humanFriendlyId: item?.data?.[0]?.request?.humanFriendlyId,
+            title: item?.data?.[0]?.request?.title,
+          }
+        : item.type === Notification.Request
+        ? {
+            ...item?.data?.[0]?.product,
+            humanFriendlyId: item?.data?.[0]?.humanFriendlyId,
+            title: item?.data?.[0]?.title,
+          }
+        : item.type === Notification.Launch
+        ? item?.data?.[0]?.product
+        : {
+            ...item?.data?.items?.[0]?.product,
+            humanFriendlyId: item?.data?.humanFriendlyId,
+          },
+    sub: item.type === Notification.Proposal ? item?.data?.[0]?.sub : undefined,
+    type: item?.type,
+  }))
+
+export const myProposalsDataConverter = data =>
+  data.map((item, index) => ({
+    _id: item.request._id,
+    title: item.request.title,
+    product: item.request.product,
+    priority: item.request.priority,
+    spec: item.request.spec,
+    timeoutAt: item.request.timeoutAt,
+    taskComplexity: item.request.taskComplexity,
+    status: item.status,
+    humanFriendlyId: item.request.humanFriendlyId,
+
+    originalData: item,
+    id: item._id ? item._id : index,
+  }))

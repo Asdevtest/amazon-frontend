@@ -1,49 +1,40 @@
-import { Typography } from '@mui/material'
-
-import React, { FC } from 'react'
-
-import { nanoid } from 'nanoid'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './comments-form.style'
+import { useStyles } from './comments-form.style'
 
 interface CommentsFormProps {
-  comments?: Array<string>
   onCloseModal: () => void
+  comments?: string[]
 }
 
-export const CommentsForm: FC<CommentsFormProps> = props => {
-  const { classes: classNames } = useClassNames()
-
-  const { comments, onCloseModal } = props
+export const CommentsForm: FC<CommentsFormProps> = memo(({ comments, onCloseModal }) => {
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.сommentsTitleWrapper}>
-        <Typography className={classNames.сommentsTitle}>{t(TranslationKey['Comments on order'])}</Typography>
-      </div>
-      <div className={classNames.сommentsTextWrapper}>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{t(TranslationKey['Comments on order'])}</p>
+
+      <div className={styles.сomments}>
         {comments?.length ? (
-          comments.map(comment => (
-            <Typography key={nanoid()} className={classNames.сommentsText}>
+          comments.map((comment, index) => (
+            <p key={index} className={styles.text}>
               {comment}
-            </Typography>
+            </p>
           ))
         ) : (
-          <Typography className={classNames.сommentsText}>{t(TranslationKey.Missing)}</Typography>
+          <p className={styles.text}>{t(TranslationKey.Missing)}</p>
         )}
       </div>
 
-      <div className={classNames.buttonsWrapper}>
-        <Button className={classNames.okButton} onClick={onCloseModal}>
-          {t(TranslationKey.Ok)}
-        </Button>
+      <div className={styles.buttons}>
+        <Button onClick={onCloseModal}>{t(TranslationKey.Ok)}</Button>
       </div>
     </div>
   )
-}
+})

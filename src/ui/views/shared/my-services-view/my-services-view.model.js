@@ -1,12 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import {
-  freelanceRequestTypeByCode,
-  freelanceRequestType,
-  freelanceRequestTypeByKey,
-} from '@constants/statuses/freelance-request-type'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -14,139 +7,106 @@ import { AnnouncementsModel } from '@models/announcements-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { checkIsFreelancer } from '@utils/checks'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { objectToUrlQs } from '@utils/text'
+
+import { Specs } from '@typings/enums/specs'
+
+import { filterFields } from './my-services-view.constants'
 
 export class MyServicesViewModel {
   history = undefined
-  requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
 
-  showAcceptMessage = null
-  acceptMessage = null
-
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
-
-  userInfo = []
-  userRole = undefined
-
+  selectedSpec = Specs.DEFAULT
   announcements = []
-
-  currentData = []
-
-  bigImagesOptions = {}
-
   nameSearchValue = undefined
-
-  showConfirmModal = false
-  selectedProposal = undefined
-
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
+  archive = false
 
-  showImageModal = false
+  showConfirmModal = false
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-    })
+  columnMenuSettings = {
+    onClickFilterBtn: () => {},
+    onChangeFullFieldMenuItem: () => {},
+    onClickAccept: () => {},
 
-    if (location.state) {
-      this.acceptMessage = location.state.acceptMessage
-      this.showAcceptMessage = location.state.showAcceptMessage
-
-      const state = { ...history.location.state }
-      delete state.acceptMessage
-      delete state.showAcceptMessage
-      history.replace({ ...history.location, state })
-    }
-
-    makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.announcements,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
-
-    reaction(
-      () => this.nameSearchValue,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
-
-    runInAction(() => {
-      if (this.showAcceptMessage) {
-        setTimeout(() => {
-          this.acceptMessage = ''
-          this.showAcceptMessage = false
-        }, 3000)
-      }
-    })
+    ...dataGridFiltersInitializer(filterFields),
+    archive: { currentFilterData: [false] }, // default init value
   }
 
-  async getUserInfo() {
-    const result = await UserModel.userInfo
-    this.userInfo = result
-    this.userRole = UserRoleCodeMap[result.role]
+  get userInfo() {
+    return UserModel.userInfo
   }
 
-  async loadData() {
-    try {
-      await Promise.all([this.getUserInfo(), this.getMyAnnouncementsData()])
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getMyAnnouncementsData() {
-    try {
-      const result = await AnnouncementsModel.getMyAnnouncements({
-        type:
-          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? null
-            : this.selectedTaskType,
-      })
-      runInAction(() => {
-        this.announcements = result
-      })
-    } catch (error) {
-      this.error = error
-      console.log(error)
-    }
-  }
-
-  getCurrentData() {
+  get currentData() {
     if (this.nameSearchValue) {
-      return toJS(this.announcements).filter(
+      return this.announcements.filter(
         el =>
           el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
           el.description.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
       )
     } else {
-      return toJS(this.announcements)
+      return this.announcements
     }
   }
 
-  onClickCreateServiceBtn() {
+  constructor({ history }) {
+    this.history = history
+
+    this.getMyAnnouncements()
+
+    makeAutoObservable(this, undefined, { autoBind: true })
+  }
+
+  async getMyAnnouncements() {
+    try {
+      const response = await AnnouncementsModel.getMyAnnouncements({
+        filters: this.getFilter(),
+      })
+
+      runInAction(() => {
+        this.announcements = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  getFilter(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, []),
+    )
+  }
+
+  onClickCreateService() {
     this.history.push(`/freelancer/freelance/my-services/create-service`)
   }
 
-  async onClickTaskType(taskType) {
-    runInAction(() => {
-      this.selectedTaskType = taskType
-    })
-    await this.getMyAnnouncementsData()
+  onChangeFullFieldMenuItem(value, field) {
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
-  onChangeViewMode(event, nextView) {
-    runInAction(() => {
-      this.viewMode = nextView
-    })
+  onClickSpec(specType) {
+    this.selectedSpec = specType
+
+    // spec - for "_id:string", specType - for "type:number"
+    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType')
+
+    this.getMyAnnouncements()
+  }
+
+  onToggleArchive() {
+    this.archive = !this.archive
+
+    this.onChangeFullFieldMenuItem([this.archive], 'archive')
+
+    this.getMyAnnouncements()
+  }
+
+  onChangeViewMode(value) {
+    this.viewMode = value
+
     this.setTableModeState()
   }
 
@@ -157,27 +117,14 @@ export class MyServicesViewModel {
   }
 
   onClickOpenButton(data) {
-    this.history.push(`/freelancer/freelance/my-services/service-detailds`, {
-      data: data._id,
-    })
-  }
-
-  onClickThumbnail(data) {
-    runInAction(() => {
-      this.bigImagesOptions = data
-    })
-    this.onTriggerOpenModal('showImageModal')
+    this.history.push(`/freelancer/freelance/my-services/service-detailds?serviceId=${data._id}`)
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   onSearchSubmit(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 }

@@ -1,302 +1,176 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import DeleteIcon from '@mui/icons-material/Delete'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Alert } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { useGridApiRef } from '@mui/x-data-grid-premium'
+
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
+import { ClientModel } from '@models/client-model'
+
 import { AddOwnProductForm } from '@components/forms/add-own-product-form'
-import { AddSupplierToIdeaFromInventoryForm } from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { GetFilesForm } from '@components/forms/get-files-form'
-import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
-import { MainContent } from '@components/layout/main-content'
+import { ProductDataForm } from '@components/forms/product-data-form'
+import { ProductLaunchForm } from '@components/forms/product-launch-form'
+import { ProductVariationsForm } from '@components/forms/product-variations-form'
 import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
+import { EditProductTags } from '@components/modals/edit-product-tags-modal'
+import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-stock-value-modal.js'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/'
-import { Button } from '@components/shared/buttons/button'
+import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientInventoryViewModel } from './client-inventory-view.model'
-import { styles } from './client-inventory-view.style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const ClientInventoryViewRaw = props => {
-  const [viewModel] = useState(
+import { UseProductsPermissions } from '@hooks/use-products-permissions'
+
+import { useStyles } from './client-inventory-view.style'
+
+import {
+  TAGS,
+  clickableCells,
+  disableDoubleClickOnCells,
+  disableSelectionCells,
+} from './client-inventory-view.constants'
+import { ClientInventoryViewModel } from './client-inventory-view.model'
+import { Header } from './header'
+
+export const ClientInventoryView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new ClientInventoryViewModel())
+  viewModel.initHistory()
+
+  const [useProductsPermissions] = useState(
     () =>
-      new ClientInventoryViewModel({
-        history: props.history,
-        location: props.location,
+      new UseProductsPermissions(ClientModel.getProductPermissionsData, {
+        isChild: false,
       }),
   )
-  const { classes: classNames } = props
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
 
-  const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode']
-
-  const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']
-
-  const getCellClassName = params => clickableCells.includes(params.field) && classNames.clickableCell
-
-  const getRowClassName = params =>
-    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && classNames.ideaRowGreen) ||
-    (!!params.row.originalData.ideasOnCheck && classNames.ideaRowYellow)
+  const apiRef = useGridApiRef()
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div className={classNames.topHeaderBtnsWrapper}>
-          <div className={classNames.shopsFiltersWrapper}>
-            <SearchInput
-              key={'client_inventory_search_input'}
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-              onSubmit={viewModel.onSearchSubmit}
-            />
-          </div>
+    <>
+      <Header
+        isArchive={viewModel.isArchive}
+        selectedRows={viewModel.selectedRows}
+        onClickTriggerArchOrResetProducts={viewModel.onClickTriggerArchOrResetProducts}
+        onTriggerOpenModal={viewModel.onTriggerOpenModal}
+        onTriggerArchive={viewModel.onTriggerArchive}
+        onClickProducDataButton={viewModel.onClickProducDataButton}
+        onClickParseProductsBtn={viewModel.onClickParseProductsBtn}
+        onClickAddSupplierBtn={viewModel.onClickAddSupplierBtn}
+        onClickBindInventoryGoodsToStockBtn={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
+        onClickProductLaunch={viewModel.onClickProductLaunch}
+        onClickOrderBtn={viewModel.onClickOrderBtn}
+        onSearchSubmit={viewModel.onSearchSubmit}
+      />
 
-          {!viewModel.isArchive ? (
-            <div className={classNames.simpleBtnsWrapper}>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
-                variant="outlined"
-                btnWrapperStyle={classNames.btnWrapperStyle}
-                className={classNames.openArchiveBtn}
-                onClick={viewModel.onTriggerArchive}
-              >
-                {t(TranslationKey['Open archive'])}
-              </Button>
+      <div className={styles.datagridWrapper}>
+        <CustomDataGrid
+          checkboxSelection
+          disableRowSelectionOnClick
+          apiRef={apiRef}
+          pinnedColumns={viewModel.pinnedColumns}
+          getCellClassName={getCellClassName}
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
 
-              <Button
-                success
-                tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
-                btnWrapperStyle={classNames.btnWrapperStyle}
-                className={cx(classNames.rightAddingBtn, classNames.flexCenterBtn)}
-                onClick={() => viewModel.onTriggerOpenModal('showSendOwnProductModal')}
-              >
-                {t(TranslationKey['Add product'])}
-                <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
-              </Button>
-            </div>
-          ) : (
-            <div />
-          )}
-        </div>
-
-        <div className={classNames.addProductBtnsWrapper}>
-          {!viewModel.isArchive && (
-            <div className={classNames.btnsWrapper}>
-              <Button
-                success
-                tooltipInfoContent={t(TranslationKey['To order selected products'])}
-                variant="contained"
-                disabled={viewModel.selectedRowIds.length === 0}
-                onClick={viewModel.onClickOrderBtn}
-              >
-                {t(TranslationKey['To order'])}
-              </Button>
-
-              <Button
-                tooltipInfoContent={t(
-                  TranslationKey['Bind the selected product from the inventory to an item from the store'],
-                )}
-                disabled={viewModel.selectedRowIds.length !== 1}
-                className={cx(classNames.buttonOffset)}
-                onClick={viewModel.onClickBindInventoryGoodsToStockBtn}
-              >
-                {t(TranslationKey['Bind an product from Amazon'])}
-              </Button>
-
-              <Button
-                tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
-                disabled={!viewModel.selectedRowIds.length}
-                className={cx(classNames.buttonOffset)}
-                onClick={viewModel.onClickAddSupplierBtn}
-              >
-                {t(TranslationKey['Supplier search'])}
-              </Button>
-
-              <Button disabled={!viewModel.selectedRowIds.length} onClick={viewModel.onClickParseProductsBtn}>
-                {'Parse all'}
-              </Button>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Product batches data'])}
-                disabled={viewModel.selectedRowIds.length !== 1}
-                onClick={viewModel.onClickProductLotDataBtn}
-              >
-                {t(TranslationKey['Product batches data'])}
-              </Button>
-            </div>
-          )}
-
-          <div className={classNames.simpleBtnsWrapper}>
-            {!viewModel.isArchive && (
-              <>
-                <Button
-                  tooltipInfoContent={t(
-                    TranslationKey['Delete the selected product (the product is moved to the archive)'],
-                  )}
-                  disabled={!viewModel.selectedRowIds.length}
-                  variant="outlined"
-                  className={classNames.archiveAddBtn}
-                  sx={{
-                    '&.Mui-disabled': {
-                      background: 'none',
-                    },
-                  }}
-                  onClick={viewModel.onClickTriggerArchOrResetProducts}
-                >
-                  {t(TranslationKey['Move to archive'])}
-                  {<DeleteIcon className={classNames.archiveIcon} />}
-                </Button>
-
-                <Button
-                  success
-                  className={classNames.rightAddingBtn}
-                  onClick={() => viewModel.onTriggerOpenModal('showAddSuppliersModal')}
-                >
-                  {t(TranslationKey['Add a supplier list'])}
-                  <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
-                </Button>
-              </>
-            )}
-
-            {viewModel.isArchive ? (
-              <>
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
-                  disabled={!viewModel.selectedRowIds.length}
-                  variant="contained"
-                  onClick={viewModel.onClickTriggerArchOrResetProducts}
-                >
-                  {t(TranslationKey['Return to inventory'])}
-                </Button>
-
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Return to inventory with a list of items'])}
-                  variant="outlined"
-                  className={classNames.openArchiveBtn}
-                  onClick={viewModel.onTriggerArchive}
-                >
-                  {t(TranslationKey['Open inventory'])}
-                </Button>
-              </>
-            ) : null}
-          </div>
-        </div>
-        <div className={classNames.datagridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            checkboxSelection
-            propsToRerender={{ onHover: viewModel.onHover }}
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-              iconSeparator: classNames.iconSeparator,
-              menuIconButton: classNames.menuIconButton,
-              iconButtonContainer: classNames.iconButtonContainer,
-            }}
-            sx={{
-              '.MuiDataGrid-sortIcon': {
-                width: 14,
-                height: 14,
+            toolbar: {
+              presetsSettings: {
+                presetsData: viewModel.presetsData,
+                onClickResetPresets: viewModel.resetPresetsHandler,
+                onClickSavePresets: viewModel.savePresetsHandler,
               },
-            }}
-            getCellClassName={getCellClassName}
-            getRowClassName={getRowClassName}
-            sortingMode="server"
-            paginationMode="server"
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData}
-            columnHeaderHeight={65}
-            rowHeight={160}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
-            slotProps={{
-              columnMenu: viewModel.columnMenuSettings,
 
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
-            }}
-            rowSelectionModel={viewModel.selectedRowIds}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onColumnHeaderEnter={params => {
-              viewModel.onHoverColumnField(params.field)
-            }}
-            onColumnHeaderLeave={viewModel.onLeaveColumnField}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onCellClick={(params, event) => {
-              if (disableSelectionCells.includes(params.field)) {
-                event.stopPropagation()
-              }
-              event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
-            }}
-            onCellDoubleClick={params =>
-              !disableSelectionCells.includes(params.field) && viewModel.onClickShowProduct(params.row)
+
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
+
+              tagSearchSettings: {
+                tagList: viewModel.columnMenuSettings?.tags?.filterData,
+                activeTags: viewModel.columnMenuSettings?.tags?.currentFilterData,
+                isLoading: viewModel.columnMenuSettings?.filterRequestStatus === loadingStatus.IS_LOADING,
+                getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn(TAGS, DataGridFilterTables.PRODUCTS),
+                setActiveProductsTag: viewModel.setActiveProductsTag,
+              },
+            },
+          }}
+          rowSelectionModel={viewModel.selectedRows}
+          getRowId={row => row._id}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onCellClick={(params, event) => {
+            if (
+              disableSelectionCells.includes(params.field) ||
+              params.field?.includes('boxAmounts') ||
+              params.field?.includes('toRefill')
+            ) {
+              event.stopPropagation()
             }
-          />
-        </div>
-      </MainContent>
-
-      {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
+            event.defaultMuiPrevented = disableSelectionCells.includes(params.field)
+          }}
+          onCellDoubleClick={(params, event) => {
+            if (
+              disableDoubleClickOnCells.includes(params.field) ||
+              params.field?.includes('boxAmounts') ||
+              params.field?.includes('toRefill')
+            ) {
+              event.stopPropagation()
+            }
+          }}
+          onRowClick={params => viewModel.onClickProductModal(params.row)}
+          onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
+        />
+      </div>
 
       <Modal
         openModal={viewModel.showSendOwnProductModal}
@@ -310,16 +184,47 @@ export const ClientInventoryViewRaw = props => {
       </Modal>
 
       <Modal
-        openModal={viewModel.showProductLotDataModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
+        openModal={viewModel.showProductLaunch}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >
-        <ProductLotDataForm
-          userInfo={viewModel.userInfo}
-          isTransfer={viewModel.isTransfer}
-          product={viewModel.curProduct}
-          batchesData={viewModel.batchesData}
-          onClickToggleArchiveProductLotData={viewModel.onClickToggleArchiveProductLotData}
+        <ProductLaunchForm
+          selectedProductToLaunch={viewModel.selectedProductToLaunch}
+          productsToLaunch={useProductsPermissions.currentPermissionsData}
+          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
+          onClickVariationRadioButton={() => useProductsPermissions.getPermissionsData()}
+          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
+          onClickNextButton={viewModel.onClickNextButton}
+          onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
         />
+      </Modal>
+
+      {viewModel.showIdeaModal ? (
+        <IdeaCardsModal
+          // @ts-ignore
+          isCreate
+          product={viewModel.selectedProductToLaunch}
+          productId={viewModel.selectedProductToLaunch?._id}
+          openModal={viewModel.showIdeaModal}
+          updateData={viewModel.getCurrentData}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showIdeaModal')}
+        />
+      ) : null}
+
+      {viewModel.productCardModal && (
+        <ProductCardModal
+          history={history}
+          openModal={viewModel.productCardModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('productCardModal')}
+          updateDataHandler={viewModel.getCurrentData}
+          onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+        />
+      )}
+
+      <Modal
+        openModal={viewModel.showProductDataModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductDataModal')}
+      >
+        <ProductDataForm product={viewModel.curProduct} isBatches={viewModel.isBatches} onAmazon={viewModel.onAmazon} />
       </Modal>
 
       <Modal
@@ -327,27 +232,10 @@ export const ClientInventoryViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
       >
         <CheckPendingOrderForm
-          existingOrders={viewModel.existingOrders}
-          checkPendingData={viewModel.checkPendingData}
+          existingProducts={viewModel.existingProducts}
           onClickPandingOrder={viewModel.onClickPandingOrder}
           onClickContinueBtn={viewModel.onClickContinueBtn}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
-        />
-      </Modal>
-
-      <Modal
-        openModal={viewModel.showAddSupplierToIdeaFromInventoryModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
-      >
-        <AddSupplierToIdeaFromInventoryForm
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          product={viewModel.currentData
-            .filter(product => viewModel.selectedRowIds.includes(product.id))
-            .map(prod => prod.originalData)}
-          ideas={viewModel.ideasData}
-          onClose={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
-          onSubmit={viewModel.createSupplierSearchRequest}
         />
       </Modal>
 
@@ -356,7 +244,7 @@ export const ClientInventoryViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
       >
         <SetBarcodeModal
-          item={viewModel.selectedProduct}
+          barCode={viewModel.selectedProduct?.barCode}
           onClickSaveBarcode={viewModel.onClickSaveBarcode}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetBarcodeModal')}
         />
@@ -409,34 +297,17 @@ export const ClientInventoryViewRaw = props => {
       </Modal>
 
       <Modal
-        missClickModalOn
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
-      >
-        <AddOrEditSupplierModalContent
-          outsideProduct
-          paymentMethods={viewModel.paymentMethods}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          title={t(TranslationKey['Add a new supplier'])}
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
-          onClickPrevButton={viewModel.onClickPrevButton}
-          onClickSaveBtn={viewModel.onSubmitSaveSupplier}
-        />
-      </Modal>
-
-      <Modal
         openModal={viewModel.showSelectionSupplierModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
       >
         <SelectionSupplierModal
-          product={viewModel.currentData.find(el => el.originalData._id === viewModel.selectedRowId)}
+          product={
+            viewModel.selectedProductToLaunch || viewModel.currentData.find(el => el._id === viewModel.selectedRowId)
+          }
+          title={viewModel.selectedProductToLaunch && t(TranslationKey['Send product card for supplier search'])}
           onClickFinalAddSupplierButton={viewModel.onClickAddSupplierButton}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSelectionSupplierModal')}
           onSubmitSeekSupplier={viewModel.onSubmitCalculateSeekSupplier}
-          onClickSeekSupplierToIdea={() => viewModel.onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
         />
       </Modal>
 
@@ -446,14 +317,13 @@ export const ClientInventoryViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
       >
         <OrderProductModal
+          isInventory
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          selectedProductsData={viewModel.currentData
-            .filter(product => viewModel.selectedRowIds.includes(product.id))
-            .map(prod => prod.originalData)}
+          selectedProductsData={viewModel.dataForOrderModal}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}
@@ -465,7 +335,7 @@ export const ClientInventoryViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
         <BindInventoryGoodsToStockForm
-          product={viewModel.currentData.find(item => viewModel.selectedRowIds.includes(item.id))?.originalData}
+          product={viewModel.currentData.find(item => viewModel.selectedRows.includes(item._id))}
           stockData={viewModel.sellerBoardDailyData}
           updateStockData={viewModel.getStockGoodsByFilters}
           onSubmit={viewModel.onSubmitBindStockGoods}
@@ -495,46 +365,69 @@ export const ClientInventoryViewRaw = props => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={viewModel.successModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
-      />
-
-      <WarningInfoModal
-        openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-        title={viewModel.showInfoModalTitle}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showInfoModal')
-        }}
-      />
-
-      <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings.isWarning}
-        title={viewModel.confirmModalSettings.confirmTitle}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
-      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
-        <div className={classNames.acceptMessageWrapper}>
-          <Alert elevation={5} severity="success">
-            {viewModel.acceptMessage}
-          </Alert>
-        </div>
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.successModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
       ) : null}
-    </React.Fragment>
-  )
-}
 
-export const ClientInventoryView = withStyles(observer(ClientInventoryViewRaw), styles)
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+
+      <Modal
+        noPadding
+        openModal={viewModel.showProductVariationsForm}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductVariationsForm')}
+      >
+        <ProductVariationsForm
+          product={viewModel.productVariations}
+          onClickShowProduct={viewModel.onClickShowProduct}
+        />
+      </Modal>
+
+      {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
+      {viewModel.showProgress && <CircularProgressWithLabel />}
+
+      <Modal
+        openModal={viewModel.showAddOrEditSupplierModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+      >
+        <AddOrEditSupplierModalContent
+          // @ts-ignore
+          paymentMethods={viewModel.paymentMethods}
+          requestStatus={viewModel.requestStatus}
+          platformSettings={viewModel.platformSettings}
+          title={t(TranslationKey['Adding and editing a supplier'])}
+          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
+          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+        />
+      </Modal>
+
+      {viewModel.showEditProductTagsModal ? (
+        <EditProductTags
+          openModal={viewModel.showEditProductTagsModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
+          productId={viewModel.selectedRowId}
+          handleUpdateRow={tags => apiRef.current.updateRows([{ _id: viewModel.selectedRowId, tags }])}
+        />
+      ) : null}
+    </>
+  )
+})

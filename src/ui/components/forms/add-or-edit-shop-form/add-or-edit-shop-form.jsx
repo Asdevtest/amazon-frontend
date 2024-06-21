@@ -1,26 +1,27 @@
-import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
-import React, { useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useState } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-shop-form.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './add-or-edit-shop-form.style'
 
 export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const sourceFormFields = {
     name: shopToEdit?.name || '',
     sellerBoardWarehouseReportUrlDaily: shopToEdit?.sellerBoardWarehouseReportUrlDaily || '',
     sellerBoardWarehouseReportUrlMonthly: shopToEdit?.sellerBoardWarehouseReportUrlMonthly || '',
+    reportAccountUrl: shopToEdit?.reportAccountUrl || '',
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -35,50 +36,65 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
 
   const disableSubmitBtn =
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
-    formFields.name === '' ||
-    formFields.sellerBoardWarehouseReportUrlDaily === '' ||
-    formFields.sellerBoardWarehouseReportUrlMonthly === ''
+    !formFields?.name ||
+    !formFields?.sellerBoardWarehouseReportUrlDaily ||
+    !formFields?.sellerBoardWarehouseReportUrlMonthly
 
   return (
-    <div className={classNames.root}>
-      <Typography className={classNames.title}>{t(TranslationKey['Add shop'])}</Typography>
+    <div className={styles.root}>
+      <Typography className={styles.title}>{t(TranslationKey['Add shop'])}</Typography>
 
-      <div className={classNames.form}>
-        <Field
-          tooltipInfoContent={t(TranslationKey['Enter store name'])}
-          className={classNames.descriptionField}
-          label={t(TranslationKey.Title) + '*'}
-          value={formFields.name}
-          placeholder={t(TranslationKey['Store name'])}
-          onChange={onChangeField('name')}
-        />
+      <Field
+        withCopy
+        labelClasses={styles.label}
+        containerClasses={styles.containerField}
+        tooltipInfoContent={t(TranslationKey['Enter store name'])}
+        className={styles.descriptionField}
+        label={t(TranslationKey.Title) + '*'}
+        value={formFields.name}
+        placeholder={t(TranslationKey['Store name'])}
+        onChange={onChangeField('name')}
+      />
 
-        <Field
-          tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
-          className={classNames.descriptionField}
-          placeholder={t(TranslationKey.Link)}
-          label={t(TranslationKey['Warehouse report']) + '*'}
-          value={formFields.sellerBoardWarehouseReportUrlDaily}
-          onChange={onChangeField('sellerBoardWarehouseReportUrlDaily')}
-        />
+      <Field
+        withCopy
+        labelClasses={styles.label}
+        containerClasses={styles.containerField}
+        tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
+        className={styles.descriptionField}
+        placeholder={t(TranslationKey.Link)}
+        label={t(TranslationKey['Warehouse report']) + '*'}
+        value={formFields.sellerBoardWarehouseReportUrlDaily}
+        onChange={onChangeField('sellerBoardWarehouseReportUrlDaily')}
+      />
 
-        <Field
-          tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
-          className={classNames.descriptionField}
-          label={t(TranslationKey['Dashboard by goods/days']) + '*'}
-          placeholder={t(TranslationKey.Link)}
-          value={formFields.sellerBoardWarehouseReportUrlMonthly}
-          onChange={onChangeField('sellerBoardWarehouseReportUrlMonthly')}
-        />
-      </div>
+      <Field
+        withCopy
+        labelClasses={styles.label}
+        containerClasses={styles.containerField}
+        className={styles.descriptionField}
+        tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
+        label={t(TranslationKey['Dashboard by goods/days']) + '*'}
+        placeholder={t(TranslationKey.Link)}
+        value={formFields.sellerBoardWarehouseReportUrlMonthly}
+        onChange={onChangeField('sellerBoardWarehouseReportUrlMonthly')}
+      />
 
-      <div className={classNames.buttonsWrapper}>
+      <Field
+        withCopy
+        labelClasses={styles.label}
+        containerClasses={styles.containerField}
+        className={styles.descriptionField}
+        label={t(TranslationKey['Account report'])}
+        placeholder={t(TranslationKey.Link)}
+        value={formFields.reportAccountUrl}
+        onChange={onChangeField('reportAccountUrl')}
+      />
+
+      <div className={styles.buttonsWrapper}>
         <Button
           tooltipInfoContent={t(TranslationKey['Create/edit a store based on the data you entered'])}
           disabled={disableSubmitBtn}
-          className={classNames.button}
-          color="primary"
-          variant="contained"
           onClick={() => onSubmit(formFields, shopToEdit && shopToEdit._id)}
         >
           {t(TranslationKey.Save)}
@@ -86,8 +102,8 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
 
         <Button
           tooltipInfoContent={t(TranslationKey['Closes the store creation/editing window without saving'])}
-          variant="text"
-          className={cx(classNames.button, classNames.cancelBtn)}
+          styleType={ButtonStyle.DANGER}
+          variant={ButtonVariant.OUTLINED}
           onClick={() => onCloseModal()}
         >
           {t(TranslationKey.Cancel)}

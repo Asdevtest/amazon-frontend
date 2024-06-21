@@ -1,23 +1,25 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { BuyerModel } from '@models/buyer-model'
+import { GeneralModel } from '@models/general-model'
 import { ResearcherModel } from '@models/researcher-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
+import { UserModel } from '@models/user-model'
 
 import { buyerProductsViewColumns } from '@components/table/table-columns/buyer/buyer-products-columns'
 
 import { buyerProductsDataConverter } from '@utils/data-grid-data-converters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
-import { GeneralModel } from '@models/general-model'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 const filtersFields = [
-  'shopIds',
+  'shopId',
   'asin',
-  'skusByClient',
+  'skuByClient',
   'amazonTitle',
   'strategyStatus',
   'amountInOrders',
@@ -39,6 +41,7 @@ const filtersFields = [
   'purchaseQuantity',
   'ideasClosed',
   'ideasVerified',
+  'ideasFinished',
   'tags',
   'redFlags',
   'bsr',
@@ -52,12 +55,11 @@ export class BuyerMyProductsViewModel {
   baseNoConvertedProducts = []
   productsMy = []
 
-  currentData = []
-
   nameSearchValue = ''
 
   rowHandlers = {
     onClickFeesCalculate: item => this.onClickFeesCalculate(item),
+    onClickShowProduct: row => this.onClickTableRow(row),
   }
 
   rowCount = 0
@@ -94,33 +96,28 @@ export class BuyerMyProductsViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
+  productCardModal = false
+
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-    })
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
-    if (location?.state?.dataGridFilter) {
-      runInAction(() => {
-        this.startFilterModel = location.state.dataGridFilter
-      })
+  get currentData() {
+    return this.productsMy
+  }
+
+  constructor({ history }) {
+    this.history = history
+
+    if (history?.location?.state?.dataGridFilter) {
+      this.startFilterModel = history.location.state.dataGridFilter
     }
-    // else {
-    //       this.startFilterModel = resetDataGridFilter
-    //     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.productsMy,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
   }
 
   async onClickFeesCalculate(productId) {
@@ -129,24 +126,20 @@ export class BuyerMyProductsViewModel {
 
       BuyerModel.updateProduct(productId, { fbafee: result.amazonFee })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.getProductsMy()
 
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.getProductsMy()
 
@@ -154,9 +147,8 @@ export class BuyerMyProductsViewModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.getProductsMy()
 
     this.setDataGridState()
@@ -170,117 +162,84 @@ export class BuyerMyProductsViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.BUYER_PRODUCTS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.BUYER_PRODUCTS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_PRODUCTS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.BUYER_PRODUCTS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(
-          this.startFilterModel
-            ? {
-                ...this.startFilterModel,
-                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-              }
-            : state.filterModel,
-        )
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(
+        this.startFilterModel
+          ? {
+              ...this.startFilterModel,
+              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+            }
+          : state.filterModel,
+      )
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
+
     this.getProductsMy()
     this.setDataGridState()
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
-  }
-
-  getCurrentData() {
-    return toJS(this.productsMy)
+    this.rowSelectionModel = model
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
     this.getProductsMy()
   }
 
-  async loadData() {
+  loadData() {
     try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
-      })
-
       this.getDataGridState()
-      await this.getProductsMy()
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.success
-      })
+      this.getProductsMy()
     } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
-      })
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getProductsMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(() => {
-        this.error = undefined
-      })
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await BuyerModel.getProductsMyPag({
-        filters: this.getFilter(), // this.nameSearchValue ? filter : null,
+        filters: this.getFilter(),
 
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
 
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'sumStock',
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
       runInAction(() => {
         this.rowCount = result.count
-
         this.baseNoConvertedProducts = result.rows
-
         this.productsMy = buyerProductsDataConverter(result.rows)
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
       runInAction(() => {
         this.baseNoConvertedProducts = []
         this.productsMy = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -302,44 +261,21 @@ export class BuyerMyProductsViewModel {
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
   }
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.isLoading)
-      //
-      // const shops = this.currentShops.map(item => item._id).join(',') // Похоже будет лишним
-      // const curShops = this.columnMenuSettings.shopIds.currentFilterData?.map(shop => shop._id).join(',')
-      // const shopFilter = shops
-      //   ? shops
-      //   : this.columnMenuSettings.shopIds.currentFilterData && column !== 'shopIds'
-      //     ? curShops
-      //     : null
-
-      // const purchaseQuantityAboveZeroFilter = this.columnMenuSettings.isNeedPurchaseFilterData.isNeedPurchaseFilter
-
-      // console.log('shopFilter', shopFilter)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'products'),
         column,
-
-        // `clients/products/my_with_pag?filters=${this.getFilter(column)}${
-        //   shopFilter ? ';&' + 'shopIds=' + shopFilter : ''
-        // }${
-        //   purchaseQuantityAboveZeroFilter ? ';&' + 'purchaseQuantityAboveZero=' + purchaseQuantityAboveZeroFilter : ''
-        // }`,
-
         `buyers/products/pag/my?filters=${this.getFilter(column)}`,
       )
-
-      console.log('data', data)
 
       if (this.columnMenuSettings[column]) {
         this.columnMenuSettings = {
@@ -347,47 +283,40 @@ export class BuyerMyProductsViewModel {
           [column]: { ...this.columnMenuSettings[column], filterData: data },
         }
       }
-      this.setFilterRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
 
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...filtersFields.reduce(
+        (ac, cur) =>
+          (ac = {
+            ...ac,
+            [cur]: {
+              filterData: [],
+              currentFilterData: [],
+            },
+          }),
+        {},
+      ),
+    }
 
     this.getProductsMy()
     this.getDataGridState()
@@ -395,9 +324,9 @@ export class BuyerMyProductsViewModel {
 
   getFilter(exclusion) {
     const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
+    const skuByClientFilter =
+      exclusion !== 'skuByClient' &&
+      this.columnMenuSettings.skuByClient.currentFilterData /* .map(el => `"${el}"`) */
         .join(',')
     const amazonTitleFilter =
       exclusion !== 'amazonTitle' &&
@@ -450,19 +379,22 @@ export class BuyerMyProductsViewModel {
 
     const fbaAmountFilter = exclusion !== 'fbaamount' && this.columnMenuSettings.fbaamount.currentFilterData.join(',')
 
+    const ideasFinishedFilter =
+      exclusion !== 'ideasFinished' && this.columnMenuSettings.ideasFinished.currentFilterData.join(',')
+
     const filter = objectToUrlQs({
       archive: { $eq: this.isArchive },
       or: [
         { asin: { $contains: this.nameSearchValue } },
         { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
+        { skuByClient: { $contains: this.nameSearchValue } },
       ],
 
       ...(asinFilter && {
         asin: { $eq: asinFilter },
       }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
+      ...(skuByClientFilter && {
+        skuByClient: { $eq: skuByClientFilter },
       }),
       ...(amazonTitleFilter && {
         amazonTitle: { $eq: amazonTitleFilter },
@@ -541,12 +473,16 @@ export class BuyerMyProductsViewModel {
         ideasVerified: { $eq: ideasVerifiedFilter },
       }),
 
+      ...(ideasFinishedFilter && {
+        ideasFinished: { $eq: ideasFinishedFilter },
+      }),
+
       ...(tagsFilter && {
-        tags: { $eq: tagsFilter },
+        tags: { $any: tagsFilter },
       }),
 
       ...(redFlagsFilter && {
-        redFlags: { $eq: redFlagsFilter },
+        redFlags: { $any: redFlagsFilter },
       }),
 
       ...(bsrFilter && {
@@ -559,5 +495,25 @@ export class BuyerMyProductsViewModel {
     })
 
     return filter
+  }
+
+  onClickProductModal(row) {
+    if (row) {
+      this.history.push(`/buyer/my-products?product-id=${row.originalData._id}`)
+    } else {
+      this.history.push(`/buyer/my-products`)
+    }
+
+    this.onTriggerOpenModal('productCardModal')
+  }
+
+  onClickShowProduct(id) {
+    const win = window.open(`/buyer/my-products/product?product-id=${id}`, '_blank')
+
+    win.focus()
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

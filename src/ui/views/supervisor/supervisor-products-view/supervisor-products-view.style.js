@@ -1,61 +1,23 @@
-export const styles = theme => ({
-  row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
-  },
+import { makeStyles } from 'tss-react/mui'
 
-  attentionRow: {
-    boxShadow: 'inset 0 0 15px rgba(247, 179, 7, .8)',
-  },
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-  },
-
-  headerWrapper: {
+export const useStyles = makeStyles()(theme => ({
+  searchInputWrapper: {
+    marginTop: 20,
     display: 'flex',
-    flexWrap: 'wrap',
-
-    gap: 20,
+    justifyContent: 'center',
   },
 
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
+  searchInput: {
+    width: 360,
   },
 
   dataGridWrapper: {
-    marginTop: '20px',
-    height: 'calc(100vh - 280px)',
+    marginTop: 20,
+    height: '70vh',
+    width: '100%',
   },
 
-  selectStatusFilterButton: {
-    padding: '0 20px',
-    height: 40,
-    whiteSpace: 'nowrap',
-    marginBottom: 5,
-    color: theme.palette.primary.main,
-    display: 'flex',
-    gap: '10px',
-    fontSize: 14,
-    fontWeight: 600,
-    '&.Mui-disabled': {
-      opacity: '.3',
-      backgroundColor: 'transparent',
-    },
-  },
   badge: {
-    margin: '0 auto',
     height: 20,
     width: 'fit-content',
     background: theme.palette.primary.main,
@@ -67,14 +29,20 @@ export const styles = theme => ({
     alignItems: 'center',
     color: '#fff',
   },
-  selectedStatusFilterButton: {
-    marginBottom: 0,
-    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%) !important',
-    borderBottom: theme.palette.other.tableActiveFilterBtn,
-    color: `${theme.palette.primary.main} !important`,
-  },
 
-  searchInputWrapper: {
-    marginLeft: '50%',
+  attentionRow: {
+    position: 'relative',
+    background: theme.palette.background.yellowRow,
+
+    '&:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      top: 1,
+      width: 5,
+      height: '98%',
+      background: '#C69109',
+    },
   },
-})
+}))

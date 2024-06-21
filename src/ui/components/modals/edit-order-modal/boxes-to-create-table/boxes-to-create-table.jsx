@@ -1,26 +1,26 @@
-import EditIcon from '@mui/icons-material/Edit'
-import { Checkbox, TableCell, TableRow, Typography } from '@mui/material'
+import { useState } from 'react'
 
-import React, { useState } from 'react'
+import { TableCell, TableRow, Typography } from '@mui/material'
 
-import DeleteIcon from '@material-ui/icons/Delete'
-
-import { inchesCoefficient, sizesType } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { Button } from '@components/shared/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
+import { SizeSwitcher } from '@components/shared/size-switcher'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 
-import { calcFinalWeightForBoxWithoutAmount, calcVolumeWeightForBox } from '@utils/calculation'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './boxes-to-create-table.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { Dimensions } from '@typings/enums/dimensions'
+
+import { Entities, useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
+
+import { useStyles } from './boxes-to-create-table.style'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = () => [
   { align: 'center', title: t(TranslationKey.Box) },
@@ -43,155 +43,134 @@ const renderHeadRow = () => (
 )
 
 const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
+
+  const { length, width, height, weight, volumeWeight, finalWeight } = useShowDimensions({
+    data: item,
+    sizeSetting: restProps.sizeSetting,
+    calculationField: Entities.SUPPLIER,
+  })
 
   return (
-    <TableRow className={classNames.row}>
+    <TableRow className={styles.row}>
       <TableCell>
-        <Typography className={classNames.boxTitle}>{item._id}</Typography>
-        <div className={classNames.descriptionWrapper}>
+        <Typography className={styles.boxTitle}>{item._id}</Typography>
+        <div className={styles.descriptionWrapper}>
           <img
-            className={classNames.img}
+            className={styles.img}
             src={
               item.items[0].product.images &&
               item.items[0].product.images[0] &&
               getAmazonImageUrl(item.items[0].product.images[0])
             }
           />
-          <Typography className={classNames.title}>
-            {`${itemIndex + 1}. ${item.items[0].product.amazonTitle}`}
-          </Typography>
+          <Typography className={styles.title}>{`${itemIndex + 1}. ${item.items[0].product.amazonTitle}`}</Typography>
         </div>
       </TableCell>
 
-      <TableCell className={classNames.qtyCell}>
-        <div className={classNames.normalCell}>
-          <Input disabled classes={{ root: classNames.inputWrapper, input: classNames.input }} value={item.amount} />
+      <TableCell className={styles.qtyCell}>
+        <div className={styles.normalCell}>
+          <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={item.amount} />
         </div>
       </TableCell>
 
-      <TableCell className={classNames.qtyCell}>
-        <div className={classNames.normalCell}>
-          <Input
-            disabled
-            classes={{ root: classNames.inputWrapper, input: classNames.input }}
-            value={item.items[0].amount}
-          />
+      <TableCell className={styles.qtyCell}>
+        <div className={styles.normalCell}>
+          <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={item.items[0].amount} />
         </div>
       </TableCell>
 
-      <TableCell className={classNames.normalCell}>
-        <div className={classNames.sizesWrapper}>
-          <div className={classNames.sizeWrapper}>
+      <TableCell className={styles.normalCell}>
+        <div className={styles.sizesWrapper}>
+          <div className={styles.sizeWrapper}>
             <Typography>{t(TranslationKey.H) + ': '}</Typography>
-            <Input
-              disabled
-              classes={{ root: classNames.inputWrapper, input: classNames.input }}
-              value={toFixed(
-                item.heightCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                2,
-              )}
-            />
+            <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={height} />
           </div>
-          <div className={classNames.sizeWrapper}>
+          <div className={styles.sizeWrapper}>
             <Typography>{t(TranslationKey.W) + ': '}</Typography>
-            <Input
-              disabled
-              classes={{ root: classNames.inputWrapper, input: classNames.input }}
-              value={toFixed(
-                item.widthCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                2,
-              )}
-            />
+            <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={width} />
           </div>
-          <div className={classNames.sizeWrapper}>
+          <div className={styles.sizeWrapper}>
             <Typography>{t(TranslationKey.L) + ': '}</Typography>
-            <Input
-              disabled
-              classes={{ root: classNames.inputWrapper, input: classNames.input }}
-              value={toFixed(
-                item.lengthCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                2,
-              )}
-            />
+            <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={length} />
           </div>
         </div>
       </TableCell>
       <TableCell>
-        <div className={classNames.normalCell}>
-          <Input
-            disabled
-            classes={{ root: classNames.inputWrapper, input: classNames.input }}
-            value={item.weighGrossKgSupplier}
-          />
+        <div className={styles.normalCell}>
+          <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={weight} />
         </div>
       </TableCell>
       <TableCell>
-        <div className={classNames.normalCell}>
-          <Input
-            disabled
-            classes={{ root: classNames.inputWrapper, input: classNames.input }}
-            value={toFixed(calcVolumeWeightForBox(item, restProps.volumeWeightCoefficient), 2)}
-          />
+        <div className={styles.normalCell}>
+          <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={volumeWeight} />
         </div>
       </TableCell>
       <TableCell>
-        <div className={classNames.normalCell}>
-          <Input
-            disabled
-            classes={{ root: classNames.inputWrapper, input: classNames.input }}
-            value={toFixed(calcFinalWeightForBoxWithoutAmount(item, restProps.volumeWeightCoefficient), 2)}
-          />
+        <div className={styles.normalCell}>
+          <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={finalWeight} />
         </div>
       </TableCell>
 
       <TableCell>
-        <div className={classNames.checkboxWithLabelWrapper}>
-          <Checkbox
-            color="primary"
-            disabled={!restProps.barcodeIsExist}
-            checked={item.isBarCodeAlreadyAttachedByTheSupplier}
-            onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
-          />
+        <Checkbox
+          color="primary"
+          disabled={!restProps.barcodeIsExist}
+          checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+          onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
+        >
           <Field
             tooltipInfoContent={t(TranslationKey["Label the box as labeled with the supplier's barcode"])}
             label={t(TranslationKey['Supplier glued the barcode'])}
-            inputClasses={classNames.hidden}
-            labelClasses={classNames.label}
-            containerClasses={classNames.labelWrapper}
+            inputClasses={styles.hidden}
+            labelClasses={styles.label}
+            containerClasses={styles.labelWrapper}
           />
-        </div>
+        </Checkbox>
 
-        {!restProps.isNoBuyerSupplier ? (
-          <div className={classNames.checkboxWithLabelWrapper}>
-            <Checkbox
-              color="primary"
-              disabled={restProps.isNoBuyerSupplier}
-              checked={item.tmpUseToUpdateSupplierBoxDimensions}
-              onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
-            />
+        {item.items?.[0]?.transparencyFile && (
+          <Checkbox
+            color="primary"
+            checked={item?.items?.[0]?.isTransparencyFileAlreadyAttachedByTheSupplier}
+            onChange={e => handlers.onClickTransparency(itemIndex)(e)}
+          >
+            <p className={cx(styles.label, styles.transparencyCodesText)}>
+              {t(TranslationKey['The supplier glued the Transparency codes'])}
+            </p>
+          </Checkbox>
+        )}
+
+        {!restProps.isNoBuyerSupplier && (
+          <Checkbox
+            color="primary"
+            disabled={restProps.isNoBuyerSupplier}
+            checked={item.tmpUseToUpdateSupplierBoxDimensions}
+            onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
+          >
             <Field
               tooltipInfoContent={t(TranslationKey['Save box parameters to the current supplier'])}
               label={t(TranslationKey['Make the supplier standard'])}
-              inputClasses={classNames.hidden}
-              labelClasses={classNames.label}
-              containerClasses={classNames.labelWrapper}
+              inputClasses={styles.hidden}
+              labelClasses={styles.label}
+              containerClasses={styles.labelWrapper}
             />
-          </div>
-        ) : null}
+          </Checkbox>
+        )}
       </TableCell>
 
       <TableCell>
-        <div className={classNames.buttonCell}>
+        <div className={styles.buttonCell}>
           <Button
+            iconButton
+            styleType={ButtonStyle.DANGER}
             tooltipInfoContent={t(TranslationKey['Remove box'])}
-            className={classNames.deleteBtnWrapper}
             onClick={() => handlers.onRemoveBox(itemIndex)}
           >
-            <DeleteIcon className={classNames.deleteBtn} />
+            <CrossIcon />
           </Button>
-          <Button className={classNames.editBtnWrapper} onClick={() => handlers.onEditBox()}>
-            <EditIcon className={classNames.editBtn} />
+
+          <Button iconButton onClick={() => handlers.onEditBox()}>
+            <EditIcon />
           </Button>
         </div>
       </TableCell>
@@ -207,31 +186,37 @@ export const BoxesToCreateTable = ({
   onEditBox,
   onClickBarcodeCheckbox,
   onClickUpdateSupplierStandart,
-  volumeWeightCoefficient,
+  onClickTransparency,
+  orderGoodsAmount,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
-  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+  const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
 
-  const handleChange = (event, newAlignment) => {
-    setSizeSetting(newAlignment)
-  }
+  const itemsGoodsAmount = newBoxes?.reduce((acc, item) => {
+    return acc + item?.items?.[0]?.amount * item?.amount
+  }, 0)
 
   return (
-    <div className={classNames.newBoxes}>
-      <Typography className={classNames.sectionTitle} variant="h6">
-        {t(TranslationKey['Boxes will be created'])}
-      </Typography>
+    <div className={styles.newBoxes}>
+      <p className={styles.sectionTitle}>{t(TranslationKey['Boxes will be created'])}</p>
 
-      <div className={classNames.sizesSubWrapper}>
-        <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-          <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-            {'In'}
-          </ToggleBtn>
-          <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-            {'Cm'}
-          </ToggleBtn>
-        </ToggleBtnGroup>
+      <div className={styles.sizesSubWrapper}>
+        <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
+
+        <p>
+          {`${t(TranslationKey['Total quantity'])}:`}{' '}
+          <span
+            className={cx({
+              [styles.itemsNotEqualTotal]: itemsGoodsAmount !== orderGoodsAmount,
+              [styles.itemsEqualTotal]: itemsGoodsAmount === orderGoodsAmount,
+            })}
+          >
+            {itemsGoodsAmount}
+          </span>
+          {` / `}
+          <span>{orderGoodsAmount}</span>
+        </p>
       </div>
 
       <Table
@@ -239,9 +224,14 @@ export const BoxesToCreateTable = ({
         data={newBoxes}
         BodyRow={TableBodyBoxRow}
         renderHeadRow={renderHeadRow()}
-        rowsHandlers={{ onRemoveBox, onEditBox, onClickBarcodeCheckbox, onClickUpdateSupplierStandart }}
+        rowsHandlers={{
+          onRemoveBox,
+          onEditBox,
+          onClickBarcodeCheckbox,
+          onClickUpdateSupplierStandart,
+          onClickTransparency,
+        }}
         barcodeIsExist={barcodeIsExist}
-        volumeWeightCoefficient={volumeWeightCoefficient}
         sizeSetting={sizeSetting}
         isNoBuyerSupplier={isNoBuyerSupplier}
       />

@@ -1,44 +1,40 @@
-/* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React from 'react'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { orderColorByStatus, OrderStatus, OrderStatusByCode, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByCode, OrderStatusByKey, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DeadlineCell,
   DownloadAndCopyBtnsCell,
   IconHeaderCell,
-  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
-  RenderFieldValueCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  UserMiniCell,
+} from '@components/data-grid/data-grid-cells'
 
 import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
-import { timeToDeadlineInHoursAndMins, toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const buyerMyOrdersViewColumns = () => [
   {
-    field: 'idAndItem',
+    field: 'id',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-
-    width: 100,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => (
+      <MultilineTextCell text={params.row.originalData.idAndItem ?? `${params.row.originalData.id}  / -`} />
+    ),
+    sortable: true,
   },
 
   {
     field: 'priorityAndChinaDelivery',
     headerName: t(TranslationKey.Priority),
     renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
-    width: 60,
+    width: 90,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
         priority={params.row.originalData.priority}
@@ -55,14 +51,14 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-    width: 400,
+    width: 280,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
     sortable: false,
   },
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} Icon={FilterAltOutlinedIcon} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 130,
     renderCell: params => (
@@ -102,7 +98,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 160,
+    width: 140,
     renderCell: params => (
       <DownloadAndCopyBtnsCell value={params.value} isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id} />
     ),
@@ -117,7 +113,7 @@ export const buyerMyOrdersViewColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
-    width: 160,
+    width: 120,
     sortable: false,
   },
 
@@ -126,28 +122,33 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey['Production time']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.row.originalData?.orderSupplier?.productionTerm} />,
+    renderCell: params => {
+      const currentSupplier = params.row.originalData?.orderSupplier
+
+      return (
+        <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+      )
+    },
+    valueGetter: params => {
+      const currentSupplier = params.row.originalData?.orderSupplier
+
+      return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
+    },
     width: 120,
     sortable: false,
   },
 
   {
     field: 'deadline',
-    headerName: 'Deadline',
-    renderHeader: () => <MultilineTextHeaderCell text={'Deadline'} />,
-
+    headerName: t(TranslationKey.Deadline),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params =>
       params.row.originalData.status < 20 ? (
-        <MultilineTextCell
-          withLineBreaks
-          tooltipText={params.value ? timeToDeadlineInHoursAndMins({ date: params.value }) : ''}
-          color={params.value && getDistanceBetweenDatesInSeconds(params.value) < 86400 ? '#FF1616' : null}
-          text={params.value ? formatDate(params.value) : ''}
-        />
+        <DeadlineCell deadline={params.row.deadline} />
       ) : (
         <MultilineTextCell text={'-'} />
       ),
-    width: 200,
+    width: 100,
   },
 
   {
@@ -189,9 +190,12 @@ export const buyerMyOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
+      <UserMiniCell
+        userName={params.row.originalData.product.client?.name}
+        userId={params.row.originalData.product.client?._id}
+      />
     ),
-    width: 150,
+    width: 180,
     sortable: false,
   },
 
@@ -200,7 +204,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-    renderCell: params => <RenderFieldValueCell value={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines text={params.value} />,
     width: 130,
     sortable: false,
   },
@@ -210,7 +214,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell alignLeft threeLines maxLength={140} text={params.value} />,
     width: 400,
     sortable: false,
   },
@@ -220,7 +224,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell fourLines withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell alignLeft threeLines maxLength={140} text={params.value} />,
     width: 400,
     sortable: false,
   },
@@ -241,7 +245,7 @@ export const buyerMyOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 130,
+    width: 100,
     // type: 'date',
   },
 ]

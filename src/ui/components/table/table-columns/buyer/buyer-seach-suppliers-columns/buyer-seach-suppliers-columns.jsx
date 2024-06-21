@@ -1,17 +1,15 @@
-/* eslint-disable no-unused-vars */
-import React, { useCallback } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
+  ActionButtonsCell,
   MultilineTextCell,
-  NormalActionBtnCell,
-  MultilineTextAlignLeftCell,
+  MultilineTextHeaderCell,
   NormDateCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const buyerSearchSuppliersViewColumns = handlers => [
   {
@@ -29,18 +27,18 @@ export const buyerSearchSuppliersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => {
-      const onPickUpeMemo = useCallback(() => handlers.onPickUp(params.row.originalData), [])
-
       return (
-        <NormalActionBtnCell
+        <ActionButtonsCell
+          isFirstButton
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          tooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
-          bTnText={t(TranslationKey['Get to work'])}
-          onClickOkBtn={onPickUpeMemo}
+          firstButtonTooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
+          firstButtonElement={t(TranslationKey['Get to work'])}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          onClickFirstButton={() => handlers.onPickUp(params.row.originalData)}
         />
       )
     },
-    width: 550,
+    width: 180,
     filterable: false,
     sortable: false,
   },
@@ -50,7 +48,7 @@ export const buyerSearchSuppliersViewColumns = handlers => [
     headerName: t(TranslationKey['Comments from the supervisor']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comments from the supervisor'])} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={165} text={params.value} />,
     width: 400,
   },
 
@@ -62,6 +60,5 @@ export const buyerSearchSuppliersViewColumns = handlers => [
     minWidth: 150,
     flex: 1,
     renderCell: params => <NormDateCell value={params.value} />,
-    // type: 'date',
   },
 ]

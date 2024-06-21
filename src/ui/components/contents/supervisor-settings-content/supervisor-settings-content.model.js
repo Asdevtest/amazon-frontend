@@ -2,16 +2,17 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { supervisorSettingsViewColumns } from '@components/table/table-columns/supervisor/supervisor-settings-columns/supervisor-settings-columns'
 
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SupervisorSettingsContentModel {
   history = undefined
@@ -21,7 +22,7 @@ export class SupervisorSettingsContentModel {
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = supervisorSettingsViewColumns()
+
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
@@ -54,6 +55,8 @@ export class SupervisorSettingsContentModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
+  columnsModel = supervisorSettingsViewColumns(this.rowHandlers)
+
   constructor({ history, tabIndex }) {
     this.history = history
     this.tabIndex = tabIndex
@@ -69,20 +72,18 @@ export class SupervisorSettingsContentModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUPERVISOR_SETTINGS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.SUPERVISOR_SETTINGS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.SUPERVISOR_SETTINGS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.SUPERVISOR_SETTINGS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onColumnVisibilityModelChange(model) {
@@ -108,13 +109,13 @@ export class SupervisorSettingsContentModel {
     try {
       this.selectedRowIds = []
       await this.getAsins(tabIndex)
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -134,7 +135,7 @@ export class SupervisorSettingsContentModel {
 
       this.loadData(tabIndex)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -145,7 +146,7 @@ export class SupervisorSettingsContentModel {
         this.asins = result.filter(item => item.strategy === mapProductStrategyStatusEnumToKey[tabIndex].toString())
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -156,7 +157,7 @@ export class SupervisorSettingsContentModel {
       this.onTriggerOpenModal('showEditAsinCheckerModal')
       this.loadData(tabIndex)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -167,7 +168,7 @@ export class SupervisorSettingsContentModel {
 
       this.loadData(tabIndex)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -179,7 +180,7 @@ export class SupervisorSettingsContentModel {
 
       this.loadData(tabIndex)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -212,19 +213,15 @@ export class SupervisorSettingsContentModel {
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }

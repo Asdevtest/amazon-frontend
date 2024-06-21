@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -8,43 +9,37 @@ import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { UserModel } from '@models/user-model'
 
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditProposalViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-
-  request = undefined
-  proposalToEdit = undefined
-
-  showInfoModal = false
-  showResultModal = false
-
-  infoModalText = ''
 
   uploadedFiles = []
-
-  readyImages = []
+  request = undefined
+  proposalToEdit = undefined
   progressValue = 0
   showProgress = false
 
-  get user() {
+  showResultModal = false
+
+  get userInfo() {
     return UserModel.userInfo
   }
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+  constructor({ history }) {
+    this.history = history
 
-      if (location.state) {
-        this.request = location.state.request
+    const url = new URL(window.location.href)
 
-        this.proposalToEdit = location.state.proposalToEdit
-      }
-    })
+    const requestId = url.searchParams.get('requestId')
+    const proposalId = url.searchParams.get('proposalId')
+
+    this.getRequestById(requestId)
+    if (proposalId) {
+      this.getProposalById(proposalId)
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -55,40 +50,29 @@ export class CreateOrEditProposalViewModel {
         await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
 
-      const dataWithFiles = { ...data, linksToMediaFiles: [/* ...data.linksToMediaFiles, */ ...this.uploadedFiles] }
+      const dataWithFiles = { ...data, linksToMediaFiles: this.uploadedFiles }
 
       await RequestProposalModel.updateRequestProposalCustom(this.proposalToEdit._id, dataWithFiles)
 
       if (this.proposalToEdit.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED) {
         await RequestProposalModel.requestProposalCorrected(this.proposalToEdit._id, {
-          reason: data.comment,
+          reason: data?.comment,
           linksToMediaFiles: dataWithFiles.linksToMediaFiles,
         })
       }
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Proposal changed'])
-      })
+
+      toast.success(t(TranslationKey['Proposal changed']))
+
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
-      runInAction(() => {
-        this.infoModalText = error.body.message
-      })
-      this.onTriggerOpenModal('showInfoModal')
-
-      runInAction(() => {
-        this.error = error
-      })
+      toast.error(error.body.message)
     }
   }
 
   async onSubmitCreateProposal(data, files) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (files.length) {
         await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
@@ -97,34 +81,25 @@ export class CreateOrEditProposalViewModel {
 
       await RequestModel.pickupRequestById(this.request.request._id, dataWithFiles)
 
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['Proposal created by'])
-      })
+      toast.success(t(TranslationKey['Proposal created by']))
+
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
-      runInAction(() => {
-        this.infoModalText = error.body.message
-      })
-      this.onTriggerOpenModal('showInfoModal')
-
-      runInAction(() => {
-        this.error = error
-      })
+      toast.error(t(TranslationKey['There are unresolved proposals for this request in your queue.']))
     }
   }
 
   onClickOkInfoModal() {
-    this.onTriggerOpenModal('showInfoModal')
-    this.history.goBack()
+    this.onClickBackBtn()
   }
 
   onClickResultModal(setting) {
     if (setting.goBack) {
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests`)
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/vacant-requests`)
     } else {
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals`)
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-proposals`)
     }
 
     this.onTriggerOpenModal('showResultModal')
@@ -135,16 +110,34 @@ export class CreateOrEditProposalViewModel {
   }
 
   goToMyRequest() {
-    this.history.push('/freelancer/freelance/my-proposals', {
-      request: getObjectFilteredByKeyArrayWhiteList(this.request.request, ['_id']),
-    })
-
-    this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+    this.history.push(`/freelancer/freelance/my-proposals/custom-search-request?request-id=${this.request.request._id}`)
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
+  }
+
+  async getProposalById(proposalId) {
+    try {
+      const response = await RequestProposalModel.getRequestProposalsCustom(proposalId)
+
+      runInAction(() => {
+        this.proposalToEdit = response?.proposal
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async getRequestById(requestId) {
+    try {
+      const response = await RequestModel.getCustomRequestById(requestId)
+
+      runInAction(() => {
+        this.request = response
+      })
+    } catch (err) {
+      console.error(err)
+    }
   }
 }

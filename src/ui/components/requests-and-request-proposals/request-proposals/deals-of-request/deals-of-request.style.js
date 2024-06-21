@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: '100%',
     display: 'flex',
@@ -17,7 +17,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
     borderRadius: 4,
-    // backgroundColor: theme.palette,
   },
 
   title: {
@@ -55,6 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   userRating: {
     marginLeft: '5px',
+    opacity: '1 !important', // undisabled style
   },
 
   userRatingWrapper: {
@@ -128,7 +128,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: '400',
     color: theme.palette.primary.main,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   standartText: {

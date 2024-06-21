@@ -1,312 +1,139 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useRef, useState } from 'react'
-
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useState } from 'react'
 
 import { BoxStatus } from '@constants/statuses/box-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { BoxViewForm } from '@components/forms/box-view-form'
+import { SettingsModel } from '@models/settings-model'
+
+import { BoxForm } from '@components/forms/box-form'
+import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { EditBoxForm } from '@components/forms/edit-box-form'
 import { EditMultipleBoxesForm } from '@components/forms/edit-multiple-boxes-form'
 import { GroupingBoxesForm } from '@components/forms/grouping-boxes-form'
+import { ProductDataForm } from '@components/forms/product-data-form'
 import { RequestToSendBatchForm } from '@components/forms/request-to-send-batch-form'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MergeBoxesModal } from '@components/modals/merge-boxes-modal'
+import { MyOrderModal } from '@components/modals/my-order-modal'
+import { OrderProductModal } from '@components/modals/order-product-modal'
+import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
 import { SetChipValueModal } from '@components/modals/set-chip-value-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 import { RedistributeBox } from '@components/warehouse/reditstribute-box-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+import { TariffModal } from '@typings/enums/tariff-modal'
+
+import { useStyles } from './client-in-stock-boxes-view.style'
+
+import { disableSelectionCells } from './client-in-stock-boxes-view.constants'
 import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
-import { styles } from './client-in-stock-boxes-view.style'
+import { ViewHeader } from './view-header/view-header'
 
-export const ClientInStockBoxesViewRaw = props => {
-  const topHeaderBtnsWrapperRef = useRef()
-  const boxesFiltersWrapperRef = useRef()
-  const btnsWrapperRef = useRef()
-  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history: props.history }))
-  const [heightSum, setHeightSum] = useState(0)
-  const { classes: classNames } = props
+export const ClientInStockBoxesView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
-  useEffect(() => {
-    setHeightSum(
-      topHeaderBtnsWrapperRef?.current?.offsetHeight +
-        boxesFiltersWrapperRef?.current?.offsetHeight +
-        btnsWrapperRef?.current?.offsetHeight,
-    )
-  }, [viewModel.storekeepersData, viewModel.clientDestinations])
+  const [viewModel] = useState(() => new ClientInStockBoxesViewModel({ history }))
 
   const getRowClassName = params =>
     (params.row.isDraft === true ||
       params.row.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE ||
       params.row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF) &&
-    classNames.isDraftRow
-
-  const disableSelectionCells = ['prepId']
-
-  const renderButtons = () => {
-    const disable = viewModel.selectedRows.some(row => row.status === BoxStatus.REQUESTED_SEND_TO_BATCH)
-
-    return (
-      <React.Fragment>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
-          disabled={!viewModel.selectedBoxes.length || disable}
-          onClick={viewModel.onClickRequestToSendBatch}
-        >
-          {t(TranslationKey['Send batch'])}
-        </Button>
-
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
-          disabled={
-            viewModel.selectedBoxes.length <= 1 /* || isMasterBoxSelected*/ || viewModel.isHaveRequestSendToBatch
-          }
-          onClick={viewModel.onClickMergeBtn}
-        >
-          {t(TranslationKey.Merge)}
-        </Button>
-
-        <Button
-          disabled={viewModel.selectedBoxes.length !== 1 || viewModel.isHaveRequestSendToBatch}
-          tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
-          onClick={viewModel.onClickSplitBtn}
-        >
-          {t(TranslationKey.Redistribute)}
-        </Button>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
-          disabled={!viewModel.selectedBoxes.length || viewModel.isHaveRequestSendToBatch}
-          onClick={viewModel.onClickEditBtn}
-        >
-          {t(TranslationKey.Edit)}
-        </Button>
-
-        <Button
-          disabled={!viewModel.selectedBoxes.length || viewModel.isHaveRequestSendToBatch}
-          onClick={viewModel.onClickGroupingBtn}
-        >
-          {t(TranslationKey.Grouping)}
-        </Button>
-
-        <Button
-          disabled={!viewModel.selectedBoxes.length || !viewModel.isChoosenOnlySendToBatchBoxes}
-          onClick={viewModel.onClickReturnBoxesToStockBtn}
-        >
-          {t(TranslationKey['Return to stock'])}
-        </Button>
-      </React.Fragment>
-    )
-  }
+    styles.isDraftRow
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div ref={topHeaderBtnsWrapperRef} className={classNames.topHeaderBtnsWrapper}>
-          <div className={classNames.boxesFiltersWrapper}>
-            {viewModel.storekeepersData
-              .slice()
-              .sort((a, b) => a.name?.localeCompare(b.name))
-              .map(storekeeper =>
-                storekeeper.boxesCount !== 0 ? (
-                  <Button
-                    key={storekeeper._id}
-                    disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
-                    className={cx(classNames.button, {
-                      [classNames.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
-                    })}
-                    variant="text"
-                    onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
-                  >
-                    {storekeeper.name}
-                  </Button>
-                ) : null,
-              )}
+    <>
+      <ViewHeader
+        isHaveRequestSendToBatch={viewModel.isHaveRequestSendToBatch}
+        isChoosenOnlySendToBatchBoxes={viewModel.isChoosenOnlySendToBatchBoxes}
+        currentStorekeeperId={viewModel.currentStorekeeperId}
+        storekeepersData={viewModel.storekeepersData}
+        nameSearchValue={viewModel.nameSearchValue}
+        curDestinationId={viewModel.curDestinationId}
+        clientDestinations={viewModel.clientDestinations}
+        selectedRows={viewModel.selectedRows}
+        onClickRequestToSendBatch={viewModel.onClickRequestToSendBatch}
+        onClickMergeBtn={viewModel.onClickMergeBtn}
+        onClickSplitBtn={viewModel.onClickSplitBtn}
+        onClickEditBtn={viewModel.onClickEditBtn}
+        onClickGroupingBtn={viewModel.onClickGroupingBtn}
+        onClickReturnBoxesToStockBtn={viewModel.onClickReturnBoxesToStockBtn}
+        onClickStorekeeperBtn={viewModel.onClickStorekeeperBtn}
+        onClickDestinationBtn={viewModel.onClickDestinationBtn}
+        onSearchSubmit={viewModel.onSearchSubmit}
+        onClickWarehouseOrderButton={() => viewModel.onClickWarehouseOrderButton(viewModel.selectedRows?.[0])}
+        onClickCurrentTariffsBtn={viewModel.onClickCurrentTariffsBtn}
+      />
 
-            <Button
-              disabled={!viewModel.currentStorekeeper?._id}
-              tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-              className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id })}
-              variant="text"
-              onClick={viewModel.onClickStorekeeperBtn}
-            >
-              {t(TranslationKey['All warehouses'])}
-            </Button>
-          </div>
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
+          checkboxSelection
+          disableRowSelectionOnClick
+          pinnedColumns={viewModel.pinnedColumns}
+          isRowSelectable={params =>
+            params.row.isDraft === false &&
+            params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
+            params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
+          }
+          getRowClassName={getRowClassName}
+          rowSelectionModel={viewModel.selectedRows}
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          getRowId={row => row._id}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
 
-          <SearchInput
-            key={'client_warehouse_search_input'}
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
-            startText={viewModel.nameSearchValue}
-            onSubmit={viewModel.onSearchSubmit}
-          />
-        </div>
-
-        <div ref={boxesFiltersWrapperRef} className={classNames.boxesFiltersWrapper}>
-          {viewModel.clientDestinations
-            .slice()
-            .sort((a, b) => a.name?.localeCompare(b.name))
-            .map(destination =>
-              destination.boxesCount !== 0 ? (
-                <Button
-                  key={destination._id}
-                  disabled={viewModel.curDestination?._id === destination._id}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: viewModel.curDestination?._id === destination._id,
-                  })}
-                  variant="text"
-                  onClick={() => viewModel.onClickDestinationBtn(destination)}
-                >
-                  {destination.name}
-                </Button>
-              ) : null,
-            )}
-
-          <Button
-            disabled={viewModel.curDestination?._id === 'null'}
-            className={cx(classNames.button, {
-              [classNames.selectedBoxesBtn]: viewModel.curDestination?._id === 'null',
-            })}
-            variant="text"
-            onClick={() => viewModel.onClickDestinationBtn({ _id: 'null' })}
-          >
-            {t(TranslationKey.Undistributed)}
-          </Button>
-
-          <Button
-            disabled={!viewModel.curDestination?._id}
-            tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-            className={cx(classNames.button, { [classNames.selectedBoxesBtn]: !viewModel.curDestination?._id })}
-            variant="text"
-            onClick={viewModel.onClickDestinationBtn}
-          >
-            {t(TranslationKey.All)}
-          </Button>
-        </div>
-
-        <div ref={btnsWrapperRef} className={classNames.btnsWrapper}>
-          <div className={classNames.leftBtnsWrapper}>{renderButtons()}</div>
-          <Button disabled={!viewModel.storekeepersData} onClick={() => viewModel.onClickCurrentTariffsBtn()}>
-            {t(TranslationKey['Current tariffs'])}
-          </Button>
-        </div>
-
-        <div className={classNames.tasksWrapper} style={{ height: `calc(100vh - ${heightSum + 170}px)` }}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            checkboxSelection
-            propsToRerender={{ onHover: viewModel.onHover, unitsOption: viewModel.unitsOption }}
-            localeText={getLocalizationByLanguageTag()}
-            isRowSelectable={params =>
-              params.row.isDraft === false &&
-              params.row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
-              params.row.status !== BoxStatus.NEED_TO_UPDATE_THE_TARIFF
-            }
-            classes={{
-              row: classNames.row,
-              virtualScrollerContent: classNames.virtualScrollerContent,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-              columnHeader: classNames.columnHeader,
-              menuIconButton: classNames.menuIconButton,
-              iconButtonContainer: classNames.iconButtonContainer,
-              iconSeparator: classNames.iconSeparator,
-            }}
-            sx={{
-              '.MuiDataGrid-sortIcon': {
-                width: 14,
-                height: 14,
-                '& > active': {
-                  display: 'none',
-                },
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
-            }}
-            columnHeaderHeight={65}
-            getRowClassName={getRowClassName}
-            rowSelectionModel={viewModel.selectedBoxes}
-            sortingMode="server"
-            paginationMode="server"
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData || []}
-            getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
-            slotProps={{
-              columnMenu: viewModel.columnMenuSettings,
 
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onColumnHeaderEnter={params => {
-              viewModel.onHoverColumnField(params.field)
-            }}
-            onColumnHeaderLeave={viewModel.onLeaveColumnField}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            // onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-            // onCellDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-            onCellDoubleClick={params =>
-              !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
-            }
-          />
-        </div>
-      </MainContent>
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onColumnHeaderLeave={viewModel.onLeaveColumnField}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onCellDoubleClick={params =>
+            !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
+          }
+          onPinnedColumnsChange={viewModel.handlePinColumn}
+        />
+      </div>
 
       <Modal
         missClickModalOn
@@ -317,11 +144,10 @@ export const ClientInStockBoxesViewRaw = props => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
-          formItem={viewModel.boxesMy.find(box => box._id === viewModel.selectedBoxes.slice()[0])?.originalData}
+          formItem={viewModel.currentData.find(box => box._id === viewModel.selectedRows.slice()[0])}
           onSubmit={viewModel.onClickConfirmCreateChangeTasks}
           onTriggerOpenModal={() => viewModel.onTriggerOpenModal('showEditBoxModal')}
         />
@@ -338,10 +164,9 @@ export const ClientInStockBoxesViewRaw = props => {
           storekeepers={viewModel.storekeepersData}
           requestStatus={viewModel.requestStatus}
           addNewBoxModal={viewModel.showRedistributeBoxAddNewBoxModal}
-          setAddNewBoxModal={value => viewModel.onModalRedistributeBoxAddNewBox(value)}
           selectedBox={
-            viewModel.selectedBoxes.length &&
-            viewModel.boxesMy.find(box => box._id === viewModel.selectedBoxes.slice()[0])?.originalData
+            viewModel.selectedRows.length &&
+            viewModel.currentData.find(box => box._id === viewModel.selectedRows.slice()[0])
           }
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -359,9 +184,7 @@ export const ClientInStockBoxesViewRaw = props => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={viewModel.boxesMy
-            .filter(el => viewModel.selectedBoxes.includes(el._id))
-            .map(box => box.originalData)}
+          selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           onSubmit={viewModel.onClickSubmitEditMultipleBoxes}
@@ -375,12 +198,9 @@ export const ClientInStockBoxesViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
       >
         <GroupingBoxesForm
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={viewModel.boxesMy
-            .filter(el => viewModel.selectedBoxes.includes(el._id))
-            .map(box => box.originalData)}
+          selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}
           onSubmit={viewModel.onClickSubmitGroupingBoxes}
           onCloseModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
         />
@@ -395,16 +215,10 @@ export const ClientInStockBoxesViewRaw = props => {
           showCheckbox
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={
-            (viewModel.selectedBoxes.length &&
-              toJS(viewModel.boxesMy.filter(box => viewModel.selectedBoxes.includes(box._id)))?.map(
-                box => box.originalData,
-              )) ||
-            []
-          }
+          selectedBoxes={viewModel.currentData.filter(box => viewModel.selectedRows.includes(box._id))}
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
-          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          setDestinationsFavouritesItem={SettingsModel.setDestinationsFavouritesItem}
           setOpenModal={() => viewModel.onTriggerOpenModal('showMergeBoxModal')}
           onRemoveBoxFromSelected={viewModel.onRemoveBoxFromSelected}
           onSubmit={viewModel.onClickConfirmCreateMergeTasks}
@@ -417,41 +231,40 @@ export const ClientInStockBoxesViewRaw = props => {
         setOpenModal={viewModel.triggerRequestToSendBatchModal}
       >
         <RequestToSendBatchForm
-          userInfo={viewModel.userInfo}
           storekeepersData={viewModel.storekeepersData}
           closeModal={viewModel.triggerRequestToSendBatchModal}
           boxesDeliveryCosts={viewModel.boxesDeliveryCosts}
-          selectedBoxes={viewModel.selectedBoxes}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          boxesMy={viewModel.boxesMy.map(box => box.originalData)}
+          selectedBoxes={viewModel.selectedRows}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
+          boxesMy={viewModel.currentData.filter(box => viewModel.selectedRows.includes(box._id))}
+          setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           onClickSendBoxesToBatch={viewModel.onClickSendBoxesToBatch}
           onClickRemoveBoxFromBatch={viewModel.onClickRemoveBoxFromBatch}
-          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
-
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+        />
+      ) : null}
       <Modal
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxViewForm
+        <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
         />
@@ -462,6 +275,7 @@ export const ClientInStockBoxesViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}
       >
         <SetShippingLabelModal
+          requestStatus={viewModel.requestStatus}
           item={viewModel.selectedBox}
           onClickSaveShippingLabel={viewModel.onClickSaveShippingLabel}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}
@@ -479,40 +293,86 @@ export const ClientInStockBoxesViewRaw = props => {
         />
       </Modal>
 
-      <Modal openModal={viewModel.showSelectionStorekeeperAndTariffModal} setOpenModal={viewModel.openModalAndClear}>
-        <SelectStorekeeperAndTariffForm
-          showCheckbox
-          storekeepers={
-            viewModel.changeItem
-              ? viewModel.storekeepersData.filter(el => el._id === viewModel.changeItem?.storekeeper._id)
-              : viewModel.storekeepersData
-          }
-          curStorekeeperId={viewModel.changeItem?.storekeeper?._id}
-          curTariffId={viewModel.changeItem?.logicsTariff?._id}
-          destinationsData={viewModel.destinations}
-          inNotifications={!viewModel.changeItem}
-          total={!viewModel.changeItem}
-          currentDestinationId={viewModel.changeItem?.destination?._id}
-          currentVariationTariffId={viewModel.changeItem?.variationTariff?._id}
-          onSubmit={(storekeeperId, tariffId, variationTariffId) =>
-            viewModel.editTariff(viewModel.changeItem?._id, {
-              logicsTariffId: tariffId,
-              storekeeperId,
-              variationTariffId,
-            })
-          }
+      {viewModel.showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          tariffModalType={TariffModal[viewModel.changeItem ? 'WAREHOUSE' : 'TARIFFS']}
+          isTariffsSelect={viewModel.changeItem}
+          isHideCalculation={!viewModel.changeItem}
+          openModal={viewModel.showSelectionStorekeeperAndTariffModal}
+          boxId={viewModel.changeItem?._id}
+          setOpenModal={viewModel.openModalAndClear}
+          onClickSubmit={viewModel.editTariff}
+        />
+      ) : null}
+
+      <Modal
+        openModal={viewModel.showProductModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
+      >
+        <ProductAndBatchModal
+          openModal={viewModel.showProductModal}
+          currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
+          batches={viewModel.productBatches}
+          getCurrentBatch={viewModel.getCurrBatch}
+          currentBatch={viewModel.currentBatch}
+          shops={viewModel.shopsData}
+          selectedProduct={viewModel.selectedWarehouseOrderProduct}
+          onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
+          onClickMyOrderModal={viewModel.onClickMyOrderModal}
+          onOpenProductDataModal={viewModel.onOpenProductDataModal}
+          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessInfoModal')}
-        title={viewModel.modalEditSuccessMessage}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessInfoModal')
-        }}
-      />
+      {viewModel.showMyOrderModal ? (
+        <MyOrderModal
+          isClient
+          order={viewModel.order}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepersData}
+          platformSettings={viewModel.platformSettings}
+          switcherCondition={viewModel.myOrderModalSwitcherCondition}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          openModal={viewModel.showMyOrderModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMyOrderModal')}
+          onClickOpenNewTab={viewModel.onClickOpenNewTab}
+          onClickChangeCondition={viewModel.onClickChangeMyOrderModalCondition}
+          onClickCancelOrder={viewModel.onClickCancelOrder}
+          onClickReorder={viewModel.onClickReorder}
+          onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
+        />
+      ) : null}
+
+      <Modal
+        openModal={viewModel.showCheckPendingOrderFormModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+      >
+        <CheckPendingOrderForm
+          existingProducts={viewModel.existingProducts}
+          onClickPandingOrder={viewModel.onClickPandingOrder}
+          onClickContinueBtn={() => viewModel.onClickContinueBtn(viewModel.existingProducts?.[0])}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+        />
+      </Modal>
+
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showOrderModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}
+      >
+        <OrderProductModal
+          reorderOrdersData={viewModel.reorderOrdersData}
+          platformSettings={viewModel.platformSettings}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepersData}
+          destinationsFavourites={viewModel.destinationsFavourites}
+          setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
+          onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
+          onSubmit={viewModel.onConfirmSubmitOrderProductModal}
+        />
+      </Modal>
 
       <Modal
         openModal={viewModel.showSetChipValueModal}
@@ -532,17 +392,6 @@ export const ClientInStockBoxesViewRaw = props => {
         />
       </Modal>
 
-      <WarningInfoModal
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
-      />
-
       <Modal
         openModal={viewModel.showEditPriorityData}
         setOpenModal={() => viewModel.onTriggerOpenModal('showEditPriorityData')}
@@ -556,8 +405,13 @@ export const ClientInStockBoxesViewRaw = props => {
       </Modal>
 
       {viewModel.showProgress && <CircularProgressWithLabel />}
-    </React.Fragment>
-  )
-}
 
-export const ClientInStockBoxesView = withStyles(observer(ClientInStockBoxesViewRaw), styles)
+      <Modal
+        openModal={viewModel.showProductDataModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductDataModal')}
+      >
+        <ProductDataForm product={viewModel.selectedWarehouseOrderProduct} onAmazon={viewModel.onAmazon} />
+      </Modal>
+    </>
+  )
+})

@@ -2,34 +2,37 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AnnouncementsModel } from '@models/announcements-model'
 import { ChatModel } from '@models/chat-model'
+import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
+import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
+import { getLocalToUTCDate, sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { AnnouncementsModel } from '@models/announcements-model'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
+
   uploadedFiles = []
   requestId = undefined
   request = undefined
   requestProposals = []
   requestAnnouncement = undefined
   curResultMedia = []
+  currentReviews = []
+  currentReviewModalUser = undefined
 
-  showAcceptMessage = undefined
-  acceptMessage = undefined
-
-  platformSettings = null
+  findRequestProposalForCurChat = undefined
 
   showConfirmModal = false
   showRequestForm = false
@@ -38,12 +41,17 @@ export class OwnerRequestDetailCustomViewModel {
   showConfirmWorkResultFormModal = false
   showRequestDesignerResultClientModal = false
   showReviewModal = false
+  showResultToCorrectFormModal = false
+  readOnlyRequestDesignerResultClientForm = true
 
   confirmModalSettings = {
     isWarning: false,
     message: '',
     smallMessage: '',
-    onSubmit: () => {},
+    onSubmit: () => {
+      this.showConfirmModal = false
+      this.showConfirmWithCommentModal = false
+    },
   }
 
   acceptProposalResultSetting = {
@@ -53,85 +61,104 @@ export class OwnerRequestDetailCustomViewModel {
   chatSelectedId = undefined
   chatIsConnected = false
   scrollToChat = undefined
-  showResultToCorrectFormModal = false
+  showMainRequestResultModal = false
 
-  get user() {
+  mesSearchValue = ''
+  messagesFound = []
+  curFoundedMessage = undefined
+
+  get isMuteChats() {
+    return SettingsModel.isMuteChats
+  }
+
+  get mutedChats() {
+    return SettingsModel.mutedChats
+  }
+
+  get userInfo() {
     return UserModel.userInfo
   }
 
   get typingUsers() {
-    return ChatModel.typingUsers || []
+    return ChatModel.typingUsers
   }
 
   get chats() {
-    return ChatModel.chats || []
+    return ChatModel.chats
   }
 
-  get findRequestProposalForCurChat() {
-    return (
-      this.chatSelectedId &&
-      this.requestProposals.find(requestProposal => requestProposal.proposal.chatId === this.chatSelectedId)
-    )
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
-  constructor({ history, location, scrollToChat }) {
+  constructor({ history, scrollToChat }) {
+    this.history = history
+
     const url = new URL(window.location.href)
 
-    runInAction(() => {
-      this.requestId = url.searchParams.get('request-id')
-    })
+    this.requestId = url.searchParams.get('request-id')
+    this.scrollToChat = scrollToChat
 
-    runInAction(() => {
-      this.history = history
-      this.scrollToChat = scrollToChat
-      if (location.state) {
-        if (location.state.chatId) {
-          this.chatSelectedId = location.state.chatId
-          this.showChat = true
-        }
-
-        this.acceptMessage = location.state.acceptMessage
-        this.showAcceptMessage = location.state.showAcceptMessage
-
-        const state = { ...history.location.state }
-        delete state.chatId
-        delete state.acceptMessage
-        delete state.showAcceptMessage
-        history.replace({ ...history.location, state })
+    if (history.location.state) {
+      if (history?.location?.state?.chatId) {
+        this.chatSelectedId = history?.location?.state?.chatId
+        this.showChat = true
       }
-    })
+
+      const state = { ...history.location.state }
+      delete state.chatId
+      history.replace({ ...history.location, state })
+    }
+
+    reaction(
+      () => this.chatSelectedId,
+      () => {
+        this.mesSearchValue = ''
+        ChatModel.onChangeChatSelectedId(this.chatSelectedId)
+      },
+    )
+
+    reaction(
+      () => this.mesSearchValue,
+      () => {
+        if (this.mesSearchValue && this.chatSelectedId) {
+          const mesAr = this.chats
+            .find(el => el._id === this.chatSelectedId)
+            .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
+
+          this.messagesFound = mesAr
+
+          setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
+        } else {
+          this.curFoundedMessage = undefined
+
+          this.messagesFound = []
+        }
+      },
+    )
+
     makeAutoObservable(this, undefined, { autoBind: true })
+
     try {
       if (ChatModel.isConnected) {
         ChatModel.getChats(this.requestId, 'REQUEST')
-        runInAction(() => {
-          this.chatIsConnected = ChatModel.isConnected
-        })
+
+        this.chatIsConnected = ChatModel.isConnected
       } else {
         reaction(
           () => ChatModel.isConnected,
           isConnected => {
             if (isConnected) {
               ChatModel.getChats(this.requestId, 'REQUEST')
-              runInAction(() => {
-                this.chatIsConnected = isConnected
-              })
+
+              this.chatIsConnected = isConnected
             }
           },
         )
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
-
-    runInAction(() => {
-      if (this.showAcceptMessage) {
-        setTimeout(() => {
-          this.acceptMessage = ''
-          this.showAcceptMessage = false
-        }, 3000)
-      }
-    })
   }
 
   onTypingMessage(chatId) {
@@ -140,33 +167,40 @@ export class OwnerRequestDetailCustomViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      console.log('AYayayya')
-
       await this.getCustomRequestCur()
       await this.getCustomProposalsForRequestCur()
       await this.getAnnouncementsByGuid(this.request?.request?.announcementId)
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      console.error(error)
     }
   }
 
-  get userInfo() {
-    return UserModel.userInfo || {}
+  onChangeCurFoundedMessage(index) {
+    this.curFoundedMessage = this.messagesFound[index]
+  }
+
+  onChangeMesSearchValue(e) {
+    this.mesSearchValue = e.target.value
+  }
+
+  onCloseMesSearchValue() {
+    this.mesSearchValue = ''
+  }
+
+  onToggleMuteCurrentChat() {
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId, this.chats)
+  }
+
+  onToggleMuteAllChats() {
+    SettingsModel.onToggleMuteAllChats(this.chats)
   }
 
   onClickChat(chat) {
-    runInAction(() => {
-      if (this.chatSelectedId === chat._id) {
-        this.chatSelectedId = undefined
-      } else {
-        this.chatSelectedId = chat._id
-      }
-    })
+    if (this.chatSelectedId === chat._id) {
+      this.chatSelectedId = undefined
+    } else {
+      this.chatSelectedId = chat._id
+    }
   }
 
   async getCustomRequestCur() {
@@ -177,87 +211,73 @@ export class OwnerRequestDetailCustomViewModel {
         this.request = result
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   async onSubmitMessage(message, files, chatIdId, replyMessageId) {
     try {
       await ChatModel.sendMessage({
+        crmItemId: this.requestId,
         chatId: chatIdId,
         text: message,
-        files: files?.map(item => item?.file),
+        files,
+        user: {
+          name: UserModel.userInfo.name,
+          _id: UserModel.userInfo._id,
+        },
         ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {
-      console.warn('onSubmitMessage error ', error)
+      console.error('onSubmitMessage error ', error)
     }
   }
 
-  async onClickProposalResultAccept(proposalId) {
-    runInAction(() => {
-      this.acceptProposalResultSetting = {
-        onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
-      }
-    })
+  onClickProposalResultAccept(proposalId) {
+    this.findRequestProposalForCurChat = this.requestProposals.find(
+      requestProposal => requestProposal.proposal._id === proposalId,
+    )
+
+    this.acceptProposalResultSetting = {
+      onSubmit: data => this.onClickProposalResultAcceptForm(proposalId, data),
+    }
+
     this.onTriggerOpenModal('showConfirmWorkResultFormModal')
+
+    this.readOnlyRequestDesignerResultClientForm = true
+  }
+
+  onReadOnlyRequestDesignerResultClientForm() {
+    this.readOnlyRequestDesignerResultClientForm = true
   }
 
   async onClickProposalResultAcceptForm(proposalId, data) {
     try {
       await RequestProposalModel.requestProposalResultAccept(proposalId, data)
+      await FeedbackModel.sendFeedback(this.findRequestProposalForCurChat.proposal.createdBy._id, {
+        rating: data.rating,
+        comment: data.review,
+      })
+
       this.onTriggerOpenModal('showConfirmWorkResultFormModal')
-      this.loadData()
     } catch (error) {
-      console.warn('onClickProposalResultAccept error ', error)
+      console.error(error)
     }
   }
 
-  async onClickProposalResultToCorrect() {
-    if (this.request.request.typeTask === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
+  onClickProposalResultToCorrect() {
+    if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.DESIGNER]) {
       this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+      this.readOnlyRequestDesignerResultClientForm = false
+    } else if (this.request.request.spec?.type === freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]) {
+      this.onTriggerOpenModal('showResultToCorrectFormModal')
     } else {
-      this.triggerShowResultToCorrectFormModal()
+      this.onTriggerOpenModal('showMainRequestResultModal')
     }
   }
 
-  async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
-    this.triggerShowResultToCorrectFormModal()
+  async onPressSubmitDesignerResultToCorrect({ reason, timeLimitInMinutes, imagesData }) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-      if (files.length) {
-        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
-      }
-      const findProposalByChatId = this.requestProposals.find(
-        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
-      )
-      if (!findProposalByChatId) {
-        return
-      }
-      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
-        ...formFields,
-        timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
-        linksToMediaFiles: this.uploadedFiles,
-      })
-      this.loadData()
-    } catch (error) {
-      console.warn('onClickProposalResultToCorrect error ', error)
-    }
-  }
-
-  async onPressSubmitDesignerResultToCorrect({ reason, timeLimitInMinutes, imagesData /* .filter(el => el.image) */ }) {
-    try {
-      // runInAction(() => {
-      //   this.uploadedFiles = []
-      // })
-      // if (files.length) {
-      //   await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
-      // }
       const findProposalByChatId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
       )
@@ -272,40 +292,53 @@ export class OwnerRequestDetailCustomViewModel {
       })
       this.loadData()
     } catch (error) {
-      console.warn('onClickProposalResultToCorrect error ', error)
+      console.error(error)
     }
+  }
+
+  onSubmitSendInForReworkInProposalResultAccept({ reason, timeLimitInMinutes, imagesData }) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
+      onSubmit: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onPressSubmitDesignerResultToCorrect({
+          reason,
+          timeLimitInMinutes,
+          imagesData,
+        })
+        this.onTriggerOpenModal('showRequestDesignerResultClientModal')
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+
+    this.readOnlyRequestDesignerResultClientForm = true
   }
 
   async getCustomProposalsForRequestCur() {
     try {
-      const [platformSettings, result] = await Promise.all([
-        UserModel.getPlatformSettings(),
-        RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId),
-      ])
-
-      this.platformSettings = platformSettings
+      const response = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
 
       runInAction(() => {
-        this.requestProposals = result
+        this.requestProposals = response
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   async getAnnouncementsByGuid(guid) {
     try {
-      const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
+      if (guid) {
+        const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
 
-      this.requestAnnouncement = result
+        runInAction(() => {
+          this.requestAnnouncement = result
+        })
+      }
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -317,89 +350,88 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
-  async onClickContactWithExecutor(proposal) {
-    runInAction(() => {
-      this.chatSelectedId = proposal.chatId
-    })
+  onClickContactWithExecutor(proposal) {
+    this.chatSelectedId = proposal.chatId
+
     if (this.scrollToChat) {
       this.scrollToChat()
     }
-    runInAction(() => {
-      this.showChat = true
-    })
+
+    this.showChat = true
   }
 
   onClickHideChat() {
-    runInAction(() => {
-      this.showChat = false
-    })
+    this.showChat = false
   }
 
   async onClickAcceptProposal(proposalId) {
     try {
       await RequestProposalModel.requestProposalAccept(proposalId)
 
-      await Promise.all([this.getCustomRequestCur(), this.getCustomProposalsForRequestCur()])
+      this.getCustomRequestCur()
+      this.getCustomProposalsForRequestCur()
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
-  onClickReview() {
+  async getReviews(guid) {
+    try {
+      const result = await FeedbackModel.getFeedback(guid)
+      runInAction(() => {
+        this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onClickReview(user) {
+    await this.getReviews(user._id)
+    runInAction(() => {
+      this.currentReviewModalUser = user
+    })
     this.onTriggerOpenModal('showReviewModal')
   }
 
   onClickOpenRequest(media) {
-    runInAction(() => {
-      this.curResultMedia = media
-    })
+    this.curResultMedia = media
 
     this.onTriggerOpenModal('showRequestDesignerResultClientModal')
     this.getCustomProposalsForRequestCur()
   }
 
   onClickOrderProposal(proposalId, price) {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: false,
-        message: `${t(TranslationKey['After confirmation from your account will be frozen'])} ${toFixed(
-          price + price * (this.platformSettings.requestPlatformMarginInPercent / 100),
-          2,
-        )} $. ${t(TranslationKey.Continue)} ?`,
-        smallMessage: `${t(TranslationKey['This amount includes the service fee'])} ${
-          this.platformSettings.requestPlatformMarginInPercent
-        }% (${toFixed(price * (this.platformSettings.requestPlatformMarginInPercent / 100), 2)}$)`,
-        onSubmit: () => this.onClickAcceptProposal(proposalId),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: `${t(TranslationKey['After confirmation from your account will be frozen'])} ${toFixed(
+        price + price * (this.platformSettings?.requestPlatformMarginInPercent / 100),
+        2,
+      )} $. ${t(TranslationKey.Continue)} ?`,
+      smallMessage: `${t(TranslationKey['This amount includes the service fee'])} ${
+        this.platformSettings?.requestPlatformMarginInPercent
+      }% (${toFixed(price * (this.platformSettings?.requestPlatformMarginInPercent / 100), 2)}$)`,
+      onSubmit: () => this.onClickAcceptProposal(proposalId),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onClickRejectProposal(proposalId) {
-    // console.log('proposalId', proposalId)
+    this.curProposalId = proposalId
 
-    runInAction(() => {
-      this.curProposalId = proposalId
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Reject the proposal']),
+      onSubmit: () => this.onSubmitRejectProposal(),
+    }
 
-      this.confirmModalSettings = {
-        isWarning: true,
-        message: t(TranslationKey['Reject the proposal']),
-        onSubmit: () => this.onSubmitRejectProposal(),
-      }
-    })
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -409,12 +441,10 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      await Promise.all([this.getCustomRequestCur(), this.getCustomProposalsForRequestCur()])
+      this.getCustomRequestCur()
+      this.getCustomProposalsForRequestCur()
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -429,22 +459,22 @@ export class OwnerRequestDetailCustomViewModel {
             result.totalCost,
             2,
           )} $. ${t(TranslationKey['Confirm the publication?'])}`,
-          onSubmit: () => this.toPublishRequest(result.totalCost),
+          onSubmit: () => {
+            this.toPublishRequest(result.totalCost)
+            this.confirmModalSettings.message = ''
+          },
         }
       })
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   onClickEditBtn() {
     this.history.push(
-      `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests/custom-request/edit-request`,
+      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request/edit-request`,
       { requestId: this.requestId },
     )
   }
@@ -457,10 +487,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -474,23 +501,42 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests`)
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests`)
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   onClickCancelBtn() {
-    runInAction(() => {
-      this.confirmModalSettings = {
-        isWarning: true,
-        message: t(TranslationKey['Delete request?']),
-        onSubmit: () => this.onDeleteRequest(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Delete request?']),
+      onSubmit: () => this.onDeleteRequest(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onMarkAsCompletedRequest() {
+    try {
+      await RequestModel.manualCompletedRequest(this.requestId)
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.getCustomRequestCur()
+      this.getCustomProposalsForRequestCur()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onClickMarkAsCompletedBtn() {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: `${t(TranslationKey['Mark as completed'])}?`,
+      onSubmit: () => this.onMarkAsCompletedRequest(),
+    }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -501,50 +547,29 @@ export class OwnerRequestDetailCustomViewModel {
       this.onTriggerOpenModal('showRequestForm')
       this.getCustomRequestById()
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
-  }
-
-  triggerShowResultToCorrectFormModal() {
-    runInAction(() => {
-      this.showResultToCorrectFormModal = !this.showResultToCorrectFormModal
-    })
   }
 
   async onToggleUploadedToListing(id, uploadedToListingState) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       await RequestModel.patchRequestsUploadedToListing({
         requestIds: [id],
         uploadedToListing: !uploadedToListingState,
       })
 
       await this.loadData()
-
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   resetChats() {
@@ -552,11 +577,63 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onRecoverRequest(timeoutAt, maxAmountOfProposals) {
-    this.setRequestStatus(loadingStatuses.isLoading)
-    await RequestModel.updateDeadline(this.requestId, timeoutAt, maxAmountOfProposals)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
+    await RequestModel.updateDeadline(this.requestId, getLocalToUTCDate(timeoutAt), maxAmountOfProposals)
 
-    await Promise.all([this.getCustomRequestCur(), this.getCustomProposalsForRequestCur()])
+    this.getCustomRequestCur()
+    this.getCustomProposalsForRequestCur()
 
-    this.setRequestStatus(loadingStatuses.success)
+    this.setRequestStatus(loadingStatus.SUCCESS)
+  }
+
+  async onSendInForRework(id, fields) {
+    try {
+      await RequestProposalModel.requestProposalResultToCorrect(id, fields)
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
+    this.onTriggerOpenModal('showResultToCorrectFormModal')
+
+    try {
+      if (files.length) {
+        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
+      }
+
+      const findProposalByChatId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
+
+      if (!findProposalByChatId) {
+        return
+      }
+
+      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
+        ...formFields,
+        timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
+        linksToMediaFiles: this.uploadedFiles,
+      })
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onSubmitSendInForReworkInRequestProposalResultToCorrectForm(formFields, files) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
+      onSubmit: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onPressSubmitRequestProposalResultToCorrectForm(formFields, files)
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 }

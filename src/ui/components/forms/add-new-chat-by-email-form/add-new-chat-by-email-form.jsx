@@ -1,15 +1,8 @@
-/* eslint-disable no-unused-vars */
-import { css, cx } from '@emotion/css'
-import { Avatar, Typography } from '@mui/material'
-
-import React, { useMemo, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { components } from 'react-select'
+import { memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { CustomReactSelect } from '@components/shared/selects/custom-react-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -17,14 +10,22 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-new-chat-by-email-form.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
-export const AddNewChatByEmailForm = observer(({ closeModal, onSubmit, usersData }) => {
-  const { classes: classNames } = useClassNames()
+import { useStyles } from './add-new-chat-by-email-form.style'
 
+import { MultiValueContainer } from './multi-value-container/multi-value-container'
+import { Option } from './option/option'
+
+export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) => {
+  const { classes: styles } = useStyles()
+
+  const [userDataForRender, setUserDataForRender] = useState([])
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
-
   const [formFields, setFormFields] = useState({ chosenUsers: [], title: '', images: [] })
+
+  const disableSubmit =
+    !formFields.chosenUsers.length || submitIsClicked || (formFields.chosenUsers.length > 1 && !formFields.title)
 
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
@@ -37,90 +38,71 @@ export const AddNewChatByEmailForm = observer(({ closeModal, onSubmit, usersData
     setFormFields(newFormFields)
   }
 
-  const disableSubmit =
-    !formFields.chosenUsers.length || submitIsClicked || (formFields.chosenUsers.length > 1 && !formFields.title)
+  const getUserDataForRender = () => {
+    return usersData.map(user => ({ ...user, img: getUserAvatarSrc(user._id) }))
+  }
 
-  const Option = ({ innerRef, isFocused, ...props }) => (
-    <div
-      ref={innerRef}
-      className={cx(css(props.getStyles && props.getStyles('option', props)), classNames.customBtnNameWrapper, {
-        option: true,
-        [classNames.isFocusedOption]: isFocused,
-      })}
-    >
-      <Avatar src={getUserAvatarSrc(props.value)} className={classNames.avatarWrapper} sx={{ width: 28, height: 28 }} />
-      <components.Option {...props} />
-    </div>
-  )
-
-  const MultiValueContainer = props => (
-    <components.MultiValueContainer {...props}>
-      {[
-        <Avatar
-          key={props.key}
-          src={getUserAvatarSrc(props.data._id)}
-          className={classNames.avatarWrapper}
-          sx={{ width: 20, height: 20 }}
-        />,
-
-        ...props.children,
-      ]}
-    </components.MultiValueContainer>
-  )
+  useEffect(() => {
+    if (!usersData?.length) {
+      return
+    }
+    setUserDataForRender(getUserDataForRender())
+  }, [usersData])
 
   return (
-    <div className={classNames.mainWrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Create a new dialog'])}</Typography>
+    <div className={styles.mainWrapper}>
+      <p className={styles.title}>{t(TranslationKey['Create a new dialog'])}</p>
 
-      <Field
-        label={t(TranslationKey['Choose your speaker']) + '*'}
-        labelClasses={classNames.labelField}
-        inputComponent={
-          <CustomReactSelect
-            hideDropdownIndicator
-            menuIsOpen
-            isMulti
-            closeMenuOnSelect={false}
-            value={formFields.chosenUsers}
-            options={usersData}
-            components={{ Option, MultiValueContainer }}
-            getOptionValue={option => `${option._id}`}
-            getOptionLabel={option => `${option.name}`}
-            onChange={onChangeField('chosenUsers')}
-          />
-        }
-      />
+      <div className={styles.userSelectWrapper}>
+        <p className={styles.label}>{t(TranslationKey['Choose your speaker']) + '*'}</p>
+        <CustomReactSelect
+          hideDropdownIndicator
+          menuIsOpen
+          isMulti
+          closeMenuOnSelect={false}
+          classes={{ option: styles.option, menuList: styles.menuList }}
+          value={formFields.chosenUsers}
+          options={userDataForRender}
+          components={{ Option, MultiValueContainer }}
+          getOptionValue={option => `${option._id}`}
+          getOptionLabel={option => `${option.name}`}
+          onChange={onChangeField('chosenUsers')}
+        />
+      </div>
 
       {formFields.chosenUsers.length > 1 ? (
         <>
           <Field
+            inputProps={{ maxLength: 254 }}
             label={t(TranslationKey['Name of group chat']) + '*'}
-            labelClasses={classNames.labelField}
+            labelClasses={styles.label}
+            containerClasses={styles.selectContainer}
             value={formFields.title}
             onChange={onChangeField('title')}
           />
 
           <Field
             label={t(TranslationKey['Add a chat cover'])}
-            labelClasses={classNames.labelField}
+            labelClasses={styles.label}
+            containerClasses={styles.selectContainer}
             inputComponent={
               <UploadFilesInput
-                withoutTitle
+                withoutTitles
                 images={formFields.images}
                 setImages={onChangeField('images')}
                 maxNumber={1}
-                dragAndDropBtnHeight={65}
+                dragAndDropButtonHeight={65}
               />
             }
           />
         </>
       ) : null}
 
-      <div className={classNames.buttonWrapper}>
+      <div className={styles.buttonWrapper}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
-          className={classNames.button}
+          className={styles.button}
           onClick={() => {
             setSubmitIsClicked(true)
             onSubmit(formFields)
@@ -129,7 +111,11 @@ export const AddNewChatByEmailForm = observer(({ closeModal, onSubmit, usersData
           {t(TranslationKey.Create)}
         </Button>
 
-        <Button variant="text" className={[classNames.button, classNames.cancelButton]} onClick={() => closeModal()}>
+        <Button
+          variant={ButtonVariant.OUTLINED}
+          className={[styles.button, styles.cancelButton]}
+          onClick={() => closeModal()}
+        >
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

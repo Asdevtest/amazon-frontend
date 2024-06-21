@@ -1,23 +1,23 @@
-import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-to-send-batch-form.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './request-to-send-batch-form.style'
+
 import { RequestToSendBatchesGroupBoxes } from './request-to-send-batch-group-boxes'
 
 export const RequestToSendBatchForm = observer(
   ({
-    userInfo,
     storekeepersData,
     volumeWeightCoefficient,
     boxesMy,
@@ -26,10 +26,9 @@ export const RequestToSendBatchForm = observer(
     onClickSendBoxesToBatch,
     onClickRemoveBoxFromBatch,
     closeModal,
-    onSubmitChangeBoxFields,
-    onClickHsCode,
+    setCurrentOpenedBox,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
     useEffect(() => {
       if (!selectedBoxes.length) {
         closeModal()
@@ -77,17 +76,17 @@ export const RequestToSendBatchForm = observer(
       .concat(boxesWithoutPrice)
       .filter(obj => obj.boxes.length)
 
-    const [submitIsClicked, setSubmitIsClicked] = useState(false)
-
     const onClickSubmit = () => {
       onClickSendBoxesToBatch()
-      setSubmitIsClicked(true)
     }
 
     const onClickRemoveBtn = boxId => {
       onClickRemoveBoxFromBatch(boxId)
-      setSubmitIsClicked(false)
     }
+
+    const isHasTransparencyDoesntHasImages = boxesMy.some(box =>
+      box.items.some(item => item?.product?.transparency && !box?.images?.length),
+    )
 
     const disabledSubmit =
       boxesWithPriceRequest.length < 1 ||
@@ -102,34 +101,43 @@ export const RequestToSendBatchForm = observer(
             selectedGroup.logicsTariff?._id,
           ),
       ) ||
-      submitIsClicked
+      boxesMy.some(
+        box =>
+          (!box.shippingLabel && !box.destination?.storekeeperId) ||
+          box.items.some(
+            item =>
+              (!item?.transparencyFile ||
+                (!item?.isTransparencyFileAlreadyAttachedByTheSupplier &&
+                  !item?.isTransparencyFileAttachedByTheStorekeeper)) &&
+              item?.product?.transparency,
+          ),
+      ) ||
+      isHasTransparencyDoesntHasImages
 
     return (
-      <div className={classNames.content}>
-        <Typography className={classNames.modalTitle} variant="h5">
+      <div className={styles.content}>
+        <Typography className={styles.modalTitle} variant="h5">
           {t(TranslationKey['Sending boxes'])}
         </Typography>
-        <div className={classNames.boxesWrapper}>
+        <div className={styles.boxesWrapper}>
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
             <div key={i}>
               <RequestToSendBatchesGroupBoxes
-                userInfo={userInfo}
                 storekeepersData={storekeepersData}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 boxesMy={boxesMy}
                 selectedGroup={selectedGroup}
                 boxesDeliveryCosts={boxesDeliveryCosts}
+                setCurrentOpenedBox={setCurrentOpenedBox}
                 onClickRemoveBoxFromBatch={onClickRemoveBtn}
-                onSubmitChangeBoxFields={onSubmitChangeBoxFields}
-                onClickHsCode={onClickHsCode}
               />
             </div>
           ))}
         </div>
-        <div className={classNames.warningWrapper}>
+        <div className={styles.warningWrapper}>
           <Typography
             variant="subtitle1"
-            className={cx(classNames.warningText, { [classNames.noWarningText]: !disabledSubmit })}
+            className={cx(styles.warningText, { [styles.noWarningText]: !disabledSubmit })}
           >
             {'*' +
               t(
@@ -140,7 +148,17 @@ export const RequestToSendBatchForm = observer(
           </Typography>
         </div>
 
-        <div className={classNames.btnsWrapper}>
+        <div className={styles.btnsWrapper}>
+          {isHasTransparencyDoesntHasImages ? (
+            <p className={styles.warningText}>
+              {t(
+                TranslationKey[
+                  'Attention, it is necessary to add a photo of the product with glued transparency to the box'
+                ],
+              )}
+            </p>
+          ) : null}
+
           <Button
             disabled={disabledSubmit}
             tooltipAttentionContent={t(
@@ -151,9 +169,8 @@ export const RequestToSendBatchForm = observer(
             {t(TranslationKey.Send)}
           </Button>
           <Button
-            danger
+            styleType={ButtonStyle.DANGER}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={classNames.btnClose}
             onClick={closeModal}
           >
             {t(TranslationKey.Close)}

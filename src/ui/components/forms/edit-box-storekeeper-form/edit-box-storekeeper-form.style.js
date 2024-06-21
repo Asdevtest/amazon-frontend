@@ -1,9 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
+    padding: 10,
   },
   form: {
     borderRadius: '5px',
@@ -11,31 +13,15 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 40,
   },
 
-  cancelBtn: {
-    color: theme.palette.text.general,
-  },
-
-  labelsInfoWrapper: {
-    width: '480px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: '27px',
-  },
-
-  trackNumberPhotoBtn: {
-    width: 230,
-  },
-
   trackNumberPhotoWrapper: {
-    width: 230,
-    height: 130,
-
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
+    minWidth: 230,
+    width: 'max-content',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 30,
+    height: '100%',
   },
 
   trackNumberPhoto: {
@@ -53,14 +39,15 @@ export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginTop: '10px',
-  },
+    gap: 20,
 
-  button: {
-    marginLeft: '40px',
+    position: 'sticky',
+    bottom: 0,
+    right: 0,
   },
 
   field: {
+    marginBottom: '10px !important',
     width: '100%',
   },
   multiline: {
@@ -68,11 +55,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
 
     padding: 0,
-  },
-
-  hsCodeBtn: {
-    height: 30,
-    width: 230,
   },
 
   commentField: {
@@ -84,25 +66,6 @@ export const useClassNames = makeStyles()(theme => ({
     flexGrow: 1,
   },
 
-  numberInputFieldsBlocksWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    alignItems: 'flex-start',
-    width: '100%',
-    gap: 10,
-  },
-  numberInputFieldsWrapper: {
-    width: '100%',
-    height: 70,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-  },
-  numberInputField: {
-    margin: '5px 5px',
-  },
   blockOfNewBoxWrapper: {
     height: '100%',
     width: 525,
@@ -116,7 +79,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
-    borderRadius: '4px',
+    borderRadius: '8px',
     width: '230px',
     height: '30px',
   },
@@ -157,16 +120,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
   },
 
-  photoWrapper: {
-    width: '250px',
-    height: 200,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    alignSelf: 'center',
-    marginBottom: 10,
-  },
-
   boxPhotoWrapper: {
     marginTop: 30,
     width: '250px',
@@ -175,16 +128,7 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
-    gap: 20,
-  },
-
-  storekeeperBtn: {
-    height: '32px',
-    width: '230px',
-  },
-
-  storekeeperBtnColored: {
-    color: theme.palette.text.negativeMain,
+    gap: 30,
   },
 
   sizesTitleWrapper: {
@@ -232,6 +176,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   productWrapper: {
+    width: '100%',
     padding: '10px 20px 0',
     display: 'flex',
     justifyContent: 'space-between',
@@ -277,6 +222,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 14,
     color: theme.palette.text.second,
     whiteSpace: 'nowrap',
+    margin: 0,
   },
 
   tableTitle: {
@@ -289,19 +235,16 @@ export const useClassNames = makeStyles()(theme => ({
     width: 197,
     height: 184,
     objectFit: 'contain',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   boxImageClass: {
     width: 148,
     height: 151,
     objectFit: 'contain',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
-  storekeeperBtnDefault: {
-    color: theme.palette.text.general,
-  },
   label: {
     marginBottom: 0,
   },
@@ -324,5 +267,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   containerField: {
     width: 'min-content',
+  },
+
+  checkboxContainer: {
+    margin: 0,
   },
 }))

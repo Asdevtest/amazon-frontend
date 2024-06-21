@@ -1,0 +1,68 @@
+import { BoxStatus } from '@constants/statuses/box-status'
+
+export const updateBoxWhiteList = [
+  'amount',
+  'weighGrossKg',
+  'volumeWeightKg',
+  'shippingLabel',
+  'warehouse',
+  'deliveryMethod',
+  'lengthCmSupplier',
+  'widthCmSupplier',
+  'heightCmSupplier',
+  'weighGrossKgSupplier',
+  'lengthCmWarehouse',
+  'widthCmWarehouse',
+  'heightCmWarehouse',
+  'weighGrossKgWarehouse',
+  'isBarCodeAttachedByTheStorekeeper',
+  'isShippingLabelAttachedByStorekeeper',
+  'isBarCodeAlreadyAttachedByTheSupplier',
+  'items',
+  'images',
+  'destinationId',
+  'storekeeperId',
+  'logicsTariffId',
+  'fbaShipment',
+  'referenceId',
+  'trackNumberFile',
+  'trackNumberText',
+  'fbaNumber',
+  'prepId',
+  'variationTariffId',
+  'transparencyFile',
+]
+
+export const filtersFields = [
+  'shopId',
+  'humanFriendlyId',
+  'id',
+  'item',
+  'asin',
+  'skuByClient',
+  'amazonTitle',
+  'destination',
+  'logicsTariff',
+  'createdAt',
+  'updatedAt',
+  'totalAmount',
+  'prepId',
+  'status',
+  'storekeeper',
+  'sub',
+  'redFlags',
+  'totalPrice',
+]
+
+export const fieldsForSearch = [
+  'asin',
+  'amazonTitle',
+  'skuByClient',
+  'id',
+  'item',
+  'productId',
+  'humanFriendlyId',
+  'prepId',
+]
+
+export const disableSelectionCells = ['prepId']

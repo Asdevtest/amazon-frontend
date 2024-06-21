@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
   },
@@ -12,8 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    marginTop: '24px',
-    width: '100%',
+    marginTop: '20px',
     height: '68vh',
   },
 

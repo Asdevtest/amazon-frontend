@@ -1,8 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   content: {
     width: '100%',
+    padding: 10,
   },
   modalTitle: {
     color: theme.palette.text.general,
@@ -17,19 +18,16 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '20px',
   },
   warningText: {
-    color: 'red',
+    color: theme.palette.text.red,
   },
   noWarningText: {
     color: theme.palette.primary.main,
   },
   btnsWrapper: {
-    flex: 1,
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    flexDirection: 'row',
-    display: 'flex',
-  },
-  btnClose: {
-    marginLeft: '10px',
+    gap: 20,
+    marginRight: 15,
   },
 }))

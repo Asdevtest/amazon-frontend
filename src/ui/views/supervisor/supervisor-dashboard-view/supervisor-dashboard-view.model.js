@@ -1,16 +1,16 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { SupervisorDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { DashboardModel } from '@models/dashboard-model'
 import { SupervisorModel } from '@models/supervisor-model'
 import { UserModel } from '@models/user-model'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class SupervisorDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   producatsMy = []
@@ -46,18 +46,18 @@ export class SupervisorDashboardViewModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
+        this.requestStatus = loadingStatus.IS_LOADING
       })
 
       this.getDashboardElementCount()
       runInAction(() => {
-        this.requestStatus = loadingStatuses.success
+        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
+        this.requestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -86,10 +86,7 @@ export class SupervisorDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -108,10 +105,7 @@ export class SupervisorDashboardViewModel {
         this.productsVacant = result.filter(el => el.icomment !== '')
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 }

@@ -1,4 +1,5 @@
-import { makeAutoObservable, runInAction, reaction } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { chatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,33 +12,27 @@ import { UserModel } from '@models/user-model'
 import { t } from '@utils/translations'
 import { dataURLtoFile, onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class MessagesViewModel {
   history = undefined
-  requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
+  requestStatus = loadingStatus.SUCCESS
 
   showConfirmModal = false
   showAddNewChatByEmailModal = false
   showAddUsersToGroupChatModal = false
-  showWarningInfoModal = false
   showEditGroupChatInfoModal = false
-
-  // chatSelectedId = undefined
 
   nameSearchValue = ''
   mesSearchValue = ''
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
-
   readyImages = []
 
   usersData = []
+
   messagesFound = []
   curFoundedMessage = undefined
+  curFoundedMessageIndex = undefined
 
   showProgress = false
 
@@ -57,37 +52,20 @@ export class MessagesViewModel {
     return ChatModel.typingUsers || []
   }
 
-  get noticeOfSimpleChats() {
-    return SettingsModel.noticeOfSimpleChats
+  get isMuteChats() {
+    return SettingsModel.isMuteChats
   }
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+  get mutedChats() {
+    return SettingsModel.mutedChats
+  }
 
-      if (location.state?.anotherUserId || location.state?.chatId) {
-        ChatModel.onChangeChatSelectedId(
-          location.state?.chatId ||
-            this.simpleChats
-              .filter(el => el.type === chatsType.DEFAULT)
-              .find(el => el.users.map(e => e._id).includes(location.state.anotherUserId))?._id,
-        )
+  get unreadMessages() {
+    return ChatModel.unreadMessages
+  }
 
-        // this.chatSelectedId =
-        //   location.state?.chatId ||
-        //   this.simpleChats
-        //     .filter(el => el.type === chatsType.DEFAULT)
-        //     .find(el => el.users.map(e => e._id).includes(location.state.anotherUserId))?._id
-
-        if (!this.chatSelectedId) {
-          this.showProgress = true
-
-          setTimeout(() => {
-            this.showProgress = false
-          }, 5000)
-        }
-      }
-    })
+  constructor({ history }) {
+    this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -95,57 +73,63 @@ export class MessagesViewModel {
       () => this.simpleChats,
       () => {
         if (
-          location.state?.anotherUserId &&
-          this.simpleChats.some(el => el.users.map(e => e._id).includes(location.state?.anotherUserId))
+          history.location.state?.anotherUserId &&
+          this.simpleChats.some(el => el.users.map(e => e._id).includes(history.location.state?.anotherUserId))
         ) {
-          runInAction(() => {
-            this.showProgress = false
-          })
+          this.showProgress = false
         }
       },
     )
 
     reaction(
-      () => this.chatSelectedId,
-      () => {
-        runInAction(() => {
-          this.mesSearchValue = ''
-        })
-      },
-    )
-
-    reaction(
-      () => this.mesSearchValue,
-      () => {
-        runInAction(() => {
-          if (this.mesSearchValue && this.chatSelectedId) {
-            const mesAr = this.simpleChats
-              .find(el => el._id === this.chatSelectedId)
-              .messages.filter(mes => mes.text?.toLowerCase().includes(this.mesSearchValue.toLowerCase()))
-
-            this.messagesFound = mesAr
-
-            setTimeout(() => this.onChangeCurFoundedMessage(mesAr.length - 1), 0)
-          } else {
-            this.curFoundedMessage = undefined
-
-            this.messagesFound = []
-          }
-        })
-      },
+      () => ChatModel.isConnected,
+      () => this.loadData(),
     )
   }
-  onChangeCurFoundedMessage(index) {
+
+  selectChatHandler() {
+    if (this.history.location.state?.anotherUserId || this.history.location.state?.chatId) {
+      ChatModel.onChangeChatSelectedId(
+        this.history.location.state?.chatId ||
+          this.simpleChats
+            .filter(el => el.type === chatsType.DEFAULT)
+            .find(el => el.users.map(e => e._id).includes(this.history.location.state.anotherUserId))?._id,
+      )
+
+      if (!this.chatSelectedId) {
+        this.showProgress = true
+
+        setTimeout(() => {
+          this.showProgress = false
+        }, 3000)
+      }
+    }
+  }
+
+  onToggleMuteCurrentChat() {
+    SettingsModel.onToggleMuteCurrentChat(this.chatSelectedId, this.simpleChats)
+  }
+
+  onToggleMuteAllChats() {
+    SettingsModel.onToggleMuteAllChats(this.simpleChats)
+  }
+
+  async onChangeCurFoundedMessage(index) {
+    const curFoundedMessage = this.messagesFound[index]
+
     runInAction(() => {
-      this.curFoundedMessage = this.messagesFound[index]
+      this.curFoundedMessage = curFoundedMessage
+      this.curFoundedMessageIndex = index
     })
   }
 
   async loadData() {
     try {
+      ChatModel.getUnreadMessagesCount()
       await ChatModel.getSimpleChats()
+      this.selectChatHandler()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -159,7 +143,7 @@ export class MessagesViewModel {
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -171,14 +155,12 @@ export class MessagesViewModel {
         this.simpleChats.find(el => el._id === this.chatSelectedId)?.users.map(el => el._id) || []
 
       runInAction(() => {
-        this.usersData = res
-          .filter(el => el._id !== this.user._id)
-          .filter(el => !currentUsersIdsInCurrentChat.includes(el._id))
+        this.usersData = res.filter(el => !currentUsersIdsInCurrentChat.includes(el._id) && el._id !== this.user._id)
       })
 
       this.onTriggerOpenModal('showAddUsersToGroupChatModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -191,20 +173,16 @@ export class MessagesViewModel {
       this.onTriggerOpenModal('showAddUsersToGroupChatModal')
 
       await ChatModel.addUsersToGroupChat({ chatId: this.chatSelectedId, users: users.map(el => el._id) })
-
-      // await ChatModel.getSimpleChats()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onRemoveUsersFromGroupChat(usersIds) {
     try {
       await ChatModel.removeUsersFromGroupChat({ chatId: this.chatSelectedId, users: usersIds })
-
-      // await ChatModel.getSimpleChats()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -226,7 +204,7 @@ export class MessagesViewModel {
         image: imageIsNeedChange ? this.readyImages[0] : state.preview,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -239,14 +217,7 @@ export class MessagesViewModel {
         )
 
         if (existedChatsUsers.includes(formFields.chosenUsers[0]?._id)) {
-          runInAction(() => {
-            this.warningInfoModalSettings = {
-              isWarning: false,
-              title: t(TranslationKey['Such dialogue already exists']),
-            }
-          })
-
-          this.onTriggerOpenModal('showWarningInfoModal')
+          toast.warning(t(TranslationKey['Such dialogue already exists']))
         } else {
           await ChatsModel.createSimpleChatByUserId(formFields.chosenUsers[0]?._id)
         }
@@ -264,7 +235,7 @@ export class MessagesViewModel {
 
       this.onTriggerOpenModal('showAddNewChatByEmailModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -272,79 +243,86 @@ export class MessagesViewModel {
     ChatModel.typingMessage({ chatId })
   }
 
-  onTriggerNoticeOfSimpleChats() {
-    SettingsModel.onTriggerNoticeOfSimpleChats()
+  muteChatHandler(chatId) {
+    SettingsModel.setMutedChat(chatId)
   }
 
   onClickChat(chat) {
-    runInAction(() => {
-      if (this.chatSelectedId === chat._id) {
-        // this.chatSelectedId = undefined
+    ChatModel.resetChat(this.chatSelectedId)
 
-        ChatModel.onChangeChatSelectedId(undefined)
-      } else {
-        // this.chatSelectedId = chat._id
+    if (this.messagesFound?.length) {
+      this.onChangeMesSearchValue('', this.chatSelectedId)
+    }
 
-        ChatModel.onChangeChatSelectedId(chat._id)
-      }
-    })
+    if (this.chatSelectedId === chat._id) {
+      ChatModel.onChangeChatSelectedId(undefined)
+    } else {
+      ChatModel.onChangeChatSelectedId(chat._id)
+    }
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
-  onChangeMesSearchValue(e) {
+  async onChangeMesSearchValue(value, chatId) {
     runInAction(() => {
-      this.mesSearchValue = e.target.value
+      this.mesSearchValue = value
     })
+
+    if (!value || !chatId) {
+      runInAction(() => {
+        this.messagesFound = []
+        this.curFoundedMessage = undefined
+        this.curFoundedMessageIndex = undefined
+      })
+      return
+    }
+
+    this.setRequestStatus(loadingStatus.IS_LOADING)
+
+    const res = await ChatModel.FindChatMessage({ chatId, text: value })
+
+    runInAction(() => {
+      this.messagesFound = res
+    })
+
+    this.onChangeCurFoundedMessage(res?.length - 1)
+
+    this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
   async onSubmitMessage(message, files, chatId, replyMessageId) {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       await ChatModel.sendMessage({
         chatId,
+        crmItemId: null,
         text: message,
-        files: files?.map(item => item?.file),
-
+        files,
+        user: {
+          name: UserModel.userInfo.name,
+          _id: UserModel.userInfo._id,
+        },
         ...(replyMessageId && { replyMessageId }),
       })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.warn('onSubmitMessage error ', error)
+      console.error('onSubmitMessage error ', error)
     }
   }
 
-  // onChangeChatSelectedId(value) {
-  //   runInAction(() => {
-  //     this.chatSelectedId = value
-  //   })
-  // }
-
   onClickBackButton() {
-    runInAction(() => {
-      // this.chatSelectedId = undefined
-
-      ChatModel.onChangeChatSelectedId(undefined)
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    ChatModel.onChangeChatSelectedId(undefined)
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 }

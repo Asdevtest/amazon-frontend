@@ -1,7 +1,4 @@
-// import {objectFlip} from '../utils/object-utils'
 import { objectFlip } from '@utils/object'
-
-// console.log('objectFlip', objectFlip)
 
 export const UserRole = {
   ADMIN: 'ADMIN',
@@ -15,7 +12,7 @@ export const UserRole = {
   MODERATOR: `MODERATOR`,
 }
 
-export const UserRoleCodeMap = {
+export const UserRoleCodeMap: Record<number, string> = {
   0: UserRole.ADMIN,
   10: UserRole.CLIENT,
   20: UserRole.SUPERVISOR,
@@ -27,7 +24,7 @@ export const UserRoleCodeMap = {
   60: UserRole.MODERATOR,
 }
 
-export const UserRoleCodeMapForRoutes = {
+export const UserRoleCodeMapForRoutes: Record<number, string> = {
   0: 'admin',
   10: 'client',
   20: 'supervisor',
@@ -39,7 +36,7 @@ export const UserRoleCodeMapForRoutes = {
   60: 'moderator',
 }
 
-export const UserRolePrettyMap = {
+export const UserRolePrettyMap: Record<number, string> = {
   0: 'Admin',
   10: 'Client',
   20: 'Supervisor',
@@ -51,4 +48,11 @@ export const UserRolePrettyMap = {
   60: 'Moderator',
 }
 
-export const mapUserRoleEnumToKey = objectFlip(UserRoleCodeMap, parseInt)
+export const UserRolesForAdminProduct = {
+  client: 10,
+  supervisor: 20,
+  researcher: 30,
+  buyer: 40,
+}
+
+export const mapUserRoleEnumToKey: Record<string, number> = objectFlip(UserRoleCodeMap, parseInt)

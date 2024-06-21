@@ -1,15 +1,15 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { FreelancerDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { DashboardModel } from '@models/dashboard-model'
 import { UserModel } from '@models/user-model'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class FreelancerDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   balance = UserModel.userInfo?.balance
   productsVacant = []
@@ -41,12 +41,12 @@ export class FreelancerDashboardViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDashboardElementCount()
-      await this.setRequestStatus(loadingStatuses.success)
+      await this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -62,10 +62,7 @@ export class FreelancerDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

@@ -1,64 +1,27 @@
-export const styles = theme => ({
-  formFields: {
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
+  form: {
+    width: 540,
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    gap: 20,
   },
+
+  input: {
+    height: '36px',
+    backgroundColor: 'inherit',
+  },
+
   field: {
-    flexBasis: '100%',
-    position: 'relative',
+    margin: 0,
   },
-  checkboxWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  checkbox: {
-    marginLeft: '-12px',
-  },
+
   label: {
+    marginBottom: 5,
     fontSize: '14px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-
-    color: theme.palette.text.general,
-  },
-  formFooter: {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(2.5),
-    width: '100%',
-  },
-
-  loginBtn: {
-    width: 200,
-    height: 40,
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-    color: '#fff',
-  },
-
-  forgotPassword: {
-    marginLeft: '20px',
-    fontSize: '14px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-
-    color: theme.palette.text.second,
-
-    '&:hover': {
-      color: theme.palette.primary.main,
-      fontWeight: '500',
-    },
-  },
-
-  visibilityIcon: {
-    position: 'absolute',
-    right: 10,
-    top: 35,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-
+    lineHeight: '19px',
     color: theme.palette.text.second,
   },
 
@@ -67,15 +30,44 @@ export const styles = theme => ({
     left: 0,
   },
 
-  input: {
-    height: '34px',
-
-    backgroundColor: 'inherit',
-    color: theme.palette.text.general,
+  inputAdornmentVisibility: {
+    position: 'absolute',
+    right: 0,
   },
-  labelField: {
-    fontSize: '14px',
+
+  visibilityIcon: {
+    cursor: 'pointer',
     color: theme.palette.text.second,
+  },
+
+  formFooter: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
+  },
+
+  checkboxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  forgotPassword: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    color: theme.palette.text.second,
+
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
+  },
+
+  rememberText: {
+    fontSize: '14px',
     lineHeight: '19px',
   },
-})
+}))

@@ -1,20 +1,20 @@
-import { Avatar, Typography } from '@mui/material'
-
-import React, { FC } from 'react'
-
 import { format } from 'date-fns'
 import { History } from 'history'
+import { FC } from 'react'
 
-import { UiTheme } from '@constants/theme/themes'
+import { Avatar, Typography } from '@mui/material'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { OrdersUpdatesNotificationRow } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-row'
 import { OrdersUpdatesNotificationItem } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification-types'
-import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.styles'
+import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.style'
 
 import { t } from '@utils/translations'
+
+import { UiTheme } from '@typings/enums/ui-theme'
 
 interface OrdersUpdatesNotificationProps {
   noticeItem: {

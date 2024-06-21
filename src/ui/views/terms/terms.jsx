@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material'
-
 import { withStyles } from 'tss-react/mui'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,10 +10,10 @@ import { styles } from './terms.style'
 
 export const TermsRaw = props => {
   // const [viewModel] = useState(() => new TermsViewModel({ history: props.history }));
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       <Typography variant="h1">{t(TranslationKey['Coming soon...'])}</Typography>
     </div>
   )

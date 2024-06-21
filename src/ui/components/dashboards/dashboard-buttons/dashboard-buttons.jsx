@@ -1,75 +1,78 @@
-/* eslint-disable no-unused-vars */
-import { Typography } from '@mui/material'
-
-import React from 'react'
-
 import { useHistory } from 'react-router-dom'
+
+import { Typography } from '@mui/material'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
 
-import { useClassNames } from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
-import { Message, MyNotificationsIcon, SettingsIcon } from '@components/shared/svg-icons'
+import { useStyles } from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
+import { MessageIcon, MyNotificationsIcon, SettingsIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-export const DashboardButtons = ({ user, routes }) => {
-  const { classes: classNames } = useClassNames()
+export const DashboardButtons = ({ user }) => {
+  const { classes: styles } = useStyles()
   const history = useHistory()
 
   const unreadMessages = ChatModel.unreadMessages
+
+  const routes = {
+    notifications: 'notifications/general-notifications-view',
+    messages: 'messages',
+  }
 
   const notices =
     (user.needConfirmPriceChange?.boxes || 0) +
     (user.needConfirmPriceChange?.orders || 0) +
     (user.needUpdateTariff?.boxes || 0) +
-    (user.freelanceNotices?.length || 0)
+    (user.freelanceNotices?.length || 0) +
+    (user.notificationCounter || 0)
+
+  const isNotificationsShown =
+    !checkIsResearcher(UserRoleCodeMap[user.role]) && !checkIsStorekeeper(UserRoleCodeMap[user.role])
 
   return (
-    <div className={classNames.buttonsWrapper}>
-      {!checkIsResearcher(UserRoleCodeMap[user.role]) && (
-        <div
-          className={classNames.buttonWrapper}
-          onClick={() => {
-            console.log(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
-            history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)
-          }}
+    <div className={styles.buttonsWrapper}>
+      {isNotificationsShown ? (
+        <div className={styles.buttonWrapper}>
+          <button
+            className={styles.iconWrapper}
+            onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
+          >
+            <MyNotificationsIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
+            {Number(notices) > 0 ? <div className={styles.badge}>{notices}</div> : null}
+          </button>
+
+          <Typography className={styles.title}>{t(TranslationKey.Notifications)}</Typography>
+        </div>
+      ) : null}
+      <div className={styles.buttonWrapper}>
+        <button
+          className={styles.iconWrapper}
+          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.messages}`)}
         >
-          <div className={classNames.iconWrapper}>
-            <MyNotificationsIcon classes={{ root: classNames.fontSizeLarge }} fontSize="large" />
-            {Number(notices) > 0 ? <div className={classNames.badge}>{notices}</div> : undefined}
-          </div>
+          <MessageIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
 
-          <Typography className={classNames.title}>{t(TranslationKey.Notifications)}</Typography>
-        </div>
-      )}
-      <div
-        className={classNames.buttonWrapper}
-        onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.messages}`)}
-      >
-        <div className={classNames.iconWrapper}>
-          <Message classes={{ root: classNames.fontSizeLarge }} fontSize="large" />
+          {Number(unreadMessages) > 0 ? <div className={styles.badge}>{unreadMessages}</div> : null}
+        </button>
 
-          {unreadMessages ? <div className={classNames.badge}>{unreadMessages}</div> : undefined}
-        </div>
-
-        <Typography className={classNames.title}>{t(TranslationKey.Messages)}</Typography>
+        <Typography className={styles.title}>{t(TranslationKey.Messages)}</Typography>
       </div>
       {checkIsAdmin(UserRoleCodeMap[user.role]) ||
       checkIsStorekeeper(UserRoleCodeMap[user.role]) ||
       checkIsSupervisor(UserRoleCodeMap[user.role]) ? (
-        <div
-          className={classNames.buttonWrapper}
-          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}
-        >
-          <div className={classNames.iconWrapper}>
-            <SettingsIcon classes={{ root: classNames.fontSizeLarge }} fontSize="large" />
-          </div>
+        <div className={styles.buttonWrapper}>
+          <button
+            className={styles.iconWrapper}
+            onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}
+          >
+            <SettingsIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
+          </button>
 
-          <Typography className={classNames.title}>
+          <Typography className={styles.title}>
             {checkIsStorekeeper(UserRoleCodeMap[user.role])
               ? t(TranslationKey['Warehouse management'])
               : t(TranslationKey.Settings)}

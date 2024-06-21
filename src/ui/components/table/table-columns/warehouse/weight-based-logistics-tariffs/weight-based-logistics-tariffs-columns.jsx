@@ -1,18 +1,19 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
+  MultilineTextAlignLeftCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
   WarehouseTariffDatesCell,
-  EditOrRemoveIconBtnsCell,
-  MultilineTextAlignLeftCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
+import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
+import { ArrowDownOutlineIcon, ArrowUpOutlineIcon, CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
-import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDestinationData) => [
   {
@@ -89,7 +90,7 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     renderCell: params => (
       <WarehouseTariffDatesCell cls={params.row?.cls} etd={params.row?.etd} eta={params.row?.eta} />
     ),
-    width: 323,
+    width: 320,
     filterable: false,
     sortable: false,
   },
@@ -100,41 +101,43 @@ export const WeightBasedLogisticsTariffsColumns = (handlers, getIsArchive, getDe
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
 
     type: 'number',
-    width: 120,
+    width: 110,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
-
-  /* {
-    field: 'minWeightInKg',
-    headerName: t(TranslationKey['Min. weight, kg']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
-
-    type: 'number',
-    width: 120,
-    renderCell: params => <MultilineTextCell text={params.value} />,
-  }, */
 
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 130,
+    width: 160,
     renderCell: params => {
-      // const handlersMemo = useMemo(() => handlers, [])
-      // const rowMemo = useMemo(() => params.row, [])
+      const isArchive = getIsArchive()
 
       return (
-        <EditOrRemoveIconBtnsCell
-          tooltipFirstButton={t(TranslationKey.Edit)}
-          tooltipSecondButton={t(TranslationKey.Remove)}
-          handlers={/* handlersMemo */ handlers}
-          row={/* rowMemo */ params.row}
+        <ActionButtonsCell
+          row
+          iconButton
+          isFirstButton
+          isSecondButton
+          isThirdButton={isArchive}
           isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-          isArchive={getIsArchive()}
+          firstButtonTooltipText={t(TranslationKey.Edit)}
+          firstButtonElement={<EditIcon />}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonTooltipText={isArchive ? t(TranslationKey.Restore) : t(TranslationKey['Move to archive'])}
+          secondButtonElement={isArchive ? <ArrowUpOutlineIcon /> : <ArrowDownOutlineIcon />}
+          secondButtonStyle={isArchive ? ButtonStyle.SUCCESS : ButtonStyle.DANGER}
+          thirdButtonTooltipText={t(TranslationKey.Remove)}
+          thirdButtonElement={<CrossIcon />}
+          thirdButtonStyle={ButtonStyle.DANGER}
+          onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
+          onClickSecondButton={() => handlers.onTriggerArchive(params.row.originalData)}
+          onClickThirdButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
         />
       )
     },
+
     filterable: false,
     sortable: false,
   },

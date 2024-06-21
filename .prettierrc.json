@@ -8,11 +8,10 @@
   "bracketSpacing": true,
   "arrowParens": "avoid",
   "importOrder": [
-    "^react$",
-    "^(?:@)?(react-|material)|^(?!react)([a-z]+)",
+    "<THIRD_PARTY_MODULES>",
+    "^(@mui|@material-ui)/(.*)$",
     "^@constants/(.*)$",
     "^@models(.*)$",
-    "^@navigation/(.*)$",
     "^@services/(.*)$",
     "^@styles/(.*)$",
     "^@components/(.*)$",
@@ -20,9 +19,13 @@
     "^@utils/(.*)$",
     "^@contexts/(.*)$",
     "^@typings/(.*)$",
-    "^[./]"
+    "^@hooks/(.*)$",
+    "(.style|.styles)$",
+    "^../(.*)",
+    "^./(.*)"
   ],
   "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
   "endOfLine": "auto",
-  "experimentalBabelParserPluginsList": ["typescript", "jsx", "classProperties", "decorators-legacy"]
+  "importOrderParserPlugins": ["typescript", "tsx", "jsx", "classProperties", "decorators-legacy"]
 }

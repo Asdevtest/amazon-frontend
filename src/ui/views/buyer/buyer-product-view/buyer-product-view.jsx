@@ -1,77 +1,50 @@
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
 import { BuyerProductViewModel } from './buyer-product-view.model'
 
-export const BuyerProductView = observer(props => {
-  const [viewModel] = useState(
-    () =>
-      new BuyerProductViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  // const { classes: classNames } = props;
+export const BuyerProductView = observer(({ history }) => {
+  const [viewModel] = useState(() => new BuyerProductViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <MainContent>
-        {viewModel.product ? (
-          <ProductWrapper
-            showTab={viewModel.showTab}
-            user={viewModel.userInfo}
-            userRole={viewModel.userInfo.role}
-            product={viewModel.product}
-            productBase={viewModel.productBase}
-            selectedSupplier={viewModel.selectedSupplier}
-            formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-            handleSupplierButtons={viewModel.onClickSupplierButtons}
-            handleProductActionButtons={viewModel.handleProductActionButtons}
-            onClickSupplier={viewModel.onChangeSelectedSupplier}
-            onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
-            onChangeField={viewModel.onChangeProductFields}
-            onClickHsCode={viewModel.onClickHsCode}
-          />
-        ) : undefined}
-      </MainContent>
-      <Modal
-        missClickModalOn={!viewModel.supplierModalReadOnly}
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={viewModel.onTriggerAddOrEditSupplierModal}
-      >
-        <AddOrEditSupplierModalContent
-          paymentMethods={viewModel.paymentMethods}
-          product={viewModel.product}
-          storekeepersData={viewModel.storekeepersData}
-          onlyRead={viewModel.supplierModalReadOnly}
-          requestStatus={viewModel.requestStatus}
-          sourceYuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          supplier={viewModel.selectedSupplier}
-          showProgress={viewModel.showProgress}
-          progressValue={viewModel.progressValue}
-          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
-          onTriggerShowModal={viewModel.onTriggerAddOrEditSupplierModal}
+    <>
+      {viewModel.product ? (
+        <ProductWrapper
+          showTab={viewModel.showTab}
+          user={viewModel.userInfo}
+          userRole={viewModel.userInfo.role}
+          imagesForLoad={viewModel.imagesForLoad}
+          product={viewModel.currentData}
+          productBase={viewModel.productBase}
+          productVariations={viewModel.productVariations}
+          navigateToProduct={viewModel.navigateToProduct}
+          formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
+          handleProductActionButtons={viewModel.handleProductActionButtons}
+          onTriggerOpenModal={viewModel.onTriggerOpenModal}
+          onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
+          onChangeField={viewModel.onChangeProductFields}
+          onClickHsCode={viewModel.onClickHsCode}
+          onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
+          onRemoveSupplier={viewModel.onRemoveSupplier}
         />
-      </Modal>
+      ) : (
+        <CircularProgressWithLabel />
+      )}
 
       <Modal
         openModal={viewModel.showEditHSCodeModal}
@@ -84,30 +57,34 @@ export const BuyerProductView = observer(props => {
         />
       </Modal>
 
-      <WarningInfoModal
-        openModal={viewModel.showWarningModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        title={viewModel.warningModalTitle}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={viewModel.confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => {
+            viewModel.confirmModalSettings.onClickOkBtn()
+            viewModel.onTriggerOpenModal('showConfirmModal')
+          }}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={viewModel.confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => {
-          viewModel.confirmModalSettings.onClickOkBtn()
-          viewModel.onTriggerOpenModal('showConfirmModal')
-        }}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
-    </React.Fragment>
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={viewModel.successModalTitle}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
+    </>
   )
 })

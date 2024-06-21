@@ -1,12 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
-    height: 801,
-    width: 1692,
     gap: 20,
+    padding: 10,
 
     [theme.breakpoints.down(768)]: {
       width: '280px',
@@ -16,27 +15,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   boxCounterWrapper: {
-    padding: '8px 11px',
-    height: '52px',
-    margin: '2px',
     display: 'flex',
     alignItems: 'center',
-
-    position: 'absolute',
-    zIndex: 999,
-
-    top: 0,
-    right: 0,
-
-    borderTop: 'none !important',
-    [theme.breakpoints.down(768)]: {
-      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(3)': {
-        display: 'none',
-      },
-      '& > :nth-of-type(2) > :nth-of-type(1) > :nth-of-type(5)': {
-        marginLeft: '2px',
-      },
-    },
   },
 
   boxCounterText: {
@@ -49,16 +29,13 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalTitle: {
-    marginRight: '100px',
-    marginBottom: '0 !important',
-    color: theme.palette.text.general,
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: 600,
 
     [theme.breakpoints.down(768)]: {
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
-      fontWeight: 600,
-      marginRight: 0,
     },
   },
 
@@ -69,29 +46,8 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 40,
   },
 
-  actionButton: {
-    width: '126px',
-    height: '40px',
-  },
-
-  downloadButton: {
-    width: 216,
-    height: 40,
-    gap: 5,
-  },
-
   amount: {
     marginLeft: '5px',
-  },
-
-  row: {
-    outline: '1px solid rgb(224, 224, 224)',
-    borderRadius: '5px',
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(0.99)',
-    },
   },
 
   headerSubWrapper: {
@@ -115,7 +71,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    gap: 30,
     [theme.breakpoints.down(768)]: {
       flexDirection: 'column',
       gap: 5,
@@ -154,9 +109,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   searchInput: {
     border: `1px solid ${theme.palette.primary.main}`,
-    width: 270,
+    width: '440px',
     height: 40,
-
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -180,13 +134,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
   subFieldLabel: {
     color: theme.palette.text.second,
-
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
-
     whiteSpace: 'pre-wrap',
-
     marginBottom: '5px !important',
 
     [theme.breakpoints.down(768)]: {
@@ -196,42 +147,16 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   infoField: {
-    height: 40,
-
-    fontWeight: 400,
-    fontSize: 16,
-    lineHeight: '22px',
-  },
-  filesSubWrapper: {
-    height: '100%',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      minWidth: '280px',
-
-      display: 'flex',
-      justifyContent: 'center',
-    },
+    fontSize: 14,
+    lineHeight: '19px',
   },
   tableWrapper: {
-    height: 590,
-    overflowY: 'auto',
+    height: 350,
     width: '100%',
-    borderBottom: '1px solid white',
-    position: 'relative',
   },
 
-  virtualScroller: {
-    minHeight: 150,
-    maxHeight: 450,
-  },
-  columnHeaderTitleContainer: {
-    flexDirection: 'row !important',
-  },
-  columnHeaderDraggableContainer: {
-    flexDirection: 'row !important',
-  },
   disabled: {
-    '-webkit-text-fill-color': `${theme.palette.text.second} !important`,
+    WebkitTextFillColor: `${theme.palette.text.second} !important`,
   },
   batchTitleField: {
     width: '160px !important',
@@ -255,7 +180,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   filesAndButtonWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
   },
   shippinCostContainer: {
@@ -265,11 +190,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   closeFieldsWrapper: {
     display: 'flex',
-    gap: 30,
-  },
-
-  toolbarContainer: {
-    height: 52,
     gap: 30,
   },
 }))

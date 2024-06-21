@@ -1,18 +1,18 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
+import { useState } from 'react'
 
-import React, { useState, useEffect } from 'react'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './estimate-create-trading-shop-form.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './estimate-create-trading-shop-form.style'
 
 const reqMultiplier = 20
 
@@ -26,7 +26,7 @@ export const EstimateCreateTradingShopForm = ({
   makeEstimate,
   files,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -70,30 +70,30 @@ export const EstimateCreateTradingShopForm = ({
   const monthlyMultiplier = formFields.price || 0 / averagePureIncome || 0
 
   return (
-    <div className={classNames.modalMessageWrapper}>
-      <Typography className={classNames.modalMessageTitle}>
+    <div className={styles.modalMessageWrapper}>
+      <Typography className={styles.modalMessageTitle}>
         {isEdit
           ? t(TranslationKey['Editing an ad to sell the store'])
           : t(TranslationKey['Adding an ad to sell the store'])}
       </Typography>
 
-      <div className={cx(classNames.fieldsWrapper, { [classNames.oneFieldInRow]: !makeEstimate })}>
+      <div className={cx(styles.fieldsWrapper, { [styles.oneFieldInRow]: !makeEstimate })}>
         <Field
-          labelClasses={classNames.fieldLabel}
+          labelClasses={styles.fieldLabel}
           label={t(TranslationKey['Total price'])}
-          inputClasses={classNames.fieldInput}
+          inputClasses={styles.fieldInput}
           value={formFields.price}
           onChange={onChangeField('price')}
         />
         {makeEstimate ? (
           <Field
-            labelClasses={classNames.fieldLabel}
+            labelClasses={styles.fieldLabel}
             label={t(TranslationKey['Estimated cost'])}
             inputComponent={
-              <div className={classNames.estimateCostWrapper}>
+              <div className={styles.estimateCostWrapper}>
                 <Typography>{toFixed(averagePureIncome * reqMultiplier, 2)}</Typography>
 
-                <Button variant="text" className={classNames.applyBtn} onClick={applyReqMultiplier}>
+                <Button variant={ButtonVariant.OUTLINED} className={styles.applyBtn} onClick={applyReqMultiplier}>
                   {t(TranslationKey.Apply)}
                 </Button>
               </div>
@@ -102,41 +102,41 @@ export const EstimateCreateTradingShopForm = ({
         ) : null}
       </div>
 
-      <div className={classNames.fieldsWrapper}>
+      <div className={styles.fieldsWrapper}>
         <Field
           disabled
-          labelClasses={classNames.fieldLabel}
+          labelClasses={styles.fieldLabel}
           label={t(TranslationKey['Average. Monthly income'])}
-          inputClasses={classNames.fieldInput}
+          inputClasses={styles.fieldInput}
           value={toFixedWithDollarSign(averageGrossIncome, 2)}
         />
         <Field
           disabled
-          labelClasses={classNames.fieldLabel}
+          labelClasses={styles.fieldLabel}
           label={t(TranslationKey['Average. Monthly net profit'])}
-          inputClasses={classNames.fieldInput}
+          inputClasses={styles.fieldInput}
           value={toFixedWithDollarSign(averagePureIncome, 2)}
         />
       </div>
 
-      <div className={classNames.fieldsWrapper}>
+      <div className={styles.fieldsWrapper}>
         <Field
           disabled
-          labelClasses={classNames.fieldLabel}
+          labelClasses={styles.fieldLabel}
           label={t(TranslationKey.Profitability)}
-          inputClasses={classNames.fieldInput}
+          inputClasses={styles.fieldInput}
           value={`${toFixed(profitability, 2)} %`}
         />
         <Field
           disabled
-          labelClasses={classNames.fieldLabel}
+          labelClasses={styles.fieldLabel}
           label={t(TranslationKey['Monthly multiplier'])}
-          inputClasses={classNames.fieldInput}
+          inputClasses={styles.fieldInput}
           inputComponent={
-            <div className={classNames.multiplierWrapper}>
+            <div className={styles.multiplierWrapper}>
               <Typography>{`${toFixed(monthlyMultiplier, 2)} X`}</Typography>
 
-              <Typography className={classNames.reqMultiplier}>{`${t(
+              <Typography className={styles.reqMultiplier}>{`${t(
                 TranslationKey.req,
               )} (${reqMultiplier} X)`}</Typography>
             </div>
@@ -144,30 +144,23 @@ export const EstimateCreateTradingShopForm = ({
         />
       </div>
 
-      <Typography className={classNames.confirmText}>
+      <Typography className={styles.confirmText}>
         {isEdit
           ? `${t(TranslationKey['Accept the changes'])}?`
           : `${t(TranslationKey['Post an ad for a store for'])} ${formFields.price || 0} $ ?`}
       </Typography>
 
-      <div className={classNames.buttonsWrapper}>
+      <div className={styles.buttonsWrapper}>
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={submitIsClicked}
-          variant="contained"
-          className={classNames.buttonOk}
+          className={styles.buttonOk}
           onClick={onClickSubmit}
         >
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button
-          disabled={submitIsClicked}
-          color="primary"
-          variant="contained"
-          className={classNames.buttonCancel}
-          onClick={setOpenModal}
-        >
+        <Button disabled={submitIsClicked} className={styles.buttonCancel} onClick={setOpenModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

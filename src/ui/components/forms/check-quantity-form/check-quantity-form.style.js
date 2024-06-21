@@ -1,51 +1,47 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  root: {
-    width: 485,
-
+export const useStyles = makeStyles()(theme => ({
+  wrapper: {
+    width: 480,
+    padding: 10,
     display: 'flex',
-    flexDirection: 'column',
-
-    gap: 40,
     alignItems: 'center',
+    flexDirection: 'column',
+    gap: 20,
   },
 
-  modalText: {
-    color: theme.palette.text.general,
+  title: {
+    fontSize: 18,
+    lineHeight: '25px',
     fontWeight: 600,
-    fontSize: 18,
   },
 
-  normalText: {
-    color: theme.palette.text.general,
-    fontSize: 18,
-    width: 367,
-    textAlign: 'center',
-  },
-
-  buttonsWrapper: {
+  flexContainer: {
     display: 'flex',
-    justifyContent: 'center',
-    gap: 40,
+    alignItems: 'center',
+    flexDirection: 'column',
+    gap: 5,
   },
 
-  closeButton: {
-    color: theme.palette.text.general,
+  textRed: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.red,
   },
 
   input: {
     width: 190,
     height: 40,
-    justifySelf: 'center',
-    textAlign: 'center',
   },
 
   inputContainer: {
     width: 'min-content',
+    margin: 0,
   },
 
-  button: {
-    width: 100,
+  buttons: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 40,
   },
 }))

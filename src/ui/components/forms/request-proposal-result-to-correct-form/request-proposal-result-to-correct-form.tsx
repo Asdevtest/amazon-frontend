@@ -1,18 +1,15 @@
-import { Typography } from '@mui/material'
-
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './request-proposal-result-to-correct-form.style'
+import { useStyles } from './request-proposal-result-to-correct-form.style'
 
 interface Props {
   onPressSubmitForm: (formFields: FormFileds, images?: Array<{}>) => void
@@ -33,7 +30,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
   const [hour, setHour] = useState('')
   const [minute, setMinute] = useState('')
   const [images, setImages] = useState([])
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const onChangeHour = (value: string) => {
     const maxValue = 99
@@ -73,67 +70,61 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
   }, [totalTimeInMinute, images])
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.modalHeader}>
-        <Typography className={classNames.modalTitle}>{t(TranslationKey['Send in for rework'])}</Typography>
-        <Typography className={classNames.countTimes}>{t(TranslationKey['No more than 5 times'])}</Typography>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <p className={styles.title}>{t(TranslationKey['Send in for rework'])}</p>
+        <p className={styles.label}>{t(TranslationKey['No more than 5 times'])}</p>
       </div>
-      <div className={classNames.reasonWrapper}>
-        <Field
-          multiline
-          className={classNames.reasonInput}
-          inputProps={{ maxLength: 1100 }}
-          minRows={6}
-          maxRows={6}
-          label={t(TranslationKey['Reason for rework']) + '*'}
-          labelClasses={classNames.label}
-          value={formFields.reason}
-          onChange={onChangeField('reason')}
-        />
-      </div>
-      <div className={classNames.totalTime}>
-        <Typography className={classNames.time}>{t(TranslationKey['Time for rework']) + '*'}</Typography>
-        <div className={classNames.inputsWrapper}>
-          <div className={classNames.inputWrapper}>
+
+      <Field
+        multiline
+        className={styles.reasonInput}
+        inputProps={{ maxLength: 1100 }}
+        minRows={6}
+        maxRows={6}
+        label={t(TranslationKey['Reason for rework']) + '*'}
+        labelClasses={styles.label}
+        value={formFields.reason}
+        onChange={onChangeField('reason')}
+      />
+
+      <div className={styles.totalTime}>
+        <p className={styles.label}>{t(TranslationKey['Time for rework']) + '*'}</p>
+        <div className={styles.inputsWrapper}>
+          <div className={styles.inputWrapper}>
             <Field
-              oneLine
-              // type="number"
-              placeholder={'00'}
+              placeholder="00"
               value={hour}
-              containerClasses={classNames.inputField}
-              inputClasses={classNames.input}
+              containerClasses={styles.inputField}
+              inputClasses={styles.input}
               onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                 onChangeHour(event.target.value)
               }
             />
 
-            <Typography className={classNames.inputLabel}>{t(TranslationKey.hour)}</Typography>
+            <p className={styles.inputLabel}>{t(TranslationKey.hour)}</p>
           </div>
-          <div className={classNames.inputWrapper}>
+
+          <div className={styles.inputWrapper}>
             <Field
-              oneLine
-              // type="number"
-              placeholder={'00'}
+              placeholder="00"
               value={minute}
-              containerClasses={classNames.inputField}
-              inputClasses={classNames.input}
+              containerClasses={styles.inputField}
+              inputClasses={styles.input}
               onChange={(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                 onChangeMinute(event.target.value)
               }
             />
 
-            <Typography className={classNames.inputLabel}>{t(TranslationKey.minute)}</Typography>
+            <p className={styles.inputLabel}>{t(TranslationKey.minute)}</p>
           </div>
         </div>
       </div>
-      <div>
-        <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
-      </div>
 
-      <div className={classNames.btnWrapper}>
+      <UploadFilesInput images={images} setImages={setImages} />
+
+      <div className={styles.btnWrapper}>
         <Button
-          color="primary"
-          className={classNames.btnSubmit}
           disabled={!formFields.reason || totalTimeInMinute === '0'}
           onClick={() => onPressSubmitForm(formFields, images)}
         >

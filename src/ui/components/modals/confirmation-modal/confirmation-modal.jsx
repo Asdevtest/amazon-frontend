@@ -1,15 +1,16 @@
-import { cx } from '@emotion/css'
+import { memo, useEffect, useState } from 'react'
+
 import { Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
+import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 
-import { useClassNames } from './confirmation-modal.style'
-import { Field } from '@components/shared/field'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
-export const ConfirmationModal = props => {
+import { useStyles } from './confirmation-modal.style'
+
+export const ConfirmationModal = memo(props => {
   const {
     openModal,
     setOpenModal,
@@ -30,7 +31,7 @@ export const ConfirmationModal = props => {
     commentCancelBtnText,
   } = props
 
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
 
   const [comment, setComment] = useState('')
 
@@ -62,7 +63,6 @@ export const ConfirmationModal = props => {
 
   const handleClose = () => {
     onClickCancelBtn()
-    setIsShowComment(false)
     setComment('')
   }
 
@@ -80,33 +80,27 @@ export const ConfirmationModal = props => {
   }, [])
 
   return (
-    <Modal /* isWarning={isWarning}*/ openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div
         className={cx({
-          [classNames.warningModalMessageWrapper]: isWarning,
-          [classNames.commentMessageWrapper]: isShowComment,
-          [classNames.modalMessageWrapper]: !isShowComment,
+          [styles.warningModalMessageWrapper]: isWarning,
+          [styles.commentMessageWrapper]: isShowComment,
+          [styles.modalMessageWrapper]: !isShowComment,
         })}
       >
         {!isShowComment && (
           <>
-            <div className={classNames.titleWrapper}>
-              <Typography variant="h5" className={cx(classNames.title, { [classNames.warningTitle]: isWarning })}>
+            <div className={styles.titleWrapper}>
+              <Typography variant="h5" className={cx(styles.title, { [styles.warningTitle]: isWarning })}>
                 {title}
               </Typography>
             </div>
 
-            <Typography
-              paragraph
-              className={cx(classNames.modalMessage, { [classNames.warningModalMessage]: isWarning })}
-            >
+            <Typography paragraph className={cx(styles.modalMessage, { [styles.warningModalMessage]: isWarning })}>
               {message}
             </Typography>
 
-            <Typography
-              paragraph
-              className={cx(classNames.modalSmallMessage, { [classNames.warningModalMessage]: isWarning })}
-            >
+            <Typography paragraph className={cx(styles.modalSmallMessage, { [styles.warningModalMessage]: isWarning })}>
               {smallMessage}
             </Typography>
           </>
@@ -114,17 +108,17 @@ export const ConfirmationModal = props => {
 
         {isShowComment && (
           <>
-            <Typography variant="h5" className={classNames.commentTitle}>
+            <Typography variant="h5" className={styles.commentTitle}>
               {commentTitleText || title}
             </Typography>
             <Field
               multiline
-              className={classNames.heightFieldAuto}
+              className={styles.heightFieldAuto}
               minRows={7}
               maxRows={7}
               inputProps={{ maxLength: 35000 }}
               // placeholder={t(TranslationKey.Reason)}
-              labelClasses={classNames.commentLabelText}
+              labelClasses={styles.commentLabelText}
               label={commentLabelText}
               value={comment}
               onChange={e => setComment(e.target.value)}
@@ -134,29 +128,25 @@ export const ConfirmationModal = props => {
 
         <div
           className={cx({
-            [classNames.warningButtonsWrapper]: isWarning && !isShowComment,
-            [classNames.commentButtonsWrapper]: isShowComment,
-            [classNames.buttonsWrapper]: !isShowComment,
+            [styles.warningButtonsWrapper]: isWarning && !isShowComment,
+            [styles.commentButtonsWrapper]: isShowComment,
+            [styles.buttonsWrapper]: !isShowComment,
           })}
         >
           {isWarning ? (
             <Button
-              danger
-              disableElevation
-              className={classNames.button}
+              styleType={ButtonStyle.DANGER}
+              className={styles.button}
               disabled={submitIsClicked}
-              variant="contained"
               onClick={onSubmit}
             >
               {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
             </Button>
           ) : (
             <Button
-              success
-              disableElevation
-              className={classNames.button}
+              styleType={ButtonStyle.SUCCESS}
+              className={styles.button}
               disabled={submitIsClicked}
-              variant="contained"
               onClick={onSubmit}
             >
               {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
@@ -165,8 +155,8 @@ export const ConfirmationModal = props => {
 
           <Button
             disabled={submitIsClicked}
-            className={classNames.cancelButton}
-            variant={'text'}
+            className={styles.cancelButton}
+            variant={ButtonVariant.OUTLINED}
             onClick={() => handleClose()}
           >
             {isShowComment ? commentCancelBtnText || cancelBtnText : cancelBtnText}
@@ -175,4 +165,4 @@ export const ConfirmationModal = props => {
       </div>
     </Modal>
   )
-}
+})

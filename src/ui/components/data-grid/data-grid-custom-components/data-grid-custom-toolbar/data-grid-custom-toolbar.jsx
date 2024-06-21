@@ -1,55 +1,69 @@
-/* eslint-disable no-unused-vars */
-import {
-  useGridRootProps,
-  GridToolbarColumnsButton,
-  GridToolbarContainer,
-  GridToolbarDensitySelector,
-  GridToolbarExport,
-  GridToolbarFilterButton,
-} from '@mui/x-data-grid'
+import { GridPagination, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 
-import React from 'react'
+import { useStyles } from './data-grid-custom-toolbar.style'
 
-import { DataGridCustomColumnsButton } from '../data-grid-custom-columns-button'
-import { DataGridCustomFilterButton } from '../data-grid-custom-filter-button'
 import { DataGridResetFilterButton } from '../data-grid-reset-filter-button'
-import { useClassNames } from './data-grid-custom-toolbar.style'
+import { DataGridTableSetting } from '../data-grid-table-setting'
+import { SelectedTags } from '../selected-tags'
+import { SortSettings } from '../sort-settings'
+import { TagSearch } from '../tag-search'
 
-export const DataGridCustomToolbar = React.forwardRef((props, ref) => {
-  const { classes: classNames } = useClassNames()
-  const { className, resetFiltersBtnSettings, columsBtnSettings, ...other } = props
-  const rootProps = useGridRootProps()
+export const DataGridCustomToolbar = props => {
+  const {
+    resetFiltersBtnSettings,
+    columsBtnSettings,
+    children,
+    presetsSettings,
+    sortSettings,
+    tagSearchSettings,
+    ...restProps
+  } = props
 
-  if (rootProps.disableColumnFilter && rootProps.disableColumnSelector && rootProps.disableDensitySelector) {
-    return null
-  }
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <GridToolbarContainer ref={ref} className={classNames.toolbarContainer} {...other}>
-      {!columsBtnSettings ? <GridToolbarColumnsButton size={'large'} className={classNames.toolbarText} /> : null}
+    <GridToolbarContainer className={styles.wrapperToolbar} {...restProps}>
+      <div className={styles.toolbar}>
+        {(!!columsBtnSettings || !!presetsSettings) && (
+          <div className={styles.buttons}>
+            <DataGridTableSetting presetsSettings={presetsSettings} columsBtnSettings={columsBtnSettings} />
 
-      {/* <GridToolbarFilterButton className={classNames.toolbarText} /> */}
+            <GridToolbarExport
+              className={cx(styles.text, styles.exportButton)}
+              excelOptions={{ disableToolbarButton: true }}
+            />
 
-      {columsBtnSettings ? (
-        <DataGridCustomColumnsButton
-          size={'large'}
-          className={classNames.toolbarText}
-          columsBtnSettings={columsBtnSettings}
+            {sortSettings ? <SortSettings {...sortSettings} /> : null}
+
+            {tagSearchSettings ? <TagSearch {...tagSearchSettings} /> : null}
+
+            {!!resetFiltersBtnSettings?.isSomeFilterOn && (
+              <DataGridResetFilterButton
+                size="large"
+                className={styles.text}
+                resetFiltersBtnSettings={resetFiltersBtnSettings}
+              />
+            )}
+          </div>
+        )}
+
+        <div
+          className={cx(styles.buttons, {
+            [styles.fullWidth]: !columsBtnSettings,
+            [styles.flexEnd]: !children,
+          })}
+        >
+          {children}
+          <GridPagination />
+        </div>
+      </div>
+
+      {tagSearchSettings?.activeTags ? (
+        <SelectedTags
+          activeTags={tagSearchSettings?.activeTags}
+          setActiveProductsTag={tagSearchSettings?.setActiveProductsTag}
         />
       ) : null}
-
-      {/* <GridToolbarDensitySelector size={'large'} className={classNames.toolbarText} /> */}
-      <GridToolbarExport size={'large'} className={classNames.toolbarText} />
-
-      {resetFiltersBtnSettings?.isSomeFilterOn ? (
-        <DataGridResetFilterButton
-          size={'large'}
-          className={classNames.toolbarText}
-          resetFiltersBtnSettings={resetFiltersBtnSettings}
-        />
-      ) : null}
-
-      {/* <DataGridCustomFilterButton size={'large'} className={classNames.toolbarText} /> */}
     </GridToolbarContainer>
   )
-})
+}

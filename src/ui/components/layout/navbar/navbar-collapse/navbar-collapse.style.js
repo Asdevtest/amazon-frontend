@@ -1,9 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   listItemText: {
-    marginRight: '12px',
+    marginRight: 25,
     fontSize: 13,
+    fontWeight: 500,
   },
 
   collapseText: {
@@ -16,7 +17,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   badgeContainer: {
     display: 'flex',
-    width: '56px',
+    maxWidth: 56,
+    minWidth: 56,
     paddingLeft: '5px',
     justifyContent: 'center',
     alignItems: 'center',
@@ -54,54 +56,40 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   redBadge: {
-    margin: '0 auto',
-    width: 'fit-content',
-    height: 20,
-    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
-
+    borderRadius: '22px',
     padding: '1px 6px',
-
-    fontSize: '12px',
-
-    borderRadius: 30,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#fff',
+    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
   },
 
   bigBadge: {
     width: 'fit-content',
-    padding: '1px 6px',
+    padding: '1px 4px',
     background: theme.palette.primary.main,
-    borderRadius: '22px',
+    borderRadius: 12,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     color: '#fff',
-    fontSize: '14px',
-    fontWeight: '400',
-    lineHeight: '14px',
+    fontSize: '12px',
+    lineHeight: '16px',
   },
 
   subCategory: {
     padding: '0 36px 0 0',
     width: '100%',
     height: '100%',
-    // color: theme.palette.text.second,
   },
 
   userInfoWrapper: {
     display: 'flex',
     alignItems: 'center',
 
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '0.3s ease',
     height: 45,
 
     padding: '0 0px 10px 15px',
     '&:hover': {
-      // backgroundColor: '#CCE2FF',
       backgroundColor: theme.palette.background.second,
     },
   },

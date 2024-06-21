@@ -1,37 +1,29 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
-import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
+import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AvatarEditorForm } from '@components/forms/avatar-editor-form'
+import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { UserInfoEditForm } from '@components/forms/user-info-edit-form'
-import { MainContent } from '@components/layout/main-content'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
-// import {ActiveOrders} from '@components/screens/users-views/user-profile-view/active-orders'
 import { ContentModal } from '@components/user/users-views/user-profile-view/content-modal'
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { useStyles } from './user-profile-view.style'
+
 import { ProfileViewModel } from './user-profile-view.model'
-import { styles } from './user-profile-view.style'
 
-export const UserProfileViewRaw = props => {
-  const [viewModel] = useState(() => new ProfileViewModel({ history: props.history }))
-
-  const { classes: classNames } = props
+export const UserProfileView = observer(() => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new ProfileViewModel())
 
   useEffect(() => {
     viewModel.loadData()
@@ -39,81 +31,56 @@ export const UserProfileViewRaw = props => {
 
   return (
     <>
-      <MainContent>
-        <UserProfile
-          user={viewModel.user}
-          timer={'14 минут'}
-          headerInfoData={viewModel.headerInfoData}
-          tabReview={viewModel.tabReview}
-          tabHistory={viewModel.tabHistory}
-          setTabHistory={viewModel.onChangeTabHistory}
-          setTabReview={viewModel.onChangeTabReview}
-          onClickChangeAvatar={viewModel.onClickChangeAvatar}
-          onClickChangeUserInfo={viewModel.onClickChangeUserInfo}
-        />
+      <UserProfile
+        user={viewModel.userInfo}
+        headerInfoData={viewModel.headerInfoData}
+        tabHistory={viewModel.tabHistory}
+        setTabHistory={viewModel.onChangeTabHistory}
+        reviews={viewModel.reviews}
+        onClickChangeAvatar={() => viewModel.onTriggerOpenModal('showAvatarEditModal')}
+        onClickChangeUserInfo={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
+        onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+      />
 
-        {/* <ActiveOrders
-                tabExchange={tabExchange}
-                setTabExchange={onChangeTabExchange}
-                productList={CLIENT_USER_INITIAL_LIST}
-                handlerClickButtonPrivateLabel={onClickButtonPrivateLabel}
-              /> */}
+      {[mapUserRoleEnumToKey[UserRole.SUPERVISOR], mapUserRoleEnumToKey[UserRole.BUYER]].includes(
+        viewModel.userInfo?.role,
+      ) ? (
+        <>
+          <p className={styles.title}>{t(TranslationKey['Active offers on the commodity exchange'])}</p>
 
-        {[
-          // mapUserRoleEnumToKey[UserRole.RESEARCHER],
-          mapUserRoleEnumToKey[UserRole.SUPERVISOR],
-          mapUserRoleEnumToKey[UserRole.BUYER],
-        ].includes(viewModel.user.role) ? (
-          <>
-            <Typography variant="h6" className={classNames.title}>
-              {t(TranslationKey['Active offers on the commodity exchange'])}
-            </Typography>
-
-            <MemoDataGrid
-              pagination
-              useResizeContainer
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              localeText={getLocalizationByLanguageTag()}
-              sortModel={viewModel.sortModel}
-              filterModel={viewModel.filterModel}
-              columnVisibilityModel={viewModel.columnVisibilityModel}
-              paginationModel={viewModel.paginationModel}
-              pageSizeOptions={[15, 25, 50, 100]}
-              rows={viewModel.getCurrentData()}
-              rowHeight={100}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-              }}
-              slotProps={{
-                toolbar: {
-                  columsBtnSettings: {
-                    columnsModel: viewModel.columnsModel,
-                    columnVisibilityModel: viewModel.columnVisibilityModel,
-                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                  },
+          <CustomDataGrid
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            rows={viewModel.currentData}
+            rowHeight={100}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              toolbar: {
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                 },
-              }}
-              density={viewModel.densityModel}
-              columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.isLoading}
-              onSortModelChange={viewModel.onChangeSortingModel}
-              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onChangePaginationModelChange}
-              onFilterModelChange={viewModel.onChangeFilterModel}
-            />
-          </>
-        ) : null}
-      </MainContent>
-      <Modal openModal={viewModel.showTabModal} setOpenModal={viewModel.onTriggerShowTabModal}>
+              },
+            }}
+            density={viewModel.densityModel}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+          />
+        </>
+      ) : null}
+
+      <Modal openModal={viewModel.showTabModal} setOpenModal={() => viewModel.onTriggerOpenModal('showTabModal')}>
         <ContentModal
-          setOpenModal={viewModel.onTriggerShowTabModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showTabModal')}
           selected={viewModel.selectedUser}
           managersList={CLIENT_USER_MANAGERS_LIST}
         />
@@ -131,29 +98,39 @@ export const UserProfileViewRaw = props => {
 
       <Modal
         openModal={viewModel.showUserInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
+        setOpenModal={() => {
+          viewModel.onTriggerOpenModal('showUserInfoModal')
+          viewModel.onTriggerEnterInformation()
+        }}
       >
         <UserInfoEditForm
-          user={viewModel.user}
+          resetProfileDataValidation={viewModel.resetProfileDataValidation}
+          user={viewModel.userInfo}
           clearError={viewModel.clearError}
           wrongPassword={viewModel.wrongPassword}
           checkValidationNameOrEmail={viewModel.checkValidationNameOrEmail}
+          activeSessions={viewModel.activeSessions}
+          userInfoEditFormFlag={viewModel.userInfoEditFormFlag}
+          onToggleUserInfoEditFormFlag={viewModel.onToggleUserInfoEditFormFlag}
+          onLogoutSession={viewModel.onLogoutSession}
           onSubmit={viewModel.onSubmitUserInfoEdit}
           onCloseModal={() => viewModel.onTriggerOpenModal('showUserInfoModal')}
         />
       </Modal>
 
-      <WarningInfoModal
-        openModal={viewModel.showInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showInfoModal')}
-        title={viewModel.warningInfoModalTitle}
-        btnText={t(TranslationKey.Close)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showInfoModal')
-        }}
-      />
+      {viewModel.showConfirmWorkResultFormModal ? (
+        <RequestProposalAcceptOrRejectResultForm
+          // @ts-ignore
+          openModal={viewModel.showConfirmWorkResultFormModal}
+          title={t(TranslationKey['Confirm acceptance of the work result'])}
+          rateLabel={t(TranslationKey['Rate the performer'])}
+          reviewLabel={t(TranslationKey["Review of the performer's work"])}
+          confirmButtonText={t(TranslationKey.Confirm)}
+          cancelBtnText={t(TranslationKey.Reject)}
+          onSubmit={viewModel.onAcceptReview}
+          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+        />
+      ) : null}
     </>
   )
-}
-
-export const UserProfileView = withStyles(observer(UserProfileViewRaw), styles)
+})

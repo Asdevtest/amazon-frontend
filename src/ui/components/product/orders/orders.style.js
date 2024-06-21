@@ -1,15 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   mainWrapper: {
-    gap: '5px',
+    gap: 5,
     width: '100%',
     flexDirection: 'column',
-    height: '80vh',
+    height: '79vh',
   },
 
-  row: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    transition: '0.3s ease',
+  modalWrapper: {
+    height: 650,
   },
 }))

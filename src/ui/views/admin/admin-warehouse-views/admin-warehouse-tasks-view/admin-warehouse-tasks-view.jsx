@@ -1,58 +1,51 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { useStyles } from './admin-warehouse-tasks-view.style'
 
 import { AdminWarehouseTasksViewModel } from './admin-warehouse-tasks-view.model'
-import { styles } from './admin-warehouse-tasks-view.style'
 
-export const AdminWarehouseTasksViewRaw = props => {
-  const [viewModel] = useState(() => new AdminWarehouseTasksViewModel({ history: props.history }))
-  const { classes: classNames } = props
+export const AdminWarehouseTasksView = observer(() => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new AdminWarehouseTasksViewModel())
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <MemoDataGrid
-          pagination
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
-          classes={{
-            row: classNames.row,
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
+    <>
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
+          rowCount={viewModel.rowsCount}
+          getRowId={row => row._id}
           getRowHeight={() => 'auto'}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -60,28 +53,26 @@ export const AdminWarehouseTasksViewRaw = props => {
               },
             },
           }}
-          density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
-      </MainContent>
+      </div>
+
       <Modal
         openModal={viewModel.showTaskInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
       >
         <EditTaskModal
           readOnly
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           task={viewModel.curOpenedTask}
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
-}
-
-export const AdminWarehouseTasksView = withStyles(observer(AdminWarehouseTasksViewRaw), styles)
+})

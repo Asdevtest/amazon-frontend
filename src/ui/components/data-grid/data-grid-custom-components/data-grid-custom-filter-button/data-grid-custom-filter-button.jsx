@@ -1,21 +1,20 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
+import { t } from 'i18n-js'
+import { useState } from 'react'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Menu, Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import { t } from 'i18n-js'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
-import { useClassNames } from './data-grid-custom-filter-button.style'
+import { ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './data-grid-custom-filter-button.style'
 
 export const DataGridCustomFilterButton = props => {
-  const { classes: classNames } = useClassNames()
-  const { className, ...other } = props
+  const { classes: styles, cx } = useStyles()
+  const { className } = props
 
   const [menuAnchor, setMenuAnchor] = useState(null)
 
@@ -29,24 +28,19 @@ export const DataGridCustomFilterButton = props => {
 
   return (
     <div>
-      <Button variant="text" className={cx(className, classNames.mainFilterBtn)} onClick={handleClick}>
-        <div className={cx(className, classNames.mainFilterBtnInsert)}>
+      <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
+        <div className={cx(className, styles.mainFilterBtnInsert)}>
           <FilterAltOutlinedIcon />
 
-          <Typography className={classNames.mainFilterBtnInsertText}>{t(TranslationKey['My filter'])}</Typography>
+          <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey['My filter'])}</Typography>
         </div>
       </Button>
 
-      <Menu
-        keepMounted
-        anchorEl={menuAnchor}
-        autoFocus={false}
-        open={Boolean(menuAnchor)}
-        // classes={{paper: classNames.menu, list: classNames.list}}
-        onClose={handleClose}
-      >
-        <div style={{ /* background: 'green', */ width: '2000px', height: 200 }}></div>
-      </Menu>
+      {Boolean(menuAnchor) && (
+        <Menu keepMounted anchorEl={menuAnchor} autoFocus={false} open={Boolean(menuAnchor)} onClose={handleClose}>
+          <div style={{ width: '2000px', height: 200 }}></div>
+        </Menu>
+      )}
     </div>
   )
 }

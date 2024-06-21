@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
   },
@@ -20,13 +20,6 @@ export const useClassNames = makeStyles()(theme => ({
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'end',
-  },
-
-  photoWrapper: {
-    // display: 'flex',
-    width: '23%',
-    height: 290,
-    marginRight: 15,
   },
 
   subWrapper: {
@@ -134,7 +127,7 @@ export const useClassNames = makeStyles()(theme => ({
   carouselImage: {
     width: 333,
     height: 241,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     objectFit: 'contain',
   },
 }))

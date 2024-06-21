@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
@@ -47,7 +47,6 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: 30,
   },
 
   infoSubWrapper: {
@@ -56,5 +55,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   infoContainer: {
     width: '100%',
+    marginBottom: '30px',
+    [theme.breakpoints.down(768)]: {
+      marginBottom: '25px',
+    },
   },
 }))

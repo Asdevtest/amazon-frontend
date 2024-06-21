@@ -1,20 +1,25 @@
-/* eslint-disable no-unused-vars */
 import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from 'date-fns'
 import QueryString from 'qs'
 
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { getTranslationNotificationType } from '@constants/notifications/notification-type'
+import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
-import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
+import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { boxStatusTranslateKey } from '@constants/statuses/box-status'
+import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
+import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
+import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
+import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_MINUTES, ONE_HOUR_IN_SECONDS, ONE_MINUTES_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsAbsoluteUrl } from '@utils/checks'
 
+import { Notification } from '@typings/enums/notification'
+
 import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
-import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
-import { OrderStatusByCode, OrderStatusTranslate } from '@constants/statuses/order-status'
 
 export const getShortenStringIfLongerThanCount = (str, count, showEnd) =>
   str?.length > count ? `${str.slice(0, count)}...${showEnd ? str.slice(str.length - 3) : ''}` : str
@@ -24,11 +29,11 @@ export const getModelNameWithotPostfix = modelName =>
 
 export const trimBarcode = value => (value && value.length >= 8 ? String(value.substr(-8)) : value)
 
-export const toFixed = (int, x) => (int && typeof int === 'number' ? int.toFixed(x) : int)
+export const toFixed = (int, x = 2) => (int && typeof int === 'number' ? int.toFixed(x) : int)
 
 export const getFloatOrZero = str => (str ? parseFloat(str) || 0 : 0)
 
-export const toFixedWithDollarSign = (int, x) => withDollarSign(toFixed(int, x))
+export const toFixedWithDollarSign = (int, x = 2) => withDollarSign(toFixed(int, x))
 export const toFixedWithYuanSign = (int, x) => withYuanSign(toFixed(int, x))
 
 export const toFixedWithKg = (int, x) => withKg(toFixed(int, x))
@@ -48,6 +53,8 @@ export const clearSpecialCharacters = value =>
   typeof value === 'string' ? value.replace(/[{}"!@#$%^&*()+=;:`~|'?/.><, ]/, '') : value
 
 export const clearEverythingExceptNumbers = value => (typeof value === 'string' ? value.replace(/\D/gi, '') : value)
+
+export const removeText = (originalText, valueToRemove) => originalText.replaceAll(valueToRemove, '')
 
 export const shortenDocumentString = value => {
   if (typeof value === 'string') {
@@ -70,49 +77,55 @@ export const minsToTime = mins => {
     return `${days >= 1 ? Math.floor(days) + ' ' + t(TranslationKey.days) : ''} ${
       hours >= 1
         ? hours <= 23
-          ? hours + ' ' + t(TranslationKey.hour)
-          : (hours % 24) + ' ' + t(TranslationKey.hour)
+          ? Math.floor(hours) + ' ' + t(TranslationKey.hour)
+          : Math.floor(hours % 24) + ' ' + t(TranslationKey.hour)
         : ''
-    } ${lastMins === 0 ? '' : lastMins + ' ' + t(TranslationKey.minute) + '.'}`
+    } ${
+      Math.floor(lastMins) === 0
+        ? Math.floor(lastMins * 60) + ' ' + t(TranslationKey.sec)
+        : Math.floor(lastMins) + ' ' + t(TranslationKey.minute) + '.'
+    }`
   } else {
     return null
   }
 }
 
-export const getFullTariffTextForBoxOrOrder = box => {
-  if (!box || (!box.destination && !box.logicsTariff)) {
-    return t(TranslationKey['Not available'])
+export const secondsToTime = secs => {
+  if (secs >= ONE_MINUTES_IN_SECONDS) {
+    const days = Math.floor(secs / ONE_DAY_IN_SECONDS)
+    const hours = Math.floor((secs % ONE_DAY_IN_SECONDS) / ONE_HOUR_IN_SECONDS)
+    const minutes = Math.floor((secs % ONE_HOUR_IN_SECONDS) / ONE_HOUR_IN_MINUTES)
+    const seconds = Math.floor(secs % ONE_MINUTES_IN_SECONDS)
+
+    return {
+      days,
+      hours,
+      minutes,
+      seconds,
+    }
+  } else {
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: secs,
+    }
   }
-
-  const firstNumOfCode = box.destination?.zipCode?.[0] || null
-
-  const regionOfDeliveryName =
-    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  return `${box.logicsTariff?.name || ''}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-    box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
-      ? ' / ' + box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate + '$'
-      : ''
-  }`
 }
 
 export const getNewTariffTextForBoxOrOrder = (box, withoutRate) => {
-  if (!box || (!box.destination && !box.logicsTariff)) {
+  if (!box || !box.logicsTariff) {
     return t(TranslationKey['Not available'])
   }
 
-  const firstNumOfCode = box.destination?.zipCode?.[0] || null
+  const rate = box?.lastRateTariff || box?.variationTariff?.pricePerKgUsd
 
-  const regionOfDeliveryName =
-    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const rate = box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
-
-  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixed(rate, 2) + '$' : ''}`
+  return `${box.logicsTariff?.name || ''}${rate && !withoutRate ? ' / ' + toFixedWithDollarSign(rate, 2) : ''}`
 }
 
 export const shortSku = value => getShortenStringIfLongerThanCount(value, 12)
 export const shortAsin = value => getShortenStringIfLongerThanCount(value, 10)
+export const shortLink = value => getShortenStringIfLongerThanCount(value, 12)
 
 export const timeToDeadlineInHoursAndMins = ({ date, withSeconds, now }) => {
   const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)
@@ -143,7 +156,7 @@ export const timeToDeadlineInDaysAndHours = ({ date, now }) => {
 
   const hours = Math.floor((absSecondsToDeadline % (3600 * 24)) / 3600)
 
-  return !isExpired ? `${days} ${t(TranslationKey.days)} ${hours} ${t(TranslationKey.hour)}` : ''
+  return !isExpired ? `${days} ${t(TranslationKey.days)} ${hours} ${t(TranslationKey.hour)}` : t(TranslationKey.Expired)
 }
 
 export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replaceAll('&', ';')).replaceAll('%24', '$')
@@ -168,8 +181,49 @@ export const getTableByColumn = (column, hint) => {
       'clientComment',
       'buyerComment',
       'partiallyPaid',
+      'boxesCount',
+      'etd',
+      'eta',
+      'cls',
+      'trackingNumber',
+      'arrivalDate',
+      'deliveryTotalPrice',
+      'partialPaymentAmountRmb',
+      'batchHumanFriendlyId',
+      'proposalSub',
+      'quantityBoxes',
+      'updatedAt',
     ].includes(column)
   ) {
+    if (
+      ['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate', 'quantityBoxes', 'updatedAt'].includes(
+        column,
+      ) &&
+      hint === 'batches'
+    ) {
+      return 'batches'
+    }
+
+    if (['updatedAt'].includes(column) && hint === 'products') {
+      return 'products'
+    }
+
+    if (column === 'batchHumanFriendlyId' && hint === 'boxes') {
+      return 'batches'
+    }
+
+    if (['totalPrice'].includes(column) && hint === 'batches') {
+      return 'orders'
+    }
+
+    if (['buyerComment', 'createdBy', 'sub', 'status', 'updatedAt'].includes(column) && hint === 'ideas') {
+      return 'ideas'
+    }
+
+    if (['amount'].includes(column) && hint === 'ideas') {
+      return 'products'
+    }
+
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'requests') {
@@ -182,9 +236,17 @@ export const getTableByColumn = (column, hint) => {
   } else if (
     [
       'asin',
-      'skusByClient',
+      'skuByClient',
       'amazonTitle',
-      'shopIds',
+      'parentProductSkuByClient',
+      'parentProductAmazonTitle',
+      'parentProductAsin',
+      'childProductAmazonTitle',
+      'childProductSkuByClient',
+      'childProductAsin',
+      'shopId',
+      'shop',
+      'announcement',
       'strategyStatus',
       'amountInOrders',
       'stockUSA',
@@ -203,33 +265,86 @@ export const getTableByColumn = (column, hint) => {
       'purchaseQuantity',
       'ideasClosed',
       'ideasVerified',
+      'ideasFinished',
       'bsr',
       'fbaamount',
       'client',
+      'buyer',
+      'childProductShop',
+      'parentProductShop',
+      'supervisor',
+      'margin',
+      'checkedBy',
+      'checkednotes',
+      'currentSupplier',
+      'weight',
+      'createdAt',
+      'updatedAt',
+      'trackNumberText',
+      'minProductionTerm',
+      'maxProductionTerm',
     ].includes(column)
   ) {
-    // if (hint === 'requests') {
-    //   return 'requests'
-    // } else {
+    if (['buyer', 'createdAt', 'updatedAt'].includes(column) && hint === 'orders') {
+      return 'orders'
+    } else if (['childProductShop', 'parentProductShop'].includes(column) && hint === 'ideas') {
+      return 'products'
+    } else if (['minProductionTerm', 'maxProductionTerm'].includes(column) && hint === 'orders') {
+      return 'suppliers'
+    } else if (
+      [
+        'parentProductSkuByClient',
+        'parentProductAmazonTitle',
+        'parentProductAsin',
+        'childProductAmazonTitle',
+        'childProductSkuByClient',
+        'childProductAsin',
+      ].includes(column) &&
+      hint === 'ideas'
+    ) {
+      return 'products'
+    } else if (hint === 'ideas') {
+      return 'ideas'
+    } else if (['createdAt', 'updatedAt', 'trackNumberText', 'client'].includes(column) && hint === 'boxes') {
+      return 'boxes'
+    } else if (['announcement'].includes(column) && hint === 'requests') {
+      return 'requests'
+    }
     return 'products'
-    // }
-  } else if (['status', 'updatedAt', 'createdAt', 'tags', 'redFlags'].includes(column)) {
+  } else if (
+    [
+      'status',
+      'updatedAt',
+      'createdAt',
+      'tags',
+      'redFlags',
+      'createdBy',
+      'taskComplexity',
+      'reasonReject',
+      'createdBy',
+      'sub',
+    ].includes(column)
+  ) {
     if (hint === 'orders') {
       return 'orders'
     } else if (hint === 'boxes') {
       return 'boxes'
     } else if (hint === 'products') {
       return 'products'
+    } else if (hint === 'batches') {
+      return 'batches'
+    } else if (hint === 'ideas') {
+      return 'ideas'
     } else {
       return 'requests'
     }
   } else if (
     [
       'title',
-      'typeTask',
+      'spec',
       'price',
       'timeoutAt',
-      'createdBy',
+      // 'createdBy',
       'subUsers',
       'priority',
       'priceAmazon',
@@ -240,28 +355,157 @@ export const getTableByColumn = (column, hint) => {
     if (hint === 'orders') {
       return 'orders'
     }
+    if (hint === 'batches') {
+      return 'batches'
+    }
+    if (hint === 'ideas') {
+      return 'ideas'
+    }
 
     return 'requests'
-  } else if (['productionTerm'].includes(column)) {
+  } else if (['productionTerm', 'minlot'].includes(column)) {
     return 'suppliers'
+  } else if (['finalWeight'].includes(column)) {
+    return 'batches'
+  } else if (
+    [
+      'comments',
+      'dateStatusOnCheck',
+      'minBatch',
+      'dateStatusProductCreating',
+      'dateStatusProductCreating',
+      'dateStatusAddingAsin',
+      'intervalStatusNew',
+      'intervalStatusOnCheck',
+      'intervalStatusSupplierSearch',
+      'intervalStatusSupplierFound',
+      'intervalStatusProductCreating',
+      'intervalStatusAddingAsin',
+      'intervalStatusFinished',
+      'intervalsSum',
+    ].includes(column)
+  ) {
+    return 'ideas'
   }
 }
 
 export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
   switch (columnKey) {
     case columnnsKeys.client.INVENTORY_STRATEGY_STATUS:
-      return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
+      return humanFriendlyStategyStatus(productStrategyStatusesEnum[status])
+
     case columnnsKeys.client.INVENTORY_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
+
+    case columnnsKeys.buyer.MY_PRODUCTS_STATUS:
+      return t(productStatusTranslateKey(ProductStatusByCode[status]))
+
     case columnnsKeys.client.FREELANCE_MY_REQUESTS:
       return MyRequestStatusTranslate(status)
+
     case columnnsKeys.client.FREELANCE_REQUEST_TYPE_MY:
-      return freelanceRequestTypeTranslate(freelanceRequestTypeByCode[status])
+      return freelanceRequestTypeByCode[status]
+
     case columnnsKeys.client.ORDERS_STATUS:
       return OrderStatusTranslate(OrderStatusByCode[status])
+
+    case columnnsKeys.client.IDEAS_STATUS:
+      return ideaStatusTranslate(ideaStatusByCode[status])
+    case columnnsKeys.admin.STRATEGY_STATUS:
+      return humanFriendlyStategyStatus(productStrategyStatusesEnum[status])
+
+    case columnnsKeys.shared.TASK_COMPLEXITY:
+      return difficultyLevelTranslate(difficultyLevelByCode[status])
+
+    case columnnsKeys.shared.TYPE:
+      return getTranslationNotificationType(status)
+
+    case columnnsKeys.box.SHOP:
+      return boxStatusTranslateKey(status)
+
     default:
       return status
   }
 }
 
 export const replaceCommaByDot = str => str.replaceAll(',', '.')
+
+const imgTypes = [
+  '.bmp',
+  '.cdr',
+  '.gif',
+  '.heif',
+  '.ico',
+  '.jpeg',
+  '.jpg',
+  '.pbm',
+  '.pcx',
+  '.pgm',
+  '.png',
+  '.ppm',
+  '.psd',
+  '.raw',
+  '.svg',
+  '.tga',
+  '.tif',
+  '.wbmp',
+  '.web',
+  '.xbm',
+  '.xpm',
+  '.jfif',
+  '.webp',
+]
+
+export const imagesRegex = new RegExp(`(https?:\\/\\/.*(?:${imgTypes.join('|')}))`, 'i')
+export const imagesWithPreviewRegex = new RegExp(`(https?:\\/\\/.*(?:${imgTypes.join('|')}))\\.preview\\.webp`, 'i')
+
+export const getHumanFriendlyNotificationType = type => {
+  switch (type) {
+    case Notification.Box:
+      return t(TranslationKey.Box)
+
+    case Notification.Order:
+      return t(TranslationKey.Order)
+
+    case Notification.Idea:
+      return t(TranslationKey.Idea)
+
+    case Notification.Request:
+      return t(TranslationKey.Request)
+
+    case Notification.Proposal:
+      return t(TranslationKey.Proposal)
+
+    case Notification.Shop:
+      return t(TranslationKey.Shop)
+
+    case Notification.Launch:
+      return t(TranslationKey.Launches)
+
+    default:
+      break
+  }
+}
+
+export const parseTextString = textValue => {
+  try {
+    if (textValue.startsWith('{"blocks":')) {
+      const parsedData = JSON.parse(textValue)
+
+      const texts = parsedData?.blocks?.map(block => block?.text)
+
+      return texts.join(' ')
+    } else {
+      return textValue
+    }
+  } catch (error) {
+    return textValue
+  }
+}
+
+export const formatCamelCaseString = str =>
+  str
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replaceAll(/([a-zA-Z])(\d)/g, '$1 $2')
+    .replaceAll(/(\d)([a-zA-Z])/g, '$1 $2')
+    .replace(/\b\w/g, c => c.toUpperCase())

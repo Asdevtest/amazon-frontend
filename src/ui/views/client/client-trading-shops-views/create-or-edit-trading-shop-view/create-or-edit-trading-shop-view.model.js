@@ -1,4 +1,5 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,39 +10,23 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditTradingShopViewModel {
   history = undefined
-  requestStatus = undefined
-  actionStatus = undefined
-
-  showInfoModal = false
-
   requestToEdit = undefined
-
-  infoModalText = ''
-
   uploadedFiles = []
-
-  readyImages = []
   progressValue = 0
   showProgress = false
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+  constructor({ history }) {
+    this.history = history
 
-      if (location.state) {
-        this.requestToEdit = location.state.request
-      }
-    })
+    if (history.location.state) {
+      this.requestToEdit = history.location.state.request
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async onSubmitCreateShopSell(data, files) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (files.length) {
         await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
@@ -50,21 +35,10 @@ export class CreateOrEditTradingShopViewModel {
 
       await ShopSellModel.createShopSell(dataWithFiles)
 
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['An request has been created'])
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.success(t(TranslationKey['An request has been created']))
     } catch (error) {
-      console.log(error)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The request was not created'])
-      })
-      this.onTriggerOpenModal('showInfoModal')
-
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
+      toast.error(t(TranslationKey['The request was not created']))
     }
   }
 
@@ -78,32 +52,14 @@ export class CreateOrEditTradingShopViewModel {
 
       await ShopSellModel.editShopSell(this.requestToEdit._id, dataWithFiles)
 
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The request has been changed'])
-      })
-      this.onTriggerOpenModal('showInfoModal')
+      toast.success(t(TranslationKey['The request has been changed']))
     } catch (error) {
-      console.log(error)
-
-      runInAction(() => {
-        this.infoModalText = t(TranslationKey['The request has not been changed'])
-      })
-      this.onTriggerOpenModal('showInfoModal')
-
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
+      toast.error(t(TranslationKey['The request has not been changed']))
     }
   }
 
-  onClickOkInfoModal() {
-    this.onTriggerOpenModal('showInfoModal')
-    this.history.goBack()
-  }
-
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

@@ -1,8 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   batchesExistBlock: {
     width: '900px',
+    padding: 10,
     [theme.breakpoints.down(768)]: {
       width: '280px',
     },

@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   box: {
     width: 527,
     backgroundColor: theme.palette.background.second,
@@ -92,7 +92,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '27px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
   tablePanelViewText: {
     fontSize: '14px',
@@ -111,5 +111,9 @@ export const useClassNames = makeStyles()(theme => ({
   asinTextWrapper: {
     display: 'flex',
     gap: 5,
+  },
+
+  labelWrapperStyles: {
+    gap: 19,
   },
 }))

@@ -1,68 +1,42 @@
-import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
 import { routsPathes } from '@constants/navigation/routs-pathes'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
-import { toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { useStyles } from './buyer-my-orders-view.style'
+
+import { attentionStatuses, paymentMethodsReadOnlyStatuses } from './buyer-my-orders-view.constants'
 import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
-import { styles } from './buyer-my-orders-view.style'
+import { PaymentAllSuppliers } from './payment-all-suppliers/payment-all-suppliers'
 
-const attentionStatuses = [
-  OrderStatusByKey[OrderStatus.AT_PROCESS],
-  OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
-  OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
-]
+export const BuyerMyOrdersView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
 
-export const BuyerMyOrdersViewRaw = props => {
-  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history: props.history, location: props.location }))
-  const { classes: classNames } = props
+  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
-    viewModel.getDataGridState()
   }, [])
 
   const getRowClassName = params =>
     attentionStatuses.includes(params.row.originalData.status) &&
-    props.history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
-    classNames.attentionRow
-
-  const validOrderPayments =
-    viewModel.currentOrder && viewModel.currentOrder?.orderSupplier?.paymentMethods?.length
-      ? viewModel.currentOrder?.orderSupplier?.paymentMethods.filter(
-          method => !viewModel.currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-      : viewModel.paymentMethods.filter(
-          method => !viewModel.currentOrder?.payments.some(payment => payment.paymentMethod._id === method._id),
-        )
-
-  const payments = viewModel.currentOrder && [...viewModel.currentOrder.payments, ...validOrderPayments]
+    history.location.pathname === routsPathes.BUYER_MY_ORDERS_ALL_ORDERS &&
+    styles.attentionRow
 
   const isNoPaidedOrders = viewModel.orderStatusDataBase.some(
     status =>
@@ -71,108 +45,61 @@ export const BuyerMyOrdersViewRaw = props => {
   )
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div
-          className={cx(classNames.headerWrapper, {
-            [classNames.headerWrapperCenter]:
-              !viewModel.paymentAmount?.totalPriceInYuan &&
-              !viewModel.paymentAmount?.totalPriceInUSD &&
-              !viewModel.paymentAmount?.partialPaymentAmountRmb,
-          })}
-        >
-          {(viewModel.paymentAmount?.totalPriceInYuan ||
-            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD) ||
-            viewModel.paymentAmount?.partialPaymentAmountRmb) > 0 && <div className={classNames.totalPriceWrapper} />}
+    <>
+      <div className={styles.headerWrapper}>
+        <div className={styles.searchInput} />
 
-          <SearchInput
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item'])}
+          onSubmit={viewModel.onSearchSubmit}
+        />
 
-          {(viewModel.paymentAmount?.totalPriceInYuan ||
-            (isNoPaidedOrders && viewModel.paymentAmount?.totalPriceInUSD) ||
-            viewModel.paymentAmount?.partialPaymentAmountRmb) > 0 && (
-            <div className={classNames.totalPriceWrapper}>
-              <Typography className={classNames.totalPriceText}>
-                {isNoPaidedOrders ? t(TranslationKey.Sum) + ':' : t(TranslationKey['Payment to all suppliers']) + ':'}
-              </Typography>
-              <div className={classNames.totalPriceTextWrapper}>
-                <Typography className={cx(classNames.totalPriceText, classNames.totalPrice)}>
-                  {`${toFixedWithYuanSign(
-                    isNoPaidedOrders
-                      ? Number(viewModel.paymentAmount?.totalPriceInUSD) * Number(viewModel.yuanToDollarRate) +
-                          viewModel.paymentAmount?.partialPaymentAmountRmb
-                      : viewModel.paymentAmount?.totalPriceInYuan + viewModel.paymentAmount?.partialPaymentAmountRmb,
-                    2,
-                  )} ${t(TranslationKey.Or).toLocaleLowerCase()} ${toFixedWithDollarSign(
-                    viewModel.paymentAmount?.totalPriceInUSD +
-                      viewModel.paymentAmount?.partialPaymentAmountRmb / Number(viewModel.yuanToDollarRate),
-                    2,
-                  )}`}
-                </Typography>
-              </div>
-            </div>
-          )}
-        </div>
+        <PaymentAllSuppliers
+          paymentAmount={viewModel.paymentAmount}
+          isNoPaidedOrders={isNoPaidedOrders}
+          yuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
+        />
+      </div>
 
-        <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            getRowClassName={getRowClassName}
-            sortingMode="server"
-            paginationMode="server"
-            rowCount={viewModel.rowCount}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.currentData}
-            // rowHeight={100}
-            getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
-            slotProps={{
-              columnMenu: { ...viewModel.columnMenuSettings, orderStatusData: viewModel.orderStatusData },
+      <div className={styles.dataGridWrapper}>
+        <CustomDataGrid
+          getRowClassName={getRowClassName}
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: { ...viewModel.columnMenuSettings, orderStatusData: viewModel.orderStatusData },
 
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
+            toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
               },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
-          />
-        </div>
-      </MainContent>
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+            },
+          }}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onRowDoubleClick={e => viewModel.onClickOrder(e.row.originalData._id)}
+        />
+      </div>
 
       <Modal
         missClickModalOn
@@ -181,116 +108,42 @@ export const BuyerMyOrdersViewRaw = props => {
           viewModel.setUpdateSupplierData(false)
           viewModel.onTriggerOpenModal('showOrderModal')
         }}
-        dialogContextClassName={classNames.dialogContextClassName}
       >
         <EditOrderModal
           platformSettings={viewModel.platformSettings}
           paymentMethods={viewModel.paymentMethods}
-          imagesForLoad={viewModel.imagesForLoad}
-          hsCodeData={viewModel.hsCodeData}
           userInfo={viewModel.userInfo}
           updateSupplierData={viewModel.updateSupplierData}
-          pathnameNotPaid={viewModel.pathnameNotPaid}
-          yuanToDollarRate={viewModel.yuanToDollarRate}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          photosToLoad={viewModel.photosToLoad}
           requestStatus={viewModel.requestStatus}
-          boxes={viewModel.curBoxesOfOrder}
           order={viewModel.selectedOrder}
+          hsCodeData={viewModel.hsCodeData}
           modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS()}
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
-          setPhotosToLoad={viewModel.setPhotosToLoad}
           setUpdateSupplierData={viewModel.setUpdateSupplierData}
-          onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
           onClickUpdataSupplierData={viewModel.onClickUpdataSupplierData}
           onClickSaveWithoutUpdateSupData={viewModel.onClickSaveWithoutUpdateSupData}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
           onSaveOrderItem={viewModel.onSaveOrderItem}
-          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={viewModel.confirmModalSettings.isWarning}
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={viewModel.confirmModalSettings.title}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
-
-      <WarningInfoModal
-        openModal={viewModel.showNoDimensionsErrorModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
-        title={t(TranslationKey['The fields must be filled in to create the box!'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')
-        }}
-      />
-
-      <WarningInfoModal
-        openModal={viewModel.showWarningNewBoxesModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
-        title={t(TranslationKey['Creating new boxes. Be careful!'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningNewBoxesModal')
-        }}
-      />
-
-      <WarningInfoModal
-        isWarning={viewModel.warningInfoModalSettings.isWarning}
-        openModal={viewModel.showWarningInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        title={viewModel.warningInfoModalSettings.title}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningInfoModal')
-        }}
-      />
-
-      <WarningInfoModal
-        openModal={viewModel.showOrderPriceMismatchModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
-        title={t(
-          TranslationKey[
-            'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
-          ],
-        )}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')
-        }}
-      />
-
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={viewModel.showSuccessModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
-      />
-
-      <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
-      </Modal>
+      ) : null}
 
       <Modal
         missClickModalOn
@@ -298,14 +151,15 @@ export const BuyerMyOrdersViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
       >
         <PaymentMethodsForm
-          readOnly={Number(viewModel.currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
-          payments={payments}
+          readOnly={paymentMethodsReadOnlyStatuses.includes(viewModel.currentOrder?.status)}
+          orderPayments={viewModel.currentOrder?.payments}
+          allPayments={viewModel.paymentMethods}
           onClickSaveButton={state => viewModel.saveOrderPayment(viewModel.currentOrder, state)}
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
         />
       </Modal>
-    </React.Fragment>
-  )
-}
 
-export const BuyerMyOrdersView = withStyles(observer(BuyerMyOrdersViewRaw), styles)
+      {viewModel.requestStatus === loadingStatus.IS_LOADING && <CircularProgressWithLabel />}
+    </>
+  )
+})

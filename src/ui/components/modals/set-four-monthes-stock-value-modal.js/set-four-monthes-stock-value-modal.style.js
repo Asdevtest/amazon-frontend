@@ -1,9 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: '425px',
-    padding: '0 40px',
+    padding: 10,
   },
   modalTitle: {
     color: theme.palette.text.general,

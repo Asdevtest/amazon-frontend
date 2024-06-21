@@ -1,18 +1,17 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { UserModel } from '@models/user-model'
 
+import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 export class VacantDealsDetailsViewModel {
   history = undefined
-  requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
 
   requestId = undefined
   proposalId = undefined
@@ -28,27 +27,28 @@ export class VacantDealsDetailsViewModel {
   request = []
   requestProposals = []
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-      if (location.state) {
-        this.requestId = location.state.requestId
-        this.curProposalId = location.state.curProposalId
-        this.requester = location.state.requester
-      }
-    })
+  constructor({ history }) {
+    this.history = history
+
+    if (history.location.state) {
+      this.requestId = history.location.state.requestId
+      this.curProposalId = history.location.state.curProposalId
+      this.requester = history.location.state.requester
+    }
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  get user() {
+  get userInfo() {
     return UserModel.userInfo
   }
 
-  async loadData() {
+  loadData() {
     try {
-      await Promise.all([this.getDealsVacantCur(), this.getCustomRequestById()])
+      this.getDealsVacantCur()
+      this.getCustomRequestById()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -60,10 +60,7 @@ export class VacantDealsDetailsViewModel {
         this.request = result
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -75,92 +72,85 @@ export class VacantDealsDetailsViewModel {
         this.requestProposals = result
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   async onClickConfirmDeal(data) {
     try {
       await RequestProposalModel.requestProposalResultAccept(this.proposalId, { ...data })
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
+
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/deals-on-review`)
+
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   async onClickRejectDeal(data) {
     try {
       await RequestProposalModel.requestProposalCancel(this.proposalId, { ...data })
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
+
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/deals-on-review`)
+
       this.onTriggerOpenModal('showRejectModal')
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   async onClickReworkDeal(data, files) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (files.length) {
         await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
       }
+
       await RequestProposalModel.requestProposalResultToCorrect(this.proposalId, {
         ...data,
         linksToMediaFiles: this.uploadedFiles,
       })
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
+
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/deals-on-review`)
+
       this.onTriggerOpenModal('showReworkModal')
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   onClickConfirmDealModal(id) {
-    runInAction(() => {
-      this.proposalId = id
-    })
+    this.proposalId = id
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   onClickReworkDealModal(id) {
-    runInAction(() => {
-      this.proposalId = id
-    })
+    this.proposalId = id
+
     this.onTriggerOpenModal('showReworkModal')
   }
 
+  onSubmitSendInForRework(id) {
+    this.confirmModalSettings = {
+      isWarning: false,
+      message: t(TranslationKey['Are you sure you want to send the result for rework?']),
+      onSubmit: () => {
+        this.onTriggerOpenModal('showConfirmModal')
+        this.onClickReworkDealModal(id)
+      },
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
   onClickRejectDealModal(id) {
-    runInAction(() => {
-      this.proposalId = id
-    })
+    this.proposalId = id
+
     this.onTriggerOpenModal('showRejectModal')
   }
 
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
-  }
-
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

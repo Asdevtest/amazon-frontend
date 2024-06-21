@@ -1,12 +1,14 @@
-import React, { ChangeEvent, FC, useState } from 'react'
-import { useSupplierPriceVariationSelectorStyles } from '@components/product/suplier-price-variation-selector/supplier-price-variation-selector.styles'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
+
 import { Typography } from '@mui/material'
-import { Field } from '@components/shared/field'
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
-import { Input } from '@components/shared/input'
-import { cx } from '@emotion/css'
-import { t } from '@utils/translations'
+
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { useStyles } from '@components/product/suplier-price-variation-selector/supplier-price-variation-selector.style'
+import { Field } from '@components/shared/field'
+
+import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
+import { t } from '@utils/translations'
 
 interface VariationType {
   quantity: number
@@ -19,10 +21,19 @@ interface SupplierPriceVariationSelectorProps {
   isEditMode: boolean
 }
 
-export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorProps> = props => {
-  const { classes: styles } = useSupplierPriceVariationSelectorStyles()
+export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorProps> = ({
+  isEditMode,
+  currentVariations,
+  updateVariationList,
+}) => {
+  const { classes: styles, cx } = useStyles()
 
-  const [variationList, setVariationList] = useState<VariationType[]>(props.currentVariations || [])
+  const [variationList, setVariationList] = useState<VariationType[]>([])
+
+  useEffect(() => {
+    setVariationList(currentVariations)
+  }, [currentVariations])
+
   const [quantity, setQuantity] = useState<string>('')
   const [price, setPrice] = useState<string>('')
 
@@ -31,20 +42,20 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
     setVariationList(newList)
     setQuantity('')
     setPrice('')
-    props.updateVariationList(newList)
+    updateVariationList(newList)
   }
 
   const handleRemoveVariation = (id: number) => {
     const newList = variationList.filter((el, index) => index !== id)
     setVariationList(newList)
-    props.updateVariationList(newList)
+    updateVariationList(newList)
   }
 
   return (
     <div className={styles.body}>
       <Typography className={styles.title}>{t(TranslationKey['Price variations'])}:</Typography>
       <div className={styles.content}>
-        {props.isEditMode && (
+        {isEditMode && (
           <div className={styles.creationBlock}>
             <Field
               containerClasses={styles.field}
@@ -59,7 +70,7 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
                     setQuantity(String(999_999))
                     return
                   }
-                  setQuantity(e.target.value)
+                  setQuantity(String(Math.trunc(Number(e.target.value))))
                 }
               }}
             />
@@ -111,7 +122,7 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
                     label={`${t(TranslationKey.Cost)},¥`}
                     value={el.price}
                   />
-                  {props.isEditMode && (
+                  {isEditMode && (
                     <button
                       className={cx(styles.removeBtn, styles.controlButton)}
                       onClick={() => handleRemoveVariation(index)}

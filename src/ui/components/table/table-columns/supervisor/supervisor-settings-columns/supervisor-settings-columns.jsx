@@ -1,15 +1,15 @@
-import React from 'react'
-
-// import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
-  EditOrRemoveIconBtnsCell,
+  ActionButtonsCell,
   MultilineTextAlignLeftCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  MultilineTextHeaderCell,
+} from '@components/data-grid/data-grid-cells'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const supervisorSettingsViewColumns = handlers => [
   {
@@ -27,15 +27,28 @@ export const supervisorSettingsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reason)} />,
 
     width: 535,
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 150,
-    renderCell: params => <EditOrRemoveIconBtnsCell handlers={handlers} row={params.row} />,
+    width: 100,
+    renderCell: params => (
+      <ActionButtonsCell
+        row
+        iconButton
+        isFirstButton
+        isSecondButton
+        firstButtonElement={<EditIcon />}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonElement={<CrossIcon />}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onClickEditBtn(params.row)}
+        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

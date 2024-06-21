@@ -1,29 +1,23 @@
-/* eslint-disable import/no-unresolved */
+import { useEffect, useState } from 'react'
 
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { Typography } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 
-import React, { useEffect, useState } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomImageGalleryList } from '@components/requests-and-request-proposals/custom-image-gallery-list'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { FilesCarousel } from '@components/shared/files-carousel'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './custom-request-details.style'
+import { useStyles } from './custom-request-details.style'
 
-export const CustomSearchRequestDetails = ({ request, isOpen }) => {
-  const { classes: classNames } = useClassNames()
+export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
+  const { classes: styles } = useStyles()
 
-  const [showDetails, setShowDetails] = useState(!!isOpen)
+  const [showDetails, setShowDetails] = useState(isOpen)
 
   useEffect(() => setShowDetails(isOpen), [isOpen])
 
@@ -32,39 +26,31 @@ export const CustomSearchRequestDetails = ({ request, isOpen }) => {
   }
 
   return (
-    <div className={classNames.root}>
-      <Accordion
-        classes={{ root: classNames.accordion }}
-        // style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
-        expanded={showDetails}
-        onChange={onClickToShowDetails}
-      >
+    <div className={styles.root}>
+      <Accordion classes={{ root: styles.accordion }} expanded={showDetails} onChange={onClickToShowDetails}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classNames.title}>{t(TranslationKey['Detailed application description'])}</Typography>
+          <p className={styles.title}>{t(TranslationKey['Detailed application description'])}</p>
         </AccordionSummary>
 
-        <AccordionDetails classes={{ root: classNames.details }} style={{ padding: 0 }}>
-          <div className={classNames.mainWrapper}>
-            <div className={classNames.filesWrapper}>
-              <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Files)}</Typography>
+        <AccordionDetails classes={{ root: styles.details }} style={{ padding: 0 }}>
+          <div className={styles.mainWrapper}>
+            <div className={styles.filesWrapper}>
+              <p className={styles.title}>{t(TranslationKey.Files)}</p>
 
-              <div className={classNames.conditionsPhotosWraper}>
-                <Typography className={classNames.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
-                <CustomImageGalleryList files={request?.request?.media} />
-              </div>
-
-              <div>
-                <Typography className={cx(classNames.conditionsSubLabel, classNames.filesLabel)}>
-                  {t(TranslationKey.Files)}
-                </Typography>
-                <FilesCarousel files={request?.request?.media?.map(el => el.fileLink)} />
-              </div>
+              <SlideshowGallery slidesToShow={2} files={request?.request?.media} />
             </div>
 
-            <div className={classNames.conditionsFieldWrapper}>
-              <Typography className={classNames.conditionsLabel}>{t(TranslationKey.Description)}</Typography>
+            <div className={styles.filesWrapper}>
+              <p className={styles.title}>{t(TranslationKey.Description)}</p>
 
-              <CustomTextEditor readOnly conditions={request?.details?.conditions} changeConditions={undefined} />
+              {request?.details?.conditions ? (
+                <CustomTextEditor
+                  readOnly
+                  value={request?.details?.conditions}
+                  editorClassName={styles.textEditor}
+                  editorWrapperClassName={styles.editorWrapper}
+                />
+              ) : null}
             </div>
           </div>
         </AccordionDetails>

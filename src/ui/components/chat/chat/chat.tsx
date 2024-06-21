@@ -1,84 +1,71 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { cx } from '@emotion/css'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
-import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import { ChangeEvent, FC, KeyboardEvent, ReactElement, memo, useEffect, useRef, useState } from 'react'
+import 'react-mde/lib/styles/css/react-mde-all.css'
+import { VirtuosoHandle } from 'react-virtuoso'
 
-import { Avatar, ClickAwayListener, InputAdornment, Typography } from '@mui/material'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
+import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-import React, { FC, KeyboardEvent, ReactElement, useContext, useEffect, useRef, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import 'react-mde/lib/styles/css/react-mde-all.css'
-
 import { chatsType } from '@constants/keys/chats'
-import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ChatModel } from '@models/chat-model'
 import { ChatContract } from '@models/chat-model/contracts'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/buttons/button'
-import { MemberPlus, Pencil } from '@components/shared/svg-icons'
+import { Button } from '@components/shared/button'
+import { CircleSpinner } from '@components/shared/circle-spinner'
+import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared/svg-icons'
 
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { checkIsExternalVideoLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
+import { loadingStatus } from '@typings/enums/loading-status'
+import { PaginationDirection } from '@typings/enums/pagination-direction'
+import { UploadFileType } from '@typings/shared/upload-file'
 
-import { CurrentOpponent, IFile } from '../multiple-chats'
-import { ChatFilesInput } from './chat-files-input'
-import { ChatMessagesList, ChatMessageUniversalHandlers } from './chat-messages-list'
-import { useClassNames } from './chat.style'
-import { ChatMessageByType } from './chat-messages-list/chat-message-by-type'
-import { toFixed } from '@utils/text'
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-export interface RenderAdditionalButtonsParams {
-  message: string
-  files: IFile[]
-}
+import { useStyles } from './chat.style'
 
-export interface OnEmojiSelectEvent {
-  id: string
-  keywords: string[]
-  name: string
-  native: string
-  shortcodes: string
-  unified: string
-}
+import { CurrentOpponent } from '../multiple-chats'
 
-export interface MessageStateParams {
-  message: string
-  files: IFile[]
-}
+import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './components/chat-messages-list/components/chat-messages/chat-message-designer-proposal-edited-result'
+import { ChatCurrentReplyMessage, ChatFilesInput, ChatInfo, ChatMessagesList } from './components/index'
+import { OnEmojiSelectEvent, RenderAdditionalButtonsParams } from './helpers/chat.interface'
+import { useChatInputControl } from './hooks/use-chat-area'
+import { usePrevious } from './hooks/use-previous'
 
-interface Props {
+interface ChatProps {
   chat: ChatContract
   messages: ChatMessageContract[]
   userId: string
   currentOpponent?: CurrentOpponent
-  chatMessageHandlers?: ChatMessageUniversalHandlers
+  chatMessageHandlers?: ChatMessageRequestProposalDesignerResultEditedHandlers
   toScrollMesId?: string | undefined
   messagesFound?: ChatMessageContract[]
+  isFreelanceOwner?: boolean
   searchPhrase?: string
-
+  classNamesWrapper?: string
+  requestStatus: loadingStatus
+  headerChatComponent?: (...args: { [key: string]: any }[]) => ReactElement
+  onChangeRequestStatus: (status: loadingStatus) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, files: IFile[], replyMessageId: string | null) => void
-  updateData: () => void
+  onSubmitMessage: (message: string, files: UploadFileType[], replyMessageId: string | null) => void
   onTypingMessage: (chatId: string) => void
-  onClickBackButton: () => void
   onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
 }
 
-export const Chat: FC<Props> = observer(
+export const Chat: FC<ChatProps> = memo(
   ({
     searchPhrase,
     toScrollMesId,
@@ -88,62 +75,159 @@ export const Chat: FC<Props> = observer(
     userId,
     currentOpponent,
     chatMessageHandlers,
+    headerChatComponent,
     onSubmitMessage,
     renderAdditionalButtons,
-    updateData,
     onTypingMessage,
-    onClickBackButton,
     onClickAddUsersToGroupChat,
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
+    isFreelanceOwner,
+    classNamesWrapper,
+    requestStatus,
+    onChangeRequestStatus,
   }) => {
-    const messageInput = useRef<HTMLTextAreaElement | null>(null)
-    const messagesWrapperRef = useRef<HTMLDivElement | null>(null)
+    const { classes: styles, cx } = useStyles()
+    const { isTabletResolution } = useCreateBreakpointResolutions()
 
-    const [startMessagesCount, setStartMessagesCount] = useState(0)
-    const [unreadMessages, setUnreadMessages] = useState<null | ChatMessageContract[]>([])
-
-    const [showFiles, setShowFiles] = useState(false)
-
-    const [showEmojis, setShowEmojis] = useState(false)
-
-    const [showGroupSettings, setShowGroupSettings] = useState(false)
-
-    const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
-
-    const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
-    const [messageToScroll, setMessageToScroll] = useState<null | ChatMessageContract>(null)
-
-    // console.log('chatRequestAndRequestProposal', chatRequestAndRequestProposal)
-
-    const isGroupChat = chat.type === chatsType.GROUP
-
-    const [focused, setFocused] = useState(false)
-    const onFocus = () => setFocused(true)
-    const onBlur = () => setFocused(false)
-
-    const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
+    const messageInitialState = {
       message: '',
       files: [],
     }
 
-    const [message, setMessage] = useState(messageInitialState.message)
+    const {
+      showFiles,
+      setShowFiles,
 
-    const [files, setFiles] = useState<IFile[]>(
-      messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
-    )
+      message,
+      setMessage,
 
+      files,
+      setFiles,
+
+      isShowEmojis,
+      setIsShowEmojis,
+
+      focused,
+      disabledSubmit,
+
+      onPasteFiles,
+      onFocus,
+      onBlur,
+      changeMessageAndState,
+      resetAllInputs,
+      changeFilesAndState,
+    } = useChatInputControl(messageInitialState)
+
+    const START_INDEX = Math.max(chat?.messagesCount || 0, 1000000000)
+    const prevChatId = usePrevious(chat?._id)
+
+    const messageInput = useRef<HTMLTextAreaElement | null>(null)
+    const messagesWrapperRef = useRef<VirtuosoHandle | undefined>(null)
+    const highlightTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+    const [isShowChatInfo, setIsShowChatInfo] = useState(false)
+    const [isShowScrollToBottomBtn, setIsShowScrollToBottomBtn] = useState(false)
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 
+    const [messageToReply, setMessageToReply] = useState<null | ChatMessageContract>(null)
+    const [messageToScroll, setMessageToScroll] = useState<number | undefined>(undefined)
+    const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX - messages.length)
+
+    const [messageToFind, setMessageToFind] = useState<number | undefined>(undefined)
+
+    const isGroupChat = chat.type === chatsType.GROUP && !isFreelanceOwner
+    const userContainedInChat = chat.users.some(el => el._id === userId)
+
+    // FIXME: Костыль
+    // Описание костыля: если в чате нет выбранного replyMessage, фронт делает запрос, оно загружается, но массив сообщений не успевает обновится => messageIndex === -1
+    // Чтобы избегать, был создан стейт messageToFind, в котором хранится индекс выбранного сообщения, когда массив сообщений обновляется
+    // Только тогда происходит проскролл к нужному сообщению
+    // Как исправить: возможно поможет уйти от хранения сообщения в объекте чата
+    const handleLoadMoreMessages = async (direction?: PaginationDirection, selectedMessageId?: string) => {
+      if (requestStatus === loadingStatus.IS_LOADING) {
+        return
+      }
+
+      onChangeRequestStatus(loadingStatus.IS_LOADING)
+      if (selectedMessageId) {
+        const result = await ChatModel.getChatMessage(chat?._id, selectedMessageId)
+
+        if (result?.isExist) {
+          scrollToMessage(result?.messageIndex)
+        } else if (!result?.isExist) {
+          setMessageToFind(result?.messageIndex)
+        }
+      } else {
+        await ChatModel.getChatMessages?.(chat?._id, direction)
+
+        if (direction === PaginationDirection.NEXT) {
+          setFirstItemIndex(START_INDEX - messages.length)
+        }
+      }
+      onChangeRequestStatus(loadingStatus.SUCCESS)
+    }
+
+    // FIXME
     useEffect(() => {
-      setStartMessagesCount(messages.length)
-    }, [])
+      if (messageToFind !== undefined && messageToFind !== -1) {
+        scrollToMessage(messageToFind)
+        setFirstItemIndex(START_INDEX - messages.length)
+      }
+    }, [messages])
+
+    const handleScrollToBottomButtonVisibility = (bottomState: boolean) => setIsShowScrollToBottomBtn(!bottomState)
+
+    const onClickScrollToBottom = async () => {
+      if (!messagesWrapperRef.current) return
+
+      if (!chat.isAllPreviousMessagesLoaded) {
+        onChangeRequestStatus(loadingStatus.IS_LOADING)
+
+        await ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
+        setFirstItemIndex(START_INDEX - messages.length)
+
+        onChangeRequestStatus(loadingStatus.SUCCESS)
+      }
+
+      messagesWrapperRef.current?.scrollToIndex({ index: 'LAST' })
+    }
+
+    const onSubmitMessageInternal = async () => {
+      setMessageToReply(null)
+      resetAllInputs()
+      await onClickScrollToBottom()
+      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
+    }
+
+    const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
+      if (!isTabletResolution && !disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
+        onSubmitMessageInternal()
+        event.preventDefault()
+      }
+    }
+
+    const scrollToMessage = (messageIndex: number) => {
+      if (messagesWrapperRef?.current) {
+        if (highlightTimerRef.current) {
+          clearTimeout(highlightTimerRef.current)
+        }
+
+        messagesWrapperRef.current.scrollToIndex({ index: messageIndex })
+        setMessageToScroll(messageIndex)
+        setMessageToFind(undefined)
+
+        highlightTimerRef.current = setTimeout(() => {
+          setMessageToScroll(undefined)
+        }, 1000)
+      }
+    }
 
     useEffect(() => {
       if (isSendTypingPossible && message) {
-        onTypingMessage(chat._id)
+        onTypingMessage(chat?._id)
         setIsSendTypingPossible(false)
-        setTimeout(() => setIsSendTypingPossible(true), 3000)
+        setTimeout(() => setIsSendTypingPossible(true), 10000)
       }
     }, [message])
 
@@ -154,28 +238,13 @@ export const Chat: FC<Props> = observer(
     }, [messageToReply])
 
     useEffect(() => {
-      if (updateData && messages?.[messages.length - 1]?.text === 'PROPOSAL_STATUS_CHANGED') {
-        updateData()
+      if (!messages.length) {
+        ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
       }
 
-      if (startMessagesCount > 0) {
-        const currentScrollPosition = toFixed(
-          messagesWrapperRef.current!.scrollTop + messagesWrapperRef.current!.clientHeight,
-        )
-        const scrolledFromBottom = messagesWrapperRef.current!.scrollHeight - currentScrollPosition
-
-        if (scrolledFromBottom > messagesWrapperRef.current!.clientHeight) {
-          setUnreadMessages(messages.slice(startMessagesCount, messages.length).filter(el => el.user?._id !== userId))
-        } else {
-          setStartMessagesCount(messages.length)
-        }
-      }
-    }, [messages?.length])
-
-    useEffect(() => {
       setMessage(messageInitialState.message)
-      setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
-      setShowGroupSettings(false)
+      setFiles(messageInitialState.files)
+      setIsShowChatInfo(false)
 
       return () => {
         setMessageToReply(null)
@@ -183,294 +252,178 @@ export const Chat: FC<Props> = observer(
     }, [chat?._id])
 
     useEffect(() => {
-      if (files?.length) {
-        setShowFiles(true)
-      } else {
-        setShowFiles(false)
+      if (toScrollMesId) {
+        handleLoadMoreMessages(undefined, toScrollMesId)
       }
-    }, [files?.length])
+    }, [toScrollMesId])
 
-    const changeMessageAndState = (value: string) => {
-      setMessage(value)
-      SettingsModel.setChatMessageState({ message: value, files }, chat._id)
+    if (prevChatId !== chat?._id && prevChatId !== undefined) {
+      return null
     }
-
-    const changeFilesAndState = (value: IFile[]) => {
-      setFiles(value)
-      SettingsModel.setChatMessageState({ message, files: value }, chat._id)
-    }
-
-    const { classes: classNames } = useClassNames()
-
-    const resetAllInputs = () => {
-      setMessage('')
-      setFiles(() => [])
-      SettingsModel.setChatMessageState({ message: '', files: [] }, chat._id)
-    }
-
-    const onSubmitMessageInternal = () => {
-      onSubmitMessage(message, files, messageToReply ? messageToReply._id : null)
-      setMessageToReply(null)
-      resetAllInputs()
-    }
-
-    const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
-      if (!disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
-        onSubmitMessageInternal()
-        event.preventDefault()
-      }
-    }
-
-    const onPasteFiles = async (evt: React.ClipboardEvent) => {
-      if (evt.clipboardData.files.length === 0) {
-        return
-      } else {
-        const filesArr = Array.from(evt.clipboardData.files)
-
-        const filesAlowLength = 50 - files.length
-
-        evt.preventDefault()
-
-        const readyFilesArr: IFile[] = filesArr.map((el: File) => ({
-          data_url: URL.createObjectURL(el),
-          file: new File([el], el.name?.replace(/ /g, ''), {
-            type: el.type,
-            lastModified: el.lastModified,
-          }),
-        }))
-
-        changeFilesAndState([...files, ...readyFilesArr.slice(0, filesAlowLength)])
-      }
-    }
-
-    const onClickScrollToBottom = () => {
-      setMessageToScroll({ ...(unreadMessages?.[0] || messages.at(-1)!) })
-      setStartMessagesCount(messages.length)
-      setUnreadMessages([])
-    }
-
-    const disabledSubmit = !message.replace(/\n/g, '') && !files.length
-
-    const userContainedInChat = chat.users.some(el => el._id === userId)
-
-    // console.log('messageToReply', messageToReply)
 
     return (
-      <div className={classNames.root}>
-        <div className={classNames.opponentWrapper}>
-          <ArrowBackIosIcon color="primary" onClick={onClickBackButton} />
-          <div className={classNames.opponentSubWrapper}>
-            <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
-            <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
-          </div>
-        </div>
-        <div className={classNames.scrollViewWrapper}>
+      <>
+        {headerChatComponent ? headerChatComponent({ handleLoadMoreMessages }) : null}
+
+        <div className={cx(styles.scrollViewWrapper, classNamesWrapper)}>
+          {requestStatus === loadingStatus.IS_LOADING && (
+            <div className={styles.spinnerContainer}>
+              <CircleSpinner />
+            </div>
+          )}
+
           <ChatMessagesList
+            chat={chat}
             messagesWrapperRef={messagesWrapperRef}
             isGroupChat={isGroupChat}
             userId={userId}
             messages={messages}
+            isShowChatInfo={isShowChatInfo}
             handlers={chatMessageHandlers}
-            toScrollMesId={toScrollMesId}
             messagesFound={messagesFound}
             searchPhrase={searchPhrase}
             messageToScroll={messageToScroll}
-            setMessageToScroll={setMessageToScroll}
+            isFreelanceOwner={isFreelanceOwner}
             setMessageToReply={setMessageToReply}
+            firstItemIndex={firstItemIndex}
+            handleLoadMoreMessages={handleLoadMoreMessages}
+            handleScrollToBottomButtonVisibility={handleScrollToBottomButtonVisibility}
           />
 
-          {isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0 ? (
-            <div
-              className={cx(classNames.hideAndShowIconWrapper, { [classNames.hideAndShowIcon]: showGroupSettings })}
-              onClick={() => setShowGroupSettings(!showGroupSettings)}
-            >
-              {showGroupSettings ? (
-                <div className={classNames.collapseWrapper}>
-                  <Typography className={classNames.collapseText}>{t(TranslationKey.Hide)}</Typography>
-
-                  <ArrowRightOutlinedIcon className={classNames.arrowIcon} />
-                </div>
-              ) : (
-                <MoreVertOutlinedIcon className={classNames.arrowIcon} />
-              )}
-            </div>
-          ) : null}
-          {showGroupSettings ? (
-            <div className={classNames.groupSettingsWrapper}>
-              <div className={classNames.groupSettingsImageWrapper}>
-                <img src={chat.info?.image || '/assets/img/no-photo.jpg'} className={classNames.groupSettingsImage} />
-                <div className={classNames.groupSettingsImageShadow}></div>
-
-                <div className={classNames.groupSettingsInfoWrapper}>
-                  <div>
-                    <Typography className={classNames.groupSettingsInfoTitle}>{chat.info?.title}</Typography>
-                    <Typography className={classNames.usersCount}>{`${chat.users?.length} ${t(
-                      TranslationKey.Members,
-                    ).toLocaleLowerCase()}`}</Typography>
-                  </div>
-
-                  {userId === chat.info?.createdBy ? (
-                    <Pencil className={classNames.pencilEditIcon} onClick={onClickEditGroupChatInfo} />
-                  ) : null}
-                </div>
-              </div>
-
-              {userId === chat.info?.createdBy ? (
-                <Button onClick={onClickAddUsersToGroupChat}>
-                  <div className={classNames.addMemberBtnWrapper}>
-                    <Typography className={classNames.addMemberBtnText}>{t(TranslationKey['Add member'])}</Typography>
-
-                    <MemberPlus className={classNames.arrowIcon} />
-                  </div>
-                </Button>
-              ) : null}
-
-              <div className={classNames.membersWrapper}>
-                {chat.users
-                  .slice()
-                  .sort((a, b) => Number(b._id === chat.info?.createdBy) - Number(a._id === chat.info?.createdBy))
-                  .map(el => (
-                    <div key={el._id} className={classNames.memberWrapper}>
-                      <div className={classNames.memberInfo}>
-                        <Avatar src={getUserAvatarSrc(el._id)} className={classNames.avatarWrapper} />
-                        <Typography className={classNames.opponentName}>{el?.name}</Typography>
-                        {el._id === chat.info?.createdBy ? (
-                          <Typography className={classNames.ownerSign}>{`(${t(TranslationKey.Owner)})`}</Typography>
-                        ) : null}
-                      </div>
-
-                      {el._id !== chat.info?.createdBy && userId === chat.info?.createdBy ? (
-                        <CloseOutlinedIcon
-                          className={classNames.pencilEditIcon}
-                          fontSize="small"
-                          onClick={() => onRemoveUsersFromGroupChat([el._id])}
-                        />
-                      ) : null}
-                    </div>
-                  ))}
-              </div>
-            </div>
-          ) : null}
-
-          <div className={classNames.scrollToBottom} onClick={onClickScrollToBottom}>
-            <KeyboardArrowDownIcon />
-            {!!unreadMessages?.length && <div className={classNames.scrollToBottomBadge}>{unreadMessages?.length}</div>}
+          <div className={styles.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
+            {isShowChatInfo ? (
+              <HideArrowIcon className={cx(styles.arrowIcon, styles.hideArrow)} />
+            ) : (
+              <MoreVertOutlinedIcon className={styles.arrowIcon} />
+            )}
           </div>
+
+          {isShowScrollToBottomBtn && (
+            <div
+              className={cx(styles.scrollToBottom, {
+                [styles.scrollToBottomRight]: isShowChatInfo,
+                [styles.hideElement]: isShowChatInfo && isTabletResolution,
+              })}
+              onClick={onClickScrollToBottom}
+            >
+              <KeyboardArrowDownIcon />
+            </div>
+          )}
+
+          {isShowChatInfo && (
+            <ChatInfo
+              chat={chat}
+              currentOpponent={currentOpponent}
+              isGroupChat={isGroupChat}
+              userId={userId}
+              onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
+              onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
+              onClickEditGroupChatInfo={onClickEditGroupChatInfo}
+            />
+          )}
         </div>
 
-        {messageToReply && (
-          <div
-            className={classNames.messageToReplyWrapper}
-            onClick={() => {
-              setMessageToScroll(messageToReply)
-              setTimeout(() => setMessageToScroll(null), 1000)
-            }}
-          >
-            <ReplyOutlinedIcon className={classNames.messageToReplyIcon} />
-            <div className={classNames.messageToReplySubWrapper}>
-              <ChatMessageByType
-                isIncomming
-                showName
-                messageItem={messageToReply}
-                unReadMessage={false}
-                isLastMessage={false}
-              />
-            </div>
-            <CloseOutlinedIcon
-              className={classNames.messageToReplyCloseIcon}
-              onClick={e => {
-                e.stopPropagation()
-                setMessageToReply(null)
-              }}
-            />
+        {messageToReply ? (
+          <ChatCurrentReplyMessage
+            message={messageToReply}
+            setMessageToReply={setMessageToReply}
+            scrollToMessage={() => scrollToMessage(messages.findIndex(el => el._id === messageToReply?._id))}
+          />
+        ) : null}
+
+        {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
+
+        <div className={styles.bottomPartWrapper}>
+          <div key={SettingsModel.languageTag}>
+            {isShowEmojis && (
+              <ClickAwayListener
+                mouseEvent="onMouseDown"
+                onClickAway={event => {
+                  if ((event.target as HTMLElement).id !== 'emoji-icon') {
+                    setIsShowEmojis(false)
+                  }
+                }}
+              >
+                <div className={styles.emojisWrapper}>
+                  <Picker
+                    data={data}
+                    perLine={isTabletResolution ? 7 : 9}
+                    theme={SettingsModel.uiTheme}
+                    locale={SettingsModel.languageTag}
+                    onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
+                  />
+                </div>
+              </ClickAwayListener>
+            )}
           </div>
-        )}
 
-        <div className={classNames.bottomPartWrapper}>
-          {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
-
-          {showEmojis ? (
-            <ClickAwayListener
-              mouseEvent="onMouseDown"
-              onClickAway={event => {
-                if ((event.target as HTMLElement).id !== 'emoji-icon') {
-                  setShowEmojis(false)
-                }
-              }}
-            >
-              <div className={classNames.emojisWrapper}>
-                <Picker
-                  theme={SettingsModel.uiTheme === UiTheme.light ? 'light' : 'dark'}
-                  data={data}
-                  locale={SettingsModel.languageTag}
-                  onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
-                />
-              </div>
-            </ClickAwayListener>
-          ) : null}
-
-          <div className={classNames.inputWrapper}>
+          <div className={styles.inputWrapper}>
             <TextField
               multiline
-              autoFocus
+              autoFocus={!isTabletResolution}
               inputRef={messageInput}
               disabled={!userContainedInChat}
               type="text"
               id="outlined-multiline-flexible"
               size="small"
-              className={cx(classNames.input, { [classNames.inputFilled]: !!message || !!focused })}
-              classes={{ root: classNames.input }}
+              className={cx(styles.input, { [styles.inputFilled]: !!message || !!focused })}
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
               inputProps={{ maxLength: 1000 }}
-              InputProps={
-                userContainedInChat ? (
-                  {
-                    endAdornment: (
-                      <InputAdornment position="end" classes={{ root: classNames.endAdornment }}>
-                        <div className={classNames.filesIconWrapper}>
-                          <img
-                            id="emoji-icon"
-                            src={showEmojis ? '/assets/icons/emoji-active.svg' : '/assets/icons/emoji.svg'}
-                            className={cx(classNames.inputIcon, classNames.emojiIconPos)}
-                            onClick={() => setShowEmojis(!showEmojis)}
-                          />
-                        </div>
-
-                        <div className={classNames.filesIconWrapper}>
-                          <img
-                            src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
-                            className={cx(classNames.inputIcon, classNames.fileIconPos)}
-                            onClick={() => setShowFiles(!showFiles)}
-                          />
-                          {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
-                        </div>
-                      </InputAdornment>
-                    ),
-                  }
-                ) : (
-                  <div />
-                )
-              }
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end" className={styles.icons}>
+                    <EmojiIcon
+                      id="emoji-icon"
+                      className={cx(styles.inputIcon, {
+                        [styles.inputIconActive]: isShowEmojis,
+                      })}
+                      onClick={() => setIsShowEmojis(!isShowEmojis)}
+                    />
+                    <div className={styles.filesIconWrapper}>
+                      <FileIcon
+                        className={cx(styles.inputIcon, {
+                          [styles.inputIconActive]: showFiles,
+                        })}
+                        onClick={() => setShowFiles(!showFiles)}
+                      />
+                      {files.length ? <div className={styles.badge}>{files.length}</div> : null}
+                    </div>
+                  </InputAdornment>
+                ),
+              }}
               value={message}
-              onFocus={onFocus}
-              onBlur={onBlur}
+              onFocus={!isTabletResolution ? onFocus : undefined}
+              onBlur={!isTabletResolution ? onBlur : undefined}
               onKeyPress={handleKeyPress}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                if (checkIsExternalVideoLink(e.target.value)) {
+                  return
+                }
+                changeMessageAndState(e.target.value)
+              }}
               onPaste={evt => onPasteFiles(evt)}
             />
 
-            <Button disabled={disabledSubmit} className={classNames.sendBtn} onClick={() => onSubmitMessageInternal()}>
-              <div className={classNames.sendBtnTextWrapper}>
-                <Typography className={classNames.sendBtnText}>{t(TranslationKey.Send)}</Typography>
-                <img src="/assets/icons/send.svg" className={classNames.sendBtnIcon} />
+            <Button disabled={disabledSubmit} className={styles.sendBtn} onClick={() => onSubmitMessageInternal()}>
+              <div className={styles.sendBtnTextWrapper}>
+                <p className={styles.sendBtnText}>{t(TranslationKey.Send)}</p>
+                <SendIcon className={styles.sendBtnIcon} />
               </div>
             </Button>
           </div>
 
-          {renderAdditionalButtons ? renderAdditionalButtons({ message, files }, resetAllInputs) : undefined}
+          {renderAdditionalButtons
+            ? renderAdditionalButtons(
+                {
+                  message,
+                  files,
+                },
+                resetAllInputs,
+              )
+            : null}
         </div>
-      </div>
+      </>
     )
   },
 )

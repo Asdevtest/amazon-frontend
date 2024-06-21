@@ -13,22 +13,21 @@ export class ClientShopViewModel {
     return UserModel.userInfo
   }
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+  constructor({ history }) {
+    this.history = history
 
-      if (location.state) {
-        this.shopSellId = location.state.shopSellId
-      }
-    })
+    if (history?.location?.state) {
+      this.shopSellId = history.location.state.shopSellId
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
-  async loadData() {
+
+  loadData() {
     try {
-      await this.getShopInfoById()
+      this.getShopInfoById()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -40,7 +39,7 @@ export class ClientShopViewModel {
         this.shopInfo = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

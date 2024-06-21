@@ -1,159 +1,169 @@
-/* eslint-disable no-unused-vars */
-import React, { useCallback, useMemo } from 'react'
-
+import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   ChangeInputCommentCell,
   CheckboxCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
+  MultipleAsinCell,
   NormDateFromUnixCell,
   StringListCell,
   TaskDescriptionCell,
   TaskPriorityCell,
   TaskTypeCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
 
-export const warehouseVacantTasksViewColumns = handlers => [
-  {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
+import { ButtonStyle } from '@typings/enums/button-style'
 
-    renderCell: params => (
-      <NormalActionBtnCell
-        tooltipText={t(TranslationKey['Take the task to work'])}
-        bTnText={t(TranslationKey['Get to work'])}
-        isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
-      />
-    ),
-    width: window.innerWidth < 1282 ? 150 : 190,
-    filterable: false,
-    sortable: false,
-  },
+export const warehouseVacantTasksViewColumns = handlers => {
+  const columns = [
+    {
+      field: 'action',
+      headerName: t(TranslationKey.Action),
+      renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Action)} />,
+      renderCell: params => (
+        <ActionButtonsCell
+          isFirstButton
+          isSecondButton={params.row.originalData.operationType !== TaskOperationType.RECEIVE}
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
+          firstButtonTooltipText={t(TranslationKey['Take the task to work'])}
+          firstButtonElement={t(TranslationKey['Get to work'])}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonTooltipText={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
+          secondButtonElement={t(TranslationKey.Cancel)}
+          secondButtonStyle={ButtonStyle.DANGER}
+          onClickFirstButton={() => handlers.onClickPickupBtn(params.row.originalData)}
+          onClickSecondButton={() =>
+            handlers.onClickCancelTask(
+              params.row.originalData.boxes[0]?._id,
+              params.row.originalData._id,
+              params.row.originalData.operationType,
+            )
+          }
+        />
+      ),
+      width: window.innerWidth < 1282 ? 150 : 170,
+      sortable: false,
+    },
 
-  {
-    field: 'priority',
-    headerName: t(TranslationKey.Priority),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
+    {
+      field: 'priority',
+      headerName: t(TranslationKey.Priority),
+      renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Priority)} />,
+      renderCell: params => (
+        <TaskPriorityCell
+          curPriority={params.value}
+          taskId={params.row.originalData._id}
+          onChangePriority={handlers.updateTaskPriority}
+        />
+      ),
+      width: window.innerWidth < 1282 ? 140 : 170,
+    },
 
-    width: window.innerWidth < 1282 ? 140 : 170,
-    renderCell: params => (
-      <TaskPriorityCell
-        curPriority={params.value}
-        taskId={params.row.originalData._id}
-        onChangePriority={handlers.updateTaskPriority}
-      />
-    ),
-  },
+    {
+      field: 'reason',
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Comment)} />,
+      renderCell: params => (
+        <ChangeInputCommentCell
+          rowsCount={4}
+          text={params.row.originalData.reason}
+          onClickSubmit={reason =>
+            handlers.updateTaskComment(params.row.originalData._id, params.row.originalData.priority, reason)
+          }
+        />
+      ),
+      width: 280,
+    },
 
-  {
-    field: 'reason',
-    headerName: t(TranslationKey.Comment),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+    {
+      field: 'operationType',
+      headerName: t(TranslationKey.Type),
+      renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Type)} />,
+      renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
+      width: 165,
+    },
 
-    width: 271,
+    {
+      field: 'description',
+      headerName: t(TranslationKey.Description),
+      renderHeader: () => <MultilineTextHeaderCell textAlignStart text={t(TranslationKey.Description)} />,
+      renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
+      width: 330,
+      sortable: false,
+    },
+    {
+      field: 'asin',
+      headerName: 'ASIN',
+      renderHeader: () => <MultilineTextHeaderCell textAlignStart text={'ASIN'} />,
+      renderCell: params => <MultipleAsinCell asinList={params.value} />,
+      width: window.innerWidth < 1282 ? 101 : 140,
+      sortable: false,
+    },
 
-    renderCell: params => (
-      <ChangeInputCommentCell
-        rowsCount={4}
-        text={params.row.originalData.reason}
-        id={params.row.originalData._id}
-        onClickSubmit={(id, reason) => {
-          handlers.updateTaskComment(id, params.row.originalData.priority, reason)
-        }}
-      />
-    ),
-  },
+    {
+      field: 'trackNumber',
+      headerName: t(TranslationKey['Track number']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
+      renderCell: params => (
+        <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
+      ),
+      width: window.innerWidth < 1282 ? 85 : 140,
+      sortable: false,
+    },
 
-  {
-    field: 'operationType',
-    headerName: t(TranslationKey.Type),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
+    {
+      field: 'orderId',
+      headerName: t(TranslationKey['Order number']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
+      renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+      align: 'center',
+      type: 'number',
+      width: window.innerWidth < 1282 ? 75 : 130,
+      sortable: false,
+    },
 
-    width: 180,
-    renderCell: params => <TaskTypeCell operationType={params.row.originalData.operationType} />,
-  },
+    {
+      field: 'isBarCodeAttached',
+      headerName: 'barcode',
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+      renderCell: params => <CheckboxCell checked={params.value} />,
+      width: 100,
+      type: 'boolean',
+    },
 
-  {
-    field: 'description',
-    headerName: t(TranslationKey.Description),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
+    {
+      field: 'item',
+      headerName: 'item',
+      renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
+      renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
+      width: window.innerWidth < 1282 ? 54 : 100,
+      sortable: false,
+    },
 
-    // width: window.innerWidth < 1282 ? 338 : 850,
-    width: 290,
-    renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
-    filterable: false,
-    sortable: false,
-  },
-  {
-    field: 'asin',
-    headerName: 'ASIN',
-    renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+      renderCell: params => <NormDateFromUnixCell value={params.value} />,
+      width: 105,
+    },
 
-    renderCell: params => (
-      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
-    ),
-    width: window.innerWidth < 1282 ? 101 : 135,
-    sortable: false,
-  },
+    {
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+      renderCell: params => <NormDateFromUnixCell value={params.value} />,
+      width: 115,
+    },
+  ]
 
-  {
-    field: 'trackNumber',
-    headerName: t(TranslationKey['Track number']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
+  for (const column of columns) {
+    column.filterable = false
+  }
 
-    renderCell: params => (
-      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />
-    ),
-    width: window.innerWidth < 1282 ? 85 : 119,
-    sortable: false,
-    align: 'center',
-  },
-
-  {
-    field: 'orderId',
-    headerName: t(TranslationKey['Order number']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
-
-    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
-    align: 'center',
-    type: 'number',
-    width: window.innerWidth < 1282 ? 75 : 134,
-    sortable: false,
-  },
-
-  {
-    field: 'isBarCodeAttached',
-    headerName: 'barcode',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-
-    renderCell: params => <CheckboxCell checked={params.value} />,
-    width: 160,
-    type: 'boolean',
-  },
-
-  {
-    field: 'item',
-    headerName: 'item',
-    renderHeader: () => <MultilineTextHeaderCell text={'item'} />,
-
-    renderCell: params => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={params.value} />,
-    width: window.innerWidth < 1282 ? 54 : 160,
-    sortable: false,
-  },
-
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    width: window.innerWidth < 1282 ? 95 : 150,
-    renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    // type: 'date',
-  },
-]
+  return columns
+}

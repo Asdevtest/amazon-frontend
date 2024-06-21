@@ -1,22 +1,23 @@
-import { Typography } from '@mui/material'
-
-import React, { useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useState } from 'react'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-destination-form.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './add-or-edit-destination-form.style'
 
 export const AddOrEditDestinationForm = observer(
-  ({ onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit }) => {
-    const { classes: classNames } = useClassNames()
+  ({ onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit, onClickAddBtn }) => {
+    const { classes: styles } = useStyles()
 
     const sourceFormFields = {
       name: destinationToEdit?.name || '',
@@ -53,19 +54,22 @@ export const AddOrEditDestinationForm = observer(
       formFields.city === '' ||
       formFields.state === '' ||
       formFields.zipCode === '' ||
-      !/^[0-9]{5}$/.test(formFields.zipCode)
-    formFields.city === '' || formFields.state === ''
+      formFields.city === '' ||
+      formFields.state === ''
 
     return (
-      <div className={classNames.root}>
-        <Typography variant="h5" className={classNames.standartText}>
-          {t(TranslationKey['Add a new drop off location'])}
+      <div className={styles.root}>
+        <Typography variant="h5" className={styles.standartText}>
+          {destinationToEdit
+            ? t(TranslationKey['Edit drop off location'])
+            : t(TranslationKey['Add a new drop off location'])}
         </Typography>
 
-        <div className={classNames.form}>
+        <div className={styles.form}>
           {destinationToEdit && (
             <Field
               label={t(TranslationKey.Account)}
+              labelClasses={styles.label}
               inputComponent={
                 <>
                   {destinationToEdit.storekeeper ? (
@@ -76,7 +80,7 @@ export const AddOrEditDestinationForm = observer(
                       userId={destinationToEdit.storekeeper?._id}
                     />
                   ) : (
-                    <Typography className={classNames.standartText}>{t(TranslationKey.Missing)}</Typography>
+                    <Typography className={styles.standartText}>{t(TranslationKey.Missing)}</Typography>
                   )}
                 </>
               }
@@ -85,6 +89,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.Title)}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.name}
             placeholder={t(TranslationKey.Title) + '...'}
@@ -93,6 +98,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.Country)}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.country}
             placeholder={t(TranslationKey.Country) + '...'}
@@ -101,6 +107,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.City)}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.city}
             placeholder={t(TranslationKey.City) + '...'}
@@ -109,6 +116,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.State)}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.state}
             placeholder={t(TranslationKey.State) + '...'}
@@ -117,6 +125,7 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey.Address)}
+            labelClasses={styles.label}
             inputProps={{ maxLength: 255 }}
             value={formFields.address}
             placeholder={t(TranslationKey.Address) + '...'}
@@ -125,26 +134,33 @@ export const AddOrEditDestinationForm = observer(
 
           <Field
             label={t(TranslationKey['ZIP code'])}
-            inputProps={{ maxLength: 255 }}
-            error={
-              formFields.zipCode &&
-              !/^[0-9]{5}$/.test(formFields.zipCode) &&
-              t(TranslationKey['numeric format, example:']) + ' 90001'
-            }
+            labelClasses={styles.label}
+            inputProps={{ maxLength: 64 }}
             value={formFields.zipCode}
             placeholder={t(TranslationKey['ZIP code']) + '...'}
             onChange={onChangeField('zipCode')}
           />
         </div>
 
-        <div className={classNames.btnsWrapper}>
-          <Button success disabled={disableSubmitBtn} color="primary" variant="contained" onClick={onSubmit}>
-            {t(TranslationKey.Save)}
+        <div className={styles.footerWrapper}>
+          <Button
+            styleType={ButtonStyle.SUCCESS}
+            tooltipInfoContent={t(TranslationKey['Add a new rate'])}
+            className={styles.placeAddBtn}
+            onClick={onClickAddBtn}
+          >
+            {t(TranslationKey.Add)}
           </Button>
 
-          <Button className={classNames.button} variant="text" onClick={() => onCloseModal()}>
-            {t(TranslationKey.Cancel)}
-          </Button>
+          <div className={styles.btnsWrapper}>
+            <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
+              {t(TranslationKey.Save)}
+            </Button>
+
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
         </div>
       </div>
     )

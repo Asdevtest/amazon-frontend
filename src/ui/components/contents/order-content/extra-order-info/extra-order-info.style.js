@@ -1,9 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   orderContainer: {
-    padding: '15px 0',
-    width: '537px',
+    width: '100%',
   },
 
   label: {
@@ -27,14 +26,7 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'center',
   },
 
-  photoCarousel: {
-    height: '150px',
-    display: 'flex',
-    alignItems: 'center',
-  },
-
   subTitleWrapper: {
-    // marginBottom: '28px',
     display: 'flex',
     justifyContent: 'center',
 
@@ -48,10 +40,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   photoWrapper: {
-    width: '40%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
 
   input: {
@@ -62,17 +53,24 @@ export const useClassNames = makeStyles()(theme => ({
 
   commentsWrapper: {
     marginTop: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   commentsTitle: {
     color: theme.palette.text.general,
     fontSize: '16px',
-    fontWeight: '400',
     lineHeight: '19px',
-    marginBottom: '20px',
   },
 
   textField: {
     marginBottom: '40px',
+  },
+
+  editorWrapper: {
+    minHeight: '150px !important',
+    maxHeight: '150px !important',
+    width: 480,
   },
 }))

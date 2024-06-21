@@ -1,0 +1,1 @@
+export { getTypeAndIndexOfChat } from './chat'

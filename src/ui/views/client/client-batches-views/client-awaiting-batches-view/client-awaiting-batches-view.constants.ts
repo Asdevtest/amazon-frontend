@@ -1,0 +1,22 @@
+export const filtersFields = [
+  'asin',
+  'amazonTitle',
+  'title',
+  'destination',
+  'humanFriendlyId',
+  'storekeeper',
+  'logicsTariff',
+  'finalWeight',
+  'deliveryTotalPrice',
+  'totalPrice',
+  'etd',
+  'eta',
+  'cls',
+  'updatedAt',
+  'amount',
+  'trackingNumber',
+  'arrivalDate',
+  'quantityBoxes',
+]
+
+export const fieldsForSearch = ['amazonTitle', 'humanFriendlyId', 'asin', 'orderHumanFriendlyId']

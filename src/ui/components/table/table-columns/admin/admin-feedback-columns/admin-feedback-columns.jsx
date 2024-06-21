@@ -1,17 +1,17 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateCell,
+  ActionButtonsCell,
+  FilesCell,
   MultilineTextAlignLeftCell,
   MultilineTextHeaderCell,
-  NormalActionBtnCell,
-  PhotoAndFilesCell,
+  NormDateCell,
   UserCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const adminFeedbackViewColumns = handlers => [
   {
@@ -23,7 +23,7 @@ export const adminFeedbackViewColumns = handlers => [
 
       return <UserCell userId={user?._id} name={user?.name} email={user?.email} rating={user?.rating} />
     },
-    width: 450,
+    width: 320,
   },
 
   {
@@ -31,35 +31,41 @@ export const adminFeedbackViewColumns = handlers => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 90,
-    // type: 'date',
+    width: 100,
   },
 
   {
     field: 'text',
     headerName: t(TranslationKey.Reviews),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reviews)} />,
-    renderCell: params => <MultilineTextAlignLeftCell withTooltip text={params.value} />,
-    width: 500,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    flex: 1,
   },
+
   {
-    field: 'media',
+    field: 'files',
     headerName: t(TranslationKey.Files),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
-    renderCell: params => <PhotoAndFilesCell files={params.value} />,
-    width: 350,
+    renderCell: params => <FilesCell files={params.value} />,
+    filterable: false,
+    sortable: false,
+    width: 80,
+    align: 'center',
   },
+
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
+    filterable: false,
+    sortable: false,
     width: 180,
     renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey.View)}
-        // isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        onClickOkBtn={() => handlers.onClickOpenFeedbackBtn(params.row.originalData)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickOpenFeedbackBtn(params.row.originalData)}
       />
     ),
   },

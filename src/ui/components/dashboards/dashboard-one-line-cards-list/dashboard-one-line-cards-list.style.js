@@ -1,118 +1,73 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
+  wrapper: {
+    padding: '20px 70px',
+  },
+
   cardWrapper: {
-    width: '277px',
-
+    width: '100%',
     background: theme.palette.linearGradient.successDashboardCard,
-
-    boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.general}`,
-
+    boxShadow: theme.palette.boxShadow.paper,
     padding: '20px',
+    margin: '10px 0',
     borderRadius: '8px',
-    height: '111px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    height: 140,
+    cursor: 'pointer',
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column',
-    marginTop: '5px',
-
     transition: '0.3s ease',
 
     '&:hover': {
       background: theme.palette.linearGradient.hoverSuccessDashboardCard,
     },
-    [theme.breakpoints.down(768)]: {
-      width: '200px',
-      height: '91px',
-    },
-  },
-
-  iconBtn: {
-    marginLeft: '15px',
-
-    width: 15,
-    height: 15,
   },
 
   cardErrorWrapper: {
-    // background: 'linear-gradient(157deg,#fff 50%, #FBF2F2 50%);',
-
     transition: '0.3s ease',
-
     background: theme.palette.linearGradient.negativeDashboardCard,
+
     '&:hover': {
-      // background: 'linear-gradient(157deg,#fff 50%, #f8dede 50%);',
       background: theme.palette.linearGradient.hoverNegativeDashboardCard,
     },
   },
+
   cardSubWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  icon: {
-    width: '29px',
-    height: '28px',
-    color: '#c4c4c4',
+
+  cardHeader: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: 20,
   },
-  cardListTitle: {
+
+  cardTitle: {
     fontSize: '18px',
-    lineHeight: '27px',
+    lineHeight: '25px',
     color: theme.palette.text.general,
     fontWeight: 600,
-    marginLeft: '86px',
-    [theme.breakpoints.down(768)]: {
-      marginLeft: '15px',
-    },
   },
+
   cardSubTitle: {
-    width: '127px',
     color: theme.palette.text.second,
+    fontSize: '14px',
+    lineHeight: '19px',
   },
+
+  icon: {
+    width: 30,
+    height: 30,
+    color: '#c4c4c4',
+  },
+
   cardValueTitle: {
     fontWeight: 700,
     fontSize: '32px',
     lineHeight: '44px',
     color: theme.palette.text.general,
   },
-  cardListSubTitle: {
-    color: theme.palette.text.second,
-    fontSize: '14px',
-    lineHeight: '19px',
-    marginBottom: '10px',
-    marginLeft: '86px',
-    [theme.breakpoints.down(768)]: {
-      marginLeft: '15px',
-    },
-  },
-  cardHeaderWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  swiper: {
-    height: 170,
-    margin: '0 43px',
-    padding: '0 45px',
-    [theme.breakpoints.down(768)]: {
-      minWidth: '300px',
-      height: 150,
-      margin: '0 5px',
-      padding: '0 10px',
-      marginBottom: '15px',
-    },
-
-    '.swiper-button-prev': {
-      color: theme.palette.primary.main,
-    },
-
-    '.swiper-button-next': {
-      color: theme.palette.primary.main,
-    },
-  },
-  addButton: {
-    height: '40px',
-    marginLeft: 50,
-  },
 }))
-1

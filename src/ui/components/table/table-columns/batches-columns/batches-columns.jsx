@@ -1,65 +1,62 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateCell,
   BatchBoxesCell,
+  BatchTrackingCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
   ToFixedWithKgSignCell,
   WarehouseTariffDatesCell,
-  MultilineTextHeaderCell,
-  MultilineTextCell,
-  Ayaya,
-  BatchTrackingCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
-import { toFixedWithDollarSign } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 export const batchesViewColumns = (rowHandlers, getStatus) => [
   {
-    field: 'orders',
+    field: 'asin',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    width: 550,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
+    width: 400,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.BATCHES_PRODUCTS,
   },
 
   {
     field: 'title',
     headerName: t(TranslationKey['Batch title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
-
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={params.row?.boxes?.[0]?.destination?.name} />,
     width: 130,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'boxesCount',
+    field: 'quantityBoxes',
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
-
-    renderCell: params => (
-      <MultilineTextCell text={params.row.originalData.boxes.reduce((ac, cur) => (ac += cur.amount), 0)} />
-    ),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 70,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -69,24 +66,27 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 80,
+    columnKey: columnnsKeys.shared.STRING,
   },
 
   {
-    field: 'tariff',
+    field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextCell text={getNewTariffTextForBoxOrOrder(params.row.originalData.boxes[0])} />,
     width: 250,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.OBJECT,
   },
 
   {
-    field: 'batchTracking',
+    field: 'trackingNumber',
     headerName: t(TranslationKey['Batch tracking']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch tracking'])} />,
     renderCell: params => (
       <BatchTrackingCell
+        disableMultilineForTrack
         disabled={getStatus() !== BatchStatus.HAS_DISPATCHED}
         id={params.row?.originalData?._id}
         arrivalDate={params.row?.originalData?.arrivalDate}
@@ -94,9 +94,10 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
         rowHandlers={rowHandlers}
       />
     ),
-    width: 198,
+    width: 210,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.BATCHES_TRACKING,
   },
 
   {
@@ -105,7 +106,8 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => <ToFixedWithKgSignCell value={params.row.originalData.finalWeight} fix={2} />,
     type: 'number',
-    width: 150,
+    width: 120,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
@@ -114,24 +116,14 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
-    width: 150,
+    width: 120,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.QUANTITY,
   },
 
   {
-    field: 'totalPrice',
-    headerName: t(TranslationKey['Total price']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    type: 'number',
-    width: 150,
-    filterable: false,
-    sortable: false,
-  },
-
-  {
-    field: 'dates',
+    field: 'cls',
     headerName: t(TranslationKey.Dates),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
     renderCell: params => (
@@ -141,9 +133,10 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
         eta={params.row.originalData.boxes[0].logicsTariff?.eta}
       />
     ),
-    width: 350,
+    width: 330,
     filterable: false,
     sortable: false,
+    columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
   },
 
   {
@@ -151,7 +144,7 @@ export const batchesViewColumns = (rowHandlers, getStatus) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
-    width: 150,
-    // type: 'date',
+    width: 120,
+    columnKey: columnnsKeys.shared.DATE,
   },
 ]

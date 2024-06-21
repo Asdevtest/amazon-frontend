@@ -1,10 +1,10 @@
-import { Container, Button, Typography, Select, Checkbox, ListItemText, MenuItem, Rating } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
+import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 
-import { mapUserRoleEnumToKey, UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
+import { Button, Checkbox, Container, ListItemText, MenuItem, Rating, Select, Typography } from '@mui/material'
+
+import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
@@ -16,7 +16,7 @@ import { UserLink } from '@components/user/user-link'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './admin-content-modal.style'
+import { useStyles } from './admin-content-modal.style'
 
 const activeOptions = [
   { value: true, label: t(TranslationKey.Active) },
@@ -35,17 +35,12 @@ export const AdminContentModal = observer(
     checkValidationNameOrEmail,
     changeNameAndEmail,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles } = useStyles()
 
     const [showPermissionModal, setShowPermissionModal] = useState(false)
 
     const renderPermissionBtn = (
-      <Button
-        disableElevation
-        variant="contained"
-        color="primary"
-        onClick={() => setShowPermissionModal(!showPermissionModal)}
-      >
+      <Button onClick={() => setShowPermissionModal(!showPermissionModal)}>
         {t(TranslationKey['Manage permissions'])}
       </Button>
     )
@@ -53,6 +48,7 @@ export const AdminContentModal = observer(
     const sourceFormFields = {
       active: editUserFormFields?.active || false,
       allowedRoles: (editUserFormFields?.allowedRoles === null ? [] : editUserFormFields?.allowedRoles) || [],
+      allowedSpec: editUserFormFields?.allowedSpec || [],
       email: editUserFormFields?.email || '',
       fba: editUserFormFields?.fba || false,
       canByMasterUser: editUserFormFields?.canByMasterUser || false,
@@ -69,10 +65,10 @@ export const AdminContentModal = observer(
     const [formFields, setFormFields] = useState(sourceFormFields)
 
     const [permissionsToSelect, setPermissionsToSelect] = useState([
-      ...singlePermissions.filter(item => item.role === formFields.role),
+      ...singlePermissions.filter(item => Number(item.role) === Number(formFields.role)),
     ])
     const [permissionGroupsToSelect, setPermissionGroupsToSelect] = useState([
-      ...groupPermissions.filter(item => item.role === formFields.role),
+      ...groupPermissions.filter(item => Number(item.role) === Number(formFields.role)),
     ])
 
     const onChangeFormField = fieldName => event => {
@@ -141,19 +137,19 @@ export const AdminContentModal = observer(
     )
 
     const isWrongPermissionsSelect =
-      selectedPermissions.find(per => per.role !== Number(formFields.role)) ||
-      selectedGroupPermissions.find(perGroup => perGroup.role !== Number(formFields.role))
+      selectedPermissions.find(per => Number(per.role) !== Number(formFields.role)) ||
+      selectedGroupPermissions.find(perGroup => Number(perGroup.role) !== Number(formFields.role))
 
     const disabledSubmitButton =
       !emailIsValid ||
       formFields.name === '' ||
       formFields.email === '' ||
       formFields.rate === '' ||
-      formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
-      JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+      Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
+      isEqual(sourceFormFields, formFields)
 
     return (
-      <Container disableGutters className={classNames.modalContainer}>
+      <Container disableGutters className={styles.modalContainer}>
         <Typography paragraph variant="h3">
           {`${title} ${editUserFormFields.name}`}
         </Typography>
@@ -162,17 +158,17 @@ export const AdminContentModal = observer(
           <Field
             label={t(TranslationKey['Master user'])}
             inputComponent={
-              <div className={classNames.ratingWrapper}>
+              <div className={styles.ratingWrapper}>
                 <UserLink
                   blackText
                   name={editUserFormFields.masterUserInfo?.name}
                   userId={editUserFormFields.masterUserInfo?._id}
                 />
 
-                <div className={classNames.ratingSubWrapper}>
-                  <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
+                <div className={styles.ratingSubWrapper}>
+                  <Typography className={styles.rating}>{t(TranslationKey.Rating)}</Typography>
 
-                  <Rating disabled value={editUserFormFields.masterUserInfo?.rating} />
+                  <Rating readOnly value={editUserFormFields.masterUserInfo?.rating} />
                 </div>
               </div>
             }
@@ -183,15 +179,15 @@ export const AdminContentModal = observer(
           <Field
             label={t(TranslationKey['Sub users'])}
             inputComponent={
-              <div className={classNames.subUsersWrapper}>
+              <div className={styles.subUsersWrapper}>
                 {editUserFormFields.subUsers.map(subUser => (
-                  <div key={subUser._id} className={classNames.ratingWrapper}>
+                  <div key={subUser._id} className={styles.ratingWrapper}>
                     <UserLink blackText name={subUser.name} userId={subUser._id} />
 
-                    <div className={classNames.ratingSubWrapper}>
-                      <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
+                    <div className={styles.ratingSubWrapper}>
+                      <Typography className={styles.rating}>{t(TranslationKey.Rating)}</Typography>
 
-                      <Rating disabled value={subUser.rating} />
+                      <Rating readOnly value={subUser.rating} />
                     </div>
                   </div>
                 ))}
@@ -252,7 +248,7 @@ export const AdminContentModal = observer(
                 <MenuItem
                   key={userRoleCode}
                   value={userRoleCode}
-                  className={classNames.userRoleSelect}
+                  className={styles.userRoleSelect}
                   disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[userRoleCode])}
                 >
                   {UserRoleCodeMap[userRoleCode]}
@@ -262,7 +258,6 @@ export const AdminContentModal = observer(
           }
         />
 
-        {/* {!editUserFormFields.masterUser ? ( */}
         <Field
           label={t(TranslationKey['Allowed Roles'])}
           inputComponent={
@@ -277,7 +272,8 @@ export const AdminContentModal = observer(
                   key={index}
                   value={Number(role)}
                   disabled={
-                    [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) || role === formFields.role
+                    [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) ||
+                    Number(role) === Number(formFields.role)
                   }
                 >
                   <Checkbox
@@ -290,7 +286,6 @@ export const AdminContentModal = observer(
             </Select>
           }
         />
-        {/* ) : null} */}
 
         <Field
           label={t(TranslationKey['User status'])}
@@ -309,73 +304,69 @@ export const AdminContentModal = observer(
             </Select>
           }
         />
-        <div className={classNames.checkboxWrapper}>
+        <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            disabled={
+              editUserFormFields.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]
+            }
             checked={formFields.fba}
             onChange={onChangeFormField('fba')}
           />
-          <Typography className={classNames.checkboxLabel}>{t(TranslationKey.FBA)}</Typography>
+          <Typography className={styles.checkboxLabel}>{t(TranslationKey.FBA)}</Typography>
         </div>
 
-        <div className={classNames.checkboxWrapper}>
+        <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={editUserFormFields.masterUser || formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            disabled={
+              editUserFormFields.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]
+            }
             checked={formFields.canByMasterUser}
             onChange={onChangeFormField('canByMasterUser')}
           />
-          <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Can be the master user'])}</Typography>
+          <Typography className={styles.checkboxLabel}>{t(TranslationKey['Can be the master user'])}</Typography>
         </div>
 
-        <div className={classNames.checkboxWrapper}>
+        <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
+            disabled={Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
             checked={formFields.hideSuppliers}
             onChange={onChangeFormField('hideSuppliers')}
           />
-          <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Hide Suppliers'])}</Typography>
+          <Typography className={styles.checkboxLabel}>{t(TranslationKey['Hide Suppliers'])}</Typography>
         </div>
 
-        <div className={classNames.checkboxWrapper}>
+        <div className={styles.checkboxWrapper}>
           <Checkbox
             color="primary"
-            disabled={formFields.role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
+            disabled={Number(formFields.role) !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
             checked={formFields.isUserPreprocessingCenterUSA}
             onChange={onChangeFormField('isUserPreprocessingCenterUSA')}
           />
-          <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Prep Center USA'])}</Typography>
+          <Typography className={styles.checkboxLabel}>{t(TranslationKey['Prep Center USA'])}</Typography>
         </div>
 
         <Field label={t(TranslationKey['Security/Sharing options'])} inputComponent={renderPermissionBtn} />
 
         {isWrongPermissionsSelect && (
-          <Typography className={classNames.isWrongPermissionsSelectError}>
+          <Typography className={styles.isWrongPermissionsSelectError}>
             {t(TranslationKey['The selected permissions and the current role do not match!'])}
           </Typography>
         )}
 
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <Button
-            disableElevation
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
             variant="contained"
-            color="primary"
-            // onClick={() => {
-            //   onSubmit(formFields, editUserFormFields)
-            // }}
             onClick={onClickSubmit}
           >
             {buttonLabel}
           </Button>
 
           <Button
-            disableElevation
-            className={classNames.rightBtn}
-            variant="contained"
-            color="primary"
+            className={styles.rightBtn}
             onClick={() => {
               onCloseModal()
             }}
@@ -383,6 +374,7 @@ export const AdminContentModal = observer(
             {t(TranslationKey.Close)}
           </Button>
         </div>
+
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
           <AddOrEditUserPermissionsForm
             isWithoutProductPermissions

@@ -1,171 +1,89 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import { Alert, Box, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useState } from 'react'
 
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
-import { MainContent } from '@components/layout/main-content'
-import { BigImagesModal } from '@components/modals/big-images-modal'
-import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
-import { ViewCartsBlock, ViewCartsLine } from '@components/shared/svg-icons'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
+import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
-import { checkIsFreelancer } from '@utils/checks'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './my-services-view.style'
+
 import { MyServicesViewModel } from './my-services-view.model'
-import { styles } from './my-services-view.style'
 
-export const MyServicesViewRaw = props => {
-  const [viewModel] = useState(() => new MyServicesViewModel({ history: props.history, location: props.location }))
-  const { classes: classNames } = props
+export const MyServicesView = observer(({ history }) => {
+  const { classes: styles, cx } = useStyles()
+  const [viewModel] = useState(() => new MyServicesViewModel({ history }))
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
-  const whiteList =
-    !!viewModel.userInfo && checkIsFreelancer(viewModel.userRole)
-      ? [
-          String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
-          ...(viewModel.userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
-        ]
-      : Object.keys(freelanceRequestTypeByCode)
+  const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.toggleBtnAndtaskTypeWrapper}>
-            <div className={classNames.tablePanelViewWrapper}>
-              <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
-                <ToggleBtnFreelancer
-                  value={tableViewMode.BLOCKS}
-                  disabled={viewModel.viewMode === tableViewMode.BLOCKS}
-                >
-                  <ViewCartsBlock
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.BLOCKS,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-                <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewModel.viewMode === tableViewMode.LIST}>
-                  <ViewCartsLine
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.LIST,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-              </ToggleBtnGroupFreelance>
-            </div>
+    <>
+      <div className={styles.header}>
+        <div className={styles.flexContainer}>
+          <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-            <div className={classNames.taskTypeWrapper}>
-              {Object.keys({
-                ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-                // freelanceRequestTypeByCode
-              }).map((taskType, taskIndex) => (
-                <Button
-                  key={taskIndex}
-                  variant="text"
-                  disabled={Number(taskType) === Number(viewModel.selectedTaskType)}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                  })}
-                  onClick={() => viewModel.onClickTaskType(taskType)}
-                >
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                </Button>
-              ))}
-            </div>
-          </div>
+          <FreelanceTypeTaskSelect
+            selectedSpec={viewModel.selectedSpec}
+            specs={viewModel.userInfo?.allowedSpec}
+            onClickSpec={viewModel.onClickSpec}
+          />
+        </div>
 
-          <div className={classNames.searchInputWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by Title, Description'])}
-              value={viewModel.nameSearchValue}
-              onChange={viewModel.onSearchSubmit}
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by Title, Description'])}
+          value={viewModel.nameSearchValue}
+          onChange={viewModel.onSearchSubmit}
+        />
+
+        <div className={styles.flexContainer}>
+          <Button className={styles.fixWidth} onClick={() => viewModel.onToggleArchive(!viewModel.archive)}>
+            {t(TranslationKey[viewModel.archive ? 'To the actual' : 'Open archive'])}
+          </Button>
+
+          <Button styleType={ButtonStyle.SUCCESS} className={styles.fixWidth} onClick={viewModel.onClickCreateService}>
+            {t(TranslationKey['Create a service'])}
+          </Button>
+        </div>
+      </div>
+
+      <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+        {viewModel.currentData.map((service, serviceKey) =>
+          isListPosition ? (
+            <ServiceExchangeCardList
+              key={serviceKey}
+              service={service}
+              pathname={viewModel.history?.location?.pathname}
+              onClickThumbnail={viewModel.onClickThumbnail}
+              onClickButton={viewModel.onClickOpenButton}
             />
-          </div>
-
-          <div className={classNames.createServiceBtnWrapper}>
-            <Button success className={cx(classNames.rightAddingBtn)} onClick={viewModel.onClickCreateServiceBtn}>
-              {t(TranslationKey['Create a service'])}
-            </Button>
-          </div>
-        </div>
-        <Box
-          classes={{ root: classNames.dashboardCardWrapper }}
-          display="grid"
-          gridTemplateColumns={
-            viewModel.viewMode === tableViewMode.LIST
-              ? 'repeat(auto-fill, minmax(calc(100% / 2), 1fr))'
-              : 'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'
-          }
-        >
-          {viewModel.currentData.map((service, serviceKey) =>
-            viewModel.viewMode === tableViewMode.LIST ? (
-              <ServiceExchangeCardList
-                key={serviceKey}
-                service={service}
-                pathname={viewModel.history?.location?.pathname}
-                onClickThumbnail={viewModel.onClickThumbnail}
-                onClickButton={viewModel.onClickOpenButton}
-              />
-            ) : (
-              <ServiceExchangeCard
-                key={serviceKey}
-                service={service}
-                pathname={viewModel.history?.location?.pathname}
-                onClickThumbnail={viewModel.onClickThumbnail}
-                onClickButton={viewModel.onClickOpenButton}
-              />
-            ),
-          )}
-        </Box>
-        {!viewModel.currentData.length && (
-          <div className={classNames.emptyTableWrapper}>
-            <img src="/assets/icons/empty-table.svg" />
-            <Typography variant="h5" className={classNames.emptyTableText}>
-              {t(TranslationKey.Missing)}
-            </Typography>
-          </div>
+          ) : (
+            <ServiceExchangeCard
+              key={serviceKey}
+              service={service}
+              pathname={viewModel.history?.location?.pathname}
+              onClickThumbnail={viewModel.onClickThumbnail}
+              onClickButton={viewModel.onClickOpenButton}
+            />
+          ),
         )}
-      </MainContent>
+      </div>
 
-      <BigImagesModal
-        openModal={viewModel.showImageModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-        images={viewModel.bigImagesOptions.images}
-        imgIndex={viewModel.bigImagesOptions.imgIndex}
-      />
-
-      {viewModel.acceptMessage && viewModel.showAcceptMessage ? (
-        <div className={classNames.acceptMessageWrapper}>
-          <Alert elevation={5} severity="success">
-            {viewModel.acceptMessage}
-          </Alert>
+      {!viewModel.currentData.length && (
+        <div className={styles.emptyTableWrapper}>
+          <img src="/assets/icons/empty-table.svg" />
+          <p className={styles.emptyTableText}>{t(TranslationKey.Missing)}</p>
         </div>
-      ) : null}
-    </React.Fragment>
+      )}
+    </>
   )
-}
-
-export const MyServicesView = withStyles(observer(MyServicesViewRaw), styles)
+})

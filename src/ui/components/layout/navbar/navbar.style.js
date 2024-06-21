@@ -1,67 +1,82 @@
-// import {makeStyles} from 'tss-react/mui'
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  mainWrapper: {
+export const useStyles = makeStyles()(theme => ({
+  navbar: {
+    gridArea: 'navbar',
+    display: 'grid',
+    gridTemplateRows: '60px 1fr',
     backgroundColor: theme.palette.background.general,
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
+
+    '&:hover #hideAndShowIcon': {
+      display: 'flex !important',
+    },
+
+    [theme.breakpoints.down(1024)]: {
+      gridTemplateRows: '1fr',
+    },
   },
 
-  root: {
-    zIndex: 1200,
-    width: '240px',
+  logoWrapper: {
     position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    [theme.breakpoints.down(1024)]: {
+      display: 'none',
+    },
   },
 
-  moreWidth: {
-    width: 245,
+  logoIcon: {
+    width: '125px !important',
+    height: '42px !important',
+    color: theme.palette.text.general,
+
+    'path:first-of-type': {
+      fill: theme.palette.primary.main,
+    },
   },
 
-  hideNavbar: {
-    width: 70,
-  },
+  logoIconShort: {
+    width: '50px !important',
+    height: '50px !important',
+    color: theme.palette.text.general,
 
-  paper: {
-    border: 'none',
-  },
-
-  positionStatic: {
-    position: 'static',
-  },
-  logo: {
-    marginTop: '15px',
-    height: '100%',
-    transform: 'scale(1.2)',
+    'path:first-of-type': {
+      fill: theme.palette.primary.main,
+    },
   },
 
   hideAndShowIconWrapper: {
     position: 'absolute',
-    top: 20,
-    left: 220,
-    zIndex: 1200,
-    width: '40px',
-    height: '40px',
-    // backgroundColor: '#d1d1d1a8', // старый цвет
-    backgroundColor: theme.palette.background.genral,
-    boxShadow: '0px 2px 40px 2px rgba(0, 0, 0, 0.1)',
-    display: 'flex',
+    zIndex: 7,
+    top: 40,
+    right: -20,
+    width: 40,
+    height: 40,
+    background: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.paper,
+    display: 'none',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: '50%',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    [theme.breakpoints.down(1282)]: {
+    cursor: 'pointer',
+    transition: '0.3s ease-out',
+
+    [theme.breakpoints.down(1024)]: {
       display: 'none',
     },
   },
 
   hideAndShowIcon: {
-    top: 20,
-    left: 50,
+    [theme.breakpoints.down(1024)]: {
+      display: 'none',
+    },
   },
+
   arrowIcon: {
-    marginLeft: 8,
+    height: '20px !important',
+    marginLeft: 6,
     color: theme.palette.primary.main,
   },
 }))

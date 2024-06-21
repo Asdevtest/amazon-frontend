@@ -22,7 +22,7 @@ export const ProductStatus = {
   COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 'COMPLETE_PRICE_WAS_NOT_ACCEPTABLE',
   PURCHASED_PRODUCT: 'PURCHASED_PRODUCT',
   NO_PUBLISHED: 'NO_PUBLISHED',
-
+  TEMPORARILY_DELAYED: 'TEMPORARILY_DELAYED',
   CREATED_BY_CLIENT: 'CREATED_BY_CLIENT',
   FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR: 'FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR',
   FROM_CLIENT_TO_BUYER_FOR_RESEARCH: 'FROM_CLIENT_TO_BUYER_FOR_RESEARCH',
@@ -47,6 +47,7 @@ export const ProductStatusByCode = {
   // Статусы, которые поставит супервайзер по итогам проверки
   15: ProductStatus.CHECKED_BY_SUPERVISOR,
   20: ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP, // Если ставит этот статус - должны заплатить супервайзеру.
+  25: ProductStatus.TEMPORARILY_DELAYED,
   30: ProductStatus.TO_BUYER_FOR_RESEARCH,
   35: ProductStatus.BUYER_PICKED_PRODUCT, // статус проставляется автоматически после того как баер взял товар в работу
   // Статусы которые поставит байер по результатам своей работы.
@@ -116,6 +117,7 @@ export const colorByProductStatus = status => {
       ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
       ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND,
       ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
+      ProductStatus.TEMPORARILY_DELAYED,
     ].includes(status)
   ) {
     return '#FF1616'
@@ -133,7 +135,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey.All
 
     case ProductStatus.RESEARCHER_CREATED_PRODUCT:
-      return TranslationKey['Product on check with Supervisor']
+      return TranslationKey['Check of goods from resercher']
 
     case ProductStatus.RESEARCHER_FOUND_SUPPLIER:
       return TranslationKey['Researcher found supplier']
@@ -178,7 +180,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey['Created by Client']
 
     case ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR:
-      return TranslationKey['Product on check with Supervisor']
+      return TranslationKey['Finding a supplier from a client']
 
     case ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH:
       return TranslationKey['Is in search of a Buyer']
@@ -207,8 +209,33 @@ export const productStatusTranslateKey = status => {
     case ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE:
       return TranslationKey['Supplier price does not fit (сhecked)']
 
+    case ProductStatus.TEMPORARILY_DELAYED:
+      return TranslationKey['Temporarily delayed']
+
     case ProductStatus.SUPPLIER_FOUND:
       return TranslationKey['Supplier found']
+  }
+}
+
+export const translateStatusForResearcher = status => {
+  switch (status) {
+    case ProductStatus.NEW_PRODUCT:
+      return TranslationKey['New product']
+
+    case ProductStatus.RESEARCHER_CREATED_PRODUCT:
+      return TranslationKey['Check of goods from resercher']
+
+    case ProductStatus.RESEARCHER_FOUND_SUPPLIER:
+      return TranslationKey['Researcher found supplier']
+
+    case ProductStatus.CHECKED_BY_SUPERVISOR:
+      return TranslationKey['Product is appropriate']
+
+    case ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP:
+      return TranslationKey['Rejected by Supervisor']
+
+    default:
+      return TranslationKey.Ok
   }
 }
 

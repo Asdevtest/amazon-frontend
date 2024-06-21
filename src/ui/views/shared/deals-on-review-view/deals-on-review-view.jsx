@@ -1,27 +1,26 @@
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantDealsListCard } from '@components/cards/vacant-deals-list-card'
-import { MainContent } from '@components/layout/main-content'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { DealsOnReviewModel } from './deals-on-review-view.model'
 import { styles } from './deals-on-review-view.style'
+
+import { DealsOnReviewModel } from './deals-on-review-view.model'
 
 export const DealsOnReviewViewRaw = props => {
   const [viewModel] = useState(() => new DealsOnReviewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -38,11 +37,11 @@ export const DealsOnReviewViewRaw = props => {
   }
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-            <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+    <>
+      <div>
+        <div className={styles.tablePanelWrapper}>
+          <div className={styles.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
+            <Typography className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
             {viewModel.sortMode === tableSortMode.DESK ? (
               <ArrowDropDownIcon color="primary" />
@@ -52,7 +51,7 @@ export const DealsOnReviewViewRaw = props => {
           </div>
         </div>
 
-        <div className={classNames.dealsOnReviewWrapper}>
+        <div className={styles.dealsOnReviewWrapper}>
           {getSortedData(viewModel.sortMode).length ? (
             getSortedData(viewModel.sortMode).map((deal, index) =>
               viewModel.viewMode === tableViewMode.LIST ? (
@@ -66,16 +65,16 @@ export const DealsOnReviewViewRaw = props => {
               ) : null,
             )
           ) : (
-            <div className={classNames.emptyTableWrapper}>
+            <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={classNames.emptyTableText}>
+              <Typography variant="h5" className={styles.emptyTableText}>
                 {t(TranslationKey['No deals yet'])}
               </Typography>
             </div>
           )}
         </div>
-      </MainContent>
-    </React.Fragment>
+      </div>
+    </>
   )
 }
 

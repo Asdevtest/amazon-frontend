@@ -1,19 +1,18 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
-import { colorByIdeaStatus, ideaStatusByCode } from '@constants/statuses/idea-status'
+import { colorByIdeaStatus, ideaStatusByCode } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
+  ActionButtonsCell,
   MultilineTextCell,
-  UserLinkCell,
-  NormalActionBtnCell,
+  MultilineTextHeaderCell,
   ProductAsinCell,
   ShortDateCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  UserLinkCell,
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const ideasNotificationsViewColumns = handlers => [
   {
@@ -33,9 +32,11 @@ export const ideasNotificationsViewColumns = handlers => [
 
     width: 200,
     renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.onClickViewBtn(params?.row?.product?._id)}
+      <ActionButtonsCell
+        isFirstButton
+        firstButtonElement={t(TranslationKey.View)}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onClickViewBtn(params?.row?.product?._id)}
       />
     ),
     filterable: false,
@@ -52,10 +53,10 @@ export const ideasNotificationsViewColumns = handlers => [
 
       return (
         <ProductAsinCell
-          image={product?.images?.slice()[0]}
+          image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
-          skusByClient={product?.skusByClient?.slice()[0]}
+          skuByClient={product?.skuByClient}
         />
       )
     },

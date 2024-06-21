@@ -1,21 +1,21 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
+  ActionButtonsCell,
   MultilineTextCell,
-  NormalActionBtnCell,
+  MultilineTextHeaderCell,
   NormDateCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const depersonalizedPickColumns = (handlers, isSupervisor) => [
   {
     field: 'number',
     headerName: '№',
-    renderHeader: () => <MultilineTextHeaderCell text={'№'} />,
+    renderHeader: () => <MultilineTextHeaderCell textCenter text={'№'} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 300,
@@ -24,21 +24,24 @@ export const depersonalizedPickColumns = (handlers, isSupervisor) => [
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+    renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <NormalActionBtnCell
+      <ActionButtonsCell
+        isFirstButton
         isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-        tooltipText={
+        firstButtonTooltipText={
           isSupervisor
             ? t(TranslationKey['Assign a product card to a supervisor'])
             : t(TranslationKey['To assign the order to Byer'])
         }
-        bTnText={t(TranslationKey['Get to work'])}
-        onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
+        firstButtonElement={t(TranslationKey['Get to work'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => handlers.onPickUp(params.row.originalData)}
       />
     ),
-    width: 550,
+    width: 180,
+    align: 'center',
   },
 
   {

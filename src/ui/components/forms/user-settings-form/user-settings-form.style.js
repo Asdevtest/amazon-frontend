@@ -1,11 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     gap: '10px',
     minWidth: '500px',
     flexDirection: 'column',
+    padding: 10,
   },
 
   noSettingsWarning: {

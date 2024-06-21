@@ -1,13 +1,13 @@
 // import { Type } from 'class-transformer';
 import {
+  IsArray,
+  IsBoolean,
   IsInt,
-  IsString,
   IsNotEmpty,
-  IsArray, // ValidateNested,
-  IsOptional,
-  IsNumber,
-  IsBoolean, // IsPositive,
+  IsNumber, // ValidateNested,
+  IsOptional, // IsPositive,
   IsPositive,
+  IsString,
 } from 'class-validator'
 
 export class BoxesCreateBoxContract {

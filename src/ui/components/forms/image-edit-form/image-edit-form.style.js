@@ -1,9 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    padding: 10,
   },
 
   imageWrapper: {

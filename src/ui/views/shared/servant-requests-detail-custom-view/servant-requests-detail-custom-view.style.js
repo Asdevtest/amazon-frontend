@@ -1,8 +1,6 @@
-export const styles = () => ({
-  backBtnWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(() => ({
   requestInfoWrapper: {
     marginTop: '24px',
   },
@@ -19,11 +17,6 @@ export const styles = () => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '10px 0',
+    marginTop: 20,
   },
-
-  backBtn: {
-    width: '140px',
-    height: '40px',
-  },
-})
+}))

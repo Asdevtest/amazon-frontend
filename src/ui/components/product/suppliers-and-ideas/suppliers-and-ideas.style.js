@@ -1,29 +1,29 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
-    gap: '5px',
-    width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    gap: 20,
+    minHeight: '40vh',
   },
 
   btnsWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
   },
 
   emptyTableWrapper: {
     width: '100%',
     height: '40vh',
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column',
+    gap: 30,
   },
 
   emptyTableText: {
-    marginTop: '30px',
     color: theme.palette.text.second,
   },
 }))

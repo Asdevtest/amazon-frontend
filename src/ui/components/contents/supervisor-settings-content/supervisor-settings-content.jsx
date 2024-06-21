@@ -1,29 +1,27 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Box, Tabs } from '@mui/material'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditAsinCheckerModal } from '@components/modals/edit-asin-checker-modal'
 import { FailedAsinsModal } from '@components/modals/failed-asins-modal'
-import { Button } from '@components/shared/buttons/button'
-import { ITab } from '@components/shared/i-tab/i-tab'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Button } from '@components/shared/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { TabPanel } from '@components/shared/tab-panel'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { useStyles } from './supervisor-settings-content.style'
+
 import { SupervisorSettingsContentModel } from './supervisor-settings-content.model'
-import { useClassNames } from './supervisor-settings-content.style'
 
 const tabsValues = {
   ONLINE_ARBITRAGE_CHINA: 'ONLINE_ARBITRAGE_CHINA',
@@ -32,20 +30,8 @@ const tabsValues = {
   WHOLE_SALE_USA: 'WHOLE_SALE_USA',
 }
 
-const TabPanel = ({ children, value, index, ...other }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
-  >
-    {value === index && <Box paddingTop={3}>{children}</Box>}
-  </div>
-)
-
 export const SupervisorSettingsContent = observer(() => {
-  const [tabIndex, setTabIndex] = React.useState(tabsValues.ONLINE_ARBITRAGE_CHINA)
+  const [tabIndex, setTabIndex] = useState(tabsValues.ONLINE_ARBITRAGE_CHINA)
   const gpModel = useRef(new SupervisorSettingsContentModel({ history, tabIndex }))
 
   const {
@@ -80,79 +66,65 @@ export const SupervisorSettingsContent = observer(() => {
     gpModel.current.loadData(tabIndex)
   }, [tabIndex])
 
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <React.Fragment>
-      <Tabs
-        variant={'fullWidth'}
-        classes={{
-          root: classNames.row,
-          indicator: classNames.indicator,
-        }}
-        value={tabIndex}
-        onChange={(e, value) => {
-          setTabIndex(value)
-        }}
-      >
-        <ITab value={tabsValues.ONLINE_ARBITRAGE_CHINA} label={'ONLINE ARBITRAGE CHINA'} />
-
-        <ITab label={'DROPSHIPPING'} value={tabsValues.DROPSHIPPING} />
-
-        <ITab label={'PRIVATE LABEL'} value={tabsValues.PRIVATE_LABEL} />
-
-        <ITab label={'WHOLE SALE USA'} value={tabsValues.WHOLE_SALE_USA} />
-      </Tabs>
+    <Fragment>
+      <CustomSwitcher
+        switchMode={'medium'}
+        condition={tabIndex}
+        switcherSettings={[
+          { label: () => 'ONLINE ARBITRAGE CHINA', value: tabsValues.ONLINE_ARBITRAGE_CHINA },
+          { label: () => 'DROPSHIPPING', value: tabsValues.DROPSHIPPING },
+          { label: () => 'PRIVATE LABEL', value: tabsValues.PRIVATE_LABEL },
+          { label: () => 'WHOLE SALE USA', value: tabsValues.WHOLE_SALE_USA },
+        ]}
+        changeConditionHandler={setTabIndex}
+      />
 
       <TabPanel value={tabIndex} index={tabsValues.ONLINE_ARBITRAGE_CHINA}>
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
             onChange={onChangeNameSearchValue}
           />
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonStyle.DANGER}
               disabled={!selectedRowIds?.length}
-              className={classNames.button}
+              className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
         </div>
-        <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
             checkboxSelection
-            useResizeContainer
-            classes={{
-              row: classNames.row,
-              // root: classNames.rootDataGrid,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            localeText={getLocalizationByLanguageTag()}
+            disableRowSelectionOnClick
             sortModel={sortModel}
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
             paginationModel={gpModel.current.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
+            sortingMode="client"
+            paginationMode="client"
             getRowId={row => row._id}
             rowHeight={120}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -163,9 +135,9 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatus.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -173,54 +145,46 @@ export const SupervisorSettingsContent = observer(() => {
       </TabPanel>
 
       <TabPanel value={tabIndex} index={tabsValues.DROPSHIPPING}>
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
             onChange={onChangeNameSearchValue}
           />
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonStyle.DANGER}
               disabled={!selectedRowIds?.length}
-              className={classNames.button}
+              className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
         </div>
-        <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            useResizeContainer
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
             checkboxSelection
-            classes={{
-              row: classNames.row,
-              // root: classNames.rootDataGrid,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            localeText={getLocalizationByLanguageTag()}
+            disableRowSelectionOnClick
             sortModel={sortModel}
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
             paginationModel={gpModel.current.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -231,9 +195,9 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatus.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -241,54 +205,46 @@ export const SupervisorSettingsContent = observer(() => {
       </TabPanel>
 
       <TabPanel value={tabIndex} index={tabsValues.PRIVATE_LABEL}>
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
             onChange={onChangeNameSearchValue}
           />
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonStyle.DANGER}
               disabled={!selectedRowIds?.length}
-              className={classNames.button}
+              className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
         </div>
-        <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            useResizeContainer
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
             checkboxSelection
-            classes={{
-              row: classNames.row,
-              // root: classNames.rootDataGrid,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            localeText={getLocalizationByLanguageTag()}
+            disableRowSelectionOnClick
             sortModel={sortModel}
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
             paginationModel={gpModel.current.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -299,9 +255,9 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatus.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
@@ -309,54 +265,46 @@ export const SupervisorSettingsContent = observer(() => {
       </TabPanel>
 
       <TabPanel value={tabIndex} index={tabsValues.WHOLE_SALE_USA}>
-        <div className={classNames.buttonWrapper}>
+        <div className={styles.buttonWrapper}>
           <SearchInput
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             value={nameSearchValue}
             placeholder={t(TranslationKey['Search by ASIN, Reason'])}
             onChange={onChangeNameSearchValue}
           />
-          <div className={classNames.buttonsWrapper}>
+          <div className={styles.buttonsWrapper}>
             <Button
-              danger
+              styleType={ButtonStyle.DANGER}
               disabled={!selectedRowIds?.length}
-              className={classNames.button}
+              className={styles.button}
               onClick={onClickRemoveSelectedBtn}
             >
               {t(TranslationKey['Delete selected ASINs'])}
             </Button>
-            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+            <Button
+              styleType={ButtonStyle.SUCCESS}
+              className={styles.button}
+              onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
+            >
               {'ASIN checker'}
             </Button>
           </div>
         </div>
-        <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            useResizeContainer
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
             checkboxSelection
-            classes={{
-              row: classNames.row,
-              // root: classNames.rootDataGrid,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
-            localeText={getLocalizationByLanguageTag()}
+            disableRowSelectionOnClick
             sortModel={sortModel}
             filterModel={filterModel}
             columnVisibilityModel={gpModel.current.columnVisibilityModel}
             paginationModel={gpModel.current.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={getCurrentData()}
             getRowId={row => row._id}
             rowHeight={120}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel,
@@ -367,14 +315,15 @@ export const SupervisorSettingsContent = observer(() => {
             }}
             density={densityModel}
             columns={columnsModel}
-            loading={requestStatus === loadingStatuses.isLoading}
+            loading={requestStatus === loadingStatus.IS_LOADING}
             onSortModelChange={onChangeSortingModel}
-            onPaginationModelChange={gpModel.current.onChangePaginationModelChange}
+            onPaginationModelChange={gpModel.current.onPaginationModelChange}
             onFilterModelChange={onChangeFilterModel}
             onRowSelectionModelChange={onSelectionModel}
           />
         </div>
       </TabPanel>
+
       <Modal
         openModal={showAsinCheckerModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
@@ -386,6 +335,7 @@ export const SupervisorSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
         />
       </Modal>
+
       <Modal openModal={showEditAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showEditAsinCheckerModal')}>
         <EditAsinCheckerModal
           strategy={tabIndex}
@@ -394,36 +344,45 @@ export const SupervisorSettingsContent = observer(() => {
           onClose={() => onTriggerOpenModal('showEditAsinCheckerModal')}
         />
       </Modal>
-      <ConfirmationModal
-        openModal={showConfirmCloseAsinCheckerModal}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Window will be closed'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showConfirmCloseAsinCheckerModal')
-          onTriggerOpenModal('showAsinCheckerModal')
-        }}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
-      />
-      <ConfirmationModal
-        isWarning={confirmModalSettings.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => confirmModalSettings.onClickSuccess(tabIndex)}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+
+      {showConfirmCloseAsinCheckerModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={showConfirmCloseAsinCheckerModal}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Window will be closed'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          setOpenModal={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showConfirmCloseAsinCheckerModal')
+            onTriggerOpenModal('showAsinCheckerModal')
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmCloseAsinCheckerModal')}
+        />
+      ) : null}
+
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => confirmModalSettings.onClickSuccess(tabIndex)}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+
       <Modal openModal={showFailedAsinsModal} setOpenModal={() => onTriggerOpenModal('showFailedAsinsModal')}>
         <FailedAsinsModal
           failedData={failedData}
           onClickSuccessBtn={() => onTriggerOpenModal('showFailedAsinsModal')}
         />
       </Modal>
-    </React.Fragment>
+    </Fragment>
   )
 })

@@ -1,145 +1,61 @@
-/* eslint-disable no-unused-vars */
-import { transformAndValidate } from 'class-transformer-validator'
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
-import { mapTaskPriorityStatusEnumToKey, TaskPriorityStatus } from '@constants/task/task-priority-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
+import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { BoxesModel } from '@models/boxes-model'
-import { BoxesCreateBoxContract } from '@models/boxes-model/boxes-model.contracts'
 import { BuyerModel } from '@models/buyer-model'
+import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { SupplierModel } from '@models/supplier-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { BuyerReadyForPaymentColumns } from '@components/table/table-columns/buyer/buyer-ready-for-payment-columns'
 
 import { buyerMyOrdersDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { getTableByColumn, objectToUrlQs, toFixed } from '@utils/text'
-
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
-import { GeneralModel } from '@models/general-model'
 
-const updateOrderKeys = [
-  'deliveryMethod',
-  'warehouse',
-  'barCode',
-  'trackingNumberChina',
-  'amountPaymentPerConsignmentAtDollars',
-  'deliveryCostToTheWarehouse',
-  'buyerComment',
-  'images',
-  'yuanToDollarRate',
-  'paymentDetails',
-  'amount',
-  'orderSupplierId',
-  'item',
-  'priceInYuan',
-  'priceBatchDeliveryInYuan',
-  'partialPaymentAmountRmb',
-  'partiallyPaid',
-  'partialPayment',
-]
+import { loadingStatus } from '@typings/enums/loading-status'
 
-const filtersFields = [
-  'id',
-  'item',
-  'priority',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'paymentDetailsAttached',
-  'status',
-  'amount',
-  'totalPrice',
-  'paymentMethod',
-  'priceInYuan',
-  'storekeeper',
-  'productionTerm',
-  'deadline',
-  'paymentDateToSupplier',
-  'needsResearch',
-  'client',
-  'destination',
-  'clientComment',
-  'buyerComment',
-  'createdAt',
-  'updatedAt',
-  'partiallyPaid',
-]
+import { filtersFields, updateOrderKeys } from './buyer-my-orders-view.constants'
 
 export class BuyerMyOrdersViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
-  // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = []
   chosenStatus = []
   filteredStatus = []
-
   paymentMethods = []
-
-  yuanToDollarRate = undefined
-
   ordersMy = []
   baseNoConvertedOrders = []
-
-  currentData = []
-
   isReadyForPayment = undefined
-
-  curBoxesOfOrder = []
-
   createBoxesResult = []
-
-  imagesForLoad = []
-
   paymentAmount = undefined
-
-  volumeWeightCoefficient = undefined
-  platformSettings = undefined
-
   nameSearchValue = ''
-
-  showBarcodeModal = false
-  showOrderModal = false
   selectedOrder = undefined
   barcode = ''
-  showNoDimensionsErrorModal = false
-  showWarningNewBoxesModal = false
-  showSuccessModal = false
-  showOrderPriceMismatchModal = false
-  showConfirmModal = false
-  showWarningInfoModal = false
-  showPaymentMethodsModal = false
-
   currentOrder = undefined
-
   updateSupplierData = false
-
-  hsCodeData = {}
-
-  showEditHSCodeModal = false
-
-  showSuccessModalText = ''
-
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
+  progressValue = 0
+  showProgress = false
+  readyImages = []
+  hsCodeData = undefined
 
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
+  showOrderModal = false
+  showConfirmModal = false
+  showPaymentMethodsModal = false
 
   confirmModalSettings = {
     title: '',
@@ -151,21 +67,14 @@ export class BuyerMyOrdersViewModel {
   rowHandlers = {
     onClickPaymentMethodsCell: row => this.onClickPaymentMethodsCell(row),
   }
-
   rowCount = 0
   sortModel = []
   startFilterModel = undefined
   filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, false)
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
-  progressValue = 0
-  showProgress = false
-  readyImages = []
-
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
@@ -177,24 +86,16 @@ export class BuyerMyOrdersViewModel {
 
     filterRequestStatus: undefined,
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
+  }
+
+  get currentData() {
+    return this.ordersMy
   }
 
   get userInfo() {
     return UserModel.userInfo
   }
-
-  // НЕ было до создания фильтрации по статусам
 
   get orderStatusData() {
     return {
@@ -208,11 +109,13 @@ export class BuyerMyOrdersViewModel {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
   }
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-    })
-    // this.isShowPartialPayment = routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname;
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
+  constructor({ history }) {
+    this.history = history
+
     if (
       routsPathes.BUYER_MY_ORDERS_PARTIALLY_PAID === history.location.pathname ||
       routsPathes.BUYER_MY_ORDERS_READY_FOR_PAYMENT === history.location.pathname
@@ -220,34 +123,30 @@ export class BuyerMyOrdersViewModel {
       this.columnsModel = BuyerReadyForPaymentColumns(this.rowHandlers, () => this.columnMenuSettings, true)
     }
 
-    if (location.state?.orderId) {
-      this.onClickOrder(location.state.orderId)
+    const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
+    if (orderId) {
+      this.history.push(`${history.location.pathname}`)
+      this.onClickOrder(orderId)
+    }
+
+    if (history.location.state?.orderId) {
+      this.onClickOrder(history.location.state.orderId)
 
       const state = { ...history.location.state }
       delete state.orderId
       history.replace({ ...history.location, state })
     }
 
-    if (location?.state?.dataGridFilter) {
-      runInAction(() => {
-        this.startFilterModel = location.state.dataGridFilter
-      })
+    if (history.location?.state?.dataGridFilter) {
+      this.startFilterModel = history.location.state.dataGridFilter
     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.ordersMy,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
   }
 
   async onClickFilterBtn(column) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const orderStatus = this.filteredStatus.map(item => OrderStatusByKey[item]).join(',')
 
@@ -258,235 +157,48 @@ export class BuyerMyOrdersViewModel {
       const data = await GeneralModel.getDataForColumn(getTableByColumn(column, 'orders'), column, endpoint)
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
 
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   getFilter(exclusion) {
-    const idFilter = exclusion !== 'id' && this.columnMenuSettings.id?.currentFilterData.join(',')
-    const itemFilter = exclusion !== 'item' && this.columnMenuSettings.item?.currentFilterData.join(',')
-
-    const priorityFilter = exclusion !== 'priority' && this.columnMenuSettings.priority.currentFilterData.join(',')
-
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin?.currentFilterData.join(',')
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' && this.columnMenuSettings.skusByClient?.currentFilterData.join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle?.currentFilterData.map(el => `"${el}"`).join(',')
-
-    const paymentDetailsAttachedFilter =
-      exclusion !== 'paymentDetailsAttached' &&
-      this.columnMenuSettings.paymentDetailsAttached?.currentFilterData.join(',')
-
-    const amountFilter = exclusion !== 'amount' && this.columnMenuSettings.amount?.currentFilterData.join(',')
-
-    const totalPriceFilter =
-      exclusion !== 'totalPrice' && this.columnMenuSettings.totalPrice?.currentFilterData.join(',')
-
-    const paymentMethodFilter =
-      exclusion !== 'paymentMethod' &&
-      this.columnMenuSettings.paymentMethod.currentFilterData.map(item => item?._id).join(',')
-
-    const priceInYuanFilter =
-      exclusion !== 'priceInYuan' && this.columnMenuSettings.priceInYuan?.currentFilterData.join(',')
-
-    const storekeeperFilter =
-      exclusion !== 'storekeeper' && this.columnMenuSettings.storekeeper?.currentFilterData?.map(el => el._id).join(',')
-
-    const productionTermFilter =
-      exclusion !== 'productionTerm' && this.columnMenuSettings.productionTerm?.currentFilterData.join(',')
-
-    const deadlineFilter = exclusion !== 'deadline' && this.columnMenuSettings.deadline?.currentFilterData.join(',')
-
-    const paymentDateToSupplierFilter =
-      exclusion !== 'paymentDateToSupplier' &&
-      this.columnMenuSettings.paymentDateToSupplier?.currentFilterData.join(',')
-
-    const needsResearchFilter =
-      exclusion !== 'needsResearch' && this.columnMenuSettings.needsResearch?.currentFilterData.join(',')
-
-    const clientFilter =
-      exclusion !== 'client' && this.columnMenuSettings.client?.currentFilterData?.map(el => el._id).join(',')
-
-    const destinationFilter =
-      exclusion !== 'destination' && this.columnMenuSettings.destination?.currentFilterData?.map(el => el._id).join(',')
-
-    const clientCommentFilter =
-      exclusion !== 'clientComment' && this.columnMenuSettings.clientComment?.currentFilterData.join(',')
-
-    const buyerCommentFilter =
-      exclusion !== 'buyerComment' && this.columnMenuSettings.buyerComment?.currentFilterData.join(',')
-
-    const createdAtFilter = exclusion !== 'createdAt' && this.columnMenuSettings.createdAt?.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt?.currentFilterData.join(',')
-
-    const partiallyPaidFilter =
-      exclusion !== 'partiallyPaid' && this.columnMenuSettings.partiallyPaid?.currentFilterData.join(',')
-
-    const filter = objectToUrlQs({
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { amazonTitle: { $contains: this.nameSearchValue } },
-        { skusByClient: { $contains: this.nameSearchValue } },
-        { id: { $eq: this.nameSearchValue } },
-        { item: { $eq: this.nameSearchValue } },
-      ].filter(
-        el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
-          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      ),
-
-      ...(idFilter && {
-        id: { $eq: idFilter },
-      }),
-      ...(itemFilter && {
-        item: { $eq: itemFilter },
-      }),
-
-      ...(priorityFilter && {
-        priority: { $eq: priorityFilter },
-      }),
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(amountFilter && {
-        amount: { $eq: amountFilter },
-      }),
-
-      ...(totalPriceFilter && {
-        totalPrice: { $eq: totalPriceFilter },
-      }),
-
-      ...(paymentDetailsAttachedFilter && {
-        paymentDetailsAttached: { $eq: paymentDetailsAttachedFilter },
-      }),
-
-      ...(priceInYuanFilter && {
-        priceInYuan: { $eq: priceInYuanFilter },
-      }),
-
-      ...(paymentMethodFilter && {
-        paymentMethod: { $eq: paymentMethodFilter },
-      }),
-
-      ...(storekeeperFilter && {
-        storekeeper: { $eq: storekeeperFilter },
-      }),
-
-      ...(productionTermFilter && {
-        productionTerm: { $eq: productionTermFilter },
-      }),
-
-      ...(deadlineFilter && {
-        deadline: { $eq: deadlineFilter },
-      }),
-
-      ...(paymentDateToSupplierFilter && {
-        paymentDateToSupplier: { $eq: paymentDateToSupplierFilter },
-      }),
-
-      ...(needsResearchFilter && {
-        needsResearch: { $eq: needsResearchFilter },
-      }),
-
-      ...(clientFilter && {
-        client: { $eq: clientFilter },
-      }),
-
-      ...(destinationFilter && {
-        destinationId: { $eq: destinationFilter },
-      }),
-
-      ...(clientCommentFilter && {
-        clientComment: { $eq: clientCommentFilter },
-      }),
-      ...(buyerCommentFilter && {
-        buyerComment: { $eq: buyerCommentFilter },
-      }),
-
-      ...(createdAtFilter && {
-        createdAt: { $eq: createdAtFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-
-      ...(partiallyPaidFilter && {
-        partiallyPaid: { $eq: partiallyPaidFilter },
-      }),
-    })
-
-    return filter
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'amazonTitle',
+        'asin',
+        'id',
+        'item',
+        'skuByClient',
+      ]),
+    )
   }
 
   setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
+    this.columnMenuSettings.filterRequestStatus = requestStatus
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
-  // onLeaveColumnField() {
-  //   this.onHover = null
-  //   this.getDataGridState()
-  // }
-
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+      ...dataGridFiltersInitializer(filtersFields),
+    }
 
     this.getOrdersMy()
     this.getDataGridState()
@@ -554,13 +266,19 @@ export class BuyerMyOrdersViewModel {
     if (
       Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
     ) {
-      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
-        OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT],
-      )
+      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])
+
+      runInAction(() => {
+        this.paymentAmount = response
+      })
     } else if (
       Number(OrderStatusByKey[this.orderStatusDataBase]) === Number(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
     ) {
-      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
+      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(OrderStatusByKey[OrderStatus.PARTIALLY_PAID])
+
+      runInAction(() => {
+        this.paymentAmount = response
+      })
     } else if (
       this.orderStatusDataBase.some(
         status =>
@@ -569,31 +287,33 @@ export class BuyerMyOrdersViewModel {
       ) &&
       this.orderStatusDataBase.length === 2
     ) {
-      this.paymentAmount = await BuyerModel.getBuyersOrdersPaymentByStatus(
+      const response = await BuyerModel.getBuyersOrdersPaymentByStatus(
         [
           Number(OrderStatusByKey[OrderStatus.AT_PROCESS]),
           Number(OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
         ].join(','),
       )
+
+      runInAction(() => {
+        this.paymentAmount = response
+      })
     }
   }
 
-  // Убирает и добавляет статусы в массив выбранных статусов
   onClickOrderStatusData(status) {
-    runInAction(() => {
-      if (status) {
-        if (status === 'ALL') {
-          this.chosenStatus = []
+    if (status) {
+      if (status === 'ALL') {
+        this.chosenStatus = []
+      } else {
+        if (this.chosenStatus.some(item => item === status)) {
+          this.chosenStatus = this.chosenStatus.filter(item => item !== status)
         } else {
-          if (this.chosenStatus.some(item => item === status)) {
-            this.chosenStatus = this.chosenStatus.filter(item => item !== status)
-          } else {
-            this.chosenStatus.push(status)
-          }
+          this.chosenStatus.push(status)
         }
       }
-      this.getOrdersMy()
-    })
+    }
+
+    this.getOrdersMy()
   }
 
   setDefaultStatuses() {
@@ -606,71 +326,93 @@ export class BuyerMyOrdersViewModel {
   }
 
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
+
+      runInAction(() => {
+        this.paymentMethods = response.map(paymentMethod => ({
+          isChecked: false,
+          paymentDetails: '',
+          paymentImages: [],
+          paymentMethod,
+        }))
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.clearReadyImages()
-
-      if (editPhotosOfSupplier?.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
         images: this.readyImages,
       }
 
-      this.clearReadyImages()
-
-      if (photosOfSupplier?.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-        await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
+
+        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
       }
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
-      this.selectedOrder = orderData
+
+      runInAction(() => {
+        this.selectedOrder = orderData
+      })
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      console.error(error)
     }
   }
 
   async onClickSaveWithoutUpdateSupData(DataForSaveOrder, orderFields) {
     if (orderFields.status !== OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] && orderFields.status < 20) {
-      this.confirmModalSettings = {
-        title: t(TranslationKey.Attention),
-        isWarning: true,
-        confirmMessage: t(
-          TranslationKey[
-            'The price per unit in the order is different from the supplier price, do you want to continue?'
-          ],
-        ),
-        onClickConfirm: () => {
-          this.onSubmitSaveOrder(DataForSaveOrder)
-          this.onTriggerOpenModal('showConfirmModal')
-        },
-      }
+      runInAction(() => {
+        this.confirmModalSettings = {
+          title: t(TranslationKey.Attention),
+          isWarning: false,
+          confirmMessage: t(
+            TranslationKey[
+              'The price per unit in the order is different from the supplier price, do you want to continue?'
+            ],
+          ),
+          onClickConfirm: () => {
+            this.onSubmitSaveOrder(DataForSaveOrder)
+            this.onTriggerOpenModal('showConfirmModal')
+          },
+        }
+      })
+
       this.onTriggerOpenModal('showConfirmModal')
     } else {
       this.onSubmitSaveOrder(DataForSaveOrder)
@@ -680,13 +422,11 @@ export class BuyerMyOrdersViewModel {
   async onClickUpdataSupplierData({ supplier, productId, orderFields }) {
     this.updateSupplierData = false
 
-    this.getPlatformSettings()
-
     try {
       supplier = {
         ...supplier,
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        yuanRate: this.yuanToDollarRate,
+        yuanRate: this.platformSettings?.yuanToDollarRate,
         amount: orderFields.amount,
         price: orderFields.price,
         priceInYuan: orderFields.priceInYuan,
@@ -705,19 +445,18 @@ export class BuyerMyOrdersViewModel {
       }
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
-      this.selectedOrder = orderData
+
+      runInAction(() => {
+        this.selectedOrder = orderData
+      })
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      console.error(error)
     }
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
+
     this.setDataGridState()
   }
 
@@ -729,111 +468,62 @@ export class BuyerMyOrdersViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
+    TableSettingsModel.saveTableSettings(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[this.setDataGridTablesKeys(this.history.location.pathname)]
+    const state = TableSettingsModel.getTableSettings(this.setDataGridTablesKeys(this.history.location.pathname))
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(
-          this.startFilterModel
-            ? {
-                ...this.startFilterModel,
-                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-              }
-            : state.filterModel,
-        )
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(
+        this.startFilterModel
+          ? {
+              ...this.startFilterModel,
+              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+            }
+          : state.filterModel,
+      )
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-      this.setDataGridState()
-      this.getOrdersMy()
-    })
-  }
+    this.sortModel = sortModel
 
-  async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
-  async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
-  }
-
-  getCurrentData() {
-    // if (this.columnMenuSettings.paymentMethod.currentFilterData.length) {
-    //   const curPaymentsIds = this.columnMenuSettings.paymentMethod.currentFilterData.map(el => el._id)
-
-    //   return toJS(this.ordersMy).filter(el =>
-    //     el.payments.some(item => curPaymentsIds.includes(item.paymentMethods._id)),
-    //   )
-    // } else {
-    return toJS(this.ordersMy)
-    // }
+    this.setDataGridState()
+    this.getOrdersMy()
   }
 
   async setColumnsModel() {
-    const currentStatus = await this.setOrderStatus(this.history.location.pathname)
+    const response = await this.setOrderStatus(this.history.location.pathname)
 
-    this.isReadyForPayment = currentStatus.some(status => status === OrderStatus.READY_FOR_PAYMENT)
+    runInAction(() => {
+      this.isReadyForPayment = response.some(status => status === OrderStatus.READY_FOR_PAYMENT)
+    })
   }
 
-  async onClickPaymentMethodsCell(row) {
-    await this.getSuppliersPaymentMethods()
-    runInAction(() => {
-      this.currentOrder = row
-      this.onTriggerOpenModal('showPaymentMethodsModal')
-    })
+  onClickPaymentMethodsCell(row) {
+    this.currentOrder = row
+
+    this.onTriggerOpenModal('showPaymentMethodsModal')
   }
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
       await this.setColumnsModel()
       this.getDataGridState()
       await this.getOrdersMy()
-      this.getPlatformSettings()
-      this.getBuyersOrdersPaymentByStatus()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.getBuyersOrdersPaymentByStatus()
+      this.getSuppliersPaymentMethods()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -841,43 +531,11 @@ export class BuyerMyOrdersViewModel {
     try {
       await BuyerModel.changeOrderItem(orderId, orderItem)
 
-      runInAction(() => {
-        this.showSuccessModalText = t(TranslationKey['Data saved successfully'])
-      })
-
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getBoxesOfOrder(orderId) {
-    try {
-      const result = await BoxesModel.getBoxesOfOrder(orderId)
-      runInAction(() => {
-        this.curBoxesOfOrder = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).reverse()
-      })
-    } catch (error) {
-      // console.log(error)
-      runInAction(() => {
-        this.curBoxesOfOrder = []
-      })
-    }
-  }
-
-  async getPlatformSettings() {
-    try {
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.yuanToDollarRate = result.yuanToDollarRate
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        this.platformSettings = result
-      })
-    } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -885,45 +543,16 @@ export class BuyerMyOrdersViewModel {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
 
-      await Promise.all([
-        ProductModel.getProductsHsCodeByGuid(orderData.product._id),
-        this.onClickHsCode(orderData.product._id),
-        this.getSuppliersPaymentMethods(),
-      ])
-
       runInAction(() => {
         this.selectedOrder = orderData
-
-        this.clearImagesForLoad()
-
-        this.updateImagesForLoad(orderData.images)
       })
-      this.getBoxesOfOrder(orderId)
 
-      this.getPlatformSettings()
+      await this.onClickHsCode(orderData.product._id)
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
-  }
-
-  updateImagesForLoad(images) {
-    if (!Array.isArray(images)) {
-      return
-    }
-
-    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
-
-    runInAction(() => {
-      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
-    })
-  }
-
-  onChangeImagesForLoad(value) {
-    runInAction(() => {
-      this.imagesForLoad = value
-    })
   }
 
   async onSubmitCancelOrder() {
@@ -931,57 +560,38 @@ export class BuyerMyOrdersViewModel {
       await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {
         buyerComment: this.dataToCancelOrder.buyerComment,
       })
-      await UserModel.getUserInfo()
+      await UserModel.getUsersInfoCounters()
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      console.error(error)
     }
   }
 
   async saveOrderPayment(order, orderPayments) {
     if (Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])) {
       try {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
         const validOrderPayments = []
+
         for (const payment of orderPayments) {
-          if (payment?.photosForLoad?.length) {
-            this.clearReadyImages()
-            await onSubmitPostImages.call(this, { images: payment.photosForLoad, type: 'readyImages' })
+          await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
+
+          const updatedPayment = {
+            paymentMethodId: payment.paymentMethod._id,
+            paymentDetails: payment.paymentDetails,
+            paymentImages: this.readyImages,
           }
 
-          const readyPhotosForLoad = await this.readyImages
-
-          this.clearReadyImages()
-
-          const validObj = {
-            paymentMethodId: payment?.paymentMethod._id,
-            paymentDetails: payment?.paymentDetails,
-            paymentImages: readyPhotosForLoad,
-          }
-
-          if (payment?.paymentImages?.length) {
-            this.clearReadyImages()
-            await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
-          }
-
-          const readyPaymentImages = await this.readyImages
-
-          this.clearReadyImages()
-
-          validOrderPayments.push({
-            ...validObj,
-            paymentImages: [...validObj.paymentImages, ...readyPaymentImages],
-          })
+          validOrderPayments.push(updatedPayment)
         }
 
-        await BuyerModel.PatchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
+        await BuyerModel.patchBuyersOrdersPaymentByGuid(order._id, { orderPayments: validOrderPayments })
+
         this.loadData()
       } catch (error) {
-        console.log('error', error)
-        this.setRequestStatus(loadingStatuses.failed)
+        console.error(error)
+        this.setRequestStatus(loadingStatus.FAILED)
       }
     }
   }
@@ -994,67 +604,41 @@ export class BuyerMyOrdersViewModel {
     hsCode,
     trackNumber,
     commentToWarehouse,
-    paymentDetailsPhotosToLoad,
     editPaymentDetailsPhotos,
     orderPayments,
   }) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
       if (isMismatchOrderPrice && toFixed(orderFields.totalPriceChanged, 2) !== toFixed(orderFields.totalPrice, 2)) {
-        this.onTriggerOpenModal('showOrderPriceMismatchModal')
+        toast.warning(
+          t(
+            TranslationKey[
+              'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
+            ],
+          ),
+        )
       }
-
-      this.clearReadyImages()
-
-      // if (this.imagesForLoad.length) {
-      await onSubmitPostImages.call(this, { images: this.imagesForLoad || [], type: 'readyImages' })
-
-      this.clearImagesForLoad()
 
       orderFields = {
         ...orderFields,
+        partiallyPaid: Number(orderFields.partiallyPaid) || 0,
         partialPaymentAmountRmb: Number(orderFields.partialPaymentAmountRmb) || 0,
-        partialPayment: Number(orderFields.partialPayment) || 0,
+      }
+
+      await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
+      orderFields = {
+        ...orderFields,
         images: this.readyImages,
       }
-      // }
 
-      this.clearReadyImages()
-
-      if (photosToLoad?.length) {
-        await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
-
-        orderFields = {
-          ...orderFields,
-          images: [...(orderFields.images || []), ...this.readyImages],
-        }
-      }
-
-      this.clearReadyImages()
-
-      // if (editPaymentDetailsPhotos?.length) {
-      await onSubmitPostImages.call(this, { images: editPaymentDetailsPhotos || [], type: 'readyImages' })
-
+      await onSubmitPostImages.call(this, { images: editPaymentDetailsPhotos, type: 'readyImages' })
       orderFields = {
         ...orderFields,
-        paymentDetails: [/* ...orderFields.paymentDetails,  */ ...this.readyImages],
+        paymentDetails: this.readyImages,
       }
-      // }
-
-      this.clearReadyImages()
-
-      if (paymentDetailsPhotosToLoad?.length) {
-        await onSubmitPostImages.call(this, { images: paymentDetailsPhotosToLoad, type: 'readyImages' })
-
-        orderFields = {
-          ...orderFields,
-          paymentDetails: [...orderFields.paymentDetails, ...this.readyImages],
-        }
-      }
-
-      this.clearReadyImages()
 
       await this.onSaveOrder(order, orderFields)
 
@@ -1068,7 +652,6 @@ export class BuyerMyOrdersViewModel {
         await this.onSubmitCreateBoxes({ order, boxesForCreation, trackNumber, commentToWarehouse })
       }
 
-      // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
       if (
         orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
         orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
@@ -1077,11 +660,6 @@ export class BuyerMyOrdersViewModel {
           await BuyerModel.setOrderTotalPriceChanged(order._id, { totalPriceChanged: orderFields.totalPriceChanged })
         }
       }
-
-      // } else {
-      // if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2)) {
-      //   await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
-      // }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`) {
         await BuyerModel.setOrdersAtProcess(order._id)
@@ -1100,38 +678,18 @@ export class BuyerMyOrdersViewModel {
       }
 
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]}`) {
-        orderPayments = [...orderPayments.filter(payment => payment?.paymentMethod?._id)]
-
         const validOrderPayments = []
+
         for (const payment of orderPayments) {
-          if (payment?.photosForLoad?.length) {
-            this.clearReadyImages()
-            await onSubmitPostImages.call(this, { images: payment.photosForLoad, type: 'readyImages' })
+          await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
+
+          const updatedPayment = {
+            paymentMethodId: payment.paymentMethod._id,
+            paymentDetails: payment.paymentDetails,
+            paymentImages: this.readyImages,
           }
 
-          const readyPhotosForLoad = await this.readyImages
-
-          this.clearReadyImages()
-
-          const validObj = {
-            paymentMethodId: payment?.paymentMethod._id,
-            paymentDetails: payment?.paymentDetails,
-            paymentImages: readyPhotosForLoad,
-          }
-
-          if (payment?.paymentImages?.length) {
-            this.clearReadyImages()
-            await onSubmitPostImages.call(this, { images: payment.paymentImages, type: 'readyImages' })
-          }
-
-          const readyPaymentImages = await this.readyImages
-
-          this.clearReadyImages()
-
-          validOrderPayments.push({
-            ...validObj,
-            paymentImages: [...validObj.paymentImages, ...readyPaymentImages],
-          })
+          validOrderPayments.push(updatedPayment)
         }
 
         await BuyerModel.orderReadyForPayment(order._id, { orderPayments: validOrderPayments })
@@ -1144,20 +702,18 @@ export class BuyerMyOrdersViewModel {
       if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
           this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
+          this.confirmModalSettings = {
+            title: t(TranslationKey['Attention. Are you sure?']),
+            isWarning: true,
+            confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+            onClickConfirm: () => {
+              this.onSubmitCancelOrder()
+            },
+          }
         })
 
-        this.confirmModalSettings = {
-          title: t(TranslationKey['Attention. Are you sure?']),
-          isWarning: true,
-          confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
-          onClickConfirm: () => {
-            this.onSubmitCancelOrder()
-          },
-        }
         this.onTriggerOpenModal('showConfirmModal')
-        // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
       }
-      // }
 
       if (hsCode) {
         await ProductModel.editProductsHsCods([
@@ -1171,48 +727,21 @@ export class BuyerMyOrdersViewModel {
         ])
       }
 
-      this.setRequestStatus(loadingStatuses.success)
       if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
         runInAction(() => {
           this.dataToCancelOrder = { orderId: order._id, buyerComment: orderFields.buyerComment }
         })
         this.onTriggerOpenModal('showOrderModal')
-        UserModel.getUserInfo()
-        // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
+        UserModel.getUsersInfoCounters()
       }
 
       this.loadData()
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-    }
-  }
+      this.setRequestStatus(loadingStatus.FAILED)
 
-  async onSubmitChangeBoxFields(data, inModal) {
-    try {
-      this.uploadedFiles = []
-
-      if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
-      }
-
-      await BoxesModel.editAdditionalInfo(data._id, {
-        trackNumberText: data.trackNumberText,
-        trackNumberFile: [...data.trackNumberFile, ...this.uploadedFiles],
-      })
-
-      this.getBoxesOfOrder(this.selectedOrder._id)
-
-      !inModal && this.onTriggerOpenModal('showBoxViewModal')
-
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Data saved successfully']),
-      }
-
-      this.onTriggerOpenModal('showWarningInfoModal')
-    } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1233,22 +762,16 @@ export class BuyerMyOrdersViewModel {
         ...updateOrderDataFiltered,
       })
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      console.error(error)
     }
   }
 
   async onSubmitCreateBoxes({ order, boxesForCreation, trackNumber, commentToWarehouse }) {
     try {
       runInAction(() => {
-        this.error = undefined
-
         this.createBoxesResult = []
       })
 
-      this.readyImages = []
       if (trackNumber?.files.length) {
         await onSubmitPostImages.call(this, { images: trackNumber.files, type: 'readyImages' })
       }
@@ -1287,31 +810,23 @@ export class BuyerMyOrdersViewModel {
       await BuyerModel.postTask({
         taskId: 0,
         boxes: [],
-        boxesBefore: [...this.createBoxesResult /* createBoxResult.guid*/],
+        boxesBefore: this.createBoxesResult,
         operationType: 'receive',
         clientComment: order.clientComment || '',
         buyerComment: commentToWarehouse || '',
         priority:
-          order.priority === '40'
+          order.priority === mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.PROBLEMATIC]
             ? mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.URGENT]
             : mapTaskPriorityStatusEnumToKey[TaskPriorityStatus.STANDART],
       })
 
-      if (!this.error) {
-        runInAction(() => {
-          this.showSuccessModalText = t(TranslationKey['A task was created for the warehouse: "Receive a box"'])
-        })
-
-        this.onTriggerOpenModal('showSuccessModal')
-      }
-      await this.getBoxesOfOrder(order._id)
+      toast.success(t(TranslationKey['A task was created for the warehouse: "Receive a box"']))
     } catch (error) {
-      console.log(error)
-      throw error
+      console.error(error)
     }
   }
 
-  async onCreateBox(formFields /* , order*/) {
+  async onCreateBox(formFields) {
     try {
       const createBoxData = {
         ...getObjectFilteredByKeyArrayBlackList(formFields, [
@@ -1339,12 +854,13 @@ export class BuyerMyOrdersViewModel {
             amount: formFields.items[0].amount,
             orderId: this.selectedOrder._id,
 
-            isBarCodeAlreadyAttachedByTheSupplier: formFields.items[0].isBarCodeAlreadyAttachedByTheSupplier,
+            transparencyFile: formFields?.items?.[0]?.transparencyFile || '',
+            isBarCodeAlreadyAttachedByTheSupplier: formFields?.items?.[0]?.isBarCodeAlreadyAttachedByTheSupplier,
+            isTransparencyFileAlreadyAttachedByTheSupplier:
+              formFields?.items?.[0]?.isTransparencyFileAlreadyAttachedByTheSupplier,
           },
         ],
       }
-
-      await transformAndValidate(BoxesCreateBoxContract, createBoxData)
 
       const createBoxResult = await BoxesModel.createBox(createBoxData)
 
@@ -1353,19 +869,12 @@ export class BuyerMyOrdersViewModel {
       })
       return
     } catch (error) {
-      console.log(error)
-
-      runInAction(() => {
-        this.error = error
-      })
-      throw new Error('Error during box creation')
+      console.error(error)
     }
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
     this.getOrdersMy()
   }
@@ -1400,52 +909,41 @@ export class BuyerMyOrdersViewModel {
         this.baseNoConvertedOrders = []
         this.ordersMy = []
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
-  onTriggerShowBarcodeModal() {
-    runInAction(() => {
-      this.showBarcodeModal = !this.showBarcodeModal
-    })
-  }
-
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getOrdersMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getOrdersMy()
   }
 
-  clearReadyImages() {
-    runInAction(() => {
-      this.readyImages = []
-    })
-  }
-
-  clearImagesForLoad() {
-    runInAction(() => {
-      this.imagesForLoad = []
-    })
-  }
-
   onLeaveColumnField() {
     this.onHover = null
+  }
+
+  async onClickHsCode(productId) {
+    try {
+      const response = await ProductModel.getProductsHsCodeByGuid(productId)
+
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

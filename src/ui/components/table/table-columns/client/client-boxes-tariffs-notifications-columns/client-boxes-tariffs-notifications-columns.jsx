@@ -1,21 +1,20 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ClientNotificationsBtnsCell,
+  ActionButtonsCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
-  MultilineTextCell,
   SuperboxQtyCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const clientBoxesTariffsNotificationsViewColumns = handlers => [
   {
@@ -44,9 +43,18 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 325,
-    renderCell: params => {
-      return <ClientNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />
-    },
+    renderCell: params => (
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
+        firstButtonElement={t(TranslationKey.Confirm)}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonElement={t(TranslationKey.Reject)}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(params.row.originalData)}
+        onClickSecondButton={() => handlers.onTriggerOpenRejectModal(params.row.originalData)}
+      />
+    ),
     filterable: false,
     sortable: false,
   },
@@ -58,17 +66,14 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
 
     width: 400,
     renderCell: params => {
-      return (
-        // console.log(params.row),
-        params.row.originalData.items.length > 1 ? (
-          <OrderManyItemsCell box={params.row.originalData} />
-        ) : (
-          <OrderCell
-            product={params.row.originalData.items[0].product}
-            superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
-            box={params.row.originalData}
-          />
-        )
+      return params.row.originalData.items.length > 1 ? (
+        <OrderManyItemsCell box={params.row.originalData} />
+      ) : (
+        <OrderCell
+          product={params.row.originalData.items[0].product}
+          superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+          box={params.row.originalData}
+        />
       )
     },
     filterable: false,

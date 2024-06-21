@@ -1,27 +1,29 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalTitle: {
     color: theme.palette.text.general,
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
-    marginBottom: '15px',
-  },
-
-  standartText: {
-    color: theme.palette.text.general,
   },
 
   modalContainer: {
-    width: '800px',
+    width: '840px',
+    padding: 20,
   },
   titleDivider: {
-    margin: '32px -24px',
+    margin: '30px 0',
   },
   fieldsDivider: {
-    margin: '32px -24px 20px',
+    margin: '20px 0 20px',
   },
+
+  saveBtnWrapperClient: {
+    display: 'flex',
+    gap: '10px',
+  },
+
   buttonsWrapperClient: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -40,17 +42,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   saveBtnClient: {
     width: '240px',
-    display: 'block',
-    marginBottom: '10px',
-    backgroundColor: '#4caf50',
-    color: 'ffffff',
-    '&:hover': {
-      backgroundColor: '#009a07',
-
-      '@media (hover: none)': {
-        backgroundColor: '#009a07',
-      },
-    },
   },
 
   saveBtn: {
@@ -68,6 +59,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   bottomWrapper: {
     display: 'flex',
+    justifyContent: 'center',
   },
 
   imageFileInputWrapper: {
@@ -83,7 +75,6 @@ export const useClassNames = makeStyles()(theme => ({
   checkboxWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: '20px',
     transition: '.3s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -110,29 +101,29 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'flex-end',
   },
 
+  nameBlockFlexStart: {
+    alignItems: 'flex-end',
+  },
+
   nameContainer: {
     width: '380px !important',
   },
 
   linkContainer: {
-    width: '590px !important',
-  },
-
-  linkContainerOnlyRead: {
-    width: 'fit-content',
+    width: '290px !important',
   },
 
   middleContainer: {
     width: '190px !important',
-    marginBottom: 20,
   },
 
   shortContainer: {
     width: '120px !important',
+    margin: '0px !important',
   },
 
   normalLabel: {
-    marginBottom: 15,
+    marginBottom: '10px !important',
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
@@ -150,6 +141,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     whiteSpace: 'nowrap',
+    marginBottom: '10px !important',
   },
 
   rateContainer: {
@@ -166,31 +158,11 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '35px 10px 10px 10px',
   },
 
-  sizesSubWrapper: {
+  boxInfoMainWrapper: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  sizesBottomWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: '10px',
-  },
-
-  sizesWrapper: {
-    display: 'flex',
+    width: '100%',
     flexDirection: 'column',
-
-    width: '270px',
-  },
-
-  sizeContainer: {
-    width: '100px',
-  },
-  sizeInput: {
-    width: '85px',
+    gap: '10px',
   },
 
   boxInfoWrapper: {
@@ -198,14 +170,16 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   boxInfoSubWrapper: {
-    width: '100%',
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    marginLeft: 20,
+    flexDirection: 'column',
+    height: '100%',
+    gap: '15px',
   },
 
   boxInfoExtraSubWrapper: {
@@ -216,22 +190,21 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   calculationBtnWrapper: {
+    marginTop: '10px',
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
   },
 
   link: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    width: '100%',
+    padding: '4px 0',
+    display: 'inline-block',
     color: theme.palette.primary.main,
-    maxWidth: '100%',
-    overflow: 'auto',
-  },
-
-  photoAndFilesWrapper: {
-    display: 'flex',
-    textAlign: 'center',
-    justifyContent: 'center',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
   },
 
   paymentsBlock: {
@@ -241,5 +214,21 @@ export const useClassNames = makeStyles()(theme => ({
 
   courseInput: {
     width: 95,
+  },
+
+  unitDimensionsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: 20,
+  },
+
+  unitDimensionsSubWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  needAddPhotos: {
+    color: theme.palette.text.red,
   },
 }))

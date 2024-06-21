@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
   },
@@ -181,10 +181,6 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  filesWrapper: {
-    width: '70%',
-    minHeight: '100px',
-  },
   timeOnReviewWrapper: {
     width: '200px',
     display: 'flex',

@@ -42,7 +42,7 @@ export const RequestProposalStatusTranslate = s => {
     case RequestProposalStatus.CREATED:
       return t(TranslationKey.Created)
     case RequestProposalStatus.EXPIRED:
-      return t(TranslationKey.Expired)
+      return t(TranslationKey['Request time has expired'])
     case RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED:
       return t(TranslationKey['Proposal conditions accepted'])
     case RequestProposalStatus.OFFER_CONDITIONS_CORRECTED:
@@ -153,7 +153,7 @@ export const MyRequestStatusTranslate = s => {
     case MyRequestStatus.TO_CORRECT_BY_SUPERVISOR:
       return t(TranslationKey['To correct by Supervisor'])
     case MyRequestStatus.EXPIRED:
-      return t(TranslationKey.Expired)
+      return t(TranslationKey['Request time has expired'])
     case MyRequestStatus.READY_TO_VERIFY:
       return t(TranslationKey['Ready to verify'])
     case MyRequestStatus.CANCELED_BY_SUPERVISOR:
@@ -170,8 +170,44 @@ export const MyRequestStatusTranslate = s => {
       return t(TranslationKey['To correct'])
     case MyRequestStatus.OFFER_CONDITIONS_REJECTED:
       return t(TranslationKey['Proposal conditions rejected'])
-
     case MyRequestStatus.OFFER_CONDITIONS_CORRECTED:
       return t(TranslationKey['Proposal conditions corrected'])
+    case RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED:
+      return t(TranslationKey['Proposal conditions accepted'])
+    case RequestProposalStatus.CREATED:
+      return t(TranslationKey.Created)
   }
 }
+
+export const statusesValidToShowResoult = [
+  RequestProposalStatus.READY_TO_VERIFY,
+  RequestProposalStatus.VERIFYING_BY_SUPERVISOR,
+  RequestProposalStatus.TO_CORRECT,
+  RequestProposalStatus.CORRECTED,
+  RequestProposalStatus.ACCEPTED_BY_CLIENT,
+  RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+  RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+]
+
+export const noDisabledEditBtnStatuses = [
+  RequestProposalStatus.CREATED,
+  RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
+  RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+]
+
+export const disabledCancelBtnStatuses = [
+  RequestProposalStatus.ACCEPTED_BY_CLIENT,
+  RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
+  RequestProposalStatus.CANCELED_BY_SUPERVISOR,
+  RequestProposalStatus.CANCELED_BY_EXECUTOR,
+  RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,
+  RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+  RequestProposalStatus.EXPIRED,
+]
+
+export const showResultRequestProposalsStatuses = [
+  RequestProposalStatus.READY_TO_VERIFY,
+  RequestProposalStatus.TO_CORRECT,
+  RequestProposalStatus.CORRECTED,
+  RequestProposalStatus.ACCEPTED_BY_CLIENT,
+]

@@ -1,21 +1,18 @@
-import { cx } from '@emotion/css'
-import { Checkbox, Link, Typography } from '@mui/material'
-
-import React from 'react'
+import { Checkbox, Typography } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Text } from '@components/shared/text'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './box-item-card.style'
+import { useStyles } from './box-item-card.style'
 
 export const BoxItemCard = ({
   box,
@@ -32,109 +29,110 @@ export const BoxItemCard = ({
   boxIndex,
   onApplyGluedBarcodeToAllBoxes,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
+
+  const disableGlueCheckbox = !isNewBox || readOnly
+  const disableBarCodeCheckbox = disableGlueCheckbox || !item.barCode
+  const disableTransparencyCheckbox = disableGlueCheckbox || !item.transparencyFile
+  const isSuccessAccent =
+    isNewBox &&
+    (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper) &&
+    (item.isTransparencyFileAlreadyAttachedByTheSupplier || item.isTransparencyFileAttachedByTheStorekeeper)
+
+  const isWarningAccent =
+    isNewBox &&
+    ((!item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper) ||
+      (!item.isTransparencyFileAlreadyAttachedByTheSupplier && !item.isTransparencyFileAttachedByTheStorekeeper))
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.mainWrapper}>
-        <img className={classNames.img} src={getAmazonImageUrl(item.product.images[0], true)} />
+    <div className={styles.root}>
+      <div className={styles.mainWrapper}>
+        <img className={styles.img} src={getAmazonImageUrl(item.product.images[0], true)} />
 
-        <div className={classNames.attributeWrapper}>
-          <div className={classNames.attributeHeaderWrapper}>
-            <div className={classNames.countWrapper}>
-              <div className={classNames.countSubWrapper}>
+        <div className={styles.attributeWrapper}>
+          <div className={styles.attributeHeaderWrapper}>
+            <div className={styles.countWrapper}>
+              <div className={styles.countSubWrapper}>
                 <Text
-                  tooltipInfoContent={window.innerWidth > 1281 && t(TranslationKey['Number of products in the box'])}
-                  className={classNames.subTitle}
+                  tooltipInfoContent={t(TranslationKey['Number of products in the box'])}
+                  className={styles.subTitle}
                 >
                   {t(TranslationKey.Quantity) + ':'}
                 </Text>
-                <Typography className={classNames.subValue}>{item.amount}</Typography>
+                <Typography className={styles.subValue}>{item.amount}</Typography>
               </div>
             </div>
-            {window.innerWidth > 1281 && superCount > 1 && (
-              <div className={classNames.countSuperBoxWrapper}>
-                <Typography className={classNames.subTitle}>{t(TranslationKey['Boxes in group']) + ':'}</Typography>
-                <Typography className={classNames.subValue}>{`x${superCount}`}</Typography>
+            {superCount > 1 && (
+              <div className={styles.countSuperBoxWrapper}>
+                <Typography className={styles.subTitle}>{t(TranslationKey['Boxes in group']) + ':'}</Typography>
+                <Typography className={styles.subValue}>{`x${superCount}`}</Typography>
               </div>
             )}
 
-            {window.innerWidth > 1281 &&
-            (taskType === TaskOperationType.EDIT_BY_STOREKEEPER ||
-              (taskType === TaskOperationType.MERGE && index === 0) ||
-              (taskType === TaskOperationType.SPLIT && index === 0) ||
-              taskType === TaskOperationType.EDIT ||
-              (readOnly && taskType === TaskOperationType.RECEIVE) ||
-              (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0)) ? (
-              // eslint-disable-next-line react/jsx-indent
-              <div className={classNames.countSubWrapper}>
-                <Typography className={classNames.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
-                <Typography className={classNames.subValue}>{boxId}</Typography>
+            {taskType === TaskOperationType.EDIT_BY_STOREKEEPER ||
+            (taskType === TaskOperationType.MERGE && index === 0) ||
+            (taskType === TaskOperationType.SPLIT && index === 0) ||
+            taskType === TaskOperationType.EDIT ||
+            (readOnly && taskType === TaskOperationType.RECEIVE) ||
+            (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0) ? (
+              <div className={styles.countSubWrapper}>
+                <Typography className={styles.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
+                <Typography className={styles.subValue}>{boxId}</Typography>
               </div>
             ) : null}
-
-            {window.innerWidth < 1282 && (
-              <div className={classNames.copyValueMainWrapper}>
-                <div className={classNames.copyValueWrapper}>
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
-                    <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
-                    {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
 
-          <div className={classNames.attributeFooterWrapper}>
-            <div className={classNames.attributeFooterSubWrapper}>
+          <div className={styles.attributeFooterWrapper}>
+            <div className={styles.attributeFooterSubWrapper}>
               <div
-                className={cx(classNames.barCodeWrapper, {
-                  [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
+                className={cx(styles.barCodeWrapper, {
+                  [styles.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
                 })}
               >
-                <Text
-                  tooltipInfoContent={window.innerWidth > 1281 && t(TranslationKey['Product barcode'])}
-                  className={classNames.subTitle}
-                >
-                  {t(TranslationKey.BarCode) + ':'}
-                </Text>
-
-                {item.barCode ? (
-                  <div className={classNames.barCode}>
-                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                      <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-                    </Link>
-
-                    <CopyValue text={item.barCode} />
-                  </div>
-                ) : (
-                  <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
-                )}
+                <LabelWithCopy
+                  labelTitleColor={'gray'}
+                  labelTitle={t(TranslationKey.BarCode)}
+                  labelValue={item.barCode}
+                  lableLinkTitle={t(TranslationKey.View)}
+                />
               </div>
 
-              <div className={classNames.countSubWrapper}>
-                <Typography className={classNames.subTitle}>{t(TranslationKey['Order number'])}</Typography>
-                <Typography className={classNames.subValue}>{item.order.id}</Typography>
+              <div
+                className={cx(styles.barCodeWrapper, {
+                  [styles.editAccent]:
+                    needAccent && item.transparencyFile !== referenceEditingBox.items[index].transparencyFile,
+                })}
+              >
+                <LabelWithCopy
+                  labelTitleColor={'gray'}
+                  labelTitle={t(TranslationKey.Transparency)}
+                  labelValue={item.transparencyFile}
+                  lableLinkTitle={t(TranslationKey.View)}
+                />
               </div>
 
-              <div className={classNames.countSubWrapper}>
-                <Typography className={classNames.subTitle}>{'item'}</Typography>
-                <Typography className={classNames.subValue}>{item.order.item}</Typography>
+              <div className={styles.countSubWrapper}>
+                <Typography className={styles.subTitle}>{t(TranslationKey['Order number'])}</Typography>
+                <Typography className={styles.subValue}>{item.order.id}</Typography>
+              </div>
+
+              <div className={styles.countSubWrapper}>
+                <Typography className={styles.subTitle}>{'item'}</Typography>
+                <Typography className={styles.subValue}>{item.order.item}</Typography>
               </div>
 
               {taskType === TaskOperationType.RECEIVE ? (
-                <div className={classNames.priorityWrapper}>
-                  <Typography className={classNames.countSubWrapper}>{`${t(TranslationKey.Priority)}:`}</Typography>
+                <div className={styles.priorityWrapper}>
+                  <Typography className={styles.countSubWrapper}>{`${t(TranslationKey.Priority)}:`}</Typography>
                   {item.order.priority === '40' ? (
-                    <div className={classNames.rushOrderWrapper}>
-                      <img className={classNames.rushOrderImg} src="/assets/icons/fire.svg" />
-                      <Typography className={classNames.subValue}>{t(TranslationKey['Rush order'])}</Typography>
+                    <div className={styles.rushOrderWrapper}>
+                      <img className={styles.rushOrderImg} src="/assets/icons/fire.svg" />
+                      <Typography className={styles.subValue}>{t(TranslationKey['Rush order'])}</Typography>
                     </div>
                   ) : null}
                   {item.order.priority !== '40' /* && !item.order.expressChinaDelivery  */ ? (
-                    <div className={classNames.rushOrderWrapper}>
-                      <Typography className={classNames.subValue}>{t(TranslationKey['Medium priority'])}</Typography>
+                    <div className={styles.rushOrderWrapper}>
+                      <Typography className={styles.subValue}>{t(TranslationKey['Medium priority'])}</Typography>
                     </div>
                   ) : null}
                 </div>
@@ -142,161 +140,202 @@ export const BoxItemCard = ({
             </div>
 
             <div>
-              <div className={classNames.chipWrapper}>
-                {window.innerWidth > 1281 && item.barCode && (
-                  <div
-                    className={cx(classNames.barCodeActionsWrapper, {
-                      [classNames.successAccent]:
-                        isNewBox &&
-                        // taskType === TaskOperationType.RECEIVE &&
-                        (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
-                      [classNames.warningAccent]:
-                        isNewBox &&
-                        // taskType === TaskOperationType.RECEIVE &&
-                        !item.isBarCodeAlreadyAttachedByTheSupplier &&
-                        !item.isBarCodeAttachedByTheStorekeeper,
-                    })}
-                  >
-                    {item.isBarCodeAttachedByTheStorekeeper === false && (
-                      <Field
-                        oneLine
-                        containerClasses={classNames.checkboxContainer}
-                        labelClasses={classNames.label}
-                        label={t(TranslationKey['BarCode is glued by supplier'])}
-                        tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
-                        inputComponent={
-                          <Checkbox
-                            disabled={!isNewBox || readOnly}
-                            color="primary"
-                            checked={item.isBarCodeAlreadyAttachedByTheSupplier}
-                            onClick={() =>
-                              onChangeBarCode(
-                                !item.isBarCodeAlreadyAttachedByTheSupplier,
-                                'isBarCodeAlreadyAttachedByTheSupplier',
-                                index,
-                              )
-                            }
-                          />
-                        }
-                      />
-                    )}
-
-                    {item.isBarCodeAlreadyAttachedByTheSupplier === false && (
-                      <Field
-                        oneLine
-                        containerClasses={classNames.checkboxContainer}
-                        label={t(TranslationKey['BarCode is glued by storekeeper'])}
-                        labelClasses={classNames.label}
-                        tooltipInfoContent={t(
-                          TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
-                        )}
-                        inputComponent={
-                          <Checkbox
-                            disabled={!isNewBox || readOnly}
-                            color="primary"
-                            checked={item.isBarCodeAttachedByTheStorekeeper}
-                            onClick={() =>
-                              onChangeBarCode(
-                                !item.isBarCodeAttachedByTheStorekeeper,
-                                'isBarCodeAttachedByTheStorekeeper',
-                                index,
-                              )
-                            }
-                          />
-                        }
-                      />
-                    )}
-
-                    {isNewBox &&
-                      !readOnly &&
-                      boxIndex === 0 &&
-                      index === 0 &&
-                      taskType !== 'merge' &&
-                      taskType !== 'edit' && (
-                        <Field
-                          oneLine
-                          // containerClasses={classNames.checkboxContainer}
-                          labelClasses={classNames.label}
-                          label={t(TranslationKey['Apply to all boxes'])}
-                          tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
-                          inputComponent={
-                            <Button
-                              className={classNames.applyButton}
-                              onClick={() =>
-                                onApplyGluedBarcodeToAllBoxes(
-                                  item.isBarCodeAlreadyAttachedByTheSupplier,
-                                  item.isBarCodeAttachedByTheStorekeeper,
-                                )
-                              }
-                            >
-                              {t(TranslationKey.Apply)}
-                            </Button>
+              <div className={styles.chipWrapper}>
+                <div
+                  className={cx(styles.barCodeActionsWrapper, {
+                    [styles.successAccent]: isSuccessAccent,
+                    [styles.warningAccent]: isWarningAccent,
+                  })}
+                >
+                  {item.isBarCodeAttachedByTheStorekeeper === false && (
+                    <Field
+                      oneLine
+                      containerClasses={styles.checkboxContainer}
+                      labelClasses={styles.label}
+                      label={t(TranslationKey['BarCode is glued by supplier'])}
+                      tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
+                      inputComponent={
+                        <Checkbox
+                          disabled={disableBarCodeCheckbox}
+                          color="primary"
+                          checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+                          onClick={() =>
+                            onChangeBarCode(
+                              !item.isBarCodeAlreadyAttachedByTheSupplier,
+                              'isBarCodeAlreadyAttachedByTheSupplier',
+                              index,
+                            )
                           }
                         />
+                      }
+                    />
+                  )}
+
+                  {item.isBarCodeAlreadyAttachedByTheSupplier === false && (
+                    <Field
+                      oneLine
+                      containerClasses={styles.checkboxContainer}
+                      label={t(TranslationKey['BarCode is glued by storekeeper'])}
+                      labelClasses={styles.label}
+                      tooltipInfoContent={t(
+                        TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
                       )}
-                  </div>
-                )}
+                      inputComponent={
+                        <Checkbox
+                          disabled={disableBarCodeCheckbox}
+                          color="primary"
+                          checked={item.isBarCodeAttachedByTheStorekeeper}
+                          onClick={() =>
+                            onChangeBarCode(
+                              !item.isBarCodeAttachedByTheStorekeeper,
+                              'isBarCodeAttachedByTheStorekeeper',
+                              index,
+                            )
+                          }
+                        />
+                      }
+                    />
+                  )}
+
+                  {item.isTransparencyFileAttachedByTheStorekeeper === false && (
+                    <Field
+                      oneLine
+                      containerClasses={styles.checkboxContainer}
+                      label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                      labelClasses={cx(styles.label, styles.redText)}
+                      inputComponent={
+                        <Checkbox
+                          color="primary"
+                          disabled={disableTransparencyCheckbox}
+                          checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
+                          onChange={e =>
+                            onChangeBarCode(e.target.checked, 'isTransparencyFileAlreadyAttachedByTheSupplier', index)
+                          }
+                        />
+                      }
+                    />
+                  )}
+
+                  {item.isTransparencyFileAlreadyAttachedByTheSupplier === false && (
+                    <Field
+                      oneLine
+                      containerClasses={styles.checkboxContainer}
+                      label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                      labelClasses={cx(styles.label, styles.redText)}
+                      inputComponent={
+                        <Checkbox
+                          color="primary"
+                          disabled={disableTransparencyCheckbox}
+                          checked={item.isTransparencyFileAttachedByTheStorekeeper}
+                          onChange={e =>
+                            onChangeBarCode(e.target.checked, 'isTransparencyFileAttachedByTheStorekeeper', index)
+                          }
+                        />
+                      }
+                    />
+                  )}
+
+                  {isNewBox &&
+                    !readOnly &&
+                    boxIndex === 0 &&
+                    index === 0 &&
+                    taskType !== 'merge' &&
+                    taskType !== 'edit' && (
+                      <Field
+                        oneLine
+                        // containerClasses={styles.checkboxContainer}
+                        labelClasses={styles.label}
+                        label={t(TranslationKey['Apply to all boxes'])}
+                        tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
+                        inputComponent={
+                          <Button
+                            disabled={disableBarCodeCheckbox}
+                            className={styles.applyButton}
+                            onClick={() =>
+                              onApplyGluedBarcodeToAllBoxes(
+                                item.isBarCodeAlreadyAttachedByTheSupplier,
+                                item.isBarCodeAttachedByTheStorekeeper,
+                                item.isTransparencyFileAlreadyAttachedByTheSupplier,
+                                item.isTransparencyFileAttachedByTheStorekeeper,
+                              )
+                            }
+                          >
+                            {t(TranslationKey.Apply)}
+                          </Button>
+                        }
+                      />
+                    )}
+                </div>
               </div>
               {taskType === TaskOperationType.RECEIVE ? (
-                <div className={classNames.copyValueWrapper}>
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asin}>{'PREP ID' + ':'}</Typography>
-                    <Typography className={classNames.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</Typography>
+                <div className={styles.copyValueWrapper}>
+                  <div className={styles.asinWrapper}>
+                    <Typography className={styles.asin}>{'PREP ID' + ':'}</Typography>
+                    <Typography className={styles.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</Typography>
                     {box.prepId ? <CopyValue text={box.prepId} /> : null}
                   </div>
                 </div>
               ) : null}
 
-              {window.innerWidth > 1281 && (
-                <div className={classNames.copyValueWrapper}>
-                  <div className={classNames.asinWrapper}>
-                    <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
-                    <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
+              <>
+                {taskType !== TaskOperationType.RECEIVE && (
+                  <div className={styles.asinWrapper}>
+                    <Typography className={styles.asin}>{'PREP ID' + ':'}</Typography>
+                    <Typography className={styles.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</Typography>
+                    {box.prepId ? <CopyValue text={box.prepId} /> : null}
+                  </div>
+                )}
+                <div className={styles.copyValueWrapper}>
+                  <div className={styles.asinWrapper}>
+                    <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
+                    <Typography className={styles.asinTitle}>{item.product?.asin}</Typography>
                     {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
                   </div>
-                  {/* {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null} */}
                 </div>
-              )}
+              </>
 
-              <Typography className={classNames.title}>{item.product?.amazonTitle}</Typography>
+              <Typography className={styles.title}>{item.product?.amazonTitle}</Typography>
             </div>
           </div>
         </div>
       </div>
-      <div className={classNames.attributeFooterWrapperMobile}>
+      <div className={styles.attributeFooterWrapperMobile}>
         <div
-          className={cx(classNames.barCodeWrapper, {
-            [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
+          className={cx(styles.barCodeWrapper, {
+            [styles.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
           })}
         >
-          <Text
-            tooltipInfoContent={window.innerWidth > 1281 && t(TranslationKey['Product barcode'])}
-            className={classNames.subTitle}
-          >
-            {t(TranslationKey.BarCode) + ':'}
-          </Text>
+          <LabelWithCopy
+            labelTitleColor={'gray'}
+            labelTitle={t(TranslationKey.BarCode)}
+            labelValue={item.barCode}
+            lableLinkTitle={t(TranslationKey.View)}
+          />
+        </div>
 
-          {item.barCode ? (
-            <div className={classNames.barCode}>
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
-              </Link>
-              <CopyValue text={item.barCode} />
-            </div>
-          ) : (
-            <Typography className={classNames.barCodeField}>{t(TranslationKey['Not available'])}</Typography>
-          )}
+        <div
+          className={cx(styles.barCodeWrapper, {
+            [styles.editAccent]:
+              needAccent && item.transparencyFile !== referenceEditingBox.items[index].transparencyFile,
+          })}
+        >
+          <LabelWithCopy
+            labelTitleColor={'gray'}
+            labelTitle={t(TranslationKey.Transparency)}
+            labelValue={item.transparencyFile}
+            lableLinkTitle={t(TranslationKey.View)}
+          />
         </div>
         <div>
-          <div className={classNames.chipWrapper}>
+          <div className={styles.chipWrapper}>
             {item.barCode && (
               <div
-                className={cx(classNames.barCodeActionsWrapper, {
-                  [classNames.successAccent]:
+                className={cx(styles.barCodeActionsWrapper, {
+                  [styles.successAccent]:
                     isNewBox &&
                     // taskType === TaskOperationType.RECEIVE &&
                     (item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper),
-                  [classNames.warningAccent]:
+                  [styles.warningAccent]:
                     isNewBox &&
                     // taskType === TaskOperationType.RECEIVE &&
                     !item.isBarCodeAlreadyAttachedByTheSupplier &&
@@ -306,8 +345,8 @@ export const BoxItemCard = ({
                 {item.isBarCodeAttachedByTheStorekeeper === false && (
                   <Field
                     oneLine
-                    containerClasses={classNames.checkboxContainer}
-                    labelClasses={classNames.label}
+                    containerClasses={styles.checkboxContainer}
+                    labelClasses={styles.label}
                     label={t(TranslationKey['BarCode is glued by supplier'])}
                     tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
                     inputComponent={
@@ -330,9 +369,9 @@ export const BoxItemCard = ({
                 {item.isBarCodeAlreadyAttachedByTheSupplier === false && (
                   <Field
                     oneLine
-                    containerClasses={classNames.checkboxContainer}
+                    containerClasses={styles.checkboxContainer}
                     label={t(TranslationKey['BarCode is glued by storekeeper'])}
-                    labelClasses={classNames.label}
+                    labelClasses={styles.label}
                     tooltipInfoContent={t(
                       TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
                     )}
@@ -361,13 +400,14 @@ export const BoxItemCard = ({
                   taskType !== 'edit' && (
                     <Field
                       oneLine
-                      containerClasses={classNames.checkboxContainer}
-                      labelClasses={classNames.label}
+                      containerClasses={styles.checkboxContainer}
+                      labelClasses={styles.label}
                       label={t(TranslationKey['Apply to all boxes'])}
                       tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
                       inputComponent={
                         <Button
-                          className={classNames.applyButton}
+                          disabled={disableBarCodeCheckbox}
+                          className={styles.applyButton}
                           onClick={() =>
                             onApplyGluedBarcodeToAllBoxes(
                               item.isBarCodeAlreadyAttachedByTheSupplier,
@@ -383,11 +423,11 @@ export const BoxItemCard = ({
               </div>
             )}
           </div>
-          <div className={classNames.asinWrapper}>
-            <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
-            <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
+          <div className={styles.asinWrapper}>
+            <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
+            <Typography className={styles.asinTitle}>{item.product?.asin}</Typography>
           </div>
-          <Typography className={classNames.title}>{item.product?.amazonTitle}</Typography>
+          <Typography className={styles.title}>{item.product?.amazonTitle}</Typography>
         </div>
       </div>
     </div>

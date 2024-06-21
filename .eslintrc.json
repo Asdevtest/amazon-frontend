@@ -85,7 +85,7 @@
     "react/jsx-curly-spacing": ["error", { "when": "never", "children": true }],
     "react/jsx-equals-spacing": "error",
     "react/jsx-handler-names": "off",
-    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent": "off",
     "react/jsx-key": "error",
     // "react/jsx-no-bind": "error",
     "react/jsx-no-literals": "off",
@@ -165,7 +165,7 @@
     "no-unused-labels": "error",
     "no-var": "error",
     "object-shorthand": "error",
-    "one-var": ["error", "never"],
+    "one-var": "off",
     "prefer-arrow/prefer-arrow-functions": "error",
     "prefer-const": "error",
     "prefer-object-spread": "error",
@@ -184,10 +184,12 @@
     "react/prop-types": "off",
     "react/display-name": "off",
     "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/ban-ts-comment": ["error", { "ts-ignore": "off" }],
 
     // "react-hooks/exhaustive-deps": "error"
 
-    "no-unused-vars": "warn"
+    "no-unused-vars": "off",
+    "import/no-unresolved": "off"
   },
   "overrides": [
     {
@@ -210,20 +212,30 @@
       },
       "plugins": ["@typescript-eslint"],
       "rules": {
-        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": ",^_", "varsIgnorePattern": "^_" }],
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            "argsIgnorePattern": "^_",
+            "caughtErrorsIgnorePattern": "^_",
+            "varsIgnorePattern": "^_",
+            "destructuredArrayIgnorePattern": "^_",
+            "ignoreRestSiblings": true
+          }
+        ],
         "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/prefer-optional-chain": ["error"],
+        "@typescript-eslint/prefer-optional-chain": "warn",
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/interface-name-prefix": "off",
         "@typescript-eslint/no-unsafe-assignment": "off",
         "@typescript-eslint/unbound-method": "off",
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/restrict-template-expressions": ["off", { "allowAny": true }],
-        "@typescript-eslint/no-shadow": ["error"],
+        "@typescript-eslint/no-shadow": "warn",
         "@typescript-eslint/no-unsafe-member-access": "off",
         "@typescript-eslint/no-unsafe-return": "off",
         "@typescript-eslint/no-unsafe-call": "off",
-        "@typescript-eslint/ban-types": "off"
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-inferrable-types": "off"
       }
     }
   ],
@@ -255,15 +267,13 @@
         "map": [
           ["@constants", "./src/constants/"],
           ["@models", "./src/models"],
-          ["@navigation", "./src/navigation"],
           ["@services", "./src/services"],
           ["@styles", "./src/styles"],
           ["@components", "./src/ui/components"],
           ["@views", "./src/ui/views"],
           ["@utils", "./src/utils"],
           ["@typings", "./src/typings"],
-          ["@contexts", "./src/contexts"],
-          ["@types", "./src/types"]
+          ["@contexts", "./src/contexts"]
         ],
         "extensions": [".ts", ".js", ".jsx", ".json", ".tsx", ".d.ts"]
       }

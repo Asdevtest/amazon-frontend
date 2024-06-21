@@ -1,36 +1,34 @@
-import { Box, Container, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './edit-hs-code-modal.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+
+import { useStyles } from './edit-hs-code-modal.style'
 
 export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
-  const [formFields, setFormFields] = useState({ ...hsCodeData })
+  const [formFields, setFormFields] = useState(hsCodeData)
 
   const onChangeField = fieldName => event => {
-    const newFormFields = { ...formFields }
-    newFormFields[fieldName] = event.target.value
-
-    setFormFields(newFormFields)
+    setFormFields(prev => ({ ...prev, [fieldName]: event.target.value }))
   }
 
   return (
-    <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={classNames.modalTitle}>{'HS Code'}</Typography>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>HS Code</p>
 
       <Field
-        label={'HS Code'}
-        className={classNames.nameField}
-        labelClasses={classNames.label}
+        label="HS Code"
+        className={styles.nameField}
+        labelClasses={styles.label}
+        containerClasses={styles.field}
         inputProps={{ maxLength: 255 }}
         value={formFields.hsCode}
         onChange={onChangeField('hsCode')}
@@ -40,9 +38,10 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
         multiline
         minRows={2}
         maxRows={2}
-        label={'产品中文品名'}
-        labelClasses={classNames.label}
-        className={classNames.nameField}
+        label="产品中文品名"
+        labelClasses={styles.label}
+        className={styles.nameField}
+        containerClasses={styles.field}
         inputProps={{ maxLength: 255 }}
         value={formFields.chinaTitle}
         onChange={onChangeField('chinaTitle')}
@@ -53,8 +52,9 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
         minRows={2}
         maxRows={2}
         label={t(TranslationKey.Material)}
-        className={classNames.nameField}
-        labelClasses={classNames.label}
+        className={styles.nameField}
+        labelClasses={styles.label}
+        containerClasses={styles.field}
         inputProps={{ maxLength: 255 }}
         value={formFields.material}
         onChange={onChangeField('material')}
@@ -65,21 +65,22 @@ export const EditHSCodeModal = ({ hsCodeData, onClickSaveHsCode, onCloseModal })
         minRows={2}
         maxRows={2}
         label={t(TranslationKey['Product usage'])}
-        className={classNames.nameField}
-        labelClasses={classNames.label}
+        className={styles.nameField}
+        labelClasses={styles.label}
+        containerClasses={styles.field}
         inputProps={{ maxLength: 255 }}
         value={formFields.productUsage}
         onChange={onChangeField('productUsage')}
       />
 
-      <Box className={classNames.saveBox}>
-        <Button success className={classNames.saveBtn} onClick={() => onClickSaveHsCode(formFields)}>
+      <div className={styles.buttons}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickSaveHsCode(formFields)}>
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={classNames.closeBtn} onClick={onCloseModal}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
-      </Box>
-    </Container>
+      </div>
+    </div>
   )
 }

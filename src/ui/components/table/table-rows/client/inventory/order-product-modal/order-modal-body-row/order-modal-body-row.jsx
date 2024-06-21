@@ -1,32 +1,33 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import { Checkbox, Chip, IconButton, TableCell, TableRow, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-import { isPast, isToday, isValid } from 'date-fns'
+import { isValid } from 'date-fns'
+import dayjs from 'dayjs'
+import { useEffect, useState } from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import dayjs from 'dayjs'
+import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
-import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
-import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { ChangeChipCell, ProductAsinCell } from '@components/data-grid/data-grid-cells'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
+import { Button } from '@components/shared/button'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
-import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { TruckIcon } from '@components/shared/svg-icons'
 
-import { calcProductsMaxAmountByPriceLimit, calcProductsPriceWithDelivery } from '@utils/calculation'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixed, toFixedWithDollarSign, trimBarcode } from '@utils/text'
+import { calcProductsPriceWithDelivery } from '@utils/calculation'
+import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './order-modal-body-row.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { TariffModal } from '@typings/enums/tariff-modal'
+
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
+
+import { useStyles } from './order-modal-body-row.style'
 
 export const OrderModalBodyRow = ({
   platformSettings,
@@ -45,29 +46,26 @@ export const OrderModalBodyRow = ({
   withRemove,
   destinationsFavourites,
   onClickSetDestinationFavourite,
+  onClickTransparency,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
+
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
-
-  const onChangeInput = (event, nameInput) => {
-    if (nameInput === 'deadline') {
-      setOrderStateFiled(nameInput)(event)
-    } else {
-      setOrderStateFiled(nameInput)(event.target.value)
-    }
-  }
-
-  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
-  const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
+  const minDate = dayjs().add(2, 'day')
+  const [deadline, setDeadline] = useState(item.deadline ? new Date(item.deadline) : item.deadline)
 
   const [pricePerUnit, setPerPriceUnit] = useState(null)
 
-  const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
-    onChangeInput({ target: { value: storekeeperId } }, 'storekeeperId')
-    onChangeInput({ target: { value: tariffId } }, 'logicsTariffId')
-    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-  }
+  const priceVariations = item.currentSupplier?.priceVariations
+
+  const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+    destinations,
+    storekeepers,
+    item.destinationId,
+    item.storekeeperId,
+    item.logicsTariffId,
+    item.variationTariffId,
+  )
 
   const weightOfOneBox = item.currentSupplier
     ? Math.max(
@@ -84,25 +82,45 @@ export const OrderModalBodyRow = ({
 
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
 
-  const curDestination = destinations.find(el => el._id === orderState.destinationId)
-  const currentStorkeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
-  const currentLogicsTariff = currentStorkeeper?.tariffLogistics?.find(el => el._id === item.logicsTariffId)
+  const costDeliveryOfBatch = weightOfBatch * tariffRate || ''
 
-  const priceVariations = item.currentSupplier?.priceVariations
+  const onChangeInput = (event, nameInput) => {
+    if (nameInput === 'deadline') {
+      setOrderStateFiled(nameInput)(isValid(event) ? event : null)
+      setDeadline(isValid(event) ? event : null)
+    } else if (nameInput === 'tariff') {
+      setOrderStateFiled(nameInput)(event)
+    } else {
+      setOrderStateFiled(nameInput)(event.target.value)
+    }
+  }
 
-  const firstNumOfCode = curDestination?.zipCode[0]
+  const setBoxBody = prevData => newData => onChangeInput(newData(prevData), 'tariff')
 
-  const tariffName = currentLogicsTariff?.name
-  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+  const {
+    destinationId,
 
-  // const tariffRate = currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate
+    onSubmitSelectStorekeeperAndTariff,
 
-  const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
+    showConfirmModal,
+    setShowConfirmModal,
 
-  const curTariffRate = curStorekeeper?.tariffLogistics.find(el => el._id === orderState.logicsTariffId)
-    ?.conditionsByRegion[regionOfDeliveryName]?.rate
+    confirmModalSettings,
 
-  const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
+    handleSetDestination,
+    handleResetDestination,
+
+    showSelectionStorekeeperAndTariffModal,
+    setShowSelectionStorekeeperAndTariffModal,
+  } = useTariffVariation(item.destinationId, setBoxBody(item))
+
+  useEffect(() => {
+    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
+      setIsLocalPriseOutOfLimit(true)
+    } else {
+      setIsLocalPriseOutOfLimit(false)
+    }
+  }, [orderState.amount])
 
   useEffect(() => {
     if (orderState.amount > 0 && costDeliveryOfBatch) {
@@ -118,73 +136,41 @@ export const OrderModalBodyRow = ({
     }
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
 
-  const boxPropertiesIsFull =
-    item.currentSupplier?.boxProperties?.amountInBox &&
-    item.currentSupplier?.boxProperties?.boxLengthCm &&
-    item.currentSupplier?.boxProperties?.boxWidthCm &&
-    item.currentSupplier?.boxProperties?.boxHeightCm &&
-    item.currentSupplier?.boxProperties?.boxWeighGrossKg &&
-    item.currentSupplier?.amount &&
-    item.currentSupplier?.minlot &&
-    item.currentSupplier?.priceInYuan &&
-    item.currentSupplier?.price
-
-  const minDate = dayjs().add(2, 'day')
-
-  const maxAmount = calcProductsMaxAmountByPriceLimit(item, platformSettings.orderAmountLimit)
-
-  React.useEffect(() => {
-    if (toFixed(calcProductsPriceWithDelivery(item, orderState), 2) < platformSettings.orderAmountLimit) {
-      setIsLocalPriseOutOfLimit(true)
-    } else {
-      setIsLocalPriseOutOfLimit(false)
-    }
-  }, [orderState.amount])
+  const productionTerm = item.currentSupplier
+    ? `${item.currentSupplier.minProductionTerm} - ${item.currentSupplier.maxProductionTerm}`
+    : t(TranslationKey['No data'])
 
   return (
-    <React.Fragment>
+    <>
       <TableRow
         key={item._id}
         hover
         role="checkbox"
-        className={cx(classNames.row, { [classNames.noCurrentSupplier]: !item.currentSupplier })}
+        className={cx(styles.row, { [styles.noCurrentSupplier]: !item.currentSupplier })}
       >
-        <TableCell className={classNames.asinCell}>
-          <div className={classNames.asinCellContainer}>
-            <div>
-              <img alt="" className={classNames.img} src={getAmazonImageUrl(item.images[0])} />
-            </div>
-          </div>
-        </TableCell>
-
-        <TableCell className={classNames.cell}>
-          <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
-          <div className={classNames.copyValueWrapper}>
-            <Typography className={classNames.standartText}>{`ASIN: ${item.asin}`}</Typography>
-            {item.asin ? <CopyValue text={item.asin} /> : null}
-          </div>
-          <div className={classNames.copyValueWrapper}>
-            <Typography className={classNames.standartText}>{`SKU: ${
-              item.skusByClient?.length ? item.skusByClient.join(',') : t(TranslationKey.Missing)
-            }`}</Typography>
-            {item.skusByClient[0] ? <CopyValue text={item.skusByClient[0]} /> : null}
-          </div>
+        <TableCell className={styles.cell}>
+          <ProductAsinCell
+            image={item.images[0]}
+            amazonTitle={item.amazonTitle}
+            asin={item.asin}
+            skuByClient={item.skuByClient}
+          />
 
           {!item.currentSupplier && (
-            <Typography className={classNames.noCurrentSupplierText}>
+            <Typography className={styles.noCurrentSupplierText}>
               {t(TranslationKey['No supplier selected!'])}
             </Typography>
           )}
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <Typography className={classNames.standartText}>
+        <TableCell className={styles.cell}>
+          <Typography className={styles.standartText}>
             {item.currentSupplier ? toFixed(item.currentSupplier.price, 2) : <span>—</span>}
           </Typography>
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <Typography className={classNames.standartText}>
+        <TableCell className={styles.cell}>
+          <Typography className={styles.standartText}>
             {item.currentSupplier ? (
               toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)
             ) : (
@@ -193,32 +179,15 @@ export const OrderModalBodyRow = ({
           </Typography>
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          {/* <Input
-
-            inputProps={{maxLength: 6, min: 0}}
-            value={orderState.amount}
-            className={classNames.amountCell}
-            onChange={e => onChangeInput(e, 'amount')}
-          /> */}
-
+        <TableCell className={styles.cell}>
           <Field
-            containerClasses={classNames.containerField}
-            inputClasses={cx(classNames.amountCell, {
-              [classNames.errorSpaceInputCell]:
-                (item.currentSupplier?.multiplicity &&
-                  item.currentSupplier?.boxProperties?.amountInBox &&
-                  (orderState.amount % item.currentSupplier?.boxProperties?.amountInBox !== 0 || !orderState.amount)) ||
-                (item.currentSupplier?.multiplicity &&
-                  item.currentSupplier?.boxProperties?.amountInBox &&
-                  orderState.amount % item.currentSupplier?.boxProperties?.amountInBox === 0 &&
-                  !!orderState.amount),
-            })}
+            containerClasses={cx(styles.containerField, styles.containerFieldCell)}
+            inputClasses={styles.amountCell}
             error={
               item.currentSupplier?.multiplicity &&
               item.currentSupplier?.boxProperties?.amountInBox &&
               (orderState.amount % item.currentSupplier?.boxProperties?.amountInBox !== 0 || !orderState.amount) &&
-              ` ${t(TranslationKey['Value is not a multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox}`
+              ` ${t(TranslationKey['Not a multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox}`
             }
             successText={
               item.currentSupplier?.multiplicity &&
@@ -235,19 +204,19 @@ export const OrderModalBodyRow = ({
           />
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <Typography className={cx(classNames.standartText, { [classNames.errorSpace]: isLocalPriseOutOfLimit })}>
+        <TableCell className={styles.cell}>
+          <Typography className={cx(styles.standartText, { [styles.errorSpace]: isLocalPriseOutOfLimit })}>
             {toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}
           </Typography>
           {isLocalPriseOutOfLimit && (
-            <Typography className={classNames.error}>
+            <Typography className={styles.error}>
               {t(TranslationKey['At least'])} {platformSettings.orderAmountLimit}$
             </Typography>
           )}
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <div className={classNames.priceVariationsCell}>
+        <TableCell className={styles.cell}>
+          <div className={styles.priceVariationsCell}>
             {priceVariations?.length > 0 ? (
               priceVariations?.map((el, index) => (
                 <div key={index}>
@@ -262,153 +231,154 @@ export const OrderModalBodyRow = ({
           </div>
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <Chip
-            classes={{
-              root: classNames.barcodeChip,
-              clickable: classNames.barcodeChipHover,
-              deletable: classNames.barcodeChipHover,
-              deleteIcon: classNames.barcodeChipIcon,
-            }}
-            className={cx({ [classNames.barcodeChipExists]: item.barCode })}
-            size="small"
-            label={
-              orderState.tmpBarCode.length
-                ? t(TranslationKey['File added'])
-                : orderState.barCode
-                ? trimBarcode(orderState.barCode)
-                : t(TranslationKey['Set Barcode'])
-            }
-            onClick={() => onClickBarcode(item, itemIndex)}
-            onDoubleClick={() => onDoubleClickBarcode(item, itemIndex)}
-            onDelete={!orderState.barCode ? undefined : () => onDeleteBarcode(item, itemIndex)}
-          />
+        <TableCell className={styles.cell}>
+          <div className={styles.buttonWrapper}>
+            <ChangeChipCell
+              text={!orderState.barCode && !orderState.tmpBarCode.length && t(TranslationKey['Set Barcode'])}
+              value={orderState.tmpBarCode?.[0]?.file?.name || orderState.tmpBarCode?.[0] || orderState.barCode}
+              onClickChip={() => onClickBarcode(item, itemIndex)}
+              onDoubleClickChip={() => onDoubleClickBarcode(item, itemIndex)}
+              onDeleteChip={() => onDeleteBarcode(item, itemIndex)}
+            />
+
+            <ChangeChipCell
+              text={
+                !orderState.transparencyFile && !orderState.tmpTransparencyFile.length && t(TranslationKey.Transparency)
+              }
+              value={
+                orderState.tmpTransparencyFile?.[0]?.file?.name ||
+                orderState.tmpTransparencyFile?.[0] ||
+                orderState.transparencyFile
+              }
+              onClickChip={() =>
+                onClickTransparency({
+                  tmpFiles: orderState.tmpTransparencyFile,
+                  currentFiles: orderState.transparencyFile,
+                  index: itemIndex,
+                })
+              }
+              onDeleteChip={() => {
+                setOrderStateFiled('transparencyFile')('')
+                setOrderStateFiled('tmpTransparencyFile')([])
+              }}
+            />
+
+            {orderState.transparency && !orderState.transparencyFile && !orderState.tmpTransparencyFile.length && (
+              <p className={styles.warningText}>{t(TranslationKey['No Transparency codes'])}</p>
+            )}
+          </div>
         </TableCell>
 
-        <TableCell className={classNames.cell}>
+        <TableCell className={styles.cell}>
           <Button
-            variant={item.storekeeperId && 'text'}
-            className={cx(
-              { [classNames.storekeeperBtn]: !item.storekeeperId },
-              { [classNames.standartText]: item.storekeeperId },
-            )}
+            fullWidth
+            className={styles.button}
+            styleType={item.logicsTariffId ? ButtonStyle.DEFAULT : ButtonStyle.PRIMARY}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {/* {item.storekeeperId
-              ? `${currentStorkeeper.name} / 
-                
-                ${
-                  item.logicsTariffId
-                    ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                        tariffRate ? ' / ' + tariffRate + ' $' : ''
-                      }`
-                    : 'none'
-                }`
-              : t(TranslationKey.Select)} */}
-            {item.storekeeperId
-              ? `                
-                ${item.logicsTariffId ? `${tariffName}` : 'none'}`
-              : t(TranslationKey.Select)}
+            {item.logicsTariffId ? (
+              <>
+                <p>{tariffName}</p>
+                <p>{tariffRate}</p>
+              </>
+            ) : (
+              t(TranslationKey.Select)
+            )}
           </Button>
         </TableCell>
 
-        <TableCell className={classNames.cell}>
+        <TableCell className={styles.cell}>
           <WithSearchSelect
             width={160}
             widthPopover={220}
             selectedItemName={
               destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
-            data={destinations /* .filter(el => !el.storekeeperId)*/} // убираем дестинейшены, которые одновременно и склады
+            data={
+              item?.variationTariffId
+                ? destinations.filter(el => el?._id === (destinationId || item?.variationTariff?.destinationId))
+                : destinations.filter(el => el?.storekeeper?._id !== item?.storekeeper?._id)
+            }
             favourites={destinationsFavourites}
             searchFields={['name']}
             onClickSetDestinationFavourite={onClickSetDestinationFavourite}
-            onClickNotChosen={() => onChangeInput({ target: { value: '' } }, 'destinationId')}
-            onClickSelect={el => onChangeInput({ target: { value: el._id } }, 'destinationId')}
+            onClickNotChosen={handleResetDestination}
+            onClickSelect={el => handleSetDestination(el?._id)}
           />
         </TableCell>
 
-        <TableCell className={classNames.cell}>
+        <TableCell className={styles.cell}>
           <Input
             multiline
             minRows={3}
             maxRows={3}
             inputProps={{ maxLength: 500 }}
-            className={classNames.commentInput}
+            className={styles.commentInput}
+            value={item?.clientComment}
+            classes={{ inputMultiline: styles.inputMultiline }}
             onChange={e => onChangeInput(e, 'clientComment')}
           />
         </TableCell>
 
-        <TableCell className={classNames.cell}>
-          <div className={classNames.datePickerWrapper}>
-            <NewDatePicker
+        <TableCell className={styles.cell}>
+          <div className={styles.datePickerWrapper}>
+            <DatePicker
               disablePast
-              error={!isValid(item.deadline) || isPast(item.deadline) || isToday(item.deadline)}
+              // error={!isValid(parsedDeadline) || isPast(parsedDeadline)}
               minDate={minDate}
-              value={item.deadline}
+              value={deadline}
               onChange={e => onChangeInput(e, 'deadline')}
             />
           </div>
         </TableCell>
 
         {withRemove && (
-          <TableCell>
+          <TableCell className={styles.deleteCell}>
             <IconButton onClick={() => onRemoveProduct(item._id)}>
               <DeleteIcon />
             </IconButton>
           </TableCell>
         )}
 
-        <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-        >
-          <SelectStorekeeperAndTariffForm
-            storekeepers={storekeepers}
-            curStorekeeperId={item.storekeeperId}
-            curTariffId={item.logicsTariffId}
-            destinationsData={destinations}
-            onSubmit={onSubmitSelectStorekeeperAndTariff}
+        {showSelectionStorekeeperAndTariffModal ? (
+          <SupplierApproximateCalculationsModal
+            isTariffsSelect
+            isGetAllStorekeepers
+            tariffModalType={TariffModal.ORDER}
+            openModal={showSelectionStorekeeperAndTariffModal}
+            setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+            box={item}
+            onClickSubmit={onSubmitSelectStorekeeperAndTariff}
           />
-        </Modal>
+        ) : null}
       </TableRow>
 
       <TableRow key={item._id + `+`}>
-        <TableCell colSpan={11}>
-          <div className={classNames.sumsWrapper}>
-            <Button
-              tooltipAttentionContent={!boxPropertiesIsFull && t(TranslationKey['Not enough data'])}
-              disabled={!boxPropertiesIsFull}
-              onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
-            >
-              {t(TranslationKey['View an oriented calculation'])}
-            </Button>
-
+        <TableCell colSpan={12}>
+          <div className={styles.sumsWrapper}>
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={styles.containerField}
+              labelClasses={styles.labelField}
               label={`${t(TranslationKey['Production time'])}, ${t(TranslationKey.days)}`}
-              inputComponent={
-                <Typography className={classNames.sumText}>{item.currentSupplier?.productionTerm}</Typography>
-              }
+              inputComponent={<Typography className={styles.sumText}>{productionTerm}</Typography>}
             />
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={styles.containerField}
+              labelClasses={styles.labelField}
               label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
-              inputComponent={<Typography className={classNames.sumText}>{item.currentSupplier?.minlot}</Typography>}
+              inputComponent={<Typography className={styles.sumText}>{item.currentSupplier?.minlot}</Typography>}
             />
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={styles.containerField}
+              labelClasses={styles.labelField}
               label={t(TranslationKey['Weight 1 unit'])}
               inputComponent={
-                <Typography className={classNames.sumText}>
+                <Typography className={styles.sumText}>
                   {toFixed(weightOfOneBox, 2) || t(TranslationKey['No data'])}
                 </Typography>
               }
@@ -416,11 +386,11 @@ export const OrderModalBodyRow = ({
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={cx(styles.containerField, styles.batchWeight)}
+              labelClasses={styles.labelField}
               label={t(TranslationKey['Batch weight'])}
               inputComponent={
-                <Typography className={classNames.sumText}>
+                <Typography className={styles.sumText}>
                   {toFixed(weightOfBatch, 2) || t(TranslationKey['No data'])}
                 </Typography>
               }
@@ -428,11 +398,11 @@ export const OrderModalBodyRow = ({
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={styles.containerField}
+              labelClasses={styles.labelField}
               label={t(TranslationKey['Batch delivery cost']) + ',$'}
               inputComponent={
-                <Typography className={classNames.sumText}>
+                <Typography className={styles.sumText}>
                   {toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}
                 </Typography>
               }
@@ -440,44 +410,45 @@ export const OrderModalBodyRow = ({
 
             <Field
               oneLine
-              containerClasses={classNames.containerField}
-              labelClasses={classNames.labelField}
+              containerClasses={styles.containerField}
+              labelClasses={styles.labelField}
               label={t(TranslationKey['Cost per unit in the USA']) + ',$'}
-              inputComponent={<Typography className={classNames.sumText}>{pricePerUnit}</Typography>}
+              inputComponent={<Typography className={styles.sumText}>{pricePerUnit}</Typography>}
             />
           </div>
-          <div className={classNames.mainCheckboxWrapper}>
-            <div className={classNames.checkboxWrapper}>
-              <div className={classNames.expressWrapper} onClick={onClickPriority}>
-                <Checkbox className={classNames.checkbox} checked={item.priority === '40'} color="primary" />
-                <Typography className={classNames.sumText}>{t(TranslationKey['Mark an order as urgent'])}</Typography>
-                <img className={classNames.deliveryImg} src="/assets/icons/fire.svg" alt="" />
+          <div className={styles.mainCheckboxWrapper}>
+            <div className={styles.checkboxWrapper}>
+              <div className={styles.expressWrapper} onClick={onClickPriority}>
+                <Checkbox className={styles.checkbox} checked={item.priority === '40'} color="primary" />
+                <Typography className={styles.sumText}>{t(TranslationKey['Mark an order as urgent'])}</Typography>
+                <img className={styles.deliveryImg} src="/assets/icons/fire.svg" alt="" />
               </div>
-              <div className={classNames.expressWrapper} onClick={onClickExpressChinaDelivery}>
-                <Checkbox className={classNames.checkbox} checked={item.expressChinaDelivery} color="primary" />
-                <Typography className={classNames.sumText}>
+              <div className={styles.expressWrapper} onClick={onClickExpressChinaDelivery}>
+                <Checkbox className={styles.checkbox} checked={item.expressChinaDelivery} color="primary" />
+                <Typography className={styles.sumText}>
                   {t(TranslationKey['Order express delivery in China'])}
                 </Typography>
-                <img className={classNames.deliveryImg} src="/assets/icons/truck.svg" alt="" />
+                <TruckIcon className={styles.deliveryImg} />
               </div>
             </div>
           </div>
         </TableCell>
 
-        <Modal
-          openModal={showSupplierApproximateCalculationsModal}
-          setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
-        >
-          <SupplierApproximateCalculationsForm
-            volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
-            product={item}
-            supplier={item.currentSupplier}
-            storekeepers={storekeepers}
-            destinationData={destinations}
-            onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(prev => !prev)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
           />
-        </Modal>
+        ) : null}
       </TableRow>
-    </React.Fragment>
+    </>
   )
 }

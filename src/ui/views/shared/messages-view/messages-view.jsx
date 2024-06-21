@@ -1,216 +1,241 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import { Avatar, Typography, Link } from '@mui/material'
-
-import React, { useEffect, useRef, useState } from 'react'
-
+import { compareDesc, parseISO } from 'date-fns'
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
-import { chatsType } from '@constants/keys/chats'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultipleChats } from '@components/chat/multiple-chats'
-import { SearchResult } from '@components/chat/search-result'
+import { ChatModel } from '@models/chat-model'
+
+import { Chat } from '@components/chat/chat'
+import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
+import { ChatsList } from '@components/chat/chats-list'
 import { AddNewChatByEmailForm } from '@components/forms/add-new-chat-by-email-form'
 import { AddUsersToGroupChatForm } from '@components/forms/add-users-to-group-chat-form'
 import { EditGroupChatInfoForm } from '@components/forms/edit-group-chat-info-form'
-import { MainContent } from '@components/layout/main-content'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { NewDialogIcon, NoSelectedChat } from '@components/shared/svg-icons'
 
-import { checkIsResearcher } from '@utils/checks'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { checkIsResearcher, isNotUndefined } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { MessagesViewModel } from './messages-view.model'
-import { styles } from './messages-view.style'
-import { SoundOffIcon, SoundOnIcon } from '@components/shared/svg-icons'
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 
-export const MessagesViewRaw = props => {
-  const [viewModel] = useState(() => new MessagesViewModel({ history: props.history, location: props.location }))
-  const chatRef = useRef()
-  const { classes: classNames } = props
+import { useStyles } from './messages-view.style'
+
+import { ChatHeader } from './chat-header/chat-header'
+import { MessagesViewModel } from './messages-view.model'
+
+export const MessagesView = observer(({ history }) => {
+  const { classes: styles, cx } = useStyles()
+  const { isMobileResolution, isTabletResolution } = useCreateBreakpointResolutions()
+
+  const [viewModel] = useState(() => new MessagesViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
+
+    return () => {
+      ChatModel.onChangeChatSelectedId(undefined)
+    }
   }, [])
 
-  const currentOpponent = viewModel.simpleChats
-    .find(el => el._id === viewModel.chatSelectedId)
-    ?.users.find(el => el._id !== viewModel.user._id)
-
   const currentChat = viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)
+  const currentOpponent = currentChat?.users.find(el => el._id !== viewModel.user._id)
 
-  const curFoundedMessageIndex = viewModel.messagesFound?.findIndex(el => viewModel.curFoundedMessage?._id === el._id)
+  const filteredChats = viewModel.simpleChats
+    .filter(el => {
+      const oponentUser = el.users.filter(user => user._id !== viewModel.user._id)?.[0]
+      const title = typeof oponentUser?.name === 'string' ? oponentUser.name : 'User'
+      if (
+        !viewModel.nameSearchValue ||
+        title.toLocaleLowerCase().includes(viewModel.nameSearchValue.toLocaleLowerCase())
+      ) {
+        return true
+      } else {
+        return false
+      }
+    })
+    .sort((a, b) => {
+      return compareDesc(
+        parseISO(a.lastMessage?.createdAt || a.createdAt),
+        parseISO(b.lastMessage?.createdAt || b.createdAt),
+      )
+    })
+
+  const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && currentChat
+  const isMuteCurrentChat = viewModel.mutedChats.includes(viewModel.chatSelectedId)
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div
-          className={cx(classNames.chatHeaderWrapper, { [classNames.hideChatHeaderWrapper]: viewModel.chatSelectedId })}
-        >
-          <div className={classNames.leftSide}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              value={viewModel.nameSearchValue}
-              placeholder={t(TranslationKey['Search companion'])}
-              onChange={viewModel.onChangeNameSearchValue}
-            />
+    <div className={styles.wrapper}>
+      <div
+        className={cx(styles.leftSide, {
+          [styles.mobileResolution]: isChatSelectedAndFound && isMobileResolution,
+        })}
+      >
+        <div className={styles.searchWrapper}>
+          <SearchInput
+            inputClasses={styles.searchInput}
+            value={viewModel.nameSearchValue}
+            placeholder={t(TranslationKey['Search companion'])}
+            onChange={viewModel.onChangeNameSearchValue}
+          />
 
-            {viewModel.chatSelectedId && viewModel.simpleChats.length ? (
-              <div className={classNames.chatSelectedWrapper}>
-                {currentChat?.type === chatsType.DEFAULT ? (
-                  <Link
-                    target="_blank"
-                    href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
-                    underline="none"
-                  >
-                    <div className={classNames.opponentWrapper}>
-                      <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
-                      <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
-                    </div>
-                  </Link>
-                ) : (
-                  <div className={classNames.opponentWrapper}>
-                    <Avatar src={currentChat?.info.image} className={classNames.avatarWrapper} />
-                    <div>
-                      <Typography className={classNames.opponentName}>{currentChat?.info.title}</Typography>
-                      <Typography className={classNames.usersCount}>{`${currentChat?.users.length} ${t(
-                        TranslationKey.Members,
-                      ).toLocaleLowerCase()}`}</Typography>
-                    </div>
-                  </div>
-                )}
+          {isMobileResolution && (
+            <div className={styles.rightSideHeader}>
+              <div className={styles.noticesWrapper}>
+                <p
+                  className={cx(styles.noticesTextActive, {
+                    [styles.noticesTextNotActive]: viewModel.isMuteChats,
+                    [styles.mobileResolution]: isMobileResolution,
+                  })}
+                  onClick={viewModel.onToggleMuteAllChats}
+                >
+                  {viewModel.isMuteChats ? t(TranslationKey['Notices are off']) : t(TranslationKey['Notices included'])}
+                </p>
 
-                <SearchInput
-                  inputClasses={classNames.searchInput}
-                  placeholder={t(TranslationKey['Message Search'])}
-                  value={viewModel.mesSearchValue}
-                  onChange={viewModel.onChangeMesSearchValue}
-                  onKeyPress={e => console.log('e', e)}
+                <ChatSoundNotification
+                  isMuteChat={viewModel.isMuteChats}
+                  onToggleMuteChat={viewModel.onToggleMuteAllChats}
                 />
-
-                {viewModel.messagesFound.length ? (
-                  <SearchResult
-                    curFoundedMessageIndex={curFoundedMessageIndex}
-                    messagesFound={viewModel.messagesFound}
-                    onClose={() => viewModel.onChangeMesSearchValue({ target: { value: '' } })}
-                    onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
-                  />
-                ) : (
-                  <>
-                    {viewModel.mesSearchValue && (
-                      <div className={classNames.searchResultWrapper}>
-                        <Typography className={classNames.searchResult}>{t(TranslationKey['Not found'])}</Typography>
-                      </div>
-                    )}
-                  </>
-                )}
               </div>
-            ) : null}
-          </div>
 
-          <div className={classNames.rightSide}>
-            <div className={classNames.tooltipWrapper} onClick={viewModel.onTriggerNoticeOfSimpleChats}>
-              {viewModel.noticeOfSimpleChats ? (
-                <Typography className={classNames.noticesTextActive}>
-                  {t(TranslationKey['Notices included'])}
-                </Typography>
-              ) : (
-                <Typography className={classNames.noticesTextNoActive}>
-                  {t(TranslationKey['Notices are off'])}
-                </Typography>
-              )}
+              <Button
+                className={styles.newDialogBtn}
+                disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
+                onClick={viewModel.onClickAddNewChatByEmail}
+              >
+                {isMobileResolution ? <NewDialogIcon /> : t(TranslationKey['New Dialog'])}
+              </Button>
+            </div>
+          )}
+        </div>
 
-              {viewModel.noticeOfSimpleChats ? <SoundOnIcon /> : <SoundOffIcon />}
+        <ChatsList
+          userId={viewModel.user._id}
+          typingUsers={viewModel.typingUsers}
+          chats={filteredChats}
+          chatSelectedId={viewModel.chatSelectedId}
+          mutedChats={viewModel.mutedChats}
+          onClickChat={viewModel.onClickChat}
+        />
+      </div>
+
+      <div className={cx(styles.rightSide, { [styles.mobileResolution]: !isChatSelectedAndFound })}>
+        {!isMobileResolution && !isChatSelectedAndFound && (
+          <div className={styles.rightSideHeader}>
+            <div className={styles.noticesWrapper}>
+              <p
+                className={cx(styles.noticesTextActive, {
+                  [styles.noticesTextNotActive]: viewModel.isMuteChats,
+                })}
+                onClick={viewModel.onToggleMuteAllChats}
+              >
+                {viewModel.isMuteChats ? t(TranslationKey['Notices are off']) : t(TranslationKey['Notices included'])}
+              </p>
+
+              <ChatSoundNotification
+                isMuteChat={viewModel.isMuteChats}
+                onToggleMuteChat={() => viewModel.onToggleMuteAllChats()}
+              />
             </div>
 
             <Button
+              className={styles.newDialogBtn}
               disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
-              className={classNames.newDialogBtn}
               onClick={viewModel.onClickAddNewChatByEmail}
             >
-              {t(TranslationKey['New Dialogue'])}
+              {isMobileResolution ? <NewDialogIcon /> : t(TranslationKey['New Dialog'])}
             </Button>
           </div>
-        </div>
-        <div className={classNames.chatWrapper}>
-          <MultipleChats
-            ref={chatRef}
-            toScrollMesId={viewModel.curFoundedMessage?._id}
-            searchPhrase={viewModel.mesSearchValue}
-            messagesFound={viewModel.messagesFound}
-            typingUsers={viewModel.typingUsers}
-            searchFilter={viewModel.nameSearchValue}
-            currentOpponent={currentOpponent}
-            chats={viewModel.simpleChats}
+        )}
+
+        {isChatSelectedAndFound ? (
+          <Chat
             userId={viewModel.user._id}
-            chatSelectedId={viewModel.chatSelectedId}
+            chat={currentChat}
+            messages={currentChat.messages}
+            toScrollMesId={viewModel.curFoundedMessage?._id}
+            messagesFound={viewModel.messagesFound}
+            searchPhrase={viewModel.mesSearchValue}
             updateData={viewModel.loadData}
+            currentOpponent={currentOpponent}
+            requestStatus={viewModel.requestStatus}
+            headerChatComponent={props => (
+              <ChatHeader
+                currentChat={currentChat}
+                currentOpponent={currentOpponent}
+                isChatSelectedAndFound={isChatSelectedAndFound}
+                searchInputValue={viewModel.mesSearchValue}
+                isTabletResolution={isTabletResolution}
+                unreadMessages={viewModel.unreadMessages}
+                foundMessages={viewModel.messagesFound}
+                isMuteCurrentChat={isMuteCurrentChat}
+                curFoundedMessageIndex={viewModel.curFoundedMessageIndex}
+                onToggleMuteCurrentChat={viewModel.onToggleMuteCurrentChat}
+                onClickBackButton={viewModel.onClickBackButton}
+                onChangeMesSearchValue={viewModel.onChangeMesSearchValue}
+                onChangeCurFoundedMessage={viewModel.onChangeCurFoundedMessage}
+                {...props}
+              />
+            )}
+            onChangeRequestStatus={viewModel.setRequestStatus}
+            onSubmitMessage={(message, files, replyMessageId) =>
+              viewModel.onSubmitMessage(message, files, viewModel.chatSelectedId, replyMessageId)
+            }
             onTypingMessage={viewModel.onTypingMessage}
-            onSubmitMessage={viewModel.onSubmitMessage}
-            onClickChat={viewModel.onClickChat}
-            onClickBackButton={viewModel.onClickBackButton}
             onClickAddUsersToGroupChat={viewModel.onClickAddUsersToGroupChat}
             onRemoveUsersFromGroupChat={viewModel.onRemoveUsersFromGroupChat}
             onClickEditGroupChatInfo={viewModel.onClickEditGroupChatInfo}
           />
-        </div>
-        {viewModel.showProgress && (
-          <CircularProgressWithLabel title={/* t(TranslationKey['Creating a Chat']) +*/ '...'} />
-        )}
+        ) : !isMobileResolution ? (
+          <div className={styles.noSelectedChatWrapper}>
+            <NoSelectedChat className={styles.noSelectedChatIcon} />
+            <p className={styles.noChatTitle}>{t(TranslationKey['Choose chat'])}</p>
+            <p className={styles.noChatSubTitle}>
+              {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}
+            </p>
+          </div>
+        ) : null}
+      </div>
 
-        <Modal
-          openModal={viewModel.showAddNewChatByEmailModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
-        >
-          <AddNewChatByEmailForm
-            closeModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
-            usersData={viewModel.usersData}
-            onSubmit={viewModel.onSubmitAddNewChat}
-          />
-        </Modal>
+      {viewModel.showProgress && <CircularProgressWithLabel title={'...'} />}
 
-        <Modal
-          openModal={viewModel.showAddUsersToGroupChatModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showAddUsersToGroupChatModal')}
-        >
-          <AddUsersToGroupChatForm
-            closeModal={() => viewModel.onTriggerOpenModal('showAddUsersToGroupChatModal')}
-            usersData={viewModel.usersData}
-            onSubmit={viewModel.onSubmitAddUsersToGroupChat}
-          />
-        </Modal>
-
-        <Modal
-          openModal={viewModel.showEditGroupChatInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
-        >
-          <EditGroupChatInfoForm
-            chat={viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)}
-            onSubmit={viewModel.onSubmitPatchInfoGroupChat}
-            onCloseModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
-          />
-        </Modal>
-
-        <WarningInfoModal
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            viewModel.onTriggerOpenModal('showWarningInfoModal')
-          }}
+      <Modal
+        openModal={viewModel.showAddNewChatByEmailModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
+      >
+        <AddNewChatByEmailForm
+          closeModal={() => viewModel.onTriggerOpenModal('showAddNewChatByEmailModal')}
+          usersData={viewModel.usersData}
+          onSubmit={viewModel.onSubmitAddNewChat}
         />
-      </MainContent>
-    </React.Fragment>
-  )
-}
+      </Modal>
 
-export const MessagesView = withStyles(observer(MessagesViewRaw), styles)
+      <Modal
+        openModal={viewModel.showAddUsersToGroupChatModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showAddUsersToGroupChatModal')}
+      >
+        <AddUsersToGroupChatForm
+          closeModal={() => viewModel.onTriggerOpenModal('showAddUsersToGroupChatModal')}
+          usersData={viewModel.usersData}
+          onSubmit={viewModel.onSubmitAddUsersToGroupChat}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showEditGroupChatInfoModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
+      >
+        <EditGroupChatInfoForm
+          chat={viewModel.simpleChats.find(el => el._id === viewModel.chatSelectedId)}
+          onSubmit={viewModel.onSubmitPatchInfoGroupChat}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditGroupChatInfoModal')}
+        />
+      </Modal>
+    </div>
+  )
+})

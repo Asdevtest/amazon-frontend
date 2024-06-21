@@ -1,17 +1,7 @@
-import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import {
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  /* TablePagination, */
-  Typography,
-} from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+
+import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
@@ -23,15 +13,17 @@ import {
 } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { Button } from '@components/shared/buttons/button'
+import { UserModel } from '@models/user-model'
+
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+
+import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
 import {
   calcFinalWeightForBatchByMoreTotalWeight,
@@ -40,39 +32,23 @@ import {
 } from '@utils/calculation'
 import { checkIsClient } from '@utils/checks'
 import { addOrEditBatchDataConverter } from '@utils/data-grid-data-converters'
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './add-or-edit-batch-form.style'
+
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
-import { useClassNames } from './add-or-edit-batch-form.style'
-import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
 export const AddOrEditBatchForm = observer(
-  ({
-    userRole,
-    boxesData,
-    onClose,
-    /* volumeWeightCoefficient,*/ onSubmit,
-    batchToEdit,
-    sourceBox,
-    showProgress,
-    progressValue,
-    history,
-    location,
-  }) => {
-    const [viewModel] = useState(
-      () =>
-        new ClientAwaitingBatchesViewModel({
-          history,
-          location,
-        }),
-    )
+  ({ boxesData, onClose, onSubmit, batchToEdit, sourceBox, showProgress, progressValue }) => {
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
 
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
-    const isClient = checkIsClient(UserRoleCodeMap[userRole])
+    const isClient = checkIsClient(UserRoleCodeMap[UserModel.platformSettings?.role])
 
     const [nameSearchValueBoxesToAddData, setNameSearchValueBoxesToAddData] = useState('')
 
@@ -80,14 +56,12 @@ export const AddOrEditBatchForm = observer(
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
-    // const [isActualGreaterTheVolume, setIsActualGreaterTheVolume] = useState(false)
-
     const [batchFields, setBatchFields] = useState({
-      title: batchToEdit?.originalData.title || '',
+      title: batchToEdit?.title || '',
       calculationMethod:
-        batchToEdit?.originalData.calculationMethod ||
+        batchToEdit?.calculationMethod ||
         BatchWeightCalculationMethodByKey[BatchWeightCalculationMethod.BY_MORE_TOTAL_WEIGHT],
-      volumeWeightDivide: batchToEdit?.originalData.volumeWeightDivide || 6000,
+      volumeWeightDivide: batchToEdit?.volumeWeightDivide || 6000,
     })
 
     const [boxesToAddData, setBoxesToAddData] = useState(
@@ -112,17 +86,22 @@ export const AddOrEditBatchForm = observer(
 
     const [filesToAdd, setfilesToAdd] = useState([])
 
+    useEffect(() => {
+      if (batchToEdit) {
+        setfilesToAdd(batchToEdit?.attachedDocuments)
+      }
+    }, [batchToEdit])
+
     const sourceChosenBoxesBase = batchToEdit
       ? addOrEditBatchDataConverter(
-          batchToEdit.originalData?.boxes.map(box => ({ ...box, storekeeper: batchToEdit.originalData?.storekeeper })),
+          batchToEdit?.boxes.map(box => ({ ...box, storekeeper: batchToEdit?.storekeeper })),
           batchFields.volumeWeightDivide,
           getBatchWeightCalculationMethodForBox(
             batchFields.calculationMethod,
-            checkActualBatchWeightGreaterVolumeBatchWeight(
-              batchToEdit.originalData?.boxes,
-              batchFields.volumeWeightDivide,
-            ),
+            checkActualBatchWeightGreaterVolumeBatchWeight(batchToEdit?.boxes, batchFields.volumeWeightDivide),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         )
       : sourceBox
       ? [
@@ -133,6 +112,8 @@ export const AddOrEditBatchForm = observer(
               batchFields.calculationMethod,
               checkActualBatchWeightGreaterVolumeBatchWeight([sourceBox], batchFields.volumeWeightDivide),
             ),
+            getBatchWeightCalculationMethodForBox,
+            batchFields.calculationMethod,
           ),
         ]
       : []
@@ -217,14 +198,16 @@ export const AddOrEditBatchForm = observer(
       } else if (batchToEdit /* && !nameSearchValueChosenBoxes */) {
         const chosenBoxesIds = chosenBoxesBase.map(box => box._id)
         const deletedBoxes = addOrEditBatchDataConverter(
-          [...batchToEdit.originalData.boxes]
-            .map(box => ({ ...box, storekeeper: batchToEdit.originalData?.storekeeper }))
+          [...(batchToEdit?.boxes || [])]
+            .map(box => ({ ...box, storekeeper: batchToEdit?.storekeeper }))
             .filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
           getBatchWeightCalculationMethodForBox(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         )
 
         setBoxesToAddData(() =>
@@ -240,22 +223,15 @@ export const AddOrEditBatchForm = observer(
               batchFields.calculationMethod,
             ).filter(
               box =>
-                box.originalData?.destination?.name === batchToEdit.destination &&
-                box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+                box.originalData?.destination?._id === batchToEdit?.boxes?.[0]?.destination?._id &&
+                box.originalData?.logicsTariff?._id === batchToEdit?.boxes?.[0].logicsTariff?._id &&
                 !chosenBoxesIds.includes(box._id),
             ),
             ...deletedBoxes,
           ]),
         )
       }
-    }, [
-      chosenBoxes,
-      chosenBoxesBase,
-      nameSearchValueBoxesToAddData,
-      batchFields.volumeWeightDivide,
-      batchFields.calculationMethod,
-      // isActualGreaterTheVolume,
-    ])
+    }, [chosenBoxesBase, nameSearchValueBoxesToAddData, batchFields.volumeWeightDivide, batchFields.calculationMethod])
 
     useEffect(() => {
       if (nameSearchValueChosenBoxes && !batchToEdit) {
@@ -276,18 +252,11 @@ export const AddOrEditBatchForm = observer(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         ),
       ])
-    }, [batchFields.volumeWeightDivide, batchFields.calculationMethod, chosenBoxes])
-
-    // useEffect(() => {
-    //   setIsActualGreaterTheVolume(
-    //     checkActualBatchWeightGreaterVolumeBatchWeight(
-    //       chosenBoxes.map(el => el.originalData),
-    //       batchFields.volumeWeightDivide,
-    //     ),
-    //   )
-    // }, [chosenBoxes.length, batchFields.volumeWeightDivide, batchFields.calculationMethod]) // новое
+    }, [batchFields.volumeWeightDivide, batchFields.calculationMethod])
 
     const onClickTrash = () => {
       const filteredArray = [...chosenBoxesBase].filter(el => !boxesToDeliteIds.includes(el.id))
@@ -298,12 +267,14 @@ export const AddOrEditBatchForm = observer(
       if (batchToEdit && nameSearchValueChosenBoxes) {
         const chosenBoxesIds = chosenBoxesBase.map(box => box._id)
         const deletedBoxes = addOrEditBatchDataConverter(
-          [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
+          [...(batchToEdit?.boxes || [])].filter(el => !chosenBoxesIds.includes(el._id)),
           batchFields.volumeWeightDivide,
           getBatchWeightCalculationMethodForBox(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         )
 
         setBoxesToAddData(() =>
@@ -320,7 +291,7 @@ export const AddOrEditBatchForm = observer(
             ).filter(
               box =>
                 box.originalData?.destination?.name === batchToEdit.destination &&
-                box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+                box.originalData?.logicsTariff?.name === batchToEdit?.boxes[0].logicsTariff?.name &&
                 !chosenBoxesIds.includes(box._id),
             ),
             ...deletedBoxes,
@@ -342,6 +313,8 @@ export const AddOrEditBatchForm = observer(
             batchFields.calculationMethod,
             getCheckActualBatchWeightGreaterVolumeBatchWeight(),
           ),
+          getBatchWeightCalculationMethodForBox,
+          batchFields.calculationMethod,
         ),
         ...sourceChosenBoxesBase,
       ].filter(el => newRowIds.includes(el.id))
@@ -363,7 +336,7 @@ export const AddOrEditBatchForm = observer(
       const chosenBoxesIds =
         chosenBoxes.length < chosenBoxesBase.length ? chosenBoxesBase.map(el => el.id) : chosenBoxes.map(el => el.id)
 
-      const sourceBoxesIds = batchToEdit?.originalData.boxes.map(el => el._id) || []
+      const sourceBoxesIds = batchToEdit?.boxes.map(el => el._id) || []
 
       onSubmit({ boxesIds: chosenBoxesIds, filesToAdd, sourceBoxesIds, batchToEdit, batchFields })
 
@@ -371,16 +344,16 @@ export const AddOrEditBatchForm = observer(
     }
 
     return (
-      <div className={classNames.root}>
-        <Typography className={classNames.modalTitle}>
+      <div className={styles.root}>
+        <Typography className={styles.modalTitle}>
           {batchToEdit ? t(TranslationKey['Editing a batch']) : t(TranslationKey['Creating a batch'])}
         </Typography>
 
-        <div className={classNames.form}>
-          <div className={classNames.filtersWrapper}>
+        <div className={styles.form}>
+          <div className={styles.filtersWrapper}>
             <div>
               <Field
-                className={classNames.filterField}
+                className={styles.filterField}
                 label={t(TranslationKey['Batch title'])}
                 value={batchFields.title}
                 onChange={e => changeBatchFields('title')(e.target.value)}
@@ -390,9 +363,9 @@ export const AddOrEditBatchForm = observer(
             <div>
               <Field
                 disabled
-                className={classNames.filterField}
-                labelClasses={classNames.label}
-                containerClasses={classNames.filterFieldWrapper}
+                className={styles.filterField}
+                labelClasses={styles.label}
+                containerClasses={styles.filterFieldWrapper}
                 label={t(TranslationKey['CLS (batch closing date)'])}
                 value={
                   sourceDataForFilters
@@ -408,7 +381,7 @@ export const AddOrEditBatchForm = observer(
             <div>
               <Field
                 disabled
-                className={classNames.filterField}
+                className={styles.filterField}
                 label={t(TranslationKey['ETD (date of shipment)'])}
                 value={
                   sourceDataForFilters
@@ -424,7 +397,7 @@ export const AddOrEditBatchForm = observer(
             <div>
               <Field
                 disabled
-                className={classNames.filterField}
+                className={styles.filterField}
                 label={t(TranslationKey['ETA (arrival date)'])}
                 value={
                   sourceDataForFilters
@@ -440,7 +413,7 @@ export const AddOrEditBatchForm = observer(
             <div>
               <Field
                 disabled
-                className={classNames.filterField}
+                className={styles.filterField}
                 tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
                 label={t(TranslationKey.Tariff)}
                 value={
@@ -455,7 +428,7 @@ export const AddOrEditBatchForm = observer(
             <div>
               <Field
                 disabled
-                className={classNames.filterField}
+                className={styles.filterField}
                 tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
                 label={t(TranslationKey.Destination)}
                 value={
@@ -468,67 +441,66 @@ export const AddOrEditBatchForm = observer(
             </div>
           </div>
 
-          <div className={classNames.searchWrapper}>
-            <Typography className={classNames.subTitle}>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
+          <div className={styles.searchWrapper}>
+            <Typography className={styles.subTitle}>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
 
             <SearchInput
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               value={nameSearchValueBoxesToAddData}
               placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
             />
           </div>
 
-          <div className={classNames.tableWrapper}>
-            <div className={classNames.boxCounterWrapper}>
-              <Typography className={classNames.boxCounterText}>{t(TranslationKey['Selected boxes']) + ':'}</Typography>
-              <Typography className={classNames.boxCounterCount}>
-                {[
-                  ...addOrEditBatchDataConverter(
-                    boxesData,
-                    batchFields.volumeWeightDivide,
-                    getBatchWeightCalculationMethodForBox(
-                      batchFields.calculationMethod,
-                      getCheckActualBatchWeightGreaterVolumeBatchWeight(),
-                    ),
-                  ),
-                  ...sourceChosenBoxesBase,
-                ]
-                  .filter(el => boxesToAddIds.includes(el._id))
-                  .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-              </Typography>
-            </div>
-
-            <MemoDataGrid
-              pagination
+          <div className={styles.tableWrapper}>
+            <CustomDataGrid
               checkboxSelection
-              keepNonExistentRowsSelected
-              columnVisibilityModel={viewModel.columnVisibilityModel}
+              sortingMode="client"
+              paginationMode="client"
               initialState={{
                 sorting: {
                   sortModel: [{ field: 'updatedAt', sort: 'desc' }],
                 },
               }}
-              localeText={getLocalizationByLanguageTag()}
               pageSizeOptions={[50, 100]}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-              }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: viewModel.columnsModel,
                     columnVisibilityModel: viewModel.columnVisibilityModel,
                     onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                   },
+                  children: (
+                    <div className={styles.boxCounterWrapper}>
+                      <Typography className={styles.boxCounterText}>
+                        {t(TranslationKey['Selected boxes']) + ':'}
+                      </Typography>
+                      <Typography className={styles.boxCounterCount}>
+                        {[
+                          ...addOrEditBatchDataConverter(
+                            boxesData,
+                            batchFields.volumeWeightDivide,
+                            getBatchWeightCalculationMethodForBox(
+                              batchFields.calculationMethod,
+                              getCheckActualBatchWeightGreaterVolumeBatchWeight(),
+                            ),
+                            getBatchWeightCalculationMethodForBox,
+                            batchFields.calculationMethod,
+                          ),
+                          ...sourceChosenBoxesBase,
+                        ]
+                          .filter(el => boxesToAddIds.includes(el._id))
+                          .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
+                      </Typography>
+                    </div>
+                  ),
                 },
               }}
-              sx={{
-                border: `1px solid  #EBEBEB !important`,
-                boxShadow: '0px 2px 10px 2px #EBEBEB !important',
-              }}
-              rows={toJS(boxesToAddData)}
+              columnVisibilityModel={viewModel.columnVisibilityModel}
+              rows={boxesToAddData}
               columns={addOrEditBatchFormColumns(isClient)}
               rowHeight={100}
               rowSelectionModel={boxesToAddIds}
@@ -537,8 +509,8 @@ export const AddOrEditBatchForm = observer(
             />
           </div>
 
-          <div className={classNames.tableSubWrapper}>
-            <div className={classNames.weigthCalcWrapper}>
+          <div className={styles.tableSubWrapper}>
+            <div className={styles.weigthCalcWrapper}>
               <WithSearchSelect
                 withoutSearch
                 width={343}
@@ -555,7 +527,7 @@ export const AddOrEditBatchForm = observer(
                 onClickSelect={item => changeBatchFields('calculationMethod')(item.methodStatus)}
               />
 
-              <Typography className={classNames.volumeWeightDivider}>{t(TranslationKey.Divider) + ':'}</Typography>
+              <Typography className={styles.volumeWeightDivider}>{t(TranslationKey.Divider) + ':'}</Typography>
 
               <RadioGroup
                 row
@@ -574,61 +546,52 @@ export const AddOrEditBatchForm = observer(
               disabled={
                 !boxesToAddIds.length || (!chosenBoxesBase.length && boxesToAddIds.length !== 1 && !batchToEdit)
               }
-              color="primary"
-              variant="contained"
-              className={classNames.actionBtn}
+              className={styles.actionBtn}
               onClick={onClickAdd}
             >
               {t(TranslationKey.Add)}
             </Button>
           </div>
 
-          <div className={classNames.searchWrapper}>
-            <Typography className={classNames.chosenGoodsTitle}>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
+          <div className={styles.searchWrapper}>
+            <Typography className={styles.chosenGoodsTitle}>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
 
             <SearchInput
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               value={nameSearchValueChosenBoxes}
               placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
               onChange={e => setNameSearchValueChosenBoxes(e.target.value)}
             />
           </div>
 
-          <div className={classNames.tableWrapper}>
-            <div className={classNames.boxCounterWrapper}>
-              <Typography className={classNames.boxCounterText}>
-                {t(TranslationKey['Quantity of boxes']) + ':'}
-              </Typography>
-              <Typography className={classNames.boxCounterCount}>
-                {chosenBoxesBase.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-              </Typography>
-            </div>
-            <MemoDataGrid
-              pagination
+          <div className={styles.tableWrapper}>
+            <CustomDataGrid
               checkboxSelection
-              // keepNonExistentRowsSelected
-              localeText={getLocalizationByLanguageTag()}
+              sortingMode="client"
+              paginationMode="client"
               columnVisibilityModel={viewModel.columnVisibilityModel}
               pageSizeOptions={[50, 100]}
-              sx={{
-                boxShadow: '0px 2px 10px 2px #EBEBEB',
-                border: `1px solid  #EBEBEB !important`,
-              }}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-              }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: viewModel.columnsModel,
                     columnVisibilityModel: viewModel.columnVisibilityModel,
                     onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
                   },
+                  children: (
+                    <div className={styles.boxCounterWrapper}>
+                      <Typography className={styles.boxCounterText}>
+                        {t(TranslationKey['Quantity of boxes']) + ':'}
+                      </Typography>
+                      <Typography className={styles.boxCounterCount}>
+                        {chosenBoxesBase.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
+                      </Typography>
+                    </div>
+                  ),
                 },
-              }}
-              classes={{
-                root: classNames.rootDataGrid,
               }}
               rows={chosenBoxes || []}
               columns={addOrEditBatchFormColumns(isClient)}
@@ -638,11 +601,11 @@ export const AddOrEditBatchForm = observer(
             />
           </div>
 
-          <div className={classNames.footerWrapper}>
-            <div className={classNames.sumsWrapper}>
+          <div className={styles.footerWrapper}>
+            <div className={styles.sumsWrapper}>
               <Field
                 disabled
-                containerClasses={classNames.sumField}
+                containerClasses={styles.sumField}
                 tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
                 label={t(TranslationKey['Volume weight'])}
                 value={toFixed(
@@ -660,7 +623,7 @@ export const AddOrEditBatchForm = observer(
 
               <Field
                 disabled
-                containerClasses={classNames.sumField}
+                containerClasses={styles.sumField}
                 tooltipInfoContent={t(TranslationKey['Total weight of boxes in a batch'])}
                 label={t(TranslationKey['Final weight'])}
                 value={
@@ -683,7 +646,7 @@ export const AddOrEditBatchForm = observer(
 
               <Field
                 disabled
-                containerClasses={classNames.sumField}
+                containerClasses={styles.sumField}
                 tooltipInfoContent={t(TranslationKey['Cost of shipping boxes in a batch'])}
                 label={t(TranslationKey['Total price'])}
                 value={toFixed(
@@ -694,62 +657,30 @@ export const AddOrEditBatchForm = observer(
               />
             </div>
             <Button
-              danger
+              styleType={ButtonStyle.DANGER}
               disabled={!boxesToDeliteIds.length || !chosenBoxes.length}
-              color="primary"
-              variant="contained"
-              className={classNames.actionBtn}
+              className={styles.actionBtn}
               onClick={onClickTrash}
             >
               {t(TranslationKey.Remove)}
             </Button>
           </div>
 
-          <div className={classNames.imageFileInputWrapper}>
-            <div className={classNames.uploadFilesWrapper}>
-              <UploadFilesInput
-                images={filesToAdd}
-                setImages={setfilesToAdd}
-                maxNumber={
-                  batchToEdit?.originalData?.attachedDocuments?.length
-                    ? 50 - batchToEdit?.originalData.attachedDocuments.length
-                    : 50
-                }
-              />
-            </div>
-            <div className={classNames.imageAndFileInputWrapper}>
-              <Field
-                containerClasses={classNames.filesWrapper}
-                label={t(TranslationKey.Files)}
-                inputComponent={
-                  <PhotoAndFilesCarousel
-                    small
-                    direction={window.screen.width < 768 ? 'column' : 'row'}
-                    files={batchToEdit?.originalData.attachedDocuments}
-                    width={window.screen.width < 768 ? '100%' : '400px'}
-                  />
-                }
-              />
-            </div>
-          </div>
+          <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} />
 
-          <div className={classNames.btnsWrapper}>
+          <div className={styles.btnsWrapper}>
             <Button
-              success
-              disableElevation
+              styleType={ButtonStyle.SUCCESS}
               disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
-              variant="contained"
-              color="primary"
-              className={classNames.actionBtn}
+              className={styles.actionBtn}
               onClick={onClickSubmit}
             >
               {t(TranslationKey.Save)}
             </Button>
 
             <Button
-              color="primary"
-              variant="text"
-              className={cx(classNames.actionBtn, classNames.cancelBtn)}
+              variant={ButtonVariant.OUTLINED}
+              className={cx(styles.actionBtn, styles.cancelBtn)}
               onClick={onClose}
             >
               {t(TranslationKey.Cancel)}

@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   newBoxes: {
     marginBottom: '20px',
   },
@@ -17,6 +17,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   sectionTitle: {
     color: theme.palette.text.second,
+    fontSize: '20px',
     marginBottom: '10px',
     marginTop: '10px',
   },
@@ -58,11 +59,10 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'center',
   },
   buttonCell: {
-    minWidth: 60,
+    width: 40,
     display: 'flex',
-    alignItems: 'center',
-
     flexDirection: 'column',
+    gap: 5,
   },
 
   sizesWrapper: {
@@ -109,35 +109,24 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 0,
   },
 
-  deleteBtnWrapper: {
-    width: '40px',
-    height: '30px',
-    marginLeft: '10px',
-    backgroundColor: 'inherit',
-    margin: 0,
-    padding: 0,
-
-    '&:hover': {
-      backgroundColor: '#e4e4e4',
-    },
-  },
-  editBtnWrapper: {
-    width: '40px',
-    height: '40px',
-    backgroundColor: 'inherit',
-    margin: 0,
-    padding: 0,
-
-    '&:hover': {
-      backgroundColor: '#e4e4e4',
-    },
-    marginLeft: 10,
+  sizesSubWrapper: {
+    display: 'flex',
+    gap: '140px',
+    marginBottom: 10,
   },
 
-  deleteBtn: {
-    color: 'grey',
+  transparencyCodesText: {
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: theme.palette.text.red,
   },
-  editBtn: {
-    color: 'grey',
+
+  itemsNotEqualTotal: {
+    color: theme.palette.text.red,
+  },
+
+  itemsEqualTotal: {
+    color: theme.palette.text.green,
   },
 }))

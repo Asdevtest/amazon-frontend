@@ -1,15 +1,17 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: '1121px',
+    width: '1140px',
+    gap: 20,
+    padding: 10,
   },
   form: {
-    flexWrap: 'wrap',
-    marginTop: theme.spacing(2.5),
-    marginBottom: theme.spacing(2.5),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
     border: '1px solid rgb(224, 224, 224)',
     borderRadius: '5px',
     padding: '20px',
@@ -18,39 +20,34 @@ export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginTop: '10px',
+    gap: 20,
   },
 
-  button: {
-    marginLeft: '10px',
-  },
   subTitle: {
+    fontSize: 18,
+    lineHeight: '25px',
     color: theme.palette.text.second,
   },
+
   field: {
     flexBasis: '100%',
   },
 
   divider: {
     width: '100%',
-    flexGrow: 1,
-    margin: '0 -20px',
-    marginTop: theme.spacing(1.25),
-    marginBottom: theme.spacing(2.5),
+    height: 1,
+    background: '#E0E0E0',
   },
 
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
     width: '100%',
     gap: '10px',
   },
 
   numberInputFieldsBlocksSubWrapper: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'flex-start',
     width: '100%',
     gap: '10px',
@@ -72,13 +69,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
   },
   iconBtn: {
-    width: '50px',
-    height: '50px',
-    backgroundColor: 'inherit',
-
-    '&:hover': {
-      backgroundColor: '#e4e4e4',
-    },
+    padding: 0,
+    width: 36,
+    height: 36,
+    minWidth: 36,
   },
 
   checkboxWithLabelWrapper: {
@@ -101,32 +95,15 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: '50px',
   },
 
-  deleteBtn: {
-    color: 'grey',
-  },
-
-  orange: {
-    color: '#F3AF00',
-  },
-
-  red: {
-    color: 'red',
-  },
-
-  green: {
-    color: 'green',
-  },
-
   destinationWrapper: {
     maxWidth: '400px',
     textAlign: 'left',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-
     color: theme.palette.text.second,
   },
 
-  sizesSubWrapper: {
-    width: 'fit-content',
+  fieldContainer: {
+    margin: 0,
   },
 }))

@@ -1,252 +1,173 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Checkbox, Grid, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
-import {
-  RequestProposalStatus,
-  RequestProposalStatusColor,
-  RequestProposalStatusTranslate,
-} from '@constants/requests/request-proposal-status'
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
-import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MyProposalsListCard } from '@components/cards/my-proposals-list-card'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
-import { MainContent } from '@components/layout/main-content'
+import { RequestDesignerResultForm } from '@components/forms/request-designer-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
+import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
+import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
+import { RequestResultModal } from '@components/modals/request-result-modal'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 
-import { checkIsFreelancer } from '@utils/checks'
-import {
-  sortObjectsArrayByArrayObjectFiledDateWithParseISO,
-  sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc,
-} from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { MyProposalsViewModel } from './my-proposals-view.model'
-import { styles } from './my-proposals-view.style'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { RequestStandartResultForm } from '@components/forms/request-standart-result-form'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const MyProposalsViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new MyProposalsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  const { classes: classNames } = props
+import { useStyles } from './my-proposals-view.style'
+
+import { customSwitcherSettings } from './my-proposals-view.constants'
+import { MyProposalsViewModel } from './my-proposals-view.model'
+
+export const MyProposalsView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new MyProposalsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
-  const whiteList =
-    !!viewModel.userInfo && checkIsFreelancer(viewModel.userRole)
-      ? [
-          String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
-          ...(Object.keys(freelanceRequestTypeByCode)
-            ?.filter(spec => viewModel.requestsBase.some(item => Number(item?.typeTask) === Number(spec)))
-            ?.map(item => String(item)) || []),
-        ]
-      : Object.keys(freelanceRequestTypeByCode)
-
-  const getSortedData = mode => {
-    switch (mode) {
-      case tableSortMode.DESK:
-        // return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-        return sortObjectsArrayByArrayObjectFiledDateWithParseISO(viewModel.currentData, 'updatedAt', 'proposals')
-
-      case tableSortMode.ASC:
-        // return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
-        return sortObjectsArrayByArrayObjectFiledDateWithParseISOAsc(viewModel.currentData, 'updatedAt', 'proposals')
-    }
-  }
-
   return (
-    <React.Fragment>
-      <MainContent>
-        <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.taskTypeWrapper}>
-            {Object.keys({
-              ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-              // freelanceRequestTypeByCode
-            }).map((taskType, taskIndex) => (
-              <Button
-                key={taskIndex}
-                variant="text"
-                disabled={taskType === viewModel.selectedTaskType}
-                btnWrapperStyle={classNames.btnWrapperStyle}
-                className={cx(classNames.button, {
-                  [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                })}
-                onClick={() => viewModel.onClickTaskType(taskType)}
-              >
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-              </Button>
-            ))}
-          </div>
+    <>
+      <div className={styles.root}>
+        <div className={styles.tablePanelWrapper}>
+          <FreelanceTypeTaskSelect
+            selectedSpec={viewModel.selectedSpec}
+            specs={viewModel.userInfo?.allowedSpec}
+            onClickSpec={viewModel.onClickSpec}
+          />
 
-          <div>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={`${t(TranslationKey['Search by'])} ${t(TranslationKey.ASIN)}, ${t(
-                TranslationKey.Title,
-              )}, User, ${t(TranslationKey.ID)}`}
-              value={viewModel.nameSearchValue}
-              onChange={viewModel.onChangeNameSearchValue}
-            />
-          </div>
+          <SearchInput
+            inputClasses={styles.searchInput}
+            placeholder={t(TranslationKey['Search by Title, ASIN, SKU, ID'])}
+            value={viewModel.currentSearchValue}
+            onSubmit={viewModel.onChangeSearchValue}
+          />
 
-          <div className={classNames.tablePanelSubWrapper}>
-            <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-              <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
-
-              {viewModel.sortMode === tableSortMode.DESK ? (
-                <ArrowDropDownIcon color="primary" />
-              ) : (
-                <ArrowDropUpIcon color="primary" />
-              )}
-            </div>
-
-            <div className={classNames.proposalSelect}>
-              <WithSearchSelect
-                checkbox
-                notCloseOneClick
-                width={350}
-                widthPopover={350}
-                firstItems={
-                  <Button
-                    className={classNames.filterBtn}
-                    variant="text"
-                    onClick={viewModel.handleSelectAllProposalStatuses}
-                  >
-                    <div className={cx(classNames.fieldNamesWrapper, classNames.fieldNamesWrapperWithCheckbox)}>
-                      <>
-                        <Checkbox
-                          checked={
-                            viewModel.selectedProposalFilters.length === Object.keys(RequestProposalStatus).length
-                          }
-                          color="primary"
-                        />
-                        <Typography className={classNames.fieldName}>
-                          {t(TranslationKey['All proposal statuses'])}
-                        </Typography>
-                      </>
-                    </div>
-                  </Button>
-                }
-                currentShops={viewModel.selectedProposalFilters}
-                data={Object.keys(RequestProposalStatus).map(el => ({
-                  name: RequestProposalStatusTranslate(el),
-                  _id: el,
-                }))}
-                searchFields={['name']}
-                selectedItemName={t(TranslationKey['All proposal statuses'])}
-                changeColorById={RequestProposalStatusColor}
-                onClickSelect={viewModel.onSelectProposalFilter}
-              />
-            </div>
-          </div>
+          <div className={styles.searchInput} />
         </div>
 
-        {viewModel.requestStatus === loadingStatuses.isLoading ? (
-          <div className={classNames.loadingWrapper}>
-            <CircularProgressWithLabel />
-          </div>
-        ) : getSortedData(viewModel.sortMode)?.length ? (
-          <Grid
-            container
-            classes={{ root: classNames.dashboardCardWrapper }}
-            // spacing={4}
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="flex-start"
-          >
-            {getSortedData(viewModel.sortMode)?.map((item, index) =>
-              viewModel.viewMode === tableViewMode.LIST ? (
-                <MyProposalsListCard
-                  key={item._id}
-                  isFirst={index === 0}
-                  item={item}
-                  onClickEditBtn={viewModel.onClickEditBtn}
-                  onClickDeleteBtn={viewModel.onClickDeleteBtn}
-                  onClickOpenBtn={viewModel.onClickOpenBtn}
-                  onClickResultBtn={viewModel.onClickResultBtn}
-                />
-              ) : null,
-            )}
-          </Grid>
-        ) : (
-          <div className={classNames.emptyTableWrapper}>
-            <img src="/assets/icons/empty-table.svg" />
-            <Typography variant="h5" className={classNames.emptyTableText}>
-              {t(TranslationKey['No suggestions'])}
-            </Typography>
-          </div>
-        )}
-      </MainContent>
+        <CustomSwitcher
+          fullWidth
+          switchMode="big"
+          condition={viewModel.switcherCondition}
+          switcherSettings={customSwitcherSettings}
+          changeConditionHandler={viewModel.onClickChangeCatigory}
+        />
 
-      <ConfirmationModal
-        isWarning
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Are you sure you want to cancel the proposal?'])}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={viewModel.onSubmitDeleteProposal}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            rows={viewModel.currentData}
+            rowHeight={87}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              columnMenu: viewModel.columnMenuSettings,
 
-      {viewModel.currentRequest && viewModel.currentProposal && (
-        <Modal
-          openModal={viewModel.showRequestDesignerResultClientModal}
+              toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
+            onRowClick={e => viewModel.onOpenRequestDetailModal(e.row._id)}
+          />
+        </div>
+      </div>
+
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+
+      <Modal
+        openModal={viewModel.showRequestDesignerResultClientModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
+      >
+        <RequestDesignerResultClientForm
+          onlyRead
+          userInfo={viewModel.userInfo}
+          request={viewModel.currentRequest}
+          proposal={viewModel.currentProposal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
-        >
-          <RequestDesignerResultClientForm
-            userInfo={viewModel.userInfo}
-            request={{ request: viewModel.currentRequest }}
-            proposal={viewModel.currentProposal}
-            setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultClientModal')}
-            // onClickSendAsResult={viewModel.onClickSendAsResult}
-          />
-        </Modal>
-      )}
+        />
+      </Modal>
 
-      {viewModel.currentRequest && viewModel.currentProposal && (
-        <Modal
-          openModal={viewModel.showRequestStandartResultModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
-        >
-          <RequestStandartResultForm
-            request={{ request: viewModel.currentRequest }}
-            proposal={viewModel.currentProposal}
-            setOpenModal={() => viewModel.onTriggerOpenModal('showRequestStandartResultModal')}
-          />
-        </Modal>
-      )}
-    </React.Fragment>
+      <Modal
+        openModal={viewModel.showRequestDesignerResultModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
+      >
+        <RequestDesignerResultForm
+          proposal={viewModel.currentProposal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestDesignerResultModal')}
+          onClickSendAsResult={viewModel.onClickSendAsResult}
+        />
+      </Modal>
+
+      {viewModel.showMainRequestResultModal ? (
+        <MainRequestResultModal
+          readOnly
+          customProposal={viewModel.currentProposal}
+          userInfo={viewModel.userInfo}
+          openModal={viewModel.showMainRequestResultModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showMainRequestResultModal')}
+        />
+      ) : null}
+
+      {viewModel.showRequestResultModal ? (
+        <RequestResultModal
+          // @ts-ignore
+          request={viewModel.currentRequest}
+          proposal={viewModel.currentProposal}
+          openModal={viewModel.showRequestResultModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showRequestResultModal')}
+        />
+      ) : null}
+
+      {viewModel.showRequestDetailModal ? (
+        <FreelanceRequestDetailsModal
+          // @ts-ignore
+          openModal={viewModel.showRequestDetailModal}
+          request={viewModel.currentRequest?.request}
+          details={viewModel.currentRequest?.details}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+          onClickOpenNewTab={viewModel.onClickOpenBtn}
+        />
+      ) : null}
+    </>
   )
-}
-
-export const MyProposalsView = withStyles(observer(MyProposalsViewRaw), styles)
+})

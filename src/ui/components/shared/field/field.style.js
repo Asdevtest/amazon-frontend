@@ -1,15 +1,19 @@
 import { makeStyles } from 'tss-react/mui'
 
-//
-
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
+    position: 'relative',
     marginBottom: '20px',
     width: '100%',
+
+    [theme.breakpoints.down(768)]: {
+      marginBottom: 30,
+    },
   },
   rootOneLine: {
     display: 'flex',
     alignItems: 'center',
+    gap: 5,
   },
   label: {
     fontWeight: 400,
@@ -17,22 +21,23 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     color: theme.palette.text.general,
     marginBottom: '12px',
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      marginBottom: 5,
+    },
   },
 
   labelOneLine: {
     marginBottom: 0,
   },
-  input: {
-    border: `1px solid ${theme.palette.input?.customBorder}`,
-  },
+
   errorText: {
     marginTop: '2px',
-    color: 'red',
+    color: theme.palette.text.red,
     maxWidth: '100%',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
     fontSize: '12px',
+    lineHeight: '16px',
+    wordBreak: 'break-word',
   },
 
   successText: {
@@ -46,7 +51,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   errorActive: {
-    border: '1px solid red',
+    border: '1px solid red !important',
   },
 
   tooltipsWrapper: {
@@ -55,8 +60,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tooltip: {
-    width: '17px',
-    height: '17px',
+    width: '18px !important',
+    height: '18px !important',
     color: 'red',
     transition: '.3s ease-in-out',
     '&:hover': {
@@ -73,5 +78,11 @@ export const useClassNames = makeStyles()(theme => ({
   labelWrapper: {
     display: 'flex',
     alignItems: 'center',
+  },
+
+  inputWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
   },
 }))

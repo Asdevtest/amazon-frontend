@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator'
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 import { TWebsocketChatService } from '@services/websocket-chat-service'
 

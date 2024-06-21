@@ -1,17 +1,14 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
-
-    height: '100%',
+    width: '100%',
+    height: '100vh',
     flex: 1,
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      flex: 1,
-      alignItems: 'center',
-    },
   },
 
   error: {
     color: theme.palette.text.second,
   },
-})
+}))

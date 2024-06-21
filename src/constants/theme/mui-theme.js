@@ -1,22 +1,6 @@
-// import {grey} from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
 
 const baseThemeComponentsSettings = {
-  // MuiButton: {
-  //   defaultProps: {
-  //     sx: {
-  //       '&.Mui-disabled': {
-  //         backgroundColor: '#a0a0a4',
-  //       },
-  //     },
-  //   },
-  //   styleOverrides: {
-  //     root: {
-  //       textTransform: 'none',
-  //     },
-  //   },
-  // },
-
   MuiAvatar: {
     styleOverrides: {
       fallback: {
@@ -37,6 +21,75 @@ const baseThemeSettings = {
   },
 }
 
+export const globalStyles = theme => ({
+  '::-webkit-scrollbar': {
+    display: 'block !important',
+    width: '6px',
+    height: '6px',
+    cursor: 'pointer',
+  },
+  '::-webkit-scrollbar-track': {
+    borderRadius: '8px',
+    backgroundColor: 'transparent !important',
+    border: 'none !important',
+  },
+  '::-webkit-scrollbar-thumb': {
+    borderRadius: '8px',
+    backgroundColor: theme.palette.text.gray,
+  },
+  '::-webkit-scrollbar-corner': {
+    backgroundColor: 'transparent !important',
+  },
+  '.MuiDataGrid-menuIcon, .MuiDataGrid-iconButtonContainer': {
+    visibility: 'visible !important',
+  },
+  '.MuiDataGrid-main': {
+    borderRadius: '0 0 20px 20px',
+  },
+
+  '.MuiDataGrid-columnSeparator--sideRight': {
+    right: '-3px !important',
+  },
+
+  '.MuiDataGrid-columnSeparator--sideLeft': {
+    left: '-3px !important',
+  },
+
+  '.MuiDataGrid-columnHeader': {
+    padding: '0 5px !important',
+    height: '40px !important',
+  },
+  '.MuiDataGrid-columnHeaderCheckbox': {
+    '.MuiDataGrid-columnHeaderDraggableContainer': {
+      '.MuiDataGrid-columnHeaderTitleContainer': {
+        paddingRight: '0 !important',
+      },
+    },
+  },
+
+  // MuiTablePagination
+  '.MuiTablePagination-input': {
+    borderRadius: '100px !important',
+    margin: '0 10px !important',
+    width: '60px !important',
+    height: '30px !important',
+  },
+  '.MuiTablePagination-actions': {
+    marginLeft: '10px !important',
+    display: 'flex',
+    gap: 5,
+
+    button: {
+      padding: '0 !important',
+    },
+  },
+
+  // checkbox
+  '.MuiCheckbox-root': {
+    padding: '0 !important',
+  },
+})
+
 export const lightTheme = createTheme({
   ...baseThemeSettings,
 
@@ -50,31 +103,25 @@ export const lightTheme = createTheme({
 
         toolbar: {
           color: '#001029',
+          height: 30,
+          minHeight: '30px !important',
         },
       },
     },
 
     MuiDataGrid: {
-      // Убрать
-      defaultProps: {
-        headerHeight: 65,
-      },
-
       styleOverrides: {
         root: {
           backgroundColor: '#fff',
-          border: '0 !important',
-          boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
-          // boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
+          border: 'none',
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
           color: '#001029',
-
-          '.MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '100% !important',
-          },
+          borderRadius: 20,
         },
-        // Убрать
-        columnHeaders: {
-          height: 65,
+
+        row: {
+          cursor: 'pointer',
+          transition: '0.3s ease',
         },
 
         sortIcon: {
@@ -84,43 +131,50 @@ export const lightTheme = createTheme({
 
         columnHeaderDraggableContainer: {
           flexDirection: 'row !important',
-
           position: 'relative',
-          paddingRight: 20,
         },
+
         columnHeaderTitleContainer: {
           flexDirection: 'row !important',
-          display: 'flex !important',
-          alignItems: 'center !important',
-          overflow: 'visible',
-        },
-        menuIconButton: {
-          zIndex: 1000,
-          position: 'absolute !important',
-          right: -7,
-          top: 13,
-          // visibility: 'visible !important',
+          paddingRight: 25,
 
-          width: '18px !important',
-          height: '18px !important',
+          '.MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '100%',
+          },
+        },
+
+        menuIconButton: {
+          zIndex: 7,
+          position: 'absolute !important',
+          right: -2,
+          width: '20px !important',
+          height: '20px !important',
 
           '.MuiSvgIcon-root': {
-            // display: 'none',
             width: 14,
             height: 14,
           },
         },
+
         iconButtonContainer: {
           '.MuiIconButton-root': {
             width: '18px !important',
             height: '18px !important',
           },
         },
+
         iconSeparator: {
           padding: '0 1px',
         },
 
-        //
+        pinnedColumns: {
+          '.MuiDataGrid-row': {
+            '&:after': {
+              content: 'unset',
+              display: 'none',
+            },
+          },
+        },
       },
     },
 
@@ -131,9 +185,6 @@ export const lightTheme = createTheme({
             textAlign: 'center',
           },
         },
-        // icon: {
-        //   color: '#fff',
-        // },
       },
     },
 
@@ -141,35 +192,22 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#001029',
-
           overflow: 'hidden',
-
           border: '1px solid #E0E0E0',
         },
-
-        // input: {
-        //   color: '#001029',
-        // },
-
-        // disabled: {
-        //   color: '#001029',
-        // },
       },
     },
 
-    // MuiTypography: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: '#001029',
-    //     },
-    //   },
-    // },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+        },
+      },
+    },
 
     MuiSvgIcon: {
       styleOverrides: {
-        // root: {
-        //   color: '#fff',
-        // },
         colorPrimary: {
           color: '#007bff !important',
         },
@@ -233,12 +271,10 @@ export const lightTheme = createTheme({
         },
 
         'input[type="number"]::-webkit-outer-spin-button': {
-          // '-webkit-appearance': 'none',
           WebkitAppearance: 'none',
           margin: 0,
         },
         'input[type="number"]::-webkit-inner-spin-button': {
-          // '-webkit-appearance': 'none',
           WebkitAppearance: 'none',
           margin: 0,
         },
@@ -251,15 +287,16 @@ export const lightTheme = createTheme({
 
     primary: {
       main: '#007bff',
+      mainRgb: '0, 123, 255',
     },
+
     text: {
       general: '#001029',
       second: '#656565',
-
-      negativeMain: '#fff',
       gray: '#C4C4C4',
-      green: 'green',
-      red: '#DD2121',
+      red: '#FF1616',
+      negativeMain: '#fff',
+      green: '#00B746',
     },
 
     button: {
@@ -269,6 +306,63 @@ export const lightTheme = createTheme({
       disabledSuccessBackground: '#B3E7C7',
       disabledDangerText: '#E5FFEF',
       disabledDangerBackground: '#FEB9B9',
+
+      casualBorder: 'var(--Gray-Scale-Gray-100, #E6E6E6)',
+      casualDisabledBorder: 'var(--Gray-Scale-Gray-100, #E6E6E6)',
+      casualHoverBorder: 'var(--Gray-Scale-Gray-100, #E6E6E6)',
+      casualDisabledText: '#E0E0E0',
+
+      defaultBoxShadow:
+        '0px 2.180180311203003px 4.360360622406006px 0px #6161612E, 0px 1.0900901556015015px 2.180180311203003px 0px #6161612E',
+      primaryHoverColor: '#0F5BB6',
+      primaryHoverBackground: '#F4F9FF',
+      primaryDisabledColor: '#D7E8FF',
+
+      errorHoverColor: '#912018',
+      errorHoverBackground: '#FFF0EF',
+      errorDisabledColor: '#FFF0EE',
+
+      successHoverColor: '#216C24',
+      successHoverBackground: '#EFFDF4',
+      successDisabledColor: '#B3E7C7',
+    },
+
+    primaryButton: {
+      color: '#FFFFFF',
+      hoverColor: '#FFFFFF',
+      disabledColor: 'rgba(255, 255, 255, 0.89)',
+
+      backgroundColor: '#007bff',
+      hoverBackgroundColor: '#0F5BB6',
+      disabledBackgroundColor: '#CADFFC',
+    },
+
+    succesButton: {
+      color: '#fff',
+      hoverColor: '#fff',
+      disabledColor: '#fff',
+
+      backgroundColor: '#1EB564',
+      hoverBackgroundColor: '#216C24',
+      disabledBackgroundColor: '#B3E7C7',
+    },
+
+    dangerButton: {
+      color: '#912018',
+      hoverColor: '#912018',
+      disabledColor: '#E0BEBB',
+
+      outlinedColor: '#912018',
+      outlinedHoverColor: '#912018',
+      outlinedDisabledColor: '#E0BEBB',
+
+      backgroundColor: '#FEE4E2',
+      hoverBackgroundColor: '#F2B0AB',
+      disabledBackgroundColor: '#FFF3F2E0',
+    },
+
+    orderStatus: {
+      red: '#FF1616',
     },
 
     background: {
@@ -277,56 +371,138 @@ export const lightTheme = createTheme({
       third: '#f4f4f4',
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
-
+      yellowRow: '#FFFDF3',
+      greenRow: 'rgba(0, 64, 0, 0.2)',
+      redRow: '#FFF3F3',
       searchSelectHover: '#F4F4F4',
       tableCurRow: '#baffba',
       red: '#FFC7C7',
       green: '#D9FAE5',
       darkBlue: '#006CFF',
-      greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-      yellow: '#F5CF00',
+      yellow: '#0164F4',
       entryLeftPanel: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
       disabled: 'rgba(0, 0, 0, 0.12)',
-      disabledDangerBtn: 'linear-gradient(180deg, rgba(255,22,22, .5) 0%, rgb(223,12,12,.5) 100%)',
+      activeChat: '#E7F1FF',
+      secondary: 'rgba(200, 200, 200, 1)',
+      gray: '#5C6A7A',
     },
 
     linearGradient: {
       successDashboardCard: 'linear-gradient(157deg,#fff 50%, #F2FBF7 50%)',
       negativeDashboardCard: 'linear-gradient(157deg,#fff 50%, #FBF2F2 50%)',
-
       hoverSuccessDashboardCard: 'linear-gradient(157deg,#fff 50%, #d8fded 50%)',
       hoverNegativeDashboardCard: 'linear-gradient(157deg,#fff 50%, #f8dede 50%)',
     },
 
     boxShadow: {
       general: 'rgba(190, 190, 190, 0.15)',
-
-      paper: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-
+      paper: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
       yellow:
         'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
-
       red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
-
       imageList: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+      filter: '0 -4px 13px 0 rgba(135, 135, 135, 0.15) inset',
+      casualBoxShadow: '0px 2.18px 4.36px 0px rgba(97, 97, 97, 0.18), 0px 1.09px 2.18px 0px rgba(97, 97, 97, 0.18)',
+      casualHover: '#F4F4F4',
     },
 
     input: {
-      // disabled: 'rgba(0, 0, 0, 0.38)',
-      // disabled: '#C4C4C4',
       customDisabled: '#EBEBEB',
-
-      // disabled: 'normal',
-      // disabled: 'rgba(0, 0, 0, 0.26)',
       customBorder: '#E0E0E0',
     },
 
     other: {
+      rejected: '#D70D0D',
+      succes: '#0B903E',
       tableActiveFilterBtn: '5px solid #0460DE',
       ideaProductSheld: 'url(/assets/icons/idea-trgl.svg)',
-
       ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
       ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
+    },
+
+    fileIcons: {
+      xls: '#0F8105',
+      pdf: '#D70D0D',
+      doc: '#0A6FE8',
+      txt: '#F17048',
+      zip: '#6D56F8',
+      file: '#475467',
+      icon: '#E9F0FA',
+    },
+
+    roi: {
+      bad: '#FBEEED',
+      normal: '#FDF7E3',
+      good: '#ECF8ED',
+    },
+
+    customSwitcher: {
+      background: '#D9E0E8',
+      indicator: '#fff',
+      text: '#001029',
+      activeText: '#007bff',
+      headerBackground: '#F4F4F4',
+      switch: '#E3E3E3',
+    },
+
+    launch: {
+      coupon: {
+        background: 'center no-repeat url(/assets/img/launches/coupon.svg)',
+        width: '55px',
+        height: '22px',
+        padding: '0',
+        borderRadius: '0',
+        color: '#5C6A7A',
+      },
+      promo: {
+        background: '#FFEEDE',
+        color: '#FF4D00',
+      },
+      prime_discount: {
+        background: '#F5FAFD',
+        color: '#007bff',
+      },
+      lighting_deal: {
+        backgroundColor: '#FFFBE9',
+        backgroundImage: 'url(/assets/img/launches/lighting.svg)',
+        backgroundPosition: '8% 50%',
+        backgroundRepeat: 'no-repeat',
+        color: '#C69109',
+        padding: '5px 10px 5px 20px',
+      },
+      best_deal: {
+        background: 'center no-repeat url(/assets/img/launches/best.svg)',
+        width: '85px',
+        height: '22px',
+        color: '#fff',
+        borderRadius: '0',
+        padding: '0 0 0 12px',
+      },
+      outlet_deal: {
+        background: '#DEEAD8',
+        color: '#5C6A7A',
+      },
+      sales_price: {
+        background: '#D4E9FD',
+        color: '#001029',
+      },
+      ab_test: {
+        background: '#F2ECFF',
+        color: '#8263B5',
+      },
+      custom: {
+        background: '#F6F6F6',
+        color: '#5C6A7A',
+        outline: '1px solid #E0E0E0',
+      },
+      price_change: {
+        color: '#007bff',
+        outline: '1px solid #007bff',
+        backgroundImage: 'url(/assets/img/launches/arrows_blue_light.svg)',
+        backgroundPosition: '90% 50%',
+        backgroundRepeat: 'no-repeat',
+        padding: '5px 23px 5px 10px',
+      },
     },
   },
 })
@@ -344,42 +520,29 @@ export const darkTheme = createTheme({
 
         toolbar: {
           color: '#fff',
+          height: 30,
+          minHeight: '30px !important',
         },
       },
     },
 
     MuiDataGrid: {
-      // Убрать
-      defaultProps: {
-        headerHeight: 65,
-      },
-
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
-          border: '0 !important',
-          // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)', // Старый вид
-          boxShadow: '0px 2px 8px 2px rgba(31, 31, 31, 0.6) !important', // Новый вид
+          border: 'none',
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
           color: '#fff',
-
-          // border: '1px solid rgba(81, 81, 81, 1) !important',
-          '.MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '100% !important',
-          },
+          borderRadius: 20,
         },
-
-        columnSeparator: {
-          color: 'rgba(81, 81, 81, 1)',
-        },
-
-        columnHeaders: {
-          borderBottom: '1px solid rgba(81, 81, 81, 1)',
-
-          // Убрать
-          height: 65,
+        overlay: {
+          backgroundColor: '#2B2B34',
         },
 
         row: {
+          cursor: 'pointer',
+          transition: '0.3s ease',
+
           '&.Mui-selected': {
             backgroundColor: 'rgba(76, 161, 222, 0.16)',
           },
@@ -388,78 +551,91 @@ export const darkTheme = createTheme({
           },
         },
 
+        sortIcon: {
+          color: '#fff',
+          width: 14,
+          height: 14,
+        },
+
+        columnSeparator: {
+          color: 'rgba(81, 81, 81, 1)',
+        },
+
+        columnHeaders: {
+          borderBottom: '1px solid rgba(81, 81, 81, 1)',
+          height: 65,
+
+          '> .MuiDataGrid-pinnedColumnHeaders': {
+            backgroundColor: '#2B2B34',
+          },
+        },
+
+        pinnedRows: {
+          backgroundColor: '#2B2B34',
+        },
+
         paper: {
           backgroundColor: '#2B2B34',
           color: '#fff',
         },
 
         menu: {
-          // backgroundColor: '#2B2B34',
           color: '#fff',
+        },
+
+        cell: {
+          borderBottom: '1px solid rgba(81, 81, 81, 1)',
+        },
+
+        columnHeaderDraggableContainer: {
+          flexDirection: 'row !important',
+          position: 'relative',
+        },
+
+        columnHeaderTitleContainer: {
+          flexDirection: 'row !important',
+          paddingRight: 25,
+
+          '.MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '100%',
+          },
         },
 
         menuIconButton: {
           color: '#fff',
-
-          // Убрать
-          zIndex: 1000,
+          zIndex: 7,
           position: 'absolute !important',
-          right: -7,
-          top: 13,
-          // visibility: 'visible !important',
-
-          width: '18px !important',
-          height: '18px !important',
+          right: -3,
+          width: '20px !important',
+          height: '20px !important',
 
           '.MuiSvgIcon-root': {
-            // display: 'none',
             width: 14,
             height: 14,
           },
         },
 
-        sortIcon: {
-          // color: 'rgba(255, 255, 255, 1)',
-          color: '#fff !important',
-          // color: 'red',
-
-          // '& > disabled': {
-          //   color: 'red',
-          // },
-
-          // Убрать
-          width: 14,
-          height: 14,
-        },
-
-        cell: {
-          borderBottom: '1px solid rgba(81, 81, 81, 1)',
-          // border: 'none',
-        },
-
-        // Убрать
-        columnHeaderDraggableContainer: {
-          flexDirection: 'row !important',
-
-          position: 'relative',
-          paddingRight: 20,
-        },
-        columnHeaderTitleContainer: {
-          flexDirection: 'row !important',
-          display: 'flex !important',
-          alignItems: 'center !important',
-          overflow: 'visible',
-        },
         iconButtonContainer: {
           '.MuiIconButton-root': {
             width: '18px !important',
             height: '18px !important',
           },
         },
+
         iconSeparator: {
           padding: '0 1px',
         },
-        //
+
+        pinnedColumns: {
+          '.MuiDataGrid-row': {
+            '&:after': {
+              content: 'unset',
+              display: 'none',
+            },
+          },
+
+          backgroundColor: '#2B2B34',
+        },
       },
     },
 
@@ -486,16 +662,12 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#fff',
-          // background: 'red',
         },
       },
     },
 
     MuiSvgIcon: {
       styleOverrides: {
-        // root: {
-        //   color: '#fff',
-        // },
         colorPrimary: {
           color: '#4CA1DE !important',
         },
@@ -515,7 +687,6 @@ export const darkTheme = createTheme({
         select: {
           '& > option': {
             backgroundColor: '#2B2B34 !important',
-            // paddingLeft: '10px !important',
             textAlign: 'center',
           },
         },
@@ -528,6 +699,7 @@ export const darkTheme = createTheme({
     MuiList: {
       styleOverrides: {
         root: {
+          padding: 0,
           color: '#fff',
         },
       },
@@ -542,22 +714,21 @@ export const darkTheme = createTheme({
     },
 
     MuiInputBase: {
-      //
-      defaultProps: {
-        // добавлен весь объект defaultProps, удалить если нужно вернуться к прошлому виду
-        sx: {
-          '& .MuiInputBase-input.Mui-disabled': {
-            backgroundColor: '#36363F',
-            WebkitTextFillColor: '#fff',
-          },
-        },
-      },
-      //
       styleOverrides: {
         root: {
           color: '#fff',
           overflow: 'hidden',
           border: '1px solid #424250',
+
+          '&.Mui-focused': {
+            border: '1px solid #4CA1DE',
+          },
+        },
+        input: {
+          '&.Mui-disabled': {
+            backgroundColor: '#36363F',
+            WebkitTextFillColor: '#fff',
+          },
         },
       },
     },
@@ -582,8 +753,6 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
-          // backgroundColor: '#21212B',
-
           color: '#fff',
         },
       },
@@ -632,57 +801,11 @@ export const darkTheme = createTheme({
 
     MuiCssBaseline: {
       styleOverrides: {
-        '::-webkit-scrollbar': {
-          backgroundColor: '#25252D',
-          cursor: 'pointer !important',
-        },
-        '::-webkit-scrollbar-thumb': {
-          backgroundColor: '#53535B',
-          border: '2px solid #25252D',
-          borderTop: 'none',
-          borderBottom: 'none',
-
-          '&:hover': {
-            backgroundColor: 'rgba(83, 83, 91, 0.7)',
-          },
-        },
-
-        '::-webkit-scrollbar-button': {
-          backgroundColor: '#25252D',
-          outline: '1px solid #25252D',
-
-          '&:hover': {
-            backgroundColor: 'rgba(43, 43, 52, 0.7)',
-          },
-        },
-
-        '::-webkit-scrollbar-button:vertical:start:increment': {
-          display: 'none',
-        },
-
-        '::-webkit-scrollbar-button:vertical:end:decrement': {
-          display: 'none',
-        },
-
-        '::-webkit-scrollbar-button:horizontal:start:increment': {
-          display: 'none',
-        },
-
-        '::-webkit-scrollbar-button:horizontal:end:decrement': {
-          display: 'none',
-        },
-
-        '::-webkit-scrollbar-corner': {
-          backgroundColor: '#21212B',
-        },
-
         'input[type="number"]::-webkit-outer-spin-button': {
-          // '-webkit-appearance': 'none',
           WebkitAppearance: 'none',
           margin: 0,
         },
         'input[type="number"]::-webkit-inner-spin-button': {
-          // '-webkit-appearance': 'none',
           WebkitAppearance: 'none',
           margin: 0,
         },
@@ -706,102 +829,232 @@ export const darkTheme = createTheme({
   palette: {
     // mode: 'dark', // при выставлении меняет некотрые стили по умолчанию
 
-    ...{
-      primary: {
-        // main: '#008CF1',
-        main: '#4CA1DE',
+    primary: {
+      main: '#4CA1DE',
+      mainRgb: '76, 161, 222',
+    },
+
+    text: {
+      general: '#fff',
+      second: '#E1E1E1',
+      gray: 'gray',
+      red: '#FF1616',
+      negativeMain: '#001029',
+      green: '#00B746',
+
+      disabled: '#001029',
+      primary: '#fff',
+      secondary: 'rgba(255, 255, 255, 0.7)',
+    },
+
+    button: {
+      disabledText: '#8291A0',
+      disabledBackground: '#2E4760',
+      disabledSuccessText: '#41715A',
+      disabledSuccessBackground: '#184831',
+      disabledDangerText: '#636369',
+      disabledDangerBackground: '#451F27',
+
+      casualBorder: '#424250',
+      casualDisabledBorder: 'rgba(43, 43, 52, 0.89)',
+      casualHoverBorder: '#5A5A67',
+      casualDisabledText: 'rgba(255, 255, 255, 0.17)',
+
+      defaultBoxShadow:
+        '0px 2px 11px 2px #1F1F1F, 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+      primaryHoverColor: '#4CA1DE',
+      primaryHoverBackground: '#375674',
+      primaryDisabledColor: '#2E4760',
+
+      errorHoverColor: '#8C0000',
+      errorHoverBackground: '#451F27',
+      errorDisabledColor: '#471721',
+
+      successHoverColor: '#29892D',
+      successHoverBackground: '#204833',
+      successDisabledColor: '#184831',
+    },
+
+    primaryButton: {
+      color: '#FFFFFF',
+      hoverColor: '#FFFFFF',
+      disabledColor: 'rgba(70, 95, 119, 0.89)',
+
+      backgroundColor: '#4CA1DE',
+      hoverBackgroundColor: '#0F5BB6',
+      disabledBackgroundColor: '#2E4760',
+    },
+
+    succesButton: {
+      color: '#fff',
+      hoverColor: '#fff',
+      disabledColor: '#415548',
+
+      backgroundColor: '#1EB564',
+      hoverBackgroundColor: '#216C24',
+      disabledBackgroundColor: '#184831',
+    },
+
+    dangerButton: {
+      color: '#D72A1E',
+      hoverColor: '#912018',
+      disabledColor: '#45221FC4',
+
+      outlinedColor: '#D72A1E',
+      outlinedHoverColor: '#F2B0AB',
+      outlinedDisabledColor: '#49353CC4',
+
+      backgroundColor: '#F2B0AB',
+      hoverBackgroundColor: '#FEE4E2',
+      disabledBackgroundColor: '#340B08C4',
+    },
+
+    action: {
+      active: '#fff',
+      disabled: 'rgba(255, 255, 255, 0.3)',
+    },
+
+    orderStatus: {
+      red: '#DD2121',
+    },
+
+    background: {
+      general: '#2B2B34',
+      second: '#21212B',
+      third: '#25252D',
+      searchSelectHover: '#25252D',
+      chatIncomeMessage: '#36363F',
+      chatMyMessage: '#384C68',
+      darkBlue: '#4CA1DE',
+      yellowRow: '#2F2C23',
+      greenRow: 'rgba(0, 64, 0, 0.5)',
+      redRow: '#2F2329',
+      tableCurRow: '#001A15',
+      red: '#2E0505',
+      green: '#001A15',
+      yellow: '#FEF0A6',
+      entryLeftPanel: '#2B2B34',
+      disabled: '#a0a0a4',
+      activeChat: '#384C68',
+      secondary: 'rgb(80, 80, 80, 1)',
+      gray: '#667085',
+    },
+
+    linearGradient: {
+      successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
+      negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
+      hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
+      hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #8C0000 50%);',
+    },
+
+    boxShadow: {
+      general: 'rgba(31, 31, 31, 0.6)',
+      paper: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+      yellow:
+        'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
+      red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
+      imageList: 'inset -4px -4px 13px rgba(1, 1, 1, 0.17)',
+      filter: '-4px -4px 13px 0 rgba(1, 1, 1, 0.17) inset',
+      casualBoxShadow:
+        '0px 2px 11px 2px #1F1F1F, 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+      casualHover: '#474753',
+    },
+
+    input: {
+      customBorder: '#424250',
+      customDisabled: '#36363F',
+    },
+
+    other: {
+      rejected: '#D70D0D',
+      succes: '#0B903E',
+      tableActiveFilterBtn: '5px solid #4CA1DE',
+      ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
+      ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
+      ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
+    },
+
+    fileIcons: {
+      xls: '#02AE44',
+      pdf: '#DD2121',
+      doc: '#4CA1DE',
+      txt: '#E37451',
+      zip: '#8B79F9',
+      file: '#A2ADBD',
+      icon: '#475467',
+    },
+
+    roi: {
+      bad: '#2C2022',
+      normal: '#2F281D',
+      good: '#1C221F',
+    },
+
+    customSwitcher: {
+      background: '#272730',
+      indicator: '#31313A',
+      text: '#5C6A7A',
+      activeText: '#4CA1DE',
+      headerBackground: '#25252D',
+      switch: '#667085',
+    },
+
+    launch: {
+      coupon: {
+        background: 'center no-repeat url(/assets/img/launches/coupon.svg)',
+        width: '55px',
+        height: '22px',
+        padding: '0',
+        borderRadius: '0',
+        color: '#E0E0E0',
       },
-      text: {
-        general: '#fff',
-        second: '#E1E1E1',
-
-        gray: 'gray',
-        red: '#DD2121',
-
-        negativeMain: '#001029',
-        green: '#2FE341',
-        disabled: '#001029', // 'rgba(255, 255, 255, 0.5)',
-
-        primary: '#fff',
-        secondary: 'rgba(255, 255, 255, 0.7)',
+      promo: {
+        color: '#FF4D00',
+        outline: '1px solid #FF4D00',
       },
-
-      button: {
-        disabledText: '#8291A0',
-        disabledBackground: '#2E4760',
-        disabledSuccessText: '#41715A',
-        disabledSuccessBackground: '#184831',
-        disabledDangerText: '#E5FFEF',
-        disabledDangerBackground: '#451F27',
+      prime_discount: {
+        color: '#4CA1DE',
+        outline: '1px solid #4CA1DE',
       },
-
-      action: {
-        active: '#fff',
-        disabled: 'rgba(255, 255, 255, 0.3)',
+      lighting_deal: {
+        backgroundImage: 'url(/assets/img/launches/lighting.svg)',
+        backgroundPosition: '8% 50%',
+        backgroundRepeat: 'no-repeat',
+        color: '#C69109',
+        padding: '5px 10px 5px 20px',
+        outline: '1px solid #C69109',
       },
-
-      background: {
-        general: '#2B2B34',
-        second: '#21212B',
-
-        searchSelectHover: '#25252D',
-        chatIncomeMessage: '#36363F',
-        chatMyMessage: '#384C68',
-        darkBlue: '#4CA1DE',
-
-        tableCurRow: '#001A15', // '#388E3C',
-        red: '#2E0505',
-        green: '#001A15',
-        greenGradient: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-        yellow: '#FEF0A6',
-        entryLeftPanel: '#2B2B34',
-        disabled: '#a0a0a4',
-
-        default: '#121212',
-        disabledDangerBtn: '#4F2026',
+      best_deal: {
+        background: 'center no-repeat url(/assets/img/launches/best.svg)',
+        width: '85px',
+        height: '22px',
+        color: '#fff',
+        borderRadius: '0',
+        padding: '0 0 0 12px',
       },
-
-      linearGradient: {
-        successDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
-
-        // negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #001A15 50%);',
-        negativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
-
-        hoverSuccessDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #388E3C 50%);',
-
-        // hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #2E0505 50%);',
-        hoverNegativeDashboardCard: 'linear-gradient(157deg,#2B2B34 50%, #8C0000 50%);',
+      outlet_deal: {
+        color: '#DEEAD8',
+        outline: '1px solid #DEEAD8',
       },
-
-      boxShadow: {
-        general: 'rgba(31, 31, 31, 0.6)',
-
-        paper: '0px 2px 8px 2px rgba(31, 31, 31, 0.6)',
-
-        yellow:
-          'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
-
-        red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
-
-        imageList: 'inset -4px -4px 13px rgba(1, 1, 1, 0.17)',
+      sales_price: {
+        color: '#D4E9FD',
+        outline: '1px solid #D4E9FD',
       },
-
-      input: {
-        // customDisabled: '#a0a0a4', // снять коммент это если нужно будет вернуться к прошлому виду
-        customBorder: '#424250', // снять коммент это если нужно будет вернуться к прошлому виду, если снова будешь исправлять скажи мне, больше не буду трогать это (18.01.23)
-
-        // customDisabled: '#21212B',
-        // customDisabled: '#EBEBEB', // макет
-
-        customDisabled: '#36363F', // удалить это если нужно будет вернуться к прошлому виду
+      ab_test: {
+        color: '#8263B5',
+        outline: '1px solid #8263B5',
       },
-
-      other: {
-        tableActiveFilterBtn: '5px solid #4CA1DE',
-        ideaProductSheld: 'url(/assets/icons/idea-trgl-dark-theme.svg)',
-
-        ideaProductSheldGreen: 'url(/assets/icons/green-sheld.svg)',
-        ideaProductSheldYellow: 'url(/assets/icons/yellow-sheld.svg)',
+      custom: {
+        color: '#667085',
+        outline: '1px solid #667085',
+      },
+      price_change: {
+        color: '#4CA1DE',
+        outline: '1px solid #4CA1DE',
+        backgroundImage: 'url(/assets/img/launches/arrows_blue_dark.svg)',
+        backgroundPosition: '92% 50%',
+        backgroundRepeat: 'no-repeat',
+        padding: '5px 23px 5px 10px',
       },
     },
   },

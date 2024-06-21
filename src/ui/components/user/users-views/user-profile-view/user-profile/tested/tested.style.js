@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   text: {
     color: theme.palette.text.general,
     fontSize: '16px',
@@ -13,7 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     lineHeight: '140%',
     color: theme.palette.text.general,
-    marginBottom: '26px',
+    marginBottom: '20px',
   },
   checkedStrategyRow: {
     display: 'flex',
@@ -24,9 +24,8 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: '16px',
   },
   paper: {
-    marginTop: '20px',
     width: '470px',
-    marginRight: '16px',
+
     padding: '8px 16px',
     height: 'max-content',
   },

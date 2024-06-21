@@ -1,34 +1,51 @@
-import { cx } from '@emotion/css'
 import { ClassNamesArg } from '@emotion/react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
+
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import SearchIcon from '@mui/icons-material/Search'
 import { InputAdornment } from '@mui/material'
 
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './search-input.style'
+import { useStyles } from './search-input.style'
 
-interface SearchInputProps {
+interface Props {
   disabled?: boolean
   value?: string
   placeholder?: string
   startText?: string
   inputClasses?: ClassNamesArg
+  tab?: string
+  hideButton?: boolean
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void
   onSubmit?: (value: string) => void
+  onKeyDown?: () => void
+  onBlur?: () => void
+  onFocus?: () => void
 }
 
-export const SearchInput: FC<SearchInputProps> = props => {
-  const { classes: classNames } = useClassNames()
+export const SearchInput: FC<Props> = ({
+  disabled,
+  value,
+  hideButton,
+  placeholder,
+  inputClasses,
+  startText,
+  tab,
+  onChange,
+  onSubmit,
+  onKeyDown,
+  onBlur,
+  onFocus,
+}) => {
+  const { classes: styles, cx } = useStyles()
 
-  const { disabled, value, onChange, placeholder, inputClasses, onSubmit, startText } = props
+  const defaultPlaceholder = t(TranslationKey.Search)
 
   const [isMyInputFocused, setIsMyInputFocused] = useState(false)
 
@@ -50,7 +67,7 @@ export const SearchInput: FC<SearchInputProps> = props => {
     return () => {
       document.removeEventListener('keydown', listener)
     }
-  }, [internalValue])
+  }, [internalValue, isMyInputFocused])
 
   const searchAndClearSpaces = () => {
     const valueWitchoutSpaces = internalValue.trim()
@@ -61,36 +78,50 @@ export const SearchInput: FC<SearchInputProps> = props => {
     }
   }
 
+  useEffect(() => {
+    if (tab) {
+      onClickCloseIcon()
+    }
+  }, [tab])
+
   return (
     <Input
       disabled={disabled}
-      className={cx(classNames.input, !!inputClasses && inputClasses)}
+      className={cx(styles.input, inputClasses)}
       value={onSubmit ? internalValue : value}
-      placeholder={placeholder}
-      classes={{ input: classNames.inputClass }}
+      title={placeholder || defaultPlaceholder}
+      placeholder={placeholder || defaultPlaceholder}
+      classes={{ input: styles.inputClass }}
       endAdornment={
-        <InputAdornment classes={{ root: classNames.inputAdornmentRoot }} position={onSubmit ? 'end' : 'start'}>
-          {onSubmit ? (
-            <div className={classNames.searchWrapper}>
-              {internalValue ? <CloseRoundedIcon className={classNames.closeIcon} onClick={onClickCloseIcon} /> : null}
-              <Button
-                className={classNames.submit}
-                btnWrapperStyle={classNames.btnWrapperStyle}
-                onClick={searchAndClearSpaces}
-              >
-                {t(TranslationKey.Search)}
-              </Button>
-            </div>
-          ) : (
-            <SearchIcon className={classNames.icon} />
+        <>
+          {hideButton ? null : (
+            <InputAdornment classes={{ root: styles.inputAdornmentRoot }} position={onSubmit ? 'end' : 'start'}>
+              {onSubmit ? (
+                <div className={styles.searchWrapper}>
+                  {internalValue ? <CloseRoundedIcon className={styles.closeIcon} onClick={onClickCloseIcon} /> : null}
+                  <Button className={styles.submit} onClick={searchAndClearSpaces}>
+                    {defaultPlaceholder}
+                  </Button>
+                </div>
+              ) : (
+                <SearchIcon className={styles.icon} />
+              )}
+            </InputAdornment>
           )}
-        </InputAdornment>
+        </>
       }
-      onBlur={() => setIsMyInputFocused(false)}
-      onFocus={() => setIsMyInputFocused(true)}
+      onBlur={() => {
+        setIsMyInputFocused(false)
+        onBlur?.()
+      }}
+      onFocus={() => {
+        setIsMyInputFocused(true)
+        onFocus?.()
+      }}
       onChange={(e: ChangeEvent<HTMLInputElement>) =>
         onSubmit ? setInternalValue(e.target.value) : !!onChange && onChange(e)
       }
+      onKeyDown={onKeyDown}
     />
   )
 }

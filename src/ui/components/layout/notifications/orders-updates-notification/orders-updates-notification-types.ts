@@ -1,7 +1,7 @@
 export interface Product {
   _id: string
   asin: string
-  skusByClient: unknown[]
+  skuByClient: string
 }
 
 export interface OrdersUpdatesNotificationItem {

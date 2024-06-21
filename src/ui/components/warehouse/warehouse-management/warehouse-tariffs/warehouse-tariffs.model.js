@@ -1,21 +1,21 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { warehouseTariffsColumns } from '@components/table/table-columns/warehouse/warehouse-tariffs-columns'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class WarehouseTariffModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   warehouseTariffs = []
   tariffToEdit = undefined
@@ -54,7 +54,7 @@ export class WarehouseTariffModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })
@@ -77,20 +77,18 @@ export class WarehouseTariffModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_SELF_TARIFFS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.WAREHOUSE_SELF_TARIFFS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_SELF_TARIFFS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.WAREHOUSE_SELF_TARIFFS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
@@ -117,16 +115,16 @@ export class WarehouseTariffModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await this.getWarehouseTariffs()
 
       this.getDataGridState()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -139,7 +137,7 @@ export class WarehouseTariffModel {
       })
     } catch (error) {
       this.warehouseTariffs = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -156,8 +154,7 @@ export class WarehouseTariffModel {
       this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -168,15 +165,8 @@ export class WarehouseTariffModel {
       this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
-  }
-
-  onClickAddBtn() {
-    this.tariffToEdit = undefined
-
-    this.onTriggerOpenModal('showAddOrEditWarehouseTariffModal')
   }
 
   onClickCancelBtn() {
@@ -214,8 +204,7 @@ export class WarehouseTariffModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 

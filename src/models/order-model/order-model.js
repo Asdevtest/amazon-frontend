@@ -1,24 +1,24 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class OrderModelStatic {
-  changeOrderComments = async (id, data) => {
-    const response = await restApiService.orderApi.apiV1OrdersCommentGuidPatch(id, { body: data })
-    return response
+  changeOrderComments = async (guid, body) => {
+    const response = await restApiService.orderApi.apiV1OrdersCommentGuidPatch({ guid, body })
+    return response.data
   }
 
-  changeOrderData = async (id, data) => {
-    const response = await restApiService.orderApi.apiV1OrdersPendingGuidPatch(id, { body: data })
-    return response
+  changeOrderData = async (guid, body) => {
+    const response = await restApiService.orderApi.apiV1OrdersPendingGuidPatch({ guid, body })
+    return response.data
   }
 
-  orderReadyForBoyout = async id => {
-    const response = await restApiService.orderApi.apiV1OrdersReadyToBuyoutGuidPatch(id)
-    return response
+  orderReadyForBoyout = async guid => {
+    const response = await restApiService.orderApi.apiV1OrdersReadyToBuyoutGuidPatch({ guid })
+    return response.data
   }
 
-  checkPendingOrderByProductGuid = async id => {
-    const response = await restApiService.orderApi.apiV1OrdersCheckPendingOrderByProductGuidGet(id)
-    return response
+  checkPendingOrderByProductGuid = async guid => {
+    const response = await restApiService.orderApi.apiV1OrdersCheckPendingOrderByProductGuidGet({ guid })
+    return response.data
   }
 }
 

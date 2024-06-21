@@ -1,24 +1,25 @@
-import { Checkbox } from '@mui/material'
-
-import React, { FC } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { useClassNames } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters.style'
+import { useStyles } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters.style'
+import { Checkbox } from '@components/shared/checkbox'
 
 import { t } from '@utils/translations'
 
-interface DataGridSelectAllFiltersProps {
-  choosenItems: string[]
-  setChoosenItems: (arg: string[]) => void
-  itemsForRender: string[]
+interface DataGridSelectAllFiltersProps<T> {
+  choosenItems: T[]
+  setChoosenItems: (arg: T[]) => void
+  itemsForRender: T[]
 }
 
-export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = props => {
+export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps<any>> = memo(props => {
   const { choosenItems, setChoosenItems, itemsForRender } = props
-  const { classes: classNames } = useClassNames()
 
-  const selectAllItemsHandler = (fullList: string[]) => {
+  const { classes: styles } = useStyles()
+
+  const selectAllItemsHandler = (fullList: (typeof choosenItems)[]) => {
     if (fullList.length === choosenItems.length) {
       setChoosenItems([])
     } else {
@@ -27,13 +28,13 @@ export const DataGridSelectAllFilters: FC<DataGridSelectAllFiltersProps> = props
   }
 
   return (
-    <div className={classNames.body}>
+    <div className={styles.body}>
       <Checkbox
-        color="primary"
-        checked={itemsForRender.length === choosenItems.length}
+        checked={itemsForRender?.length === choosenItems.length}
         onClick={() => selectAllItemsHandler(itemsForRender)}
-      />
-      <div className={classNames.title}>{t(TranslationKey.All)}</div>
+      >
+        <p className={styles.title}>{t(TranslationKey.All)}</p>
+      </Checkbox>
     </div>
   )
-}
+})

@@ -1,26 +1,33 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
+import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SupervisorModel } from '@models/supervisor-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { depersonalizedPickColumns } from '@components/table/table-columns/depersonalized-pick-columns'
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SupervisorReadyToCheckViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-
-  showInfoModal = false
 
   selectedRowIds = []
 
   productsReadyToCheck = []
   isSupervisor = true
+
+  get currentData() {
+    return this.productsReadyToCheck
+  }
 
   rowHandlers = {
     onPickUp: row => this.onClickTableRowBtn(row),
@@ -30,53 +37,60 @@ export class SupervisorReadyToCheckViewModel {
 
   columnVisibilityModel = {}
 
+  paginationModel = { page: 0, pageSize: 15 }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+  setDataGridState() {
+    const requestState = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
+
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS)
   }
 
-  getCurrentData() {
-    return toJS(this.productsReadyToCheck)
+  getDataGridState() {
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS)
+
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
+  }
+
+  onColumnVisibilityModelChange(model) {
+    this.columnVisibilityModel = model
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   async loadData() {
     try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
-      })
+      this.getDataGridState()
+
       await this.getProductsReadyToCheck()
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.success
-      })
     } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
-      })
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getProductsReadyToCheck() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const result = await SupervisorModel.getProductsVacant()
+      const result = await SupervisorModel.getProductsVacant(false)
 
-      this.setRequestStatus(loadingStatuses.success)
       runInAction(() => {
         this.productsReadyToCheck = depersonalizedPickDataConverter(
           result
@@ -84,18 +98,15 @@ export class SupervisorReadyToCheckViewModel {
             .sort(sortObjectsArrayByFiledDateWithParseISOAsc('createdAt')),
         )
       })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.productsReadyToCheck = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -110,15 +121,12 @@ export class SupervisorReadyToCheckViewModel {
       runInAction(() => {
         this.selectedRowIds = []
       })
-      this.onTriggerOpenModal('showInfoModal')
+
+      toast.success(t(TranslationKey['Taken to Work']))
+
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -133,30 +141,27 @@ export class SupervisorReadyToCheckViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
+  }
+
+  onChangeFilterModel(model) {
+    this.filterModel = model
+
+    this.setDataGridState()
+  }
+
+  onPaginationModelChange(model) {
+    this.paginationModel = model
+
+    this.setDataGridState()
   }
 }

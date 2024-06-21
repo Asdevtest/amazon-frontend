@@ -1,12 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     minWidth: '400px',
+    padding: 10,
   },
 
   button: {
-    marginLeft: '10px',
     color: theme.palette.text.general,
   },
 
@@ -18,8 +18,17 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '20px',
   },
 
-  btnsWrapper: {
+  label: {
+    margin: 0,
+  },
+
+  footerWrapper: {
     marginTop: '30px',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  btnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
   },

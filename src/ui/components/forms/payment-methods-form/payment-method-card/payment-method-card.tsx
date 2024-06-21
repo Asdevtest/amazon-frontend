@@ -1,168 +1,103 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import { Checkbox, Typography } from '@mui/material'
-
-import React, { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { Checkbox } from '@components/shared/checkbox'
 import { Field } from '@components/shared/field'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './payment-method-card.style'
+import { IPayment } from '@typings/shared/payment'
+import { UploadFileType } from '@typings/shared/upload-file'
 
-type FieldName = 'paymentDetails' | 'paymentImages' | 'paymentMethod' | 'isCheckedPayment' | 'photosForLoad'
-
-interface PaymentMethod {
-  _id: string
-  title: string
-}
-
-interface Payments {
-  paymentDetails: string
-  paymentImages: Array<string>
-  paymentMethod: PaymentMethod
-  photosForLoad: Array<string>
-}
+import { useStyles } from './payment-method-card.style'
 
 interface PaymentMethodCardProps {
-  payment: Payments | PaymentMethod
+  payment: IPayment
+  setSelectedPayments: (state: (prevState: IPayment[]) => IPayment[]) => void
   readOnly?: boolean
-  onStateChange?: (newPaymentsFieldsState: Payments) => void
 }
 
-export const PaymentMethodCard: FC<PaymentMethodCardProps> = props => {
-  const { classes: classNames } = useClassNames()
+export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, setSelectedPayments, readOnly }) => {
+  const { classes: styles, cx } = useStyles()
 
-  const { payment, readOnly, onStateChange } = props
+  const handleFieldChange = (field: string, value: string | UploadFileType[] | boolean) => {
+    setSelectedPayments((prevSelectedPayments: IPayment[]) => {
+      const findPaymentIndex = prevSelectedPayments.findIndex(
+        prevSelectedPayment => prevSelectedPayment.paymentMethod?._id === payment.paymentMethod?._id,
+      )
 
-  const initialState = {
-    paymentDetails: 'paymentDetails' in payment ? payment?.paymentDetails : '',
-    paymentImages: 'paymentImages' in payment ? payment?.paymentImages : [],
-    paymentMethod: {
-      _id:
-        'paymentMethod' in payment && '_id' in payment.paymentMethod && payment?.paymentMethod?._id
-          ? payment?.paymentMethod?._id
-          : '',
-      title:
-        'paymentMethod' in payment && 'title' in payment.paymentMethod && payment?.paymentMethod?.title
-          ? payment?.paymentMethod?.title
-          : '',
-    },
-    photosForLoad: 'photosForLoad' in payment ? payment.photosForLoad : [],
-  }
-
-  const [paymentsFields, setPaymentsFields] = useState(initialState)
-
-  const setFielData =
-    (filedName: FieldName) =>
-    (event: string | ChangeEvent<HTMLInputElement>): void => {
-      const newPaymentsFieldsState = { ...paymentsFields }
-
-      if (filedName === 'paymentDetails') {
-        if (typeof event !== 'string') {
-          newPaymentsFieldsState[filedName] = event.target.value
+      if (findPaymentIndex !== -1) {
+        const updatedSelectedPayments = [...prevSelectedPayments]
+        updatedSelectedPayments[findPaymentIndex] = {
+          ...updatedSelectedPayments[findPaymentIndex],
+          [field]: value,
         }
-      } else if (filedName === 'isCheckedPayment') {
-        if (newPaymentsFieldsState?.paymentMethod?._id) {
-          newPaymentsFieldsState.paymentMethod = {
-            _id: '',
-            title: '',
-          }
-        } else {
-          newPaymentsFieldsState.paymentMethod = {
-            _id:
-              'paymentMethod' in payment && payment.paymentMethod._id
-                ? payment.paymentMethod._id
-                : '_id' in payment
-                ? payment._id
-                : '',
-            title:
-              'paymentMethod' in payment && payment?.paymentMethod?.title
-                ? payment?.paymentMethod?.title
-                : 'title' in payment
-                ? payment.title
-                : '',
-          }
-        }
-      } else {
-        // @ts-ignore
-        newPaymentsFieldsState[filedName] = event
+
+        return updatedSelectedPayments
       }
 
-      setPaymentsFields(newPaymentsFieldsState)
-      !!onStateChange && onStateChange(newPaymentsFieldsState)
-    }
+      return prevSelectedPayments
+    })
+  }
+  const handleChangePaymentDetails = (event: ChangeEvent<HTMLInputElement>) => {
+    handleFieldChange('paymentDetails', event.target.value)
+  }
+  const handleChangeImagesForLoad = (files: UploadFileType[]) => {
+    handleFieldChange('paymentImages', files)
+  }
+  const handleChangeIsChecked = (event: ChangeEvent<HTMLInputElement>) => {
+    handleFieldChange('isChecked', event.target.checked)
+  }
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.paymentMethodTitleWrapper}>
-        <Checkbox
-          disabled={readOnly}
-          color="primary"
-          checked={!!paymentsFields?.paymentMethod?._id} // @ts-ignore
-          onClick={setFielData('isCheckedPayment')}
+    <div className={styles.root}>
+      <div className={styles.paymentMethodTitleWrapper}>
+        <Checkbox disabled={readOnly} checked={payment.isChecked} onChange={handleChangeIsChecked} />
+        <img
+          src={getAmazonImageUrl(payment.paymentMethod?.iconImage, false)}
+          alt={payment.paymentMethod?.title}
+          className={styles.paymentMethodIcon}
         />
-        <Typography className={classNames.paymentMethodTitle}>
-          {/* {payment?.paymentMethod?.title || payment?.title} */}
-          {'paymentMethod' in payment && payment?.paymentMethod?.title
-            ? payment?.paymentMethod?.title
-            : 'title' in payment
-            ? payment.title
-            : ''}
-        </Typography>
+        <p className={styles.paymentMethodTitle}>{payment.paymentMethod?.title}</p>
       </div>
 
       <div
-        className={cx(classNames.cardManageWrapper, {
-          [classNames.notActiceCard]: !paymentsFields?.paymentMethod?._id,
+        className={cx({
+          [styles.notActiceCard]: !payment.isChecked,
         })}
       >
         <Field
-          // @ts-ignore
           multiline
           disabled={readOnly}
-          minRows={2}
-          maxRows={2}
+          minRows={5}
+          maxRows={5}
           inputProps={{ maxLength: 250 }}
-          inputClasses={classNames.commentInput}
-          value={paymentsFields.paymentDetails}
-          labelClasses={cx(classNames.paymentMethodTitle, classNames.label)}
+          inputClasses={styles.commentInput}
+          value={payment.paymentDetails}
+          labelClasses={cx(styles.paymentMethodTitle, styles.label)}
           label={t(TranslationKey['Payment details'])}
-          onChange={setFielData('paymentDetails')}
+          onChange={handleChangePaymentDetails}
         />
 
-        <div className={classNames.imageFileInputWrapper}>
-          <UploadFilesInput
-            withoutTitle
-            disabled={readOnly} // @ts-ignore
-            dragAndDropBtnHeight={40} // @ts-ignore
-            maxHeight={90} // @ts-ignore
-            imageListWrapperStyles={classNames.imageListWrapperStyles} // @ts-ignore
-            filesLength={paymentsFields?.paymentImages?.length}
-            сontainerStyles={classNames.containerClasses}
-            images={paymentsFields.photosForLoad}
-            setImages={setFielData('photosForLoad')}
-            maxNumber={50}
-          />
-          {!!paymentsFields?.paymentImages?.length && ( // @ts-ignore
-            <PhotoAndFilesCarousel
-              small
-              withoutMakeMainImage
-              isEditable={!readOnly}
-              width="100%"
-              files={paymentsFields?.paymentImages}
-              imagesForLoad={paymentsFields?.paymentImages}
-              onChangeImagesForLoad={setFielData('paymentImages')}
+        <div className={styles.imageFileInputWrapper}>
+          {readOnly ? (
+            <SlideshowGallery slidesToShow={2} files={payment?.paymentImages || []} />
+          ) : (
+            <UploadFilesInput
+              withoutTitles
+              disabled={readOnly}
+              dragAndDropButtonHeight={40}
+              maxHeight={95}
+              images={payment.paymentImages}
+              setImages={handleChangeImagesForLoad}
             />
           )}
         </div>
       </div>
     </div>
   )
-}
+})

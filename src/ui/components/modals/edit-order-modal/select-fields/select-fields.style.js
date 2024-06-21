@@ -1,51 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   nativeSelect: {
     width: '210px',
   },
 
-  deliveredGoodsWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 32,
-    width: 208,
-    background: theme.palette.input.customDisabled,
-    borderRadius: 4,
-    padding: '0 8px',
-
-    border: '2px solid red',
-  },
-
-  deliveredGoodsSuccessWrapper: {
-    border: `2px solid #388E3C !important`,
-  },
-
-  deliveredGoodsSuccessText: {
-    color: '#388E3C',
-  },
-
-  deliveredGoodsSubWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-  },
-
-  deliveredGoodsLeftText: {
-    color: 'red',
-    fontSize: 18,
-    fontWeight: 600,
-  },
-
-  deliveredGoodsMiddleText: {
-    color: theme.palette.text.general,
-  },
-
-  deliveredGoodsRightText: {
-    color: theme.palette.primary.main,
-    fontSize: 18,
-    fontWeight: 600,
+  noFlex: {
+    display: 'block',
   },
 
   commentInput: {
@@ -86,10 +47,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     fontWeight: 500,
     lineHeight: '21px',
-  },
-
-  imageFileInputWrapper: {
-    width: '500px',
   },
 
   onLineWrapper: {
@@ -141,22 +98,6 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#00B746',
   },
 
-  normalPaymentText: {
-    width: 'fit-content',
-    color: theme.palette.primary.main,
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
-    whiteSpace: 'nowrap',
-  },
-
-  whiteNormalPaymentText: {
-    color: '#fff',
-    fontWeight: 600,
-    fontSize: 14,
-    lineHeight: '19px',
-  },
-
   input: {
     width: '231px',
   },
@@ -173,7 +114,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   researchLabel: {
-    // width: 100,
     color: theme.palette.text.second,
     fontWeight: '400',
     fontSize: '14px',
@@ -224,7 +164,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     padding: '0 25px',
     whiteSpace: 'nowrap',
-    color: '#fff !important',
+    color: '#fff',
   },
   checkboxWithButton: {
     display: 'flex',
@@ -238,7 +178,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   inputError: {
     '.Mui-disabled': {
-      '-webkit-text-fill-color': 'red !important',
+      WebkitTextFillColor: 'red !important',
     },
   },
 
@@ -280,27 +220,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   supplierPaymentButtonWrapper: {
     width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'end',
-  },
-
-  supplierPaymentButton: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 230,
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-    marginBottom: '20px',
-    color: '#fff',
-    gap: 5,
-  },
-
-  noPaymentButton: {
-    gap: 5,
+    marginBottom: 20,
   },
 
   formItem: {
@@ -318,27 +238,14 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  carouselImage: {
-    height: '100% !important',
-    maxHeight: '254px !important',
-    width: '100% !important',
-    objectFit: 'contain',
-
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
-  },
-
   paymentsBlock: {
     marginTop: 25,
   },
+
   labelClass: {
     fontSize: 14,
     fontWeight: 400,
     lineHeight: '19px',
-
     color: theme.palette.text.second,
   },
 
@@ -372,5 +279,66 @@ export const useClassNames = makeStyles()(theme => ({
     '.MuiInputBase-root': {
       width: 'unset',
     },
+  },
+
+  supplierPaymentButtonBtnWrapperStyle: {
+    width: '100%',
+  },
+
+  gallery: {
+    marginTop: 20,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  documentButton: {
+    width: '100%',
+  },
+
+  imageFileInputWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  deliveredGoodsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 32,
+    width: 208,
+    background: theme.palette.input.customDisabled,
+    borderRadius: 4,
+    padding: '0 8px',
+    border: '2px solid red',
+  },
+
+  deliveredGoodsSuccessWrapper: {
+    border: `2px solid #388E3C !important`,
+  },
+
+  deliveredGoodsSuccessText: {
+    color: '#388E3C',
+  },
+
+  deliveredGoodsSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  deliveredGoodsLeftText: {
+    color: 'red',
+    fontSize: 18,
+    fontWeight: 600,
+  },
+
+  deliveredGoodsMiddleText: {
+    color: theme.palette.text.general,
+  },
+
+  deliveredGoodsRightText: {
+    color: theme.palette.primary.main,
+    fontSize: 18,
+    fontWeight: 600,
   },
 }))

@@ -1,16 +1,16 @@
-/* eslint-disable no-unused-vars */
-import { borderRadius } from '@mui/system'
-
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalMainWrapper: {
-    width: 1500,
+    width: 1150,
+    padding: 10,
   },
 
   headerWrapper: {
+    marginBottom: 20,
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
   },
 
   headerLabel: {
@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainTitleMargin: {
-    marginBottom: 35,
+    marginBottom: 20,
   },
 
   labelMargin: {
@@ -29,7 +29,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   textMargin: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
 
   headerSubText: {
@@ -88,12 +88,12 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    marginTop: 30,
+    marginTop: 20,
     gap: 30,
   },
 
   containerField: {
-    width: 'min-content !important',
+    width: 'max-content',
     marginBottom: '0 !important',
   },
 
@@ -102,8 +102,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   bodyWrapper: {
-    minHeight: 300,
-    maxHeight: 400,
+    minHeight: 225,
+    maxHeight: 350,
     display: 'flex',
     flexWrap: 'wrap',
     gap: 27,
@@ -115,8 +115,7 @@ export const useClassNames = makeStyles()(theme => ({
   bodySubWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: 24,
-    paddingRight: 15,
+    gap: 25,
   },
 
   imageObjWrapper: {
@@ -146,7 +145,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
-    gap: 30,
+    gap: 20,
     width: '100%',
   },
 
@@ -161,20 +160,13 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     top: 10,
     right: 10,
-    zIndex: 99,
-  },
-
-  mainImageWrapper: {
-    position: 'relative',
-    padding: 3,
-    backgroundImage: `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23007BFFFF' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='90' stroke-linecap='square'/%3e%3c/svg%3e")`,
+    zIndex: 7,
   },
 
   imageObjIndex: {
     fontWeight: 700,
     fontSize: 20,
     color: theme.palette.text.second,
-    marginRight: 10,
     alignSelf: 'flex-start',
   },
 
@@ -182,14 +174,13 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 10,
   },
 
   clientComment: {
-    fontSize: 18,
+    fontSize: 14,
+    lineHeight: '19px',
     color: '#DF0C0C',
-    wordBreak: 'break-word',
-    whiteSpace: 'pre-wrap',
-    textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
     WebkitLineClamp: 2,
@@ -197,26 +188,30 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageObjInput: {
-    width: 133,
-    height: 'auto',
+    width: 140,
+    height: 46,
+  },
+
+  inputComment: {
+    padding: 8,
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   bigPlusWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    justifySelf: 'flex-start',
-    marginLeft: 100,
+    width: 56,
+    height: 56,
   },
 
   bigPlus: {
+    width: '56px !important',
+    height: '56px !important',
     color: theme.palette.primary.main,
-    margin: '15px 0 30px 0',
     cursor: 'pointer',
     transition: '.3s ease',
-    transform: 'scale(2.8)',
+
     '&:hover': {
-      transform: 'scale(3)',
+      transform: 'scale(1.05)',
     },
   },
 
@@ -249,8 +244,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   imageListItem: {
-    width: '100%',
-    height: '100%',
+    width: 161,
+    height: 161,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
   },
 
   imageUploadText: {
@@ -265,19 +264,7 @@ export const useClassNames = makeStyles()(theme => ({
     top: 0,
     left: 0,
     opacity: 0,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-  },
-
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain',
-    background: theme.palette.background.general,
-    transition: '.3s ease',
     cursor: 'pointer',
-    '&: hover': {
-      transform: 'scale(1.05)',
-    },
   },
 
   imagesModalBtn: {
@@ -296,7 +283,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'absolute',
     right: -18,
     top: -18,
-    zIndex: 99,
+    zIndex: 7,
 
     cursor: 'pointer',
     transition: '.3s ease',
@@ -308,5 +295,16 @@ export const useClassNames = makeStyles()(theme => ({
 
   removeIcon: {
     color: '#fff',
+  },
+
+  comment: {
+    margin: '0 !important',
+  },
+
+  flexContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    gap: 30,
   },
 }))

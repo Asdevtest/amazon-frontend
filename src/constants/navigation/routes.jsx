@@ -6,108 +6,6 @@ import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/naviga
 import { t } from '@utils/translations'
 
 import { permissionsKeys } from '../keys/permissions'
-// import {AdminAwaitingBatchesView} from '@views/admin/admin-batches-views/admin-awaiting-batches-view'
-// import {AdminBatchesView} from '@views/admin/admin-batches-views/admin-batches-view'
-// import {AdminSentBatchesView} from '@views/admin/admin-batches-views/admin-sent-batches-view'
-// import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
-// import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
-// import {AdminFeedbackView} from '@views/admin/admin-feedback-view'
-// import {AdminInventoryView} from '@views/admin/admin-inventory-view'
-// import {AdminOrderView} from '@views/admin/admin-orders-views/order'
-// import {AdminOrdersViews} from '@views/admin/admin-orders-views/orders'
-// import {AdminProductView} from '@views/admin/admin-product-view'
-// import {AdminSettingsView} from '@views/admin/admin-settings-view'
-// import {AdminTechnicalView} from '@views/admin/admin-technical-view'
-// import {AdminUserPermissionsView} from '@views/admin/admin-user-permissions-view'
-// import {AdminUserView} from '@views/admin/admin-users-view/admin-user-view'
-// import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
-// import {AdminDestinationsView} from '@views/admin/admin-warehouse-views/admin-destinations-view'
-// import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-warehouse-boxes-view'
-// import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
-// import {AdminWarehouseView} from '@views/admin/admin-warehouse-views/admin-warehouse-view'
-// import {AuthView} from '@views/auth'
-// import {BuyerDashboardView} from '@views/buyer/buyer-dashboard-view'
-// import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
-// import {BuyerFreeOrdersView} from '@views/buyer/buyer-orders-views/buyer-free-orders-view'
-// import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders-view'
-// import {BuyerProductView} from '@views/buyer/buyer-product-view/'
-// import {BuyerSearchSupplierByClientView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view'
-// import {BuyerSearchSupplierBySupervisorView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view'
-// import {BuyerSearchSupplierForIdeaView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-for-idea-view'
-// import {ClientAwaitingBatchesView} from '@views/client/client-batches-views/client-awaiting-batches-view'
-// import {ClientBatchesView} from '@views/client/client-batches-views/client-batches-view'
-// import {ClientReadyBoxesView} from '@views/client/client-batches-views/client-ready-boxes-view'
-// import {ClientSentBatchesView} from '@views/client/client-batches-views/client-sent-batches-view'
-// import {ClientDashboardView} from '@views/client/client-dashboard-view'
-// import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
-// import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
-// import {ClientFreelanceView} from '@views/client/client-freelance-view'
-// import {ClientInventoryView} from '@views/client/client-inventory-view'
-// import {ClientBoxesNotificationsView} from '@views/client/client-notifications-views/client-boxes-notifications-view'
-// import {ClientBoxesTariffsNotificationsView} from '@views/client/client-notifications-views/client-boxes-tariffs-notifications-view'
-// import {ClientNotificationsView} from '@views/client/client-notifications-views/client-notifications-view'
-// import {ClientOrdersNotificationsView} from '@views/client/client-notifications-views/client-orders-notifications-view'
-// import {ClientOrderView} from '@views/client/client-orders-views/order'
-// import {ClientOrdersView} from '@views/client/client-orders-views/orders'
-// import {ClientProductExchangeView} from '@views/client/client-product-exchange-view'
-// import {ClientProductView} from '@views/client/client-product-view/'
-// import {ClientSettingsView} from '@views/client/client-settings-view'
-// import {ClientShopView} from '@views/client/client-traiding-shop-view'
-// import {ClientShopsView} from '@views/client/client-shops-view'
-// import {ClientBuyShopsView} from '@views/client/client-trading-shops-views/client-buy-shops-view'
-// import {ClientSellShopsView} from '@views/client/client-trading-shops-views/client-sell-shops-view'
-// import {ClientTradingShopsView} from '@views/client/client-trading-shops-views/client-trading-shops-view'
-// import {CreateOrEditTradingShopView} from '@views/client/client-trading-shops-views/create-or-edit-trading-traiding-shop-view'
-// import {ClientWarehouseView} from '@views/client/client-warehouse-view'
-// import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
-// import {FreelancerFreelanceView} from '@views/freelancer/freelancer-freelance-view'
-// import {ModeratorAppealView} from '@views/moderator/moderator-appeal-view/moderator-appeal-view'
-// // import {ModeratorAppealView} from '@views/moderator/moderator-appeal-view'
-// import {ModeratorAppealsView} from '@views/moderator/moderator-appeals-view/moderator-appeals-view'
-// import {ModeratorDashboardView} from '@views/moderator/moderator-dashboard-view'
-// import {ModeratorMyProductsView} from '@views/moderator/moderator-my-products-view'
-// import {ModeratorSettingsView} from '@views/moderator/moderator-settings-view'
-// import {RegistrationView} from '@views/registration'
-// import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
-// import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
-// import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
-// import {AnotherUserProfileView} from '@views/shared/another-user-profile-view'
-// import {CreateOrEditProposalView} from '@views/shared/create-or-edit-proposal-view'
-// import {CreateOrEditRequestView} from '@views/shared/create-or-edit-request-view'
-// import {DealsOnReviewDetailsView} from '@views/shared/deals-on-review-details-view'
-// import {DealsOnReviewView} from '@views/shared/deals-on-review-view/deals-on-review-view'
-// import {FinancesView} from '@views/shared/finances-view'
-// import {MessagesView} from '@views/shared/messages-view'
-// import {MyProposalsView} from '@views/shared/my-proposals-view'
-// import {MyRequestsView} from '@views/shared/my-requests-view'
-// import {OwnerRequestDetailCustomView} from '@views/shared/owner-requests-detail-custom-view'
-// import {RequestDetailCustomView} from '@views/shared/servant-requests-detail-custom-view'
-// import {SubUsersView} from '@views/shared/sub-users-view/sub-users-view'
-// import {UserProfileView} from '@views/shared/user-profile-view/user-profile-view'
-// import {UsersView} from '@views/shared/users-view'
-// import {VacantDealsDetailsView} from '@views/shared/vacant-deals-details-view'
-// import {VacantDealsView} from '@views/shared/vacant-deals-view'
-// import {VacantRequestsView} from '@views/shared/vacant-requests-view/vacant-requests-view'
-// import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
-// import {SupervisorFreelanceView} from '@views/supervisor/supervisor-freelance-view'
-// import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
-// import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
-// import {SupervisorReadyToCheckByClientView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view'
-// import {SupervisorReadyToCheckForIdeaView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-for-idea'
-// import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view'
-// import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view'
-// import {TermsView} from '@views/terms'
-// import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view'
-// import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view'
-// import {WarehouseSentBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-sent-batches-view/warehouse-sent-batches-view'
-// import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
-// import {WarehouseManagementView} from '@views/warehouse/warehouse-management-view'
-// import {WarehouseMyWarehouseView} from '@views/warehouse/warehouse-my-warehouse-view'
-// import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view'
-// import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-completed-tasks-view'
-// import {WarehouseMyTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view'
-// import {WarehouseTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-tasks-view'
-// import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
 import { TranslationKey } from '../translations/translation-key'
 
 const AdminAwaitingBatchesView = lazy(() =>
@@ -146,9 +44,6 @@ const AdminProductView = lazy(() =>
 )
 const AdminSettingsView = lazy(() =>
   import('@views/admin/admin-settings-view').then(module => ({ default: module.AdminSettingsView })),
-)
-const AdminTechnicalView = lazy(() =>
-  import('@views/admin/admin-technical-view').then(module => ({ default: module.AdminTechnicalView })),
 )
 const AdminUserPermissionsView = lazy(() =>
   import('@views/admin/admin-user-permissions-view').then(module => ({ default: module.AdminUserPermissionsView })),
@@ -283,6 +178,13 @@ const ClientFreelanceView = lazy(() =>
 const ClientInventoryView = lazy(() =>
   import('@views/client/client-inventory-view').then(module => ({ default: module.ClientInventoryView })),
 )
+const ReportsView = lazy(() =>
+  import('@views/shared/reports-view').then(module => {
+    const Component = module.ReportsView
+
+    return { default: props => <Component subView {...props} /> }
+  }),
+)
 const ClientBoxesNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-boxes-notifications-view').then(module => ({
     default: module.ClientBoxesNotificationsView,
@@ -300,11 +202,6 @@ const ClientIdeasNotificationsView = lazy(() =>
   })),
 )
 
-const ClientNotificationsView = lazy(() =>
-  import('@views/client/client-notifications-views/client-notifications-view').then(module => ({
-    default: module.ClientNotificationsView,
-  })),
-)
 const ClientOrdersNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-orders-notifications-view').then(module => ({
     default: module.ClientOrdersNotificationsView,
@@ -314,14 +211,6 @@ const ClientOrdersNotificationsView = lazy(() =>
 const ClientFreelanceNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-freelance-notifications-view').then(module => ({
     default: module.ClientFreelanceNotificationsView,
-  })),
-)
-
-const FreelancerFreelanceNotificationsView = lazy(() =>
-  import(
-    '@views/freelancer/freelancer-notifications-views/freelancer-notifications-view/freelancer-notifications-view'
-  ).then(module => ({
-    default: module.FreelancerNotificationsView,
   })),
 )
 
@@ -337,9 +226,6 @@ const ClientOrderView = lazy(() =>
 const ClientOrdersView = lazy(() =>
   import('@views/client/client-orders-views/orders').then(module => ({ default: module.ClientOrdersView })),
 )
-const ClientProductExchangeView = lazy(() =>
-  import('@views/client/client-product-exchange-view').then(module => ({ default: module.ClientProductExchangeView })),
-)
 const ClientProductView = lazy(() =>
   import('@views/client/client-product-view').then(module => ({ default: module.ClientProductView })),
 )
@@ -349,9 +235,14 @@ const ClientProductView = lazy(() =>
 const ClientShopView = lazy(() =>
   import('@views/client/client-shop-view').then(module => ({ default: module.ClientShopView })),
 )
+
 const ClientShopsView = lazy(() =>
   import('@views/client/client-shops-view').then(module => ({ default: module.ClientShopsView })),
 )
+const ClientShopsReportView = lazy(() =>
+  import('@views/client/client-shops-report').then(module => ({ default: module.ClientShopsReportView })),
+)
+
 const ClientBuyShopsView = lazy(() =>
   import('@views/client/client-trading-shops-views/client-buy-shops-view').then(module => ({
     default: module.ClientBuyShopsView,
@@ -406,6 +297,9 @@ const ModeratorDashboardView = lazy(() =>
 )
 const ModeratorMyProductsView = lazy(() =>
   import('@views/moderator/moderator-my-products-view').then(module => ({ default: module.ModeratorMyProductsView })),
+)
+const PatchNoutesView = lazy(() =>
+  import('@views/shared/patch-noutes-view').then(module => ({ default: module.PatchNoutesView })),
 )
 const ModeratorSettingsView = lazy(() =>
   import('@views/moderator/moderator-settings-view').then(module => ({ default: module.ModeratorSettingsView })),
@@ -506,12 +400,12 @@ const UserProfileView = lazy(() =>
   import('@views/shared/user-profile-view/user-profile-view').then(module => ({ default: module.UserProfileView })),
 )
 const UsersView = lazy(() => import('@views/shared/users-view').then(module => ({ default: module.UsersView })))
-const VacantDealsDetailsView = lazy(() =>
+/* const VacantDealsDetailsView = lazy(() =>
   import('@views/shared/vacant-deals-details-view').then(module => ({ default: module.VacantDealsDetailsView })),
 )
 const VacantDealsView = lazy(() =>
   import('@views/shared/vacant-deals-view').then(module => ({ default: module.VacantDealsView })),
-)
+) */
 const VacantRequestsView = lazy(() =>
   import('@views/shared/vacant-requests-view/vacant-requests-view').then(module => ({
     default: module.VacantRequestsView,
@@ -597,6 +491,24 @@ const WarehouseTasksView = lazy(() =>
 const WarehouseVacantTasksView = lazy(() =>
   import('@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view').then(module => ({
     default: module.WarehouseVacantTasksView,
+  })),
+)
+
+const CategoryRootView = lazy(() =>
+  import('@views/shared/category-root-view/category-root-view').then(module => ({
+    default: module.CategoryRootView,
+  })),
+)
+
+const ClientIdeasView = lazy(() =>
+  import('@views/client/client-ideas-view/client-ideas-view').then(module => ({
+    default: module.ClientIdeasView,
+  })),
+)
+
+const GeneralNotificationsView = lazy(() =>
+  import('@views/shared/general-notifications-view').then(module => ({
+    default: module.GeneralNotificationsView,
   })),
 )
 
@@ -1015,6 +927,23 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/buyer/notifications/general-notifications-view',
+    component: GeneralNotificationsView,
+    exact: false,
+    permission: [UserRole.BUYER],
+
+    permissionKey: permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER,
+
+    crumbNameKey: TranslationKey['General notifications'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+      title: () => t(TranslationKey['General notifications']),
+    },
+  },
+
+  {
     routePath: '/researcher/dashboard',
     component: ResearcherDashboardView,
     exact: false,
@@ -1349,12 +1278,12 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.client.SHOW_FREELANCE_CLIENT,
 
-    crumbNameKey: TranslationKey['Create a request'],
+    crumbNameKey: TranslationKey['Create request'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
-      title: () => t(TranslationKey['Create a request']),
+      title: () => t(TranslationKey['Create request']),
     },
   },
 
@@ -1371,7 +1300,7 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
-      title: () => t(TranslationKey['Create a request']),
+      title: () => t(TranslationKey['Create request']),
     },
   },
 
@@ -1460,37 +1389,33 @@ export const privateRoutesConfigs = [
     },
   },
 
-  // ////////////////////////////////////////////////////////////////////////////////////////////////
-
-  {
-    routePath: '/client/inventory/archive',
-    component: ClientInventoryView,
-    exact: true,
-    permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
-
-    crumbNameKey: TranslationKey.Archive,
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
-      activeSubCategory: '',
-      title: () => t(TranslationKey.Inventory),
-    },
-  },
-
   {
     routePath: '/client/inventory',
     component: ClientInventoryView,
     exact: true,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_INVENTORY_CLIENT,
-
     crumbNameKey: TranslationKey.Inventory,
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
-      activeSubCategory: '',
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY,
       title: () => t(TranslationKey.Inventory),
+    },
+  },
+
+  {
+    routePath: '/client/inventory/reports',
+    component: ReportsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_INVENTORY_LISTING_REPORTS,
+    crumbNameKey: TranslationKey.Reports,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_INVENTORY,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY_REPORTS,
+      title: () => t(TranslationKey.Reports),
     },
   },
 
@@ -1513,7 +1438,8 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/product-exchange',
-    component: ClientProductExchangeView,
+    // component: ClientProductExchangeView,
+    component: CategoryRootView,
     exact: true,
     permission: [UserRole.CLIENT],
 
@@ -1536,12 +1462,12 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.client.SHOW_VACANT_CLIENT,
 
-    crumbNameKey: TranslationKey['Deal exchange'],
+    crumbNameKey: TranslationKey['Research Exchenge'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
       activeSubCategory: 0,
-      title: () => t(TranslationKey['Deal exchange']),
+      title: () => t(TranslationKey['Research Exchenge']),
     },
   },
   {
@@ -1659,8 +1585,8 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/shops',
-    component: ClientShopsView,
-    exact: false,
+    component: CategoryRootView,
+    exact: true,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
 
@@ -1670,6 +1596,38 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_SHOPS,
       activeSubCategory: '',
       title: () => t(TranslationKey.Shops),
+    },
+  },
+
+  {
+    routePath: '/client/shops/shops',
+    component: ClientShopsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
+
+    crumbNameKey: TranslationKey.Shops,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_SHOPS,
+      activeSubCategory: 0,
+      title: () => t(TranslationKey.Shops),
+    },
+  },
+
+  {
+    routePath: '/client/shops/reports',
+    component: ClientShopsReportView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_SHOPS_CLIENT,
+
+    crumbNameKey: TranslationKey.Reports,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_SHOPS,
+      activeSubCategory: 1,
+      title: () => t(TranslationKey.Reports),
     },
   },
 
@@ -1836,7 +1794,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/notifications',
-    component: ClientNotificationsView,
+    component: CategoryRootView,
     exact: true,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
@@ -1895,7 +1853,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
-      activeSubCategory: 3,
+      activeSubCategory: 3, // it's now not displayed to the client
       title: () => t(TranslationKey['Notifications on ideas']),
     },
   },
@@ -1925,12 +1883,29 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
 
-    crumbNameKey: TranslationKey['On orders'],
+    crumbNameKey: TranslationKey['Request messages'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
-      activeSubCategory: 4,
+      activeSubCategory: 3, // change to 4 because the ideas-notification are now hidden
       title: () => t(TranslationKey.Notifications),
+    },
+  },
+
+  {
+    routePath: '/client/notifications/general-notifications-view',
+    component: GeneralNotificationsView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+
+    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
+
+    crumbNameKey: TranslationKey['General notifications'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+      title: () => t(TranslationKey['General notifications']),
     },
   },
 
@@ -1998,20 +1973,6 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/supervisor/freelance/vacant-deals',
-    component: VacantDealsView,
-    exact: true,
-    permission: [UserRole.SUPERVISOR],
-    crumbNameKey: TranslationKey['Vacant deals'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
-      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-      title: () => t(TranslationKey['Vacant deals']),
-    },
-  },
-
-  {
     routePath: '/supervisor/freelance/deals-on-review',
     component: DealsOnReviewView,
     exact: true,
@@ -2022,20 +1983,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_DEALS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
       title: () => t(TranslationKey['Deals on review']),
-    },
-  },
-
-  {
-    routePath: '/supervisor/freelance/vacant-deals/deal-details',
-    component: VacantDealsDetailsView,
-    exact: true,
-    permission: [UserRole.SUPERVISOR],
-    crumbNameKey: TranslationKey.Deal,
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
-      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
-      title: () => t(TranslationKey['Vacant deals']),
     },
   },
 
@@ -2123,7 +2070,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
-      activeSubCategory: 0,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_RESEARCHER,
       title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Researcher'])}`,
     },
   },
@@ -2140,7 +2087,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
-      activeSubCategory: 1,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_CLIENT,
       title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
     },
   },
@@ -2718,20 +2665,6 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/admin/settings/technical-works',
-    component: AdminTechnicalView,
-    exact: false,
-    permission: [UserRole.ADMIN],
-    crumbNameKey: TranslationKey['Technical work and notices'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
-      activeSubCategory: '',
-      title: () => t(TranslationKey.Settings),
-    },
-  },
-
-  {
     routePath: '/admin/feedback',
     component: AdminFeedbackView,
     exact: false,
@@ -2756,6 +2689,20 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
       title: () => t(TranslationKey.Messages),
+    },
+  },
+
+  {
+    routePath: '/admin/updated',
+    component: PatchNoutesView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey['Patch notes'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_UPDATED,
+      activeSubCategory: '',
+      title: () => t(TranslationKey['Patch notes']),
     },
   },
 
@@ -2869,7 +2816,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_REQUESTS,
-      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
       title: () => t(TranslationKey.Request),
     },
   },
@@ -3030,7 +2977,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/freelancer/notifications',
-    component: FreelancerFreelanceNotificationsView,
+    component: CategoryRootView,
     exact: true,
     permission: [UserRole.FREELANCER],
 
@@ -3053,12 +3000,29 @@ export const privateRoutesConfigs = [
 
     permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
 
-    crumbNameKey: TranslationKey['On orders'],
+    crumbNameKey: TranslationKey['Request messages'],
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 0,
       title: () => t(TranslationKey.Notifications),
+    },
+  },
+
+  {
+    routePath: '/freelancer/notifications/general-notifications-view',
+    component: GeneralNotificationsView,
+    exact: false,
+    permission: [UserRole.FREELANCER],
+
+    permissionKey: permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER,
+
+    crumbNameKey: TranslationKey['General notifications'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
+      title: () => t(TranslationKey['General notifications']),
     },
   },
 
@@ -3119,6 +3083,20 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/moderator/updated',
+    component: PatchNoutesView,
+    exact: false,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey['Patch notes'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_UPDATED,
+      activeSubCategory: '',
+      title: () => t(TranslationKey['Patch notes']),
+    },
+  },
+
+  {
     routePath: '/moderator/users',
     component: UsersView,
     exact: true,
@@ -3174,5 +3152,131 @@ export const privateRoutesConfigs = [
     },
   },
 
-  // ////////////////////////////////////////////////////////////////////////////////////////////////
+  // * Client Ideas
+
+  {
+    routePath: '/client/ideas',
+    component: CategoryRootView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Ideas,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Ideas),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/new',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['New ideas']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 0,
+      title: () => t(TranslationKey['New ideas']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/on-checking',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['On checking']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 1,
+      title: () => t(TranslationKey['On checking']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/search-suppliers',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['Search for suppliers']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 2,
+      title: () => t(TranslationKey['Search for suppliers']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/create-card',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['Creating a product card']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 3,
+      title: () => t(TranslationKey['Creating a product card']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/add-asin',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['Adding ASIN']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 4,
+      title: () => t(TranslationKey['Adding ASIN']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/realized',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['Realized ideas']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 5,
+      title: () => t(TranslationKey['Realized ideas']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/closed',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey['Rejected and closed']),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 6,
+      title: () => t(TranslationKey['Rejected and closed']),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/all',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: t(TranslationKey.All),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 7,
+      title: () => t(TranslationKey.All),
+    },
+  },
 ]

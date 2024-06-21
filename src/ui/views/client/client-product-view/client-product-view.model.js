@@ -1,16 +1,14 @@
-import { action, makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
-import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -20,7 +18,6 @@ import {
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
@@ -30,103 +27,38 @@ import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const formFieldsDefault = {
-  checkednotes: '',
-  amazon: 0,
-  bsr: 0,
-  createdat: '',
-  createdBy: {},
-  delivery: 0,
-  dirdecision: 0,
-  express: false,
-  fba: false,
-  fbafee: 0,
-  icomment: '',
-  asin: '',
-  images: [],
-  lamazon: '',
-  material: '',
-  reffee: 15,
-  status: 0,
-  supplier: [],
-  updateDate: '',
-  _id: '',
-  buyerscomment: '',
-}
+import { loadingStatus } from '@typings/enums/loading-status'
+import { ProductVariation } from '@typings/enums/product/product-variation'
 
-const fieldsOfProductAllowedToUpdate = [
-  'lamazon',
-  'lsupplier',
-  'bsr',
-  'amazon',
-  'fbafee',
-  'reffee',
-  'delivery',
-  'icomment',
-  'fba',
-  'profit',
-  'margin',
-  'images',
-  'width',
-  'height',
-  'length',
-  'amazonTitle',
-  'amazonDetail',
-  'amazonDescription',
-  'category',
-  'weight',
-  'minpurchase',
-  'fbaamount',
-  'strategyStatus',
-  'currentSupplierId',
-  'asin',
-  'clientComment',
-  'skusByClient',
-
-  'niche',
-  'asins',
-  'avgRevenue',
-  'avgBSR',
-  'totalRevenue',
-  'coefficient',
-  'avgPrice',
-  'avgReviews',
-  'shopIds',
-  'redFlags',
-  'tags',
-  // 'totalFba'
-]
+import { fieldsOfProductAllowedToUpdate, formFieldsDefault } from './client-product-view.constants'
 
 export class ClientProductViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-  acceptMessage = ''
+  updateDataHandler = undefined
+
+  get currentData() {
+    return this.product
+  }
 
   product = undefined
   productBase = undefined
   productId = undefined
+  productVariations = undefined
+  productsToBind = undefined
 
-  storekeepersData = []
   shopsData = []
 
-  curUpdateProductData = {}
-  warningModalTitle = ''
+  curUpdateProductData = undefined
 
   paymentMethods = []
 
-  yuanToDollarRate = undefined
-  volumeWeightCoefficient = undefined
-
-  selectedSupplier = undefined
-
-  showWarningModal = false
   showConfirmModal = false
-  showAddOrEditSupplierModal = false
-
-  supplierModalReadOnly = false
+  showBindProductModal = false
 
   showTab = undefined
+
+  setOpenModal = undefined
 
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
@@ -146,8 +78,9 @@ export class ClientProductViewModel {
   readyImages = []
   progressValue = 0
   showProgress = false
+  isValidLink = true
 
-  formFields = { ...formFieldsDefault }
+  formFields = formFieldsDefault
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
@@ -155,94 +88,146 @@ export class ClientProductViewModel {
     return UserModel.userInfo
   }
 
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
+  constructor({ history, setOpenModal, updateDataHandler }) {
+    this.history = history
+    this.updateDataHandler = updateDataHandler
 
-  constructor({ history }) {
     const url = new URL(window.location.href)
+    this.productId = url.searchParams.get('product-id')
+    this.showTab = url.searchParams.get('show-tab')
 
-    runInAction(() => {
-      this.history = history
-
-      // this.productId = url.searchParams.get("product-id");
-
-      this.showTab = url.searchParams.get('show-tab')
-    })
+    if (setOpenModal) {
+      this.setOpenModal = setOpenModal
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => this.languageTag,
-      () =>
-        runInAction(() => {
-          this.product = this.product ? { ...this.product } : undefined
-        }),
+      () => this.productId,
+      () => this.loadData(),
     )
-  }
-
-  async updateProductId(productId) {
-    runInAction(() => {
-      this.productId = productId
-    })
-
-    try {
-      await this.getProductById()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  getCurrentData() {
-    return toJS(this.product)
   }
 
   async loadData() {
     try {
-      // await this.getProductById();
+      await this.getProductById()
       await this.getShops()
+      await this.getProductsVariations()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
-  updateImagesForLoad(images) {
-    if (!Array.isArray(images)) {
-      return
+  async onClickGetProductsToBind(option) {
+    try {
+      const result = await ClientModel.getProductPermissionsData(
+        option === ProductVariation.PARENT
+          ? { isChild: false, offset: 0 }
+          : { isChild: false, isParent: false, shopId: this.product?.shopId, offset: 0 },
+      )
+
+      runInAction(() => {
+        this.productsToBind = result.rows
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async bindUnbindProducts(option, products) {
+    try {
+      if (option === ProductVariation.CHILD) {
+        await ProductModel.unbindProducts({
+          parentProductId: this.product?._id,
+          childProductIds: products?.map(product => product?._id),
+        })
+      } else {
+        await ProductModel.unbindProducts({
+          parentProductId: products?.[0]?._id,
+          childProductIds: [this.product?._id],
+        })
+      }
+
+      this.loadData()
+      this.onTriggerOpenModal('showBindProductModal')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getProductsVariations() {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      const result = await ProductModel.getProductsVariationsByGuid(this.product?.parentProductId || this.product?._id)
+
+      runInAction(() => {
+        this.productVariations = result
+      })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+    }
+  }
+
+  unbindProductHandler(childProductIds) {
+    this.confirmModalSettings = {
+      isWarning: true,
+      title: t(TranslationKey['Product unbundling']),
+      message: t(TranslationKey['Are you sure you want to unbind the product?']),
+      successBtnText: t(TranslationKey.Yes),
+      cancelBtnText: t(TranslationKey.Cancel),
+      onClickOkBtn: () => this.unbindProduct(childProductIds),
     }
 
-    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
+    this.onTriggerOpenModal('showConfirmModal')
+  }
 
-    runInAction(() => {
-      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
-    })
+  async unbindProduct(childProductIds) {
+    try {
+      await ProductModel.unbindProducts({
+        parentProductId: null,
+        childProductIds: [childProductIds],
+      })
+
+      this.loadData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async navigateToProduct(id) {
+    const win = window.open(`/client/inventory/product?product-id=${id}`, '_blank')
+    win.focus()
   }
 
   async getProductById() {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
         this.product = result
-
         this.productBase = result
-
-        // this.imagesForLoad = result.images.map(el => getAmazonImageUrl(el, true))
-
-        this.updateImagesForLoad(result.images)
+        this.imagesForLoad = result.images
 
         updateProductAutoCalculatedFields.call(this)
       })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   onChangeProductFields = fieldName =>
     action(e => {
-      runInAction(() => {
-        this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
-      })
+      this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, [fieldName]: '' }
+
       if (
         [
           'icomment',
@@ -252,22 +237,25 @@ export class ClientProductViewModel {
           'amazonTitle',
           'amazonDescription',
           'amazonDetail',
-          'skusByClient',
+          'skuByClient',
           'niche',
           'asins',
-          'shopIds',
+          'shopId',
           'redFlags',
           'tags',
         ].includes(fieldName)
       ) {
-        runInAction(() => {
-          this.product = { ...this.product, [fieldName]: e.target.value }
-        })
+        this.product = { ...this.product, [fieldName]: e.target.value }
       } else {
+        if (fieldName === 'transparency') {
+          this.product = { ...this.product, [fieldName]: e }
+          this.patchProductTransparencyHandler()
+          this.updateDataHandler?.()
+          return
+        }
+
         if (['asin'].includes(fieldName)) {
-          runInAction(() => {
-            this.product = { ...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '') }
-          })
+          this.product = { ...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '') }
         }
 
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
@@ -286,49 +274,25 @@ export class ClientProductViewModel {
         }
 
         if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-          runInAction(() => {
-            this.product[fieldName] = parseInt(e.target.value)
-          })
+          this.product[fieldName] = parseInt(e.target.value)
         }
 
-        runInAction(() => {
-          this.product = { ...this.product, [fieldName]: e.target.value }
-        })
+        this.product = { ...this.product, [fieldName]: e.target.value }
       }
 
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
-        updateProductAutoCalculatedFields.call(this)
+        runInAction(() => {
+          updateProductAutoCalculatedFields.call(this)
+        })
       }
     })
 
-  onChangeProduct(e, value) {
-    runInAction(() => {
-      this.product = value
-    })
-  }
-
   onChangeImagesForLoad(value) {
-    runInAction(() => {
-      this.imagesForLoad = value
-    })
+    this.imagesForLoad = value
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
-  }
-
-  async getStorekeepers() {
-    try {
-      const result = await StorekeeperModel.getStorekeepers()
-
-      runInAction(() => {
-        this.storekeepersData = result
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    this[modal] = !this[modal]
   }
 
   async getShops() {
@@ -339,22 +303,19 @@ export class ClientProductViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
-  async handleProductActionButtons(actionType, withoutStatus) {
+  async handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
-        this.openConfirmModalWithTextByStatus(withoutStatus)
+        this.openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler)
         break
       case 'cancel':
         this.product.archive
-          ? this.history.push('/client/inventory/archive', { isArchive: this.product.archive })
-          : this.history.push('/client/inventory', { isArchive: this.product.archive })
+          ? this.history.push(`/client/inventory/archive?isArchive=${this.product.archive}`)
+          : this.history.push('/client/inventory')
         break
       case 'delete':
         runInAction(() => {
@@ -364,7 +325,7 @@ export class ClientProductViewModel {
             message: t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
             successBtnText: t(TranslationKey.Delete),
             cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onDeleteProduct(),
+            onClickOkBtn: () => this.onDeleteProduct(isModal, updateDataHandler),
           }
         })
 
@@ -380,58 +341,65 @@ export class ClientProductViewModel {
             message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
             successBtnText: t(TranslationKey.Yes),
             cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onRestoreProduct(),
+            onClickOkBtn: () => this.onRestoreProduct(isModal, updateDataHandler),
           }
         })
 
         this.onTriggerOpenModal('showConfirmModal')
 
         break
+      case 'closeModal':
+        this.setOpenModal()
+        break
     }
   }
 
-  async onRestoreProduct() {
+  async onRestoreProduct(isModal, updateDataHandler) {
     try {
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayWhiteList({ ...this.product, archive: false }, ['archive']),
       )
 
-      this.history.goBack()
+      await updateDataHandler()
+
+      if (isModal) {
+        this.setOpenModal()
+      } else {
+        this.history.goBack()
+      }
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
-  async onDeleteProduct() {
+  async onDeleteProduct(isModal, updateDataHandler) {
     try {
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayWhiteList({ ...this.product, archive: true }, ['archive']),
       )
 
-      this.history.goBack()
-    } catch (error) {
-      console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
+      await updateDataHandler()
 
-      runInAction(() => {
-        this.error = error
-      })
+      if (isModal) {
+        this.setOpenModal()
+      } else {
+        this.history.goBack()
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 
-  async openConfirmModalWithTextByStatus(withoutStatus) {
+  async openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler) {
     try {
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
 
       const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
-        toJS(this.product),
+        this.product,
         fieldsOfProductAllowedToUpdate,
         true,
         (key, value) => {
@@ -462,6 +430,7 @@ export class ClientProductViewModel {
               return value
           }
         },
+        true,
       )
 
       if (withoutStatus) {
@@ -475,138 +444,56 @@ export class ClientProductViewModel {
       }
 
       await this.onSaveProductData()
-
-      await this.loadData()
+      updateDataHandler && (await updateDataHandler())
     } catch (error) {
-      console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onSaveProductData() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      runInAction(() => {
-        this.uploadedImages = []
-      })
-
-      if (this.imagesForLoad.length) {
-        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-        runInAction(() => {
-          this.imagesForLoad = []
-        })
-      }
+      await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
 
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayBlackList(
           {
             ...this.curUpdateProductData,
-            images: this.uploadedImages.length
-              ? [/* ...this.curUpdateProductData.images, */ ...this.uploadedImages]
-              : this.curUpdateProductData.images,
+            images: this.uploadedImages,
           },
           ['suppliers'],
+          undefined,
+          undefined,
+          true,
         ),
       )
-
       this.getProductById()
 
-      runInAction(() => {
-        this.acceptMessage = t(TranslationKey['Data was successfully saved'])
-        setTimeout(() => {
-          this.acceptMessage = ''
-        }, 3000)
-      })
-
-      // this.warningModalTitle = t(TranslationKey['Data was successfully saved'])
-
-      // this.onTriggerOpenModal('showWarningModal')
-      this.setActionStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
-      console.log('error', error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
-  }
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
 
-  async onClickSupplierButtons(actionType) {
-    this.getSuppliersPaymentMethods()
-    switch (actionType) {
-      case 'add':
-        runInAction(() => {
-          this.selectedSupplier = undefined
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'view':
-        runInAction(() => {
-          this.supplierModalReadOnly = true
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'edit':
-        runInAction(() => {
-          this.supplierModalReadOnly = false
-        })
-
-        this.onTriggerAddOrEditSupplierModal()
-        break
-      case 'accept':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: this.selectedSupplier._id }
-          this.product = { ...this.product, currentSupplier: this.selectedSupplier }
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'acceptRevoke':
-        runInAction(() => {
-          this.product = { ...this.product, currentSupplierId: null }
-          this.product = { ...this.product, currentSupplier: undefined }
-          this.selectedSupplier = undefined
-        })
-        updateProductAutoCalculatedFields.call(this)
-
-        this.onSaveForceProductData()
-        break
-      case 'delete':
-        runInAction(() => {
-          this.confirmModalSettings = {
-            isWarning: true,
-            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-            successBtnText: t(TranslationKey.Yes),
-            cancelBtnText: t(TranslationKey.Cancel),
-            onClickOkBtn: () => this.onRemoveSupplier(),
-          }
-        })
-        this.onTriggerOpenModal('showConfirmModal')
-        break
+      runInAction(() => {
+        this.paymentMethods = response
+      })
+    } catch (error) {
+      console.error(error)
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      this.clearReadyImages()
-
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       supplier = {
         ...supplier,
@@ -614,55 +501,73 @@ export class ClientProductViewModel {
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
+        boxProperties: supplier?.boxProperties
+          ? supplier.boxProperties
+          : {
+              amountInBox: null,
+              boxHeightCm: null,
+              boxLengthCm: null,
+              boxWeighGrossKg: null,
+              boxWidthCm: null,
+            },
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
         images: this.readyImages,
       }
 
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.product.currentSupplierId) {
           runInAction(() => {
             this.product.currentSupplier = supplier
+            updateProductAutoCalculatedFields.call(this)
           })
-          updateProductAutoCalculatedFields.call(this)
         }
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-        await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
-        await this.getProductById(this.productId)
+
+        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
+        await this.getProductById()
       }
 
       await this.onSaveForceProductData()
 
-      this.setRequestStatus(loadingStatuses.success)
-      this.onTriggerAddOrEditSupplierModal()
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
-  async onSaveForceProductData() {
+  async onSaveForceProductData(product) {
     try {
       await ClientModel.updateProduct(
         this.productId,
         getObjectFilteredByKeyArrayWhiteList(
-          this.product,
+          product || this.product,
           fieldsOfProductAllowedToUpdate,
           true,
           (key, value) => {
@@ -695,218 +600,92 @@ export class ClientProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log('error', error)
+      console.error(error)
+    }
+  }
+
+  async patchProductTransparencyHandler() {
+    try {
+      await ClientModel.patchProductTransparency(this.productId, {
+        transparency: this.product.transparency,
+      })
+    } catch (error) {
+      console.error(error)
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
-  }
-
-  async onTriggerAddOrEditSupplierModal() {
-    try {
-      if (this.showAddOrEditSupplierModal) {
-        runInAction(() => {
-          this.selectedSupplier = undefined
-        })
-      } else {
-        const [result] = await Promise.all([UserModel.getPlatformSettings(), this.getStorekeepers()])
-
-        runInAction(() => {
-          this.yuanToDollarRate = result.yuanToDollarRate
-          this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        })
-      }
-
-      runInAction(() => {
-        this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  onChangeSelectedSupplier(supplier) {
-    runInAction(() => {
-      if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-        this.selectedSupplier = undefined
-      } else {
-        this.selectedSupplier = supplier
-      }
-    })
+    this.requestStatus = requestStatus
   }
 
   async onClickParseProductData(product) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
 
-      if (product.asin) {
-        const amazonResult = await ProductModel.parseAmazon(product.asin)
-        this.weightParserAmazon = amazonResult.weight || 0
-
-        if (!amazonResult.price) {
-          throw new Error('price <= 0')
-        }
-
-        runInAction(() => {
-          if (Object.keys(amazonResult).length > 5) {
-            // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            runInAction(() => {
-              this.product = {
-                ...this.product,
-                ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
-                weight:
-                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                    ? this.product.weight
-                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-
-                amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
-                amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
-                // fbafee: this.product.fbafee,
-              }
-            })
-
-            this.updateImagesForLoad(amazonResult.images)
-          }
-          updateProductAutoCalculatedFields.call(this)
-        })
-
-        const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, {
-          price: amazonResult.price,
-        })
-        this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
-
-        if (!sellerCentralResult.amazonFee) {
-          throw new Error('fbafee <= 0')
-        }
-
-        runInAction(() => {
-          if (Object.keys(sellerCentralResult).length > 5) {
-            // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            runInAction(() => {
-              this.product = {
-                ...this.product,
-                ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
-                weight:
-                  this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-                    ? this.product.weight
-                    : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-
-                amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
-                amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
-                // fbafee: this.product.fbafee,
-              }
-            })
-          }
-          updateProductAutoCalculatedFields.call(this)
-        })
-      } else {
+      if (!product.asin) {
         runInAction(() => {
           this.formFieldsValidationErrors = { ...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN']) }
         })
+        throw new Error(t(TranslationKey['No ASIN']))
       }
 
-      this.warningModalTitle = t(TranslationKey['Success parse'])
-      this.onTriggerOpenModal('showWarningModal')
-      this.setActionStatus(loadingStatuses.success)
+      const amazonResult = await ProductModel.parseAmazon(product.asin)
+      this.weightParserAmazon = amazonResult.weight || 0
+
+      if (!amazonResult.price) {
+        throw new Error('price <= 0')
+      }
+
+      runInAction(() => {
+        if (Object.keys(amazonResult).length > 5) {
+          this.product = {
+            ...this.product,
+            ...parseFieldsAdapter(amazonResult, ProductDataParser.AMAZON),
+            weight:
+              this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                ? this.product.weight
+                : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+            amazonDescription: amazonResult.info?.description || this.product.amazonDescription,
+            amazonDetail: amazonResult.info?.detail || this.product.amazonDetail,
+          }
+
+          this.imagesForLoad = amazonResult.images
+        }
+        updateProductAutoCalculatedFields.call(this)
+      })
+
+      const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, amazonResult.price)
+      this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
+
+      runInAction(() => {
+        if (Object.keys(sellerCentralResult).length > 5) {
+          this.product = {
+            ...this.product,
+            ...parseFieldsAdapter(sellerCentralResult, ProductDataParser.SELLCENTRAL),
+            weight:
+              this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
+                ? this.product.weight
+                : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
+
+            amazonDescription: sellerCentralResult.info?.description || this.product.amazonDescription,
+            amazonDetail: sellerCentralResult.info?.detail || this.product.amazonDetail,
+          }
+        }
+        updateProductAutoCalculatedFields.call(this)
+      })
+
+      toast.success(t(TranslationKey['Success parse']))
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
 
-      this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey['Parsing error']) + '\n' + String(error))
     }
   }
-
-  clearReadyImages() {
-    runInAction(() => {
-      this.readyImages = []
-    })
-  }
-
-  // async onClickParseProductData(productDataParser, product) {
-  //   try {
-  //     this.setActionStatus(loadingStatuses.isLoading)
-  //     runInAction(() => {
-  //       this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
-  //     })
-
-  //     if (product.asin) {
-  //       const parseResult = await (() => {
-  //         switch (productDataParser) {
-  //           case ProductDataParser.AMAZON:
-  //             return ProductModel.parseAmazon(product.asin)
-  //           case ProductDataParser.SELLCENTRAL:
-  //             return ProductModel.parseParseSellerCentral(product.asin)
-  //         }
-  //       })()
-
-  //       switch (productDataParser) {
-  //         case ProductDataParser.AMAZON:
-  //           this.weightParserAmazon = parseResult.weight || 0
-  //           break
-  //         case ProductDataParser.SELLCENTRAL:
-  //           this.weightParserSELLCENTRAL = parseResult.weight / poundsWeightCoefficient || 0
-  //           break
-  //       }
-
-  //       runInAction(() => {
-  //         if (Object.keys(parseResult).length > 5) {
-  //           // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-  //           runInAction(() => {
-  //             this.product = {
-  //               ...this.product,
-  //               ...parseFieldsAdapter(parseResult, productDataParser),
-  //               weight:
-  //                 this.product.weight > Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL)
-  //                   ? this.product.weight
-  //                   : Math.max(this.weightParserAmazon, this.weightParserSELLCENTRAL),
-
-  //               // Вернуть старый вариант парса
-  //               // weight:
-  //               //   this.product.weight > parseResult.weight * poundsWeightCoefficient
-  //               //     ? this.product.weight
-  //               //     : parseResult.weight * poundsWeightCoefficient,
-
-  //               amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-  //               amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-  //               fbafee: this.product.fbafee,
-  //             }
-  //           })
-  //         }
-  //         updateProductAutoCalculatedFields.call(this)
-  //       })
-  //     } else {
-  //       runInAction(() => {
-  //         this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
-  //       })
-  //     }
-
-  //     this.setActionStatus(loadingStatuses.success)
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     if (error.body && error.body.message) {
-  //       runInAction(() => {
-  //         this.error = error.body.message
-  //       })
-  //     }
-  //   }
-  // }
 }

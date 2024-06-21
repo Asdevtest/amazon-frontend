@@ -1,59 +1,50 @@
+import { observer } from 'mobx-react'
+import { useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { ClientTradingShopsViewModel } from './client-trading-shops-view.model'
+import { ButtonVariant } from '@typings/enums/button-style'
+
 import { styles } from './client-trading-shops-view.style'
+
+import { ClientTradingShopsViewModel } from './client-trading-shops-view.model'
 
 export const ClientTradingShopsViewRaw = props => {
   const [viewModel] = useState(() => new ClientTradingShopsViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   return (
-    <React.Fragment>
-      <MainContent>
+    <>
+      <div>
         <div>
-          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Trading Shops'])}</Typography>
+          <Typography className={styles.title}>{t(TranslationKey['Choose a section in Trading Shops'])}</Typography>
 
-          <div className={classNames.btnsWrapper}>
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickBuyShops}
-            >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['Buy store'])}</Typography>
+          <div className={styles.btnsWrapper}>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickBuyShops}>
+              <div className={styles.btnTextWrapper}>
+                <Typography className={styles.btnText}>{t(TranslationKey['Buy store'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickSellShops}
-            >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['Sell the store'])}</Typography>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickSellShops}>
+              <div className={styles.btnTextWrapper}>
+                <Typography className={styles.btnText}>{t(TranslationKey['Sell the store'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
           </div>
         </div>
-      </MainContent>
-    </React.Fragment>
+      </div>
+    </>
   )
 }
 

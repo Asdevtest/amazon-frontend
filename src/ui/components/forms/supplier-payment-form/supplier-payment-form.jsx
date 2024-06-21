@@ -1,69 +1,50 @@
-/* eslint-disable no-unused-vars */
-import { Box, Container, Link, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './supplier-payment-form.style'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { ButtonStyle } from '@typings/enums/button-style'
 
-export const SupplierPaymentForm = ({
-  item,
-  onClickSaveButton,
-  onCloseModal,
-  uploadedFiles,
-  editPaymentDetailsPhotos,
-}) => {
-  const { classes: classNames } = useClassNames()
+import { useStyles } from './supplier-payment-form.style'
 
-  const [files, setFiles] = useState(uploadedFiles || [])
+export const SupplierPaymentForm = memo(props => {
+  const { onCloseModal, editPaymentDetailsPhotos, setEditPaymentDetailsPhotos } = props
 
-  const [editPhotos, setEditPhotos] = useState(editPaymentDetailsPhotos || [])
+  const { classes: styles } = useStyles()
 
-  const onChangeDetailsPhotosToLoad = value => {
-    setEditPhotos(value)
-  }
+  const [files, setFiles] = useState([])
+
+  useEffect(() => {
+    if (editPaymentDetailsPhotos.length > 0) {
+      setFiles(editPaymentDetailsPhotos)
+    }
+  }, [editPaymentDetailsPhotos])
 
   return (
-    <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Add payment to supplier'])}</Typography>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{t(TranslationKey['Add payment to supplier'])}</p>
 
-      <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInput fullWidth images={files} setImages={setFiles} maxNumber={50 - item?.paymentDetails.length} />
-      </div>
-      {!!item?.paymentDetails.length && (
-        <PhotoAndFilesCarousel
-          isEditable
-          withoutMakeMainImage
-          small
-          width="400px"
-          files={item?.paymentDetails}
-          imagesForLoad={editPhotos}
-          onChangeImagesForLoad={onChangeDetailsPhotosToLoad}
-        />
-      )}
+      <UploadFilesInput images={files} setImages={setFiles} />
 
-      <Box className={classNames.saveBox}>
+      <diiv className={styles.buttons}>
         <Button
-          // disabled={!files.length}
-          className={classNames.actionButton}
+          fullWidth
+          styleType={ButtonStyle.SUCCESS}
           onClick={() => {
-            onClickSaveButton(files, editPhotos)
+            setEditPaymentDetailsPhotos(files)
             onCloseModal()
           }}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button className={classNames.actionButton} onClick={onCloseModal}>
+        <Button fullWidth styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
-      </Box>
-    </Container>
+      </diiv>
+    </div>
   )
-}
+})

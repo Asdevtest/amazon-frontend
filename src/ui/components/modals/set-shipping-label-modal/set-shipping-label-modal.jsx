@@ -1,62 +1,61 @@
-import { Box, Container, Link, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
-import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { Field } from '@components/shared/field/field'
+import { Button } from '@components/shared/button'
+import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { checkAndMakeAbsoluteUrl, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './set-shipping-label-modal.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const SetShippingLabelModal = ({ onClickSaveShippingLabel, onCloseModal, item, tmpShippingLabel }) => {
-  const { classes: classNames } = useClassNames()
+import { useStyles } from './set-shipping-label-modal.style'
 
-  const shippingLabel = getShortenStringIfLongerThanCount(item?.shippingLabel, 200, true) || ''
+export const SetShippingLabelModal = props => {
+  const { onClickSaveShippingLabel, onCloseModal, item, tmpShippingLabel, requestStatus } = props
 
-  const [files, setFiles] = useState(tmpShippingLabel?.length ? [...tmpShippingLabel] : [])
+  const { classes: styles } = useStyles()
+  const [files, setFiles] = useState([])
+
+  useEffect(() => {
+    if (tmpShippingLabel?.length > 0) {
+      setFiles(tmpShippingLabel)
+    }
+  }, [tmpShippingLabel])
+
+  const disabledSaveButton = requestStatus === loadingStatus.IS_LOADING || (!files.length && !tmpShippingLabel?.length)
 
   return (
-    <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Set Shipping Label'])}</Typography>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{t(TranslationKey['Set Shipping Label'])}</p>
 
       {item?.shippingLabel && (
-        <Box className={classNames.boxCode}>
-          <Field
-            label={t(TranslationKey['Shipping label'])}
-            inputComponent={
-              <div className={classNames.linkWrapper}>
-                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item?.shippingLabel)}>
-                  <Typography className={classNames.link}>{shippingLabel}</Typography>
-                </Link>
-                <CopyValue text={shippingLabel} />
-              </div>
-            }
-          />
-        </Box>
+        <LabelWithCopy
+          direction="column"
+          labelTitleSize="medium"
+          lableLinkTitleSize="medium"
+          labelTitle={t(TranslationKey['Shipping label'])}
+          labelValue={item?.shippingLabel}
+          lableLinkTitle={t(TranslationKey.View)}
+        />
       )}
 
-      <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInput images={files} setImages={setFiles} maxNumber={1} />
-      </div>
+      <UploadFilesInput images={files} setImages={setFiles} maxNumber={1} />
 
-      <Box className={classNames.saveBox}>
+      <div className={styles.buttons}>
         <Button
-          disabled={!files.length && !tmpShippingLabel?.length}
-          className={classNames.actionButton}
+          styleType={ButtonStyle.SUCCESS}
+          disabled={disabledSaveButton}
           onClick={() => onClickSaveShippingLabel(files)}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button className={classNames.actionButton} onClick={onCloseModal}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
-      </Box>
-    </Container>
+      </div>
+    </div>
   )
 }

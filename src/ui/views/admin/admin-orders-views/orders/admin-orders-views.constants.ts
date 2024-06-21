@@ -1,0 +1,16 @@
+export const filtersFields: string[] = [
+  'asin',
+  'skuByClient',
+  'amazonTitle',
+  'id',
+  'status',
+  'amount',
+  'client',
+  'storekeeper',
+  'buyer',
+  'partialPaymentAmountRmb',
+  'totalPrice',
+  'weight',
+  'createdAt',
+  'updatedAt',
+]

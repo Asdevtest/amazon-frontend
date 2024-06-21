@@ -1,9 +1,8 @@
-import { Avatar, Paper, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Paper, Typography } from '@mui/material'
 
 import { getWarehouseDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,20 +11,20 @@ import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
-import { MainContent } from '@components/layout/main-content'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { WarehouseDashboardViewModel } from './warehouse-dashboard-view.model'
 import { styles } from './warehouse-dashboard-view.style'
+
+import { WarehouseDashboardViewModel } from './warehouse-dashboard-view.model'
 
 export const WarehouseDashboardViewRaw = props => {
   const [viewModel] = useState(() => new WarehouseDashboardViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -38,30 +37,28 @@ export const WarehouseDashboardViewRaw = props => {
   }
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <Paper className={classNames.userInfoWrapper}>
-          <div className={classNames.userInfoLeftWrapper}>
-            <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
+    <>
+      <div>
+        <Paper className={styles.userInfoWrapper}>
+          <div className={styles.userInfoLeftWrapper}>
+            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
             <div>
-              <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
+              <DashboardBalance user={viewModel.userInfo} />
 
               {window.innerWidth >= 768 ? (
-                <div className={classNames.addressMainWrapper}>
+                <div className={styles.addressMainWrapper}>
                   {viewModel.storekeeperDestination ? (
-                    <div className={classNames.addressSubWrapper}>
-                      <Typography className={classNames.address}>
-                        {t(TranslationKey['Warehouse address']) + ':'}
-                      </Typography>
+                    <div className={styles.addressSubWrapper}>
+                      <Typography className={styles.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
 
                       <Typography
-                        className={classNames.addressMain}
+                        className={styles.addressMain}
                       >{`${viewModel.storekeeperDestination.name} : ${viewModel.storekeeperDestination.zipCode}, ${viewModel.storekeeperDestination.country}, ${viewModel.storekeeperDestination.state}, ${viewModel.storekeeperDestination.city}, ${viewModel.storekeeperDestination.address}`}</Typography>
                     </div>
                   ) : null}
 
-                  <Button className={classNames.editBtn} onClick={viewModel.onClickAddressBtn}>
+                  <Button className={styles.editBtn} onClick={viewModel.onClickAddressBtn}>
                     {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
                   </Button>
                 </div>
@@ -70,18 +67,18 @@ export const WarehouseDashboardViewRaw = props => {
           </div>
 
           {window.innerWidth < 768 ? (
-            <div className={classNames.addressMainWrapper}>
+            <div className={styles.addressMainWrapper}>
               {viewModel.storekeeperDestination ? (
-                <div className={classNames.addressSubWrapper}>
-                  <Typography className={classNames.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
+                <div className={styles.addressSubWrapper}>
+                  <Typography className={styles.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
 
                   <Typography
-                    className={classNames.addressMain}
+                    className={styles.addressMain}
                   >{`${viewModel.storekeeperDestination.name} : ${viewModel.storekeeperDestination.zipCode}, ${viewModel.storekeeperDestination.country}, ${viewModel.storekeeperDestination.state}, ${viewModel.storekeeperDestination.city}, ${viewModel.storekeeperDestination.address}`}</Typography>
                 </div>
               ) : null}
 
-              <Button className={classNames.editBtn} onClick={viewModel.onClickAddressBtn}>
+              <Button className={styles.editBtn} onClick={viewModel.onClickAddressBtn}>
                 {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
               </Button>
             </div>
@@ -90,7 +87,7 @@ export const WarehouseDashboardViewRaw = props => {
           <DashboardButtons user={viewModel.userInfo} routes={warhouseButtonsRoutes} />
 
           {viewModel.userInfo.masterUser && (
-            <div className={classNames.masterUserWrapper}>
+            <div className={styles.masterUserWrapper}>
               <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
 
               <UserLink
@@ -121,8 +118,8 @@ export const WarehouseDashboardViewRaw = props => {
             onEditSubmit={viewModel.onSubmitChangeDestination}
           />
         </Modal>
-      </MainContent>
-    </React.Fragment>
+      </div>
+    </>
   )
 }
 

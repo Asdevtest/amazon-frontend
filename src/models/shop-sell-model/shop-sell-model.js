@@ -1,24 +1,24 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ShopSellModelStatic {
-  createShopSell = async data => {
-    const response = await restApiService.shopSellApi.apiV1ShopSellPost({ body: data })
-    return response
+  createShopSell = async body => {
+    const response = await restApiService.shopSellApi.apiV1ShopSellPost({ body })
+    return response.data
   }
 
-  editShopSell = async (id, data) => {
-    const response = await restApiService.shopSellApi.apiV1ShopSellGuidPatch(id, { body: data })
-    return response
+  editShopSell = async (guid, body) => {
+    const response = await restApiService.shopSellApi.apiV1ShopSellGuidPatch({ guid, body })
+    return response.data
   }
 
   getShopSells = async () => {
     const response = await restApiService.shopSellApi.apiV1ShopSellGet()
-    return response
+    return response.data
   }
 
-  getShopSellById = async id => {
-    const response = await restApiService.shopSellApi.apiV1ShopSellGuidGet(id)
-    return response
+  getShopSellById = async guid => {
+    const response = await restApiService.shopSellApi.apiV1ShopSellGuidGet({ guid })
+    return response.data
   }
 }
 

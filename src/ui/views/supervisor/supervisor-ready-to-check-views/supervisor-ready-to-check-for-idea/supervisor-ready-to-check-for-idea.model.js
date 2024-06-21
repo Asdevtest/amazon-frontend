@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SupervisorModel } from '@models/supervisor-model'
 
@@ -8,19 +9,24 @@ import { depersonalizedPickColumns } from '@components/table/table-columns/deper
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SupervisorReadyToCheckForIdeaViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
 
-  showInfoModal = false
-
   selectedRowIds = []
 
   productsReadyToCheck = []
 
   isSupervisor = true
+
+  get currentData() {
+    return toJS(this.productsReadyToCheck)
+  }
 
   rowHandlers = {
     onPickUp: row => this.onClickTableRowBtn(row),
@@ -30,47 +36,31 @@ export class SupervisorReadyToCheckForIdeaViewModel {
   columnVisibilityModel = {}
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  getCurrentData() {
-    return toJS(this.productsReadyToCheck)
-  }
-
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
   }
 
   async loadData() {
     try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
-      })
       await this.getProductsReadyToCheck()
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.success
-      })
     } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
-      })
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getProductsReadyToCheck() {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const isCreatedByClient = true
 
       const result = await SupervisorModel.getProductsVacant(isCreatedByClient)
@@ -80,17 +70,15 @@ export class SupervisorReadyToCheckForIdeaViewModel {
           result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
         )
       })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       runInAction(() => {
         this.productsReadyToCheck = []
       })
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
     }
   }
 
@@ -105,15 +93,12 @@ export class SupervisorReadyToCheckForIdeaViewModel {
       runInAction(() => {
         this.selectedRowIds = []
       })
-      this.onTriggerOpenModal('showInfoModal')
+
+      toast.success(t(TranslationKey['Taken to Work']))
+
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -128,30 +113,15 @@ export class SupervisorReadyToCheckForIdeaViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

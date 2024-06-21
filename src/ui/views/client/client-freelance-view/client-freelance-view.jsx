@@ -1,72 +1,46 @@
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-import { Typography } from '@mui/material'
-
-import React, { useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { ClientFreelanceViewModel } from './client-freelance-view.model'
+import { ButtonVariant } from '@typings/enums/button-style'
+
 import { styles } from './client-freelance-view.style'
+
+import { ClientFreelanceViewModel } from './client-freelance-view.model'
 
 export const ClientFreelanceViewRaw = props => {
   const [viewModel] = useState(() => new ClientFreelanceViewModel({ history: props.history }))
-  const { classes: classNames } = props
+
+  const { classes: styles } = props
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div>
-          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Freelance'])}</Typography>
+    <>
+      <p className={styles.title}>{t(TranslationKey['Choose a section in Freelance'])}</p>
 
-          <div className={classNames.btnsWrapper}>
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickMyRequests}
-            >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['My requests'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
-
-            {/* <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickVacRequests}>
-                    <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Vacant requests'])}</Typography>
-                      <ArrowRightAltIcon color="primary" />
-                    </div>
-                  </Button> */}
-            {/* <Button className={classNames.button} color="primary" variant="outlined" onClick={viewModel.onClickMyProposals}>
-                    <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['My proposals'])}</Typography>
-                      <ArrowRightAltIcon color="primary" />
-                    </div>
-                  </Button> */}
-
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickServiceExchange}
-            >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['Service exchange'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
+      <div className={styles.btnsWrapper}>
+        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickServiceExchange}>
+          <div className={styles.btnTextWrapper}>
+            <p className={styles.btnText}>{t(TranslationKey['Service exchange'])}</p>
+            <ArrowRightAltIcon color="primary" />
           </div>
-        </div>
-      </MainContent>
-    </React.Fragment>
+        </Button>
+
+        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickMyRequests}>
+          <div className={styles.btnTextWrapper}>
+            <p className={styles.btnText}>{t(TranslationKey['My requests'])}</p>
+            <ArrowRightAltIcon color="primary" />
+          </div>
+        </Button>
+      </div>
+    </>
   )
 }
 

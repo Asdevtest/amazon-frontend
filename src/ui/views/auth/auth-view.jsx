@@ -1,26 +1,26 @@
-import { Typography } from '@mui/material'
-
+import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { AuthPageBanner } from '@components/auth/auth-page-banner'
 import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
+import { AuthPageBanner } from '@components/auth/auth-page-banner'
 import { AuthForm } from '@components/forms/auth-form'
 
 import { t } from '@utils/translations'
 
-import { AuthViewModel } from './auth-view.model'
-import { styles } from './auth-view.style'
+import { useStyles } from './auth-view.style'
 
-export const AuthViewRaw = props => {
-  const [viewModel] = useState(() => new AuthViewModel({ history: props.history }))
-  const { classes: classNames } = props
+import { AuthViewModel } from './auth-view.model'
+
+export const AuthView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new AuthViewModel({ history }))
 
   useEffect(() => {
     viewModel.onLoadPage()
@@ -31,17 +31,22 @@ export const AuthViewRaw = props => {
   }
 
   const onClickRedirect = () => {
-    props.history.push('/registration')
+    history.push('/registration')
   }
 
   return (
-    <div className={classNames.root}>
+    <div className={styles.root}>
       <AuthPageBanner />
 
       <AuthFormWrapper
         redirect={t(TranslationKey['Create account'])}
         title={t(TranslationKey['Sign in'])}
+        showConfirmModal={viewModel.showConfirmModal}
+        confirmModalSettings={viewModel.confirmModalSettings}
         onClickRedirect={onClickRedirect}
+        onClickThemeIcon={viewModel.onClickThemeIcon}
+        onToggleModal={viewModel.onToggleModal}
+        onClickVersion={viewModel.onClickVersion}
       >
         <AuthForm
           formFields={{
@@ -49,11 +54,12 @@ export const AuthViewRaw = props => {
             password: viewModel.password,
             remember: viewModel.remember,
           }}
+          disableLoginButton={viewModel.disableLoginButton}
           onChangeFormField={onChangeFormField}
           onSubmit={viewModel.onSubmitForm}
         />
         {SettingsModel.languageTag && (
-          <Typography className={classNames.error}>
+          <Typography className={styles.error}>
             {viewModel.error &&
               ((viewModel.error.body?.statusCode === 404 && t(TranslationKey['User not found'])) ||
                 (viewModel.error.body?.message === 'User blocked by administrator' &&
@@ -67,6 +73,4 @@ export const AuthViewRaw = props => {
       </AuthFormWrapper>
     </div>
   )
-}
-
-export const AuthView = withStyles(observer(AuthViewRaw), styles)
+})

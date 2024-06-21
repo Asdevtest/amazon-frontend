@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { mapProductStrategyStatusEnumToKey, ProductStrategyStatus } from '@constants/product/product-strategy-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { ProductStrategyStatus, mapProductStrategyStatusEnumToKey } from '@constants/product/product-strategy-status'
+import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { ShopModel } from '@models/shop-model'
@@ -9,16 +9,18 @@ import { UserModel } from '@models/user-model'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
+import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class ClientExchangePrivateLabelViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   productsVacant = []
   selectedProduct = {}
   shopsData = []
+  selectedShopId = ''
 
   productToPay = {}
   showConfirmPayModal = false
@@ -33,14 +35,14 @@ export class ClientExchangePrivateLabelViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await Promise.all([this.getProductsVacant(), this.getShops()])
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -59,12 +61,7 @@ export class ClientExchangePrivateLabelViewModel {
       runInAction(() => {
         this.productsVacant = []
       })
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -79,15 +76,10 @@ export class ClientExchangePrivateLabelViewModel {
         productId: product._id,
         images: [],
       }
-      await ClientModel.createOrder(createorderData)
+      await ClientModel.createOrder(getObjectFilteredByKeyArrayWhiteList(createorderData, createOrderRequestWhiteList))
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -98,30 +90,27 @@ export class ClientExchangePrivateLabelViewModel {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   async onSaveProductData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.updateProduct(
         this.productToPay._id,
         getObjectFilteredByKeyArrayBlackList(
           {
-            shopIds: this.selectedShops,
+            shopId: this.selectedShopId,
           },
           ['suppliers'],
         ),
       )
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log('error', error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -129,11 +118,11 @@ export class ClientExchangePrivateLabelViewModel {
     await UserModel.getUserInfo()
   }
 
-  async onClickBuyProductBtn(shops) {
+  async onClickBuyProductBtn(shop) {
     try {
       await ClientModel.makePayments([this.productToPay._id])
       runInAction(() => {
-        this.selectedShops = shops
+        this.selectedShopId = shop?._id
       })
 
       await this.onSaveProductData()
@@ -144,12 +133,7 @@ export class ClientExchangePrivateLabelViewModel {
       await this.updateUserInfo()
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 

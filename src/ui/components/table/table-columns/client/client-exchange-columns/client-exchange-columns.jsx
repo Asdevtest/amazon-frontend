@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -12,11 +10,13 @@ import {
   TagsCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
-import { Button } from '@components/shared/buttons/button'
+} from '@components/data-grid/data-grid-cells'
+import { Button } from '@components/shared/button'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const clientExchangeViewColumns = rowHandlers => [
   {
@@ -37,7 +37,7 @@ export const clientExchangeViewColumns = rowHandlers => [
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
 
-    width: 120,
+    width: 140,
   },
 
   {
@@ -128,7 +128,7 @@ export const clientExchangeViewColumns = rowHandlers => [
     width: 190,
     renderCell: params => (
       <Button
-        success
+        styleType={ButtonStyle.SUCCESS}
         width="100%"
         sx={{ height: '30px !important' }}
         onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}
@@ -145,6 +145,7 @@ export const clientExchangeViewColumns = rowHandlers => [
 
     width: 130,
     renderCell: params => <RedFlagsCell flags={params.row.originalData.redFlags} />,
+    sortable: false,
   },
 
   {

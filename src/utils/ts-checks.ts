@@ -1,10 +1,10 @@
 import {
   ChatMessageDataAddUsersToGroupChatContract,
   ChatMessageDataBloggerProposalResultEditedContract,
-  ChatMessageDataCreatedNewProposalProposalDescriptionContract,
-  ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataCreateNewBloggerProposalContract,
   ChatMessageDataCreateNewDesignerProposalContract,
+  ChatMessageDataCreatedNewProposalProposalDescriptionContract,
+  ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataDesignerProposalResultEditedContract,
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
@@ -57,6 +57,12 @@ export const checkIsChatMessagePatchInfoGroupChatContract = (
   value: ChatMessageContract,
 ): value is ChatMessageContract<ChatMessageRemovePatchInfoGroupChatContract> => {
   return value.type === ChatMessageType.SYSTEM && value.text === ChatMessageTextType.PATCH_INFO
+}
+
+export const checkIsChatMessageProposalEditedContract = (
+  value: ChatMessageContract,
+): value is ChatMessageContract<ChatMessageDataCreateNewBloggerProposalContract> => {
+  return value.type === ChatMessageType.SYSTEM && value.text === ChatMessageType.PROPOSAL_EDITED
 }
 
 export const checkIsChatMessageCreateNewBloggerProposalContract = (

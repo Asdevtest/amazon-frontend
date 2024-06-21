@@ -1,37 +1,34 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class WarehouseManagementViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   order = undefined
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-      if (location.state) {
-        this.order = location.state.order
-      }
-    })
+  constructor({ history }) {
+    this.history = history
+
+    if (history.location.state) {
+      this.order = history.location.state.order
+    }
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 }

@@ -1,10 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
     width: '700px',
+    padding: 10,
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       flexDirection: 'column',

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
@@ -8,14 +7,14 @@ import {
   clearEverythingExceptNumbers,
   clearSpecialCharacters,
   getFloatOrZero,
-  getFullTariffTextForBoxOrOrder,
   getModelNameWithotPostfix,
+  getNewTariffTextForBoxOrOrder,
   getShortenStringIfLongerThanCount,
   minsToTime,
+  secondsToTime,
   shortAsin,
-  shortenDocumentString,
   shortSku,
-  timeToDeadlineInHoursAndMins,
+  shortenDocumentString,
   toFixed,
   toFixedWithCm,
   toFixedWithDollarSign,
@@ -608,7 +607,7 @@ describe('Test minsToTime(mins)', () => {
   })
 })
 
-describe('Test getFullTariffTextForBoxOrOrder(box)', () => {
+describe('Test getNewTariffTextForBoxOrOrder(box)', () => {
   const validTestValue = [
     {
       enter: {
@@ -669,13 +668,13 @@ describe('Test getFullTariffTextForBoxOrOrder(box)', () => {
 
   validTestValue.forEach(value => {
     test('Valid prosp', () => {
-      expect(getFullTariffTextForBoxOrOrder(value.enter)).toBe(value.expect)
+      expect(getNewTariffTextForBoxOrOrder(value.enter)).toBe(value.expect)
     })
   })
 
   unvalidTestValue.forEach(value => {
     test('Unvalid props', () => {
-      expect(getFullTariffTextForBoxOrOrder(value.enter)).toBe(value.expect)
+      expect(getNewTariffTextForBoxOrOrder(value.enter)).toBe(value.expect)
     })
   })
 })
@@ -730,6 +729,53 @@ describe('Test shortAsin(value)', () => {
   unvalidTestValue.forEach(value => {
     test('Unvalid props', () => {
       expect(shortAsin(value.enter)).toBe(value.expect)
+    })
+  })
+})
+
+describe('Test secondsToTime(seconds)', () => {
+  const validTestValue = [
+    {
+      enter: 60,
+      expect: {
+        days: 0,
+        hours: 0,
+        minutes: 1,
+        seconds: 0,
+      },
+    },
+    {
+      enter: 120,
+      expect: {
+        days: 0,
+        hours: 0,
+        minutes: 2,
+        seconds: 0,
+      },
+    },
+    {
+      enter: 130,
+      expect: {
+        days: 0,
+        hours: 0,
+        minutes: 2,
+        seconds: 10,
+      },
+    },
+    {
+      enter: 13000,
+      expect: {
+        days: 0,
+        hours: 3,
+        minutes: 36,
+        seconds: 40,
+      },
+    },
+  ]
+
+  validTestValue.forEach(value => {
+    test('Valid prosp', () => {
+      expect(secondsToTime(value.enter)).toBe(value.expect)
     })
   })
 })

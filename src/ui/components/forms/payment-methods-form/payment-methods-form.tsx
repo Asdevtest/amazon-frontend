@@ -1,110 +1,87 @@
-/* eslint-disable no-unused-vars */
-import { Typography } from '@mui/material'
-
-import React, { FC, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+import { IPayment } from '@typings/shared/payment'
+
+import { useStyles } from './payment-methods-form.style'
+
 import { PaymentMethodCard } from './payment-method-card'
-import { useClassNames } from './payment-methods-form.style'
-
-interface PaymentMethod {
-  _id: string
-  title: string
-}
-
-interface Payments {
-  paymentDetails: string
-  paymentImages: Array<string>
-  paymentMethod: PaymentMethod
-  photosForLoad: Array<string>
-}
 
 interface PaymentMethodsFormProps {
-  payments: Array<Payments | PaymentMethod>
+  orderPayments: IPayment[]
+  allPayments: IPayment[]
+  onClickCancelButton: () => void
+  onClickSaveButton?: (payments: IPayment[]) => void
   readOnly?: boolean
-  onClickSaveButton?: (childStates: Array<Payments | PaymentMethod>) => void
-  onClickCancelButton?: () => void
 }
 
-export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = props => {
-  const { classes: classNames } = useClassNames()
+export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
+  const { orderPayments, allPayments, readOnly, onClickSaveButton, onClickCancelButton } = props
 
-  const { payments, readOnly, onClickSaveButton, onClickCancelButton } = props
+  const { classes: styles } = useStyles()
 
-  const [childStates, setChildStates] = useState(
-    payments
-      ?.sort((a, b) => {
-        const titleA = typeof a !== 'undefined' && 'paymentMethod' in a ? a.paymentMethod?.title : a?.title
-        const titleB = typeof b !== 'undefined' && 'paymentMethod' in b ? b.paymentMethod?.title : b?.title
-        return titleA?.localeCompare(titleB)
-      })
-      .sort((a, b) => {
-        if (
-          typeof a !== 'undefined' &&
-          'paymentMethod' in a &&
-          typeof b !== 'undefined' &&
-          'paymentMethod' in b &&
-          a.paymentMethod?._id &&
-          b.paymentMethod?._id
-        ) {
-          return 0
-        }
-        if (typeof a !== 'undefined' && 'paymentMethod' in a && a.paymentMethod?._id) {
-          return -1
-        }
-        if (typeof b !== 'undefined' && 'paymentMethod' in b && b.paymentMethod?._id) {
-          return 1
-        }
-        return 0
-      }) || [],
-  )
+  const [selectedPayments, setSelectedPayments] = useState<IPayment[]>(allPayments || [])
 
-  const handleChildStateChange = (index: number, newState: Payments) => {
-    const newChildStates = [...childStates]
-    newChildStates[index] = newState
+  useEffect(() => {
+    if (orderPayments?.length) {
+      const updatedPayments = allPayments
+        .map(payment => {
+          const foundPayment = orderPayments.find(
+            orderPayment => orderPayment?.paymentMethod?._id === payment?.paymentMethod?._id,
+          )
 
-    setChildStates(newChildStates)
+          return foundPayment ? { ...foundPayment, isChecked: true } : payment
+        })
+        .sort((a, b) => (a.isChecked === b.isChecked ? 0 : a.isChecked ? -1 : 1))
+
+      setSelectedPayments(updatedPayments)
+    } else {
+      setSelectedPayments(allPayments)
+    }
+  }, [orderPayments])
+
+  const handleSaveButton = () => {
+    const filteringSelectedPayments = selectedPayments.filter(selectedPayment => selectedPayment.isChecked)
+
+    onClickSaveButton ? onClickSaveButton(filteringSelectedPayments) : undefined
+    onClickCancelButton()
   }
 
   return (
-    <div className={classNames.root}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Select payment methods'])}</Typography>
-      <div className={classNames.modalCardsWrapper}>
-        {payments?.length ? (
-          payments.map((payment, paymentMethodIndex) => (
+    <div className={styles.root}>
+      <p className={styles.title}>{t(TranslationKey['Select payment methods'])}</p>
+
+      <div className={styles.payments}>
+        {selectedPayments?.length ? (
+          selectedPayments.map((payment, paymentMethodIndex) => (
             <PaymentMethodCard
               key={paymentMethodIndex}
               readOnly={readOnly}
               payment={payment}
-              onStateChange={(newState: Payments) => handleChildStateChange(paymentMethodIndex, newState)}
+              setSelectedPayments={setSelectedPayments}
             />
           ))
         ) : (
-          <>{t(TranslationKey.Missing)}</>
+          <p className={styles.title}>{t(TranslationKey.Missing)}</p>
         )}
       </div>
-      <div className={classNames.buttonsWrapper}>
+
+      <div className={styles.buttonsWrapper}>
         {!readOnly && (
-          <Button
-            success
-            className={classNames.actionButton}
-            onClick={() => {
-              !!onClickCancelButton && onClickCancelButton()
-              !!onClickSaveButton && onClickSaveButton(childStates)
-            }}
-          >
+          <Button styleType={ButtonStyle.SUCCESS} className={styles.actionButton} onClick={handleSaveButton}>
             {t(TranslationKey.Save)}
           </Button>
         )}
-        <Button className={classNames.actionButton} onClick={onClickCancelButton}>
+        <Button className={styles.actionButton} onClick={onClickCancelButton}>
           {readOnly ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
         </Button>
       </div>
     </div>
   )
-}
+})

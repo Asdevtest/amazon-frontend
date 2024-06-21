@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   table: {
     borderCollapse: 'collapse',
     border: 0,
@@ -27,7 +27,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '0 85px 0 65px',
-    zIndex: 999,
+    zIndex: 7,
     position: 'sticky',
     top: 0,
   },

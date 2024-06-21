@@ -1,14 +1,18 @@
+import { memo, useEffect } from 'react'
+
 import { Typography } from '@mui/material'
 
-import React, { useEffect } from 'react'
-
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
-import { useClassNames } from './success-info-modal.style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
-export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnText, onClickSuccessBtn }) => {
-  const { classes: classNames } = useClassNames()
+import { useStyles } from './success-info-modal.style'
+
+export const SuccessInfoModal = memo(props => {
+  const { openModal, setOpenModal, title, successBtnText, onClickSuccessBtn } = props
+
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     const listener = event => {
@@ -18,6 +22,7 @@ export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnTex
       }
     }
     document.addEventListener('keydown', listener)
+
     return () => {
       document.removeEventListener('keydown', listener)
     }
@@ -25,17 +30,15 @@ export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnTex
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={classNames.modalMessageWrapper}>
-        <Typography paragraph className={classNames.title}>
+      <div className={styles.modalMessageWrapper}>
+        <Typography paragraph className={styles.title}>
           {title}
         </Typography>
 
         <Button
-          success
-          disableElevation
+          styleType={ButtonStyle.SUCCESS}
           disabled={!openModal}
-          variant="contained"
-          className={classNames.button}
+          className={styles.button}
           onClick={onClickSuccessBtn}
         >
           {successBtnText}
@@ -43,4 +46,4 @@ export const SuccessInfoModal = ({ openModal, setOpenModal, title, successBtnTex
       </div>
     </Modal>
   )
-}
+})

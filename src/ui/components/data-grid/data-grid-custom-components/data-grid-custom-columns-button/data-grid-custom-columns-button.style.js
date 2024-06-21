@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainFilterBtn: {
     color: theme.palette.primary.main,
     border: 'none',
@@ -10,11 +9,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   mainFilterBtnInsert: {
     display: 'flex',
+    alignItems: 'center',
+    gap: 8,
   },
 
   mainFilterBtnInsertText: {
+    fontSize: 14,
     fontWeight: 600,
-    marginLeft: 5,
   },
 
   mainWrapper: {
@@ -44,7 +45,7 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'auto',
     textAlign: 'center',
 
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    boxShadow: theme.palette.boxShadow.filter,
   },
   shop: {
     display: 'flex',

@@ -1,12 +1,12 @@
-import { IsInt, IsString, IsNotEmpty, IsArray, IsOptional, IsNumber } from 'class-validator'
+import { IsArray, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator'
 
 import {
   ApiV1AdminsGetNotPaidProductsCreatedby,
   InlineResponse200,
+  InlineResponse201,
   InlineResponse2002,
   InlineResponse2006,
   InlineResponse2008,
-  InlineResponse201,
 } from '@services/rest-api-service/codegen/src'
 
 export class ClientProduct extends InlineResponse200 {}

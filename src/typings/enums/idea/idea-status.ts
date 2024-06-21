@@ -1,0 +1,12 @@
+export enum IdeaStatus {
+  NEW = 5,
+  ON_CHECK = 10,
+  SUPPLIER_SEARCH = 13,
+  SUPPLIER_FOUND = 14,
+  SUPPLIER_NOT_FOUND = 15,
+  CARD_CREATING = 16,
+  ADDING_ASIN = 18,
+  VERIFIED = 20,
+  REJECTED = 25,
+  CLOSED = 30,
+}

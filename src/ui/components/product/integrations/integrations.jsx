@@ -1,33 +1,26 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
-import { useHistory } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Button } from '@components/shared/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
+import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { IntegrationsModel } from './integrations.model'
-import { useClassNames } from './integrations.style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const Integrations = observer(({ productId }) => {
-  const { classes: classNames } = useClassNames()
-  const history = useHistory()
-  const model = useRef(new IntegrationsModel({ history, productId }))
+import { useStyles } from './integrations.style'
+
+import { IntegrationsModel } from './integrations.model'
+
+export const Integrations = observer(({ productId, modal, userRole }) => {
+  const { classes: styles, cx } = useStyles()
+  const model = useRef(new IntegrationsModel({ productId }))
 
   useEffect(() => {
     model.current.loadData()
@@ -40,9 +33,12 @@ export const Integrations = observer(({ productId }) => {
     getCurrentData,
     showBindInventoryGoodsToStockModal,
     showSuccessModal,
-    showInfoModal,
     requestStatus,
     columnsModel,
+    paginationModel,
+    columnVisibilityModel,
+    onPaginationModelChange,
+    onColumnVisibilityModelChange,
     onTriggerOpenModal,
     sellerBoardDailyData,
     getStockGoodsByFilters,
@@ -52,53 +48,46 @@ export const Integrations = observer(({ productId }) => {
     onUnlinkSkuSProduct,
   } = model.current
 
+  const isAdmin = checkIsAdmin(userRole)
+  const isDisabledUnlinkButton = isAdmin || !selectedRowIds.length
+
   return (
-    <div className={classNames.mainWrapper}>
-      {SettingsModel.languageTag && (
-        <div className={classNames.addProductBtnsWrapper}>
-          <Button onClick={onClickBindInventoryGoodsToStockBtn}>
-            {t(TranslationKey['Bind an product from Amazon'])}
-          </Button>
+    <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
+      <div className={styles.addProductBtnsWrapper}>
+        <Button disabled={isAdmin} onClick={onClickBindInventoryGoodsToStockBtn}>
+          {t(TranslationKey['Bind an product from Amazon'])}
+        </Button>
 
-          <Button disabled={!selectedRowIds.length} className={classNames.buttonOffset} onClick={onUnlinkSkuSProduct}>
-            {t(TranslationKey['Unlink an product from Amazon'])}
-          </Button>
-        </div>
-      )}
+        <Button disabled={isDisabledUnlinkButton} onClick={onUnlinkSkuSProduct}>
+          {t(TranslationKey['Unlink an product from Amazon'])}
+        </Button>
+      </div>
 
-      <MemoDataGrid
-        pagination
-        useResizeContainer
+      <CustomDataGrid
         checkboxSelection
-        // sx={{
-        //   border: 0,
-        //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-        //   backgroundColor: theme.palette.background.general,
-        // }}
-        localeText={getLocalizationByLanguageTag()}
-        classes={{
-          row: classNames.row,
-        }}
-        columnVisibilityModel={model.current.columnVisibilityModel}
-        pageSizeOptions={[15, 25, 50, 100]}
+        disableRowSelectionOnClick
+        columnVisibilityModel={columnVisibilityModel}
+        paginationModel={paginationModel}
         rows={getCurrentData()}
         rowHeight={100}
-        slots={{
-          toolbar: DataGridCustomToolbar,
-          columnMenuIcon: FilterAltOutlinedIcon,
-        }}
+        sortingMode="client"
+        paginationMode="client"
         slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
           toolbar: {
             columsBtnSettings: {
               columnsModel,
-              columnVisibilityModel: model.current.columnVisibilityModel,
-              onColumnVisibilityModelChange: model.current.onColumnVisibilityModelChange,
+              columnVisibilityModel,
+              onColumnVisibilityModelChange,
             },
           },
         }}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatus.IS_LOADING}
         rowSelectionModel={selectedRowIds}
+        onPaginationModelChange={onPaginationModelChange}
         onRowSelectionModelChange={onSelectionModel}
       />
 
@@ -114,25 +103,16 @@ export const Integrations = observer(({ productId }) => {
         />
       </Modal>
 
-      <SuccessInfoModal
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={successInfoModalText}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
-      />
-
-      <WarningInfoModal
-        openModal={showInfoModal}
-        setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-        title={t(TranslationKey["You can't bind"])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          onTriggerOpenModal('showInfoModal')
-        }}
-      />
+      {showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={successInfoModalText}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
     </div>
   )
 })

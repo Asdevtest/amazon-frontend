@@ -1,0 +1,25 @@
+export const filtersFields = [
+  'id',
+  'item',
+  'shopId',
+  'priority',
+  'asin',
+  'skuByClient',
+  'amazonTitle',
+  'status',
+  'amount',
+  'storekeeper',
+  'destination',
+  'productionTerm',
+  'deadline',
+  'needsResearch',
+  'totalPrice',
+  'clientComment',
+  'buyerComment',
+  'createdAt',
+  'updatedAt',
+  'minProductionTerm',
+  'maxProductionTerm',
+]
+
+export const fieldsForSearch = ['amazonTitle', 'id', 'asin', 'skuByClient', 'item']

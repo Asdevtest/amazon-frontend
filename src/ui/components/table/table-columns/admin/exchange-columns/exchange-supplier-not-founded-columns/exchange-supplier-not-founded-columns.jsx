@@ -1,15 +1,13 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ProductAsinCell,
-  NormDateCell,
-  UserLinkCell,
-  MultilineTextHeaderCell,
-  MultilineTextCell,
   MultilineStatusCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
+  ProductAsinCell,
+  UserLinkCell,
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -44,10 +42,10 @@ export const exchangeSupplierNotFoundedColumns = () => [
 
       return (
         <ProductAsinCell
-          image={product?.images?.slice()[0]}
+          image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
-          skusByClient={product?.skusByClient?.slice()[0]}
+          skuByClient={product?.skuByClient}
         />
       )
     },
@@ -96,8 +94,8 @@ export const exchangeSupplierNotFoundedColumns = () => [
 
   {
     field: 'buyer',
-    headerName: t(TranslationKey.Price),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
+    headerName: t(TranslationKey.Buyer),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
     width: 200,

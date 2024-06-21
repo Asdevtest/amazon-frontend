@@ -1,57 +1,35 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 35,
+export const useStyles = makeStyles()(() => ({
+  wrapper: {
     width: 485,
-    // minHeight: 345,
-  },
-
-  сommentsTitleWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-
-  сommentsTextWrapper: {
+    padding: 10,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'start',
-    gap: 15,
+    gap: 20,
+  },
 
+  title: {
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
+  },
+
+  сomments: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    gap: 10,
     maxHeight: 150,
     overflowY: 'auto',
-
-    whiteSpace: 'pre-line',
-    wordBreak: 'break-word',
   },
 
-  сommentsTitle: {
-    fontWeight: 600,
-    fontSize: 18,
-    lineHeight: '140%',
-  },
-
-  сommentsText: {
-    fontWeight: 400,
-    fontSize: 18,
-    lineHeight: '140%',
-
+  text: {
     whiteSpace: 'pre-wrap',
   },
 
-  buttonsWrapper: {
+  buttons: {
     display: 'flex',
-    justifyContent: 'center',
-  },
-
-  okButton: {
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-
-    padding: '0 25px',
+    justifyContent: 'flex-end',
   },
 }))

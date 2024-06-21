@@ -1,17 +1,15 @@
-/* eslint-disable no-unused-vars */
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import { Divider, Typography, Button } from '@mui/material'
-
-import React from 'react'
+import { Divider, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './left-panel.style'
+import { useStyles } from './left-panel.style'
+
 import { ProductParameters } from './product-parameters'
 
 export const LeftPanel = ({
@@ -25,35 +23,21 @@ export const LeftPanel = ({
   onClickBarcode,
   onDeleteBarcode,
 }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.orderContainer}>
-      <div className={classNames.product}>
-        <img alt="" className={classNames.productImg} src={getAmazonImageUrl(order.product.images[0])} />
+    <div className={styles.orderContainer}>
+      <div className={styles.product}>
+        <img alt="" className={styles.productImg} src={getAmazonImageUrl(order.product.images[0])} />
 
-        <div>
-          <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
-          <div className={classNames.copyValueWrapper}>
-            <Typography className={classNames.text}>
-              <span className={classNames.asinTypo}>{t(TranslationKey.ASIN) + ': '}</span> {order.product.asin}
-            </Typography>
-            {order.product.asin ? <CopyValue text={order.product.asin} /> : null}
-          </div>
-          <div className={classNames.copyValueWrapper}>
-            <Typography className={classNames.text}>
-              <span className={classNames.asinTypo}>{t(TranslationKey.SKU) + ': '}</span>{' '}
-              {order.product.skusByClient?.length ? order.product.skusByClient.join(',') : t(TranslationKey.Missing)}
-            </Typography>
-
-            {order.product?.skusByClient.slice()[0] ? <CopyValue text={order.product.skusByClient.slice()[0]} /> : null}
-          </div>
+        <div className={styles.productInfoWrapper}>
+          <Typography className={styles.amazonTitle}>
+            {getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}
+          </Typography>
+          <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order?.product?.asin} />
+          <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={order.product?.skuByClient} />
         </div>
       </div>
-
-      <Button className={classNames.documentsButton} variant="outlined" endIcon={<CloudUploadIcon fontSize="small" />}>
-        {t(TranslationKey.Documents)}
-      </Button>
 
       <ProductParameters
         isCanChange={isCanChange}
@@ -65,13 +49,13 @@ export const LeftPanel = ({
         onDeleteBarcode={onDeleteBarcode}
       />
 
-      <div className={classNames.collapsedWrapper} onClick={() => setCollapsed(!collapsed)}>
-        <Typography className={classNames.containerTitle}>
+      <div className={styles.collapsedWrapper} onClick={() => setCollapsed(!collapsed)}>
+        <Typography className={styles.containerTitle}>
           {!collapsed ? t(TranslationKey['All product parameters']) : t(TranslationKey.Collapse)}
         </Typography>
       </div>
-      <Divider orientation={'horizontal'} className={classNames.divider} />
-      {narrow && <Divider orientation={'horizontal'} className={classNames.lastDivider} />}
+      <Divider orientation={'horizontal'} className={styles.divider} />
+      {narrow && <Divider orientation={'horizontal'} className={styles.lastDivider} />}
     </div>
   )
 }

@@ -1,17 +1,15 @@
-import { cx } from '@emotion/css'
-import { Container, Divider, Grid, Typography } from '@mui/material'
-
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
+import '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './selection-supplier-modal.style'
+import { useStyles } from './selection-supplier-modal.style'
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT],
@@ -22,159 +20,64 @@ const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
 ]
 
-const selectedButtonValueConfig = {
-  ADD_NEW_SUPPLIER: 'ADD_NEW_SUPPLIER',
-  SEND_REQUEST: 'SEND_REQUEST',
-  SUPPLIER_TO_IDEAS: 'SUPPLIER_TO_IDEAS',
-}
-
 export const SelectionSupplierModal = ({
   product,
+  title,
   onCloseModal,
   onClickFinalAddSupplierButton,
   onSubmitSeekSupplier,
-  onClickSeekSupplierToIdea,
 }) => {
-  const [selectedButtonValue, setSelectedButtonValue] = useState('')
-  const [clickNextOrPrevButton, setClickNextOrPrevButton] = useState(false)
+  const [comment, setComment] = useState(product?.clientComment || '')
 
-  const [comment, setComment] = useState(product?.originalData.clientComment || '')
-
-  const { classes: classNames } = useClassNames()
-
-  const buttonSearchSupplierForIdeaClsx = cx(classNames.modalButton, classNames.searchSupplierForIdeaBtn, {
-    [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.SUPPLIER_TO_IDEAS,
-  })
-
-  const buttonSendRequestClsx = cx(classNames.modalButton, {
-    [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST,
-  })
-  const buttonAddSupplierClsx = cx(classNames.modalButton, {
-    [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.ADD_NEW_SUPPLIER,
-  })
-  const modalTitleClsx = cx(classNames.modalTitle, { [classNames.modalTitleChange]: clickNextOrPrevButton })
-
-  const onClickSearchSupplierForIdeaButton = () => {
-    setSelectedButtonValue(selectedButtonValueConfig.SUPPLIER_TO_IDEAS)
-  }
-
-  const onClickSendRequestButton = () => {
-    setSelectedButtonValue(selectedButtonValueConfig.SEND_REQUEST)
-  }
-
-  const onClickAddSupplierButton = () => {
-    setSelectedButtonValue(selectedButtonValueConfig.ADD_NEW_SUPPLIER)
-  }
-
-  const onClickNextButton = () => {
-    if (selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST) {
-      setClickNextOrPrevButton(true)
-
-      if (clickNextOrPrevButton) {
-        onSubmitSeekSupplier(comment)
-      }
-    }
-
-    if (selectedButtonValue === selectedButtonValueConfig.ADD_NEW_SUPPLIER) {
-      setClickNextOrPrevButton(false)
-      onCloseModal()
-      onClickFinalAddSupplierButton()
-    }
-
-    if (selectedButtonValue === selectedButtonValueConfig.SUPPLIER_TO_IDEAS) {
-      setClickNextOrPrevButton(false)
-      onCloseModal()
-      onClickSeekSupplierToIdea()
-    }
-  }
+  const { classes: styles } = useStyles()
 
   return (
-    <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={modalTitleClsx}>{t(TranslationKey['Find a supplier'])}</Typography>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{title || t(TranslationKey['Find a supplier'])}</p>
 
-      {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
-        <div>
-          <Field
-            multiline
-            label={t(TranslationKey['Update product comment:'])}
-            labelClasses={classNames.modalLabel}
-            minRows={6}
-            maxRows={6}
-            value={comment}
-            placeholder={t(TranslationKey.Comment) + '...'}
-            className={classNames.modalTextArea}
-            onChange={e => setComment(e.target.value)}
-          />
-        </div>
-      ) : (
-        <div className={classNames.btnsWrapper}>
-          <Typography className={classNames.subTitle}>{t(TranslationKey['Supplier for product idea'])}</Typography>
-          <div className={classNames.searchSupplierForIdeaButtonsWrapper}>
+      {onSubmitSeekSupplier ? (
+        <Field
+          multiline
+          disabled={product && !clientToEditStatuses.includes(product?.status)}
+          label={t(TranslationKey['Update product comment:'])}
+          minRows={6}
+          maxRows={6}
+          value={comment}
+          placeholder={t(TranslationKey.Comment) + '...'}
+          className={styles.comment}
+          containerClasses={styles.commentContainer}
+          onChange={e => setComment(e.target.value)}
+        />
+      ) : null}
+
+      <div className={styles.buttonsContainer}>
+        <p>{t(TranslationKey['Supplier for a product card'])}</p>
+
+        <div className={styles.buttons}>
+          {onSubmitSeekSupplier ? (
             <Button
               tooltipAttentionContent={t(TranslationKey['Paid service'])}
-              className={buttonSearchSupplierForIdeaClsx}
-              onClick={() => onClickSearchSupplierForIdeaButton()}
-            >
-              {t(TranslationKey['Send request for a supplier search for an idea'])}
-            </Button>
-          </div>
-
-          <Divider orientation="horizontal" className={classNames.divider} />
-
-          <Typography className={classNames.subTitle}>{t(TranslationKey['Supplier for a product card'])}</Typography>
-
-          <div className={classNames.modalButtonsWrapper}>
-            <Button
-              tooltipAttentionContent={t(TranslationKey['Paid service'])}
-              disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
-              className={buttonSendRequestClsx}
-              onClick={() => onClickSendRequestButton()}
+              disabled={product && !clientToEditStatuses.includes(product?.status)}
+              onClick={() => onSubmitSeekSupplier(comment)}
             >
               {t(TranslationKey['Send request for supplier search'])}
             </Button>
+          ) : null}
 
+          {onClickFinalAddSupplierButton ? (
             <Button
               tooltipAttentionContent={t(TranslationKey['Free service'])}
-              disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
-              className={buttonAddSupplierClsx}
-              onClick={() => onClickAddSupplierButton()}
+              disabled={product && !clientToEditStatuses.includes(product?.status)}
+              onClick={() => {
+                onCloseModal()
+                onClickFinalAddSupplierButton()
+              }}
             >
               {t(TranslationKey['Add a new supplier'])}
             </Button>
-          </div>
+          ) : null}
         </div>
-      )}
-
-      <Grid
-        container
-        spacing={2}
-        className={cx(classNames.modalButtonWrapper, {
-          [classNames.modalButtonNextStepWrapper]:
-            selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton,
-        })}
-      >
-        {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
-          <Grid item>
-            <Button className={classNames.modalButtonBack} onClick={() => setClickNextOrPrevButton(false)}>
-              {t(TranslationKey.Back)}
-            </Button>
-          </Grid>
-        ) : null}
-
-        <Grid item>
-          <Button
-            success
-            tooltipAttentionContent={
-              clickNextOrPrevButton && t(TranslationKey['Click next to calculate the cost of your supplier search'])
-            }
-            disabled={!selectedButtonValue}
-            className={classNames.modalButtonNext}
-            onClick={() => onClickNextButton()}
-          >
-            {t(TranslationKey.Next)}
-          </Button>
-        </Grid>
-      </Grid>
-    </Container>
+      </div>
+    </div>
   )
 }

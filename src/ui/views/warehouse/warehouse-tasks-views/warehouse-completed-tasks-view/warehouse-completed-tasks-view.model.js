@@ -1,39 +1,32 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 
 import { OtherModel } from '@models/other-model'
-import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { warehouseCompletedTasksViewColumns } from '@components/table/table-columns/warehouse/completed-tasks-columns'
 
 import { warehouseTasksDataConverter } from '@utils/data-grid-data-converters'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs } from '@utils/text'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class WarehouseCompletedViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   completedTasks = []
   completedTasksBase = []
   curOpenedTask = {}
 
-  currentData = []
   selectedTasks = []
 
   curTaskType = null
   curTaskPriority = null
-
-  rowCount = 0
-
-  volumeWeightCoefficient = undefined
 
   nameSearchValue = ''
 
@@ -41,6 +34,7 @@ export class WarehouseCompletedViewModel {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
 
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   paginationModel = { page: 0, pageSize: 15 }
@@ -50,25 +44,22 @@ export class WarehouseCompletedViewModel {
 
   showTaskInfoModal = false
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
-    makeAutoObservable(this, undefined, { autoBind: true })
+  get currentData() {
+    return this.completedTasks
+  }
 
-    reaction(
-      () => this.completedTasks,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
+  constructor({ history }) {
+    this.history = history
+
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
@@ -81,109 +72,90 @@ export class WarehouseCompletedViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_COMPLETED_TASKS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.WAREHOUSE_COMPLETED_TASKS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_COMPLETED_TASKS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.WAREHOUSE_COMPLETED_TASKS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getCompletedTasksPagMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getCompletedTasksPagMy()
   }
 
   onClickOperationTypeBtn(type) {
-    runInAction(() => {
-      this.curTaskType = type
-    })
+    this.curTaskType = type
+
     this.getCompletedTasksPagMy()
   }
 
   onClickTaskPriorityBtn(type) {
-    runInAction(() => {
-      this.curTaskPriority = type
-    })
+    this.curTaskPriority = type
+
     this.getCompletedTasksPagMy()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
     this.getCompletedTasksPagMy()
   }
 
-  getCurrentData() {
-    return toJS(this.completedTasks)
-  }
-
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedTasks = model
-    })
+    this.selectedTasks = model
   }
 
   onClickReportBtn() {
-    this.setRequestStatus(loadingStatuses.isLoading)
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     this.selectedTasks.forEach((el, index) => {
       const taskId = el
 
       OtherModel.getReportTaskByTaskId(taskId).then(() => {
         if (index === this.selectedTasks.length - 1) {
-          this.setRequestStatus(loadingStatuses.success)
+          this.setRequestStatus(loadingStatus.SUCCESS)
         }
       })
     })
   }
 
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getCompletedTasksPagMy()
+      this.getCompletedTasksPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getCompletedTasksPagMy() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const filter = objectToUrlQs({
         or: [
@@ -224,45 +196,38 @@ export class WarehouseCompletedViewModel {
           this.completedTasksBase.map(el => ({ ...el, beforeBoxes: el.boxesBefore })),
         )
       })
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       runInAction(() => {
         this.batches = []
         this.completedTasks = []
       })
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getCompletedTasksPagMy()
   }
 
   async setCurrentOpenedTask(item) {
     try {
-      const [task, platformSettings] = await Promise.all([
-        StorekeeperModel.getTaskById(item._id),
-        UserModel.getPlatformSettings(),
-      ])
+      const response = await StorekeeperModel.getTaskById(item._id)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = platformSettings.volumeWeightCoefficient
-
-        this.curOpenedTask = task
+        this.curOpenedTask = response
       })
+
       this.onTriggerOpenModal('showTaskInfoModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

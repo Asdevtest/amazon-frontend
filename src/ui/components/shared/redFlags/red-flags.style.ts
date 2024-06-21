@@ -1,16 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useRedFlagStyles = makeStyles()(theme => ({
-  saveBtn: {
-    padding: '0',
-    border: 'none',
-    background: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '15px',
-    cursor: 'pointer',
-    color: theme.palette.text.general,
-  },
+export const useRedFlagStyles = makeStyles()(() => ({
   flagIcon: {
     display: 'flex',
     justifyContent: 'center',
@@ -22,11 +12,5 @@ export const useRedFlagStyles = makeStyles()(theme => ({
       width: '100%',
       height: '100%',
     },
-  },
-
-  themeIcon: {
-    color: theme.palette.primary.main,
-    cursor: 'pointer',
-    transition: '0.3s ease',
   },
 }))

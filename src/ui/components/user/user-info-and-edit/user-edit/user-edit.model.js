@@ -4,19 +4,17 @@ import { AdministratorModel } from '@models/administrator-model'
 import { PermissionsModel } from '@models/permissions-model'
 import { UserModel } from '@models/user-model'
 
-import { adminGroupPermissionsColumns } from '@components/table/table-columns/admin/group-permissions-columns copy'
+import { userPermissionsColumns } from '@components/table/table-columns/admin/user-permissions-columns'
 
 export class UserEditModel {
   history = undefined
-  requestStatus = undefined
-  error = undefined
 
   checkValidationNameOrEmail = {}
   changeFields = { email: '', name: '', oldPassword: '', newPassword: '', confirmNewPassword: '' }
   editUserFormFields = undefined
 
   wrongPassword = null
-
+  specs = []
   userData = undefined
 
   submitEditData = undefined
@@ -50,7 +48,7 @@ export class UserEditModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = adminGroupPermissionsColumns(this.rowHandlers)
+  columnsModel = userPermissionsColumns(this.rowHandlers)
 
   constructor({ history, user }) {
     this.history = history
@@ -61,10 +59,7 @@ export class UserEditModel {
 
     reaction(
       () => this.userId,
-      () =>
-        runInAction(() => {
-          this.loadData()
-        }),
+      () => this.loadData(),
     )
   }
 
@@ -72,12 +67,13 @@ export class UserEditModel {
     try {
       await AdministratorModel.updateUser(this.userData._id, this.submitEditData)
 
-      this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+      runInAction(() => {
+        this.changeFields = { email: '', name: '' }
+      })
 
-      this.changeFields = { email: '', name: '' }
+      this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     } catch (error) {
-      console.log(error)
-      this.error = error?.body?.message || error
+      console.error(error)
     }
   }
 
@@ -85,10 +81,11 @@ export class UserEditModel {
     try {
       const result = await AdministratorModel.getUsersById(this.userId)
 
-      this.userData = result
+      runInAction(() => {
+        this.userData = result
+      })
     } catch (error) {
-      console.log(error)
-      this.error = error?.body?.message || error
+      console.error(error)
     }
   }
 
@@ -99,7 +96,6 @@ export class UserEditModel {
 
   async submitEditUserForm(data, sourceData) {
     try {
-      this.error = undefined
       this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
         name: this.changeFields.name,
         email: this.changeFields.email,
@@ -124,8 +120,7 @@ export class UserEditModel {
         await this.finalStepSubmitEditUserForm()
       }
     } catch (error) {
-      console.log(error)
-      this.error = error?.body?.message || error
+      console.error(error)
     }
   }
 
@@ -146,7 +141,7 @@ export class UserEditModel {
       })
     } catch (error) {
       this.groupPermissions = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -159,19 +154,34 @@ export class UserEditModel {
       })
     } catch (error) {
       this.singlePermissions = []
-      console.log(error)
+      console.error(error)
     }
   }
 
-  async loadData() {
+  loadData() {
     try {
-      await Promise.all([this.getUserData(), this.getGroupPermissions(), this.getSinglePermissions()])
+      this.getUserData()
+      this.getGroupPermissions()
+      this.getSinglePermissions()
+      this.getSpecs()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
+  }
+
+  async getSpecs() {
+    try {
+      const response = await UserModel.getSpecs(false)
+
+      runInAction(() => {
+        this.specs = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

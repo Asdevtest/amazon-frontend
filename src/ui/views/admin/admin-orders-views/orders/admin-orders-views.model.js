@@ -1,34 +1,29 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
 import { ActiveSubCategoryTablesKeys } from '@constants/table/active-sub-category-tables-keys'
+import {
+  AdminOrdersStatusesCategories,
+  adminOrdersStatusesByCategory,
+} from '@constants/table/tables-filter-btns-configs'
 
 import { AdministratorModel } from '@models/administrator-model'
+import { GeneralModel } from '@models/general-model'
 import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { adminOrdersViewColumns } from '@components/table/table-columns/admin/orders-columns'
 
-import { adminOrdersDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-const ordersStatusBySubCategory = {
-  0: OrderStatusByKey[OrderStatus.READY_TO_PROCESS],
-  1: OrderStatusByKey[OrderStatus.AT_PROCESS],
-  2: OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
-  3: OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
-  4: OrderStatusByKey[OrderStatus.IN_STOCK],
-  5: OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
-  6: OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
-  7: OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
-  8: OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
-}
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { filtersFields } from './admin-orders-views.constants'
 
 export class AdminOrdersAllViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   nameSearchValue = ''
 
@@ -37,11 +32,9 @@ export class AdminOrdersAllViewModel {
 
   currentData = []
 
-  baseNoConvertedOrders = []
-
   rowSelectionModel = undefined
 
-  activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_ORDERS] || 0
+  activeSubCategory = AdminOrdersStatusesCategories.all
 
   sortModel = []
   filterModel = { items: [] }
@@ -49,12 +42,26 @@ export class AdminOrdersAllViewModel {
   columnsModel = adminOrdersViewColumns()
 
   paginationModel = { page: 0, pageSize: 15 }
+  rowsCount = 0
   columnVisibilityModel = {}
 
+  columnMenuSettings = {
+    onClickFilterBtn: field => this.onClickFilterBtn(field),
+    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
+    onClickAccept: () => {
+      this.onLeaveColumnField()
+      this.getOrdersByStatus()
+      this.getDataGridState()
+    },
+
+    filterRequestStatus: undefined,
+
+    ...dataGridFiltersInitializer(filtersFields),
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
@@ -67,46 +74,21 @@ export class AdminOrdersAllViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
 
-    if (this.nameSearchValue) {
-      runInAction(() => {
-        this.currentOrdersData = this.orderData.filter(
-          item =>
-            item.originalData.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            item.originalData.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-            item.originalData.product.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-        )
-      })
-    } else {
-      runInAction(() => {
-        this.currentOrdersData = this.orderData
-      })
-    }
+    this.getOrdersByStatus()
   }
 
-  onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
-  }
-
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
-    this.setDataGridState()
+    this.getOrdersByStatus()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -122,82 +104,162 @@ export class AdminOrdersAllViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_ORDERS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_ORDERS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_ORDERS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_ORDERS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onClickTableRow(order) {
-    this.history.push({
-      pathname: '/admin/orders/order',
-      search: order.originalData._id,
-    })
+    const url = `/admin/orders/order?orderId=${order._id}`
+
+    const newTab = window.open(`${url}`, '_blank')
+    newTab.focus()
   }
 
   onChangeSubCategory(value) {
     this.setActiveSubCategoryState(value)
-    runInAction(() => {
-      this.activeSubCategory = value
-    })
-    this.getOrdersByStatus(value)
+
+    this.activeSubCategory = value
+
+    this.getOrdersByStatus()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
-  async getOrdersByStatus(activeSubCategory) {
+  async getOrdersByStatus() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(() => {
-        this.error = undefined
-      })
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       this.getDataGridState()
-      const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
 
-      runInAction(() => {
-        this.baseNoConvertedOrders = result
+      const result = await AdministratorModel.getOrdersPag({
+        status: adminOrdersStatusesByCategory[this.activeSubCategory].join(),
 
-        this.orderData = adminOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-        this.currentOrdersData = adminOrdersDataConverter(result).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
+        limit: this.paginationModel.pageSize,
+        offset: this.paginationModel.page * this.paginationModel.pageSize,
+
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
+
+        filters: this.getFilters(),
       })
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+
       runInAction(() => {
-        this.error = error
+        this.rowsCount = result.count
+        this.currentOrdersData = result.rows
+      })
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+
+      runInAction(() => {
         this.currentOrdersData = []
       })
     }
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
+    this.getOrdersByStatus()
+  }
+
+  // * Filtration
+
+  getFilters(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'asin',
+        'skuByClient',
+        'amazonTitle',
+      ]),
+    )
+  }
+
+  get isSomeFilterOn() {
+    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  onChangeFilterModel(model) {
+    this.filterModel = model
+
+    this.setDataGridState()
+    this.getOrdersByStatus()
+  }
+
+  onClickResetFilters() {
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      ...dataGridFiltersInitializer(filtersFields),
+    }
+
+    this.getOrdersByStatus()
+    this.getDataGridState()
+  }
+
+  setFilterRequestStatus(requestStatus) {
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      filterRequestStatus: requestStatus,
+    }
+  }
+
+  onLeaveColumnField() {
+    this.onHover = null
+  }
+
+  async onClickFilterBtn(column) {
+    try {
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
+
+      const filters = this.getFilters(column)
+      const data = await GeneralModel.getDataForColumn(
+        getTableByColumn(column, 'orders'),
+        column,
+
+        `admins/orders/pag?filters=${filters}&status=${adminOrdersStatusesByCategory[this.activeSubCategory].join()}`,
+      )
+
+      if (this.columnMenuSettings[column]) {
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
+      }
+
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      this.setFilterRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+    }
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 }

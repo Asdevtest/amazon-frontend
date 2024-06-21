@@ -1,50 +1,41 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { FeedbackModel } from '@models/feedback-model'
 import { OtherModel } from '@models/other-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { vacByUserIdExchangeColumns } from '@components/table/table-columns/product/vac-by-user-id-exchange-columns'
 
+import { checkIsFreelancer } from '@utils/checks'
 import { clientProductsDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { dataURLtoFile } from '@utils/upload-files'
 
-export class ProfileViewModel {
-  history = undefined
-  requestStatus = undefined
-  error = undefined
+import { loadingStatus } from '@typings/enums/loading-status'
 
-  get user() {
-    return UserModel.userInfo
-  }
+export class ProfileViewModel {
+  requestStatus = undefined
 
   showAvatarEditModal = false
   showUserInfoModal = false
+  showTabModal = false
+  showConfirmWorkResultFormModal = false
 
-  checkValidationNameOrEmail = {}
-
+  checkValidationNameOrEmail = undefined
   productsVacant = []
-
   isUniqueProfileData = true
   wrongPassword = undefined
-
-  warningInfoModalTitle = ''
-
-  productList = []
-  tabExchange = 0
   tabHistory = 0
-  tabReview = 0
   selectedUser = undefined
-  showTabModal = false
-  showInfoModal = false
-
+  reviews = []
   headerInfoData = {
     investorsCount: 255,
     goodsFound: 875,
@@ -55,19 +46,25 @@ export class ProfileViewModel {
     youBlocked: 14,
     accountCreateAt: 11,
   }
+  activeSessions = []
+  userInfoEditFormFlag = true
 
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel = vacByUserIdExchangeColumns()
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
+  get currentData() {
+    return this.productsVacant
+  }
+
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -79,77 +76,64 @@ export class ProfileViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.PROFILE_VAC_PRODUCTS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
-
+    this.filterModel = model
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
+  onPaginationModelChange(model) {
+    this.paginationModel = model
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
     this.setDataGridState()
   }
+
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
-
+    this.sortModel = sortModel
     this.setDataGridState()
-  }
-
-  getCurrentData() {
-    return toJS(this.productsVacant)
   }
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.getDataGridState()
-      await this.getProductsVacant()
-      this.setRequestStatus(loadingStatuses.success)
+      await this.getReviews()
+
+      if (!checkIsFreelancer(UserRoleCodeMap[UserModel.userInfo.role])) {
+        await this.getProductsVacant()
+      }
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   async getProductsVacant() {
     try {
-      const result = await ProductModel.getVacProductByUserId(this.user._id)
+      const result = await ProductModel.getVacProductByUserId(this.userInfo._id)
 
       runInAction(() => {
         this.productsVacant = clientProductsDataConverter(result).sort(
@@ -157,79 +141,36 @@ export class ProfileViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productsVacant = []
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
       })
     }
   }
 
-  onClickChangeAvatar() {
-    this.onTriggerOpenModal('showAvatarEditModal')
-  }
-
-  onClickChangeUserInfo() {
-    this.onTriggerOpenModal('showUserInfoModal')
-  }
-
-  // async onSubmitUserInfoEdit(data) {
-  //   try {
-  //     this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
-  //       name: data.name,
-  //       email: data.email,
-  //     })
-
-  //     if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
-  //       return
-  //     } else {
-  //       await UserModel.changeUserInfo(data)
-
-  //       await UserModel.getUserInfo()
-
-  //       this.onTriggerOpenModal('showUserInfoModal')
-  //     }
-  //   } catch (error) {
-  //     runInAction(() => {
-  //       this.error = error
-  //     })
-  //   }
-  // }
-
   async onSubmitUserInfoEdit(data) {
     try {
       if (data) {
-        // const [isUniqueProfileData] = await Promise.all([
-        //   this.changeUserNameOrEmail(data),
-        //   this.changeUserPassword(data),
-        // ])
-
         const { name, email, oldPassword, newPassword } = data
 
         if (name || email) {
           await this.changeUserNameOrEmail(data)
         }
 
-        if (oldPassword || newPassword) {
+        if (oldPassword && newPassword) {
           await this.changeUserPassword(data)
         }
 
         if (!this.wrongPassword && this.isUniqueProfileData) {
           this.onTriggerOpenModal('showUserInfoModal')
-          this.warningInfoModalTitle = t(TranslationKey['Data was successfully saved'])
-          this.onTriggerOpenModal('showInfoModal')
-        }
 
-        this.loadData()
+          toast.success(t(TranslationKey['Data was successfully saved']))
+        }
       } else {
         return
       }
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
@@ -241,8 +182,6 @@ export class ProfileViewModel {
 
   async changeUserPassword(data) {
     try {
-      this.error = undefined
-
       await UserModel.changeUserPassword({
         oldPassword: data.oldPassword,
         newPassword: data.password,
@@ -251,11 +190,8 @@ export class ProfileViewModel {
       await UserModel.getUserInfo()
     } catch (error) {
       runInAction(() => {
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
-        if (this.error === 'Wrong password') {
-          this.wrongPassword = this.error
+        if (error.body && error.body.message === 'Wrong password') {
+          this.wrongPassword = error.body.message
         }
       })
     }
@@ -285,14 +221,12 @@ export class ProfileViewModel {
         })
       }
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   async onSubmitAvatarEdit(imageData) {
-    const file = dataURLtoFile(imageData, this.user._id)
+    const file = dataURLtoFile(imageData, this.userInfo._id)
 
     const formData = new FormData()
     formData.append('filename', file)
@@ -302,52 +236,85 @@ export class ProfileViewModel {
 
       this.onTriggerOpenModal('showAvatarEditModal')
 
-      this.warningInfoModalTitle = t(
-        TranslationKey['The avatar has been uploaded. The update will take place within a few minutes.'],
-      )
-
-      this.onTriggerOpenModal('showInfoModal')
+      toast.success(t(TranslationKey['The avatar has been uploaded. The update will take place within a few minutes.']))
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
-  onTriggerShowTabModal() {
-    runInAction(() => {
-      this.showTabModal = !this.showTabModal
-    })
-  }
-
-  onChangeTabReview(e, value) {
-    runInAction(() => {
-      this.tabReview = value
-    })
-  }
-
-  onChangeTabHistory(e, value) {
-    runInAction(() => {
-      this.tabHistory = value
-    })
-  }
-
-  onChangeTabExchange(e, value) {
-    runInAction(() => {
-      this.tabExchange = value
-    })
+  onChangeTabHistory(value) {
+    this.tabHistory = value
   }
 
   onClickButtonPrivateLabel(item) {
-    runInAction(() => {
-      this.selectedUser = item
-    })
-    this.onTriggerShowTabModal()
+    this.selectedUser = item
+    this.onTriggerOpenModal('showTabModal')
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
+    this[modal] = !this[modal]
+  }
+
+  resetProfileDataValidation() {
+    this.checkValidationNameOrEmail = undefined
+  }
+
+  async getReviews() {
+    try {
+      const result = await FeedbackModel.getMyFeedback()
+
+      runInAction(() => {
+        this.reviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onAcceptReview(review) {
+    await FeedbackModel.sendFeedback(this.userInfo._id, {
+      rating: review.rating,
+      comment: review.review,
     })
+    await this.getReviews()
+    this.onTriggerOpenModal('showConfirmWorkResultFormModal')
+  }
+
+  async getActiveSessions() {
+    try {
+      const responce = await UserModel.getActiveSessions()
+
+      runInAction(() => {
+        this.activeSessions = responce
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async logoutSession(sessionCreatedAt) {
+    try {
+      await UserModel.logoutSession(sessionCreatedAt)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onToggleUserInfoEditFormFlag() {
+    this.onTriggerOpenModal('userInfoEditFormFlag')
+
+    if (!this.userInfoEditFormFlag) {
+      this.getActiveSessions()
+    }
+  }
+
+  async onLogoutSession(sessionCreatedAt) {
+    await this.logoutSession(sessionCreatedAt)
+
+    await this.getActiveSessions()
+  }
+
+  onTriggerEnterInformation() {
+    this.userInfoEditFormFlag = true
   }
 }

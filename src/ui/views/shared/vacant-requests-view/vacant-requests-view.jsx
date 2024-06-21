@@ -1,267 +1,170 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Box, Typography } from '@mui/material'
 
-import React, { Component, useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
-import {
-  freelanceRequestType,
-  freelanceRequestTypeByCode,
-  freelanceRequestTypeByKey,
-  freelanceRequestTypeTranslate,
-} from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
+import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VacantRequestListCard } from '@components/cards/vacant-request-list-card'
 import { VacantRequestShortCard } from '@components/cards/vacant-request-short-card'
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
-import { Button } from '@components/shared/buttons/button/button'
-import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { FreelanceRequestDetailsModal } from '@components/modals/freelance-request-details-modal'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomPageSwitcher } from '@components/shared/custom-page-switcher'
 import { SearchInput } from '@components/shared/search-input'
-import { ViewCartsBlock, ViewCartsLine, ViewCartsTable } from '@components/shared/svg-icons'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
+import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
-import { checkIsFreelancer } from '@utils/checks'
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
-import {
-  getDistanceBetweenDatesInSeconds,
-  sortObjectsArrayByFiledDateWithParseISO,
-  sortObjectsArrayByFiledDateWithParseISOAsc,
-} from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { VacantRequestsViewModel } from './vacant-requests-view.model'
-import { styles } from './vacant-requests-view.style'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const VacantRequestsViewRaw = props => {
-  const [viewModel] = useState(() => new VacantRequestsViewModel({ history: props.history, location: props.location }))
-  const { classes: classNames } = props
+import { useStyles } from './vacant-requests-view.style'
+
+import { VacantRequestsViewModel } from './vacant-requests-view.model'
+
+export const VacantRequestsView = observer(({ history }) => {
+  const { classes: styles, cx } = useStyles()
+  const [viewModel] = useState(() => new VacantRequestsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
-  const whiteList =
-    !!viewModel.userInfo && checkIsFreelancer(viewModel.userRole)
-      ? [
-          String(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]),
-          ...(viewModel.userInfo?.allowedSpec?.map(spec => spec && String(spec)) || []),
-        ]
-      : Object.keys(freelanceRequestTypeByCode)
-
-  const getSortedData = mode => {
-    switch (mode) {
-      case tableSortMode.DESK:
-        return viewModel.currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
-
-      case tableSortMode.ASC:
-        return viewModel.currentData.slice().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
-    }
-  }
-
-  const dataToRender = getSortedData(viewModel.sortMode)
-
   const getRowClassName = params => {
-    if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 86400) {
-      return classNames.redBorder
-    } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= 172800) {
-      return classNames.yellowBorder
+    if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= ONE_DAY_IN_SECONDS) {
+      return [styles.deadlineBorder, styles.redBorder]
+    } else if (getDistanceBetweenDatesInSeconds(params.row.timeoutAt) <= ONE_DAY_IN_SECONDS * 2) {
+      return [styles.deadlineBorder, styles.yellowBorder]
     }
   }
-
-  console.log('viewModel.currentData', viewModel.currentData)
+  const isListPosition = viewModel.viewMode === tableViewMode.LIST
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.taskTypeWrapper}>
-            {Object.keys({
-              ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-              // freelanceRequestTypeByCode
-            }).map((taskType, taskIndex) => (
-              <Button
-                key={taskIndex}
-                variant="text"
-                disabled={taskType === viewModel.selectedTaskType}
-                className={cx(classNames.button, {
-                  [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                })}
-                onClick={() => viewModel.onClickTaskType(taskType)}
-              >
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-              </Button>
-            ))}
-          </div>
+    <>
+      <div className={styles.tablePanelWrapper}>
+        <FreelanceTypeTaskSelect
+          selectedSpec={viewModel.selectedSpec}
+          specs={viewModel.userInfo?.allowedSpec}
+          onClickSpec={viewModel.onClickSpec}
+        />
 
-          <SearchInput
-            placeholder={t(TranslationKey['Search by Title, ASIN, ID'])}
-            inputClasses={classNames.searchInput}
-            value={viewModel.nameSearchValue}
-            onSubmit={viewModel.onSearchSubmit}
-          />
+        <SearchInput
+          placeholder={t(TranslationKey['Search by Title, ASIN, SKU, ID'])}
+          inputClasses={styles.searchInput}
+          value={viewModel.nameSearchValue}
+          onSubmit={viewModel.onSearchSubmit}
+        />
 
-          <div className={classNames.tablePanelSubWrapper}>
-            <div className={classNames.tablePanelViewWrapper}>
-              <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
-                <ToggleBtnFreelancer value={tableViewMode.TABLE} disabled={viewModel.viewMode === tableViewMode.TABLE}>
-                  <ViewCartsTable
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.TABLE,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-                <ToggleBtnFreelancer
-                  value={tableViewMode.BLOCKS}
-                  disabled={viewModel.viewMode === tableViewMode.BLOCKS}
-                >
-                  <ViewCartsBlock
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.BLOCKS,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-                <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewModel.viewMode === tableViewMode.LIST}>
-                  <ViewCartsLine
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.LIST,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-              </ToggleBtnGroupFreelance>
-            </div>
+        <ViewCardsSelect withTabelView viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
+      </div>
 
-            {viewModel.viewMode !== tableViewMode.TABLE && (
-              <div className={classNames.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-                <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
-
-                {viewModel.sortMode === tableSortMode.DESK ? (
-                  <ArrowDropDownIcon color="primary" />
-                ) : (
-                  <ArrowDropUpIcon color="primary" />
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {viewModel.viewMode !== tableViewMode.TABLE ? (
-          <Box
-            container
-            classes={{ root: classNames.dashboardCardWrapper }}
-            display="grid"
-            gridTemplateColumns={
-              viewModel.viewMode === tableViewMode.LIST
-                ? 'repeat(auto-fill, minmax(100%, 1fr))'
-                : viewModel.viewMode === tableViewMode.BLOCKS
-                ? 'repeat(auto-fill, minmax(297px, 1fr))'
-                : 'repeat(auto-fill, 100%'
-            }
-            gap={'35px'}
-          >
-            {dataToRender?.map((item, index) =>
-              viewModel.viewMode === tableViewMode.LIST ? (
-                <VacantRequestListCard
-                  key={item._id}
-                  isFirst={index === 0}
-                  item={item}
-                  onClickViewMore={viewModel.onClickViewMore}
-                />
-              ) : (
-                <VacantRequestShortCard
-                  key={item._id}
-                  isFirst={index === 0}
-                  item={item}
-                  onClickViewMore={viewModel.onClickViewMore}
-                />
-              ),
-            )}
-          </Box>
-        ) : viewModel.viewMode === tableViewMode.TABLE ? (
-          <div className={classNames.dataGridWrapper}>
-            <MemoDataGrid
-              disableVirtualization
-              pagination
-              useResizeContainer
-              localeText={getLocalizationByLanguageTag()}
-              classes={{
-                row: classNames.row,
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-
-                iconSeparator: classNames.iconSeparator,
-                columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-                columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-              }}
-              sortingMode="server"
-              paginationMode="server"
+      <div className={styles.tablePanelSubWrapper}>
+        {viewModel.viewMode !== tableViewMode.TABLE && (
+          <>
+            <CustomPageSwitcher
               rowCount={viewModel.rowCount}
-              sortModel={viewModel.sortModel}
-              filterModel={viewModel.filterModel}
-              columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
-              pageSizeOptions={[15, 25, 50, 100]}
-              rows={viewModel.currentData}
-              rowHeight={75}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-                columnMenu: DataGridCustomColumnMenuComponent,
-              }}
-              slotProps={{
-                columnMenu: viewModel.columnMenuSettings,
-
-                toolbar: {
-                  resetFiltersBtnSettings: {
-                    onClickResetFilters: viewModel.onClickResetFilters,
-                    isSomeFilterOn: viewModel.onClickResetFilters,
-                  },
-                  columsBtnSettings: {
-                    columnsModel: viewModel.columnsModel,
-                    columnVisibilityModel: viewModel.columnVisibilityModel,
-                    onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                  },
-                },
-              }}
-              columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.isLoading}
-              getRowClassName={getRowClassName}
-              onSortModelChange={viewModel.onChangeSortingModel}
-              onFilterModelChange={viewModel.onChangeFilterModel}
-              onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onChangePaginationModelChange}
-              onRowDoubleClick={e => viewModel.onClickViewMore(e.row._id)}
+              pageSizeOptions={viewModel.pageSizeOptions}
+              onPaginationModelChange={viewModel.onPaginationModelChange}
             />
-          </div>
-        ) : (
-          !viewModel.currentData?.length &&
-          loadingStatuses.success && (
-            <div className={classNames.emptyTableWrapper}>
-              <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={classNames.emptyTableText}>
-                {t(TranslationKey['No vacant applications yet'])}
-              </Typography>
-            </div>
-          )
-        )}
-      </MainContent>
-    </React.Fragment>
-  )
-}
 
-export const VacantRequestsView = withStyles(observer(VacantRequestsViewRaw), styles)
+            <div className={styles.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
+              <p className={styles.tablePanelViewText}>{t(TranslationKey['By date'])}</p>
+
+              {viewModel.sortMode === tableSortMode.DESK ? (
+                <ArrowDropDownIcon color="primary" />
+              ) : (
+                <ArrowDropUpIcon color="primary" />
+              )}
+            </div>
+          </>
+        )}
+      </div>
+
+      {viewModel.viewMode !== tableViewMode.TABLE ? (
+        <div className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}>
+          {viewModel.currentData?.map((item, index) =>
+            viewModel.viewMode === tableViewMode.LIST ? (
+              <VacantRequestListCard
+                key={item._id}
+                isFirst={index === 0}
+                item={item}
+                onClickViewMore={viewModel.onClickViewMore}
+                onDoubleClick={viewModel.handleOpenRequestDetailModal}
+              />
+            ) : (
+              <VacantRequestShortCard
+                key={item._id}
+                isFirst={index === 0}
+                item={item}
+                onClickViewMore={viewModel.onClickViewMore}
+                onDoubleClick={viewModel.handleOpenRequestDetailModal}
+              />
+            ),
+          )}
+        </div>
+      ) : viewModel.viewMode === tableViewMode.TABLE ? (
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
+            rowCount={viewModel.rowCount}
+            sortModel={viewModel.sortModel}
+            filterModel={viewModel.filterModel}
+            columnVisibilityModel={viewModel.columnVisibilityModel}
+            paginationModel={viewModel.paginationModel}
+            rows={viewModel.currentData}
+            rowHeight={75}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+              columnMenu: viewModel.columnMenuSettings,
+              toolbar: {
+                resetFiltersBtnSettings: {
+                  onClickResetFilters: viewModel.onClickResetFilters,
+                  isSomeFilterOn: viewModel.isSomeFilterOn,
+                },
+                columsBtnSettings: {
+                  columnsModel: viewModel.columnsModel,
+                  columnVisibilityModel: viewModel.columnVisibilityModel,
+                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+                },
+              },
+            }}
+            columns={viewModel.columnsModel}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+            getRowClassName={getRowClassName}
+            onSortModelChange={viewModel.onChangeSortingModel}
+            onFilterModelChange={viewModel.onChangeFilterModel}
+            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
+            onRowClick={e => viewModel.handleOpenRequestDetailModal(e.row._id)}
+          />
+        </div>
+      ) : (
+        !viewModel.currentData?.length &&
+        loadingStatus.SUCCESS && (
+          <div className={styles.emptyTableWrapper}>
+            <img src="/assets/icons/empty-table.svg" />
+            <p className={styles.emptyTableText}>{t(TranslationKey['No vacant applications yet'])}</p>
+          </div>
+        )
+      )}
+
+      {viewModel.showRequestDetailModal ? (
+        <FreelanceRequestDetailsModal
+          // @ts-ignore
+          openModal={viewModel.showRequestDetailModal}
+          request={viewModel.currentRequestDetails?.request}
+          details={viewModel.currentRequestDetails?.details}
+          handleOpenModal={() => viewModel.onTriggerOpenModal('showRequestDetailModal')}
+          onClickSuggest={viewModel.onClickSuggest}
+          onClickOpenNewTab={viewModel.onClickOpenInNewTab}
+        />
+      ) : null}
+    </>
+  )
+})

@@ -2,14 +2,15 @@
 import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 import { TWebsocketChatService } from '@services/websocket-chat-service'
+import { ChatInfoType } from '@services/websocket-chat-service/interfaces'
 
 import {
   ChatMessageDataAddUsersToGroupChatContract,
   ChatMessageDataBloggerProposalResultEditedContract,
-  ChatMessageDataCreatedNewProposalProposalDescriptionContract,
-  ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataCreateNewBloggerProposalContract,
   ChatMessageDataCreateNewDesignerProposalContract,
+  ChatMessageDataCreatedNewProposalProposalDescriptionContract,
+  ChatMessageDataCreatedNewProposalRequestDescriptionContract,
   ChatMessageDataDesignerProposalResultEditedContract,
   ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
@@ -62,6 +63,7 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
   @IsNotEmpty()
   @IsString({ each: true })
   public files!: string[]
+  public video!: string[]
   @IsOptional()
   @IsBoolean()
   public is_draft?: boolean
@@ -73,10 +75,23 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
   public updatedAt!: string
   public data!: T
 
+  public info!: {
+    image: string
+    title: string
+    type: ChatInfoType
+  }
+
+  public crmItemId?: string
+
   @IsOptional()
   public user?: ChatUserContract
+  public users?: ChatUserContract[]
   public humanFriendlyId?: string
 
   @IsOptional()
   public replyMessageId?: boolean | null
+
+  @IsOptional()
+  public offset?: number
+  public replyMessage!: ChatMessageContract
 }

@@ -1,20 +1,18 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
-    width: 624,
-
     display: 'flex',
     flexDirection: 'column',
-
-    gap: 30,
+    gap: 20,
+    padding: 10,
+    position: 'relative',
   },
 
   modalTitle: {
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
-
     color: theme.palette.text.general,
   },
 
@@ -54,16 +52,26 @@ export const useClassNames = makeStyles()(theme => ({
     height: 40,
   },
 
-  regionFieldInput: {
-    width: '80px !important',
-    height: 40,
+  deliveryFieldInput: {
+    width: '60%',
+  },
+
+  tariffFieldInput: {
+    maxWidth: 214,
   },
 
   rateWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 5,
+    alignItems: 'flex-start',
+    gap: 32,
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: 12,
+    background: theme.palette.background.general,
+    position: 'absolute',
+    top: 46,
+    right: 29,
+    padding: '13px 13px 17px 8px',
+    boxShadow: `0px 2px 10px 2px ${theme.palette.boxShadow.general}`,
   },
 
   customSwitcherWrapper: {
@@ -122,8 +130,16 @@ export const useClassNames = makeStyles()(theme => ({
 
   currentRateWrapper: {
     display: 'flex',
-    alignItems: 'center',
-    gap: 10,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: 5,
+    marginBottom: 20,
+  },
+
+  rateContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
 
   currentRate: {
@@ -150,7 +166,9 @@ export const useClassNames = makeStyles()(theme => ({
   rateFieldContainer: {
     margin: '0 !important',
     display: 'flex',
-    gap: 10,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: 5,
     width: 'fit-content !important',
   },
 
@@ -170,12 +188,12 @@ export const useClassNames = makeStyles()(theme => ({
   regionWrapper: {
     display: 'flex',
     alignItems: 'center',
-
-    gap: 10,
+    marginBottom: 20,
+    gap: 5,
   },
 
   regionContainer: {
-    width: '173px !important',
+    width: '80px !important',
     margin: '0 !important',
   },
 
@@ -194,7 +212,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   blockItemContainer: {
-    width: '180px !important',
+    width: '200px !important',
     margin: '0 !important',
   },
 
@@ -219,12 +237,14 @@ export const useClassNames = makeStyles()(theme => ({
   optionsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 20,
     marginTop: 20,
   },
 
   weightItemWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 10,
   },
 
@@ -236,12 +256,13 @@ export const useClassNames = makeStyles()(theme => ({
 
   weightMainWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     gap: 15,
     width: 'fit-content',
   },
 
   weightInput: {
-    width: 80,
+    width: 'fit-content',
     height: 40,
   },
 
@@ -271,10 +292,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 0,
   },
 
-  regionMainWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
+  regionMainWrapper: {},
 
   btnsWrapper: {
     display: 'flex',
@@ -292,7 +310,50 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   controlOptionsButtons: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     display: 'flex',
+    gap: 10,
+    paddingTop: 33,
+    minWidth: 53,
+  },
+
+  minBoxWeightContainer: {
+    maxWidth: 210,
+  },
+
+  minBoxWeightWrapper: {
+    marginBottom: 20,
+  },
+
+  minBoxWeightFieldLabel: {
+    marginTop: -19,
+  },
+
+  minBoxWeightContainerBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    height: 30,
+  },
+
+  applyButton: {
+    paddingInline: 10,
+    paddingBlock: 2,
+    height: 'auto',
+    borderRadius: 30,
+  },
+
+  datePickerIcon: {
+    marginRight: 10,
+    '&&': {
+      fill: theme.palette.primary.main,
+    },
+  },
+
+  applyToAll: {
+    lineHeight: '19px',
+    alignItems: 'center',
     gap: 10,
   },
 }))

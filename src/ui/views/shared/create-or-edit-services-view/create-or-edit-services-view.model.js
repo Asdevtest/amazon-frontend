@@ -1,42 +1,27 @@
-/* eslint-disable no-unused-vars */
 import { makeAutoObservable, runInAction } from 'mobx'
-
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { UserModel } from '@models/user-model'
 
-import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
-import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 export class CreateOrEditServicesViewModel {
   history = undefined
-  requestStatus = undefined
-  actionStatus = undefined
-
-  requestToEdit = {}
-
-  pathname = null
-
-  uploadedFiles = []
 
   requestId = undefined
+  requestToEdit = undefined
+  uploadedFiles = []
 
-  readyImages = []
-  progressValue = 0
-  showProgress = false
-  userInfo = undefined
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
-      this.pathname = location.pathname
+  constructor({ history }) {
+    this.history = history
 
-      if (location.state) {
-        this.requestId = location.state.requestId
-      }
-    })
+    if (history.location.state) {
+      this.requestId = history.location.state.requestId
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -44,38 +29,29 @@ export class CreateOrEditServicesViewModel {
   async getAnnouncementsDataByGuid() {
     try {
       if (this.requestId) {
-        const result = await AnnouncementsModel.getAnnouncementsByGuid(this.requestId)
+        const response = await AnnouncementsModel.getAnnouncementsByGuid(this.requestId)
+
         runInAction(() => {
-          this.requestToEdit = result
+          this.requestToEdit = response
         })
       }
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
-      console.log(error)
+      console.error(error)
     }
   }
 
-  async loadData() {
+  loadData() {
     try {
-      await this.getAnnouncementsDataByGuid()
-      runInAction(() => {
-        this.userInfo = UserModel.userInfo
-      })
+      this.getAnnouncementsDataByGuid()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
-  async onClickCreateBtn(data, files) {
+  async onClickCreateBtn(data) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
-      if (files.length) {
-        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
+      if (data.linksToMediaFiles?.length) {
+        await onSubmitPostImages.call(this, { images: data.linksToMediaFiles, type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {
@@ -84,52 +60,29 @@ export class CreateOrEditServicesViewModel {
       }
 
       await AnnouncementsModel.createAnnouncement(dataWithFiles)
-
-      this.history.push('/freelancer/freelance/my-services', {
-        showAcceptMessage: true,
-        acceptMessage: t(TranslationKey['The service was created']),
-      })
     } catch (error) {
-      console.log(error)
-
-      this.history.push('/freelancer/freelance/my-services', {
-        showAcceptMessage: true,
-        acceptMessage: t(TranslationKey['The request was not created']),
-      })
-
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
+    } finally {
+      this.history.push('/freelancer/freelance/my-services')
     }
   }
 
-  async onClickEditBtn(data, files) {
+  async onClickEditBtn(data) {
     try {
-      if (files?.length) {
-        await onSubmitPostImages.call(this, { images: files, type: 'uploadedFiles' })
+      if (data.linksToMediaFiles?.length) {
+        await onSubmitPostImages.call(this, { images: data.linksToMediaFiles, type: 'uploadedFiles' })
       }
 
       const dataWithFiles = {
         ...data,
-        linksToMediaFiles: [...data.linksToMediaFiles, ...this.uploadedFiles],
+        linksToMediaFiles: this.uploadedFiles,
       }
 
       await AnnouncementsModel.editAnnouncement(this.requestToEdit._id, dataWithFiles)
-
-      this.history.push('/freelancer/freelance/my-services', {
-        showAcceptMessage: true,
-        acceptMessage: t(TranslationKey['Service edited']),
-      })
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-        console.log(error)
-      })
-
-      this.history.push('/freelancer/freelance/my-services', {
-        showAcceptMessage: true,
-        acceptMessage: t(TranslationKey['Service not edited']),
-      })
+      console.error(error)
+    } finally {
+      this.history.push('/freelancer/freelance/my-services')
     }
   }
 

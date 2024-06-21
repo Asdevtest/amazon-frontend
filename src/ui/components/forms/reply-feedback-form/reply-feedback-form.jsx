@@ -1,47 +1,45 @@
-import { Typography } from '@mui/material'
-
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './reply-feedback-form.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './reply-feedback-form.style'
 
 export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   return (
-    <div className={classNames.root}>
-      <Typography className={classNames.modalText}>{t(TranslationKey['Reply to a User Feedback'])}</Typography>
+    <div className={styles.root}>
+      <p className={styles.modalText}>{t(TranslationKey['Reply to a User Feedback'])}</p>
 
-      <div className={classNames.userWrapper}>
+      <div className={styles.userWrapper}>
         <UserLink withAvatar name={feedback.user?.name} userId={feedback.user?._id} />
 
-        <Typography className={classNames.date}>{formatNormDateTime(feedback.updatedAt)}</Typography>
+        <p className={styles.date}>{formatNormDateTime(feedback.updatedAt)}</p>
       </div>
 
-      <Typography className={classNames.feedbackText}>{feedback.text}</Typography>
+      <p className={styles.feedbackText}>{feedback.text}</p>
 
       <Field
-        containerClasses={classNames.filesWrapper}
-        labelClasses={classNames.label}
+        containerClasses={styles.filesWrapper}
+        labelClasses={styles.label}
         label={t(TranslationKey.Files)}
-        inputComponent={<PhotoAndFilesCarousel small files={feedback.media} />}
+        inputComponent={<SlideshowGallery slidesToShow={2} files={feedback.media} />}
       />
 
-      <div className={classNames.buttonsWrapper}>
-        <Button success onClick={() => onSubmit(feedback.user._id)}>
+      <div className={styles.buttonsWrapper}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={() => onSubmit(feedback.user._id)}>
           {t(TranslationKey.Reply)}
         </Button>
 
-        <Button variant="text" className={classNames.closeBtn} onClick={onCloseModal}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

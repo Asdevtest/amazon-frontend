@@ -1,29 +1,13 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(() => ({
   btnsWrapper: {
-    margin: '0 0 15px 0',
+    marginBottom: 20,
     display: 'flex',
   },
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-  },
 
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
-  },
   datagridWrapper: {
-    marginTop: '10px',
-    height: '84vh',
+    height: '81vh',
+    width: '100%',
   },
-})
+}))

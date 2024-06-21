@@ -1,16 +1,7 @@
 export const styles = theme => ({
-  row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
-  },
-
-  attentionRow: {
-    boxShadow: 'inset 0 0 15px rgba(247, 179, 7, .8)',
-  },
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
+  dataGridWrapper: {
+    height: 'calc(100vh - 160px)',
+    width: '100%',
   },
 
   headerWrapper: {
@@ -19,50 +10,59 @@ export const styles = theme => ({
     justifyContent: 'center',
     marginBottom: 20,
   },
+  searchInput: {
+    width: 320,
+  },
 
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
+  attentionRow: {
+    position: 'relative',
+    background: theme.palette.background.yellowRow,
+
+    '&:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      left: 1,
+      bottom: 2,
+      width: 5,
+      height: '96%',
+      background: '#C69109',
+      borderRadius: 2,
+    },
   },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
+
+  attentionRowShort: {
+    '&:before': {
+      content: '""',
+      height: '76%',
+    },
   },
 
   ideaRowGreen: {
-    '&:before': {
-      content: '""',
-      backgroundImage: theme.palette.other.ideaProductSheldGreen,
+    position: 'relative',
 
+    '&:after': {
+      content: '""',
+      position: 'absolute',
+      top: 1,
+      left: 1,
+      backgroundImage: theme.palette.other.ideaProductSheldGreen,
       width: 48,
       height: 21,
-      posotion: 'absolute',
-      top: 0,
-      left: 0,
-      marginRight: '-48px',
     },
   },
 
   ideaRowYellow: {
-    '&:before': {
-      content: '""',
-      backgroundImage: theme.palette.other.ideaProductSheldYellow,
+    position: 'relative',
 
+    '&:after': {
+      content: '""',
+      position: 'absolute',
+      top: 1,
+      left: 1,
+      backgroundImage: theme.palette.other.ideaProductSheldYellow,
       width: 48,
       height: 21,
-      posotion: 'absolute',
-      top: 0,
-      left: 0,
-      marginRight: '-48px',
     },
-  },
-
-  dataGridWrapper: {
-    height: 'calc(100vh - 150px)',
   },
 })

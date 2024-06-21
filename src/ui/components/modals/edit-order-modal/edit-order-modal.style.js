@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalText: {
     color: theme.palette.text.general,
     fontSize: 18,
@@ -18,36 +18,17 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: '16px',
   },
-  iconBtnAccept: {
-    backgroundColor: 'rgba(30, 220, 30, 1)',
-  },
-  iconBtnAcceptRevoke: {
-    backgroundColor: 'rgba(224, 32, 32, 1)',
-  },
-
-  iconBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
-    borderRadius: '4px',
-
-    '&:hover': {},
-  },
 
   InfoWrapper: {
     width: '100%',
     display: 'flex',
+    justifyContent: 'space-between',
+    gap: '20px',
   },
 
   labelsInfoWrapper: {
     display: 'flex',
     gap: '27px',
-  },
-
-  fieldWrapper: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
   },
 
   stantartSelect: {
@@ -82,37 +63,27 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalWrapper: {
-    minWidth: 800,
+    padding: 10,
+    width: 1200,
   },
   paper: {
-    height: 'max-content',
-    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   buttonsBox: {
+    marginTop: 20,
     textAlign: 'right',
     display: 'flex',
     justifyContent: 'end',
     gap: '10px',
   },
-  saveBtn: { width: '190px', height: '40px' },
-  tableWrapper: {
-    marginTop: '15px',
-  },
-  noBoxesText: {
-    color: theme.palette.text.general,
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
-    marginBottom: '24px',
-  },
+
   deadlineWrapper: {
     display: 'flex',
     alignItems: 'center',
-  },
-
-  hidden: {
-    display: 'none',
+    gap: 5,
   },
 
   label: {
@@ -125,7 +96,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   deadlineText: {
-    marginLeft: 5,
+    fontSize: '14px',
+    lineHeight: '19px',
+    fontWeight: 600,
   },
 
   alertText: {
@@ -137,10 +110,6 @@ export const useClassNames = makeStyles()(theme => ({
     height: 40,
   },
 
-  trackNumberPhotoBtn: {
-    width: 225,
-  },
-
   trackNumberPhotoWrapper: {
     width: 225,
     height: 137,
@@ -149,8 +118,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 30,
-    paddingTop: 20,
   },
 
   trackNumberPhoto: {
@@ -184,30 +151,14 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'end',
   },
 
-  addBoxButton: {
-    width: '229px',
-    height: '40px',
-  },
-
-  fieldLabel: {
-    margin: 0,
-  },
-  cancelBtn: {
-    height: '40px',
-    width: '190px',
-    color: theme.palette.text.general,
-  },
   amazonTitle: {
-    width: '210px',
+    width: '310px',
     color: theme.palette.text.general,
-    fontSize: '18px',
+    fontSize: '14px',
     fontWeight: 600,
-    lineHeight: '140%',
-    textAlign: 'left',
-    height: 80,
-
+    lineHeight: '19px',
     display: '-webkit-box',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 4,
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -245,11 +196,6 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '30px',
   },
 
-  tableTitleContainer: {
-    marginTop: '30px',
-    marginBottom: '10px',
-  },
-
   tableTitle: {
     color: theme.palette.text.general,
     fontSize: '18px',
@@ -263,17 +209,26 @@ export const useClassNames = makeStyles()(theme => ({
 
   orange: {
     color: '#F3AF00 !important',
+    WebkitTextFillColor: '#F3AF00 !important',
   },
 
   red: {
-    color: 'red !important',
+    color: `${theme.palette.orderStatus.red} !important`,
+    WebkitTextFillColor: `${theme.palette.orderStatus.red} !important`,
   },
 
   green: {
     color: `${theme.palette.text.green} !important`,
+    WebkitTextFillColor: `${theme.palette.text.green} !important`,
   },
+
+  blue: {
+    color: `${theme.palette.primary.main} !important`,
+    WebkitTextFillColor: `${theme.palette.primary.main} !important`,
+  },
+
   priorityWrapper: {
-    width: 210,
+    width: 150,
   },
 
   priorityTitle: {
@@ -285,7 +240,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   rushOrderWrapper: {
     display: 'flex',
-    marginBottom: 15,
+    marginBottom: 10,
   },
   rushOrderImg: {
     marginRight: 10,
@@ -302,28 +257,6 @@ export const useClassNames = makeStyles()(theme => ({
     padding: 0,
   },
 
-  inputWrapper: {
-    height: 'auto',
-  },
-  supplierButtonWrapper: {
-    display: 'flex',
-    gap: '10px',
-    alignItems: 'center',
-  },
-  supplierButtonText: {
-    width: '98px',
-    fontSize: '12px',
-    lineHeight: '14px',
-    fontWeight: '400',
-    color: theme.palette.text.second,
-  },
-  supplierCheckboxWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    cursor: 'pointer',
-  },
   checkboxTitle: {
     fontWeight: 400,
     fontSize: 14,
@@ -331,15 +264,18 @@ export const useClassNames = makeStyles()(theme => ({
 
     color: theme.palette.text.second,
   },
-  seeCommentsButton: {
-    display: 'flex',
-    padding: '0 38px',
 
-    gap: 20,
-  },
   seeCommentsText: {
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '19px',
+  },
+
+  productCell: {
+    width: 225,
+  },
+
+  boxesWrapper: {
+    marginTop: 20,
   },
 }))

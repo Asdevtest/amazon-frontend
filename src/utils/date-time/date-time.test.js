@@ -1,22 +1,15 @@
-/* eslint-disable no-unused-vars */
 import {
   convertDaysToSeconds,
   formatDate,
   formatDateDayMonthYear,
-  formatDateDistanceFromNow,
-  formatDateDistanceFromNowStrict,
-  formatDateForShowWithoutParseISO,
   formatDateMonthYear,
   formatDateMonthYearWithoutFormatISO,
-  formatDateTime,
   formatDateTimeHourAndMinutes,
   formatDateWithoutTime,
   formatNormDateTime,
   formatNormDateTimeWithParseISO,
   formatShortDateTime,
-  getDistanceBetweenDatesInSeconds,
   getYearDate,
-  sortObjectsArrayByFiledDate,
 } from './date-time'
 
 describe('Test getYearDate(dateString)', () => {
@@ -115,17 +108,6 @@ describe('Test formatDateDayMonthYear(date)', () => {
   validTestValue.forEach(value => {
     test('Valid props', () => {
       expect(formatDateDayMonthYear(value.enter)).toBe(value.expect)
-    })
-  })
-})
-
-describe('Test formatDateDistanceFromNow(date)', () => {
-  const validTestValue = [{ enter: '2023-01-17T08:41:47.680Z' }]
-
-  validTestValue.forEach(value => {
-    test('Valid props', () => {
-      expect(formatDateDistanceFromNow(value.enter)).not.toBeNull()
-      expect(typeof formatDateDistanceFromNow(value.enter)).toBe('string')
     })
   })
 })

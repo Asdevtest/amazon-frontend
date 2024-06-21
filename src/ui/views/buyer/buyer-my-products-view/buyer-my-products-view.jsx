@@ -1,26 +1,22 @@
 import { cx } from '@emotion/css'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { ProductStatus } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
+import { loadingStatus } from '@typings/enums/loading-status'
+
 import { styles } from './buyer-my-products-view.style'
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
+
+import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
 
 const attentionStatuses = [
   ProductStatus.TO_BUYER_FOR_RESEARCH,
@@ -30,71 +26,56 @@ const attentionStatuses = [
 ]
 
 export const BuyerMyProductsViewRaw = props => {
-  const [viewModel] = useState(
-    () =>
-      new BuyerMyProductsViewModel({
-        history: props.history,
-        location: props.location,
-      }),
-  )
-  const { classes: classNames } = props
+  const { classes: styles, history } = props
+
+  const [viewModel] = useState(() => new BuyerMyProductsViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   const ideasSheldStyle = params =>
-    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && classNames.ideaRowGreen) ||
-    (!!params.row.originalData.ideasOnCheck && classNames.ideaRowYellow)
+    (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified && styles.ideaRowGreen) ||
+    (!!params.row.originalData.ideasOnCheck && styles.ideaRowYellow)
 
   const getRowClassName = params =>
     cx(ideasSheldStyle(params), {
-      [classNames.attentionRow]: attentionStatuses.includes(params.row.statusForAttention),
+      [styles.attentionRow]: attentionStatuses.includes(params.row.statusForAttention),
+      [styles.attentionRowShort]:
+        (!params.row.originalData.ideasOnCheck && !!params.row.originalData.ideasVerified) ||
+        !!params.row.originalData.ideasOnCheck,
     })
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div className={classNames.headerWrapper}>
+    <>
+      <div>
+        <div className={styles.headerWrapper}>
           <SearchInput
             placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+            inputClasses={styles.searchInput}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-            }}
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
+            checkboxSelection
+            disableRowSelectionOnClick
             getRowClassName={getRowClassName}
-            sortingMode="server"
-            paginationMode="server"
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
-            rowHeight={160}
+            getRowHeight={() => 'auto'}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-            }}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               columnMenu: viewModel.columnMenuSettings,
               toolbar: {
                 resetFiltersBtnSettings: {
@@ -110,13 +91,24 @@ export const BuyerMyProductsViewRaw = props => {
             }}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
-            onRowDoubleClick={e => viewModel.onClickTableRow(e.row)}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
+            onRowClick={params => viewModel.onClickProductModal(params.row)}
             onFilterModelChange={viewModel.onChangeFilterModel}
           />
         </div>
-      </MainContent>
-    </React.Fragment>
+
+        {viewModel.productCardModal && (
+          <ProductCardModal
+            role={viewModel.userInfo.role}
+            history={viewModel.history}
+            openModal={viewModel.productCardModal}
+            setOpenModal={() => viewModel.onClickProductModal()}
+            updateDataHandler={() => viewModel.loadData()}
+            onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
+          />
+        )}
+      </div>
+    </>
   )
 }
 

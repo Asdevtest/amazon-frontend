@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   username: {
     color: theme.palette.text.general,
     fontSize: '32px',
@@ -30,7 +30,6 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainTitle: {
-    marginTop: '48px',
     color: theme.palette.text.general,
   },
   subTabWrapper: {

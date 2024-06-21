@@ -1,10 +1,10 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
+import { filterModelInitialValue } from '@models/data-grid-table-model'
 import { OtherModel } from '@models/other-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { financesViewColumns } from '@components/table/table-columns/admin/finances-columns/finances-columns'
 
@@ -14,61 +14,55 @@ import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 export class FinancesViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   currentFinancesData = []
 
   rowSelectionModel = undefined
-
   sortModel = []
   startFilterModel = undefined
-  filterModel = { items: [] }
+  filterModel = filterModelInitialValue
   densityModel = 'compact'
   columnsModel = financesViewColumns()
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
-  constructor({ history, location }) {
-    runInAction(() => {
-      this.history = history
+  get isSomeFilterOn() {
+    return !!this.filterModel?.items?.length
+  }
 
-      if (location?.state?.dataGridFilter) {
-        this.startFilterModel = location.state.dataGridFilter
-      }
-    })
-    // else {
-    //       this.startFilterModel = resetDataGridFilter
-    //     }
+  get currentData() {
+    return this.currentFinancesData
+  }
+
+  constructor({ history }) {
+    this.history = history
+
+    if (history.location?.state?.dataGridFilter) {
+      this.startFilterModel = history.location.state.dataGridFilter
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
+
     this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
@@ -80,65 +74,53 @@ export class FinancesViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SHARED_FINANCES)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.SHARED_FINANCES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.SHARED_FINANCES]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.SHARED_FINANCES)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   async getPayments() {
     try {
       const result = await OtherModel.getMyPayments()
+
       runInAction(() => {
         this.currentFinancesData = financesDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-        this.currentFinancesData = []
-      })
+      console.error(error)
     }
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-
-      await this.getPayments()
       this.getDataGridState()
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-    }
-  }
 
-  getCurrentData() {
-    return toJS(this.currentFinancesData)
+      this.getPayments()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
+  }
+
+  onClickResetFilters() {
+    this.filterModel = filterModelInitialValue
   }
 }

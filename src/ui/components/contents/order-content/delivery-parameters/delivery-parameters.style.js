@@ -1,9 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
-    padding: '15px 15px',
-    width: 450,
+    width: '100%',
   },
 
   checkbox: {
@@ -16,6 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     marginBottom: 20,
     transition: '.3s ease',
+
     '&:hover': {
       cursor: 'pointer',
       transform: 'scale(1.01)',
@@ -29,12 +29,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
 
-  researchWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-
   deliveryImg: {
     marginLeft: 10,
   },
@@ -44,25 +38,11 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 10,
   },
 
   deadlineWrapper: {
     width: 160,
-  },
-
-  text: {
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: 600,
-    lineHeight: '19px',
-    maxWidth: '200px',
-    textAlign: 'right',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-
-  storekeeperWrapper: {
-    marginTop: '40px',
   },
 
   fieldLabel: {
@@ -70,16 +50,13 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '19px',
     color: theme.palette.text.general,
-    margin: 0,
+    marginBottom: 5,
   },
 
   buyerWrapper: {
     marginTop: '40px',
   },
-  avatar: {
-    width: '28px',
-    height: '28px',
-  },
+
   intWarehouseWrapper: {
     display: 'flex',
     alignItems: 'center',

@@ -1,8 +1,8 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
+import { createFormedOrder, createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { OrderModel } from '@models/order-model'
@@ -13,21 +13,17 @@ import { clientProductOrdersViewColumns } from '@components/table/table-columns/
 
 import { clientOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const chosenStatusSettings = {
-  ALL: 'ALL',
-  AT_PROCESS: 'AT_PROCESS',
-  CANCELED: 'CANCELED',
-  COMPLETED: 'COMPLETED',
-}
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { getActiveStatuses } from './helpers/get-active-statuses'
+import { canceledStatus, completedStatus, selectedStatus } from './orders.constant'
 
 export class OrdersModel {
-  history = undefined
   requestStatus = undefined
-  error = undefined
 
   productId = undefined
 
@@ -46,13 +42,12 @@ export class OrdersModel {
   reorderOrder = undefined
   uploadedFiles = []
 
-  chosenStatus = chosenStatusSettings.ALL
-
   isPendingOrdering = false
 
   storekeepers = []
   destinations = []
-  platformSettings = undefined
+
+  paginationModel = { page: 0, pageSize: 15 }
 
   confirmModalSettings = {
     isWarning: false,
@@ -65,25 +60,19 @@ export class OrdersModel {
     onClickReorder: (item, isPendingOrder) => this.onClickReorder(item, isPendingOrder),
   }
 
-  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.chosenStatus)
+  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.isSomeFilterOn)
   columnVisibilityModel = {}
 
-  get orderStatusData() {
-    return {
-      chosenStatusSettings,
-      chosenStatus: this.chosenStatus,
-      onChangeOrderStatusData: this.onChangeOrderStatusData,
-    }
+  isCheckedStatusByFilter = {}
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
-  constructor({ history, productId, showAtProcessOrders }) {
-    runInAction(() => {
-      this.history = history
+  constructor({ productId, showAtProcessOrders }) {
+    this.productId = productId
 
-      this.chosenStatus = showAtProcessOrders ? chosenStatusSettings.AT_PROCESS : chosenStatusSettings.ALL
-
-      this.productId = productId
-    })
+    this.isCheckedStatusByFilter = getActiveStatuses(showAtProcessOrders)
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -93,117 +82,137 @@ export class OrdersModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+  }
+
+  get orderStatusData() {
+    return {
+      isCheckedStatusByFilter: this.isCheckedStatusByFilter,
+      onCheckboxChange: this.onCheckboxChange,
+    }
+  }
+
+  onCheckboxChange(event) {
+    const { name, checked } = event.target
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
+
+    if (name === ALL) {
+      this.isCheckedStatusByFilter = {
+        [ALL]: checked,
+        [AT_PROCESS]: checked,
+        [CANCELED]: checked,
+        [COMPLETED]: checked,
+      }
+    } else {
+      this.isCheckedStatusByFilter = {
+        ...this.isCheckedStatusByFilter,
+        [name]: checked,
+      }
+
+      if (
+        this.isCheckedStatusByFilter[AT_PROCESS] &&
+        this.isCheckedStatusByFilter[CANCELED] &&
+        this.isCheckedStatusByFilter[COMPLETED]
+      ) {
+        this.isCheckedStatusByFilter = {
+          ...this.isCheckedStatusByFilter,
+          [ALL]: true,
+        }
+      } else {
+        this.isCheckedStatusByFilter = {
+          ...this.isCheckedStatusByFilter,
+          [ALL]: false,
+        }
+      }
+    }
+  }
+
+  onPaginationModelChange(model) {
+    this.paginationModel = model
+
+    this.loadData()
   }
 
   onClickResetFilters() {
-    this.chosenStatus = chosenStatusSettings.ALL
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
+
+    this.isCheckedStatusByFilter = {
+      [ALL]: true,
+      [AT_PROCESS]: true,
+      [CANCELED]: true,
+      [COMPLETED]: true,
+    }
+
     this.getOrdersByProductId()
   }
 
   get isSomeFilterOn() {
-    return this.chosenStatus !== chosenStatusSettings.ALL
+    return { isActiveFilter: Object.values(this.isCheckedStatusByFilter).includes(false) }
   }
 
   getCurrentData() {
-    switch (this.chosenStatus) {
-      case chosenStatusSettings.ALL:
-        return toJS(this.orders)
-      case chosenStatusSettings.AT_PROCESS:
-        return toJS(
-          this.orders.filter(
-            el =>
-              el.originalData.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
-          ),
-        )
-      case chosenStatusSettings.CANCELED:
-        return toJS(
-          this.orders.filter(
-            el =>
-              el.originalData.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
-          ),
-        )
-      case chosenStatusSettings.COMPLETED:
-        return toJS(
-          this.orders.filter(
-            el =>
-              el.originalData.status === OrderStatusByKey[OrderStatus.IN_STOCK] ||
-              el.originalData.status === OrderStatusByKey[OrderStatus.VERIFY_RECEIPT],
-          ),
-        )
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
 
-      default:
-        return toJS(this.orders)
+    if (!this.isCheckedStatusByFilter[ALL]) {
+      return this.orders.filter(el => {
+        const { status } = el.originalData
+
+        return (
+          (this.isCheckedStatusByFilter[AT_PROCESS] && selectedStatus.includes(status)) ||
+          (this.isCheckedStatusByFilter[CANCELED] && canceledStatus.includes(status)) ||
+          (this.isCheckedStatusByFilter[COMPLETED] && completedStatus.includes(status))
+        )
+      })
     }
 
-    // return toJS(this.orders)
+    return this.orders
   }
 
-  onChangeOrderStatusData(status) {
-    runInAction(() => {
-      this.chosenStatus = status === this.chosenStatus ? chosenStatusSettings.ALL : status
-    })
-  }
-
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getOrdersByProductId()
-      this.setRequestStatus(loadingStatuses.success)
+      this.getOrdersByProductId()
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.failed)
+      console.error(error)
     }
   }
 
   async getOrdersByProductId() {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const result = await ClientModel.getOrdersByProductId(this.productId)
 
       runInAction(() => {
         this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.orders = []
-        this.error = error
       })
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onClickReorder(item, isPendingOrder) {
     try {
-      const [storekeepers, destinations, result, order] = await Promise.all([
+      const [storekeepers, destinations, order] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
         ClientModel.getOrderById(item._id),
       ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
-
         this.destinations = destinations
-
-        this.platformSettings = result
-
         this.reorderOrder = order
-
         this.isPendingOrdering = !!isPendingOrder
       })
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -214,18 +223,21 @@ export class OrdersModel {
   }
 
   async onClickSaveBarcode(tmpBarCode) {
-    this.uploadedFiles = []
+    try {
+      if (tmpBarCode.length) {
+        await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
+      }
 
-    if (tmpBarCode.length) {
-      await onSubmitPostImages.call(this, { images: tmpBarCode, type: 'uploadedFiles' })
+      await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
+
+      this.onTriggerOpenModal('showSetBarcodeModal')
+
+      runInAction(() => {
+        this.selectedProduct = undefined
+      })
+    } catch (error) {
+      console.error(error)
     }
-
-    await ClientModel.updateProductBarCode(this.selectedProduct._id, { barCode: this.uploadedFiles[0] })
-
-    this.onTriggerOpenModal('showSetBarcodeModal')
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
   }
 
   async updateUserInfo() {
@@ -234,12 +246,7 @@ export class OrdersModel {
 
   async createOrder(orderObject) {
     try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-        '_id',
-      ])
+      const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
       if (orderObject.tmpIsPendingOrder) {
         await ClientModel.createFormedOrder(requestData)
@@ -251,23 +258,20 @@ export class OrdersModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
       this.onTriggerOpenModal('showInfoModal')
-      this.error = error
     }
   }
 
   async onSubmitOrderProductModal() {
     try {
-      this.error = undefined
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
-        const product = this.ordersDataStateToSubmit[i]
-
-        this.uploadedFiles = []
+        let product = this.ordersDataStateToSubmit[i]
+        let uploadedTransparencyFiles = []
 
         if (product.tmpBarCode.length) {
           await onSubmitPostImages.call(this, { images: product.tmpBarCode, type: 'uploadedFiles' })
@@ -277,7 +281,21 @@ export class OrdersModel {
           await ClientModel.updateProductBarCode(product.productId, { barCode: null })
         }
 
-        if (this.isPendingOrdering) {
+        if (product.tmpTransparencyFile.length) {
+          uploadedTransparencyFiles = await onSubmitPostImages.call(this, {
+            images: product.tmpTransparencyFile,
+            type: 'uploadedFiles',
+          })
+
+          product = {
+            ...product,
+            transparencyFile: uploadedTransparencyFiles[0],
+          }
+        }
+
+        if (product.tmpIsPendingOrder) {
+          await ClientModel.createFormedOrder(getObjectFilteredByKeyArrayWhiteList(product, createFormedOrder))
+        } else if (this.isPendingOrdering) {
           const dataToRequest = getObjectFilteredByKeyArrayWhiteList(product, [
             'amount',
             'orderSupplierId',
@@ -292,31 +310,28 @@ export class OrdersModel {
             'destinationId',
             'storekeeperId',
             'logicsTariffId',
+            'transparencyFile',
           ])
           await OrderModel.changeOrderData(product._id, dataToRequest)
           await ClientModel.updateOrderStatusToReadyToProcess(product._id)
         } else {
-          await this.createOrder(product)
+          await this.createOrder(getObjectFilteredByKeyArrayWhiteList(product, createOrderRequestWhiteList))
         }
-
-        // await this.createOrder(product)
       }
 
-      if (!this.error) {
+      runInAction(() => {
         this.successModalText = this.isPendingOrdering
           ? t(TranslationKey['The order has been updated'])
           : t(TranslationKey['The order has been created'])
-        this.onTriggerOpenModal('showSuccessModal')
-      }
+      })
+
+      this.onTriggerOpenModal('showSuccessModal')
+
       this.onTriggerOpenModal('showConfirmModal')
-      // this.onTriggerOpenModal('showOrderModal')
-      // const noProductBaseUpdate = true
-      // await this.getProductsMy(noProductBaseUpdate)
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -336,9 +351,12 @@ export class OrdersModel {
   }
 
   onClickTableRow(order) {
-    this.history.push(
-      `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
-    )
+    window
+      .open(
+        `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
+        '_blank',
+      )
+      .focus()
   }
 
   onTriggerOpenModal(modal) {

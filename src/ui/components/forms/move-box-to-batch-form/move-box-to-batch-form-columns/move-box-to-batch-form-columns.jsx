@@ -3,11 +3,11 @@ import { Radio } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormDateCell,
   MultilineTextCell,
-  ToFixedWithKgSignCell,
   MultilineTextHeaderCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  NormDateCell,
+  ToFixedWithKgSignCell,
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'

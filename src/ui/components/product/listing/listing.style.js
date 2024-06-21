@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     gap: '5px',
     width: '100%',
@@ -60,10 +60,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     lineHeight: '20px',
     marginBottom: '12px',
-  },
-
-  carouselWrapper: {
-    width: '200px',
   },
 
   label: {

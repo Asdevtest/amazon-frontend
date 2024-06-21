@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalMessageWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -9,6 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     gap: '40px',
     width: '445px',
     minHeight: '168px',
+    padding: 10,
   },
   title: {
     textAlign: 'center',

@@ -1,10 +1,19 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: 650,
     display: 'flex',
     flexDirection: 'column',
+    padding: 10,
+  },
+
+  modalText: {
+    color: theme.palette.text.general,
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '140%',
+    marginBottom: 30,
   },
 
   userWrapper: {
@@ -12,26 +21,13 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  modalText: {
-    color: theme.palette.text.general,
-
-    fontWeight: 600,
-    fontSize: 18,
-    lineHeight: '140%',
-
-    marginBottom: 30,
-  },
-
   feedbackText: {
     margin: '10px 0 30px',
-
     width: '100%',
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
     color: theme.palette.text.general,
-
     overflow: 'auto',
-
     height: 152,
   },
 
@@ -45,8 +41,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   buttonsWrapper: {
-    alignSelf: 'flex-end',
     display: 'flex',
+    justifyContent: 'flex-end',
     gap: 30,
   },
 

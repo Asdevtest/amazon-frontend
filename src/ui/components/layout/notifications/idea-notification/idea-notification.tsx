@@ -1,11 +1,9 @@
-import { Avatar, Typography } from '@mui/material'
-
+import { format } from 'date-fns'
 import { FC } from 'react'
 
-import { format } from 'date-fns'
+import { Avatar, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
-import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -14,7 +12,9 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './idea-notification.style'
+import { UiTheme } from '@typings/enums/ui-theme'
+
+import { useStyles } from './idea-notification.style'
 
 interface InoticeItem {
   productId: string
@@ -31,7 +31,7 @@ interface IdeaNotificationProps {
 export const IdeaNotification: FC<IdeaNotificationProps> = props => {
   const { role, noticeItem } = props
 
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const getRolePiceToUrl = (key: string) => {
     switch (key) {
@@ -58,40 +58,32 @@ export const IdeaNotification: FC<IdeaNotificationProps> = props => {
   }
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={styles.mainWrapper}>
       <Avatar
         src={SettingsModel.uiTheme === UiTheme.light ? '/assets/icons/snack-light.svg' : '/assets/icons/snack-dark.svg'}
-        className={classNames.avatarWrapper}
+        className={styles.avatarWrapper}
       />
 
-      <div className={classNames.centerWrapper}>
-        <Typography className={classNames.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
-        <div className={classNames.centerSubWrapper}>
-          <div className={classNames.itemWrapper}>
-            <UserLink
-              name={noticeItem?.creator.name}
-              userId={noticeItem?.creator._id}
-              blackText={undefined}
-              withAvatar={undefined}
-              maxNameWidth={undefined}
-              customStyles={undefined}
-              customClassNames={undefined}
-            />
-            <Typography className={classNames.messageText}>
+      <div className={styles.centerWrapper}>
+        <Typography className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
+        <div className={styles.centerSubWrapper}>
+          <div className={styles.itemWrapper}>
+            <UserLink name={noticeItem?.creator.name} userId={noticeItem?.creator._id} />
+            <Typography className={styles.messageText}>
               {t(TranslationKey['updated data on idea to product']) + ':'}
             </Typography>
           </div>
-          <div className={classNames.itemWrapper}>
-            <Typography className={classNames.asin}>{'ASIN:'}</Typography>
-            <Typography className={classNames.asinText} onClick={onClickNoticeItem}>
+          <div className={styles.itemWrapper}>
+            <Typography className={styles.asin}>{'ASIN:'}</Typography>
+            <Typography className={styles.asinText} onClick={onClickNoticeItem}>
               {noticeItem?.asin}
             </Typography>
           </div>
         </div>
       </div>
 
-      <div className={classNames.footer}>
-        <Typography className={classNames.messageDate}>{format(new Date(), 'HH:mm')}</Typography>
+      <div className={styles.footer}>
+        <Typography className={styles.messageDate}>{format(new Date(), 'HH:mm')}</Typography>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   img: {
     height: '64px',
     width: '64px',
@@ -11,20 +11,12 @@ export const useClassNames = makeStyles()(theme => ({
     objectPosition: 'center',
   },
 
-  asinCell: {
-    padding: '12px 0px',
-    height: '88px',
-    scope: 'row',
-  },
-  asinCellContainer: {
-    display: 'inline-flex',
-  },
-
   barcodeChip: {
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '14px',
-    borderRadius: '4px',
+    width: '90px',
+    borderRadius: '7px',
     height: '36px',
   },
   barcodeChipHover: {
@@ -53,22 +45,25 @@ export const useClassNames = makeStyles()(theme => ({
     color: 'red',
   },
 
-  storekeeperBtn: {
-    width: '100%',
-    height: '32px',
-  },
-
   datePickerWrapper: {
-    width: 150,
+    width: '100%',
   },
 
   commentInput: {
-    height: '70px',
+    height: 70,
+    padding: '5px 0',
+  },
+
+  inputMultiline: {
+    height: '60px !important',
+    padding: '0 10px',
+    fontSize: 16,
+    lineHeight: '20px',
   },
 
   amazonTitle: {
     display: '-webkit-box',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
     maxHeight: 65,
     whiteSpace: 'normal',
@@ -83,7 +78,24 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  button: {
+    height: '40px',
+    width: '130px',
+    flexDirection: 'column',
+    margin: '0px',
+
+    p: {
+      fontSize: 12,
+      color: 'currentcolor',
+      width: '100%',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+    },
+  },
+
   row: {
+    width: '100%',
     border: '1px solid rgba(0,0,0, .1)',
   },
 
@@ -112,9 +124,21 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   containerField: {
-    width: 'min-content',
-    margin: 0,
+    margin: '0 !important',
   },
+
+  containerFieldCell: {
+    '> p': {
+      position: 'absolute',
+      bottom: 0,
+      transform: 'translateY(100%)',
+    },
+  },
+
+  batchWeight: {
+    width: '190px !important',
+  },
+
   labelField: {
     fontSize: '14px',
     color: theme.palette.text.general,
@@ -133,14 +157,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cell: {
-    padding: '0 20px',
+    padding: '0 5px',
   },
-
-  copyValueWrapper: {
-    display: 'flex',
-    gap: '10px',
+  deleteCell: {
+    padding: '0',
   },
-
   error: {
     lineHeight: 0,
     fontSize: 12,
@@ -152,12 +173,8 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: 12,
   },
 
-  errorSpaceInputCell: {
-    marginTop: 18,
-  },
-
   priceVariationsCell: {
-    minWidth: 130,
+    maxWidth: 130,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -166,5 +183,25 @@ export const useClassNames = makeStyles()(theme => ({
     margin: 'auto',
     color: theme.palette.text.general,
     fontSize: '12px',
+  },
+
+  calculationButton: {
+    minWidth: '225px !important',
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '5px',
+    padding: '5px 0',
+  },
+
+  warningText: {
+    textAlign: 'center',
+    fontSize: '12px',
+    fontWeight: 400,
+    color: theme.palette.text.red,
   },
 }))

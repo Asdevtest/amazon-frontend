@@ -1,59 +1,65 @@
-import { cx } from '@emotion/css'
-import { Container, Link, Typography } from '@mui/material'
+import { memo, useState } from 'react'
 
-import React, { useState } from 'react'
+import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-// import {TranslationKey} from '@constants/translations/translation-key'
-// import {Button} from '@components/buttons/button'
-// import {Field} from '@components/field'
-// import {checkIsPositiveNum} from '@utils/checks'
-// import {t} from '@utils/translations'
-import { useClassNames } from './add-suppliers-modal.style'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { isString } from '@typings/guards'
+
+import { useStyles } from './add-suppliers-modal.style'
+
 import Template from './template.xlsx'
 
-export const AddSuppliersModal = ({ userInfo, onSubmit, onClose, showProgress, progressValue }) => {
-  const { classes: classNames } = useClassNames()
+export const AddSuppliersModal = memo(props => {
+  const { userInfo, onSubmit, onClose, showProgress, progressValue } = props
 
-  const [images, setImages] = useState('')
+  const { classes: styles } = useStyles()
+  const [images, setImages] = useState([])
+
+  const handleSubmit = () => {
+    const file = isString(images[0]) ? images[0] : images[0].file
+    onSubmit(file)
+  }
 
   return (
-    <Container disableGutters className={classNames.root}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Adding a list of suppliers'])}</Typography>
-      <div className={classNames.linkWrapper}>
-        <Typography>{t(TranslationKey['For easier completion'])}</Typography>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{t(TranslationKey['Adding a list of suppliers'])}</p>
+
+      <div className={styles.flexContainer}>
+        <p>{t(TranslationKey['For easier completion'])}</p>
         <Link href={Template} download="application/xlsx">
           {t(TranslationKey['download the list template'])}
         </Link>
       </div>
-      <div className={classNames.idWrapper}>
-        <Typography>{`${t(TranslationKey['Your ID'])}:`}</Typography>
-        <div className={classNames.copyWrapper}>
-          <Typography>{userInfo._id}</Typography>
+
+      <div className={styles.flexContainer}>
+        <p>{`${t(TranslationKey['Your ID'])}:`}</p>
+        <div className={styles.flexContainer}>
+          <p>{userInfo._id}</p>
           <CopyValue text={userInfo._id} />
         </div>
       </div>
 
-      <UploadFilesInput images={images} setImages={setImages} maxNumber={1} acceptType={['xlsx']} />
-      <div className={classNames.buttonsWrapper}>
-        <Button success disabled={!images} className={classNames.button} onClick={() => onSubmit(images[0].file)}>
+      <UploadFilesInput images={images} setImages={setImages} maxNumber={1} />
+
+      <div className={styles.buttons}>
+        <Button disabled={images.length === 0} styleType={ButtonStyle.SUCCESS} onClick={handleSubmit}>
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={onClose}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
-      {showProgress && (
-        <CircularProgressWithLabel value={progressValue} title={`${t(TranslationKey['Loading data'])}...`} />
-      )}
-    </Container>
+
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
+    </div>
   )
-}
+})

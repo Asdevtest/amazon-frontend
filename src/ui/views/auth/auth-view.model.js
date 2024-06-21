@@ -1,8 +1,7 @@
-import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { action, makeAutoObservable, reaction } from 'mobx'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { privateRoutesConfigs } from '@constants/navigation/routes'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -11,10 +10,20 @@ import { UserModel } from '@models/user-model'
 import { getObjectKeys } from '@utils/object'
 import { setI18nConfig, t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class AuthViewModel {
   history = undefined
-  requestStatus = undefined
-  error = undefined
+  requestStatus = loadingStatus.SUCCESS
+
+  showConfirmModal = false
+
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
 
   email = ''
   password = ''
@@ -26,11 +35,15 @@ export class AuthViewModel {
     password: null,
   }
 
+  get disableLoginButton() {
+    return this.requestStatus === loadingStatus.IS_LOADING
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
+
     reaction(
       () => SettingsModel.languageTag,
       () => this.onLoadPage(),
@@ -38,9 +51,7 @@ export class AuthViewModel {
   }
 
   onLoadPage() {
-    runInAction(() => {
-      this.language = SettingsModel.languageTag
-    })
+    this.language = SettingsModel.languageTag
 
     SettingsModel.setLanguageTag(this.language)
 
@@ -53,48 +64,61 @@ export class AuthViewModel {
 
   setField = fieldName =>
     action(value => {
-      runInAction(() => {
-        this.formValidationErrors[fieldName] = null
-      })
+      this.formValidationErrors[fieldName] = null
 
       if (fieldName === 'remember') {
-        runInAction(() => {
-          this[fieldName] = !this.remember
-        })
+        this[fieldName] = !this.remember
       } else {
-        runInAction(() => {
-          this[fieldName] = value
-        })
+        this[fieldName] = value
       }
     })
 
   async onSubmitForm() {
     try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
-        this.error = undefined
-      })
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       await UserModel.signIn(this.email.toLowerCase(), this.password)
       await UserModel.getUserInfo()
+      await UserModel.getUsersInfoCounters()
+
       if (UserModel.accessToken) {
-        runInAction(() => {
-          this.requestStatus = loadingStatuses.success
-        })
         const allowedRoutes = privateRoutesConfigs.filter(route =>
           route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
         )
+
         this.history.push(allowedRoutes[0].routePath)
-      } else {
-        runInAction(() => {
-          this.requestStatus = loadingStatuses.failed
-          this.error = new Error('The user is waiting for confirmation by the Administrator')
-        })
       }
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
-        this.error = error
-      })
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
+  }
+
+  onClickThemeIcon = theme => {
+    SettingsModel.setUiTheme(theme)
+  }
+
+  onClickVersion() {
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey.Attention) + '!',
+      confirmMessage: t(TranslationKey['Temporary session data will be reset']),
+      onClickConfirm: () => {
+        SettingsModel.resetLocalStorageAndCach()
+        this.onToggleModal()
+      },
+    }
+
+    this.onToggleModal()
+  }
+
+  onToggleModal() {
+    this.showConfirmModal = !this.showConfirmModal
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

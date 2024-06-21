@@ -1,60 +1,46 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
-import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { RequestSubType, RequestType } from '@constants/requests/request-type'
-import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
-import { tableViewMode, tableSortMode } from '@constants/table/table-view-modes'
+import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
+import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { FreelancerVacantRequestColumns } from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
+import { freelancerVacantRequestColumns } from '@components/table/table-columns/freelancer/freelancer-vacant-request-columns/freelancer-vacant-request-columns'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { GeneralModel } from '@models/general-model'
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
-const filtersFields = [
-  'humanFriendlyId',
-  'updatedAt',
-  'status',
-  'title',
-  'typeTask',
-  'price',
-  'timeoutAt',
-  'asin',
-  'skusByClient',
-  'amazonTitle',
-  'createdBy',
-  'subUsers',
-  'priceAmazon',
-  'withoutConfirmation',
-]
+import { loadingStatus } from '@typings/enums/loading-status'
+import { RequestSubType } from '@typings/enums/request/request-type'
+import { Specs } from '@typings/enums/specs'
+
+import { defaultHiddenColumns, filtersFields } from './vacant-requests-view.constants'
 
 export class VacantRequestsViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
 
   nameSearchValue = ''
 
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
+  selectedSpec = Specs.DEFAULT
+  showRequestDetailModal = false
 
-  currentData = []
-
-  userInfo = []
-  userRole = undefined
+  get currentData() {
+    return this.requests
+  }
+  currentRequestDetails = undefined
 
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
 
-  paginationModel = { page: 0, pageSize: 15 }
+  pageSizeOptions = [15, 25, 50, 100]
+  paginationModel = { page: 0, pageSize: 100 }
   columnVisibilityModel = {}
 
   searchMyRequestsIds = []
@@ -63,12 +49,8 @@ export class VacantRequestsViewModel {
   viewMode = tableViewMode.TABLE
   sortMode = tableSortMode.DESK
 
-  get user() {
+  get userInfo() {
     return UserModel.userInfo
-  }
-
-  get languageTag() {
-    return SettingsModel.languageTag || {}
   }
 
   get isSomeFilterOn() {
@@ -78,66 +60,36 @@ export class VacantRequestsViewModel {
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: withoutUpdate => {
+    onClickAccept: () => {
       this.onLeaveColumnField()
-
-      if (withoutUpdate) {
-        this.getCurrentData()
-      } else {
-        this.getRequestsVacant()
-        // this.getDataGridState()
-      }
+      this.getRequestsVacant()
     },
 
     filterRequestStatus: undefined,
 
-    ...filtersFields.reduce(
-      (ac, cur) =>
-        (ac = {
-          ...ac,
-          [cur]: {
-            filterData: [],
-            currentFilterData: [],
-          },
-        }),
-      {},
-    ),
+    ...dataGridFiltersInitializer(filtersFields),
   }
 
-  handlers = { onClickViewMore: id => this.onClickViewMore(id) }
+  handlers = {
+    onClickViewMore: id => this.onClickViewMore(id),
+    onClickOpenInNewTab: id => this.onClickOpenInNewTab(id),
+  }
 
-  columnsModel = FreelancerVacantRequestColumns(
-    this.handlers,
-    this.languageTag,
-    () => this.columnMenuSettings,
-    () => this.onHover,
-  )
+  columnsModel = freelancerVacantRequestColumns(this.handlers)
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.requests,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
-
-    reaction(
-      () => this.nameSearchValue,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
-    )
   }
 
   setTableModeState() {
-    const state = { viewMode: this.viewMode, sortMode: this.sortMode }
+    const state = {
+      sortModel: toJS(this.sortModel),
+      filterModel: toJS(this.filterModel),
+      paginationModel: toJS(this.paginationModel),
+      columnVisibilityModel: toJS(this.columnVisibilityModel),
+    }
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.VACANT_REQUESTS)
   }
@@ -145,71 +97,60 @@ export class VacantRequestsViewModel {
   getTableModeState() {
     const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.VACANT_REQUESTS]
 
-    runInAction(() => {
-      if (state) {
-        this.viewMode = state.viewMode
-        this.sortMode = state.sortMode
-      }
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
+    defaultHiddenColumns.forEach(el => {
+      this.columnVisibilityModel[el] = false
     })
   }
 
-  onChangeViewMode(event, nextView) {
-    runInAction(() => {
-      this.viewMode = nextView
-    })
+  onChangeViewMode(value) {
+    this.viewMode = value
+
     this.setTableModeState()
   }
 
-  getCurrentData() {
-    return toJS(this.requests)
-  }
+  onClickSpec(specType) {
+    this.selectedSpec = specType
 
-  onClickTaskType(taskType) {
-    runInAction(() => {
-      this.selectedTaskType = taskType
-    })
+    // spec - for "_id:string", specType - for "type:number"
+    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+
     this.getRequestsVacant()
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
-  async getUserInfo() {
-    const result = await UserModel.userInfo
-    this.userInfo = result
-    this.userRole = UserRoleCodeMap[result.role]
-  }
-
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getUserInfo()
+      this.getTableModeState()
 
-      await Promise.all([this.getRequestsVacant(), this.getTableModeState()])
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.getRequestsVacant()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getRequestsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      const result = await RequestModel.getRequests(RequestSubType.VACANT, {
+      const result = await RequestModel.getRequests({
+        kind: RequestSubType.VACANT,
         filters: this.getFilter(),
-        typeTask:
-          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? undefined
-            : this.selectedTaskType,
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortField: this.sortModel.length
+          ? this.sortModel[0].field === 'deadline'
+            ? 'timeoutAt'
+            : this.sortModel[0].field
+          : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
@@ -219,10 +160,10 @@ export class VacantRequestsViewModel {
         this.rowCount = result.count
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
 
       runInAction(() => {
         this.requests = []
@@ -231,97 +172,22 @@ export class VacantRequestsViewModel {
   }
 
   getFilter(exclusion) {
-    const humanFriendlyIdFilter =
-      exclusion !== 'humanFriendlyId' && this.columnMenuSettings.humanFriendlyId.currentFilterData.join(',')
-    const updatedAtFilter = exclusion !== 'updatedAt' && this.columnMenuSettings.updatedAt.currentFilterData.join(',')
-    const statusFilter = exclusion !== 'status' && this.columnMenuSettings.status.currentFilterData.join(',')
-    const titleFilter = exclusion !== 'title' && this.columnMenuSettings.title.currentFilterData.join(',')
-    const typeTaskFilter = exclusion !== 'typeTask' && this.columnMenuSettings.typeTask.currentFilterData.join(',')
-    const asinFilter = exclusion !== 'asin' && this.columnMenuSettings.asin.currentFilterData.join(',')
-    const priceFilter = exclusion !== 'price' && this.columnMenuSettings.price.currentFilterData.join(',')
-    const timeoutAtFilter = exclusion !== 'timeoutAt' && this.columnMenuSettings.timeoutAt.currentFilterData.join(',')
-    const subUsersFilter =
-      exclusion !== 'subUsers' && this.columnMenuSettings?.subUsers?.currentFilterData?.map(item => item._id)?.join(',')
-
-    const skusByClientFilter =
-      exclusion !== 'skusByClient' &&
-      this.columnMenuSettings.skusByClient.currentFilterData /* .map(el => `"${el}"`) */
-        .join(',')
-    const amazonTitleFilter =
-      exclusion !== 'amazonTitle' &&
-      this.columnMenuSettings.amazonTitle.currentFilterData.map(el => `"${el}"`).join(',')
-
-    const createdByFilter = exclusion !== 'createdBy' && this.columnMenuSettings.createdBy.currentFilterData.join(',')
-
-    const priceAmazonFilter =
-      exclusion !== 'priceAmazon' && this.columnMenuSettings.priceAmazon.currentFilterData.join(',')
-
-    const withoutConfirmationFilter =
-      exclusion !== 'withoutConfirmation' && this.columnMenuSettings.withoutConfirmation.currentFilterData.join(',')
-
-    const filter = objectToUrlQs({
-      or: [
-        { asin: { $contains: this.nameSearchValue } },
-        { title: { $contains: this.nameSearchValue } },
-        { humanFriendlyId: { $eq: this.nameSearchValue } },
-      ].filter(
-        el =>
-          ((isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))) &&
-            !el.id &&
-            !el.humanFriendlyId) ||
-          !(isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))),
-      ),
-
-      ...(asinFilter && {
-        asin: { $eq: asinFilter },
-      }),
-      ...(skusByClientFilter && {
-        skusByClient: { $eq: skusByClientFilter },
-      }),
-      ...(amazonTitleFilter && {
-        amazonTitle: { $eq: amazonTitleFilter },
-      }),
-
-      ...(humanFriendlyIdFilter && {
-        humanFriendlyId: { $eq: humanFriendlyIdFilter },
-      }),
-      ...(updatedAtFilter && {
-        updatedAt: { $eq: updatedAtFilter },
-      }),
-      ...(statusFilter && {
-        status: { $eq: statusFilter },
-      }),
-      ...(titleFilter && {
-        title: { $contains: titleFilter },
-      }),
-      ...(typeTaskFilter && {
-        typeTask: { $eq: typeTaskFilter },
-      }),
-      ...(priceFilter && {
-        price: { $eq: priceFilter },
-      }),
-      ...(timeoutAtFilter && {
-        timeoutAt: { $eq: timeoutAtFilter },
-      }),
-      ...(createdByFilter && {
-        createdBy: { $eq: createdByFilter },
-      }),
-      ...(subUsersFilter && {
-        subUsers: { $eq: subUsersFilter },
-      }),
-      ...(priceAmazonFilter && {
-        priceAmazon: { $eq: priceAmazonFilter },
-      }),
-      ...(withoutConfirmationFilter && {
-        withoutConfirmation: { $eq: withoutConfirmationFilter },
-      }),
-    })
-
-    return filter
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
+        'title',
+        'humanFriendlyId',
+        'asin',
+        'skuByClient',
+      ]),
+    )
   }
 
   async onClickFilterBtn(column) {
     try {
+      runInAction(() => {
+        this.columnMenuSettings.filterRequestStatus = loadingStatus.IS_LOADING
+      })
+
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'requests'),
         column,
@@ -329,45 +195,45 @@ export class VacantRequestsViewModel {
       )
 
       if (this.columnMenuSettings[column]) {
-        this.columnMenuSettings = {
-          ...this.columnMenuSettings,
-          [column]: { ...this.columnMenuSettings[column], filterData: data },
-        }
+        runInAction(() => {
+          this.columnMenuSettings = {
+            ...this.columnMenuSettings,
+            [column]: { ...this.columnMenuSettings[column], filterData: data },
+          }
+        })
       }
 
-      // this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-
-      console.log(error)
       runInAction(() => {
-        this.error = error
+        this.columnMenuSettings.filterRequestStatus = loadingStatus.SUCCESS
       })
+    } catch (error) {
+      runInAction(() => {
+        this.columnMenuSettings.filterRequestStatus = loadingStatus.FAILED
+      })
+      console.error(error)
     }
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
+    this.setTableModeState()
+    this.getRequestsVacant()
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+      [field]: {
+        ...this.columnMenuSettings[field],
+        currentFilterData: value,
+      },
+    }
   }
 
   onSearchSubmit(searchValue) {
-    runInAction(() => {
-      this.nameSearchValue = searchValue
-    })
+    this.nameSearchValue = searchValue
+
     this.getRequestsVacant()
   }
 
@@ -376,86 +242,120 @@ export class VacantRequestsViewModel {
   }
 
   onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
+    this.selectedSpec = Specs.DEFAULT
 
-        ...filtersFields.reduce(
-          (ac, cur) =>
-            (ac = {
-              ...ac,
-              [cur]: {
-                filterData: [],
-                currentFilterData: [],
-              },
-            }),
-          {},
-        ),
-      }
-    })
+    this.columnMenuSettings = {
+      ...this.columnMenuSettings,
+
+      ...dataGridFiltersInitializer(filtersFields),
+    }
 
     this.getRequestsVacant()
   }
 
-  async onClickViewMore(id) {
-    try {
-      this.history.push(
-        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request?request-id=${id}`,
-      )
-    } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
-    }
-  }
+  onClickViewMore(id) {
+    const win = window.open(
+      `/${
+        UserRoleCodeMapForRoutes[this.userInfo?.role]
+      }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
+      '_blank',
+    )
 
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    win.focus()
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   onTriggerSortMode() {
-    runInAction(() => {
-      if (this.sortMode === tableSortMode.DESK) {
-        this.sortMode = tableSortMode.ASC
-      } else {
-        this.sortMode = tableSortMode.DESK
+    if (this.sortMode === tableSortMode.DESK) {
+      this.sortMode = tableSortMode.ASC
+      this.sortModel[0] = {
+        ...this.sortModel[0],
+        sort: tableSortMode.ASC,
+        field: 'updatedAt',
       }
-    })
+    } else {
+      this.sortMode = tableSortMode.DESK
+      this.sortModel[0] = {
+        ...this.sortModel[0],
+        sort: tableSortMode.DESC,
+        field: 'updatedAt',
+      }
+    }
 
+    this.getRequestsVacant()
     this.setTableModeState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.getRequestsVacant()
     this.setTableModeState()
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
+
+    this.setTableModeState()
+    this.getRequestsVacant()
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
+    this.requestStatus = requestStatus
+  }
+
+  async getRequestDetail(id) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      const response = await RequestModel.getCustomRequestById(id)
+
+      runInAction(() => {
+        this.currentRequestDetails = response
+      })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+    }
+  }
+
+  handleOpenRequestDetailModal(id) {
+    if (window.getSelection().toString()) {
+      return
+    }
+
+    this.getRequestDetail(id).then(() => {
+      this.onTriggerOpenModal('showRequestDetailModal')
     })
+  }
+
+  onClickSuggest() {
+    this.history.push(
+      `/${
+        UserRoleCodeMapForRoutes[this.userInfo?.role]
+      }/freelance/vacant-requests/custom-search-request/create-proposal?requestId=${
+        this.currentRequestDetails.request._id
+      }`,
+    )
+  }
+
+  onClickOpenInNewTab(id) {
+    const win = window.open(
+      `${window.location.origin}/${
+        UserRoleCodeMapForRoutes[this.userInfo?.role]
+      }/freelance/vacant-requests/custom-search-request?request-id=${id}`,
+      '_blank',
+    )
+
+    win.focus()
   }
 }

@@ -1,5 +1,4 @@
 import { keyframes } from '@emotion/react'
-
 import { makeStyles } from 'tss-react/mui'
 
 const hypnoEye = keyframes`
@@ -11,7 +10,7 @@ const hypnoEye = keyframes`
   }
 `
 
-export const useClassNames = makeStyles()((theme, props) => ({
+export const useStyles = makeStyles()((theme, props) => ({
   chip: {
     fontSize: '15px',
     fontWeight: '600',
@@ -61,7 +60,7 @@ export const useClassNames = makeStyles()((theme, props) => ({
     position: 'absolute',
     top: '-10px',
     right: '-15px',
-    zIndex: '10',
+    zIndex: 7,
     display: 'flex',
   },
 

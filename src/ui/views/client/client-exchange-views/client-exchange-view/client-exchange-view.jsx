@@ -1,66 +1,47 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal/select-shops-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ClientExchangeViewModel } from './client-exchange-view.model'
-import { styles } from './client-exchange-view.style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const ClientExchangeViewRaw = props => {
-  const [viewModel] = useState(() => new ClientExchangeViewModel({ history: props.history }))
-  const { classes: classNames } = props
+import { useStyles } from './client-exchange-view.style'
+
+import { ClientExchangeViewModel } from './client-exchange-view.model'
+
+export const ClientExchangeView = observer(() => {
+  const [viewModel] = useState(() => new ClientExchangeViewModel())
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     viewModel.loadData()
-    viewModel.getDataGridState()
   }, [])
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <MemoDataGrid
-          pagination
-          useResizeContainer
-          classes={{
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
-          localeText={getLocalizationByLanguageTag()}
+    <>
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
-          rows={viewModel.getCurrentData()}
-          rowHeight={100}
+          rows={viewModel.currentData}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
@@ -72,14 +53,13 @@ export const ClientExchangeViewRaw = props => {
           getRowHeight={() => 'auto'}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
         />
-      </MainContent>
+      </div>
 
       <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
-          // volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
@@ -99,6 +79,7 @@ export const ClientExchangeViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
       >
         <SelectShopsModal
+          isNotDisabled
           title={viewModel.confirmModalSettings.confirmTitle}
           message={viewModel.confirmModalSettings.confirmMessage}
           shops={viewModel.shopsData}
@@ -107,39 +88,31 @@ export const ClientExchangeViewRaw = props => {
         />
       </Modal>
 
-      <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings.isWarning}
-        title={viewModel.confirmModalSettings.confirmTitle}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel.showWarningModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        title={viewModel.showWarningModalText}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
-      />
-
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={t(TranslationKey['Order successfully created!'])}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
-      />
-    </React.Fragment>
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={t(TranslationKey['Order successfully created!'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
+    </>
   )
-}
-
-export const ClientExchangeView = withStyles(observer(ClientExchangeViewRaw), styles)
+})

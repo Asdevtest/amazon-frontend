@@ -1,49 +1,36 @@
-import { Tabs } from '@mui/material'
-
-import React from 'react'
-
 import { observer } from 'mobx-react'
+import { Fragment, useState } from 'react'
+
+import { Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { ITab } from '@components/shared/i-tab/i-tab'
+import { ITab } from '@components/shared/i-tab'
+import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
+import { useStyles } from './client-sell-shops-content.style'
+
 import { ClientSellShopsAds } from './client-sell-shops-ads'
-import { useClassNames } from './client-sell-shops-content.style'
 import { ClientSellShopsDeals } from './client-sell-shops-deals'
 
-const TabPanel = ({ children, value, index, ...other }) => {
-  const { classes: classNames } = useClassNames()
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <div className={classNames.tabPanel}>{children}</div>}
-    </div>
-  )
-}
 export const ClientSellShopsContent = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
-  const [tabIndex, setTabIndex] = React.useState(0)
+  const [tabIndex, setTabIndex] = useState(0)
 
   return (
-    <React.Fragment>
+    <Fragment>
       {SettingsModel.languageTag && (
         <>
           <Tabs
             variant={'fullWidth'}
             classes={{
-              root: classNames.row,
-              indicator: classNames.indicator,
+              root: styles.row,
+              indicator: styles.indicator,
             }}
             value={tabIndex}
             onChange={(e, index) => setTabIndex(index)}
@@ -59,6 +46,6 @@ export const ClientSellShopsContent = observer(() => {
           </TabPanel>
         </>
       )}
-    </React.Fragment>
+    </Fragment>
   )
 })

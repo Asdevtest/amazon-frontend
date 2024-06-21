@@ -1,67 +1,63 @@
+import { memo } from 'react'
+
 import { Typography } from '@mui/material'
 
-import React from 'react'
-
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
-import { useClassNames } from './two-vertical-choices-modal.style'
+import { ButtonVariant } from '@typings/enums/button-style'
 
-export const TwoVerticalChoicesModal = ({
-  openModal,
-  setOpenModal,
-  title,
-  topBtnText,
-  onClickTopBtn,
-  bottomBtnText,
-  onClickBottomBtn,
-  tooltipFirstButton,
-  tooltipSecondButton,
-  tooltipThirdButton,
-  thirdBtnText,
-  onClickThirdBtn,
-}) => {
-  const { classes: classNames } = useClassNames()
+import { useStyles } from './two-vertical-choices-modal.style'
 
-  return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={classNames.modalMessageWrapper}>
-        <Typography variant="h5" className={classNames.title}>
-          {title}
-        </Typography>
+export const TwoVerticalChoicesModal = memo(
+  ({
+    openModal,
+    setOpenModal,
+    title,
+    topBtnText,
+    onClickTopBtn,
+    bottomBtnText,
+    onClickBottomBtn,
+    tooltipFirstButton,
+    tooltipSecondButton,
+    tooltipThirdButton,
+    thirdBtnText,
+    onClickThirdBtn,
+  }) => {
+    const { classes: styles } = useStyles()
 
-        <div className={classNames.resultButtonsWrapper}>
-          <Button
-            tooltipInfoContent={tooltipFirstButton}
-            className={classNames.button}
-            color="primary"
-            variant="contained"
-            onClick={onClickTopBtn}
-          >
-            {topBtnText}
-          </Button>
-          <Button
-            tooltipInfoContent={tooltipSecondButton}
-            color="primary"
-            variant="text"
-            className={classNames.bottomBtnText}
-            onClick={onClickBottomBtn}
-          >
-            {bottomBtnText}
-          </Button>
-          {onClickThirdBtn && thirdBtnText && (
-            <Button
-              tooltipInfoContent={tooltipThirdButton}
-              color="primary"
-              variant="text"
-              className={classNames.bottomBtnText}
-              onClick={onClickThirdBtn}
-            >
-              {thirdBtnText}
+    return (
+      <Modal openModal={openModal} setOpenModal={setOpenModal}>
+        <div className={styles.modalMessageWrapper}>
+          <Typography variant="h5" className={styles.title}>
+            {title}
+          </Typography>
+
+          <div className={styles.resultButtonsWrapper}>
+            <Button tooltipInfoContent={tooltipFirstButton} className={styles.button} onClick={onClickTopBtn}>
+              {topBtnText}
             </Button>
-          )}
+            <Button
+              tooltipInfoContent={tooltipSecondButton}
+              variant={ButtonVariant.OUTLINED}
+              className={styles.bottomBtnText}
+              onClick={onClickBottomBtn}
+            >
+              {bottomBtnText}
+            </Button>
+            {onClickThirdBtn && thirdBtnText && (
+              <Button
+                tooltipInfoContent={tooltipThirdButton}
+                variant={ButtonVariant.OUTLINED}
+                className={styles.bottomBtnText}
+                onClick={onClickThirdBtn}
+              >
+                {thirdBtnText}
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
-    </Modal>
-  )
-}
+      </Modal>
+    )
+  },
+)

@@ -1,12 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     width: '674px',
-    height: '619px',
+    maxHeight: '650px',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     overflowY: 'auto',
+    padding: 10,
     [theme.breakpoints.down(768)]: {
       width: '295px',
       height: '100%',
@@ -23,8 +25,9 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonsWrapper: {
     display: 'flex',
-    justifyContent: 'end',
-    marginTop: '30px',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    marginTop: '10px',
     gap: '10px',
     [theme.breakpoints.down(768)]: {
       display: 'flex',
@@ -32,6 +35,11 @@ export const useClassNames = makeStyles()(theme => ({
       marginTop: '30px',
       gap: '10px',
     },
+  },
+
+  buttonsSubWrapper: {
+    display: 'flex',
+    gap: '10px',
   },
 
   divider: {
@@ -42,7 +50,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     marginBottom: 15,
     borderBottom: '1px solid rgba(0,0,0, .2)',
     '&:hover': {
@@ -104,7 +112,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '10px',
     marginBottom: '4px',
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.01)',
     },
@@ -125,27 +133,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   permissionGroupsToSelectCheckboxWrapper: {
-    border: '1px solid rgba(0,0,0, .1)',
-    borderRadius: '10px',
-    margin: '0 0 4px 10px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
-    [theme.breakpoints.down(768)]: {
-      margin: '0',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '30px',
-      height: '30px',
-      transition: '0.3s ease',
-      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-      '&:hover': {
-        transform: 'scale(1.01)',
-      },
-    },
+    marginLeft: '10px',
   },
 
   selectedItem: {
@@ -180,7 +168,7 @@ export const useClassNames = makeStyles()(theme => ({
   tab: {
     color: theme.palette.primary.main,
     textTransform: 'inherit',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
 
   selectedTab: {
@@ -234,5 +222,36 @@ export const useClassNames = makeStyles()(theme => ({
       justifyContent: 'center',
       alignItems: 'center',
     },
+  },
+
+  requestTypeWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+
+    p: {
+      fontSize: '14px',
+      fontWeight: 400,
+      color: theme.palette.text.second,
+    },
+  },
+
+  requestTypeField: {
+    width: '312px',
+    height: 40,
+    margin: 0,
+    paddingLeft: 10,
+
+    borderRadius: 4,
+
+    '&:before': {
+      borderBottom: 'none',
+    },
+  },
+
+  currentUserBlock: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
   },
 }))

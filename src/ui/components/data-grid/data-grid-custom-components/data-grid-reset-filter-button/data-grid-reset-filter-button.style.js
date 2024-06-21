@@ -1,11 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  mainFilterBtn: {
-    color: theme.palette.primary.main,
-    border: 'none',
-    height: 35,
+export const useStyles = makeStyles()(theme => ({
+  button: {
+    border: `1px solid ${theme.palette.input.customBorder}`,
   },
 
   mainFilterBtnInsert: {
@@ -13,6 +10,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   mainFilterBtnInsertText: {
+    fontSize: 14,
     fontWeight: 600,
     marginLeft: 5,
   },

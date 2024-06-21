@@ -1,19 +1,21 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { WeightBasedLogisticsTariffsColumns } from '@components/table/table-columns/warehouse/weight-based-logistics-tariffs'
 
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
-import { tariffTypes } from '@constants/keys/tariff-types'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class LogisticsTariffsModel {
   history = undefined
@@ -21,10 +23,7 @@ export class LogisticsTariffsModel {
   error = undefined
 
   isArchive = false
-  yuanToDollarRate = undefined
   storekeeperDestination = undefined
-
-  currentData = []
 
   logisticsTariffs = []
   tariffToEdit = undefined
@@ -66,22 +65,21 @@ export class LogisticsTariffsModel {
     return SettingsModel.destinationsFavourites
   }
 
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
+  get currentData() {
+    return this.logisticsTariffs
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
       () => this.isArchive,
-      () => {
-        this.loadData()
-      },
-    )
-
-    reaction(
-      () => this.logisticsTariffs,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () => this.loadData(),
     )
   }
 
@@ -110,8 +108,7 @@ export class LogisticsTariffsModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -127,7 +124,7 @@ export class LogisticsTariffsModel {
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
+  onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })
@@ -151,20 +148,18 @@ export class LogisticsTariffsModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.SUB_WAREHOUSE_LOGISTICS_TARIFFS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
@@ -185,13 +180,9 @@ export class LogisticsTariffsModel {
     this.rowSelectionModel = model
   }
 
-  getCurrentData() {
-    return toJS(this.logisticsTariffs)
-  }
-
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await this.getLogisticsTariffs()
 
@@ -199,10 +190,10 @@ export class LogisticsTariffsModel {
 
       this.getDestinations()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -234,7 +225,7 @@ export class LogisticsTariffsModel {
       //   })
       // }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -253,7 +244,7 @@ export class LogisticsTariffsModel {
       this.onTriggerOpenModal('showAddOrEditDestinationModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -269,7 +260,7 @@ export class LogisticsTariffsModel {
       })
     } catch (error) {
       this.logisticsTariffs = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -277,13 +268,9 @@ export class LogisticsTariffsModel {
     try {
       this.tariffToEdit = row
 
-      const result = await UserModel.getPlatformSettings()
-
-      this.yuanToDollarRate = result.yuanToDollarRate
-
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -317,14 +304,14 @@ export class LogisticsTariffsModel {
           maxWeight: destinationVariation?.maxWeight,
           pricePerKgRmb: destinationVariation?.pricePerKgRmb,
           pricePerKgUsd: destinationVariation?.pricePerKgUsd,
+          minBoxWeight: Number(destinationVariation?.minBoxWeight),
         })),
       })
 
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -358,14 +345,14 @@ export class LogisticsTariffsModel {
           maxWeight: destinationVariation?.maxWeight,
           pricePerKgRmb: destinationVariation?.pricePerKgRmb,
           pricePerKgUsd: destinationVariation?.pricePerKgUsd,
+          minBoxWeight: Number(destinationVariation?.minBoxWeight),
         })),
       })
 
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -373,14 +360,9 @@ export class LogisticsTariffsModel {
     try {
       this.tariffToEdit = undefined
 
-      const result = await UserModel.getPlatformSettings()
-
-      this.yuanToDollarRate = result.yuanToDollarRate
-
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 
@@ -418,8 +400,7 @@ export class LogisticsTariffsModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 

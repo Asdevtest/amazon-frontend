@@ -1,32 +1,38 @@
-import { cx } from '@emotion/css'
+import { memo, useEffect, useState } from 'react'
+
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Divider, Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
-
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TaskOperationType } from '@constants/task/task-operation-type'
-import { mapTaskStatusEmumToKey, TaskStatus } from '@constants/task/task-status'
+import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
-import { Button } from '@components/shared/buttons/button'
+import { BoxEdit } from '@components/shared/boxes/box-edit'
+import { BoxMerge } from '@components/shared/boxes/box-merge'
+import { BoxSplit } from '@components/shared/boxes/box-split'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+import { BoxArrowIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
+
+import { useStyles } from './edit-task-modal.style'
+
 import { BeforeAfterBlock } from '../before-after-block'
 import { ReceiveBoxModal } from '../receive-box-modal'
-import { useClassNames } from './edit-task-modal.style'
 
-export const EditTaskModal = observer(
+export const EditTaskModal = memo(
   ({
     volumeWeightCoefficient,
     requestStatus,
@@ -41,20 +47,12 @@ export const EditTaskModal = observer(
     onTriggerShowEditBoxModal,
     readOnly,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
+    const { isMobileResolution, isPcSmallResolution } = useCreateBreakpointResolutions()
 
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
     const [isFileDownloading, setIsFileDownloading] = useState(false)
-
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
-    const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
-
-    useEffect(() => {
-      const resizeScreen = () => {
-        setCurrentScreenWidth(window.innerWidth)
-      }
-      window.addEventListener('resize', resizeScreen)
-    }, [window.innerWidth])
 
     const renderModalTitle = status => {
       switch (status) {
@@ -82,21 +80,19 @@ export const EditTaskModal = observer(
       }
     }
 
-    const renderTypeTaskImages = type => {
+    const renderTypeTaskBoxes = type => {
       switch (type) {
         case TaskOperationType.EDIT:
-          return '/assets/img/edit.png'
-        case TaskOperationType.RECEIVE:
-          return '/assets/img/receive.png'
+          return <BoxEdit />
         case TaskOperationType.SPLIT:
-          return '/assets/img/split.png'
+          return <BoxSplit />
         case TaskOperationType.MERGE:
-          return '/assets/img/merge.png'
+          return <BoxMerge />
       }
     }
 
-    const [newBoxes, setNewBoxes] = useState([
-      ...task.boxes.map(
+    const [newBoxes, setNewBoxes] = useState(
+      task.boxes.map(
         box =>
           (box = {
             ...box,
@@ -108,11 +104,26 @@ export const EditTaskModal = observer(
             isBarCodeAlreadyAttachedByTheSupplier: box?.isBarCodeAlreadyAttachedByTheSupplier || false,
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
 
-            tmpImages: [],
+            items: box?.items?.map(item => ({
+              ...item,
+              isTransparencyFileAlreadyAttachedByTheSupplier:
+                item?.isTransparencyFileAlreadyAttachedByTheSupplier || false,
+              isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper || false,
+            })),
             images: box?.images || [],
           }),
       ),
-    ])
+    )
+
+    const [isFilledNewBoxesDimensions, setIsFilledNewBoxesDimensions] = useState(false)
+
+    useEffect(() => {
+      setIsFilledNewBoxesDimensions(
+        newBoxes.every(
+          box => box.widthCmWarehouse || box.weighGrossKgWarehouse || box.lengthCmWarehouse || box.heightCmWarehouse,
+        ),
+      )
+    }, [newBoxes])
 
     const onClickApplyAllBtn = box => {
       const arr = newBoxes.map(el => ({
@@ -133,42 +144,84 @@ export const EditTaskModal = observer(
       setIsFileDownloading(false)
     }
 
-    return (
-      <div className={classNames.root}>
-        <div className={classNames.modalHeader}>
-          <Typography className={classNames.modalTitle}>{renderModalTitle(task.status)}</Typography>
+    const isEditTask = task?.operationType === TaskOperationType.EDIT
+    const isReciveTypeTask = task.operationType === TaskOperationType.RECEIVE
 
-          <div className={classNames.modalSubHeader}>
-            <div className={classNames.typeTaskWrapper}>
-              <img src={renderTypeTaskImages(task.operationType)} className={classNames.hideBlock} />
-              <Typography className={classNames.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
-              <Typography className={classNames.typeTaskSubTitle}>{renderTypeTaskTitle(task.operationType)}</Typography>
+    const isManyItemsInSomeBox = task?.boxesBefore.some(box => box.items.length > 1)
+
+    const noTariffInSomeBox = task?.boxesBefore.some(box => !box.logicsTariff)
+
+    const receiveNotFromBuyer = isReciveTypeTask && (isManyItemsInSomeBox || noTariffInSomeBox)
+
+    const isSomeBoxHasntImageToRecive = isReciveTypeTask && newBoxes.some(box => !box?.images?.length)
+
+    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.images?.length)
+
+    const isTaskChangeBarcodeOrTransparency =
+      isEditTask &&
+      task?.boxesBefore.some(box => {
+        const newBox = newBoxes.find(newBox => newBox.humanFriendlyId === box.humanFriendlyId)
+
+        if (newBox) {
+          return newBox.items?.some((item, itemIndex) => {
+            const currentItem = box?.items?.[itemIndex]
+
+            return currentItem?.barCode !== item?.barCode || currentItem?.transparencyFile !== item?.transparencyFile
+          })
+        }
+      })
+
+    const isNoChangesBarcodeOrTransparency = isTaskChangeBarcodeOrTransparency && isSomeBoxHasntImageToEdit
+
+    const disableSaveButton =
+      !newBoxes.length ||
+      requestStatus === loadingStatus.IS_LOADING ||
+      !isFilledNewBoxesDimensions ||
+      (isSomeBoxHasntImageToRecive && !receiveNotFromBuyer) ||
+      isNoChangesBarcodeOrTransparency
+
+    return (
+      <div className={styles.root}>
+        <div className={styles.modalHeader}>
+          <Typography className={styles.modalTitle}>{renderModalTitle(task.status)}</Typography>
+
+          <div className={styles.modalSubHeader}>
+            <div className={styles.typeTaskWrapper}>
+              {isReciveTypeTask ? (
+                <div className={styles.boxSvgContainer}>
+                  <img src="/assets/icons/big-box.svg" className={styles.bigBoxSvg} />
+                  <BoxArrowIcon className={styles.boxArrowSvg} />
+                </div>
+              ) : (
+                renderTypeTaskBoxes(task.operationType)
+              )}
+
+              <Typography className={styles.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
+              <Typography className={styles.typeTaskSubTitle}>{renderTypeTaskTitle(task?.operationType)}</Typography>
             </div>
 
             {task.operationType === TaskOperationType.RECEIVE && (
-              <Button className={classNames.downloadButton} onClick={uploadTemplateFile}>
+              <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download task file'])}
                 <FileDownloadIcon />
               </Button>
             )}
           </div>
         </div>
-        <div className={classNames.form}>
-          <div>
-            <Typography paragraph className={classNames.subTitle}>
-              {t(TranslationKey['Receipt data'])}
-            </Typography>
-          </div>
+        <div className={styles.form}>
+          <Typography paragraph className={styles.subTitle}>
+            {t(TranslationKey['Receipt data'])}
+          </Typography>
 
-          <div className={classNames.commentsAndFilesWrapper}>
-            <div className={classNames.commentsWrapper}>
+          <div className={styles.commentsAndFilesWrapper}>
+            <div className={styles.commentsWrapper}>
               <div>
                 <Field
                   multiline
                   disabled
-                  className={[classNames.heightFieldAuto, classNames.clientAndBuyerComment]}
-                  minRows={currentScreenWidth < 1282 ? 2 : 4}
-                  maxRows={currentScreenWidth < 1282 ? 2 : 4}
+                  className={[styles.heightFieldAuto, styles.clientAndBuyerComment]}
+                  minRows={isPcSmallResolution ? 2 : 4}
+                  maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Client comment'])}
                   placeholder={t(TranslationKey['Client comment on the task'])}
                   value={task.clientComment || ''}
@@ -176,9 +229,9 @@ export const EditTaskModal = observer(
                 <Field
                   multiline
                   disabled
-                  className={[classNames.heightFieldAuto, classNames.clientAndBuyerComment]}
-                  minRows={currentScreenWidth < 1282 ? 2 : 4}
-                  maxRows={currentScreenWidth < 1282 ? 2 : 4}
+                  className={[styles.heightFieldAuto, styles.clientAndBuyerComment]}
+                  minRows={isPcSmallResolution ? 2 : 4}
+                  maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Buyer comment'])}
                   placeholder={t(TranslationKey['Buyer comments to the task'])}
                   value={task.buyerComment || ''}
@@ -186,10 +239,10 @@ export const EditTaskModal = observer(
               </div>
               <Field
                 multiline
-                className={cx(classNames.heightFieldAuto, classNames.storekeeperCommentField)}
+                className={cx(styles.heightFieldAuto, styles.storekeeperCommentField)}
                 disabled={readOnly}
-                minRows={currentScreenWidth < 768 ? 4 : currentScreenWidth < 1282 ? 7 : 11}
-                maxRows={currentScreenWidth < 768 ? 4 : currentScreenWidth < 1282 ? 7 : 11}
+                minRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
+                maxRows={isMobileResolution ? 4 : isPcSmallResolution ? 7 : 11}
                 inputProps={{ maxLength: 2000 }}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}
@@ -197,33 +250,20 @@ export const EditTaskModal = observer(
                 onChange={e => setStorekeeperComment(e.target.value)}
               />
             </div>
-            {!readOnly ? (
-              <div className={classNames.imageFileInputWrapper}>
-                <UploadFilesInput
-                  fullWidth
-                  dragAndDropBtnHeight={74}
-                  images={photosOfTask}
-                  setImages={setPhotosOfTask}
-                  maxNumber={50}
-                />
-              </div>
-            ) : (
-              <div className={classNames.imageAndFileInputWrapper}>
-                <PhotoAndFilesCarousel
-                  small
-                  direction={window.screen.width < 768 ? 'column' : 'row'}
-                  files={task.images}
-                  width="600px"
-                />
-              </div>
-            )}
+
+            <div className={styles.imageFileInputWrapper}>
+              {!readOnly ? (
+                <UploadFilesInput images={photosOfTask} setImages={setPhotosOfTask} dragAndDropButtonHeight={74} />
+              ) : (
+                <SlideshowGallery files={task.images} />
+              )}
+            </div>
           </div>
 
-          <Divider orientation="horizontal" className={classNames.horizontalDivider} />
+          <Divider orientation="horizontal" className={styles.horizontalDivider} />
 
           <BeforeAfterBlock
             readOnly={readOnly}
-            volumeWeightCoefficient={volumeWeightCoefficient}
             incomingBoxes={task.boxesBefore}
             desiredBoxes={newBoxes}
             taskType={task.operationType}
@@ -236,16 +276,14 @@ export const EditTaskModal = observer(
             onClickApplyAllBtn={onClickApplyAllBtn}
           />
         </div>
-        <div className={classNames.buttonsMainWrapper}>
+        <div className={styles.buttonsMainWrapper}>
           {!readOnly ? (
-            <div className={classNames.buttonsWrapperMobile}>
+            <div className={styles.buttonsWrapperMobile}>
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <Button
-                  className={classNames.buttonMobile}
+                  className={styles.buttonMobile}
                   tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-                  onClick={() => {
-                    setReceiveBoxModal(!receiveBoxModal)
-                  }}
+                  onClick={() => setReceiveBoxModal(!receiveBoxModal)}
                 >
                   {t(TranslationKey.Redistribute)}
                 </Button>
@@ -254,11 +292,15 @@ export const EditTaskModal = observer(
           ) : null}
 
           {!readOnly ? (
-            <div className={classNames.buttonsWrapper}>
+            <div className={styles.buttonsWrapper}>
+              {isNoChangesBarcodeOrTransparency ? (
+                <p className={styles.errorText}>{t(TranslationKey['Be sure to add a photo to the box'])}</p>
+              ) : null}
+
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
-                <div className={classNames.hideButton}>
+                <div className={styles.hideButton}>
                   <Button
-                    className={classNames.button}
+                    className={styles.button}
                     tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
                     onClick={() => {
                       setReceiveBoxModal(!receiveBoxModal)
@@ -269,11 +311,11 @@ export const EditTaskModal = observer(
                 </div>
               )}
 
-              <div className={classNames.buttons}>
+              <div className={styles.buttons}>
                 <Button
-                  success
-                  className={classNames.successBtn}
-                  disabled={newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading}
+                  styleType={ButtonStyle.SUCCESS}
+                  className={styles.successBtn}
+                  disabled={disableSaveButton}
                   tooltipInfoContent={t(TranslationKey['Save task data'])}
                   onClick={() => {
                     onClickSolveTask({
@@ -287,25 +329,25 @@ export const EditTaskModal = observer(
                 >
                   {t(TranslationKey.Save)}
                 </Button>
-                <Button variant="text" className={classNames.cancelButton} onClick={onClickOpenCloseModal}>
+                <Button
+                  variant={ButtonVariant.OUTLINED}
+                  className={styles.cancelButton}
+                  onClick={onClickOpenCloseModal}
+                >
                   {t(TranslationKey.Cancel)}
                 </Button>
               </div>
             </div>
           ) : (
-            <div className={classNames.buttonWrapper}>
-              <Button className={classNames.closeButton} color="primary" onClick={onClickOpenCloseModal}>
+            <div className={styles.buttonWrapper}>
+              <Button className={styles.closeButton} onClick={onClickOpenCloseModal}>
                 {t(TranslationKey.Close)}
               </Button>
             </div>
           )}
         </div>
 
-        <Modal
-          openModal={receiveBoxModal}
-          setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
-          onCloseModal={() => setReceiveBoxModal(!receiveBoxModal)}
-        >
+        <Modal openModal={receiveBoxModal} setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}>
           <ReceiveBoxModal
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}

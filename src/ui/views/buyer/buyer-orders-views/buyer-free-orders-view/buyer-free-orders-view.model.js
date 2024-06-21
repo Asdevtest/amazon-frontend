@@ -1,94 +1,99 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
-import { TranslationKey } from '@constants/translations/translation-key'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 
 import { BuyerModel } from '@models/buyer-model'
-import { SettingsModel } from '@models/settings-model'
+import { filterModelInitialValue } from '@models/data-grid-table-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
-
-import { buyerFreeOrdersViewColumns } from '@components/table/table-columns/buyer/buyer-fre-orders-columns'
 
 import { buyerVacantOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { buyerFreeOrdersViewColumns } from './buyer-free-orders-columns'
 
 export class BuyerFreeOrdersViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-  error = undefined
 
   curOrder = undefined
-
+  selectedRowIds = []
   ordersVacant = []
-  showBarcodeModal = false
-  showOrderModal = false
   showTwoVerticalChoicesModal = false
-
-  warningTitle = ''
 
   rowHandlers = {
     onClickTableRowBtn: item => this.onClickTableRowBtn(item),
   }
-
-  selectedRowIds = []
-
   sortModel = []
-  filterModel = { items: [] }
-  densityModel = 'compact'
+  filterModel = filterModelInitialValue
   columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
-  showWarningModal = false
+  get currentData() {
+    return this.ordersVacant
+  }
+
+  get isSomeFilterOn() {
+    return !!this.filterModel?.items?.length
+  }
 
   constructor({ history }) {
     this.history = history
+
+    const orderId = new URL(window.location.href)?.searchParams?.get('orderId')
+
+    if (orderId) {
+      this.history.push(`${history.location.pathname}`)
+      this.onChangeFilterModel({
+        items: [
+          {
+            field: 'ID',
+            operator: '=',
+            value: orderId,
+          },
+        ],
+      })
+
+      this.getOrdersVacant()
+    }
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
     this.setDataGridState()
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
+  onPaginationModelChange(model) {
+    this.paginationModel = model
     this.setDataGridState()
   }
 
   setDataGridState() {
     const requestState = {
       sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
+      // filterModel: toJS(this.filterModel),
       paginationModel: toJS(this.paginationModel),
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.BUYER_FREE_ORDERS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.BUYER_FREE_ORDERS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.BUYER_FREE_ORDERS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.BUYER_FREE_ORDERS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      // this.filterModel = toJS(state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   setRequestStatus(requestStatus) {
@@ -97,7 +102,6 @@ export class BuyerFreeOrdersViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
     this.setDataGridState()
   }
 
@@ -106,45 +110,35 @@ export class BuyerFreeOrdersViewModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
     this.setDataGridState()
   }
 
-  getCurrentData() {
-    return toJS(this.ordersVacant)
-  }
-
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      await this.getOrdersVacant()
-      this.setRequestStatus(loadingStatuses.success)
+      this.getOrdersVacant()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      console.error(error)
     }
   }
 
   async getOrdersVacant() {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const result = await BuyerModel.getOrdersVacant()
+
       runInAction(() => {
         this.ordersVacant = buyerVacantOrdersDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.ordersVacant = []
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -160,29 +154,28 @@ export class BuyerFreeOrdersViewModel {
   }
 
   async onClickTableRowBtn(order, noPush) {
+    const { status, buyer } = order.originalData
+
     try {
-      if (order.originalData.buyer) {
-        await BuyerModel.setOrdersAtProcess(order.originalData._id)
-      } else {
+      if (!buyer || status === OrderStatusByKey[OrderStatus.FORMED] || status === OrderStatusByKey[OrderStatus.NEW]) {
         await BuyerModel.pickupOrder(order.originalData._id)
+      } else {
+        await BuyerModel.setOrdersAtProcess(order.originalData._id)
       }
 
       if (!noPush) {
-        this.curOrder = order.originalData
+        runInAction(() => {
+          this.curOrder = order.originalData
+        })
 
         this.onTriggerOpenModal('showTwoVerticalChoicesModal')
       }
 
       this.loadData()
 
-      UserModel.getUserInfo()
+      UserModel.getUsersInfoCounters()
     } catch (error) {
-      this.warningTitle = t(TranslationKey['Not found'])
-
-      this.onTriggerOpenModal('showWarningModal')
-
-      this.loadData()
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -196,34 +189,27 @@ export class BuyerFreeOrdersViewModel {
         }
       }
 
-      this.selectedRowIds = []
+      runInAction(() => {
+        this.selectedRowIds = []
+      })
 
-      this.warningTitle = t(TranslationKey['Taken to Work'])
-
-      this.onTriggerOpenModal('showWarningModal')
-      UserModel.getUserInfo()
+      UserModel.getUsersInfoCounters()
       this.loadData()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      console.error(error)
     }
   }
+
   onClickContinueWorkButton() {
     this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     this.loadData()
   }
 
-  onTriggerShowOrderModal() {
-    this.showOrderModal = !this.showOrderModal
-  }
-
-  setActionStatus(actionStatus) {
-    this.actionStatus = actionStatus
-  }
-
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
+  }
+
+  onClickResetFilters() {
+    this.filterModel = filterModelInitialValue
   }
 }

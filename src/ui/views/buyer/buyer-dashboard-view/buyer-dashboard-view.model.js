@@ -1,15 +1,15 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { BuyerDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { DashboardModel } from '@models/dashboard-model'
 import { UserModel } from '@models/user-model'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class BuyerDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
   balance = UserModel.userInfo?.balance
 
   currentData = undefined
@@ -37,19 +37,19 @@ export class BuyerDashboardViewModel {
   async loadData() {
     try {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
+        this.requestStatus = loadingStatus.IS_LOADING
       })
 
       this.getDashboardElementCount()
 
       runInAction(() => {
-        this.requestStatus = loadingStatuses.success
+        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
       runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
+        this.requestStatus = loadingStatus.FAILED
       })
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -100,10 +100,7 @@ export class BuyerDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 }

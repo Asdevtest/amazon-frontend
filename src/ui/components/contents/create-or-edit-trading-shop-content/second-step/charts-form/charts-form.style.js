@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   cardHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -39,7 +39,9 @@ export const useClassNames = makeStyles()(theme => ({
 
     borderBottom: theme.palette.other.tableActiveFilterBtn,
   },
-
+  button: {
+    color: theme.palette.text.general,
+  },
   selectionBtns: {
     display: 'flex',
     height: 40,

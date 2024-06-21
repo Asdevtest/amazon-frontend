@@ -1,11 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalMessageWrapper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '20px',
+    padding: 10,
   },
 
   link: {

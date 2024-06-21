@@ -1,155 +1,213 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class AdministratorModelStatic {
-  logger = undefined
-
-  getProductsNotPaid = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsGetNotPaidProductsGet()
-    return response
-  }
-
-  getProductsWaiting = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsGetWaitingProductsGet()
-    return response
-  }
-
-  getProductsVacant = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsGetVacProductsGet()
-    return response
-  }
-
   getProductsChecking = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsGetCheckingProductsGet()
-    return response
+    return response.data
   }
 
-  pickupProductForCheck = async id => {
-    const response = await restApiService.administratorApi.apiV1AdminsPickupProductGuidPost(id)
-    return response
+  makePayment = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsMakePaymentPost({ body })
+    return response.data
   }
 
-  updateProduct = async (id, data) => {
-    const response = await restApiService.administratorApi.apiV1AdminsPatchProductsGuidPatch(id, { body: data })
-    return response
+  getUsers = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsUsersPagGet(data)
+    return response.data
   }
 
-  makePayment = async data => {
-    const response = await restApiService.administratorApi.apiV1AdminsMakePaymentPost({ body: data })
-    return response
-  }
-
-  getUsers = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsUsersGet()
-    return response
-  }
-
-  updateUser = async (id, data) => {
-    const response = await restApiService.administratorApi.apiV1AdminsUsersGuidPatch(id, {
-      body: data,
+  updateUser = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsUsersGuidPatch({
+      guid,
+      body,
     })
-    return response
+    return response.data
   }
 
-  createProxy = async data => {
-    const response = await restApiService.administratorApi.apiV1AdminsProxyPost({ body: data })
-    return response
+  createProxy = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsProxyPost({ body })
+    return response.data
   }
 
-  removeUser = async id => {
-    const response = await restApiService.administratorApi.apiV1AdminsUsersGuidDelete(id)
-    return response
-  }
-
-  getBatches = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsBatchesGet()
-    return response
-  }
-
-  getProductsByStatus = async data => {
-    const response = await restApiService.administratorApi.apiV1AdminsGetProductsByStatusGet(data)
-    return response
+  getProductsByStatus = async status => {
+    const response = await restApiService.administratorApi.apiV1AdminsGetProductsByStatusGet({ status })
+    return response.data
   }
 
   getProductsPaid = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsGetPaidProductsGet()
-    return response
+    return response.data
   }
 
   getOrdersByStatus = async status => {
     const response = await restApiService.administratorApi.apiV1AdminsOrdersGet({ status })
-    return response
+    return response.data
   }
 
-  getBalance = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsPaymentsMyBalanceGet()
-    return response
-  }
-
-  getUsersById = async id => {
-    const response = await restApiService.administratorApi.apiV1AdminsUsersGuidGet(id)
-    return response
-  }
-
-  getPaymentsById = async id => {
-    const response = await restApiService.administratorApi.apiV1AdminsUserPaymentsGetById(id)
-    return response
-  }
-
-  getAllPayments = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsPaymentsGet()
-    return response
-  }
-
-  getTasks = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsTasksGet()
-    return response
+  getUsersById = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsUsersGuidGet({ guid })
+    return response.data
   }
 
   getLightTasks = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsTasksLightGet()
-    return response
+    return response.data
+  }
+
+  getTasksPag = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsTasksPagGet(data)
+    return response.data
   }
 
   getSettings = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsGetSettingsGet()
-    return response
+    return response.data
   }
 
   getProxy = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsProxyGet()
-    return response
+    return response.data
   }
 
   getFeedback = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsFeedbackGet()
-    return response
+    return response.data
   }
 
-  setSettings = async data => {
+  setSettings = async body => {
     const response = await restApiService.administratorApi.apiV1AdminsSetSettingPatch({
-      body: data,
+      body,
     })
-    return response
+    return response.data
   }
 
-  createDestination = async data => {
-    const response = await restApiService.administratorApi.apiV1AdminsDestinationPost({ body: data })
-    return response
+  createDestination = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsDestinationPost({ body })
+    return response.data
   }
 
-  editDestination = async (id, data) => {
-    const response = await restApiService.administratorApi.apiV1AdminsDestinationEditGuidPatch(id, { body: data })
-    return response
+  editDestination = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsDestinationEditGuidPatch({
+      guid,
+      body,
+    })
+    return response.data
   }
 
-  removeDestination = async id => {
-    const response = await restApiService.administratorApi.apiV1AdminsDestinationGuidDelete(id)
-    return response
+  removeDestination = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsDestinationGuidDelete({ guid })
+    return response.data
   }
 
-  toggleServer = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsToggleServerPatch()
-    return response
+  toggleServer = async (turn, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsToggleServerPatch({ turn, body })
+    return response.data
+  }
+
+  removePaymentMethod = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsPaymentMethodGuidDelete({ guid })
+    return response.data
+  }
+
+  getUsersByRole = async role => {
+    const response = await restApiService.administratorApi.apiV1AdminsUsersByRoleGet({ role })
+    return response.data
+  }
+
+  bindOrUnbindUserToProduct = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsProductLinkOrUnlinkUserRolePatch({ body })
+    return response.data
+  }
+
+  removeRedFlag = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsRedFlagsGuidDelete({ guid })
+    return response.data
+  }
+
+  createRedFlag = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsRedFlagsPost({ body })
+    return response.data
+  }
+
+  removeTags = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsTagsDelete({ body })
+    return response.data
+  }
+
+  editTag = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsTagsGuidPatch({
+      guid,
+      body,
+    })
+    return response.data
+  }
+
+  editRedFlag = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsRedFlagsGuidPatch({
+      guid,
+      body,
+    })
+    return response.data
+  }
+
+  getProductsPag = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsProductsPagGet(data)
+    return response.data
+  }
+
+  getOrdersPag = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsOrdersPagGet(data)
+    return response.data
+  }
+
+  createSpec = async title => {
+    const response = await restApiService.administratorApi.apiV1AdminsFreelanceSpecsPost({ body: { title } })
+    return response.data
+  }
+
+  editSpec = async (guid, title, archive) => {
+    const response = await restApiService.administratorApi.apiV1AdminsFreelanceSpecsGuidPatch({
+      guid,
+      body: { title, archive },
+    })
+    return response.data
+  }
+
+  removeSpec = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFreelanceSpecsGuidDelete({
+      guid,
+    })
+    return response.data
+  }
+
+  createPatchNote = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesPost({ body })
+    return response.data
+  }
+
+  updatePatchNote = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesGuidPatch({ guid, body })
+    return response.data
+  }
+
+  getPatchNoteVersions = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesVersionsGet()
+    return response.data
+  }
+
+  removePatchNote = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsPatchNotesGuidDelete({ guid })
+    return response.data
+  }
+
+  exportPermissions = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsPermissionGet()
+    return response.data
+  }
+
+  patchLaunchPreDeadlineValue = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsSetLaunchPreDeadlineValuePatch(body)
+    return response.data
   }
 }
 

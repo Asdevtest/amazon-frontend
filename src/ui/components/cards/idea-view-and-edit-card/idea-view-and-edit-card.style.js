@@ -1,26 +1,84 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  mainWrapper: {
+export const useStyles = makeStyles()(theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '100%',
-    borderRadius: '4px',
-    border: '1px solid rgba(0,0,0, .1)',
-    padding: '20px',
-    overflow: 'hidden',
+    minHeight: 603,
+    padding: 20,
+    background: theme.palette.background.general,
+    borderRadius: 7,
+    gap: '30px',
   },
+
+  rootModal: {
+    padding: 0,
+  },
+
   cardWrapper: {
     width: '100%',
-    marginTop: '20px',
+    height: '370px',
+    display: 'flex',
+    overflow: 'hidden',
+    justifyContent: 'space-between',
+    columnGap: '80px',
+  },
+
+  fullCardWpapper: {
+    height: 'max-content',
+    overflow: 'unset',
+  },
+
+  cardBlockWrapper: {
+    width: '100%',
 
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
-  cardBlockWrapper: {
-    width: '50%',
+
+  nameAndInfoProductWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    width: '100%',
+  },
+
+  linksAndDimensionsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    width: '100%',
   },
+
+  commentsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '30px',
+    width: '100%',
+  },
+
+  mediaBlock: {
+    width: '100%',
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    gap: '40px',
+  },
+
+  spanLabel: {
+    fontSize: '14px',
+    fontWeight: 400,
+    color: theme.palette.text.second,
+    marginBottom: 0,
+  },
+
+  labelWithMargin: {
+    marginBottom: '10px',
+  },
+
   photoWrapper: {
     width: '200px',
     display: 'flex',
@@ -35,10 +93,17 @@ export const useClassNames = makeStyles()(theme => ({
     height: 280,
     padding: '0 0 35px',
   },
-  commentField: {
-    height: '140px',
-    width: '100%',
-    // marginBottom: '25px'
+
+  noMarginContainer: {
+    margin: '0 !important',
+  },
+
+  сlientСomment: {
+    height: '220px',
+  },
+
+  buyerComment: {
+    height: '199px',
   },
 
   leftSubBlockWrapper: {
@@ -73,9 +138,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   existedIdeaBtnsSubWrapper: {
-    width: '50%',
     display: 'flex',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '50px',
   },
 
   tablePanelSortWrapper: {
@@ -83,7 +148,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
 
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     '&:hover': {
       opacity: '.8',
     },
@@ -104,28 +169,31 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   fullMiddleBlock: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
     maxHeight: '100vh',
     overflow: 'visible',
   },
 
-  linksContainer: {
-    width: '100%',
+  oneLineField: {
+    height: '40px',
   },
 
   linksWrapper: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    gap: '21px',
   },
 
   linksSubWrapper: {
     width: '100%',
-    maxHeight: '200px',
+    maxHeight: '86px',
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    marginTop: 10,
-    gap: 5,
+    gap: 2,
   },
 
   linkWrapper: {
@@ -137,7 +205,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   linkTextWrapper: {
-    width: '80%',
+    maxWidth: '90%',
     overflow: 'auto',
     whiteSpace: 'nowrap',
   },
@@ -146,12 +214,7 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-  },
-
-  shortFieldsWrapper: {
-    width: '100%',
-
-    justifySelf: 'flex-end',
+    maxWidth: 435,
   },
 
   shortFieldsSubWrapper: {
@@ -159,6 +222,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
+    gap: 30,
   },
 
   shortInput: {
@@ -168,11 +232,10 @@ export const useClassNames = makeStyles()(theme => ({
   sizesWrapper: {
     display: 'flex',
     flexDirection: 'column',
-
-    width: 341,
   },
 
   sizesSubWrapper: {
+    width: 350,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -181,16 +244,21 @@ export const useClassNames = makeStyles()(theme => ({
   sizesBottomWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
     marginTop: '10px',
+
+    gap: '10px',
   },
 
   sizesContainer: {
-    width: 'min-content',
+    width: '110px !important',
   },
 
   sizesInput: {
     width: '100px',
+  },
+
+  approximateCalculationInput: {
+    width: '165px',
   },
 
   addOrEditBtnsWrapper: {
@@ -200,15 +268,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   defaultBtn: {
     marginLeft: '10px',
-    borderRadius: '4px',
-    height: '32px',
+    height: '40px',
     width: '100px',
   },
 
   input: {
-    height: '32px',
-    borderRadius: '4px',
-    width: 'calc(100% - 110px)',
+    height: '40px',
+    borderRadius: '7px',
+    width: 'max-content',
   },
 
   inputWrapper: {
@@ -220,6 +287,7 @@ export const useClassNames = makeStyles()(theme => ({
   linksBtnsWrapper: {
     display: 'flex',
     alignItems: 'center',
+    margin: 2,
   },
 
   deleteBtn: {
@@ -236,16 +304,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   criterionsField: {
-    height: 'auto',
+    height: 240,
+    fontSize: 16,
+    lineHeight: '23px',
     width: '100%',
+    padding: 0,
   },
 
   supplierSearchTitle: {
     fontWeight: 600,
     fontSize: 18,
-    color: theme.palette.text.general,
-  },
-  demensionsTitle: {
     color: theme.palette.text.general,
   },
 
@@ -255,30 +323,27 @@ export const useClassNames = makeStyles()(theme => ({
 
   supplierActionsWrapper: {
     display: 'flex',
-  },
-  supplierContainer: {
-    marginBottom: '20px',
-    display: 'flex',
     gap: '16px',
   },
+  supplierContainer: {},
   supplierButtonWrapper: {
     display: 'flex',
     gap: '10px',
     alignItems: 'center',
   },
   iconBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
+    maxHeight: 40,
+    maxWidth: 40,
     color: '#fff',
     backgroundColor: theme.palette.primary.main,
-    borderRadius: '4px',
-
-    '&:hover': {
-      backgroundColor: 'rgba(0, 123, 255, 1)',
-    },
+    borderRadius: 4,
   },
   iconBtnRemove: {
-    backgroundColor: 'rgba(224, 32, 32, 1)',
+    background: 'rgba(224, 32, 32, 1)',
+
+    '&:hover': {
+      background: '#8C0000',
+    },
   },
   supplierButtonText: {
     maxWidth: '98px',
@@ -304,8 +369,9 @@ export const useClassNames = makeStyles()(theme => ({
   },
   headerWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
   },
 
   disableSelect: {
@@ -338,7 +404,6 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    // width: '247px',
 
     gap: 10,
   },
@@ -348,5 +413,128 @@ export const useClassNames = makeStyles()(theme => ({
   saveIcon: {
     color: theme.palette.primary.main,
     cursor: 'pointer',
+  },
+
+  mediumSizeContainer: {
+    width: '350px !important',
+  },
+
+  sourcesProductWraper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  requestsWrapper: {
+    width: '100%',
+    display: 'flex',
+    gap: '20px',
+    overflow: 'auto',
+    paddingBottom: '10px',
+
+    '&::-webkit-scrollbar': {
+      height: '9px',
+      padding: '2px 2px',
+    },
+
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#DAE1E9',
+      borderRadius: '22px',
+    },
+
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: 'transparent',
+    },
+  },
+
+  requestsBlockWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+
+  requestsControlWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '15px',
+  },
+
+  requestsBlockTitle: {
+    fontSize: '18px',
+    fontWeight: 600,
+  },
+
+  requestsControlButtonsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  plusIcon: {
+    width: '14px !important',
+    height: '14px !important',
+  },
+
+  actionButton: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
+
+  statusText: {
+    fontSize: '14px',
+    fontWeight: 400,
+    color: theme.palette.other.succes,
+  },
+
+  supplierNotFoundText: {
+    color: theme.palette.orderStatus.red,
+  },
+
+  contentWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '40px',
+  },
+
+  modalContentWrapper: {
+    maxHeight: '616px',
+    overflowY: 'auto',
+    padding: '30px',
+
+    boxShadow: '0px -4px 13px 0px rgba(135, 135, 135, 0.15) inset',
+  },
+
+  supplierFoundWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '50px',
+  },
+
+  switcherWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: 'fit-content',
+  },
+
+  approximateCalculationFieldsWrapper: {
+    display: 'flex',
+    gap: '20px',
+    alignItems: 'flex-end',
+  },
+
+  approximateCalculationWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    marginTop: '35px',
+  },
+
+  approximateCalculationButton: {
+    width: '100%',
+  },
+
+  gallery: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 }))

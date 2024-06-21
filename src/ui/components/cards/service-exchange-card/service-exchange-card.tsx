@@ -1,166 +1,123 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { FC, memo, useState } from 'react'
 
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import { Typography, Avatar } from '@mui/material'
-import Rating from '@mui/material/Rating'
-
-import React, { FC } from 'react'
-
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
-
+import { AnnouncementModal } from '@components/modals/announcement-modal'
+import { Button } from '@components/shared/button'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
-import { checkIsImageLink } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './service-exchange-card.style'
-import { CustomSlider } from '@components/shared/custom-slider'
+import { ButtonStyle } from '@typings/enums/button-style'
+import { IAnnoucement } from '@typings/models/announcements/annoucement'
 
-interface onClickThumbnailArguments {
-  images: Array<string | linksToMediaFilesInterface>
-  imgIndex: number
-}
-
-interface Requests {
-  createdBy: CreatedBy
-  humanFriendlyId: number
-  price: number
-  status: string
-  timeoutAt: string
-  title: string
-  updatedAt: string
-  _id: string
-}
-
-interface CreatedBy {
-  name: string
-  _id: string
-}
-
-interface linksToMediaFilesInterface {
-  file: { name: Array<string> }
-}
-
-interface Service {
-  createdBy: CreatedBy
-  linksToMediaFiles: Array<string | linksToMediaFilesInterface>
-  requests: Array<Requests>
-  type: number
-  description: string
-  title: string
-  updatedAt: string
-  _id: string
-}
+import { useStyles } from './service-exchange-card.style'
 
 interface ServiceExchangeCardProps {
-  service: Service
+  service: IAnnoucement
   choose?: boolean
   order?: boolean
   pathname?: string
-  onClickThumbnail?: (images: onClickThumbnailArguments) => void
-  onClickButton?: (service: Service) => void
+  onClickButton: (service: IAnnoucement) => void
 }
 
-export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = props => {
-  const { classes: classNames } = useClassNames()
+export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
+  const { classes: styles, cx } = useStyles()
+  const { service, choose, order, pathname, onClickButton } = props
 
-  const { service, choose, order, pathname, onClickButton, onClickThumbnail } = props
+  const detailDescription = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title
+  const buttonContent = choose
+    ? t(TranslationKey.Choose)
+    : order
+    ? t(TranslationKey['To order'])
+    : t(TranslationKey.Open)
+  const showDetailDescriptionToolip = detailDescription.length > 25
+  const isNotMyServices = pathname !== '/freelancer/freelance/my-services'
 
-  const imagesForRender = service?.linksToMediaFiles?.filter(el =>
-    checkIsImageLink(typeof el !== 'string' ? el?.file?.name : el),
-  )
+  const isSuccess = choose || order
+
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  const handleToggleModal = () => {
+    setIsOpenModal(!isOpenModal)
+  }
 
   return (
-    <div className={classNames.cardWrapper}>
-      <div className={classNames.titleWrapper}>
-        <Typography className={classNames.cardTitle}>{service.title}</Typography>
-      </div>
+    <>
+      <div className={styles.cardWrapper}>
+        <p className={styles.cardTitle}>{service.title}</p>
 
-      <div className={classNames.descriptionWrapper}>
-        <Typography className={classNames.cardDescription}>{service.description}</Typography>
-      </div>
+        <p className={styles.cardDescription}>{service.description}</p>
 
-      <div className={classNames.cardCarouselWrapper}>
-        {/* @ts-ignore */}
-        <CustomSlider>
-          {imagesForRender.map((imageHash, index) => (
-            <img
-              key={index}
-              alt=""
-              className={classNames.carouselImage}
-              src={getAmazonImageUrl(imageHash, true)}
-              onClick={() => {
-                !!onClickThumbnail &&
-                  onClickThumbnail({
-                    images: imagesForRender,
-                    imgIndex: index,
-                  })
-              }}
-            />
-          ))}
-        </CustomSlider>
-      </div>
+        <button className={styles.detailedDescription} onClick={handleToggleModal}>
+          {t(TranslationKey.Details)}
+        </button>
 
-      {pathname !== '/freelancer/freelance/my-services' ? (
-        <div className={classNames.detailsWrapper}>
-          <div className={classNames.detailsSubWrapper}>
-            <Typography className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</Typography>
-            <Typography className={classNames.detailDescription}>
-              {service.type === 0
-                ? t(TranslationKey.Universal)
-                : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])}
-            </Typography>
-          </div>
+        <div className={styles.gallery}>
+          <SlideshowGallery hiddenPreviews files={service?.linksToMediaFiles} slidesToShow={2} />
+        </div>
 
-          <div className={classNames.detailsSubWrapper}>
-            <Typography className={classNames.detailTitle}>{t(TranslationKey.Performer) + ':'}</Typography>
-            <div className={classNames.userInfo}>
-              <Avatar src={getUserAvatarSrc(service.createdBy._id)} className={classNames.cardImg} />
-              <div>
-                {/* @ts-ignore */}
-                <UserLink
-                  blackText
-                  name={service?.createdBy?.name}
-                  userId={service?.createdBy?._id}
-                  customStyles={{ fontSize: 14 }}
-                />
-                <Rating disabled value={5} size="small" />
-              </div>
+        {isNotMyServices ? (
+          <div className={styles.detailsWrapper}>
+            <div className={styles.detailsSubWrapper}>
+              <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+              <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
+                {detailDescription}
+              </p>
+            </div>
+
+            <div className={styles.detailsSubWrapper}>
+              <p className={styles.detailTitle}>{t(TranslationKey.Performer) + ':'}</p>
+              <UserLink
+                blackText
+                withAvatar
+                ratingSize="small"
+                name={service.createdBy.name}
+                userId={service.createdBy._id}
+                rating={service.createdBy.rating}
+                customAvatarStyles={{ width: 30, height: 30 }}
+                customStyles={{ fontSize: 14, lineHeight: '17px' }}
+                customRatingClass={{ fontSize: 13, opacity: 1 }}
+              />
             </div>
           </div>
-        </div>
-      ) : (
-        <div className={classNames.detailsWrapperAll}>
-          <div className={classNames.detailsSubWrapperAll}>
-            <Typography className={classNames.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</Typography>
-            <Typography className={classNames.detailDescription}>{service.requests.length}</Typography>
+        ) : (
+          <div className={cx(styles.detailsWrapper, styles.detailsWrapperAll)}>
+            <div className={styles.detailsSubWrapperAll}>
+              <p className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</p>
+              <p className={styles.detailDescription}>{service.requests.length}</p>
+            </div>
+            <div className={styles.detailsSubWrapperAll}>
+              <p className={styles.detailTitle}>{t(TranslationKey['Service type']) + ':'}</p>
+              <p className={styles.detailDescription} title={showDetailDescriptionToolip ? detailDescription : ''}>
+                {detailDescription}
+              </p>
+            </div>
           </div>
-          <div className={classNames.detailsSubWrapperAll}>
-            <Typography className={classNames.detailTitle}>{t(TranslationKey['Service type']) + ':'}</Typography>
-            <Typography className={classNames.detailDescription}>
-              {service.type === 0
-                ? t(TranslationKey.Universal)
-                : freelanceRequestTypeTranslate(freelanceRequestTypeByCode[service.type])}
-            </Typography>
-          </div>
-        </div>
-      )}
+        )}
 
-      <div className={classNames.buttonWrapper}>
-        <Button
-          success={choose || order}
-          className={cx(classNames.openBtn)}
-          onClick={() => !!onClickButton && onClickButton(service)}
-        >
-          {choose ? t(TranslationKey.Choose) : order ? t(TranslationKey['To order']) : t(TranslationKey.Open)}
-        </Button>
+        <div className={styles.buttonWrapper}>
+          <Button
+            styleType={isSuccess ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
+            className={styles.openBtn}
+            onClick={() => onClickButton(service)}
+          >
+            {buttonContent}
+          </Button>
+        </div>
       </div>
-    </div>
+
+      {isOpenModal ? (
+        <AnnouncementModal
+          openModal={isOpenModal}
+          service={service}
+          choose={choose}
+          order={order}
+          onOpenModal={handleToggleModal}
+          onClickButton={() => onClickButton(service)}
+        />
+      ) : null}
+    </>
   )
-}
+})

@@ -1,84 +1,59 @@
-/* eslint-disable no-unused-vars */
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
+import { ReviewsForm } from '@components/forms/reviews-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MyServicesInfo } from '@components/my-services/my-services-info'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { ServiceDetailsViewModel } from './services-detail-view.model'
-import { styles } from './services-detail-view.style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const ServiceDetailsViewRaw = props => {
+import { useStyles } from './services-detail-view.style'
+
+import { ServiceDetailsViewModel } from './services-detail-view.model'
+
+export const ServiceDetailsView = observer(props => {
   const [viewModel] = useState(
     () =>
       new ServiceDetailsViewModel({
         history: props.history,
-        location: props.location,
       }),
   )
-  const { classes: classNames } = props
+  const { classes: styles } = useStyles()
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <MainContent>
+    <>
+      <div>
         <MyServicesInfo
           announcementData={viewModel.announcementData}
+          onClickReview={viewModel.onClickReview}
           onClickEditBtn={viewModel.onClickEditBtn}
           onClickBackBtn={viewModel.onClickBackBtn}
           onClickCloseAnnouncementBtn={viewModel.onClickCloseAnnouncementBtn}
         />
 
-        <div className={classNames.dataGridWrapper}>
-          <MemoDataGrid
-            disableVirtualization
-            pagination
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-
-              iconSeparator: classNames.iconSeparator,
-              columnHeaderDraggableContainer: classNames.columnHeaderDraggableContainer,
-              columnHeaderTitleContainer: classNames.columnHeaderTitleContainer,
-            }}
+        <div className={styles.dataGridWrapper}>
+          <CustomDataGrid
             rowCount={viewModel.rowCount}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
-            pageSizeOptions={[15, 25, 50, 100]}
             rows={viewModel.currentData}
             rowHeight={143}
-            // sortingMode="server"
-            // paginationMode="server"
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-              ColumnMenu: DataGridCustomColumnMenuComponent,
-            }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -89,29 +64,37 @@ export const ServiceDetailsViewRaw = props => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
-            // onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
           />
         </div>
-      </MainContent>
+      </div>
 
-      <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings.isWarning}
-        title={viewModel.confirmModalSettings.confirmTitle}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
-    </React.Fragment>
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
+
+      <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
+        <ReviewsForm
+          reviews={viewModel.currentReviews}
+          user={viewModel.currentReviewModalUser}
+          onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')}
+        />
+      </Modal>
+    </>
   )
-}
-
-export const ServiceDetailsView = withStyles(observer(ServiceDetailsViewRaw), styles)
+})

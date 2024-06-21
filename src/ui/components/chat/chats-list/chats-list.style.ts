@@ -1,34 +1,41 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
-    width: 310,
+    width: 320,
     height: '100%',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-    border: `1px solid ${theme.palette.input.customBorder}`,
+    overflow: 'auto',
+    borderRadius: '7px 0 0 7px',
+    background: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.paper,
+    borderRight: `2px solid ${theme.palette.background.chatIncomeMessage}`,
+
+    [theme.breakpoints.down(1024)]: {
+      width: 220,
+    },
+
     [theme.breakpoints.down(768)]: {
-      borderRadius: '4px',
+      width: '100%',
+      borderRadius: 7,
+      borderRight: 'none',
     },
   },
-  chatWrapper: {
-    width: '100%',
-    borderBottomWidth: '2px',
-    borderBottomColor: theme.palette.input.customBorder,
-    borderBottomStyle: 'solid',
 
-    borderTop: `1px solid ${theme.palette.input.customBorder}`,
+  chatWrapper: {
+    background: theme.palette.background.general,
   },
-  chatWrapperIsSelected: {
-    borderBottomColor: `${theme.palette.primary.main} !important`,
+
+  activeChat: {
+    background: theme.palette.background.activeChat,
   },
 
   indicator: {
     backgroundColor: theme.palette.primary.main,
   },
+
   row: {
     width: '100%',
-    padding: '0 0px',
+    padding: 0,
     margin: '0 auto',
     minHeight: `40px`,
   },

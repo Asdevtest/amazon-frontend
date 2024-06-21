@@ -1,27 +1,26 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Button } from '@components/shared/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { AdminBalanceModal } from '@components/user/users-views/sub-users-view/admin-balance-modal'
 
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { useStyles } from './user-balance.style'
+
 import { UserBalanceModel } from './user-balance.model'
-import { useClassNames } from './user-balance.style'
 
 export const UserBalance = observer(({ userId }) => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const model = useRef(new UserBalanceModel({ history, userId }))
 
@@ -48,54 +47,37 @@ export const UserBalance = observer(({ userId }) => {
     onChangeFilterModel,
   } = model.current
 
-  const getRowClassName = params => (params.row.sum < 0 ? classNames.redRow : params.row.sum > 0 && classNames.greenRow)
+  const getRowClassName = params => (params.row.sum < 0 ? styles.redRow : params.row.sum > 0 && styles.greenRow)
 
   return (
-    <div className={classNames.mainWrapper}>
-      <DashboardBalance user={user} title={t(TranslationKey.Balance)} />
+    <div className={styles.mainWrapper}>
+      <DashboardBalance user={user} />
 
-      <div className={classNames.btnsWrapper}>
-        <Button
-          disableElevation
-          className={[classNames.button, classNames.depositBtn]}
-          color="primary"
-          variant="contained"
-          onClick={onTriggerReplenishModal}
-        >
+      <div className={styles.btnsWrapper}>
+        <Button className={[styles.button, styles.depositBtn]} onClick={onTriggerReplenishModal}>
           {t(TranslationKey.Deposit)}
         </Button>
         <Button
-          disableElevation
-          className={[classNames.button, classNames.cancelBtn]}
-          color="primary"
-          variant="text"
+          className={[styles.button, styles.cancelBtn]}
+          variant={ButtonVariant.OUTLINED}
           onClick={onTriggerWithdrawModal}
         >
           {t(TranslationKey.Withdraw)}
         </Button>
       </div>
-      <div className={classNames.tableWrapper}>
-        <MemoDataGrid
-          pagination
-          useResizeContainer
-          // sx={{
-          //   border: 0,
-          //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-          //   backgroundColor: theme.palette.background.general,
-          // }}
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
           getRowClassName={getRowClassName}
           sortModel={sortModel}
           filterModel={filterModel}
           columnVisibilityModel={model.current.columnVisibilityModel}
           paginationModel={model.current.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
           rowHeight={75}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
             toolbar: {
               columsBtnSettings: {
                 columnsModel: model.current.columnsModel,
@@ -106,9 +88,9 @@ export const UserBalance = observer(({ userId }) => {
           }}
           density={densityModel}
           columns={columnsModel}
-          loading={requestStatus === loadingStatuses.isLoading}
+          loading={requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={onChangeSortingModel}
-          onPaginationModelChange={model.current.onChangePaginationModelChange}
+          onPaginationModelChange={model.current.onPaginationModelChange}
           onFilterModelChange={onChangeFilterModel}
         />
       </div>

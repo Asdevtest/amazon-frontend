@@ -1,10 +1,8 @@
-import { Avatar, Typography } from '@mui/material'
-
+import { format } from 'date-fns'
 import { FC } from 'react'
 
-import { format } from 'date-fns'
+import { Avatar, Typography } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/themes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -16,7 +14,9 @@ import {
 } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './order-deadline-notification.style'
+import { UiTheme } from '@typings/enums/ui-theme'
+
+import { useStyles } from './order-deadline-notification.style'
 
 interface InoticeItem {
   _id: string
@@ -29,7 +29,7 @@ interface OrderDeadlineNotificationProps {
 }
 
 export const OrderDeadlineNotification: FC<OrderDeadlineNotificationProps> = props => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
 
   const { noticeItem } = props
 
@@ -39,24 +39,24 @@ export const OrderDeadlineNotification: FC<OrderDeadlineNotificationProps> = pro
   }
 
   return (
-    <div className={classNames.mainWrapper}>
+    <div className={styles.mainWrapper}>
       <Avatar
         src={SettingsModel.uiTheme === UiTheme.light ? '/assets/icons/snack-light.svg' : '/assets/icons/snack-dark.svg'}
-        className={classNames.avatarWrapper}
+        className={styles.avatarWrapper}
       />
 
-      <div className={classNames.centerWrapper}>
-        <Typography className={classNames.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
-        <div className={classNames.centerSubWrapper}>
+      <div className={styles.centerWrapper}>
+        <Typography className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
+        <div className={styles.centerSubWrapper}>
           {noticeItem
             ?.sort(sortObjectsArrayByFiledDateWithParseISOAsc('deadline'))
             .map((el: InoticeItem, index: number) => (
-              <div key={index} className={classNames.itemWrapper} onClick={() => onClickNoticeItem(el._id)}>
-                <div className={classNames.titleWrapper}>
-                  <Typography className={classNames.title}>{`${t(TranslationKey.Order)} № ${el.id}`}</Typography>
+              <div key={index} className={styles.itemWrapper} onClick={() => onClickNoticeItem(el._id)}>
+                <div className={styles.titleWrapper}>
+                  <Typography className={styles.title}>{`${t(TranslationKey.Order)} № ${el.id}`}</Typography>
                 </div>
 
-                <Typography className={classNames.messageText}>{`${t(
+                <Typography className={styles.messageText}>{`${t(
                   TranslationKey[
                     getDistanceBetweenDatesInSeconds(el.deadline) > 0
                       ? 'The redemption deadline expires'
@@ -68,8 +68,8 @@ export const OrderDeadlineNotification: FC<OrderDeadlineNotificationProps> = pro
         </div>
       </div>
 
-      <div className={classNames.footer}>
-        <Typography className={classNames.messageDate}>{format(new Date(), 'HH:mm')}</Typography>
+      <div className={styles.footer}>
+        <Typography className={styles.messageDate}>{format(new Date(), 'HH:mm')}</Typography>
       </div>
     </div>
   )

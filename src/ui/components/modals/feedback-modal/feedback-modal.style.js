@@ -1,73 +1,51 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  modalMessageWrapper: {
-    width: '586px',
-    minHeight: '168px',
+export const useStyles = makeStyles()(theme => ({
+  wrapper: {
+    width: 600,
+    padding: 10,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    gap: '30px',
+    gap: 20,
   },
 
-  modalMessageTitle: {
-    fontSize: '18px',
-    fontWeight: '600',
-    lineHeight: '140%',
-    color: theme.palette.text.general,
+  title: {
+    fontSize: 18,
+    fontWeight: 600,
+    lineHeight: '25px',
   },
 
-  commentLabelText: {
-    fontSize: '14px',
-    fontWeight: '400',
-    lineHeight: '19px',
-    color: theme.palette.text.second,
+  comments: {
+    position: 'relative',
   },
 
   heightFieldAuto: {
     height: 'auto',
     width: '100%',
-
     padding: '0 0 30px 0',
   },
 
-  buttonOk: {
-    padding: '8px 36px',
+  commentLabelText: {
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.second,
   },
 
-  buttonCancel: {
-    padding: '8px 36px',
-    color: theme.palette.text.general,
-  },
-
-  buttonsWrapper: {
+  buttons: {
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'flex-end',
     gap: 20,
   },
-  commentWrapper: {
-    position: 'relative',
-  },
 
-  inputIcon: {
+  fileIcon: {
     position: 'absolute',
-    bottom: '24px',
-    right: '10px',
-    transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
+    bottom: 25,
+    right: 5,
+    cursor: 'pointer',
   },
 
-  '@media (max-width: 768px)': {
-    modalMessageWrapper: {
-      width: '280px',
-      minHeight: '168px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      gap: '30px',
-    },
+  fileIconActive: {
+    color: theme.palette.primary.main,
   },
 }))

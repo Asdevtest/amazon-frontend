@@ -1,9 +1,8 @@
-import { Avatar, Paper } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
+
+import { Paper } from '@mui/material'
 
 import { getAdminDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,17 +10,17 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
-import { MainContent } from '@components/layout/main-content'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { AdminDashboardViewModel } from './admin-dashboard-view.model'
 import { styles } from './admin-dashboard-view.style'
+
+import { AdminDashboardViewModel } from './admin-dashboard-view.model'
 
 export const AdminDashboardViewRaw = props => {
   const [viewModel] = useState(() => new AdminDashboardViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -34,13 +33,13 @@ export const AdminDashboardViewRaw = props => {
   }
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <Paper className={classNames.userInfoWrapper}>
-          <div className={classNames.userInfoLeftWrapper}>
-            <Avatar src={getUserAvatarSrc(viewModel.userInfo._id)} className={classNames.cardImg} />
+    <>
+      <div>
+        <Paper className={styles.userInfoWrapper}>
+          <div className={styles.userInfoLeftWrapper}>
+            <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
-            <DashboardBalance user={viewModel.userInfo} title={t(TranslationKey['My balance'])} />
+            <DashboardBalance user={viewModel.userInfo} />
           </div>
 
           <DashboardButtons user={viewModel.userInfo} routes={buyerButtonsRoutes} />
@@ -55,8 +54,8 @@ export const AdminDashboardViewRaw = props => {
             onClickViewMore={viewModel.onClickInfoCardViewMode}
           />
         ))}
-      </MainContent>
-    </React.Fragment>
+      </div>
+    </>
   )
 }
 

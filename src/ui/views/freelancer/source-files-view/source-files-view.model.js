@@ -1,12 +1,8 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { tableSortMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestProposalModel } from '@models/request-proposal'
-import { SettingsModel } from '@models/settings-model'
 
 import { sourceFilesColumns } from '@components/table/table-columns/freelancer/source-files-columns/source-files-columns'
 
@@ -14,15 +10,24 @@ import { SourceFilesDataConverter } from '@utils/data-grid-data-converters'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class SourceFilesViewModel {
   history = undefined
-  error = undefined
 
   nameSearchValue = ''
 
-  sortMode = tableSortMode.DESK
-
-  currentData = []
+  get currentData() {
+    if (this.nameSearchValue) {
+      return this.sourceFiles.filter(
+        el =>
+          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return this.sourceFiles
+    }
+  }
 
   sourceFiles = []
 
@@ -44,14 +49,14 @@ export class SourceFilesViewModel {
     onChangeText: fileName => value => this.onChangeText(fileName)(value),
   }
 
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
   densityModel = 'compact'
-  columnsModel = sourceFilesColumns(this.rowHandlers, () => this.editField)
+  columnsModel = sourceFilesColumns(this.rowHandlers, this.editField)
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-  openModal = null
 
   confirmModalSettings = {
     isWarning: false,
@@ -62,22 +67,12 @@ export class SourceFilesViewModel {
 
   constructor({ history }) {
     this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => this.sourceFiles,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
-    )
-
-    reaction(
-      () => this.nameSearchValue,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
+      () => this.editField,
+      () => (this.columnsModel = sourceFilesColumns(this.rowHandlers, this.editField)), // to update this.editField for sourceFilesColumns
     )
   }
 
@@ -85,99 +80,63 @@ export class SourceFilesViewModel {
     this.filterModel = model
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
-  }
-
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.sourceFiles).filter(
-        el =>
-          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.sourceFiles)
-    }
+    this.columnVisibilityModel = model
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
+    this.rowSelectionModel = model
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
   }
 
-  async loadData() {
+  loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.getSourceFiles()
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  onTriggerSortMode() {
-    runInAction(() => {
-      if (this.sortMode === tableSortMode.DESK) {
-        this.sortMode = tableSortMode.ASC
-      } else {
-        this.sortMode = tableSortMode.DESK
-      }
-    })
+    this.requestStatus = requestStatus
   }
 
   onClickEditBtn(row) {
-    runInAction(() => {
-      this.editField = row
-    })
+    this.editField = row
   }
 
   async onClickSaveBtn(row) {
     try {
       const saveData = getObjectFilteredByKeyArrayWhiteList(this.editField, ['sourceFile', 'comments'])
 
-      if (this.editField._id === row.originalData._id) {
-        await RequestProposalModel.patchFreelanceSourceFilesByGuid(this.editField._id, saveData)
+      await RequestProposalModel.patchFreelanceSourceFilesByGuid(row._id, saveData)
 
-        runInAction(() => {
-          this.editField = undefined
-        })
+      runInAction(() => {
+        this.editField = undefined
+      })
 
-        this.getSourceFiles()
-      }
+      this.getSourceFiles()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
-  async onClickRemoveBtn(row) {
+  onClickRemoveBtn(row) {
     this.confirmModalSettings = {
-      isWarning: true,
+      isWarning: false,
       title: t(TranslationKey.Attention),
       message: t(TranslationKey['Do you want to delete the source file?']),
       onClickSuccess: () => this.removeSourceData(row),
@@ -188,8 +147,8 @@ export class SourceFilesViewModel {
 
   async removeSourceData(row) {
     try {
-      if (row.originalData._id) {
-        await RequestProposalModel.deleteFreelanceSourceFilesByGuid(row.originalData._id)
+      if (row?._id) {
+        await RequestProposalModel.deleteFreelanceSourceFilesByGuid(row?._id)
 
         runInAction(() => {
           this.editField = undefined
@@ -200,41 +159,39 @@ export class SourceFilesViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   onChangeText = fieldName => value => {
     const newFormFields = { ...this.editField }
+
     newFormFields[fieldName] = value
 
-    runInAction(() => {
-      this.editField = newFormFields
-    })
+    this.editField = newFormFields
   }
 
   async getSourceFiles() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await RequestProposalModel.getFreelanceSourceFiles()
 
       runInAction(() => {
         this.sourceFiles = SourceFilesDataConverter(result)
+        this.rowCount = this.sourceFiles.length
       })
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.nameSearchValue = e.target.value
   }
 
   onTriggerOpenModal(modal) {

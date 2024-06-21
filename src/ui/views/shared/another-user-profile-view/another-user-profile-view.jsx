@@ -1,35 +1,32 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { mapUserRoleEnumToKey, UserRole } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { Typography } from '@mui/material'
+
+import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
+import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AnotherProfileViewModel } from './another-user-profile-view.model'
+import { loadingStatus } from '@typings/enums/loading-status'
+
 import { styles } from './another-user-profile-view.style'
+
+import { AnotherProfileViewModel } from './another-user-profile-view.model'
 
 export const AnotherUserProfileViewRaw = props => {
   const [viewModel] = useState(() => new AnotherProfileViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   useEffect(() => {
     viewModel.loadData()
@@ -37,11 +34,10 @@ export const AnotherUserProfileViewRaw = props => {
 
   return (
     <>
-      <MainContent>
+      <div>
         {!viewModel.user &&
-          (viewModel.requestStatus === loadingStatuses.success ||
-            viewModel.requestStatus === loadingStatuses.failed) && (
-            <Typography variant="h4" className={classNames.noDataText}>
+          (viewModel.requestStatus === loadingStatus.SUCCESS || viewModel.requestStatus === loadingStatus.FAILED) && (
+            <Typography variant="h4" className={styles.noDataText}>
               {t(TranslationKey['No data']) + '...'}
             </Typography>
           )}
@@ -49,12 +45,14 @@ export const AnotherUserProfileViewRaw = props => {
         {viewModel.user && (
           <UserProfile
             isAnotherUser
+            reviews={viewModel.reviews}
             user={viewModel.user}
-            curUser={viewModel.curUser}
+            curUser={viewModel.userInfo}
             headerInfoData={viewModel.headerInfoData}
             tabReview={viewModel.tabReview}
             tabHistory={viewModel.tabHistory}
             onClickWriteBtn={viewModel.onClickWriteBtn}
+            onClickReview={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
           />
         )}
 
@@ -65,32 +63,21 @@ export const AnotherUserProfileViewRaw = props => {
           mapUserRoleEnumToKey[UserRole.BUYER],
         ].includes(viewModel.user.role) ? (
           <>
-            <Typography variant="h6" className={classNames.title}>
+            <Typography variant="h6" className={styles.title}>
               {t(TranslationKey['Active offers on the commodity exchange'])}
             </Typography>
 
-            <MemoDataGrid
-              pagination
-              useResizeContainer
-              classes={{
-                root: classNames.root,
-                footerContainer: classNames.footerContainer,
-                footerCell: classNames.footerCell,
-                toolbarContainer: classNames.toolbarContainer,
-              }}
-              localeText={getLocalizationByLanguageTag()}
+            <CustomDataGrid
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
-              pageSizeOptions={[15, 25, 50, 100]}
-              rows={viewModel.getCurrentData()}
+              rows={viewModel.currentData}
               rowHeight={100}
-              slots={{
-                toolbar: DataGridCustomToolbar,
-                columnMenuIcon: FilterAltOutlinedIcon,
-              }}
               slotProps={{
+                baseTooltip: {
+                  title: t(TranslationKey.Filter),
+                },
                 toolbar: {
                   columsBtnSettings: {
                     columnsModel: viewModel.columnsModel,
@@ -101,19 +88,18 @@ export const AnotherUserProfileViewRaw = props => {
               }}
               density={viewModel.densityModel}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.isLoading}
+              loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
               onSortModelChange={viewModel.onChangeSortingModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-              onPaginationModelChange={viewModel.onChangePaginationModelChange}
+              onPaginationModelChange={viewModel.onPaginationModelChange}
               onFilterModelChange={viewModel.onChangeFilterModel}
             />
           </>
         ) : null}
-      </MainContent>
+      </div>
 
       <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
-          // volumeWeightCoefficient={volumeWeightCoefficient}
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
@@ -131,6 +117,7 @@ export const AnotherUserProfileViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
       >
         <SelectShopsModal
+          isNotDisabled
           title={viewModel.confirmModalSettings.confirmTitle}
           message={viewModel.confirmModalSettings.confirmMessage}
           shops={viewModel.shopsData}
@@ -139,37 +126,45 @@ export const AnotherUserProfileViewRaw = props => {
         />
       </Modal>
 
-      <ConfirmationModal
-        openModal={viewModel.showConfirmModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        isWarning={viewModel.confirmModalSettings.isWarning}
-        title={viewModel.confirmModalSettings.confirmTitle}
-        message={viewModel.confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.Cancel)}
-        onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-      />
+      {viewModel.showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          openModal={viewModel.showConfirmModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          isWarning={viewModel.confirmModalSettings?.isWarning}
+          title={viewModel.confirmModalSettings.confirmTitle}
+          message={viewModel.confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
 
-      <WarningInfoModal
-        openModal={viewModel.showWarningModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        title={viewModel.showWarningModalText}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          viewModel.onTriggerOpenModal('showWarningModal')
-        }}
-      />
+      {viewModel.showSuccessModal ? (
+        <SuccessInfoModal
+          // @ts-ignore
+          openModal={viewModel.showSuccessModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+          title={t(TranslationKey['Order successfully created!'])}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
+        />
+      ) : null}
 
-      <SuccessInfoModal
-        openModal={viewModel.showSuccessModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        title={t(TranslationKey['Order successfully created!'])}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          viewModel.onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+      {viewModel.showConfirmWorkResultFormModal ? (
+        <RequestProposalAcceptOrRejectResultForm
+          // @ts-ignore
+          openModal={viewModel.showConfirmWorkResultFormModal}
+          title={t(TranslationKey['Leave a review'])}
+          rateLabel={t(TranslationKey['Rate the user'])}
+          reviewLabel={t(TranslationKey['Leave a user review'])}
+          confirmButtonText={t(TranslationKey.Confirm)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onSubmit={viewModel.onAcceptReview}
+          onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
+        />
+      ) : null}
     </>
   )
 }

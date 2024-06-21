@@ -1,104 +1,137 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
-/* eslint-disable no-unused-vars */
-import { Typography, Box } from '@mui/material'
-
-import React, { FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
+import { MasterUserItem } from '@components/shared/master-user-item'
 import { SearchInput } from '@components/shared/search-input'
+import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './choice-of-performer-modal.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { IAnnoucement } from '@typings/models/announcements/annoucement'
+import { ICreatedBy } from '@typings/shared/created-by'
 
-interface Requests {
-  createdBy: CreatedBy
-  humanFriendlyId: number
-  price: number
-  status: string
-  timeoutAt: string
-  title: string
-  updatedAt: string
-  _id: string
-}
+import { useStyles } from './choice-of-performer-modal.style'
 
-interface CreatedBy {
-  name: string
-  _id: string
-}
-
-interface linksToMediaFilesInterface {
-  file: { name: Array<string> }
-}
-interface Service {
-  createdBy: CreatedBy
-  linksToMediaFiles: Array<string | linksToMediaFilesInterface>
-  requests: Array<Requests>
-  type: number
-  description: string
-  title: string
-  updatedAt: string
-  _id: string
-}
+import { AnnouncementCard } from './announcement-card'
 
 export interface ChoiceOfPerformerModalProps {
-  announcements: Array<Service>
+  announcements: Array<IAnnoucement>
+  masterUsersData: Array<ICreatedBy>
+  chosenExecutor: ICreatedBy
+  chosenAnnouncement: IAnnoucement
   onClickThumbnail: () => void
-  onClickChooseBtn: (announcement: Service) => void
+  onClickSelectButton: (selectedService?: IAnnoucement, chosenExecutor?: ICreatedBy) => void
   onClickResetPerformerBtn: () => void
   onClickCloseBtn: () => void
 }
 
 export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => {
-  const { announcements, onClickThumbnail, onClickChooseBtn, onClickResetPerformerBtn, onClickCloseBtn } = props
-  const { classes: classNames } = useClassNames()
+  const {
+    announcements,
+    masterUsersData,
+    chosenExecutor,
+    chosenAnnouncement,
+    onClickThumbnail,
+    onClickSelectButton,
+    onClickResetPerformerBtn,
+    onClickCloseBtn,
+  } = props
+  const { classes: styles } = useStyles()
 
+  const actualmasterUsersDataIds = masterUsersData.map(obj => obj._id)
   const [dataToRender, setDataToRender] = useState(announcements)
-
   const [nameSearchValue, setNameSearchValue] = useState('')
+  const [selectedExecutor, setSelectedExecutor] = useState<ICreatedBy | undefined>(chosenExecutor)
+  const [selectedService, setSelectedService] = useState<IAnnoucement | undefined>(chosenAnnouncement)
 
-  const chooseAndClose = (announcement: Service) => {
-    onClickChooseBtn(announcement)
-    onClickCloseBtn()
+  const selectCardHandler = (value: IAnnoucement) => {
+    setSelectedService(prev => (prev?._id === value?._id ? undefined : value))
   }
+
   useEffect(() => {
-    setDataToRender(announcements)
-  }, [announcements])
+    if (selectedExecutor) {
+      setDataToRender(announcements.filter(announcement => announcement.createdBy._id === selectedExecutor?._id))
+    } else {
+      setDataToRender(
+        announcements.filter(announcement => actualmasterUsersDataIds.includes(announcement.createdBy?._id)),
+      )
+    }
+  }, [announcements, selectedExecutor])
 
   useEffect(() => {
     if (nameSearchValue) {
       setDataToRender(
-        announcements.filter(
-          performer =>
-            performer.title.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            performer.description.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-            performer.createdBy.name.toLowerCase().includes(nameSearchValue.toLowerCase()),
-        ),
+        announcements
+          .filter(announcement => (selectedExecutor?._id ? announcement.createdBy._id === selectedExecutor?._id : true))
+          .filter(
+            announcement =>
+              announcement.title.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              announcement.description.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              announcement.createdBy.name.toLowerCase().includes(nameSearchValue.toLowerCase()),
+          ),
       )
     } else {
-      setDataToRender(announcements)
+      setDataToRender(
+        announcements.filter(announcement =>
+          selectedExecutor?._id ? announcement.createdBy._id === selectedExecutor?._id : true,
+        ),
+      )
     }
   }, [nameSearchValue])
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.upWrapper}>
-        <Typography variant="h5" className={classNames.title}>
-          {t(TranslationKey['Choice of Performer'])}
-        </Typography>
+    <div className={styles.mainWrapper}>
+      <div className={styles.supWrapper}>
+        <p className={styles.title}>{t(TranslationKey['Choice of Performer'])}</p>
+
+        <div className={styles.executorContainer}>
+          <p className={styles.label}>{t(TranslationKey.Performer)}</p>
+
+          <WithSearchSelect
+            // @ts-ignore
+            darkIcon
+            grayBorder
+            masterUserSelect
+            blackSelectedItem
+            chosenItemNoHover
+            width="100%"
+            data={masterUsersData}
+            searchOnlyFields={['name']}
+            customSubMainWrapper={styles.customSubMainWrapper}
+            customSearchInput={styles.customSearchInput}
+            selectedItemName={
+              selectedExecutor ? (
+                <MasterUserItem
+                  id={selectedExecutor?._id}
+                  name={selectedExecutor?.name}
+                  rating={selectedExecutor?.rating}
+                />
+              ) : (
+                t(TranslationKey['Choose an executor'])
+              )
+            }
+            onClickSelect={(el: ICreatedBy) => {
+              setSelectedExecutor(el)
+              setSelectedService(undefined)
+            }}
+            onClickNotChosen={() => {
+              setSelectedExecutor(undefined)
+              setSelectedService(undefined)
+            }}
+          />
+        </div>
 
         <SearchInput
-          inputClasses={classNames.searchInput}
+          inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNameSearchValue(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setNameSearchValue(e.target.value)}
         />
 
         <Button
-          danger
+          styleType={ButtonStyle.DANGER}
           onClick={() => {
             onClickResetPerformerBtn()
             onClickCloseBtn()
@@ -107,24 +140,31 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
           {t(TranslationKey['Reset performer'])}
         </Button>
       </div>
-      <div className={classNames.cardsWrapper}>
-        <Box
-          component="div"
-          className={classNames.dashboardCardWrapper}
-          display="grid"
-          gridTemplateColumns={'repeat(auto-fill, minmax(calc(100% / 4), 1fr))'}
+
+      <div className={styles.cardsWrapper}>
+        {dataToRender.map((service, serviceKey) => (
+          <AnnouncementCard
+            key={serviceKey}
+            announcementData={service}
+            selectedCard={selectedService}
+            onClickThumbnail={onClickThumbnail}
+            onClickSelectCard={selectCardHandler}
+            onClickSelectButton={() => onClickSelectButton(selectedService, selectedExecutor)}
+          />
+        ))}
+      </div>
+
+      <div className={styles.footerWrapper}>
+        <Button
+          styleType={ButtonStyle.SUCCESS}
+          disabled={!selectedService && !selectedExecutor}
+          onClick={() => onClickSelectButton(selectedService, selectedExecutor)}
         >
-          {dataToRender.map((service, serviceKey) => (
-            // @ts-ignore
-            <ServiceExchangeCard
-              key={serviceKey}
-              choose
-              service={service}
-              onClickThumbnail={onClickThumbnail}
-              onClickButton={chooseAndClose}
-            />
-          ))}
-        </Box>
+          {t(TranslationKey.Select)}
+        </Button>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelButton} onClick={onClickCloseBtn}>
+          {t(TranslationKey.Close)}
+        </Button>
       </div>
     </div>
   )

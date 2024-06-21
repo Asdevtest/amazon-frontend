@@ -1,65 +1,77 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
-    minWidth: '500px',
+    width: 600,
+    padding: 10,
+    paddingBottom: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
-  mainTitle: {
-    color: theme.palette.text.general,
-    marginBottom: 15,
+  title: {
+    fontSize: 18,
+    lineHeight: '25px',
+    fontWeight: 600,
   },
 
-  deleteBtn: {
-    color: theme.palette.text.general,
+  label: {
+    fontSize: 14,
+    lineHeight: '19px',
+    marginBottom: 5,
   },
 
-  selectOption: {
-    color: theme.palette.text.general,
+  field: {
+    margin: 0,
   },
 
-  button: {
-    marginLeft: '10px',
-  },
-  multiline: {
-    width: '100%',
-    minHeight: '100px',
+  input: {
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   descriptionField: {
-    height: '100px',
-    width: '100%',
-    overflowY: 'hidden',
+    height: '100%',
   },
 
-  allowUrlsWrapper: {
+  allowUrls: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
+    gap: 10,
+    maxHeight: 200,
+    overflowY: 'auto',
   },
 
   urlInputWrapper: {
-    width: 'auto',
+    paddingRight: 10,
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
   },
 
   httpMethodSelect: {
-    height: '65px',
-    width: '95px',
+    width: 115,
   },
 
   urlInput: {
-    overflowY: 'auto',
-    whiteSpace: 'wrap',
-    height: '65px',
-    marginRight: '20px',
-    width: '450px',
+    width: 370,
   },
 
-  buttonsWrapper: {
+  buttonContainer: {
+    margin: '10px 10px 0 0',
     display: 'flex',
     justifyContent: 'flex-end',
-    gap: 30,
+  },
+
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: 20,
+    position: 'sticky',
+    bottom: 0,
+    paddingBlock: 5,
+    backgroundColor: theme.palette.background.general,
   },
 }))

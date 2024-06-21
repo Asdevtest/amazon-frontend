@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   accordion: {
     boxShadow: 'none',
     background: theme.palette.background.second,
@@ -24,10 +24,6 @@ export const useClassNames = makeStyles()(theme => ({
   standartText: {
     color: theme.palette.text.general,
   },
-
-  details: {
-    height: '53vh',
-  },
   detailsShopWrapper: {
     width: '100%',
   },
@@ -44,7 +40,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   tableWrapper: {
     marginTop: '10px',
-    height: '350px',
+    height: '400px',
   },
 
   accardionTitleWrapper: {

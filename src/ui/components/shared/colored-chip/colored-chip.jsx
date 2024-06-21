@@ -1,15 +1,13 @@
-import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { useContext, useState } from 'react'
+
 import { Chip, Tooltip } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
+import { TooltipAttentionIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
 
-import { observer } from 'mobx-react'
+import { HintsContext } from '@contexts/hints-context'
 
-import { SettingsModel } from '@models/settings-model'
-
-import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
-
-import { useClassNames } from './colored-chip.style'
+import { useStyles } from './colored-chip.style'
 
 export const ColoredChip = observer(
   ({
@@ -26,26 +24,18 @@ export const ColoredChip = observer(
   }) => {
     const styleProps = { color, colorHover }
 
-    const { classes: classNames } = useClassNames(styleProps)
+    const { classes: styles, cx } = useStyles(styleProps)
 
     const [openInfoTooltip, setOpenInfoTooltip] = useState(false)
     const [openAttentionTooltip, setOpenAttentionTooltip] = useState(false)
 
-    const [showHints, setShowHints] = useState(SettingsModel.showHints)
-
-    useEffect(() => {
-      setShowHints(SettingsModel.showHints)
-    }, [SettingsModel.showHints])
+    const { hints } = useContext(HintsContext)
 
     return (
-      <div className={classNames.chipWrapper}>
-        <Chip
-          className={cx(classNames.chip, { [classNames.chipActive]: !!selected })}
-          {...restProps}
-          onClick={onClickChip}
-        />
+      <div className={styles.chipWrapper}>
+        <Chip className={cx(styles.chip, { [styles.chipActive]: !!selected })} {...restProps} onClick={onClickChip} />
         {tooltipAttentionContent || tooltipInfoContent ? (
-          <div className={classNames.tooltipsWrapper}>
+          <div className={styles.tooltipsWrapper}>
             {tooltipAttentionContent ? (
               <Tooltip
                 arrow
@@ -56,17 +46,17 @@ export const ColoredChip = observer(
                 onOpen={() => setOpenAttentionTooltip(true)}
               >
                 {/* <img
-                  className={classNames.tooltip}
+                  className={styles.tooltip}
                   src="/assets/icons/attention.svg"
                   onClick={() => setOpenAttentionTooltip(true)}
                 /> */}
                 <div>
-                  <TooltipAttention className={cx(classNames.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
+                  <TooltipAttentionIcon className={cx(styles.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
                 </div>
               </Tooltip>
             ) : null}
 
-            {tooltipInfoContent && showHints ? (
+            {tooltipInfoContent && hints ? (
               <Tooltip
                 arrow
                 open={openInfoTooltip}
@@ -77,7 +67,7 @@ export const ColoredChip = observer(
               >
                 <div>
                   <TooltipInfoIcon
-                    className={cx(classNames.tooltip, classNames.tooltipInfo)}
+                    className={cx(styles.tooltip, styles.tooltipInfo)}
                     onClick={() => setOpenInfoTooltip(true)}
                   />
                 </div>

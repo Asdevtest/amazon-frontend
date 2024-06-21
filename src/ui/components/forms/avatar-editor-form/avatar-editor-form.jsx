@@ -1,28 +1,21 @@
-import { cx } from '@emotion/css'
-import { Typography, Avatar as AvatarMui } from '@mui/material'
-
-import React, { useState } from 'react'
-
+import { useState } from 'react'
 import Avatar from 'react-avatar-edit'
+import { toast } from 'react-toastify'
 
-import { UiTheme } from '@constants/theme/themes'
+import { Avatar as AvatarMui } from '@mui/material'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { useClassNames } from './avatar-editor-form.style'
+import { ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './avatar-editor-form.style'
 
 export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
-  const { classes: classNames } = useClassNames()
-
-  const [showInfoModal, setShowInfoModal] = useState(false)
-
-  const [showInfoModalText, setShowInfoModalText] = useState('')
+  const { classes: styles, theme, cx } = useStyles()
 
   const [state, setState] = useState({
     preview: null,
@@ -38,8 +31,8 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
 
   const onBeforeFileLoad = elem => {
     if (elem.target.files[0].size > 15728640) {
-      setShowInfoModalText(t(TranslationKey['The file is too big!']))
-      setShowInfoModal(true)
+      toast.warning(t(TranslationKey['The file is too big!']))
+
       elem.target.value = ''
     } else if (
       ![
@@ -53,85 +46,70 @@ export const AvatarEditorForm = ({ onSubmit, onCloseModal }) => {
         'image/avif',
       ].includes(elem.target.files[0].type)
     ) {
-      setShowInfoModalText(t(TranslationKey['Inappropriate format!']))
-      setShowInfoModal(true)
+      toast.warning(t(TranslationKey['Inappropriate format!']))
+
       elem.target.value = ''
     }
   }
 
+  const labelStyle = {
+    width: '100%',
+    backgroundColor: theme.palette.background.chatIncomeMessage,
+    textAlign: 'center',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    color: theme.palette.text.general,
+  }
+
+  const borderStyle = {
+    border: `2px dashed ${theme.palette.primary.main}`,
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    borderRadius: '10px',
+    display: 'flex',
+    justifyContent: 'center',
+  }
+
   return (
-    <div className={classNames.root}>
-      <Typography variant="h4" className={classNames.mainTitle}>
-        {t(TranslationKey.Load)}
-      </Typography>
+    <div className={styles.wrapper}>
+      <p className={styles.title}>{t(TranslationKey.Load)}</p>
 
-      <div className={classNames.mainWrapper}>
-        <div className={classNames.avatarWrapper}>
-          <Avatar
-            width={320}
-            height={210}
-            imageWidth={320}
-            // imageHeight={210}
-            labelStyle={{
-              width: '100%',
-              backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
-              textAlign: 'center',
-              transition: '0.3s ease',
-              cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-              color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
-            }}
-            borderStyle={{
-              border: ' 3px dashed rgba(0,123, 255, .7)',
-              transition: '0.3s ease',
-              cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-              borderRadius: '10px',
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-            onCrop={onCrop}
-            onClose={onClose}
-            onBeforeFileLoad={onBeforeFileLoad}
-          />
-        </div>
+      <div className={styles.mainWrapper}>
+        <Avatar
+          width={320}
+          height={200}
+          labelStyle={labelStyle}
+          borderStyle={borderStyle}
+          onCrop={onCrop}
+          onClose={onClose}
+          onBeforeFileLoad={onBeforeFileLoad}
+        />
 
-        <div className={classNames.imgWrapper}>
-          <AvatarMui className={classNames.img} src={state.preview} />
-        </div>
+        <AvatarMui className={styles.img} src={state.preview} />
       </div>
 
-      <div className={classNames.textsWrapper}>
-        <Typography className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
-          {t(TranslationKey['The image size should not exceed'])}{' '}
-          {<span className={classNames.spanText}>{'15 mb.'}</span>}
-        </Typography>
+      <div className={styles.textsWrapper}>
+        <p className={cx({ [styles.successText]: state.preview })}>
+          {t(TranslationKey['The image size should not exceed'])} {<span className={styles.spanText}>{'15 mb.'}</span>}
+        </p>
 
-        <Typography className={cx(classNames.standartText, { [classNames.successText]: state.preview })}>
+        <p className={cx({ [styles.successText]: state.preview })}>
           {t(TranslationKey['Allowed image formats'])}
           {'('}
-          {<span className={classNames.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
+          {<span className={styles.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
           {')'}
-        </Typography>
+        </p>
       </div>
 
-      <div className={classNames.btnsWrapper}>
+      <div className={styles.btnsWrapper}>
         <Button disabled={!state.preview} onClick={() => onSubmit(state.preview)}>
           {t(TranslationKey.Load)}
         </Button>
 
-        <Button variant="text" className={classNames.cancelBtn} onClick={onCloseModal}>
+        <Button variant={ButtonVariant.OUTLINED} conClick={onCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
-
-      <WarningInfoModal
-        openModal={showInfoModal}
-        setOpenModal={() => setShowInfoModal(!showInfoModal)}
-        title={showInfoModalText}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          setShowInfoModal(!showInfoModal)
-        }}
-      />
     </div>
   )
 }

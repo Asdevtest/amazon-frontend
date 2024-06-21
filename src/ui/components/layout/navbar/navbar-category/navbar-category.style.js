@@ -1,7 +1,8 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   root: {
-    // position: 'relative',
-    height: 43,
+    height: 42,
     fontSize: 13,
     lineHeight: '15px',
     fontWeight: 500,
@@ -10,7 +11,7 @@ export const styles = theme => ({
     paddingRight: '16px',
 
     transition: '0.3s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
 
     '&$selected': {
       borderLeft: `5px solid ${theme.palette.primary.main}`,
@@ -20,6 +21,10 @@ export const styles = theme => ({
       borderLeft: `5px solid ${theme.palette.primary.main}`,
     },
     '&:hover': { backgroundColor: 'rgba(0,123,255,0.3)' },
+
+    [theme.breakpoints.down(1024)]: {
+      height: 40,
+    },
   },
   selected: {
     color: `${theme.palette.primary.main} !important`,
@@ -60,19 +65,20 @@ export const styles = theme => ({
 
   bigBadge: {
     width: 'fit-content',
-    padding: '1px 6px',
+    padding: '2px 4px',
     background: theme.palette.primary.main,
-    borderRadius: '22px',
+    borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     color: '#fff',
-    fontSize: '14px',
-    fontWeight: '400',
-    lineHeight: '14px',
+    fontSize: '12px',
+    lineHeight: '16px',
   },
 
   redBadge: {
+    borderRadius: '22px',
+    padding: '1px 6px',
     background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
   },
 
@@ -98,4 +104,4 @@ export const styles = theme => ({
   bigBadgePadding: {
     paddingRight: '20px',
   },
-})
+}))

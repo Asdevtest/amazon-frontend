@@ -23,12 +23,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # Custom
-/.husky
 .env
 .idea
 
 .vscode
 
-/src/services/rest-api-service
+/src/services/rest-api-service/codegen
 
 .schema.json

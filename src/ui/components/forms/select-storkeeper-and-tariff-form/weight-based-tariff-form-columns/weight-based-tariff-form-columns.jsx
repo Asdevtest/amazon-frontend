@@ -1,17 +1,17 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  NormalActionBtnCell,
-  MultilineTextCell,
-  WarehouseTariffDatesCell,
-  MultilineTextHeaderCell,
+  ActionButtonsCell,
   MultilineTextAlignLeftCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  WarehouseTariffDatesCell,
+} from '@components/data-grid/data-grid-cells'
+import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 import { t } from '@utils/translations'
-import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 export const WeightBasedTariffFormColumns = (
   showCheckbox,
@@ -19,6 +19,7 @@ export const WeightBasedTariffFormColumns = (
   currentDestinationId,
   onClickSelectTariff,
   setVariationTariff,
+  isRemovedDestinationRestriction,
 ) => [
   {
     field: 'name',
@@ -46,10 +47,11 @@ export const WeightBasedTariffFormColumns = (
     renderCell: params => (
       <DestinationVariationsSpanningCell
         showCheckbox={showCheckbox}
-        destinationVariations={params.row.originalData.destinationVariations}
+        destinationVariations={params.row.destinationVariations}
         activeDestinationId={currentDestinationId}
         activeDedestinationVariationt={variationTariffId}
         selectVariationTariff={setVariationTariff}
+        isRemovedDestinationRestriction={isRemovedDestinationRestriction}
       />
     ),
     width: 149,
@@ -117,18 +119,19 @@ export const WeightBasedTariffFormColumns = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
     renderCell: params => (
-      <NormalActionBtnCell
-        disabled={
+      <ActionButtonsCell
+        isFirstButton
+        disabledFirstButton={
           showCheckbox &&
           ((currentDestinationId &&
-            params.row.originalData?.destinationVariations.every(
-              item => item?.destination?._id !== currentDestinationId,
-            )) ||
+            params.row?.destinationVariations.every(item => item?.destination?._id !== currentDestinationId) &&
+            !isRemovedDestinationRestriction) ||
             !variationTariffId ||
-            params.row.originalData?.destinationVariations.every(item => item?._id !== variationTariffId))
+            params.row?.destinationVariations.every(item => item?._id !== variationTariffId))
         }
-        bTnText={t(TranslationKey['Select Tariff'])}
-        onClickOkBtn={() => onClickSelectTariff(params.row._id)}
+        firstButtonElement={t(TranslationKey['Select Tariff'])}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        onClickFirstButton={() => onClickSelectTariff(params.row._id)}
       />
     ),
     filterable: false,

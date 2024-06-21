@@ -1,59 +1,50 @@
+import { observer } from 'mobx-react'
+import { useState } from 'react'
+import { withStyles } from 'tss-react/mui'
+
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { ClientBatchesViewModel } from './client-batches-view.model'
+import { ButtonVariant } from '@typings/enums/button-style'
+
 import { styles } from './client-batches-view.style'
+
+import { ClientBatchesViewModel } from './client-batches-view.model'
 
 export const ClientBatchesViewRaw = props => {
   const [viewModel] = useState(() => new ClientBatchesViewModel({ history: props.history }))
-  const { classes: classNames } = props
+  const { classes: styles } = props
 
   return (
-    <React.Fragment>
-      <MainContent>
+    <>
+      <div>
         <div>
-          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Batches'])}</Typography>
+          <Typography className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</Typography>
 
-          <div className={classNames.btnsWrapper}>
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickAwaitingSend}
-            >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['Awaiting send'])}</Typography>
+          <div className={styles.btnsWrapper}>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickAwaitingSend}>
+              <div className={styles.btnTextWrapper}>
+                <Typography className={styles.btnText}>{t(TranslationKey['Awaiting send'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
 
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickSentBatches}
-            >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['Sent boxes'])}</Typography>
+            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickSentBatches}>
+              <div className={styles.btnTextWrapper}>
+                <Typography className={styles.btnText}>{t(TranslationKey['Sent boxes'])}</Typography>
                 <ArrowRightAltIcon color="primary" />
               </div>
             </Button>
           </div>
         </div>
-      </MainContent>
-    </React.Fragment>
+      </div>
+    </>
   )
 }
 

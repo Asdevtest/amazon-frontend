@@ -1,71 +1,59 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { BoxViewForm } from '@components/forms/box-view-form'
-import { MainContent } from '@components/layout/main-content'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { BoxForm } from '@components/forms/box-form'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { AdminWarehouseBoxesViewModel } from './admin-warehouse-boxes-view.model'
-import { styles } from './admin-warehouse-boxes-view.style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const AdminWarehouseBoxesViewRaw = props => {
-  const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel({ history: props.history }))
-  const { classes: classNames } = props
+import { useStyles } from './admin-warehouse-boxes-view.style'
+
+import { AdminWarehouseBoxesViewModel } from './admin-warehouse-boxes-view.model'
+
+export const AdminWarehouseBoxesView = observer(() => {
+  const { classes: styles } = useStyles()
+
+  const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel())
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div className={classNames.topHeaderBtnsWrapper}>
-          <SearchInput
-            inputClasses={classNames.searchInput}
-            placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-            onSubmit={viewModel.onSearchSubmit}
-          />
-        </div>
-        <MemoDataGrid
-          pagination
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
-          classes={{
-            row: classNames.row,
-            root: classNames.root,
-            footerContainer: classNames.footerContainer,
-            footerCell: classNames.footerCell,
-            toolbarContainer: classNames.toolbarContainer,
-          }}
+    <>
+      <div className={styles.header}>
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+          onSubmit={viewModel.onSearchSubmit}
+        />
+      </div>
+
+      <div className={styles.tableWrapper}>
+        <CustomDataGrid
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          pageSizeOptions={[15, 25, 50, 100]}
+          rowCount={viewModel.rowCount}
           rows={viewModel.currentData}
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
-          rowHeight={130}
-          loading={viewModel.requestStatus === loadingStatuses.isLoading}
-          slots={{
-            toolbar: DataGridCustomToolbar,
-            columnMenuIcon: FilterAltOutlinedIcon,
-          }}
+          getRowHeight={() => 'auto'}
           slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
@@ -73,26 +61,22 @@ export const AdminWarehouseBoxesViewRaw = props => {
               },
             },
           }}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-          onPaginationModelChange={viewModel.onChangePaginationModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
         />
-      </MainContent>
+      </div>
 
       <Modal
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxViewForm
-          box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-        />
+        <BoxForm box={viewModel.curBox} onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')} />
       </Modal>
-    </React.Fragment>
+    </>
   )
-}
-
-export const AdminWarehouseBoxesView = withStyles(observer(AdminWarehouseBoxesViewRaw), styles)
+})

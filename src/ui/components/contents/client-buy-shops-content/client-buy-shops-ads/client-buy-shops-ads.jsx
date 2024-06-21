@@ -1,12 +1,10 @@
-import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Typography } from '@mui/material'
-
-import React, { useEffect, useRef } from 'react'
-
-import { observer } from 'mobx-react'
-import { useHistory } from 'react-router-dom'
 
 import { tableSortMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,17 +12,20 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './client-buy-shops-ads.style'
+
 import { ClientBuyShopsAdsModel } from './client-buy-shops-ads.model'
-import { useClassNames } from './client-buy-shops-ads.style'
 
 export const ClientBuyShopsAds = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles, cx } = useStyles()
   const history = useHistory()
   const model = useRef(new ClientBuyShopsAdsModel({ history }))
 
@@ -58,19 +59,18 @@ export const ClientBuyShopsAds = observer(() => {
     <>
       {SettingsModel.languageTag && (
         <>
-          <div className={classNames.boxesFiltersWrapper}>
+          <div className={styles.boxesFiltersWrapper}>
             <Button
               disabled={curFilter === filtersSettings.ALL_ADS}
-              className={cx(classNames.button, {
-                [classNames.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
+              className={cx(styles.button, {
+                [styles.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
               })}
               sx={{
                 '&.Mui-disabled': {
                   backgroundColor: 'none',
                 },
               }}
-              variant="text"
-              color="primary"
+              variant={ButtonVariant.OUTLINED}
               onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
             >
               {t(TranslationKey['All Ads'])}
@@ -78,34 +78,33 @@ export const ClientBuyShopsAds = observer(() => {
 
             <Button
               disabled={curFilter === filtersSettings.PURCHASED_ADS} // Вернуть чтобы откатится
-              className={cx(classNames.button, {
-                [classNames.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
+              className={cx(styles.button, {
+                [styles.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
               })}
               sx={{
                 '&.Mui-disabled': {
                   backgroundColor: 'none',
                 },
               }}
-              variant="text"
-              color="primary"
+              variant={ButtonVariant.OUTLINED}
               onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
             >
               {t(TranslationKey['Purchased Ads'])}
             </Button>
           </div>
 
-          <div className={classNames.tablePanelWrapper}>
+          <div className={styles.tablePanelWrapper}>
             <div></div>
 
             <SearchInput
               placeholder={t(TranslationKey.search)}
-              inputClasses={classNames.searchInput}
+              inputClasses={styles.searchInput}
               value={nameSearchValue}
               onChange={onChangeNameSearchValue}
             />
 
-            <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-              <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+            <div className={styles.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+              <Typography className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
               {sortMode === tableSortMode.DESK ? (
                 <ArrowDropDownIcon color="primary" />
@@ -122,9 +121,9 @@ export const ClientBuyShopsAds = observer(() => {
               ))}
             </div>
           ) : (
-            <div className={classNames.emptyTableWrapper}>
+            <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={classNames.emptyTableText}>
+              <Typography variant="h5" className={styles.emptyTableText}>
                 {t(TranslationKey['No stores for sale yet'])}
               </Typography>
             </div>

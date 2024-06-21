@@ -1,3 +1,4 @@
+export { cloneDeep } from './clone-deep'
 export * from './object'
 
 // export {

@@ -7,10 +7,12 @@ export const DataGridTablesKeys = {
   ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
   // ADMIN_BATCHES: 'adminBatchesDataGridState',
   ADMIN_DESTINATIONS: 'adminDestinationsDataGridState',
+  ADMIN_TAGS: 'adminTagsDataGridState',
 
   ADMIN_SINGLE_PERMISSIONS: 'adminSinglePermissionsDataGridState',
   ADMIN_GROUP_PERMISSIONS: 'adminGroupPermissionsDataGridState',
 
+  ADMIN_EXCHANGE: 'adminExchangeDataGridState',
   ADMIN_EXCHANGE_CREATED: 'adminExchangeCreatedDataGridState',
   ADMIN_EXCHANGE_CHECKED_BY_SUPERVISOR: 'adminExchangeChekedBySupervisorDataGridState',
   ADMIN_EXCHANGE_SUPPLIER_SEARCHING: 'adminExchangeSupplierSearchingDataGridState',
@@ -91,10 +93,20 @@ export const DataGridTablesKeys = {
   CLIENT_AWAITING_BATCHES: 'clientAwaitingBatchesDataGridState',
   CLIENT_BOXES_READY_TO_BATCH: 'clientReadyToBatchDataGridState',
 
+  CLIENT_NEW_IDEAS: 'clientNewIdeasDataGridState',
+  CLIENT_ON_CHECKING_IDEAS: 'clientOnCheckingIdeasDataGridState',
+  CLIENT_SEARCH_SUPPLIERS_IDEAS: 'clientSearchSuppliersIdeasDataGridState',
+  CLIENT_CREATE_CARD_IDEAS: 'clientCreateCardIdeasDataGridState',
+  CLIENT_ADD_ASIN_IDEAS: 'clientAddAsinIdeasDataGridState',
+  CLIENT_REALIZED_IDEAS: 'clientRealizedIdeasDataGridState',
+  CLIENT_CLOSED_IDEAS: 'clientClosedIdeasDataGridState',
+  CLIENT_ALL_IDEAS: 'clientAllIdeasDataGridState',
+
   FREELANCER_CUSTOM_MY_REQUESTS: 'freelancerCustomMyRequestsDataGridState',
   FREELANCER_CUSTOM_VACANT_REQUESTS: 'freelancerCustomVacantRequestsDataGridState',
   FREELANCER_CUSTOM_SEARCH_REQUESTS: 'freelancerCustomSearchRequestsDataGridState',
   FREELANCER_SUB_USERS: 'freelancerSubUsersDataGridState',
+  FREELANCER_MY_PROPOSALS: 'freelancerMyProposalsDataGridState',
 
   OVERALL_CUSTOM_SEARCH_REQUESTS: 'overallCustomSearchRequestsDataGridState',
   OVERALL_SUB_USERS: 'overallSubUsersDataGridState',
@@ -105,4 +117,17 @@ export const DataGridTablesKeys = {
   PRODUCT_FREELANCE: 'productFreelanceDataGridState',
 
   SUB_WAREHOUSE_LOGISTICS_TARIFFS: 'subWarehouseLogisticsTariffsDataGridState',
+
+  GENERAL_NOTIFICATIONS: 'generalNotificationsDataGridState',
+
+  SHOPS_REPORT_STOCK_REPORT: 'shopsReportStockReportDataGridState',
+  SHOPS_REPORT_GOODS_DAYS_REPORT: 'shopsReportGoodsDaysReportDataGridState',
+  SHOPS_REPORT_INVENTORY: 'shopsReportInventoryDataGridState',
+  SHOPS_REPORT_PPC: 'shopsReportPpcDataGridState',
+  SHOPS_REPORT_INVENTORY_SHIPMENTS: 'shopsReportInventoryShipmentsDataGridState',
+  SHOPS_REPORT_RETURNS: 'shopsReportReturnsDataGridState',
+  SHOPS_REPORT_PPC_ORGANIC_BY_DAY: 'shopsReportPpcOrganicByDayDataGridState',
+
+  UPDATED_PATH_NOUTES: 'updatedPatchNoutes',
+  PRODUCT_LISTING_REPORTS: 'productListingReports',
 }

@@ -1,15 +1,13 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ProductAsinCell,
+  MultilineStatusCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
+  ProductAsinCell,
   UserLinkCell,
-  MultilineStatusCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -44,10 +42,10 @@ export const exchangeNewColumns = () => [
 
       return (
         <ProductAsinCell
-          image={product?.images?.slice()[0]}
+          image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
-          skusByClient={product?.skusByClient?.slice()[0]}
+          skuByClient={product?.skuByClient}
         />
       )
     },
@@ -82,6 +80,7 @@ export const exchangeNewColumns = () => [
     ),
     width: 200,
   },
+
   {
     field: 'supervisor',
     headerName: t(TranslationKey.Supervisor),

@@ -1,35 +1,32 @@
-import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
 import { observer } from 'mobx-react'
 
-import { Button } from '@components/shared/buttons/button'
+import { Typography } from '@mui/material'
 
-// import {TranslationKey} from '@constants/translations/translation-key'
-// import {t} from '@utils/translations'
-import { useClassNames } from './dashboard-single-card-with-button.style'
+import { Button } from '@components/shared/button'
+
+import { useStyles } from './dashboard-single-card-with-button.style'
 
 export const DashboardSingleCardWithButton = observer(
   ({ horizontal, config, valuesData, buttonText, configSubTitle, onClickViewMore }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     return (
       <div>
-        <Typography className={classNames.cardListTitle}>{config.title}</Typography>
-        <Typography className={classNames.cardListSubTitle}>{configSubTitle}</Typography>
-        <div className={cx(classNames.cardWrapper, { [classNames.cardWrapperHorizontal]: horizontal })}>
+        <Typography className={styles.cardListTitle}>{config.title}</Typography>
+        <Typography className={styles.cardListSubTitle}>{configSubTitle}</Typography>
+        <div className={cx(styles.cardWrapper, { [styles.cardWrapperHorizontal]: horizontal })}>
           {config.items.map(item => (
             <div
               key={item.dataKey}
-              className={cx(classNames.cardTitleWrapper, { [classNames.cardTitleWrapperHorizontal]: horizontal })}
+              className={cx(styles.cardTitleWrapper, { [styles.cardTitleWrapperHorizontal]: horizontal })}
             >
-              <Typography className={classNames.cardTitle}>{item.title}</Typography>
-              <Typography className={classNames.cardValueTitle}>
+              <Typography className={styles.cardTitle}>{item.title}</Typography>
+              <Typography className={styles.cardValueTitle}>
                 {valuesData[item.dataKey] && valuesData[item.dataKey]}
               </Typography>
             </div>
           ))}
-          <div className={classNames.buttonWrapper}>
+          <div className={styles.buttonWrapper}>
             <Button onClick={() => onClickViewMore(config.route)}>{buttonText}</Button>
           </div>
         </div>

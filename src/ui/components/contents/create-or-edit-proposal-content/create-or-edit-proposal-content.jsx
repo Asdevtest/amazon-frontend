@@ -1,19 +1,18 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
+import isEqual from 'lodash.isequal'
+import { memo, useEffect, useState } from 'react'
+
 import CircleIcon from '@mui/icons-material/Circle'
-import { Avatar, Checkbox, Link, List, ListItem, ListItemText, Rating, Typography } from '@mui/material'
+import { Avatar, Link, List, ListItem, ListItemText, Rating } from '@mui/material'
 
-import React, { useState } from 'react'
-
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
-import { SetDuration } from '@components/shared/set-duration/set-duration'
+import { SetDuration } from '@components/shared/set-duration'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserLink } from '@components/user/user-link'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
@@ -23,38 +22,34 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './create-or-edit-proposal-content.style'
-import { UploadFilesInput } from '@components/shared/upload-files-input'
+import { ButtonStyle } from '@typings/enums/button-style'
 
-export const CreateOrEditProposalContent = ({
-  onCreateSubmit,
-  onEditSubmit,
-  request,
-  showProgress,
-  progressValue,
-  proposalToEdit,
-  onClickBackBtn,
-}) => {
-  const { classes: classNames } = useClassNames()
+import { useStyles } from './create-or-edit-proposal-content.style'
 
-  const [images, setImages] = useState(
-    proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
-  )
+export const CreateOrEditProposalContent = memo(props => {
+  const { onCreateSubmit, onEditSubmit, request, showProgress, progressValue, proposalToEdit, onClickBackBtn } = props
+
+  const { classes: styles, cx } = useStyles()
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    if (proposalToEdit?.linksToMediaFiles?.length) {
+      setImages(proposalToEdit?.linksToMediaFiles)
+    }
+  }, [proposalToEdit?.linksToMediaFiles])
 
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
 
-  const sourceFormFields = {
-    price: proposalToEdit?.price || request?.request.price,
+  const getSourceFormFields = () => ({
+    price: proposalToEdit?.price || request?.request?.price,
     execution_time: proposalToEdit?.execution_time || '',
     comment: proposalToEdit?.comment || '',
-    linksToMediaFiles: proposalToEdit?.linksToMediaFiles.length ? proposalToEdit?.linksToMediaFiles : [],
+    linksToMediaFiles: proposalToEdit?.linksToMediaFiles?.length ? proposalToEdit?.linksToMediaFiles : [],
     title: proposalToEdit?.title || '',
-  }
+  })
 
-  const [formFields, setFormFields] = useState(sourceFormFields)
-
-  const [checked, setChecked] = useState(false)
+  const [formFields, setFormFields] = useState(getSourceFormFields())
 
   const onChangeField = fieldName => event => {
     const newFormFields = { ...formFields }
@@ -82,40 +77,42 @@ export const CreateOrEditProposalContent = ({
     onEditSubmit(formFields, images)
   }
 
+  useEffect(() => {
+    setFormFields(getSourceFormFields())
+  }, [proposalToEdit, request])
+
   const disableSubmit =
     !formFields.title ||
     !formFields.execution_time ||
     !formFields.comment ||
     formFields.comment.length > 2000 ||
     +formFields.price <= 0 ||
-    (JSON.stringify(sourceFormFields) === JSON.stringify(formFields) && !images.length)
+    (isEqual(getSourceFormFields(), formFields) && isEqual(proposalToEdit?.linksToMediaFiles, images))
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.adviceWrapper}>
-        <Typography className={classNames.adviceTitle}>
-          {t(TranslationKey['Offering a Service to the Client:'])}
-        </Typography>
+    <div className={styles.mainWrapper}>
+      <div className={styles.adviceWrapper}>
+        <p className={styles.adviceTitle}>{t(TranslationKey['Offering a Service to the Client:'])}</p>
 
         <List>
-          <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
+          <ListItem className={styles.adviceListItem}>
+            <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
 
-            <ListItemText className={classNames.adviceListItemText}>
+            <ListItemText className={styles.adviceListItemText}>
               {t(TranslationKey['Specify exactly how you are going to perform this task. Describe the key points.'])}
             </ListItemText>
           </ListItem>
-          <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
+          <ListItem className={styles.adviceListItem}>
+            <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
 
-            <ListItemText className={classNames.adviceListItemText}>
+            <ListItemText className={styles.adviceListItemText}>
               {t(TranslationKey['Compose unique feedback that shows your competence and interest in the project.'])}
             </ListItemText>
           </ListItem>
-          <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" classes={{ root: classNames.listItemDot }} />
+          <ListItem className={styles.adviceListItem}>
+            <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
 
-            <ListItemText className={classNames.adviceListItemText}>
+            <ListItemText className={styles.adviceListItemText}>
               {t(
                 TranslationKey[
                   'Try to research market prices and make your offer based on the amount of work and your skills.'
@@ -124,245 +121,168 @@ export const CreateOrEditProposalContent = ({
             </ListItemText>
           </ListItem>
         </List>
-        <div className={classNames.trainingTextWrapper}>
-          <Typography className={classNames.trainingText}>
+
+        <div className={styles.trainingTextWrapper}>
+          <p className={styles.trainingText}>
             {t(TranslationKey['You can also take a free'])}
-            <Link className={classNames.trainingLink}>{t(TranslationKey.Training)}</Link>
+            <Link className={styles.trainingLink}>{t(TranslationKey.Training)}</Link>
             {t(TranslationKey['on our freelance exchange.'])}
-          </Typography>
+          </p>
         </div>
       </div>
-      <div className={classNames.mainLeftWrapper}>
-        <div className={classNames.clientInfoWrapper}>
-          <div className={classNames.clientInfo}>
-            <Avatar
-              src={getUserAvatarSrc(request?.request?.createdById || request?.createdById)}
-              className={classNames.userPhoto}
-            />
-            <div>
-              <UserLink
-                blackText
-                name={request?.request?.createdBy?.name || request.createdBy?.name}
-                userId={request.createdBy?._id}
-              />
-              <div className={classNames.ratingWrapper}>
-                <Rating disabled value={request?.request.createdBy?.rating || request.createdBy?.rating} />
-              </div>
-            </div>
-          </div>
 
-          <Typography className={classNames.subTitle}>
-            {t(TranslationKey['The number of total successful transactions:']) + ' 0'}
-          </Typography>
-
-          <div className={classNames.infoBlockWrapper}>
-            <div className={classNames.infoCellWrapper}>
-              <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request title'])}</Typography>
-              <Typography className={classNames.requestTitle}>{request.request.title}</Typography>
-            </div>
-
-            <div className={classNames.infoCellWrapper}>
-              <Typography className={cx(classNames.requestTitleName)}>{t(TranslationKey.ID)}</Typography>
-              <Typography className={classNames.requestTitle}>{request.request.humanFriendlyId}</Typography>
-            </div>
-
-            <div className={cx(classNames.infoCellWrapper, classNames.lastInfoCellWrapper)}>
-              <Typography className={classNames.requestTitleName}>{t(TranslationKey['Request type'])}</Typography>
-              <Typography className={cx(classNames.requestTitle, classNames.requestInfoText)}>
-                {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[request.request.typeTask])}
-              </Typography>
-            </div>
-          </div>
-
-          {request?.details.conditions && (
-            <>
-              <Typography className={classNames.requestTitleName}>
-                {t(TranslationKey['Request description'])}
-              </Typography>
-              {/* <Typography className={classNames.requestTitle}>{request?.details.conditions}</Typography> */}
-              <CustomTextEditor
-                readOnly
-                conditions={request?.details.conditions}
-                editorMaxHeight={classNames.editorMaxHeight}
-              />
-            </>
-          )}
-
-          <Typography className={classNames.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${
-            request?.request.maxAmountOfProposals || request.maxAmountOfProposals
-          } ${t(TranslationKey['suggestions left'])}`}</Typography>
-
-          <div className={classNames.requestTitleAndInfo}>
-            <div className={cx(classNames.blockInfoWrapper)}>
-              <div className={classNames.blockInfoCell}>
-                <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey['Request price'])}</Typography>
-                <Typography className={cx(classNames.price, classNames.blockInfoCellText)}>
-                  {toFixed(request?.request.price, 2) + '$'}
-                </Typography>
-              </div>
-
-              {newProductPrice || request?.request?.priceAmazon ? (
-                <div className={classNames.blockInfoCell}>
-                  <Typography className={classNames.blockInfoCellTitle}>
-                    {t(TranslationKey['Product price'])}
-                  </Typography>
-                  <div className={classNames.pricesWrapper}>
-                    {newProductPrice && (
-                      <Typography
-                        className={cx(classNames.blockInfoCellText, { [classNames.newPrice]: newProductPrice })}
-                      >
-                        {'$ ' + toFixed(newProductPrice, 2)}
-                      </Typography>
-                    )}
-
-                    <Typography
-                      className={cx(classNames.blockInfoCellText, {
-                        [classNames.oldPrice]: newProductPrice,
-                      })}
-                    >
-                      {'$ ' + toFixed(request?.request?.priceAmazon, 2)}
-                    </Typography>
-                  </div>
-                </div>
-              ) : null}
-            </div>
-
-            <div className={cx(classNames.blockInfoWrapper)}>
-              <div className={cx(classNames.blockInfoCell, classNames.blockInfoWrapperlast)}>
-                <Typography className={classNames.blockInfoCellTitle}>
-                  {t(TranslationKey['Performance time'])}
-                </Typography>
-                <Typography className={cx(classNames.blockInfoCellText)}>
-                  {formatNormDateTime(request?.request.timeoutAt)}
-                </Typography>
-              </div>
-
-              {request?.request?.cashBackInPercent ? (
-                <div className={cx(classNames.blockInfoCell, classNames.blockInfoWrapperlast)}>
-                  <Typography className={classNames.blockInfoCellTitle}>{t(TranslationKey.CashBack)}</Typography>
-                  <Typography className={cx(classNames.blockInfoCellText)}>
-                    {toFixed(request?.request?.cashBackInPercent, 2) + ' %'}
-                  </Typography>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-
-        {request.details.linksToMediaFiles?.length > 0 ? (
-          <Field
-            label={t(TranslationKey.Files)}
-            inputComponent={<PhotoAndFilesCarousel small files={request.details.linksToMediaFiles} width="400px" />}
+      <div className={styles.mainLeftWrapper}>
+        <div className={styles.clientInfo}>
+          <Avatar
+            src={getUserAvatarSrc(request?.request?.createdById || request?.createdById)}
+            className={styles.userPhoto}
           />
-        ) : null}
-      </div>
 
-      <div className={classNames.mainRightWrapper}>
-        <div className={classNames.middleWrapper}>
-          <div className={classNames.descriptionFieldWrapper}>
-            <div className={classNames.nameFieldWrapper}>
-              <Field
-                className={classNames.nameField}
-                labelClasses={classNames.spanLabel}
-                inputProps={{ maxLength: 100 }}
-                label={t(TranslationKey['Proposal Name*'])}
-                value={formFields.title}
-                onChange={onChangeField('title')}
-              />
-              {/* <span className={cx(classNames.standartText, {[classNames.error]: formFields.title.length > 80})}>{`${
-                formFields.title.length
-              } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span> */}
-            </div>
+          <div>
+            <UserLink
+              blackText
+              maxNameWidth={200}
+              name={request?.request?.createdBy?.name || request?.createdBy?.name}
+              userId={request?.request?.createdBy?._id}
+            />
 
-            <div className={classNames.descriptionWrapper}>
-              <Field
-                multiline
-                className={classNames.descriptionField}
-                containerClasses={classNames.conrainer}
-                labelClasses={classNames.spanLabel}
-                inputProps={{ maxLength: 2100 }}
-                minRows={9}
-                maxRows={9}
-                label={t(TranslationKey['Describe your proposal'])}
-                value={formFields.comment}
-                onChange={onChangeField('comment')}
-              />
-              <span
-                className={cx(classNames.standartText, { [classNames.error]: formFields.comment.length > 2000 })}
-              >{`${formFields.comment.length} ${t(TranslationKey.of)} 2000 ${t(TranslationKey.characters)}`}</span>
-            </div>
+            <Rating
+              readOnly
+              size="small"
+              value={request?.request?.createdBy?.rating || request?.createdBy?.rating || 0}
+            />
+          </div>
+        </div>
 
-            <div className={classNames.imageFileInputWrapper}>
-              <div className={classNames.inputTitleWrapper}>
-                <Typography className={classNames.imageFileInputTitle}>{t(TranslationKey['Attach a file'])}</Typography>
+        <p className={styles.subTitle}>{t(TranslationKey['The number of total successful transactions:']) + ' 0'}</p>
 
-                <Typography className={classNames.imageFileInputSubTitle}>
-                  {`(${t(TranslationKey['link to your portfolio, examples of work'])})`}
-                </Typography>
+        <div className={styles.infoBlockWrapper}>
+          <div className={styles.infoCellWrapper}>
+            <p className={styles.requestTitleName}>{t(TranslationKey['Request title'])}</p>
+            <p>{request?.request?.title}</p>
+          </div>
+
+          <div className={styles.infoCellWrapper}>
+            <p className={styles.requestTitleName}>{t(TranslationKey.ID)}</p>
+            <p>{request?.request?.humanFriendlyId}</p>
+          </div>
+
+          <div className={cx(styles.infoCellWrapper, styles.lastInfoCellWrapper)}>
+            <p className={styles.requestTitleName}>{t(TranslationKey['Request type'])}</p>
+            <p>{request?.request?.spec?.title}</p>
+          </div>
+        </div>
+
+        {request?.details.conditions && (
+          <>
+            <p className={styles.requestTitleName}>{t(TranslationKey['Request description'])}</p>
+            <CustomTextEditor
+              readOnly
+              value={request?.details.conditions}
+              editorClassName={styles.editor}
+              editorWrapperClassName={styles.editorWrapper}
+            />
+          </>
+        )}
+
+        <div className={styles.infoBlockWrapper}>
+          <div className={styles.infoCellWrapper}>
+            <p className={styles.requestTitleName}>{t(TranslationKey['Request price'])}</p>
+            <p>{toFixed(request?.request?.price, 2) + '$'}</p>
+          </div>
+
+          {newProductPrice || request?.request?.priceAmazon ? (
+            <div className={styles.infoCellWrapper}>
+              <p className={styles.requestTitleName}>{t(TranslationKey['Product price'])}</p>
+              <div className={styles.pricesWrapper}>
+                {newProductPrice && (
+                  <p className={cx({ [styles.newPrice]: newProductPrice })}>{'$ ' + toFixed(newProductPrice, 2)}</p>
+                )}
+                <p
+                  className={cx({
+                    [styles.oldPrice]: newProductPrice,
+                  })}
+                >
+                  {'$ ' + toFixed(request?.request?.priceAmazon, 2)}
+                </p>
               </div>
-
-              <UploadFilesInput
-                minimized
-                withoutTitle
-                requestWidth
-                images={images}
-                setImages={setImages}
-                maxNumber={50}
-              />
-              {/* <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} /> */}
             </div>
+          ) : null}
+
+          <div className={styles.infoCellWrapper}>
+            <p className={styles.requestTitleName}>{t(TranslationKey['Performance time'])}</p>
+            <p>{formatNormDateTime(request?.request?.timeoutAt)}</p>
           </div>
 
-          <div className={classNames.checkboxWrapper}>
-            <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Offer your price?'])}</Typography>
-            <Checkbox color="primary" checked={checked} onChange={() => setChecked(!checked)} />
-          </div>
-
-          <div className={classNames.middleSubWrapper}>
-            <Field
-              disabled={!checked}
-              label={t(TranslationKey['Enter the offer price'])}
-              inputProps={{ maxLength: 10 }}
-              value={formFields.price}
-              onChange={onChangeField('price')}
-            />
-
-            <SetDuration
-              title={t(TranslationKey['Time to complete'])}
-              duration={formFields.execution_time}
-              titleStyle={classNames.titleStyle}
-              setTotalTimeInMinute={onChangeField('execution_time')}
-            />
-
-            {/* <Field
-              label={t(TranslationKey['Time to complete, min*'])}
-              inputProps={{maxLength: 8}}
-              containerClasses={classNames.dateWrapper}
-              value={formFields.execution_time}
-              onChange={onChangeField('execution_time')}
-            /> */}
-          </div>
+          {request?.request?.cashBackInPercent ? (
+            <div className={styles.infoCellWrapper}>
+              <p className={styles.requestTitleName}>{t(TranslationKey.CashBack)}</p>
+              <p>{toFixed(request?.request?.cashBackInPercent, 2) + ' %'}</p>
+            </div>
+          ) : null}
         </div>
 
-        <div className={classNames.footerWrapper}>
-          <div className={classNames.buttonsWrapper}>
-            <Button
-              success
-              disabled={disableSubmit}
-              className={classNames.successBtn}
-              onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}
-            >
-              {proposalToEdit ? t(TranslationKey.Edit) : t(TranslationKey.Suggest)}
-            </Button>
+        <SlideshowGallery slidesToShow={2} files={request?.request?.media || []} />
+      </div>
 
-            <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
-              {t(TranslationKey.Back)}
-            </Button>
-          </div>
+      <div className={styles.mainRightWrapper}>
+        <div className={styles.proposalContainer}>
+          <Field
+            className={styles.nameField}
+            labelClasses={styles.spanLabel}
+            inputProps={{ maxLength: 100 }}
+            label={t(TranslationKey['Proposal Name*'])}
+            value={formFields.title}
+            onChange={onChangeField('title')}
+          />
+
+          <SetDuration
+            title={t(TranslationKey['Time to complete']) + '*'}
+            duration={formFields.execution_time}
+            titleStyle={styles.titleStyle}
+            setTotalTimeInMinute={onChangeField('execution_time')}
+          />
+        </div>
+
+        <div className={styles.descriptionWrapper}>
+          <Field
+            multiline
+            className={styles.descriptionField}
+            containerClasses={styles.descriptionConrainer}
+            labelClasses={styles.spanLabel}
+            inputProps={{ maxLength: 2100 }}
+            minRows={7}
+            maxRows={7}
+            label={t(TranslationKey['Describe your proposal'])}
+            value={formFields.comment}
+            onChange={onChangeField('comment')}
+          />
+          <span className={cx(styles.standartText, { [styles.error]: formFields.comment.length > 2000 })}>{`${
+            formFields.comment.length
+          } ${t(TranslationKey.of)} 2000 ${t(TranslationKey.characters)}`}</span>
+        </div>
+
+        <div className={styles.inputTitleWrapper}>
+          <p className={styles.imageFileInputTitle}>{t(TranslationKey['Attach a file'])}</p>
+          <p className={styles.spanLabel}>{`(${t(TranslationKey['link to your portfolio, examples of work'])})`}</p>
+        </div>
+
+        <UploadFilesInput minimized withoutTitles images={images} setImages={setImages} />
+
+        <div className={styles.footerWrapper}>
+          <Button
+            styleType={ButtonStyle.SUCCESS}
+            disabled={disableSubmit}
+            onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}
+          >
+            {proposalToEdit ? t(TranslationKey.Edit) : t(TranslationKey.Suggest)}
+          </Button>
+
+          <Button onClick={onClickBackBtn}>{t(TranslationKey.Back)}</Button>
         </div>
       </div>
 
-      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
-}
+})

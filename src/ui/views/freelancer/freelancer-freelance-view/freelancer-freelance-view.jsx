@@ -1,59 +1,37 @@
+import { memo } from 'react'
+import { Link } from 'react-router-dom'
+
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-import { Typography } from '@mui/material'
-
-import React, { useState } from 'react'
-
-import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MainContent } from '@components/layout/main-content'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { FreelancerFreelanceViewModel } from './freelancer-freelance-view.model'
-import { styles } from './freelancer-freelance-view.style'
+import { ButtonVariant } from '@typings/enums/button-style'
 
-export const FreelancerFreelanceViewRaw = props => {
-  const [viewModel] = useState(() => new FreelancerFreelanceViewModel({ history: props.history }))
-  const { classes: classNames } = props
+import { useStyles } from './freelancer-freelance-view.style'
+
+import { renderData } from './render-data'
+
+export const FreelancerFreelanceView = memo(() => {
+  const { classes: styles } = useStyles()
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div>
-          <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Freelance'])}</Typography>
+    <div>
+      <p className={styles.title}>{t(TranslationKey['Choose a section in Freelance'])}</p>
 
-          <div className={classNames.btnsWrapper}>
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickVacRequests}
-            >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['Vacant requests'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
+      <div className={styles.btnsWrapper}>
+        {renderData.map(item => (
+          <Link key={item.text} to={item.link}>
+            <Button className={styles.button} color="primary" variant={ButtonVariant.OUTLINED}>
+              <p>{t(TranslationKey[item.text])}</p>
+              <ArrowRightAltIcon className={styles.primary} />
             </Button>
-            <Button
-              className={classNames.button}
-              color="primary"
-              variant="outlined"
-              onClick={viewModel.onClickMyProposals}
-            >
-              <div className={classNames.btnTextWrapper}>
-                <Typography className={classNames.btnText}>{t(TranslationKey['My proposals'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
-          </div>
-        </div>
-      </MainContent>
-    </React.Fragment>
+          </Link>
+        ))}
+      </div>
+    </div>
   )
-}
-
-export const FreelancerFreelanceView = withStyles(observer(FreelancerFreelanceViewRaw), styles)
+})

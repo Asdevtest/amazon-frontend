@@ -1,17 +1,17 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { WarehouseDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ClientModel } from '@models/client-model'
 import { DashboardModel } from '@models/dashboard-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class WarehouseDashboardViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   showAddOrEditDestinationModal = false
 
@@ -39,15 +39,15 @@ export class WarehouseDashboardViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.getDashboardElementCount()
 
       this.getDestinations()
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -66,7 +66,7 @@ export class WarehouseDashboardViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -81,7 +81,7 @@ export class WarehouseDashboardViewModel {
       this.onTriggerOpenModal('showAddOrEditDestinationModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -105,10 +105,7 @@ export class WarehouseDashboardViewModel {
         }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 

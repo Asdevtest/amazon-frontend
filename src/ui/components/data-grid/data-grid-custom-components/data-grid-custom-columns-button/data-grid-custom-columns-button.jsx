@@ -1,48 +1,43 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
+import { useEffect, useState } from 'react'
+
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import { Checkbox, Menu, Typography } from '@mui/material'
 
-import React, { useEffect, useState } from 'react'
-
-import { t } from 'i18n-js'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { SearchInput } from '@components/shared/search-input'
 
-import { useClassNames } from './data-grid-custom-columns-button.style'
+import { t } from '@utils/translations'
 
-export const DataGridCustomColumnsButton = props => {
-  const { classes: classNames } = useClassNames()
-  const { className, columsBtnSettings, ...other } = props
+import { ButtonVariant } from '@typings/enums/button-style'
 
-  const { columnsModel, changeColumnsModel, columnVisibilityModel, onColumnVisibilityModelChange } = columsBtnSettings
+import { useStyles } from './data-grid-custom-columns-button.style'
+
+export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) => {
+  const { classes: styles, cx } = useStyles()
+
+  const { columnsModel, columnVisibilityModel, onColumnVisibilityModelChange } = columsBtnSettings
 
   const [menuAnchor, setMenuAnchor] = useState(null)
+  const [filteredColumnsModel, setFilteredColumnsModel] = useState([])
+  const [nameSearchValue, setNameSearchValue] = useState('')
+
   const handleClick = event => {
     setMenuAnchor(event.currentTarget)
   }
   const handleClose = () => {
     setMenuAnchor(null)
+    setNameSearchValue('')
   }
 
-  const [itemsForRender, setItemsForRender] = useState(columnsModel || [])
-  const [nameSearchValue, setNameSearchValue] = useState('')
-
   useEffect(() => {
-    setItemsForRender(columnsModel)
-  }, [columnsModel])
+    if (columnsModel) {
+      const filteredData = columnsModel?.filter(column => column?.type !== 'checkboxSelection')
 
-  useEffect(() => {
-    if (nameSearchValue) {
-      const filter = columnsModel?.filter(item => item.headerName.toLowerCase().includes(nameSearchValue.toLowerCase()))
-      setItemsForRender(filter)
-    } else {
-      setItemsForRender(columnsModel)
+      setFilteredColumnsModel(filteredData)
     }
-  }, [nameSearchValue])
+  }, [columnsModel])
 
   const onClickItem = field => {
     onColumnVisibilityModelChange({
@@ -54,68 +49,78 @@ export const DataGridCustomColumnsButton = props => {
   const isSomeItemChecked = columnVisibilityModel && Object.values(columnVisibilityModel).some(el => el === false)
 
   const onClickAllItemBtn = () => {
-    if (isSomeItemChecked) {
-      onColumnVisibilityModelChange(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: true }), {}))
-    } else {
-      onColumnVisibilityModelChange(columnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: false }), {}))
-    }
+    onColumnVisibilityModelChange(
+      filteredColumnsModel.reduce((ac, cur) => ({ ...ac, [cur.field]: isSomeItemChecked }), {}),
+    )
   }
+
+  const itemsForRender = filteredColumnsModel.filter(item =>
+    item?.headerName?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+  )
 
   return (
     <div>
-      <Button variant="text" className={cx(className, classNames.mainFilterBtn)} onClick={handleClick}>
-        <div className={cx(className, classNames.mainFilterBtnInsert)}>
+      <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
+        <div className={cx(className, styles.mainFilterBtnInsert)}>
           <SettingsOutlinedIcon fontSize="small" />
 
-          <Typography className={classNames.mainFilterBtnInsertText}>{t(TranslationKey.Parameters)}</Typography>
+          <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey.Parameters)}</Typography>
         </div>
       </Button>
 
-      <Menu
-        keepMounted
-        anchorEl={menuAnchor}
-        autoFocus={false}
-        open={Boolean(menuAnchor)}
-        classes={{ paper: classNames.menu, list: classNames.list }}
-        onClose={handleClose}
-      >
-        <div className={classNames.mainWrapper}>
-          <Typography className={classNames.titleText}>{t(TranslationKey.Columns)}</Typography>
-          <div className={classNames.searchInputWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
-            />
-          </div>
-
-          <div className={classNames.shopsBody}>
-            <div className={classNames.shop}>
-              <Checkbox
-                color="primary"
-                checked={!columnVisibilityModel || !isSomeItemChecked}
-                onClick={onClickAllItemBtn}
+      {Boolean(menuAnchor) && (
+        <Menu
+          keepMounted
+          anchorEl={menuAnchor}
+          autoFocus={false}
+          open={Boolean(menuAnchor)}
+          classes={{ paper: styles.menu, list: styles.list }}
+          onClose={handleClose}
+        >
+          <div className={styles.mainWrapper}>
+            <Typography className={styles.titleText}>{t(TranslationKey.Columns)}</Typography>
+            <div className={styles.searchInputWrapper}>
+              <SearchInput
+                inputClasses={styles.searchInput}
+                placeholder={t(TranslationKey.Search)}
+                onChange={e => setNameSearchValue(e.target.value)}
+                onKeyDown={e => e.stopPropagation()}
               />
-              <div className={classNames.shopName}>{t(TranslationKey.All)}</div>
             </div>
 
-            {itemsForRender.map((el, index) => (
-              <div key={index} className={classNames.shop}>
+            <div className={styles.shopsBody}>
+              <div className={styles.shop}>
                 <Checkbox
                   color="primary"
-                  checked={
-                    !columnVisibilityModel || (columnVisibilityModel && columnVisibilityModel?.[el.field] !== false)
-                  }
-                  onClick={() => onClickItem(el.field)}
+                  checked={!columnVisibilityModel || !isSomeItemChecked}
+                  onClick={onClickAllItemBtn}
                 />
-                <div className={classNames.shopName}>{el.headerName}</div>
+                <div title={t(TranslationKey.All)} className={styles.shopName}>
+                  {t(TranslationKey.All)}
+                </div>
               </div>
-            ))}
+              {itemsForRender.map((el, index) => {
+                const title = el?.headerName
+
+                return (
+                  <div key={index} className={styles.shop}>
+                    <Checkbox
+                      color="primary"
+                      checked={
+                        !columnVisibilityModel || (columnVisibilityModel && columnVisibilityModel?.[el.field] !== false)
+                      }
+                      onClick={() => onClickItem(el.field)}
+                    />
+                    <div title={title} className={styles.shopName}>
+                      {title}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </Menu>
+        </Menu>
+      )}
     </div>
   )
 }

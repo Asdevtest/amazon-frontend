@@ -1,4 +1,4 @@
-import { IsInt, IsString, IsNotEmpty, IsBoolean, IsArray, IsNumber, IsOptional, IsPositive } from 'class-validator'
+import { IsArray, IsBoolean, IsInt, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator'
 
 import { InlineResponse200, InlineResponse2004, InlineResponse2009 } from '@services/rest-api-service/codegen/src'
 

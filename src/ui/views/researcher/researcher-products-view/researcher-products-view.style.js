@@ -1,39 +1,9 @@
-export const styles = theme => ({
-  card: {
-    padding: '16px 20px',
-    marginBottom: '42px',
+import { makeStyles } from 'tss-react/mui'
 
-    backgroundColor: theme.palette.background.general,
-  },
-  formWrapper: {
-    marginTop: '32px',
-  },
+export const useStyles = makeStyles()(() => ({
   tableWrapper: {
-    marginTop: '32px',
+    marginTop: '20px',
+    height: '50vh',
     width: '100%',
-    height: '45vh',
   },
-
-  row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
-    transition: '0.3s ease',
-  },
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
-  },
-})
+}))

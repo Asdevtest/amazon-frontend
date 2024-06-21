@@ -1,11 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   parameterTableCellWrapper: {
     display: 'flex',
     width: '436px',
     justifyContent: 'space-between',
     marginBottom: '30px',
+    gap: 90,
   },
 
   amountInput: {
@@ -17,7 +18,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '14px',
-    borderRadius: '4px',
+    borderRadius: '7px',
     height: '36px',
   },
   barcodeChipHover: {
@@ -50,7 +51,6 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     fontWeight: '600',
     fontSize: '16px',
-    // lineHeight: '19px',
   },
 
   standartText: {
@@ -65,11 +65,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sizesWrapper: {
-    width: '255px',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '10px',
+    gap: 10,
   },
 
   container: {

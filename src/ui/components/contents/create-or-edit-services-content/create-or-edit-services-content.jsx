@@ -1,106 +1,85 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import CircleIcon from '@mui/icons-material/Circle'
-import { Typography, Select, Input, InputAdornment, MenuItem } from '@mui/material'
+import { memo, useEffect, useState } from 'react'
 
-import React, { useEffect, useState } from 'react'
+import { MenuItem, Select } from '@mui/material'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/buttons/button'
-import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
-import { NewDatePicker, DatePickerTime } from '@components/shared/date-picker/date-picker'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
-
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { t } from '@utils/translations'
-
-import { useClassNames } from './create-or-edit-services-content.style'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-export const CreateOrEditServiceContent = ({
-  data,
-  pathname,
-  onClickCreateBtn,
-  onClickEditBtn,
-  onClickBackBtn,
-  userInfo,
-}) => {
-  const { classes: classNames } = useClassNames()
+import { objectDeepCompare } from '@utils/object'
+import { t } from '@utils/translations'
+
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './create-or-edit-services-content.style'
+
+export const CreateOrEditServiceContent = memo(props => {
+  const { data, pathname, specs, onClickCreateBtn, onClickEditBtn, onClickBackBtn } = props
+
+  const { classes: styles } = useStyles()
 
   const isEdit = pathname?.includes('edit-service')
-
-  const whiteList = userInfo?.allowedSpec?.filter(spec => String(spec) !== '0').map(spec => String(spec)) || []
-
-  const [images, setImages] = useState([])
+  const sourceFormFields = {
+    specId: data?.spec?._id || '',
+    title: data?.title || '',
+    description: data?.description || '',
+    linksToMediaFiles: data?.linksToMediaFiles || [],
+  }
+  const [formFields, setFormFields] = useState(sourceFormFields)
 
   useEffect(() => {
     setFormFields(sourceFormFields)
   }, [data])
 
-  const sourceFormFields = {
-    type: data?.type || '',
-    title: data?.title || '',
-    description: data?.description || '',
-
-    linksToMediaFiles: data?.linksToMediaFiles || [],
+  const onChangeField = fieldName => event => {
+    setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: event.target.value }))
   }
-  const [formFields, setFormFields] = useState(sourceFormFields)
+  const onChangeImages = fieldName => files => {
+    setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: files }))
+  }
 
   const disabledSubmitButton =
     !formFields.title ||
     !formFields.description ||
-    !formFields.type ||
-    JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
-
-  const onChangeField = fieldName => event => {
-    const newFormFields = { ...formFields }
-
-    newFormFields[fieldName] = event.target.value
-
-    setFormFields(newFormFields)
-  }
+    !formFields.specId ||
+    (objectDeepCompare(formFields, sourceFormFields) && !formFields.linksToMediaFiles.length)
 
   return (
-    <div className={classNames.root}>
-      <div className={classNames.titleWrapper}>
-        <Typography className={classNames.announcementTitle}>{t(TranslationKey['Service announcement'])}</Typography>
-      </div>
-      <div className={classNames.fieldsWrapper}>
+    <div className={styles.root}>
+      <p className={styles.announcementTitle}>{t(TranslationKey['Service announcement'])}</p>
+
+      <div className={styles.fieldsWrapper}>
         <Field
           inputProps={{ maxLength: 100 }}
           label={t(TranslationKey['Service name']) + '*'}
-          className={classNames.nameField}
-          containerClasses={classNames.nameFieldContainer}
-          labelClasses={classNames.labelClass}
+          className={styles.nameField}
+          containerClasses={styles.nameFieldContainer}
+          labelClasses={styles.labelClass}
           value={formFields.title}
           onChange={onChangeField('title')}
         />
 
         <Field
           label={t(TranslationKey['Request type']) + '*'}
-          className={classNames.nameField}
-          labelClasses={classNames.labelClass}
-          containerClasses={classNames.requestTypeContainer}
+          className={styles.nameField}
+          labelClasses={styles.labelClass}
+          containerClasses={styles.requestTypeContainer}
           inputComponent={
             <Select
               displayEmpty
-              value={formFields.type || ''}
-              className={classNames.requestTypeField}
-              input={<Input startAdornment={<InputAdornment position="start" />} />}
-              onChange={onChangeField('type')}
+              value={formFields.specId || ''}
+              className={styles.requestTypeField}
+              onChange={onChangeField('specId')}
             >
-              <MenuItem disabled value={''}>
+              <MenuItem disabled value="">
                 {t(TranslationKey['Select from the list'])}
               </MenuItem>
 
-              {Object.keys({
-                ...getObjectFilteredByKeyArrayWhiteList(freelanceRequestTypeByCode, whiteList),
-              }).map((taskType, taskIndex) => (
-                <MenuItem key={taskIndex} value={taskType}>
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
+              {specs.map(spec => (
+                <MenuItem key={spec._id} value={spec?._id}>
+                  {spec?.title}
                 </MenuItem>
               ))}
             </Select>
@@ -111,9 +90,9 @@ export const CreateOrEditServiceContent = ({
       <Field
         multiline
         inputProps={{ maxLength: 1100 }}
-        className={classNames.descriptionField}
-        containerClasses={classNames.descriptionContainer}
-        labelClasses={classNames.labelClass}
+        className={styles.descriptionField}
+        containerClasses={styles.descriptionContainer}
+        labelClasses={styles.labelClass}
         minRows={4}
         maxRows={4}
         label={`${t(TranslationKey['Service description'])}*`}
@@ -121,40 +100,27 @@ export const CreateOrEditServiceContent = ({
         onChange={onChangeField('description')}
       />
 
-      <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInput
-          fullWidth
-          minimized
-          images={images}
-          setImages={setImages}
-          maxNumber={50}
-          isNotShowActionsBtns={!images.length}
-        />
-        {formFields.linksToMediaFiles?.length ? (
-          <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} />
-        ) : null}
-      </div>
+      <UploadFilesInput
+        minimized
+        images={formFields.linksToMediaFiles}
+        setImages={onChangeImages('linksToMediaFiles')}
+        withoutActionsButtons={!formFields.linksToMediaFiles}
+      />
 
-      <div className={classNames.buttonsWrapper}>
-        <Button variant={'text'} className={classNames.cancelBtn} onClick={onClickBackBtn}>
+      <div className={styles.buttonsWrapper}>
+        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClickBackBtn}>
           {t(TranslationKey.Cancel)}
         </Button>
 
         <Button
-          success
+          styleType={ButtonStyle.SUCCESS}
           disabled={disabledSubmitButton}
-          className={classNames.successBtn}
-          onClick={() => {
-            if (isEdit) {
-              onClickEditBtn(formFields, images)
-            } else {
-              onClickCreateBtn(formFields, images)
-            }
-          }}
+          className={styles.successBtn}
+          onClick={() => (isEdit ? onClickEditBtn(formFields) : onClickCreateBtn(formFields))}
         >
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </Button>
       </div>
     </div>
   )
-}
+})

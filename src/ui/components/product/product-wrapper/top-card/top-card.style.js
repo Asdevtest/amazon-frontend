@@ -1,81 +1,17 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  label: {
-    fontSize: '16px',
-    lineHeight: '20px',
-    fontWeight: '600',
-    color: theme.palette.text.general,
-  },
-  input: {
-    width: '100%',
-  },
-
-  iconButton: {
-    height: '40px',
-    width: '40px',
-    color: 'white',
-    backgroundColor: 'rgba(0, 123, 255, 1)',
-    borderRadius: '4px',
-    '&:hover': {
-      backgroundColor: 'rgba(0, 123, 255, 1)',
-    },
-  },
-  title: {
-    fontSize: '24px',
-    lineHeight: '20px',
-    color: theme.palette.text.general,
-    fontWeight: '500',
-    textAlign: 'center',
-    marginBottom: '24px',
-  },
-  table: {
-    border: '1px solid rgb(224, 224, 224)',
-    '& td': {
-      flexShrink: 0,
-      color: theme.palette.text.general,
-      borderBottom: 'none',
-    },
-    '& th': {
-      color: theme.palette.text.general,
-      fontWeight: 700,
-      lineHeight: '15px',
-      fontSize: '15px',
-      padding: '8px',
-    },
-    '& tbody': {
-      borderBottom: '1px solid rgba(224, 224, 224, 1)',
-    },
-  },
-  alert: {
-    marginBottom: '24px',
-  },
+export const useStyles = makeStyles()(theme => ({
   mainCardWrapper: {
-    padding: '16px',
-    marginBottom: '24px',
-    backgroundColor: theme.palette.background.second,
-  },
-  parseButtonsWrapper: {
-    minWidth: 250,
-    display: 'flex',
-    flexDirection: 'column',
-    marginRight: 30,
+    padding: 20,
+    marginBottom: 20,
+    backgroundColor: theme.palette.background.general,
+    borderRadius: 10,
   },
 
   carouselWrapper: {
-    padding: '16px',
-    marginBottom: '16px',
-    height: '350px',
-  },
-
-  carouselImage: {
-    height: '300px',
-    objectFit: 'contain',
-    transition: '.2s ease',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    '&:hover': {
-      transform: 'scale(1.02)',
-    },
+    margin: '20px 0',
+    display: 'flex',
+    justifyContent: 'center',
   },
 
   imageFileInputWrapper: {
@@ -88,75 +24,49 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '16px',
   },
 
-  supplierTitle: {
-    marginBottom: '5px',
-    color: theme.palette.text.general,
+  mainCard: {
+    width: '48%',
+    display: 'flex',
+    flexDirection: 'column',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
-  supplierActionsWrapper: {
+  card: {
+    width: '100%',
     display: 'flex',
+    flexDirection: 'column',
   },
 
-  supplierContainer: {
-    marginBottom: '20px',
+  topPartCardWrapper: {
+    width: '100%',
     display: 'flex',
-    gap: '16px',
+    gap: 30,
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+    },
   },
 
-  supplierButtonWrapper: {
+  variationWrapper: {
     display: 'flex',
-    gap: '10px',
     alignItems: 'center',
+    gap: '10px',
   },
 
-  iconBtn: {
-    maxHeight: '40px',
-    maxWidth: '40px',
-    color: 'white',
-    // backgroundColor: theme.palette.primary.main,
-    borderRadius: '4px',
-  },
-
-  iconBtnRemove: {
-    backgroundColor: 'rgba(224, 32, 32, 1)',
-  },
-  iconBtnAccept: {
-    backgroundColor: 'rgba(30, 220, 30, 1) !important',
-  },
-  iconBtnAcceptRevoke: {
-    backgroundColor: 'rgba(224, 32, 32, 1)',
-  },
-
-  supplierButtonText: {
-    maxWidth: '98px',
-    fontSize: '12px',
-    lineHeight: '14px',
-    fontWeight: '400',
+  variationText: {
+    fontSize: '16px',
+    fontWeight: 600,
     color: theme.palette.text.second,
   },
 
-  imagesModalBtn: {
-    width: 40,
-    height: 40,
+  variationIcon: {
+    width: '24px !important',
+    height: '24px !important',
+    color: theme.palette.text.second,
   },
 
-  activeMainIcon: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 4,
-    background: 'rgb(53, 112, 155)',
-    color: '#F5CF00',
-  },
-
-  pasteInput: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    borderRadius: '10px',
-    top: 0,
-    left: 0,
-    opacity: 0,
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  parentVariation: {
+    color: theme.palette.primary.main,
   },
 }))

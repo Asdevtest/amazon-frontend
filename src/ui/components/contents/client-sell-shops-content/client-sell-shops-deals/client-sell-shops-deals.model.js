@@ -1,7 +1,7 @@
 import { makeAutoObservable, toJS } from 'mobx'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { tableViewMode, tableSortMode } from '@constants/table/table-view-modes'
+import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
 import { SettingsModel } from '@models/settings-model'
@@ -69,7 +69,7 @@ export class ClientSellShopsDealsModel {
       // await this.getRequestsVacant()
       this.getTableModeState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -80,7 +80,7 @@ export class ClientSellShopsDealsModel {
       //   this.requests = result
       // })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -92,7 +92,7 @@ export class ClientSellShopsDealsModel {
       )
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
+      console.error(error)
     }
   }
 

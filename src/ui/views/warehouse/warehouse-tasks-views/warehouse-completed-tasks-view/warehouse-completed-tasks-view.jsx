@@ -1,154 +1,85 @@
-import { cx } from '@emotion/css'
-import FileDownloadIcon from '@mui/icons-material/FileDownload'
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import {
-  mapTaskOperationTypeKeyToEnum,
-  TaskOperationType,
-  taskOperationTypeTranslate,
-} from '@constants/task/task-operation-type'
-import { mapTaskPriorityStatusEnum, taskPriorityStatusTranslate } from '@constants/task/task-priority-status'
+import FileDownloadIcon from '@mui/icons-material/FileDownload'
+
+import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
-import { MainContent } from '@components/layout/main-content'
-import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Button } from '@components/shared/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
+import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
+import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
-import { WarehouseCompletedViewModel } from './warehouse-completed-tasks-view.model'
-import { styles } from './warehouse-completed-tasks-view.style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const WarehouseCompletedTasksViewRaw = props => {
-  const [viewModel] = useState(() => new WarehouseCompletedViewModel({ history: props.history }))
-  const { classes: classNames } = props
+import { useStyles } from './warehouse-completed-tasks-view.style'
+
+import { WarehouseCompletedViewModel } from './warehouse-completed-tasks-view.model'
+
+export const WarehouseCompletedTasksView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new WarehouseCompletedViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
   return (
-    <React.Fragment>
-      <MainContent>
-        <div className={classNames.headerWrapper}>
-          <div className={classNames.boxesFiltersWrapper}>
-            <Button
-              disabled={viewModel.curTaskPriority === null}
-              className={cx(classNames.button, { [classNames.selectedBoxesBtn]: viewModel.curTaskPriority === null })}
-              variant="text"
-              onClick={() => viewModel.onClickTaskPriorityBtn(null)}
-            >
-              {t(TranslationKey['All priorities'])}
-            </Button>
+    <>
+      <div>
+        <div className={styles.headerWrapper}>
+          <TaskPrioritySelector
+            currentPriority={viewModel.curTaskPriority}
+            handleActivePriority={viewModel.onClickTaskPriorityBtn}
+          />
 
-            {Object.keys(mapTaskPriorityStatusEnum)
-              .reverse()
-              .map(type => (
-                <Button
-                  key={type}
-                  disabled={viewModel.curTaskPriority === type}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: viewModel.curTaskPriority === type,
-                  })}
-                  variant="text"
-                  onClick={() => viewModel.onClickTaskPriorityBtn(type)}
-                >
-                  {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[type])}
-                </Button>
-              ))}
-          </div>
           <Button
-            variant="contained"
             disabled={
               !viewModel.selectedTasks.length ||
               viewModel.selectedTasks.length > 1 ||
-              viewModel.getCurrentData().filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
+              viewModel.currentData.filter(el => viewModel.selectedTasks.includes(el.id))[0]?.originalData
                 .operationType !== TaskOperationType.RECEIVE
             }
-            className={classNames.pickupOrdersButton}
             onClick={viewModel.onClickReportBtn}
           >
             {t(TranslationKey['Download task file'])}
             <FileDownloadIcon />
           </Button>
         </div>
-        <div className={classNames.headerWrapper}>
-          <div className={classNames.boxesFiltersWrapper}>
-            <Button
-              disabled={viewModel.curTaskType === null}
-              className={cx(classNames.button, { [classNames.selectedBoxesBtn]: viewModel.curTaskType === null })}
-              variant="text"
-              onClick={() => viewModel.onClickOperationTypeBtn(null)}
-            >
-              {t(TranslationKey['All tasks'])}
-            </Button>
-
-            {Object.keys(mapTaskOperationTypeKeyToEnum)
-              .filter(el => el !== TaskOperationType.EDIT_BY_STOREKEEPER)
-              .map(type => (
-                <Button
-                  key={type}
-                  disabled={viewModel.curTaskType === type}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: viewModel.curTaskType === type,
-                  })}
-                  variant="text"
-                  onClick={() => viewModel.onClickOperationTypeBtn(type)}
-                >
-                  {taskOperationTypeTranslate(type)}
-                </Button>
-              ))}
-          </div>
+        <div className={styles.headerWrapper}>
+          <BuyerTypeTaskSelect
+            curTaskType={viewModel.curTaskType}
+            onClickOperationTypeBtn={viewModel.onClickOperationTypeBtn}
+          />
 
           <SearchInput
             value={viewModel.nameSearchValue}
-            inputClasses={classNames.searchInput}
+            inputClasses={styles.searchInput}
             placeholder={t(TranslationKey['Search by ASIN, Order ID, Item, Track number'])}
             onSubmit={viewModel.onSearchSubmit}
           />
         </div>
-        <div className={classNames.tableWrapper}>
-          <MemoDataGrid
-            pagination
+        <div className={styles.tableWrapper}>
+          <CustomDataGrid
             checkboxSelection
-            useResizeContainer
-            disableVirtualization
-            localeText={getLocalizationByLanguageTag()}
-            classes={{
-              row: classNames.row,
-              root: classNames.root,
-              footerContainer: classNames.footerContainer,
-              footerCell: classNames.footerCell,
-              toolbarContainer: classNames.toolbarContainer,
-              filterForm: classNames.filterForm,
-            }}
-            sortingMode="server"
-            paginationMode="server"
+            disableRowSelectionOnClick
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
             columnVisibilityModel={viewModel.columnVisibilityModel}
             paginationModel={viewModel.paginationModel}
-            pageSizeOptions={[15, 25, 50, 100]}
-            rows={viewModel.getCurrentData()}
-            // rowHeight={200}
+            rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
-            slots={{
-              toolbar: DataGridCustomToolbar,
-              columnMenuIcon: FilterAltOutlinedIcon,
-            }}
             slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
               toolbar: {
                 columsBtnSettings: {
                   columnsModel: viewModel.columnsModel,
@@ -159,29 +90,27 @@ export const WarehouseCompletedTasksViewRaw = props => {
             }}
             density={viewModel.densityModel}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.isLoading}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
             onRowSelectionModelChange={viewModel.onSelectionModel}
             onSortModelChange={viewModel.onChangeSortingModel}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onChangePaginationModelChange}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
             onFilterModelChange={viewModel.onChangeFilterModel}
             onRowDoubleClick={params => viewModel.setCurrentOpenedTask(params.row.originalData)}
           />
         </div>
-      </MainContent>
+      </div>
       <Modal
         openModal={viewModel.showTaskInfoModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
       >
         <EditTaskModal
           readOnly
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           task={viewModel.curOpenedTask}
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
       </Modal>
-    </React.Fragment>
+    </>
   )
-}
-
-export const WarehouseCompletedTasksView = withStyles(observer(WarehouseCompletedTasksViewRaw), styles)
+})

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export const styles = theme => ({
   isFormedWrapper: {
     padding: '10px 20px',
@@ -19,9 +18,8 @@ export const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: 300,
-    // maxHeight: 500,
     padding: '10px 0',
-    gap: 20,
+    gap: 10,
   },
 
   shopsDataWrapperBlocked: {
@@ -32,7 +30,7 @@ export const styles = theme => ({
 
   searchInputWrapper: {
     width: 255,
-    height: 30,
+    height: 32,
   },
   searchInput: {
     border: '1px solid #E0E0E0',
@@ -43,11 +41,11 @@ export const styles = theme => ({
   shopsBody: {
     width: 255,
     minHeight: 50,
-    maxHeight: 245,
+    maxHeight: 200,
     overflowY: 'auto',
     textAlign: 'center',
 
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    boxShadow: theme.palette.boxShadow.filter,
   },
 
   shop: {
@@ -60,6 +58,14 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    textTransform: 'capitalize',
+  },
+
+  statusText: {
+    fontSize: 16,
+    lineHeight: '22px',
+    fontWeight: 400,
+    color: theme.palette.text.general,
   },
 
   noOptionText: {
@@ -115,7 +121,6 @@ export const styles = theme => ({
     width: 255,
     display: 'flex',
     gap: 10,
-    // marginBottom: 20,
   },
   radioLable: {
     fontWeight: 400,
@@ -138,15 +143,15 @@ export const styles = theme => ({
   },
 
   fromToDatesWrapper: {
-    padding: '0 10px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
   fromToDatesSubWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    // flexGrow: 1,
-    marginBottom: 5,
   },
 
   fromToText: {
@@ -183,5 +188,95 @@ export const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 15,
+  },
+
+  universalFilterWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 350,
+    padding: 20,
+    gap: 20,
+  },
+
+  universalFilterSearchInputWrapper: {
+    width: '100%',
+    height: 30,
+  },
+
+  universalFilterBody: {
+    width: '100%',
+    minHeight: 50,
+    maxHeight: 255,
+    overflowY: 'auto',
+    textAlign: 'center',
+    boxShadow: theme.palette.boxShadow.filter,
+  },
+
+  fullName: {
+    width: 'max-content',
+  },
+
+  dateDetailsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 310,
+    padding: '10px 20px',
+    gap: 20,
+  },
+
+  searchLabel: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
+    marginRight: 10,
+  },
+
+  radioOptions: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 5,
+  },
+
+  radioOptionDate: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
+    textTransform: 'capitalize',
+  },
+
+  inpunts: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
+    padding: 10,
+    border: `1px solid #656565`,
+    borderRadius: 7,
+  },
+
+  inpuntContainer: {
+    display: 'flex',
+    gap: 10,
+  },
+
+  inpunt: {
+    width: 80,
+    borderBottom: `1px solid #656565`,
+  },
+
+  redFlagIcon: {
+    width: 24,
+    height: 24,
+  },
+
+  batchTrackingFormWrapper: {
+    padding: '20px 20px 0 20px',
+    flexDirection: 'column',
   },
 })

@@ -1,0 +1,19 @@
+export enum RequestType {
+  CUSTOM = 'CUSTOM',
+  SEARCH_NICHE = 'SEARCH_NICHE',
+  SEARCH_PRODUCT = 'SEARCH_PRODUCT',
+}
+
+export enum RequestSubType {
+  VACANT = 'VACANT',
+  MY = 'MY',
+  ASSIGNED_TO_ME = 'ASSIGNED_TO_ME',
+  PICKUPED_BY_ME = 'PICKUPED_BY_ME',
+  LINKED_TO_ME = 'LINKED_TO_ME',
+  ALL = 'ALL',
+}
+
+export enum RequestSwitherType {
+  REQUESTS_ON_CHECK = 'REQUESTS_ON_CHECK',
+  REQUESTS_ON_FINISHED = 'REQUESTS_ON_FINISHED',
+}

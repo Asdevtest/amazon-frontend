@@ -1,16 +1,14 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  MultilineStatusCell,
+  MultilineTextCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
   ProductAsinCell,
   SupplierCell,
-  MultilineTextCell,
-  NormDateCell,
   UserLinkCell,
-  MultilineTextHeaderCell,
-  MultilineStatusCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+} from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -45,10 +43,10 @@ export const exchangeSupplierFoundedColumns = () => [
 
       return (
         <ProductAsinCell
-          image={product?.images?.slice()[0]}
+          image={product?.images?.[0]}
           amazonTitle={product?.amazonTitle}
           asin={product?.asin}
-          skusByClient={product?.skusByClient?.slice()[0]}
+          skuByClient={product?.skuByClient}
         />
       )
     },

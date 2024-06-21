@@ -1,89 +1,79 @@
+import { FC, useEffect, useState } from 'react'
+
 import { Box, Checkbox, FormControlLabel } from '@mui/material'
-
-import React, { FC, useEffect, useState } from 'react'
-
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
 
 import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.style'
 
-import { t } from '@utils/translations'
-import { SaveIcon } from '../svg-icons'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-interface Flag {
-  title: string
-  _id: string
-  value: number
-}
+import { IRedFlag } from '@typings/shared/red-flag'
 
 interface RedFlagsProps {
   isEditMode?: boolean
-  activeFlags?: Flag[]
-  handleSaveFlags?: (flags: Flag[]) => void
+  activeFlags?: IRedFlag[]
+  handleSaveFlags?: (flags: IRedFlag[]) => void
 }
 
 export const RedFlags: FC<RedFlagsProps> = props => {
   const { activeFlags = [], isEditMode, handleSaveFlags } = props
   const { classes: styles } = useRedFlagStyles()
 
-  const [selectedFlags, setSelectedFlags] = useState<Flag[]>(activeFlags)
-  const [flags, setFlags] = useState<Flag[]>([])
-  const [isSaved, setIsSaved] = useState(true)
+  const [selectedFlags, setSelectedFlags] = useState<IRedFlag[]>(activeFlags)
+  const [flags, setFlags] = useState<IRedFlag[]>([])
 
   useEffect(() => {
     if (isEditMode) {
+      // @ts-ignore
       ProductModel.getProductRedFlags().then(value => setFlags(value))
     }
   }, [])
 
-  const handleFlag = (flag: Flag) => {
-    if (selectedFlags.some(val => val._id === flag._id)) {
-      setSelectedFlags(prevState => prevState.filter(el => el._id !== flag._id))
-    } else {
-      setSelectedFlags(prevState => [...prevState, flag])
-    }
-    setIsSaved(false)
-  }
+  useEffect(() => {
+    setSelectedFlags(activeFlags)
+  }, [activeFlags])
 
-  const handleSave = () => {
-    setIsSaved(true)
-    handleSaveFlags?.(selectedFlags || [])
+  const handleFlag = (flag: IRedFlag) => {
+    let newSelectedFlags = []
+
+    if (selectedFlags.some(val => val._id === flag._id)) {
+      newSelectedFlags = selectedFlags.filter(el => el._id !== flag._id)
+    } else {
+      newSelectedFlags = [...selectedFlags, flag]
+    }
+
+    setSelectedFlags(newSelectedFlags)
+    handleSaveFlags?.(newSelectedFlags || [])
   }
 
   return (
     <>
       {isEditMode &&
         !!flags.length &&
-        flags.map((el, index) => (
-          <div key={index}>
+        flags.map(flag => (
+          <div key={flag._id}>
             <FormControlLabel
               label={
                 <Box display="flex" gap="15px">
                   <Box className={styles.flagIcon}>
-                    <img src={`/assets/icons/redflags/${el.title}.svg`} alt={el.title} />
+                    <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} />
                   </Box>
-                  {el.title}
+                  {flag.title}
                 </Box>
               }
               control={
-                <Checkbox checked={selectedFlags.some(val => val._id === el._id)} onChange={() => handleFlag(el)} />
+                <Checkbox checked={selectedFlags.some(val => val._id === flag._id)} onChange={() => handleFlag(flag)} />
               }
             />
           </div>
         ))}
-      {isEditMode && !isSaved && (
-        <button className={styles.saveBtn} onClick={handleSave}>
-          {t(TranslationKey.Save)}
-          <SaveIcon className={styles.themeIcon} />
-        </button>
-      )}
 
       {!isEditMode &&
         !!selectedFlags.length &&
-        selectedFlags.map((el, index) => (
-          <Box key={index} className={styles.flagIcon}>
-            <img src={`/assets/icons/redflags/${el.title}.svg`} alt={el.title} />
+        selectedFlags.map(flag => (
+          <Box key={flag._id} className={styles.flagIcon}>
+            <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} />
           </Box>
         ))}
     </>

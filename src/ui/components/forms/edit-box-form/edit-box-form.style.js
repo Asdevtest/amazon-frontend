@@ -1,18 +1,17 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
+    padding: 10,
   },
+
   form: {
     borderRadius: '5px',
     display: 'flex',
     gap: 40,
-  },
-
-  cancelBtn: {
-    color: theme.palette.text.general,
   },
 
   commentField: {
@@ -24,16 +23,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   buttonsWrapper: {
+    position: 'sticky',
+    bottom: 0,
+    right: 0,
     display: 'flex',
     justifyContent: 'flex-end',
-    marginTop: '10px',
-  },
-
-  button: {
-    marginLeft: '40px',
+    gap: 20,
   },
 
   field: {
+    marginBottom: '10px',
     width: '100%',
   },
 
@@ -85,7 +84,7 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     fontSize: '13px',
-    borderRadius: '4px',
+    borderRadius: '8px',
     width: '230px',
     height: '30px',
   },
@@ -129,16 +128,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
   },
 
-  photoWrapper: {
-    width: '250px',
-    height: 200,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    alignSelf: 'center',
-    marginBottom: 10,
-  },
-
   boxPhotoWrapper: {
     marginTop: 30,
     width: '250px',
@@ -147,26 +136,13 @@ export const useClassNames = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
-    gap: 20,
-  },
-
-  storekeeperBtn: {
-    height: '32px',
-    width: '230px',
-  },
-
-  storekeeperBtnColored: {
-    color: theme.palette.text.negativeMain,
+    gap: 30,
   },
 
   sizesTitleWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: 40,
-  },
-
-  alertText: {
-    color: 'red',
   },
 
   shareBoxWrapper: {
@@ -178,7 +154,6 @@ export const useClassNames = makeStyles()(theme => ({
   shareBoxSubWrapper: {
     display: 'flex',
     gap: 20,
-    // width: 350,
   },
 
   fbaShipmentInput: {
@@ -205,13 +180,19 @@ export const useClassNames = makeStyles()(theme => ({
 
   productsWrapper: {
     width: 700,
+    overflow: 'hidden',
+    padding: '20px 0',
   },
 
   productWrapper: {
-    padding: '10px 20px 0',
     display: 'flex',
-    justifyContent: 'space-around',
-    width: '100%',
+    justifyContent: 'space-between',
+    width: 660,
+    overflow: 'hidden',
+  },
+
+  leftProductColumn: {
+    padding: 10,
   },
 
   amazonTitle: {
@@ -251,6 +232,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   standartLabel: {
+    margin: 0,
     fontSize: 14,
     color: theme.palette.text.second,
     whiteSpace: 'nowrap',
@@ -266,13 +248,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: 148,
     height: 151,
     objectFit: 'contain',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
   },
   noBarCodeGlued: {
     color: 'red',
-  },
-  storekeeperBtnDefault: {
-    color: theme.palette.text.general,
   },
 
   itemInput: {

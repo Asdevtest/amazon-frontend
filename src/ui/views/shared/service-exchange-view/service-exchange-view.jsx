@@ -1,145 +1,104 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import { Box, Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
 import { observer } from 'mobx-react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useState } from 'react'
 
-import { freelanceRequestTypeByCode, freelanceRequestTypeTranslate } from '@constants/statuses/freelance-request-type'
 import { tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ServiceExchangeCard } from '@components/cards/service-exchange-card'
 import { ServiceExchangeCardList } from '@components/cards/service-exchange-card-list'
-import { MainContent } from '@components/layout/main-content'
-import { BigImagesModal } from '@components/modals/big-images-modal'
-import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroupFreelance } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtnFreelancer } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { SearchInput } from '@components/shared/search-input'
-import { ViewCartsBlock, ViewCartsLine } from '@components/shared/svg-icons'
+import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
+import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
 import { t } from '@utils/translations'
 
-import { ServiceExchangeViewModel } from './service-exchange-view.model'
-import { styles } from './service-exchange-view.style'
+import { useStyles } from './service-exchange-view.style'
 
-export const ServiceExchangeViewRaw = props => {
-  const [viewModel] = useState(() => new ServiceExchangeViewModel({ history: props.history }))
-  const { classes: classNames } = props
+import { ServiceExchangeViewModel } from './service-exchange-view.model'
+
+export const ServiceExchangeView = observer(({ history }) => {
+  const { classes: styles, cx } = useStyles()
+
+  const [viewModel] = useState(() => new ServiceExchangeViewModel({ history }))
 
   useEffect(() => {
     viewModel.loadData()
   }, [])
 
+  const isListPosition = viewModel.viewMode === tableViewMode.LIST
+
   return (
-    <React.Fragment>
-      <MainContent>
-        <div className={classNames.tablePanelWrapper}>
-          <div className={classNames.toggleBtnAndtaskTypeWrapper}>
-            <div className={classNames.tablePanelViewWrapper}>
-              <ToggleBtnGroupFreelance exclusive value={viewModel.viewMode} onChange={viewModel.onChangeViewMode}>
-                <ToggleBtnFreelancer
-                  value={tableViewMode.BLOCKS}
-                  disabled={viewModel.viewMode === tableViewMode.BLOCKS}
-                >
-                  <ViewCartsBlock
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.BLOCKS,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-                <ToggleBtnFreelancer value={tableViewMode.LIST} disabled={viewModel.viewMode === tableViewMode.LIST}>
-                  <ViewCartsLine
-                    className={cx(classNames.viewCart, {
-                      [classNames.viewCartSelected]: viewModel.viewMode === tableViewMode.LIST,
-                    })}
-                  />
-                </ToggleBtnFreelancer>
-              </ToggleBtnGroupFreelance>
-            </div>
+    <>
+      <div className={styles.tablePanelWrapper}>
+        <div className={styles.toggleBtnAndtaskTypeWrapper}>
+          <ViewCardsSelect viewMode={viewModel.viewMode} onChangeViewMode={viewModel.onChangeViewMode} />
 
-            <div className={classNames.taskTypeWrapper}>
-              {Object.keys(freelanceRequestTypeByCode).map((taskType, taskIndex) => (
-                <Button
-                  key={taskIndex}
-                  variant="text"
-                  btnWrapperStyle={classNames.btnWrapperStyle}
-                  disabled={Number(taskType) === Number(viewModel.selectedTaskType)}
-                  className={cx(classNames.button, {
-                    [classNames.selectedBoxesBtn]: Number(taskType) === Number(viewModel.selectedTaskType),
-                  })}
-                  onClick={() => viewModel.onClickTaskType(taskType)}
-                >
-                  {freelanceRequestTypeTranslate(freelanceRequestTypeByCode[taskType])}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          <div className={classNames.searchInputWrapper}>
-            <SearchInput
-              inputClasses={classNames.searchInput}
-              placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
-              value={viewModel.nameSearchValue}
-              onChange={viewModel.onSearchSubmit}
-            />
-          </div>
+          <FreelanceTypeTaskSelect
+            selectedSpec={viewModel.selectedSpec}
+            specs={viewModel.specs}
+            onClickSpec={viewModel.onClickSpec}
+          />
         </div>
 
-        <Box
-          container
-          classes={{ root: classNames.dashboardCardWrapper }}
-          className={classNames.dashboardCardWrapper}
-          sx={{
-            gridTemplateColumns:
-              viewModel.viewMode === tableViewMode.LIST
-                ? 'repeat(auto-fill, minmax(calc((100% - 20px) / 2), 1fr))'
-                : 'repeat(auto-fill, minmax(calc((100% - 80px) / 4), 1fr))',
-          }}
-        >
-          {viewModel.currentData.map((service, serviceKey) =>
-            viewModel.viewMode === tableViewMode.LIST ? (
-              <ServiceExchangeCardList
-                key={serviceKey}
-                order
-                service={service}
-                onClickThumbnail={viewModel.onClickThumbnail}
-                onClickButton={viewModel.onClickOrderBtn}
-              />
-            ) : (
-              <ServiceExchangeCard
-                key={serviceKey}
-                order
-                service={service}
-                onClickThumbnail={viewModel.onClickThumbnail}
-                onClickButton={viewModel.onClickOrderBtn}
-              />
-            ),
-          )}
-        </Box>
+        <SearchInput
+          inputClasses={styles.searchInput}
+          placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
+          value={viewModel.nameSearchValue}
+          onSubmit={viewModel.onSearchSubmit}
+        />
+      </div>
 
-        {!viewModel.currentData && (
-          <div className={classNames.emptyTableWrapper}>
-            <img src="/assets/icons/empty-table.svg" />
-            <Typography variant="h5" className={classNames.emptyTableText}>
-              {t(TranslationKey.Missing)}
-            </Typography>
-          </div>
+      <div
+        className={cx(styles.dashboardCardWrapper, { [styles.dashboardCardWrapperList]: isListPosition })}
+        onScroll={e => {
+          const element = e.target
+          const scrollTop = element?.scrollTop
+          const containerHeight = element?.clientHeight
+          const contentHeight = element?.scrollHeight
+
+          if (contentHeight - (scrollTop + containerHeight) < 200) {
+            viewModel.loadMoreDataHadler()
+          }
+        }}
+      >
+        {viewModel.currentData.map(service =>
+          isListPosition ? (
+            <ServiceExchangeCardList
+              key={service._id}
+              order
+              service={service}
+              onClickThumbnail={viewModel.onClickThumbnail}
+              onClickButton={viewModel.onClickOrderBtn}
+            />
+          ) : (
+            <ServiceExchangeCard
+              key={service._id}
+              order
+              service={service}
+              onClickThumbnail={viewModel.onClickThumbnail}
+              onClickButton={viewModel.onClickOrderBtn}
+            />
+          ),
         )}
-      </MainContent>
+      </div>
 
-      <BigImagesModal
-        openModal={viewModel.showImageModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
-        images={viewModel.bigImagesOptions.images}
-        imgIndex={viewModel.bigImagesOptions.imgIndex}
-        setImageIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
-      />
-    </React.Fragment>
+      {!viewModel.currentData.length ? (
+        <div className={styles.emptyTableWrapper}>
+          <img src="/assets/icons/empty-table.svg" />
+          <p className={styles.emptyTableText}>{t(TranslationKey.Missing)}</p>
+        </div>
+      ) : null}
+
+      {viewModel.showImageModal ? (
+        <SlideshowGalleryModal
+          files={viewModel.bigImagesOptions.images}
+          currentFileIndex={viewModel.bigImagesOptions.imgIndex}
+          openModal={viewModel.showImageModal}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showImageModal')}
+          onCurrentFileIndex={imgIndex => viewModel.setBigImagesOptions({ ...viewModel.bigImagesOptions, imgIndex })}
+        />
+      ) : null}
+    </>
   )
-}
-
-export const ServiceExchangeView = withStyles(observer(ServiceExchangeViewRaw), styles)
+})

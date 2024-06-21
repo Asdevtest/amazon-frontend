@@ -1,16 +1,13 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextCell,
-  WarehouseTariffDatesCell,
   MultilineTextHeaderCell,
-  MultilineTextAlignLeftCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  WarehouseTariffDatesCell,
+} from '@components/data-grid/data-grid-cells'
+import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 import { t } from '@utils/translations'
-import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
 
 export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
   {
@@ -28,7 +25,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
     width: 150,
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: params => <MultilineTextCell leftAlign text={params.value} />,
   },
 
   {
@@ -37,7 +34,7 @@ export const TotalStorkeeperAndWeightBasedTariffFormColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => (
-      <DestinationVariationsSpanningCell destinationVariations={params.row.originalData.destinationVariations} />
+      <DestinationVariationsSpanningCell destinationVariations={params.row.destinationVariations} />
     ),
     width: 149,
     filterable: false,

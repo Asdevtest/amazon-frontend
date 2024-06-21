@@ -1,45 +1,63 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
-  root: {
-    width: '100%',
-    flex: 1,
+export const useStyles = makeStyles()(theme => ({
+  wrapper: {
     display: 'flex',
-    borderRadius: '4px',
-    // boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     height: '100%',
-
     overflow: 'hidden',
-
-    // boxShadow: '0px 2px 10px 2px rgba(150, 150, 150, 0.15)',
-    boxShadow: `0px 2px 8px 2px ${theme.palette.boxShadow.general}`,
-    backgroundColor: theme.palette.background.general,
-    [theme.breakpoints.down(768)]: {
-      height: '100%',
-      overflow: 'hidden',
-    },
+    boxShadow: theme.palette.boxShadow.paper,
   },
 
-  chatsWrapper: {
-    width: 310,
-    height: '100%',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      height: '100%',
-    },
+  leftSide: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+  },
+
+  rightSide: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1 auto',
   },
 
   chatWrapper: {
-    flex: 1,
-    display: 'flex',
+    borderRadius: 0,
+    paddingTop: 0,
   },
 
-  noChatWrapper: {
-    width: '100%',
+  header: {
+    height: 43,
+    padding: '6.5px 37px 6.5px 20px',
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    gap: 20,
+    background: theme.palette.background.general,
+    borderBottom: `1px solid ${theme.palette.background.chatIncomeMessage}`,
+    borderRadius: '0 7px 0 0',
+  },
+
+  searchMessageContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  searchInput: {
+    fontSize: 14,
+    lineHeight: '19px',
+    width: 305,
+    height: 30,
+    border: `1px solid ${theme.palette.primary.main}`,
+  },
+
+  searchResult: {
+    width: 140,
+    color: theme.palette.text.second,
+
+    [theme.breakpoints.down(1024)]: {
+      fontSize: 12,
+    },
   },
 
   noSelectedChatIcon: {
@@ -56,11 +74,21 @@ export const useClassNames = makeStyles()(theme => ({
 
   noChatSubTitle: {
     fontSize: 18,
-
     color: theme.palette.text.general,
   },
 
-  hideChatsWrapper: {
+  noSelectedChatWrapper: {
+    flex: '1 1 auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    gap: 20,
+    background: theme.palette.background.general,
+    borderRadius: '0 7px 7px 0',
+  },
+
+  mobileResolution: {
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },

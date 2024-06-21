@@ -1,38 +1,36 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { Typography } from '@mui/material'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
+import { AddOrEditWeightBasedLogisticsTariffForm } from '@components/forms/add-or-edit-weight-based-logistics-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { Button } from '@components/shared/button'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { useStyles } from './weight-based-logistics-tariffs.style'
+
 import { LogisticsTariffsModel } from './weight-based-logistics-tariffs.model'
-import { useClassNames } from './weight-based-logistics-tariffs.style'
-import { AddOrEditWeightBasedLogisticsTariffForm } from '@components/forms/add-or-edit-weight-based-logistics-tariff-form'
 
 export const WeightBasedLogisticsTariffs = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const gpModel = useRef(new LogisticsTariffsModel({ history }))
 
   const {
     isArchive,
     storekeeperDestination,
-
-    yuanToDollarRate,
+    platformSettings,
     tariffToEdit,
     requestStatus,
     sortModel,
@@ -40,7 +38,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     densityModel,
     columnsModel,
     destinationData,
-
     columnVisibilityModel,
     paginationModel,
     showAddOrEditLogisticTariffModal,
@@ -53,17 +50,15 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     setDestinationsFavouritesItem,
     onTriggerOpenModal,
     onClickAddBtn,
-
     onChangeSortingModel,
     onChangeFilterModel,
-
     onSubmitCreateTariff,
     onSubmitEditTariff,
     onSubmitChangeDestination,
     onClickAddressBtn,
     onTriggerArchive,
     onColumnVisibilityModelChange,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
   } = gpModel.current
 
   useEffect(() => {
@@ -71,15 +66,15 @@ export const WeightBasedLogisticsTariffs = observer(() => {
   }, [])
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.placeAddBtnWrapper}>
-        <div className={classNames.addressMainWrapper}>
+    <div className={styles.mainWrapper}>
+      <div className={styles.placeAddBtnWrapper}>
+        <div className={styles.addressMainWrapper}>
           {storekeeperDestination ? (
-            <div className={classNames.addressSubWrapper}>
-              <Typography className={classNames.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
+            <div className={styles.addressSubWrapper}>
+              <Typography className={styles.address}>{t(TranslationKey['Warehouse address']) + ':'}</Typography>
 
               <Typography
-                className={classNames.addressMain}
+                className={styles.addressMain}
               >{`${storekeeperDestination.name} : ${storekeeperDestination.zipCode}, ${storekeeperDestination.country}, ${storekeeperDestination.state}, ${storekeeperDestination.city}, ${storekeeperDestination.address}`}</Typography>
             </div>
           ) : null}
@@ -90,51 +85,30 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         </div>
 
         {isArchive ? (
-          <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
+          <Button variant={ButtonVariant.OUTLINED} className={styles.openArchiveBtn} onClick={onTriggerArchive}>
             {t(TranslationKey['Current tariffs'])}
           </Button>
         ) : (
-          <div className={classNames.btnsWrapper}>
-            <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
+          <div className={styles.btnsWrapper}>
+            <Button variant={ButtonVariant.OUTLINED} className={styles.openArchiveBtn} onClick={onTriggerArchive}>
               {t(TranslationKey['Open archive'])}
-            </Button>
-
-            <Button
-              success
-              tooltipInfoContent={t(TranslationKey['Add a new rate'])}
-              className={classNames.placeAddBtn}
-              onClick={() => onClickAddBtn()}
-            >
-              {t(TranslationKey.Add)}
             </Button>
           </div>
         )}
       </div>
 
-      <MemoDataGrid
-        disableVirtualization
-        pagination
-        useResizeContainer
-        propsToRerender={{ isArchive }}
-        classes={{
-          root: classNames.root,
-          footerContainer: classNames.footerContainer,
-          footerCell: classNames.footerCell,
-          toolbarContainer: classNames.toolbarContainer,
-          filterForm: classNames.filterForm,
-        }}
-        localeText={getLocalizationByLanguageTag()}
+      <CustomDataGrid
         sortModel={sortModel}
+        sortingMode="client"
+        paginationMode="client"
         filterModel={filterModel}
         paginationModel={paginationModel}
-        pageSizeOptions={[15, 25, 50, 100]}
         rows={currentData}
         getRowHeight={() => 'auto'}
-        slots={{
-          toolbar: DataGridCustomToolbar,
-          columnMenuIcon: FilterAltOutlinedIcon,
-        }}
         slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
           toolbar: {
             columsBtnSettings: {
               columnsModel,
@@ -146,9 +120,9 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         density={densityModel}
         columns={columnsModel}
         columnVisibilityModel={columnVisibilityModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatus.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onFilterModelChange={onChangeFilterModel}
         onColumnVisibilityModelChange={onColumnVisibilityModelChange}
       />
@@ -162,15 +136,17 @@ export const WeightBasedLogisticsTariffs = observer(() => {
           onCloseModal={() => onTriggerOpenModal('showAddOrEditDestinationModal')}
           onCreateSubmit={onSubmitChangeDestination}
           onEditSubmit={onSubmitChangeDestination}
+          onClickAddBtn={onClickAddBtn}
         />
       </Modal>
 
       <Modal
+        missClickModalOn
         openModal={showAddOrEditLogisticTariffModal}
         setOpenModal={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
       >
         <AddOrEditWeightBasedLogisticsTariffForm
-          sourceYuanToDollarRate={yuanToDollarRate}
+          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
           tariffToEdit={tariffToEdit}
           logisticsTariffsData={logisticsTariffs}
           destinationData={destinationData}
@@ -181,17 +157,21 @@ export const WeightBasedLogisticsTariffs = observer(() => {
           onClickClose={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
         />
       </Modal>
-      <ConfirmationModal
-        isWarning={confirmModalSettings.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </div>
   )
 })

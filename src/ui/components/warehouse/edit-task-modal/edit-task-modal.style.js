@@ -1,12 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '1480px',
+    width: '1510px',
     display: 'flex',
     padding: '10px 20px',
     height: '100%',
-    // backgroundColor: theme.palette.background.second,
 
     flexDirection: 'column',
     position: 'relative',
@@ -67,23 +66,28 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   form: {
-    height: 606,
-    overflow: 'auto',
+    maxHeight: 606,
+    overflowY: 'auto',
+    paddingRight: 20,
 
-    paddingRight: 10,
+    marginTop: theme.spacing(2.5),
+    marginBottom: theme.spacing(2.5),
+
+    display: 'grid',
+    gap: '20px',
+    gridTemplateColumns: '1fr 1fr 1fr',
 
     [theme.breakpoints.down(1282)]: {
       height: 550,
       width: 'auto',
       overflowY: 'auto',
     },
-    marginTop: theme.spacing(2.5),
-    marginBottom: theme.spacing(2.5),
   },
 
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     gap: '20px',
 
     [theme.breakpoints.down(768)]: {
@@ -102,6 +106,8 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: 600,
     color: theme.palette.text.general,
+    gridColumn: '1 / 4',
+
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
@@ -116,7 +122,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   horizontalDivider: {
     backgroundColor: '#E0E0E0',
-    margin: '20px 0',
+    gridColumn: '1 / 4',
+
     [theme.breakpoints.down(768)]: {
       display: 'none',
     },
@@ -193,6 +200,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   imageFileInputWrapper: {
     width: '690px',
+    display: 'flex',
+    justifyContent: 'center',
 
     [theme.breakpoints.down(1282)]: {
       width: 550,
@@ -200,16 +209,6 @@ export const useClassNames = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '100%',
       padding: '0 10px',
-    },
-  },
-
-  imageAndFileInputWrapper: {
-    width: '690px',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      minWidth: '280px',
-      display: 'flex',
-      justifyContent: 'center',
     },
   },
 
@@ -226,7 +225,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'start',
-    padding: '0 15px 0 0',
+    gridColumn: '1 / 4',
+
     [theme.breakpoints.down(768)]: {
       width: '100%',
       flexDirection: 'column',
@@ -243,7 +243,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
     color: theme.palette.text.general,
 
-    zIndex: 999,
+    zIndex: 7,
 
     [theme.breakpoints.down(768)]: {
       width: '121px',
@@ -272,6 +272,20 @@ export const useClassNames = makeStyles()(theme => ({
       justifyContent: 'center',
       // marginBottom: '20px',
     },
+  },
+  boxSvgContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: 2,
+  },
+  bigBoxSvg: {
+    height: 32,
+    width: 32,
+  },
+  boxArrowSvg: {
+    height: '12px !important',
+    width: '12px !important',
+    color: theme.palette.primary.main,
   },
   hideBlock: {
     [theme.breakpoints.down(768)]: {
@@ -302,5 +316,9 @@ export const useClassNames = makeStyles()(theme => ({
   modalSubHeader: {
     display: 'flex',
     alignItems: 'center',
+  },
+
+  errorText: {
+    color: theme.palette.text.red,
   },
 }))

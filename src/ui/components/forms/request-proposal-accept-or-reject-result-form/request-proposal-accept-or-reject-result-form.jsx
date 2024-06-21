@@ -1,17 +1,22 @@
-import { cx } from '@emotion/css'
-import { Typography } from '@mui/material'
-
-import React, { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Rating } from '@material-ui/lab'
-import { observer } from 'mobx-react'
+import { Typography } from '@mui/material'
 
-import { Button } from '@components/shared/buttons/button'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
+import { Modal } from '@components/shared/modal'
 
-import { useClassNames } from './request-proposal-accept-or-reject-result-form.style'
+import { t } from '@utils/translations'
 
-export const RequestProposalAcceptOrRejectResultForm = observer(
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './request-proposal-accept-or-reject-result-form.style'
+
+export const RequestProposalAcceptOrRejectResultForm = memo(
   ({
     isReject,
     isSupervisor,
@@ -23,9 +28,12 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     confirmButtonText,
     cancelBtnText,
     rejectButtonText,
+    openModal,
   }) => {
+    const { classes: styles, cx } = useStyles()
+
     const [formFields, setFormFields] = useState({ review: '', rating: '' })
-    const { classes: classNames } = useClassNames()
+    const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false)
 
     const onChangeField = fieldName => event => {
       setFormFields({
@@ -33,52 +41,75 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
         [fieldName]: event.target.value,
       })
     }
+
     return (
-      <div className={classNames.root}>
-        <Typography className={classNames.modalTitle}>{title}</Typography>
-        <div className={classNames.ratingWrapper}>
+      <Modal openModal={openModal} setOpenModal={() => setIsShowConfirmationModal(true)}>
+        <div className={styles.root}>
+          <Typography className={styles.modalTitle}>{title}</Typography>
+          <div className={styles.ratingWrapper}>
+            <Field
+              label={rateLabel + '*'}
+              inputComponent={
+                <div className={styles.rating}>
+                  <Rating
+                    value={formFields.rating}
+                    classes={{ icon: styles.icon }}
+                    size="large"
+                    onChange={onChangeField('rating')}
+                  />
+                </div>
+              }
+            />
+          </div>
+
           <Field
-            label={rateLabel + '*'}
-            inputComponent={
-              <div className={classNames.rating}>
-                <Rating
-                  value={formFields.rating}
-                  classes={{ icon: classNames.icon }}
-                  size="large"
-                  onChange={onChangeField('rating')}
-                />
-              </div>
-            }
+            multiline
+            inputProps={{ maxLength: 125 }}
+            label={reviewLabel}
+            minRows={6}
+            maxRows={6}
+            value={formFields.reason}
+            className={styles.heightFieldAuto}
+            onChange={onChangeField('review')}
           />
-        </div>
 
-        <Field
-          multiline
-          inputProps={{ maxLength: 500 }}
-          label={reviewLabel}
-          minRows={6}
-          maxRows={6}
-          value={formFields.reason}
-          className={classNames.heightFieldAuto}
-          onChange={onChangeField('review')}
-        />
+          <div className={styles.btnsWrapper}>
+            <Button
+              disabled={!formFields.rating}
+              styleType={isReject ? ButtonStyle.DANGER : ButtonStyle.SUCCESS}
+              className={cx(styles.btnSubmit, { [styles.btnLargeSubmit]: isSupervisor })}
+              onClick={() => onSubmit(formFields)}
+            >
+              {isReject ? rejectButtonText : confirmButtonText}
+            </Button>
+            <Button
+              variant={ButtonVariant.OUTLINED}
+              className={cx(styles.btnSubmit, styles.cancelSubmit)}
+              onClick={() => setIsShowConfirmationModal(true)}
+            >
+              {cancelBtnText}
+            </Button>
+          </div>
 
-        <div className={classNames.btnsWrapper}>
-          <Button
-            disabled={!formFields.rating}
-            success={!isReject}
-            danger={isReject}
-            color="primary"
-            className={cx(classNames.btnSubmit, { [classNames.btnLargeSubmit]: isSupervisor })}
-            onClick={() => onSubmit(formFields)}
-          >
-            {isReject ? rejectButtonText : confirmButtonText}
-          </Button>
-          <Button variant="text" className={cx(classNames.btnSubmit, classNames.cancelSubmit)} onClick={onClose}>
-            {cancelBtnText}
-          </Button>
+          {isShowConfirmationModal ? (
+            <ConfirmationModal
+              // @ts-ignore
+              isWarning
+              openModal={isShowConfirmationModal}
+              setOpenModal={() => setIsShowConfirmationModal(prevState => !prevState)}
+              title={t(TranslationKey.Attention)}
+              message={t(TranslationKey['Are you sure you want to close this window?'])}
+              successBtnText={t(TranslationKey.Yes)}
+              cancelBtnText={t(TranslationKey.Cancel)}
+              onClickSuccessBtn={() => {
+                setIsShowConfirmationModal(false)
+                onClose()
+              }}
+              onClickCancelBtn={() => setIsShowConfirmationModal(false)}
+            />
+          ) : null}
         </div>
-      </div>
+      </Modal>
     )
   },
 )

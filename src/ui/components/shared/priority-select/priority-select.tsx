@@ -1,16 +1,17 @@
-import React from 'react'
-import { Input } from '@components/shared/input'
+import { observer } from 'mobx-react'
+
+import { MenuItem, Select } from '@mui/material'
+
 import {
+  TaskPriorityStatus,
   colorByTaskPriorityStatus,
   mapTaskPriorityStatusEnum,
   mapTaskPriorityStatusEnumToKey,
-  TaskPriorityStatus,
   taskPriorityStatusTranslate,
 } from '@constants/task/task-priority-status'
-import { MenuItem, Select } from '@mui/material'
-import { usePrioritySelectStyles } from '@components/shared/priority-select/priority-select.styles'
-import { cx } from '@emotion/css'
-import { observer } from 'mobx-react'
+
+import { Input } from '@components/shared/input'
+import { useStyles } from '@components/shared/priority-select/priority-select.style'
 
 interface PrioritySelectProps {
   currentPriority: number
@@ -19,7 +20,7 @@ interface PrioritySelectProps {
 }
 
 export const PrioritySelect = observer((props: PrioritySelectProps) => {
-  const { classes: styles } = usePrioritySelectStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
     <>

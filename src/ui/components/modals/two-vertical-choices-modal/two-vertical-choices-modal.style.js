@@ -1,15 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   resultButtonsWrapper: {
-    margin: '20px 0',
     minHeight: '90px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-
+    padding: 10,
     gap: 10,
   },
 

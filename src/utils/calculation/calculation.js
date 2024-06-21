@@ -1,5 +1,3 @@
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
-
 import { toFixed } from '@utils/text'
 
 export const roundSafely = num => Math.round(num * 100) / 100
@@ -9,8 +7,6 @@ export const roundHalf = num => {
   const dif = roundedNum - Math.trunc(num)
 
   // const haveDoteInEnd = (num + '').slice(-1) === '.'
-  // console.log('num', num)
-  // console.log('haveDoteInEnd', haveDoteInEnd)
 
   // if (dif >= 0.25 && dif < 0.75) {
   //   return haveDoteInEnd ? Math.trunc(num) + 0.5 + '.' : Math.trunc(num) + 0.5
@@ -57,7 +53,7 @@ export const calcExchangePrice = (price, rate) =>
   toFixed(Math.round(((parseFloat(price) || 0) / (parseFloat(rate) || 1)) * 100) / 100, 2)
 
 export const calcExchangeDollarsInYuansPrice = (price, rate) =>
-  toFixed(Math.round((parseFloat(price) || 0) * (parseFloat(rate) || 1) * 100) / 100, 2)
+  toFixed(Math.round((parseFloat(price) || 0) * (parseFloat(rate) || 1)), 2)
 
 export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 1)
 
@@ -74,29 +70,10 @@ export const getTariffRateForBoxOrOrder = box => {
     return 0
   }
 
-  const firstNumOfCode = box?.destination?.zipCode?.[0] || null
-
-  const regionOfDeliveryName =
-    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-  const currentRate =
-    box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate || box?.variationTariff?.pricePerKgUsd
-
-  return currentRate
+  return box?.variationTariff?.pricePerKgUsd || 0
 }
 
 export const calcFinalWeightForBox = (box, coefficient) =>
-  // Math.max(
-  //   parseFloat(calcVolumeWeightForBox(box, coefficient, isShipping)) || 0,
-  //   parseFloat(
-  //     isShipping
-  //       ? box.deliveryMass * box.amount
-  //       : box.weighGrossKgWarehouse
-  //       ? box.weighGrossKgWarehouse
-  //       : box.weighGrossKgSupplier,
-  //   ) || 0,
-  // )
-
   Math.max(
     parseFloat(calcVolumeWeightForBox(box, coefficient)) || 0,
     parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
@@ -254,12 +231,7 @@ export function updateProductAutoCalculatedFields() {
           (parseFloat(this.product.currentSupplier.price) || 0).toFixed(2) || 0
       ).toFixed(2)
     }
-    this.product.margin =
-      (this.product.profit /
-        ((parseFloat(this.product.currentSupplier.price) || 0) +
-          (parseFloat(this.product.currentSupplier.batchDeliveryCostInDollar / this.product.currentSupplier.amount) ||
-            0))) *
-      100
+    this.product.margin = (this.product.profit / parseFloat(this.product.amazon)) * 100
   } else {
     this.product.profit = 0
     this.product.margin = 0
@@ -310,7 +282,7 @@ export const calcPriceForBox = box => {
   }
 
   const sumsOfItems = box.items?.reduce(
-    (acc, cur) => acc + calcSupplierPriceForUnit(cur.order.orderSupplier) * cur.amount,
+    (acc, cur) => acc + calcSupplierPriceForUnit(cur.order?.orderSupplier) * cur.amount,
     0,
   )
   return box.amount > 1 ? sumsOfItems * box.amount : sumsOfItems

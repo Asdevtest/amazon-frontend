@@ -1,18 +1,20 @@
 import { transformAndValidate } from 'class-transformer-validator'
 import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 import { UserRegistrationContract } from '@models/user-model/user-model.contracts'
 
 import { getObjectKeys } from '@utils/object'
-import { setI18nConfig } from '@utils/translations'
+import { setI18nConfig, t } from '@utils/translations'
 
-const delayRedirectToAuthTime = 1000
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class RegistrationViewModel {
+  requestStatus = undefined
   history = undefined
 
   name = ''
@@ -20,13 +22,11 @@ export class RegistrationViewModel {
   password = ''
   confirmPassword = ''
   acceptTerms = false
-  checkValidationNameOrEmail = {}
+  checkValidationNameOrEmail = {
+    emailIsUnique: true,
+    nameIsUnique: true,
+  }
   language = ''
-
-  requestStatus = undefined
-  error = undefined
-  showErrorRegistrationModal = false
-  showSuccessRegistrationModal = false
 
   formValidationErrors = {
     email: null,
@@ -34,11 +34,15 @@ export class RegistrationViewModel {
     confirmPassword: null,
   }
 
+  get disableRegisterButton() {
+    return this.requestStatus === loadingStatus.IS_LOADING
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
+
     reaction(
       () => SettingsModel.languageTag,
       () => this.onLoadPage(),
@@ -57,50 +61,41 @@ export class RegistrationViewModel {
 
   async onSubmitForm() {
     try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.isLoading
-        this.error = undefined
-      })
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const result = await UserModel.isCheckUniqueUser({ name: this.name, email: this.email.toLowerCase() })
 
       runInAction(() => {
         this.checkValidationNameOrEmail = result
       })
 
-      const requestData = { name: this.name, email: this.email.toLowerCase(), password: this.password }
+      if (this.checkValidationNameOrEmail.emailIsUnique && this.checkValidationNameOrEmail.nameIsUnique) {
+        const requestData = { name: this.name, email: this.email.toLowerCase(), password: this.password }
 
-      await transformAndValidate(UserRegistrationContract, requestData)
+        await transformAndValidate(UserRegistrationContract, requestData)
 
-      await UserModel.signUp(requestData)
+        await UserModel.signUp(requestData)
 
-      this.onTriggerOpenModal('showSuccessRegistrationModal')
+        toast.success(t(TranslationKey['Successful registration']))
 
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.success
-      })
-
-      setTimeout(() => {
         this.history.push('/auth')
-      }, delayRedirectToAuthTime)
+      }
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.failed
-      })
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   onLoadPage() {
-    runInAction(() => {
-      this.language = SettingsModel.languageTag
-    })
+    this.language = SettingsModel.languageTag
+
     SettingsModel.setLanguageTag(this.language)
     setI18nConfig()
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
+    this[modalState] = !this[modalState]
   }
 
   onClickRedirect = () => {
@@ -116,9 +111,17 @@ export class RegistrationViewModel {
       this.setField(fieldName)(event.target.value)
       runInAction(() => {
         if (this.name === '' || this.email === '') {
-          this.checkValidationNameOrEmail = {}
+          this.checkValidationNameOrEmail = undefined
         }
       })
     }
+  }
+
+  onClickThemeIcon = theme => {
+    SettingsModel.setUiTheme(theme)
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

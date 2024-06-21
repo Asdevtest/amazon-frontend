@@ -1,1005 +1,978 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import { Checkbox, Container, Divider, Grid, Link, Typography } from '@mui/material'
+import { memo, useEffect, useState } from 'react'
 
-import { React, useState } from 'react'
-
-import { observer } from 'mobx-react'
+import { Divider, Grid, Typography } from '@mui/material'
 
 import {
   inchesCoefficient,
   poundsCoefficient,
   poundsWeightCoefficient,
-  sizesType,
+  unitWeightCoefficient,
+  unitsOfChangeOptions,
 } from '@constants/configs/sizes-settings'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomSelectPaymentDetails } from '@components/custom-select-payment-details'
-import { SupplierApproximateCalculationsForm } from '@components/forms/supplier-approximate-calculations-form'
-import { BigImagesModal } from '@components/modals/big-images-modal'
-import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
+import { SupplierModel } from '@models/supplier-model'
+
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
+import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
+import { Button } from '@components/shared/button'
+import { Checkbox } from '@components/shared/checkbox'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
-import { PhotoAndFilesCarousel } from '@components/shared/photo-and-files-carousel'
+import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field'
-import { Modal } from '@components/shared/modal'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './add-or-edit-supplier-modal-content.style'
-import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
-export const AddOrEditSupplierModalContent = observer(
-  ({
+import { useStyles } from './add-or-edit-supplier-modal-content.style'
+
+import { Dimensions } from './dimensions'
+
+export const AddOrEditSupplierModalContent = memo(props => {
+  const { classes: styles, cx } = useStyles()
+
+  const {
+    isIdea,
     paymentMethods,
     product,
     storekeepersData,
     onlyRead,
-    sourceYuanToDollarRate,
-    volumeWeightCoefficient,
+    platformSettings,
     title,
     onTriggerShowModal,
-    supplier,
+    supplierId,
     onClickSaveBtn,
     showProgress,
     progressValue,
     requestStatus,
     outsideProduct,
     onClickPrevButton,
-  }) => {
-    const { classes: classNames } = useClassNames()
+  } = props
 
-    const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
+  const [supplier, setSupplier] = useState(undefined)
 
-    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+  const getFullSupplier = async id => {
+    try {
+      const response = await SupplierModel.getSupplier(id)
 
-    const handleChange = (event, newAlignment) => {
-      setSizeSetting(newAlignment)
+      if (response) {
+        setSupplier(response)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-      if (newAlignment === sizesType.INCHES) {
-        setTmpSupplier({
-          ...tmpSupplier,
+  useEffect(() => {
+    if (supplierId) {
+      getFullSupplier(supplierId)
+    }
+  }, [supplierId])
+
+  const getInitialState = () => ({
+    amount: supplier?.amount || '',
+    comment: supplier?.comment || '',
+    link: supplier?.link || '',
+    minlot: supplier?.minlot || '',
+    name: supplier?.name || '',
+    price: supplier?.price || '',
+    images: supplier?.images || [],
+    multiplicity: supplier?.multiplicity || false,
+    minProductionTerm: supplier?.minProductionTerm || 0,
+    maxProductionTerm: supplier?.maxProductionTerm || 0,
+    paymentMethods: supplier?.paymentMethods || [],
+    yuanRate: supplier?.yuanRate || platformSettings?.yuanToDollarRate,
+    priceInYuan: supplier?.priceInYuan || '',
+    batchDeliveryCostInDollar:
+      supplier?.batchDeliveryCostInYuan / (supplier?.yuanRate || platformSettings?.yuanToDollarRate) || 0,
+    batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || 0,
+    batchTotalCostInDollar: supplier?.batchTotalCostInDollar || '',
+    batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
+    boxProperties: {
+      amountInBox: supplier?.boxProperties?.amountInBox || '',
+      boxLengthCm: supplier?.boxProperties?.boxLengthCm || '',
+      boxWidthCm: supplier?.boxProperties?.boxWidthCm || '',
+      boxHeightCm: supplier?.boxProperties?.boxHeightCm || '',
+      boxWeighGrossKg: supplier?.boxProperties?.boxWeighGrossKg || '',
+    },
+    heightUnit: supplier?.heightUnit || '',
+    widthUnit: supplier?.widthUnit || '',
+    lengthUnit: supplier?.lengthUnit || '',
+    weighUnit: supplier?.weighUnit || '',
+    imageUnit: supplier?.imageUnit || [],
+    priceVariations: supplier?.priceVariations || [],
+    _id: supplier?._id || '',
+  })
+
+  const [tmpSupplier, setTmpSupplier] = useState(getInitialState())
+
+  useEffect(() => {
+    if (supplier) {
+      setTmpSupplier(getInitialState())
+    }
+  }, [supplier])
+
+  const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
+
+  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
+  const [unitSetting, setUnitSetting] = useState(unitsOfChangeOptions.EU)
+
+  const handleChange = isUnit => newAlignment => {
+    const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
+    const weightMultiplier =
+      newAlignment === unitsOfChangeOptions.US ? 1 / poundsWeightCoefficient : poundsWeightCoefficient
+
+    if (isUnit) {
+      if (newAlignment !== unitSetting) {
+        setTmpSupplier(prev => ({
+          ...prev,
+
+          heightUnit: toFixed(prev?.heightUnit / multiplier || '', 2),
+          widthUnit: toFixed(prev?.widthUnit / multiplier || '', 2),
+          lengthUnit: toFixed(prev?.lengthUnit / multiplier || '', 2),
+          weighUnit: toFixed(prev?.weighUnit * weightMultiplier || '', 2),
+        }))
+
+        setUnitSetting(newAlignment)
+      }
+    } else {
+      if (newAlignment !== sizeSetting) {
+        setTmpSupplier(prev => ({
+          ...prev,
           boxProperties: {
-            ...tmpSupplier.boxProperties,
-            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm / inchesCoefficient, 2),
-            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm / inchesCoefficient, 2),
-            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm / inchesCoefficient, 2),
+            ...prev.boxProperties,
+            boxLengthCm: toFixed(prev.boxProperties.boxLengthCm / multiplier || '', 2),
+            boxWidthCm: toFixed(prev.boxProperties.boxWidthCm / multiplier || '', 2),
+            boxHeightCm: toFixed(prev.boxProperties.boxHeightCm / multiplier || '', 2),
           },
-        })
-      } else {
-        setTmpSupplier({
-          ...tmpSupplier,
-          boxProperties: {
-            ...tmpSupplier.boxProperties,
-            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient, 2),
-            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient, 2),
-            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient, 2),
-          },
-        })
+        }))
+
+        setSizeSetting(newAlignment)
       }
     }
+  }
 
-    const [tmpSupplier, setTmpSupplier] = useState({
-      amount: supplier?.amount || '',
-      comment: supplier?.comment || '',
-      link: supplier?.link || '',
-      // lotcost: supplier?.lotcost || '',
-      minlot: supplier?.minlot || '',
-      name: supplier?.name || '',
-      price: supplier?.price || '',
-      images: supplier?.images || [],
-      multiplicity: supplier?.multiplicity || false,
+  const calculateFieldsToSubmit = () => {
+    const multiplier = unitSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1
+    const weightMultiplier = unitSetting === unitsOfChangeOptions.US ? poundsCoefficient : 1
 
-      productionTerm: supplier?.productionTerm || '',
-      paymentMethods: supplier?.paymentMethods || [],
+    let res = {
+      ...tmpSupplier,
+      batchTotalCostInYuan:
+        +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
 
-      yuanRate: supplier?.yuanRate || sourceYuanToDollarRate,
+      batchTotalCostInDollar: +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
 
-      priceInYuan: supplier?.priceInYuan || '',
-      // batchDeliveryCostInDollar: supplier?.batchDeliveryCostInDollar || 0,
-      batchDeliveryCostInDollar:
-        supplier?.batchDeliveryCostInYuan / (supplier?.yuanRate || sourceYuanToDollarRate) || 0,
-      batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || 0,
-      batchTotalCostInDollar: supplier?.batchTotalCostInDollar || '',
-      batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
+      heightUnit: toFixed(tmpSupplier?.heightUnit * multiplier || '', 2),
+      widthUnit: toFixed(tmpSupplier?.widthUnit * multiplier || '', 2),
+      lengthUnit: toFixed(tmpSupplier?.lengthUnit * multiplier || '', 2),
+      weighUnit: toFixed(tmpSupplier?.weighUnit / weightMultiplier || '', 2),
 
       boxProperties: {
-        amountInBox: supplier?.boxProperties?.amountInBox || '',
-        boxLengthCm: supplier?.boxProperties?.boxLengthCm || '',
-        boxWidthCm: supplier?.boxProperties?.boxWidthCm || '',
-        boxHeightCm: supplier?.boxProperties?.boxHeightCm || '',
-        boxWeighGrossKg: supplier?.boxProperties?.boxWeighGrossKg || '',
+        ...tmpSupplier.boxProperties,
+        boxLengthCm:
+          (sizeSetting === unitsOfChangeOptions.US
+            ? toFixed(tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient, 2)
+            : tmpSupplier.boxProperties.boxLengthCm) || 0,
+        boxWidthCm:
+          (sizeSetting === unitsOfChangeOptions.US
+            ? toFixed(tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient, 2)
+            : tmpSupplier.boxProperties.boxWidthCm) || 0,
+        boxHeightCm:
+          (sizeSetting === unitsOfChangeOptions.US
+            ? toFixed(tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient, 2)
+            : tmpSupplier.boxProperties.boxHeightCm) || 0,
+
+        amountInBox: tmpSupplier.boxProperties.amountInBox || 0,
+        boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
       },
 
-      priceVariations: supplier?.priceVariations || [],
-    })
+      minProductionTerm: tmpSupplier?.minProductionTerm || 0,
+      maxProductionTerm: tmpSupplier?.maxProductionTerm || 0,
 
-    const calculateFieldsToSubmit = () => {
-      let res = {
-        ...tmpSupplier,
-        batchTotalCostInYuan:
-          +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
-
-        batchTotalCostInDollar:
-          +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
-
-        // lotcost: toFixed(+tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar, 2),
-
-        boxProperties: {
-          ...tmpSupplier.boxProperties,
-          boxLengthCm:
-            (sizeSetting === sizesType.INCHES
-              ? tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient
-              : tmpSupplier.boxProperties.boxLengthCm) || 0,
-          boxWidthCm:
-            (sizeSetting === sizesType.INCHES
-              ? tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient
-              : tmpSupplier.boxProperties.boxWidthCm) || 0,
-          boxHeightCm:
-            (sizeSetting === sizesType.INCHES
-              ? tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient
-              : tmpSupplier.boxProperties.boxHeightCm) || 0,
-
-          amountInBox: tmpSupplier.boxProperties.amountInBox || 0,
-          boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
-        },
-
-        productionTerm: tmpSupplier?.productionTerm ? tmpSupplier?.productionTerm : 0,
-      }
-
-      if (
-        !tmpSupplier.boxProperties.amountInBox ||
-        !tmpSupplier.boxProperties.boxLengthCm ||
-        !tmpSupplier.boxProperties.boxWidthCm ||
-        !tmpSupplier.boxProperties.boxHeightCm ||
-        !tmpSupplier.boxProperties.boxWeighGrossKg
-      ) {
-        res = { ...res, boxProperties: null }
-      }
-
-      return res
+      _id: supplier?._id,
     }
 
-    const [makeMainSupplier, setMakeMainSupplier] = useState(false)
-
-    const [photosOfSupplier, setPhotosOfSupplier] = useState([])
-    const [editPhotosOfSupplier, setEditPhotosOfSupplier] = useState(supplier?.images || [])
-
-    const onChangeDetailsPhotosToLoad = value => {
-      setEditPhotosOfSupplier(value)
+    if (
+      !tmpSupplier.boxProperties.amountInBox ||
+      !tmpSupplier.boxProperties.boxLengthCm ||
+      !tmpSupplier.boxProperties.boxWidthCm ||
+      !tmpSupplier.boxProperties.boxHeightCm ||
+      !tmpSupplier.boxProperties.boxWeighGrossKg
+    ) {
+      res = { ...res, boxProperties: null }
     }
 
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
+    return res
+  }
 
-    const renderFooterModalButtons = () => {
-      if (outsideProduct) {
-        return (
-          <div className={classNames.buttonsWrapperClient}>
-            <Button className={classNames.prevBtnClient} onClick={() => onClickPrevButton()}>
-              {t(TranslationKey.Back)}
-            </Button>
-            <div>
-              <Button
-                success
-                tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
-                disabled={diasabledSubmit}
-                className={classNames.saveBtnClient}
-                variant="contained"
-                onClick={() => {
-                  onClickSaveBtn({
-                    supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
-                    photosOfSupplier,
-                    addMore: false,
-                    makeMainSupplier,
-                    editPhotosOfSupplier,
-                  })
-                }}
-              >
-                {t(TranslationKey['Save and bind'])}
-              </Button>
-              <Button
-                success
-                tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
-                disabled={diasabledSubmit}
-                className={classNames.saveBtnClient}
-                onClick={() => {
-                  onClickSaveBtn({
-                    supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
-                    photosOfSupplier,
-                    addMore: false,
-                    makeMainSupplier,
-                    editPhotosOfSupplier,
-                  })
-                  // setTmpSupplier({
-                  //   amount: '',
-                  //   comment: '',
-                  //   link: '',
-                  //   lotcost: '',
-                  //   minlot: '',
-                  //   name: '',
-                  //   price: '',
-                  //   images: [],
+  const [makeMainSupplier, setMakeMainSupplier] = useState(false)
+  const [editPhotosOfSupplier, setEditPhotosOfSupplier] = useState([])
+  const [editPhotosOfUnit, setEditPhotosOfUnit] = useState([])
 
-                  //   paymentMethods: [],
+  useEffect(() => {
+    if (supplier?.images.length > 0) {
+      setEditPhotosOfSupplier(supplier?.images)
+    }
+    if (supplier?.imageUnit.length > 0) {
+      setEditPhotosOfUnit(supplier?.imageUnit)
+    }
+  }, [supplier])
 
-                  //   priceInYuan: '',
-                  //   batchDeliveryCostInDollar: 0,
-                  //   batchDeliveryCostInYuan: 0,
-                  //   batchTotalCostInDollar: '',
-                  //   batchTotalCostInYuan: '',
-
-                  //   boxProperties: {
-                  //     amountInBox: '',
-                  //     boxLengthCm: '',
-                  //     boxWidthCm: '',
-                  //     boxHeightCm: '',
-                  //     boxWeighGrossKg: '',
-                  //   },
-                  // })
-
-                  // setPhotosOfSupplier(() => [])
-                  // setMakeMainSupplier(false)
-                  onTriggerShowModal()
-                }}
-              >
-                {t(TranslationKey['Save and add more'])}
-              </Button>
-            </div>
-          </div>
-        )
-      } else if (onlyRead) {
-        return (
-          <div className={classNames.buttonsWrapper}>
-            <Button className={classNames.cancelBtn} variant="text" onClick={onTriggerShowModal}>
-              {t(TranslationKey.Close)}
-            </Button>
-          </div>
-        )
-      } else {
-        return (
-          <div className={classNames.buttonsWrapper}>
+  const renderFooterModalButtons = () => {
+    if (outsideProduct) {
+      return (
+        <div className={styles.buttonsWrapperClient}>
+          <Button className={styles.prevBtnClient} onClick={() => onClickPrevButton()}>
+            {t(TranslationKey.Back)}
+          </Button>
+          <div className={styles.saveBtnWrapperClient}>
             <Button
-              tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
+              styleType={ButtonStyle.SUCCESS}
+              tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
               disabled={diasabledSubmit}
-              className={classNames.saveBtn}
-              color="primary"
-              variant="contained"
+              className={styles.saveBtnClient}
               onClick={() => {
                 onClickSaveBtn({
-                  supplier: { ...calculateFieldsToSubmit(), _id: supplier && supplier._id },
-                  photosOfSupplier,
+                  supplier: calculateFieldsToSubmit(),
                   editPhotosOfSupplier,
+                  editPhotosOfUnit,
+                  itemId: product?._id,
                 })
-
-                setPhotosOfSupplier(() => [])
+                onTriggerShowModal()
               }}
             >
-              {t(TranslationKey.Save)}
+              {t(TranslationKey['Save and bind'])}
             </Button>
             <Button
-              disableElevation
-              tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
-              className={classNames.cancelBtn}
-              variant="text"
-              onClick={onTriggerShowModal}
+              styleType={ButtonStyle.SUCCESS}
+              tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
+              disabled={diasabledSubmit}
+              className={styles.saveBtnClient}
+              onClick={() => {
+                onClickSaveBtn({
+                  supplier: calculateFieldsToSubmit(),
+                  editPhotosOfSupplier,
+                  editPhotosOfUnit,
+                  itemId: product?._id,
+                })
+                onTriggerShowModal()
+              }}
             >
-              {t(TranslationKey.Cancel)}
+              {t(TranslationKey['Save and add more'])}
             </Button>
           </div>
-        )
-      }
+        </div>
+      )
+    } else if (onlyRead) {
+      return (
+        <div className={styles.buttonsWrapper}>
+          <Button className={styles.cancelBtn} variant={ButtonVariant.OUTLINED} onClick={onTriggerShowModal}>
+            {t(TranslationKey.Close)}
+          </Button>
+        </div>
+      )
+    } else {
+      return (
+        <div className={styles.buttonsWrapper}>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
+            disabled={diasabledSubmit}
+            className={styles.saveBtn}
+            onClick={() => {
+              onClickSaveBtn({
+                supplier: calculateFieldsToSubmit(),
+                editPhotosOfSupplier,
+                editPhotosOfUnit,
+                itemId: product?._id,
+              })
+              onTriggerShowModal()
+            }}
+          >
+            {t(TranslationKey.Save)}
+          </Button>
+          <Button
+            variant={ButtonVariant.OUTLINED}
+            tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
+            className={styles.cancelBtn}
+            onClick={onTriggerShowModal}
+          >
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      )
     }
+  }
 
-    // const onChangePaymentMethod = event => {
-    //   if (Array.isArray(event)) {
-    //     if (tmpSupplier.paymentMethods.length === paymentMethods.length) {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: [],
-    //       })
-    //     } else {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: [...event],
-    //       })
-    //     }
-    //   } else {
-    //     if (tmpSupplier?.paymentMethods?.some(item => item?._id === event?._id)) {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: tmpSupplier?.paymentMethods?.filter(item => item?._id !== event?._id),
-    //       })
-    //     } else {
-    //       setTmpSupplier({
-    //         ...tmpSupplier,
-    //         paymentMethods: [...tmpSupplier.paymentMethods, event],
-    //       })
-    //     }
-    //   }
-    // }
-
-    const onChangePaymentMethod = event => {
-      const selectedValues = event
-      const valueToAddOrRemove = selectedValues[selectedValues?.length - 1]
-      if (valueToAddOrRemove?._id === 'SELECT_ALL') {
-        if (tmpSupplier?.paymentMethods?.length === paymentMethods?.length) {
-          setTmpSupplier({
-            ...tmpSupplier,
-            paymentMethods: [],
-          })
-        } else {
-          setTmpSupplier({
-            ...tmpSupplier,
-            paymentMethods: [...paymentMethods],
-          })
-        }
-      } else {
-        if (tmpSupplier?.paymentMethods?.some(value => value._id === valueToAddOrRemove._id)) {
-          setTmpSupplier({
-            ...tmpSupplier,
-            paymentMethods: tmpSupplier?.paymentMethods?.filter(value => value?._id !== valueToAddOrRemove?._id),
-          })
-        } else {
-          setTmpSupplier({
-            ...tmpSupplier,
-            paymentMethods: [...tmpSupplier.paymentMethods, valueToAddOrRemove],
-          })
-        }
-      }
-    }
-
-    const onChangeField = fieldName => event => {
-      if (
-        fieldName !== 'name' &&
-        fieldName !== 'comment' &&
-        fieldName !== 'link' &&
-        fieldName !== 'multiplicity' &&
-        (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value) || +event.target.value >= 1000000)
-      ) {
-        return
-      } else if ('multiplicity' === fieldName) {
+  const onChangePaymentMethod = event => {
+    const selectedValues = event
+    const valueToAddOrRemove = selectedValues[selectedValues?.length - 1]
+    if (valueToAddOrRemove?._id === 'SELECT_ALL') {
+      if (tmpSupplier?.paymentMethods?.length === paymentMethods?.length) {
         setTmpSupplier({
           ...tmpSupplier,
-          [fieldName]: !tmpSupplier.multiplicity,
-        })
-      } else if (['minlot', 'amount', 'productionTerm'].includes(fieldName)) {
-        setTmpSupplier({ ...tmpSupplier, [fieldName]: parseInt(event.target.value) || '' })
-      } else if (['amountInBox'].includes(fieldName)) {
-        setTmpSupplier({
-          ...tmpSupplier,
-          boxProperties: { ...tmpSupplier.boxProperties, [fieldName]: parseInt(event.target.value) || '' },
-        })
-      } else if (['boxLengthCm', 'boxWidthCm', 'boxHeightCm', 'boxWeighGrossKg'].includes(fieldName)) {
-        setTmpSupplier({
-          ...tmpSupplier,
-          boxProperties: { ...tmpSupplier.boxProperties, [fieldName]: event.target.value || '' },
-        })
-      } else if (['price'].includes(fieldName)) {
-        setTmpSupplier({
-          ...tmpSupplier,
-          [fieldName]: event.target.value,
-          priceInYuan: event.target.value * tmpSupplier?.yuanRate,
-        })
-      } else if (['priceInYuan'].includes(fieldName)) {
-        setTmpSupplier({
-          ...tmpSupplier,
-          [fieldName]: event.target.value,
-          price:
-            event.target.value /
-            (tmpSupplier?.yuanRate === '' || parseFloat(tmpSupplier?.yuanRate) === 0 ? 1 : tmpSupplier?.yuanRate),
-        })
-      } else if (['batchDeliveryCostInDollar'].includes(fieldName)) {
-        setTmpSupplier({
-          ...tmpSupplier,
-          [fieldName]: event.target.value,
-          batchDeliveryCostInYuan:
-            event.target.value * (tmpSupplier?.yuanRate === ('' || '0') ? 1 : tmpSupplier?.yuanRate),
-        })
-      } else if (['batchDeliveryCostInYuan'].includes(fieldName)) {
-        setTmpSupplier({
-          ...tmpSupplier,
-          [fieldName]: event.target.value,
-          batchDeliveryCostInDollar:
-            event.target.value /
-            (tmpSupplier?.yuanRate === '' || parseFloat(tmpSupplier?.yuanRate) === 0 ? 1 : tmpSupplier?.yuanRate),
+          paymentMethods: [],
         })
       } else {
-        setTmpSupplier({ ...tmpSupplier, [fieldName]: event.target.value })
-      }
-    }
-
-    const onChangeYuanToDollarRate = e => {
-      if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
         setTmpSupplier({
           ...tmpSupplier,
-          yuanRate: e.target.value,
-          batchDeliveryCostInDollar:
-            tmpSupplier.batchDeliveryCostInYuan /
-            (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
-          price:
-            tmpSupplier.priceInYuan / (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
+          paymentMethods: [...paymentMethods],
+        })
+      }
+    } else {
+      if (tmpSupplier?.paymentMethods?.some(value => value._id === valueToAddOrRemove._id)) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          paymentMethods: tmpSupplier?.paymentMethods?.filter(value => value?._id !== valueToAddOrRemove?._id),
+        })
+      } else {
+        setTmpSupplier({
+          ...tmpSupplier,
+          paymentMethods: [...tmpSupplier.paymentMethods, valueToAddOrRemove],
         })
       }
     }
+  }
 
-    const boxPropertiesIsFull =
-      tmpSupplier.boxProperties?.amountInBox &&
-      tmpSupplier.boxProperties?.boxLengthCm &&
-      tmpSupplier.boxProperties?.boxWidthCm &&
-      tmpSupplier.boxProperties?.boxHeightCm &&
-      tmpSupplier.boxProperties?.boxWeighGrossKg
+  const onChangeField = fieldName => event => {
+    if (
+      fieldName !== 'name' &&
+      fieldName !== 'comment' &&
+      fieldName !== 'link' &&
+      fieldName !== 'multiplicity' &&
+      (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value) || +event.target.value >= 1000000)
+    ) {
+      return
+    } else if ('multiplicity' === fieldName) {
+      setTmpSupplier({
+        ...tmpSupplier,
+        [fieldName]: event?.target?.checked,
+      })
+    } else if (['minlot', 'amount', 'minProductionTerm', 'maxProductionTerm'].includes(fieldName)) {
+      setTmpSupplier({ ...tmpSupplier, [fieldName]: parseInt(event.target.value) || '' })
+    } else if (['amountInBox'].includes(fieldName)) {
+      setTmpSupplier({
+        ...tmpSupplier,
+        boxProperties: { ...tmpSupplier.boxProperties, [fieldName]: parseInt(event.target.value) || '' },
+      })
+    } else if (['boxLengthCm', 'boxWidthCm', 'boxHeightCm', 'boxWeighGrossKg'].includes(fieldName)) {
+      setTmpSupplier({
+        ...tmpSupplier,
+        boxProperties: { ...tmpSupplier.boxProperties, [fieldName]: event.target.value || '' },
+      })
+    } else if (['price'].includes(fieldName)) {
+      setTmpSupplier({
+        ...tmpSupplier,
+        [fieldName]: event.target.value,
+        priceInYuan: event.target.value * tmpSupplier?.yuanRate,
+      })
+    } else if (['priceInYuan'].includes(fieldName)) {
+      setTmpSupplier({
+        ...tmpSupplier,
+        [fieldName]: event.target.value,
+        price:
+          event.target.value /
+          (tmpSupplier?.yuanRate === '' || parseFloat(tmpSupplier?.yuanRate) === 0 ? 1 : tmpSupplier?.yuanRate),
+      })
+    } else if (['batchDeliveryCostInDollar'].includes(fieldName)) {
+      setTmpSupplier({
+        ...tmpSupplier,
+        [fieldName]: event.target.value,
+        batchDeliveryCostInYuan:
+          event.target.value * (tmpSupplier?.yuanRate === ('' || '0') ? 1 : tmpSupplier?.yuanRate),
+      })
+    } else if (['batchDeliveryCostInYuan'].includes(fieldName)) {
+      setTmpSupplier({
+        ...tmpSupplier,
+        [fieldName]: event.target.value,
+        batchDeliveryCostInDollar:
+          event.target.value /
+          (tmpSupplier?.yuanRate === '' || parseFloat(tmpSupplier?.yuanRate) === 0 ? 1 : tmpSupplier?.yuanRate),
+      })
+    } else {
+      setTmpSupplier({ ...tmpSupplier, [fieldName]: event.target.value })
+    }
+  }
 
-    const boxPropertiesIsFullAndMainsValues =
-      boxPropertiesIsFull && tmpSupplier.amount && tmpSupplier.minlot && tmpSupplier.priceInYuan && tmpSupplier.price
+  const onChangeYuanToDollarRate = e => {
+    if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+      setTmpSupplier({
+        ...tmpSupplier,
+        yuanRate: e.target.value,
+        batchDeliveryCostInDollar:
+          tmpSupplier.batchDeliveryCostInYuan /
+          (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
+        price:
+          tmpSupplier.priceInYuan / (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
+      })
+    }
+  }
 
-    const itHaveBigInt =
-      +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan >= 1000000 ||
-      tmpSupplier.batchDeliveryCostInYuan >= 1000000 ||
-      tmpSupplier.priceInYuan >= 1000000 ||
-      +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >= 1000000
+  const unitVolumeWeight = toFixed(
+    (tmpSupplier.heightUnit * tmpSupplier.widthUnit * tmpSupplier.lengthUnit) /
+      (unitSetting === unitsOfChangeOptions.EU ? platformSettings?.volumeWeightCoefficient : unitWeightCoefficient),
+    2,
+  )
 
-    const diasabledSubmit =
-      itHaveBigInt ||
-      '' === tmpSupplier.name ||
-      '' === tmpSupplier.price ||
-      '' === tmpSupplier.link ||
-      '' === tmpSupplier.amount ||
-      '' === tmpSupplier.minlot ||
-      '' === tmpSupplier.priceInYuan ||
-      '' === tmpSupplier.batchDeliveryCostInDollar ||
-      '' === tmpSupplier.batchDeliveryCostInYuan ||
-      '' === tmpSupplier?.yuanRate ||
-      '0' === tmpSupplier?.yuanRate ||
-      0 === parseFloat(tmpSupplier.price) ||
-      0 === parseInt(tmpSupplier.amount) ||
-      0 === parseInt(tmpSupplier.minlot) ||
-      requestStatus === loadingStatuses.isLoading ||
-      ((tmpSupplier.boxProperties?.amountInBox ||
-        tmpSupplier.boxProperties?.boxLengthCm ||
-        tmpSupplier.boxProperties?.boxWidthCm ||
-        tmpSupplier.boxProperties?.boxHeightCm ||
-        tmpSupplier.boxProperties?.boxWeighGrossKg) &&
-        !boxPropertiesIsFullAndMainsValues)
+  const boxPropertiesIsFull =
+    tmpSupplier.boxProperties?.amountInBox &&
+    tmpSupplier.boxProperties?.boxLengthCm &&
+    tmpSupplier.boxProperties?.boxWidthCm &&
+    tmpSupplier.boxProperties?.boxHeightCm &&
+    tmpSupplier.boxProperties?.boxWeighGrossKg
 
-    return (
-      <Container disableGutters className={classNames.modalContainer}>
-        {onlyRead ? (
-          <Typography className={classNames.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</Typography>
-        ) : (
-          <Typography className={classNames.modalTitle}>{title}</Typography>
-        )}
-        <Divider className={classNames.titleDivider} />
+  const boxPropertiesIsFullAndMainsValues =
+    boxPropertiesIsFull && tmpSupplier.amount && tmpSupplier.minlot && tmpSupplier.priceInYuan && tmpSupplier.price
 
-        <div>
-          <Typography className={classNames.modalTitle}>{t(TranslationKey['Basic information'])}</Typography>
+  const itHaveBigInt =
+    +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan >= 1000000 ||
+    tmpSupplier.batchDeliveryCostInYuan >= 1000000 ||
+    tmpSupplier.priceInYuan >= 1000000 ||
+    +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >= 1000000
 
-          <div className={classNames.nameBlock}>
-            <Field
-              disabled={onlyRead}
-              tooltipInfoContent={t(TranslationKey['Enter the name of the supplier'])}
-              inputProps={{ maxLength: 100 }}
-              label={t(TranslationKey.Title) + '*'}
-              containerClasses={classNames.nameContainer}
-              labelClasses={classNames.normalLabel}
-              value={tmpSupplier.name}
-              onChange={onChangeField('name')}
-            />
+  const isNeedUnitInfo =
+    (tmpSupplier?.heightUnit || tmpSupplier?.widthUnit || tmpSupplier?.lengthUnit || tmpSupplier?.weighUnit) &&
+    (!tmpSupplier?.heightUnit ||
+      !tmpSupplier?.widthUnit ||
+      !tmpSupplier?.weighUnit ||
+      !tmpSupplier?.lengthUnit ||
+      editPhotosOfUnit?.length < 4)
 
-            <Field
-              disabled={onlyRead}
-              tooltipInfoContent={t(TranslationKey['Enter the amount of goods to be purchased'])}
-              label={t(TranslationKey['Purchase quantity for the current price']) + '*'}
-              inputProps={{ maxLength: 10 }}
-              containerClasses={classNames.middleContainer}
-              labelClasses={classNames.normalLabel}
-              value={tmpSupplier.amount}
-              error={parseInt(tmpSupplier.amount) === 0 && t(TranslationKey["can't be zero"])}
-              onChange={onChangeField('amount')}
-            />
-            <Field
-              disabled={onlyRead}
-              tooltipInfoContent={t(TranslationKey['Minimum quantity of goods needed to order'])}
-              label={t(TranslationKey['Minimum batch']) + '*'}
-              inputProps={{ maxLength: 10 }}
-              containerClasses={classNames.middleContainer}
-              labelClasses={classNames.normalLabel}
-              value={tmpSupplier.minlot}
-              error={parseInt(tmpSupplier.minlot) === 0 && t(TranslationKey["can't be zero"])}
-              onChange={onChangeField('minlot')}
-            />
-          </div>
+  const diasabledSubmit =
+    itHaveBigInt ||
+    '' === !tmpSupplier.name ||
+    '' === tmpSupplier.price ||
+    '' === tmpSupplier.link ||
+    '' === tmpSupplier.amount ||
+    '' === tmpSupplier.minlot ||
+    '' === tmpSupplier.priceInYuan ||
+    '' === tmpSupplier.batchDeliveryCostInDollar ||
+    '' === tmpSupplier.batchDeliveryCostInYuan ||
+    '' === tmpSupplier?.yuanRate ||
+    '0' === tmpSupplier?.yuanRate ||
+    0 === parseFloat(tmpSupplier.price) ||
+    0 === parseInt(tmpSupplier.amount) ||
+    0 === parseInt(tmpSupplier.minlot) ||
+    requestStatus === loadingStatus.IS_LOADING ||
+    ((tmpSupplier.boxProperties?.amountInBox ||
+      tmpSupplier.boxProperties?.boxLengthCm ||
+      tmpSupplier.boxProperties?.boxWidthCm ||
+      tmpSupplier.boxProperties?.boxHeightCm ||
+      tmpSupplier.boxProperties?.boxWeighGrossKg) &&
+      !boxPropertiesIsFullAndMainsValues) ||
+    isNeedUnitInfo
 
-          <div className={classNames.nameBlock}>
-            {onlyRead ? (
-              <Field
-                tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
-                label={t(TranslationKey.Link) + '*'}
-                inputProps={{ maxLength: 2000 }}
-                containerClasses={classNames.linkContainerOnlyRead}
-                labelClasses={classNames.normalLabel}
-                inputComponent={
-                  <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>
-                    <Typography disabled className={classNames.link}>
-                      {tmpSupplier.link}
-                    </Typography>
-                  </Link>
-                }
-              />
-            ) : (
-              <Field
-                tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
-                label={t(TranslationKey.Link) + '*'}
-                inputProps={{ maxLength: 2000 }}
-                containerClasses={classNames.linkContainer}
-                labelClasses={classNames.normalLabel}
-                value={tmpSupplier.link}
-                onChange={onChangeField('link')}
-              />
-            )}
+  return (
+    <div className={styles.modalContainer}>
+      {onlyRead ? (
+        <Typography className={styles.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</Typography>
+      ) : (
+        <Typography className={styles.modalTitle}>{title}</Typography>
+      )}
+      <Divider className={styles.titleDivider} />
 
-            <Field
-              disabled={onlyRead}
-              inputProps={{ maxLength: 10 }}
-              label={t(TranslationKey['Production time'])}
-              containerClasses={classNames.middleContainer}
-              labelClasses={classNames.normalLabel}
-              value={tmpSupplier?.productionTerm}
-              onChange={onChangeField('productionTerm')}
-            />
-          </div>
+      <div>
+        <Typography className={styles.modalTitle}>{t(TranslationKey['Basic information'])}</Typography>
+
+        <div className={styles.nameBlock}>
+          <Field
+            disabled={onlyRead}
+            tooltipInfoContent={t(TranslationKey['Enter the name of the supplier'])}
+            inputProps={{ maxLength: 100 }}
+            label={t(TranslationKey.Title) + '*'}
+            containerClasses={styles.nameContainer}
+            labelClasses={styles.normalLabel}
+            value={tmpSupplier.name}
+            onChange={onChangeField('name')}
+          />
+          <Field
+            disabled={onlyRead}
+            tooltipInfoContent={t(TranslationKey['Enter the amount of goods to be purchased'])}
+            label={t(TranslationKey['Purchase quantity for the current price']) + '*'}
+            inputProps={{ maxLength: 10 }}
+            containerClasses={styles.middleContainer}
+            labelClasses={styles.normalLabel}
+            value={tmpSupplier.amount}
+            error={parseInt(tmpSupplier.amount) === 0 && t(TranslationKey["can't be zero"])}
+            onChange={onChangeField('amount')}
+          />
+          <Field
+            disabled={onlyRead}
+            tooltipInfoContent={t(TranslationKey['Minimum quantity of goods needed to order'])}
+            label={t(TranslationKey['Minimum batch']) + '*'}
+            inputProps={{ maxLength: 10 }}
+            containerClasses={styles.middleContainer}
+            labelClasses={styles.normalLabel}
+            value={tmpSupplier.minlot}
+            error={parseInt(tmpSupplier.minlot) === 0 && t(TranslationKey["can't be zero"])}
+            onChange={onChangeField('minlot')}
+          />
         </div>
 
-        <div>
-          <div className={classNames.costBlock}>
-            <Typography className={classNames.modalTitle}>{t(TranslationKey['Total price'])}</Typography>
-
+        <div className={cx(styles.nameBlock, styles.nameBlockFlexStart)}>
+          {onlyRead ? (
             <Field
-              oneLine
-              disabled
-              label={t(TranslationKey['Actual course'])}
-              inputProps={{ maxLength: 8 }}
-              containerClasses={classNames.rateContainer}
-              labelClasses={cx(classNames.rateLabel)}
-              inputClasses={classNames.courseInput}
-              value={sourceYuanToDollarRate}
+              tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
+              label={t(TranslationKey.Link) + '*'}
+              inputProps={{ maxLength: 2000 }}
+              containerClasses={styles.nameContainer}
+              labelClasses={styles.normalLabel}
+              inputComponent={
+                <a
+                  href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className={styles.link}
+                >
+                  {tmpSupplier.link}
+                </a>
+              }
             />
-
+          ) : (
             <Field
-              oneLine
-              error={`${sourceYuanToDollarRate}` !== `${tmpSupplier?.yuanRate}`}
-              disabled={onlyRead}
-              tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
-              label={t(TranslationKey['Current supplier course'])}
-              inputProps={{ maxLength: 8 }}
-              containerClasses={classNames.rateContainer}
-              labelClasses={cx(classNames.rateLabel)}
-              inputClasses={classNames.courseInput}
-              value={tmpSupplier?.yuanRate}
-              onChange={onChangeYuanToDollarRate}
-            />
-          </div>
-
-          <div className={classNames.calculationMainWrapper}>
-            <div>
-              <Typography className={classNames.modalTitle}>{'¥'}</Typography>
-
-              <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
-                <Grid item>
-                  <Field
-                    error={tmpSupplier.priceInYuan >= 1000000 && '> 1000000 !'}
-                    disabled={onlyRead}
-                    tooltipInfoContent={t(TranslationKey['Price per unit'])}
-                    label={t(TranslationKey['price per unit']) + ', ¥*'}
-                    inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
-                    value={toFixed(tmpSupplier.priceInYuan, 2)}
-                    onChange={onChangeField('priceInYuan')}
-                  />
-                </Grid>
-
-                <Grid item>
-                  <Field
-                    disabled
-                    error={
-                      +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan >=
-                        1000000 && '> 1000000 !'
-                    }
-                    tooltipInfoContent={t(
-                      TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
-                    )}
-                    label={t(TranslationKey['Batch price']) + ', ¥*'}
-                    inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
-                    value={toFixed(
-                      +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
-                      2,
-                    )}
-                  />
-                </Grid>
-
-                <Grid item>
-                  <Field
-                    disabled
-                    label={t(TranslationKey['Price with delivery per unit']) + ', ¥*'}
-                    inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
-                    value={
-                      tmpSupplier.amount
-                        ? toFixed(
-                            toFixed(
-                              +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) +
-                                +tmpSupplier.batchDeliveryCostInYuan,
-                              2,
-                            ) / +tmpSupplier.amount,
-                            2,
-                          )
-                        : '-'
-                    }
-                  />
-                </Grid>
-
-                <Grid item>
-                  <Field
-                    disabled={onlyRead}
-                    error={tmpSupplier.batchDeliveryCostInYuan >= 1000000 && '> 1000000 !'}
-                    tooltipInfoContent={t(
-                      TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
-                    )}
-                    label={t(TranslationKey['Batch delivery']) + ', ¥*'}
-                    inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
-                    value={toFixed(tmpSupplier.batchDeliveryCostInYuan, 2)}
-                    onChange={onChangeField('batchDeliveryCostInYuan')}
-                  />
-                </Grid>
-              </Grid>
-            </div>
-
-            <Divider flexItem orientation="vertical" className={classNames.divider} />
-
-            <div>
-              <Typography className={classNames.modalTitle}>{'$'}</Typography>
-
-              <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
-                <Grid item>
-                  <Field
-                    disabled={onlyRead}
-                    tooltipInfoContent={t(TranslationKey['Price per unit'])}
-                    label={t(TranslationKey['price per unit']) + ', $*'}
-                    inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
-                    value={toFixed(tmpSupplier.price, 2)}
-                    onChange={onChangeField('price')}
-                  />
-                </Grid>
-
-                <Grid item>
-                  <Field
-                    disabled
-                    error={
-                      +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >=
-                        1000000 && '> 1000000 !'
-                    }
-                    tooltipInfoContent={t(
-                      TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
-                    )}
-                    label={t(TranslationKey['Batch price']) + ', $*'}
-                    inputProps={{ maxLength: 15 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
-                    value={toFixed(
-                      +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
-                      2,
-                    )}
-                  />
-                </Grid>
-
-                <Grid item>
-                  <Field
-                    disabled
-                    label={t(TranslationKey['Price with delivery per unit']) + ', $*'}
-                    inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
-                    value={
-                      tmpSupplier.amount
-                        ? toFixed(
-                            toFixed(
-                              +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
-                              2,
-                            ) / +tmpSupplier.amount,
-                            2,
-                          )
-                        : '-'
-                    }
-                  />
-                </Grid>
-
-                <Grid item>
-                  <Field
-                    disabled={onlyRead}
-                    tooltipInfoContent={t(
-                      TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
-                    )}
-                    label={t(TranslationKey['Batch delivery']) + ', $*'}
-                    inputProps={{ maxLength: 15 }}
-                    containerClasses={classNames.middleContainer}
-                    labelClasses={classNames.normalLabel}
-                    value={toFixed(tmpSupplier.batchDeliveryCostInDollar, 2)}
-                    onChange={onChangeField('batchDeliveryCostInDollar')}
-                  />
-                </Grid>
-              </Grid>
-            </div>
-          </div>
-
-          {(!onlyRead || !!tmpSupplier.priceVariations.length) && (
-            <SupplierPriceVariationSelector
-              isEditMode={!onlyRead}
-              currentVariations={tmpSupplier.priceVariations}
-              updateVariationList={newVariations => {
-                setTmpSupplier(prevState => ({
-                  ...prevState,
-                  priceVariations: newVariations,
-                }))
-              }}
+              tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
+              label={t(TranslationKey.Link) + '*'}
+              inputProps={{ maxLength: 2000 }}
+              containerClasses={styles.nameContainer}
+              labelClasses={styles.normalLabel}
+              value={tmpSupplier.link}
+              onChange={onChangeField('link')}
             />
           )}
 
-          <div className={classNames.paymentsBlock}>
-            <CustomSelectPaymentDetails
-              currentPaymentMethods={tmpSupplier?.paymentMethods}
-              paymentMethods={paymentMethods}
-              onlyRead={onlyRead}
-              onChangePaymentMethod={onChangePaymentMethod}
-            />
-          </div>
+          <Field
+            disabled={onlyRead}
+            inputProps={{ maxLength: 10 }}
+            label={t(TranslationKey['Min. production time, days'])}
+            containerClasses={styles.middleContainer}
+            labelClasses={styles.normalLabel}
+            value={tmpSupplier?.minProductionTerm}
+            onChange={onChangeField('minProductionTerm')}
+          />
 
-          <div>
-            <Typography className={classNames.modalTitle}>{t(TranslationKey['Box info'])}</Typography>
-
-            <div className={classNames.boxInfoWrapper}>
-              <div className={classNames.sizesWrapper}>
-                <div className={classNames.sizesSubWrapper}>
-                  <Typography className={classNames.standartText}>{t(TranslationKey.Dimensions)}</Typography>
-
-                  <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                    <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                      {'In'}
-                    </ToggleBtn>
-                    <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                      {'Cm'}
-                    </ToggleBtn>
-                  </ToggleBtnGroup>
-                </div>
-
-                <div className={classNames.sizesBottomWrapper}>
-                  <Field
-                    disabled={onlyRead}
-                    label={t(TranslationKey.H)}
-                    inputProps={{ maxLength: 6 }}
-                    containerClasses={classNames.sizeContainer}
-                    labelClasses={cx(classNames.rateLabel)}
-                    inputClasses={classNames.sizeInput}
-                    value={tmpSupplier.boxProperties.boxHeightCm}
-                    onChange={onChangeField('boxHeightCm')}
-                  />
-
-                  <Field
-                    disabled={onlyRead}
-                    label={t(TranslationKey.W)}
-                    inputProps={{ maxLength: 6 }}
-                    containerClasses={classNames.sizeContainer}
-                    labelClasses={cx(classNames.rateLabel)}
-                    inputClasses={classNames.sizeInput}
-                    value={tmpSupplier.boxProperties.boxWidthCm}
-                    onChange={onChangeField('boxWidthCm')}
-                  />
-
-                  <Field
-                    disabled={onlyRead}
-                    label={t(TranslationKey.L)}
-                    inputProps={{ maxLength: 6 }}
-                    containerClasses={classNames.sizeContainer}
-                    labelClasses={cx(classNames.rateLabel)}
-                    inputClasses={classNames.sizeInput}
-                    value={tmpSupplier.boxProperties.boxLengthCm}
-                    onChange={onChangeField('boxLengthCm')}
-                  />
-                </div>
-              </div>
-
-              <div className={classNames.boxInfoSubWrapper}>
-                <div>
-                  <Field
-                    disabled
-                    label={t(TranslationKey['Weight, Lbs'])}
-                    inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.shortContainer}
-                    labelClasses={classNames.normalLabel}
-                    value={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg / poundsWeightCoefficient, 2) || ''}
-                  />
-
-                  <Field
-                    disabled={onlyRead}
-                    label={t(TranslationKey['Weight, kg'])}
-                    inputProps={{ maxLength: 10 }}
-                    containerClasses={classNames.shortContainer}
-                    labelClasses={classNames.normalLabel}
-                    value={tmpSupplier.boxProperties.boxWeighGrossKg}
-                    onChange={onChangeField('boxWeighGrossKg')}
-                  />
-                </div>
-
-                <div>
-                  <div
-                    className={cx(classNames.checkboxWrapper, {
-                      [classNames.disabledCheckboxWrapper]: onlyRead || !boxPropertiesIsFull,
-                    })}
-                    onClick={!onlyRead && boxPropertiesIsFull && onChangeField('multiplicity')}
-                  >
-                    <Checkbox
-                      disabled={onlyRead || !boxPropertiesIsFull}
-                      className={classNames.checkbox}
-                      checked={tmpSupplier.multiplicity}
-                      color="primary"
-                    />
-                    <Typography className={classNames.normalLabel}>
-                      {t(TranslationKey['Use multiples of items when creating boxes'])}
-                    </Typography>
-                  </div>
-
-                  <div className={classNames.boxInfoExtraSubWrapper}>
-                    <Field
-                      disabled={onlyRead}
-                      label={t(TranslationKey['Number of units in box'])}
-                      inputProps={{ maxLength: 10 }}
-                      containerClasses={classNames.shortContainer}
-                      labelClasses={classNames.normalLabel}
-                      value={tmpSupplier.boxProperties.amountInBox}
-                      onChange={onChangeField('amountInBox')}
-                    />
-
-                    <Field
-                      disabled
-                      tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
-                      label={t(TranslationKey['Volume weight, kg'])}
-                      inputProps={{ maxLength: 15 }}
-                      containerClasses={classNames.shortContainer}
-                      labelClasses={classNames.normalLabel}
-                      value={toFixed(
-                        (sizeSetting === sizesType.INCHES
-                          ? tmpSupplier.boxProperties.boxHeightCm *
-                            inchesCoefficient *
-                            tmpSupplier.boxProperties.boxWidthCm *
-                            inchesCoefficient *
-                            tmpSupplier.boxProperties.boxLengthCm *
-                            inchesCoefficient
-                          : tmpSupplier.boxProperties.boxHeightCm *
-                            tmpSupplier.boxProperties.boxWidthCm *
-                            tmpSupplier.boxProperties.boxLengthCm) / volumeWeightCoefficient,
-                        2,
-                      )}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Field
+            disabled={onlyRead}
+            inputProps={{ maxLength: 10 }}
+            label={t(TranslationKey['Max. production time, days'])}
+            containerClasses={styles.middleContainer}
+            labelClasses={styles.normalLabel}
+            value={tmpSupplier?.maxProductionTerm}
+            onChange={onChangeField('maxProductionTerm')}
+          />
         </div>
+      </div>
 
-        {product && storekeepersData.length ? (
-          <div className={classNames.calculationBtnWrapper}>
-            <Button
-              tooltipAttentionContent={
-                !product ||
-                !storekeepersData?.length ||
-                (!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data']))
-              }
-              disabled={!product || !storekeepersData || !boxPropertiesIsFullAndMainsValues}
-              variant="contained"
-              color="primary"
-              onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
-            >
-              {t(TranslationKey['View an oriented calculation'])}
-            </Button>
-          </div>
-        ) : null}
+      <div>
+        <div className={styles.costBlock}>
+          <Typography className={styles.modalTitle}>{t(TranslationKey['Total price'])}</Typography>
 
-        <Field
-          multiline
-          disabled={onlyRead}
-          tooltipInfoContent={t(TranslationKey['The comment indicated for this supplier'])}
-          className={classNames.commentField}
-          labelClasses={classNames.normalLabel}
-          inputProps={{ maxLength: 2000 }}
-          minRows={4}
-          maxRows={6}
-          label={t(TranslationKey.Comment)}
-          value={tmpSupplier.comment}
-          onChange={onChangeField('comment')}
-        />
-
-        {outsideProduct && (
           <Field
             oneLine
-            disabled={onlyRead}
-            tooltipInfoContent={t(TranslationKey['Make the current supplier on which the order will be made'])}
-            label={t(TranslationKey['Make the main supplier'])}
-            containerClasses={classNames.makeMainSupplierСheckboxWrapper}
-            inputComponent={
-              <Checkbox
-                color="primary"
-                checked={makeMainSupplier}
-                onChange={() => setMakeMainSupplier(!makeMainSupplier)}
-              />
-            }
+            disabled
+            label={t(TranslationKey['Actual course'])}
+            inputProps={{ maxLength: 8 }}
+            containerClasses={styles.rateContainer}
+            labelClasses={cx(styles.rateLabel)}
+            inputClasses={styles.courseInput}
+            value={platformSettings?.yuanToDollarRate}
           />
-        )}
 
-        <div className={classNames.bottomWrapper}>
+          <Field
+            oneLine
+            error={`${platformSettings?.yuanToDollarRate}` !== `${tmpSupplier?.yuanRate}`}
+            disabled={onlyRead}
+            tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
+            label={t(TranslationKey['Current supplier course'])}
+            inputProps={{ maxLength: 8 }}
+            containerClasses={styles.rateContainer}
+            labelClasses={styles.rateLabel}
+            inputClasses={styles.courseInput}
+            value={tmpSupplier?.yuanRate}
+            onChange={onChangeYuanToDollarRate}
+          />
+        </div>
+
+        <div className={styles.calculationMainWrapper}>
           <div>
-            {!onlyRead ? (
-              <div className={classNames.imageFileInputWrapper}>
-                <UploadFilesInput
-                  images={photosOfSupplier}
-                  setImages={setPhotosOfSupplier}
-                  maxNumber={supplier?.images ? 50 - supplier?.images?.length : 50}
-                  className={classNames.imageFileInput}
+            <Typography className={styles.modalTitle}>{'¥'}</Typography>
+
+            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
+              <Grid item>
+                <Field
+                  error={tmpSupplier.priceInYuan >= 1000000 && '> 1000000 !'}
+                  disabled={onlyRead}
+                  tooltipInfoContent={t(TranslationKey['Price per unit'])}
+                  label={t(TranslationKey['price per unit']) + ', ¥*'}
+                  inputProps={{ maxLength: 10 }}
+                  containerClasses={styles.middleContainer}
+                  labelClasses={styles.normalLabel}
+                  value={toFixed(tmpSupplier.priceInYuan, 2)}
+                  onChange={onChangeField('priceInYuan')}
                 />
-              </div>
-            ) : null}
-            <div className={classNames.photoAndFilesWrapper}>
-              <PhotoAndFilesCarousel
-                small
-                withoutMakeMainImage
-                isEditable={!onlyRead}
-                files={tmpSupplier.images}
-                width="300px"
-                imagesForLoad={editPhotosOfSupplier}
-                onChangeImagesForLoad={onChangeDetailsPhotosToLoad}
-              />
-            </div>
+              </Grid>
+
+              <Grid item>
+                <Field
+                  disabled
+                  error={
+                    +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan >=
+                      1000000 && '> 1000000 !'
+                  }
+                  tooltipInfoContent={t(
+                    TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
+                  )}
+                  label={t(TranslationKey['Batch price']) + ', ¥*'}
+                  inputProps={{ maxLength: 10 }}
+                  containerClasses={styles.middleContainer}
+                  labelClasses={styles.normalLabel}
+                  value={toFixed(
+                    +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
+                    2,
+                  )}
+                />
+              </Grid>
+
+              <Grid item>
+                <Field
+                  disabled
+                  label={t(TranslationKey['Price with delivery per unit']) + ', ¥*'}
+                  inputProps={{ maxLength: 10 }}
+                  containerClasses={styles.middleContainer}
+                  labelClasses={styles.normalLabel}
+                  value={
+                    tmpSupplier.amount
+                      ? toFixed(
+                          toFixed(
+                            +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) +
+                              +tmpSupplier.batchDeliveryCostInYuan,
+                            2,
+                          ) / +tmpSupplier.amount,
+                          2,
+                        )
+                      : '-'
+                  }
+                />
+              </Grid>
+
+              <Grid item>
+                <Field
+                  disabled={onlyRead}
+                  error={tmpSupplier.batchDeliveryCostInYuan >= 1000000 && '> 1000000 !'}
+                  tooltipInfoContent={t(
+                    TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
+                  )}
+                  label={t(TranslationKey['Batch delivery']) + ', ¥*'}
+                  inputProps={{ maxLength: 10 }}
+                  containerClasses={styles.middleContainer}
+                  labelClasses={styles.normalLabel}
+                  value={toFixed(tmpSupplier.batchDeliveryCostInYuan, 2)}
+                  onChange={onChangeField('batchDeliveryCostInYuan')}
+                />
+              </Grid>
+            </Grid>
+          </div>
+
+          <Divider flexItem orientation="vertical" className={styles.divider} />
+
+          <div>
+            <Typography className={styles.modalTitle}>{'$'}</Typography>
+
+            <Grid container spacing={1} direction="row" justifyContent="flex-end" alignItems="flex-start">
+              <Grid item>
+                <Field
+                  disabled={onlyRead}
+                  tooltipInfoContent={t(TranslationKey['Price per unit'])}
+                  label={t(TranslationKey['price per unit']) + ', $*'}
+                  inputProps={{ maxLength: 10 }}
+                  containerClasses={styles.middleContainer}
+                  labelClasses={styles.normalLabel}
+                  value={toFixed(tmpSupplier.price, 2)}
+                  onChange={onChangeField('price')}
+                />
+              </Grid>
+
+              <Grid item>
+                <Field
+                  disabled
+                  error={
+                    +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >=
+                      1000000 && '> 1000000 !'
+                  }
+                  tooltipInfoContent={t(
+                    TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
+                  )}
+                  label={t(TranslationKey['Batch price']) + ', $*'}
+                  inputProps={{ maxLength: 15 }}
+                  containerClasses={styles.middleContainer}
+                  labelClasses={styles.normalLabel}
+                  value={toFixed(
+                    +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
+                    2,
+                  )}
+                />
+              </Grid>
+
+              <Grid item>
+                <Field
+                  disabled
+                  label={t(TranslationKey['Price with delivery per unit']) + ', $*'}
+                  inputProps={{ maxLength: 10 }}
+                  containerClasses={styles.middleContainer}
+                  labelClasses={styles.normalLabel}
+                  value={
+                    tmpSupplier.amount
+                      ? toFixed(
+                          toFixed(
+                            +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
+                            2,
+                          ) / +tmpSupplier.amount,
+                          2,
+                        )
+                      : '-'
+                  }
+                />
+              </Grid>
+
+              <Grid item>
+                <Field
+                  disabled={onlyRead}
+                  tooltipInfoContent={t(
+                    TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
+                  )}
+                  label={t(TranslationKey['Batch delivery']) + ', $*'}
+                  inputProps={{ maxLength: 15 }}
+                  containerClasses={styles.middleContainer}
+                  labelClasses={styles.normalLabel}
+                  value={toFixed(tmpSupplier.batchDeliveryCostInDollar, 2)}
+                  onChange={onChangeField('batchDeliveryCostInDollar')}
+                />
+              </Grid>
+            </Grid>
           </div>
         </div>
 
-        <Divider className={classNames.fieldsDivider} />
-
-        {renderFooterModalButtons()}
-
-        {showProgress && (
-          <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
+        {(!onlyRead || !!tmpSupplier.priceVariations?.length) && (
+          <SupplierPriceVariationSelector
+            isEditMode={!onlyRead}
+            currentVariations={tmpSupplier.priceVariations}
+            updateVariationList={newVariations => {
+              setTmpSupplier(prevState => ({
+                ...prevState,
+                priceVariations: newVariations,
+              }))
+            }}
+          />
         )}
 
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={tmpSupplier.images}
-        />
-
-        <Modal
-          openModal={showSupplierApproximateCalculationsModal}
-          setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
-        >
-          <SupplierApproximateCalculationsForm
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            product={product}
-            supplier={tmpSupplier}
-            storekeepers={storekeepersData}
-            onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+        <div className={styles.paymentsBlock}>
+          <CustomSelectPaymentDetails
+            orderPayments={tmpSupplier?.paymentMethods}
+            allPayments={paymentMethods}
+            onlyRead={onlyRead}
+            onChangePaymentMethod={onChangePaymentMethod}
           />
-        </Modal>
-      </Container>
-    )
-  },
-)
+        </div>
+
+        <div className={styles.boxInfoMainWrapper}>
+          <Typography className={styles.modalTitle}>{t(TranslationKey['Box info'])}</Typography>
+
+          <div className={styles.boxInfoWrapper}>
+            <Dimensions
+              title={t(TranslationKey.Dimensions)}
+              onlyRead={onlyRead}
+              sizeMode={sizeSetting}
+              height={tmpSupplier.boxProperties.boxHeightCm}
+              width={tmpSupplier.boxProperties.boxWidthCm}
+              length={tmpSupplier.boxProperties.boxLengthCm}
+              grossWeigh={tmpSupplier.boxProperties.boxWeighGrossKg}
+              optionalWeight={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg / poundsWeightCoefficient || '', 2)}
+              optionalWeightTitle={`${t(TranslationKey.Weight)}, ${t(TranslationKey.lb)}`}
+              onChangeSizeMode={handleChange(false)}
+              onChangeHeight={onChangeField('boxHeightCm')}
+              onChangeWidth={onChangeField('boxWidthCm')}
+              onChangeLength={onChangeField('boxLengthCm')}
+              onChangeWeighGross={onChangeField('boxWeighGrossKg')}
+            />
+
+            <div className={styles.boxInfoSubWrapper}>
+              <div
+                className={cx(styles.checkboxWrapper, {
+                  [styles.disabledCheckboxWrapper]: onlyRead || !boxPropertiesIsFull,
+                })}
+              >
+                <Checkbox
+                  disabled={onlyRead || !boxPropertiesIsFull}
+                  className={styles.checkbox}
+                  checked={tmpSupplier.multiplicity}
+                  color="primary"
+                  onChange={onChangeField('multiplicity')}
+                >
+                  <p>{t(TranslationKey['Use multiples of items when creating boxes'])}</p>
+                </Checkbox>
+              </div>
+
+              <div className={styles.boxInfoExtraSubWrapper}>
+                <Field
+                  disabled={onlyRead}
+                  label={t(TranslationKey['Number of units in box'])}
+                  inputProps={{ maxLength: 10 }}
+                  containerClasses={styles.shortContainer}
+                  labelClasses={styles.normalLabel}
+                  value={tmpSupplier.boxProperties.amountInBox}
+                  onChange={onChangeField('amountInBox')}
+                />
+
+                <Field
+                  disabled
+                  tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
+                  label={t(TranslationKey['Volume weight, kg'])}
+                  inputProps={{ maxLength: 15 }}
+                  containerClasses={styles.shortContainer}
+                  labelClasses={styles.normalLabel}
+                  value={toFixed(
+                    (sizeSetting === unitsOfChangeOptions.US
+                      ? tmpSupplier.boxProperties.boxHeightCm *
+                        inchesCoefficient *
+                        tmpSupplier.boxProperties.boxWidthCm *
+                        inchesCoefficient *
+                        tmpSupplier.boxProperties.boxLengthCm *
+                        inchesCoefficient
+                      : tmpSupplier.boxProperties.boxHeightCm *
+                        tmpSupplier.boxProperties.boxWidthCm *
+                        tmpSupplier.boxProperties.boxLengthCm) / platformSettings?.volumeWeightCoefficient,
+                    2,
+                  )}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.unitDimensionsWrapper}>
+            <Dimensions
+              weighUnit
+              title={t(TranslationKey['Package dimensions'])}
+              onlyRead={onlyRead}
+              sizeMode={unitSetting}
+              height={tmpSupplier.heightUnit}
+              width={tmpSupplier.widthUnit}
+              length={tmpSupplier.lengthUnit}
+              grossWeigh={tmpSupplier.weighUnit}
+              optionalWeight={unitVolumeWeight}
+              optionalWeightTitle={t(TranslationKey['Volume weight'])}
+              onChangeSizeMode={handleChange(true)}
+              onChangeHeight={onChangeField('heightUnit')}
+              onChangeWidth={onChangeField('widthUnit')}
+              onChangeLength={onChangeField('lengthUnit')}
+              onChangeWeighGross={onChangeField('weighUnit')}
+            />
+
+            <div className={styles.unitDimensionsSubWrapper}>
+              {onlyRead ? (
+                <SlideshowGallery
+                  slidesToShow={3}
+                  files={editPhotosOfUnit}
+                  onChangeImagesForLoad={setEditPhotosOfUnit}
+                />
+              ) : (
+                <div style={{ width: '100%' }}>
+                  <p className={styles.normalLabel}>{t(TranslationKey['Attach files (dimensions)'])}</p>
+                  {isNeedUnitInfo ? (
+                    <p className={cx(styles.normalLabel, styles.needAddPhotos)}>
+                      {t(TranslationKey['Add at least 4 photos'])}
+                    </p>
+                  ) : null}
+                  <UploadFilesInput
+                    withoutLinks
+                    withoutTitles
+                    images={editPhotosOfUnit}
+                    setImages={setEditPhotosOfUnit}
+                    dragAndDropButtonHeight={34}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {product && storekeepersData?.length ? (
+        <div className={styles.calculationBtnWrapper}>
+          <Button
+            tooltipAttentionContent={
+              !product ||
+              !storekeepersData?.length ||
+              (!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data']))
+            }
+            disabled={!product || !storekeepersData || !boxPropertiesIsFullAndMainsValues}
+            onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+          >
+            {t(TranslationKey['View an oriented calculation'])}
+          </Button>
+        </div>
+      ) : null}
+
+      <Field
+        multiline
+        disabled={onlyRead}
+        tooltipInfoContent={t(TranslationKey['The comment indicated for this supplier'])}
+        className={styles.commentField}
+        labelClasses={styles.normalLabel}
+        inputProps={{ maxLength: 2000 }}
+        minRows={4}
+        maxRows={6}
+        label={t(TranslationKey.Comment)}
+        value={tmpSupplier.comment}
+        onChange={onChangeField('comment')}
+      />
+
+      {outsideProduct && (
+        <Field
+          oneLine
+          disabled={onlyRead}
+          tooltipInfoContent={t(TranslationKey['Make the current supplier on which the order will be made'])}
+          label={t(TranslationKey['Make the main supplier'])}
+          containerClasses={styles.makeMainSupplierСheckboxWrapper}
+          inputComponent={
+            <Checkbox
+              color="primary"
+              checked={makeMainSupplier}
+              onChange={() => setMakeMainSupplier(!makeMainSupplier)}
+            />
+          }
+        />
+      )}
+
+      <div className={styles.bottomWrapper}>
+        {onlyRead ? (
+          <SlideshowGallery files={editPhotosOfSupplier} onChangeImagesForLoad={setEditPhotosOfSupplier} />
+        ) : (
+          <div className={styles.imageFileInputWrapper}>
+            <UploadFilesInput images={editPhotosOfSupplier} setImages={setEditPhotosOfSupplier} />
+          </div>
+        )}
+      </div>
+
+      <Divider className={styles.fieldsDivider} />
+
+      {renderFooterModalButtons()}
+
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
+
+      {showSupplierApproximateCalculationsModal ? (
+        <SupplierApproximateCalculationsModal
+          openModal={showSupplierApproximateCalculationsModal}
+          productId={isIdea ? '' : product?._id}
+          ideaId={isIdea ? product?._id : ''}
+          currentSupplierId={tmpSupplier?._id || ''}
+          setOpenModal={setShowSupplierApproximateCalculationsModal}
+        />
+      ) : null}
+    </div>
+  )
+})

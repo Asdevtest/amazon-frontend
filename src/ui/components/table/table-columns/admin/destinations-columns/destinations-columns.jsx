@@ -1,22 +1,38 @@
-import React from 'react'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
+  ActionButtonsCell,
   MultilineTextCell,
-  EditOrRemoveIconBtnsCell,
-} from '@components/data-grid/data-grid-cells/data-grid-cells'
+  MultilineTextHeaderCell,
+  UserLinkCell,
+} from '@components/data-grid/data-grid-cells'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 export const destinationsColumns = handlers => [
+  {
+    field: 'storekeeper',
+    headerName: t(TranslationKey.Account),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Account)} />,
+
+    width: 150,
+    renderCell: params => (
+      <UserLinkCell
+        name={params?.row?.originalData?.storekeeper?.name}
+        userId={params?.row?.originalData?.storekeeper?._id}
+      />
+    ),
+  },
+
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    width: 195,
+    width: 240,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -25,7 +41,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Country),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Country)} />,
 
-    width: 140,
+    width: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -43,7 +59,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.City),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.City)} />,
 
-    width: 190,
+    width: 140,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -52,7 +68,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.State),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.State)} />,
 
-    width: 170,
+    width: 150,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -70,9 +86,23 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 150,
-    renderCell: params => <EditOrRemoveIconBtnsCell handlers={handlers} row={params.row} />,
+    width: 130,
+    renderCell: params => (
+      <ActionButtonsCell
+        isFirstButton
+        isSecondButton
+        iconButton
+        row
+        firstButtonElement={<EditIcon />}
+        firstButtonStyle={ButtonStyle.PRIMARY}
+        secondButtonElement={<CrossIcon />}
+        secondButtonStyle={ButtonStyle.DANGER}
+        onClickFirstButton={() => handlers.onClickEditBtn(params.row.originalData)}
+        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row.originalData)}
+      />
+    ),
     filterable: false,
     sortable: false,
+    align: 'center',
   },
 ]

@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   sectionWrapper: {
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 326px)',
@@ -11,7 +11,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     marginTop: '35px',
-    padding: '0 86px',
+    padding: '0 70px',
   },
   cardListTitle: {
     fontSize: '18px',

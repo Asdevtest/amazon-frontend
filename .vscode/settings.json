@@ -10,5 +10,7 @@
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
   "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
-  "cSpell.words": ["linkify"]
+  "cSpell.words": ["linkify"],
+  "editor.formatOnSave": true,
+  "eslint.format.enable": true
 }

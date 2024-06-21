@@ -30,9 +30,10 @@ export type WebsocketChatServiceHandlersAllValues = {
 
 export interface SendMessageRequestParams {
   chatId: string
-  text: string
-  files: string[]
+  text?: string
+  files?: string[]
   images?: string[]
+  video?: string[]
 
   is_draft?: boolean
   replyMessageId?: string | null
@@ -52,6 +53,10 @@ export interface patchInfoGroupChatParams {
   chatId: string
   title: string
   image: string
+}
+
+export interface NewInfoGroupChatParams {
+  updatedData: patchInfoGroupChatParams
 }
 
 export interface TypingMessageRequestParams {
@@ -77,10 +82,22 @@ export interface ChatMessage<T extends ChatMessageDataUniversal = ChatMessageDat
   type: ChatMessageType
   images: string[]
   files: string[]
+  video: string[]
   is_draft?: boolean
   createdAt: string
   updatedAt: string
+  info: {
+    image: string
+    title: string
+    type: ChatInfoType
+  }
   data: T
+  replyMessage: ChatMessage
+}
+
+export interface FindChatMessageRequestParams {
+  text: string
+  chatId: string
 }
 
 export enum ChatMessageType {
@@ -92,8 +109,15 @@ export enum ChatMessageType {
   'CREATED_NEW_DESIGNER_PROPOSAL' = 'CREATED_NEW_DESIGNER_PROPOSAL',
   'BLOGGER_PROPOSAL_RESULT_EDITED' = 'BLOGGER_PROPOSAL_RESULT_EDITED',
   'DESIGNER_PROPOSAL_RESULT_EDITED' = 'DESIGNER_PROPOSAL_RESULT_EDITED',
+  'PROPOSAL_EDITED' = 'PROPOSAL_EDITED',
   'SYSTEM' = 'system:default',
   'USER' = 'user:default',
+}
+
+export type ChatInfoType = 'GROUP'
+
+export enum EChatInfoType {
+  'GROUP' = 'GROUP',
 }
 
 export enum ChatMessageTextType {
@@ -139,13 +163,18 @@ export interface ChatMessageDataCreatedNewProposalRequestDescription {
 export interface ChatMessageDataAddUsersToGroupChat {
   createdBy: string
   title: string
-  users: { _id: string; name: string }[]
+  users: ChatMessageUsers[]
 }
 
 export interface ChatMessageRemoveUsersFromGroupChat {
   createdBy: string
   title: string
-  users: { _id: string; name: string }[]
+  users: ChatMessageUsers[]
+}
+
+export interface ChatMessageUsers {
+  _id: string
+  name: string
 }
 
 export interface ChatMessagePatchInfoGroupChat {
@@ -252,6 +281,14 @@ export interface ChatMessageDataProposalResultEditedProposal {
   status: keyof typeof RequestProposalStatus
 }
 
+export interface ChatMessageDataProposalEditedContract {
+  comment: string
+  execution_time: number
+  linksToMediaFiles: string[]
+  price: number
+  title: string
+}
+
 export interface ChatMessageDataProposalResultEdited {
   needApproveBy: Array<string>
   edited: ChatMessageDataProposalResultEditedEdited
@@ -298,6 +335,7 @@ export interface Chat {
   }
   users: ChatUser[]
   messages: ChatMessage[]
+  pagination: { limit: number; offset: number }
 }
 
 export interface WebsocketChatResponse<T> {

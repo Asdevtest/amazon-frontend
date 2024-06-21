@@ -1,87 +1,60 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { routsPathes } from '@constants/navigation/routs-pathes'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { OrderStatus, OrderStatusByKey } from '@constants/statuses/order-status'
+import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
-import { BoxesModel } from '@models/boxes-model'
 import { BuyerModel } from '@models/buyer-model'
 import { OrderModel } from '@models/order-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { SupplierModel } from '@models/supplier-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { buyerMyOrdersViewColumns } from '@components/table/table-columns/buyer/buyer-my-orders-columns'
 
 import { calcOrderTotalPrice, calcOrderTotalPriceInYuann } from '@utils/calculation'
 import { buyerMyOrdersDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-const updateOrderKeys = ['amount', 'orderSupplierId', 'images', 'totalPrice', 'item', 'buyerComment', 'priceInYuan']
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { updateOrderKeys } from './buyer-pending-orders-view.constants'
 
 export class BuyerMyOrdersViewModel {
   history = undefined
   requestStatus = undefined
-  error = undefined
 
   ordersMy = []
   baseNoConvertedOrders = []
 
-  // НЕ было до создания фильтрации по статусам (3 строки)
   orderStatusDataBase = [OrderStatus.PENDING, OrderStatus.READY_FOR_BUYOUT]
   chosenStatus = []
   filteredStatus = []
 
-  currentData = []
-
-  curBoxesOfOrder = []
+  get currentData() {
+    return this.ordersMy
+  }
 
   createBoxesResult = []
 
-  volumeWeightCoefficient = undefined
-  platformSettings = undefined
-
-  yuanToDollarRate = undefined
-
   nameSearchValue = ''
 
-  hsCodeData = {}
-
-  showEditHSCodeModal = false
-
-  showBarcodeModal = false
   showOrderModal = false
   selectedOrder = undefined
   barcode = ''
-  showNoDimensionsErrorModal = false
-  showWarningNewBoxesModal = false
-  showSuccessModal = false
-  showOrderPriceMismatchModal = false
   showConfirmModal = false
-  showWarningInfoModal = false
 
   paymentMethods = []
-
-  imagesForLoad = []
-
-  showSuccessModalText = ''
+  hsCodeData = undefined
 
   dataToCancelOrder = { orderId: undefined, buyerComment: undefined }
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   rowCount = 0
   sortModel = []
@@ -101,7 +74,6 @@ export class BuyerMyOrdersViewModel {
     return UserModel.userInfo
   }
 
-  // НЕ было до создания фильтрации по статусам
   get orderStatusData() {
     return {
       orderStatusDataBase: this.orderStatusDataBase,
@@ -110,32 +82,26 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  constructor({ history, location }) {
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
+  constructor({ history }) {
     this.history = history
 
-    if (location.state?.orderId) {
-      this.onClickOrder(location.state.orderId)
+    if (history.location.state?.orderId) {
+      this.onClickOrder(history.location.state.orderId)
 
       const state = { ...history.location.state }
       delete state.orderId
       history.replace({ ...history.location, state })
     }
 
-    if (location?.state?.dataGridFilter) {
-      this.startFilterModel = location.state.dataGridFilter
+    if (history.location?.state?.dataGridFilter) {
+      this.startFilterModel = history.location.state.dataGridFilter
     }
-    // else {
-    //       this.startFilterModel = resetDataGridFilter
-    //     }
 
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.ordersMy,
-      () => {
-        this.currentData = this.getCurrentData()
-      },
-    )
   }
 
   setDataGridTablesKeys = pathname => {
@@ -171,42 +137,37 @@ export class BuyerMyOrdersViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
+    TableSettingsModel.saveTableSettings(requestState, this.setDataGridTablesKeys(this.history.location.pathname))
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[this.setDataGridTablesKeys(this.history.location.pathname)]
+    const state = TableSettingsModel.getTableSettings(this.setDataGridTablesKeys(this.history.location.pathname))
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(
-          this.startFilterModel
-            ? {
-                ...this.startFilterModel,
-                items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
-              }
-            : state.filterModel,
-        )
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(
+        this.startFilterModel
+          ? {
+              ...this.startFilterModel,
+              items: this.startFilterModel.items.map(el => ({ ...el, value: el.value.map(e => t(e)) })),
+            }
+          : state.filterModel,
+      )
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+  onPaginationModelChange(model) {
+    this.paginationModel = model
 
     this.setDataGridState()
     this.getOrdersMy()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
     this.getOrdersMy()
   }
@@ -217,6 +178,7 @@ export class BuyerMyOrdersViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
+
     this.setDataGridState()
     this.getOrdersMy()
   }
@@ -225,121 +187,47 @@ export class BuyerMyOrdersViewModel {
     this.rowSelectionModel = model
   }
 
-  getCurrentData() {
-    return toJS(this.ordersMy)
-  }
-
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       this.getDataGridState()
       await this.getOrdersMy()
       this.getSuppliersPaymentMethods()
-      this.setRequestStatus(loadingStatuses.success)
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
-  }
-
-  async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
-  async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
   }
 
   async onSaveOrderItem(orderId, orderItem) {
     try {
       await BuyerModel.changeOrderItem(orderId, orderItem)
 
-      this.showSuccessModalText = t(TranslationKey['Data saved successfully'])
-
-      this.onTriggerOpenModal('showSuccessModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async getBoxesOfOrder(orderId) {
-    try {
-      const result = await BoxesModel.getBoxesOfOrder(orderId)
-      runInAction(() => {
-        this.curBoxesOfOrder = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')).reverse()
-      })
-    } catch (error) {
-      console.log(error)
-      this.curBoxesOfOrder = []
+      console.error(error)
     }
   }
 
   async onClickOrder(orderId) {
     try {
       const orderData = await BuyerModel.getOrderById(orderId)
-      const hsCode = await ProductModel.getProductsHsCodeByGuid(orderData.product._id)
 
       runInAction(() => {
-        this.hsCodeData = hsCode
         this.selectedOrder = orderData
-
-        this.clearImagesForLoad()
-
-        this.updateImagesForLoad(orderData.images)
       })
-      this.getBoxesOfOrder(orderId)
 
-      const result = await UserModel.getPlatformSettings()
-
-      this.yuanToDollarRate = result.yuanToDollarRate
-
-      this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      this.platformSettings = result
+      await this.onClickHsCode(orderData.product._id)
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
-  }
-
-  updateImagesForLoad(images) {
-    if (!Array.isArray(images)) {
-      return
-    }
-
-    const filteredImages = images.filter(el => !this.imagesForLoad.some(item => item.includes(el)))
-
-    runInAction(() => {
-      this.imagesForLoad = [...this.imagesForLoad, ...filteredImages.map(el => getAmazonImageUrl(el, true))]
-    })
-  }
-
-  onChangeImagesForLoad(value) {
-    runInAction(() => {
-      this.imagesForLoad = value
-    })
   }
 
   async onSubmitCancelOrder() {
@@ -352,54 +240,25 @@ export class BuyerMyOrdersViewModel {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onSubmitSaveOrder({ order, orderFields, photosToLoad, hsCode }) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      // this.readyImages = []
-      // if (photosToLoad.length) {
-      //   await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
-      // }
-
-      // const orderFieldsToSave = {
-      //   ...orderFields,
-      //   images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
-      // }
-
-      this.clearReadyImages()
-
-      if (photosToLoad.length) {
-        await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
-      }
+      await onSubmitPostImages.call(this, { images: photosToLoad, type: 'readyImages' })
 
       const orderFieldsToSave = {
         ...orderFields,
         images: this.readyImages,
       }
 
-      this.clearReadyImages()
-
-      if (this.imagesForLoad.length) {
-        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'readyImages' })
-
-        this.clearImagesForLoad()
-      }
-
-      const orderFieldsToSaveWithImagesForLoad = {
-        ...orderFieldsToSave,
-        images: [...orderFieldsToSave.images, ...this.readyImages],
-      }
-
-      this.clearReadyImages()
-
       if (order.status === OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]) {
         await OrderModel.changeOrderComments(order._id, { buyerComment: orderFields.buyerComment })
       } else {
-        await this.onSaveOrder(order, orderFieldsToSaveWithImagesForLoad)
+        await this.onSaveOrder(order, orderFieldsToSave)
 
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT]}`) {
           await OrderModel.orderReadyForBoyout(order._id)
@@ -418,44 +277,14 @@ export class BuyerMyOrdersViewModel {
         ])
       }
 
-      this.setRequestStatus(loadingStatuses.success)
       this.onTriggerOpenModal('showOrderModal')
 
       this.loadData()
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-    }
-  }
-
-  async onSubmitChangeBoxFields(data, inModal) {
-    try {
-      this.uploadedFiles = []
-
-      if (data.tmpTrackNumberFile?.length) {
-        await onSubmitPostImages.call(this, { images: data.tmpTrackNumberFile, type: 'uploadedFiles' })
-      }
-
-      await BoxesModel.editAdditionalInfo(data._id, {
-        trackNumberText: data.trackNumberText,
-        trackNumberFile: this.uploadedFiles[0] ? this.uploadedFiles[0] : data.trackNumberFile,
-      })
-
-      // const dataToSubmitHsCode = data.items.map(el => ({productId: el.product._id, hsCode: el.product.hsCode}))
-      // await ProductModel.editProductsHsCods(dataToSubmitHsCode)
-
-      this.getBoxesOfOrder(this.selectedOrder._id)
-
-      !inModal && this.onTriggerOpenModal('showBoxViewModal')
-
-      this.warningInfoModalSettings = {
-        isWarning: false,
-        title: t(TranslationKey['Data saved successfully']),
-      }
-
-      this.onTriggerOpenModal('showWarningInfoModal')
-    } catch (error) {
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -474,67 +303,72 @@ export class BuyerMyOrdersViewModel {
 
       await OrderModel.changeOrderData(order._id, updateOrderDataFiltered)
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      console.error(error)
     }
   }
 
   async getSuppliersPaymentMethods() {
-    this.paymentMethods = await SupplierModel.getSuppliersPaymentMethods()
+    try {
+      const response = await SupplierModel.getSuppliersPaymentMethods()
+
+      runInAction(() => {
+        this.paymentMethods = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  async onClickSaveSupplierBtn({ supplier, photosOfSupplier, productId, editPhotosOfSupplier }) {
+  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.clearReadyImages()
-
-      if (editPhotosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      }
-
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
         paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
+        heightUnit: supplier?.heightUnit || null,
+        widthUnit: supplier?.widthUnit || null,
+        lengthUnit: supplier?.lengthUnit || null,
+        weighUnit: supplier?.weighUnit || null,
+      }
+
+      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
+      supplier = {
+        ...supplier,
         images: this.readyImages,
       }
 
-      this.clearReadyImages()
-
-      if (photosOfSupplier.length) {
-        await onSubmitPostImages.call(this, { images: photosOfSupplier, type: 'readyImages' })
-        supplier = {
-          ...supplier,
-          images: [...supplier.images, ...this.readyImages],
-        }
+      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
+      supplier = {
+        ...supplier,
+        imageUnit: this.readyImages,
       }
 
       if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(supplier, patchSuppliers)
+        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
+          supplier,
+          patchSuppliers,
+          undefined,
+          undefined,
+          true,
+        )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
       } else {
         const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
         const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-        await ProductModel.addSuppliersToProduct(productId, [createSupplierResult.guid])
+
+        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
       }
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder._id)
-      this.selectedOrder = orderData
 
-      // await BuyerModel.updateProduct(
-      //           productId,
-      //           getObjectFilteredByKeyArrayWhiteList(
-      //             this.product, ['currentSupplierId']
-      //           ),
-      //         )
+      runInAction(() => {
+        this.selectedOrder = orderData
+      })
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      console.error(error)
     }
   }
 
@@ -544,25 +378,21 @@ export class BuyerMyOrdersViewModel {
     this.getOrdersMy()
   }
 
-  // Убирает и добавляет статусы в массив выбранных статусов
   onClickOrderStatusData(status) {
-    runInAction(() => {
-      if (status) {
-        if (status === 'ALL') {
-          this.chosenStatus = []
+    if (status) {
+      if (status === 'ALL') {
+        this.chosenStatus = []
+      } else {
+        if (this.chosenStatus.some(item => item === status)) {
+          this.chosenStatus = this.chosenStatus.filter(item => item !== status)
         } else {
-          if (this.chosenStatus.some(item => item === status)) {
-            this.chosenStatus = this.chosenStatus.filter(item => item !== status)
-          } else {
-            this.chosenStatus.push(status)
-          }
+          this.chosenStatus.push(status)
         }
       }
-      this.getOrdersMy()
-    })
+    }
+    this.getOrdersMy()
   }
 
-  // Запускается по дефолту со всеми статусами
   setDefaultStatuses() {
     if (!this.chosenStatus.length) {
       this.filteredStatus = this.orderStatusDataBase
@@ -574,16 +404,11 @@ export class BuyerMyOrdersViewModel {
 
   async getOrdersMy() {
     try {
-      // const filter =
-      //   isNaN(this.nameSearchValue) || !Number.isInteger(Number(this.nameSearchValue))
-      //     ? `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][item][$eq]=${this.nameSearchValue};`
-      //     : `or[0][asin][$contains]=${this.nameSearchValue};or[1][amazonTitle][$contains]=${this.nameSearchValue};or[2][skusByClient][$contains]=${this.nameSearchValue};or[3][id][$eq]=${this.nameSearchValue};or[4][item][$eq]=${this.nameSearchValue};`
-
       const filter = objectToUrlQs({
         or: [
           { asin: { $contains: this.nameSearchValue } },
           { amazonTitle: { $contains: this.nameSearchValue } },
-          { skusByClient: { $contains: this.nameSearchValue } },
+          { skuByClient: { $contains: this.nameSearchValue } },
           { id: { $eq: this.nameSearchValue } },
           { item: { $eq: this.nameSearchValue } },
         ].filter(
@@ -621,29 +446,27 @@ export class BuyerMyOrdersViewModel {
         this.ordersMy = buyerMyOrdersDataConverter(result.rows)
       })
     } catch (error) {
-      this.baseNoConvertedOrders = []
-      this.ordersMy = []
-      console.log(error)
+      runInAction(() => {
+        this.baseNoConvertedOrders = []
+        this.ordersMy = []
+      })
+      console.error(error)
+    }
+  }
+
+  async onClickHsCode(productId) {
+    try {
+      const response = await ProductModel.getProductsHsCodeByGuid(productId)
+
+      runInAction(() => {
+        this.hsCodeData = response
+      })
+    } catch (error) {
+      console.error(error)
     }
   }
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  onTriggerShowBarcodeModal() {
-    this.showBarcodeModal = !this.showBarcodeModal
-  }
-
-  clearReadyImages() {
-    runInAction(() => {
-      this.readyImages = []
-    })
-  }
-
-  clearImagesForLoad() {
-    runInAction(() => {
-      this.imagesForLoad = []
-    })
   }
 }

@@ -1,29 +1,24 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class ChatsModelStatic {
-  createSimpleChatByUserId = async id => {
-    const response = await restApiService.chatsApi.apiV1ChatsGuidPost(id)
-    return response
+  createSimpleChatByUserId = async guid => {
+    const response = await restApiService.chatsApi.apiV1ChatsGuidPost({ guid })
+    return response.data
   }
 
   createSimpleGroupChat = async data => {
     const response = await restApiService.chatsApi.apiV1ChatsGroupPost({ body: data })
-    return response
-  }
-
-  createSimpleChatByUserEmail = async email => {
-    const response = await restApiService.chatsApi.apiV1ChatsByEmailPost({ body: { email } })
-    return response
-  }
-
-  getUsersEmails = async () => {
-    const response = await restApiService.chatsApi.apiV1ChatsEmailsGet()
-    return response
+    return response.data
   }
 
   getUsersNames = async () => {
     const response = await restApiService.chatsApi.apiV1ChatsNamesGet()
-    return response
+    return response.data
+  }
+
+  getPagChatMedia = async options => {
+    const response = await restApiService.chatsApi.apiV1ChatsMediaPagGuidGet(options)
+    return response.data
   }
 }
 

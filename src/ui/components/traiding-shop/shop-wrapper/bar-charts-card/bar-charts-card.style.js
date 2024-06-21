@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   cardHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -27,6 +27,9 @@ export const useClassNames = makeStyles()(() => ({
     gap: '10px',
   },
 
+  button: {
+    color: theme.palette.text.general,
+  },
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'center',

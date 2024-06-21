@@ -1,6 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
+  wrapper: {
+    width: '100%',
+    padding: 10,
+  },
+
   modalTitle: {
     color: theme.palette.text.general,
     fontSize: '18px',
@@ -11,13 +16,16 @@ export const useClassNames = makeStyles()(theme => ({
 
   pendingOrderWrapper: {
     display: 'flex',
-    gap: 20,
+    alignItems: 'center',
+    gap: 7,
     cursor: 'pointer',
-    marginRight: 20,
+  },
+
+  checkbox: {
+    padding: 0,
   },
 
   modalButton: {
-    // backgroundColor: 'rgba(0, 123, 255, 1)',
     color: '#fff',
     fontSize: '16px',
     fontWeight: 500,
@@ -28,14 +36,12 @@ export const useClassNames = makeStyles()(theme => ({
     '& td': {
       flexShrink: 0,
       color: '#070707',
-      // border: '1px solid #fff',
     },
     '& th': {
       color: theme.palette.text.general,
       fontWeight: 600,
       lineHeight: '16px',
       fontSize: '14px',
-      // borderBottom: '1px solid #fff',
       height: '32px',
     },
 
@@ -45,15 +51,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tableWrapper: {
-    margin: '0px -30px',
-    width: 'auto',
-    overflow: 'hidden',
-  },
-  imgCell: {
-    width: '96px',
-    padding: '0 46px 0 20px',
-    borderRight: '1px solid #e0e0e0',
-    margin: 0,
+    width: '100%',
   },
 
   productCell: {
@@ -113,7 +111,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   qntCell: {
-    width: 80,
+    width: 150,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
@@ -226,7 +224,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   commentCell: {
-    width: 250,
+    width: 230,
     padding: '0 10px',
     borderRight: '1px solid #e0e0e0',
 
@@ -238,6 +236,12 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 10px',
 
     margin: 0,
+  },
+
+  cellText: {
+    fontSize: 16,
+    lineHeight: '19px',
+    color: theme.palette.text.general,
   },
 
   commentCellBtn: {
@@ -256,10 +260,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonsWrapper: {
     display: 'flex',
-    justifyContent: 'end',
-    textAlign: 'right',
-    gap: '10px',
-    marginTop: '30px',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 50,
+    margin: '30px 15px 5px 0',
   },
   buyNowBtn: {
     color: '#fff',
@@ -279,10 +283,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   sumText: {
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: '400',
+    fontSize: 14,
+    lineHeight: '19px',
     color: theme.palette.text.general,
-    marginTop: '10px',
   },
 }))

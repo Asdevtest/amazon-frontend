@@ -1,15 +1,16 @@
 import axios from 'axios'
 import { compareVersions } from 'compare-versions'
-import isEqual from 'lodash.isequal'
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 
 import { appVersion } from '@constants/app-version'
+import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { UiTheme } from '@constants/theme/themes'
-import { LanguageKey } from '@constants/translations/language-key'
 
 import { setI18nConfig } from '@utils/translations'
+
+import { LanguageKey } from '@typings/enums/language-key'
+import { UiTheme } from '@typings/enums/ui-theme'
 
 const persistProperties = [
   'dataGridState',
@@ -19,9 +20,10 @@ const persistProperties = [
   'chatMessageState',
   'uiTheme',
   'destinationsFavourites',
+  'isMuteChats',
+  'mutedChats',
+  'originMutedChats',
 ]
-
-const stateModelName = 'SettingsModel'
 
 class SettingsModelStatic {
   dataGridState = {}
@@ -34,7 +36,10 @@ class SettingsModelStatic {
   isHydrated = false
   breadcrumbsForProfile = null
   showHints = true
-  noticeOfSimpleChats = true
+
+  isMuteChats = false
+  mutedChats = []
+  originMutedChats = []
 
   lastCrumbAdditionalText = ''
 
@@ -52,13 +57,13 @@ class SettingsModelStatic {
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
-    makePersistable(this, { name: stateModelName, properties: persistProperties })
+    makePersistable(this, { name: LOCAL_STORAGE_KEYS.SETTINGS_MODEL, properties: persistProperties })
       .then(({ isHydrated }) => {
         runInAction(() => {
           this.isHydrated = isHydrated
         })
       })
-      .catch(error => console.log(error))
+      .catch(error => console.error(error))
     reaction(
       () => this.isHydrated,
 
@@ -67,9 +72,48 @@ class SettingsModelStatic {
           setI18nConfig()
         }
       },
-
-      this.setIntervalCheckAppVersion(),
     )
+
+    this.setIntervalCheckAppVersion()
+  }
+
+  loadValue(key) {
+    const value = localStorage.getItem(key)
+    return value !== null ? JSON.parse(value) : null
+  }
+
+  saveValue(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
+  }
+
+  onToggleMuteCurrentChat(chatId, chats) {
+    this.setMutedChat(chatId, chats)
+  }
+
+  onToggleMuteAllChats(chats) {
+    this.setMutedChats(chats)
+    this.isMuteChats = !this.isMuteChats
+  }
+
+  setMutedChat(chatId, chats) {
+    if (this.mutedChats.includes(chatId)) {
+      const filteredChats = this.mutedChats.filter(currentChatId => currentChatId !== chatId)
+      this.originMutedChats = filteredChats
+      this.mutedChats = filteredChats
+    } else {
+      this.originMutedChats.push(chatId)
+      this.mutedChats.push(chatId)
+    }
+
+    this.isMuteChats = chats.length === this.mutedChats.length
+  }
+
+  setMutedChats(chats) {
+    if (this.isMuteChats) {
+      this.mutedChats = this.originMutedChats
+    } else {
+      this.mutedChats = chats.map(chat => chat._id)
+    }
   }
 
   async checkAppVersion() {
@@ -82,25 +126,32 @@ class SettingsModelStatic {
     })
 
     if (compareVersions(response.data.version, appVersion) > 0) {
-      // console.log('!!!*** versions do not match')
+      console.warn('!!!*** versions do not match')
 
-      // Очистка локального хранилища
-      localStorage.clear()
-
-      // Очистка кэша
-      if (window.caches && window.caches.delete) {
-        caches.keys().then(names => {
-          for (const name of names) {
-            caches.delete(name)
-          }
-        })
-      } else {
-        // Для старых версий Edge используем следующий способ очистки кэша
-        window.location.reload(true)
-      }
-
-      window.location.reload()
+      this.resetLocalStorageAndCach()
     }
+
+    console.warn('!!!*** versions do match')
+  }
+
+  resetLocalStorageAndCach() {
+    for (const key of Object.values(LOCAL_STORAGE_KEYS)) {
+      localStorage.removeItem(key)
+    }
+
+    // Очистка кэша
+    if (window.caches && window.caches.delete) {
+      caches.keys().then(names => {
+        for (const name of names) {
+          caches.delete(name)
+        }
+      })
+    } else {
+      // Для старых версий Edge используем следующий способ очистки кэша
+      window.location.reload(true)
+    }
+
+    window.location.reload()
   }
 
   changeLastCrumbAdditionalText(text) {
@@ -108,36 +159,29 @@ class SettingsModelStatic {
   }
 
   setDestinationsFavouritesItem(item) {
-    const findDestinationsFavouritesItemIndex = this.destinationsFavourites.findIndex(destinationsFavouritesItem =>
-      isEqual(destinationsFavouritesItem, item),
+    const findDestinationsFavouritesItemIndex = this.destinationsFavourites.findIndex(
+      destinationsFavouritesItem => destinationsFavouritesItem[0] === item[0],
     )
+
     if (findDestinationsFavouritesItemIndex !== -1) {
-      this.destinationsFavourites.splice(findDestinationsFavouritesItemIndex, 1)
+      this.destinationsFavourites = this.destinationsFavourites.filter(destination => destination[0] !== item[0])
     } else {
-      this.destinationsFavourites.push(item)
+      this.destinationsFavourites = [...this.destinationsFavourites, item]
     }
-    // console.log('this.destinationsFavourites ', toJS(this.destinationsFavourites))
   }
 
   setIntervalCheckAppVersion() {
     setTimeout(() => {
-      // console.log('!!!*** setTimeout version check')
       this.checkAppVersion()
     }, 30000)
 
     setInterval(() => {
-      // console.log('!!!*** setInterval version check')
-
       this.checkAppVersion()
     }, 300000)
   }
 
   onTriggerShowHints() {
     this.showHints = !this.showHints
-  }
-
-  onTriggerNoticeOfSimpleChats() {
-    this.noticeOfSimpleChats = !this.noticeOfSimpleChats
   }
 
   setDataGridState(state, tableKey) {
@@ -150,10 +194,6 @@ class SettingsModelStatic {
 
   setViewTableModeState(state, tableKey) {
     this.viewTableModeState = { ...this.viewTableModeState, [tableKey]: state }
-  }
-
-  setChatMessageState(state, tableKey) {
-    this.chatMessageState = { ...this.chatMessageState, [tableKey]: state }
   }
 
   setLanguageTag(languageKey) {
@@ -172,6 +212,11 @@ class SettingsModelStatic {
     runInAction(() => {
       this.snackNotifications = { ...this.snackNotifications, [key]: notice }
     })
+  }
+
+  setAuthorizationData(accessToken, refreshToken) {
+    const userModel = this.loadValue('UserModel')
+    this.saveValue('UserModel', { ...userModel, accessToken, refreshToken })
   }
 }
 

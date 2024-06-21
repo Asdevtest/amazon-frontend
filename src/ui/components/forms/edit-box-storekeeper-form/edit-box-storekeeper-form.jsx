@@ -1,198 +1,73 @@
-/* eslint-disable no-unused-vars */
-import { cx } from '@emotion/css'
-import { Avatar, Checkbox, Chip, Divider, Typography } from '@mui/material'
+import isEqual from 'lodash.isequal'
+import { memo, useState } from 'react'
 
-import { useState, useEffect } from 'react'
+import { Divider, Typography } from '@mui/material'
 
-import { observer } from 'mobx-react'
-
-import {
-  getConversion,
-  getWeightSizesType,
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  sizesType,
-  unitsOfChangeOptions,
-} from '@constants/configs/sizes-settings'
-import { zipCodeGroups } from '@constants/configs/zip-code-groups'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { UiTheme } from '@constants/theme/themes'
+import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
-import { BigImagesModal } from '@components/modals/big-images-modal'
+import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
+import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
+import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
-import { Button } from '@components/shared/buttons/button'
-import { ToggleBtnGroup } from '@components/shared/buttons/toggle-btn-group/toggle-btn-group'
-import { ToggleBtn } from '@components/shared/buttons/toggle-btn-group/toggle-btn/toggle-btn'
-import { PhotoCarousel } from '@components/shared/photo-carousel'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
+import { BoxEdit } from '@components/shared/boxes/box-edit'
+import { Button } from '@components/shared/button'
+import { Checkbox } from '@components/shared/checkbox'
+import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { Table } from '@components/shared/table'
+import { SizeSwitcher } from '@components/shared/size-switcher'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
-import { useClassNames } from './edit-box-storekeeper-form.style'
-import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { tariffTypes } from '@constants/keys/tariff-types'
+import { Dimensions } from '@typings/enums/dimensions'
+import { TariffModal } from '@typings/enums/tariff-modal'
 
-export const WarehouseDemensions = ({ orderBox, sizeSetting, volumeWeightCoefficient, setFormField, showCheckbox }) => {
-  const { classes: classNames } = useClassNames()
+import { INCHES_COEFFICIENT, POUNDS_COEFFICIENT, useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
-  const weightConversion = getConversion(sizeSetting, poundsWeightCoefficient)
+import { useStyles } from './edit-box-storekeeper-form.style'
 
-  return (
-    <div className={classNames.numberInputFieldsBlocksWrapper}>
-      <div className={classNames.numberInputFieldsWrapper}>
-        <Field
-          inputProps={{ maxLength: 6 }}
-          error={Number(orderBox.lengthCmWarehouse) === 0 && true}
-          containerClasses={classNames.numberInputField}
-          labelClasses={classNames.label}
-          label={t(TranslationKey.Length) + ': '}
-          value={orderBox.lengthCmWarehouse}
-          onChange={setFormField('lengthCmWarehouse')}
-        />
+import { getBoxWithoutExtraFields } from './helpers/get-box-without-extra-fields'
 
-        <Field
-          inputProps={{ maxLength: 6 }}
-          error={Number(orderBox.widthCmWarehouse) === 0 && true}
-          containerClasses={classNames.numberInputField}
-          labelClasses={classNames.label}
-          label={t(TranslationKey.Width) + ': '}
-          value={orderBox.widthCmWarehouse}
-          onChange={setFormField('widthCmWarehouse')}
-        />
-      </div>
-      <div className={classNames.numberInputFieldsWrapper}>
-        <Field
-          inputProps={{ maxLength: 6 }}
-          error={Number(orderBox.heightCmWarehouse) === 0 && true}
-          labelClasses={classNames.label}
-          containerClasses={classNames.numberInputField}
-          label={t(TranslationKey.Height) + ': '}
-          value={orderBox.heightCmWarehouse}
-          onChange={setFormField('heightCmWarehouse')}
-        />
-
-        <Field
-          inputProps={{ maxLength: 6 }}
-          error={Number(orderBox.weighGrossKgWarehouse) === 0 && true}
-          containerClasses={classNames.numberInputField}
-          labelClasses={classNames.label}
-          label={t(TranslationKey.Weight) + ': '}
-          value={toFixed(orderBox.weighGrossKgWarehouse, 2)}
-          onChange={setFormField('weighGrossKgWarehouse')}
-        />
-      </div>
-      <div className={classNames.numberInputFieldsWrapper}>
-        <Field
-          disabled
-          containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Volume weight']) + ': '}
-          labelClasses={classNames.label}
-          value={
-            //   toFixed(
-            //   (sizeSetting === unitsOfChangeOptions.EU
-            //     ? orderBox.heightCmWarehouse *
-            //       inchesCoefficient *
-            //       orderBox.widthCmWarehouse *
-            //       inchesCoefficient *
-            //       orderBox.lengthCmWarehouse *
-            //       inchesCoefficient
-            //     : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
-            //     volumeWeightCoefficient,
-            //   2,
-            // )
-            toFixed(calcVolumeWeightForBox(orderBox, volumeWeightCoefficient), 2)
-          }
-        />
-
-        <Field
-          disabled
-          containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Final weight']) + ': '}
-          labelClasses={classNames.label}
-          value={toFixed(
-            Math.max(
-              // toFixed(
-              //   ((sizeSetting === unitsOfChangeOptions.US
-              //     ? ((((orderBox.heightCmWarehouse / inchesCoefficient) * orderBox.widthCmWarehouse) /
-              //         inchesCoefficient) *
-              //         orderBox.lengthCmWarehouse) /
-              //       inchesCoefficient
-              //     : orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
-              //     volumeWeightCoefficient,
-              //   orderBox.weighGrossKgWarehouse),
-              //   2,
-              // ),
-
-              (orderBox.heightCmWarehouse * orderBox.widthCmWarehouse * orderBox.lengthCmWarehouse) /
-                volumeWeightCoefficient,
-              orderBox.weighGrossKgWarehouse,
-            ),
-            2,
-          )}
-        />
-      </div>
-    </div>
-  )
-}
-
-export const EditBoxStorekeeperForm = observer(
+export const EditBoxStorekeeperForm = memo(
   ({
     formItem,
     onSubmit,
     onTriggerOpenModal,
-    requestStatus,
-    volumeWeightCoefficient,
     destinations,
     storekeepers,
-
     destinationsFavourites,
     setDestinationsFavouritesItem,
     onClickHsCode,
   }) => {
-    const { classes: classNames } = useClassNames()
+    const { classes: styles, cx } = useStyles()
 
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
-
-    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
-
-    const [imagesOfBox, setImagesOfBox] = useState([])
-
-    const rowHandlers = {
-      onTriggerOpenModal: () => setShowPhotosModal(!showPhotosModal),
-      onSelectPhotos: setBigImagesOptions,
-    }
-
     const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
-
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+    const [showSetFilesModal, setShowSetFilesModal] = useState(false)
+    const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
 
     const onClickSaveBarcode = product => newBarCodeData => {
       const newFormFields = { ...boxFields }
-
       newFormFields.items = [
         ...boxFields.items.map(el =>
           el.product._id === product.product?._id ? { ...el, tmpBarCode: newBarCodeData } : el,
         ),
       ]
-
       setBoxFields(newFormFields)
-
       setShowSetBarcodeModal(false)
     }
 
@@ -200,83 +75,115 @@ export const EditBoxStorekeeperForm = observer(
       const newFormFields = { ...boxFields }
 
       if (field === 'isBarCodeAlreadyAttachedByTheSupplier') {
-        newFormFields.items = [
-          ...boxFields.items.map(el =>
-            el._id === itemId
-              ? {
-                  ...el,
-                  isBarCodeAlreadyAttachedByTheSupplier: e.target.checked,
-                  isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper
-                    ? !e.target.checked
-                    : el.isBarCodeAttachedByTheStorekeeper,
-                }
-              : el,
-          ),
-        ]
+        newFormFields.items = boxFields.items.map(el =>
+          el._id === itemId
+            ? {
+                ...el,
+                isBarCodeAlreadyAttachedByTheSupplier: e.target.checked,
+                isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper
+                  ? !e.target.checked
+                  : el.isBarCodeAttachedByTheStorekeeper,
+              }
+            : el,
+        )
       } else if (field === 'isBarCodeAttachedByTheStorekeeper') {
-        newFormFields.items = [
-          ...boxFields.items.map(el =>
-            el._id === itemId
-              ? {
-                  ...el,
-                  isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier
-                    ? !e.target.checked
-                    : el.isBarCodeAlreadyAttachedByTheSupplier,
-                  isBarCodeAttachedByTheStorekeeper: e.target.checked,
-                }
-              : el,
-          ),
-        ]
+        newFormFields.items = boxFields.items.map(el =>
+          el._id === itemId
+            ? {
+                ...el,
+                isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier
+                  ? !e.target.checked
+                  : el.isBarCodeAlreadyAttachedByTheSupplier,
+                isBarCodeAttachedByTheStorekeeper: e.target.checked,
+              }
+            : el,
+        )
       }
+      setBoxFields(newFormFields)
+    }
 
+    const onClickGluedTransparency = (fieldName, index, value) => {
+      const newFormFields = { ...boxFields }
+      if (fieldName === 'isTransparencyFileAlreadyAttachedByTheSupplier') {
+        newFormFields.items[index] = {
+          ...newFormFields.items[index],
+          isTransparencyFileAlreadyAttachedByTheSupplier: value,
+          isTransparencyFileAttachedByTheStorekeeper: false,
+        }
+      } else {
+        newFormFields.items[index] = {
+          ...newFormFields.items[index],
+          isTransparencyFileAlreadyAttachedByTheSupplier: false,
+          isTransparencyFileAttachedByTheStorekeeper: value,
+        }
+      }
+      setBoxFields(newFormFields)
+    }
+
+    const onClickSaveTransparencyFile = (index, value) => {
+      const newFormFields = { ...boxFields }
+      newFormFields.items[index] = {
+        ...newFormFields.items[index],
+        tmpTransparencyFile: value,
+      }
       setBoxFields(newFormFields)
     }
 
     const boxInitialState = {
       ...formItem,
-
-      lengthCmWarehouse: formItem?.lengthCmWarehouse || 0,
-      widthCmWarehouse: formItem?.widthCmWarehouse || 0,
-      heightCmWarehouse: formItem?.heightCmWarehouse || 0,
-      weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
-      volumeWeightKgWarehouse: formItem ? calcVolumeWeightForBox(formItem, volumeWeightCoefficient) : 0,
-      weightFinalAccountingKgWarehouse: formItem ? calcFinalWeightForBox(formItem, volumeWeightCoefficient) : 0,
-
+      lengthCmWarehouse: String(formItem?.lengthCmWarehouse) || '',
+      widthCmWarehouse: String(formItem?.widthCmWarehouse) || '',
+      heightCmWarehouse: String(formItem?.heightCmWarehouse) || '',
+      weighGrossKgWarehouse: String(formItem?.weighGrossKgWarehouse) || '',
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
       logicsTariffId: formItem?.logicsTariff?._id || null,
       variationTariffId: formItem?.variationTariff?._id || null,
-
       amount: formItem?.amount,
-      shippingLabel: formItem?.shippingLabel,
+      shippingLabel: formItem?.shippingLabel || '',
       clientComment: formItem?.clientComment || '',
       storekeeperTaskComment: '',
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
-      items: formItem?.items ? [...formItem.items.map(el => ({ ...el, tmpBarCode: [] }))] : [],
+      items: formItem?.items ? formItem.items.map(el => ({ ...el, tmpBarCode: [], tmpTransparencyFile: [] })) : [],
       tmpTrackNumberFile: [],
     }
 
+    const [boxState, setBoxState] = useState(boxInitialState)
     const [boxFields, setBoxFields] = useState(boxInitialState)
+    const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+    const { _ } = useChangeDimensions({
+      data: boxState,
+      setData: setBoxState,
+      sizeSetting,
+    })
+    const { onChangeDimensions } = useChangeDimensions({
+      data: boxFields,
+      setData: setBoxFields,
+      sizeSetting,
+    })
 
-    const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
+    const {
+      destinationId,
+      onSubmitSelectStorekeeperAndTariff,
 
-    useEffect(() => {
-      setDestinationId(boxFields?.destinationId)
-    }, [boxFields?.destinationId])
+      showConfirmModal,
+      setShowConfirmModal,
+
+      confirmModalSettings,
+
+      handleSetDestination,
+      handleResetDestination,
+
+      showSelectionStorekeeperAndTariffModal,
+      setShowSelectionStorekeeperAndTariffModal,
+    } = useTariffVariation(boxFields.destinationId, setBoxFields)
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
-
-      if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-        if (isNaN(e.target.value) || Number(e.target.value) < 0) {
-          return
-        }
-      }
-
-      newFormFields[fieldName] = e.target.value
-
+      const currentValue = e.target.value
+      newFormFields[fieldName] = currentValue
       setBoxFields(newFormFields)
     }
 
@@ -309,57 +216,54 @@ export const EditBoxStorekeeperForm = observer(
     const onDeleteBarcode = productId => {
       const newFormFields = { ...boxFields }
       newFormFields.items = boxFields.items.map(item =>
-        item.product._id === productId ? { ...item, barCode: '' } : item,
+        item.product._id === productId ? { ...item, barCode: '', tmpBarCode: [] } : item,
       )
       setBoxFields(newFormFields)
     }
 
-    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-    const handleChange = newCondition => {
-      setSizeSetting(newCondition)
-
-      if (newCondition === unitsOfChangeOptions.US) {
-        setBoxFields({
-          ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / inchesCoefficient, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / inchesCoefficient, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / poundsWeightCoefficient, 2),
-        })
-      } else {
-        setBoxFields({
-          ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
-        })
-      }
+    const onDeleteTransparencyFile = index => {
+      const newFormFields = { ...boxFields }
+      newFormFields.items[index].transparencyFile = ''
+      newFormFields.items[index].tmpTransparencyFile = []
+      setBoxFields(newFormFields)
     }
 
-    const getBoxDataToSubmit = () => {
-      if (sizeSetting === unitsOfChangeOptions.US) {
-        return {
-          ...boxFields,
-          destinationId: boxFields.destinationId || null,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * poundsWeightCoefficient, 2),
-        }
+    const handleChangeImages = files =>
+      setBoxFields({
+        ...boxFields,
+        images: files,
+      })
+
+    const handleSubmit = () => {
+      const updateBoxFields = { ...boxFields }
+
+      if (sizeSetting === Dimensions.US) {
+        updateBoxFields.lengthCmWarehouse = Number(toFixed(updateBoxFields.lengthCmWarehouse * INCHES_COEFFICIENT))
+        updateBoxFields.widthCmWarehouse = Number(toFixed(updateBoxFields.widthCmWarehouse * INCHES_COEFFICIENT))
+        updateBoxFields.heightCmWarehouse = Number(toFixed(updateBoxFields.heightCmWarehouse * INCHES_COEFFICIENT))
+        updateBoxFields.weighGrossKgWarehouse = Number(
+          toFixed(updateBoxFields.weighGrossKgWarehouse * POUNDS_COEFFICIENT),
+        )
       } else {
-        return { ...boxFields, destinationId: boxFields.destinationId || null }
+        updateBoxFields.lengthCmWarehouse = Number(updateBoxFields.lengthCmWarehouse)
+        updateBoxFields.widthCmWarehouse = Number(updateBoxFields.widthCmWarehouse)
+        updateBoxFields.heightCmWarehouse = Number(updateBoxFields.heightCmWarehouse)
+        updateBoxFields.weighGrossKgWarehouse = Number(updateBoxFields.weighGrossKgWarehouse)
       }
-    }
 
-    const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
-    const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId, variationTariffId, destinationId) => {
-      setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
-      setDestinationId(destinationId)
-
-      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+      onSubmit({
+        id: formItem?._id,
+        boxData: {
+          ...getBoxWithoutExtraFields(updateBoxFields),
+          destinationId: updateBoxFields.destinationId || null,
+        },
+        sourceData: formItem,
+        imagesOfBox: boxFields.images,
+        dataToSubmitHsCode: boxFields.items.map(el => ({
+          productId: el.product._id,
+          hsCode: el.product.hsCode,
+        })),
+      })
     }
 
     const [barcodeModalSetting, setBarcodeModalSetting] = useState({
@@ -392,7 +296,6 @@ export const EditBoxStorekeeperForm = observer(
       setBarcodeModalSetting({
         title: '',
         maxNumber: 1,
-
         tmpCode: item?.tmpBarCode,
         item,
         onClickSaveBarcode: data => onClickSaveBarcode(item)(data),
@@ -401,68 +304,60 @@ export const EditBoxStorekeeperForm = observer(
     }
 
     const disableSubmit =
-      (JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxInitialState, ['logicsTariffId'])) ===
-        JSON.stringify(getObjectFilteredByKeyArrayBlackList(boxFields, ['logicsTariffId'])) ||
-        boxFields.storekeeperId === '') &&
-      !imagesOfBox.length
+      isEqual(boxState, boxFields) ||
+      boxFields.storekeeperId === '' ||
+      maxBoxSizeFromOption(sizeSetting, Number(boxFields.lengthCmWarehouse)) ||
+      maxBoxSizeFromOption(sizeSetting, Number(boxFields.widthCmWarehouse)) ||
+      maxBoxSizeFromOption(sizeSetting, Number(boxFields.heightCmWarehouse))
 
-    const curDestination = destinations.find(el => el._id === boxFields.destinationId)
-    const currentStorekeeper = storekeepers.find(el => el._id === boxFields.storekeeperId)
-    const currentLogicsTariff = currentStorekeeper?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)
-
-    const firstNumOfCode = curDestination?.zipCode[0]
-
-    const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
-    const tariffName = currentLogicsTariff?.name
-
-    const tariffRate =
-      currentLogicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate ||
-      currentLogicsTariff?.destinationVariations?.find(el => el._id === boxFields?.variationTariffId)?.pricePerKgUsd
+    const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
+      destinations,
+      storekeepers,
+      boxFields.destinationId,
+      boxFields.storekeeperId,
+      boxFields.logicsTariffId,
+      boxFields.variationTariffId,
+    )
 
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
 
     return (
-      <div className={classNames.root}>
-        <div className={classNames.titleWrapper}>
-          <Typography className={classNames.title}>{t(TranslationKey['Editing the box'])}</Typography>{' '}
-          <img src={'/assets/img/edit.png'} />
+      <div className={styles.root}>
+        <div className={styles.titleWrapper}>
+          <Typography className={styles.title}>{t(TranslationKey['Editing the box'])}</Typography>
+          <BoxEdit />
         </div>
 
-        <div className={classNames.form}>
+        <div className={styles.form}>
           <Field
             label={t(TranslationKey.Edit)}
             inputComponent={
-              <div className={classNames.editBlockWrapper}>
-                <div className={classNames.editBlockHeaderWrapper}>
-                  <div className={classNames.titlePrepIdSubWrapper}>
+              <div className={styles.editBlockWrapper}>
+                <div className={styles.editBlockHeaderWrapper}>
+                  <div className={styles.titlePrepIdSubWrapper}>
                     <Field
                       oneLine
-                      labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.containerTitleField}
+                      labelClasses={styles.standartLabel}
+                      containerClasses={styles.containerTitleField}
                       label={`${t(TranslationKey.Box)} №`}
                       inputComponent={
-                        <div className={classNames.boxTitleWrapper}>
-                          <Typography className={classNames.tableTitle}>{`${
+                        <div className={styles.boxTitleWrapper}>
+                          <Typography className={styles.tableTitle}>{`${
                             formItem && formItem.humanFriendlyId
                           }`}</Typography>
-
-                          {/* <Typography className={classNames.amountSpan}>
-                            {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
-                          </Typography> */}
                         </div>
                       }
                     />
 
                     <Field
                       oneLine
-                      labelClasses={classNames.standartLabel}
+                      labelClasses={styles.standartLabel}
                       label={`ID:`}
                       inputComponent={
                         <Input
-                          className={classNames.itemInput}
-                          classes={{ input: classNames.input }}
+                          className={styles.itemInput}
+                          classes={{ input: styles.input }}
                           inputProps={{ maxLength: 25 }}
                           value={boxFields.prepId}
                           onChange={setFormField('prepId')}
@@ -473,130 +368,161 @@ export const EditBoxStorekeeperForm = observer(
                   <Field
                     oneLine
                     disabled
-                    labelClasses={classNames.standartLabel}
-                    inputClasses={classNames.disabledNumInput}
-                    containerClasses={classNames.containerField}
+                    labelClasses={styles.standartLabel}
+                    inputClasses={styles.disabledNumInput}
+                    containerClasses={styles.containerField}
                     label={t(TranslationKey['Total goods In Box'])}
                     value={allItemsCount}
                   />
                 </div>
-                <Typography className={classNames.amountSpan}>
+                <Typography className={styles.amountSpan}>
                   {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
                 </Typography>
 
-                <Divider className={classNames.divider} />
+                <Divider className={styles.divider} />
 
-                <div className={classNames.productsWrapper}>
+                <div className={styles.productsWrapper}>
                   <CustomSlider alignButtons="end">
                     {boxFields.items.map((item, index) => (
-                      <div key={index} className={classNames.productWrapper}>
-                        <div className={classNames.leftProductColumn}>
-                          <div className={classNames.photoWrapper}>
-                            <PhotoCarousel
-                              isAmazonPhoto
-                              files={item.product.images}
-                              imageClass={classNames.productImageClass}
+                      <div key={index} className={styles.productWrapper}>
+                        <div className={styles.leftProductColumn}>
+                          <SlideshowGallery slidesToShow={2} files={item.product.images} />
+
+                          <Field
+                            containerClasses={styles.field}
+                            tooltipInfoContent={!item.barCode && t(TranslationKey['Add a product barcode to the box'])}
+                            labelClasses={styles.standartLabel}
+                            label={t(TranslationKey.BarCode)}
+                            inputComponent={
+                              <ChangeChipCell
+                                isChipOutTable
+                                text={!item.barCode && !item?.tmpBarCode?.length && t(TranslationKey['Set Barcode'])}
+                                value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
+                                onClickChip={() => onClickBarcode(item)}
+                                onDoubleClickChip={() => onDoubleClickBarcode(item)}
+                                onDeleteChip={() => onDeleteBarcode(item.product._id)}
+                              />
+                            }
+                          />
+
+                          <Field
+                            containerClasses={styles.field}
+                            labelClasses={styles.standartLabel}
+                            label={t(TranslationKey['Transparency codes'])}
+                            inputComponent={
+                              <ChangeChipCell
+                                isChipOutTable
+                                text={
+                                  !item.transparencyFile &&
+                                  !item?.tmpTransparencyFile?.length &&
+                                  t(TranslationKey.Transparency)
+                                }
+                                value={
+                                  item?.tmpTransparencyFile?.[0]?.file?.name ||
+                                  item?.tmpTransparencyFile?.[0] ||
+                                  item.transparencyFile
+                                }
+                                onClickChip={() => {
+                                  setFilesConditions({
+                                    tmpFiles: item?.tmpTransparencyFile,
+                                    currentFiles: item.transparencyFile,
+                                    index,
+                                  })
+                                  setShowSetFilesModal(true)
+                                }}
+                                onDeleteChip={() => onDeleteTransparencyFile(index)}
+                              />
+                            }
+                          />
+
+                          <div>
+                            <Field
+                              oneLine
+                              labelClasses={styles.standartLabel}
+                              tooltipInfoContent={t(
+                                TranslationKey['The supplier has glued the barcode before shipment'],
+                              )}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['The barcode is glued by the supplier'])}
+                              inputComponent={
+                                <Checkbox
+                                  checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+                                  onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
+                                />
+                              }
+                            />
+                            <Field
+                              oneLine
+                              labelClasses={styles.standartLabel}
+                              tooltipInfoContent={t(
+                                TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
+                              )}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
+                              inputComponent={
+                                <Checkbox
+                                  checked={item.isBarCodeAttachedByTheStorekeeper}
+                                  onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
+                                />
+                              }
+                            />
+
+                            <Field
+                              oneLine
+                              labelClasses={styles.standartLabel}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['Transparency codes glued by the supplier'])}
+                              inputComponent={
+                                <Checkbox
+                                  checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
+                                  onChange={e =>
+                                    onClickGluedTransparency(
+                                      'isTransparencyFileAlreadyAttachedByTheSupplier',
+                                      index,
+                                      e.target.checked,
+                                    )
+                                  }
+                                />
+                              }
+                            />
+
+                            <Field
+                              oneLine
+                              labelClasses={styles.standartLabel}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                              inputComponent={
+                                <Checkbox
+                                  checked={item.isTransparencyFileAttachedByTheStorekeeper}
+                                  onChange={e =>
+                                    onClickGluedTransparency(
+                                      'isTransparencyFileAttachedByTheStorekeeper',
+                                      index,
+                                      e.target.checked,
+                                    )
+                                  }
+                                />
+                              }
                             />
                           </div>
-
-                          <>
-                            <Field
-                              containerClasses={classNames.field}
-                              tooltipAttentionContent={
-                                !item.barCode && t(TranslationKey['A task will be created for the prep center'])
-                              }
-                              tooltipInfoContent={
-                                !item.barCode &&
-                                t(
-                                  TranslationKey[
-                                    'Add a product barcode to the box. A task will be created for the prep center'
-                                  ],
-                                )
-                              }
-                              labelClasses={classNames.standartLabel}
-                              label={t(TranslationKey.BarCode)}
-                              inputComponent={
-                                <div>
-                                  <Chip
-                                    classes={{
-                                      root: classNames.barcodeChip,
-                                      clickable: classNames.barcodeChipHover,
-                                      deletable: classNames.barcodeChipHover,
-                                      deleteIcon: classNames.barcodeChipIcon,
-                                      label: classNames.barcodeChiplabel,
-                                    }}
-                                    className={cx({ [classNames.barcodeChipExists]: item.barCode })}
-                                    size="small"
-                                    label={
-                                      item.tmpBarCode.length
-                                        ? t(TranslationKey['File added'])
-                                        : item.barCode
-                                        ? item.barCode
-                                        : t(TranslationKey['Set Barcode'])
-                                    }
-                                    onClick={() => onClickBarcode(item)}
-                                    onDoubleClick={() => onDoubleClickBarcode(item)}
-                                    onDelete={!item.barCode ? undefined : () => onDeleteBarcode(item.product._id)}
-                                  />
-                                </div>
-                              }
-                            />
-
-                            <div>
-                              <Field
-                                oneLine
-                                labelClasses={classNames.standartLabel}
-                                tooltipInfoContent={t(
-                                  TranslationKey['The supplier has glued the barcode before shipment'],
-                                )}
-                                containerClasses={classNames.checkboxContainer}
-                                label={t(TranslationKey['The barcode is glued by the supplier'])}
-                                inputComponent={
-                                  <Checkbox
-                                    checked={item.isBarCodeAlreadyAttachedByTheSupplier}
-                                    onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
-                                  />
-                                }
-                              />
-                              <Field
-                                oneLine
-                                labelClasses={classNames.standartLabel}
-                                tooltipInfoContent={t(
-                                  TranslationKey[
-                                    'The barcode was glued on when the box was accepted at the prep center'
-                                  ],
-                                )}
-                                containerClasses={classNames.checkboxContainer}
-                                label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
-                                inputComponent={
-                                  <Checkbox
-                                    checked={item.isBarCodeAttachedByTheStorekeeper}
-                                    onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
-                                  />
-                                }
-                              />
-                            </div>
-                          </>
                         </div>
 
-                        <div className={classNames.rightProductColumn}>
-                          <Typography className={classNames.amazonTitle}>{item.product.amazonTitle}</Typography>
+                        <div className={styles.rightProductColumn}>
+                          <Typography className={styles.amazonTitle}>{item.product.amazonTitle}</Typography>
 
                           <Field
                             oneLine
-                            containerClasses={classNames.field}
-                            labelClasses={classNames.standartLabel}
+                            containerClasses={styles.field}
+                            labelClasses={styles.standartLabel}
                             label={`${t(TranslationKey.ASIN)}:`}
-                            inputComponent={
-                              <Typography className={classNames.asinText}>{item.product.asin}</Typography>
-                            }
+                            inputComponent={<Typography className={styles.asinText}>{item.product.asin}</Typography>}
                           />
 
                           <Field
                             oneLine
                             disabled
-                            labelClasses={classNames.standartLabel}
-                            inputClasses={classNames.disabledNumInput}
+                            labelClasses={styles.standartLabel}
+                            inputClasses={styles.disabledNumInput}
                             label={t(TranslationKey['Quantity units of product'])}
                             value={item.amount}
                           />
@@ -606,26 +532,21 @@ export const EditBoxStorekeeperForm = observer(
                             disabled
                             minRows={5}
                             maxRows={5}
-                            labelClasses={classNames.standartLabel}
-                            inputClasses={classNames.multiline}
+                            labelClasses={styles.standartLabel}
+                            inputClasses={styles.multiline}
                             label={t(TranslationKey['Comments on order'])}
                             value={item.order.clientComment}
                           />
 
                           <Field
-                            labelClasses={classNames.standartLabel}
-                            containerClasses={classNames.field}
-                            inputClasses={classNames.inputField}
+                            labelClasses={styles.standartLabel}
+                            containerClasses={styles.field}
+                            inputClasses={styles.inputField}
                             inputProps={{ maxLength: 255 }}
                             label={t(TranslationKey['HS code'])}
                             value={item.product.hsCode}
                             inputComponent={
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                className={classNames.hsCodeBtn}
-                                onClick={() => onClickHsCode(item.product._id)}
-                              >
+                              <Button onClick={() => onClickHsCode(item.product._id)}>
                                 {t(TranslationKey['HS code'])}
                               </Button>
                             }
@@ -637,12 +558,13 @@ export const EditBoxStorekeeperForm = observer(
                   </CustomSlider>
                 </div>
 
-                <Divider className={classNames.divider} />
-                <div className={classNames.shareBoxWrapper}>
-                  <div className={classNames.shareBoxSubWrapper}>
+                <Divider className={styles.divider} />
+
+                <div className={styles.shareBoxWrapper}>
+                  <div className={styles.shareBoxSubWrapper}>
                     <Field
-                      labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.field}
+                      labelClasses={styles.standartLabel}
+                      containerClasses={styles.field}
                       label={t(TranslationKey.Destination)}
                       tooltipInfoContent={t(
                         TranslationKey["Amazon's final warehouse in the USA, available for change"],
@@ -657,64 +579,42 @@ export const EditBoxStorekeeperForm = observer(
                           }
                           data={
                             boxFields.logicsTariffId &&
-                            currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
+                            currentTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
                               ? destinations.filter(el => el?._id === destinationId)
                               : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
                           }
                           searchFields={['name']}
-                          onClickNotChosen={() => setBoxFields({ ...boxFields, destinationId: null })}
-                          onClickSelect={el => setBoxFields({ ...boxFields, destinationId: el._id })}
+                          onClickNotChosen={handleResetDestination}
+                          onClickSelect={el => handleSetDestination(el._id)}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                         />
                       }
                     />
 
                     <Field
-                      labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.field}
+                      labelClasses={styles.standartLabel}
+                      containerClasses={styles.field}
                       label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
                       tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
-                      error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
                       inputComponent={
                         <Button
-                          disableElevation
-                          color="primary"
-                          variant={boxFields.storekeeperId && 'text'}
-                          className={cx(classNames.storekeeperBtnDefault, {
-                            [classNames.storekeeperBtn]: !boxFields.storekeeperId,
-                            [classNames.storekeeperBtnColored]:
-                              !boxFields.storekeeperId && SettingsModel.uiTheme === UiTheme.light,
-                          })}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
                         >
-                          {/* {boxFields.storekeeperId
-                            ? `${
-                                storekeepers.find(el => el._id === boxFields.storekeeperId)?.name ||
-                                t(TranslationKey['Not available'])
-                              } /  
-                        ${
-                          boxFields.storekeeperId
-                            ? `${tariffName ? tariffName + ' / ' : ''}${
-                                regionOfDeliveryName ? regionOfDeliveryName : ''
-                              }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-                            : 'none'
-                        }`
-                            : t(TranslationKey.Select)} */}
-
-                          {boxFields.storekeeperId
+                          {boxFields.storekeeperId && (tariffName || tariffRate)
                             ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
                         </Button>
                       }
                     />
                   </div>
-                  <div className={classNames.shareBoxSubWrapper}>
+
+                  <div className={styles.shareBoxSubWrapper}>
                     <Field
-                      labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.field}
-                      inputClasses={cx(classNames.fbaShipmentInput)}
+                      labelClasses={styles.standartLabel}
+                      containerClasses={styles.field}
+                      inputClasses={cx(styles.fbaShipmentInput)}
                       inputProps={{ maxLength: 255 }}
                       label={t(TranslationKey['Reference id'])}
                       value={boxFields.referenceId}
@@ -722,44 +622,35 @@ export const EditBoxStorekeeperForm = observer(
                     />
 
                     <Field
-                      labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.shippingField}
+                      labelClasses={styles.standartLabel}
+                      containerClasses={styles.shippingField}
                       tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
-                      tooltipAttentionContent={t(
-                        TranslationKey['When re-sticking will create a task for the prep center'],
-                      )}
                       label={t(TranslationKey['Shipping label'])}
                       inputComponent={
-                        <div>
-                          <Chip
-                            classes={{
-                              root: classNames.barcodeChip,
-                              clickable: classNames.barcodeChipHover,
-                              deletable: classNames.barcodeChipHover,
-                              deleteIcon: classNames.barcodeChipIcon,
-                              label: classNames.barcodeChiplabel,
-                            }}
-                            className={cx({ [classNames.barcodeChipExists]: boxFields.shippingLabel })}
-                            size="small"
-                            label={
-                              boxFields.tmpShippingLabel.length
-                                ? t(TranslationKey['File added'])
-                                : boxFields.shippingLabel
-                                ? boxFields.shippingLabel
-                                : t(TranslationKey['Set Shipping Label'])
-                            }
-                            onClick={() => onClickShippingLabel()}
-                            onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
-                          />
-                        </div>
+                        <ChangeChipCell
+                          isChipOutTable
+                          text={
+                            !boxFields.shippingLabel &&
+                            !boxFields.tmpShippingLabel.length &&
+                            t(TranslationKey['Set Shipping Label'])
+                          }
+                          value={
+                            boxFields?.tmpShippingLabel?.[0]?.file?.name ||
+                            boxFields?.tmpShippingLabel?.[0] ||
+                            boxFields.shippingLabel
+                          }
+                          onClickChip={onClickShippingLabel}
+                          onDeleteChip={onDeleteShippingLabel}
+                        />
                       }
                     />
                   </div>
-                  <div className={classNames.shareBoxSubWrapper}>
+
+                  <div className={styles.shareBoxSubWrapper}>
                     <Field
-                      labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.field}
-                      inputClasses={classNames.fbaShipmentInput}
+                      labelClasses={styles.standartLabel}
+                      containerClasses={styles.field}
+                      inputClasses={styles.fbaShipmentInput}
                       inputProps={{ maxLength: 255 }}
                       tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                       label={t(TranslationKey['FBA Shipment'])}
@@ -768,9 +659,9 @@ export const EditBoxStorekeeperForm = observer(
                     />
 
                     <Field
-                      labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.field}
-                      inputClasses={classNames.fbaShipmentInput}
+                      labelClasses={styles.standartLabel}
+                      containerClasses={styles.field}
+                      inputClasses={styles.fbaShipmentInput}
                       inputProps={{ maxLength: 255 }}
                       label={'FBA number'}
                       value={boxFields.fbaNumber}
@@ -778,11 +669,11 @@ export const EditBoxStorekeeperForm = observer(
                     />
                   </div>
 
-                  <div className={classNames.shareBoxSubWrapper}>
+                  <div className={styles.shareBoxSubWrapper}>
                     <Field
-                      labelClasses={classNames.standartLabel}
-                      containerClasses={classNames.field}
-                      inputClasses={classNames.fbaShipmentInput}
+                      labelClasses={styles.standartLabel}
+                      containerClasses={styles.field}
+                      inputClasses={styles.fbaShipmentInput}
                       inputProps={{ maxLength: 255 }}
                       label={'UPS Track number'}
                       value={boxFields.upsTrackNumber}
@@ -790,12 +681,12 @@ export const EditBoxStorekeeperForm = observer(
                     />
                   </div>
 
-                  <div className={classNames.labelsInfoWrapper}>
-                    <div>
+                  <div className={styles.shareBoxSubWrapper}>
+                    <div className={styles.field}>
                       <Field
-                        labelClasses={classNames.standartLabel}
-                        containerClasses={classNames.field}
-                        inputClasses={classNames.inputField}
+                        labelClasses={styles.standartLabel}
+                        containerClasses={styles.field}
+                        inputClasses={styles.fbaShipmentInput}
                         inputProps={{ maxLength: 255 }}
                         label={t(TranslationKey['Track number'])}
                         value={boxFields.trackNumberText}
@@ -803,7 +694,6 @@ export const EditBoxStorekeeperForm = observer(
                       />
 
                       <Button
-                        className={classNames.trackNumberPhotoBtn}
                         onClick={() => {
                           setBarcodeModalSetting({
                             title: 'Track number',
@@ -820,48 +710,27 @@ export const EditBoxStorekeeperForm = observer(
                           setShowSetBarcodeModal(!showSetBarcodeModal)
                         }}
                       >
-                        {boxFields.tmpTrackNumberFile[0] ? t(TranslationKey['File added']) : 'Photo track numbers'}
+                        {boxFields.tmpTrackNumberFile[0]
+                          ? t(TranslationKey['File added'])
+                          : t(TranslationKey['Photo track numbers'])}
                       </Button>
                     </div>
 
-                    <div className={classNames.trackNumberPhotoWrapper}>
-                      {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
-                        <CustomSlider>
-                          {(boxFields.trackNumberFile.length
-                            ? boxFields.trackNumberFile
-                            : boxFields.tmpTrackNumberFile
-                          ).map((el, index) => (
-                            <img
-                              key={index}
-                              className={classNames.trackNumberPhoto}
-                              src={
-                                boxFields.tmpTrackNumberFile[index]
-                                  ? typeof boxFields.tmpTrackNumberFile[index] === 'string'
-                                    ? boxFields.tmpTrackNumberFile[index]
-                                    : boxFields.tmpTrackNumberFile[index]?.data_url
-                                  : boxFields.trackNumberFile[index]
-                              }
-                              // variant="square"
-                              onClick={() => {
-                                setShowPhotosModal(!showPhotosModal)
-                                setBigImagesOptions({
-                                  ...bigImagesOptions,
-
-                                  images: [
-                                    boxFields.tmpTrackNumberFile[index]
-                                      ? typeof boxFields.tmpTrackNumberFile[index] === 'string'
-                                        ? boxFields.tmpTrackNumberFile[index]
-                                        : boxFields.tmpTrackNumberFile[index]?.data_url
-                                      : boxFields.trackNumberFile[index],
-                                  ],
-                                })
-                              }}
-                            />
-                          ))}
-                        </CustomSlider>
-                      ) : (
-                        <Typography>{'no photo track number...'}</Typography>
-                      )}
+                    <div className={styles.field}>
+                      <div className={styles.trackNumberPhotoWrapper}>
+                        {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
+                          <SlideshowGallery
+                            slidesToShow={2}
+                            files={
+                              boxFields.trackNumberFile.length
+                                ? boxFields.trackNumberFile
+                                : boxFields.tmpTrackNumberFile
+                            }
+                          />
+                        ) : (
+                          <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -870,59 +739,47 @@ export const EditBoxStorekeeperForm = observer(
           />
 
           <Field
-            containerClasses={classNames.blockOfNewBoxContainer}
+            containerClasses={styles.blockOfNewBoxContainer}
             label={t(TranslationKey['Box data'])}
             inputComponent={
-              <div className={classNames.blockOfNewBoxWrapper}>
-                <div className={classNames.sizesTitleWrapper}>
+              <div className={styles.blockOfNewBoxWrapper}>
+                <div className={styles.sizesTitleWrapper}>
                   <Text
                     tooltipInfoContent={t(TranslationKey['The dimensions of the box specified by the prep center'])}
-                    className={classNames.standartLabel}
+                    className={styles.standartLabel}
                   >
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <CustomSwitcher
-                    condition={sizeSetting}
-                    nameFirstArg={unitsOfChangeOptions.EU}
-                    nameSecondArg={unitsOfChangeOptions.US}
-                    firstArgValue={unitsOfChangeOptions.EU}
-                    secondArgValue={unitsOfChangeOptions.US}
-                    changeConditionHandler={condition => handleChange(condition)}
-                  />
+                  <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
                 </div>
 
-                <WarehouseDemensions
-                  orderBox={boxFields}
+                <WarehouseDimensions
+                  dimensions={boxFields}
                   sizeSetting={sizeSetting}
-                  volumeWeightCoefficient={volumeWeightCoefficient}
-                  setFormField={setFormField}
+                  onChangeDimensions={onChangeDimensions}
                 />
 
-                <div className={classNames.imageFileInputWrapper}>
-                  <UploadFilesInput
-                    images={imagesOfBox}
-                    setImages={setImagesOfBox}
-                    maxNumber={boxFields.images?.length ? 50 - boxFields.images?.length : 50}
-                  />
+                <div className={styles.imageFileInputWrapper}>
+                  <UploadFilesInput images={boxFields.images} setImages={handleChangeImages} />
                 </div>
 
-                <div className={classNames.boxPhotoWrapper}>
-                  <Typography className={classNames.standartLabel}>
+                <div className={styles.boxPhotoWrapper}>
+                  <Typography className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoCarousel files={boxFields.images} imageClass={classNames.boxImageClass} />
+                  <SlideshowGallery slidesToShow={2} files={boxFields.images} />
                 </div>
 
-                <div className={classNames.commentsWrapper}>
+                <div className={styles.commentsWrapper}>
                   <Field
                     multiline
                     disabled
                     minRows={3}
                     maxRows={3}
                     label={t(TranslationKey['Client comment'])}
-                    className={classNames.commentField}
-                    labelClasses={classNames.label}
+                    className={styles.commentField}
+                    labelClasses={styles.label}
                     value={boxFields.clientComment}
                   />
 
@@ -932,8 +789,8 @@ export const EditBoxStorekeeperForm = observer(
                     maxRows={3}
                     label={t(TranslationKey['Storekeeper comment'])}
                     placeholder={t(TranslationKey['Add comment'])}
-                    className={classNames.commentField}
-                    labelClasses={classNames.label}
+                    className={styles.commentField}
+                    labelClasses={styles.label}
                     value={boxFields.storekeeperComment}
                     onChange={setFormField('storekeeperComment')}
                   />
@@ -944,7 +801,7 @@ export const EditBoxStorekeeperForm = observer(
 
           <Field
             multiline
-            className={classNames.multiline}
+            className={styles.multiline}
             minRows={25}
             maxRows={25}
             inputProps={{ maxLength: 1000 }}
@@ -955,44 +812,19 @@ export const EditBoxStorekeeperForm = observer(
           />
         </div>
 
-        <div className={classNames.buttonsWrapper}>
+        <div className={styles.buttonsWrapper}>
           <Button
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
-            className={classNames.button}
-            onClick={() =>
-              onSubmit({
-                id: formItem?._id,
-                boxData: getBoxDataToSubmit(),
-                sourceData: formItem,
-                imagesOfBox,
-                dataToSubmitHsCode: boxFields.items.map(el => ({
-                  productId: el.product._id,
-                  hsCode: el.product.hsCode,
-                })),
-              })
-            }
+            onClick={handleSubmit}
           >
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={cx(classNames.button, classNames.cancelBtn)}
-            variant="text"
-            onClick={onTriggerOpenModal}
-          >
+          <Button tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={onTriggerOpenModal}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
-
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-          setImageIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-        />
 
         <Modal
           openModal={showSetShippingLabelModal}
@@ -1009,31 +841,56 @@ export const EditBoxStorekeeperForm = observer(
           />
         </Modal>
 
-        <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-        >
-          <SelectStorekeeperAndTariffForm
-            showCheckbox
-            storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
-            curStorekeeperId={boxFields.storekeeperId}
-            curTariffId={boxFields.logicsTariffId}
-            currentDestinationId={boxFields?.destinationId}
-            currentVariationTariffId={boxFields?.variationTariffId}
-            onSubmit={onSubmitSelectStorekeeperAndTariff}
+        {showSelectionStorekeeperAndTariffModal ? (
+          <SupplierApproximateCalculationsModal
+            isTariffsSelect
+            tariffModalType={TariffModal.WAREHOUSE}
+            openModal={showSelectionStorekeeperAndTariffModal}
+            setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+            box={boxFields}
+            onClickSubmit={onSubmitSelectStorekeeperAndTariff}
           />
-        </Modal>
+        ) : null}
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal
             title={barcodeModalSetting.title}
             maxNumber={barcodeModalSetting.maxNumber}
             tmpCode={barcodeModalSetting.tmpCode}
-            item={barcodeModalSetting.item}
+            barCode={barcodeModalSetting.item?.barCode}
             onClickSaveBarcode={barcodeModalSetting.onClickSaveBarcode}
             onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
+
+        <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
+          <SetFilesModal
+            modalTitle={t(TranslationKey.Transparency)}
+            LabelTitle={t(TranslationKey['Transparency codes'])}
+            currentFiles={filesConditions.currentFiles}
+            tmpFiles={filesConditions.tmpFiles}
+            onClickSave={value => {
+              onClickSaveTransparencyFile(filesConditions.index, value)
+              setShowSetFilesModal(false)
+            }}
+            onCloseModal={setShowSetFilesModal}
+          />
+        </Modal>
+
+        {showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            isWarning={confirmModalSettings?.isWarning}
+            openModal={showConfirmModal}
+            setOpenModal={() => setShowConfirmModal(false)}
+            title={t(TranslationKey.Attention)}
+            message={confirmModalSettings?.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
+            onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
+          />
+        ) : null}
       </div>
     )
   },

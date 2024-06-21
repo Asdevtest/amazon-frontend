@@ -1,11 +1,18 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
     fontWeight: '600',
     color: theme.palette.text.general,
+    [theme.breakpoints.down(768)]: {
+      fontSize: '14px',
+    },
+  },
+
+  hsFieldContainer: {
+    marginTop: 20,
   },
 
   hsCodeBtn: {
@@ -38,6 +45,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: 'calc(100% - 110px)',
   },
 
+  error: {
+    borderColor: theme.palette.text.red,
+  },
+
   text: {
     color: theme.palette.text.general,
     fontSize: '14px',
@@ -55,7 +66,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   buttonParseAmazon: {
-    width: '100%',
+    whiteSpace: 'nowrap',
   },
   productFieldBox: {
     display: 'flex',
@@ -63,9 +74,9 @@ export const useClassNames = makeStyles()(theme => ({
     gap: 30,
   },
   productCheckboxBox: {
-    paddingTop: 5,
     alignItems: 'center',
     display: 'flex',
+    gap: 10,
   },
 
   nativeSelect: {
@@ -91,21 +102,49 @@ export const useClassNames = makeStyles()(theme => ({
   productCheckboxBoxesWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    gap: 15,
   },
+
   productCheckboxBoxWrapper: {
     display: 'flex',
-    gap: '20px',
+    alignItems: 'center',
+    gap: 30,
+  },
+
+  radioLabel: {
+    fontSize: '16px',
+    lineHeight: '22px',
+    color: theme.palette.text.general,
+  },
+
+  radioRoot: {
+    padding: 0,
+
+    '& > span > svg': {
+      width: 18,
+      height: 18,
+    },
+
+    '& > span > svg:first-of-type': {
+      color: theme.palette.text.general,
+    },
   },
 
   rightBlockWrapper: {
     display: 'flex',
     gap: 15,
     width: '520px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
   fieldsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    [theme.breakpoints.down(768)]: {
+      width: '48%',
+    },
   },
 
   fieldsSubWrapper: {
@@ -117,9 +156,15 @@ export const useClassNames = makeStyles()(theme => ({
   shortInput: {
     width: '100%',
     whiteSpace: 'nowrap',
+    [theme.breakpoints.down(768)]: {
+      width: '48%!important',
+    },
   },
   shortInputClass: {
     width: 100,
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   editButtonWrapper: {
@@ -135,12 +180,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   linkOnEdit: {
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     color: theme.palette.primary.main,
-  },
-
-  disabledOption: {
-    color: 'rgba(0, 0, 0, 0.2)',
   },
 
   shopsWrapper: {
@@ -170,7 +211,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputLink: {
-    width: '600px',
+    width: '100%',
+    maxWidth: '600px',
     overflow: 'hidden',
     color: theme.palette.text.general,
     outline: 'none',
@@ -197,11 +239,20 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down(1440)]: {
+      flexWrap: 'wrap',
+    },
   },
   copyLink: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
+    width: '75%',
+    [theme.breakpoints.down(1440)]: {
+      width: '100%',
+      marginBottom: '20px',
+      marginRight: '10px',
+    },
   },
 
   subUsersBodyWrapper: {
@@ -239,7 +290,9 @@ export const useClassNames = makeStyles()(theme => ({
   strategyAndSubUsersWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
   field: {
     borderRadius: '4px',
@@ -250,6 +303,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: '16px',
     lineHeight: '22px',
+    [theme.breakpoints.down(768)]: {
+      width: '100%',
+    },
   },
 
   redFlags: {
@@ -275,5 +331,96 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100% !important',
     padding: '0 !important',
     margin: '0 !important',
+  },
+
+  interconnectedProductsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: '300px',
+    gap: '10px',
+  },
+
+  interconnectedProductsBodyWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    maxHeight: '205px',
+    overflowY: 'auto',
+    paddingRight: '15px',
+  },
+
+  interconnectedProductsHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: '15px',
+  },
+
+  interconnectedProductsHeaderPadding: {
+    paddingRight: '31px',
+  },
+
+  plusIcon: {
+    width: '21px !important',
+    height: '21px !important',
+  },
+
+  plusButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    width: 24,
+    height: 24,
+    minWidth: 'unset !important',
+    padding: 0,
+    borderRadius: '5px',
+  },
+
+  flexColumnBlock: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+    marginBottom: 30,
+  },
+
+  seoContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    gap: 5,
+  },
+
+  seoField: {
+    margin: 0,
+  },
+
+  downloadButtonContainer: {
+    width: 40,
+    height: 40,
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  downloadButtonIcon: {
+    color: theme.palette.primary.main,
+  },
+
+  tagsWrapper: {
+    width: '300px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    gap: '10px',
+
+    '> button': {
+      width: 'fit-content',
+    },
+  },
+
+  tagsTitleWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 }))

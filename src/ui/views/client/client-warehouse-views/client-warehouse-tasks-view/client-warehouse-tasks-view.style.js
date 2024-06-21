@@ -1,50 +1,15 @@
-export const styles = theme => ({
-  button: {
-    padding: '0 45px',
-    height: 'auto',
-    whiteSpace: 'nowrap',
-    marginBottom: 5,
-    color: theme.palette.primary.main,
+import { makeStyles } from 'tss-react/mui'
 
-    fontSize: 14,
-    fontWeight: 600,
-
-    '&>disabled': {
-      backgroundColor: 'inherit',
-    },
-  },
-
+export const useStyles = makeStyles()(theme => ({
   tasksWrapper: {
-    marginTop: '30px',
-
-    height: 'calc(100vh - 250px)',
-  },
-
-  root: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: theme.palette.background.general,
-  },
-
-  footerContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    borderTop: 'none !important',
-  },
-  footerCell: {
-    padding: 0,
-    margin: 0,
-  },
-  toolbarContainer: {
-    height: '52px',
+    height: 'calc(100vh - 300px)',
   },
 
   headerWrapper: {
-    width: '100%',
     display: 'flex',
-    justifyContent: 'center',
-    marginBottom: 20,
+    justifyContent: 'space-between',
+    height: '40px',
+    marginBottom: '10px',
   },
 
   searchInput: {
@@ -55,52 +20,11 @@ export const styles = theme => ({
     paddingLeft: '7px',
   },
 
-  filterBtn: {
-    marginBottom: 5,
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    height: 'auto !important',
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, .2)',
-    },
-  },
-
-  fieldNamesWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 'max-content',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-
-  fieldNamesWrapperWithCheckbox: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-
-  fieldName: {
-    height: 20,
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    color: theme.palette.primary.main,
-  },
-
   filters: {
     display: 'flex',
-    gap: 50,
+    gap: '10px',
     flexWrap: 'wrap',
-  },
-
-  pickupOrdersButton: {
-    padding: '0 20px',
-    height: 40,
-    color: '#fff',
-    display: 'flex',
-    gap: 10,
+    marginBottom: '10px',
   },
 
   downloadIcon: {
@@ -111,9 +35,7 @@ export const styles = theme => ({
     color: theme.palette.button.disabledText,
   },
 
-  controls: {
-    display: 'flex',
-    gap: 20,
-    justifyContent: 'space-between',
+  downloadBtn: {
+    width: '250px',
   },
-})
+}))

@@ -1,25 +1,25 @@
-import { cx } from '@emotion/css'
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import { Typography } from '@mui/material'
-
-import React, { useEffect, useState } from 'react'
-
-import { observer } from 'mobx-react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-// import {SettingsModel} from '@models/settings-model'
-import { Button } from '@components/shared/buttons/button'
+import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
+import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
-// import {RegistrationForm} from '../registration-form'
-import { useClassNames } from './user-info-edit-form.style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+
+import { useStyles } from './user-info-edit-form.style'
+
+import { ActiveSessions } from './active-sessions'
 
 const regExpEmailChecking =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -29,8 +29,26 @@ const regExpNameCheking = /^(?! )(?!(?:.* ){1})/
 const regExpNameStartCheking = /^(?! )/
 
 export const UserInfoEditForm = observer(
-  ({ user, wrongPassword, onSubmit, onCloseModal, clearError, checkValidationNameOrEmail }) => {
-    const { classes: classNames } = useClassNames()
+  ({
+    user,
+    wrongPassword,
+    onSubmit,
+    onCloseModal,
+    clearError,
+    checkValidationNameOrEmail,
+    resetProfileDataValidation,
+    activeSessions,
+    userInfoEditFormFlag,
+    onToggleUserInfoEditFormFlag,
+    onLogoutSession,
+  }) => {
+    const { classes: styles, cx } = useStyles()
+
+    useEffect(() => {
+      return () => {
+        resetProfileDataValidation()
+      }
+    }, [])
 
     const sourceFields = {
       name: user?.name || '',
@@ -120,19 +138,6 @@ export const UserInfoEditForm = observer(
       }
     }
 
-    // const onSubmitForm = event => {
-    //   event.preventDefault()
-    //   setSubmit(true)
-    //   !errorLowercaseLetter &&
-    //     !errorMinLength &&
-    //     !errorOneNumber &&
-    //     !errorUppercaseLetter &&
-    //     !errorMaxLength &&
-    //     !equalityError &&
-    //     !errorNoEngLetter &&
-    //     onSubmit()
-    // }
-
     const disabledSubmit =
       JSON.stringify(sourceFields) === JSON.stringify(formFields) ||
       emailInputError ||
@@ -220,127 +225,148 @@ export const UserInfoEditForm = observer(
       (submit && errorMaxLength)
 
     return (
-      <form className={classNames.mainWrapper} onSubmit={onClickSubmit}>
-        <Typography variant="h5" className={classNames.mainTitle}>
-          {t(TranslationKey['Enter information'])}
-        </Typography>
-
-        <Field
-          label={t(TranslationKey.Name)}
-          inputProps={{ maxLength: 25 }}
-          labelClasses={classNames.labelField}
-          error={
-            checkValidationNameOrEmail.nameIsUnique === false &&
-            t(TranslationKey['A user with this name already exists'])
-          }
-          className={classNames.textField}
-          value={formFields.name}
-          onChange={onChangeField('name')}
-        />
-
-        <Field
-          disabled
-          label={t(TranslationKey.Email)}
-          inputProps={{ maxLength: 35 }}
-          labelClasses={classNames.labelField}
-          error={
-            (checkValidationNameOrEmail.emailIsUnique === false &&
-              t(TranslationKey['A user with this email already exists'])) ||
-            (emailInputError && t(TranslationKey['Invalid email!']))
-          }
-          className={classNames.textField}
-          type="email"
-          value={formFields.email}
-          onChange={onChangeField('email')}
-        />
-
-        <div className={classNames.field}>
-          <Field
-            disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
-            inputProps={{ maxLength: 128 }}
-            labelClasses={classNames.labelField}
-            error={wrongPassword && t(TranslationKey['Old password'])}
-            inputClasses={classNames.input}
-            label={t(TranslationKey['Old password'])}
-            placeholder={t(TranslationKey['Old password'])}
-            type={!visibilityOldPass ? 'password' : 'text'}
-            value={formFields.oldPassword}
-            onChange={onChangeField('oldPassword')}
-          />
-          <div className={classNames.visibilityIcon} onClick={() => setVisibilityOldPass(!visibilityOldPass)}>
-            {!visibilityOldPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
-          </div>
+      <div className={styles.wrapper}>
+        <div className={styles.titleContainer}>
+          {userInfoEditFormFlag ? (
+            <>
+              <p className={styles.title}>{t(TranslationKey['Enter information'])}</p>
+              <button className={styles.activeSessions} onClick={onToggleUserInfoEditFormFlag}>
+                {t(TranslationKey['Active sessions'])}
+              </button>
+            </>
+          ) : (
+            <>
+              <Button
+                iconButton
+                styleType={ButtonStyle.CASUAL}
+                className={styles.back}
+                onClick={onToggleUserInfoEditFormFlag}
+              >
+                <ArrowBackIcon />
+              </Button>
+              <p className={styles.title}>{t(TranslationKey['Active sessions'])}</p>
+            </>
+          )}
         </div>
 
-        <div className={classNames.field}>
-          <Field
-            disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
-            inputProps={{ maxLength: 128 }}
-            labelClasses={classNames.labelField}
-            error={showError}
-            inputClasses={classNames.input}
-            label={t(TranslationKey['New password'])}
-            placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
-            value={formFields.password}
-            onChange={onChangeField('password')}
-          />
-          <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
-            {!visibilityPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
-          </div>
-          <div className={classNames.validationMessage}>
-            {validationMessagesArray(
-              errorMinLength,
-              errorOneNumber,
-              errorUppercaseLetter,
-              errorLowercaseLetter,
-              errorNoEngLetter,
-            ).map((text, index) => (
-              <span key={index} className={cx(classNames.validationText, { [classNames.red]: submit && text.error })}>
-                {text.name}
-              </span>
-            ))}
-          </div>
-          <div className={classNames.validationHiddenMessage}>
-            <Typography
-              className={cx(
-                classNames.validationHiddenText,
-                { [classNames.red]: submit && errorMaxLength },
-                { [classNames.visibility]: errorMaxLength },
-              )}
-            >
-              {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
-            </Typography>
-          </div>
-        </div>
+        {userInfoEditFormFlag ? (
+          <>
+            <Field
+              label={t(TranslationKey.Name)}
+              inputProps={{ maxLength: 25 }}
+              labelClasses={styles.label}
+              error={
+                checkValidationNameOrEmail?.nameIsUnique === false &&
+                t(TranslationKey['A user with this name already exists'])
+              }
+              value={formFields.name}
+              onChange={onChangeField('name')}
+            />
 
-        <div className={classNames.field}>
-          <Field
-            disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
-            inputProps={{ maxLength: 128 }}
-            labelClasses={classNames.labelField}
-            error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
-            inputClasses={classNames.input}
-            label={t(TranslationKey['Re-enter the new password'])}
-            placeholder={t(TranslationKey.Password)}
-            type={!visibilityPass ? 'password' : 'text'}
-            value={formFields.confirmPassword}
-            onChange={onChangeField('confirmPassword')}
-          />
-        </div>
+            <Field
+              disabled
+              label={t(TranslationKey.Email)}
+              inputProps={{ maxLength: 35 }}
+              labelClasses={styles.label}
+              error={
+                (checkValidationNameOrEmail?.emailIsUnique === false &&
+                  t(TranslationKey['A user with this email already exists'])) ||
+                (emailInputError && t(TranslationKey['Invalid email!']))
+              }
+              type="email"
+              value={formFields.email}
+              onChange={onChangeField('email')}
+            />
 
-        {/* <RegistrationForm isRecoverPassword formFields={{password: ''}} onChangeFormField={onChangeField} /> */}
+            <div className={styles.field}>
+              <Field
+                disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
+                inputProps={{ maxLength: 128 }}
+                labelClasses={styles.label}
+                error={wrongPassword && t(TranslationKey['Old password'])}
+                label={t(TranslationKey['Old password'])}
+                placeholder={t(TranslationKey['Old password'])}
+                type={!visibilityOldPass ? 'password' : 'text'}
+                value={formFields.oldPassword}
+                onChange={onChangeField('oldPassword')}
+              />
 
-        <div className={classNames.btnsWrapper}>
-          <Button disabled={disabledSubmit} className={classNames.actionBtn} /* type="submit"*/ onClick={onClickSubmit}>
-            {t(TranslationKey.Save)}
-          </Button>
+              <div className={styles.visibilityIcon} onClick={() => setVisibilityOldPass(!visibilityOldPass)}>
+                {!visibilityOldPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </div>
+            </div>
 
-          <Button variant="text" className={[classNames.actionBtn, classNames.cancelBtn]} onClick={onCloseModal}>
-            {t(TranslationKey.Cancel)}
-          </Button>
-        </div>
-      </form>
+            <div className={styles.field}>
+              <Field
+                disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
+                inputProps={{ maxLength: 128 }}
+                labelClasses={styles.label}
+                error={showError}
+                label={t(TranslationKey['New password'])}
+                placeholder={t(TranslationKey.Password)}
+                type={!visibilityPass ? 'password' : 'text'}
+                value={formFields.password}
+                onChange={onChangeField('password')}
+              />
+              <div className={styles.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
+                {!visibilityPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </div>
+
+              <div className={styles.validationMessage}>
+                {validationMessagesArray(
+                  errorMinLength,
+                  errorOneNumber,
+                  errorUppercaseLetter,
+                  errorLowercaseLetter,
+                  errorNoEngLetter,
+                ).map((text, index) => (
+                  <span key={index} className={cx(styles.validationText, { [styles.red]: submit && text.error })}>
+                    {text.name}
+                  </span>
+                ))}
+              </div>
+
+              <div className={styles.validationHiddenMessage}>
+                <p
+                  className={cx(
+                    styles.validationHiddenText,
+                    { [styles.red]: submit && errorMaxLength },
+                    { [styles.visibility]: errorMaxLength },
+                  )}
+                >
+                  {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.field}>
+              <Field
+                disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
+                inputProps={{ maxLength: 128 }}
+                labelClasses={styles.label}
+                error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
+                label={t(TranslationKey['Re-enter the new password'])}
+                placeholder={t(TranslationKey.Password)}
+                type={!visibilityPass ? 'password' : 'text'}
+                value={formFields.confirmPassword}
+                onChange={onChangeField('confirmPassword')}
+              />
+            </div>
+
+            <div className={styles.buttons}>
+              <Button disabled={disabledSubmit} onClick={onClickSubmit}>
+                {t(TranslationKey.Save)}
+              </Button>
+
+              <Button variant={ButtonVariant.OUTLINED} onClick={onCloseModal}>
+                {t(TranslationKey.Cancel)}
+              </Button>
+            </div>
+          </>
+        ) : (
+          <ActiveSessions activeSessions={activeSessions} onLogoutSession={onLogoutSession} />
+        )}
+      </div>
     )
   },
 )

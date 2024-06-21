@@ -1,20 +1,20 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useStyles = makeStyles()(() => ({
   mainWrapper: {
     gap: '5px',
     width: '100%',
     flexDirection: 'column',
-    height: '80vh',
+    height: '74vh',
+  },
+
+  modalWrapper: {
+    height: 600,
   },
 
   addProductBtnsWrapper: {
-    width: '100%',
     display: 'flex',
-    padding: '10px',
-  },
-
-  buttonOffset: {
-    marginLeft: 20,
+    gap: 20,
+    marginBottom: 10,
   },
 }))

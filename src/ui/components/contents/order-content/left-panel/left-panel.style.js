@@ -1,9 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   orderContainer: {
-    padding: '15px 15px',
-    width: '500px',
+    width: '100%',
   },
   amazonTitle: {
     fontSize: '16px',
@@ -18,8 +17,8 @@ export const useClassNames = makeStyles()(theme => ({
   productImg: {
     height: '98px',
     width: '92px',
-    margin: '0 50px 0 0',
-    objectFit: 'cover',
+    margin: '0 20px 0 0',
+    objectFit: 'contain',
     objectPosition: 'center',
   },
 
@@ -37,25 +36,6 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '16px',
   },
 
-  documentsButton: {
-    border: '1px solid #e0e0e0',
-    borderRadius: '4px',
-    padding: '10px 15px',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    color: theme.palette.text.general,
-    fontSize: '16px',
-    fontWeight: 400,
-    lineHeight: '19px',
-    textTransform: 'none',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: '34px 0 30px',
-  },
-
-  asinTypo: {
-    color: theme.palette.text.second,
-  },
   divider: {
     margin: '10px 0',
   },
@@ -64,14 +44,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
   collapsedWrapper: {
     textAlign: 'center',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     marginTop: '79px',
   },
 
-  copyValueWrapper: {
+  productInfoWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     gap: '10px',
-    marginTop: '19px',
   },
 }))

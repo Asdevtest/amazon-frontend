@@ -1,28 +1,24 @@
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
-
-import React, { useEffect, useRef } from 'react'
-
 import { observer } from 'mobx-react'
+import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomToolbar } from '@components/data-grid/data-grid-custom-components/data-grid-custom-toolbar/data-grid-custom-toolbar'
 import { AddOrEditWarehouseTariffForm } from '@components/forms/add-or-edit-warehouse-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/buttons/button'
-import { MemoDataGrid } from '@components/shared/memo-data-grid'
+import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
+import { useStyles } from './warehouse-tariffs.style'
+
 import { WarehouseTariffModel } from './warehouse-tariffs.model'
-import { useClassNames } from './warehouse-tariffs.style'
 
 export const WarehouseTariffs = observer(() => {
-  const { classes: classNames } = useClassNames()
+  const { classes: styles } = useStyles()
   const history = useHistory()
   const spModel = useRef(new WarehouseTariffModel({ history }))
 
@@ -45,7 +41,6 @@ export const WarehouseTariffs = observer(() => {
     showAddOrEditWarehouseTariffModal,
     showConfirmModal,
     onTriggerOpenModal,
-    onClickAddBtn,
     onClickCancelBtn,
 
     onChangeSortingModel,
@@ -53,40 +48,24 @@ export const WarehouseTariffs = observer(() => {
     onSubmitCreateTariff,
     onSubmitEditTariff,
     onColumnVisibilityModelChange,
-    onChangePaginationModelChange,
+    onPaginationModelChange,
   } = spModel.current
 
   return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.placeAddBtnWrapper}>
-        <Button success className={classNames.placeAddBtn} onClick={() => onClickAddBtn()}>
-          {t(TranslationKey.Add)}
-        </Button>
-      </div>
-
-      <MemoDataGrid
-        pagination
-        useResizeContainer
-        classes={{
-          root: classNames.root,
-          footerContainer: classNames.footerContainer,
-          footerCell: classNames.footerCell,
-          toolbarContainer: classNames.toolbarContainer,
-          filterForm: classNames.filterForm,
-        }}
-        localeText={getLocalizationByLanguageTag()}
+    <div className={styles.mainWrapper}>
+      <CustomDataGrid
         sortModel={sortModel}
         filterModel={filterModel}
         columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}
-        pageSizeOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
+        sortingMode="client"
+        paginationMode="client"
         getRowHeight={() => 'auto'}
-        slots={{
-          toolbar: DataGridCustomToolbar,
-          columnMenuIcon: FilterAltOutlinedIcon,
-        }}
         slotProps={{
+          baseTooltip: {
+            title: t(TranslationKey.Filter),
+          },
           toolbar: {
             columsBtnSettings: {
               columnsModel,
@@ -97,9 +76,9 @@ export const WarehouseTariffs = observer(() => {
         }}
         density={densityModel}
         columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
+        loading={requestStatus === loadingStatus.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
-        onPaginationModelChange={onChangePaginationModelChange}
+        onPaginationModelChange={onPaginationModelChange}
         onFilterModelChange={onChangeFilterModel}
       />
       <Modal
@@ -114,17 +93,20 @@ export const WarehouseTariffs = observer(() => {
         />
       </Modal>
 
-      <ConfirmationModal
-        isWarning={confirmModalSettings.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.message}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings.onClickSuccess}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+      {showConfirmModal ? (
+        <ConfirmationModal
+          // @ts-ignore
+          isWarning={confirmModalSettings?.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.message}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickSuccess}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+      ) : null}
     </div>
   )
 })

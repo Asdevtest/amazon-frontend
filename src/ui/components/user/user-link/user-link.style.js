@@ -1,14 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   linkText: {
     color: theme.palette.primary.main,
-    fontSize: '16px',
-    lineHeight: '140%',
+    fontSize: '14px',
+    lineHeight: '19px',
     fontWeight: '400',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '.3s ease',
-
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -24,10 +23,28 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '600',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '.3s ease',
     maxWidth: '100px',
     textAlign: 'end',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
+  },
+
+  blueLinkText: {
+    color: theme.palette.primary.main,
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: '.3s ease',
+    maxWidth: '100px',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -45,7 +62,7 @@ export const useClassNames = makeStyles()(theme => ({
   avatarWrapper: {
     marginRight: 10,
 
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    cursor: 'pointer',
     transition: '.3s ease',
 
     '&:hover': {
@@ -59,5 +76,12 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     height: 'min-content',
     width: 'min-content',
+  },
+
+  userInfoWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
 }))

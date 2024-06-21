@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
-import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -9,117 +7,175 @@ import { AnnouncementsModel } from '@models/announcements-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
+import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { objectToUrlQs } from '@utils/text'
+
+import { loadingStatus } from '@typings/enums/loading-status'
+import { Specs } from '@typings/enums/specs'
+
+import { filterFields, searchFields } from './service-exchange-view.constants'
+
 export class ServiceExchangeViewModel {
   history = undefined
-  requestStatus = undefined
-  error = undefined
-  actionStatus = undefined
 
   announcements = []
-  currentData = []
 
-  selectedTaskType = freelanceRequestTypeByKey[freelanceRequestType.DEFAULT]
-
-  showConfirmModal = false
+  selectedSpec = Specs.DEFAULT
 
   showImageModal = false
-
-  selectedProposal = undefined
 
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
 
   bigImagesOptions = {}
+  nameSearchValue = ''
+  rowCount = 0
+  columnMenuSettings = {
+    ...dataGridFiltersInitializer(filterFields),
+  }
 
-  nameSearchValue = undefined
+  options = {
+    offset: 0,
+    limit: 12,
+    filters: this.getFilter(),
+  }
 
-  get user() {
-    return UserModel.userInfo
+  get currentData() {
+    return this.announcements
   }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.announcements,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
-
-    reaction(
-      () => this.nameSearchValue,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
   }
 
-  async loadData() {
+  loadData() {
     try {
-      await this.getVacAnnouncementsData()
+      this.getSpecs()
+
+      this.getNotYoursAnnouncements()
     } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getSpecs() {
+    try {
+      const response = await UserModel.getSpecs(false)
+
       runInAction(() => {
-        this.error = error
+        this.specs = response
       })
-      console.log(error)
+    } catch (error) {
+      console.error(error)
     }
   }
 
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.announcements).filter(
-        el =>
-          el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.description.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el.createdBy.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.announcements)
-    }
-  }
-
-  async getVacAnnouncementsData() {
+  /* async getVacAnnouncementsData() {
     try {
       const result = await AnnouncementsModel.getVacAnnouncements({
-        type:
-          Number(this.selectedTaskType) === Number(freelanceRequestTypeByKey[freelanceRequestType.DEFAULT])
-            ? null
-            : this.selectedTaskType,
+        filters: this.getFilter(),
       })
+
       runInAction(() => {
         this.announcements = result
       })
     } catch (error) {
+      console.error(error)
+    }
+  } */
+
+  async getNotYoursAnnouncements() {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      const result = await AnnouncementsModel.getNotYoursAnnouncements(this.options)
+
       runInAction(() => {
-        this.error = error
+        this.announcements = result.rows
+        this.rowCount = result.count
       })
-      console.log(error)
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
+  async loadMoreDataHadler() {
+    if (this.requestStatus === loadingStatus.IS_LOADING) {
+      return
+    }
+
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      this.options.offset += this.options.limit
+
+      if (this.options.offset >= this.rowCount) {
+        this.setRequestStatus(loadingStatus.SUCCESS)
+
+        return
+      }
+
+      const result = await AnnouncementsModel.getNotYoursAnnouncements(this.options)
+
+      runInAction(() => {
+        this.announcements = [...this.announcements, ...result.rows]
+      })
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+    }
+  }
+
+  onChangeFullFieldMenuItem(value, field) {
+    this.columnMenuSettings[field].currentFilterData = value
+  }
+
+  getFilter(exclusion) {
+    return objectToUrlQs(
+      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filterFields, searchFields),
+    )
+  }
+
+  onClickSpec(specType) {
+    this.selectedSpec = specType
+
+    // spec - for "_id:string", specType - for "type:number"
+    this.onChangeFullFieldMenuItem(specType === Specs.DEFAULT ? [] : [specType], 'specType', true)
+
+    this.options.offset = 0
+    this.options.filters = this.getFilter()
+
+    this.getNotYoursAnnouncements()
+  }
+
+  onSearchSubmit(searchValue) {
+    this.nameSearchValue = searchValue
+    this.options.offset = 0
+    this.options.filters = this.getFilter()
+
+    this.getNotYoursAnnouncements()
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
   onClickOrderBtn(data) {
-    this.history.push('/client/freelance/my-requests/create-request', {
-      announcementId: data._id,
-    })
+    this.history.push(
+      `/client/freelance/my-requests/create-request?announcementId=${data?._id}&executorId=${data?.createdBy?._id}`,
+    )
   }
 
-  async onClickTaskType(taskType) {
-    runInAction(() => {
-      this.selectedTaskType = taskType
-    })
-    await this.getVacAnnouncementsData()
-  }
+  onChangeViewMode(value) {
+    this.viewMode = value
 
-  onChangeViewMode(event, nextView) {
-    runInAction(() => {
-      this.viewMode = nextView
-    })
     this.setTableModeState()
   }
 
@@ -130,27 +186,16 @@ export class ServiceExchangeViewModel {
   }
 
   onClickThumbnail(data) {
-    runInAction(() => {
-      this.bigImagesOptions = data
-    })
+    this.bigImagesOptions = data
+
     this.onTriggerOpenModal('showImageModal')
   }
 
   setBigImagesOptions(data) {
-    runInAction(() => {
-      this.bigImagesOptions = data
-    })
+    this.bigImagesOptions = data
   }
 
   onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
-  }
-
-  onSearchSubmit(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this[modalState] = !this[modalState]
   }
 }

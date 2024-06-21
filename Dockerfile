@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:14-alpine AS builder
+FROM --platform=linux/amd64 node:20-alpine AS builder
 ARG ENV_FILE
 RUN if [[ -z "$ENV_FILE" ]] ; then echo "ERROR: ENV_FILE argument is not provided" && exit 1 ; else echo "ENV_FILE argument is $ENV_FILE" ; fi 
 WORKDIR /app/builder

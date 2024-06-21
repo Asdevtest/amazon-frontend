@@ -20,6 +20,7 @@ export const styles = theme => ({
   cardImg: {
     width: '145px',
     height: '145px',
+    borderRadius: '50%',
     [theme.breakpoints.down(768)]: {
       width: '51px',
       height: '51px',

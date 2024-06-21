@@ -1,30 +1,27 @@
-import { Avatar, Typography } from '@mui/material'
-
 import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
-import { ChatMessageTextType } from '@services/websocket-chat-service/interfaces'
+import { ChatMessageTextType, EChatInfoType } from '@services/websocket-chat-service/interfaces'
 
 import { UserLink } from '@components/user/user-link'
 
 import { formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { useClassNames } from './simple-messages-notification.style'
+import { useStyles } from './simple-messages-notification.style'
 
 interface SimpleMessagesNotificationProps {
   noticeItem: ChatMessageContract | null
   onClickMessage: (noticeItem: ChatMessageContract | null) => void
 }
 
-export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = props => {
-  const { classes: classNames } = useClassNames()
-
-  const { noticeItem, onClickMessage } = props
+export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = ({ noticeItem, onClickMessage }) => {
+  const { classes: styles } = useStyles()
 
   const message = noticeItem?.text
     ? (() => {
@@ -41,42 +38,51 @@ export const SimpleMessagesNotification: FC<SimpleMessagesNotificationProps> = p
       })()
     : ''
 
+  const hasFiles = !!noticeItem?.files?.length
+  const hasImages = !!noticeItem?.images?.length
+  const isGroupChat = noticeItem?.info?.type === EChatInfoType.GROUP
+
   return (
-    <div
-      className={classNames.mainWrapper}
-      onClick={() => {
-        onClickMessage(noticeItem)
-      }}
-    >
-      <Avatar src={getUserAvatarSrc(noticeItem?.user?._id)} className={classNames.avatarWrapper} />
-      <div className={classNames.centerWrapper}>
-        <UserLink
-          name={noticeItem?.user?.name}
-          userId={noticeItem?.user?._id}
-          blackText={undefined}
-          withAvatar={undefined}
-          maxNameWidth={undefined}
-          customStyles={undefined}
-          customClassNames={undefined}
-        />
+    <div className={styles.mainWrapper} onClick={() => onClickMessage(noticeItem)}>
+      <img
+        src={isGroupChat ? getAmazonImageUrl(noticeItem?.info?.image) : getUserAvatarSrc(noticeItem?.user?._id)}
+        className={styles.avatar}
+      />
+      <div className={styles.content}>
+        {isGroupChat ? (
+          <p className={styles.noticeTitle}>{noticeItem?.info?.title}</p>
+        ) : (
+          <UserLink
+            name={noticeItem?.user?.name}
+            userId={noticeItem?.user?._id}
+            customClassNames={styles.noticeTitle}
+          />
+        )}
 
-        {message ? (
-          <Typography className={classNames.messageText}>
-            {message?.length > 40 ? message.slice(0, 37) + '...' : message}
-          </Typography>
-        ) : null}
+        {!!message && (
+          <p className={styles.message}>
+            {isGroupChat && <span className={styles.messageOwner}>{`${noticeItem?.user?.name}: `}</span>}
+            {message}
+          </p>
+        )}
 
-        {noticeItem?.files?.length ? (
-          <Typography className={classNames.filesText}>
-            {`*${noticeItem?.files?.length} ${t(TranslationKey.Files)}*`}
-          </Typography>
+        {hasFiles || hasImages ? (
+          <div className={styles.files}>
+            {hasFiles ? (
+              <p className={styles.date}>{`${noticeItem?.files?.length} ${t(TranslationKey.Files)}`}</p>
+            ) : null}
+
+            {hasFiles && hasImages ? <p className={styles.date}>/</p> : null}
+
+            {hasImages ? (
+              <p className={styles.date}>{`${noticeItem?.images?.length} ${t(TranslationKey.Images)}`}</p>
+            ) : null}
+          </div>
         ) : null}
       </div>
 
-      <div className={classNames.footer}>
-        <Typography className={classNames.messageDate}>
-          {formatDateTimeHourAndMinutes(noticeItem?.createdAt)}
-        </Typography>
+      <div className={styles.dateContainer}>
+        <p className={styles.date}>{formatDateTimeHourAndMinutes(noticeItem?.createdAt)}</p>
       </div>
     </div>
   )

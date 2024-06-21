@@ -1,29 +1,28 @@
-export const styles = theme => ({
-  userInfoWrapper: {
-    marginBottom: theme.spacing(5),
+import { makeStyles } from 'tss-react/mui'
 
-    padding: '40px 50px',
+export const useStyles = makeStyles()(theme => ({
+  userInfoWrapper: {
+    marginBottom: 40,
+    padding: 40,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '25px',
-    boxShadow: '0px 2px 8px 2px rgba(0, 0, 0, 0.05)',
-
-    backgroundColor: theme.palette.background.general,
+    gap: 20,
+    boxShadow: theme.palette.boxShadow.paper,
+    background: theme.palette.background.general,
+    borderRadius: 8,
   },
+
   cardImg: {
     width: '145px',
     height: '145px',
-  },
-  userInfoLeftWrapper: {
-    display: 'flex',
-    gap: '25px',
-    alignItems: 'center',
+    borderRadius: '50%',
+    boxShadow: theme.palette.boxShadow.paper,
   },
 
-  masterUserWrapper: {
+  flexContainer: {
     display: 'flex',
     alignItems: 'center',
     gap: 20,
   },
-})
+}))

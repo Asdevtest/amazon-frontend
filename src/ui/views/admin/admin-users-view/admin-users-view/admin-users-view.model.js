@@ -1,25 +1,22 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { AdministratorModel } from '@models/administrator-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { PermissionsModel } from '@models/permissions-model'
-import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { adminUsersViewColumns } from '@components/table/table-columns/admin/users-columns'
 
-import { adminUsersDataConverter } from '@utils/data-grid-data-converters'
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
-export class AdminUsersViewModel {
-  history = undefined
-  requestStatus = undefined
-  error = undefined
+import { loadingStatus } from '@typings/enums/loading-status'
 
-  nameSearchValue = ''
+import { fieldsForSearch } from './admin-users-view.constants'
+import { observerConfig } from './observer-config'
 
-  users = []
+export class AdminUsersViewModel extends DataGridFilterTableModel {
   groupPermissions = []
   singlePermissions = []
   checkValidationNameOrEmail = {}
@@ -27,122 +24,59 @@ export class AdminUsersViewModel {
   changeNameAndEmail = { email: '', name: '' }
   editUserFormFields = undefined
   rowSelectionModel = undefined
-  dataGridState = null
+  switcherCondition = null
 
   submitEditData = undefined
-
-  rowHandlers = {
-    onClickEditUser: item => this.onClickEditUser(item),
-    onClickBalance: item => this.onClickBalance(item),
-    onClickUser: item => this.onClickUser(item),
-  }
-
-  sortModel = []
-  filterModel = { items: [] }
-  densityModel = 'compact'
-  columnsModel = adminUsersViewColumns(this.rowHandlers)
-
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
 
   showConfirmModal = false
   showEditUserModal = false
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
-
-  onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
-
-    this.setDataGridState()
-  }
-
-  onChangePaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
-    this.setDataGridState()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
-    this.setDataGridState()
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
+  constructor() {
+    const additionalPropertiesGetFilters = () => {
+      return !this.columnMenuSettings?.role?.currentFilterData?.length && this.switcherCondition
+        ? {
+            role: {
+              $eq: this.switcherCondition,
+            },
+          }
+        : {}
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_USERS)
-  }
+    const rowHandlers = {
+      onClickEditUser: item => this.onClickEditUser(item),
+      onClickBalance: item => this.onClickBalance(item),
+      onClickUser: item => this.onClickUser(item),
+    }
 
-  getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_USERS]
+    const columnsModel = adminUsersViewColumns(rowHandlers)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
+    super({
+      getMainDataMethod: AdministratorModel.getUsers,
+      columnsModel,
+      filtersFields: getFilterFields(columnsModel),
+      mainMethodURL: `admins/users/pag?`,
+      fieldsForSearch,
+      tableKey: DataGridTablesKeys.ADMIN_USERS,
+      additionalPropertiesGetFilters,
     })
-  }
+    makeObservable(this, observerConfig)
 
-  onChangeNameSearchValue(e) {
-    runInAction(() => {
-      this.nameSearchValue = e.target.value
-    })
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+
+    this.initHistory()
+
+    this.getDataGridState()
+    this.loadData()
   }
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-
-      await Promise.all([this.getUsers(), this.getGroupPermissions(), this.getSinglePermissions()])
-
-      this.setRequestStatus(loadingStatuses.success)
+      this.getCurrentData()
+      this.getGroupPermissions()
+      this.getSinglePermissions()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-    }
-  }
-
-  async getUsers() {
-    try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(() => {
-        this.error = undefined
-      })
-      const result = await AdministratorModel.getUsers()
-
-      const usersData = adminUsersDataConverter(result)
-
-      runInAction(() => {
-        this.users = usersData
-      })
-
-      this.setRequestStatus(loadingStatuses.success)
-    } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-      runInAction(() => {
-        this.error = error?.body?.message || error
-      })
+      console.error(error)
     }
   }
 
@@ -154,7 +88,7 @@ export class AdminUsersViewModel {
         this.groupPermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -166,16 +100,13 @@ export class AdminUsersViewModel {
         this.singlePermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async submitEditUserForm(data, sourceData) {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      runInAction(() => {
-        this.error = undefined
-      })
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
         name: this.changeNameAndEmail.name,
@@ -203,50 +134,26 @@ export class AdminUsersViewModel {
         await this.finalStepSubmitEditUserForm()
       }
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
-      console.log(error)
-      runInAction(() => {
-        this.error = error?.body?.message || error
-      })
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   async finalStepSubmitEditUserForm() {
     try {
       await AdministratorModel.updateUser(this.rowSelectionModel, this.submitEditData)
-      this.setRequestStatus(loadingStatuses.success)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.onTriggerOpenModal('showEditUserModal')
 
-      await Promise.all([this.getUsers(), this.getGroupPermissions(), this.getSinglePermissions()])
+      await this.getCurrentData()
 
       runInAction(() => {
         this.changeNameAndEmail = { email: '', name: '' }
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error?.body?.message || error
-      })
+      console.error(error)
     }
-  }
-
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.users).filter(
-        user =>
-          user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          user.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
-      )
-    } else {
-      return toJS(this.users)
-    }
-  }
-
-  onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
   }
 
   async onClickEditUser(row) {
@@ -255,13 +162,10 @@ export class AdminUsersViewModel {
 
       runInAction(() => {
         this.editUserFormFields = result
-      })
-
-      runInAction(() => {
         this.showEditUserModal = !this.showEditUserModal
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -270,7 +174,7 @@ export class AdminUsersViewModel {
       const result = await AdministratorModel.getUsersById(userData._id)
       this.history.push('/admin/users/user', { user: result })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -278,23 +182,9 @@ export class AdminUsersViewModel {
     this.history.push('/admin/users/balance', { user: userData })
   }
 
-  onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+  onClickChangeRole(value) {
+    this.switcherCondition = value
 
-    this.setDataGridState()
-  }
-
-  setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this.getCurrentData()
   }
 }

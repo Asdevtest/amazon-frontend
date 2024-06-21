@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(theme => ({
+export const useStyles = makeStyles()(theme => ({
   modalMessageWrapper: {
     width: '586px',
     minHeight: '168px',
@@ -9,6 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: '20px',
+    padding: 10,
   },
 
   modalMessageTitle: {
