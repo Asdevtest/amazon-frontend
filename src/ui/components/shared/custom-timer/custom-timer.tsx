@@ -4,7 +4,13 @@ import { AiOutlinePoweroff } from 'react-icons/ai'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { UserModel } from '@models/user-model'
+
+import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { Roles } from '@typings/enums/roles'
+import { IFullUser } from '@typings/shared/full-user'
 
 import { useCountdown } from '@hooks/use-countdown'
 
@@ -21,6 +27,10 @@ interface CustomTimerProps {
 export const CustomTimer: FC<CustomTimerProps> = memo(props => {
   const { targetDate, startIcon = <AiOutlinePoweroff />, endIcon, className, tooltipText } = props
 
+  if (new Date() >= new Date(targetDate)) {
+    return null
+  }
+
   const { classes: styles, cx, theme } = useStyles()
   const { days, hours, minutes, seconds } = useCountdown(targetDate)
 
@@ -29,6 +39,13 @@ export const CustomTimer: FC<CustomTimerProps> = memo(props => {
     : ''
 
   if (Number(days) + Number(hours) + Number(minutes) + Number(seconds) === 0) {
+    const userInfo = UserModel.userInfo as unknown as IFullUser
+    const logoutCondition = !checkIsAdmin(Roles[userInfo?.role])
+
+    if (logoutCondition) {
+      UserModel.signOut()
+    }
+
     return null
   }
 
