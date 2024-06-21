@@ -1,6 +1,8 @@
 import { Checkbox, Tooltip } from 'antd'
 import { FC, memo } from 'react'
 
+import { GridColumnVisibilityModel } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TooltipInfoIcon } from '@components/shared/svg-icons'
@@ -19,11 +21,12 @@ import { dateConfig } from './date.config'
 
 interface TariffDetailsProps {
   tariff: ILogicTariff
-  currentVariationId?: string
-  isTariffsSelect?: boolean
-  initialDestinationId?: string
-  isStrictVariationSelect?: boolean
   onClickChangeVariation: ({ variationId, destinationId, logicsTariffId }: IVariationParams) => void
+  currentVariationId?: string
+  initialDestinationId?: string
+  columnVisibilityModel?: GridColumnVisibilityModel
+  isStrictVariationSelect?: boolean
+  isTariffsSelect?: boolean
 }
 
 export const TariffDetails: FC<TariffDetailsProps> = memo(
@@ -33,6 +36,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
     isTariffsSelect,
     initialDestinationId,
     isStrictVariationSelect,
+    columnVisibilityModel,
     onClickChangeVariation,
   }) => {
     const { classes: styles, cx } = useStyles()
@@ -41,16 +45,18 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
 
     return (
       <div className={cx(styles.root, styles.borderBotton)}>
-        <div className={cx(styles.tariffDetails, styles.borderBotton)}>
-          <p title={title} className={cx(styles.tariffTitle, styles.tariffDescription)}>
-            {title || t(TranslationKey.Missing)}
-          </p>
-          {description ? (
-            <p title={description} className={styles.tariffDescription}>
-              {description}
+        {columnVisibilityModel?.name === false ? null : (
+          <div className={cx(styles.tariffDetails, styles.borderBotton)}>
+            <p title={title} className={cx(styles.tariffTitle, styles.tariffDescription)}>
+              {title || t(TranslationKey.Missing)}
             </p>
-          ) : null}
-        </div>
+            {description ? (
+              <p title={description} className={styles.tariffDescription}>
+                {description}
+              </p>
+            ) : null}
+          </div>
+        )}
 
         <div className={cx(styles.destinationVariationsWrapper, styles.borderRight, styles.borderLeft)}>
           {tariff.destinationVariations?.map(variation => {
@@ -64,64 +70,78 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
 
             return (
               <div key={variation?._id} className={cx(styles.destinationVariationWrapper, styles.borderBotton)}>
-                <p className={cx(styles.destinationName, styles.tariffDescription)}>{variation.destination?.name}</p>
+                {columnVisibilityModel?.destinationName === false ? null : (
+                  <p className={cx(styles.destinationName, styles.tariffDescription)}>{variation.destination?.name}</p>
+                )}
 
-                <div className={cx(styles.destination, { [styles.withoutCheckbox]: !isTariffsSelect })}>
-                  {isTariffsSelect ? (
-                    <Checkbox
-                      checked={isActiveSelectedVariation}
-                      disabled={
-                        destinationId !== initialDestinationId && isStrictVariationSelect && !!initialDestinationId
-                      }
-                      onChange={() =>
-                        onClickChangeVariation({
-                          variationId: variation?._id,
-                          destinationId,
-                          logicsTariffId: variation?.storekeeperTariffLogisticsId,
-                        })
-                      }
-                    />
-                  ) : null}
+                {columnVisibilityModel?.minWeight === false ? null : (
+                  <div className={cx(styles.destination, { [styles.withoutCheckbox]: !isTariffsSelect })}>
+                    {isTariffsSelect ? (
+                      <Checkbox
+                        checked={isActiveSelectedVariation}
+                        disabled={
+                          destinationId !== initialDestinationId && isStrictVariationSelect && !!initialDestinationId
+                        }
+                        onChange={() =>
+                          onClickChangeVariation({
+                            variationId: variation?._id,
+                            destinationId,
+                            logicsTariffId: variation?.storekeeperTariffLogisticsId,
+                          })
+                        }
+                      />
+                    ) : null}
 
-                  <p title={weightText} className={styles.text}>
-                    {weightText}
-                  </p>
-                </div>
+                    <p title={weightText} className={styles.text}>
+                      {weightText}
+                    </p>
+                  </div>
+                )}
 
-                <p className={styles.price}>{toFixed(variation.pricePerKgRmb)}</p>
+                {columnVisibilityModel?.pricePerKgRmb === false ? null : (
+                  <p className={styles.price}>{toFixed(variation.pricePerKgRmb)}</p>
+                )}
 
-                <p className={styles.price}>{toFixed(variation.pricePerKgUsd)}</p>
+                {columnVisibilityModel?.pricePerKgUsd === false ? null : (
+                  <p className={styles.price}>{toFixed(variation.pricePerKgUsd)}</p>
+                )}
               </div>
             )
           })}
         </div>
 
-        <div className={cx(styles.dateParamWrapper, styles.borderBotton)}>
-          {dateConfig.map(({ param, icon, tooltipText }) => (
-            <div key={param} className={styles.dateParam}>
-              <div className={styles.iconWrapper}>
-                {icon}
+        {columnVisibilityModel?.cls === false ? null : (
+          <div className={cx(styles.dateParamWrapper, styles.borderBotton)}>
+            {dateConfig.map(({ param, icon, tooltipText }) => (
+              <div key={param} className={styles.dateParam}>
+                <div className={styles.iconWrapper}>
+                  {icon}
 
-                <Tooltip arrow title={tooltipText} className={styles.tooltip}>
-                  <div>
-                    <TooltipInfoIcon />
-                  </div>
-                </Tooltip>
+                  <Tooltip arrow title={tooltipText} className={styles.tooltip}>
+                    <div>
+                      <TooltipInfoIcon />
+                    </div>
+                  </Tooltip>
+                </div>
+                <p>{formatDateWithoutTime(tariff?.[param as keyof ILogicTariff])}</p>
               </div>
-              <p>{formatDateWithoutTime(tariff?.[param as keyof ILogicTariff])}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
-        <div className={cx(styles.deliveryTimeWrapper, styles.borderRight, styles.borderLeft, styles.borderBotton)}>
-          <p>{tariff.deliveryTimeInDay}</p>
-        </div>
+        {columnVisibilityModel?.deliveryTimeInDay === false ? null : (
+          <div className={cx(styles.deliveryTimeWrapper, styles.borderRight, styles.borderLeft, styles.borderBotton)}>
+            <p>{tariff.deliveryTimeInDay}</p>
+          </div>
+        )}
 
         {isTariffsSelect ? (
           <>
-            <div className={cx(styles.costUnitWrapper, styles.borderBotton)}>
-              <p>{toFixed(tariff.costUnitWithDeliveryToChina)}</p>
-            </div>
+            {columnVisibilityModel?.costUnitWithDeliveryToChina === false ? null : (
+              <div className={cx(styles.costUnitWrapper, styles.borderBotton)}>
+                <p>{toFixed(tariff.costUnitWithDeliveryToChina)}</p>
+              </div>
+            )}
 
             <div className={cx(styles.weightWrapper)}>
               {tariff.destinationVariations?.map(variation => {
@@ -129,19 +149,23 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
 
                 return (
                   <div key={variation?._id} className={cx(styles.destinationVariationWrapper, styles.borderBotton)}>
-                    <div className={cx(styles.destinationCostUnitWrapper, styles.borderRight, styles.borderLeft)}>
-                      <p>{toFixed(variation?.destination?.costUnitWithDeliveryToUsa)}</p>
-                    </div>
+                    {columnVisibilityModel?.costUnitWithDeliveryToUsa === false ? null : (
+                      <div className={cx(styles.destinationCostUnitWrapper, styles.borderRight, styles.borderLeft)}>
+                        <p>{toFixed(variation?.destination?.costUnitWithDeliveryToUsa)}</p>
+                      </div>
+                    )}
 
-                    <div
-                      className={cx(styles.destinationRoiWrapper, styles.borderRight, {
-                        [styles.badRoi]: roi < 100,
-                        [styles.normalRoi]: roi >= 100 && roi < 130,
-                        [styles.goodRoi]: roi >= 130,
-                      })}
-                    >
-                      <p>{toFixed(variation?.destination?.roi)}</p>
-                    </div>
+                    {columnVisibilityModel?.roi === false ? null : (
+                      <div
+                        className={cx(styles.destinationRoiWrapper, styles.borderRight, {
+                          [styles.badRoi]: roi < 100,
+                          [styles.normalRoi]: roi >= 100 && roi < 130,
+                          [styles.goodRoi]: roi >= 130,
+                        })}
+                      >
+                        <p>{toFixed(variation?.destination?.roi)}</p>
+                      </div>
+                    )}
                   </div>
                 )
               })}

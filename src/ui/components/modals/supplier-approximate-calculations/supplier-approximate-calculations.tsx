@@ -96,12 +96,19 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
         tariff={params.row}
         isTariffsSelect={isTariffsSelect}
         currentVariationId={viewModel.currentVariationId}
+        columnVisibilityModel={viewModel.columnVisibilityModel}
         initialDestinationId={viewModel.initialDestinationId}
         isStrictVariationSelect={viewModel.isStrictVariationSelect}
         onClickChangeVariation={viewModel.handleSetVariation}
       />
     ),
-    [isTariffsSelect, viewModel.currentVariationId, viewModel.initialDestinationId, viewModel.isStrictVariationSelect],
+    [
+      isTariffsSelect,
+      viewModel.currentVariationId,
+      viewModel.initialDestinationId,
+      viewModel.isStrictVariationSelect,
+      viewModel.columnVisibilityModel,
+    ],
   )
 
   return (

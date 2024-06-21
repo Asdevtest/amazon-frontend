@@ -2,11 +2,12 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
+    paddingLeft: '50px',
     display: 'flex',
   },
 
   tariffDetails: {
-    width: '190px',
+    width: '140px',
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
