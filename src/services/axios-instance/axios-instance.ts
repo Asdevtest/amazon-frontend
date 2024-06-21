@@ -55,6 +55,10 @@ export const getAxiosInstance = () => {
     async error => {
       const originalConfig = error.config
 
+      if (error.response.status === 401 && error.response.data.message === 'Invalid password or email address.') {
+        return
+      }
+
       if (
         ((error.response.status === 403 && errorMessageList.includes(error.response.data.message)) ||
           error.response.status === 401) &&
