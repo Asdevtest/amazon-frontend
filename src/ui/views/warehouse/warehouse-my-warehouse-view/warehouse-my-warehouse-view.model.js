@@ -696,9 +696,7 @@ export class WarehouseMyWarehouseViewModel {
               widthCmWarehouse: updatedBoxes[i].widthCmWarehouse,
               heightCmWarehouse: updatedBoxes[i].heightCmWarehouse,
               weighGrossKgWarehouse: updatedBoxes[i].weighGrossKgWarehouse,
-              images: this.uploadedImages.length
-                ? updatedBoxes[i].images.concat(this.uploadedImages)
-                : updatedBoxes[i].images,
+              images: this.uploadedImages.length ? this.uploadedImages : [],
             },
             boxItems: [
               ...updatedBoxes[i].items.map(item => ({
