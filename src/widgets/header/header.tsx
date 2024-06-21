@@ -1,21 +1,17 @@
 import { Header as AntHeader } from 'antd/es/layout/layout'
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { IoIosNotificationsOff, IoIosNotificationsOutline } from 'react-icons/io'
-import { PiMoonLight, PiSunLight } from 'react-icons/pi'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { languageOptions } from '@constants/translations/language-options'
 
-import { CustomButton } from '@components/shared/custom-button'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTimer } from '@components/shared/custom-timer'
 
-import { Roles } from '@typings/enums/roles'
-
-import { Theme, useTheme } from '../../app/providers/theme'
+import { NotificationSelect } from '../notification-select'
+import { ThemeSelect } from '../theme-select'
 
 import { HeaderModel } from './header.model'
 import classes from './header.module.scss'
@@ -27,7 +23,6 @@ interface Props {
 export const Header: FC<Props> = observer(({ title }) => {
   const history = useHistory()
   const [viewModel] = useState(() => new HeaderModel(history))
-  const [isEnabledNotifications, setIsEnabledNotifications] = useState(true)
 
   /* useEffect(() => {
     if (
@@ -58,38 +53,17 @@ export const Header: FC<Props> = observer(({ title }) => {
     history.push(`/profile`)
   }
 
-  const onToggleNotifications = () => {
-    setIsEnabledNotifications(prev => {
-      localStorage.setItem('isEnabledNotifications', String(!prev))
-      return !prev
-    })
-  }
-
-  const allowedRolesWithoutCandidate = viewModel.userInfo?.allowedRoles?.filter((el: number) => el !== Roles.CANDIDATE)
-  const roleMapper = (roleCode: number) => ({
-    label: Roles[roleCode],
-    value: roleCode,
-  })
-  const roles =
-    allowedRolesWithoutCandidate?.length > 1
-      ? allowedRolesWithoutCandidate?.map(roleMapper)
-      : [roleMapper(viewModel.userInfo?.role)]
-
-  const { theme, onToggleTheme } = useTheme()
-
   const { t, i18n } = useTranslation()
 
-  const handleToggleLanguage = (lang: string) => {
-    i18n.changeLanguage(lang)
-  }
+  const handleToggleLanguage = useCallback(
+    (lang: string) => {
+      i18n.changeLanguage(lang)
+    },
+    [i18n],
+  )
 
   return (
     <AntHeader className={classes.header}>
-      <p>{t('New price')}</p>
-      <p>{t('New price')}</p>
-      <p>{t('New price')}</p>
-      <p>{t('New price')}</p>
-      <p>{t('New price')}</p>
       <p>{t('New price')}</p>
       <p>{t('New price')}</p>
       <p>{t('New price')}</p>
@@ -112,33 +86,17 @@ export const Header: FC<Props> = observer(({ title }) => {
       />
 
       <CustomSelect
-        value={viewModel.userInfo?.role}
-        options={roles}
-        disabled={roles.length === 1}
-        className={classes.roleSelect}
-        onChange={viewModel.onChangeUserInfo}
-      />
-
-      <CustomSelect
         value={i18n.language}
         options={languageOptions}
         className={classes.languageSelect}
         onChange={handleToggleLanguage}
       />
 
-      <CustomButton type="link" className={classes.themeButton} onClick={onToggleNotifications}>
-        {isEnabledNotifications ? (
-          <IoIosNotificationsOutline className={classes.icon} />
-        ) : (
-          <IoIosNotificationsOff className={classes.icon} />
-        )}
-      </CustomButton>
+      {/* <RoleSelect /> */}
+      <NotificationSelect />
+      <ThemeSelect />
 
       {/* <LanguageSelector className={classes.languageSelector} /> */}
-
-      <CustomButton type="link" className={classes.themeButton} onClick={onToggleTheme}>
-        {theme === Theme.LIGHT ? <PiSunLight className={classes.icon} /> : <PiMoonLight className={classes.icon} />}
-      </CustomButton>
 
       {/* <Divider orientation="vertical" className={classes.hideOnModile} />
 

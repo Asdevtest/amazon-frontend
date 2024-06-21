@@ -173,7 +173,7 @@
     "radix": "off",
     "space-before-function-paren": "off",
     "spaced-comment": "error",
-    "unicorn/filename-case": "error",
+    "unicorn/filename-case": "off",
     "use-isnan": "error",
     "valid-typeof": "off",
     "semi": "off",

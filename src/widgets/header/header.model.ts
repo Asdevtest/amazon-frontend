@@ -7,8 +7,6 @@ import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { restApiService } from '@services/rest-api-service/rest-api-service'
-
 import { IFullUser } from '@typings/shared/full-user'
 import { HistoryType } from '@typings/types/history'
 
@@ -55,35 +53,6 @@ export class HeaderModel {
 
   onTriggerShowHints() {
     SettingsModel.onTriggerShowHints()
-  }
-
-  async onChangeUserInfo(role: any) {
-    try {
-      await UserModel.changeUserInfo(role)
-      await this.forceUpdateToken()
-      await UserModel.getUserInfo()
-
-      this.history?.push(`/${UserRoleCodeMapForRoutes[role]}/dashboard`, {
-        targetRoute: `/${UserRoleCodeMapForRoutes[role]}/dashboard`,
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async forceUpdateToken() {
-    const userModel = await SettingsModel.loadValue('UserModel')
-    const refreshToken = userModel.refreshToken
-
-    await restApiService.userApi.apiV1UsersGetAccessTokenPost({ body: { refreshToken } }).then(({ data }) => {
-      const accessToken = data?.accessToken
-
-      SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
-      UserModel.setAccessToken(accessToken)
-
-      ChatModel.disconnect()
-      ChatModel.init(accessToken)
-    })
   }
 
   onClickMessage(noticeItem: any) {

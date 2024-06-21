@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "types": ["react", "node"],
     "lib": ["es2020", "DOM"],
@@ -21,7 +20,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "@constants/*": ["./src/constants/*"],
+      "@models/*": ["./src/models/*"],
+      "@services/*": ["./src/services/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@components/*": ["./src/ui/components/*"],
+      "@views/*": ["./src/ui/views/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@contexts/*": ["./src/contexts/*"],
+      "@typings/*": ["./src/typings/*"],
+      "@hooks/*": ["./src/hooks/*"]
+    }
   },
   "exclude": ["node_modules", "build"],
   "include": ["src/**/*", "global.d.ts"]

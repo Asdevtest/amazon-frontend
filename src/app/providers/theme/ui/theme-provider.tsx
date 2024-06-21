@@ -1,4 +1,4 @@
-import { FC, ReactNode, useMemo, useState } from 'react'
+import { FC, ReactNode, useEffect, useMemo, useState } from 'react'
 
 import { LOCAL_STORAGE_THEME_KEY, Theme, ThemeContext } from '../lib/theme-context'
 
@@ -11,6 +11,10 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({ children, initialTheme }) => {
   const [theme, setTheme] = useState<Theme>(initialTheme || defaultTheme)
+
+  useEffect(() => {
+    document.body.className = theme
+  }, [theme])
 
   const defaultProps = useMemo(() => ({ theme, setTheme }), [theme])
 

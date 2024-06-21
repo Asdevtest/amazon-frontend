@@ -12,7 +12,7 @@ import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
 
-import { useBoxNotificationStyles } from 'src/widgets/layout/notifications/boxes-updates-notification/boxes-updates-notification.style'
+import { useBoxNotificationStyles } from './boxes-updates-notification.style'
 
 export interface BoxProduct {
   _id: string

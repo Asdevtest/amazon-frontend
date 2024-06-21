@@ -1,10 +1,11 @@
 import { History } from 'history'
 import { FC } from 'react'
-import { OrdersUpdatesNotificationItem } from 'src/widgets/layout/notifications/orders-updates-notification/orders-updates-notification-types'
 
-import { Link, Typography } from '@mui/material'
+import { Link } from '@mui/material'
 
-import { useOrdersUpdatesNotificationStyle } from 'src/widgets/layout/notifications/orders-updates-notification/orders-updates-notification.style'
+import { useOrdersUpdatesNotificationStyle } from './orders-updates-notification.style'
+
+import { OrdersUpdatesNotificationItem } from './orders-updates-notification-types'
 
 interface OrdersUpdatesNotificationRowProps {
   orders: OrdersUpdatesNotificationItem[]
@@ -24,7 +25,7 @@ export const OrdersUpdatesNotificationRow: FC<OrdersUpdatesNotificationRowProps>
 
   return (
     <div className={styles.list}>
-      <Typography className={styles.listTitle}>{title}</Typography>
+      <p className={styles.listTitle}>{title}</p>
       <ul className={styles.listWrapper}>
         {orders?.map(el => (
           <li key={el._id} className={styles.listItem}>

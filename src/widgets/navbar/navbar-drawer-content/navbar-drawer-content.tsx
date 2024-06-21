@@ -1,7 +1,4 @@
 import { FC, Fragment, memo, useEffect, useState } from 'react'
-import { NavbarCategory } from 'src/widgets/layout/navbar'
-import { NavbarCollapse } from 'src/widgets/layout/navbar/navbar-collapse'
-import { NavbarModel } from 'src/widgets/layout/navbar/navbar.model'
 
 import { List } from '@mui/material'
 
@@ -21,6 +18,10 @@ import { IInfoCounters } from '@typings/shared/info-counters'
 import { NavbarConfigTypes } from '@typings/shared/navbar-config'
 
 import { useStyles } from './navbar-drawer-content.style'
+
+import { NavbarCategory } from '../navbar-category'
+import { NavbarCollapse } from '../navbar-collapse'
+import { NavbarModel } from '../navbar.model'
 
 import { getCategoryBadge } from './navbar-drawer-content.helper'
 
