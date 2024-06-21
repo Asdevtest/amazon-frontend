@@ -3,6 +3,7 @@ import { IConditionsByRegion } from './logic-tariff'
 
 export interface IVariationTariff {
   _id: string
+  minBoxWeight: number
   pricePerKgRmb: number
   pricePerKgUsd: number
   destinationId: string

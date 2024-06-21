@@ -48,7 +48,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         onRemoveRequest={viewModel.onRemoveRequest}
         onSelectLaunch={viewModel.onSelectLaunch}
         onSelectProduct={viewModel.onSelectProduct}
-        onOpenAsinSelect={viewModel.onVirtialSelectScroll}
+        onGetProducts={viewModel.onGetProducts}
         onSearchAsinSelect={viewModel.onClickSubmitSearch}
         onScrollAsinSelect={viewModel.loadMoreDataHadler}
       />

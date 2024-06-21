@@ -420,6 +420,8 @@ export class WarehouseMyWarehouseViewModel {
         type: 'uploadedFiles',
         withoutShowProgress: true,
       })
+
+      boxData.shippingLabel = this.uploadedFiles[0]
     }
 
     if (!isMultipleEdit && boxData.tmpTrackNumberFile?.length) {
@@ -706,6 +708,11 @@ export class WarehouseMyWarehouseViewModel {
           }
 
           resBoxes.push(boxToPush)
+
+          runInAction(() => {
+            this.uploadedFiles = []
+            this.uploadedImages = []
+          })
         }
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)

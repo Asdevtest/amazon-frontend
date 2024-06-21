@@ -16,13 +16,10 @@ import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { ClsIcon, EtaIcon, EtdIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { ClsIcon, EtaIcon, EtdIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
-import {
-  checkDateByDeadline,
-  checkIsPositiveNum,
-  checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
-} from '@utils/checks'
+import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -667,7 +664,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
 
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
                           onChangeDestinationVariations('maxWeight')(variantIndex)(input)
                         }
                       }}
@@ -685,14 +682,14 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                 <>
                   <div className={styles.minBoxWeightWrapper}>
                     <Input
-                      placeholder={'0'}
-                      value={variant.minBoxWeight}
+                      placeholder={'0.00'}
+                      value={toFixed(variant.minBoxWeight, 2) || ''}
                       inputProps={{ maxLength: 7 }}
                       className={styles.fieldInput}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
 
-                        if (checkIsPositiveNum(input)) {
+                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input)) {
                           onChangeDestinationVariations('minBoxWeight')(variantIndex)(input)
                         }
                       }}
@@ -700,8 +697,15 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                   </div>
 
                   <div className={styles.minBoxWeightContainerBtn}>
-                    <Typography className={styles.applyToAll}>{t(TranslationKey['Apply to all'])}</Typography>
-                    <TooltipInfoIcon className={styles.tooltipIcon} />
+                    <Text
+                      tooltipInfoContent={t(
+                        TranslationKey['Apply the value "min recommended box weight" to all variations in the tariff'],
+                      )}
+                      containerClasses={styles.applyToAll}
+                    >
+                      {t(TranslationKey['Apply to all'])}
+                    </Text>
+
                     <Button className={styles.applyButton} onClick={() => onApplyMinBoxWeightToAll(variantIndex)}>
                       {t(TranslationKey.Apply)}
                     </Button>
@@ -727,7 +731,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                           : ''
                       }
                       inputProps={{ maxLength: 7 }}
-                      className={styles.regionFieldInput}
+                      className={styles.fieldInput}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value
 

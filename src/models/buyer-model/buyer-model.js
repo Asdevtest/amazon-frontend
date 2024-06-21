@@ -5,7 +5,7 @@ import { filterNullValues } from '@utils/object'
 class BuyerModelStatic {
   getProductsVacant = async isCreatedByClient => {
     const response = await restApiService.buyerApi.apiV1BuyersProductsVacGet({ isCreatedByClient })
-    return response.data
+    return response?.data || []
   }
 
   getProductsMy = async () => {

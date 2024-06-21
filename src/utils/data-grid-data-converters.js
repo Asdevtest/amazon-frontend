@@ -791,7 +791,7 @@ export const adminUsersDataConverter = data =>
     balanceFreeze: item.balanceFreeze,
     email: item.email,
     rate: item.rate,
-    isSubUser: item.masterUser ? 'SUB-USER' : 'USER',
+    sub: item.masterUser ? 'SUB-USER' : 'USER',
   }))
 
 export const freelancerServiceDetaildsDataConverter = data =>

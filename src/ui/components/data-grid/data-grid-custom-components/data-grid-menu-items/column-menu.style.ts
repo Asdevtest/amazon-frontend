@@ -18,8 +18,11 @@ export const useStyles = makeStyles()(() => ({
   filterTitle: {
     width: '100%',
     textAlign: 'left',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    whiteSpace: 'pre-wrap',
+  },
+
+  filterWrapper: {
+    display: 'flex',
+    alignItems: 'flex-start',
   },
 }))

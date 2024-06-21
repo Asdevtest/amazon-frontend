@@ -11,6 +11,7 @@ import { CustomTextarea } from '@components/shared/custom-textarea'
 
 import { t } from '@utils/translations'
 
+import { Launches } from '@typings/enums/launches'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { LaunchCell, ResultCell } from './components'
@@ -42,6 +43,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <CustomInputNumber
           isCell
+          disabled={row?.type === Launches.PRICE_CHANGE}
           max={100}
           precision={0}
           maxLength={3}
@@ -50,6 +52,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
         />
       ),
       width: 90,
+      align: 'center',
     },
 
     {
@@ -59,7 +62,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <CustomRangeDatePicker
           isCell
-          minDate={dayjs()}
+          // minDate={dayjs()} // for a while for the business to bring in all the lunches
           defaultValue={[row.dateFrom ? dayjs(row.dateFrom) : null, row.dateTo ? dayjs(row.dateTo) : null]}
           onChange={onChangeDateCellValue(row.type, 'dateFrom')} // or dateTo - same overall value
         />

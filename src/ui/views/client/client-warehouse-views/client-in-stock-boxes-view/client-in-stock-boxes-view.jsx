@@ -275,6 +275,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}
       >
         <SetShippingLabelModal
+          requestStatus={viewModel.requestStatus}
           item={viewModel.selectedBox}
           onClickSaveShippingLabel={viewModel.onClickSaveShippingLabel}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}

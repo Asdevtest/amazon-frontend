@@ -54,6 +54,10 @@ export class HeaderModel {
     return SettingsModel.snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]?.crmItemId || null
   }
 
+  get toggleServerSettings() {
+    return ChatModel.toggleServerSettings
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })

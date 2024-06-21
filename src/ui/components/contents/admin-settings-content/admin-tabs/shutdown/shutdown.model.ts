@@ -13,18 +13,18 @@ import { DEFAULT_NOTICE_MESSAGE, timeToMilliseconds } from './shutdown.config'
 export class ShutdownModel {
   serverEnabled = false
   shutdownDelayChecked = false
-  countdown = 0
   noticeMessage = DEFAULT_NOTICE_MESSAGE
   timePart: TimeParts = TimeParts.MINUTES
   timePartValue = 0
+  countdown = 0
 
   get disabledSendButton() {
-    return !this.shutdownDelayChecked || this.noticeMessage.trim().length === 0
+    return !this.shutdownDelayChecked || this.noticeMessage.trim().length === 0 || this.timePartValue === 0
   }
 
   constructor(techPause: ITechPause) {
-    this.serverEnabled = techPause.value === 0
-    this.countdown = techPause.body?.countdown || 0
+    this.serverEnabled = techPause?.value === 0
+    this.noticeMessage = techPause?.body?.message
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -32,16 +32,23 @@ export class ShutdownModel {
   async onToggleServer() {
     try {
       if (this.shutdownDelayChecked) {
+        runInAction(() => {
+          this.countdown = 0
+        })
+
         const turn = 'off'
-        const convertedPartValueToMilliseconds = this.timePartValue * (timeToMilliseconds[this.timePart] || 0)
+        const convertedPartValueToMilliseconds = this.timePartValue * timeToMilliseconds[this.timePart]
         const data = {
           countdown: convertedPartValueToMilliseconds,
           message: this.noticeMessage,
         }
 
         await AdministratorModel.toggleServer(turn, data)
+        await this.getAdminSettings()
 
-        this.getAdminSettings()
+        setTimeout(() => {
+          this.serverEnabled = false
+        }, this.countdown)
       } else {
         const response = await AdministratorModel.toggleServer()
 
@@ -49,6 +56,10 @@ export class ShutdownModel {
       }
     } catch (error) {
       console.error(error)
+    } finally {
+      runInAction(() => {
+        this.timePartValue = 0
+      })
     }
   }
 
@@ -57,7 +68,8 @@ export class ShutdownModel {
       const response = (await AdministratorModel.getSettings()) as unknown as IAdminSettings
 
       runInAction(() => {
-        this.countdown = response.dynamicSettings?.techPause?.body?.countdown
+        this.noticeMessage = response?.dynamicSettings?.techPause?.body?.message
+        this.countdown = response?.dynamicSettings?.techPause?.body?.countdown
       })
     } catch (error) {
       console.error(error)
@@ -76,7 +88,7 @@ export class ShutdownModel {
     this.timePart = value
   }
 
-  onChangeCountdown(value: number | string | null) {
+  onChangeTimePartValue(value: number | string | null) {
     this.timePartValue = Number(value)
   }
 }
