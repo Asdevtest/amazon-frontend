@@ -117,33 +117,37 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
           <p>{tariff.deliveryTimeInDay}</p>
         </div>
 
-        <div className={cx(styles.costUnitWrapper, styles.borderBotton)}>
-          <p>{toFixed(tariff.costUnitWithDeliveryToChina)}</p>
-        </div>
+        {isTariffsSelect ? (
+          <>
+            <div className={cx(styles.costUnitWrapper, styles.borderBotton)}>
+              <p>{toFixed(tariff.costUnitWithDeliveryToChina)}</p>
+            </div>
 
-        <div className={cx(styles.weightWrapper)}>
-          {tariff.destinationVariations?.map(variation => {
-            const roi = Number(variation?.destination?.roi)
+            <div className={cx(styles.weightWrapper)}>
+              {tariff.destinationVariations?.map(variation => {
+                const roi = Number(variation?.destination?.roi)
 
-            return (
-              <div key={variation?._id} className={cx(styles.destinationVariationWrapper, styles.borderBotton)}>
-                <div className={cx(styles.destinationCostUnitWrapper, styles.borderRight, styles.borderLeft)}>
-                  <p>{toFixed(variation?.destination?.costUnitWithDeliveryToUsa)}</p>
-                </div>
+                return (
+                  <div key={variation?._id} className={cx(styles.destinationVariationWrapper, styles.borderBotton)}>
+                    <div className={cx(styles.destinationCostUnitWrapper, styles.borderRight, styles.borderLeft)}>
+                      <p>{toFixed(variation?.destination?.costUnitWithDeliveryToUsa)}</p>
+                    </div>
 
-                <div
-                  className={cx(styles.destinationRoiWrapper, styles.borderRight, {
-                    [styles.badRoi]: roi < 100,
-                    [styles.normalRoi]: roi >= 100 && roi < 130,
-                    [styles.goodRoi]: roi >= 130,
-                  })}
-                >
-                  <p>{toFixed(variation?.destination?.roi)}</p>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+                    <div
+                      className={cx(styles.destinationRoiWrapper, styles.borderRight, {
+                        [styles.badRoi]: roi < 100,
+                        [styles.normalRoi]: roi >= 100 && roi < 130,
+                        [styles.goodRoi]: roi >= 130,
+                      })}
+                    >
+                      <p>{toFixed(variation?.destination?.roi)}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </>
+        ) : null}
       </div>
     )
   },
