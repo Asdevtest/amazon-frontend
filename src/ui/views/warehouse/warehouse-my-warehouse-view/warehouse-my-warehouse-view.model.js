@@ -674,9 +674,9 @@ export class WarehouseMyWarehouseViewModel {
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
 
-          if (updatedBoxes[i]?.tmpImages?.length) {
+          if (updatedBoxes[i]?.images?.length) {
             await onSubmitPostImages.call(this, {
-              images: updatedBoxes[i]?.tmpImages,
+              images: updatedBoxes[i]?.images,
               type: 'uploadedImages',
               withoutShowProgress: true,
             })
@@ -696,9 +696,7 @@ export class WarehouseMyWarehouseViewModel {
               widthCmWarehouse: updatedBoxes[i].widthCmWarehouse,
               heightCmWarehouse: updatedBoxes[i].heightCmWarehouse,
               weighGrossKgWarehouse: updatedBoxes[i].weighGrossKgWarehouse,
-              images: this.uploadedImages.length
-                ? updatedBoxes[i].images.concat(this.uploadedImages)
-                : updatedBoxes[i].images,
+              images: this.uploadedImages.length ? this.uploadedImages : [],
             },
             boxItems: [
               ...updatedBoxes[i].items.map(item => ({
