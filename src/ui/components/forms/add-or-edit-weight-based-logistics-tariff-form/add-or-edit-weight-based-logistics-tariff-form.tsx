@@ -332,7 +332,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
           />
 
           <Field
-            inputClasses={[styles.fieldInput, styles.deliveryFieldInput]}
+            inputClasses={cx(styles.fieldInput, styles.deliveryFieldInput)}
             labelClasses={styles.fieldLabel}
             // @ts-ignore
             inputProps={{ maxLength: 10 }}
@@ -349,7 +349,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
           <Field
             label={t(TranslationKey['Add data from tariff'])}
-            inputClasses={[styles.fieldInput, styles.tariffFieldInput]}
+            inputClasses={cx(styles.fieldInput, styles.tariffFieldInput)}
             labelClasses={styles.fieldLabel}
             containerClasses={styles.fieldContainer}
             inputComponent={
@@ -676,7 +676,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
 
             <Field
               label={t(TranslationKey['Minimum recommended box weight, kg'])}
-              labelClasses={[styles.fieldLabel, styles.minBoxWeightFieldLabel]}
+              labelClasses={cx(styles.fieldLabel, styles.minBoxWeightFieldLabel)}
               containerClasses={styles.minBoxWeightContainer}
               inputComponent={
                 <>

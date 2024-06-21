@@ -674,9 +674,9 @@ export class WarehouseMyWarehouseViewModel {
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
 
-          if (updatedBoxes[i]?.tmpImages?.length) {
+          if (updatedBoxes[i]?.images?.length) {
             await onSubmitPostImages.call(this, {
-              images: updatedBoxes[i]?.tmpImages,
+              images: updatedBoxes[i]?.images,
               type: 'uploadedImages',
               withoutShowProgress: true,
             })
@@ -914,8 +914,8 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitEditBox(id, data) {
     try {
-      if (data.tmpImages.length > 0) {
-        await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'uploadedFiles' })
+      if (data.images.length > 0) {
+        await onSubmitPostImages.call(this, { images: data.images, type: 'uploadedFiles' })
         data = { ...data, images: [...data.images, ...this.uploadedFiles] }
       }
 
