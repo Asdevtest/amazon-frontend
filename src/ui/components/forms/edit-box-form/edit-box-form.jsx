@@ -293,6 +293,15 @@ export const EditBoxForm = memo(
                         ? t(TranslationKey['Transparency codes glued by the supplier'])
                         : t(TranslationKey['Transparency codes are glued by storekeeper'])
 
+                      const isBarCodeAlreadyAttached =
+                        item.isBarCodeAlreadyAttachedByTheSupplier || item.isBarCodeAttachedByTheStorekeeper
+                      const barCodeTooltipInfoContent = item.isBarCodeAlreadyAttachedByTheSupplier
+                        ? TranslationKey['The supplier has glued the barcode before shipment']
+                        : TranslationKey['The barcode was glued on when the box was accepted at the prep center']
+                      const barCodeLabel = item.isBarCodeAlreadyAttachedByTheSupplier
+                        ? TranslationKey['The barcode is glued by the supplier']
+                        : TranslationKey['The barcode is glued by the Storekeeper']
+
                       return (
                         <div key={index} className={styles.productWrapper}>
                           <div className={styles.leftProductColumn}>
@@ -371,42 +380,21 @@ export const EditBoxForm = memo(
                                 />
                               )}
 
-                              {!item.isBarCodeAlreadyAttachedByTheSupplier &&
-                              !item.isBarCodeAttachedByTheStorekeeper ? (
+                              {!item.barCode ? (
                                 <Typography className={styles.noBarCodeGlued}>
                                   {t(TranslationKey['Not glued!'])}
                                 </Typography>
-                              ) : (
-                                <div>
-                                  {item.isBarCodeAlreadyAttachedByTheSupplier ? (
-                                    <Field
-                                      oneLine
-                                      labelClasses={styles.standartLabel}
-                                      tooltipInfoContent={t(
-                                        TranslationKey['The supplier has glued the barcode before shipment'],
-                                      )}
-                                      label={t(TranslationKey['The barcode is glued by the supplier'])}
-                                      inputComponent={
-                                        <Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />
-                                      }
-                                    />
-                                  ) : (
-                                    <Field
-                                      oneLine
-                                      labelClasses={styles.standartLabel}
-                                      tooltipInfoContent={t(
-                                        TranslationKey[
-                                          'The barcode was glued on when the box was accepted at the prep center'
-                                        ],
-                                      )}
-                                      label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
-                                      inputComponent={
-                                        <Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />
-                                      }
-                                    />
-                                  )}
-                                </div>
-                              )}
+                              ) : null}
+
+                              {isBarCodeAlreadyAttached ? (
+                                <Field
+                                  oneLine
+                                  labelClasses={styles.standartLabel}
+                                  tooltipInfoContent={t(barCodeTooltipInfoContent)}
+                                  label={t(barCodeLabel)}
+                                  inputComponent={<Checkbox disabled checked={isBarCodeAlreadyAttached} />}
+                                />
+                              ) : null}
 
                               {isCheckboxVisible ? (
                                 <Checkbox reverted disabled checked={isCheckboxChecked} className={styles.checkbox}>
