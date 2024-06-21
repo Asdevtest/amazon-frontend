@@ -45,6 +45,7 @@ export const financesViewColumns = () => {
           />
         )
       },
+      valueGetter: params => params.row?.entityProduct?.[0]?.asin,
       width: 280,
       table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
@@ -82,6 +83,7 @@ export const financesViewColumns = () => {
       width: 170,
 
       renderCell: params => <UserLinkCell name={params.value.name} userId={params.value?._id} />,
+      valueGetter: params => params.value.name,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
@@ -94,6 +96,7 @@ export const financesViewColumns = () => {
       width: 170,
 
       renderCell: params => <UserLinkCell name={params.value.name} userId={params.value?._id} />,
+      valueGetter: params => params.value.name,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
