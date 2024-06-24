@@ -103,7 +103,7 @@ export const OrderProductModal = memo(props => {
             variationTariffId: reorderOrder?.variationTariffId,
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-            deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
+            deadline: reorderOrder.deadline,
             productId: reorderOrder.product?._id,
           }
         })
@@ -180,7 +180,7 @@ export const OrderProductModal = memo(props => {
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
             _id: reorderOrder._id,
-            deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
+            deadline: reorderOrder.deadline,
             buyerId: reorderOrder.buyer?._id || null,
           }
         })
@@ -315,8 +315,9 @@ export const OrderProductModal = memo(props => {
         !order.logicsTariffId ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
-        (isPendingOrder && !order.deadline) ||
-        ((!!isInventory || !!reorderOrdersData?.length) && !!isPendingOrdering && isDeadlineTodayOrTomorrow) ||
+        ((!!isInventory || (!!reorderOrdersData?.length && !isPendingOrdering)) &&
+          !isPendingOrder &&
+          isDeadlineTodayOrTomorrow) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
           order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
