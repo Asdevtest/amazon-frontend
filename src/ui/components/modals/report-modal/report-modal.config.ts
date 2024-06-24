@@ -36,7 +36,7 @@ export const reportModalConfig = {
   setRequestTableStatus: action.bound,
   updateProductAndColumns: action.bound,
   onGetProducts: action.bound,
-  onGetListingReportByProductId: action.bound,
+  // onGetListingReportByProductId: action.bound,
 }
 
 export const launchOptions = Object.values(Launches).map(value => ({

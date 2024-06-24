@@ -48,7 +48,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           precision={0}
           maxLength={3}
           value={row.value}
-          onChange={onChangeNumberCellValue(row.type, 'value')}
+          onChange={onChangeNumberCellValue(row._id, 'value')}
         />
       ),
       width: 90,
@@ -64,7 +64,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           isCell
           // minDate={dayjs()} // for a while for the business to bring in all the lunches
           defaultValue={[row.dateFrom ? dayjs(row.dateFrom) : null, row.dateTo ? dayjs(row.dateTo) : null]}
-          onChange={onChangeDateCellValue(row.type, 'dateFrom')} // or dateTo - same overall value
+          onChange={onChangeDateCellValue(row._id, 'dateFrom')} // or dateTo - same overall value
         />
       ),
       width: 260,
@@ -81,7 +81,7 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
           rows={2}
           maxLength={512}
           value={row.comment}
-          onChange={onChangeCommentCellValue(row.type, 'comment')}
+          onChange={onChangeCommentCellValue(row._id, 'comment')}
         />
       ),
       width: 215,

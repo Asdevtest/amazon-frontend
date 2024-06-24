@@ -5,4 +5,5 @@ export interface ILaunch {
   value: number
   dateTo?: string
   expired?: boolean
+  _id?: string
 }

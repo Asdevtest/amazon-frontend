@@ -1,13 +1,17 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  flexRowContainer: {
+  requests: {
+    maxWidth: 490,
+    overflowX: 'auto',
     display: 'flex',
     alignItems: 'flex-start',
     gap: 20,
   },
 
   requestWrapper: {
+    minWidth: 210,
+    maxWidth: 235,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,

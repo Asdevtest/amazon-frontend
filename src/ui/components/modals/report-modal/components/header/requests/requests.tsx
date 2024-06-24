@@ -15,22 +15,20 @@ import { CrossIcon } from '@components/shared/svg-icons'
 import { getUrlToRequest } from '@utils/get-url-to-request/get-url-to-request'
 import { t } from '@utils/translations'
 
-import { LaunchType } from '@typings/types/launch'
-
 import { useStyles } from './requests.style'
 
 const MAX_SPEC_TITLE_LENGTH_WITHOUT_TOOLTIP = 12
 
 interface RequestsProps {
   requests: IRequestWithLaunch[]
-  onRemoveRequest: (value: LaunchType) => void
+  onRemoveRequest: (id?: string) => void
 }
 
 export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest }) => {
   const { classes: styles } = useStyles()
 
   return requests.length > 0 ? (
-    <div className={styles.flexRowContainer}>
+    <div className={styles.requests}>
       {requests.map(request => {
         const specTitleTooltip =
           request.spec.title.length > MAX_SPEC_TITLE_LENGTH_WITHOUT_TOOLTIP ? request.spec.title : ''
@@ -51,7 +49,7 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
                 size="small"
                 icon={<CrossIcon className={styles.crossIcon} />}
                 className={styles.crossButton}
-                onClick={() => onRemoveRequest(request.launch.type)}
+                onClick={() => onRemoveRequest(request.launch?._id)}
               />
             </div>
             <div className={styles.requestConatainer}>
