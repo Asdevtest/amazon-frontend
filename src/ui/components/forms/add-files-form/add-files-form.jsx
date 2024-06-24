@@ -18,7 +18,7 @@ export const AddFilesForm = props => {
   const [editingItem, setEditingItem] = useState(item)
 
   const setImagesOfItem = images => {
-    setEditingItem(prev => ({ ...prev, tmpImages: images }))
+    setEditingItem(prev => ({ ...prev, images }))
   }
 
   const onSubmith = () => {
@@ -33,7 +33,7 @@ export const AddFilesForm = props => {
     <div className={styles.wrapper}>
       <p className={styles.title}>{t(TranslationKey['Add files'])}</p>
 
-      <UploadFilesInput withoutTitles images={editingItem.tmpImages} setImages={setImagesOfItem} />
+      <UploadFilesInput withoutTitles images={editingItem.images} setImages={setImagesOfItem} />
 
       <div className={styles.btnsWrapper}>
         <Button styleType={ButtonStyle.SUCCESS} onClick={onSubmith}>

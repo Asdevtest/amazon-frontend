@@ -20,7 +20,7 @@ import { useStyles } from './user-balance.style'
 import { UserBalanceModel } from './user-balance.model'
 
 export const UserBalance = observer(({ userId }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
   const history = useHistory()
   const model = useRef(new UserBalanceModel({ history, userId }))
 
@@ -54,11 +54,11 @@ export const UserBalance = observer(({ userId }) => {
       <DashboardBalance user={user} />
 
       <div className={styles.btnsWrapper}>
-        <Button className={[styles.button, styles.depositBtn]} onClick={onTriggerReplenishModal}>
+        <Button className={cx(styles.button, styles.depositBtn)} onClick={onTriggerReplenishModal}>
           {t(TranslationKey.Deposit)}
         </Button>
         <Button
-          className={[styles.button, styles.cancelBtn]}
+          className={cx(styles.button, styles.cancelBtn)}
           variant={ButtonVariant.OUTLINED}
           onClick={onTriggerWithdrawModal}
         >

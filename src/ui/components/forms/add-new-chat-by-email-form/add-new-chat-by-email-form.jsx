@@ -18,7 +18,7 @@ import { MultiValueContainer } from './multi-value-container/multi-value-contain
 import { Option } from './option/option'
 
 export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [userDataForRender, setUserDataForRender] = useState([])
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
@@ -113,7 +113,7 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
 
         <Button
           variant={ButtonVariant.OUTLINED}
-          className={[styles.button, styles.cancelButton]}
+          className={cx(styles.button, styles.cancelButton)}
           onClick={() => closeModal()}
         >
           {t(TranslationKey.Cancel)}

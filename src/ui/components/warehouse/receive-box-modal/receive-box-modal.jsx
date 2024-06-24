@@ -45,8 +45,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
       weighGrossKgWarehouse: emptyBox?.weighGrossKgWarehouse || '',
       volumeWeightKgWarehouse: emptyBox?.volumeWeightKgWarehouse || '',
       weightFinalAccountingKgWarehouse: emptyBox?.weightFinalAccountingKgWarehouse || '',
-      tmpImages: [],
-      images: (emptyBox?.images === null ? [] : emptyBox?.images) || [],
+      images: emptyBox?.images || [],
     }
 
     return emptyBoxWithDemensions
@@ -74,11 +73,8 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         widthCmWarehouse: el?.widthCmSupplier || '',
         heightCmWarehouse: el?.heightCmSupplier || '',
         weighGrossKgWarehouse: el?.weighGrossKgSupplier || '',
-
         volumeWeightKgWarehouse: volumeWeight || '',
-
         weightFinalAccountingKgWarehouse: weightFinalAccountingKg || '',
-        tmpImages: [],
         images: startBox?.images || [],
       }
 
@@ -149,7 +145,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
   const addDouble = boxId => {
     const foundedBox = newBoxes.find(box => box._id === boxId)
 
-    const copyedBox = { ...JSON.parse(JSON.stringify(foundedBox)), tmpImages: foundedBox.tmpImages }
+    const copyedBox = { ...JSON.parse(JSON.stringify(foundedBox)), images: foundedBox.images }
 
     const updatedNewBoxes = [...newBoxes, { ...copyedBox, _id: `${copyedBox._id} + 'double' ${Date.now()}` }]
     setNewBoxes(updatedNewBoxes)
@@ -185,7 +181,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         weighGrossKgWarehouse: parseFloat(el?.weighGrossKgWarehouse) || '',
         volumeWeightKgWarehouse: parseFloat(el?.volumeWeightKgWarehouse) || '',
         weightFinalAccountingKgWarehouse: parseFloat(el?.weightFinalAccountingKgWarehouse) || '',
-        tmpImages: [...el.images, ...el.tmpImages],
+        images: el.images,
       }))
 
       setSourceBoxes(newBoxesWithoutNumberFields)
@@ -195,7 +191,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
     }
   }
 
-  const isSomeBoxHasntImage = newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
+  const isSomeBoxHasntImage = newBoxes.some(box => !box?.images?.length)
 
   const isSomeBoxesHasCorrectSizes = newBoxes.some(
     box =>
