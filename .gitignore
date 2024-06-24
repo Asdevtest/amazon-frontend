@@ -28,7 +28,6 @@ yarn-error.log*
 
 .vscode
 
-/src/services/rest-api-service/codegen
 
 .schema.json
 .vercel
