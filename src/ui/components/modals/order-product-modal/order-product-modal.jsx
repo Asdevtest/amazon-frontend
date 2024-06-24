@@ -248,13 +248,24 @@ export const OrderProductModal = memo(props => {
 
       newRenderOrderState[index][fieldsName] = parseInt(value) || 0
     } else if (fieldsName === 'tariff') {
+      const changeObject = {
+        logicsTariffId: value.logicsTariffId,
+        variationTariffId: value.variationTariffId,
+        destinationId: value.destinationId,
+        storekeeperId: value.storekeeperId,
+        storekeeper: value.storekeeper,
+        destination: value.destination,
+        logicsTariff: value.logicsTariff,
+        variationTariff: value.variationTariff,
+      }
+
       newStateOrderState[index] = {
         ...newStateOrderState[index],
-        ...value,
+        ...changeObject,
       }
       newRenderOrderState[index] = {
         ...newRenderOrderState[index],
-        ...value,
+        ...changeObject,
       }
     } else {
       newStateOrderState[index][fieldsName] = value

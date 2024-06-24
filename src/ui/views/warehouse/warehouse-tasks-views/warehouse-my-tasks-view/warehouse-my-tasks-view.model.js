@@ -418,6 +418,7 @@ export class WarehouseMyTasksViewModel {
               'isTransparencyFileAlreadyAttachedByTheSupplier',
               'isTransparencyFileAttachedByTheStorekeeper',
               'transparencyFile',
+              'shippingLabel',
             ],
           )
 
