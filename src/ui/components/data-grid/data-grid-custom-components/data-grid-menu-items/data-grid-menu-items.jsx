@@ -1815,7 +1815,13 @@ export const DestinationMenuItem = memo(
     } = props
 
     const [currentOption, setCurrentOption] = useState(
-      data.logicsTariff.currentFilterData.length ? 'logicsTariff' : 'destination',
+      data.destinationId
+        ? 'destinationId'
+        : data.logicsTariffId
+        ? 'logicsTariffId'
+        : data.logicsTariff.currentFilterData.length
+        ? 'logicsTariff'
+        : 'destination',
     )
 
     const filterData = data[currentOption]?.filterData
@@ -1884,14 +1890,14 @@ export const DestinationMenuItem = memo(
               <FormControlLabel
                 title={t(TranslationKey.Destination)}
                 className={styles.radioOption}
-                value="destination"
+                value={data.destinationId ? 'destinationId' : 'destination'}
                 control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Destination)}
               />
               <FormControlLabel
                 title={t(TranslationKey.Tariff)}
                 className={styles.radioOption}
-                value="logicsTariff"
+                value={data.logicsTariffId ? 'logicsTariffId' : 'logicsTariff'}
                 control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Tariff)}
               />
