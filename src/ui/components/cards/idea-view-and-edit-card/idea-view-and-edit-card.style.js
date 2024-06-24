@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     minHeight: 603,
     padding: 20,
     background: theme.palette.background.general,
-    borderRadius: 7,
+    borderRadius: 20,
     gap: '30px',
   },
 
@@ -28,6 +28,9 @@ export const useStyles = makeStyles()(theme => ({
   fullCardWpapper: {
     height: 'max-content',
     overflow: 'unset',
+    background: theme.palette.background.general,
+    borderRadius: 20,
+    boxShadow: '0px -4px 13px 0px rgba(135, 135, 135, 0.15) inset',
   },
 
   cardBlockWrapper: {
@@ -499,9 +502,6 @@ export const useStyles = makeStyles()(theme => ({
   modalContentWrapper: {
     maxHeight: '616px',
     overflowY: 'auto',
-    padding: '30px',
-
-    boxShadow: '0px -4px 13px 0px rgba(135, 135, 135, 0.15) inset',
   },
 
   supplierFoundWrapper: {
