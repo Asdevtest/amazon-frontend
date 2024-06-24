@@ -15,29 +15,126 @@
 
 
 /**
- * Схема создания/апдейта рекомендаций
+ * 
  * @export
  * @interface InlineObject66
  */
 export interface InlineObject66 {
     /**
-     * GUID продукта.
-     * @type {string}
-     * @memberof InlineObject66
-     */
-    productId: string;
-    /**
-     * GUID сторкипера.
+     * GUID storekeeper-a
      * @type {string}
      * @memberof InlineObject66
      */
     storekeeperId: string;
     /**
-     * Рекомендуемое значение
+     * GUID баера
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    buyerId?: string;
+    /**
+     * Защита листинга
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    transparencyFile?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    item?: string;
+    /**
+     * GUID тарифа доставки
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    logicsTariffId: string;
+    /**
+     * Гуид вариации
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    variationTariffId?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    priority?: InlineObject66PriorityEnum;
+    /**
+     * GUID пункта назначения.
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    destinationId?: string;
+    /**
+     * Кол-во продукта по этой позиции.
      * @type {number}
      * @memberof InlineObject66
      */
-    recommendedValue: number;
+    amount: number;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject66
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Комментарии клиента.
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    clientComment?: string;
+    /**
+     * GUID заказанного продукта
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    productId: string;
+    /**
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject66
+     */
+    images?: Array<string>;
+    /**
+     * Флаг , обозначающий оплату за экспресс доставку по китаю
+     * @type {boolean}
+     * @memberof InlineObject66
+     */
+    expressChinaDelivery?: boolean;
+    /**
+     * Нуждается ли заказ в повторном поиске поставщика
+     * @type {boolean}
+     * @memberof InlineObject66
+     */
+    needsResearch?: boolean;
+    /**
+     * Дедлайн выкупа заказа
+     * @type {string}
+     * @memberof InlineObject66
+     */
+    deadline?: string;
+    /**
+     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * @type {number}
+     * @memberof InlineObject66
+     */
+    totalPrice?: number;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject66PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

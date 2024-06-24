@@ -23,17 +23,17 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
-import { InlineResponse20051 } from '../models';
+import { InlineResponse20037 } from '../models';
 // @ts-ignore
-import { InlineResponse20052 } from '../models';
+import { InlineResponse20038 } from '../models';
 // @ts-ignore
-import { InlineResponse20053 } from '../models';
+import { InlineResponse20039 } from '../models';
 // @ts-ignore
-import { InlineResponse20054 } from '../models';
+import { InlineResponse20040 } from '../models';
 // @ts-ignore
-import { InlineResponse20055 } from '../models';
+import { InlineResponse20041 } from '../models';
 // @ts-ignore
-import { InlineResponse20056 } from '../models';
+import { InlineResponse20042 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -289,7 +289,7 @@ export const DashboardApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1DashboardBuyerCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20052>> {
+        async apiV1DashboardBuyerCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20038>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1DashboardBuyerCountsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -300,7 +300,7 @@ export const DashboardApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1DashboardClientCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20051>> {
+        async apiV1DashboardClientCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20037>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1DashboardClientCountsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -311,7 +311,7 @@ export const DashboardApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1DashboardFreelancerCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20055>> {
+        async apiV1DashboardFreelancerCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20041>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1DashboardFreelancerCountsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -322,7 +322,7 @@ export const DashboardApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1DashboardResearcherCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20054>> {
+        async apiV1DashboardResearcherCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20040>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1DashboardResearcherCountsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -333,7 +333,7 @@ export const DashboardApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1DashboardStorekeeperCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20053>> {
+        async apiV1DashboardStorekeeperCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20039>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1DashboardStorekeeperCountsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -344,7 +344,7 @@ export const DashboardApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1DashboardSupervisorCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20056>> {
+        async apiV1DashboardSupervisorCountsGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20042>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1DashboardSupervisorCountsGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -365,7 +365,7 @@ export const DashboardApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DashboardBuyerCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20052> {
+        apiV1DashboardBuyerCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20038> {
             return localVarFp.apiV1DashboardBuyerCountsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -375,7 +375,7 @@ export const DashboardApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DashboardClientCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20051> {
+        apiV1DashboardClientCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20037> {
             return localVarFp.apiV1DashboardClientCountsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -385,7 +385,7 @@ export const DashboardApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DashboardFreelancerCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20055> {
+        apiV1DashboardFreelancerCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20041> {
             return localVarFp.apiV1DashboardFreelancerCountsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -395,7 +395,7 @@ export const DashboardApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DashboardResearcherCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20054> {
+        apiV1DashboardResearcherCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20040> {
             return localVarFp.apiV1DashboardResearcherCountsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -405,7 +405,7 @@ export const DashboardApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DashboardStorekeeperCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20053> {
+        apiV1DashboardStorekeeperCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20039> {
             return localVarFp.apiV1DashboardStorekeeperCountsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -415,7 +415,7 @@ export const DashboardApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DashboardSupervisorCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20056> {
+        apiV1DashboardSupervisorCountsGet(acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20042> {
             return localVarFp.apiV1DashboardSupervisorCountsGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };

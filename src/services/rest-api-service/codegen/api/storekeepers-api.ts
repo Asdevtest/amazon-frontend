@@ -65,7 +65,7 @@ import { InlineResponse20095 } from '../models';
 // @ts-ignore
 import { InlineResponse20096 } from '../models';
 // @ts-ignore
-import { InlineResponse2017 } from '../models';
+import { InlineResponse2019 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -1662,7 +1662,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersDestinationPost(body?: InlineObject136, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1StorekeepersDestinationPost(body?: InlineObject136, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2019>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersDestinationPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1770,7 +1770,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTariffLogisticsPost(body?: InlineObject132, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1StorekeepersTariffLogisticsPost(body?: InlineObject132, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2019>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTariffLogisticsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1818,7 +1818,7 @@ export const StorekeepersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1StorekeepersTariffWarehousesPost(body?: InlineObject134, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1StorekeepersTariffWarehousesPost(body?: InlineObject134, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2019>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1StorekeepersTariffWarehousesPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2085,7 +2085,7 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersDestinationPost(body?: InlineObject136, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1StorekeepersDestinationPost(body?: InlineObject136, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2019> {
             return localVarFp.apiV1StorekeepersDestinationPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2185,7 +2185,7 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffLogisticsPost(body?: InlineObject132, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1StorekeepersTariffLogisticsPost(body?: InlineObject132, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2019> {
             return localVarFp.apiV1StorekeepersTariffLogisticsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2229,7 +2229,7 @@ export const StorekeepersApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1StorekeepersTariffWarehousesPost(body?: InlineObject134, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1StorekeepersTariffWarehousesPost(body?: InlineObject134, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2019> {
             return localVarFp.apiV1StorekeepersTariffWarehousesPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

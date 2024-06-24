@@ -13,7 +13,7 @@
  */
 
 
-import { InlineResponse20041Rows } from './inline-response20041-rows';
+import { InlineResponse20038Finances } from './inline-response20038-finances';
 
 /**
  * 
@@ -22,17 +22,11 @@ import { InlineResponse20041Rows } from './inline-response20041-rows';
  */
 export interface InlineResponse20041 {
     /**
-     * Кол-во товаров
-     * @type {number}
+     * 
+     * @type {InlineResponse20038Finances}
      * @memberof InlineResponse20041
      */
-    count?: number;
-    /**
-     * Массив товаров.
-     * @type {Array<InlineResponse20041Rows>}
-     * @memberof InlineResponse20041
-     */
-    rows?: Array<InlineResponse20041Rows>;
+    finances?: InlineResponse20038Finances;
 }
 
 

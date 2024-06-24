@@ -659,7 +659,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                         [styles.error]:
                           !!variant.minWeight &&
                           !!variant.maxWeight &&
-                          Number(variant.maxWeight) < Number(variant.minWeight),
+                          Number(variant.maxWeight) <= Number(variant.minWeight),
                       })}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
                         const input = e.target.value

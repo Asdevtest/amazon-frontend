@@ -13,9 +13,7 @@
  */
 
 
-import { InlineResponse20053Batches } from './inline-response20053-batches';
-import { InlineResponse20053Boxes } from './inline-response20053-boxes';
-import { InlineResponse20053Tasks } from './inline-response20053-tasks';
+import { InlineResponse20053Rows } from './inline-response20053-rows';
 
 /**
  * 
@@ -24,23 +22,17 @@ import { InlineResponse20053Tasks } from './inline-response20053-tasks';
  */
 export interface InlineResponse20053 {
     /**
-     * 
-     * @type {InlineResponse20053Tasks}
+     * Кол-во товаров
+     * @type {number}
      * @memberof InlineResponse20053
      */
-    tasks?: InlineResponse20053Tasks;
+    count?: number;
     /**
-     * 
-     * @type {InlineResponse20053Boxes}
+     * Массив товаров.
+     * @type {Array<InlineResponse20053Rows>}
      * @memberof InlineResponse20053
      */
-    boxes?: InlineResponse20053Boxes;
-    /**
-     * 
-     * @type {InlineResponse20053Batches}
-     * @memberof InlineResponse20053
-     */
-    batches?: InlineResponse20053Batches;
+    rows?: Array<InlineResponse20053Rows>;
 }
 
 

@@ -21,11 +21,11 @@
  */
 export interface InlineObject60 {
     /**
-     * 
+     * id профайла
      * @type {string}
      * @memberof InlineObject60
      */
-    clientComment?: string;
+    profileId: string;
 }
 
 

@@ -13,26 +13,31 @@
  */
 
 
-import { InlineResponse20043Rows } from './inline-response20043-rows';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20043
  */
 export interface InlineResponse20043 {
     /**
-     * Всего кол-во записей в результате запроса
+     * Гуид тега
+     * @type {string}
+     * @memberof InlineResponse20043
+     */
+    _id?: string;
+    /**
+     * Тег
+     * @type {string}
+     * @memberof InlineResponse20043
+     */
+    title?: string;
+    /**
+     * Кол-во продуктов, которые используют этот тег
      * @type {number}
      * @memberof InlineResponse20043
      */
-    count?: number;
-    /**
-     * Массив коробок c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20043Rows>}
-     * @memberof InlineResponse20043
-     */
-    rows?: Array<InlineResponse20043Rows>;
+    productCount?: number;
 }
 
 

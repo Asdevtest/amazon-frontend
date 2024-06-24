@@ -21,11 +21,11 @@
  */
 export interface InlineResponse2018 {
     /**
-     * Гуид тега
+     * guid созданного объекта
      * @type {string}
      * @memberof InlineResponse2018
      */
-    _id?: string;
+    guid?: string;
 }
 
 

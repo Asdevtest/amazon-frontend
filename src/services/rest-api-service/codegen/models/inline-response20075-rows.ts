@@ -13,115 +13,272 @@
  */
 
 
-import { ApiV1AdminsPaymentsCreatedBy } from './api-v1-admins-payments-created-by';
-import { InlineResponse20075EntityProduct } from './inline-response20075-entity-product';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
+import { InlineResponse20075Announcement } from './inline-response20075-announcement';
+import { InlineResponse20075CountProposalsByStatuses } from './inline-response20075-count-proposals-by-statuses';
+import { InlineResponse20075DetailsCustom } from './inline-response20075-details-custom';
+import { InlineResponse20075Media } from './inline-response20075-media';
+import { InlineResponse20075Product } from './inline-response20075-product';
+import { InlineResponse20075Proposals } from './inline-response20075-proposals';
 
 /**
- * 
+ * Схема заявки.
  * @export
  * @interface InlineResponse20075Rows
  */
 export interface InlineResponse20075Rows {
     /**
-     * GUID платежа
+     * GUID заявки в базе данных.
      * @type {string}
      * @memberof InlineResponse20075Rows
      */
-    _id?: string;
+    _id: string;
     /**
-     * Дата создания.
+     * Ключ заявки числом
+     * @type {number}
+     * @memberof InlineResponse20075Rows
+     */
+    humanFriendlyId?: number;
+    /**
+     * Тип заявки.
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    type: string;
+    /**
+     * Приоритет заявки
+     * @type {number}
+     * @memberof InlineResponse20075Rows
+     */
+    priority?: number;
+    /**
+     * Заявка без подтверждения
+     * @type {boolean}
+     * @memberof InlineResponse20075Rows
+     */
+    withoutConfirmation?: boolean;
+    /**
+     * Title заявки.
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    title?: string;
+    /**
+     * Количество предложений.
+     * @type {number}
+     * @memberof InlineResponse20075Rows
+     */
+    maxAmountOfProposals: number;
+    /**
+     * Цена за каждое предложение.
+     * @type {number}
+     * @memberof InlineResponse20075Rows
+     */
+    price: number;
+    /**
+     * Уровень сложности задачи
+     * @type {number}
+     * @memberof InlineResponse20075Rows
+     */
+    taskComplexity?: number;
+    /**
+     *  DRAFT - черновик, заявка создана, но не опубликована  PUBLISHED - заявка опубликована, изменять такую заявку можно! Для того чтобы не произошло неожиданных изменений при  установке этого статуса рассчитываем чек сумму на основе данных самой заявки и деталей при создании и каждом изменении. После этого при публикации предложения будем отправлять этот хеш. Если хеш был изменен то предложение не публикуется и  сервер отдает соответствующую ошибку. Так же из этого статуса можно перевести обратно в статус CREATED (черновик) IN_PROGRESS - по заявке уже есть хотябы одно предложение, изменять такую заявку нельзя, можно только закрыть или снять  с публикации, остановить прием предложений по этой заявке. После этого статуса можно закрыть заявку или она может быть  закрыта автоматически FORBID_NEW_PROPOSALS - снять с публикации, остановить прием предложений по этой заявке, этот статус разрешает закрыть  заявку или перевести ее обратно в статус PUBLISHED/IN_PROGRESS в зависимости от того есть ли по этой заявке уже предложения.  Так же после этого статуса можно закрыть заявку или она может быть автоматически закрыта. Финальные статусы, после них нельзя менять ни заявку ни статус: COMPLETE_PROPOSALS_AMOUNT_ACHIEVED - заявка закрылась автоматически при достижении кол-ва выполненных предложений CANCELED_BY_CREATOR - заявка закрыта пользователем EXPIRED - истек срок заявки, автоматически закрылась Технические статусы: VERIFYING_BY_ADMIN - проверяется адином, такая заявка не отображается в общей выдаче, этот статус выставляет сам админ TO_CORRECT_BY_ADMIN - статус выставляет админ после проверки заявки, после этого статуса можно выставить только статус  READY_TO_VERIFY_BY_ADMIN и эта заявка должна попасть обратно на проверку админу. Если админ проверил все и все ок, то он  выставляет статус CREATED. READY_TO_VERIFY_BY_ADMIN - статус устанавливается клиентом для того чтобы админ проверил изменения по заявке CANCELED_BY_ADMIN - закрыто админом  Статусы для проверки заявки у супервизера (пока вроде не нужно, но статусы можно создать): READY_TO_VERIFY_BY_SUPERVISOR - клиент отправляет заявку на проверку спервизеру, в этом статусе заявка не опубликована  на бирже и подавать предложения нельзя, изменять заявку так же нельзя. Заявки с таким статусом доступны всем супервизерам.  (пока этот функционал вроде не нужен) VERIFYING_BY_SUPERVISOR - в процессе проверки заявки супервизером, в этом статусе заявка не опубликована на бирже и  подавать предложения нельзя, изменять заявку так же нельзя (пока этот функционал вроде не нужен) TO_CORRECT_BY_SUPERVISOR - статус выставляет супервизор после проверки заявки, после этого статуса можно выставить только  статус READY_TO_VERIFY и эта заявка должна попасть обратно на проверку ТОМУ ЖЕ супервизеру что и проверял ее ранее.  (поле supervisorId). Если супервизор проверил все и все ок, то он выставляет статус PUBLISHED. (опять же пока можно заложить  статус но логику не реализовывать) 
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    status: InlineResponse20075RowsStatusEnum;
+    /**
+     * Время закрытия заявки.
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    timeoutAt?: string;
+    /**
+     * Время за которое должен отправить предложение после бронирования. В минутах.
+     * @type {number}
+     * @memberof InlineResponse20075Rows
+     */
+    timeLimitInMinutes?: number;
+    /**
+     * Массив id пользователей.
+     * @type {Array<string>}
+     * @memberof InlineResponse20075Rows
+     */
+    assignees?: Array<string>;
+    /**
+     * Направление заявки, исходящая или входящая.
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    direction: InlineResponse20075RowsDirectionEnum;
+    /**
+     * Массив массив ролей.
+     * @type {Array<number>}
+     * @memberof InlineResponse20075Rows
+     */
+    roles?: Array<number>;
+    /**
+     * Если требуется проверка супервайзером.
+     * @type {boolean}
+     * @memberof InlineResponse20075Rows
+     */
+    needCheckBySupervisor?: boolean;
+    /**
+     * Запретить фрилансеру повторное отправление предложений.
+     * @type {boolean}
+     * @memberof InlineResponse20075Rows
+     */
+    restrictMoreThanOneProposalFromOneAssignee?: boolean;
+    /**
+     * GUID клиента, который создал заявку.
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    createdById?: string;
+    /**
+     * GUID клиента, который обновил запрос на поиск товара.
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    lastModifiedById?: string;
+    /**
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
+     * @memberof InlineResponse20075Rows
+     */
+    spec?: ApiV1AnnouncementsMySpec;
+    /**
+     * Гуид продукта
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    productId?: string;
+    /**
+     * Привязанный асин
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    asin?: string;
+    /**
+     * Цена на амазоне
+     * @type {number}
+     * @memberof InlineResponse20075Rows
+     */
+    priceAmazon?: number;
+    /**
+     * Возврат средств с покупки в процентах
+     * @type {number}
+     * @memberof InlineResponse20075Rows
+     */
+    cashBackInPercent?: number;
+    /**
+     * Гуид анонса
+     * @type {string}
+     * @memberof InlineResponse20075Rows
+     */
+    announcementId?: string;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse20075Rows
      */
     createdAt?: string;
     /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20075Rows
-     */
-    createdBy?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Роль пользователя на момент инициации платежа.
-     * @type {number}
-     * @memberof InlineResponse20075Rows
-     */
-    role?: number;
-    /**
-     * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
-     * @memberof InlineResponse20075Rows
-     */
-    subUser?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * GUID товара или услуги.
+     * Дата изменения
      * @type {string}
      * @memberof InlineResponse20075Rows
      */
-    entityId?: string;
-    /**
-     * Тип товара или услуги
-     * @type {string}
-     * @memberof InlineResponse20075Rows
-     */
-    entityType?: InlineResponse20075RowsEntityTypeEnum;
-    /**
-     * Тип платежа
-     * @type {string}
-     * @memberof InlineResponse20075Rows
-     */
-    paymentType?: InlineResponse20075RowsPaymentTypeEnum;
+    updatedAt?: string;
     /**
      * 
-     * @type {ApiV1AdminsPaymentsCreatedBy}
+     * @type {boolean}
      * @memberof InlineResponse20075Rows
      */
-    recipient?: ApiV1AdminsPaymentsCreatedBy;
-    /**
-     * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
-     * @type {number}
-     * @memberof InlineResponse20075Rows
-     */
-    sum?: number;
-    /**
-     * комментарий
-     * @type {string}
-     * @memberof InlineResponse20075Rows
-     */
-    comment?: string;
+    uploadedToListing?: boolean;
     /**
      * 
-     * @type {Array<InlineResponse20075EntityProduct>}
+     * @type {Array<InlineResponse20075Media>}
      * @memberof InlineResponse20075Rows
      */
-    entityProduct?: Array<InlineResponse20075EntityProduct>;
+    media?: Array<InlineResponse20075Media>;
+    /**
+     * 
+     * @type {InlineResponse20075Announcement}
+     * @memberof InlineResponse20075Rows
+     */
+    announcement?: InlineResponse20075Announcement;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20075Rows
+     */
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {Array<InlineResponse20075Proposals>}
+     * @memberof InlineResponse20075Rows
+     */
+    proposals?: Array<InlineResponse20075Proposals>;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20075Rows
+     */
+    executor?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse20075Rows
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {InlineResponse20075CountProposalsByStatuses}
+     * @memberof InlineResponse20075Rows
+     */
+    countProposalsByStatuses?: InlineResponse20075CountProposalsByStatuses;
+    /**
+     * 
+     * @type {InlineResponse20075Product}
+     * @memberof InlineResponse20075Rows
+     */
+    product?: InlineResponse20075Product;
+    /**
+     * 
+     * @type {InlineResponse20075DetailsCustom}
+     * @memberof InlineResponse20075Rows
+     */
+    detailsCustom?: InlineResponse20075DetailsCustom;
 }
 
 /**
     * @export
     * @enum {string}
     */
-export enum InlineResponse20075RowsEntityTypeEnum {
-    Product = 'PRODUCT',
-    Order = 'ORDER',
-    Box = 'BOX',
-    Batch = 'BATCH',
-    User = 'USER',
-    RequestCustom = 'REQUEST-CUSTOM',
-    RequestSearchProduct = 'REQUEST-SEARCH_PRODUCT',
-    RequestSearchNiche = 'REQUEST-SEARCH_NICHE',
-    RequestProposalCustom = 'REQUEST-PROPOSAL-CUSTOM',
-    RequestProposalSearchProduct = 'REQUEST-PROPOSAL-SEARCH_PRODUCT',
-    RequestProposalSearchNiche = 'REQUEST-PROPOSAL-SEARCH_NICHE',
-    Other = 'OTHER'
+export enum InlineResponse20075RowsStatusEnum {
+    Draft = 'DRAFT',
+    Published = 'PUBLISHED',
+    InProcess = 'IN_PROCESS',
+    ForbidNewProposals = 'FORBID_NEW_PROPOSALS',
+    CompleteProposalsAmountAchieved = 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED',
+    CanceledByCreator = 'CANCELED_BY_CREATOR',
+    Expired = 'EXPIRED',
+    ReadyToVerifyByAdmin = 'READY_TO_VERIFY_BY_ADMIN',
+    VerifyingByAdmin = 'VERIFYING_BY_ADMIN',
+    ToCorrectByAdmin = 'TO_CORRECT_BY_ADMIN',
+    CanceledByAdmin = 'CANCELED_BY_ADMIN',
+    ReadyToVerifyBySupervisor = 'READY_TO_VERIFY_BY_SUPERVISOR',
+    VerifyingBySupervisor = 'VERIFYING_BY_SUPERVISOR',
+    ToCorrectBySupervisor = 'TO_CORRECT_BY_SUPERVISOR'
 }
 /**
     * @export
     * @enum {string}
     */
-export enum InlineResponse20075RowsPaymentTypeEnum {
-    Replenish = 'REPLENISH',
-    Fine = 'FINE',
-    Zero = 'ZERO'
+export enum InlineResponse20075RowsDirectionEnum {
+    In = 'IN',
+    Out = 'OUT'
 }
 
 

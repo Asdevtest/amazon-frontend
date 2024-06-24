@@ -15,17 +15,17 @@
 
 
 /**
- * 
+ * Схема редактирования в первый раз shippingLabel коробки
  * @export
  * @interface InlineObject80
  */
 export interface InlineObject80 {
     /**
-     * Причина отклонения
+     * shippingLabel
      * @type {string}
      * @memberof InlineObject80
      */
-    reasonReject: string;
+    shippingLabel: string;
 }
 
 

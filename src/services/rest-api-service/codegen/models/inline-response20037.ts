@@ -13,6 +13,12 @@
  */
 
 
+import { InlineResponse20037Batch } from './inline-response20037-batch';
+import { InlineResponse20037Boxes } from './inline-response20037-boxes';
+import { InlineResponse20037Orders } from './inline-response20037-orders';
+import { InlineResponse20037Products } from './inline-response20037-products';
+import { InlineResponse20037Requests } from './inline-response20037-requests';
+import { InlineResponse20037Shops } from './inline-response20037-shops';
 
 /**
  * 
@@ -21,17 +27,41 @@
  */
 export interface InlineResponse20037 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * 
+     * @type {InlineResponse20037Orders}
      * @memberof InlineResponse20037
      */
-    _id?: string;
+    orders?: InlineResponse20037Orders;
     /**
-     * Имя пользователя.
-     * @type {string}
+     * 
+     * @type {InlineResponse20037Shops}
      * @memberof InlineResponse20037
      */
-    name?: string;
+    shops?: InlineResponse20037Shops;
+    /**
+     * 
+     * @type {InlineResponse20037Requests}
+     * @memberof InlineResponse20037
+     */
+    requests?: InlineResponse20037Requests;
+    /**
+     * 
+     * @type {InlineResponse20037Products}
+     * @memberof InlineResponse20037
+     */
+    products?: InlineResponse20037Products;
+    /**
+     * 
+     * @type {InlineResponse20037Batch}
+     * @memberof InlineResponse20037
+     */
+    batch?: InlineResponse20037Batch;
+    /**
+     * 
+     * @type {InlineResponse20037Boxes}
+     * @memberof InlineResponse20037
+     */
+    boxes?: InlineResponse20037Boxes;
 }
 
 

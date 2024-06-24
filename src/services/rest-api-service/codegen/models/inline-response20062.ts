@@ -13,9 +13,8 @@
  */
 
 
-import { ApiV1IdeasNotificationsCreatedBy } from './api-v1-ideas-notifications-created-by';
-import { ApiV1IdeasNotificationsIdea } from './api-v1-ideas-notifications-idea';
-import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-product';
+import { InlineResponse20061Rows } from './inline-response20061-rows';
+import { InlineResponse20062Meta } from './inline-response20062-meta';
 
 /**
  * 
@@ -24,29 +23,23 @@ import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-pro
  */
 export interface InlineResponse20062 {
     /**
-     * 
-     * @type {ApiV1IdeasNotificationsProduct}
+     * Count of rows
+     * @type {number}
      * @memberof InlineResponse20062
      */
-    product?: ApiV1IdeasNotificationsProduct;
+    count?: number;
     /**
      * 
-     * @type {ApiV1IdeasNotificationsIdea}
+     * @type {Array<InlineResponse20061Rows>}
      * @memberof InlineResponse20062
      */
-    idea?: ApiV1IdeasNotificationsIdea;
+    rows?: Array<InlineResponse20061Rows>;
     /**
      * 
-     * @type {ApiV1IdeasNotificationsCreatedBy}
+     * @type {InlineResponse20062Meta}
      * @memberof InlineResponse20062
      */
-    createdBy?: ApiV1IdeasNotificationsCreatedBy;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20062
-     */
-    createdAt?: string;
+    meta?: InlineResponse20062Meta;
 }
 
 

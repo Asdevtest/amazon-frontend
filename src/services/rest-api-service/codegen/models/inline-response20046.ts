@@ -13,26 +13,34 @@
  */
 
 
-import { InlineResponse20046Rows } from './inline-response20046-rows';
+import { InlineResponse20046AllFiles } from './inline-response20046-all-files';
+import { InlineResponse20046AllImages } from './inline-response20046-all-images';
+import { InlineResponse20046AllVideo } from './inline-response20046-all-video';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse20046
  */
 export interface InlineResponse20046 {
     /**
-     * Всего кол-во записей в результате запроса
-     * @type {number}
+     * 
+     * @type {Array<InlineResponse20046AllImages>}
      * @memberof InlineResponse20046
      */
-    count?: number;
+    allImages?: Array<InlineResponse20046AllImages>;
     /**
-     * Массив заказов c пагинацией(заданная страничка).
-     * @type {Array<InlineResponse20046Rows>}
+     * 
+     * @type {Array<InlineResponse20046AllFiles>}
      * @memberof InlineResponse20046
      */
-    rows?: Array<InlineResponse20046Rows>;
+    allFiles?: Array<InlineResponse20046AllFiles>;
+    /**
+     * 
+     * @type {Array<InlineResponse20046AllVideo>}
+     * @memberof InlineResponse20046
+     */
+    allVideo?: Array<InlineResponse20046AllVideo>;
 }
 
 

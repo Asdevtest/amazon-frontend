@@ -13,20 +13,26 @@
  */
 
 
-import { InlineResponse20052Finances } from './inline-response20052-finances';
+import { InlineResponse20055Rows } from './inline-response20055-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20055
  */
 export interface InlineResponse20055 {
     /**
-     * 
-     * @type {InlineResponse20052Finances}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse20055
      */
-    finances?: InlineResponse20052Finances;
+    count?: number;
+    /**
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20055Rows>}
+     * @memberof InlineResponse20055
+     */
+    rows?: Array<InlineResponse20055Rows>;
 }
 
 

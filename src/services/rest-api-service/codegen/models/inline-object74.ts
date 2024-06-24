@@ -21,11 +21,17 @@
  */
 export interface InlineObject74 {
     /**
-     * id профайла
+     * 
      * @type {string}
      * @memberof InlineObject74
      */
-    profileId: string;
+    clientComment: string;
+    /**
+     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @type {number}
+     * @memberof InlineObject74
+     */
+    priceForClient: number;
 }
 
 

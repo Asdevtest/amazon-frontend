@@ -21,17 +21,17 @@
  */
 export interface InlineObject93 {
     /**
-     * текст отзыва/репорта
+     * GUID юзера
      * @type {string}
      * @memberof InlineObject93
      */
-    text: string;
+    userId: string;
     /**
-     * Прикрепленные ссылки на медиа для репорта/отзыва
+     * 
      * @type {Array<string>}
      * @memberof InlineObject93
      */
-    media?: Array<string>;
+    shopIds: Array<string>;
 }
 
 
