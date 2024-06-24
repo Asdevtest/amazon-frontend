@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { action, makeAutoObservable, reaction } from 'mobx'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { privateRoutesConfigs } from '@constants/navigation/routes'
@@ -73,7 +73,7 @@ export class AuthViewModel {
       }
     })
 
-  async signIn() {
+  async onSubmitForm() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -81,24 +81,18 @@ export class AuthViewModel {
       await UserModel.getUserInfo()
       await UserModel.getUsersInfoCounters()
 
+      if (UserModel.accessToken) {
+        const allowedRoutes = privateRoutesConfigs.filter(route =>
+          route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
+        )
+
+        this.history.push(allowedRoutes[0].routePath)
+      }
+
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
+      console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
-      runInAction(() => {
-        this.error = error
-      })
-    }
-  }
-
-  async onSubmitForm() {
-    await this.signIn()
-
-    if (UserModel.accessToken) {
-      const allowedRoutes = privateRoutesConfigs.filter(route =>
-        route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
-      )
-
-      this.history.push(allowedRoutes[0].routePath)
     }
   }
 

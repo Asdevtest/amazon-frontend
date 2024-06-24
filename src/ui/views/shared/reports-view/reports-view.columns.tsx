@@ -14,6 +14,7 @@ import {
   UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
 import { Launches } from '@components/shared/launches'
+import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
 import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -21,6 +22,7 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
+import { ILaunch } from '@typings/shared/launch'
 
 interface ReportsViewColumnsProps {
   onToggleReportModalEditMode: (reportId: string) => void
@@ -44,6 +46,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
             skuByClient={row.product.skuByClient}
           />
         ),
+        valueGetter: ({ row }: GridRowModel) => row.product.asin,
         width: 280,
         columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
         table: DataGridFilterTables.PRODUCTS,
@@ -55,6 +58,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         headerName: t(TranslationKey.Shop),
         renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
         renderCell: ({ row }: GridRowModel) => <MultilineTextCell twoLines text={row.product?.shop?.name} />,
+        valueGetter: ({ row }: GridRowModel) => row.product?.shop?.name,
         width: 120,
         disableCustomSort: true,
         columnKey: columnnsKeys.shared.OBJECT,
@@ -84,6 +88,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
           onClickSecondButton={() => onClickRemoveReport(row._id)}
         />
       ),
+      disableExport: true,
       disableCustomSort: true,
       disableColumnMenu: true,
       filterable: false,
@@ -107,6 +112,10 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey['Launch type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
       renderCell: ({ row }: GridRowModel) => <Launches isCell launches={row.listingLaunches || []} />,
+      valueGetter: ({ row }: GridRowModel) =>
+        row.listingLaunches
+          .map((launch: ILaunch) => `${getLaunchName(launch.type, true)} - ${launch.value}%`)
+          .join(', '),
       width: 330,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -129,6 +138,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <UserMiniCell userName={row.sub?.name || row.createdBy?.name} userId={row.sub?._id || row.createdBy?._id} />
       ),
+      valueGetter: ({ row }: GridRowModel) => row.sub?.name || row.createdBy?.name,
 
       fields: [
         {
@@ -173,14 +183,14 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       columnKey: columnnsKeys.shared.STRING,
     },
 
-    /* {
+    {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }: GridRowModel) => <ShortDateCell value={row.updatedAt} />,
       width: 105,
       columnKey: columnnsKeys.shared.DATE,
-    }, */
+    },
   ]
 
   const filteredColumns = columns.filter(column => column)
