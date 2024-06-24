@@ -109,6 +109,8 @@ export const financesViewColumns = () => {
       renderCell: params => <MultilineTextCell text={getEntityTypeTranslations(params.value)} />,
       transformValueMethod: getEntityTypeTranslations,
 
+      valueGetter: params => getEntityTypeTranslations(params.value),
+
       columnKey: columnnsKeys.shared.STRING_VALUE,
 
       width: 110,
