@@ -1,1 +1,1 @@
-export * from './auth-form'
+export { AuthForm } from './auth-form'

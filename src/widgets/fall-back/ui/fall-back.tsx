@@ -1,12 +1,12 @@
+import { memo } from 'react'
+
 import { Typography } from '@mui/material'
 
-import { useStyles } from './fall-back.style'
+import styles from './fall-back.module.scss'
 
-export const FallBack = () => {
-  const { classes: styles } = useStyles()
-
+export const FallBack = memo(() => {
   return (
-    <div className={styles.root}>
+    <div className={styles.fallBackRoot}>
       <div className={styles.header}>
         <img className={styles.logo} alt="company logo" src={'/assets/icons/logo-var-2.svg'} />
       </div>
@@ -17,4 +17,4 @@ export const FallBack = () => {
       </div>
     </div>
   )
-}
+})
