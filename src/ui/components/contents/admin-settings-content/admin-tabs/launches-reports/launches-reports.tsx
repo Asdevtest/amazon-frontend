@@ -5,13 +5,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
-import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './launches-reports.style'
 
-import { getSelectConfig } from './launches-reports.config'
 import { LaunchesReportsModel } from './launches-reports.model'
 
 interface LaunchesReportsProps {
@@ -20,17 +18,7 @@ interface LaunchesReportsProps {
 
 export const LaunchesReports: FC<LaunchesReportsProps> = observer(({ timeBeforeLaunchDeadline }) => {
   const { classes: styles } = useStyles()
-
-  const [viewModel] = useState(() => new LaunchesReportsModel({ timeBeforeLaunchDeadline }))
-
-  const selectAfter = (
-    <CustomSelect
-      value={viewModel.dateType}
-      options={getSelectConfig()}
-      className={styles.select}
-      onChange={viewModel.onChangeDateType}
-    />
-  )
+  const [viewModel] = useState(() => new LaunchesReportsModel(timeBeforeLaunchDeadline))
 
   return (
     <div className={styles.wrapper}>
@@ -40,7 +28,7 @@ export const LaunchesReports: FC<LaunchesReportsProps> = observer(({ timeBeforeL
         isRow
         precision={0}
         label="Notify users of completed launches in"
-        addonAfter={selectAfter}
+        addonAfter={t(TranslationKey.days)}
         value={viewModel.currentTimeBeforeLaunchDeadline}
         className={styles.input}
         labelClassName={styles.label}
