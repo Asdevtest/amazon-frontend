@@ -68,13 +68,15 @@ export const SupervisorSettingsView = observer(() => {
           disableRowSelectionOnClick
           sortingMode="client"
           paginationMode="client"
+          rowCount={viewModel.rowCount}
+          rows={viewModel.filteredData}
           sortModel={viewModel.sortModel}
+          columns={viewModel.columnsModel}
           filterModel={viewModel.filterModel}
           pinnedColumns={viewModel.pinnedColumns}
           rowSelectionModel={viewModel.selectedRows}
           paginationModel={viewModel.paginationModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
-          rows={viewModel.filteredData}
           getRowHeight={() => 'auto'}
           getRowId={({ _id }) => _id}
           slotProps={{
@@ -99,8 +101,6 @@ export const SupervisorSettingsView = observer(() => {
               },
             },
           }}
-          rowCount={viewModel.rowCount}
-          columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onPinnedColumnsChange={viewModel.handlePinColumn}
           onSortModelChange={viewModel.onChangeSortingModel}

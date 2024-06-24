@@ -1,13 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  btnsWrapper: {
-    marginBottom: 20,
+  header: {
     display: 'flex',
+    justifyContent: 'flex-start',
   },
 
-  datagridWrapper: {
-    height: '81vh',
+  tableWrapper: {
+    marginTop: 20,
+    height: '82vh',
     width: '100%',
   },
 }))
