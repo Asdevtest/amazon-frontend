@@ -40,6 +40,7 @@ export const getAxiosInstance = () => {
       return config
     } else {
       const userModel = SettingsModel.loadValue('UserModel')
+
       if (config.headers && userModel && userModel.accessToken) {
         config.headers.Authorization = `Bearer ${userModel.accessToken}`
       }
