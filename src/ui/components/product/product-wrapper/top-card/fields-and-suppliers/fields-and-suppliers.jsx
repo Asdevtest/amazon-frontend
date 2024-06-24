@@ -318,9 +318,11 @@ export const FieldsAndSuppliers = memo(props => {
             <div className={styles.tagsTitleWrapper}>
               <p className={styles.subUsersTitle}>{t(TranslationKey['Product tags'])}</p>
 
-              <Button iconButton onClick={() => setShowEditProductTagsModal(true)}>
-                <EditIcon />
-              </Button>
+              {showActionBtns && !checkIsSupervisor(curUserRole) && !checkIsBuyer(curUserRole) ? (
+                <Button iconButton onClick={() => setShowEditProductTagsModal(true)}>
+                  <EditIcon />
+                </Button>
+              ) : null}
             </div>
 
             <TagList selectedTags={product?.tags} />

@@ -75,7 +75,7 @@ export class ReportsViewModel extends DataGridFilterTableModel {
       additionalPropertiesGetFilters,
     })
 
-    this.sortModel = [{ field: 'createdAt', sort: 'desc' }]
+    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.onGetCurrentData()
 
     makeObservable(this, reportsViewConfig)

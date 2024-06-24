@@ -31,9 +31,12 @@ export const DashboardButtons = ({ user }) => {
     (user.freelanceNotices?.length || 0) +
     (user.notificationCounter || 0)
 
+  const isNotificationsShown =
+    !checkIsResearcher(UserRoleCodeMap[user.role]) && !checkIsStorekeeper(UserRoleCodeMap[user.role])
+
   return (
     <div className={styles.buttonsWrapper}>
-      {!checkIsResearcher(UserRoleCodeMap[user.role]) && (
+      {isNotificationsShown ? (
         <div className={styles.buttonWrapper}>
           <button
             className={styles.iconWrapper}
@@ -45,7 +48,7 @@ export const DashboardButtons = ({ user }) => {
 
           <Typography className={styles.title}>{t(TranslationKey.Notifications)}</Typography>
         </div>
-      )}
+      ) : null}
       <div className={styles.buttonWrapper}>
         <button
           className={styles.iconWrapper}

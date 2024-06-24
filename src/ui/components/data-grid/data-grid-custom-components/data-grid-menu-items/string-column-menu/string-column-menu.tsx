@@ -66,7 +66,12 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
           const valueChecked = chosenItems?.some(item => item === el)
 
           return (
-            <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
+            <Checkbox
+              key={index}
+              checked={valueChecked}
+              wrapperClassName={sharedStyles.filterWrapper}
+              onClick={() => onClickItem(el)}
+            >
               <p title={value} className={sharedStyles.filterTitle}>
                 {value}
               </p>

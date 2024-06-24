@@ -295,10 +295,6 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   }
 
   async handleOpenRequestDetailModal(e: any) {
-    if (window?.getSelection?.()?.toString()) {
-      return
-    }
-
     if (e.row.countProposalsByStatuses.acceptedProposals > 0) {
       this.isAcceptedProposals = true
     } else {

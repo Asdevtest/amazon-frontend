@@ -14,7 +14,6 @@ import { App } from './app'
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [
-    Sentry.browserTracingIntegration(),
     Sentry.reactRouterV6BrowserTracingIntegration({
       useEffect,
       useLocation,
@@ -22,7 +21,12 @@ Sentry.init({
     Sentry.replayIntegration(),
   ],
   tracesSampleRate: 1.0,
-  tracePropagationTargets: [/^https:\/\/amazon-frontend-test123\.vercel\.app/],
+  tracePropagationTargets: [
+    /^\//,
+    process.env.REACT_APP_SENTRY_PROD_URL,
+    process.env.REACT_APP_SENTRY_STAGE_URL,
+    process.env.REACT_APP_SENTRY_TEST_URL,
+  ],
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
 })

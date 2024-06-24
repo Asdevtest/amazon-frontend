@@ -15,7 +15,7 @@ export const CustomButton: FC<CustomButtonProps> = memo(props => {
 
   return (
     <div className={cx({ [styles.cell]: isCell }, wrapperClassName)}>
-      <Button {...restProps} icon={icon} className={cx({ [styles.iconButton]: !!icon }, className)} />
+      <Button {...restProps} icon={icon} className={cx(styles.button, { [styles.iconButton]: !!icon }, className)} />
     </div>
   )
 })

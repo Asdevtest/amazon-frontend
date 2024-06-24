@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { Tooltip } from '@mui/material'
 
-import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
-import { getLaunchStyle } from '@components/shared/launches/helpers/get-launch-style'
+import { Launches } from '@components/shared/launches'
 
 import { formatDateWithoutYear } from '@utils/date-time'
 import { timeToDeadlineInHoursAndMins } from '@utils/text'
@@ -22,7 +21,7 @@ interface LaunchNotificationMessageCellProps {
 }
 
 export const ListingNotificationMessageCell: FC<LaunchNotificationMessageCellProps> = memo(({ notification }) => {
-  const { classes: styles, theme } = useStyles()
+  const { classes: styles } = useStyles()
 
   const title = useMemo(() => {
     return getNotificationTitle(notification.type)
@@ -32,28 +31,19 @@ export const ListingNotificationMessageCell: FC<LaunchNotificationMessageCellPro
     <div className={styles.wrapper}>
       <p>{`${title}:`}</p>
 
-      {notification.launches.map((launch: ILaunch, index: number) => {
-        const type = launch.type
-        const dateTo = launch.dateTo
+      {notification.launches.map((launch: ILaunch, index: number) => (
+        <div key={index} className={styles.launchesWrapper}>
+          <Link to={`/client/inventory/product?product-id=${notification.product?._id}&show-tab=reports`}>
+            <Launches launches={[launch]} />
+          </Link>
 
-        return (
-          <div key={index} className={styles.launchesWrapper}>
-            <Link
-              to={`/client/inventory/product?product-id=${notification.product?._id}&show-tab=reports`}
-              style={getLaunchStyle(type, theme)}
-              className={styles.text}
-            >
-              {`${getLaunchName(type, true)} ${launch.value} %`}
-            </Link>
-
-            {notification.type === LaunchNotificationType.ALMOST_RUNNING_OUT ? (
-              <Tooltip title={timeToDeadlineInHoursAndMins({ date: dateTo, withSeconds: true, now: new Date() })}>
-                <p className={styles.text}>{formatDateWithoutYear(dateTo)}</p>
-              </Tooltip>
-            ) : null}
-          </div>
-        )
-      })}
+          {notification.type === LaunchNotificationType.ALMOST_RUNNING_OUT ? (
+            <Tooltip title={timeToDeadlineInHoursAndMins({ date: launch.dateTo, withSeconds: true, now: new Date() })}>
+              <p className={styles.text}>{formatDateWithoutYear(launch.dateTo)}</p>
+            </Tooltip>
+          ) : null}
+        </div>
+      ))}
     </div>
   )
 })
