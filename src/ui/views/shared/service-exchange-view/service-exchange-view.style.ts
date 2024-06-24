@@ -15,7 +15,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: 420,
+    width: 463,
     border: `1px solid ${theme.palette.primary.main}`,
   },
 
