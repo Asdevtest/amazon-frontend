@@ -119,7 +119,7 @@ export class SuppliersAndIdeasModel {
     this.currentIdeaId = currentIdeaId
     this.closeModalHandler = closeModalHandler
     this.isCreateModal = isCreate
-    this.updateData = updateData
+    this.updateData = updateData || this.loadData
 
     if (isCreate) {
       this.onCreateIdea()
