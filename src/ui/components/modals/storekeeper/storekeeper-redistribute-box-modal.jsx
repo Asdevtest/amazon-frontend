@@ -52,8 +52,6 @@ export const StorekeeperRedistributeBox = observer(
       images: [],
     })
 
-    
-
     const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
 
     const emptyProducts = currentBox?.items?.map(product => ({ ...product, amount: isMasterBox ? product.amount : 0 }))
@@ -217,6 +215,7 @@ export const StorekeeperRedistributeBox = observer(
               isMasterBox={isMasterBox}
               selectedBox={selectedBox}
               destinationsFavourites={destinationsFavourites}
+              titleClassName={styles.boxTitle}
               setDestinationsFavouritesItem={setDestinationsFavouritesItem}
               onChangeAmountInput={onChangeAmountInput}
               onClickEditBox={onClickEditBox}
@@ -230,6 +229,7 @@ export const StorekeeperRedistributeBox = observer(
             destinations={destinations}
             storekeepers={storekeepers}
             destinationsFavourites={destinationsFavourites}
+            titleClassName={styles.boxTitle}
             setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             showEditBoxModalR={showEditBoxModalR}
             setNewBoxes={setNewBoxes}

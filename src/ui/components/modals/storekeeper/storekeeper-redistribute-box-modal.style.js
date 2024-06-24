@@ -76,4 +76,11 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
   },
+
+  boxTitle: {
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+  },
 }))
