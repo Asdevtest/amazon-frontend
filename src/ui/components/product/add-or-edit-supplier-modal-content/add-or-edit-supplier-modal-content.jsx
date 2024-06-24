@@ -84,8 +84,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
     price: supplier?.price || '',
     images: supplier?.images || [],
     multiplicity: supplier?.multiplicity || false,
-    minProductionTerm: supplier?.minProductionTerm || 0,
-    maxProductionTerm: supplier?.maxProductionTerm || 0,
+    minProductionTerm: supplier?.minProductionTerm || '',
+    maxProductionTerm: supplier?.maxProductionTerm || '',
     paymentMethods: supplier?.paymentMethods || [],
     yuanRate: supplier?.yuanRate || platformSettings?.yuanToDollarRate,
     priceInYuan: supplier?.priceInYuan || '',
@@ -193,8 +193,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
         boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
       },
 
-      minProductionTerm: tmpSupplier?.minProductionTerm || 0,
-      maxProductionTerm: tmpSupplier?.maxProductionTerm || 0,
+      minProductionTerm: tmpSupplier?.minProductionTerm || '',
+      maxProductionTerm: tmpSupplier?.maxProductionTerm || '',
 
       _id: supplier?._id,
     }
@@ -466,7 +466,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
       tmpSupplier.boxProperties?.boxHeightCm ||
       tmpSupplier.boxProperties?.boxWeighGrossKg) &&
       !boxPropertiesIsFullAndMainsValues) ||
-    isNeedUnitInfo
+    isNeedUnitInfo ||
+    ('' !== tmpSupplier.minProductionTerm &&
+      '' !== tmpSupplier.maxProductionTerm &&
+      Number(tmpSupplier.minProductionTerm) > Number(tmpSupplier.maxProductionTerm))
 
   return (
     <div className={styles.modalContainer}>
@@ -561,6 +564,12 @@ export const AddOrEditSupplierModalContent = memo(props => {
             inputProps={{ maxLength: 10 }}
             label={t(TranslationKey['Max. production time, days'])}
             containerClasses={styles.middleContainer}
+            className={cx(styles.weightInput, {
+              [styles.error]:
+                tmpSupplier.minProductionTerm &&
+                tmpSupplier.maxProductionTerm &&
+                Number(tmpSupplier.minProductionTerm) > Number(tmpSupplier.maxProductionTerm),
+            })}
             labelClasses={styles.normalLabel}
             value={tmpSupplier?.maxProductionTerm}
             onChange={onChangeField('maxProductionTerm')}
