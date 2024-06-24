@@ -39,72 +39,70 @@ export const AuthForm = memo(props => {
   }
 
   return (
-    <div className={styles.root}>
-      <form className={styles.formFields} onSubmit={onSubmitForm}>
-        <Field
-          withIcon
-          autoComplete="username"
-          error={isSubmit && formFields.email === '' && t(TranslationKey['The field must be filled in'])}
-          containerClasses={styles.field}
-          inputClasses={styles.input}
-          label={t(TranslationKey.Email)}
-          labelClasses={styles.labelField}
-          placeholder={t(TranslationKey.Email)}
-          type="email"
-          value={formFields.email}
-          startAdornment={
-            <InputAdornment position="end" className={styles.inputAdornment}>
-              <MailOutlineIcon color="primary" />
-            </InputAdornment>
-          }
-          onChange={onChangeFormField('email')}
-        />
-        <div className={styles.field}>
-          <Field
-            withIcon
-            autoComplete="current-password"
-            error={isSubmit && formFields.password === '' && t(TranslationKey['The field must be filled in'])}
-            label={t(TranslationKey.Password)}
-            labelClasses={styles.labelField}
-            inputClasses={styles.input}
-            placeholder={t(TranslationKey.Password)}
-            type={visibilityPass ? 'text' : 'password'}
-            value={formFields.password}
-            startAdornment={
-              <InputAdornment position="end" className={styles.inputAdornment}>
-                <LockIcon color="primary" />
-              </InputAdornment>
-            }
-            endAdornment={
-              <InputAdornment
-                position="start"
-                className={styles.inputAdornmentVisibility}
-                onClick={() => setVisibilityPass(!visibilityPass)}
-              >
-                {visibilityPass ? (
-                  <VisibilityIcon className={styles.visibilityIcon} />
-                ) : (
-                  <VisibilityOffIcon className={styles.visibilityIcon} />
-                )}
-              </InputAdornment>
-            }
-            onChange={onChangeFormField('password')}
-          />
+    <form className={styles.form} onSubmit={onSubmitForm}>
+      <Field
+        withIcon
+        autoComplete="username"
+        error={isSubmit && formFields.email === '' && t(TranslationKey['The field must be filled in'])}
+        containerClasses={styles.field}
+        inputClasses={styles.input}
+        label={t(TranslationKey.Email)}
+        labelClasses={styles.label}
+        placeholder={t(TranslationKey.Email)}
+        type="email"
+        value={formFields.email}
+        startAdornment={
+          <InputAdornment position="end" className={styles.inputAdornment}>
+            <MailOutlineIcon color="primary" />
+          </InputAdornment>
+        }
+        onChange={onChangeFormField('email')}
+      />
+
+      <Field
+        withIcon
+        autoComplete="current-password"
+        error={isSubmit && formFields.password === '' && t(TranslationKey['The field must be filled in'])}
+        label={t(TranslationKey.Password)}
+        containerClasses={styles.field}
+        labelClasses={styles.label}
+        inputClasses={styles.input}
+        placeholder={t(TranslationKey.Password)}
+        type={visibilityPass ? 'text' : 'password'}
+        value={formFields.password}
+        startAdornment={
+          <InputAdornment position="end" className={styles.inputAdornment}>
+            <LockIcon color="primary" />
+          </InputAdornment>
+        }
+        endAdornment={
+          <InputAdornment
+            position="start"
+            className={styles.inputAdornmentVisibility}
+            onClick={() => setVisibilityPass(!visibilityPass)}
+          >
+            {visibilityPass ? (
+              <VisibilityIcon className={styles.visibilityIcon} />
+            ) : (
+              <VisibilityOffIcon className={styles.visibilityIcon} />
+            )}
+          </InputAdornment>
+        }
+        onChange={onChangeFormField('password')}
+      />
+
+      <div className={styles.formFooter}>
+        <div className={styles.checkboxWrapper} onClick={onChangeFormField('remember')}>
+          <Checkbox color="primary" checked={formFields.remember} />
+          <p className={styles.rememberText}>{t(TranslationKey['Remember me'])}</p>
         </div>
 
-        <div className={styles.formFooter}>
-          <div className={styles.checkboxWrapper} onClick={onChangeFormField('remember')}>
-            <Checkbox className={styles.checkbox} color="primary" checked={formFields.remember} />
-            <p className={styles.label}>{t(TranslationKey['Remember me'])}</p>
-          </div>
+        <p className={styles.forgotPassword}>{t(TranslationKey['Forgot password'])}</p>
+      </div>
 
-          <p className={styles.forgotPassword}>{t(TranslationKey['Forgot password'])}</p>
-        </div>
-
-        <Button disabled={disableLoginButton} type="submit" className={styles.loginBtn}>
-          {t(TranslationKey.Login)}
-        </Button>
-      </form>
-    </div>
+      <Button disabled={disableLoginButton} type="submit">
+        {t(TranslationKey.Login)}
+      </Button>
+    </form>
   )
 })

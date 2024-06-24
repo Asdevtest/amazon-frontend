@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     marginTop: '35px',
-    padding: '0 86px',
+    padding: '0 70px',
   },
   cardListTitle: {
     fontSize: '18px',

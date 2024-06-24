@@ -46,11 +46,18 @@ export const globalStyles = theme => ({
   '.MuiDataGrid-main': {
     borderRadius: '0 0 20px 20px',
   },
+
   '.MuiDataGrid-columnSeparator--sideRight': {
     right: '-3px !important',
   },
+
+  '.MuiDataGrid-columnSeparator--sideLeft': {
+    left: '-3px !important',
+  },
+
   '.MuiDataGrid-columnHeader': {
     padding: '0 5px !important',
+    height: '40px !important',
   },
   '.MuiDataGrid-columnHeaderCheckbox': {
     '.MuiDataGrid-columnHeaderDraggableContainer': {
@@ -58,6 +65,28 @@ export const globalStyles = theme => ({
         paddingRight: '0 !important',
       },
     },
+  },
+
+  // MuiTablePagination
+  '.MuiTablePagination-input': {
+    borderRadius: '100px !important',
+    margin: '0 10px !important',
+    width: '60px !important',
+    height: '30px !important',
+  },
+  '.MuiTablePagination-actions': {
+    marginLeft: '10px !important',
+    display: 'flex',
+    gap: 5,
+
+    button: {
+      padding: '0 !important',
+    },
+  },
+
+  // checkbox
+  '.MuiCheckbox-root': {
+    padding: '0 !important',
   },
 })
 
@@ -74,8 +103,8 @@ export const lightTheme = createTheme({
 
         toolbar: {
           color: '#001029',
-          height: 40,
-          minHeight: '40px !important',
+          height: 30,
+          minHeight: '30px !important',
         },
       },
     },
@@ -85,7 +114,7 @@ export const lightTheme = createTheme({
         root: {
           backgroundColor: '#fff',
           border: 'none',
-          boxShadow: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
           color: '#001029',
           borderRadius: 20,
         },
@@ -115,7 +144,7 @@ export const lightTheme = createTheme({
         },
 
         menuIconButton: {
-          zIndex: 50,
+          zIndex: 7,
           position: 'absolute !important',
           right: -2,
           width: '20px !important',
@@ -136,6 +165,15 @@ export const lightTheme = createTheme({
 
         iconSeparator: {
           padding: '0 1px',
+        },
+
+        pinnedColumns: {
+          '.MuiDataGrid-row': {
+            '&:after': {
+              content: 'unset',
+              display: 'none',
+            },
+          },
         },
       },
     },
@@ -346,15 +384,7 @@ export const lightTheme = createTheme({
       disabled: 'rgba(0, 0, 0, 0.12)',
       activeChat: '#E7F1FF',
       secondary: 'rgba(200, 200, 200, 1)',
-    },
-
-    customSwitcher: {
-      background: '#D9E0E8',
-      indicator: '#fff',
-      text: '#001029',
-      activeText: '#007bff',
-      headerBackground: '#F4F4F4',
-      switch: '#E3E3E3',
+      gray: '#5C6A7A',
     },
 
     linearGradient: {
@@ -399,6 +429,81 @@ export const lightTheme = createTheme({
       file: '#475467',
       icon: '#E9F0FA',
     },
+
+    roi: {
+      bad: '#FBEEED',
+      normal: '#FDF7E3',
+      good: '#ECF8ED',
+    },
+
+    customSwitcher: {
+      background: '#D9E0E8',
+      indicator: '#fff',
+      text: '#001029',
+      activeText: '#007bff',
+      headerBackground: '#F4F4F4',
+      switch: '#E3E3E3',
+    },
+
+    launch: {
+      coupon: {
+        background: 'center no-repeat url(/assets/img/launches/coupon.svg)',
+        width: '55px',
+        height: '22px',
+        padding: '0',
+        borderRadius: '0',
+        color: '#5C6A7A',
+      },
+      promo: {
+        background: '#FFEEDE',
+        color: '#FF4D00',
+      },
+      prime_discount: {
+        background: '#F5FAFD',
+        color: '#007bff',
+      },
+      lighting_deal: {
+        backgroundColor: '#FFFBE9',
+        backgroundImage: 'url(/assets/img/launches/lighting.svg)',
+        backgroundPosition: '8% 50%',
+        backgroundRepeat: 'no-repeat',
+        color: '#C69109',
+        padding: '5px 10px 5px 20px',
+      },
+      best_deal: {
+        background: 'center no-repeat url(/assets/img/launches/best.svg)',
+        width: '85px',
+        height: '22px',
+        color: '#fff',
+        borderRadius: '0',
+        padding: '0 0 0 12px',
+      },
+      outlet_deal: {
+        background: '#DEEAD8',
+        color: '#5C6A7A',
+      },
+      sales_price: {
+        background: '#D4E9FD',
+        color: '#001029',
+      },
+      ab_test: {
+        background: '#F2ECFF',
+        color: '#8263B5',
+      },
+      custom: {
+        background: '#F6F6F6',
+        color: '#5C6A7A',
+        outline: '1px solid #E0E0E0',
+      },
+      price_change: {
+        color: '#007bff',
+        outline: '1px solid #007bff',
+        backgroundImage: 'url(/assets/img/launches/arrows_blue_light.svg)',
+        backgroundPosition: '90% 50%',
+        backgroundRepeat: 'no-repeat',
+        padding: '5px 23px 5px 10px',
+      },
+    },
   },
 })
 
@@ -415,8 +520,8 @@ export const darkTheme = createTheme({
 
         toolbar: {
           color: '#fff',
-          height: 40,
-          minHeight: '40px !important',
+          height: 30,
+          minHeight: '30px !important',
         },
       },
     },
@@ -426,7 +531,7 @@ export const darkTheme = createTheme({
         root: {
           backgroundColor: '#2B2B34',
           border: 'none',
-          boxShadow: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
           color: '#fff',
           borderRadius: 20,
         },
@@ -459,6 +564,14 @@ export const darkTheme = createTheme({
         columnHeaders: {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
           height: 65,
+
+          '> .MuiDataGrid-pinnedColumnHeaders': {
+            backgroundColor: '#2B2B34',
+          },
+        },
+
+        pinnedRows: {
+          backgroundColor: '#2B2B34',
         },
 
         paper: {
@@ -490,7 +603,7 @@ export const darkTheme = createTheme({
 
         menuIconButton: {
           color: '#fff',
-          zIndex: 50,
+          zIndex: 7,
           position: 'absolute !important',
           right: -3,
           width: '20px !important',
@@ -511,6 +624,17 @@ export const darkTheme = createTheme({
 
         iconSeparator: {
           padding: '0 1px',
+        },
+
+        pinnedColumns: {
+          '.MuiDataGrid-row': {
+            '&:after': {
+              content: 'unset',
+              display: 'none',
+            },
+          },
+
+          backgroundColor: '#2B2B34',
         },
       },
     },
@@ -706,7 +830,6 @@ export const darkTheme = createTheme({
     // mode: 'dark', // при выставлении меняет некотрые стили по умолчанию
 
     primary: {
-      // main: '#008CF1',
       main: '#4CA1DE',
       mainRgb: '76, 161, 222',
     },
@@ -714,13 +837,12 @@ export const darkTheme = createTheme({
     text: {
       general: '#fff',
       second: '#E1E1E1',
-
       gray: 'gray',
       red: '#FF1616',
       negativeMain: '#001029',
       green: '#00B746',
-      disabled: '#001029',
 
+      disabled: '#001029',
       primary: '#fff',
       secondary: 'rgba(255, 255, 255, 0.7)',
     },
@@ -815,15 +937,7 @@ export const darkTheme = createTheme({
       disabled: '#a0a0a4',
       activeChat: '#384C68',
       secondary: 'rgb(80, 80, 80, 1)',
-    },
-
-    customSwitcher: {
-      background: '#272730',
-      indicator: '#31313A',
-      text: '#5C6A7A',
-      activeText: '#4CA1DE',
-      headerBackground: '#25252D',
-      switch: '#667085',
+      gray: '#667085',
     },
 
     linearGradient: {
@@ -868,6 +982,80 @@ export const darkTheme = createTheme({
       zip: '#8B79F9',
       file: '#A2ADBD',
       icon: '#475467',
+    },
+
+    roi: {
+      bad: '#2C2022',
+      normal: '#2F281D',
+      good: '#1C221F',
+    },
+
+    customSwitcher: {
+      background: '#272730',
+      indicator: '#31313A',
+      text: '#5C6A7A',
+      activeText: '#4CA1DE',
+      headerBackground: '#25252D',
+      switch: '#667085',
+    },
+
+    launch: {
+      coupon: {
+        background: 'center no-repeat url(/assets/img/launches/coupon.svg)',
+        width: '55px',
+        height: '22px',
+        padding: '0',
+        borderRadius: '0',
+        color: '#E0E0E0',
+      },
+      promo: {
+        color: '#FF4D00',
+        outline: '1px solid #FF4D00',
+      },
+      prime_discount: {
+        color: '#4CA1DE',
+        outline: '1px solid #4CA1DE',
+      },
+      lighting_deal: {
+        backgroundImage: 'url(/assets/img/launches/lighting.svg)',
+        backgroundPosition: '8% 50%',
+        backgroundRepeat: 'no-repeat',
+        color: '#C69109',
+        padding: '5px 10px 5px 20px',
+        outline: '1px solid #C69109',
+      },
+      best_deal: {
+        background: 'center no-repeat url(/assets/img/launches/best.svg)',
+        width: '85px',
+        height: '22px',
+        color: '#fff',
+        borderRadius: '0',
+        padding: '0 0 0 12px',
+      },
+      outlet_deal: {
+        color: '#DEEAD8',
+        outline: '1px solid #DEEAD8',
+      },
+      sales_price: {
+        color: '#D4E9FD',
+        outline: '1px solid #D4E9FD',
+      },
+      ab_test: {
+        color: '#8263B5',
+        outline: '1px solid #8263B5',
+      },
+      custom: {
+        color: '#667085',
+        outline: '1px solid #667085',
+      },
+      price_change: {
+        color: '#4CA1DE',
+        outline: '1px solid #4CA1DE',
+        backgroundImage: 'url(/assets/img/launches/arrows_blue_dark.svg)',
+        backgroundPosition: '92% 50%',
+        backgroundRepeat: 'no-repeat',
+        padding: '5px 23px 5px 10px',
+      },
     },
   },
 })

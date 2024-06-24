@@ -165,13 +165,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
             onChange={onChangeField('amazonTitle')}
           />
 
-          <UploadFilesInput
-            fullWidth
-            images={images}
-            setImages={setImages}
-            maxNumber={50}
-            acceptType={['jpg', 'gif', 'png', 'jpeg']}
-          />
+          <UploadFilesInput images={images} setImages={setImages} />
         </div>
       )}
 
@@ -188,9 +182,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
         </Button>
       </div>
 
-      {showProgress && (
-        <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
-      )}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
 })

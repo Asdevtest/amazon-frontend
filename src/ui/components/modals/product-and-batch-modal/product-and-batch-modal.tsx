@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Divider } from '@mui/material'
@@ -10,7 +10,6 @@ import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-gr
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { SeparatorIcon } from '@components/shared/svg-icons'
 
@@ -35,14 +34,13 @@ export interface ProductAndBatchModalProps {
   shops: IShop[]
   selectedProduct: IProduct
   batches: IBatch[]
-  openModal: boolean
-  setOpenModal: () => void
   currentBatch?: IBatch
   getCurrentBatch: (id: string) => void
   onChangeSwitcher: () => void
   onClickMyOrderModal: (id: string) => void
-  onClickInTransferModal: (id: string) => void
+  onOpenProductDataModal: (onAmazon: boolean) => void
   onClickHsCode: (id: string) => void
+  patchActualShippingCostBatch: (id: string, value: number) => void
 }
 
 export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props => {
@@ -50,20 +48,20 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     selectedProduct,
     shops,
     batches,
-    openModal,
-    setOpenModal,
     currentBatch,
     getCurrentBatch,
     currentSwitch,
     onChangeSwitcher,
     onClickMyOrderModal,
-    onClickInTransferModal,
+    onOpenProductDataModal,
     onClickHsCode,
+    patchActualShippingCostBatch,
   } = props
 
   const { classes: styles } = useStyles()
 
   const [showBatchModal, setShowBatchModal] = useState(false)
+  const [rows, setRows] = useState<GridRowModel[]>([])
 
   const handleShowModalBatchModal = () => {
     setShowBatchModal(!showBatchModal)
@@ -77,7 +75,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
   const selectedProductShop = shops?.find(shop => shop._id === selectedProduct?.shopId)
   const switchCurrentCondition = currentSwitch === ProductAndBatchModalSwitcherConditions.BATCH_DATA
   const columns = switchCurrentCondition ? batchDataColumns(handleOpenBatchModal) : aboutProductsColumns
-  const rows = switchCurrentCondition ? batches : selectedProduct?.orders
+
   const handleRowClick = (id: string) => {
     if (switchCurrentCondition) {
       return
@@ -86,78 +84,80 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     onClickMyOrderModal(id)
   }
 
+  useEffect(() => {
+    setRows(switchCurrentCondition ? batches : selectedProduct?.orders)
+  }, [switchCurrentCondition, batches])
+
   return (
     <>
-      <Modal openModal={openModal} setOpenModal={setOpenModal}>
-        <div className={styles.root}>
-          <div className={styles.header}>
-            <p className={styles.title}>{t(TranslationKey['Product information'])}</p>
+      <div className={styles.root}>
+        <div className={styles.header}>
+          <p className={styles.title}>{t(TranslationKey['Product information'])}</p>
 
-            <div className={styles.updatedContainer}>
-              <p className={styles.updatedText}>{`${t(TranslationKey.Updated)}:`}</p>
-              <p className={styles.updatedTitle}>{formatShortDateTime(selectedProduct?.updatedAt)}</p>
-            </div>
-          </div>
-
-          <Divider />
-
-          <div className={styles.subHeader}>
-            <SlideshowGallery slidesToShow={2} files={selectedProduct?.images} />
-
-            <p className={styles.amazonTitle}>{selectedProduct?.amazonTitle}</p>
-
-            <div className={styles.additionInfo}>
-              <div className={styles.shopContainer}>
-                <p className={styles.shopName}>{`${t(TranslationKey.Shop)}:`}</p>
-                <p className={styles.shopValue}>{selectedProductShop?.name || t(TranslationKey['Not available'])}</p>
-              </div>
-              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={selectedProduct?.asin} />
-              <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={selectedProduct?.skuByClient} />
-            </div>
-          </div>
-
-          <Divider />
-
-          <div className={styles.fields}>
-            {infoModalConfig(selectedProduct, onClickInTransferModal).map((field, index) => (
-              <div key={index} className={styles.field}>
-                <p className={styles.fieldTitle}>{field.title}</p>
-                {field.element()}
-              </div>
-            ))}
-          </div>
-
-          <CustomSwitcher
-            fullWidth
-            switcherSettings={switcherSettings}
-            condition={currentSwitch}
-            switchMode="medium"
-            changeConditionHandler={onChangeSwitcher}
-          />
-
-          <div className={styles.tableWrapper}>
-            <CustomDataGrid
-              sortingMode="client"
-              paginationMode="client"
-              rows={rows || []}
-              columns={columns}
-              getRowId={({ _id }: GridRowModel) => _id}
-              getRowHeight={() => 'auto'}
-              slots={{
-                columnMenuIcon: FilterAltOutlinedIcon,
-                columnMenu: DataGridCustomColumnMenuComponent,
-                columnResizeIcon: SeparatorIcon,
-              }}
-              slotProps={{
-                baseTooltip: {
-                  title: t(TranslationKey.Filter),
-                },
-              }}
-              onRowClick={({ id }: GridRowModel) => handleRowClick(id)}
-            />
+          <div className={styles.updatedContainer}>
+            <p className={styles.updatedText}>{`${t(TranslationKey.Updated)}:`}</p>
+            <p className={styles.updatedTitle}>{formatShortDateTime(selectedProduct?.updatedAt)}</p>
           </div>
         </div>
-      </Modal>
+
+        <Divider />
+
+        <div className={styles.subHeader}>
+          <SlideshowGallery slidesToShow={2} files={selectedProduct?.images} />
+
+          <p className={styles.amazonTitle}>{selectedProduct?.amazonTitle}</p>
+
+          <div className={styles.additionInfo}>
+            <div className={styles.shopContainer}>
+              <p className={styles.shopName}>{`${t(TranslationKey.Shop)}:`}</p>
+              <p className={styles.shopValue}>{selectedProductShop?.name || t(TranslationKey['Not available'])}</p>
+            </div>
+            <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={selectedProduct?.asin} />
+            <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={selectedProduct?.skuByClient} />
+          </div>
+        </div>
+
+        <Divider />
+
+        <div className={styles.fields}>
+          {infoModalConfig(selectedProduct, onOpenProductDataModal).map((field, index) => (
+            <div key={index} className={styles.field}>
+              <p className={styles.fieldTitle}>{field.title}</p>
+              {field.element()}
+            </div>
+          ))}
+        </div>
+
+        <CustomSwitcher
+          fullWidth
+          switcherSettings={switcherSettings}
+          condition={currentSwitch}
+          switchMode="medium"
+          changeConditionHandler={onChangeSwitcher}
+        />
+
+        <div className={styles.tableWrapper}>
+          <CustomDataGrid
+            sortingMode="client"
+            paginationMode="client"
+            rows={rows || []}
+            columns={columns}
+            getRowId={({ _id }: GridRowModel) => _id}
+            getRowHeight={() => 'auto'}
+            slots={{
+              columnMenuIcon: FilterAltOutlinedIcon,
+              columnMenu: DataGridCustomColumnMenuComponent,
+              columnResizeIcon: SeparatorIcon,
+            }}
+            slotProps={{
+              baseTooltip: {
+                title: t(TranslationKey.Filter),
+              },
+            }}
+            onRowClick={({ id }: GridRowModel) => handleRowClick(id)}
+          />
+        </div>
+      </div>
 
       {showBatchModal ? (
         // @ts-ignore
@@ -165,6 +165,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
           batch={currentBatch}
           openModal={showBatchModal}
           setOpenModal={handleShowModalBatchModal}
+          patchActualShippingCostBatch={patchActualShippingCostBatch}
           onClickHsCode={onClickHsCode}
         />
       ) : null}

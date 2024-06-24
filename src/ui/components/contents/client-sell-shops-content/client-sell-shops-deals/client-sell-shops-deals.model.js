@@ -69,7 +69,7 @@ export class ClientSellShopsDealsModel {
       // await this.getRequestsVacant()
       this.getTableModeState()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -80,7 +80,7 @@ export class ClientSellShopsDealsModel {
       //   this.requests = result
       // })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -92,7 +92,7 @@ export class ClientSellShopsDealsModel {
       )
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
+      console.error(error)
     }
   }
 

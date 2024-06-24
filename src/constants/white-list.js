@@ -14,7 +14,8 @@ export const patchSuppliers = [
   'batchDeliveryCostInYuan',
   'batchTotalCostInDollar',
   'batchTotalCostInYuan',
-  'productionTerm',
+  'minProductionTerm',
+  'maxProductionTerm',
   'boxProperties',
   'priceVariations',
   'heightUnit',
@@ -32,6 +33,11 @@ export const creatSupplier = [
   'minlot',
   'multiplicity',
   'paymentMethods',
+  'heightUnit',
+  'widthUnit',
+  'lengthUnit',
+  'weighUnit',
+  'imageUnit',
   'images',
   'comment',
   'yuanRate',
@@ -40,14 +46,10 @@ export const creatSupplier = [
   'batchDeliveryCostInYuan',
   'batchTotalCostInDollar',
   'batchTotalCostInYuan',
-  'productionTerm',
+  'minProductionTerm',
+  'maxProductionTerm',
   'boxProperties',
   'priceVariations',
-  'heightUnit',
-  'widthUnit',
-  'lengthUnit',
-  'weighUnit',
-  'imageUnit',
 ]
 
 export const IdeaPatch = [
@@ -134,6 +136,26 @@ export const createProductByClient = [
 ]
 
 export const createOrderRequestWhiteList = [
+  'storekeeperId',
+  'buyerId',
+  'transparencyFile',
+  'item',
+  'logicsTariffId',
+  'variationTariffId',
+  'priority',
+  'destinationId',
+  'amount',
+  'deliveryCostToTheWarehouse',
+  'clientComment',
+  'productId',
+  'images',
+  'expressChinaDelivery',
+  'needsResearch',
+  'deadline',
+  'totalPrice',
+]
+
+export const createFormedOrder = [
   'storekeeperId',
   'buyerId',
   'transparencyFile',

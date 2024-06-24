@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { adminOrdersBtnsConfig } from '@constants/table/tables-filter-btns-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,8 +8,9 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './admin-orders-views.style'
 
@@ -35,7 +35,7 @@ export const AdminOrdersViews = observer(({ history }) => {
       </div>
       <div className={styles.filterBtnWrapper}>
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={viewModel.activeSubCategory}
           switcherSettings={[...adminOrdersBtnsConfig]}
           changeConditionHandler={viewModel.onChangeSubCategory}
@@ -43,8 +43,6 @@ export const AdminOrdersViews = observer(({ history }) => {
       </div>
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -72,7 +70,7 @@ export const AdminOrdersViews = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onRowSelectionModelChange={newSelection => viewModel.onSelectionModel(newSelection[0])}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}

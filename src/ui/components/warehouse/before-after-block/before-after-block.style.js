@@ -89,31 +89,7 @@ export const useStyles = makeStyles()(theme => ({
       gap: '10px',
     },
   },
-  categoryTitle: {
-    fontSize: '14px',
-    lineHeight: '19px',
-    color: theme.palette.text.general,
-    fontWeight: '600',
-    marginBottom: '12px',
-  },
-  demensionsWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    minWidth: '200px',
-    padding: '5px',
-    marginTop: '10px',
-    height: '220px',
 
-    [theme.breakpoints.down(1282)]: {
-      minWidth: 180,
-    },
-  },
-  editBtn: {
-    width: '183px',
-    height: '40px',
-    display: 'flex',
-  },
   bottomBlockWrapper: {
     marginTop: '20px',
   },
@@ -197,13 +173,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   checkboxContainer: {
+    width: 'fit-content',
     display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
     margin: 0,
-    [theme.breakpoints.down(1282)]: {
-      width: '100%',
-    },
   },
 
   warningAccent: {
@@ -385,15 +357,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   footerSubWrapper: {
+    paddingLeft: '10px',
+    width: '100%',
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    [theme.breakpoints.down(1282)]: {
-      flexDirection: 'column',
-    },
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      gap: '14px',
-    },
+    gap: 20,
   },
 
   footerTrackNumberWrapper: {
@@ -509,22 +478,9 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  button: {
-    width: 183,
-    height: 40,
-  },
-
   incomingBtnWrapper: {
     display: 'flex',
     justifyContent: 'end',
-  },
-
-  sizesSubWrapper: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '10px',
   },
 
   editAccent: {
@@ -547,12 +503,6 @@ export const useStyles = makeStyles()(theme => ({
       fontSize: '14px',
       lineHeight: '19px',
       color: theme.palette.text.second,
-    },
-  },
-  mobileDemensions: {
-    [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      lineHeight: '19px',
     },
   },
 
@@ -596,5 +546,12 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.second,
     lineHeight: '19px',
     whiteSpace: 'nowrap',
+  },
+
+  yellowBorder: {
+    height: '100%',
+    padding: 10,
+    border: '1px solid #F5CF00',
+    borderRadius: 10,
   },
 }))

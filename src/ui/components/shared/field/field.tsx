@@ -7,7 +7,7 @@ import Tooltip from '@mui/material/Tooltip'
 
 import { Input } from '@components/shared/input'
 import { InputWithIcon } from '@components/shared/input/input'
-import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { TooltipAttentionIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { HintsContext } from '@contexts/hints-context'
 
@@ -89,7 +89,10 @@ export const Field: FC<Props> = observer(
                   onOpen={() => setOpenAttentionTooltip(true)}
                 >
                   <div>
-                    <TooltipAttention className={cx(styles.tooltip)} onClick={() => setOpenAttentionTooltip(true)} />
+                    <TooltipAttentionIcon
+                      className={cx(styles.tooltip)}
+                      onClick={() => setOpenAttentionTooltip(true)}
+                    />
                   </div>
                 </Tooltip>
               ) : null}
@@ -126,8 +129,8 @@ export const Field: FC<Props> = observer(
               </div>
             ))}
         </>
-        {error && typeof error === 'string' && <Typography className={styles.errorText}>{error}</Typography>}
-        {successText && <Typography className={styles.successText}>{successText}</Typography>}
+        {error && typeof error === 'string' ? <p className={styles.errorText}>{error}</p> : null}
+        {successText ? <p className={styles.successText}>{successText}</p> : null}
       </div>
     )
   },

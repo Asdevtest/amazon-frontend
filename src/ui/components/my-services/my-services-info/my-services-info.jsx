@@ -5,7 +5,7 @@ import { Avatar, Rating, Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -81,9 +81,8 @@ export const MyServicesInfo = ({
             </div>
           </div>
         </div>
-        <div className={styles.photosWrapper}>
-          <PhotoAndFilesSlider withoutFiles customSlideHeight={150} files={announcementData?.linksToMediaFiles} />
-        </div>
+
+        <SlideshowGallery slidesToShow={3} files={announcementData?.linksToMediaFiles} />
       </div>
 
       <div className={styles.footerWrapper}>

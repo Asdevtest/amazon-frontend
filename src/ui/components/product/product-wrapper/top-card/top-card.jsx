@@ -1,10 +1,6 @@
 import { memo } from 'react'
 
-import { docValidTypes } from '@constants/media/doc-types'
-import { imageValidTypes } from '@constants/media/image-types'
-import { videoValidTypes } from '@constants/media/video-types'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindProductForm } from '@components/forms/bind-product-form'
@@ -17,6 +13,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './top-card.style'
 
@@ -52,8 +50,6 @@ export const TopCard = memo(
     onClickSetProductStatusBtn,
     handleProductActionButtons,
     onChangeImagesForLoad,
-    acceptMessage,
-    showAcceptMessage,
     showBindProductModal,
     productsToBind,
     onTriggerOpenModal,
@@ -73,7 +69,6 @@ export const TopCard = memo(
 
     const showActionBtns =
       (checkIsSupervisor(curUserRole) &&
-        productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
         productBase.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
         productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
       (checkIsSupervisor(curUserRole) &&
@@ -89,7 +84,7 @@ export const TopCard = memo(
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
         productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
 
-    const isChildProduct = product.parentProductId
+    const isChildProduct = product?.parentProductId
 
     return (
       <>
@@ -108,7 +103,7 @@ export const TopCard = memo(
                 </p>
               </div>
               <div className={styles.card}>
-                {product.images.length ? (
+                {product?.images?.length ? (
                   <div className={styles.carouselWrapper}>
                     <SlideshowGallery
                       slidesToShow={5}
@@ -125,17 +120,11 @@ export const TopCard = memo(
                   <div className={styles.actionsWrapper}>
                     {(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || clientToEdit) && (
                       <div className={styles.imageFileInputWrapper}>
-                        <UploadFilesInput
-                          fullWidth
-                          images={imagesForLoad}
-                          setImages={onChangeImagesForLoad}
-                          maxNumber={50}
-                          acceptType={[...videoValidTypes, ...docValidTypes, ...imageValidTypes]}
-                        />
+                        <UploadFilesInput images={imagesForLoad} setImages={onChangeImagesForLoad} />
                       </div>
                     )}
                   </div>
-                ) : undefined}
+                ) : null}
               </div>
 
               <FieldsAndSuppliers
@@ -162,8 +151,6 @@ export const TopCard = memo(
               curUserRole={curUserRole}
               product={product}
               productBase={productBase}
-              acceptMessage={acceptMessage}
-              showAcceptMessage={showAcceptMessage}
               formFieldsValidationErrors={formFieldsValidationErrors}
               handleProductActionButtons={handleProductActionButtons}
               onClickSetProductStatusBtn={onClickSetProductStatusBtn}
@@ -181,10 +168,10 @@ export const TopCard = memo(
           )}
 
           {showProgress && (
-            <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
+            <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />
           )}
 
-          {actionStatus === loadingStatuses.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}
+          {actionStatus === loadingStatus.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}
         </div>
 
         {showBindProductModal && (

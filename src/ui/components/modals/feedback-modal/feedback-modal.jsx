@@ -1,7 +1,5 @@
 import { memo, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -13,24 +11,23 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './feedback-modal.style'
 
 export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
   const { classes: styles, cx } = useStyles()
-
   const [comment, setComment] = useState('')
   const [images, setImages] = useState([])
   const [showFiles, setShowFiles] = useState(false)
   const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false)
 
-  const onClickCloseButton = () => {
+  const handleClickCloseButton = () => {
     onClose()
     setComment('')
   }
 
-  const onClickSendButton = () => {
+  const handleClickSendButton = () => {
     onSubmit(comment, images)
   }
 
@@ -38,11 +35,10 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
 
   return (
     <Modal openModal={openModal} setOpenModal={() => setIsShowConfirmationModal(true)}>
-      <div className={styles.modalMessageWrapper}>
-        <Typography variant="h5" className={styles.modalMessageTitle}>
-          {t(TranslationKey['Any suggestions?'])}
-        </Typography>
-        <div className={styles.commentWrapper}>
+      <div className={styles.wrapper}>
+        <p className={styles.title}>{t(TranslationKey['Any suggestions?'])}</p>
+
+        <div className={styles.comments}>
           <Field
             multiline
             className={styles.heightFieldAuto}
@@ -59,21 +55,14 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
             onClick={() => setShowFiles(!showFiles)}
           />
         </div>
-        {showFiles ? (
-          <div className={styles.uploadFilesInput}>
-            <UploadFilesInput fullWidth images={images} setImages={setImages} maxNumber={50} />
-          </div>
-        ) : null}
 
-        <div className={styles.buttonsWrapper}>
-          <Button disabled={disabledSubmitButton} className={styles.buttonOk} onClick={onClickSendButton}>
+        {showFiles ? <UploadFilesInput images={images} setImages={setImages} /> : null}
+
+        <div className={styles.buttons}>
+          <Button disabled={disabledSubmitButton} onClick={handleClickSendButton}>
             {t(TranslationKey.Send)}
           </Button>
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            className={styles.buttonCancel}
-            onClick={() => setIsShowConfirmationModal(true)}
-          >
+          <Button styleType={ButtonStyle.CASUAL} onClick={() => setIsShowConfirmationModal(true)}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
@@ -89,7 +78,7 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
             message={t(TranslationKey['Are you sure you want to close this window?'])}
             cancelBtnText={t(TranslationKey.No)}
             onClickSuccessBtn={() => {
-              onClickCloseButton()
+              handleClickCloseButton()
               setIsShowConfirmationModal(false)
             }}
             onClickCancelBtn={() => setIsShowConfirmationModal(false)}

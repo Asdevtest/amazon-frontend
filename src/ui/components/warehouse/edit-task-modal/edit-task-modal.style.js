@@ -200,6 +200,8 @@ export const useStyles = makeStyles()(theme => ({
 
   imageFileInputWrapper: {
     width: '690px',
+    display: 'flex',
+    justifyContent: 'center',
 
     [theme.breakpoints.down(1282)]: {
       width: 550,
@@ -207,16 +209,6 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       width: '100%',
       padding: '0 10px',
-    },
-  },
-
-  imageAndFileInputWrapper: {
-    width: '690px',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      minWidth: '280px',
-      display: 'flex',
-      justifyContent: 'center',
     },
   },
 
@@ -251,7 +243,7 @@ export const useStyles = makeStyles()(theme => ({
     height: '40px',
     color: theme.palette.text.general,
 
-    zIndex: 50,
+    zIndex: 7,
 
     [theme.breakpoints.down(768)]: {
       width: '121px',

@@ -7,7 +7,6 @@ import { Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinProxyCheckerForm } from '@components/forms/asin-proxy-checker-form'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
@@ -24,19 +23,15 @@ export const TabMain = memo(props => {
     user,
     serverProxy,
     showAsinCheckerModal,
-    showInfoModal,
-    infoModalText,
     formFields,
     isFormFieldsChanged,
     isEqualServerProxy,
     onClickToggleProxyModal,
-    onClickToggleInfoModal,
     onChangeField,
     onSubmit,
   } = props
 
   const { classes: styles } = useStyles()
-
   const [updatedProxy, setUpdatedProxy] = useState([])
 
   useEffect(() => {
@@ -126,17 +121,6 @@ export const TabMain = memo(props => {
       <Modal openModal={showAsinCheckerModal} setOpenModal={onClickToggleProxyModal}>
         <AsinProxyCheckerForm user={user} onSubmit={setUpdatedProxy} onClose={onClickToggleProxyModal} />
       </Modal>
-
-      {showInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={showInfoModal}
-          setOpenModal={onClickToggleInfoModal}
-          title={infoModalText}
-          btnText={t(TranslationKey.Close)}
-          onClickBtn={onClickToggleInfoModal}
-        />
-      ) : null}
     </>
   )
 })

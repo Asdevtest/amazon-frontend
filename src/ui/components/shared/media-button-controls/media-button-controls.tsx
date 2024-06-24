@@ -47,7 +47,7 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
 
   const { classes: styles, cx } = useStyles()
 
-  const isImageType = checkIsImageLink(isString(mediaFile) ? mediaFile : mediaFile?.file?.name)
+  const isImageType = checkIsImageLink(isString(mediaFile) ? mediaFile : '.' + mediaFile?.file?.name) // checkIsImageLink accepts .extension
 
   return (
     <div className={styles.controls}>

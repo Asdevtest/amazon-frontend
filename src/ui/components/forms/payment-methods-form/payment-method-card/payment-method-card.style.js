@@ -3,60 +3,49 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     width: 400,
-    minHeight: 368,
     padding: '0 5px',
   },
 
   paymentMethodTitleWrapper: {
+    marginLeft: -3,
     display: 'flex',
     alignItems: 'center',
-    marginLeft: -12,
-    marginBottom: 10,
     gap: 10,
+    marginBottom: 10,
   },
+
   paymentMethodIcon: {
     width: 19,
     height: 19,
     borderRadius: '50%',
   },
+
   paymentMethodTitle: {
     fontSize: 14,
     lineHeight: '19px',
-    color: theme.palette.text.general,
   },
+
   commentInput: {
-    height: '180px',
+    height: 130,
 
     textarea: {
-      height: '100% !important',
+      padding: '5px 10px',
     },
   },
+
   label: {
-    margin: '0 !important',
+    marginBottom: '5px !important',
     color: theme.palette.text.second,
-  },
-  containerClasses: {
-    marginBottom: '10px !important',
-  },
-  imageListWrapperStyles: {
-    width: '100%',
-  },
-
-  imageFileInputWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignContent: 'center',
-    justifyContent: 'center',
-  },
-
-  cardManageWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
   },
 
   notActiceCard: {
     filter: 'blur(2px)',
     opacity: '0.3',
     pointerEvents: 'none',
+  },
+
+  imageFileInputWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 }))

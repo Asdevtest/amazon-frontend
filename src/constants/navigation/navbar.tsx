@@ -1,16 +1,17 @@
 import { UserRole } from '@constants/keys/user-roles'
 
 import {
-  Addresses,
+  AddressesIcon,
   ClockIcon,
   DashboardIcon,
   ExchangeIcon,
-  Feedback,
+  FeedbackIcon,
   FreeOrdersIcon,
   FreelanceIcon,
   IdeasIcon,
   InventoryIcon,
-  Message,
+  MessageIcon,
+  ModeratorUpdatedIcon,
   MyBatchesIcon,
   MyFinanceIcon,
   MyNotificationsIcon,
@@ -23,7 +24,7 @@ import {
   SettingsIcon,
   ShopsIcon,
   TasksIcon,
-  TradingShops,
+  TradingShopsIcon,
   UsersPermissionsIcon,
 } from '@components/shared/svg-icons'
 
@@ -87,11 +88,31 @@ export const navbarConfig = {
       icon: InventoryIcon,
       title: () => t(TranslationKey.Inventory),
       route: '/client/inventory',
-      subtitles: null,
+      subtitles: [
+        {
+          subtitle: () => t(TranslationKey.Products),
+          subRoute: '/client/inventory',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(item => item.key === permissionsKeys.client.inventory.SHOW_INVENTORY_CLIENT),
+        },
+
+        {
+          subtitle: () => t(TranslationKey.Reports),
+          subRoute: '/client/inventory/reports',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY_REPORTS,
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            user?.permissions?.some(
+              item => item.key === permissionsKeys.client.inventory.SHOW_INVENTORY_LISTING_REPORTS,
+            ),
+        },
+      ],
       key: navBarActiveCategory.NAVBAR_INVENTORY,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        user?.permissions?.some(item => item.key === permissionsKeys.client.SHOW_INVENTORY_CLIENT),
+        user?.permissions?.some(item => Object.values(permissionsKeys.client.inventory).includes(item.key as string)),
     },
 
     {
@@ -179,7 +200,7 @@ export const navbarConfig = {
     },
 
     // {
-    //   icon: TradingShops,
+    //   icon: TradingShopsIcon,
     //   title: () => t(TranslationKey['Trading stores']),
     //   route: '/client/trading-shops/sell-shops',
     //   subtitles: [
@@ -346,7 +367,7 @@ export const navbarConfig = {
     },
 
     {
-      icon: Message,
+      icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/client/messages',
       subtitles: null,
@@ -400,7 +421,7 @@ export const navbarConfig = {
     // },
 
     {
-      icon: Message,
+      icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/researcher/messages',
       subtitles: null,
@@ -505,7 +526,7 @@ export const navbarConfig = {
     },
 
     {
-      icon: Message,
+      icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/freelancer/messages',
       subtitles: null,
@@ -625,7 +646,7 @@ export const navbarConfig = {
     },
 
     {
-      icon: Message,
+      icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/supervisor/messages',
       subtitles: null,
@@ -843,7 +864,7 @@ export const navbarConfig = {
     },
 
     {
-      icon: Message,
+      icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/buyer/messages',
       subtitles: null,
@@ -961,7 +982,7 @@ export const navbarConfig = {
     },
 
     {
-      icon: Message,
+      icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/warehouse/messages',
       subtitles: null,
@@ -1040,6 +1061,15 @@ export const navbarConfig = {
     },
 
     {
+      icon: ModeratorUpdatedIcon,
+      title: () => t(TranslationKey['Patch notes']),
+      route: '/admin/updated',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_UPDATED,
+      checkHideBlock: () => true,
+    },
+
+    {
       icon: MyFinanceIcon,
       title: () => t(TranslationKey.Finances),
       route: '/admin/finances',
@@ -1070,7 +1100,7 @@ export const navbarConfig = {
       checkHideBlock: () => true,
     },
     {
-      icon: Feedback,
+      icon: FeedbackIcon,
       title: () => t(TranslationKey.Feedback),
       subtitles: null,
       route: '/admin/feedback',
@@ -1079,7 +1109,7 @@ export const navbarConfig = {
     },
 
     {
-      icon: Message,
+      icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/admin/messages',
       subtitles: null,
@@ -1097,7 +1127,7 @@ export const navbarConfig = {
       checkHideBlock: () => true,
     },
     {
-      icon: TradingShops,
+      icon: TradingShopsIcon,
       title: () => t(TranslationKey['Trading stores']),
       route: '/moderator/trading-shops/stores-to-check',
       subtitles: [
@@ -1118,7 +1148,7 @@ export const navbarConfig = {
         user?.permissions?.some(item => item.key === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),
     },
     {
-      icon: Addresses,
+      icon: AddressesIcon,
       title: () => t(TranslationKey.Appeals),
       route: '/moderator/appeals',
       subtitles: null,
@@ -1136,6 +1166,14 @@ export const navbarConfig = {
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
         user?.permissions?.some(item => item.key === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
+    },
+    {
+      icon: ModeratorUpdatedIcon,
+      title: () => t(TranslationKey['Patch notes']),
+      route: '/moderator/updated',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_UPDATED,
+      checkHideBlock: () => true,
     },
 
     {
@@ -1157,7 +1195,7 @@ export const navbarConfig = {
       checkHideBlock: () => true,
     },
     {
-      icon: Message,
+      icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/moderator/messages',
       subtitles: null,

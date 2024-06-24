@@ -27,7 +27,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '0 85px 0 65px',
-    zIndex: 50,
+    zIndex: 7,
     position: 'sticky',
     top: 0,
   },

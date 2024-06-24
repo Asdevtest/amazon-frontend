@@ -4,6 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { GalleryModal } from '@components/modals/gallery-modal'
 import { Card } from '@components/modals/my-order-modal/components/tabs/basic-info/components/card'
+import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
@@ -41,9 +42,9 @@ export const PhotosInfo: FC<PhotosInfoProps> = memo(props => {
         </div>
       </div>
 
-      {showGalleryModal ? (
-        <GalleryModal files={galleryFiles} openModal={showGalleryModal} onOpenModal={onToggleGalleryModal} />
-      ) : null}
+      <Modal openModal={showGalleryModal} setOpenModal={onToggleGalleryModal}>
+        <GalleryModal files={galleryFiles} />
+      </Modal>
     </>
   )
 })

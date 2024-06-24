@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TextForm } from '@components/forms/text-form'
@@ -11,8 +10,9 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './tab-freelance.style'
 
@@ -23,9 +23,8 @@ import { AdminSettingsFreelanceModel } from './tab-freelance.model'
 export const TabFreelance = observer(props => {
   const { formFields, isFormFieldsChanged, onSubmit, onChangeField } = props
 
-  const [viewModel] = useState(() => new AdminSettingsFreelanceModel())
-
   const { classes: styles } = useStyles()
+  const [viewModel] = useState(() => new AdminSettingsFreelanceModel())
 
   const disabledSubmit =
     !isFormFieldsChanged ||
@@ -90,11 +89,9 @@ export const TabFreelance = observer(props => {
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
-              // checkboxSelection
               disableColumnMenu
               disableColumnResize
               disableRowSelectionOnClick
-              localeText={getLocalizationByLanguageTag()}
               sortingMode="client"
               paginationMode="client"
               rows={viewModel.specs}
@@ -102,7 +99,7 @@ export const TabFreelance = observer(props => {
               getRowHeight={() => 'auto'}
               getRowId={row => row._id}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+              loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
               slots={{}}
               sx={{
                 '& .MuiDataGrid-columnHeaderTitleContainer': styles.columnHeaderTitleContainer,

@@ -29,7 +29,6 @@ export const useStyles = makeStyles()(theme => ({
   paper: {
     width: '470px',
     border: '1px solid #C8CED3',
-    margin: '24px 16px 0 0',
     padding: '8px 16px',
     [theme.breakpoints.down(768)]: {
       width: '100%',

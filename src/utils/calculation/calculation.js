@@ -231,12 +231,7 @@ export function updateProductAutoCalculatedFields() {
           (parseFloat(this.product.currentSupplier.price) || 0).toFixed(2) || 0
       ).toFixed(2)
     }
-    this.product.margin =
-      (this.product.profit /
-        ((parseFloat(this.product.currentSupplier.price) || 0) +
-          (parseFloat(this.product.currentSupplier.batchDeliveryCostInDollar / this.product.currentSupplier.amount) ||
-            0))) *
-      100
+    this.product.margin = (this.product.profit / parseFloat(this.product.amazon)) * 100
   } else {
     this.product.profit = 0
     this.product.margin = 0

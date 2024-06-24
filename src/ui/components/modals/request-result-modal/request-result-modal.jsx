@@ -9,7 +9,7 @@ import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
@@ -143,17 +143,14 @@ export const RequestResultModal = memo(props => {
 
         <div className={styles.dragAndDropWrapper}>
           {proposal ? (
-            <PhotoAndFilesSlider files={mediaFiles} />
+            <SlideshowGallery slidesToShow={2} files={mediaFiles} />
           ) : (
             <UploadFilesInput
               withComment
-              fullWidth
               title={t(TranslationKey.Files)}
-              dragAndDropBtnHeight={55}
+              dragAndDropButtonHeight={55}
               images={images}
               setImages={setImages}
-              maxNumber={50}
-              maxHeight={160}
             />
           )}
         </div>

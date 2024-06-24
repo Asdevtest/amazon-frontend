@@ -8,6 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: '30px',
+    padding: 10,
   },
 
   modalTitle: {
@@ -69,10 +70,7 @@ export const useStyles = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-
-  button: {
-    padding: '10px 25px',
+    alignItems: 'center',
   },
 
   actionsButtonsContainer: {

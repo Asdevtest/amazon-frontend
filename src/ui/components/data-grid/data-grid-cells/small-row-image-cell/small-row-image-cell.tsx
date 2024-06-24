@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { VideoPreloader } from '@components/shared/video-player/video-preloader'
+import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -15,10 +15,11 @@ export const SmallRowImageCell: FC<SmallRowImageCellProps> = memo(({ image }) =>
   const { classes: styles } = useStyles()
 
   const checkIsVideo = checkIsVideoLink(image)
+
   return (
-    <div className={styles.smallRowImgWrapper}>
+    <div className={styles.wrapper}>
       {checkIsVideo ? (
-        <VideoPreloader videoSource={getAmazonImageUrl(image)} height={58} iconPlayClassName={styles.preloaderIcon} />
+        <VideoPreloader videoSource={getAmazonImageUrl(image)} />
       ) : (
         <img src={getAmazonImageUrl(image)} alt="image" className={styles.img} />
       )}

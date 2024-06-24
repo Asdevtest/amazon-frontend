@@ -28,7 +28,7 @@ class SellerBoardModelStatic {
 
   getProductsWithSkuById = async guid => {
     const response = await restApiService.integrationsApi.apiV1IntegrationsGetSkusByProductIdGuidGet({ guid })
-    return response.data
+    return response?.data || []
   }
 
   createAndLinkSkuProducts = async body => {
@@ -84,6 +84,11 @@ class SellerBoardModelStatic {
 
   getIntegrationsReportReturns = async options => {
     const response = await restApiService.integrationsApi.apiV1IntegrationsReportReturnsGet(options)
+    return response.data
+  }
+
+  getReportPpcSalesDays = async options => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsReportPpcSalesDaysGet(options)
     return response.data
   }
 

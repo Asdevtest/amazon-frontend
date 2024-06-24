@@ -51,7 +51,9 @@ export const SourceProduct: FC<SourceProductProps> = props => {
           placement="top"
           classes={{ tooltip: styles.tooltip, arrow: styles.arrow }}
         >
-          <ShareIcon className={styles.shareLinkIcon} onClick={onClickShareIcon} />
+          <div>
+            <ShareIcon className={styles.shareLinkIcon} onClick={onClickShareIcon} />
+          </div>
         </Tooltip>
       )}
     </div>

@@ -18,7 +18,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   bottomCategories: {
-    marginBottom: 15,
+    marginBottom: '5px',
+    fontSize: 14,
+    lineHeight: '19px',
   },
 
   feedBackButton: {
@@ -29,6 +31,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     padding: '0 15px',
     cursor: 'pointer',
+    color: theme.palette.text.general,
 
     '&:hover': {
       backgroundColor: 'rgba(0,123,255,0.3)',
@@ -41,30 +44,20 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-start',
   },
 
-  feedBackText: {
-    fontSize: 13,
-    lineHeight: '140%',
-  },
-
   feedbackIcon: {
-    width: '46px !important',
+    width: '40px !important',
     height: '40px !important',
-    color: theme.palette.text.general,
   },
 
   appVersion: {
-    color: theme.palette.primary.main,
     marginLeft: 15,
-    display: 'inline-block',
+    color: theme.palette.primary.main,
     cursor: 'pointer',
     transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
+    opacity: 1,
 
-    [theme.breakpoints.down(1024)]: {
-      fontSize: 14,
-      lineHeight: '19px',
+    '&:hover': {
+      opacity: 0.8,
     },
   },
 

@@ -10,7 +10,6 @@ import { RequestDesignerResultForm } from '@components/forms/request-designer-re
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { ServantGeneralRequestInfo } from '@components/requests-and-request-proposals/servant-general-request-info'
 import { Button } from '@components/shared/button'
@@ -120,7 +119,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
                     ) : null}
                   </div>
                 )}
-                updateData={viewModel.loadData}
                 requestStatus={viewModel.requestStatus}
                 onChangeRequestStatus={viewModel.setRequestStatus}
                 onSubmitMessage={viewModel.onSubmitMessage}
@@ -135,18 +133,6 @@ export const RequestDetailCustomView = observer(({ history }) => {
           </div>
         ) : null}
       </div>
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        />
-      ) : null}
 
       <Modal
         missClickModalOn

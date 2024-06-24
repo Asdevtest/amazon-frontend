@@ -5,7 +5,7 @@ import Radio from '@mui/material/Radio'
 
 import { useStyles } from './radio-buttons.style'
 
-interface IRadioBottonsSetting {
+export interface IRadioBottonsSetting {
   label: () => string
   value: string | number | boolean
   disabled?: boolean

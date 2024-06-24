@@ -4,7 +4,7 @@ import { AdministratorModel } from '@models/administrator-model'
 import { PermissionsModel } from '@models/permissions-model'
 import { UserModel } from '@models/user-model'
 
-import { adminGroupPermissionsColumns } from '@components/table/table-columns/admin/group-permissions-columns copy'
+import { userPermissionsColumns } from '@components/table/table-columns/admin/user-permissions-columns'
 
 export class UserEditModel {
   history = undefined
@@ -48,7 +48,7 @@ export class UserEditModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = adminGroupPermissionsColumns(this.rowHandlers)
+  columnsModel = userPermissionsColumns(this.rowHandlers)
 
   constructor({ history, user }) {
     this.history = history
@@ -73,7 +73,7 @@ export class UserEditModel {
 
       this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -85,7 +85,7 @@ export class UserEditModel {
         this.userData = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -120,7 +120,7 @@ export class UserEditModel {
         await this.finalStepSubmitEditUserForm()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -141,7 +141,7 @@ export class UserEditModel {
       })
     } catch (error) {
       this.groupPermissions = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -154,7 +154,7 @@ export class UserEditModel {
       })
     } catch (error) {
       this.singlePermissions = []
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -165,7 +165,7 @@ export class UserEditModel {
       this.getSinglePermissions()
       this.getSpecs()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -181,7 +181,7 @@ export class UserEditModel {
         this.specs = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

@@ -11,11 +11,11 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
@@ -26,9 +26,11 @@ import { checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { TariffModal } from '@typings/enums/tariff-modal'
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './box.style'
 
@@ -50,7 +52,6 @@ export const Box: FC<BoxProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const {
     userInfo,
-    showCheckbox,
     destinations,
     storekeepers,
     box,
@@ -67,9 +68,6 @@ export const Box: FC<BoxProps> = memo(props => {
 
   const [curProductToEditBarcode, setCurProductToEditBarcode] = useState<any>(null)
 
-  const [showConfirmModal, setShowConfirmModal] = useState(false)
-  const [confirmModalSettings, setConfirmModalSettings] = useState<any | undefined>(undefined)
-
   const [showSetFilesModal, setShowSetFilesModal] = useState(false)
   const [filesConditions, setFilesConditions] = useState<{
     tmpFiles: any
@@ -81,12 +79,29 @@ export const Box: FC<BoxProps> = memo(props => {
     index: 0,
   })
 
-  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
   const onClickBarcode = (item: any) => {
     setCurProductToEditBarcode(item)
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
+
+  const setBoxBody = (prevData: any) => (newData: any) => onChangeField(newData(prevData), 'part', box._id)
+
+  const {
+    destinationId,
+
+    onSubmitSelectStorekeeperAndTariff,
+
+    showConfirmModal,
+    setShowConfirmModal,
+
+    confirmModalSettings,
+
+    handleSetDestination,
+    handleResetDestination,
+
+    showSelectionStorekeeperAndTariffModal,
+    setShowSelectionStorekeeperAndTariffModal,
+  } = useTariffVariation(box.destinationId, setBoxBody(box))
 
   const isMasterBox = box.amount && box.amount > 1
 
@@ -155,72 +170,6 @@ export const Box: FC<BoxProps> = memo(props => {
 
   const onSaveTransparencyFile = (value: any, index: number) => {
     onChangeField(value, 'items', box._id, index)
-  }
-
-  const onSubmitSelectStorekeeperAndTariff = (
-    storekeeperId: string,
-    tariffId: string,
-    variationTariffId: string,
-    destinationId: string,
-    isSelectedDestinationNotValid: boolean,
-  ) => {
-    if (isSelectedDestinationNotValid) {
-      setConfirmModalSettings({
-        isWarning: false,
-        title: t(TranslationKey.Attention),
-        confirmMessage: t(TranslationKey['Wish to change a destination?']),
-
-        onClickConfirm: () => {
-          onChangeField(
-            {
-              storekeeperId,
-              logicsTariffId: tariffId,
-              variationTariffId,
-              destinationId,
-              isSameDestination: variationTariffId ? isSameDestination : true,
-            },
-            'part',
-            box._id,
-          )
-
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-        },
-
-        onClickCancelBtn: () => {
-          onChangeField(
-            {
-              storekeeperId,
-              logicsTariffId: tariffId,
-              variationTariffId,
-              destinationId: null,
-              isSameDestination: variationTariffId ? isSameDestination : true,
-            },
-            'part',
-            box._id,
-          )
-
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-        },
-      })
-
-      setShowConfirmModal(true)
-    } else {
-      onChangeField(
-        {
-          storekeeperId,
-          logicsTariffId: tariffId,
-          variationTariffId,
-          destinationId,
-          isSameDestination: variationTariffId ? isSameDestination : true,
-        },
-        'part',
-        box._id,
-      )
-
-      setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-    }
   }
 
   const curDestination = destinations.find(el => el._id === box.destinationId)
@@ -399,7 +348,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     label={t(TranslationKey.Quantity)}
                     className={styles.orderInput}
                     labelClasses={styles.label}
-                    value={isMasterBox ? box.amount : order.amount}
+                    value={order.amount}
                     tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
                   />
 
@@ -429,15 +378,12 @@ export const Box: FC<BoxProps> = memo(props => {
                     data={
                       box.variationTariffId &&
                       currentLogicsTariff?.tariffType === tariffTypes.WEIGHT_BASED_LOGISTICS_TARIFF
-                        ? destinations.filter(
-                            el => el?._id === (box?.destinationId || box?.variationTariff?.destinationId),
-                          )
+                        ? destinations.filter(el => el?._id === (destinationId || box?.variationTariff?.destinationId))
                         : destinations.filter(el => el?.storekeeper?._id !== box?.storekeeperId)
                     }
                     searchFields={['name']}
-                    onClickNotChosen={() => onChangeField({ target: { value: null } }, 'destinationId', box._id)}
-                    // @ts-ignore
-                    onClickSelect={el => onChangeField({ target: { value: el._id } }, 'destinationId', box._id)}
+                    onClickNotChosen={handleResetDestination}
+                    onClickSelect={(el: IDestination) => handleSetDestination(el._id)}
                     onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                   />
                 }
@@ -486,8 +432,10 @@ export const Box: FC<BoxProps> = memo(props => {
                 inputComponent={
                   <ChangeChipCell
                     isChipOutTable
-                    text={!box.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''}
-                    value={box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0]}
+                    text={
+                      !box.shippingLabel && !box.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''
+                    }
+                    value={box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0] || box.shippingLabel}
                     onClickChip={onClickShippingLabel}
                     onDeleteChip={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
                   />
@@ -543,23 +491,16 @@ export const Box: FC<BoxProps> = memo(props => {
         />
       </Modal>
 
-      <Modal
-        openModal={showSelectionStorekeeperAndTariffModal}
-        setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-      >
-        <SelectStorekeeperAndTariffForm
-          RemoveDestinationRestriction
-          showCheckbox={showCheckbox}
-          // @ts-ignore
-          destinationsData={destinations}
-          storekeepers={storekeepers.filter(el => el._id === box?.storekeeper._id)}
-          curStorekeeperId={box.storekeeperId}
-          curTariffId={box.logicsTariffId}
-          currentDestinationId={box?.destinationId}
-          currentVariationTariffId={box?.variationTariffId}
-          onSubmit={onSubmitSelectStorekeeperAndTariff}
+      {showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isTariffsSelect
+          tariffModalType={TariffModal.WAREHOUSE}
+          openModal={showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+          box={box}
+          onClickSubmit={onSubmitSelectStorekeeperAndTariff}
         />
-      </Modal>
+      ) : null}
 
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
         <SetBarcodeModal

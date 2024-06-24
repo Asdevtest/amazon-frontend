@@ -3,7 +3,6 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { ChatModel } from '@models/chat-model'
 import { RequestModel } from '@models/request-model'
@@ -13,6 +12,7 @@ import { UserModel } from '@models/user-model'
 
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { isString } from '@typings/guards'
 
 export class RequestDetailCustomViewModel {
@@ -24,7 +24,6 @@ export class RequestDetailCustomViewModel {
   requestProposals = undefined
   showProgress = false
 
-  showWarningModal = false
   showConfirmModal = false
   showMainRequestResultModal = false
   showRequestDesignerResultModal = false
@@ -34,11 +33,6 @@ export class RequestDetailCustomViewModel {
   curResultMedia = []
 
   loadedFiles = []
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   chatSelectedId = undefined
   chatIsConnected = false
@@ -83,7 +77,7 @@ export class RequestDetailCustomViewModel {
     this.history = history
 
     if (history.location?.state?.chatId) {
-      this.chatSelectedId = history.location.state.chatId
+      this.chatSelectedId = history?.location?.state?.chatId
     }
 
     reaction(
@@ -125,7 +119,7 @@ export class RequestDetailCustomViewModel {
         )
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -169,15 +163,15 @@ export class RequestDetailCustomViewModel {
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.getCustomRequestById()
       this.getRequestProposals()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -213,7 +207,7 @@ export class RequestDetailCustomViewModel {
         ...(replyMessageId && { replyMessageId }),
       })
     } catch (error) {
-      console.warn('onSubmitMessage error ', error)
+      console.error('onSubmitMessage error ', error)
     }
   }
 
@@ -225,7 +219,7 @@ export class RequestDetailCustomViewModel {
         this.request = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -243,7 +237,7 @@ export class RequestDetailCustomViewModel {
         this.requestProposals = []
       })
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -328,7 +322,7 @@ export class RequestDetailCustomViewModel {
 
       this.getRequestProposals()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -343,7 +337,7 @@ export class RequestDetailCustomViewModel {
       await RequestProposalModel.onClickReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
       await this.getRequestProposals()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -360,7 +354,7 @@ export class RequestDetailCustomViewModel {
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

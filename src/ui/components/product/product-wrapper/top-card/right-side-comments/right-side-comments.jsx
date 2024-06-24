@@ -1,12 +1,9 @@
 import { memo } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { productStatusButtonsConfigs } from '@constants/product/product-status-buttons-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
 
@@ -19,6 +16,8 @@ import {
 } from '@utils/translate-tooltip-message'
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './right-side-comments.style'
 
@@ -45,98 +44,96 @@ export const RightSideComments = memo(
     onClickSetProductStatusBtn,
     handleProductActionButtons,
     formFieldsValidationErrors,
-    acceptMessage,
-    showAcceptMessage,
   }) => {
     const { classes: styles, cx } = useStyles()
     const productStatusButtonsConfig =
       productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](productBase.status)
 
     return (
-      <div className={styles.rightBoxCommentsWrapper}>
-        <div className={styles.rightBoxComments}>
-          <Typography className={styles.title}>{t(TranslationKey.Comments)}</Typography>
+      <div className={styles.wrapper}>
+        <p className={styles.title}>{t(TranslationKey.Comments)}</p>
 
-          <Field
-            multiline
-            disabled={!checkIsResearcher(curUserRole) || !showActionBtns}
-            error={errorMessagesTranslate(formFieldsValidationErrors.icomment)}
-            className={cx(styles.heightFieldAuto, {
-              [styles.errorActive]: formFieldsValidationErrors.icomment,
-            })}
-            inputProps={{ maxLength: 1000 }}
-            minRows={4}
-            maxRows={6}
-            label={t(TranslationKey.Researcher)}
-            value={product.icomment}
-            onChange={onChangeField('icomment')}
-          />
+        <Field
+          multiline
+          disabled={!checkIsResearcher(curUserRole) || !showActionBtns}
+          error={errorMessagesTranslate(formFieldsValidationErrors.icomment)}
+          className={cx(styles.heightFieldAuto, {
+            [styles.errorActive]: formFieldsValidationErrors.icomment,
+          })}
+          inputProps={{ maxLength: 1000 }}
+          minRows={4}
+          maxRows={4}
+          label={t(TranslationKey.Researcher)}
+          value={product?.icomment}
+          onChange={onChangeField?.('icomment')}
+        />
 
-          <Field
-            multiline
-            disabled={!checkIsSupervisor(curUserRole) || !showActionBtns}
-            error={errorMessagesTranslate(formFieldsValidationErrors.checkednotes)}
-            className={cx(styles.heightFieldAuto, {
-              [styles.errorActive]: formFieldsValidationErrors.checkednotes,
-            })}
-            inputProps={{ maxLength: 1000 }}
-            minRows={4}
-            maxRows={6}
-            label={t(TranslationKey.Supervisor)}
-            value={product.checkednotes}
-            onChange={onChangeField('checkednotes')}
-          />
+        <Field
+          multiline
+          disabled={!checkIsSupervisor(curUserRole) || !showActionBtns}
+          error={errorMessagesTranslate(formFieldsValidationErrors.checkednotes)}
+          className={cx(styles.heightFieldAuto, {
+            [styles.errorActive]: formFieldsValidationErrors.checkednotes,
+          })}
+          inputProps={{ maxLength: 1000 }}
+          minRows={4}
+          maxRows={4}
+          label={t(TranslationKey.Supervisor)}
+          value={product?.checkednotes}
+          onChange={onChangeField?.('checkednotes')}
+        />
 
-          {!checkIsResearcher(curUserRole) && (
-            <>
-              <Field
-                multiline
-                disabled={!checkIsBuyer(curUserRole) || !showActionBtns}
-                error={errorMessagesTranslate(formFieldsValidationErrors.buyersComment)}
-                className={cx(styles.heightFieldAuto, {
-                  [styles.errorActive]: formFieldsValidationErrors.buyersComment,
-                })}
-                inputProps={{ maxLength: 1000 }}
-                minRows={4}
-                maxRows={6}
-                label={t(TranslationKey.Buyer)}
-                value={product.buyersComment}
-                onChange={onChangeField('buyersComment')}
+        {!checkIsResearcher(curUserRole) && (
+          <>
+            <Field
+              multiline
+              disabled={!checkIsBuyer(curUserRole) || !showActionBtns}
+              error={errorMessagesTranslate(formFieldsValidationErrors.buyersComment)}
+              className={cx(styles.heightFieldAuto, {
+                [styles.errorActive]: formFieldsValidationErrors.buyersComment,
+              })}
+              inputProps={{ maxLength: 1000 }}
+              minRows={4}
+              maxRows={4}
+              label={t(TranslationKey.Buyer)}
+              value={product?.buyersComment}
+              onChange={onChangeField?.('buyersComment')}
+            />
+
+            <Field
+              multiline
+              disabled={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
+              className={cx(styles.heightFieldAuto, {
+                [styles.errorActive]: formFieldsValidationErrors.icomment,
+              })}
+              inputProps={{ maxLength: 1000 }}
+              minRows={4}
+              maxRows={4}
+              label={t(TranslationKey.Client)}
+              value={product?.clientComment}
+              onChange={onChangeField?.('clientComment')}
+            />
+          </>
+        )}
+
+        {!modal && (
+          <>
+            {showActionBtns && (
+              <ProductStatusButtons
+                product={product}
+                curUserRole={curUserRole}
+                buttonsConfig={productStatusButtonsConfig}
+                onClickButton={onClickSetProductStatusBtn}
               />
+            )}
 
-              <Field
-                multiline
-                disabled={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
-                className={cx(styles.heightFieldAuto, {
-                  // [styles.errorActive]: formFieldsValidationErrors.icomment,
-                })}
-                inputProps={{ maxLength: 1000 }}
-                minRows={4}
-                maxRows={6}
-                label={t(TranslationKey.Client)}
-                value={product.clientComment}
-                onChange={onChangeField('clientComment')}
-              />
-            </>
-          )}
-
-          {!modal && (
-            <>
-              {showActionBtns && (
-                <ProductStatusButtons
-                  product={product}
-                  curUserRole={curUserRole}
-                  buttonsConfig={productStatusButtonsConfig}
-                  onClickButton={onClickSetProductStatusBtn}
-                />
-              )}
-
+            <div className={styles.buttonsWrapper}>
               {showActionBtns ? (
-                <div className={styles.buttonsWrapper}>
-                  {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
+                <>
+                  {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product?.archive) ? (
                     <Button
+                      styleType={ButtonStyle.DANGER}
                       tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
-                      className={styles.buttonDelete}
                       onClick={() => handleProductActionButtons('delete')}
                     >
                       {t(TranslationKey.Delete)}
@@ -147,8 +144,8 @@ export const RightSideComments = memo(
                     ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
                   checkIsBuyer(curUserRole) ? null : (
                     <Button
+                      styleType={ButtonStyle.SUCCESS}
                       tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
-                      className={cx(styles.buttonNormal, styles.buttonAccept)}
                       onClick={() => handleProductActionButtons('accept', false)}
                     >
                       {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
@@ -162,7 +159,6 @@ export const RightSideComments = memo(
                         curUserRole,
                       )}
                       disabled={product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
-                      className={styles.buttonNormal}
                       onClick={
                         checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
                           ? () => handleProductActionButtons('accept', withoutStatus)
@@ -174,45 +170,28 @@ export const RightSideComments = memo(
                   )}
 
                   <Button
+                    styleType={checkIsClient(curUserRole) ? ButtonStyle.PRIMARY : ButtonStyle.DANGER}
                     tooltipInfoContent={translateTooltipCloseBtnMessage(curUserRole)}
-                    className={cx(styles.buttonClose, {
-                      [styles.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
-                    })}
                     onClick={() => handleProductActionButtons('cancel')}
                   >
                     {checkIsClient(curUserRole) ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
                   </Button>
 
-                  {checkIsClient(curUserRole) && product.archive && (
-                    <Button className={styles.restoreBtn} onClick={() => handleProductActionButtons('restore')}>
-                      {t(TranslationKey.Restore)}
-                    </Button>
+                  {checkIsClient(curUserRole) && product?.archive && (
+                    <Button onClick={() => handleProductActionButtons('restore')}>{t(TranslationKey.Restore)}</Button>
                   )}
-                </div>
+                </>
               ) : (
-                <div className={styles.buttonWrapper}>
-                  <Button
-                    tooltipInfoContent={t(TranslationKey['Close product card'])}
-                    className={cx(styles.buttonClose, {
-                      [styles.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
-                    })}
-                    onClick={() => handleProductActionButtons('cancel')}
-                  >
-                    {t(TranslationKey.Close)}
-                  </Button>
-                </div>
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Close product card'])}
+                  onClick={() => handleProductActionButtons('cancel')}
+                >
+                  {t(TranslationKey.Close)}
+                </Button>
               )}
-            </>
-          )}
-
-          {acceptMessage && (
-            <AlertShield
-              showAcceptMessage={showAcceptMessage}
-              acceptMessage={acceptMessage}
-              alertShieldWrapperStyle={styles.alertShieldWrapperStyle}
-            />
-          )}
-        </div>
+            </div>
+          </>
+        )}
       </div>
     )
   },

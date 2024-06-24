@@ -23,8 +23,6 @@ export const useStyles = makeStyles()(() => ({
   button: {
     height: 32,
     width: 32,
-    padding: 0,
-    borderRadius: '50%',
   },
 
   icon: {
@@ -34,6 +32,5 @@ export const useStyles = makeStyles()(() => ({
 
   buttonWithText: {
     height: 32,
-    padding: '0 10px',
   },
 }))

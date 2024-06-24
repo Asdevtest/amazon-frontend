@@ -1,45 +1,23 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  modalWrapper: {
-    width: '100%',
+export const useStyles = makeStyles()(() => ({
+  wrapper: {
+    padding: 10,
+    width: 400,
     display: 'flex',
     flexDirection: 'column',
-    gap: '30px',
+    gap: 20,
   },
 
-  modalTitle: {
-    color: theme.palette.text.general,
+  title: {
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
   },
 
-  saveBox: {
+  buttons: {
     display: 'flex',
     gap: 20,
     justifyContent: 'space-between',
-  },
-
-  saveBtn: {
-    width: '123px',
-    height: '40px',
-  },
-
-  closeBtn: {
-    width: '123px',
-    height: '40px',
-    color: theme.palette.text.general,
-  },
-
-  link: {
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-  },
-
-  barCodeWrapper: {
-    display: 'flex',
-    gap: 15,
   },
 }))

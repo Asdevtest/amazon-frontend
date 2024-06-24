@@ -18,14 +18,14 @@ import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { DatePickerTime, NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker, TimePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { CustomPlusIcon, FireIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -37,6 +37,7 @@ import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
 import { useStyles } from './create-or-edit-request-content.style'
@@ -48,6 +49,7 @@ const stepVariant = {
 
 export const CreateOrEditRequestContent = memo(props => {
   const {
+    buttonStatus,
     announcements,
     specs,
     permissionsData,
@@ -372,6 +374,7 @@ export const CreateOrEditRequestContent = memo(props => {
     }
   }
 
+  const isNeedSeoInfo = currentSpec?.type === Specs.SEO && images.length === 0
   const disableSubmit =
     !formFields.request.title ||
     formFields.request.title.length > 100 ||
@@ -384,7 +387,9 @@ export const CreateOrEditRequestContent = memo(props => {
     !formFields.request.specId ||
     !formFields.request.productId ||
     formFields?.request?.timeoutAt?.toString() === 'Invalid Date' ||
-    platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price
+    platformSettingsData?.requestMinAmountPriceOfProposal > formFields?.request?.price ||
+    isNeedSeoInfo ||
+    buttonStatus === loadingStatus.IS_LOADING
 
   const minDate = dayjs().add(1, 'day')
   const isFirstStep = curStep === stepVariant.STEP_ONE
@@ -559,16 +564,11 @@ export const CreateOrEditRequestContent = memo(props => {
                   </div>
                 )}
 
-                <UploadFilesInput
-                  minimized
-                  fullWidth
-                  withComment
-                  images={images}
-                  setImages={setImages}
-                  maxNumber={50}
-                  maxHeight={120}
-                  addFilesButtonTitle={t(TranslationKey['Add file'])}
-                />
+                <UploadFilesInput minimized withComment images={images} setImages={setImages} />
+
+                {isNeedSeoInfo ? (
+                  <p className={styles.seoInfoText}>{t(TranslationKey['Add at least 1 file'])}</p>
+                ) : null}
 
                 <div className={styles.defaultMarginTop}>
                   <Button
@@ -600,11 +600,11 @@ export const CreateOrEditRequestContent = memo(props => {
                     containerClasses={styles.fieldContainer}
                     inputComponent={
                       <div>
-                        <NewDatePicker
+                        <DatePicker
                           disablePast
                           minDate={minDate}
                           className={cx(styles.field, styles.datePicker)}
-                          value={formFields.request.timeoutAt}
+                          value={formFields.request.timeoutAt ? new Date(formFields.request.timeoutAt) : null}
                           onChange={e => onChangeField('request')('timeoutAt')(e)}
                         />
                         {deadlineError && (
@@ -622,9 +622,9 @@ export const CreateOrEditRequestContent = memo(props => {
                     containerClasses={styles.fieldContainer}
                     inputComponent={
                       <div>
-                        <DatePickerTime
+                        <TimePicker
                           className={cx(styles.field, styles.datePicker)}
-                          value={formFields.request.timeoutAt}
+                          value={formFields.request.timeoutAt ? new Date(formFields.request.timeoutAt) : null}
                           onChange={onChangeField('request')('timeoutAt')}
                         />
                         {deadlineError && (
@@ -885,14 +885,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       labelClasses={styles.label}
                       className={styles.field}
                       containerClasses={styles.fieldContainer}
-                      inputComponent={
-                        <PhotoAndFilesSlider
-                          smallSlider
-                          customSlideHeight={98}
-                          files={images.map(el => el.fileLink)}
-                          imagesTitles={images.map(el => el.commentByClient)}
-                        />
-                      }
+                      inputComponent={<SlideshowGallery slidesToShow={2} files={images} />}
                     />
                   </div>
 
@@ -1133,7 +1126,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   onClick={() => (isSecondStep ? onClickCreate({ withPublish: false }) : onSuccessSubmit())}
                 >
                   {isSecondStep ? (
-                    t(TranslationKey['Create a request'])
+                    t(TranslationKey['Create request'])
                   ) : (
                     <>
                       {t(TranslationKey.Next)}
@@ -1157,9 +1150,7 @@ export const CreateOrEditRequestContent = memo(props => {
         </div>
       </div>
 
-      {showProgress && (
-        <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
-      )}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
 
       <Modal openModal={openModal} setOpenModal={() => setOpenModal(!openModal)}>
         <ChoiceOfPerformerModal
@@ -1189,7 +1180,6 @@ export const CreateOrEditRequestContent = memo(props => {
       <Modal
         openModal={showCheckRequestByTypeExists}
         setOpenModal={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
-        dialogClassName={styles.dialogClassName}
       >
         <CheckRequestByTypeExists
           requestsData={requestIds}

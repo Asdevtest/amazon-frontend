@@ -48,8 +48,8 @@ class ClientModelStatic {
     return response.data
   }
 
-  getOrders = async status => {
-    const response = await restApiService.clientApi.apiV1ClientsOrdersGet({ status })
+  getOrders = async options => {
+    const response = await restApiService.clientApi.apiV1ClientsOrdersGet(options)
     return response.data
   }
 
@@ -77,7 +77,9 @@ class ClientModelStatic {
   }
 
   getTasks = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet(filterNullValues(data))
+    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet(
+      filterNullValues({ ...data, noCache: true }),
+    )
     return response.data
   }
 
@@ -101,9 +103,9 @@ class ClientModelStatic {
     return response.data
   }
 
-  boxConfirmPriceChange = async guid => {
+  boxConfirmPriceChange = async body => {
     const response = await restApiService.clientApi.apiV1ClientsBoxesConfirmDeliveryPriceChangePost({
-      body: [{ boxId: guid }],
+      body,
     })
     return response.data
   }
@@ -256,6 +258,42 @@ class ClientModelStatic {
       guid,
       body: { latestSeoFiles },
     })
+    return response.data
+  }
+
+  getListingReports = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsGet({ ...body, noCache: true })
+    return response.data
+  }
+
+  getListingReportByProductId = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsByProductIdGuidGet({
+      ...body,
+      noCache: true,
+    })
+    return response.data
+  }
+
+  getListingReportById = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsGuidGet({
+      guid,
+      noCache: true,
+    })
+    return response.data
+  }
+
+  createListingReport = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsPost({ body })
+    return response.data
+  }
+
+  updateListingReport = async (guid, body) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsGuidPatch({ guid, body })
+    return response.data
+  }
+
+  removeListingReport = async guid => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsListingReportsGuidDelete({ guid })
     return response.data
   }
 }

@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ViewTableModeStateKeys } from '@constants/table/view-table-mode-state-keys'
 
@@ -11,6 +10,7 @@ import { UserModel } from '@models/user-model'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
 import { filterFields, searchFields } from './service-exchange-view.constants'
@@ -56,7 +56,7 @@ export class ServiceExchangeViewModel {
 
       this.getNotYoursAnnouncements()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -68,7 +68,7 @@ export class ServiceExchangeViewModel {
         this.specs = response
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -82,13 +82,13 @@ export class ServiceExchangeViewModel {
         this.announcements = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   } */
 
   async getNotYoursAnnouncements() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await AnnouncementsModel.getNotYoursAnnouncements(this.options)
 
@@ -97,25 +97,25 @@ export class ServiceExchangeViewModel {
         this.rowCount = result.count
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async loadMoreDataHadler() {
-    if (this.requestStatus === loadingStatuses.IS_LOADING) {
+    if (this.requestStatus === loadingStatus.IS_LOADING) {
       return
     }
 
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       this.options.offset += this.options.limit
 
       if (this.options.offset >= this.rowCount) {
-        this.setRequestStatus(loadingStatuses.SUCCESS)
+        this.setRequestStatus(loadingStatus.SUCCESS)
 
         return
       }
@@ -126,10 +126,10 @@ export class ServiceExchangeViewModel {
         this.announcements = [...this.announcements, ...result.rows]
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

@@ -126,4 +126,8 @@ export const DataGridTablesKeys = {
   SHOPS_REPORT_PPC: 'shopsReportPpcDataGridState',
   SHOPS_REPORT_INVENTORY_SHIPMENTS: 'shopsReportInventoryShipmentsDataGridState',
   SHOPS_REPORT_RETURNS: 'shopsReportReturnsDataGridState',
+  SHOPS_REPORT_PPC_ORGANIC_BY_DAY: 'shopsReportPpcOrganicByDayDataGridState',
+
+  UPDATED_PATH_NOUTES: 'updatedPatchNoutes',
+  PRODUCT_LISTING_REPORTS: 'productListingReports',
 }

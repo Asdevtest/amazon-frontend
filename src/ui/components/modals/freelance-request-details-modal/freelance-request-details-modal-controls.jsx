@@ -78,7 +78,6 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
                 <Button
                   styleType={ButtonStyle.DANGER}
                   tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
-                  className={styles.deleteBtn}
                   onClick={onClickCancelBtn}
                 >
                   {t(TranslationKey.Delete)}

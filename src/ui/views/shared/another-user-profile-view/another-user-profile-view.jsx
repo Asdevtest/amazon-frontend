@@ -5,7 +5,6 @@ import { withStyles } from 'tss-react/mui'
 import { Typography } from '@mui/material'
 
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/request-proposal-accept-or-reject-result-form'
@@ -13,13 +12,13 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { UserProfile } from '@components/user/users-views/user-profile-view/user-profile'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './another-user-profile-view.style'
 
@@ -37,8 +36,7 @@ export const AnotherUserProfileViewRaw = props => {
     <>
       <div>
         {!viewModel.user &&
-          (viewModel.requestStatus === loadingStatuses.SUCCESS ||
-            viewModel.requestStatus === loadingStatuses.FAILED) && (
+          (viewModel.requestStatus === loadingStatus.SUCCESS || viewModel.requestStatus === loadingStatus.FAILED) && (
             <Typography variant="h4" className={styles.noDataText}>
               {t(TranslationKey['No data']) + '...'}
             </Typography>
@@ -49,7 +47,7 @@ export const AnotherUserProfileViewRaw = props => {
             isAnotherUser
             reviews={viewModel.reviews}
             user={viewModel.user}
-            curUser={viewModel.curUser}
+            curUser={viewModel.userInfo}
             headerInfoData={viewModel.headerInfoData}
             tabReview={viewModel.tabReview}
             tabHistory={viewModel.tabHistory}
@@ -70,13 +68,11 @@ export const AnotherUserProfileViewRaw = props => {
             </Typography>
 
             <CustomDataGrid
-              useResizeContainer
-              localeText={getLocalizationByLanguageTag()}
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
               columnVisibilityModel={viewModel.columnVisibilityModel}
               paginationModel={viewModel.paginationModel}
-              rows={viewModel.getCurrentData()}
+              rows={viewModel.currentData}
               rowHeight={100}
               slotProps={{
                 baseTooltip: {
@@ -92,7 +88,7 @@ export const AnotherUserProfileViewRaw = props => {
               }}
               density={viewModel.densityModel}
               columns={viewModel.columnsModel}
-              loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+              loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
               onSortModelChange={viewModel.onChangeSortingModel}
               onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
               onPaginationModelChange={viewModel.onPaginationModelChange}
@@ -104,7 +100,6 @@ export const AnotherUserProfileViewRaw = props => {
 
       <Modal openModal={viewModel.showOrderModal} setOpenModal={() => viewModel.onTriggerOpenModal('showOrderModal')}>
         <OrderProductModal
-          // volumeWeightCoefficient={volumeWeightCoefficient}
           platformSettings={viewModel.platformSettings}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
@@ -122,6 +117,7 @@ export const AnotherUserProfileViewRaw = props => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
       >
         <SelectShopsModal
+          isNotDisabled
           title={viewModel.confirmModalSettings.confirmTitle}
           message={viewModel.confirmModalSettings.confirmMessage}
           shops={viewModel.shopsData}
@@ -142,17 +138,6 @@ export const AnotherUserProfileViewRaw = props => {
           cancelBtnText={t(TranslationKey.Cancel)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.showWarningModalText}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
         />
       ) : null}
 

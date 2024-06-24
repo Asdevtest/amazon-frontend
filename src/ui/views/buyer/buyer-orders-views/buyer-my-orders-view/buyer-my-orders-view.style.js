@@ -1,10 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  dialogClassName: {
-    width: '1200px',
-  },
-
   searchInput: {
     width: 400,
     height: 36,
@@ -24,9 +20,5 @@ export const useStyles = makeStyles()(() => ({
   dataGridWrapper: {
     height: '82vh',
     width: '100%',
-  },
-
-  loadingCircle: {
-    zIndex: 50,
   },
 }))

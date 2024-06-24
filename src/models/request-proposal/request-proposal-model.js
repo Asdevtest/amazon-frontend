@@ -19,7 +19,7 @@ class RequestProposalModelStatic {
       const fileName = await OtherModel.postImage(formData)
       return '/uploads/' + fileName
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -36,7 +36,7 @@ class RequestProposalModelStatic {
       guid,
       noCache: true,
     })
-    return response.data
+    return response?.data || []
   }
 
   getRequestProposalsCustom = async guid => {

@@ -1,10 +1,9 @@
 import { format } from 'date-fns'
 import { History } from 'history'
-import { FC, memo } from 'react'
+import { FC } from 'react'
 
 import { Avatar, Typography } from '@mui/material'
 
-import { UiTheme } from '@constants/theme/mui-theme.type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -14,6 +13,8 @@ import { OrdersUpdatesNotificationItem } from '@components/layout/notifications/
 import { useOrdersUpdatesNotificationStyle } from '@components/layout/notifications/orders-updates-notification/orders-updates-notification.style'
 
 import { t } from '@utils/translations'
+
+import { UiTheme } from '@typings/enums/ui-theme'
 
 interface OrdersUpdatesNotificationProps {
   noticeItem: {

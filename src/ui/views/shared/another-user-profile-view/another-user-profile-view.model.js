@@ -1,8 +1,8 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRole, UserRoleCodeMap, UserRoleCodeMapForRoutes, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -10,9 +10,9 @@ import { ChatsModel } from '@models/chats-model'
 import { ClientModel } from '@models/client-model'
 import { FeedbackModel } from '@models/feedback-model'
 import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { clientExchangeViewColumns } from '@components/table/table-columns/client/client-exchange-columns'
@@ -26,6 +26,8 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AnotherProfileViewModel {
   history = undefined
@@ -62,7 +64,7 @@ export class AnotherProfileViewModel {
     accountCreateAt: 11,
   }
 
-  get curUser() {
+  get userInfo() {
     return UserModel.userInfo
   }
 
@@ -76,9 +78,7 @@ export class AnotherProfileViewModel {
 
   showConfirmModal = false
   showOrderModal = false
-  showWarningModal = false
   showSuccessModal = false
-  showWarningModalText = ''
   showSelectShopsModal = false
 
   selectedProduct = undefined
@@ -86,8 +86,6 @@ export class AnotherProfileViewModel {
   storekeepers = []
 
   destinations = []
-
-  platformSettings = undefined
 
   confirmModalSettings = {
     isWarning: false,
@@ -100,19 +98,25 @@ export class AnotherProfileViewModel {
   filterModel = { items: [] }
   densityModel = 'compact'
   columnsModel =
-    this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
+    this.userInfo.role === mapUserRoleEnumToKey[UserRole.CLIENT]
       ? clientExchangeViewColumns(this.rowHandlers)
       : vacByUserIdExchangeColumns()
 
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
+  get currentData() {
+    return this.productsVacant
+  }
 
-      this.userId = history.location.search.slice(1)
-    })
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
+  constructor({ history }) {
+    this.history = history
+
+    this.userId = history.location.search.slice(1)
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -125,20 +129,18 @@ export class AnotherProfileViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.PROFILE_VAC_PRODUCTS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.PROFILE_VAC_PRODUCTS)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onDoubleClickBarcode = item => {
@@ -149,27 +151,22 @@ export class AnotherProfileViewModel {
   onClickCancelBtn = () => {
     this.onTriggerOpenModal('showOrderModal')
 
-    runInAction(() => {
-      this.selectedProduct = {}
+    this.selectedProduct = {}
 
-      this.showWarningModalText = t(TranslationKey['This item has been moved to Inventory'])
-      this.onTriggerOpenModal('showWarningModal')
-    })
+    toast.warning(t(TranslationKey['This item has been moved to Inventory']))
   }
 
   onClickLaunchPrivateLabelBtn(product) {
-    runInAction(() => {
-      this.selectedProduct = product
+    this.selectedProduct = product
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['You buy a product card, are you sure?']),
-        confirmMessage: `${t(TranslationKey['You will be charged'])} (${
-          this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
-        })?`,
-        onClickConfirm: () => this.onClickBuyProductBtn(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You buy a product card, are you sure?']),
+      confirmMessage: `${t(TranslationKey['You will be charged'])} (${
+        this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
+      })?`,
+      onClickConfirm: () => this.onClickBuyProductBtn(),
+    }
 
     this.onTriggerOpenModal('showSelectShopsModal')
   }
@@ -177,20 +174,18 @@ export class AnotherProfileViewModel {
   async getShops() {
     try {
       const result = await ShopModel.getMyShops()
+
       runInAction(() => {
         this.shopsData = addIdDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
   async onSaveProductData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ClientModel.updateProduct(
         this.selectedProduct._id,
@@ -201,10 +196,10 @@ export class AnotherProfileViewModel {
           ['suppliers'],
         ),
       )
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -214,11 +209,11 @@ export class AnotherProfileViewModel {
         await ChatsModel.createSimpleChatByUserId(anotherUserId)
       }
 
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/messages`, {
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/messages`, {
         anotherUserId,
       })
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 
@@ -236,45 +231,29 @@ export class AnotherProfileViewModel {
 
       this.openCreateOrder()
 
-      this.updateUserInfo()
       this.loadData()
     } catch (error) {
-      this.showWarningModalText = t(TranslationKey["You can't buy the product"])
-      this.onTriggerOpenModal('showWarningModal')
+      toast.error(t(TranslationKey["You can't buy the product"]))
 
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
   async openCreateOrder() {
     try {
-      const [storekeepers, destinations, result] = await Promise.all([
+      const [storekeepers, destinations] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
       ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
-
         this.destinations = destinations
-
-        this.platformSettings = result
       })
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -286,37 +265,28 @@ export class AnotherProfileViewModel {
         this.reviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
-      console.log(error)
-      runInAction(() => {
-        this.error = error
-      })
+      console.error(error)
     }
   }
 
-  async updateUserInfo() {
-    await UserModel.getUserInfo()
-  }
-
   onClickOrderNowBtn = ({ ordersDataState, totalOrdersCost }) => {
-    runInAction(() => {
-      this.ordersDataStateToSubmit = ordersDataState[0]
+    this.ordersDataStateToSubmit = ordersDataState[0]
 
-      this.confirmModalSettings = {
-        isWarning: false,
-        confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
-        confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
-          ? t(TranslationKey['Pending order will be created'])
-          : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
-        onClickConfirm: () => this.onLaunchPrivateLabel(),
-      }
-    })
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: ordersDataState.some(el => el.tmpIsPendingOrder)
+        ? t(TranslationKey['Pending order will be created'])
+        : `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(TranslationKey['Confirm order'])}?`,
+      onClickConfirm: () => this.onLaunchPrivateLabel(),
+    }
 
     this.onTriggerOpenModal('showConfirmModal')
   }
 
   async onLaunchPrivateLabel() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const requestProduct = getObjectFilteredByKeyArrayBlackList({ ...this.ordersDataStateToSubmit }, [
         'tmpResearcherName',
@@ -325,7 +295,7 @@ export class AnotherProfileViewModel {
       ])
 
       await this.createOrder(requestProduct)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.onTriggerOpenModal('showOrderModal')
       this.onTriggerOpenModal('showSuccessModal')
@@ -334,8 +304,8 @@ export class AnotherProfileViewModel {
 
       this.loadData()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
       runInAction(() => {
         if (error.body && error.body.message) {
           this.error = error.body.message
@@ -346,10 +316,6 @@ export class AnotherProfileViewModel {
 
   async createOrder(orderObject) {
     try {
-      runInAction(() => {
-        this.uploadedFiles = []
-      })
-
       if (orderObject.tmpBarCode.length) {
         await onSubmitPostImages.call(this, { images: orderObject.tmpBarCode, type: 'uploadedFiles' })
       } else if (!orderObject.barCode) {
@@ -375,75 +341,59 @@ export class AnotherProfileViewModel {
       runInAction(() => {
         this.selectedProduct = {}
       })
-      await this.updateUserInfo()
     } catch (error) {
-      console.log(error)
-      this.error = error
-      throw new Error('Failed to create order')
+      console.error(error)
     }
   }
 
   onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
+    this.filterModel = model
 
     this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
+    this.paginationModel = model
 
     this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
+
     this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
+    this.sortModel = sortModel
 
     this.setDataGridState()
   }
 
-  getCurrentData() {
-    return toJS(this.productsVacant)
-  }
-
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await this.getUserById()
 
-      if (!checkIsFreelancer(UserRoleCodeMap[this.curUser.role])) {
+      if (!checkIsFreelancer(UserRoleCodeMap[this.userInfo.role])) {
         await this.getProductsVacant()
       }
 
-      if (checkIsClient(UserRoleCodeMap[this.curUser.role])) {
+      if (checkIsClient(UserRoleCodeMap[this.userInfo.role])) {
         await this.getShops()
       }
 
       await Promise.all(this.getDataGridState(), this.getReviews())
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -457,12 +407,9 @@ export class AnotherProfileViewModel {
         )
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.productsVacant = []
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
       })
     }
   }
@@ -475,32 +422,12 @@ export class AnotherProfileViewModel {
         this.user = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
-  onChangeTabReview(e, value) {
-    runInAction(() => {
-      this.tabReview = value
-    })
-  }
-
-  onChangeTabHistory(e, value) {
-    runInAction(() => {
-      this.tabHistory = value
-    })
-  }
-
-  onChangeTabExchange(e, value) {
-    runInAction(() => {
-      this.tabExchange = value
-    })
-  }
-
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 
   async onAcceptReview(review) {

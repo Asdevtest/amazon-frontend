@@ -1,12 +1,9 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
-import { TaskOperationType, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -17,35 +14,18 @@ import { DownloadIcon } from '@components/shared/svg-icons'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-warehouse-tasks-view.style'
 
 import { ClientWarehouseTasksViewModel } from './client-warehouse-tasks-view.model'
 import { getPriorityConfig, getStatusConfig, getStorekeepersConfig, getTypeConfig } from './helpers/get-configs'
 
-export const ClientWarehouseTasksView = observer(({ history }) => {
+export const ClientWarehouseTasksView = observer(() => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new ClientWarehouseTasksViewModel({ history }))
-
-  const [isDisabledDownload, setIsDisabledDownload] = useState(true)
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
-  useEffect(() => {
-    setIsDisabledDownload(
-      !viewModel.selectedBoxes?.length ||
-        viewModel.selectedBoxes?.length > 1 ||
-        viewModel.tasksMy
-          .filter(el => viewModel.selectedBoxes.includes(el.id))
-          .some(box => {
-            return box.operationType !== mapTaskOperationTypeToLabel[TaskOperationType.RECEIVE]
-          }),
-    )
-  }, [viewModel.selectedBoxes])
+  const [viewModel] = useState(() => new ClientWarehouseTasksViewModel())
 
   return (
     <>
@@ -59,36 +39,42 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
           onSubmit={viewModel.onSearchSubmit}
         />
 
-        <Button сlassName={styles.downloadBtn} disabled={isDisabledDownload} onClick={viewModel.onClickReportBtn}>
+        <Button
+          сlassName={styles.downloadBtn}
+          disabled={viewModel.isDisabledDownload}
+          onClick={viewModel.onClickReportBtn}
+        >
           {t(TranslationKey['Download task file'])}
-          <DownloadIcon className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: isDisabledDownload })} />
+          <DownloadIcon
+            className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: viewModel.isDisabledDownload })}
+          />
         </Button>
       </div>
 
       <div className={styles.filters}>
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={viewModel.selectedPriority}
           switcherSettings={getPriorityConfig()}
           changeConditionHandler={el => viewModel.setFilters('selectedPriority', el)}
         />
 
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={viewModel.selectedStatus}
           switcherSettings={getStatusConfig()}
           changeConditionHandler={el => viewModel.setFilters('selectedStatus', el)}
         />
 
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={viewModel.selectedType}
           switcherSettings={getTypeConfig()}
           changeConditionHandler={el => viewModel.setFilters('selectedType', el)}
         />
 
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={viewModel.selectedStorekeeper}
           switcherSettings={getStorekeepersConfig(viewModel.storekeepersData)}
           changeConditionHandler={el => viewModel.setFilters('selectedStorekeeper', el)}
@@ -99,11 +85,12 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
-          localeText={getLocalizationByLanguageTag()}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentTaskData()}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={row => row._id}
+          pinnedColumns={viewModel.pinnedColumns}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -116,17 +103,23 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           columns={viewModel.columnsModel}
-          rowCount={viewModel.rowsCount}
-          onRowHover={viewModel.onHover}
+          rowCount={viewModel.rowCount}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -147,7 +140,7 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
       >
         <EditTaskModal
           readOnly
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
+          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           task={viewModel.curOpenedTask}
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
@@ -182,18 +175,6 @@ export const ClientWarehouseTasksView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
         />
       ) : null}
 

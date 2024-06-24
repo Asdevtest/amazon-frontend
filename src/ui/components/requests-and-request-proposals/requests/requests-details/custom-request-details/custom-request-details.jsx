@@ -1,8 +1,6 @@
-/* eslint-disable import/no-unresolved */
 import { useEffect, useState } from 'react'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { Typography } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -10,15 +8,14 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { useStyles } from './custom-request-details.style'
 
 export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const [showDetails, setShowDetails] = useState(isOpen)
 
@@ -28,48 +25,31 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
     setShowDetails(!showDetails)
   }
 
-  const requestMedia = request?.request?.media?.filter(el => checkIsMediaFileLink(el.fileLink))
-  const requestPhotos = requestMedia?.map(el => el.fileLink)
-  const requestTitles = requestMedia?.map(el => el.commentByPerformer)
-  const requestComments = requestMedia?.map(el => el.commentByClient)
-  const requestDocuments = request?.request?.media.map(el => el.fileLink)
-
   return (
     <div className={styles.root}>
       <Accordion classes={{ root: styles.accordion }} expanded={showDetails} onChange={onClickToShowDetails}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={styles.title}>{t(TranslationKey['Detailed application description'])}</Typography>
+          <p className={styles.title}>{t(TranslationKey['Detailed application description'])}</p>
         </AccordionSummary>
 
         <AccordionDetails classes={{ root: styles.details }} style={{ padding: 0 }}>
           <div className={styles.mainWrapper}>
             <div className={styles.filesWrapper}>
-              <Typography className={styles.conditionsLabel}>{t(TranslationKey.Files)}</Typography>
+              <p className={styles.title}>{t(TranslationKey.Files)}</p>
 
-              <div className={styles.conditionsPhotosWraper}>
-                <Typography className={styles.conditionsSubLabel}>{t(TranslationKey.Photos)}</Typography>
-                <PhotoAndFilesSlider
-                  withoutFiles
-                  showPreviews
-                  files={requestPhotos}
-                  photosTitles={requestTitles}
-                  photosComments={requestComments}
-                />
-              </div>
-
-              <div>
-                <Typography className={cx(styles.conditionsSubLabel, styles.filesLabel)}>
-                  {t(TranslationKey.Files)}
-                </Typography>
-                <PhotoAndFilesSlider withoutPhotos files={requestDocuments} />
-              </div>
+              <SlideshowGallery slidesToShow={2} files={request?.request?.media} />
             </div>
 
-            <div className={styles.conditionsFieldWrapper}>
-              <Typography className={styles.conditionsLabel}>{t(TranslationKey.Description)}</Typography>
+            <div className={styles.filesWrapper}>
+              <p className={styles.title}>{t(TranslationKey.Description)}</p>
 
               {request?.details?.conditions ? (
-                <CustomTextEditor readOnly value={request?.details?.conditions} editorClassName={styles.textEditor} />
+                <CustomTextEditor
+                  readOnly
+                  value={request?.details?.conditions}
+                  editorClassName={styles.textEditor}
+                  editorWrapperClassName={styles.editorWrapper}
+                />
               ) : null}
             </div>
           </div>

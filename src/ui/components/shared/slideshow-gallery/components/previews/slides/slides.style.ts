@@ -33,6 +33,12 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 6,
     boxShadow: '0 0 3px 3px rgba(0, 0, 0, 0.1)',
     cursor: 'pointer',
+
+    button: {
+      p: {
+        width: '75%', // fix unequal size ratio
+      },
+    },
   },
 
   previewSlideInModal: {
@@ -44,25 +50,5 @@ export const useStyles = makeStyles()(theme => ({
 
   previewSlideActive: {
     border: `0.5px solid ${theme.palette.primary.main}`,
-  },
-
-  previewSlideImg: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover', // 'contain' - correct aspect ratio option
-  },
-
-  document: {
-    height: '75%',
-    width: '75%',
-  },
-
-  fileIcon: {
-    height: '100% !important',
-    width: '100% !important',
-  },
-
-  linkText: {
-    display: 'none',
   },
 }))

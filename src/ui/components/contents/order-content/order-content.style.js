@@ -1,8 +1,16 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
+  wrapper: {
+    padding: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
+    background: theme.palette.background.general,
+    borderRadius: 20,
+  },
+
   orderContainer: {
-    padding: '30px 50px 20px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -43,42 +51,16 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-beetwen',
     gap: 30,
-    padding: '30px 50px',
   },
 
   divider: {
     height: 720,
   },
 
-  suppliersWrapper: {
-    padding: '0 50px 30px',
-  },
-
-  supplierTitle: {
-    marginBottom: 5,
-    fontSize: 18,
-    lineHeight: '25px',
-  },
-
-  supplierButtonWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-    marginBottom: 10,
-  },
-
-  supplierButtonText: {
-    maxWidth: 98,
-    fontSize: 12,
-    lineHeight: '14px',
-    color: theme.palette.text.second,
-  },
-
   btnsWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 50px 30px',
   },
 
   btnsSubWrapper: {
@@ -87,35 +69,9 @@ export const useStyles = makeStyles()(theme => ({
     gap: 40,
   },
 
-  tableWrapper: {
-    padding: '0 50px 30px',
-  },
-
-  container: {
-    marginBottom: 10,
-  },
-
-  tableText: {
-    color: theme.palette.text.general,
-  },
-
-  noBoxesText: {
-    color: theme.palette.text.general,
-    fontSize: 14,
-    lineHeight: '19px',
-  },
-
   label: {
     fontSize: 16,
     lineHeight: '19px',
     color: theme.palette.text.general,
-  },
-
-  iconBtn: {
-    maxHeight: 40,
-    maxWidth: 40,
-    color: '#fff',
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: 4,
   },
 }))

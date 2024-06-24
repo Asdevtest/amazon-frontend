@@ -1,25 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, MouseEvent, memo, useState } from 'react'
 
-import Avatar from '@mui/material/Avatar'
 import Checkbox from '@mui/material/Checkbox'
 import Menu from '@mui/material/Menu'
-import Tooltip from '@mui/material/Tooltip'
-import Zoom from '@mui/material/Zoom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { Input } from '@components/shared/input'
+import { SlideByType } from '@components/shared/slide-by-type'
 import { PencilIcon, PlusIcon } from '@components/shared/svg-icons'
 
-import { checkIsMediaFileLink } from '@utils/checks'
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { isString } from '@typings/guards'
 
 import { useStyles } from './slot.style'
 
@@ -85,39 +78,14 @@ export const Slot: FC<SlotProps> = memo(props => {
       >
         {index === 0 && <img src="/assets/icons/star-main.svg" className={styles.mainStarIcon} />}
 
-        <div className={styles.imageListItem}>
-          <Tooltip
-            arrow
-            title={getFileNameFromUrl(isString(item.fileLink) ? item.fileLink : item.fileLink?.file.name)?.fullName}
-            placement="right-end"
-            TransitionComponent={Zoom}
-            TransitionProps={{ timeout: 300 }}
-          >
-            <Avatar
-              className={styles.image}
-              classes={{ img: styles.image }}
-              src={
-                isString(item.fileLink)
-                  ? checkIsMediaFileLink(item.fileLink)
-                    ? getAmazonImageUrl(item.fileLink, false)
-                    : '/assets/icons/file.png'
-                  : item.fileLink?.file.type.includes('image')
-                  ? item.fileLink?.data_url
-                  : '/assets/icons/file.png'
-              }
-              alt={''}
-              variant="square"
-              onClick={() => {
-                setCurImageIndex(index)
-
-                if (checkIsMediaFileLink(item.fileLink?.file?.name || item.fileLink)) {
-                  setShowImageModal(!showImageModal)
-                } else {
-                  window.open(item.fileLink?.data_url || getAmazonImageUrl(item.fileLink), '__blank')
-                }
-              }}
-            />
-          </Tooltip>
+        <div
+          className={styles.imageListItem}
+          onClick={() => {
+            setCurImageIndex(index)
+            setShowImageModal(!showImageModal)
+          }}
+        >
+          <SlideByType objectFitContain mediaFile={item.fileLink} mediaFileIndex={index} />
         </div>
       </div>
 

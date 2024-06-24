@@ -1,9 +1,9 @@
 import { action, makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
@@ -27,10 +27,10 @@ import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 import { isValidationErrors, plainValidationErrorAndApplyFuncForEachError } from '@utils/validation'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 import {
   confirmMessageByProductStatus,
-  confirmMessageWithoutStatus,
-  fieldsNotFilledText,
   fieldsOfProductAllowedToForceUpdate,
   fieldsOfProductAllowedToUpdate,
   formFieldsDefault,
@@ -40,38 +40,26 @@ import {
 export class ResearcherProductViewModel {
   history = undefined
   requestStatus = undefined
-
   alertFailedText = undefined
-
   productId = undefined
   product = undefined
   productBase = undefined
   curUpdateProductData = undefined
   imagesForLoad = []
   uploadedImages = []
-
   startParse = false
-
   showConfirmModal = false
-  showWarningModal = false
-
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
-
-  warningModalTitle = ''
-
   confirmModalSettings = {
     isWarning: false,
     message: t(TranslationKey['The product will be sent to Supervisor for review. Are you sure?']),
     onClickOkBtn: () => this.onSaveProductData(),
   }
-
   readyImages = []
   progressValue = 0
   showProgress = false
-
-  formFields = formFieldsDefault
-
+  formFields = { ...formFieldsDefault }
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   get userInfo() {
@@ -91,22 +79,20 @@ export class ResearcherProductViewModel {
 
     this.productId = history.location.search.slice(1)
 
+    this.loadData()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
-    try {
-      await this.getProductById()
+    await this.getProductById()
 
-      if (this.startParse) {
-        this.onClickParseProductData(this.product)
+    if (this.startParse) {
+      this.onClickParseProductData(this.product)
 
-        runInAction(() => {
-          this.startParse = false
-        })
-      }
-    } catch (error) {
-      console.log(error)
+      runInAction(() => {
+        this.startParse = false
+      })
     }
   }
 
@@ -122,7 +108,7 @@ export class ResearcherProductViewModel {
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -204,9 +190,7 @@ export class ResearcherProductViewModel {
 
   onClickSetProductStatusBtn(statusKey) {
     if (statusKey === ProductStatus.RESEARCHER_FOUND_SUPPLIER && !this.product.currentSupplierId) {
-      this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
-
-      this.onTriggerOpenModal('showWarningModal')
+      toast.warning(warningModalTitleVariants().NO_SUPPLIER)
     } else {
       this.product = { ...this.product, status: ProductStatusByKey[statusKey] }
     }
@@ -267,7 +251,7 @@ export class ResearcherProductViewModel {
         this.confirmModalSettings = {
           isWarning: false,
           message: withoutStatus
-            ? confirmMessageWithoutStatus()
+            ? t(TranslationKey['Save without status']) + '?'
             : confirmMessageByProductStatus()[this.curUpdateProductData?.status],
           onClickOkBtn: () => this.onSaveProductData(),
         }
@@ -276,31 +260,28 @@ export class ResearcherProductViewModel {
       if (this.confirmModalSettings.message) {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        runInAction(() => {
-          this.warningModalTitle = warningModalTitleVariants().CHOOSE_STATUS
-        })
-        this.onTriggerOpenModal('showWarningModal')
+        toast.warning(warningModalTitleVariants().CHOOSE_STATUS)
       }
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
 
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({ errorProperty, constraint }) => {
           runInAction(() => {
             this.formFieldsValidationErrors[errorProperty] = constraint
-            this.alertFailedText = fieldsNotFilledText()
+            this.alertFailedText = t(TranslationKey['Fields not filled in'])
           })
         })
       } else {
-        console.warn(error)
+        console.error(error)
       }
     }
   }
 
   async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       supplier = {
         ...supplier,
@@ -347,16 +328,17 @@ export class ResearcherProductViewModel {
 
       this.onSaveForceProductData()
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onClickParseProductData(product) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       runInAction(() => {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
@@ -394,10 +376,6 @@ export class ResearcherProductViewModel {
         const sellerCentralResult = await ProductModel.parseParseSellerCentral(product.asin, amazonResult.price)
         this.weightParserSELLCENTRAL = sellerCentralResult.weight / poundsWeightCoefficient || 0
 
-        if (!sellerCentralResult.amazonFee) {
-          throw new Error('fbafee <= 0')
-        }
-
         runInAction(() => {
           if (Object.keys(sellerCentralResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
@@ -424,15 +402,13 @@ export class ResearcherProductViewModel {
         })
       }
 
-      this.warningModalTitle = t(TranslationKey['Success parse'])
-      this.onTriggerOpenModal('showWarningModal')
-      this.setRequestStatus(loadingStatuses.SUCCESS)
-    } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      toast.success(t(TranslationKey['Success parse']))
 
-      this.warningModalTitle = t(TranslationKey['Parsing error']) + '\n' + String(error)
-      this.onTriggerOpenModal('showWarningModal')
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      toast.error(t(TranslationKey['Parsing error']) + '\n' + String(error))
     }
   }
 
@@ -442,11 +418,9 @@ export class ResearcherProductViewModel {
 
   async onSaveProductData(editingСontinues) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      if (this.imagesForLoad?.length) {
-        await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-      }
+      await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
 
       await ResearcherModel.updateProduct(
         this.product._id,
@@ -458,12 +432,12 @@ export class ResearcherProductViewModel {
           ['suppliers'],
         ),
       )
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       !editingСontinues && this.history.push('/researcher/products')
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -504,19 +478,21 @@ export class ResearcherProductViewModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onDeleteProduct() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       await ResearcherModel.removeProduct(this.product._id)
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+
+      this.setRequestStatus(loadingStatus.SUCCESS)
+
       this.history.goBack()
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

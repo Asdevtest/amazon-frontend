@@ -3,7 +3,7 @@ import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
-import { mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -32,7 +32,7 @@ import { t } from '@utils/translations'
 import { complexCells } from './cell-types'
 import { getCellType } from './helpers/get-cell-type'
 
-export const clientInventoryColumns = (
+export const clientInventoryColumns = ({
   barCodeHandlers,
   hsCodeHandlers,
   fourMonthesStockHandlers,
@@ -40,16 +40,23 @@ export const clientInventoryColumns = (
   otherHandlers,
   additionalFields,
   storekeepers,
-) => {
+}) => {
   const defaultColumns = [
     {
       ...GRID_CHECKBOX_SELECTION_COL_DEF,
-      renderCell: params => (
-        <SelectRowCell
-          checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
-          onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?._id)}
-        />
-      ),
+      renderCell: params => {
+        const isShowSheldGreen = !params.row.ideasOnCheck && !!params.row.ideasVerified
+        const isShowSheldYellow = !!params.row.ideasOnCheck
+
+        return (
+          <SelectRowCell
+            isShowSheldGreen={isShowSheldGreen}
+            isShowSheldYellow={isShowSheldYellow}
+            checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF.renderCell(params)}
+            onClickShareIcon={() => otherHandlers.onClickShowProduct(params.row?._id)}
+          />
+        )
+      },
       width: 80,
       disableCustomSort: true,
       hide: true,
@@ -101,7 +108,7 @@ export const clientInventoryColumns = (
       field: 'strategyStatus',
       headerName: t(TranslationKey.Strategy),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
-      renderCell: params => <MultilineStatusCell status={mapProductStrategyStatusEnum[params.value]} />,
+      renderCell: params => <MultilineStatusCell status={productStrategyStatusesEnum[params.value]} />,
       width: 140,
       columnKey: columnnsKeys.client.INVENTORY_STRATEGY_STATUS,
     },
@@ -128,7 +135,18 @@ export const clientInventoryColumns = (
       field: 'sentToFbaSum',
       headerName: t(TranslationKey.Inbound),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
-      renderCell: params => <MultilineTextCell text={params.value ? String(params.value) : '-'} />,
+      renderCell: params => (
+        <MultilineTextCell
+          link={Number(params.value) > 0}
+          text={String(params.value)}
+          onClickText={e => {
+            if (Number(params.value) > 0) {
+              e.stopPropagation()
+              otherHandlers.onOpenProductDataModal(params.row, true)
+            }
+          }}
+        />
+      ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -173,17 +191,18 @@ export const clientInventoryColumns = (
       field: 'inTransfer',
       headerName: 'in Transfer',
       renderHeader: () => <MultilineTextHeaderCell text={'in Transfer'} />,
-      renderCell: params => {
-        return (
-          <MultilineTextCell
-            text={String(params.value)}
-            onClickText={e => {
+      renderCell: params => (
+        <MultilineTextCell
+          link={Number(params.value) > 0}
+          text={String(params.value)}
+          onClickText={e => {
+            if (Number(params.value) > 0) {
               e.stopPropagation()
-              otherHandlers.onClickInTransfer(params.row?._id)
-            }}
-          />
-        )
-      },
+              otherHandlers.onOpenProductDataModal(params.row, false)
+            }
+          }}
+        />
+      ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -201,9 +220,9 @@ export const clientInventoryColumns = (
       ),
       valueGetter: params => {
         return params.row?.boxAmounts
-          .sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
-          .map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
-          .join(', ')
+          ?.sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
+          ?.map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
+          ?.join(', ')
       },
       width: 145,
       disableCustomSort: true,
@@ -279,21 +298,48 @@ export const clientInventoryColumns = (
     },
 
     {
-      field: 'currentSupplierProductionTerm',
+      field: 'currentSupplierMinProductionTerm',
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
-      renderCell: params => <MultilineTextCell text={params.row.currentSupplier?.productionTerm} />,
-      valueGetter: params => params.row.currentSupplier?.productionTerm,
+      renderCell: params => {
+        const currentSupplier = params.row.currentSupplier
+
+        return currentSupplier ? (
+          <MultilineTextCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+        ) : null
+      },
+      valueGetter: params => {
+        const currentSupplier = params.row.currentSupplier
+
+        return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
+      },
+      fields: [
+        {
+          label: () => t(TranslationKey['Min. production time, days']),
+          value: 'currentSupplierMinProductionTerm',
+        },
+        {
+          label: () => t(TranslationKey['Max. production time, days']),
+          value: 'currentSupplierMaxProductionTerm',
+        },
+      ],
       width: 120,
       sortable: false,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBERS,
+      table: DataGridFilterTables.PRODUCTS,
     },
 
     {
       field: 'tags',
       headerName: t(TranslationKey.Tags),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
-      renderCell: params => <TagsCell tags={params.row?.tags} onClickTag={otherHandlers.onClickTag} />,
+      renderCell: params => (
+        <TagsCell
+          tags={params.row?.tags}
+          onClickTag={otherHandlers.onClickTag}
+          onClickEdit={() => otherHandlers.onClickEdit(params.row?._id)}
+        />
+      ),
       valueGetter: ({ row }) => row?.tags?.map(el => el?.title).join(', '),
       width: 160,
       disableCustomSort: true,

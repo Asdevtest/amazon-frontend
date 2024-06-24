@@ -18,9 +18,8 @@ export const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: 300,
-    // maxHeight: 500,
     padding: '10px 0',
-    gap: 20,
+    gap: 10,
   },
 
   shopsDataWrapperBlocked: {
@@ -31,7 +30,7 @@ export const styles = theme => ({
 
   searchInputWrapper: {
     width: 255,
-    height: 30,
+    height: 32,
   },
   searchInput: {
     border: '1px solid #E0E0E0',
@@ -42,7 +41,7 @@ export const styles = theme => ({
   shopsBody: {
     width: 255,
     minHeight: 50,
-    maxHeight: 245,
+    maxHeight: 200,
     overflowY: 'auto',
     textAlign: 'center',
 
@@ -122,7 +121,6 @@ export const styles = theme => ({
     width: 255,
     display: 'flex',
     gap: 10,
-    // marginBottom: 20,
   },
   radioLable: {
     fontWeight: 400,
@@ -145,15 +143,15 @@ export const styles = theme => ({
   },
 
   fromToDatesWrapper: {
-    padding: '0 10px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   },
 
   fromToDatesSubWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    // flexGrow: 1,
-    marginBottom: 5,
   },
 
   fromToText: {

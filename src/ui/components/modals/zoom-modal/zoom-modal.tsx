@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction, memo } from 'react'
 import Lightbox from 'react-18-image-lightbox'
 import 'react-18-image-lightbox/style.css'
 
-import { MIN_FILES_IN_ARRAY } from '@components/shared/photo-and-files-slider/slider/slider.constants'
+import { MIN_FILES_IN_ARRAY } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
 
 import { checkIsDocumentLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'

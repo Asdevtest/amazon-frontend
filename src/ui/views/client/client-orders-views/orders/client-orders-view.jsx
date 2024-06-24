@@ -1,28 +1,25 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
-import { ProductLotDataForm } from '@components/forms/product-lot-data-form/product-lot-data-form'
+import { ProductDataForm } from '@components/forms/product-data-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { MyOrderModal } from '@components/modals/my-order-modal/my-order-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ProductAndBatchModal } from '@components/modals/product-and-batch-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
-import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './client-orders-view.style'
 
@@ -31,11 +28,7 @@ import { ClientOrdersViewModel } from './client-orders-view.model'
 export const ClientOrdersView = observer(history => {
   const { classes: styles, cx } = useStyles()
 
-  const [viewModel] = useState(() => new ClientOrdersViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const [viewModel] = useState(() => new ClientOrdersViewModel(history))
 
   return (
     <>
@@ -44,7 +37,7 @@ export const ClientOrdersView = observer(history => {
           <div className={styles.topHeaderBtnsSubWrapper}>
             <Button
               styleType={ButtonStyle.SUCCESS}
-              disabled={!viewModel.selectedRowIds.length}
+              disabled={!viewModel.selectedRows.length}
               className={styles.button}
               onClick={viewModel.onClickManyReorder}
             >
@@ -53,7 +46,7 @@ export const ClientOrdersView = observer(history => {
 
             <Button
               styleType={ButtonStyle.DANGER}
-              disabled={!viewModel.selectedRowIds.length}
+              disabled={!viewModel.selectedRows.length}
               className={cx(styles.button, styles.buttonDanger)}
               onClick={viewModel.onConfirmCancelManyReorder}
             >
@@ -75,10 +68,9 @@ export const ClientOrdersView = observer(history => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          useResizeContainer
           disableRowSelectionOnClick
           checkboxSelection={viewModel.isPendingOrdering}
-          localeText={getLocalizationByLanguageTag()}
+          pinnedColumns={viewModel.pinnedColumns}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
@@ -86,6 +78,7 @@ export const ClientOrdersView = observer(history => {
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={row => row._id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -101,18 +94,24 @@ export const ClientOrdersView = observer(history => {
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          rowSelectionModel={viewModel.selectedRowIds}
+          rowSelectionModel={viewModel.selectedRows}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowClick={({ id }) => viewModel.onClickMyOrderModal(id)}
+          onRowClick={params => viewModel.onClickMyOrderModal(params.row._id)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -138,23 +137,24 @@ export const ClientOrdersView = observer(history => {
         />
       </Modal>
 
-      {viewModel.showProductModal ? (
+      <Modal
+        openModal={viewModel.showProductModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
+      >
         <ProductAndBatchModal
-          // @ts-ignore
-          setOpenModal={() => viewModel.onTriggerOpenModal('showProductModal')}
-          openModal={viewModel.showProductModal}
           currentSwitch={viewModel.productAndBatchModalSwitcherCondition}
           batches={viewModel.productBatches}
           getCurrentBatch={viewModel.getCurrBatch}
           currentBatch={viewModel.currentBatch}
           shops={viewModel.shopsData}
           selectedProduct={viewModel.selectedWarehouseOrderProduct}
+          patchActualShippingCostBatch={viewModel.patchActualShippingCostBatch}
           onChangeSwitcher={viewModel.onClickChangeProductAndBatchModalCondition}
           onClickMyOrderModal={viewModel.onClickMyOrderModal}
-          onClickInTransferModal={viewModel.onClickInTransfer}
+          onOpenProductDataModal={viewModel.onOpenProductDataModal}
           onClickHsCode={viewModel.onClickHsCode}
         />
-      ) : null}
+      </Modal>
 
       <Modal
         missClickModalOn
@@ -193,21 +193,14 @@ export const ClientOrdersView = observer(history => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           isWarning={viewModel.confirmModalSettings?.isWarning}
-          title={viewModel.confirmModalSettings.confirmTitle}
-          message={viewModel.confirmModalSettings.confirmMessage}
+          title={viewModel.confirmModalSettings.title}
+          message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />
       ) : null}
-
-      {viewModel.alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
-          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-        />
-      )}
 
       {viewModel.showMyOrderModal ? (
         <MyOrderModal
@@ -230,28 +223,11 @@ export const ClientOrdersView = observer(history => {
         />
       ) : null}
 
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
-
       <Modal
-        openModal={viewModel.showProductLotDataModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLotDataModal')}
+        openModal={viewModel.showProductDataModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showProductDataModal')}
       >
-        <ProductLotDataForm
-          isTransfer
-          userInfo={viewModel.userInfo}
-          product={[viewModel.selectedWarehouseOrderProduct]}
-          batchesData={viewModel.batchesData}
-        />
+        <ProductDataForm product={viewModel.selectedWarehouseOrderProduct} onAmazon={viewModel.onAmazon} />
       </Modal>
     </>
   )

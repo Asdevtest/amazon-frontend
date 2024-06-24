@@ -98,7 +98,7 @@ export const useStyles = makeStyles()(theme => ({
 
   userRoleTitle: {
     color: theme.palette.text.second,
-    marginRight: 15,
+    margin: '0 15px',
 
     [theme.breakpoints.down(1600)]: {
       display: 'none',
@@ -191,6 +191,7 @@ export const useStyles = makeStyles()(theme => ({
 
   notificationIcon: {
     cursor: 'pointer',
+    color: theme.palette.text.general,
 
     [theme.breakpoints.down(768)]: {
       display: 'none !important',

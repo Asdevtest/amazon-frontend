@@ -79,8 +79,8 @@ class RequestModelStatic {
     return response.data
   }
 
-  getRequestsByProductLight = async data => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsByProductLightGuidGet(filterNullValues(data))
+  getRequestsByProductLight = async body => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsByProductLightGuidGet(body)
     return response.data
   }
 
@@ -91,6 +91,11 @@ class RequestModelStatic {
 
   manualCompletedRequest = async guid => {
     const response = await restApiService.SearchRequestApi.apiV1RequestsCompletedGuidPatch({ guid })
+    return response.data
+  }
+
+  patchRequestCommentByGuid = async (guid, body) => {
+    const response = await restApiService.SearchRequestApi.apiV1RequestsCustomDetailsGuidPatch({ guid, body })
     return response.data
   }
 }

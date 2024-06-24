@@ -92,7 +92,7 @@ class BoxesModelStatic {
 
   getBoxesForCurClient = async data => {
     const response = await restApiService.boxesApi.apiV1BoxesClientsGet(filterNullValues(data))
-    return response.data
+    return response?.data || []
   }
 
   getBoxesForCurClientLightPag = async data => {
@@ -120,7 +120,7 @@ class BoxesModelStatic {
 
   getBoxesOfOrder = async guid => {
     const response = await restApiService.boxesApi.apiV1BoxesByOrderGuidGuidGet({ guid })
-    return response.data
+    return response?.data
   }
 
   getBoxesByProductId = async guid => {
@@ -168,6 +168,11 @@ class BoxesModelStatic {
 
   getBoxById = async guid => {
     const response = await restApiService.boxesApi.apiV1BoxesGuidGet({ guid })
+    return response.data
+  }
+
+  getProductInBatch = async body => {
+    const response = await restApiService.boxesApi.apiV1BoxesClientsProductInBatchGuidGet(body)
     return response.data
   }
 }

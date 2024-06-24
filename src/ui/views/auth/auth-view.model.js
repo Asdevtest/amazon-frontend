@@ -1,8 +1,7 @@
-import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { action, makeAutoObservable, reaction } from 'mobx'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { privateRoutesConfigs } from '@constants/navigation/routes'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -11,10 +10,11 @@ import { UserModel } from '@models/user-model'
 import { getObjectKeys } from '@utils/object'
 import { setI18nConfig, t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class AuthViewModel {
   history = undefined
-  requestStatus = undefined
-  error = undefined
+  requestStatus = loadingStatus.SUCCESS
 
   showConfirmModal = false
 
@@ -36,7 +36,7 @@ export class AuthViewModel {
   }
 
   get disableLoginButton() {
-    return this.requestStatus === loadingStatuses.IS_LOADING
+    return this.requestStatus === loadingStatus.IS_LOADING
   }
 
   constructor({ history }) {
@@ -75,11 +75,7 @@ export class AuthViewModel {
 
   async onSubmitForm() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      runInAction(() => {
-        this.error = undefined
-      })
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await UserModel.signIn(this.email.toLowerCase(), this.password)
       await UserModel.getUserInfo()
@@ -91,19 +87,12 @@ export class AuthViewModel {
         )
 
         this.history.push(allowedRoutes[0].routePath)
-      } else {
-        runInAction(() => {
-          this.error = new Error('The user is waiting for confirmation by the Administrator')
-        })
       }
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      runInAction(() => {
-        this.error = error
-      })
-
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

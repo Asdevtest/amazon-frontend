@@ -17,15 +17,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  userInfoMainWrapper: {
-    width: '100%',
-  },
-
-  cardWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
   cardImg: {
     width: '60px',
     height: '60px',
@@ -142,20 +133,13 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: theme.palette.text.general,
-  },
-
-  photoWrapper: {
-    marginLeft: '60px',
-    width: '391px',
-    height: '152px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    wordBreak: 'break-all',
   },
 
   cardContentWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: 40,
   },
 
   cardSubContentWrapper: {

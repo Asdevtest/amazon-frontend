@@ -1,8 +1,8 @@
-import { ButtonHTMLAttributes, FC, MouseEvent, ReactElement, memo, useContext } from 'react'
+import { ButtonHTMLAttributes, FC, ReactElement, memo, useContext } from 'react'
 
 import { Tooltip } from '@mui/material'
 
-import { TooltipAttention, TooltipInfoIcon } from '@components/shared/svg-icons'
+import { TooltipAttentionIcon, TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { HintsContext } from '@contexts/hints-context'
 
@@ -29,7 +29,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   iconButton?: boolean
   buttonIconSize?: number
   smallIconButton?: boolean
-  onClick?: (e: MouseEvent<HTMLElement>) => void
 }
 
 export const Button: FC<ButtonProps> = memo(props => {
@@ -60,6 +59,8 @@ export const Button: FC<ButtonProps> = memo(props => {
   const tooltipPositionStyle =
     isNeedTooltip && tooltipPosition === TooltipPositions.CENTER ? styles.tooltipsCenterWrapper : styles.tooltipsWrapper
 
+  const isNotIconAndOutlined = !iconButton && !isOutlined
+
   return (
     <button
       title={defaultButtonTooltip || ''}
@@ -81,9 +82,9 @@ export const Button: FC<ButtonProps> = memo(props => {
           [styles.casual]: styleType === ButtonStyle.CASUAL,
           [styles.default]: styleType === ButtonStyle.DEFAULT,
 
-          [styles.primary]: styleType === ButtonStyle.PRIMARY && !isOutlined,
-          [styles.danger]: styleType === ButtonStyle.DANGER && !isOutlined,
-          [styles.success]: styleType === ButtonStyle.SUCCESS && !isOutlined,
+          [styles.primary]: styleType === ButtonStyle.PRIMARY && isNotIconAndOutlined,
+          [styles.danger]: styleType === ButtonStyle.DANGER && isNotIconAndOutlined,
+          [styles.success]: styleType === ButtonStyle.SUCCESS && isNotIconAndOutlined,
 
           [styles.outlinedPrimary]: styleType === ButtonStyle.PRIMARY && isOutlined,
           [styles.outlinedSuccess]: styleType === ButtonStyle.SUCCESS && isOutlined,
@@ -103,7 +104,7 @@ export const Button: FC<ButtonProps> = memo(props => {
           <Tooltip arrow title={tooltipAttentionContent || tooltipInfoContent}>
             <div>
               {tooltipAttentionContent ? (
-                <TooltipAttention className={cx(styles.tooltip, { [styles.tableTooltip]: isTableButton })} />
+                <TooltipAttentionIcon className={cx(styles.tooltip, { [styles.tableTooltip]: isTableButton })} />
               ) : (
                 <TooltipInfoIcon
                   className={cx(styles.tooltip, styles.tooltipInfo, { [styles.tableTooltip]: isTableButton })}

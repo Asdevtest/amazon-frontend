@@ -49,15 +49,9 @@ export class AdminProductViewModel {
     this.history = history
     this.productId = url.searchParams.get('product-id')
 
-    makeAutoObservable(this, undefined, { autoBind: true })
-  }
+    this.getProductById()
 
-  loadData() {
-    try {
-      this.getProductById()
-    } catch (error) {
-      console.log(error)
-    }
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async getProductById() {
@@ -69,7 +63,7 @@ export class AdminProductViewModel {
         updateProductAutoCalculatedFields.call(this)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

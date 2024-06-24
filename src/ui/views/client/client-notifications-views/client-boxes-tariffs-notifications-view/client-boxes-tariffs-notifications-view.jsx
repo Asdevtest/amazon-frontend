@@ -2,26 +2,26 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxViewForm } from '@components/forms/box-view-form'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
+import { BoxForm } from '@components/forms/box-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
+import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { styles } from './client-boxes-tariffs-notifications-view.style'
 
 import { ClientBoxesTariffsNotificationsViewModel } from './client-boxes-tariffs-notifications-view.model'
 
 export const ClientBoxesTariffsNotificationsViewRaw = props => {
-  const [viewModel] = useState(() => new ClientBoxesTariffsNotificationsViewModel({ history: props.history }))
+  const [viewModel] = useState(() => new ClientBoxesTariffsNotificationsViewModel())
   const { classes: styles } = props
 
   useEffect(() => {
@@ -32,19 +32,17 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
     <>
       <div className={styles.tableWrapper}>
         <CustomDataGrid
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rows={viewModel.getCurrentData()}
+          rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
           sortingMode="client"
           paginationMode="client"
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -80,31 +78,25 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
         />
       ) : null}
 
-      <Modal
-        openModal={viewModel.showSelectionStorekeeperAndTariffModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
-      >
-        <SelectStorekeeperAndTariffForm
-          inNotifications
-          showCheckbox
-          storekeepers={viewModel.storekeepersData.filter(el => el._id === viewModel.curBox?.storekeeper._id)}
-          curStorekeeperId={viewModel.curBox?.storekeeperId}
-          curTariffId={viewModel.curBox?.logicsTariffId}
-          currentDestinationId={viewModel.curBox?.destination?._id}
-          currentVariationTariffId={viewModel.curBox?.variationTariff?._id}
-          onSubmit={viewModel.onClickConfirmTarrifChangeBtn}
+      {viewModel.showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isTariffsSelect
+          tariffModalType={TariffModal.WAREHOUSE}
+          openModal={viewModel.showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
+          box={viewModel.curBox}
+          onClickSubmit={viewModel.onClickConfirmTarrifChangeBtn}
         />
-      </Modal>
+      ) : null}
 
       <Modal
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
-        <BoxViewForm
+        <BoxForm
           userInfo={viewModel.userInfo}
           box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
+          onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
           onClickHsCode={viewModel.onClickHsCode}
         />
@@ -120,18 +112,6 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
         />
       </Modal>
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
     </>
   )
 }

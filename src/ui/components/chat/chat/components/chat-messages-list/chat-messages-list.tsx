@@ -3,14 +3,14 @@ import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 
 import { Avatar, Link } from '@mui/material'
 
-import { PaginationDirection } from '@constants/pagination/pagination-direction'
-
 import { ChatModel } from '@models/chat-model'
 import { ChatContract } from '@models/chat-model/contracts'
 import { ChatMessageContract, ChatMessageType } from '@models/chat-model/contracts/chat-message.contract'
 
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
+
+import { PaginationDirection } from '@typings/enums/pagination-direction'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
 

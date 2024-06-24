@@ -46,7 +46,18 @@ export const numberCells = [
   'organicCv',
   'fbaMinLvl',
   'cog',
+
   'unitProfit',
+  'historicalDaysOfSupply',
+  'estimatedStorageCost',
+  'estimatedAgedInventorySurcharge',
+  'age0to90Days',
+  'age91to180Days',
+  'age181to270Days',
+  'age271to365Days',
+  'age365plusDays',
+  'storageVolume',
+  'lowInventoryLevelFee',
 ]
 
 export const textCells = ['categoryAbc', 'shipmentId', 'referenceId', 'shipTo']

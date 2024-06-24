@@ -39,7 +39,7 @@ class ProductModelStatic {
 
   getVacProductByUserId = async guid => {
     const response = await restApiService.product.apiV1ProductsByCreatorGuidGet({ guid })
-    return response.data
+    return response?.data ?? []
   }
 
   getProductsHsCodeByGuid = async guid => {
@@ -52,13 +52,28 @@ class ProductModelStatic {
     return response.data
   }
 
-  getProductsVariationsByGuid = async guid => {
-    const response = await restApiService.product.apiV1ProductsVariationsGuidGet({ guid })
+  getProductsVariationsByGuid = async (guid, dataFromInventory, preset, archive) => {
+    const response = await restApiService.product.apiV1ProductsVariationsGuidGet({
+      guid,
+      dataFromInventory,
+      preset,
+      archive,
+    })
     return response.data
   }
 
   unbindProducts = async body => {
     const response = await restApiService.product.apiV1ProductsParentPatch({ body })
+    return response.data
+  }
+
+  getProductTagsByGuid = async guid => {
+    const response = await restApiService.product.apiV1ProductsGuidTagsGet({ guid })
+    return response.data
+  }
+
+  editProductTags = async (guid, body) => {
+    const response = await restApiService.product.apiV1ProductsGuidEditTagsPatch({ guid, body })
     return response.data
   }
 }

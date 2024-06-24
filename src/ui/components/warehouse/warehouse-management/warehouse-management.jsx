@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { SettingsModel } from '@models/settings-model'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { TabPanel } from '@components/shared/tab-panel'
@@ -16,14 +14,10 @@ import { WeightBasedLogisticsTariffs } from './weight-based-logistics-tariffs'
 export const WarehouseManagement = observer(() => {
   const [tabIndex, setTabIndex] = useState(0)
 
-  useEffect(() => {
-    setTabIndex(() => tabIndex)
-  }, [SettingsModel.languageTag])
-
   return (
     <>
       <CustomSwitcher
-        switchMode={'medium'}
+        switchMode="medium"
         condition={tabIndex}
         switcherSettings={[
           { label: () => t(TranslationKey['Weight-based logistics tariffs']), value: 0 },

@@ -3,28 +3,24 @@ import { useEffect, useState } from 'react'
 
 import { routsPathes } from '@constants/navigation/routs-pathes'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { BUYER_MY_ORDERS_MODAL_HEAD_CELLS } from '@constants/table/table-head-cells'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { BoxViewForm } from '@components/forms/box-view-form'
 import { PaymentMethodsForm } from '@components/forms/payment-methods-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { EditOrderModal } from '@components/modals/edit-order-modal'
-import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './buyer-my-orders-view.style'
 
-import { attentionStatuses } from './buyer-my-orders-view.constants'
+import { attentionStatuses, paymentMethodsReadOnlyStatuses } from './buyer-my-orders-view.constants'
 import { BuyerMyOrdersViewModel } from './buyer-my-orders-view.model'
 import { PaymentAllSuppliers } from './payment-all-suppliers/payment-all-suppliers'
 
@@ -68,8 +64,6 @@ export const BuyerMyOrdersView = observer(({ history }) => {
 
       <div className={styles.dataGridWrapper}>
         <CustomDataGrid
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
           getRowClassName={getRowClassName}
           rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
@@ -98,7 +92,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           }}
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -114,32 +108,24 @@ export const BuyerMyOrdersView = observer(({ history }) => {
           viewModel.setUpdateSupplierData(false)
           viewModel.onTriggerOpenModal('showOrderModal')
         }}
-        dialogClassName={styles.dialogClassName}
       >
         <EditOrderModal
           platformSettings={viewModel.platformSettings}
           paymentMethods={viewModel.paymentMethods}
-          hsCodeData={viewModel.hsCodeData}
           userInfo={viewModel.userInfo}
           updateSupplierData={viewModel.updateSupplierData}
-          pathnameNotPaid={viewModel.pathnameNotPaid}
-          photosToLoad={viewModel.photosToLoad}
           requestStatus={viewModel.requestStatus}
-          boxes={viewModel.curBoxesOfOrder}
           order={viewModel.selectedOrder}
+          hsCodeData={viewModel.hsCodeData}
           modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS()}
           showProgress={viewModel.showProgress}
           progressValue={viewModel.progressValue}
-          setPhotosToLoad={viewModel.setPhotosToLoad}
-          setCurrentOpenedBox={viewModel.setCurrentOpenedBox}
           setUpdateSupplierData={viewModel.setUpdateSupplierData}
           onClickUpdataSupplierData={viewModel.onClickUpdataSupplierData}
           onClickSaveWithoutUpdateSupData={viewModel.onClickSaveWithoutUpdateSupData}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
           onSaveOrderItem={viewModel.onSaveOrderItem}
-          onSubmitChangeBoxFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
         />
       </Modal>
@@ -159,84 +145,13 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         />
       ) : null}
 
-      {viewModel.showNoDimensionsErrorModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showNoDimensionsErrorModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
-          title={t(TranslationKey['The fields must be filled in to create the box!'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showNoDimensionsErrorModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningNewBoxesModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningNewBoxesModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
-          title={t(TranslationKey['Creating new boxes. Be careful!'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningNewBoxesModal')}
-        />
-      ) : null}
-
-      {viewModel.showWarningInfoModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          isWarning={viewModel.warningInfoModalSettings.isWarning}
-          openModal={viewModel.showWarningInfoModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-          title={viewModel.warningInfoModalSettings.title}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningInfoModal')}
-        />
-      ) : null}
-
-      {viewModel.showOrderPriceMismatchModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showOrderPriceMismatchModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
-          title={t(
-            TranslationKey[
-              'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
-            ],
-          )}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showOrderPriceMismatchModal')}
-        />
-      ) : null}
-
-      {viewModel.showSuccessModal ? (
-        <SuccessInfoModal
-          // @ts-ignore
-          openModal={viewModel.showSuccessModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-          title={viewModel.showSuccessModalText}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => viewModel.onTriggerOpenModal('showSuccessModal')}
-        />
-      ) : null}
-
-      <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
-        <EditHSCodeModal
-          hsCodeData={viewModel.hsCodeData}
-          onClickSaveHsCode={viewModel.onClickSaveHsCode}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-        />
-      </Modal>
-
       <Modal
         missClickModalOn
         openModal={viewModel.showPaymentMethodsModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showPaymentMethodsModal')}
       >
         <PaymentMethodsForm
-          readOnly={Number(viewModel.currentOrder?.status) !== Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT])}
+          readOnly={paymentMethodsReadOnlyStatuses.includes(viewModel.currentOrder?.status)}
           orderPayments={viewModel.currentOrder?.payments}
           allPayments={viewModel.paymentMethods}
           onClickSaveButton={state => viewModel.saveOrderPayment(viewModel.currentOrder, state)}
@@ -244,23 +159,7 @@ export const BuyerMyOrdersView = observer(({ history }) => {
         />
       </Modal>
 
-      <Modal
-        openModal={viewModel.showBoxViewModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-      >
-        <BoxViewForm
-          userInfo={viewModel.userInfo}
-          box={viewModel.curBox}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
-          onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
-          onClickHsCode={viewModel.onClickHsCode}
-        />
-      </Modal>
-
-      {viewModel.requestStatus === loadingStatuses.IS_LOADING && (
-        <CircularProgressWithLabel wrapperClassName={styles.loadingCircle} />
-      )}
+      {viewModel.requestStatus === loadingStatus.IS_LOADING && <CircularProgressWithLabel />}
     </>
   )
 })

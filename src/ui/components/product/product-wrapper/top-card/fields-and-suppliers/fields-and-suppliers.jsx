@@ -6,15 +6,13 @@ import { UserRole } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import {
   ProductStrategyStatus,
-  mapProductStrategyStatusEnum,
   mapProductStrategyStatusEnumToKey,
+  productStrategyStatusesEnum,
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { GeneralModel } from '@models/general-model'
-
 import { UserLinkCell } from '@components/data-grid/data-grid-cells'
-import { TagSelector } from '@components/product/product-wrapper/tag-selector'
+import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
@@ -23,7 +21,8 @@ import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { CustomPlusIcon, DownloadRoundIcon } from '@components/shared/svg-icons'
+import { CustomPlusIcon, DownloadRoundIcon, EditIcon } from '@components/shared/svg-icons'
+import { TagList } from '@components/shared/tag-list'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
@@ -64,9 +63,10 @@ export const FieldsAndSuppliers = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const [edit, setEdit] = useState(true)
+  const [showEditProductTagsModal, setShowEditProductTagsModal] = useState(false)
 
   const onChangeShop = shopId => {
-    onChangeField('shopId')({ target: { value: shopId } })
+    onChangeField?.('shopId')({ target: { value: shopId } })
   }
 
   const isEditRedFlags =
@@ -76,10 +76,10 @@ export const FieldsAndSuppliers = memo(props => {
     checkIsResearcher(curUserRole) ||
     (checkIsSupervisor(curUserRole) && showActionBtns) ||
     (checkIsClient(curUserRole) &&
-      product.isCreatedByClient &&
+      product?.isCreatedByClient &&
       clientToEditStatuses.includes(productBase.status) &&
       checkIsClient(curUserRole) &&
-      !product.archive)
+      !product?.archive)
   )
   const seoFileValue = product?.latestSeoFiles[0]
     ? getFileNameFromUrl(product?.latestSeoFiles[0]).name
@@ -94,14 +94,14 @@ export const FieldsAndSuppliers = memo(props => {
           <>
             <div className={styles.linkAndButtonWrapper}>
               <div className={styles.copyLink}>
-                {edit && product.lamazon ? (
+                {edit && product?.lamazon ? (
                   <Link
                     target="_blank"
                     rel="noopener"
-                    href={checkAndMakeAbsoluteUrl(product.lamazon)}
-                    className={cx(styles.inputLink, { [styles.linkDecoration]: !edit || !product.lamazon })}
+                    href={checkAndMakeAbsoluteUrl(product?.lamazon)}
+                    className={cx(styles.inputLink, { [styles.linkDecoration]: !edit || !product?.lamazon })}
                   >
-                    <Typography className={styles.lamazonText}>{product.lamazon}</Typography>
+                    <Typography className={styles.lamazonText}>{product?.lamazon}</Typography>
                   </Link>
                 ) : (
                   <Input
@@ -110,16 +110,16 @@ export const FieldsAndSuppliers = memo(props => {
                       input: cx(
                         styles.inputLink,
                         { [styles.inputDisabled]: edit },
-                        { [styles.linkOnEdit]: edit && product.lamazon },
+                        { [styles.linkOnEdit]: edit && product?.lamazon },
                       ),
                     }}
-                    placeholder={!product.lamazon ? t(TranslationKey['Enter link']) : ''}
-                    value={product.lamazon}
-                    onChange={onChangeField('lamazon')}
+                    placeholder={!product?.lamazon ? t(TranslationKey['Enter link']) : ''}
+                    value={product?.lamazon}
+                    onChange={onChangeField?.('lamazon')}
                   />
                 )}
 
-                {product.lamazon ? <CopyValue text={product.lamazon} /> : null}
+                {product?.lamazon ? <CopyValue text={product?.lamazon} /> : null}
               </div>
 
               {!checkIsBuyer(curUserRole) ? (
@@ -141,8 +141,8 @@ export const FieldsAndSuppliers = memo(props => {
 
             <div className={styles.editButtonWrapper}>
               {checkIsClient(curUserRole) &&
-                product.isCreatedByClient &&
-                !product.archive &&
+                product?.isCreatedByClient &&
+                !product?.archive &&
                 clientToEditStatuses.includes(productBase.status) &&
                 (edit ? (
                   <Button
@@ -179,48 +179,49 @@ export const FieldsAndSuppliers = memo(props => {
                   disabled={
                     !(
                       checkIsClient(curUserRole) &&
-                      product.isCreatedByClient &&
+                      product?.isCreatedByClient &&
                       clientToEditStatuses.includes(productBase.status) &&
                       checkIsClient(curUserRole) &&
-                      !product.archive
+                      !product?.archive
                     )
                   }
-                  value={product.asin}
+                  value={product?.asin}
                   inputProps={{ maxLength: 254 }}
                   className={cx(styles.inputAsin, {
                     [styles.inputDisabled]: !(
                       checkIsClient(curUserRole) &&
-                      product.isCreatedByClient &&
+                      product?.isCreatedByClient &&
                       clientToEditStatuses.includes(productBase.status) &&
                       checkIsClient(curUserRole) &&
-                      !product.archive
+                      !product?.archive
                     ),
+                    [styles.error]: formFieldsValidationErrors.asin,
                   })}
-                  onChange={onChangeField('asin')}
+                  onChange={onChangeField?.('asin')}
                 />
-                {product.asin ? <CopyValue text={product.asin} /> : null}
+                {product?.asin ? <CopyValue text={product?.asin} /> : null}
               </div>
             }
           />
 
-          {checkIsClient(curUserRole) && product.isCreatedByClient && (
+          {checkIsClient(curUserRole) && product?.isCreatedByClient && (
             <Field
               label={t(TranslationKey['SKU by Client'])}
               inputComponent={
                 <div className={styles.subInputWrapper}>
                   <Input
-                    disabled={!clientToEditStatuses.includes(productBase.status) || product.archive}
+                    disabled={!clientToEditStatuses.includes(productBase.status) || product?.archive}
                     placeholder={t(TranslationKey.SKU)}
                     inputProps={{ maxLength: 50 }}
-                    value={product.skuByClient}
+                    value={product?.skuByClient}
                     className={styles.inputAsin}
                     onChange={e =>
-                      onChangeField('skuByClient')({
+                      onChangeField?.('skuByClient')({
                         target: { value: e.target.value ? e.target.value : '' },
                       })
                     }
                   />
-                  {product.skuByClient ? <CopyValue text={product.skuByClient} /> : null}
+                  {product?.skuByClient ? <CopyValue text={product?.skuByClient} /> : null}
                 </div>
               }
             />
@@ -236,15 +237,15 @@ export const FieldsAndSuppliers = memo(props => {
                       checkIsSupervisor(curUserRole) ||
                       checkIsResearcher(curUserRole) ||
                       (checkIsClient(curUserRole) &&
-                        product.isCreatedByClient &&
+                        product?.isCreatedByClient &&
                         clientToEditStatuses.includes(productBase.status) &&
                         checkIsClient(curUserRole) &&
-                        !product.archive)
+                        !product?.archive)
                     )
                   }
                   classes={{ root: styles.radioRoot }}
-                  checked={product.fba}
-                  onChange={() => onChangeField('fba')({ target: { value: !product.fba } })}
+                  checked={product?.fba}
+                  onChange={() => onChangeField?.('fba')({ target: { value: !product?.fba } })}
                 />
                 <Typography className={styles.radioLabel}>{t(TranslationKey.FBA)}</Typography>
               </Box>
@@ -256,15 +257,15 @@ export const FieldsAndSuppliers = memo(props => {
                       checkIsSupervisor(curUserRole) ||
                       checkIsResearcher(curUserRole) ||
                       (checkIsClient(curUserRole) &&
-                        product.isCreatedByClient &&
+                        product?.isCreatedByClient &&
                         clientToEditStatuses.includes(productBase.status) &&
                         checkIsClient(curUserRole) &&
-                        !product.archive)
+                        !product?.archive)
                     )
                   }
                   classes={{ root: styles.radioRoot }}
-                  checked={!product.fba}
-                  onChange={() => onChangeField('fba')({ target: { value: !product.fba } })}
+                  checked={!product?.fba}
+                  onChange={() => onChangeField?.('fba')({ target: { value: !product?.fba } })}
                 />
                 <Typography className={styles.radioLabel}>{'FBM'}</Typography>
               </Box>
@@ -283,17 +284,17 @@ export const FieldsAndSuppliers = memo(props => {
                       !(
                         checkIsResearcher(curUserRole) ||
                         (checkIsClient(curUserRole) &&
-                          product.isCreatedByClient &&
+                          product?.isCreatedByClient &&
                           clientToEditStatuses.includes(productBase.status) &&
                           checkIsClient(curUserRole) &&
-                          !product.archive)
+                          !product?.archive)
                       )
                     }
-                    value={product.strategyStatus}
+                    value={product?.strategyStatus}
                     className={styles.nativeSelect}
-                    onChange={onChangeField('strategyStatus')}
+                    onChange={onChangeField?.('strategyStatus')}
                   >
-                    {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
+                    {Object.keys(productStrategyStatusesEnum).map((statusCode, statusIndex) => (
                       <MenuItem
                         key={statusIndex}
                         value={statusCode}
@@ -302,7 +303,7 @@ export const FieldsAndSuppliers = memo(props => {
                           checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
                         }
                       >
-                        {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
+                        {productStrategyStatusesEnum[statusCode]?.replace(/_/g, ' ')}
                       </MenuItem>
                     ))}
                   </Select>
@@ -313,19 +314,19 @@ export const FieldsAndSuppliers = memo(props => {
         </div>
 
         {(showActionBtns || !!product?.tags?.length) && (
-          <Box maxWidth={300}>
-            <div className={styles.subUsersTitleWrapper}>
-              <Typography className={styles.subUsersTitle}>{t(TranslationKey['Product tags'])}</Typography>
+          <div className={styles.tagsWrapper}>
+            <div className={styles.tagsTitleWrapper}>
+              <p className={styles.subUsersTitle}>{t(TranslationKey['Product tags'])}</p>
+
+              {showActionBtns && !checkIsSupervisor(curUserRole) && !checkIsBuyer(curUserRole) ? (
+                <Button iconButton onClick={() => setShowEditProductTagsModal(true)}>
+                  <EditIcon />
+                </Button>
+              ) : null}
             </div>
-            <TagSelector
-              isEditMode={showActionBtns}
-              handleSaveTags={tags => onChangeField('tags')({ target: { value: tags } })}
-              currentTags={product.tags}
-              getTags={GeneralModel.getTagList}
-              prefix="# "
-              placeholder={'# ' + t(TranslationKey['Input tag'])}
-            />
-          </Box>
+
+            <TagList selectedTags={product?.tags} />
+          </div>
         )}
 
         {(isEditRedFlags || !!product?.redFlags?.length) && (
@@ -336,15 +337,15 @@ export const FieldsAndSuppliers = memo(props => {
             <div className={cx(styles.redFlags, { [styles.redFlagsView]: !isEditRedFlags })}>
               <RedFlags
                 isEditMode={isEditRedFlags}
-                activeFlags={product.redFlags}
-                handleSaveFlags={flags => onChangeField('redFlags')({ target: { value: flags || [] } })}
+                activeFlags={product?.redFlags}
+                handleSaveFlags={flags => onChangeField?.('redFlags')({ target: { value: flags || [] } })}
               />
             </div>
           </div>
         )}
 
         <div className={styles.strategyAndSubUsersWrapper}>
-          {Number(product.strategyStatus) ===
+          {Number(product?.strategyStatus) ===
             mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL] && (
             <div>
               <div className={styles.rightBlockWrapper}>
@@ -355,8 +356,8 @@ export const FieldsAndSuppliers = memo(props => {
                     containerClasses={styles.field}
                     inputClasses={styles.inputField}
                     label={t(TranslationKey.Niche)}
-                    value={product.niche}
-                    onChange={onChangeField('niche')}
+                    value={product?.niche}
+                    onChange={onChangeField?.('niche')}
                   />
                   <Field
                     disabled={disabledPrivateLabelFields}
@@ -364,8 +365,8 @@ export const FieldsAndSuppliers = memo(props => {
                     containerClasses={styles.field}
                     inputClasses={styles.inputField}
                     label={'Asins'}
-                    value={product.asins}
-                    onChange={onChangeField('asins')}
+                    value={product?.asins}
+                    onChange={onChangeField?.('asins')}
                   />
 
                   <div className={styles.fieldsSubWrapper}>
@@ -375,8 +376,8 @@ export const FieldsAndSuppliers = memo(props => {
                       containerClasses={styles.shortInput}
                       inputClasses={styles.shortInputClass}
                       label={t(TranslationKey['Average revenue'])}
-                      value={product.avgRevenue}
-                      onChange={onChangeField('avgRevenue')}
+                      value={product?.avgRevenue}
+                      onChange={onChangeField?.('avgRevenue')}
                     />
                     <Field
                       disabled={disabledPrivateLabelFields}
@@ -384,8 +385,8 @@ export const FieldsAndSuppliers = memo(props => {
                       inputClasses={styles.shortInputClass}
                       inputProps={{ maxLength: 10 }}
                       label={t(TranslationKey['Average BSR'])}
-                      value={product.avgBSR}
-                      onChange={onChangeField('avgBSR')}
+                      value={product?.avgBSR}
+                      onChange={onChangeField?.('avgBSR')}
                     />
                   </div>
                 </div>
@@ -397,8 +398,8 @@ export const FieldsAndSuppliers = memo(props => {
                     label={t(TranslationKey['Total Revenue'])}
                     containerClasses={styles.field}
                     inputClasses={styles.inputField}
-                    value={product.totalRevenue}
-                    onChange={onChangeField('totalRevenue')}
+                    value={product?.totalRevenue}
+                    onChange={onChangeField?.('totalRevenue')}
                   />
                   <Field
                     disabled={disabledPrivateLabelFields}
@@ -406,8 +407,8 @@ export const FieldsAndSuppliers = memo(props => {
                     label={t(TranslationKey.Coefficient)}
                     containerClasses={styles.field}
                     inputClasses={styles.inputField}
-                    value={product.coefficient}
-                    onChange={onChangeField('coefficient')}
+                    value={product?.coefficient}
+                    onChange={onChangeField?.('coefficient')}
                   />
 
                   <div className={styles.fieldsSubWrapper}>
@@ -417,8 +418,8 @@ export const FieldsAndSuppliers = memo(props => {
                       containerClasses={styles.shortInput}
                       inputClasses={styles.shortInputClass}
                       label={t(TranslationKey['Average Price'])}
-                      value={product.avgPrice}
-                      onChange={onChangeField('avgPrice')}
+                      value={product?.avgPrice}
+                      onChange={onChangeField?.('avgPrice')}
                     />
                     <Field
                       disabled={disabledPrivateLabelFields}
@@ -426,15 +427,15 @@ export const FieldsAndSuppliers = memo(props => {
                       inputClasses={styles.shortInputClass}
                       inputProps={{ maxLength: 10 }}
                       label={t(TranslationKey['Average Review'])}
-                      value={product.avgReviews}
-                      onChange={onChangeField('avgReviews')}
+                      value={product?.avgReviews}
+                      onChange={onChangeField?.('avgReviews')}
                     />
                   </div>
                 </div>
               </div>
             </div>
           )}
-          {(checkIsClient(curUserRole) || checkIsBuyer(curUserRole)) && product.subUsers?.length ? (
+          {(checkIsClient(curUserRole) || checkIsBuyer(curUserRole)) && product?.subUsers?.length ? (
             <div className={styles.subUsersWrapper}>
               <div className={styles.subUsersTitleWrapper}>
                 <Typography className={styles.subUsersTitle}>
@@ -541,8 +542,8 @@ export const FieldsAndSuppliers = memo(props => {
           {(checkIsClient(curUserRole) || checkIsBuyer(curUserRole)) && (
             <Checkbox
               disabled={checkIsBuyer(curUserRole)}
-              checked={product.transparency}
-              onChange={e => onChangeField('transparency')(e.target.checked)}
+              checked={product?.transparency}
+              onChange={e => onChangeField?.('transparency')(e.target.checked)}
             >
               {t(TranslationKey['Transparency codes'])}
             </Checkbox>
@@ -557,7 +558,7 @@ export const FieldsAndSuppliers = memo(props => {
           labelClasses={styles.label}
           containerClasses={styles.hsFieldContainer}
           inputComponent={
-            <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(product._id)}>
+            <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(product?._id)}>
               {t(TranslationKey['HS code'])}
             </Button>
           }
@@ -580,10 +581,10 @@ export const FieldsAndSuppliers = memo(props => {
                   !(
                     shops.length ||
                     (checkIsClient(curUserRole) &&
-                      product.isCreatedByClient &&
+                      product?.isCreatedByClient &&
                       clientToEditStatuses.includes(productBase.status) &&
                       checkIsClient(curUserRole) &&
-                      !product.archive)
+                      !product?.archive)
                   )
                 }
                 customSubMainWrapper={styles.customSubMainWrapper}
@@ -599,6 +600,15 @@ export const FieldsAndSuppliers = memo(props => {
             }
           />
         </div>
+      ) : null}
+
+      {showEditProductTagsModal ? (
+        <EditProductTags
+          openModal={showEditProductTagsModal}
+          setOpenModal={() => setShowEditProductTagsModal(false)}
+          productId={product?._id}
+          handleUpdateRow={tags => onChangeField?.('tags')({ target: { value: tags } })}
+        />
       ) : null}
     </Grid>
   )

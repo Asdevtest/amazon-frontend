@@ -105,7 +105,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
             <div className={styles.category}>
               <Typography className={styles.categoryTitle}>{t(TranslationKey.Files)}</Typography>
 
-              <SlideshowGallery files={requestMedia} slidesToShow={2} />
+              <SlideshowGallery files={requestMedia} slidesToShow={3} />
             </div>
           </div>
 
@@ -134,11 +134,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
                   variant={ButtonVariant.OUTLINED}
                   onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
                 >
-                  <Checkbox
-                    checked={request?.uploadedToListing}
-                    className={styles.listingButton}
-                    onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
-                  />
+                  <Checkbox checked={request?.uploadedToListing} className={styles.listingButton} />
 
                   <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
                 </Button>

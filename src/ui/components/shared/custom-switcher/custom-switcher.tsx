@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
@@ -12,12 +14,14 @@ export interface ISwitcherSettings {
 }
 
 interface CustomSwitcherProps {
+  condition: any
+  switcherSettings: ISwitcherSettings[]
+  changeConditionHandler: (condition: any) => void
   fullWidth?: boolean
   switchMode?: 'small' | 'default' | 'medium' | 'big' | 'header'
-  switcherSettings: ISwitcherSettings[]
-  condition: string | number | null | undefined
-  customCondition?: (vale: string | number | null | undefined | Object) => boolean
-  changeConditionHandler: (condition: string | number | null | undefined) => void
+  className?: string
+  circle?: boolean
+  customCondition?: (value: any) => boolean
 }
 
 export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
@@ -27,6 +31,8 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
     condition,
     switcherSettings,
     fullWidth,
+    className,
+    circle,
     changeConditionHandler,
     customCondition,
   } = props
@@ -39,11 +45,15 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
 
   return (
     <div
-      className={cx(styles.switcherWrapper, {
-        [styles.fullWidthWrapper]: fullWidth,
-        [styles.headerStylesSwitcherWrapper]: switchMode === 'header',
-        [styles.mediumGapWrapper]: switchMode === 'medium',
-      })}
+      className={cx(
+        styles.switcherWrapper,
+        {
+          [styles.fullWidthWrapper]: fullWidth,
+          [styles.headerStylesSwitcherWrapper]: switchMode === 'header',
+          [styles.mediumGapWrapper]: switchMode === 'medium',
+        },
+        className,
+      )}
     >
       {switchOptionsToRender.map((option, optionIndex) => (
         <div
@@ -60,12 +70,13 @@ export const CustomSwitcher: FC<CustomSwitcherProps> = observer(props => {
               [styles.bigOptionStyles]: switchMode === 'big',
               [styles.smallOptionStyles]: switchMode === 'small',
               [styles.headerOptionStyles]: switchMode === 'header',
-              [styles.activeOption]: condition === option.value || customCondition?.(option.value),
+              [styles.activeOption]: isEqual(condition, option.value) || customCondition?.(option.value),
               [styles.headerActiveOptionStyles]:
-                switchMode === 'header' && (condition === option.value || customCondition?.(option.value)),
+                switchMode === 'header' && (isEqual(condition, option.value) || customCondition?.(option.value)),
+              [styles.circleOptionStyles]: circle,
             })}
             onClick={() => {
-              if (condition !== option.value || !customCondition?.(option.value)) {
+              if (!isEqual(condition, option.value) || !customCondition?.(option.value)) {
                 changeConditionHandler(option.value)
               }
             }}

@@ -2,11 +2,12 @@ import { hoursToSeconds, minutesToHours, secondsToHours, secondsToMinutes } from
 import QueryString from 'qs'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { NotificationType } from '@constants/keys/notifications'
+import { getTranslationNotificationType } from '@constants/notifications/notification-type'
 import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { ProductStatusByCode, productStatusTranslateKey } from '@constants/product/product-status'
-import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
+import { boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
 import { freelanceRequestTypeByCode } from '@constants/statuses/freelance-request-type'
 import { ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status'
@@ -14,6 +15,8 @@ import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_MINUTES, ONE_HOUR_IN_SECONDS, ONE_MINUT
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { checkIsAbsoluteUrl } from '@utils/checks'
+
+import { Notification } from '@typings/enums/notification'
 
 import { getDistanceBetweenDatesInSeconds } from '../date-time'
 import { t } from '../translations'
@@ -30,7 +33,7 @@ export const toFixed = (int, x = 2) => (int && typeof int === 'number' ? int.toF
 
 export const getFloatOrZero = str => (str ? parseFloat(str) || 0 : 0)
 
-export const toFixedWithDollarSign = (int, x) => withDollarSign(toFixed(int, x))
+export const toFixedWithDollarSign = (int, x = 2) => withDollarSign(toFixed(int, x))
 export const toFixedWithYuanSign = (int, x) => withYuanSign(toFixed(int, x))
 
 export const toFixedWithKg = (int, x) => withKg(toFixed(int, x))
@@ -153,7 +156,7 @@ export const timeToDeadlineInDaysAndHours = ({ date, now }) => {
 
   const hours = Math.floor((absSecondsToDeadline % (3600 * 24)) / 3600)
 
-  return !isExpired ? `${days} ${t(TranslationKey.days)} ${hours} ${t(TranslationKey.hour)}` : ''
+  return !isExpired ? `${days} ${t(TranslationKey.days)} ${hours} ${t(TranslationKey.hour)}` : t(TranslationKey.Expired)
 }
 
 export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replaceAll('&', ';')).replaceAll('%24', '$')
@@ -201,6 +204,10 @@ export const getTableByColumn = (column, hint) => {
       return 'batches'
     }
 
+    if (['updatedAt'].includes(column) && hint === 'products') {
+      return 'products'
+    }
+
     if (column === 'batchHumanFriendlyId' && hint === 'boxes') {
       return 'batches'
     }
@@ -209,7 +216,7 @@ export const getTableByColumn = (column, hint) => {
       return 'orders'
     }
 
-    if (['buyerComment', 'createdBy', 'sub'].includes(column) && hint === 'ideas') {
+    if (['buyerComment', 'createdBy', 'sub', 'status', 'updatedAt'].includes(column) && hint === 'ideas') {
       return 'ideas'
     }
 
@@ -274,12 +281,16 @@ export const getTableByColumn = (column, hint) => {
       'createdAt',
       'updatedAt',
       'trackNumberText',
+      'minProductionTerm',
+      'maxProductionTerm',
     ].includes(column)
   ) {
     if (['buyer', 'createdAt', 'updatedAt'].includes(column) && hint === 'orders') {
       return 'orders'
     } else if (['childProductShop', 'parentProductShop'].includes(column) && hint === 'ideas') {
       return 'products'
+    } else if (['minProductionTerm', 'maxProductionTerm'].includes(column) && hint === 'orders') {
+      return 'suppliers'
     } else if (
       [
         'parentProductSkuByClient',
@@ -381,7 +392,7 @@ export const getTableByColumn = (column, hint) => {
 export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
   switch (columnKey) {
     case columnnsKeys.client.INVENTORY_STRATEGY_STATUS:
-      return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
+      return humanFriendlyStategyStatus(productStrategyStatusesEnum[status])
 
     case columnnsKeys.client.INVENTORY_STATUS:
       return t(productStatusTranslateKey(ProductStatusByCode[status]))
@@ -401,10 +412,16 @@ export const getStatusByColumnKeyAndStatusKey = (status, columnKey) => {
     case columnnsKeys.client.IDEAS_STATUS:
       return ideaStatusTranslate(ideaStatusByCode[status])
     case columnnsKeys.admin.STRATEGY_STATUS:
-      return humanFriendlyStategyStatus(mapProductStrategyStatusEnum[status])
+      return humanFriendlyStategyStatus(productStrategyStatusesEnum[status])
 
     case columnnsKeys.shared.TASK_COMPLEXITY:
       return difficultyLevelTranslate(difficultyLevelByCode[status])
+
+    case columnnsKeys.shared.TYPE:
+      return getTranslationNotificationType(status)
+
+    case columnnsKeys.box.SHOP:
+      return boxStatusTranslateKey(status)
 
     default:
       return status
@@ -444,23 +461,26 @@ export const imagesWithPreviewRegex = new RegExp(`(https?:\\/\\/.*(?:${imgTypes.
 
 export const getHumanFriendlyNotificationType = type => {
   switch (type) {
-    case NotificationType.Box:
+    case Notification.Box:
       return t(TranslationKey.Box)
 
-    case NotificationType.Order:
+    case Notification.Order:
       return t(TranslationKey.Order)
 
-    case NotificationType.Idea:
+    case Notification.Idea:
       return t(TranslationKey.Idea)
 
-    case NotificationType.Request:
+    case Notification.Request:
       return t(TranslationKey.Request)
 
-    case NotificationType.Proposal:
+    case Notification.Proposal:
       return t(TranslationKey.Proposal)
 
-    case NotificationType.Shop:
+    case Notification.Shop:
       return t(TranslationKey.Shop)
+
+    case Notification.Launch:
+      return t(TranslationKey.Launches)
 
     default:
       break
@@ -484,11 +504,8 @@ export const parseTextString = textValue => {
 }
 
 export const formatCamelCaseString = str =>
-  str.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b\w/g, c => c.toUpperCase())
-
-export const addHttpsPrefix = url => {
-  if (!url.startsWith('https://')) {
-    url = 'https://' + url
-  }
-  return url
-}
+  str
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replaceAll(/([a-zA-Z])(\d)/g, '$1 $2')
+    .replaceAll(/(\d)([a-zA-Z])/g, '$1 $2')
+    .replace(/\b\w/g, c => c.toUpperCase())

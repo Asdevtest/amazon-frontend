@@ -78,7 +78,7 @@ export const CreateOrEditServiceContent = memo(props => {
               </MenuItem>
 
               {specs.map(spec => (
-                <MenuItem key={spec._id} value={spec?._id} className={styles.capitalize}>
+                <MenuItem key={spec._id} value={spec?._id}>
                   {spec?.title}
                 </MenuItem>
               ))}
@@ -101,12 +101,10 @@ export const CreateOrEditServiceContent = memo(props => {
       />
 
       <UploadFilesInput
-        fullWidth
         minimized
         images={formFields.linksToMediaFiles}
         setImages={onChangeImages('linksToMediaFiles')}
-        maxNumber={50}
-        isNotShowActionsBtns={!formFields.linksToMediaFiles}
+        withoutActionsButtons={!formFields.linksToMediaFiles}
       />
 
       <div className={styles.buttonsWrapper}>

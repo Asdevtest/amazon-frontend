@@ -1,16 +1,15 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './buyer-free-orders-view.style'
 
@@ -27,53 +26,48 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
 
   return (
     <>
-      <div>
-        <div className={styles.btnsWrapper}>
-          <Button disabled={viewModel.selectedRowIds.length === 0} onClick={viewModel.onPickupSomeItems}>
-            {t(TranslationKey['Take on the work of the selected'])}
-          </Button>
-        </div>
+      <div className={styles.btnsWrapper}>
+        <Button disabled={viewModel.selectedRowIds.length === 0} onClick={viewModel.onPickupSomeItems}>
+          {t(TranslationKey['Take on the work of the selected'])}
+        </Button>
+      </div>
 
-        <div className={styles.dataGridWrapper}>
-          <CustomDataGrid
-            checkboxSelection
-            useResizeContainer
-            disableRowSelectionOnClick
-            sortingMode="client"
-            paginationMode="client"
-            localeText={getLocalizationByLanguageTag()}
-            sortModel={viewModel.sortModel}
-            filterModel={viewModel.filterModel}
-            columnVisibilityModel={viewModel.columnVisibilityModel}
-            paginationModel={viewModel.paginationModel}
-            rows={viewModel.currentData}
-            getRowHeight={() => 'auto'}
-            slotProps={{
-              baseTooltip: {
-                title: t(TranslationKey.Filter),
+      <div className={styles.dataGridWrapper}>
+        <CustomDataGrid
+          checkboxSelection
+          disableRowSelectionOnClick
+          sortingMode="client"
+          paginationMode="client"
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          slotProps={{
+            baseTooltip: {
+              title: t(TranslationKey.Filter),
+            },
+            toolbar: {
+              resetFiltersBtnSettings: {
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+                onClickResetFilters: viewModel.onClickResetFilters,
               },
-              toolbar: {
-                resetFiltersBtnSettings: {
-                  isSomeFilterOn: viewModel.isSomeFilterOn,
-                  onClickResetFilters: viewModel.onClickResetFilters,
-                },
-                columsBtnSettings: {
-                  columnsModel: viewModel.columnsModel,
-                  columnVisibilityModel: viewModel.columnVisibilityModel,
-                  onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
-                },
+              columsBtnSettings: {
+                columnsModel: viewModel.columnsModel,
+                columnVisibilityModel: viewModel.columnVisibilityModel,
+                onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
-            }}
-            density={viewModel.densityModel}
-            columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
-            onSortModelChange={viewModel.onChangeSortingModel}
-            onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
-            onPaginationModelChange={viewModel.onPaginationModelChange}
-            onFilterModelChange={viewModel.onChangeFilterModel}
-            onRowSelectionModelChange={viewModel.onSelectionModel}
-          />
-        </div>
+            },
+          }}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onFilterModelChange={viewModel.onChangeFilterModel}
+          onRowSelectionModelChange={viewModel.onSelectionModel}
+        />
       </div>
 
       {viewModel.showTwoVerticalChoicesModal ? (
@@ -88,17 +82,6 @@ export const BuyerFreeOrdersView = observer(({ history }) => {
           bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
           onClickTopBtn={() => viewModel.goToMyOrders()}
           onClickBottomBtn={viewModel.onClickContinueWorkButton}
-        />
-      ) : null}
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.warningTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
         />
       ) : null}
     </>

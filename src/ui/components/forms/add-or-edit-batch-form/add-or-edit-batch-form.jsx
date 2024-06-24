@@ -13,6 +13,8 @@ import {
 } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { UserModel } from '@models/user-model'
+
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -30,7 +32,6 @@ import {
 } from '@utils/calculation'
 import { checkIsClient } from '@utils/checks'
 import { addOrEditBatchDataConverter } from '@utils/data-grid-data-converters'
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -42,12 +43,12 @@ import { useStyles } from './add-or-edit-batch-form.style'
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
 export const AddOrEditBatchForm = observer(
-  ({ userRole, boxesData, onClose, onSubmit, batchToEdit, sourceBox, showProgress, progressValue, history }) => {
-    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel({ history }))
+  ({ boxesData, onClose, onSubmit, batchToEdit, sourceBox, showProgress, progressValue }) => {
+    const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
 
     const { classes: styles, cx } = useStyles()
 
-    const isClient = checkIsClient(UserRoleCodeMap[userRole])
+    const isClient = checkIsClient(UserRoleCodeMap[UserModel.platformSettings?.role])
 
     const [nameSearchValueBoxesToAddData, setNameSearchValueBoxesToAddData] = useState('')
 
@@ -566,7 +567,6 @@ export const AddOrEditBatchForm = observer(
           <div className={styles.tableWrapper}>
             <CustomDataGrid
               checkboxSelection
-              localeText={getLocalizationByLanguageTag()}
               sortingMode="client"
               paginationMode="client"
               columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -666,7 +666,7 @@ export const AddOrEditBatchForm = observer(
             </Button>
           </div>
 
-          <UploadFilesInput oneLine images={filesToAdd} setImages={setfilesToAdd} maxNumber={50} />
+          <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} />
 
           <div className={styles.btnsWrapper}>
             <Button

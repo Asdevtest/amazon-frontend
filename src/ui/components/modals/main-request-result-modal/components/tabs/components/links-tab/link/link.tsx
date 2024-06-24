@@ -6,7 +6,7 @@ import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
 import { BasketIcon } from '@components/shared/svg-icons'
 
-import { addHttpsPrefix } from '@utils/text'
+import { checkAndMakeAbsoluteUrl } from '@utils/text'
 
 import { useStyles } from './link.style'
 
@@ -25,7 +25,6 @@ export const Link: FC<LinkProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const notClientAndNotReadOnly = !isClient && !readOnly
-  const isNotValidLink = link?.trim()?.length === 0 || link?.length > MIDDLE_COMMENT_VALUE
 
   return (
     <div className={styles.linkContainer}>
@@ -37,14 +36,14 @@ export const Link: FC<LinkProps> = memo(props => {
             maxLength: MIDDLE_COMMENT_VALUE,
           }}
           classes={{
-            root: cx(styles.inputRoot, { [styles.notFocuced]: isClient, [styles.error]: isNotValidLink }),
+            root: cx(styles.inputRoot, { [styles.notFocuced]: isClient }),
             input: styles.input,
           }}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeLink(linkIndex, e.target.value)}
         />
       ) : (
         <a
-          href={addHttpsPrefix(link)}
+          href={checkAndMakeAbsoluteUrl(link)}
           target="_blank"
           rel="noreferrer noopener"
           className={cx(styles.inputRoot, styles.input, styles.link)}

@@ -1,8 +1,10 @@
 import { plainToInstance } from 'class-transformer'
 import { makeAutoObservable, runInAction } from 'mobx'
+import { makePersistable } from 'mobx-persist-store'
+import { toast } from 'react-toastify'
 
+import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { snackNoticeKey } from '@constants/keys/snack-notifications'
-import { PaginationDirection } from '@constants/pagination/pagination-direction'
 import { noticeSound } from '@constants/sounds.js'
 
 import { OtherModel } from '@models/other-model'
@@ -26,32 +28,28 @@ import {
 import { getTypeAndIndexOfChat } from '@utils/chat'
 import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-checks'
 
+import { PaginationDirection } from '@typings/enums/pagination-direction'
+import { IShutdownNotice } from '@typings/models/chats/shutdown-notice'
+
 import { ChatContract, SendMessageRequestParamsContract } from './contracts'
 import { ChatMessageContract, TChatMessageDataUniversal } from './contracts/chat-message.contract'
 
 const websocketChatServiceIsNotInitializedError = new Error('websocketChatService is not  onotialized')
-const noTokenProvidedError = new Error('no access token in user model, login before useing websocket')
+export const noTokenProvidedError = new Error('no access token in user model, login before useing websocket')
 
 class ChatModelStatic {
   private websocketChatService?: WebsocketChatService // Do not init websocket on model create
-
+  private unreadMessagesCount = 0
   public isConnected?: boolean // undefined in case if not initilized
-
   public chats: ChatContract[] = []
-
   public simpleChats: ChatContract[] = []
-
   public messages: ChatContract[] = []
-
   public loadedFiles: string[] = []
   public loadedImages: string[] = []
   public loadedVideos: string[] = []
-
   public typingUsers: OnTypingMessageResponse[] = []
-
-  public chatSelectedId: string | undefined = undefined
-
-  private unreadMessagesCount = 0
+  public chatSelectedId?: string
+  public toggleServerSettings?: IShutdownNotice
 
   get userId() {
     return UserModel.userId
@@ -67,6 +65,7 @@ class ChatModelStatic {
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
+    makePersistable(this, { name: LOCAL_STORAGE_KEYS.SERVER_SETTINGS, properties: ['toggleServerSettings'] })
   }
 
   public init(accessToken?: string) {
@@ -84,6 +83,7 @@ class ChatModelStatic {
           onReadMessage: this.onReadMessage,
           onTypingMessage: this.onTypingMessage,
           onUserBoxesUpdate: this.onUserBoxesUpdates,
+          onGetServerSettings: this.onGetServerSettings,
         },
       })
     } else {
@@ -120,7 +120,7 @@ class ChatModelStatic {
         }))
       })
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -215,7 +215,7 @@ class ChatModelStatic {
         })
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -274,7 +274,7 @@ class ChatModelStatic {
         }))
       })
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -294,7 +294,7 @@ class ChatModelStatic {
         })
       }
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
   }
 
@@ -320,7 +320,7 @@ class ChatModelStatic {
         this.loadedFiles.push(fileUrl)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -462,7 +462,7 @@ class ChatModelStatic {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -483,7 +483,7 @@ class ChatModelStatic {
         this[chatType][index].users = this[chatType][index].users.filter(el => !params.users.includes(el._id))
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -512,7 +512,7 @@ class ChatModelStatic {
         }
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -555,7 +555,7 @@ class ChatModelStatic {
   }
 
   private onConnectionError(error: Error) {
-    console.warn('onConnectionError error ', error)
+    console.error('onConnectionError error ', error)
     this.isConnected = false
   }
 
@@ -737,8 +737,13 @@ class ChatModelStatic {
       const messages = await this.websocketChatService.FindChatMessage(requestParams)
       return messages
     } catch (error) {
-      console.warn(error)
+      console.error(error)
     }
+  }
+
+  private async onGetServerSettings(data: IShutdownNotice) {
+    this.toggleServerSettings = data
+    toast.error(data.text, { position: 'top-right' })
   }
 }
 

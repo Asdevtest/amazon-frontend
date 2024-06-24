@@ -3,6 +3,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Badge } from '@components/shared/badge'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { SearchInput } from '@components/shared/search-input'
 
@@ -21,8 +22,7 @@ interface ViewHeaderProps {
   nameSearchValue: string
   curDestinationId: string
   clientDestinations: IDestination[]
-  selectedRows: any[]
-  selectedBoxes: string[]
+  selectedRows: string[]
   isHaveRequestSendToBatch: boolean
   isChoosenOnlySendToBatchBoxes: boolean
   onClickStorekeeperBtn: () => void
@@ -47,7 +47,6 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
     curDestinationId,
     clientDestinations,
     selectedRows,
-    selectedBoxes,
     isHaveRequestSendToBatch,
     isChoosenOnlySendToBatchBoxes,
     onClickStorekeeperBtn,
@@ -67,7 +66,7 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
     <div className={styles.viewHeaderWrapper}>
       <div className={styles.topHeaderBtnsWrapper}>
         <CustomSwitcher
-          switchMode={'medium'}
+          switchMode="medium"
           condition={currentStorekeeperId}
           switcherSettings={[
             ...storekeepersData
@@ -76,14 +75,14 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
               .map(storekeeper => ({
                 label: () => storekeeper.name || '',
                 value: storekeeper._id,
+                icon: <Badge>{storekeeper.boxesCount}</Badge>,
               })),
-            { label: () => t(TranslationKey['All warehouses']) || '', value: undefined },
+            { label: () => t(TranslationKey['All warehouses']) || '', value: '' },
           ]}
           changeConditionHandler={onClickStorekeeperBtn}
         />
 
         <SearchInput
-          key={'client_warehouse_search_input'}
           inputClasses={styles.searchInput}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box'])}
           startText={nameSearchValue}
@@ -92,7 +91,7 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
       </div>
 
       <CustomSwitcher
-        switchMode={'medium'}
+        switchMode="medium"
         condition={curDestinationId}
         switcherSettings={[
           ...clientDestinations
@@ -107,7 +106,6 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
 
       <ActionButtons
         selectedRows={selectedRows}
-        selectedBoxes={selectedBoxes}
         storekeepersData={storekeepersData}
         isHaveRequestSendToBatch={isHaveRequestSendToBatch}
         isChoosenOnlySendToBatchBoxes={isChoosenOnlySendToBatchBoxes}

@@ -192,12 +192,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-  },
-
-  sizesTitleWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
+    gap: 40,
   },
 
   fieldInput: {

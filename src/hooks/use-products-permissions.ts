@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeAutoObservable, runInAction } from 'mobx'
-
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { action, computed, makeObservable, observable, runInAction } from 'mobx'
 
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 interface ICallback {
   (options: IOptions): any
@@ -13,7 +13,7 @@ interface IOptions {
   [x: string]: any
 }
 
-interface IPermissionsData {
+export interface IPermissionsData {
   _id: string
   asin: string
   shopId: string
@@ -45,10 +45,24 @@ export class UseProductsPermissions {
   permissionsData: IPermissionsData[] = []
 
   isCanLoadMore = true
-  requestStatus = loadingStatuses.SUCCESS
+  requestStatus = loadingStatus.SUCCESS
 
   constructor(callback: ICallback, options?: IOptions) {
-    makeAutoObservable(this)
+    makeObservable(this, {
+      callback: observable,
+      options: observable,
+      permissionsData: observable,
+      isCanLoadMore: observable,
+      requestStatus: observable,
+
+      currentPermissionsData: computed,
+      currentRequestStatus: computed,
+
+      getPermissionsData: action.bound,
+      loadMoreDataHadler: action.bound,
+      onClickSubmitSearch: action.bound,
+      setOptions: action.bound,
+    })
 
     this.callback = callback
     this.setOptions(options)
@@ -66,7 +80,9 @@ export class UseProductsPermissions {
     if (!this.callback) return
 
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      runInAction(() => {
+        this.requestStatus = loadingStatus.IS_LOADING
+      })
 
       this.setOptions(options)
 
@@ -74,21 +90,22 @@ export class UseProductsPermissions {
 
       runInAction(() => {
         this.permissionsData = result.rows
+        this.requestStatus = loadingStatus.SUCCESS
       })
-
-      this.requestStatus = loadingStatuses.SUCCESS
     } catch (error) {
-      throw new Error(`${error}`)
+      console.error(error)
     }
   }
 
   async loadMoreDataHadler() {
-    if (!this.callback || !this.isCanLoadMore || this.requestStatus !== loadingStatuses.SUCCESS) return
+    if (!this.callback || !this.isCanLoadMore || this.requestStatus !== loadingStatus.SUCCESS) return
 
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      runInAction(() => {
+        this.requestStatus = loadingStatus.IS_LOADING
+        this.options.offset += this.options.limit
+      })
 
-      this.options.offset += this.options.limit
       const result = await this.callback(this.options)
 
       runInAction(() => {
@@ -99,18 +116,22 @@ export class UseProductsPermissions {
         this.isCanLoadMore = false
       }
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      runInAction(() => {
+        this.requestStatus = loadingStatus.SUCCESS
+      })
     } catch (error) {
-      throw new Error(`${error}`)
+      console.error(error)
     }
   }
 
   async onClickSubmitSearch(searchValue: string) {
-    if (!this.callback || this.requestStatus !== loadingStatuses.SUCCESS) return
+    if (!this.callback || this.requestStatus !== loadingStatus.SUCCESS) return
     try {
-      this.requestStatus = loadingStatuses.IS_LOADING
+      runInAction(() => {
+        this.requestStatus = loadingStatus.IS_LOADING
+        this.isCanLoadMore = true
+      })
 
-      this.isCanLoadMore = true
       this.setOptions({
         offset: 0,
         filters: objectToUrlQs(dataGridFiltersConverter({}, searchValue, '', [], ['skuByClient', 'asin'])),
@@ -118,9 +139,11 @@ export class UseProductsPermissions {
 
       await this.getPermissionsData()
 
-      this.requestStatus = loadingStatuses.SUCCESS
+      runInAction(() => {
+        this.requestStatus = loadingStatus.SUCCESS
+      })
     } catch (error) {
-      throw new Error(`${error}`)
+      console.error(error)
     }
   }
 

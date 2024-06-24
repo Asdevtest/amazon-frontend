@@ -5,15 +5,14 @@ export const useStyles = makeStyles()(() => ({
     gap: '5px',
     width: '100%',
     flexDirection: 'column',
-    height: '76vh',
+    height: '74vh',
   },
 
   modalWrapper: {
-    height: 605,
+    height: 600,
   },
 
   addProductBtnsWrapper: {
-    width: '100%',
     display: 'flex',
     gap: 20,
     marginBottom: 10,

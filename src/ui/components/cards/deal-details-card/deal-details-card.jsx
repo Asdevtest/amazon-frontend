@@ -1,5 +1,3 @@
-import Linkify from 'react-linkify-always-blank'
-
 import { Avatar, Grid, Typography } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
@@ -8,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -91,9 +89,9 @@ export const DealDetailsCard = ({
               <Typography className={styles.text}>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
             </div>
           </div>
-          <div className={styles.filesWrapper}>
-            <PhotoAndFilesSlider smallSlider showPreviews files={curProposal?.proposal.linksToMediaFiles} />
-          </div>
+
+          <SlideshowGallery slidesToShow={2} files={curProposal?.proposal.linksToMediaFiles} />
+
           {!dealsOnReview &&
           [
             RequestStatus.CORRECTED,
@@ -142,14 +140,11 @@ export const DealDetailsCard = ({
           </div>
           <div className={styles.resultWrapper}>
             <Typography className={styles.result}>{t(TranslationKey.Result)}</Typography>
-            <Linkify>
-              <Typography className={styles.resultDescription}>{curProposal?.details.result}</Typography>
-            </Linkify>
+
+            <Typography className={styles.resultDescription}>{curProposal?.details.result}</Typography>
           </div>
           <div className={styles.filesAndTimeWrapper}>
-            <div className={styles.filesWrapper}>
-              <PhotoAndFilesSlider smallSlider showPreviews files={curProposal?.details?.linksToMediaFiles} />
-            </div>
+            <SlideshowGallery slidesToShow={2} files={curProposal?.details?.linksToMediaFiles} />
 
             <div className={styles.timeOnReviewWrapper}>
               <Typography className={styles.timeOnReviewTitle}>{t(TranslationKey['Time to complete'])}</Typography>

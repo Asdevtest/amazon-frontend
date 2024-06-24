@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
@@ -14,10 +13,10 @@ import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './weight-based-logistics-tariffs.style'
 
@@ -31,8 +30,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
   const {
     isArchive,
     storekeeperDestination,
-
-    yuanToDollarRate,
+    platformSettings,
     tariffToEdit,
     requestStatus,
     sortModel,
@@ -40,7 +38,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     densityModel,
     columnsModel,
     destinationData,
-
     columnVisibilityModel,
     paginationModel,
     showAddOrEditLogisticTariffModal,
@@ -53,10 +50,8 @@ export const WeightBasedLogisticsTariffs = observer(() => {
     setDestinationsFavouritesItem,
     onTriggerOpenModal,
     onClickAddBtn,
-
     onChangeSortingModel,
     onChangeFilterModel,
-
     onSubmitCreateTariff,
     onSubmitEditTariff,
     onSubmitChangeDestination,
@@ -103,8 +98,6 @@ export const WeightBasedLogisticsTariffs = observer(() => {
       </div>
 
       <CustomDataGrid
-        useResizeContainer
-        localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
         sortingMode="client"
         paginationMode="client"
@@ -127,7 +120,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         density={densityModel}
         columns={columnsModel}
         columnVisibilityModel={columnVisibilityModel}
-        loading={requestStatus === loadingStatuses.IS_LOADING}
+        loading={requestStatus === loadingStatus.IS_LOADING}
         onSortModelChange={onChangeSortingModel}
         onPaginationModelChange={onPaginationModelChange}
         onFilterModelChange={onChangeFilterModel}
@@ -153,7 +146,7 @@ export const WeightBasedLogisticsTariffs = observer(() => {
         setOpenModal={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
       >
         <AddOrEditWeightBasedLogisticsTariffForm
-          sourceYuanToDollarRate={yuanToDollarRate}
+          sourceYuanToDollarRate={platformSettings?.yuanToDollarRate}
           tariffToEdit={tariffToEdit}
           logisticsTariffsData={logisticsTariffs}
           destinationData={destinationData}

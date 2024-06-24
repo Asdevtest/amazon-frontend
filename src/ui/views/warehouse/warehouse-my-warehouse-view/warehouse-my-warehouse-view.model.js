@@ -1,10 +1,9 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
-import { unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { Errors } from '@constants/errors'
 import { BatchStatus } from '@constants/statuses/batch-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
@@ -14,6 +13,7 @@ import { GeneralModel } from '@models/general-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
@@ -25,12 +25,14 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
+import { Dimensions } from '@typings/enums/dimensions'
+import { loadingStatus } from '@typings/enums/loading-status'
+
 import { filtersFields, updateBoxWhiteList } from './warehouse-my-warehouse-view.constants'
 
 export class WarehouseMyWarehouseViewModel {
   requestStatus = undefined
 
-  volumeWeightCoefficient = undefined
   nameSearchValue = ''
   boxesMy = []
   tasksMy = []
@@ -44,7 +46,7 @@ export class WarehouseMyWarehouseViewModel {
   curBoxToMove = undefined
   sourceBoxForBatch = undefined
 
-  unitsOption = unitsOfChangeOptions.EU
+  unitsOption = Dimensions.EU
 
   selectedBoxes = []
 
@@ -62,17 +64,11 @@ export class WarehouseMyWarehouseViewModel {
   showEditBoxModal = false
   showFullEditBoxModal = false
   showSuccessInfoModal = false
-  showWarningInfoModal = false
   showMergeBoxModal = false
   showRedistributeBoxModal = false
   showGroupingBoxesModal = false
 
   showEditBoxModalR = false
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
 
   showEditMultipleBoxesModal = false
 
@@ -86,9 +82,11 @@ export class WarehouseMyWarehouseViewModel {
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
     onChangeUnitsOption: option => this.onChangeUnitsOption(option),
   }
+
   uploadedImages = []
   uploadedFiles = []
   uploadedTransparencyFiles = []
+
   progressValue = 0
   showProgress = false
 
@@ -99,11 +97,7 @@ export class WarehouseMyWarehouseViewModel {
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(
-    this.rowHandlers,
-    () => this.userInfo,
-    () => this.unitsOption,
-  )
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.unitsOption)
 
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
@@ -133,6 +127,10 @@ export class WarehouseMyWarehouseViewModel {
 
   get isSomeFilterOn() {
     return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
+  }
+
+  get platformSettings() {
+    return UserModel.platformSettings
   }
 
   constructor() {
@@ -173,11 +171,11 @@ export class WarehouseMyWarehouseViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_WAREHOUSE]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_WAREHOUSE)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
@@ -213,7 +211,7 @@ export class WarehouseMyWarehouseViewModel {
       this.getDataGridState()
       this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -225,7 +223,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.getBoxesMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -241,6 +239,7 @@ export class WarehouseMyWarehouseViewModel {
         trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       this.getBoxesMy()
@@ -253,7 +252,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -286,7 +285,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
       const uploadedShippingLabeles = []
@@ -297,10 +296,6 @@ export class WarehouseMyWarehouseViewModel {
         const sourceBox = selectedBoxes[i]
 
         if (newBox.tmpShippingLabel?.length) {
-          runInAction(() => {
-            this.uploadedFiles = []
-          })
-
           const findUploadedShippingLabel = uploadedShippingLabeles.find(
             el => el.strKey === JSON.stringify(newBox.tmpShippingLabel[0]),
           )
@@ -408,19 +403,17 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showSuccessInfoModal')
 
       this.loadData()
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   async onClickSubmitEditBox({ id, boxData, imagesOfBox, isMultipleEdit }) {
     runInAction(() => {
       this.selectedBoxes = []
-      this.uploadedFiles = []
       this.uploadedTrackNumber = []
-      this.uploadedImages = []
     })
 
     if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
@@ -429,6 +422,8 @@ export class WarehouseMyWarehouseViewModel {
         type: 'uploadedFiles',
         withoutShowProgress: true,
       })
+
+      boxData.shippingLabel = this.uploadedFiles[0]
     }
 
     if (!isMultipleEdit && boxData.tmpTrackNumberFile?.length) {
@@ -511,9 +506,7 @@ export class WarehouseMyWarehouseViewModel {
           ...boxData,
           images: this.uploadedImages?.length ? this.uploadedImages : boxData.images,
           items: requestBoxItems,
-          shippingLabel: this.uploadedFiles?.length
-            ? this.uploadedFiles[0]
-            : boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+          shippingLabel: boxData?.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
           trackNumberFile: [...boxData.trackNumberFile, ...this.uploadedTrackNumber],
         },
         updateBoxWhiteList,
@@ -525,27 +518,18 @@ export class WarehouseMyWarehouseViewModel {
       await StorekeeperModel.editBox(id, requestBox)
 
       if (!isMultipleEdit) {
-        this.loadData()
         this.onTriggerOpenModal('showFullEditBoxModal')
-        runInAction(() => {
-          this.modalEditSuccessMessage = t(TranslationKey['Data saved successfully'])
-        })
-        this.onTriggerOpenModal('showSuccessInfoModal')
+        toast.success(t(TranslationKey['Data saved successfully']))
+        this.loadData()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       if (error.message === Errors.INVALID_IMAGE) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(
-              TranslationKey['An error occurred while loading the image from the link. Please replace the image'],
-            ),
-          }
-        })
+        toast.warning(
+          t(TranslationKey['An error occurred while loading the image from the link. Please replace the image']),
+        )
 
-        this.onTriggerOpenModal('showWarningInfoModal')
         return
       }
 
@@ -554,13 +538,8 @@ export class WarehouseMyWarehouseViewModel {
 
         this.onTriggerOpenModal('showFullEditBoxModal')
       }
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['The box is unchanged']),
-        }
-      })
-      this.onTriggerOpenModal('showWarningInfoModal')
+
+      toast.warning(t(TranslationKey['The box is unchanged']))
     }
   }
 
@@ -576,31 +555,21 @@ export class WarehouseMyWarehouseViewModel {
         this.storekeepersData = storekeepersData
       })
 
-      const result = await UserModel.getPlatformSettings()
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-      })
-
       this.onTriggerOpenModal('showEditBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getDataToMoveBatch() {
     try {
-      const [batches, result] = await Promise.all([
-        BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED),
-        UserModel.getPlatformSettings(),
-      ])
+      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
 
       runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(batches, this.platformSettings?.volumeWeightCoefficient)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -613,7 +582,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -626,7 +595,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -634,12 +603,10 @@ export class WarehouseMyWarehouseViewModel {
     try {
       const destinations = await ClientModel.getDestinations()
       const storekeepersData = await StorekeeperModel.getStorekeepers()
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.destinations = destinations
         this.storekeepersData = storekeepersData
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (this.selectedBoxes.length === 1) {
@@ -652,7 +619,7 @@ export class WarehouseMyWarehouseViewModel {
         this.onTriggerOpenModal('showEditMultipleBoxesModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -666,16 +633,10 @@ export class WarehouseMyWarehouseViewModel {
       const isDifferentClient = selectedBoxes.some(box => box?.client?._id !== selectedBoxes[0]?.client?._id)
 
       if (isMasterBoxSelected || isDifferentClient) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title:
-              (isMasterBoxSelected && t(TranslationKey['Cannot be merged with a Superbox'])) ||
-              (isDifferentClient && t(TranslationKey['Cannot be merged with different clients'])),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(
+          (isMasterBoxSelected && t(TranslationKey['Cannot be merged with a Superbox'])) ||
+            (isDifferentClient && t(TranslationKey['Cannot be merged with different clients'])),
+        )
 
         return
       }
@@ -692,34 +653,23 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showMergeBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickConfirmSplit(id, updatedBoxes, isMasterBox) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.selectedBoxes = []
       })
 
       if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey['The box is not split!']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['The box is not split!']))
       } else {
         const resBoxes = []
 
         for (let i = 0; i < updatedBoxes.length; i++) {
-          runInAction(() => {
-            this.uploadedFiles = []
-          })
-
           if (updatedBoxes[i].tmpShippingLabel.length) {
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
@@ -760,6 +710,11 @@ export class WarehouseMyWarehouseViewModel {
           }
 
           resBoxes.push(boxToPush)
+
+          runInAction(() => {
+            this.uploadedFiles = []
+            this.uploadedImages = []
+          })
         }
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
@@ -770,13 +725,7 @@ export class WarehouseMyWarehouseViewModel {
           })
           this.onTriggerOpenModal('showSuccessInfoModal')
         } else {
-          runInAction(() => {
-            this.warningInfoModalSettings = {
-              isWarning: true,
-              title: t(TranslationKey['The box is not split!']),
-            }
-          })
-          this.onTriggerOpenModal('showWarningInfoModal')
+          toast.warning(t(TranslationKey['The box is not split!']))
         }
         this.onTriggerOpenModal('showConfirmModal')
         if (this.showRedistributeBoxModal) {
@@ -785,12 +734,12 @@ export class WarehouseMyWarehouseViewModel {
         this.onModalRedistributeBoxAddNewBox(null)
       }
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       await this.getBoxesMy()
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -800,13 +749,13 @@ export class WarehouseMyWarehouseViewModel {
       await this.getBoxesMy()
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onClickConfirmMerge(boxBody) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
       boxBody = {
@@ -834,20 +783,13 @@ export class WarehouseMyWarehouseViewModel {
         })
         this.onTriggerOpenModal('showSuccessInfoModal')
       } else {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: true,
-            title: t(TranslationKey['The boxes are not joined!']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['The boxes are not joined!']))
       }
 
       this.onTriggerOpenModal('showMergeBoxModal')
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
 
       await this.getBoxesMy()
 
@@ -856,8 +798,8 @@ export class WarehouseMyWarehouseViewModel {
         this.tmpClientComment = ''
       })
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -866,7 +808,7 @@ export class WarehouseMyWarehouseViewModel {
       const result = await BoxesModel.mergeBoxes(ids, boxBody)
       return result
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -892,7 +834,7 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showRedistributeBoxModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -917,27 +859,17 @@ export class WarehouseMyWarehouseViewModel {
       runInAction(() => {
         this.selectedBoxes = []
 
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data was successfully saved']),
-        }
+        toast.success(t(TranslationKey['Data was successfully saved']))
       })
-
-      this.onTriggerOpenModal('showWarningInfoModal')
 
       this.loadData()
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
       this.onTriggerOpenModal('showGroupingBoxesModal')
-      runInAction(() => {
-        this.warningInfoModalSettings = {
-          isWarning: true,
-          title: t(TranslationKey['Boxes are not regrouped']),
-        }
-      })
-      this.onTriggerOpenModal('showWarningInfoModal')
+
+      toast.error(t(TranslationKey['Boxes are not regrouped']))
     }
   }
 
@@ -951,29 +883,20 @@ export class WarehouseMyWarehouseViewModel {
       })
 
       if (boxesWithDifferentStorekeepers.length) {
-        runInAction(() => {
-          this.warningInfoModalSettings = {
-            isWarning: false,
-            title: t(TranslationKey['Boxes with identical storekeeper must be selected']),
-          }
-        })
-
-        this.onTriggerOpenModal('showWarningInfoModal')
+        toast.warning(t(TranslationKey['Boxes with identical storekeeper must be selected']))
 
         return
       }
 
-      const [destinations, result] = await Promise.all([ClientModel.getDestinations(), UserModel.getPlatformSettings()])
+      const destinations = await ClientModel.getDestinations()
 
       runInAction(() => {
         this.destinations = destinations
-
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -985,7 +908,7 @@ export class WarehouseMyWarehouseViewModel {
       })
       this.onTriggerShowEditBoxModal()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1016,7 +939,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerShowEditBoxModal()
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1037,7 +960,7 @@ export class WarehouseMyWarehouseViewModel {
       this.onTriggerOpenModal('showAddBatchModal')
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1047,7 +970,7 @@ export class WarehouseMyWarehouseViewModel {
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1061,42 +984,37 @@ export class WarehouseMyWarehouseViewModel {
       this.loadData()
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async setCurrentOpenedBox(row) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBox = box
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async onSubmitCreateBatch(box) {
     try {
-      const [boxes, result] = await Promise.all([
-        BoxesModel.getBoxesReadyToBatchStorekeeper(),
-        UserModel.getPlatformSettings(),
-      ])
+      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
 
       runInAction(() => {
-        this.boxesData = boxes // clientWarehouseDataConverter(boxes, result.volumeWeightCoefficient)
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.boxesData = boxes
+
         this.sourceBoxForBatch = box
       })
 
       this.onTriggerOpenModal('showAddBatchModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -1110,7 +1028,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const boxes = await StorekeeperModel.getBoxesMyPag({
         filters: this.getFilter(),
@@ -1122,22 +1040,19 @@ export class WarehouseMyWarehouseViewModel {
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
       })
 
-      const result = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = boxes.count
         this.baseBoxesMy = boxes.rows
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
-        this.boxesMy = warehouseBoxesDataConverter(boxes.rows, result.volumeWeightCoefficient)
+        this.boxesMy = warehouseBoxesDataConverter(boxes.rows, this.platformSettings?.volumeWeightCoefficient)
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.boxesMy = []
         this.baseBoxesMy = []
       })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -1191,17 +1106,13 @@ export class WarehouseMyWarehouseViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   onChangeUnitsOption(option) {
     this.unitsOption = option
-    this.columnsModel = warehouseBoxesViewColumns(
-      this.rowHandlers,
-      () => this.userInfo,
-      () => this.unitsOption,
-    )
+    this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.unitsOption)
   }
 
   onChangeFullFieldMenuItem(value, field) {

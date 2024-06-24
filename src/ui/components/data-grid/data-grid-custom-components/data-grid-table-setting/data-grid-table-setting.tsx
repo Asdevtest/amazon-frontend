@@ -37,6 +37,7 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
   return (
     <>
       <Button
+        isTableButton
         styleType={ButtonStyle.DEFAULT}
         className={styles.parametersButton}
         onClick={(event: any) => setMenuAnchor(event.currentTarget)}
@@ -62,7 +63,7 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
               switchMode={'medium'}
               condition={switcherValue}
               switcherSettings={switcherConfig}
-              changeConditionHandler={value => setSwitcherValue(value as SwitcherSetting)}
+              changeConditionHandler={setSwitcherValue}
             />
           )}
 

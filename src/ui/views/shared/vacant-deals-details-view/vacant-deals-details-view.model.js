@@ -40,7 +40,7 @@ export class VacantDealsDetailsViewModel {
     try {
       this.getDealsVacantCur()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -52,7 +52,7 @@ export class VacantDealsDetailsViewModel {
         this.requestProposals = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -64,7 +64,7 @@ export class VacantDealsDetailsViewModel {
         curProposalId: id,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     } finally {
       this.onTriggerOpenModal('showWarningModal')
     }

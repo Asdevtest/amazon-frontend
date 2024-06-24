@@ -1,15 +1,14 @@
 import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { GeneralModel } from '@models/general-model'
-import { ProductModel } from '@models/product-model'
-import { SettingsModel } from '@models/settings-model'
+import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { batchesViewColumns } from '@components/table/table-columns/batches-columns'
@@ -20,56 +19,35 @@ import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 import { filtersFields } from './warehouse-sent-batches-view.constants'
 
 export class WarehouseSentBatchesViewModel {
-  history = undefined
   requestStatus = undefined
 
+  isArchive = false
   nameSearchValue = ''
   batches = []
   selectedBatches = []
-  volumeWeightCoefficient = undefined
-
-  hsCodeData = {}
+  curBatch = undefined
 
   showEditHSCodeModal = false
-
-  isArchive = false
-
-  rowCount = 0
-  currentData = []
-
-  curBatch = {}
   showConfirmModal = false
-  isWarning = false
   showBatchInfoModal = false
-
-  showWarningInfoModal = false
-
-  warningInfoModalSettings = {
-    isWarning: false,
-    title: '',
-  }
-
   uploadedFiles = []
-
   status = BatchStatus.HAS_DISPATCHED
 
+  rowCount = 0
   sortModel = []
   filterModel = { items: [] }
-  densityModel = 'compact'
-
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
-
   rowHandlers = {
     onClickSaveTrackingNumber: (id, trackingNumber) => this.onClickSaveTrackingNumber(id, trackingNumber),
     onClickSaveArrivalDate: (id, date) => this.onClickSaveArrivalDate(id, date),
   }
-
   columnsModel = batchesViewColumns(this.rowHandlers, () => this.status)
-
   columnMenuSettings = {
     onClickFilterBtn: field => this.onClickFilterBtn(field),
     onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
@@ -78,9 +56,7 @@ export class WarehouseSentBatchesViewModel {
       this.getBatchesPagMy()
       this.getDataGridState()
     },
-
     filterRequestStatus: undefined,
-
     ...dataGridFiltersInitializer(filtersFields),
   }
 
@@ -88,26 +64,20 @@ export class WarehouseSentBatchesViewModel {
     return UserModel.userInfo
   }
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
+
+  get currentData() {
+    return this.batches
+  }
+
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
 
     reaction(
-      () => this.batches,
-      () => {
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        })
-      },
-    )
-
-    reaction(
       () => this.isArchive,
-      () => {
-        this.loadData()
-      },
+      () => this.loadData(),
     )
   }
 
@@ -119,20 +89,18 @@ export class WarehouseSentBatchesViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_BATCHES)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.WAREHOUSE_BATCHES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_BATCHES]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.WAREHOUSE_BATCHES)
 
-    runInAction(() => {
-      if (state) {
-        this.sortModel = toJS(state.sortModel)
-        this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-        this.paginationModel = toJS(state.paginationModel)
-        this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-      }
-    })
+    if (state) {
+      this.sortModel = toJS(state.sortModel)
+      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
+      this.paginationModel = toJS(state.paginationModel)
+      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
+    }
   }
 
   onChangeFilterModel(model) {
@@ -171,41 +139,12 @@ export class WarehouseSentBatchesViewModel {
     this.selectedBatches = model
   }
 
-  async onClickSaveHsCode(hsCode) {
-    await ProductModel.editProductsHsCods([
-      {
-        productId: hsCode._id,
-        chinaTitle: hsCode.chinaTitle || null,
-        hsCode: hsCode.hsCode || null,
-        material: hsCode.material || null,
-        productUsage: hsCode.productUsage || null,
-      },
-    ])
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-    this.loadData()
-
-    runInAction(() => {
-      this.selectedProduct = undefined
-    })
-  }
-
-  async onClickHsCode(id) {
-    this.hsCodeData = await ProductModel.getProductsHsCodeByGuid(id)
-
-    this.onTriggerOpenModal('showEditHSCodeModal')
-  }
-
-  getCurrentData() {
-    return toJS(this.batches)
-  }
-
-  async loadData() {
+  loadData() {
     try {
       this.getDataGridState()
-      await this.getBatchesPagMy()
+      this.getBatchesPagMy()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -221,22 +160,18 @@ export class WarehouseSentBatchesViewModel {
         trackNumberFile: this.uploadedFiles,
         upsTrackNumber: data.upsTrackNumber,
         prepId: data.prepId,
+        storage: data.storage,
       })
 
       await this.loadData()
 
       runInAction(() => {
         this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
-
-        this.warningInfoModalSettings = {
-          isWarning: false,
-          title: t(TranslationKey['Data saved successfully']),
-        }
       })
 
-      this.onTriggerOpenModal('showWarningInfoModal')
+      toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -256,36 +191,25 @@ export class WarehouseSentBatchesViewModel {
     try {
       const result = await BatchesModel.getBatchesWithFiltersPag({
         status: BatchStatus.HAS_DISPATCHED,
-
         archive: this.isArchive,
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-
         sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-
         filters: this.getFilter(),
         storekeeperId: null,
       })
 
-      const res = await UserModel.getPlatformSettings()
-
       runInAction(() => {
         this.rowCount = result.count
-
-        this.volumeWeightCoefficient = res.volumeWeightCoefficient
-
         this.batches = warehouseBatchesDataConverter(result.rows, result.volumeWeightCoefficient)
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
-      runInAction(() => {
-        this.batches = []
-      })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -302,21 +226,16 @@ export class WarehouseSentBatchesViewModel {
   async setCurrentOpenedBatch(id, notTriggerModal) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
-      const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
         this.curBatch = batch
-      })
-
-      runInAction(() => {
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       if (!notTriggerModal) {
         this.onTriggerOpenModal('showBatchInfoModal')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -344,7 +263,7 @@ export class WarehouseSentBatchesViewModel {
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -368,12 +287,11 @@ export class WarehouseSentBatchesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'batches'),
         column,
-
         `batches/with_filters?filters=${this.getFilter(column)}&status=${BatchStatus.HAS_DISPATCHED}`,
       )
 
@@ -386,28 +304,19 @@ export class WarehouseSentBatchesViewModel {
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
   setFilterRequestStatus(requestStatus) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      filterRequestStatus: requestStatus,
-    }
+    this.columnMenuSettings.filterRequestStatus = requestStatus
   }
 
   onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-      [field]: {
-        ...this.columnMenuSettings[field],
-        currentFilterData: value,
-      },
-    }
+    this.columnMenuSettings[field].currentFilterData = value
   }
 
   onClickResetFilters() {

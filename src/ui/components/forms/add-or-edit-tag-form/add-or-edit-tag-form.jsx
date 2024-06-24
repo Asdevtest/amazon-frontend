@@ -60,7 +60,7 @@ export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCre
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
+        <Button variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

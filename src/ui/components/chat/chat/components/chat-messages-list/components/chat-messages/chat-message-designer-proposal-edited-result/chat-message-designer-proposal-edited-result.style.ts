@@ -142,14 +142,14 @@ export const useStyles = makeStyles()(theme => ({
     position: 'absolute',
     top: 5,
     right: 5,
-    zIndex: 50,
+    zIndex: 7,
   },
 
   moreImagesWrapper: {
     position: 'absolute',
     top: 0,
     left: 0,
-    zIndex: 50,
+    zIndex: 7,
     width: '100%',
     height: '100%',
     display: 'flex',
@@ -158,12 +158,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 36,
     color: '#fff',
     background: 'rgba(0, 0, 0, 0.4)',
-  },
-
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain',
   },
 
   footerWrapper: {
@@ -232,7 +226,6 @@ export const useStyles = makeStyles()(theme => ({
   simpleSpan: {
     fontSize: 14,
     whiteSpace: 'nowrap',
-    fontWeight: '600 !important',
   },
 
   actionButton: {
@@ -242,28 +235,4 @@ export const useStyles = makeStyles()(theme => ({
       padding: '0 30px',
     },
   },
-
-  /* btnsWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'end',
-    marginTop: '48px',
-  }, */
-
-  /* actionBtnWrapperStyleNotFirst: {
-    marginLeft: '42px',
-  }, */
-
-  /* editButton: {
-    width: '200px',
-  }, */
-
-  /* successBtn: {
-    width: '197px',
-    backgroundColor: '#4CAF50',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#4CAF50',
-    },
-  }, */
 }))

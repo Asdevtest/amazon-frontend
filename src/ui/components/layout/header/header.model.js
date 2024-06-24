@@ -54,6 +54,10 @@ export class HeaderModel {
     return SettingsModel.snackNotifications[snackNoticeKey.SIMPLE_MESSAGE]?.crmItemId || null
   }
 
+  get toggleServerSettings() {
+    return ChatModel.toggleServerSettings
+  }
+
   constructor({ history }) {
     this.history = history
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -84,7 +88,7 @@ export class HeaderModel {
         targetRoute: `/${UserRoleCodeMapForRoutes[data.role]}/dashboard`,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

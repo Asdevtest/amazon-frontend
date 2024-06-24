@@ -33,6 +33,8 @@ import { useStyles } from './create-box-form.style'
 
 import { OrderBox } from './order-box'
 
+const properties = ['widthCmSupplier', 'heightCmSupplier', 'lengthCmSupplier']
+
 export const CreateBoxForm = observer(
   ({
     currentSupplier,
@@ -66,7 +68,6 @@ export const CreateBoxForm = observer(
           product: formItem?.product,
           amount: formItem?.amount,
           order: formItem,
-
           transparencyFile: formItem?.transparencyFile || '',
           isBarCodeAlreadyAttachedByTheSupplier: false,
           isTransparencyFileAlreadyAttachedByTheSupplier: false,
@@ -139,10 +140,15 @@ export const CreateBoxForm = observer(
       ) ||
       formFieldsArr.some(
         el =>
-          el.widthCmSupplier > maxLengthInputInSizeBox ||
-          el.heightCmSupplier > maxLengthInputInSizeBox ||
-          el.lengthCmSupplier > maxLengthInputInSizeBox,
+          properties.some(
+            prop =>
+              Number(el[prop]) >
+                (sizeSetting === unitsOfChangeOptions.US
+                  ? maxLengthInputInSizeBox / inchesCoefficient
+                  : maxLengthInputInSizeBox) || Number(el[prop]) === 0,
+          ) || Number(el.weighGrossKgSupplier) === 0,
       )
+
     const handleChange = newAlignment => {
       if (newAlignment !== sizeSetting) {
         const convertedFormFieldsArr = formFieldsArr.map(editingBox => {
@@ -233,24 +239,24 @@ export const CreateBoxForm = observer(
     return (
       <div className={styles.root}>
         <div className={styles.form}>
-          <Typography paragraph className={styles.subTitle}>
+          <p className={styles.subTitle}>
             {isEdit ? t(TranslationKey['Editing the box']) : t(TranslationKey['Creating new boxes'])}
-          </Typography>
+          </p>
 
           <div className={styles.labelFieldsWrapper}>
             <Field
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               label={t(TranslationKey.Warehouse)}
+              containerClasses={styles.fieldContainer}
               inputComponent={
-                <Typography className={styles.destinationWrapper}>
-                  {formItem.destination?.name || t(TranslationKey.Missing)}
-                </Typography>
+                <p className={styles.destinationWrapper}>{formItem.destination?.name || t(TranslationKey.Missing)}</p>
               }
             />
 
             <Field
               tooltipInfoContent={t(TranslationKey['Current order status'])}
               label={t(TranslationKey.Status)}
+              containerClasses={styles.fieldContainer}
               inputComponent={
                 <Typography
                   className={cx({
@@ -276,16 +282,14 @@ export const CreateBoxForm = observer(
 
           <div className={styles.divider} />
 
-          <div className={styles.sizesSubWrapper}>
-            <CustomSwitcher
-              condition={sizeSetting}
-              switcherSettings={[
-                { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-              ]}
-              changeConditionHandler={condition => handleChange(condition)}
-            />
-          </div>
+          <CustomSwitcher
+            condition={sizeSetting}
+            switcherSettings={[
+              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
+              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
+            ]}
+            changeConditionHandler={handleChange}
+          />
 
           {formFieldsArr ? (
             <div className={styles.blockOfNewBoxWrapper}>
@@ -297,6 +301,7 @@ export const CreateBoxForm = observer(
                   volumeWeightCoefficient={weightCoefficient}
                   orderBoxIndex={orderBoxIndex}
                   orderBox={orderBox}
+                  sizeSetting={sizeSetting}
                   setFormField={setFormField}
                   setAmountField={setAmountField}
                   setDimensionsOfSupplierField={setDimensionsOfSupplierField}

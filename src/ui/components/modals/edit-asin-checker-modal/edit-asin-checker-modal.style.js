@@ -11,6 +11,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: '30px',
   },
   modalMessageWrapper: {
+    padding: 10,
     width: '343px',
     minHeight: '168px',
     display: 'flex',

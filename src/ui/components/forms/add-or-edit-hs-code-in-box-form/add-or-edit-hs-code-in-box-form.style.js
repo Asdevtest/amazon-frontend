@@ -5,6 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '700px',
+    padding: 10,
     [theme.breakpoints.down(768)]: {
       display: 'flex',
       flexDirection: 'column',

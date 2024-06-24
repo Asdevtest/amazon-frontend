@@ -12,6 +12,12 @@ export interface AdditionalInfoProps {
   setFormFields: SetFormFieldsType
 }
 
+export interface UseAdditionalInfoParams extends AdditionalInfoProps {
+  destinationId: string
+  handleSetDestination: (destinationId: string) => void
+  setShowSelectionStorekeeperAndTariffModal: (modalState: boolean) => void
+}
+
 export interface InitialConfirmModalSettingsState {
   isWarning: boolean
   title: string

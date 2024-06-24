@@ -1,11 +1,10 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,7 +19,6 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SuccessInfoModal } from '@components/modals/success-info-modal'
-import { AlertShield } from '@components/shared/alert-shield'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
@@ -29,6 +27,7 @@ import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './suppliers-and-ideas.style'
 
@@ -43,10 +42,8 @@ export const SuppliersAndIdeas = observer(props => {
   const selectedIdeaId = queries.get('ideaId')
   const ideaRef = useRef(null)
 
-  const history = useHistory()
   const model = useRef(
     new SuppliersAndIdeasModel({
-      history,
       productId,
       product,
       isModalView,
@@ -88,7 +85,6 @@ export const SuppliersAndIdeas = observer(props => {
     storekeepers,
     showSetBarcodeModal,
     selectedProduct,
-    alertShieldSettings,
     currentRequest,
     showSelectionSupplierModal,
     currentData,
@@ -171,7 +167,7 @@ export const SuppliersAndIdeas = observer(props => {
 
       {isModalView && !isCreate && (
         <>
-          {requestStatus === loadingStatuses.IS_LOADING ? (
+          {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
           ) : curIdea ? (
             <IdeaViewAndEditCard
@@ -215,7 +211,7 @@ export const SuppliersAndIdeas = observer(props => {
 
       {!isModalView && !isCreate && (
         <>
-          {requestStatus === loadingStatuses.IS_LOADING ? (
+          {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
           ) : currentData?.length ? (
             currentData.map(idea => (
@@ -354,13 +350,6 @@ export const SuppliersAndIdeas = observer(props => {
           onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
         />
       </Modal>
-
-      {alertShieldSettings.alertShieldMessage && (
-        <AlertShield
-          showAcceptMessage={alertShieldSettings?.showAlertShield}
-          acceptMessage={alertShieldSettings?.alertShieldMessage}
-        />
-      )}
 
       {showCommentsModal ? (
         <CommentsModal

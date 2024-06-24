@@ -16,12 +16,16 @@ export const useStyles = makeStyles()(theme => ({
 
   fileWrapper: {
     padding: 10,
-    display: 'flex',
+    display: 'none',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 10,
     borderRadius: 10,
     boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.17)',
+  },
+
+  showFile: {
+    display: 'flex',
   },
 
   file: {

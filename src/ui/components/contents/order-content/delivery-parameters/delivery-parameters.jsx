@@ -1,22 +1,24 @@
 import dayjs from 'dayjs'
-import { useState } from 'react'
 
 import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserLinkCell } from '@components/data-grid/data-grid-cells'
-import { SelectStorekeeperAndTariffForm } from '@components/forms/select-storkeeper-and-tariff-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { Button } from '@components/shared/button'
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
-import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { TruckIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
+import { TariffModal } from '@typings/enums/tariff-modal'
+
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './delivery-parameters.style'
 
@@ -33,13 +35,6 @@ export const DeliveryParameters = ({
 }) => {
   const { classes: styles, cx } = useStyles()
 
-  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-  const [showConfirmModal, setShowConfirmModal] = useState(false)
-  const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
-  const [currentDestanationId, setCurrentDestanationId] = useState(
-    formFields.destinationId || order?.variationTariff?.destinationId,
-  )
-
   const minDate = dayjs().add(2, 'day')
 
   const { tariffName, tariffRate } = useGetDestinationTariffInfo(
@@ -51,64 +46,22 @@ export const DeliveryParameters = ({
     formFields.variationTariffId,
   )
 
-  const patchDestinationParamsHandler = (
-    storekeeperId,
-    tariffId,
-    variationTariffId,
+  const {
     destinationId,
-    isCancel,
-    notCloseConfirmModal,
-  ) => {
-    setFormFields({
-      ...formFields,
-      storekeeperId,
-      logicsTariffId: tariffId,
-      variationTariffId,
-      destinationId: isCancel ? null : destinationId,
-    })
 
-    setCurrentDestanationId(destinationId)
-    !notCloseConfirmModal && setShowConfirmModal(false)
-    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-  }
+    onSubmitSelectStorekeeperAndTariff,
 
-  const onSubmitSelectStorekeeperAndTariff = (
-    storekeeperId,
-    tariffId,
-    variationTariffId,
-    destinationId,
-    isSelectedDestinationNotValid,
-    isSetCurrentDestination,
-  ) => {
-    const onClickConfirmButton = () =>
-      patchDestinationParamsHandler(storekeeperId, tariffId, variationTariffId, destinationId, false, false)
-    const onClickCancelButton = () =>
-      patchDestinationParamsHandler(storekeeperId, tariffId, variationTariffId, destinationId, true, false)
+    showConfirmModal,
+    setShowConfirmModal,
 
-    if (isSelectedDestinationNotValid) {
-      setConfirmModalSettings({
-        isWarning: false,
-        title: t(TranslationKey.Attention),
-        confirmMessage: t(TranslationKey['Wish to change a destination?']),
-        onClickConfirm: () => onClickConfirmButton(),
-        onClickCancelBtn: () => onClickCancelButton(),
-      })
-      setShowConfirmModal(true)
-    } else {
-      if (!isSetCurrentDestination) {
-        setConfirmModalSettings({
-          isWarning: false,
-          title: t(TranslationKey.Attention),
-          confirmMessage: t(TranslationKey['Wish to set a destination?']),
-          onClickConfirm: () => onClickConfirmButton(),
-          onClickCancelBtn: () => onClickCancelButton(),
-        })
-        setShowConfirmModal(true)
-      } else {
-        patchDestinationParamsHandler(storekeeperId, tariffId, variationTariffId, destinationId, true, true)
-      }
-    }
-  }
+    confirmModalSettings,
+
+    handleSetDestination,
+    handleResetDestination,
+
+    showSelectionStorekeeperAndTariffModal,
+    setShowSelectionStorekeeperAndTariffModal,
+  } = useTariffVariation(formFields.destinationId, setFormFields)
 
   return (
     <div className={styles.root}>
@@ -120,7 +73,7 @@ export const DeliveryParameters = ({
           labelClasses={styles.fieldLabel}
           inputComponent={
             <div className={styles.deadlineWrapper}>
-              <NewDatePicker
+              <DatePicker
                 disablePast
                 disabled={!isCanChange}
                 minDate={minDate}
@@ -144,15 +97,15 @@ export const DeliveryParameters = ({
               destinations?.find(el => el?._id === formFields?.destinationId)?.name || t(TranslationKey['Not chosen'])
             }
             data={
-              formFields?.variationTariffId && currentDestanationId
-                ? destinations.filter(el => el?._id === currentDestanationId)
+              formFields?.variationTariffId && destinationId
+                ? destinations.filter(el => el?._id === (destinationId || formFields?.variationTariff?.destinationId))
                 : destinations?.filter(el => el?.storekeeper?._id !== formFields?.storekeeperId)
             }
             searchFields={['name']}
             favourites={destinationsFavourites}
             onClickSetDestinationFavourite={setDestinationsFavouritesItem}
-            onClickNotChosen={() => setFormFields({ ...formFields, destinationId: '' })}
-            onClickSelect={el => setFormFields({ ...formFields, destinationId: el._id })}
+            onClickNotChosen={handleResetDestination}
+            onClickSelect={el => handleSetDestination(el?._id)}
           />
         }
       />
@@ -160,7 +113,7 @@ export const DeliveryParameters = ({
       <Field
         labelClasses={styles.fieldLabel}
         label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
-        error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
+        tooltipAttentionContent={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
         inputComponent={
           <Button
             disabled={!isCanChange}
@@ -201,7 +154,7 @@ export const DeliveryParameters = ({
           color="primary"
         />
         <p>{t(TranslationKey['Order express delivery in China'])}</p>
-        <img className={styles.deliveryImg} src="/assets/icons/truck.svg" alt="" />
+        <TruckIcon className={styles.deliveryImg} />
       </div>
 
       <div
@@ -234,21 +187,17 @@ export const DeliveryParameters = ({
         />
       </div>
 
-      <Modal
-        openModal={showSelectionStorekeeperAndTariffModal}
-        setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-      >
-        <SelectStorekeeperAndTariffForm
-          showCheckbox
-          RemoveDestinationRestriction
-          storekeepers={storekeepers?.filter(el => el?._id === formFields?.storekeeper?._id)}
-          curStorekeeperId={formFields.storekeeperId}
-          currentDestinationId={formFields?.destinationId}
-          curTariffId={formFields.logicsTariffId}
-          currentVariationTariffId={formFields?.variationTariffId}
-          onSubmit={onSubmitSelectStorekeeperAndTariff}
+      {showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isTariffsSelect
+          isGetAllStorekeepers
+          tariffModalType={TariffModal.ORDER}
+          openModal={showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+          box={formFields}
+          onClickSubmit={onSubmitSelectStorekeeperAndTariff}
         />
-      </Modal>
+      ) : null}
 
       {showConfirmModal ? (
         <ConfirmationModal

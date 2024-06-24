@@ -4,10 +4,10 @@ import { Paper, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { NewDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
@@ -108,7 +108,7 @@ export const FirstStep = ({
               labelClasses={styles.spanLabelSmall}
               inputComponent={
                 <div className={cx({ [styles.deadlineError]: deadlineError })}>
-                  <NewDatePicker value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} />
+                  <DatePicker value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} />
 
                   {deadlineError && (
                     <p className={styles.deadlineErrorText}>
@@ -170,10 +170,8 @@ export const FirstStep = ({
               label={`${t(TranslationKey['Attach files'])} *`}
               inputComponent={
                 <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput withoutTitle images={images} setImages={setImages} maxNumber={50} />
-                  {formFields.files?.length ? (
-                    <PhotoAndFilesSlider smallSlider showPreviews files={formFields.files} />
-                  ) : null}
+                  <UploadFilesInput withoutTitles images={images} setImages={setImages} />
+                  {formFields.files?.length ? <SlideshowGallery slidesToShow={2} files={formFields.files} /> : null}
                 </div>
               }
             />

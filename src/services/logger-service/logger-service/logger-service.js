@@ -21,25 +21,25 @@ export class LoggerService {
 
   logParams = (sourceFuncName, params) => {
     if ((isDebug() || this.showInProduction) && !this.onlyErrorLogs && !this.hideParamsLogs) {
-      console.log(`${this.sourceName}, ${sourceFuncName} params:`, params)
+      console.warn(`${this.sourceName}, ${sourceFuncName} params:`, params)
     }
   }
 
   logResult = (sourceFuncName, result) => {
     if ((isDebug() || this.showInProduction) && !this.onlyErrorLogs) {
-      console.log(`${this.sourceName}, ${sourceFuncName} result:`, result)
+      console.warn(`${this.sourceName}, ${sourceFuncName} result:`, result)
     }
   }
 
   logCoughtError = (sourceFuncName, error) => {
     if (isDebug() || this.showInProduction) {
-      console.log(`${this.sourceName}, ${sourceFuncName} cought error:`, error)
+      console.warn(`${this.sourceName}, ${sourceFuncName} cought error:`, error)
     }
   }
 
   logError = (sourceFuncName, error) => {
     if (isDebug() || this.showInProduction) {
-      console.log(`${this.sourceName}, ${sourceFuncName} error:`, error)
+      console.warn(`${this.sourceName}, ${sourceFuncName} error:`, error)
     }
   }
 }

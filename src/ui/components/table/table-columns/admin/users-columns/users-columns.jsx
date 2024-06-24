@@ -1,4 +1,7 @@
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { userRoleTranslateKey, userStatusTranslateKey, userSubStatusTranlateKey } from '@constants/statuses/user-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -6,111 +9,149 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  ProductVariationsCell,
+  UserMiniCell,
 } from '@components/data-grid/data-grid-cells'
+import { TextWithCopy } from '@components/shared/text-with-copy'
 
-import { toFixed } from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 
-export const adminUsersViewColumns = handlers => [
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+export const adminUsersViewColumns = handlers => {
+  const columns = [
+    {
+      field: 'updatedAt',
+      headerName: t(TranslationKey.Updated),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Updated)} />,
+      renderCell: params => <NormDateCell value={params.value} />,
+      columnKey: columnnsKeys.shared.DATE,
+      width: 100,
+    },
 
-    renderCell: params => <NormDateCell value={params.value} />,
-    width: 150,
-    // type: 'date',
-  },
+    {
+      field: 'isOnline',
+      headerName: t(TranslationKey.Online),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Online)} />,
 
-  {
-    field: 'name',
-    headerName: t(TranslationKey.Name),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
-    width: 150,
-  },
-  {
-    field: 'balance',
-    headerName: t(TranslationKey.Balance),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Balance)} />,
+      renderCell: params => <UserMiniCell userId={params?.id} isOnline={params?.row?.isOnline} />,
+      width: 90,
+      filterable: false,
+    },
 
-    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
-    width: 150,
-    type: 'number',
-  },
+    {
+      field: 'name',
+      headerName: t(TranslationKey.Name),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Name)} />,
+      columnKey: columnnsKeys.shared.STRING,
+      width: 150,
+    },
 
-  {
-    field: 'balanceFreeze',
-    headerName: t(TranslationKey.Freeze),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Freeze)} />,
+    {
+      field: 'balance',
+      headerName: t(TranslationKey.Balance),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Balance)} />,
 
-    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
-    width: 150,
-    type: 'number',
-  },
+      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
+      width: 100,
+      columnKey: columnnsKeys.shared.STRING,
+      type: 'number',
+    },
 
-  {
-    field: 'email',
-    headerName: t(TranslationKey.Email),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
-    width: 200,
-  },
+    {
+      field: 'balanceFreeze',
+      headerName: t(TranslationKey.Freeze),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Freeze)} />,
 
-  {
-    field: 'rate',
-    headerName: t(TranslationKey.Rate),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate)} />,
+      renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
+      width: 120,
+      columnKey: columnnsKeys.shared.STRING,
+      type: 'number',
+    },
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
-    type: 'number',
-  },
+    {
+      field: 'email',
+      headerName: t(TranslationKey.Email),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Email)} />,
+      renderCell: ({ row }) => <TextWithCopy text={row.email} />,
+      columnKey: columnnsKeys.shared.STRING,
+      width: 200,
+    },
 
-  {
-    field: 'role',
-    headerName: t(TranslationKey.Role),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
+    {
+      field: 'rate',
+      headerName: t(TranslationKey.Rate),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Rate)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 150,
-  },
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 100,
+      columnKey: columnnsKeys.shared.STRING,
+      type: 'number',
+    },
 
-  {
-    field: 'active',
-    headerName: t(TranslationKey['User status']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['User status'])} />,
+    {
+      field: 'role',
+      headerName: t(TranslationKey.Role),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Role)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 160,
-  },
+      renderCell: ({ row }) => <MultilineTextCell text={userRoleTranslateKey(row?.role)} />,
+      width: 150,
+      transformValueMethod: userRoleTranslateKey,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
 
-  {
-    field: 'isSubUser',
-    headerName: t(TranslationKey['Sub status']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Sub status'])} />,
+    {
+      field: 'active',
+      headerName: t(TranslationKey['User status']),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey['User status'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
-  },
+      renderCell: ({ row }) => <MultilineTextCell text={userStatusTranslateKey(row?.active)} />,
+      transformValueMethod: userStatusTranslateKey,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+      width: 160,
+    },
 
-  {
-    field: 'actions',
-    headerName: t(TranslationKey.Actions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+    {
+      field: 'sub',
+      headerName: t(TranslationKey['Sub status']),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey['Sub status'])} />,
 
-    renderCell: params => (
-      <ActionButtonsCell
-        isFirstButton
-        disabledFirstButton={params.row.originalData.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
-        firstButtonElement={t(TranslationKey['Edit and balance'])}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        onClickFirstButton={() => handlers.onClickUser(params.row.originalData)}
-      />
-    ),
+      renderCell: params => (
+        <ProductVariationsCell showVariationButton isParentProduct={!params?.row?.sub} isTooltipVisible={false} />
+      ),
+      transformValueMethod: userSubStatusTranlateKey,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+      width: 120,
+    },
 
-    width: 180,
-    filterable: false,
-    sortable: false,
-  },
-]
+    {
+      field: 'actions',
+      headerName: t(TranslationKey.Actions),
+      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Actions)} />,
+
+      renderCell: params => (
+        <ActionButtonsCell
+          isFirstButton
+          disabledFirstButton={params.row?.originalData?.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
+          firstButtonElement={t(TranslationKey['Edit and balance'])}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          onClickFirstButton={() => handlers.onClickUser(params.row)}
+        />
+      ),
+      filterable: false,
+      sortable: false,
+      disableCustomSort: true,
+      width: 205,
+    },
+  ]
+
+  for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.USERS
+    }
+    column.sortable = false
+  }
+
+  return columns
+}

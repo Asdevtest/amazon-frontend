@@ -2,8 +2,8 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   mainCardWrapper: {
-    padding: '16px',
-    marginBottom: '24px',
+    padding: 20,
+    marginBottom: 20,
     backgroundColor: theme.palette.background.general,
     borderRadius: 10,
   },

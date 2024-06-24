@@ -15,7 +15,7 @@ import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './navbar-category.style'
 
-export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, shortNavbar, onToggleModal }) => {
+export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, shortNavbar }) => {
   const { classes: styles, cx } = useStyles()
 
   const [subRoutes, setSubRoutes] = useState([])
@@ -39,9 +39,13 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
       case '/client/my-orders/orders':
         return (
           <div className={cx(styles.bigBadge, styles.redBadge)}>
-            {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired.length : 0}
+            {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired?.length : 0}
           </div>
         )
+      case '/client/freelance/service-exchange':
+        return userInfo.freelanceNotices?.length > 0 ? (
+          <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo.freelanceNotices?.length}</div>
+        ) : null
     }
   }
 
@@ -69,7 +73,6 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
       tooltipInfoContent={hints && !shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
       className={styles.menuItem}
       styleType={ButtonStyle.TRANSPARENT}
-      onClick={onToggleModal}
     >
       <MuiListItem
         disableGutters
@@ -93,7 +96,9 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
             component={category.icon}
           />
 
-          {badge ? <div className={cx(styles.badge, { [styles.redBadge]: isRedBadge })}>{badge}</div> : undefined}
+          {Number(badge) > 0 ? (
+            <div className={cx(styles.badge, { [styles.redBadge]: isRedBadge })}>{badge}</div>
+          ) : undefined}
         </ListItemIcon>
         {!shortNavbar && (
           <ListItemText

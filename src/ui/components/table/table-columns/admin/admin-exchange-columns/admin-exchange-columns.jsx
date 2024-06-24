@@ -1,5 +1,5 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { humanFriendlyStategyStatus, mapProductStrategyStatusEnum } from '@constants/product/product-strategy-status'
+import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -56,7 +56,7 @@ export const adminExchangeColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => (
-      <MultilineTextCell text={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[params.value])} />
+      <MultilineTextCell text={humanFriendlyStategyStatus(productStrategyStatusesEnum[params.value])} />
     ),
 
     width: 250,

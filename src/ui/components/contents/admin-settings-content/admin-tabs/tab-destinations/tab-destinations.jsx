@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
@@ -10,10 +9,10 @@ import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './tab-destinations.style'
 
@@ -21,12 +20,7 @@ import { AdminSettingsDestinationsModel } from './tab-destinations.model'
 
 export const TabDestinations = observer(() => {
   const { classes: styles } = useStyles()
-
   const [viewModel] = useState(() => new AdminSettingsDestinationsModel())
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   return (
     <div className={styles.wrapper}>
@@ -36,8 +30,6 @@ export const TabDestinations = observer(() => {
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          useResizeContainer
-          localeText={getLocalizationByLanguageTag()}
           sortModel={viewModel.sortModel}
           sortingMode="client"
           paginationMode="client"
@@ -45,7 +37,7 @@ export const TabDestinations = observer(() => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
-          rowHeight={70}
+          getRowHeight={() => 'auto'}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -59,7 +51,7 @@ export const TabDestinations = observer(() => {
             },
           }}
           columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}

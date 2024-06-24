@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,9 +17,10 @@ import { SearchInput } from '@components/shared/search-input'
 import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-type-task-select'
 import { ViewCardsSelect } from '@components/shared/selects/view-cards-select'
 
-import { getLocalizationByLanguageTag } from '@utils/data-grid-localization'
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './vacant-requests-view.style'
 
@@ -110,8 +110,6 @@ export const VacantRequestsView = observer(({ history }) => {
       ) : viewModel.viewMode === tableViewMode.TABLE ? (
         <div className={styles.dataGridWrapper}>
           <CustomDataGrid
-            useResizeContainer
-            localeText={getLocalizationByLanguageTag()}
             rowCount={viewModel.rowCount}
             sortModel={viewModel.sortModel}
             filterModel={viewModel.filterModel}
@@ -137,7 +135,7 @@ export const VacantRequestsView = observer(({ history }) => {
               },
             }}
             columns={viewModel.columnsModel}
-            loading={viewModel.requestStatus === loadingStatuses.IS_LOADING}
+            loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
             getRowClassName={getRowClassName}
             onSortModelChange={viewModel.onChangeSortingModel}
             onFilterModelChange={viewModel.onChangeFilterModel}
@@ -148,7 +146,7 @@ export const VacantRequestsView = observer(({ history }) => {
         </div>
       ) : (
         !viewModel.currentData?.length &&
-        loadingStatuses.SUCCESS && (
+        loadingStatus.SUCCESS && (
           <div className={styles.emptyTableWrapper}>
             <img src="/assets/icons/empty-table.svg" />
             <p className={styles.emptyTableText}>{t(TranslationKey['No vacant applications yet'])}</p>

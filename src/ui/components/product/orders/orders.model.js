@@ -1,9 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { createOrderRequestWhiteList } from '@constants/white-list'
+import { createFormedOrder, createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { OrderModel } from '@models/order-model'
@@ -14,17 +13,17 @@ import { clientProductOrdersViewColumns } from '@components/table/table-columns/
 
 import { clientOrdersDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { getActiveStatuses } from './helpers/get-active-statuses'
 import { canceledStatus, completedStatus, selectedStatus } from './orders.constant'
 
 export class OrdersModel {
-  history = undefined
   requestStatus = undefined
-  error = undefined
 
   productId = undefined
 
@@ -47,7 +46,6 @@ export class OrdersModel {
 
   storekeepers = []
   destinations = []
-  platformSettings = undefined
 
   paginationModel = { page: 0, pageSize: 15 }
 
@@ -67,9 +65,11 @@ export class OrdersModel {
 
   isCheckedStatusByFilter = {}
 
-  constructor({ history, productId, showAtProcessOrders }) {
-    this.history = history
+  get platformSettings() {
+    return UserModel.platformSettings
+  }
 
+  constructor({ productId, showAtProcessOrders }) {
     this.productId = productId
 
     this.isCheckedStatusByFilter = getActiveStatuses(showAtProcessOrders)
@@ -172,54 +172,47 @@ export class OrdersModel {
     try {
       this.getOrdersByProductId()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getOrdersByProductId() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const result = await ClientModel.getOrdersByProductId(this.productId)
 
       runInAction(() => {
         this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       runInAction(() => {
         this.orders = []
-        this.error = error
       })
-      this.setRequestStatus(loadingStatuses.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async onClickReorder(item, isPendingOrder) {
     try {
-      const [storekeepers, destinations, result, order] = await Promise.all([
+      const [storekeepers, destinations, order] = await Promise.all([
         StorekeeperModel.getStorekeepers(),
         ClientModel.getDestinations(),
-        UserModel.getPlatformSettings(),
         ClientModel.getOrderById(item._id),
       ])
 
       runInAction(() => {
         this.storekeepers = storekeepers
-
         this.destinations = destinations
-
-        this.platformSettings = result
-
         this.reorderOrder = order
-
         this.isPendingOrdering = !!isPendingOrder
       })
 
       this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -253,12 +246,7 @@ export class OrdersModel {
 
   async createOrder(orderObject) {
     try {
-      const requestData = getObjectFilteredByKeyArrayBlackList(orderObject, [
-        'barCode',
-        'tmpBarCode',
-        'tmpIsPendingOrder',
-        '_id',
-      ])
+      const requestData = getObjectFilteredByKeyArrayWhiteList(orderObject, createOrderRequestWhiteList)
 
       if (orderObject.tmpIsPendingOrder) {
         await ClientModel.createFormedOrder(requestData)
@@ -270,17 +258,15 @@ export class OrdersModel {
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
       this.onTriggerOpenModal('showInfoModal')
-      this.error = error
     }
   }
 
   async onSubmitOrderProductModal() {
     try {
-      this.error = undefined
       this.onTriggerOpenModal('showOrderModal')
 
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
@@ -308,16 +294,7 @@ export class OrdersModel {
         }
 
         if (product.tmpIsPendingOrder) {
-          const requestData = getObjectFilteredByKeyArrayBlackList(product, [
-            'barCode',
-            'tmpBarCode',
-            'tmpIsPendingOrder',
-            '_id',
-            'tmpTransparencyFile',
-            'transparency',
-          ])
-
-          await ClientModel.createFormedOrder(requestData)
+          await ClientModel.createFormedOrder(getObjectFilteredByKeyArrayWhiteList(product, createFormedOrder))
         } else if (this.isPendingOrdering) {
           const dataToRequest = getObjectFilteredByKeyArrayWhiteList(product, [
             'amount',
@@ -342,18 +319,19 @@ export class OrdersModel {
         }
       }
 
-      if (!this.error) {
+      runInAction(() => {
         this.successModalText = this.isPendingOrdering
           ? t(TranslationKey['The order has been updated'])
           : t(TranslationKey['The order has been created'])
-        this.onTriggerOpenModal('showSuccessModal')
-      }
+      })
+
+      this.onTriggerOpenModal('showSuccessModal')
+
       this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
     } catch (error) {
-      console.log(error)
-      this.error = error
+      console.error(error)
     }
   }
 

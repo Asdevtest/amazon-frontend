@@ -72,7 +72,6 @@ export const warehouseMyTasksViewColumns = handlers => [
       <ChangeInputCommentCell
         rowsCount={4}
         text={params.row.originalData.reason}
-        id={params.row.originalData._id}
         onClickSubmit={reason =>
           handlers.updateTaskComment(params.row.originalData._id, params.row.originalData.priority, reason)
         }

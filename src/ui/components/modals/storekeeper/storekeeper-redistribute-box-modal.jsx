@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import { operationTypes } from '@constants/keys/operation-types'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxSplit } from '@components/shared/boxes/box-split'
@@ -12,6 +11,7 @@ import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
 import { ButtonVariant } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './storekeeper-redistribute-box-modal.style'
 
@@ -23,8 +23,6 @@ export const StorekeeperRedistributeBox = observer(
     destinations,
     storekeepers,
     requestStatus,
-    // addNewBoxModal,
-    // setAddNewBoxModal,
     selectedBox,
     onRedistribute,
     onTriggerOpenModal,
@@ -33,7 +31,6 @@ export const StorekeeperRedistributeBox = observer(
     showEditBoxModalR,
     onEditBox,
     onTriggerShowEditBoxModalR,
-    volumeWeightCoefficient,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -54,6 +51,8 @@ export const StorekeeperRedistributeBox = observer(
       weighGrossKgWarehouse: 0,
       images: [],
     })
+
+    
 
     const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
 
@@ -173,7 +172,7 @@ export const StorekeeperRedistributeBox = observer(
 
     const disabledSubmitBtn =
       totalProductsAmount !== 0 ||
-      requestStatus === loadingStatuses.IS_LOADING ||
+      requestStatus === loadingStatus.IS_LOADING ||
       filterEmptyBoxes(newBoxes).length < 2 ||
       filterEmptyBoxes(newBoxes).some(
         el =>
@@ -225,7 +224,6 @@ export const StorekeeperRedistributeBox = observer(
           </div>
 
           <NewBoxes
-            volumeWeightCoefficient={volumeWeightCoefficient}
             newBoxes={newBoxes}
             isMasterBox={isMasterBox}
             selectedBox={selectedBox}

@@ -3,7 +3,7 @@ import { Avatar, Grid, Rating, Typography } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -27,14 +27,12 @@ export const AppealDetailsCard = () => {
               <Typography className={styles.cardDescription}>{'Текст обращения'}</Typography>
             </div>
           </div>
-          <div>
-            <PhotoAndFilesSlider
-              files={[
-                'http://www.rosphoto.com/images/u/articles/1510/7_5.jpg',
-                'https://s0.rbk.ru/v6_top_pics/media/img/5/46/756038770746465.jpg',
-              ]}
-            />
-          </div>
+          <SlideshowGallery
+            files={[
+              'http://www.rosphoto.com/images/u/articles/1510/7_5.jpg',
+              'https://s0.rbk.ru/v6_top_pics/media/img/5/46/756038770746465.jpg',
+            ]}
+          />
           <div className={styles.timeOnReviewWrapper}>
             <Typography className={styles.timeOnReviewTitle}>
               {'Жалоба должна быть принята к рассмотрению в течение 48 часов'}

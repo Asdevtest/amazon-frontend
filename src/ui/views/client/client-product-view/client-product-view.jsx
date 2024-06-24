@@ -6,12 +6,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ClientModel } from '@models/client-model'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
+import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 
 import { t } from '@utils/translations'
 
-import { ProductVariation } from '@typings/enums/product-variation'
+import { ProductVariation } from '@typings/enums/product/product-variation'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
@@ -41,8 +41,6 @@ export const ClientProductView = observer(({ history }) => {
           navigateToProduct={viewModel.navigateToProduct}
           unbindProductHandler={viewModel.unbindProductHandler}
           shops={viewModel.shopsData}
-          acceptMessage={viewModel?.alertShieldSettings?.alertShieldMessage}
-          showAcceptMessage={viewModel?.alertShieldSettings?.showAlertShield}
           showBindProductModal={viewModel.showBindProductModal}
           productsToBind={useProductsPermissions.currentPermissionsData}
           actionStatus={viewModel.requestStatus}
@@ -73,18 +71,9 @@ export const ClientProductView = observer(({ history }) => {
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
           onSaveForceProductData={viewModel.onSaveForceProductData}
         />
-      ) : null}
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.warningModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
-        />
-      ) : null}
+      ) : (
+        <CircularProgressWithLabel />
+      )}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

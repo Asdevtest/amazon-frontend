@@ -1,7 +1,6 @@
 import he from 'he'
 import { FC, memo } from 'react'
 import Highlighter from 'react-highlight-words'
-import Linkify from 'react-linkify-always-blank'
 
 import { IsReadIcon, NoReadIcon } from '@components/shared/svg-icons'
 import { UserLink } from '@components/user/user-link'
@@ -51,15 +50,13 @@ export const ChatMessageBasicText: FC<ChatMessageBasicTextProps> = memo(props =>
             className={styles.messageText}
             findChunks={findChunks}
             highlightTag={({ children }: HighlightTag) => (
-              <Linkify>
-                <span
-                  className={cx({
-                    [styles.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
-                  })}
-                >
-                  {children}
-                </span>
-              </Linkify>
+              <span
+                className={cx({
+                  [styles.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
+                })}
+              >
+                {children}
+              </span>
             )}
           />
         )}

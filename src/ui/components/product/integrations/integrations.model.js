@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductModel } from '@models/product-model'
@@ -11,17 +11,16 @@ import { productIntegrationsColumns } from '@components/table/table-columns/prod
 import { addIdDataConverter, stockReportDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
+
 export class IntegrationsModel {
-  history = undefined
   requestStatus = undefined
-  error = undefined
 
   productId = undefined
   product = undefined
 
   showBindInventoryGoodsToStockModal = false
   showSuccessModal = false
-  showInfoModal = false
 
   successInfoModalText = ''
 
@@ -39,10 +38,9 @@ export class IntegrationsModel {
     return this.sellerBoardData
   }
 
-  constructor({ history, productId }) {
-    this.history = history
-
+  constructor({ productId }) {
     this.productId = productId
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -55,32 +53,27 @@ export class IntegrationsModel {
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
   }
 
   async onClickBindInventoryGoodsToStockBtn() {
     try {
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
+      console.error(error)
     }
   }
 
   async loadData() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await Promise.all([this.getProductById(), this.getProductsWithSkuById()])
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
@@ -92,14 +85,12 @@ export class IntegrationsModel {
         this.product = result
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   async getStockGoodsByFilters(filter, isRecCall) {
@@ -110,14 +101,11 @@ export class IntegrationsModel {
         this.sellerBoardDailyData = addIdDataConverter(result?.rows)
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       if (isRecCall) {
         this.getStockGoodsByFilters()
       } else {
         this.sellerBoardDailyData = []
-        if (error.body && error.body.message) {
-          this.error = error.body.message
-        }
       }
     }
   }
@@ -134,7 +122,7 @@ export class IntegrationsModel {
       this.onTriggerOpenModal('showSuccessModal')
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -148,9 +136,9 @@ export class IntegrationsModel {
 
       this.loadData()
     } catch (error) {
-      this.onTriggerOpenModal('showInfoModal')
+      toast.error(t(TranslationKey["You can't bind"]))
 
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -162,18 +150,12 @@ export class IntegrationsModel {
         this.sellerBoardData = stockReportDataConverter(result)
       })
     } catch (error) {
-      console.log(error)
-      this.error = error
-
-      this.sellerBoardData = []
+      console.error(error)
     }
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
+    this.paginationModel = model
     this.loadData()
   }
 

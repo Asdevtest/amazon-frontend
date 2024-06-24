@@ -1,6 +1,5 @@
 import Typography from '@mui/material/Typography'
 
-import { requestPriority } from '@constants/requests/request-priority'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,6 +11,8 @@ import { UserLink } from '@components/user/user-link'
 import { getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
+
+import { RequestPriority } from '@typings/enums/request/request-priority'
 
 import { useStyles } from './vacant-request-list-card.style'
 
@@ -83,7 +84,7 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
       <div className={styles.controls}>
         <div className={styles.buttonWrapper}>
           <div className={styles.priorityWrapper}>
-            {Number(item?.priority) === requestPriority.urgentPriority && (
+            {Number(item?.priority) === RequestPriority.urgentPriority && (
               <img className={styles.priorityIcon} src="/assets/icons/fire.svg" />
             )}
           </div>

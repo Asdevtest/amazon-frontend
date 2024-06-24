@@ -11,7 +11,7 @@ import { SuccessInfoModal } from '@components/modals/success-info-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserBalanceHistory } from '@components/user/user-balance-history'
 
@@ -145,25 +145,19 @@ export const Listing = observer(({ productId, onClickBack }) => {
                   {t(TranslationKey['Photos of the product in boxes:'])}
                 </Typography>
 
-                <div className={styles.carouselWrapper}>
-                  <PhotoAndFilesSlider withoutFiles smallSlider files={imagesFromBoxes} />
-                </div>
+                <SlideshowGallery slidesToShow={2} files={imagesFromBoxes} />
               </div>
 
               <div>
                 <Typography className={styles.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
 
-                <div className={styles.carouselWrapper}>
-                  <PhotoAndFilesSlider withoutFiles smallSlider files={listingProduct.listingImages} />
-                </div>
+                <SlideshowGallery slidesToShow={2} files={listingProduct.listingImages} />
               </div>
             </div>
 
             {userCanEdit && (
-              <div>
-                <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
-                </div>
+              <div className={styles.imageFileInputWrapper}>
+                <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} />
               </div>
             )}
 
@@ -205,7 +199,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
         />
       ) : null}
 
-      {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
 })

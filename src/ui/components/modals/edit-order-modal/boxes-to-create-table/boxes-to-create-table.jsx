@@ -1,27 +1,24 @@
 import { useState } from 'react'
 
-import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@mui/icons-material/Edit'
 import { TableCell, TableRow, Typography } from '@mui/material'
 
-import {
-  inchesCoefficient,
-  poundsWeightCoefficient,
-  unitsOfChangeOptions,
-  volumePoundsWeightCoefficient,
-} from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
+import { SizeSwitcher } from '@components/shared/size-switcher'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
+import { Dimensions } from '@typings/enums/dimensions'
+
+import { Entities, useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
 
 import { useStyles } from './boxes-to-create-table.style'
 
@@ -48,28 +45,11 @@ const renderHeadRow = () => (
 const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
   const { classes: styles, cx } = useStyles()
 
-  const heightCmSupplier = toFixed(
-    item.heightCmSupplier / (restProps.sizeSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1),
-    2,
-  )
-  const widthCmSupplier = toFixed(
-    item.widthCmSupplier / (restProps.sizeSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1),
-    2,
-  )
-  const lengthCmSupplier = toFixed(
-    item.lengthCmSupplier / (restProps.sizeSetting === unitsOfChangeOptions.US ? inchesCoefficient : 1),
-    2,
-  )
-  const weighGrossKgSupplier = toFixed(
-    item.weighGrossKgSupplier / (restProps.sizeSetting === unitsOfChangeOptions.US ? poundsWeightCoefficient : 1),
-    2,
-  )
-  const volumeWeightKgSupplier = toFixed(
-    (heightCmSupplier * widthCmSupplier * lengthCmSupplier) / restProps.volumeWeightCoefficient,
-    2,
-  )
-
-  const weightFinalAccountingKgSupplier = Math.max(weighGrossKgSupplier, volumeWeightKgSupplier)
+  const { length, width, height, weight, volumeWeight, finalWeight } = useShowDimensions({
+    data: item,
+    sizeSetting: restProps.sizeSetting,
+    calculationField: Entities.SUPPLIER,
+  })
 
   return (
     <TableRow className={styles.row}>
@@ -104,35 +84,31 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
         <div className={styles.sizesWrapper}>
           <div className={styles.sizeWrapper}>
             <Typography>{t(TranslationKey.H) + ': '}</Typography>
-            <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={heightCmSupplier} />
+            <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={height} />
           </div>
           <div className={styles.sizeWrapper}>
             <Typography>{t(TranslationKey.W) + ': '}</Typography>
-            <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={widthCmSupplier} />
+            <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={width} />
           </div>
           <div className={styles.sizeWrapper}>
             <Typography>{t(TranslationKey.L) + ': '}</Typography>
-            <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={lengthCmSupplier} />
+            <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={length} />
           </div>
         </div>
       </TableCell>
       <TableCell>
         <div className={styles.normalCell}>
-          <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={weighGrossKgSupplier} />
+          <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={weight} />
         </div>
       </TableCell>
       <TableCell>
         <div className={styles.normalCell}>
-          <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={volumeWeightKgSupplier} />
+          <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={volumeWeight} />
         </div>
       </TableCell>
       <TableCell>
         <div className={styles.normalCell}>
-          <Input
-            disabled
-            classes={{ root: styles.inputWrapper, input: styles.input }}
-            value={weightFinalAccountingKgSupplier}
-          />
+          <Input disabled classes={{ root: styles.inputWrapper, input: styles.input }} value={finalWeight} />
         </div>
       </TableCell>
 
@@ -186,11 +162,13 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
         <div className={styles.buttonCell}>
           <Button
             iconButton
+            styleType={ButtonStyle.DANGER}
             tooltipInfoContent={t(TranslationKey['Remove box'])}
             onClick={() => handlers.onRemoveBox(itemIndex)}
           >
-            <DeleteIcon />
+            <CrossIcon />
           </Button>
+
           <Button iconButton onClick={() => handlers.onEditBox()}>
             <EditIcon />
           </Button>
@@ -209,36 +187,22 @@ export const BoxesToCreateTable = ({
   onClickBarcodeCheckbox,
   onClickUpdateSupplierStandart,
   onClickTransparency,
-  volumeWeightCoefficient,
   orderGoodsAmount,
 }) => {
   const { classes: styles, cx } = useStyles()
 
-  const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-  const weightCoefficient =
-    sizeSetting === unitsOfChangeOptions.EU ? volumeWeightCoefficient : volumePoundsWeightCoefficient
-
-  const handleChange = newAlignment => {
-    setSizeSetting(newAlignment)
-  }
+  const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
 
   const itemsGoodsAmount = newBoxes?.reduce((acc, item) => {
     return acc + item?.items?.[0]?.amount * item?.amount
   }, 0)
+
   return (
     <div className={styles.newBoxes}>
       <p className={styles.sectionTitle}>{t(TranslationKey['Boxes will be created'])}</p>
 
       <div className={styles.sizesSubWrapper}>
-        <CustomSwitcher
-          condition={sizeSetting}
-          switcherSettings={[
-            { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-            { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-          ]}
-          changeConditionHandler={condition => handleChange(condition)}
-        />
+        <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
 
         <p>
           {`${t(TranslationKey['Total quantity'])}:`}{' '}
@@ -268,7 +232,6 @@ export const BoxesToCreateTable = ({
           onClickTransparency,
         }}
         barcodeIsExist={barcodeIsExist}
-        volumeWeightCoefficient={weightCoefficient}
         sizeSetting={sizeSetting}
         isNoBuyerSupplier={isNoBuyerSupplier}
       />

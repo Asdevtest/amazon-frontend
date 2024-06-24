@@ -8,6 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     height: '100%',
     width: '200px',
+    padding: '0 10px',
   },
 
   categoryContainer: {

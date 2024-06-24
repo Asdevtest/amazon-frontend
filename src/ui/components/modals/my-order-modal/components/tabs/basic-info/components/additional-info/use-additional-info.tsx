@@ -1,17 +1,18 @@
 import dayjs from 'dayjs'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent } from 'react'
 
-import { OrderPriority } from '@constants/orders/order-priority'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserMiniCell } from '@components/data-grid/data-grid-cells'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
-import { DefaultDatePicker } from '@components/shared/date-picker/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Select } from '@components/shared/selects/select'
 import { Switch } from '@components/shared/switch'
 
 import { t } from '@utils/translations'
+
+import { OrderPriority } from '@typings/enums/order/order-priority'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -19,7 +20,7 @@ import { useStyles } from './additional-info.style'
 
 import { IFieldConfig } from '../../basic-info.type'
 
-import { AdditionalInfoProps, InitialConfirmModalSettingsState } from './additional-info.type'
+import { UseAdditionalInfoParams } from './additional-info.type'
 
 export const useAdditionalInfo = ({
   isOrderEditable,
@@ -27,26 +28,13 @@ export const useAdditionalInfo = ({
   destinations,
   storekeepers,
   destinationsFavourites,
+  destinationId,
   setDestinationsFavouritesItem,
   setFormFields,
-}: AdditionalInfoProps) => {
+  handleSetDestination,
+  setShowSelectionStorekeeperAndTariffModal,
+}: UseAdditionalInfoParams) => {
   const { classes: styles, cx } = useStyles()
-
-  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-  const [showConfirmModal, setShowConfirmModal] = useState(false)
-  const [confirmModalSettings, setConfirmModalSettings] = useState<InitialConfirmModalSettingsState | undefined>(
-    undefined,
-  )
-  const [currentDestinationId, setCurrnetDestinationId] = useState<string | null>(null)
-
-  useEffect(() => {
-    setCurrnetDestinationId(formFields?.variationTariff?.destinationId)
-  }, [formFields?.destinationId])
-
-  const handleToggleConfirmModal = () => setShowConfirmModal(!showConfirmModal)
-
-  const handleToggleSelectionStorekeeperAndTariffModal = () =>
-    setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
 
   const onChangeField = (fieldName: string) => (event: ChangeEvent<HTMLInputElement>) => {
     setFormFields(prevFormFields => {
@@ -70,107 +58,6 @@ export const useAdditionalInfo = ({
     setFormFields(prevFormFields => ({ ...prevFormFields, [fieldName]: value }))
   }
 
-  const onSubmitSelectStorekeeperAndTariff = (
-    storekeeperId: string,
-    tariffId: string,
-    variationTariffId: string,
-    destinationId: string,
-    isSelectedDestinationNotValid: boolean,
-    isReset: boolean,
-  ) => {
-    if (isSelectedDestinationNotValid) {
-      setConfirmModalSettings({
-        isWarning: false,
-        title: t(TranslationKey.Attention),
-        confirmMessage: t(TranslationKey['Wish to change a destination?']),
-        onClickConfirm: () => {
-          setFormFields(prevFormFields => ({
-            ...prevFormFields,
-            storekeeperId,
-            logicsTariffId: tariffId,
-            variationTariffId,
-            destinationId,
-          }))
-
-          setCurrnetDestinationId(destinationId)
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(false)
-        },
-        onClickCancelBtn: () => {
-          setFormFields(prevFormFields => ({
-            ...prevFormFields,
-            storekeeperId,
-            destinationId: null,
-            logicsTariffId: tariffId,
-            variationTariffId,
-          }))
-
-          setCurrnetDestinationId(null)
-          setShowConfirmModal(false)
-          setShowSelectionStorekeeperAndTariffModal(false)
-        },
-      })
-
-      setShowConfirmModal(true)
-    } else {
-      if (formFields?.destinationId || isReset) {
-        setCurrnetDestinationId(destinationId)
-
-        setFormFields(prevFormFields => ({
-          ...prevFormFields,
-          storekeeperId,
-          logicsTariffId: tariffId,
-          variationTariffId,
-        }))
-
-        setShowSelectionStorekeeperAndTariffModal(false)
-      } else {
-        setConfirmModalSettings({
-          isWarning: false,
-          title: t(TranslationKey.Attention),
-          confirmMessage: t(TranslationKey['Wish to set a destination?']),
-          onClickConfirm: () => {
-            const validDestinationId =
-              destinationId ||
-              storekeepers
-                ?.find(storekeeper => storekeeper?._id === storekeeperId)
-                ?.tariffLogistics?.find(tariff => tariff?._id === tariffId)
-                ?.destinationVariations?.find(destinationVariation => destinationVariation?._id === variationTariffId)
-                ?.destination?._id
-
-            setCurrnetDestinationId(validDestinationId || null)
-
-            setFormFields(prevFormFields => ({
-              ...prevFormFields,
-              storekeeperId,
-              logicsTariffId: tariffId,
-              variationTariffId,
-              destinationId: validDestinationId || null,
-            }))
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(false)
-          },
-          onClickCancelBtn: () => {
-            setCurrnetDestinationId(destinationId)
-
-            setFormFields(prevFormFields => ({
-              ...prevFormFields,
-              storekeeperId,
-              logicsTariffId: tariffId,
-              variationTariffId,
-            }))
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(false)
-          },
-        })
-
-        setShowConfirmModal(true)
-      }
-    }
-  }
-
   const { tariffName, tariffRate } = useGetDestinationTariffInfo(
     destinations,
     storekeepers,
@@ -179,9 +66,10 @@ export const useAdditionalInfo = ({
     formFields.logicsTariffId,
     formFields.variationTariffId,
   )
+
   const currentItemName = destinations?.find(el => el?._id === formFields?.destinationId)?.name
   const currentItems = formFields?.logicsTariffId
-    ? destinations.filter(el => el?._id === currentDestinationId)
+    ? destinations.filter(el => el?._id === (destinationId || formFields?.variationTariff?.destinationId))
     : destinations
 
   const currentTariffName = tariffName ? `${tariffName}` : ''
@@ -194,7 +82,7 @@ export const useAdditionalInfo = ({
     {
       title: t(TranslationKey.Deadline),
       element: (
-        <DefaultDatePicker
+        <DatePicker
           disabled={!isOrderEditable}
           minDate={minDate}
           value={formFields.deadline}
@@ -213,17 +101,17 @@ export const useAdditionalInfo = ({
           items={currentItems}
           destinationsFavourites={destinationsFavourites}
           setDestinationsFavouritesItem={setDestinationsFavouritesItem}
-          onChangeSelectedItem={onChangeStringField('destinationId')}
+          onChangeSelectedItem={id => handleSetDestination(id as string)}
         />
       ),
     },
     {
-      title: `${t(TranslationKey.Tariff)}`,
+      title: t(TranslationKey.Tariff),
       element: (
         <button
           disabled={!isOrderEditable}
           className={styles.tafiffButton}
-          onClick={handleToggleSelectionStorekeeperAndTariffModal}
+          onClick={() => setShowSelectionStorekeeperAndTariffModal(true)}
         >
           {shoWcurrentTariff ? (
             <>
@@ -231,7 +119,7 @@ export const useAdditionalInfo = ({
               <p className={styles.tafiffText}>{currentTariffRate}</p>
             </>
           ) : (
-            <p>{t(TranslationKey.Select)}</p>
+            <p className={styles.tafiffText}>{t(TranslationKey.Select)}</p>
           )}
         </button>
       ),
@@ -286,11 +174,5 @@ export const useAdditionalInfo = ({
 
   return {
     additionalInfoFieldsConfig,
-    showConfirmModal,
-    showSelectionStorekeeperAndTariffModal,
-    confirmModalSettings,
-    onSubmitSelectStorekeeperAndTariff,
-    onToggleConfirmModal: handleToggleConfirmModal,
-    onToggleSelectionStorekeeperAndTariffModal: handleToggleSelectionStorekeeperAndTariffModal,
   }
 }

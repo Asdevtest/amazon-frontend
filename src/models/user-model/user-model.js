@@ -1,6 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 
+import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
+
 import { ChatModel } from '@models/chat-model'
 import { SettingsModel } from '@models/settings-model'
 
@@ -9,8 +11,6 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 import { filterNullValues } from '@utils/object'
 
 const persistProperties = ['accessToken', 'userInfo', 'masterUserId', 'userId', 'refreshToken', 'platformSettings']
-
-const stateModelName = 'UserModel'
 
 class UserModelStatic {
   accessToken = undefined
@@ -23,7 +23,7 @@ class UserModelStatic {
 
   constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
-    makePersistable(this, { name: stateModelName, properties: persistProperties }).then(persistStore => {
+    makePersistable(this, { name: LOCAL_STORAGE_KEYS.USER_MODEL, properties: persistProperties }).then(persistStore => {
       runInAction(() => {
         this.isHydrated = persistStore.isHydrated
       })
@@ -138,7 +138,7 @@ class UserModelStatic {
 
   async getUsersInfoCounters() {
     try {
-      const response = await restApiService.userApi.apiV1UsersInfoCountersGet()
+      const response = await restApiService.userApi.apiV1UsersInfoCountersGet({ noCache: true })
 
       runInAction(() => {
         this.userInfo = { ...this.userInfo, ...response.data }
@@ -155,17 +155,12 @@ class UserModelStatic {
     }
   }
 
-  async getPlatformSettings() {
-    const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
-    return response.data
-  }
-
   async getUserInfoById(guid) {
     try {
       const response = await restApiService.userApi.apiV1UsersInfoGuidGet({ guid })
       return response.data
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -252,7 +247,7 @@ class UserModelStatic {
 
   async getUsersPresets() {
     const response = await restApiService.userApi.apiV1UsersPresetsGet()
-    return response.data
+    return response?.data
   }
 
   async postUsersPresets(body) {
@@ -272,6 +267,31 @@ class UserModelStatic {
 
   async getSpecs(archive) {
     const response = await restApiService.userApi.apiV1UsersFreelanceSpecsGet({ archive, noCache: true }) // archive = undefined - all elements, archive = false - only not archive elements, archive = true - only archive elements
+    return response.data
+  }
+
+  async getActiveSessions() {
+    const response = await restApiService.userApi.apiV1UsersDevicesGet({ noCache: true })
+    return response.data
+  }
+
+  async logoutSession(sessionCreatedAt) {
+    const response = await restApiService.userApi.apiV1UsersLogoutPost({ body: { sessionCreatedAt } })
+    return response.data
+  }
+
+  async getPatchNotes(body) {
+    const response = await restApiService.userApi.apiV1UsersPatchNotesGet({ ...body, noCache: true })
+    return response.data
+  }
+
+  async getPatchNote(guid) {
+    const response = await restApiService.userApi.apiV1UsersPatchNotesGuidGet({ guid, noCache: true })
+    return response.data
+  }
+
+  async getPlatformSettings() {
+    const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
     return response.data
   }
 }

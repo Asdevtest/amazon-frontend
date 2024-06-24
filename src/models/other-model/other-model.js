@@ -59,6 +59,25 @@ class OtherModelStatic {
     return response.data
   }
 
+  patchPermissionJson = async file => {
+    const blob = new Blob([file], { type: file?.type })
+    const fileData = new FormData()
+    fileData.append('file', blob, file.name)
+
+    const response = await restApiService.axiosInstance({
+      method: 'patch',
+      url: `/api/v1/admins/update_permission`,
+      data: fileData,
+      responseType: 'blob',
+
+      headers: {
+        'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
+      },
+    })
+
+    return response.data
+  }
+
   getReportTaskByTaskId = async id => {
     await restApiService
       .axiosInstance({
@@ -82,7 +101,7 @@ class OtherModelStatic {
         URL.revokeObjectURL(href)
       })
       .catch(error => {
-        console.log(error)
+        console.error(error)
       })
   }
 
@@ -109,7 +128,7 @@ class OtherModelStatic {
         URL.revokeObjectURL(href)
       })
       .catch(error => {
-        console.log(error)
+        console.error(error)
       })
   }
 

@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   switcherWrapper: {
-    padding: 3,
+    padding: 2,
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
@@ -73,7 +73,6 @@ export const useStyles = makeStyles()(theme => ({
 
   activeOption: {
     cursor: 'unset',
-    fontWeight: 600,
     transition: 'all .3s ease',
     color: theme.palette.customSwitcher.activeText,
     backgroundColor: theme.palette.customSwitcher.indicator,
@@ -89,6 +88,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mediumOptionStyles: {
+    padding: '0 20px',
+  },
+
+  circleOptionStyles: {
     padding: '0 10px',
   },
 

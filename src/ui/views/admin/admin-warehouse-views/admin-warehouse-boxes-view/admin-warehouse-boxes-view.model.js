@@ -1,19 +1,18 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
 
 import { BoxesModel } from '@models/boxes-model'
 import { GeneralModel } from '@models/general-model'
-import { SettingsModel } from '@models/settings-model'
-import { UserModel } from '@models/user-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { adminBoxesViewColumns } from '@components/table/table-columns/admin/boxes-columns'
 
 import { adminBoxesDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { filtersFields } from './admin-warehouse-boxes-view.constants'
 
@@ -22,20 +21,14 @@ export class AdminWarehouseBoxesViewModel {
 
   nameSearchValue = ''
   curBox = undefined
-  volumeWeightCoefficient = undefined
   boxes = []
   selectedBoxes = []
-
-  get currentData() {
-    return this.boxes
-  }
 
   showBoxViewModal = false
 
   rowCount = 0
   sortModel = []
   filterModel = { items: [] }
-  densityModel = 'compact'
   paginationModel = { page: 0, pageSize: 15 }
   columnVisibilityModel = {}
   columnsModel = adminBoxesViewColumns()
@@ -51,6 +44,10 @@ export class AdminWarehouseBoxesViewModel {
     filterRequestStatus: undefined,
 
     ...dataGridFiltersInitializer(filtersFields),
+  }
+
+  get currentData() {
+    return this.boxes
   }
 
   constructor() {
@@ -97,11 +94,11 @@ export class AdminWarehouseBoxesViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_BOXES)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_BOXES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_BOXES]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_BOXES)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
@@ -121,13 +118,13 @@ export class AdminWarehouseBoxesViewModel {
 
       this.getBoxes()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getBoxes() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const { rows, count } = await BoxesModel.getBoxes({
         filters: this.getFilters(),
@@ -138,40 +135,28 @@ export class AdminWarehouseBoxesViewModel {
       })
 
       runInAction(() => {
-        this.boxes = adminBoxesDataConverter(rows).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.boxes = adminBoxesDataConverter(rows)
         this.rowCount = count
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
-
-      runInAction(() => {
-        this.boxes = []
-        this.rowCount = 0
-      })
+      console.error(error)
+      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 
   async setCurrentOpenedBox(row) {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-
-      const box = await BoxesModel.getBoxById(row._id)
-      const result = await UserModel.getPlatformSettings()
+      const response = await BoxesModel.getBoxById(row._id)
 
       runInAction(() => {
-        this.curBox = box
-        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+        this.curBox = response
       })
 
       this.onTriggerOpenModal('showBoxViewModal')
-
-      this.setRequestStatus(loadingStatuses.SUCCESS)
     } catch (error) {
-      console.log(error)
-      this.setRequestStatus(loadingStatuses.FAILED)
+      console.error(error)
     }
   }
 
@@ -208,8 +193,8 @@ export class AdminWarehouseBoxesViewModel {
       ...dataGridFiltersInitializer(filtersFields),
     }
 
-    this.getBoxes()
     this.getDataGridState()
+    this.getBoxes()
   }
 
   setFilterRequestStatus(requestStatus) {
@@ -218,9 +203,9 @@ export class AdminWarehouseBoxesViewModel {
 
   async onClickFilterBtn(column) {
     try {
-      this.setFilterRequestStatus(loadingStatuses.IS_LOADING)
+      this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
-      const data = await GeneralModel.getDataForColumn(
+      const filterData = await GeneralModel.getDataForColumn(
         getTableByColumn(column, 'boxes'),
         column,
         `boxes?filters=${this.getFilters(column)}`,
@@ -230,15 +215,15 @@ export class AdminWarehouseBoxesViewModel {
         runInAction(() => {
           this.columnMenuSettings = {
             ...this.columnMenuSettings,
-            [column]: { ...this.columnMenuSettings[column], filterData: data },
+            [column]: { ...this.columnMenuSettings[column], filterData },
           }
         })
       }
 
-      this.setFilterRequestStatus(loadingStatuses.SUCCESS)
+      this.setFilterRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setFilterRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setFilterRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 

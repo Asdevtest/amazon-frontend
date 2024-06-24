@@ -1,9 +1,8 @@
 import isEqual from 'lodash.isequal'
-import { memo, useEffect, useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Divider, Typography } from '@mui/material'
 
-import { inchesCoefficient, poundsCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,44 +11,43 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
-import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PhotoAndFilesSlider } from '@components/shared/photo-and-files-slider'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
+import { SizeSwitcher } from '@components/shared/size-switcher'
+import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-import { WarehouseDemensions } from '@components/shared/warehouse-demensions'
+import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
-import { calcFinalWeightForBox, calcVolumeWeightForBox } from '@utils/calculation'
-import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { Dimensions } from '@typings/enums/dimensions'
+import { TariffModal } from '@typings/enums/tariff-modal'
 
+import { INCHES_COEFFICIENT, POUNDS_COEFFICIENT, useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './edit-box-storekeeper-form.style'
 
-import { SelectStorekeeperAndTariffForm } from '../select-storkeeper-and-tariff-form'
+import { getBoxWithoutExtraFields } from './helpers/get-box-without-extra-fields'
 
 export const EditBoxStorekeeperForm = memo(
   ({
     formItem,
     onSubmit,
     onTriggerOpenModal,
-    volumeWeightCoefficient,
     destinations,
     storekeepers,
-
     destinationsFavourites,
     setDestinationsFavouritesItem,
     onClickHsCode,
@@ -57,12 +55,8 @@ export const EditBoxStorekeeperForm = memo(
     const { classes: styles, cx } = useStyles()
 
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
-    const [bigImagesOptions, setBigImagesOptions] = useState({ images: [], imgIndex: 0 })
     const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
     const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
-    const [showConfirmModal, setShowConfirmModal] = useState(false)
-    const [confirmModalSettings, setConfirmModalSettings] = useState(undefined)
     const [showSetFilesModal, setShowSetFilesModal] = useState(false)
     const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
 
@@ -137,19 +131,14 @@ export const EditBoxStorekeeperForm = memo(
 
     const boxInitialState = {
       ...formItem,
-
-      lengthCmWarehouse: formItem?.lengthCmWarehouse || 0,
-      widthCmWarehouse: formItem?.widthCmWarehouse || 0,
-      heightCmWarehouse: formItem?.heightCmWarehouse || 0,
-      weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
-      volumeWeightKgWarehouse: formItem ? calcVolumeWeightForBox(formItem, volumeWeightCoefficient) : 0,
-      weightFinalAccountingKgWarehouse: formItem ? calcFinalWeightForBox(formItem, volumeWeightCoefficient) : 0,
-
+      lengthCmWarehouse: String(formItem?.lengthCmWarehouse) || '',
+      widthCmWarehouse: String(formItem?.widthCmWarehouse) || '',
+      heightCmWarehouse: String(formItem?.heightCmWarehouse) || '',
+      weighGrossKgWarehouse: String(formItem?.weighGrossKgWarehouse) || '',
       destinationId: formItem?.destination?._id || null,
       storekeeperId: formItem?.storekeeper?._id || '',
       logicsTariffId: formItem?.logicsTariff?._id || null,
       variationTariffId: formItem?.variationTariff?._id || null,
-
       amount: formItem?.amount,
       shippingLabel: formItem?.shippingLabel || '',
       clientComment: formItem?.clientComment || '',
@@ -161,22 +150,39 @@ export const EditBoxStorekeeperForm = memo(
       tmpTrackNumberFile: [],
     }
 
+    const [boxState, setBoxState] = useState(boxInitialState)
     const [boxFields, setBoxFields] = useState(boxInitialState)
+    const [sizeSetting, setSizeSetting] = useState(Dimensions.EU)
+    const { _ } = useChangeDimensions({
+      data: boxState,
+      setData: setBoxState,
+      sizeSetting,
+    })
+    const { onChangeDimensions } = useChangeDimensions({
+      data: boxFields,
+      setData: setBoxFields,
+      sizeSetting,
+    })
 
-    const [destinationId, setDestinationId] = useState(boxFields?.destinationId)
+    const {
+      destinationId,
+      onSubmitSelectStorekeeperAndTariff,
 
-    useEffect(() => {
-      setDestinationId(boxFields?.destinationId)
-    }, [boxFields?.destinationId])
+      showConfirmModal,
+      setShowConfirmModal,
+
+      confirmModalSettings,
+
+      handleSetDestination,
+      handleResetDestination,
+
+      showSelectionStorekeeperAndTariffModal,
+      setShowSelectionStorekeeperAndTariffModal,
+    } = useTariffVariation(boxFields.destinationId, setBoxFields)
 
     const setFormField = fieldName => e => {
       const newFormFields = { ...boxFields }
       const currentValue = e.target.value
-      if (['weighGrossKgWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'lengthCmWarehouse'].includes(fieldName)) {
-        if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(currentValue)) {
-          return
-        }
-      }
       newFormFields[fieldName] = currentValue
       setBoxFields(newFormFields)
     }
@@ -222,91 +228,42 @@ export const EditBoxStorekeeperForm = memo(
       setBoxFields(newFormFields)
     }
 
-    const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
-
-    const handleChange = newAlignment => {
-      if (newAlignment !== sizeSetting) {
-        const multiplier = newAlignment === unitsOfChangeOptions.US ? inchesCoefficient : 1 / inchesCoefficient
-        const weightMultiplier = newAlignment === unitsOfChangeOptions.US ? poundsCoefficient : 1 / poundsCoefficient
-
-        setBoxFields({
-          ...boxFields,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse / multiplier, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse / multiplier, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse / multiplier, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse * weightMultiplier, 2),
-        })
-
-        setSizeSetting(newAlignment)
-      }
-    }
-
     const handleChangeImages = files =>
       setBoxFields({
         ...boxFields,
         images: files,
       })
 
-    const getBoxDataToSubmit = () => {
-      if (sizeSetting === unitsOfChangeOptions.US) {
-        return {
-          ...boxFields,
-          destinationId: boxFields.destinationId || null,
-          lengthCmWarehouse: toFixed(boxFields.lengthCmWarehouse * inchesCoefficient, 2),
-          widthCmWarehouse: toFixed(boxFields.widthCmWarehouse * inchesCoefficient, 2),
-          heightCmWarehouse: toFixed(boxFields.heightCmWarehouse * inchesCoefficient, 2),
-          weighGrossKgWarehouse: toFixed(boxFields.weighGrossKgWarehouse / poundsCoefficient, 2),
-        }
+    const handleSubmit = () => {
+      const updateBoxFields = { ...boxFields }
+
+      if (sizeSetting === Dimensions.US) {
+        updateBoxFields.lengthCmWarehouse = Number(toFixed(updateBoxFields.lengthCmWarehouse * INCHES_COEFFICIENT))
+        updateBoxFields.widthCmWarehouse = Number(toFixed(updateBoxFields.widthCmWarehouse * INCHES_COEFFICIENT))
+        updateBoxFields.heightCmWarehouse = Number(toFixed(updateBoxFields.heightCmWarehouse * INCHES_COEFFICIENT))
+        updateBoxFields.weighGrossKgWarehouse = Number(
+          toFixed(updateBoxFields.weighGrossKgWarehouse * POUNDS_COEFFICIENT),
+        )
       } else {
-        return { ...boxFields, destinationId: boxFields.destinationId || null }
+        updateBoxFields.lengthCmWarehouse = Number(updateBoxFields.lengthCmWarehouse)
+        updateBoxFields.widthCmWarehouse = Number(updateBoxFields.widthCmWarehouse)
+        updateBoxFields.heightCmWarehouse = Number(updateBoxFields.heightCmWarehouse)
+        updateBoxFields.weighGrossKgWarehouse = Number(updateBoxFields.weighGrossKgWarehouse)
       }
-    }
 
-    const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-
-    const onSubmitSelectStorekeeperAndTariff = (
-      storekeeperId,
-      tariffId,
-      variationTariffId,
-      destinationId,
-      isSelectedDestinationNotValid,
-    ) => {
-      if (isSelectedDestinationNotValid) {
-        setConfirmModalSettings({
-          isWarning: false,
-          title: t(TranslationKey.Attention),
-          confirmMessage: t(TranslationKey['Wish to change a destination?']),
-
-          onClickConfirm: () => {
-            setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId, destinationId })
-            setDestinationId(destinationId)
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-          },
-
-          onClickCancelBtn: () => {
-            setBoxFields({
-              ...boxFields,
-              storekeeperId,
-              logicsTariffId: tariffId,
-              variationTariffId,
-              destinationId: null,
-            })
-            setDestinationId(null)
-
-            setShowConfirmModal(false)
-            setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-          },
-        })
-
-        setShowConfirmModal(true)
-      } else {
-        setBoxFields({ ...boxFields, storekeeperId, logicsTariffId: tariffId, variationTariffId })
-        setDestinationId(destinationId)
-
-        setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
-      }
+      onSubmit({
+        id: formItem?._id,
+        boxData: {
+          ...getBoxWithoutExtraFields(updateBoxFields),
+          destinationId: updateBoxFields.destinationId || null,
+        },
+        sourceData: formItem,
+        imagesOfBox: boxFields.images,
+        dataToSubmitHsCode: boxFields.items.map(el => ({
+          productId: el.product._id,
+          hsCode: el.product.hsCode,
+        })),
+      })
     }
 
     const [barcodeModalSetting, setBarcodeModalSetting] = useState({
@@ -339,7 +296,6 @@ export const EditBoxStorekeeperForm = memo(
       setBarcodeModalSetting({
         title: '',
         maxNumber: 1,
-
         tmpCode: item?.tmpBarCode,
         item,
         onClickSaveBarcode: data => onClickSaveBarcode(item)(data),
@@ -348,11 +304,11 @@ export const EditBoxStorekeeperForm = memo(
     }
 
     const disableSubmit =
-      isEqual(boxInitialState, boxFields) ||
+      isEqual(boxState, boxFields) ||
       boxFields.storekeeperId === '' ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.lengthCmWarehouse) ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.widthCmWarehouse) ||
-      maxBoxSizeFromOption(sizeSetting, boxFields.heightCmWarehouse)
+      maxBoxSizeFromOption(sizeSetting, Number(boxFields.lengthCmWarehouse)) ||
+      maxBoxSizeFromOption(sizeSetting, Number(boxFields.widthCmWarehouse)) ||
+      maxBoxSizeFromOption(sizeSetting, Number(boxFields.heightCmWarehouse))
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
@@ -430,131 +386,125 @@ export const EditBoxStorekeeperForm = memo(
                     {boxFields.items.map((item, index) => (
                       <div key={index} className={styles.productWrapper}>
                         <div className={styles.leftProductColumn}>
-                          <PhotoAndFilesSlider withoutFiles mediumSlider files={item.product.images} />
+                          <SlideshowGallery slidesToShow={2} files={item.product.images} />
 
-                          <>
+                          <Field
+                            containerClasses={styles.field}
+                            tooltipInfoContent={!item.barCode && t(TranslationKey['Add a product barcode to the box'])}
+                            labelClasses={styles.standartLabel}
+                            label={t(TranslationKey.BarCode)}
+                            inputComponent={
+                              <ChangeChipCell
+                                isChipOutTable
+                                text={!item.barCode && !item?.tmpBarCode?.length && t(TranslationKey['Set Barcode'])}
+                                value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
+                                onClickChip={() => onClickBarcode(item)}
+                                onDoubleClickChip={() => onDoubleClickBarcode(item)}
+                                onDeleteChip={() => onDeleteBarcode(item.product._id)}
+                              />
+                            }
+                          />
+
+                          <Field
+                            containerClasses={styles.field}
+                            labelClasses={styles.standartLabel}
+                            label={t(TranslationKey['Transparency codes'])}
+                            inputComponent={
+                              <ChangeChipCell
+                                isChipOutTable
+                                text={
+                                  !item.transparencyFile &&
+                                  !item?.tmpTransparencyFile?.length &&
+                                  t(TranslationKey.Transparency)
+                                }
+                                value={
+                                  item?.tmpTransparencyFile?.[0]?.file?.name ||
+                                  item?.tmpTransparencyFile?.[0] ||
+                                  item.transparencyFile
+                                }
+                                onClickChip={() => {
+                                  setFilesConditions({
+                                    tmpFiles: item?.tmpTransparencyFile,
+                                    currentFiles: item.transparencyFile,
+                                    index,
+                                  })
+                                  setShowSetFilesModal(true)
+                                }}
+                                onDeleteChip={() => onDeleteTransparencyFile(index)}
+                              />
+                            }
+                          />
+
+                          <div>
                             <Field
-                              containerClasses={styles.field}
-                              tooltipInfoContent={
-                                !item.barCode && t(TranslationKey['Add a product barcode to the box'])
-                              }
+                              oneLine
                               labelClasses={styles.standartLabel}
-                              label={t(TranslationKey.BarCode)}
+                              tooltipInfoContent={t(
+                                TranslationKey['The supplier has glued the barcode before shipment'],
+                              )}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['The barcode is glued by the supplier'])}
                               inputComponent={
-                                <ChangeChipCell
-                                  isChipOutTable
-                                  text={!item.barCode && !item?.tmpBarCode?.length && t(TranslationKey['Set Barcode'])}
-                                  value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
-                                  onClickChip={() => onClickBarcode(item)}
-                                  onDoubleClickChip={() => onDoubleClickBarcode(item)}
-                                  onDeleteChip={() => onDeleteBarcode(item.product._id)}
+                                <Checkbox
+                                  checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+                                  onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
+                                />
+                              }
+                            />
+                            <Field
+                              oneLine
+                              labelClasses={styles.standartLabel}
+                              tooltipInfoContent={t(
+                                TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
+                              )}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
+                              inputComponent={
+                                <Checkbox
+                                  checked={item.isBarCodeAttachedByTheStorekeeper}
+                                  onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
                                 />
                               }
                             />
 
                             <Field
-                              containerClasses={styles.field}
+                              oneLine
                               labelClasses={styles.standartLabel}
-                              label={t(TranslationKey['Transparency codes'])}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['Transparency codes glued by the supplier'])}
                               inputComponent={
-                                <ChangeChipCell
-                                  isChipOutTable
-                                  text={
-                                    !item.transparencyFile &&
-                                    !item?.tmpTransparencyFile?.length &&
-                                    t(TranslationKey.Transparency)
-                                  }
-                                  value={
-                                    item?.tmpTransparencyFile?.[0]?.file?.name ||
-                                    item?.tmpTransparencyFile?.[0] ||
-                                    item.transparencyFile
-                                  }
-                                  onClickChip={() => {
-                                    setFilesConditions({
-                                      tmpFiles: item?.tmpTransparencyFile,
-                                      currentFiles: item.transparencyFile,
+                                <Checkbox
+                                  checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
+                                  onChange={e =>
+                                    onClickGluedTransparency(
+                                      'isTransparencyFileAlreadyAttachedByTheSupplier',
                                       index,
-                                    })
-                                    setShowSetFilesModal(true)
-                                  }}
-                                  onDeleteChip={() => onDeleteTransparencyFile(index)}
+                                      e.target.checked,
+                                    )
+                                  }
                                 />
                               }
                             />
 
-                            <div>
-                              <Field
-                                oneLine
-                                labelClasses={styles.standartLabel}
-                                tooltipInfoContent={t(
-                                  TranslationKey['The supplier has glued the barcode before shipment'],
-                                )}
-                                containerClasses={styles.checkboxContainer}
-                                label={t(TranslationKey['The barcode is glued by the supplier'])}
-                                inputComponent={
-                                  <Checkbox
-                                    checked={item.isBarCodeAlreadyAttachedByTheSupplier}
-                                    onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
-                                  />
-                                }
-                              />
-                              <Field
-                                oneLine
-                                labelClasses={styles.standartLabel}
-                                tooltipInfoContent={t(
-                                  TranslationKey[
-                                    'The barcode was glued on when the box was accepted at the prep center'
-                                  ],
-                                )}
-                                containerClasses={styles.checkboxContainer}
-                                label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
-                                inputComponent={
-                                  <Checkbox
-                                    checked={item.isBarCodeAttachedByTheStorekeeper}
-                                    onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
-                                  />
-                                }
-                              />
-
-                              <Field
-                                oneLine
-                                labelClasses={styles.standartLabel}
-                                containerClasses={styles.checkboxContainer}
-                                label={t(TranslationKey['Transparency codes glued by the supplier'])}
-                                inputComponent={
-                                  <Checkbox
-                                    checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
-                                    onChange={e =>
-                                      onClickGluedTransparency(
-                                        'isTransparencyFileAlreadyAttachedByTheSupplier',
-                                        index,
-                                        e.target.checked,
-                                      )
-                                    }
-                                  />
-                                }
-                              />
-
-                              <Field
-                                oneLine
-                                labelClasses={styles.standartLabel}
-                                containerClasses={styles.checkboxContainer}
-                                label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
-                                inputComponent={
-                                  <Checkbox
-                                    checked={item.isTransparencyFileAttachedByTheStorekeeper}
-                                    onChange={e =>
-                                      onClickGluedTransparency(
-                                        'isTransparencyFileAttachedByTheStorekeeper',
-                                        index,
-                                        e.target.checked,
-                                      )
-                                    }
-                                  />
-                                }
-                              />
-                            </div>
-                          </>
+                            <Field
+                              oneLine
+                              labelClasses={styles.standartLabel}
+                              containerClasses={styles.checkboxContainer}
+                              label={t(TranslationKey['Transparency codes are glued by storekeeper'])}
+                              inputComponent={
+                                <Checkbox
+                                  checked={item.isTransparencyFileAttachedByTheStorekeeper}
+                                  onChange={e =>
+                                    onClickGluedTransparency(
+                                      'isTransparencyFileAttachedByTheStorekeeper',
+                                      index,
+                                      e.target.checked,
+                                    )
+                                  }
+                                />
+                              }
+                            />
+                          </div>
                         </div>
 
                         <div className={styles.rightProductColumn}>
@@ -596,7 +546,7 @@ export const EditBoxStorekeeperForm = memo(
                             label={t(TranslationKey['HS code'])}
                             value={item.product.hsCode}
                             inputComponent={
-                              <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(item.product._id)}>
+                              <Button onClick={() => onClickHsCode(item.product._id)}>
                                 {t(TranslationKey['HS code'])}
                               </Button>
                             }
@@ -634,8 +584,8 @@ export const EditBoxStorekeeperForm = memo(
                               : destinations.filter(el => el.storekeeper?._id !== formItem?.storekeeper._id)
                           }
                           searchFields={['name']}
-                          onClickNotChosen={() => setBoxFields({ ...boxFields, destinationId: null })}
-                          onClickSelect={el => setBoxFields({ ...boxFields, destinationId: el._id })}
+                          onClickNotChosen={handleResetDestination}
+                          onClickSelect={el => handleSetDestination(el._id)}
                           onClickSetDestinationFavourite={setDestinationsFavouritesItem}
                         />
                       }
@@ -648,7 +598,6 @@ export const EditBoxStorekeeperForm = memo(
                       tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
                       inputComponent={
                         <Button
-                          className={styles.storekeeperBtn}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
@@ -745,7 +694,6 @@ export const EditBoxStorekeeperForm = memo(
                       />
 
                       <Button
-                        className={styles.trackNumberPhotoBtn}
                         onClick={() => {
                           setBarcodeModalSetting({
                             title: 'Track number',
@@ -771,9 +719,8 @@ export const EditBoxStorekeeperForm = memo(
                     <div className={styles.field}>
                       <div className={styles.trackNumberPhotoWrapper}>
                         {boxFields.trackNumberFile[0] || boxFields.tmpTrackNumberFile[0] ? (
-                          <PhotoAndFilesSlider
-                            withoutFiles
-                            customSlideHeight={96}
+                          <SlideshowGallery
+                            slidesToShow={2}
                             files={
                               boxFields.trackNumberFile.length
                                 ? boxFields.trackNumberFile
@@ -804,34 +751,24 @@ export const EditBoxStorekeeperForm = memo(
                     {t(TranslationKey.Dimensions)}
                   </Text>
 
-                  <div>
-                    <CustomSwitcher
-                      condition={sizeSetting}
-                      switcherSettings={[
-                        { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                        { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                      ]}
-                      changeConditionHandler={condition => handleChange(condition)}
-                    />
-                  </div>
+                  <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
                 </div>
 
-                <WarehouseDemensions
-                  orderBox={boxFields}
+                <WarehouseDimensions
+                  dimensions={boxFields}
                   sizeSetting={sizeSetting}
-                  volumeWeightCoefficient={volumeWeightCoefficient}
-                  setFormField={setFormField}
+                  onChangeDimensions={onChangeDimensions}
                 />
 
                 <div className={styles.imageFileInputWrapper}>
-                  <UploadFilesInput fullWidth images={boxFields.images} setImages={handleChangeImages} maxNumber={50} />
+                  <UploadFilesInput images={boxFields.images} setImages={handleChangeImages} />
                 </div>
 
                 <div className={styles.boxPhotoWrapper}>
                   <Typography className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoAndFilesSlider smallSlider showPreviews files={boxFields.images} />
+                  <SlideshowGallery slidesToShow={2} files={boxFields.images} />
                 </div>
 
                 <div className={styles.commentsWrapper}>
@@ -879,42 +816,15 @@ export const EditBoxStorekeeperForm = memo(
           <Button
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
-            className={styles.button}
-            onClick={() =>
-              onSubmit({
-                id: formItem?._id,
-                boxData: getBoxDataToSubmit(),
-                sourceData: formItem,
-                imagesOfBox: boxFields.images,
-                dataToSubmitHsCode: boxFields.items.map(el => ({
-                  productId: el.product._id,
-                  hsCode: el.product.hsCode,
-                })),
-              })
-            }
+            onClick={handleSubmit}
           >
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={cx(styles.button, styles.cancelBtn)}
-            variant={ButtonVariant.OUTLINED}
-            onClick={onTriggerOpenModal}
-          >
+          <Button tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={onTriggerOpenModal}>
             {t(TranslationKey.Cancel)}
           </Button>
         </div>
-
-        {showPhotosModal ? (
-          <SlideshowGalleryModal
-            openModal={showPhotosModal}
-            files={bigImagesOptions.images}
-            currentFileIndex={bigImagesOptions.imgIndex}
-            onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-            onCurrentFileIndex={imgIndex => setBigImagesOptions(() => ({ ...bigImagesOptions, imgIndex }))}
-          />
-        ) : null}
 
         <Modal
           openModal={showSetShippingLabelModal}
@@ -931,21 +841,16 @@ export const EditBoxStorekeeperForm = memo(
           />
         </Modal>
 
-        <Modal
-          openModal={showSelectionStorekeeperAndTariffModal}
-          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-        >
-          <SelectStorekeeperAndTariffForm
-            showCheckbox
-            RemoveDestinationRestriction
-            storekeepers={storekeepers.filter(el => el._id === formItem?.storekeeper._id)}
-            curStorekeeperId={boxFields.storekeeperId}
-            curTariffId={boxFields.logicsTariffId}
-            currentDestinationId={boxFields?.destinationId}
-            currentVariationTariffId={boxFields?.variationTariffId}
-            onSubmit={onSubmitSelectStorekeeperAndTariff}
+        {showSelectionStorekeeperAndTariffModal ? (
+          <SupplierApproximateCalculationsModal
+            isTariffsSelect
+            tariffModalType={TariffModal.WAREHOUSE}
+            openModal={showSelectionStorekeeperAndTariffModal}
+            setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+            box={boxFields}
+            onClickSubmit={onSubmitSelectStorekeeperAndTariff}
           />
-        </Modal>
+        ) : null}
 
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
           <SetBarcodeModal

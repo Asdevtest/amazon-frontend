@@ -7,10 +7,8 @@ import { RadioButtons } from '@components/shared/radio-buttons'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { isString } from '@typings/guards'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -35,9 +33,6 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const imagesForRender = announcementData?.linksToMediaFiles?.filter(el =>
-    checkIsMediaFileLink(isString(el) ? el : el?.file?.name),
-  )
   const radioBottonsSettings = [
     {
       label: () => '',
@@ -80,7 +75,7 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
         </div>
 
         <div className={styles.galleryWrapper}>
-          <SlideshowGallery hiddenPreviews files={imagesForRender} />
+          <SlideshowGallery hiddenPreviews files={announcementData?.linksToMediaFiles} />
         </div>
 
         <div className={styles.detailsWrapper}>

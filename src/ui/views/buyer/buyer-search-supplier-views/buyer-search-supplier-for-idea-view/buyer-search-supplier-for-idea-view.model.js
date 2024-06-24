@@ -1,6 +1,7 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
 import { IdeaModel } from '@models/ideas-model'
@@ -9,79 +10,51 @@ import { buyerSearchSuppliersViewColumns } from '@components/table/table-columns
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class BuyerSearchSupplierForIdeaModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
-
   productsVacant = []
   supplierSearchRequestsVacant = []
-
-  showInfoModal = false
-
   selectedRowIds = []
 
   rowHandlers = {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
-
   paginationModel = { page: 0, pageSize: 15 }
   columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers)
   columnVisibilityModel = {}
 
+  get currentData() {
+    return this.supplierSearchRequestsVacant
+  }
+
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
+    this.getSupplierSearchRequestsVacant()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  getCurrentData() {
-    return toJS(this.supplierSearchRequestsVacant)
-  }
-
   onSelectionModel(model) {
-    runInAction(() => {
-      this.selectedRowIds = model
-    })
+    this.selectedRowIds = model
   }
 
   onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
+    this.columnVisibilityModel = model
   }
 
   onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-  }
-
-  async loadData() {
-    try {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.IS_LOADING
-      })
-      await this.getSupplierSearchRequestsVacant()
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.SUCCESS
-      })
-    } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatuses.FAILED
-      })
-      console.log(error)
-    }
+    this.paginationModel = model
   }
 
   async getSupplierSearchRequestsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
-      runInAction(() => {
-        this.error = undefined
-      })
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const result = await IdeaModel.getSupplierSearchRequests()
       runInAction(() => {
@@ -89,19 +62,10 @@ export class BuyerSearchSupplierForIdeaModel {
           result.sort(sortObjectsArrayByFiledDateWithParseISO('checkedAt')),
         )
       })
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-
-      runInAction(() => {
-        this.supplierSearchRequestsVacant = []
-      })
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
     }
   }
 
@@ -116,15 +80,12 @@ export class BuyerSearchSupplierForIdeaModel {
       runInAction(() => {
         this.selectedRowIds = []
       })
-      this.onTriggerOpenModal('showInfoModal')
-      this.loadData()
+
+      toast.success(t(TranslationKey['Taken to Work']))
+
+      this.getSupplierSearchRequestsVacant()
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
@@ -139,30 +100,15 @@ export class BuyerSearchSupplierForIdeaModel {
         })
       }
     } catch (error) {
-      console.log(error)
-      if (error.body && error.body.message) {
-        runInAction(() => {
-          this.error = error.body.message
-        })
-      }
+      console.error(error)
     }
   }
 
   setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  setActionStatus(actionStatus) {
-    runInAction(() => {
-      this.actionStatus = actionStatus
-    })
+    this.requestStatus = requestStatus
   }
 
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

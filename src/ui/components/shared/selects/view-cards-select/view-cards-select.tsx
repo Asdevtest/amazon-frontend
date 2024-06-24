@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 import { tableViewMode } from '@constants/table/table-view-modes'
 
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { ViewCartsBlock, ViewCartsLine, ViewCartsTable } from '@components/shared/svg-icons'
+import { ViewCartsBlockIcon, ViewCartsLineIcon, ViewCartsTableIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from './view-cards-select.style'
 
@@ -20,13 +20,14 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
 
   return (
     <CustomSwitcher
+      circle
       switchMode="medium"
       condition={viewMode}
       // @ts-ignore
       switcherSettings={[
         withTabelView && {
           icon: (
-            <ViewCartsTable
+            <ViewCartsTableIcon
               className={cx(styles.viewCart, {
                 [styles.viewCartSelected]: viewMode === tableViewMode.TABLE,
               })}
@@ -36,7 +37,7 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
         },
         !withoutBlockCardView && {
           icon: (
-            <ViewCartsBlock
+            <ViewCartsBlockIcon
               className={cx(styles.viewCart, {
                 [styles.viewCartSelected]: viewMode === tableViewMode.BLOCKS,
               })}
@@ -46,7 +47,7 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
         },
         {
           icon: (
-            <ViewCartsLine
+            <ViewCartsLineIcon
               className={cx(styles.viewCart, {
                 [styles.viewCartSelected]: viewMode === tableViewMode.LIST,
               })}
@@ -55,7 +56,7 @@ export const ViewCardsSelect: FC<FreelanceTypeTaskSelectProps> = memo(props => {
           value: tableViewMode.LIST,
         },
       ].filter(option => typeof option === 'object')}
-      changeConditionHandler={value => typeof value === 'string' && onChangeViewMode(value)}
+      changeConditionHandler={onChangeViewMode}
     />
   )
 })

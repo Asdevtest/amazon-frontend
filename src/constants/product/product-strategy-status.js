@@ -11,7 +11,7 @@ export const ProductStrategyStatus = {
   WHOLE_SALE_USA: 'WHOLE_SALE_USA',
 }
 
-export const mapProductStrategyStatusEnum = {
+export const productStrategyStatusesEnum = {
   1: ProductStrategyStatus.NONE,
   10: ProductStrategyStatus.DROPSHIPPING,
   20: ProductStrategyStatus.PRIVATE_LABEL,
@@ -34,4 +34,4 @@ export const humanFriendlyStategyStatus = value => {
   }
 }
 
-export const mapProductStrategyStatusEnumToKey = objectFlip(mapProductStrategyStatusEnum, parseInt)
+export const mapProductStrategyStatusEnumToKey = objectFlip(productStrategyStatusesEnum, parseInt)

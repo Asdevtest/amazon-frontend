@@ -1,21 +1,23 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-import { loadingStatuses } from '@constants/statuses/loading-statuses'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
 import { SupervisorModel } from '@models/supervisor-model'
+import { TableSettingsModel } from '@models/table-settings'
 
 import { depersonalizedPickColumns } from '@components/table/table-columns/depersonalized-pick-columns'
 
 import { depersonalizedPickDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
+import { t } from '@utils/translations'
+
+import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SupervisorReadyToCheckByClientViewModel {
   history = undefined
   requestStatus = undefined
-
-  showInfoModal = false
 
   selectedRowIds = []
 
@@ -51,11 +53,11 @@ export class SupervisorReadyToCheckByClientViewModel {
       columnVisibilityModel: toJS(this.columnVisibilityModel),
     }
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS)
+    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS]
+    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS)
 
     if (state) {
       this.sortModel = toJS(state.sortModel)
@@ -81,13 +83,13 @@ export class SupervisorReadyToCheckByClientViewModel {
 
       await this.getProductsReadyToCheck()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   async getProductsReadyToCheck() {
     try {
-      this.setRequestStatus(loadingStatuses.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const isCreatedByClient = true
 
@@ -99,10 +101,10 @@ export class SupervisorReadyToCheckByClientViewModel {
         )
       })
 
-      this.setRequestStatus(loadingStatuses.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.FAILED)
-      console.log(error)
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
 
       runInAction(() => {
         this.productsReadyToCheck = []
@@ -122,11 +124,11 @@ export class SupervisorReadyToCheckByClientViewModel {
         this.selectedRowIds = []
       })
 
-      this.onTriggerOpenModal('showInfoModal')
+      toast.success(t(TranslationKey['Taken to Work']))
 
       this.loadData()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -141,7 +143,7 @@ export class SupervisorReadyToCheckByClientViewModel {
         })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

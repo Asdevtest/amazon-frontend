@@ -18,7 +18,7 @@ export interface ILogicTariff {
   createdAt: string
 }
 
-interface IConditionsByRegion {
+export interface IConditionsByRegion {
   west: IRegion
   central: IRegion
   east: IRegion
@@ -33,6 +33,7 @@ interface IDestinationVariation {
   _id: string
   minWeight: number
   maxWeight: number
+  minBoxWeight: number
   pricePerKgRmb: number
   pricePerKgUsd: number
   destination: IName

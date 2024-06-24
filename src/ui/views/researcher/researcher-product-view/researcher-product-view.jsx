@@ -1,10 +1,9 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { WarningInfoModal } from '@components/modals/warning-info-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
 
 import { t } from '@utils/translations'
@@ -13,10 +12,6 @@ import { ResearcherProductViewModel } from './researcher-product-view.model'
 
 export const ResearcherProductView = observer(({ history }) => {
   const [viewModel] = useState(() => new ResearcherProductViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   return (
     <>
@@ -37,17 +32,6 @@ export const ResearcherProductView = observer(({ history }) => {
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
           onClickParseProductData={viewModel.onClickParseProductData}
           onChangeImagesForLoad={viewModel.onChangeImagesForLoad}
-        />
-      ) : null}
-
-      {viewModel.showWarningModal ? (
-        <WarningInfoModal
-          // @ts-ignore
-          openModal={viewModel.showWarningModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showWarningModal')}
-          title={viewModel.warningModalTitle}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => viewModel.onTriggerOpenModal('showWarningModal')}
         />
       ) : null}
 
