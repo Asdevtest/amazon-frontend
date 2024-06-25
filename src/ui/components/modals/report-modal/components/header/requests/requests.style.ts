@@ -41,7 +41,7 @@ export const useStyles = makeStyles()(theme => ({
 
   requestTypeTooltip: {
     minWidth: 60,
-    maxWidth: 115,
+    maxWidth: 90,
     display: 'inline-block',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
