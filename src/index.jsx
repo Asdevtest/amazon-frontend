@@ -13,15 +13,7 @@ Sentry.init({
   dsn: 'https://9d93845486a53513477f1c4901b80625@o4507371916099584.ingest.de.sentry.io/4507446537158736',
   integrations: [Sentry.browserTracingIntegration()],
   tracesSampleRate: 1.0,
-  tracePropagationTargets: [
-    'https://as-crm-git-sentry-test-aservs-projects.vercel.app/',
-    'as-crm-git-sentry-test-aservs-projects.vercel.app',
-    '.vercel.',
-  ],
-  beforeSend(event) {
-    console.log('Sentry event:', event)
-    return event
-  },
+  tracePropagationTargets: ['as-crm-git-sentry-test-aservs-projects.vercel.app'],
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
