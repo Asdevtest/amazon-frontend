@@ -10,7 +10,7 @@ import { reportWebVitals } from '@utils/report-web-vitals'
 import { App } from './app'
 
 Sentry.init({
-  dsn: process.env.REACT_APP_SENTRY_DSN,
+  dsn: 'https://9d93845486a53513477f1c4901b80625@o4507371916099584.ingest.de.sentry.io/4507446537158736',
   integrations: [Sentry.browserTracingIntegration()],
   tracesSampleRate: 1.0,
   tracePropagationTargets: [
