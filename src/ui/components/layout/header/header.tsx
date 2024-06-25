@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react'
 import { observer } from 'mobx-react'
 import { FC, useContext, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -149,6 +150,16 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
       <div className={styles.menuIconWrapper}>
         <MenuIcon className={styles.menuIcon} onClick={onToggleModal} />
       </div>
+
+      <button onClick={() => Sentry.captureException('TEST SENTRY 1')}>TEST SENTRY 1</button>
+
+      <button
+        onClick={() => {
+          throw new Error('TEST SENTRY 2')
+        }}
+      >
+        TEST SENTRY 2
+      </button>
 
       <div className={styles.toolbar}>
         <div className={styles.titleWrapper}>
