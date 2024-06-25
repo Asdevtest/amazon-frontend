@@ -36,7 +36,7 @@ export class DataGridTableModel extends DefaultModel {
 
   get filteredData() {
     if (this.fieldsForSearch?.length) {
-      return this.currentData?.filter(item =>
+      return this.currentData?.filter((item: any) =>
         this.fieldsForSearch.some(field =>
           item?.[field]?.toLowerCase().includes(this.currentSearchValue.toLowerCase()),
         ),
