@@ -11,9 +11,11 @@ import { App } from './app'
 
 Sentry.init({
   dsn: 'https://9d93845486a53513477f1c4901b80625@o4507371916099584.ingest.de.sentry.io/4507446537158736',
-  integrations: [Sentry.browserTracingIntegration()],
+  integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
   tracesSampleRate: 1.0,
   tracePropagationTargets: ['as-crm-git-sentry-test-aservs-projects.vercel.app'],
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
