@@ -386,7 +386,7 @@ export const OrderModalBodyRow = ({
 
             <Field
               oneLine
-              containerClasses={styles.containerField}
+              containerClasses={cx(styles.containerField, styles.batchWeight)}
               labelClasses={styles.labelField}
               label={t(TranslationKey['Batch weight'])}
               inputComponent={

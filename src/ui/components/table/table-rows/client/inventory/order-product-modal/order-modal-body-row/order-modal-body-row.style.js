@@ -101,9 +101,9 @@ export const useStyles = makeStyles()(theme => ({
 
   sumsWrapper: {
     display: 'flex',
+    justifyContent: 'space-around',
     alignItems: 'center',
     padding: '10px 0',
-    gap: '20px',
   },
   mainCheckboxWrapper: {
     width: '100%',
@@ -114,7 +114,7 @@ export const useStyles = makeStyles()(theme => ({
   expressWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginRight: 20,
+    marginLeft: 22,
     '&:hover': {
       cursor: 'pointer',
     },
@@ -125,7 +125,6 @@ export const useStyles = makeStyles()(theme => ({
 
   containerField: {
     margin: '0 !important',
-    width: 'auto',
   },
 
   containerFieldCell: {
@@ -134,6 +133,10 @@ export const useStyles = makeStyles()(theme => ({
       bottom: 0,
       transform: 'translateY(100%)',
     },
+  },
+
+  batchWeight: {
+    width: '190px !important',
   },
 
   labelField: {
