@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -22,23 +21,11 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject79 {
     /**
-     * New product price
-     * @type {number}
-     * @memberof InlineObject79
-     */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
+     * GUID поставщика, который нужно удалить в БД.
      * @type {string}
      * @memberof InlineObject79
      */
-    description?: string;
-    /**
-     * 
-     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
-     * @memberof InlineObject79
-     */
-    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+    suppliersId?: string;
 }
 
 

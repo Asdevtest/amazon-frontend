@@ -453,8 +453,11 @@ models/inline-response2007.ts
 models/inline-response20070-rows.ts
 models/inline-response20070.ts
 models/inline-response20071.ts
+models/inline-response20072-entity-product.ts
+models/inline-response20072-rows.ts
 models/inline-response20072.ts
 models/inline-response20073.ts
+models/inline-response20074-failed.ts
 models/inline-response20074.ts
 models/inline-response20075-entity-product.ts
 models/inline-response20075-rows.ts

@@ -13,9 +13,6 @@
  */
 
 
-import { InlineResponse20039Batches } from './inline-response20039-batches';
-import { InlineResponse20039Boxes } from './inline-response20039-boxes';
-import { InlineResponse20039Tasks } from './inline-response20039-tasks';
 
 /**
  * 
@@ -24,23 +21,29 @@ import { InlineResponse20039Tasks } from './inline-response20039-tasks';
  */
 export interface InlineResponse20039 {
     /**
-     * 
-     * @type {InlineResponse20039Tasks}
+     * Гуид сообщения
+     * @type {string}
      * @memberof InlineResponse20039
      */
-    tasks?: InlineResponse20039Tasks;
+    _id?: string;
+    /**
+     * Гуид чата
+     * @type {string}
+     * @memberof InlineResponse20039
+     */
+    chatId?: string;
+    /**
+     * Смещение для пагинации
+     * @type {number}
+     * @memberof InlineResponse20039
+     */
+    offset?: number;
     /**
      * 
-     * @type {InlineResponse20039Boxes}
+     * @type {Array<string>}
      * @memberof InlineResponse20039
      */
-    boxes?: InlineResponse20039Boxes;
-    /**
-     * 
-     * @type {InlineResponse20039Batches}
-     * @memberof InlineResponse20039
-     */
-    batches?: InlineResponse20039Batches;
+    allMedia?: Array<string>;
 }
 
 

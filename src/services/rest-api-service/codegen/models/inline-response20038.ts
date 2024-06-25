@@ -13,10 +13,9 @@
  */
 
 
-import { InlineResponse20038Finances } from './inline-response20038-finances';
-import { InlineResponse20038Orders } from './inline-response20038-orders';
-import { InlineResponse20038PendingOrders } from './inline-response20038-pending-orders';
-import { InlineResponse20038Products } from './inline-response20038-products';
+import { InlineResponse20038AllFiles } from './inline-response20038-all-files';
+import { InlineResponse20038AllImages } from './inline-response20038-all-images';
+import { InlineResponse20038AllVideo } from './inline-response20038-all-video';
 
 /**
  * 
@@ -26,28 +25,22 @@ import { InlineResponse20038Products } from './inline-response20038-products';
 export interface InlineResponse20038 {
     /**
      * 
-     * @type {InlineResponse20038Products}
+     * @type {Array<InlineResponse20038AllImages>}
      * @memberof InlineResponse20038
      */
-    products?: InlineResponse20038Products;
+    allImages?: Array<InlineResponse20038AllImages>;
     /**
      * 
-     * @type {InlineResponse20038Orders}
+     * @type {Array<InlineResponse20038AllFiles>}
      * @memberof InlineResponse20038
      */
-    orders?: InlineResponse20038Orders;
+    allFiles?: Array<InlineResponse20038AllFiles>;
     /**
      * 
-     * @type {InlineResponse20038PendingOrders}
+     * @type {Array<InlineResponse20038AllVideo>}
      * @memberof InlineResponse20038
      */
-    pendingOrders?: InlineResponse20038PendingOrders;
-    /**
-     * 
-     * @type {InlineResponse20038Finances}
-     * @memberof InlineResponse20038
-     */
-    finances?: InlineResponse20038Finances;
+    allVideo?: Array<InlineResponse20038AllVideo>;
 }
 
 

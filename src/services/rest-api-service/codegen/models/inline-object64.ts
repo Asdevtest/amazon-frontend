@@ -21,11 +21,17 @@
  */
 export interface InlineObject64 {
     /**
-     * Зашита листинга (bool)
-     * @type {boolean}
+     * 
+     * @type {string}
      * @memberof InlineObject64
      */
-    transparency?: boolean;
+    clientComment: string;
+    /**
+     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
+     * @type {number}
+     * @memberof InlineObject64
+     */
+    priceForClient: number;
 }
 
 

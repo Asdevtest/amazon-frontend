@@ -28,6 +28,5 @@ yarn-error.log*
 
 .vscode
 
-
 .schema.json
 .vercel

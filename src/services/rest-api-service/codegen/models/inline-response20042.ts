@@ -13,9 +13,7 @@
  */
 
 
-import { InlineResponse20038Finances } from './inline-response20038-finances';
-import { InlineResponse20042Checking } from './inline-response20042-checking';
-import { InlineResponse20042Products } from './inline-response20042-products';
+import { InlineResponse20042SupplierImage } from './inline-response20042-supplier-image';
 
 /**
  * 
@@ -25,22 +23,28 @@ import { InlineResponse20042Products } from './inline-response20042-products';
 export interface InlineResponse20042 {
     /**
      * 
-     * @type {InlineResponse20042Products}
+     * @type {Array<string>}
      * @memberof InlineResponse20042
      */
-    products?: InlineResponse20042Products;
+    productImages?: Array<string>;
     /**
      * 
-     * @type {InlineResponse20042Checking}
+     * @type {Array<string>}
      * @memberof InlineResponse20042
      */
-    checking?: InlineResponse20042Checking;
+    latestSeoFiles?: Array<string>;
     /**
      * 
-     * @type {InlineResponse20038Finances}
+     * @type {Array<string>}
      * @memberof InlineResponse20042
      */
-    finances?: InlineResponse20038Finances;
+    currentSupplierImage?: Array<string>;
+    /**
+     * 
+     * @type {Array<InlineResponse20042SupplierImage>}
+     * @memberof InlineResponse20042
+     */
+    supplierImage?: Array<InlineResponse20042SupplierImage>;
 }
 
 
