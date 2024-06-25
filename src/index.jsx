@@ -17,8 +17,6 @@ Sentry.init({
     'https://as-crm-git-sentry-test-aservs-projects.vercel.app/',
     'as-crm-git-sentry-test-aservs-projects.vercel.app',
     '.vercel.',
-    'app',
-    'localhost',
   ],
   beforeSend(event) {
     console.log('Sentry event:', event)
