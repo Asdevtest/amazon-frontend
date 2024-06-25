@@ -64,7 +64,6 @@ export const MyRequestsView = observer(() => {
       <div className={styles.header}>
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
           defaultValue={viewModel.radioButtonOption}
           options={radioButtonOptions}
           onChange={viewModel.onChangeradioButtonOption}
