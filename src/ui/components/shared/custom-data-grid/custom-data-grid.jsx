@@ -1,3 +1,5 @@
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
+
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { DataGridPremium } from '@mui/x-data-grid-premium'
 
@@ -38,6 +40,8 @@ export const CustomDataGrid = ({ ...restProps }) => {
         columnMenuIcon: FilterAltOutlinedIcon,
         columnMenu: DataGridCustomColumnMenuComponent,
         columnResizeIcon: SeparatorIcon,
+        detailPanelExpandIcon: IoIosArrowDown,
+        detailPanelCollapseIcon: IoIosArrowUp,
       }}
       {...restProps}
     />

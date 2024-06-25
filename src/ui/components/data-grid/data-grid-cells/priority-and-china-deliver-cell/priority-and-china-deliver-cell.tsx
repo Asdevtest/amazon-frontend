@@ -15,7 +15,7 @@ interface PriorityAndChinaDeliverCellProps {
   chinaDelivery?: boolean
   status?: number
   isRequest?: boolean
-  onClickOpenInNewTab: () => void
+  onClickOpenInNewTab?: () => void
 }
 
 export const PriorityAndChinaDeliverCell: FC<PriorityAndChinaDeliverCellProps> = memo(props => {

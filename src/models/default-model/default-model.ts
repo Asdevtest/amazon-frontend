@@ -37,7 +37,7 @@ export class DefaultModel extends ModalsModel {
 
       runInAction(() => {
         this.currentData = result?.rows || result || []
-        this.rowCount = result?.count || result.length || 0
+        this.rowCount = result?.count || result?.length || 0
         this.meta = result?.meta
       })
 

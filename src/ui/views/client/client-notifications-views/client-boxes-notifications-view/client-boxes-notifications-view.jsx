@@ -56,6 +56,7 @@ export const ClientBoxesNotificationsView = observer(() => {
           density={viewModel.densityModel}
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          rowSelectionModel={viewModel.selectedRows}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -82,7 +83,6 @@ export const ClientBoxesNotificationsView = observer(() => {
               },
             },
           }}
-          rowSelectionModel={viewModel.selectedRows}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
