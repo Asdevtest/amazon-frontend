@@ -57,6 +57,7 @@ export class ReportModalModel extends UseProductsPermissions {
   }
   get disabledSaveButton() {
     return (
+      this.requestTableStatus === loadingStatus.IS_LOADING ||
       !this.product?._id ||
       this.description.trim().length === 0 ||
       this.listingLaunches.some(

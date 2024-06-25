@@ -5,6 +5,7 @@ import { getLaunchName } from '@components/shared/launches/helpers/get-launch-na
 import { Launches } from '@typings/enums/launches'
 
 export const reportModalConfig = {
+  requestTableStatus: observable,
   product: observable,
   reportId: observable,
   newProductPrice: observable,
