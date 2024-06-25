@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useState } from 'react'
+
+import { GridRowParams } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,51 +16,66 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { TariffModal } from '@typings/enums/tariff-modal'
+import { IBox } from '@typings/models/boxes/box'
 
-import { styles } from './client-boxes-tariffs-notifications-view.style'
+import { useStyles } from './client-boxes-tariffs-notifications-view.style'
 
 import { ClientBoxesTariffsNotificationsViewModel } from './client-boxes-tariffs-notifications-view.model'
 
-export const ClientBoxesTariffsNotificationsViewRaw = props => {
-  const [viewModel] = useState(() => new ClientBoxesTariffsNotificationsViewModel())
-  const { classes: styles } = props
+export const ClientBoxesTariffsNotificationsView = observer(() => {
+  const { classes: styles } = useStyles()
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const [viewModel] = useState(() => new ClientBoxesTariffsNotificationsViewModel())
 
   return (
     <>
       <div className={styles.tableWrapper}>
         <CustomDataGrid
+          rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
+          pinnedColumns={viewModel.pinnedColumns}
           paginationModel={viewModel.paginationModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          getRowId={(box: IBox) => box._id}
           density={viewModel.densityModel}
-          sortingMode="client"
-          paginationMode="client"
           columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          rowSelectionModel={viewModel.selectedRows}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+
+            columnMenu: viewModel.columnMenuSettings,
+
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
           }}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+          onRowDoubleClick={(e: GridRowParams) => viewModel.setCurrentOpenedBox(e.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -73,8 +89,8 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
           message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
+          onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+          onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />
       ) : null}
 
@@ -84,7 +100,7 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
           tariffModalType={TariffModal.WAREHOUSE}
           openModal={viewModel.showSelectionStorekeeperAndTariffModal}
           setOpenModal={() => viewModel.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
-          box={viewModel.curBox}
+          box={viewModel.curBox || undefined}
           onClickSubmit={viewModel.onClickConfirmTarrifChangeBtn}
         />
       ) : null}
@@ -95,6 +111,7 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
       >
         <BoxForm
           userInfo={viewModel.userInfo}
+          // @ts-ignore
           box={viewModel.curBox}
           onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
           onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
@@ -114,6 +131,4 @@ export const ClientBoxesTariffsNotificationsViewRaw = props => {
       </Modal>
     </>
   )
-}
-
-export const ClientBoxesTariffsNotificationsView = withStyles(observer(ClientBoxesTariffsNotificationsViewRaw), styles)
+})
