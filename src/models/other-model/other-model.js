@@ -196,6 +196,11 @@ class OtherModelStatic {
     const response = await restApiService.otherApi.apiV1OtherFieldsGet()
     return response.data
   }
+
+  getFinancesPag = async options => {
+    const response = await restApiService.otherApi.apiV1OtherPaymentsPagMyGet(options)
+    return response.data
+  }
 }
 
 export const OtherModel = new OtherModelStatic()
