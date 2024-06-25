@@ -569,33 +569,6 @@ export const FreelanceRequestType = memo(
   }, styles),
 )
 
-export const ClientOrderAllStatusesMenuItem = memo(
-  withStyles(({ classes: styles, orderStatusData }) => {
-    const { orderStatusDataBase, chosenStatus, onClickOrderStatusData } = orderStatusData
-
-    return (
-      <div title="" className={styles.orderStatusDataWrapper}>
-        <div className={styles.orderStatusDataBody}>
-          <div className={styles.orderStatus} onClick={() => onClickOrderStatusData('ALL')}>
-            <Checkbox color="primary" checked={!chosenStatus?.length} />
-            <div title={t(TranslationKey.All)} className={styles.orderStatusName}>
-              {t(TranslationKey.All)}
-            </div>
-          </div>
-          {orderStatusDataBase.map((item, itemIndex) => (
-            <div key={itemIndex} className={styles.orderStatus} onClick={() => onClickOrderStatusData(item)}>
-              <Checkbox color="primary" checked={chosenStatus?.some(status => status === item)} />
-              <div title={OrderStatusTranslate(item)} className={styles.orderStatusName}>
-                {OrderStatusTranslate(item)}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  }, styles),
-)
-
 export const CreatedByMenuItem = memo(
   withStyles(
     ({

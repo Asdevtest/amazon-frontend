@@ -96,6 +96,10 @@ export const ProductWrapper = memo(
       const url = new URL(window.location.href)
       const tab = url.searchParams.get('show-tab')
 
+      if (tab === 'orders') {
+        setTabIndex(tabsValues.ORDERS)
+      }
+
       if (tab === 'reports') {
         setTabIndex(tabsValues.REPORTS)
       }

@@ -121,6 +121,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
+    paddingBottom: 5,
   },
 
   titleWrapper: {
