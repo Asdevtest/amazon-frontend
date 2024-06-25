@@ -17,34 +17,28 @@
 /**
  * 
  * @export
- * @interface InlineObject90
+ * @interface InlineResponse20074Failed
  */
-export interface InlineObject90 {
+export interface InlineResponse20074Failed {
     /**
      * ASIN продукта
      * @type {string}
-     * @memberof InlineObject90
+     * @memberof InlineResponse20074Failed
      */
     asin?: string;
     /**
-     * Причина
-     * @type {string}
-     * @memberof InlineObject90
-     */
-    reason?: string;
-    /**
      * Стратегия
      * @type {string}
-     * @memberof InlineObject90
+     * @memberof InlineResponse20074Failed
      */
-    strategy?: InlineObject90StrategyEnum;
+    strategy?: InlineResponse20074FailedStrategyEnum;
 }
 
 /**
     * @export
     * @enum {string}
     */
-export enum InlineObject90StrategyEnum {
+export enum InlineResponse20074FailedStrategyEnum {
     _10 = '10',
     _20 = '20',
     _30 = '30',

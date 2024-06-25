@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse20075Rows } from './inline-response20075-rows';
 
 /**
  * 
@@ -22,17 +21,17 @@ import { InlineResponse20075Rows } from './inline-response20075-rows';
  */
 export interface InlineResponse20075 {
     /**
-     * Кол-во записей
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse20075
      */
-    count?: number;
+    userId?: string;
     /**
-     * Массив оплат.
-     * @type {Array<InlineResponse20075Rows>}
+     * 
+     * @type {string}
      * @memberof InlineResponse20075
      */
-    rows?: Array<InlineResponse20075Rows>;
+    productId?: string;
 }
 
 
