@@ -196,12 +196,6 @@ const ClientBoxesTariffsNotificationsView = lazy(() =>
   })),
 )
 
-const ClientIdeasNotificationsView = lazy(() =>
-  import('@views/client/client-notifications-views/client-ideas-notifications-view').then(module => ({
-    default: module.ClientIdeasNotificationsView,
-  })),
-)
-
 const ClientOrdersNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-orders-notifications-view').then(module => ({
     default: module.ClientOrdersNotificationsView,
@@ -1830,23 +1824,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       activeSubCategory: 1,
       title: () => t(TranslationKey['Box notifications']),
-    },
-  },
-
-  {
-    routePath: '/client/notifications/ideas-notifications',
-    component: ClientIdeasNotificationsView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-
-    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
-
-    crumbNameKey: TranslationKey['On ideas'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
-      activeSubCategory: 3, // it's now not displayed to the client
-      title: () => t(TranslationKey['Notifications on ideas']),
     },
   },
 

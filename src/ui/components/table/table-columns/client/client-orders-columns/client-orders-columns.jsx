@@ -20,6 +20,7 @@ import {
   OpenInNewTabCell,
   OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductAsinCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
@@ -90,7 +91,18 @@ export const clientOrdersViewColumns = rowHandlers => {
       field: 'asin',
       headerName: 'ASIN',
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
-      renderCell: params => <OrderCell product={params.row.product} />,
+      renderCell: params => {
+        const product = params.row.product
+
+        return (
+          <ProductAsinCell
+            image={product?.images?.[0]}
+            amazonTitle={product?.amazonTitle}
+            asin={product?.asin}
+            skuByClient={product?.skuByClient}
+          />
+        )
+      },
       width: 280,
 
       table: DataGridFilterTables.PRODUCTS,

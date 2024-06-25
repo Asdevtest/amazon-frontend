@@ -5,13 +5,11 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ApproximateWeightCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   TariffInfoCell,
   VariationTariffDateCell,
 } from '@components/data-grid/data-grid-cells'
-import { ApproximateCell } from '@components/data-grid/data-grid-cells/approximate-cell/approximate-cell'
 import { VariationTariffRoiCell } from '@components/data-grid/data-grid-cells/variation-tariff-roi-cell/variation-tariff-roi-cell'
 
 import { formatDateWithoutTime } from '@utils/date-time'
@@ -52,9 +50,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       headerName: t(TranslationKey.Destination),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-      renderCell: (params: GridValidRowModel) => (
-        <ApproximateCell borderLeft destinations={params.row.destinationVariations} field="destinationName" />
-      ),
+      renderCell: () => null,
       valueGetter: (params: GridRenderCellParams) =>
         params.row?.destinationVariations
           ?.map((el: IDestinationVariationWithCalculations) => el?.destination?.name)
@@ -71,16 +67,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       field: 'minWeight',
       headerName: `${t(TranslationKey.Weight)}, ${t(TranslationKey.kg)}`,
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Weight)}, ${t(TranslationKey.kg)}`} />,
-      renderCell: (params: GridValidRowModel) => (
-        <ApproximateWeightCell
-          isTariffsSelect={columnHandlers.isTariffsSelect}
-          variations={params.row.destinationVariations}
-          currentVariationId={columnHandlers.getCurrentVariationId()}
-          initialDestinationId={columnHandlers.getInitialDestinationId()}
-          isStrictVariationSelect={columnHandlers.getStrictVariationSelect()}
-          onClickChangeVariation={columnHandlers.onClickChangeVariation}
-        />
-      ),
+      renderCell: () => null,
       valueGetter: (params: GridRenderCellParams) =>
         params.row?.destinationVariations
           ?.map(
@@ -110,9 +97,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       field: 'pricePerKgRmb',
       headerName: t(TranslationKey['Price per kg']) + ', Ұ',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per kg']) + ', Ұ'} />,
-      renderCell: (params: GridValidRowModel) => (
-        <ApproximateCell destinations={params.row.destinationVariations} field="pricePerKgRmb" />
-      ),
+      renderCell: () => null,
       valueGetter: (params: GridRenderCellParams) =>
         params.row?.destinationVariations
           ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.pricePerKgRmb))
@@ -129,9 +114,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       field: 'pricePerKgUsd',
       headerName: t(TranslationKey['Price per kg']) + ', $',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per kg']) + ', $'} />,
-      renderCell: (params: GridValidRowModel) => (
-        <ApproximateCell borderRight destinations={params.row.destinationVariations} field="pricePerKgUsd" />
-      ),
+      renderCell: () => null,
       valueGetter: (params: GridRenderCellParams) =>
         params.row?.destinationVariations
           ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.pricePerKgUsd))
@@ -194,7 +177,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       headerName: t(TranslationKey['Cost of per unit in the U.S.']) + ', $',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of per unit in the U.S.']) + ', $'} />,
       renderCell: (params: GridValidRowModel) => (
-        <ApproximateCell borderLeft destinations={params.row.destinationVariations} field="costUnitWithDeliveryToUsa" />
+        <MultilineTextCell text={toFixed(params.row.avgCostUnitWithDeliveryToUsa, 2)} />
       ),
       valueGetter: (params: GridRenderCellParams) =>
         params.row?.destinationVariations
@@ -214,9 +197,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       field: 'roi',
       headerName: `${t(TranslationKey['ROI calculation'])}, %`,
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey['ROI calculation'])}, %`} />,
-      renderCell: (params: GridValidRowModel) => (
-        <VariationTariffRoiCell destinations={params.row.destinationVariations} />
-      ),
+      renderCell: (params: GridValidRowModel) => <VariationTariffRoiCell roi={toFixed(params.row.avgRoi, 2)} />,
       valueGetter: (params: GridRenderCellParams) =>
         params.row?.destinationVariations
           ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.destination?.roi))

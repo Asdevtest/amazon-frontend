@@ -24,7 +24,9 @@ export const VariationTariffDateCell: FC<VariationTariffDateCellProps> = memo(({
       {cellConfig.map(({ param, icon, tooltipText }) => (
         <div key={param} className={styles.dateParam}>
           <div className={styles.iconWrapper}>
-            {icon}
+            <Tooltip arrow title={formatDateWithoutTime(tariff?.[param as keyof ITariffsWithCalculations])}>
+              <div>{icon}</div>
+            </Tooltip>
 
             <Tooltip arrow title={tooltipText} className={styles.tooltip}>
               <div>
@@ -32,7 +34,6 @@ export const VariationTariffDateCell: FC<VariationTariffDateCellProps> = memo(({
               </div>
             </Tooltip>
           </div>
-          <p>{formatDateWithoutTime(tariff?.[param as keyof ITariffsWithCalculations])}</p>
         </div>
       ))}
     </div>
