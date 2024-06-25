@@ -16,6 +16,7 @@ export interface ILogicTariff {
   storekeeperId: string
   updatedAt: string
   createdAt: string
+  costUnitWithDeliveryToChina: number
 }
 
 export interface IConditionsByRegion {
@@ -36,5 +37,12 @@ interface IDestinationVariation {
   minBoxWeight: number
   pricePerKgRmb: number
   pricePerKgUsd: number
-  destination: IName
+  storekeeperTariffLogisticsId: string
+  destination: IDestination
+}
+
+interface IDestination extends IName {
+  roi: number
+  costUnitWithDeliveryToUsa: number
+  storekeeperTariffLogisticsId: string
 }
