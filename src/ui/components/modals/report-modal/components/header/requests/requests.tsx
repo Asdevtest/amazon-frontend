@@ -17,7 +17,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './requests.style'
 
-const MAX_SPEC_TITLE_LENGTH_WITHOUT_TOOLTIP = 12
+const MAX_SPEC_TITLE_LENGTH_WITHOUT_TOOLTIP = 11
 
 interface RequestsProps {
   requests: IRequestWithLaunch[]
