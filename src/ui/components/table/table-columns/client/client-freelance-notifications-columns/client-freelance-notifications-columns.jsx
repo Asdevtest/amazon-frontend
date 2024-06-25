@@ -19,6 +19,10 @@ export const clientFreelanceNotificationsColumns = handlers => [
     headerName: t(TranslationKey.Shop),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
     renderCell: params => <MultilineTextCell text={params.row?.product?.shop?.name} />,
+    filterable: false,
+    sortable: false,
+    disableCustomSort: true,
+
     width: 100,
   },
 
