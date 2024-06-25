@@ -103,7 +103,7 @@ export const OrderProductModal = memo(props => {
             variationTariffId: reorderOrder?.variationTariffId,
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
-            deadline: reorderOrder.deadline,
+            deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
             productId: reorderOrder.product?._id,
           }
         })
@@ -180,7 +180,7 @@ export const OrderProductModal = memo(props => {
             expressChinaDelivery: isPendingOrdering ? false : reorderOrder.expressChinaDelivery || false,
             priority: isPendingOrdering ? '30' : reorderOrder.priority || '30',
             _id: reorderOrder._id,
-            deadline: reorderOrder.deadline,
+            deadline: isSetCurrentDeadline ? reorderOrder.deadline : null,
             buyerId: reorderOrder.buyer?._id || null,
           }
         })
@@ -316,7 +316,8 @@ export const OrderProductModal = memo(props => {
   const disabledSubmit =
     orderState.some((order, index) => {
       const isDeadlineTodayOrTomorrow =
-        isPast(new Date(order.deadline)) || isToday(new Date(order.deadline)) || isTomorrow(new Date(order.deadline))
+        !!order.deadline &&
+        (isPast(new Date(order.deadline)) || isToday(new Date(order.deadline)) || isTomorrow(new Date(order.deadline)))
 
       return (
         (productsForRender[index].currentSupplier &&
@@ -326,9 +327,8 @@ export const OrderProductModal = memo(props => {
         !order.logicsTariffId ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
-        ((!!isInventory || (!!reorderOrdersData?.length && !isPendingOrdering)) &&
-          !isPendingOrder &&
-          isDeadlineTodayOrTomorrow) ||
+        (isPendingOrder && !order.deadline) ||
+        ((!!isInventory || !!reorderOrdersData?.length) && isDeadlineTodayOrTomorrow) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
           order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
