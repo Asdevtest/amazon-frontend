@@ -15,126 +15,17 @@
 
 
 /**
- * 
+ * Схема апдейта рекомендаций
  * @export
  * @interface InlineObject67
  */
 export interface InlineObject67 {
     /**
-     * GUID storekeeper-a
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    storekeeperId: string;
-    /**
-     * GUID баера
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    buyerId?: string;
-    /**
-     * Защита листинга
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    transparencyFile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    item?: string;
-    /**
-     * GUID тарифа доставки
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    logicsTariffId: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    variationTariffId?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    priority?: InlineObject67PriorityEnum;
-    /**
-     * GUID пункта назначения.
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    destinationId?: string;
-    /**
-     * Кол-во продукта по этой позиции.
+     * Рекомендуемое значение
      * @type {number}
      * @memberof InlineObject67
      */
-    amount: number;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject67
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Комментарии клиента.
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    clientComment?: string;
-    /**
-     * GUID заказанного продукта
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    productId: string;
-    /**
-     * Массив изображений.
-     * @type {Array<string>}
-     * @memberof InlineObject67
-     */
-    images?: Array<string>;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineObject67
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineObject67
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineObject67
-     */
-    deadline?: string;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineObject67
-     */
-    totalPrice?: number;
+    recommendedValue: number;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject67PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

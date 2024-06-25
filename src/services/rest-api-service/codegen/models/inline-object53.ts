@@ -21,95 +21,11 @@
  */
 export interface InlineObject53 {
     /**
-     * Комментарий байера
-     * @type {string}
-     * @memberof InlineObject53
-     */
-    buyerComment?: string;
-    /**
-     * Гуид дочернего компонента
-     * @type {string}
-     * @memberof InlineObject53
-     */
-    childProductId?: string;
-    /**
-     * Название идеи
-     * @type {string}
-     * @memberof InlineObject53
-     */
-    title?: string;
-    /**
-     * Images URLs
+     * Массив ссылок для seo-файлов
      * @type {Array<string>}
      * @memberof InlineObject53
      */
-    media?: Array<string>;
-    /**
-     * Комментарий к идее
-     * @type {string}
-     * @memberof InlineObject53
-     */
-    comments?: string;
-    /**
-     * Назавние продукта
-     * @type {string}
-     * @memberof InlineObject53
-     */
-    productName?: string;
-    /**
-     * Ссылки на продукт, если есть
-     * @type {Array<string>}
-     * @memberof InlineObject53
-     */
-    productLinks?: Array<string>;
-    /**
-     * Дополнительные критерии для поиска товара
-     * @type {string}
-     * @memberof InlineObject53
-     */
-    criteria?: string;
-    /**
-     * Количество товаров
-     * @type {number}
-     * @memberof InlineObject53
-     */
-    quantity?: number;
-    /**
-     * Желаемая цена
-     * @type {number}
-     * @memberof InlineObject53
-     */
-    price?: number;
-    /**
-     * FBA Fee
-     * @type {number}
-     * @memberof InlineObject53
-     */
-    fbaFee?: number;
-    /**
-     * Ориентационная цена
-     * @type {number}
-     * @memberof InlineObject53
-     */
-    approximatePrice?: number;
-    /**
-     * Ширина, см
-     * @type {number}
-     * @memberof InlineObject53
-     */
-    width?: number;
-    /**
-     * Высота, см
-     * @type {number}
-     * @memberof InlineObject53
-     */
-    height?: number;
-    /**
-     * Длина, см
-     * @type {number}
-     * @memberof InlineObject53
-     */
-    length?: number;
+    latestSeoFiles?: Array<string>;
 }
 
 

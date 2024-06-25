@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -21,114 +22,29 @@
  */
 export interface InlineObject68 {
     /**
-     * GUID storekeeper-a
+     * Гуид продукта
      * @type {string}
      * @memberof InlineObject68
      */
-    storekeeperId?: string;
+    productId: string;
     /**
-     * GUID баера
-     * @type {string}
+     * New product price
+     * @type {number}
      * @memberof InlineObject68
      */
-    buyerId?: string;
+    newProductPrice?: number;
     /**
-     * Защита листинга
+     * Description of product_listing_report
      * @type {string}
      * @memberof InlineObject68
      */
-    transparencyFile?: string;
+    description?: string;
     /**
      * 
-     * @type {string}
+     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
      * @memberof InlineObject68
      */
-    item?: string;
-    /**
-     * GUID тарифа доставки
-     * @type {string}
-     * @memberof InlineObject68
-     */
-    logicsTariffId?: string;
-    /**
-     * Гуид вариации
-     * @type {string}
-     * @memberof InlineObject68
-     */
-    variationTariffId?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject68
-     */
-    priority?: InlineObject68PriorityEnum;
-    /**
-     * GUID пункта назначения.
-     * @type {string}
-     * @memberof InlineObject68
-     */
-    destinationId?: string;
-    /**
-     * Кол-во продукта по этой позиции.
-     * @type {number}
-     * @memberof InlineObject68
-     */
-    amount?: number;
-    /**
-     * Стоимость доставки до склада.
-     * @type {number}
-     * @memberof InlineObject68
-     */
-    deliveryCostToTheWarehouse?: number;
-    /**
-     * Комментарии клиента.
-     * @type {string}
-     * @memberof InlineObject68
-     */
-    clientComment?: string;
-    /**
-     * Массив изображений.
-     * @type {Array<string>}
-     * @memberof InlineObject68
-     */
-    images?: Array<string>;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineObject68
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineObject68
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineObject68
-     */
-    deadline?: string;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
-     * @type {number}
-     * @memberof InlineObject68
-     */
-    totalPrice?: number;
+    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject68PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

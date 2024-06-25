@@ -110,6 +110,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
           density={viewModel.densityModel}
+          pinnedColumns={viewModel.pinnedColumns}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
@@ -140,6 +141,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
           onRowSelectionModelChange={viewModel.onSelectionModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 

@@ -15,29 +15,101 @@
 
 
 /**
- * Схема создания/апдейта рекомендаций
+ * 
  * @export
  * @interface InlineObject76
  */
 export interface InlineObject76 {
     /**
-     * GUID продукта.
+     * Комментарий байера
      * @type {string}
      * @memberof InlineObject76
      */
-    productId: string;
+    buyerComment?: string;
     /**
-     * GUID сторкипера.
+     * Гуид дочернего компонента
      * @type {string}
      * @memberof InlineObject76
      */
-    storekeeperId: string;
+    childProductId?: string;
     /**
-     * Рекомендуемое значение
+     * Название идеи
+     * @type {string}
+     * @memberof InlineObject76
+     */
+    title?: string;
+    /**
+     * Images URLs
+     * @type {Array<string>}
+     * @memberof InlineObject76
+     */
+    media?: Array<string>;
+    /**
+     * Комментарий к идее
+     * @type {string}
+     * @memberof InlineObject76
+     */
+    comments?: string;
+    /**
+     * Назавние продукта
+     * @type {string}
+     * @memberof InlineObject76
+     */
+    productName?: string;
+    /**
+     * Ссылки на продукт, если есть
+     * @type {Array<string>}
+     * @memberof InlineObject76
+     */
+    productLinks?: Array<string>;
+    /**
+     * Дополнительные критерии для поиска товара
+     * @type {string}
+     * @memberof InlineObject76
+     */
+    criteria?: string;
+    /**
+     * Количество товаров
      * @type {number}
      * @memberof InlineObject76
      */
-    recommendedValue: number;
+    quantity?: number;
+    /**
+     * Желаемая цена
+     * @type {number}
+     * @memberof InlineObject76
+     */
+    price?: number;
+    /**
+     * FBA Fee
+     * @type {number}
+     * @memberof InlineObject76
+     */
+    fbaFee?: number;
+    /**
+     * Ориентационная цена
+     * @type {number}
+     * @memberof InlineObject76
+     */
+    approximatePrice?: number;
+    /**
+     * Ширина, см
+     * @type {number}
+     * @memberof InlineObject76
+     */
+    width?: number;
+    /**
+     * Высота, см
+     * @type {number}
+     * @memberof InlineObject76
+     */
+    height?: number;
+    /**
+     * Длина, см
+     * @type {number}
+     * @memberof InlineObject76
+     */
+    length?: number;
 }
 
 

@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -22,29 +21,11 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject78 {
     /**
-     * Гуид продукта
-     * @type {string}
+     * GUIDы поставщиков, которые нужно добавить в БД.
+     * @type {Array<string>}
      * @memberof InlineObject78
      */
-    productId: string;
-    /**
-     * New product price
-     * @type {number}
-     * @memberof InlineObject78
-     */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
-     * @type {string}
-     * @memberof InlineObject78
-     */
-    description?: string;
-    /**
-     * 
-     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
-     * @memberof InlineObject78
-     */
-    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+    suppliersIds?: Array<string>;
 }
 
 
