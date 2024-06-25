@@ -231,4 +231,8 @@ export const useStyles = makeStyles()(theme => ({
   needAddPhotos: {
     color: theme.palette.text.red,
   },
+
+  error: {
+    borderColor: 'red',
+  },
 }))
