@@ -19,3 +19,18 @@ export const getEntityTypeConfig = () => {
 
   return defaultConfig.concat(options)
 }
+
+export const getPaymentTypeConfig = () => [
+  {
+    label: () => t(TranslationKey.All),
+    value: '',
+  },
+  {
+    label: () => t(TranslationKey.Replenish),
+    value: 'REPLENISH',
+  },
+  {
+    label: () => t(TranslationKey.Fine),
+    value: 'FINE',
+  },
+]
