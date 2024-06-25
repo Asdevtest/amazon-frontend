@@ -18,7 +18,16 @@ export const useStyles = makeStyles()(() => ({
   filterTitle: {
     width: '100%',
     textAlign: 'left',
-    whiteSpace: 'pre-wrap',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
+
+  filterFullTitle: {
+    wordWrap: 'break-word',
+    whiteSpace: 'normal',
+    overflow: 'visible',
+    textOverflow: 'clip',
   },
 
   filterWrapper: {
