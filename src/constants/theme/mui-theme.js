@@ -529,6 +529,10 @@ export const darkTheme = createTheme({
 
     MuiDataGrid: {
       styleOverrides: {
+        detailPanel: {
+          backgroundColor: '#2B2B34',
+        },
+
         root: {
           backgroundColor: '#2B2B34',
           border: 'none',

@@ -12,17 +12,19 @@ import { DataWrapperColumnMenu } from '../data-wrapper-column-menu'
 import { useStringColumnMenu } from './hooks/use-string-column-menu'
 
 interface StringColumnMenuProps extends ColumnMenuProps<string> {
+  isShowFullText: boolean
   transformValueMethod: (value: string) => string
 }
 
 export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
-  const { classes: sharedStyles } = useSharedStyles()
+  const { classes: sharedStyles, cx } = useSharedStyles()
 
   const {
     field,
     table,
     filtersData,
     filterRequestStatus,
+    isShowFullText,
     transformValueMethod,
     onClose,
     onClickFilterBtn,
@@ -72,7 +74,10 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
               wrapperClassName={sharedStyles.filterWrapper}
               onClick={() => onClickItem(el)}
             >
-              <p title={value} className={sharedStyles.filterTitle}>
+              <p
+                title={value}
+                className={cx(sharedStyles.filterTitle, { [sharedStyles.filterFullTitle]: isShowFullText })}
+              >
                 {value}
               </p>
             </Checkbox>
