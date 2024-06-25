@@ -494,11 +494,17 @@ export const OrderProductModal = memo(props => {
         ) : null}
 
         <Button
-          tooltipInfoContent={t(
-            TranslationKey['Complete the order (freezes the required amount of the order from the balance)'],
-          )}
+          tooltipInfoContent={
+            !disabledSubmit &&
+            t(TranslationKey['Complete the order (freezes the required amount of the order from the balance)'])
+          }
           tooltipAttentionContent={
-            storekeeperEqualsDestination && t(TranslationKey['Storekeeper and destination match'])
+            disabledSubmit &&
+            t(
+              TranslationKey[
+                'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses'
+              ],
+            )
           }
           className={(styles.modalButton, styles.buyNowBtn)}
           disabled={disabledSubmit}
