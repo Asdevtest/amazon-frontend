@@ -57,7 +57,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         isChoosenOnlySendToBatchBoxes={viewModel.isChoosenOnlySendToBatchBoxes}
         currentStorekeeperId={viewModel.currentStorekeeperId}
         storekeepersData={viewModel.storekeepersData}
-        nameSearchValue={viewModel.nameSearchValue}
+        nameSearchValue={viewModel.currentSearchValue}
         curDestinationId={viewModel.curDestinationId}
         clientDestinations={viewModel.clientDestinations}
         selectedRows={viewModel.selectedRows}

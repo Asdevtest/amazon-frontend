@@ -14,7 +14,7 @@ export const DEFAULT_VOLUME_WEIGHT_COEFFICIENT = 6000
 
 export interface IDimensions extends IBox {
   volumeWeight?: number
-  finalWeight?: number
+  finalWeight: number
 }
 
 interface IUseDimension {

@@ -5,7 +5,6 @@ import { toast } from 'react-toastify'
 import { GridColDef } from '@mui/x-data-grid-premium'
 
 import { routsPathes } from '@constants/navigation/routs-pathes'
-import { OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { createOrderRequestWhiteList } from '@constants/white-list'
 
@@ -38,7 +37,7 @@ import { HistoryType } from '@typings/types/history'
 
 import { fieldsForSearch, filtersFields } from './client-orders-view.constants'
 import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
-import { getOrderStatuses } from './helpers/get-order-statuses'
+import { getOrderStatusGroup } from './helpers/get-order-status-group'
 import { getSortModel } from './helpers/get-sort-model'
 import { observerConfig } from './observer-config'
 
@@ -88,28 +87,13 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       onClickOpenNewTab: (id: string) => this.onClickOpenNewTab(id),
       onClickWarehouseOrderButton: (guid: string) => this.onClickWarehouseOrderButton(guid),
     }
-    const filteredStatuses = getOrderStatuses(history.location.pathname)
-    const orderStatuses = filteredStatuses.map(item => OrderStatusByKey[item as keyof typeof OrderStatusByKey])
-    const additionalPropertiesColumnMenuSettings = {
-      isFormedData: { isFormed: null, onChangeIsFormed: (value: boolean) => this.onChangeIsFormed(value) },
-    }
-    const additionalPropertiesGetFilters = () => {
-      const isFormedFilter = this.columnMenuSettings.isFormedData.isFormed
+    const statusGroup = getOrderStatusGroup(history.location.pathname)
 
-      const currentStatusFilters = this.columnMenuSettings.status?.currentFilterData.join(',')
-
-      return {
-        ...(isFormedFilter
-          ? {
-              isFormed: isFormedFilter,
-            }
-          : {}),
-
-        status: {
-          $eq: currentStatusFilters ? currentStatusFilters : orderStatuses?.join(','),
-        },
-      }
-    }
+    const defaultFilterParams = () => ({
+      statusGroup: {
+        $eq: statusGroup,
+      },
+    })
 
     super({
       getMainDataMethod: ClientModel.getOrdersPag,
@@ -118,28 +102,17 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'clients/pag/orders?',
       fieldsForSearch,
       tableKey: getDataGridTableKey(history.location.pathname),
-      additionalPropertiesColumnMenuSettings,
-      additionalPropertiesGetFilters,
+      defaultFilterParams,
     })
 
     makeObservable(this, observerConfig)
 
-    this.onChangeFullFieldMenuItem(orderStatuses, 'status')
     this.sortModel = getSortModel(history.location.pathname)
     this.history = history
     this.getDataGridState()
     this.getCurrentData()
     this.getDestinations()
     this.getStorekeepers()
-  }
-
-  onClickResetFilters() {
-    const filteredStatuses = getOrderStatuses(this.history?.location?.pathname)
-    const orderStatuses = filteredStatuses.map(item => OrderStatusByKey[item as keyof typeof OrderStatusByKey])
-
-    this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
-    this.onChangeFullFieldMenuItem(orderStatuses, 'status')
-    this.getCurrentData()
   }
 
   onChangeIsFormed(value: boolean) {
