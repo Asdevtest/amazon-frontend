@@ -9,10 +9,14 @@ import { reportWebVitals } from '@utils/report-web-vitals'
 
 import { App } from './app'
 
-console.log('process.env.REACT_APP_SENTRY_DSN', process.env.REACT_APP_SENTRY_DSN)
+console.log(
+  'process.env.REACT_APP_SENTRY_DSN',
+  process.env.REACT_APP_SENTRY_DSN,
+  typeof process.env.REACT_APP_SENTRY_DSN,
+)
 
 Sentry.init({
-  dsn: 'https://9d93845486a53513477f1c4901b80625@o4507371916099584.ingest.de.sentry.io/4507446537158736',
+  dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
   tracesSampleRate: 1.0,
   tracePropagationTargets: ['as-crm-git-sentry-test-aservs-projects.vercel.app', 'as-crm-dev.vercel.app'],
