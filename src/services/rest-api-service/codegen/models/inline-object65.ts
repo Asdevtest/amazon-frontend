@@ -15,17 +15,29 @@
 
 
 /**
- * 
+ * Схема подтверждения возрата коробок на склад
  * @export
  * @interface InlineObject65
  */
 export interface InlineObject65 {
     /**
-     * массив GUIDов оплаченных товаров
-     * @type {Array<string>}
+     * GUID коробки, который планируем изменить
+     * @type {string}
      * @memberof InlineObject65
      */
-    guids?: Array<string>;
+    boxId: string;
+    /**
+     * GUID тарифа, на которую планируем изменить
+     * @type {string}
+     * @memberof InlineObject65
+     */
+    logicsTariffId: string;
+    /**
+     * GUID дестинейшена.
+     * @type {string}
+     * @memberof InlineObject65
+     */
+    destinationId?: string;
 }
 
 

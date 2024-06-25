@@ -21,11 +21,11 @@
  */
 export interface InlineObject63 {
     /**
-     * Массив ссылок для seo-файлов
+     * 
      * @type {Array<string>}
      * @memberof InlineObject63
      */
-    latestSeoFiles?: Array<string>;
+    productIds: Array<string>;
 }
 
 

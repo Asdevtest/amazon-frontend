@@ -294,6 +294,11 @@ class UserModelStatic {
     const response = await restApiService.userApi.apiV1UsersPlatformSettingsGet()
     return response.data
   }
+
+  async getUsersFreelanceNotices() {
+    const response = await restApiService.userApi.apiV1UsersFreelanceNoticesGet()
+    return response.data
+  }
 }
 
 export const UserModel = new UserModelStatic()

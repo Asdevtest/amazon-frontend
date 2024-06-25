@@ -21,101 +21,11 @@
  */
 export interface InlineObject54 {
     /**
-     * Название идеи
-     * @type {string}
+     * Зашита листинга (bool)
+     * @type {boolean}
      * @memberof InlineObject54
      */
-    title?: string;
-    /**
-     * Image URL
-     * @type {Array<string>}
-     * @memberof InlineObject54
-     */
-    media?: Array<string>;
-    /**
-     * Комментарий к идее
-     * @type {string}
-     * @memberof InlineObject54
-     */
-    comments?: string;
-    /**
-     * Комментарий байера
-     * @type {string}
-     * @memberof InlineObject54
-     */
-    buyerComment?: string;
-    /**
-     * Назавние продукта
-     * @type {string}
-     * @memberof InlineObject54
-     */
-    productName: string;
-    /**
-     * Ссылки на продукт, если есть
-     * @type {Array<string>}
-     * @memberof InlineObject54
-     */
-    productLinks?: Array<string>;
-    /**
-     * Дополнительные критерии для поиска товара
-     * @type {string}
-     * @memberof InlineObject54
-     */
-    criteria?: string;
-    /**
-     * Количество товаров
-     * @type {number}
-     * @memberof InlineObject54
-     */
-    quantity?: number;
-    /**
-     * Желаемая цена
-     * @type {number}
-     * @memberof InlineObject54
-     */
-    price: number;
-    /**
-     * FBA Fee
-     * @type {number}
-     * @memberof InlineObject54
-     */
-    fbaFee?: number;
-    /**
-     * Ориентационная цена
-     * @type {number}
-     * @memberof InlineObject54
-     */
-    approximatePrice?: number;
-    /**
-     * Ширина, см
-     * @type {number}
-     * @memberof InlineObject54
-     */
-    width?: number;
-    /**
-     * Высота, см
-     * @type {number}
-     * @memberof InlineObject54
-     */
-    height?: number;
-    /**
-     * Длина, см
-     * @type {number}
-     * @memberof InlineObject54
-     */
-    length?: number;
-    /**
-     * Product ID
-     * @type {string}
-     * @memberof InlineObject54
-     */
-    productId?: string;
-    /**
-     * Гуид родительского продукта
-     * @type {string}
-     * @memberof InlineObject54
-     */
-    parentProductId?: string;
+    transparency?: boolean;
 }
 
 

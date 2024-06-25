@@ -13,8 +13,9 @@
  */
 
 
-import { InlineResponse20061Rows } from './inline-response20061-rows';
-import { InlineResponse20062Meta } from './inline-response20062-meta';
+import { ApiV1IdeasNotificationsCreatedBy } from './api-v1-ideas-notifications-created-by';
+import { ApiV1IdeasNotificationsIdea } from './api-v1-ideas-notifications-idea';
+import { ApiV1IdeasNotificationsProduct } from './api-v1-ideas-notifications-product';
 
 /**
  * 
@@ -23,23 +24,29 @@ import { InlineResponse20062Meta } from './inline-response20062-meta';
  */
 export interface InlineResponse20062 {
     /**
-     * Count of rows
-     * @type {number}
+     * 
+     * @type {ApiV1IdeasNotificationsProduct}
      * @memberof InlineResponse20062
      */
-    count?: number;
+    product?: ApiV1IdeasNotificationsProduct;
     /**
      * 
-     * @type {Array<InlineResponse20061Rows>}
+     * @type {ApiV1IdeasNotificationsIdea}
      * @memberof InlineResponse20062
      */
-    rows?: Array<InlineResponse20061Rows>;
+    idea?: ApiV1IdeasNotificationsIdea;
     /**
      * 
-     * @type {InlineResponse20062Meta}
+     * @type {ApiV1IdeasNotificationsCreatedBy}
      * @memberof InlineResponse20062
      */
-    meta?: InlineResponse20062Meta;
+    createdBy?: ApiV1IdeasNotificationsCreatedBy;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20062
+     */
+    createdAt?: string;
 }
 
 

@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   tariffWrapper: {
+    padding: '10px 0',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',

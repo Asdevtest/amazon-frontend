@@ -142,11 +142,11 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
 
       fields: [
         {
-          label: () => TranslationKey['Master user'],
+          label: () => t(TranslationKey['Master user']),
           value: 0,
         },
         {
-          label: () => TranslationKey['Sub user'],
+          label: () => t(TranslationKey['Sub user']),
           value: 1,
         },
       ],

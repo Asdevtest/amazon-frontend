@@ -10,7 +10,6 @@ import {
   BatchShippingDateCellMenuItem,
   BatchTrackingCellMenuItem,
   BoxestatusMenuItem,
-  ClientOrderAllStatusesMenuItem,
   CreatedByMenuItem,
   DateDetailsMenuItem,
   DestinationMenuItem,
@@ -189,14 +188,6 @@ export const DataGridCustomColumnMenuComponent = props => {
           onChangeFullFieldMenuItem={onChangeFullFieldMenuItem}
           onClickAccept={onClickAccept}
         />
-      </CustomMenuContainer>
-    )
-  }
-
-  if ([columnnsKeys.buyer.MY_ORDERS_STATUS].includes(currentColumn.columnKey)) {
-    return (
-      <CustomMenuContainer {...props}>
-        <ClientOrderAllStatusesMenuItem orderStatusData={orderStatusData} />
       </CustomMenuContainer>
     )
   }
@@ -610,6 +601,7 @@ export const DataGridCustomColumnMenuComponent = props => {
           field={currentColumn.field}
           table={currentColumn.table}
           transformValueMethod={currentColumn.transformValueMethod}
+          isShowFullText={currentColumn.isShowFullText}
           filterRequestStatus={filterRequestStatus}
           onClickFilterBtn={onClickFilterBtn}
           onClose={hideMenu}

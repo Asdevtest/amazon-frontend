@@ -23,23 +23,23 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { BadRequestError } from '../models';
 // @ts-ignore
-import { InlineObject53 } from '../models';
+import { InlineObject76 } from '../models';
 // @ts-ignore
-import { InlineObject54 } from '../models';
+import { InlineObject77 } from '../models';
 // @ts-ignore
-import { InlineObject55 } from '../models';
+import { InlineObject78 } from '../models';
 // @ts-ignore
-import { InlineObject56 } from '../models';
+import { InlineObject79 } from '../models';
 // @ts-ignore
-import { InlineObject57 } from '../models';
+import { InlineObject80 } from '../models';
 // @ts-ignore
-import { InlineResponse20048 } from '../models';
+import { InlineResponse20060 } from '../models';
 // @ts-ignore
-import { InlineResponse20049 } from '../models';
+import { InlineResponse20061 } from '../models';
 // @ts-ignore
-import { InlineResponse20049Rows } from '../models';
+import { InlineResponse20061Rows } from '../models';
 // @ts-ignore
-import { InlineResponse20050 } from '../models';
+import { InlineResponse20062 } from '../models';
 // @ts-ignore
 import { InlineResponse2015 } from '../models';
 // @ts-ignore
@@ -54,12 +54,12 @@ export const IdeaApiAxiosParamCreator = function (configuration?: Configuration)
          * ## Добавление поставщиков к идее  
          * @summary Добавить поставщиков к идее
          * @param {string} guid ID идеи
-         * @param {InlineObject55} [body] 
+         * @param {InlineObject78} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasAddSuppliersGuidPost: async (guid: string, body?: InlineObject55, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IdeasAddSuppliersGuidPost: async (guid: string, body?: InlineObject78, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1IdeasAddSuppliersGuidPost', 'guid', guid)
             const localVarPath = `/api/v1/ideas/add_suppliers/{guid}`
@@ -372,12 +372,12 @@ export const IdeaApiAxiosParamCreator = function (configuration?: Configuration)
          * ## Редактирование существующей идеи  
          * @summary Редактировать идею
          * @param {string} guid ID идеи
-         * @param {InlineObject53} [body] 
+         * @param {InlineObject76} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasGuidPatch: async (guid: string, body?: InlineObject53, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IdeasGuidPatch: async (guid: string, body?: InlineObject76, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1IdeasGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/ideas/{guid}`
@@ -585,12 +585,12 @@ export const IdeaApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * ## Добавление новой идеи   
          * @summary Добавить идею
-         * @param {InlineObject54} [body] 
+         * @param {InlineObject77} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasPost: async (body?: InlineObject54, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IdeasPost: async (body?: InlineObject77, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/ideas/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -670,12 +670,12 @@ export const IdeaApiAxiosParamCreator = function (configuration?: Configuration)
          * ## Изменить статус заявки со статусов 5/10/13/14/15 на rejected(25)
          * @summary Изменить статус заявки на rejected(25)
          * @param {string} guid ID идеи
-         * @param {InlineObject57} [body] 
+         * @param {InlineObject80} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasRejectedGuidPatch: async (guid: string, body?: InlineObject57, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IdeasRejectedGuidPatch: async (guid: string, body?: InlineObject80, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1IdeasRejectedGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/ideas/rejected/{guid}`
@@ -716,12 +716,12 @@ export const IdeaApiAxiosParamCreator = function (configuration?: Configuration)
          * ## Удаление поставщика у идеи  
          * @summary Удалить поставщика
          * @param {string} guid ID идеи
-         * @param {InlineObject56} [body] 
+         * @param {InlineObject79} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasRemoveSupplierGuidPost: async (guid: string, body?: InlineObject56, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1IdeasRemoveSupplierGuidPost: async (guid: string, body?: InlineObject79, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1IdeasRemoveSupplierGuidPost', 'guid', guid)
             const localVarPath = `/api/v1/ideas/remove_supplier/{guid}`
@@ -940,12 +940,12 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * ## Добавление поставщиков к идее  
          * @summary Добавить поставщиков к идее
          * @param {string} guid ID идеи
-         * @param {InlineObject55} [body] 
+         * @param {InlineObject78} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasAddSuppliersGuidPost(guid: string, body?: InlineObject55, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IdeasAddSuppliersGuidPost(guid: string, body?: InlineObject78, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasAddSuppliersGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -970,7 +970,7 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasByParentGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20048>>> {
+        async apiV1IdeasByParentGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20060>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasByParentGuidGet(guid, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1021,7 +1021,7 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasGuidGet(guid: string, withRequests?: boolean, withOrder?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20049Rows>> {
+        async apiV1IdeasGuidGet(guid: string, withRequests?: boolean, withOrder?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20061Rows>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasGuidGet(guid, withRequests, withOrder, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1029,12 +1029,12 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * ## Редактирование существующей идеи  
          * @summary Редактировать идею
          * @param {string} guid ID идеи
-         * @param {InlineObject53} [body] 
+         * @param {InlineObject76} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasGuidPatch(guid: string, body?: InlineObject53, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IdeasGuidPatch(guid: string, body?: InlineObject76, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1047,7 +1047,7 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasNotificationsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20050>>> {
+        async apiV1IdeasNotificationsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20062>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasNotificationsGet(archive, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1078,19 +1078,19 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasPagMyGet(filters?: string, withRequests?: boolean, withOrder?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC' | 'DESC NULLS LAST', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20049>> {
+        async apiV1IdeasPagMyGet(filters?: string, withRequests?: boolean, withOrder?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC' | 'DESC NULLS LAST', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20061>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasPagMyGet(filters, withRequests, withOrder, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Добавление новой идеи   
          * @summary Добавить идею
-         * @param {InlineObject54} [body] 
+         * @param {InlineObject77} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasPost(body?: InlineObject54, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2015>> {
+        async apiV1IdeasPost(body?: InlineObject77, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2015>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1110,12 +1110,12 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * ## Изменить статус заявки со статусов 5/10/13/14/15 на rejected(25)
          * @summary Изменить статус заявки на rejected(25)
          * @param {string} guid ID идеи
-         * @param {InlineObject57} [body] 
+         * @param {InlineObject80} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasRejectedGuidPatch(guid: string, body?: InlineObject57, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IdeasRejectedGuidPatch(guid: string, body?: InlineObject80, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasRejectedGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1123,12 +1123,12 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * ## Удаление поставщика у идеи  
          * @summary Удалить поставщика
          * @param {string} guid ID идеи
-         * @param {InlineObject56} [body] 
+         * @param {InlineObject79} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasRemoveSupplierGuidPost(guid: string, body?: InlineObject56, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1IdeasRemoveSupplierGuidPost(guid: string, body?: InlineObject79, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasRemoveSupplierGuidPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1194,12 +1194,12 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * ## Добавление поставщиков к идее  
          * @summary Добавить поставщиков к идее
          * @param {string} guid ID идеи
-         * @param {InlineObject55} [body] 
+         * @param {InlineObject78} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasAddSuppliersGuidPost(guid: string, body?: InlineObject55, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IdeasAddSuppliersGuidPost(guid: string, body?: InlineObject78, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IdeasAddSuppliersGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1222,7 +1222,7 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasByParentGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20048>> {
+        apiV1IdeasByParentGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20060>> {
             return localVarFp.apiV1IdeasByParentGuidGet(guid, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1269,19 +1269,19 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasGuidGet(guid: string, withRequests?: boolean, withOrder?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20049Rows> {
+        apiV1IdeasGuidGet(guid: string, withRequests?: boolean, withOrder?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20061Rows> {
             return localVarFp.apiV1IdeasGuidGet(guid, withRequests, withOrder, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Редактирование существующей идеи  
          * @summary Редактировать идею
          * @param {string} guid ID идеи
-         * @param {InlineObject53} [body] 
+         * @param {InlineObject76} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasGuidPatch(guid: string, body?: InlineObject53, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IdeasGuidPatch(guid: string, body?: InlineObject76, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IdeasGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1293,7 +1293,7 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasNotificationsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20050>> {
+        apiV1IdeasNotificationsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20062>> {
             return localVarFp.apiV1IdeasNotificationsGet(archive, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1322,18 +1322,18 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasPagMyGet(filters?: string, withRequests?: boolean, withOrder?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC' | 'DESC NULLS LAST', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20049> {
+        apiV1IdeasPagMyGet(filters?: string, withRequests?: boolean, withOrder?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC' | 'DESC NULLS LAST', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20061> {
             return localVarFp.apiV1IdeasPagMyGet(filters, withRequests, withOrder, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Добавление новой идеи   
          * @summary Добавить идею
-         * @param {InlineObject54} [body] 
+         * @param {InlineObject77} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasPost(body?: InlineObject54, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2015> {
+        apiV1IdeasPost(body?: InlineObject77, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2015> {
             return localVarFp.apiV1IdeasPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1351,24 +1351,24 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * ## Изменить статус заявки со статусов 5/10/13/14/15 на rejected(25)
          * @summary Изменить статус заявки на rejected(25)
          * @param {string} guid ID идеи
-         * @param {InlineObject57} [body] 
+         * @param {InlineObject80} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasRejectedGuidPatch(guid: string, body?: InlineObject57, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IdeasRejectedGuidPatch(guid: string, body?: InlineObject80, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IdeasRejectedGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Удаление поставщика у идеи  
          * @summary Удалить поставщика
          * @param {string} guid ID идеи
-         * @param {InlineObject56} [body] 
+         * @param {InlineObject79} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasRemoveSupplierGuidPost(guid: string, body?: InlineObject56, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1IdeasRemoveSupplierGuidPost(guid: string, body?: InlineObject79, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1IdeasRemoveSupplierGuidPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1433,10 +1433,10 @@ export interface IdeaApiApiV1IdeasAddSuppliersGuidPostRequest {
 
     /**
      * 
-     * @type {InlineObject55}
+     * @type {InlineObject78}
      * @memberof IdeaApiApiV1IdeasAddSuppliersGuidPost
      */
-    readonly body?: InlineObject55
+    readonly body?: InlineObject78
 
     /**
      * 
@@ -1615,10 +1615,10 @@ export interface IdeaApiApiV1IdeasGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject53}
+     * @type {InlineObject76}
      * @memberof IdeaApiApiV1IdeasGuidPatch
      */
-    readonly body?: InlineObject53
+    readonly body?: InlineObject76
 
     /**
      * 
@@ -1755,10 +1755,10 @@ export interface IdeaApiApiV1IdeasPagMyGetRequest {
 export interface IdeaApiApiV1IdeasPostRequest {
     /**
      * 
-     * @type {InlineObject54}
+     * @type {InlineObject77}
      * @memberof IdeaApiApiV1IdeasPost
      */
-    readonly body?: InlineObject54
+    readonly body?: InlineObject77
 
     /**
      * 
@@ -1804,10 +1804,10 @@ export interface IdeaApiApiV1IdeasRejectedGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject57}
+     * @type {InlineObject80}
      * @memberof IdeaApiApiV1IdeasRejectedGuidPatch
      */
-    readonly body?: InlineObject57
+    readonly body?: InlineObject80
 
     /**
      * 
@@ -1832,10 +1832,10 @@ export interface IdeaApiApiV1IdeasRemoveSupplierGuidPostRequest {
 
     /**
      * 
-     * @type {InlineObject56}
+     * @type {InlineObject79}
      * @memberof IdeaApiApiV1IdeasRemoveSupplierGuidPost
      */
-    readonly body?: InlineObject56
+    readonly body?: InlineObject79
 
     /**
      * 
