@@ -248,13 +248,24 @@ export const OrderProductModal = memo(props => {
 
       newRenderOrderState[index][fieldsName] = parseInt(value) || 0
     } else if (fieldsName === 'tariff') {
+      const changeObject = {
+        logicsTariffId: value.logicsTariffId,
+        variationTariffId: value.variationTariffId,
+        destinationId: value.destinationId,
+        storekeeperId: value.storekeeperId,
+        storekeeper: value.storekeeper,
+        destination: value.destination,
+        logicsTariff: value.logicsTariff,
+        variationTariff: value.variationTariff,
+      }
+
       newStateOrderState[index] = {
         ...newStateOrderState[index],
-        ...value,
+        ...changeObject,
       }
       newRenderOrderState[index] = {
         ...newRenderOrderState[index],
-        ...value,
+        ...changeObject,
       }
     } else {
       newStateOrderState[index][fieldsName] = value
@@ -305,7 +316,8 @@ export const OrderProductModal = memo(props => {
   const disabledSubmit =
     orderState.some((order, index) => {
       const isDeadlineTodayOrTomorrow =
-        isPast(new Date(order.deadline)) || isToday(new Date(order.deadline)) || isTomorrow(new Date(order.deadline))
+        !!order.deadline &&
+        (isPast(new Date(order.deadline)) || isToday(new Date(order.deadline)) || isTomorrow(new Date(order.deadline)))
 
       return (
         (productsForRender[index].currentSupplier &&
@@ -316,7 +328,7 @@ export const OrderProductModal = memo(props => {
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
-        ((!!isInventory || !!reorderOrdersData?.length) && !!isPendingOrdering && isDeadlineTodayOrTomorrow) ||
+        ((!!isInventory || !!reorderOrdersData?.length) && isDeadlineTodayOrTomorrow) ||
         (productsForRender[index].currentSupplier?.multiplicity &&
           productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
           order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
@@ -482,11 +494,17 @@ export const OrderProductModal = memo(props => {
         ) : null}
 
         <Button
-          tooltipInfoContent={t(
-            TranslationKey['Complete the order (freezes the required amount of the order from the balance)'],
-          )}
+          tooltipInfoContent={
+            !disabledSubmit &&
+            t(TranslationKey['Complete the order (freezes the required amount of the order from the balance)'])
+          }
           tooltipAttentionContent={
-            storekeeperEqualsDestination && t(TranslationKey['Storekeeper and destination match'])
+            disabledSubmit &&
+            t(
+              TranslationKey[
+                'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses'
+              ],
+            )
           }
           className={(styles.modalButton, styles.buyNowBtn)}
           disabled={disabledSubmit}

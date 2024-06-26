@@ -5,6 +5,7 @@ import { getLaunchName } from '@components/shared/launches/helpers/get-launch-na
 import { Launches } from '@typings/enums/launches'
 
 export const reportModalConfig = {
+  requestTableStatus: observable,
   product: observable,
   reportId: observable,
   newProductPrice: observable,
@@ -36,7 +37,7 @@ export const reportModalConfig = {
   setRequestTableStatus: action.bound,
   updateProductAndColumns: action.bound,
   onGetProducts: action.bound,
-  onGetListingReportByProductId: action.bound,
+  // onGetListingReportByProductId: action.bound,
 }
 
 export const launchOptions = Object.values(Launches).map(value => ({
