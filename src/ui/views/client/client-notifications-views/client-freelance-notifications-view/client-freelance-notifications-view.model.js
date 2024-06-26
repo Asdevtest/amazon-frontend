@@ -132,9 +132,7 @@ export class ClientFreelanceNotificationsViewModel {
         chatId,
       })
     } else {
-      this.history.push(`/client/freelance/my-requests/custom-request?request-id=${requestId}`, {
-        chatId,
-      })
+      this.history.push(`/client/freelance/my-requests/custom-request?request-id=${requestId}`)
     }
   }
 }
