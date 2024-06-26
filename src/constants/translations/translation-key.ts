@@ -1584,7 +1584,7 @@ export enum TranslationKey {
   'Boxes with identical storekeeper must be selected' = 'Boxes with identical storekeeper must be selected',
   'Cannot be merged with a Superbox' = 'Cannot be merged with a Superbox',
   'Comments from the supervisor' = 'Comments from the supervisor',
-  'Storekeeper and destination match' = 'Storekeeper and destination match',
+  'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses' = 'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses',
   'Search by Email, Nickname...' = 'Search by Email, Nickname...',
   'Repeat search' = 'Repeat search',
   'Repeat the search for a supplier' = 'Repeat the search for a supplier',

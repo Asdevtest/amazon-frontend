@@ -11,8 +11,7 @@ import { IProduct } from '@typings/models/products/product'
 
 import { productBatchesColumns } from './product-batches-columns'
 import { productBoxesColumns } from './product-boxes-columns'
-import { productDataFormConfig } from './product-data-form.config'
-import { searchFields } from './product-data-form.constants'
+import { productDataFormConfig, searchFields } from './product-data-form.config'
 
 export class ProductDataFormModel extends DataGridFilterTableModel {
   batch?: IBatch = undefined
@@ -24,27 +23,30 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
   }
 
   constructor({ product, isBatches, onAmazon }: { product: IProduct; onAmazon: boolean; isBatches?: boolean }) {
-    const columnHandlers = {
+    const columnProps = {
       onClickChangeVariation: (id: string) => this.onClickShowBatchInfoModal(id),
     }
-    const columns = isBatches ? productBatchesColumns(columnHandlers) : productBoxesColumns(columnHandlers)
+    const columnsModel = isBatches ? productBatchesColumns(columnProps) : productBoxesColumns(columnProps)
     const defaultGetCurrentDataOptions = () => ({
       guid: product._id,
       onAmazon,
       batchArchive: this.batchArchive,
     })
+    const filtersFields = getFilterFields(columnsModel, ['batchArchive'])
 
     super({
       getMainDataMethod: isBatches ? BatchesModel.getBatchesbyProduct : BoxesModel.getProductInBatch,
-      columnsModel: columns,
-      filtersFields: getFilterFields(columns, ['batchArchive']),
+      columnsModel,
+      filtersFields,
       mainMethodURL: isBatches
         ? `batches/by_product/${product._id}?`
         : `boxes/clients/product_in_batch/${product._id}?onAmazon=${onAmazon}&`,
       fieldsForSearch: searchFields,
       defaultGetCurrentDataOptions,
     })
+
     this.sortModel = [{ field: 'humanFriendlyId', sort: 'desc' }]
+    this.pinnedColumns = { right: ['actions'] }
     this.onChangeFullFieldMenuItem([false], 'batchArchive')
     this.getCurrentData()
 

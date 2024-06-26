@@ -135,7 +135,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
     this.dataGridApi = dataGridApi
 
     this.initHistory()
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.sortModel = [{ field: 'priority', sort: 'desc' }]
 
     this.getDataGridState()
     this.getCurrentData()

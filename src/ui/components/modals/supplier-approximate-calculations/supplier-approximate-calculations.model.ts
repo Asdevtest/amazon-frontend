@@ -263,7 +263,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this.currentVariationId = box?.variationTariff?._id
     this.currentDestinationId = destinationId
     this.initialDestinationId = destinationId
-    this.currentLogicsTariffId = box?.variationTariff?.storekeeperTariffLogisticsId || box?.logicsTariff?._id
+    this.currentLogicsTariffId = box?.logicsTariff?._id || box?.variationTariff?.storekeeperTariffLogisticsId
 
     this.storekeepers = [{ label: () => box?.storekeeper?.name || '', value: box?.storekeeper?._id }]
     this.boxItems = box?.items

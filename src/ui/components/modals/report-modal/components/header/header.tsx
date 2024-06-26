@@ -9,7 +9,6 @@ import { t } from '@utils/translations'
 
 import { Launches as LaunchesEnum } from '@typings/enums/launches'
 import { IProduct } from '@typings/models/products/product'
-import { LaunchType } from '@typings/types/launch'
 
 import { IPermissionsData } from '@hooks/use-products-permissions'
 
@@ -27,7 +26,7 @@ interface HeaderProps {
   launchOptions: ILaunchOption[]
   selectLaunchValue: LaunchesEnum | null
   requests: IRequestWithLaunch[]
-  onRemoveRequest: (value: LaunchType) => void
+  onRemoveRequest: (id?: string) => void
   onSelectLaunch: (value: LaunchesEnum) => void
   onSelectProduct: (value: string, option: BaseOptionType) => void
   onGetProducts: () => void

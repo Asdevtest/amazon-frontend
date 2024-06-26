@@ -1,5 +1,5 @@
 import { Tooltip } from 'antd'
-import { FC, ReactNode, memo } from 'react'
+import { FC, ReactNode, memo, useEffect, useMemo } from 'react'
 import { AiOutlinePoweroff } from 'react-icons/ai'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -34,20 +34,34 @@ export const CustomTimer: FC<CustomTimerProps> = memo(props => {
   const { classes: styles, cx, theme } = useStyles()
   const { days, hours, minutes, seconds } = useCountdown(targetDate)
 
-  const tooltip = tooltipText
-    ? `${t(TranslationKey[tooltipText as TranslationKey])}: ${days} : ${hours} : ${minutes} : ${seconds}`
-    : ''
+  const shouldLogout = useMemo(() => {
+    return Number(days) + Number(hours) + Number(minutes) + Number(seconds) === 0
+  }, [days, hours, minutes, seconds])
 
-  if (Number(days) + Number(hours) + Number(minutes) + Number(seconds) === 0) {
-    const userInfo = UserModel.userInfo as unknown as IFullUser
-    const logoutCondition = !checkIsAdmin(Roles[userInfo?.role])
+  const handleVisibilityChange = () => {
+    if (document.visibilityState === 'visible' && shouldLogout) {
+      const userInfo = UserModel.userInfo as unknown as IFullUser
+      const logoutCondition = !checkIsAdmin(Roles[userInfo?.role])
 
-    if (logoutCondition) {
-      UserModel.signOut()
+      if (logoutCondition) {
+        UserModel.signOut()
+      }
     }
-
-    return null
   }
+
+  useEffect(() => {
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [targetDate])
+
+  const tooltip = useMemo(() => {
+    return tooltipText
+      ? `${t(TranslationKey[tooltipText as TranslationKey])}: ${days} : ${hours} : ${minutes} : ${seconds}`
+      : ''
+  }, [tooltipText, days, hours, minutes, seconds])
 
   return (
     <Tooltip
