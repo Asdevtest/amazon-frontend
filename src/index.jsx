@@ -15,6 +15,11 @@ Sentry.init({
   dsn: 'https://9d93845486a53513477f1c4901b80625@o4507371916099584.ingest.de.sentry.io/4507446537158736', // research about process.env
   integrations: [
     Sentry.browserTracingIntegration(),
+    Sentry.browserProfilingIntegration(),
+    Sentry.captureConsoleIntegration(),
+    Sentry.contextLinesIntegration(),
+    Sentry.debugIntegration(),
+    Sentry.extraErrorDataIntegration(),
     Sentry.httpClientIntegration(),
     Sentry.replayIntegration(),
     Sentry.sessionTimingIntegration(),
@@ -28,6 +33,8 @@ Sentry.init({
   environment: 'development',
   normalizeMaxBreadth: 200,
   sendDefaultPii: true,
+  failedRequestTargets: ['amazonapi.fvds.ru', 'amazon-socket.fvds.ru'],
+  denyUrls: ['localhost'],
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
