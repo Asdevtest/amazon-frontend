@@ -11,6 +11,8 @@ import { reportWebVitals } from '@utils/report-web-vitals'
 
 import { App } from './app'
 
+console.log('process.env.REACT_APP_TEST_URL', process.env.REACT_APP_TEST_URL)
+
 Sentry.init({
   dsn: 'https://9d93845486a53513477f1c4901b80625@o4507371916099584.ingest.de.sentry.io/4507446537158736',
   integrations: [
@@ -21,7 +23,7 @@ Sentry.init({
     // add a router when updating routing
   ],
   tracesSampleRate: 1.0,
-  tracePropagationTargets: ['as-crm-git-sentry-test-aservs-projects.vercel.app', 'as-crm-dev.vercel.app'],
+  tracePropagationTargets: [process.env.REACT_APP_TEST_URL, 'as-crm-dev.vercel.app'],
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
   release: appVersion,
