@@ -5,14 +5,8 @@ import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import { Divider } from '@mui/material'
 
 import { appVersion } from '@constants/app-version'
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
-
-import { ConfirmationModal } from '@components/modals/confirmation-modal/confirmation-modal.jsx'
-import { LanguageSelector } from '@components/shared/language-selector/language-selector'
-
-import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
 
@@ -53,8 +47,6 @@ export const AuthFormWrapper = memo(props => {
                     onClick={() => onClickThemeIcon(UiTheme.light)}
                   />
                 )}
-
-                <LanguageSelector />
               </div>
             </div>
           </div>

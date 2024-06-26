@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
@@ -24,7 +24,7 @@ import { LogisticsTariffsModel } from './weight-based-logistics-tariffs.model'
 
 export const WeightBasedLogisticsTariffs = observer(() => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
   const gpModel = useRef(new LogisticsTariffsModel({ history }))
 
   const {

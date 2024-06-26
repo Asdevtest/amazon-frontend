@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeObservable, runInAction } from 'mobx'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { ModalsModel } from '@models/model-with-modals'
 
@@ -57,6 +57,6 @@ export class DefaultModel extends ModalsModel {
   }
 
   initHistory() {
-    this.history = useHistory()
+    this.history = useNavigate()
   }
 }

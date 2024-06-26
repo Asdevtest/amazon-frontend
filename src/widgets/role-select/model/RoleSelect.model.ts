@@ -4,12 +4,11 @@ import { UserModel } from '@models/user-model'
 
 import { Roles } from '@typings/enums/roles'
 import { IFullUser } from '@typings/shared/full-user'
-import { HistoryType } from '@typings/types/history'
 
 import { roleMapper } from './helpers/roleMapper'
 
 export class RoleSelectModel {
-  history?: HistoryType
+  history?: any
 
   get userInfo() {
     return UserModel.userInfo as unknown as IFullUser // TODO: типизация UserModel
@@ -23,7 +22,7 @@ export class RoleSelectModel {
     return this.roles?.length === 1
   }
 
-  constructor(history: HistoryType) {
+  constructor(history: any) {
     this.history = history
 
     makeAutoObservable(this, undefined, { autoBind: true })

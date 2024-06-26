@@ -1,5 +1,5 @@
 import { FC, memo, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { CustomSelect } from '@components/shared/custom-select'
 
@@ -10,7 +10,7 @@ import classes from './RoleSelect.module.scss'
 interface RoleSelectProps {}
 
 export const RoleSelect: FC<RoleSelectProps> = memo(() => {
-  const history = useHistory()
+  const history = useNavigate()
   const [viewModel] = useState(() => new RoleSelectModel(history))
 
   return (

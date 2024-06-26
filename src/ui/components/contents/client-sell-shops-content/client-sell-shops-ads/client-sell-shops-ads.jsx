@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
@@ -20,7 +20,7 @@ import { ClientSellShopsAdsModel } from './client-sell-shops-ads.model'
 
 export const ClientSellShopsAds = observer(() => {
   const { classes: styles, cx } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
   const [model] = useState(new ClientSellShopsAdsModel({ history }))
 
   useEffect(() => {

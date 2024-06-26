@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,12 +14,12 @@ interface BoxNotificationMessageCellProps {
 
 export const BoxNotificationMessageCell: FC<BoxNotificationMessageCellProps> = memo(({ notification }) => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
 
   const humanFriendlyId = notification?.humanFriendlyId
 
   const goToBox = () => {
-    history.push(`/client/warehouse/in-stock?box-id=${humanFriendlyId}`)
+    history(`/client/warehouse/in-stock?box-id=${humanFriendlyId}`)
   }
 
   return (

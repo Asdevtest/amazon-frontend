@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,7 +21,7 @@ import { UserBalanceModel } from './user-balance.model'
 
 export const UserBalance = observer(({ userId }) => {
   const { classes: styles, cx } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
   const model = useRef(new UserBalanceModel({ history, userId }))
 
   useEffect(() => {

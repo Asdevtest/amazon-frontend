@@ -8,12 +8,13 @@ export const Contact = () => {
     twitter: 'your_handle',
     notes: 'Some notes',
     favorite: true,
+    id: '3',
   }
 
   return (
     <div id="contact">
       <div>
-        <img key={contact.avatar} src={contact.avatar || `https://robohash.org/${contact.id}.png?size=200x200`} />
+        <img key={contact.avatar} src={contact.avatar || `https://robohash.org/${contact?.id}.png?size=200x200`} />
       </div>
 
       <div>
@@ -30,7 +31,7 @@ export const Contact = () => {
 
         {contact.twitter && (
           <p>
-            <a target="_blank" href={`https://twitter.com/${contact.twitter}`}>
+            <a target="_blank" href={`https://twitter.com/${contact.twitter}`} rel="noopener noreferrer">
               {contact.twitter}
             </a>
           </p>
@@ -59,7 +60,7 @@ export const Contact = () => {
   )
 }
 
-function Favorite({ contact }) {
+function Favorite({ contact }: any) {
   const favorite = contact.favorite
   return (
     <Form method="post">

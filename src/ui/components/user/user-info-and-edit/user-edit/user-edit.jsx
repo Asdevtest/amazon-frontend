@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,7 +16,7 @@ import { UserEditModel } from './user-edit.model'
 
 export const UserEdit = observer(({ user }) => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
   const model = useRef(new UserEditModel({ history, user }))
 
   useEffect(() => {

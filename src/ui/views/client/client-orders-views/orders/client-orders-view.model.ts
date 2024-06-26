@@ -33,7 +33,6 @@ import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 import { IDestination } from '@typings/shared/destinations'
 import { IHSCode } from '@typings/shared/hs-code'
 import { IUploadFile } from '@typings/shared/upload-file'
-import { HistoryType } from '@typings/types/history'
 
 import { fieldsForSearch, filtersFields } from './client-orders-view.constants'
 import { getDataGridTableKey } from './helpers/get-data-grid-table-key'
@@ -81,7 +80,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     return UserModel.platformSettings
   }
 
-  constructor(history: HistoryType) {
+  constructor(history: any) {
     const rowHandlers = {
       onClickReorder: (item: IOrder, isPending: boolean) => this.onClickReorder(item, isPending),
       onClickOpenNewTab: (id: string) => this.onClickOpenNewTab(id),

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { memo, useEffect, useRef, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { Checkbox, Link, MenuItem, Select } from '@mui/material'
 
@@ -77,7 +77,7 @@ export const CreateOrEditRequestContent = memo(props => {
     onTriggerGalleryModal,
   } = props
   const { classes: styles, cx } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
 
   const mainContentRefElement = mainContentRef.current
 

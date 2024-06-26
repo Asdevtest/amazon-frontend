@@ -8,10 +8,9 @@ import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { IFullUser } from '@typings/shared/full-user'
-import { HistoryType } from '@typings/types/history'
 
 export class HeaderModel {
-  history?: HistoryType
+  history?: any
   requestStatus = undefined
   error = undefined
 
@@ -31,7 +30,7 @@ export class HeaderModel {
     return (SettingsModel.snackNotifications[snackNoticeKey.SIMPLE_MESSAGE] as any)?.crmItemId || null
   }
   get toggleServerSettings() {
-    return ChatModel.toggleServerSettings
+    return ChatModel.toggleServerSettings as any
   }
 
   constructor() {
@@ -43,10 +42,6 @@ export class HeaderModel {
     const findMessage = findChat?.messages.find(el => el._id === message._id)
 
     return findMessage ? findMessage.isRead : false
-  }
-
-  onExitFromRole() {
-    UserModel.signOut()
   }
 
   onTriggerShowHints() {

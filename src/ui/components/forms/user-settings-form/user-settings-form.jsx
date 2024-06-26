@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { TextareaAutosize, Typography } from '@mui/material'
 
@@ -21,7 +21,7 @@ import { UserSettingsModel } from './user-settings-form.model'
 
 export const UserSettingsForm = observer(() => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
   const asModel = useRef(new UserSettingsModel({ history }))
 
   useEffect(() => {

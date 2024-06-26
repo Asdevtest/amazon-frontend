@@ -28,7 +28,7 @@ interface CustomTimerProps {
 export const CustomTimer: FC<CustomTimerProps> = memo(props => {
   const { targetDate, startIcon = <AiOutlinePoweroff />, endIcon, className, tooltipText } = props
 
-  if (new Date() >= new Date(targetDate)) {
+  if (new Date() >= new Date(targetDate) || !targetDate) {
     return null
   }
 

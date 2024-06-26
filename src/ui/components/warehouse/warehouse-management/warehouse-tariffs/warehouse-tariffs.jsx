@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,7 +19,7 @@ import { WarehouseTariffModel } from './warehouse-tariffs.model'
 
 export const WarehouseTariffs = observer(() => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
   const spModel = useRef(new WarehouseTariffModel({ history }))
 
   useEffect(() => {

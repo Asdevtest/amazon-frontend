@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { Divider, Paper, Typography } from '@mui/material'
 
@@ -24,7 +24,7 @@ import { ListingModel } from './listing.model'
 
 export const Listing = observer(({ productId, onClickBack }) => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
   const listingModel = useRef(new ListingModel({ history, productId }))
 
   useEffect(() => {

@@ -12,7 +12,7 @@ export const getLocalizationByLanguageTag = () => {
     case LanguageKey.ru:
       return ruRU.components.MuiDataGrid.defaultProps.localeText
 
-    case LanguageKey.zh:
+    case LanguageKey.ch:
       return zhCN.components.MuiDataGrid.defaultProps.localeText
 
     default:

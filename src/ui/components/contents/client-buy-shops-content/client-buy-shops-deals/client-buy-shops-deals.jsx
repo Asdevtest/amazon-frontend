@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
@@ -23,7 +23,7 @@ import { ClientBuyShopsDealsModel } from './client-buy-shops-deals.model'
 
 export const ClientBuyShopsDeals = observer(() => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
   const model = useRef(new ClientBuyShopsDealsModel({ history }))
 
   useEffect(() => {

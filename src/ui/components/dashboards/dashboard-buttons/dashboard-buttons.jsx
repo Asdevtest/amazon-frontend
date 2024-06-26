@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
@@ -15,7 +15,7 @@ import { t } from '@utils/translations'
 
 export const DashboardButtons = ({ user }) => {
   const { classes: styles } = useStyles()
-  const history = useHistory()
+  const history = useNavigate()
 
   const unreadMessages = ChatModel.unreadMessages
 

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
@@ -30,7 +30,7 @@ const exclusionWords = [
 export const BreadCrumbsLine = observer(() => {
   const { classes: styles } = useStyles()
   const location = useLocation()
-  const history = useHistory()
+  const history = useNavigate()
   const breadcrumbsKey = LOCAL_STORAGE_KEYS.LAST_BREADCRUMBS_TEXT
   const savedLastCrumbAdditionalText = localStorage.getItem(breadcrumbsKey)
   const breadcrumbsAdditionalText = SettingsModel.lastCrumbAdditionalText
