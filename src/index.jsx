@@ -16,7 +16,7 @@ Sentry.init({
   integrations: [
     Sentry.browserTracingIntegration(),
     Sentry.browserProfilingIntegration(),
-    Sentry.captureConsoleIntegration(),
+    // Sentry.captureConsoleIntegration(),
     Sentry.contextLinesIntegration(),
     Sentry.debugIntegration(),
     Sentry.extraErrorDataIntegration(),
