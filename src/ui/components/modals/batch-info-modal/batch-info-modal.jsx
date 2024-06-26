@@ -28,7 +28,7 @@ import {
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
 import { formatDateWithoutTime } from '@utils/date-time'
-import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './batch-info-modal.style'
@@ -252,7 +252,7 @@ export const BatchInfoModal = observer(
                 disabled
                 classes={{ disabled: styles.disabled }}
                 containerClasses={cx(styles.sumField, styles.dividerField)}
-                inputClasses={[styles.infoField, styles.dividerField]}
+                inputClasses={cx(styles.infoField, styles.dividerField)}
                 labelClasses={styles.subFieldLabel}
                 label={`${t(TranslationKey['Total price'])} (${t(TranslationKey.China)})`}
                 value={currentBatch?.totalPriceFromOrderSupplier}

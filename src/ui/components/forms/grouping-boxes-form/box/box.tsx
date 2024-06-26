@@ -138,7 +138,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 containerClasses={styles.field}
                 label={t(TranslationKey.Quantity)}
                 className={styles.orderInput}
-                labelClasses={[styles.label, styles.quantityLabel]}
+                labelClasses={cx(styles.label, styles.quantityLabel)}
                 value={order.amount}
                 tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
               />
@@ -148,7 +148,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 containerClasses={styles.field}
                 label={t(TranslationKey['Quantity in group'])}
                 className={styles.orderInput}
-                labelClasses={[styles.label, styles.quantityLabel]}
+                labelClasses={cx(styles.label, styles.quantityLabel)}
                 value={order.amount * box.amount}
               />
             </div>

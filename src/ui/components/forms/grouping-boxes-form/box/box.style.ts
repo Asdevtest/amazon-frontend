@@ -35,9 +35,9 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-start',
     gap: 15,
 
-    backgroundColor: theme.palette.background.second,
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
-    borderRadius: '4px',
+    backgroundColor: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.box,
+    borderRadius: '20px',
     padding: '20px 17px',
   },
 

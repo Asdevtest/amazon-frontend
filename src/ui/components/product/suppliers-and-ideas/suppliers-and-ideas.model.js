@@ -134,7 +134,7 @@ export class SuppliersAndIdeasModel {
         if (this.isModalView && this.currentIdeaId) {
           await this.getIdea(this.currentIdeaId)
           if (this.updateData) {
-            this.updateData()
+            this.updateData?.()
           }
         } else {
           await this.getIdeas()
@@ -201,7 +201,7 @@ export class SuppliersAndIdeasModel {
               } else {
                 this.onTriggerOpenModal('showSuccessModal')
               }
-              this.updateData()
+              this.updateData?.()
             },
           }
         })
@@ -229,7 +229,7 @@ export class SuppliersAndIdeasModel {
               } else {
                 this.onTriggerOpenModal('showSuccessModal')
               }
-              this.updateData()
+              this.updateData?.()
             },
           }
         })
