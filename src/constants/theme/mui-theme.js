@@ -124,6 +124,10 @@ export const lightTheme = createTheme({
           transition: '0.3s ease',
         },
 
+        cell: {
+          overflow: 'hidden',
+        },
+
         sortIcon: {
           width: 14,
           height: 14,
