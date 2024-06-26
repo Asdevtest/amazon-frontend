@@ -22,6 +22,10 @@ Sentry.init({
     Sentry.extraErrorDataIntegration(),
     Sentry.httpClientIntegration({
       failedRequestTargets: ['amazonapi.fvds.ru', 'amazon-socket.fvds.ru'],
+      failedRequestStatusCodes: [
+        [500, 599],
+        [400, 499],
+      ],
     }),
     Sentry.replayIntegration(),
     Sentry.sessionTimingIntegration(),
