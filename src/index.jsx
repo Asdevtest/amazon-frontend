@@ -16,11 +16,13 @@ Sentry.init({
   integrations: [
     Sentry.browserTracingIntegration(),
     Sentry.browserProfilingIntegration(),
-    // Sentry.captureConsoleIntegration(),
+    // Sentry.captureConsoleIntegration(), // all console logs
     Sentry.contextLinesIntegration(),
     Sentry.debugIntegration(),
     Sentry.extraErrorDataIntegration(),
-    Sentry.httpClientIntegration(),
+    Sentry.httpClientIntegration({
+      failedRequestTargets: ['amazonapi.fvds.ru', 'amazon-socket.fvds.ru'],
+    }),
     Sentry.replayIntegration(),
     Sentry.sessionTimingIntegration(),
     // add a router when updating routing
@@ -32,8 +34,7 @@ Sentry.init({
   release: appVersion,
   environment: 'development',
   normalizeMaxBreadth: 200,
-  sendDefaultPii: true,
-  failedRequestTargets: ['amazonapi.fvds.ru', 'amazon-socket.fvds.ru'],
+  // sendDefaultPii: true,
   denyUrls: ['localhost'],
 })
 
