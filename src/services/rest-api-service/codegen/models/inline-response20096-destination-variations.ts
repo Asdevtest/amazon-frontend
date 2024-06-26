@@ -58,6 +58,12 @@ export interface InlineResponse20096DestinationVariations {
      */
     pricePerKgUsd?: number;
     /**
+     * Минимальный вес коробки
+     * @type {number}
+     * @memberof InlineResponse20096DestinationVariations
+     */
+    minBoxWeight?: number;
+    /**
      * logicsTariffId
      * @type {string}
      * @memberof InlineResponse20096DestinationVariations

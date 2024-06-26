@@ -503,6 +503,12 @@ export interface InlineResponse2009 {
     subUsers?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof InlineResponse2009
+     */
+    subUsersByShop?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
+    /**
+     * 
      * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
      * @memberof InlineResponse2009
      */

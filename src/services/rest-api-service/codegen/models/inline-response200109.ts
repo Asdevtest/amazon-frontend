@@ -19,7 +19,6 @@ import { ApiV1RequestsCustomProduct } from './api-v1-requests-custom-product';
 import { InlineResponse20085Announcement } from './inline-response20085-announcement';
 import { InlineResponse20085CountProposalsByStatuses } from './inline-response20085-count-proposals-by-statuses';
 import { InlineResponse20085DetailsCustom } from './inline-response20085-details-custom';
-import { InlineResponse20085FreelanceNotices } from './inline-response20085-freelance-notices';
 import { InlineResponse20085Media } from './inline-response20085-media';
 
 /**
@@ -233,11 +232,11 @@ export interface InlineResponse200109 {
      */
     countProposalsByStatuses?: InlineResponse20085CountProposalsByStatuses;
     /**
-     * 
-     * @type {Array<InlineResponse20085FreelanceNotices>}
+     * Count of unread messages
+     * @type {number}
      * @memberof InlineResponse200109
      */
-    freelanceNotices?: Array<InlineResponse20085FreelanceNotices>;
+    freelanceNotices?: number;
     /**
      * 
      * @type {ApiV1RequestsCustomProduct}
