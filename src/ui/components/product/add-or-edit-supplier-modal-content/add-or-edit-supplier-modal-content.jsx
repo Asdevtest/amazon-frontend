@@ -84,8 +84,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
     price: supplier?.price || '',
     images: supplier?.images || [],
     multiplicity: supplier?.multiplicity || false,
-    minProductionTerm: supplier?.minProductionTerm || 0,
-    maxProductionTerm: supplier?.maxProductionTerm || 0,
+    minProductionTerm: supplier?.minProductionTerm || '',
+    maxProductionTerm: supplier?.maxProductionTerm || '',
     paymentMethods: supplier?.paymentMethods || [],
     yuanRate: supplier?.yuanRate || platformSettings?.yuanToDollarRate,
     priceInYuan: supplier?.priceInYuan || '',
@@ -193,8 +193,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
         boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
       },
 
-      minProductionTerm: tmpSupplier?.minProductionTerm || 0,
-      maxProductionTerm: tmpSupplier?.maxProductionTerm || 0,
+      minProductionTerm: tmpSupplier?.minProductionTerm || '',
+      maxProductionTerm: tmpSupplier?.maxProductionTerm || '',
 
       _id: supplier?._id,
     }
@@ -236,7 +236,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
             <Button
               styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
-              disabled={diasabledSubmit}
+              disabled={disabledSubmit}
               className={styles.saveBtnClient}
               onClick={() => {
                 onClickSaveBtn({
@@ -253,7 +253,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
             <Button
               styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
-              disabled={diasabledSubmit}
+              disabled={disabledSubmit}
               className={styles.saveBtnClient}
               onClick={() => {
                 onClickSaveBtn({
@@ -283,7 +283,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         <div className={styles.buttonsWrapper}>
           <Button
             tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
-            disabled={diasabledSubmit}
+            disabled={disabledSubmit}
             className={styles.saveBtn}
             onClick={() => {
               onClickSaveBtn({
@@ -444,7 +444,12 @@ export const AddOrEditSupplierModalContent = memo(props => {
       !tmpSupplier?.lengthUnit ||
       editPhotosOfUnit?.length < 4)
 
-  const diasabledSubmit =
+  const isValidProductionTerm =
+    !tmpSupplier.minProductionTerm ||
+    !tmpSupplier.maxProductionTerm ||
+    tmpSupplier.minProductionTerm <= tmpSupplier.maxProductionTerm
+
+  const disabledSubmit =
     itHaveBigInt ||
     '' === !tmpSupplier.name ||
     '' === tmpSupplier.price ||
@@ -466,7 +471,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
       tmpSupplier.boxProperties?.boxHeightCm ||
       tmpSupplier.boxProperties?.boxWeighGrossKg) &&
       !boxPropertiesIsFullAndMainsValues) ||
-    isNeedUnitInfo
+    isNeedUnitInfo ||
+    !isValidProductionTerm
 
   return (
     <div className={styles.modalContainer}>
@@ -561,6 +567,9 @@ export const AddOrEditSupplierModalContent = memo(props => {
             inputProps={{ maxLength: 10 }}
             label={t(TranslationKey['Max. production time, days'])}
             containerClasses={styles.middleContainer}
+            className={cx(styles.weightInput, {
+              [styles.error]: !isValidProductionTerm,
+            })}
             labelClasses={styles.normalLabel}
             value={tmpSupplier?.maxProductionTerm}
             onChange={onChangeField('maxProductionTerm')}
