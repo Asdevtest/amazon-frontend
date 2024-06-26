@@ -31,6 +31,10 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
     const linkIsValid = regExpUriChecking.test(linkInput)
 
     if (linkIsValid) {
+      if (images.length >= maxNumber) {
+        return
+      }
+
       const newFile = withComment
         ? { fileLink: linkInput, commentByClient: '', commentByPerformer: '', _id: uuid() }
         : linkInput
@@ -49,6 +53,10 @@ export const useUploadFilesInput = ({ images, setImages, maxNumber = 50, withCom
 
   const handlePasteFile = useCallback(
     (event: ClipboardEvent<HTMLInputElement>) => {
+      if (images.length >= maxNumber) {
+        return
+      }
+
       const files: IUploadFile[] = []
       const clipboardData = event.clipboardData
 

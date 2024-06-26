@@ -9,11 +9,12 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
+import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './set-shipping-label-modal.style'
 
 export const SetShippingLabelModal = props => {
-  const { onClickSaveShippingLabel, onCloseModal, item, tmpShippingLabel } = props
+  const { onClickSaveShippingLabel, onCloseModal, item, tmpShippingLabel, requestStatus } = props
 
   const { classes: styles } = useStyles()
   const [files, setFiles] = useState([])
@@ -23,6 +24,8 @@ export const SetShippingLabelModal = props => {
       setFiles(tmpShippingLabel)
     }
   }, [tmpShippingLabel])
+
+  const disabledSaveButton = requestStatus === loadingStatus.IS_LOADING || (!files.length && !tmpShippingLabel?.length)
 
   return (
     <div className={styles.wrapper}>
@@ -44,7 +47,7 @@ export const SetShippingLabelModal = props => {
       <div className={styles.buttons}>
         <Button
           styleType={ButtonStyle.SUCCESS}
-          disabled={!files.length && !tmpShippingLabel?.length}
+          disabled={disabledSaveButton}
           onClick={() => onClickSaveShippingLabel(files)}
         >
           {t(TranslationKey.Save)}

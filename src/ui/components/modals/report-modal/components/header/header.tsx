@@ -9,7 +9,6 @@ import { t } from '@utils/translations'
 
 import { Launches as LaunchesEnum } from '@typings/enums/launches'
 import { IProduct } from '@typings/models/products/product'
-import { LaunchType } from '@typings/types/launch'
 
 import { IPermissionsData } from '@hooks/use-products-permissions'
 
@@ -27,10 +26,10 @@ interface HeaderProps {
   launchOptions: ILaunchOption[]
   selectLaunchValue: LaunchesEnum | null
   requests: IRequestWithLaunch[]
-  onRemoveRequest: (value: LaunchType) => void
+  onRemoveRequest: (id?: string) => void
   onSelectLaunch: (value: LaunchesEnum) => void
   onSelectProduct: (value: string, option: BaseOptionType) => void
-  onOpenAsinSelect: () => void
+  onGetProducts: () => void
   onSearchAsinSelect: (value: string) => void
   onScrollAsinSelect: () => void
   subView?: boolean
@@ -47,7 +46,7 @@ export const Header: FC<HeaderProps> = memo(props => {
     onRemoveRequest,
     onSelectLaunch,
     onSelectProduct,
-    onOpenAsinSelect,
+    onGetProducts,
     onSearchAsinSelect,
     onScrollAsinSelect,
     subView,
@@ -94,7 +93,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             value={defaultAsinOption}
             options={asinOptions}
             optionRender={({ data }) => <AsinOption data={data} />}
-            onDropdownVisibleChange={onOpenAsinSelect}
+            onDropdownVisibleChange={onGetProducts}
             onSearch={onSearchAsinSelect}
             onPopupScroll={handlePopupScroll}
             onChange={onSelectProduct}

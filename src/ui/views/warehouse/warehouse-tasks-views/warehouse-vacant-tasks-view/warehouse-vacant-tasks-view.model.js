@@ -280,7 +280,7 @@ export class WarehouseVacantViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
         filters: this.nameSearchValue ? filter : null,
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'priority',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
         operationType: this.curTaskType,
         priority: this.curTaskPriority,

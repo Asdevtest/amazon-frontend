@@ -240,7 +240,7 @@ export class WarehouseMyTasksViewModel {
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
         filters: this.nameSearchValue ? filter : null,
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
+        sortField: this.sortModel.length ? this.sortModel[0].field : 'priority',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
         operationType: this.curTaskType,
         priority: this.curTaskPriority,
@@ -250,7 +250,7 @@ export class WarehouseMyTasksViewModel {
         this.rowCount = result.count
 
         this.tasksMy = warehouseTasksDataConverter(
-          result.rows.sort(sortObjectsArrayByFiledDate('updatedAt')).map(el => ({
+          result.rows.map(el => ({
             ...el,
             beforeBoxes: el.boxesBefore,
           })),
@@ -290,10 +290,8 @@ export class WarehouseMyTasksViewModel {
 
   async updateBox(id, data) {
     try {
-      if (data.tmpImages.length > 0) {
-        await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'imagesOfBox' })
-        data = { ...data, images: [...this.imagesOfBox] }
-      }
+      await onSubmitPostImages.call(this, { images: data.images, type: 'imagesOfBox' })
+      data = { ...data, images: [...this.imagesOfBox] }
 
       const boxItems = data.items.map(item => ({
         orderId: item?.order?._id,
@@ -362,7 +360,7 @@ export class WarehouseMyTasksViewModel {
             heightCmWarehouse: Number(newBoxes[i].heightCmWarehouse),
             weighGrossKgWarehouse: Number(newBoxes[i].weighGrossKgWarehouse),
           },
-          ['tmpImages'],
+          ['images'],
         )
 
         await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
@@ -377,9 +375,7 @@ export class WarehouseMyTasksViewModel {
             this.imagesOfBox = []
           })
 
-          if (box.tmpImages.length > 0) {
-            await onSubmitPostImages.call(this, { images: box.tmpImages, type: 'imagesOfBox' })
-          }
+          await onSubmitPostImages.call(this, { images: box.images, type: 'imagesOfBox' })
 
           const newBox = getObjectFilteredByKeyArrayWhiteList(
             {
@@ -395,7 +391,7 @@ export class WarehouseMyTasksViewModel {
                 isTransparencyFileAttachedByTheStorekeeper: el.isTransparencyFileAttachedByTheStorekeeper,
                 transparencyFile: el.transparencyFile,
               })),
-              images: this.imagesOfBox || box.images,
+              images: this.imagesOfBox,
             },
             [
               'amount',
@@ -422,6 +418,7 @@ export class WarehouseMyTasksViewModel {
               'isTransparencyFileAlreadyAttachedByTheSupplier',
               'isTransparencyFileAttachedByTheStorekeeper',
               'transparencyFile',
+              'shippingLabel',
             ],
           )
 

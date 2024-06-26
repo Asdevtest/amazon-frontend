@@ -52,6 +52,9 @@ export const useStyles = makeStyles()(theme => ({
 
   tableWrapper: {
     width: '100%',
+    borderRadius: 20,
+    background: theme.palette.background.general,
+    boxShadow: 'rgba(0, 0, 0, 0.15) 0px 1px 3px 1px, rgba(0, 0, 0, 0.3) 0px 1px 2px 0px',
   },
 
   productCell: {
@@ -263,7 +266,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     gap: 50,
-    margin: '30px 15px 5px 0',
+    margin: '20px 15px 5px 0px',
   },
   buyNowBtn: {
     color: '#fff',
@@ -280,6 +283,7 @@ export const useStyles = makeStyles()(theme => ({
 
   sumWrapper: {
     textAlign: 'right',
+    paddingTop: 10,
   },
 
   sumText: {

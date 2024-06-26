@@ -22,9 +22,13 @@ interface ChangeInputCellProps {
 export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
   const { rowId, onClickSubmit, text, disabled, isInteger, maxLength, isString, isPepurchase } = props
 
+  if (!text) {
+    return null
+  }
+
   const { classes: styles, cx } = useStyles()
 
-  const [value, setValue] = useState(text ?? '')
+  const [value, setValue] = useState(text || '')
 
   const [isShow, setIsShow] = useState(false)
 
@@ -53,17 +57,17 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
   }
 
   useEffect(() => {
-    setValue(text)
+    if (text) {
+      setValue(text)
+    }
   }, [text])
 
   const disabledSave = !isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50))
 
-  const inputError = !!text && !value
-
   return (
     <Input
       disabled={disabled}
-      className={cx({ [styles.error]: inputError })}
+      className={cx({ [styles.error]: !!text && !value })}
       classes={{ input: styles.input }}
       inputProps={{ maxLength: maxLength || 7 }}
       value={value}

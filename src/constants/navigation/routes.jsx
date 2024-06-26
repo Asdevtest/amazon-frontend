@@ -196,12 +196,6 @@ const ClientBoxesTariffsNotificationsView = lazy(() =>
   })),
 )
 
-const ClientIdeasNotificationsView = lazy(() =>
-  import('@views/client/client-notifications-views/client-ideas-notifications-view').then(module => ({
-    default: module.ClientIdeasNotificationsView,
-  })),
-)
-
 const ClientOrdersNotificationsView = lazy(() =>
   import('@views/client/client-notifications-views/client-orders-notifications-view').then(module => ({
     default: module.ClientOrdersNotificationsView,
@@ -414,9 +408,6 @@ const VacantRequestsView = lazy(() =>
 const SupervisorDashboardView = lazy(() =>
   import('@views/supervisor/supervisor-dashboard-view').then(module => ({ default: module.SupervisorDashboardView })),
 )
-const SupervisorFreelanceView = lazy(() =>
-  import('@views/supervisor/supervisor-freelance-view').then(module => ({ default: module.SupervisorFreelanceView })),
-)
 const SupervisorProductView = lazy(() =>
   import('@views/supervisor/supervisor-product-view/supervisor-product-view').then(module => ({
     default: module.SupervisorProductView,
@@ -425,25 +416,26 @@ const SupervisorProductView = lazy(() =>
 const SupervisorProductsView = lazy(() =>
   import('@views/supervisor/supervisor-products-view').then(module => ({ default: module.SupervisorProductsView })),
 )
-const SupervisorReadyToCheckByClientView = lazy(() =>
-  import('@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view').then(module => ({
-    default: module.SupervisorReadyToCheckByClientView,
-  })),
-)
-const SupervisorReadyToCheckForIdeaView = lazy(() =>
-  import('@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-for-idea').then(module => ({
-    default: module.SupervisorReadyToCheckForIdeaView,
-  })),
-)
+
 const SupervisorReadyToCheckView = lazy(() =>
-  import('@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view').then(module => ({
+  import('@views/supervisor/supervisor-ready-to-check-view').then(module => ({
     default: module.SupervisorReadyToCheckView,
   })),
 )
-const SupervisorSettingsView = lazy(() =>
-  import('@views/supervisor/supervisor-settings-view').then(module => ({ default: module.SupervisorSettingsView })),
+const SupervisorReadyToCheckByClientView = lazy(() =>
+  import('@views/supervisor/supervisor-ready-to-check-view').then(module => {
+    const Component = module.SupervisorReadyToCheckView
+
+    return { default: props => <Component isCreatedByClient {...props} /> }
+  }),
 )
-const TermsView = lazy(() => import('@views/terms').then(module => ({ default: module.TermsView })))
+const SupervisorSettingsView = lazy(() =>
+  import('@views/supervisor/supervisor-ready-to-check-view').then(module => {
+    const Component = module.SupervisorReadyToCheckView
+
+    return { default: props => <Component isCreatedByClient={false} {...props} /> }
+  }),
+)
 const WarehouseAwaitingBatchesView = lazy(() =>
   import('@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view').then(module => ({
     default: module.WarehouseAwaitingBatchesView,
@@ -521,12 +513,6 @@ export const publicRoutesConfigs = [
   {
     routePath: '/registration',
     component: RegistrationView,
-    exact: false,
-  },
-
-  {
-    routePath: '/terms',
-    component: TermsView,
     exact: false,
   },
 ]
@@ -1842,23 +1828,6 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/notifications/ideas-notifications',
-    component: ClientIdeasNotificationsView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-
-    permissionKey: permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT,
-
-    crumbNameKey: TranslationKey['On ideas'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
-      activeSubCategory: 3, // it's now not displayed to the client
-      title: () => t(TranslationKey['Notifications on ideas']),
-    },
-  },
-
-  {
     routePath: '/client/notifications/tariffs-notifications',
     component: ClientBoxesTariffsNotificationsView,
     exact: false,
@@ -1954,21 +1923,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_DASHBOARD,
       activeSubCategory: '',
       title: () => t(TranslationKey.Dashboard),
-    },
-  },
-
-  {
-    routePath: '/supervisor/freelance',
-    component: SupervisorFreelanceView,
-    exact: true,
-    permission: [UserRole.SUPERVISOR],
-
-    crumbNameKey: TranslationKey.Freelance,
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_DEALS,
-      activeSubCategory: '',
-      title: () => t(TranslationKey.Freelance),
     },
   },
 
@@ -2088,20 +2042,6 @@ export const privateRoutesConfigs = [
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_CLIENT,
-      title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
-    },
-  },
-
-  {
-    routePath: '/supervisor/ready-to-check-for-idea',
-    component: SupervisorReadyToCheckForIdeaView,
-    exact: true,
-    permission: [UserRole.SUPERVISOR],
-    crumbNameKey: TranslationKey['Supplier search'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
-      activeSubCategory: 2,
       title: () => `${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Client'])}`,
     },
   },

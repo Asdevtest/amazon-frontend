@@ -40,7 +40,7 @@ export const AuthForm = memo(props => {
 
   return (
     <form className={styles.form} onSubmit={onSubmitForm}>
-      {/* <Field
+      <Field
         withIcon
         autoComplete="username"
         error={isSubmit && formFields.email === '' && t(TranslationKey['The field must be filled in'])}
@@ -102,7 +102,7 @@ export const AuthForm = memo(props => {
 
       <Button disabled={disableLoginButton} type="submit">
         {t(TranslationKey.Login)}
-      </Button> */}
+      </Button>
     </form>
   )
 })

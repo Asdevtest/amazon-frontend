@@ -135,7 +135,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
     this.dataGridApi = dataGridApi
 
     this.initHistory()
-    this.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.sortModel = [{ field: 'priority', sort: 'desc' }]
 
     this.getDataGridState()
     this.getCurrentData()
@@ -295,10 +295,6 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   }
 
   async handleOpenRequestDetailModal(e: any) {
-    if (window?.getSelection?.()?.toString()) {
-      return
-    }
-
     if (e.row.countProposalsByStatuses.acceptedProposals > 0) {
       this.isAcceptedProposals = true
     } else {

@@ -5,17 +5,18 @@ import { getLaunchName } from '@components/shared/launches/helpers/get-launch-na
 import { Launches } from '@typings/enums/launches'
 
 export const reportModalConfig = {
+  requestTableStatus: observable,
   product: observable,
   reportId: observable,
   newProductPrice: observable,
   description: observable,
   listingLaunches: observable,
+  launchOptions: observable,
   selectLaunchValue: observable,
   columnsProps: observable,
   columnsModel: observable,
 
   launches: computed,
-  launchOptions: computed,
   disabledSaveButton: computed,
   requests: computed,
 
@@ -35,10 +36,13 @@ export const reportModalConfig = {
   onRemoveLaunch: action.bound,
   setRequestTableStatus: action.bound,
   updateProductAndColumns: action.bound,
-  onVirtialSelectScroll: action.bound,
+  onGetProducts: action.bound,
+  // onGetListingReportByProductId: action.bound,
 }
 
 export const launchOptions = Object.values(Launches).map(value => ({
   value,
   label: getLaunchName(value),
 }))
+
+export const excludedLaunches = [Launches.CUSTOM, Launches.AB_TEST, Launches.PRICE_CHANGE]

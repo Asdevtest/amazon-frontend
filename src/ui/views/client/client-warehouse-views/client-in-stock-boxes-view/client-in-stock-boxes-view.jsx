@@ -57,7 +57,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         isChoosenOnlySendToBatchBoxes={viewModel.isChoosenOnlySendToBatchBoxes}
         currentStorekeeperId={viewModel.currentStorekeeperId}
         storekeepersData={viewModel.storekeepersData}
-        nameSearchValue={viewModel.nameSearchValue}
+        nameSearchValue={viewModel.currentSearchValue}
         curDestinationId={viewModel.curDestinationId}
         clientDestinations={viewModel.clientDestinations}
         selectedRows={viewModel.selectedRows}
@@ -275,6 +275,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}
       >
         <SetShippingLabelModal
+          requestStatus={viewModel.requestStatus}
           item={viewModel.selectedBox}
           onClickSaveShippingLabel={viewModel.onClickSaveShippingLabel}
           onCloseModal={() => viewModel.onTriggerOpenModal('showSetShippingLabelModal')}

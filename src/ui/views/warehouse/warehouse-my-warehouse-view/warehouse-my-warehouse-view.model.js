@@ -82,9 +82,11 @@ export class WarehouseMyWarehouseViewModel {
     onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
     onChangeUnitsOption: option => this.onChangeUnitsOption(option),
   }
+
   uploadedImages = []
   uploadedFiles = []
   uploadedTransparencyFiles = []
+
   progressValue = 0
   showProgress = false
 
@@ -672,9 +674,9 @@ export class WarehouseMyWarehouseViewModel {
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
 
-          if (updatedBoxes[i]?.tmpImages?.length) {
+          if (updatedBoxes[i]?.images?.length) {
             await onSubmitPostImages.call(this, {
-              images: updatedBoxes[i]?.tmpImages,
+              images: updatedBoxes[i]?.images,
               type: 'uploadedImages',
               withoutShowProgress: true,
             })
@@ -694,9 +696,7 @@ export class WarehouseMyWarehouseViewModel {
               widthCmWarehouse: updatedBoxes[i].widthCmWarehouse,
               heightCmWarehouse: updatedBoxes[i].heightCmWarehouse,
               weighGrossKgWarehouse: updatedBoxes[i].weighGrossKgWarehouse,
-              images: this.uploadedImages.length
-                ? updatedBoxes[i].images.concat(this.uploadedImages)
-                : updatedBoxes[i].images,
+              images: this.uploadedImages.length ? this.uploadedImages : [],
             },
             boxItems: [
               ...updatedBoxes[i].items.map(item => ({
@@ -708,6 +708,11 @@ export class WarehouseMyWarehouseViewModel {
           }
 
           resBoxes.push(boxToPush)
+
+          runInAction(() => {
+            this.uploadedFiles = []
+            this.uploadedImages = []
+          })
         }
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes)
@@ -907,8 +912,8 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitEditBox(id, data) {
     try {
-      if (data.tmpImages.length > 0) {
-        await onSubmitPostImages.call(this, { images: data.tmpImages, type: 'uploadedFiles' })
+      if (data.images.length > 0) {
+        await onSubmitPostImages.call(this, { images: data.images, type: 'uploadedFiles' })
         data = { ...data, images: [...data.images, ...this.uploadedFiles] }
       }
 

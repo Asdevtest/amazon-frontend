@@ -77,6 +77,7 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
           columns={viewModel.columnsModel}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
+          pinnedColumns={viewModel.pinnedColumns}
           paginationModel={viewModel.paginationModel}
           rowSelectionModel={viewModel.selectedRows}
           columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -110,6 +111,7 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onChangePinnedColumns={viewModel.handlePinColumn}
         />
       </div>
 

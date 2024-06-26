@@ -110,8 +110,6 @@ export const EditTaskModal = memo(
                 item?.isTransparencyFileAlreadyAttachedByTheSupplier || false,
               isTransparencyFileAttachedByTheStorekeeper: item?.isTransparencyFileAttachedByTheStorekeeper || false,
             })),
-
-            tmpImages: [],
             images: box?.images || [],
           }),
       ),
@@ -155,10 +153,9 @@ export const EditTaskModal = memo(
 
     const receiveNotFromBuyer = isReciveTypeTask && (isManyItemsInSomeBox || noTariffInSomeBox)
 
-    const isSomeBoxHasntImageToRecive =
-      isReciveTypeTask && newBoxes.some(box => !box?.tmpImages?.length && !box?.images?.length)
+    const isSomeBoxHasntImageToRecive = isReciveTypeTask && newBoxes.some(box => !box?.images?.length)
 
-    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.tmpImages?.length)
+    const isSomeBoxHasntImageToEdit = isEditTask && newBoxes.some(box => !box?.images?.length)
 
     const isTaskChangeBarcodeOrTransparency =
       isEditTask &&
@@ -222,7 +219,7 @@ export const EditTaskModal = memo(
                 <Field
                   multiline
                   disabled
-                  className={[styles.heightFieldAuto, styles.clientAndBuyerComment]}
+                  className={cx(styles.heightFieldAuto, styles.clientAndBuyerComment)}
                   minRows={isPcSmallResolution ? 2 : 4}
                   maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Client comment'])}
@@ -232,7 +229,7 @@ export const EditTaskModal = memo(
                 <Field
                   multiline
                   disabled
-                  className={[styles.heightFieldAuto, styles.clientAndBuyerComment]}
+                  className={cx(styles.heightFieldAuto, styles.clientAndBuyerComment)}
                   minRows={isPcSmallResolution ? 2 : 4}
                   maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Buyer comment'])}

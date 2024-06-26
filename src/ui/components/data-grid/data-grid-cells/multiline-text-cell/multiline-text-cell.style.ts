@@ -5,6 +5,9 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     padding: '5px 0',
     overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
   },
 
   illuminationCell: {

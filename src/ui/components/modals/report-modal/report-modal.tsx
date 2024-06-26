@@ -48,7 +48,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         onRemoveRequest={viewModel.onRemoveRequest}
         onSelectLaunch={viewModel.onSelectLaunch}
         onSelectProduct={viewModel.onSelectProduct}
-        onOpenAsinSelect={viewModel.onVirtialSelectScroll}
+        onGetProducts={viewModel.onGetProducts}
         onSearchAsinSelect={viewModel.onClickSubmitSearch}
         onScrollAsinSelect={viewModel.loadMoreDataHadler}
       />
@@ -61,7 +61,8 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
           columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
           columnHeaderHeight={35}
-          getRowId={({ type }: GridRowModel) => type}
+          // getRowId={({ type }: GridRowModel) => type}
+          getRowId={({ _id }: GridRowModel) => _id}
           slots={null}
           className={styles.dataGridRoot}
           loading={viewModel.requestTableStatus === loadingStatus.IS_LOADING}

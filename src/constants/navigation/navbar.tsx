@@ -590,11 +590,6 @@ export const navbarConfig = {
             !isHaveMasterUser(user) ||
             user?.permissions?.some(item => item.key === permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR),
         },
-        // {
-        //   subtitle: () =>  t(TranslationKey.Idea),
-        //   subRoute: '/supervisor/ready-to-check-for-idea',
-        //   checkHideSubBlock: () => true,
-        // },
       ],
       key: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       checkHideBlock: user =>

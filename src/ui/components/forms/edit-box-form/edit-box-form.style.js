@@ -211,11 +211,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  asinText: {
-    marginLeft: 10,
-    color: theme.palette.text.second,
-  },
-
   titleWrapper: {
     marginBottom: 20,
     display: 'flex',
@@ -268,10 +263,5 @@ export const useStyles = makeStyles()(theme => ({
 
   containerTitleField: {
     marginBottom: '5px !important',
-  },
-
-  asinTextWrapper: {
-    display: 'flex',
-    gap: 5,
   },
 }))

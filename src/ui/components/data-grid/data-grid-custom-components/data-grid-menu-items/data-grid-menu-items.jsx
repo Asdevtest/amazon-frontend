@@ -569,33 +569,6 @@ export const FreelanceRequestType = memo(
   }, styles),
 )
 
-export const ClientOrderAllStatusesMenuItem = memo(
-  withStyles(({ classes: styles, orderStatusData }) => {
-    const { orderStatusDataBase, chosenStatus, onClickOrderStatusData } = orderStatusData
-
-    return (
-      <div title="" className={styles.orderStatusDataWrapper}>
-        <div className={styles.orderStatusDataBody}>
-          <div className={styles.orderStatus} onClick={() => onClickOrderStatusData('ALL')}>
-            <Checkbox color="primary" checked={!chosenStatus?.length} />
-            <div title={t(TranslationKey.All)} className={styles.orderStatusName}>
-              {t(TranslationKey.All)}
-            </div>
-          </div>
-          {orderStatusDataBase.map((item, itemIndex) => (
-            <div key={itemIndex} className={styles.orderStatus} onClick={() => onClickOrderStatusData(item)}>
-              <Checkbox color="primary" checked={chosenStatus?.some(status => status === item)} />
-              <div title={OrderStatusTranslate(item)} className={styles.orderStatusName}>
-                {OrderStatusTranslate(item)}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  }, styles),
-)
-
 export const CreatedByMenuItem = memo(
   withStyles(
     ({
@@ -1104,8 +1077,8 @@ export const BoxestatusMenuItem = memo(
           ].map(item => (
             <div key={item} className={styles.orderStatus} onClick={() => onClickItem(item)}>
               <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
-              <div title={t(boxStatusTranslateKey(item))} className={styles.orderStatusName}>
-                {t(boxStatusTranslateKey(item))}
+              <div title={boxStatusTranslateKey(item)} className={styles.orderStatusName}>
+                {boxStatusTranslateKey(item)}
               </div>
             </div>
           ))}
@@ -1815,7 +1788,13 @@ export const DestinationMenuItem = memo(
     } = props
 
     const [currentOption, setCurrentOption] = useState(
-      data.logicsTariff.currentFilterData.length ? 'logicsTariff' : 'destination',
+      data.destinationId
+        ? 'destinationId'
+        : data.logicsTariffId
+        ? 'logicsTariffId'
+        : data.logicsTariff.currentFilterData.length
+        ? 'logicsTariff'
+        : 'destination',
     )
 
     const filterData = data[currentOption]?.filterData
@@ -1884,14 +1863,14 @@ export const DestinationMenuItem = memo(
               <FormControlLabel
                 title={t(TranslationKey.Destination)}
                 className={styles.radioOption}
-                value="destination"
+                value={data.destinationId ? 'destinationId' : 'destination'}
                 control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Destination)}
               />
               <FormControlLabel
                 title={t(TranslationKey.Tariff)}
                 className={styles.radioOption}
-                value="logicsTariff"
+                value={data.logicsTariffId ? 'logicsTariffId' : 'logicsTariff'}
                 control={<Radio className={styles.radioControl} />}
                 label={t(TranslationKey.Tariff)}
               />

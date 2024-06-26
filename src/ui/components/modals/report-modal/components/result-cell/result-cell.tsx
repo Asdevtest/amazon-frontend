@@ -13,8 +13,6 @@ import { CrossIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { Launches } from '@typings/enums/launches'
-
 import { useStyles } from './result-cell.style'
 
 import { ChangeCommentCellValueType } from '../../report-modal.type'
@@ -22,7 +20,7 @@ import { ChangeCommentCellValueType } from '../../report-modal.type'
 interface ResultCellProps {
   row: GridRowModel
   onChangeCommentCellValue: ChangeCommentCellValueType
-  onRemoveLaunch: (type: Launches) => void
+  onRemoveLaunch: (id: string) => void
 }
 
 export const ResultCell: FC<ResultCellProps> = observer(props => {
@@ -35,7 +33,7 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
     () => !row?.expired || !isEqual(currentDateRange, changedDateRange),
     [row?.expired, currentDateRange, changedDateRange],
   )
-  const handleRemoveLaunch = useCallback(() => onRemoveLaunch(row.type), [onRemoveLaunch, row.type])
+  const handleRemoveLaunch = useCallback(() => onRemoveLaunch(row._id), [onRemoveLaunch, row._id])
 
   return (
     <div className={styles.wrapper}>
@@ -46,7 +44,7 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
         rows={2}
         maxLength={1024}
         value={row?.result}
-        onChange={onChangeCommentCellValue(row.type, 'result')}
+        onChange={onChangeCommentCellValue(row._id, 'result')}
       />
 
       <Popconfirm

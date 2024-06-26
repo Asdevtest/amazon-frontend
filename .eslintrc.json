@@ -166,7 +166,7 @@
     "no-var": "error",
     "object-shorthand": "error",
     "one-var": "off",
-    "prefer-arrow/prefer-arrow-functions": "error",
+    "prefer-arrow/prefer-arrow-functions": "off",
     "prefer-const": "error",
     "prefer-object-spread": "error",
     "quote-props": "off",

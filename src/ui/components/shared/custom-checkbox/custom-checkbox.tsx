@@ -15,7 +15,7 @@ export const CustomCheckbox: FC<CustomCheckboxProps> = memo(props => {
 
   return (
     <div className={cx({ [styles.cell]: isCell }, wrapperClassName)}>
-      <Checkbox {...restProps} className={className} />
+      <Checkbox {...restProps} className={cx(styles.checkbox, className)} />
     </div>
   )
 })

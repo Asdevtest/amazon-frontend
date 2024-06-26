@@ -2,7 +2,10 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class SupervisorModelStatic {
   getProductsVacant = async isCreatedByClient => {
-    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsVacGet({ isCreatedByClient })
+    const response = await restApiService.supervisorApi.apiV1SupervisorsProductsVacGet({
+      isCreatedByClient,
+      noCache: true,
+    })
     return response.data
   }
 

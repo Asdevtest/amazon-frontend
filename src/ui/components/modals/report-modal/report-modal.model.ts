@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { makeObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
 import { toast } from 'react-toastify'
+import { v4 as uuid } from 'uuid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,12 +18,11 @@ import { IProduct } from '@typings/models/products/product'
 import { IRequest } from '@typings/models/requests/request'
 import { IGridColumn } from '@typings/shared/grid-column'
 import { ILaunch } from '@typings/shared/launch'
-import { LaunchType } from '@typings/types/launch'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { reportModalColumns } from './report-modal.columns'
-import { launchOptions, reportModalConfig } from './report-modal.config'
+import { excludedLaunches, launchOptions, reportModalConfig } from './report-modal.config'
 import {
   ChangeCommentCellValueType,
   ChangeDateCellValueType,
@@ -40,14 +40,14 @@ export class ReportModalModel extends UseProductsPermissions {
   newProductPrice = 0
   description = ''
   listingLaunches: IListingLaunch[] = []
+  launchOptions: ILaunchOption[] = launchOptions
   selectLaunchValue: Launches | null = null
   columnsProps: ReportModalColumnsProps = {
-    onChangeNumberCellValue: (type: Launches, field: keyof IListingLaunch) => this.onChangeNumberCellValue(type, field),
-    onChangeCommentCellValue: (type: Launches, field: keyof IListingLaunch) =>
-      this.onChangeCommentCellValue(type, field),
-    onChangeDateCellValue: (type: Launches, field: keyof IListingLaunch) => this.onChangeDateCellValue(type, field),
+    onChangeNumberCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeNumberCellValue(id, field),
+    onChangeCommentCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeCommentCellValue(id, field),
+    onChangeDateCellValue: (id: string, field: keyof IListingLaunch) => this.onChangeDateCellValue(id, field),
     onAddRequest: (launch: ILaunch, request?: IRequest) => this.onAddRequest(launch, request),
-    onRemoveLaunch: (type: Launches) => this.onRemoveLaunch(type),
+    onRemoveLaunch: (id: string) => this.onRemoveLaunch(id),
     product: undefined,
   }
   columnsModel: IGridColumn[] = []
@@ -55,17 +55,14 @@ export class ReportModalModel extends UseProductsPermissions {
   get launches() {
     return this.listingLaunches
   }
-  get launchOptions(): ILaunchOption[] {
-    return launchOptions.filter(({ value }) => !this.listingLaunches.some(({ type }) => type === value))
-  }
   get disabledSaveButton() {
     return (
+      this.requestTableStatus === loadingStatus.IS_LOADING ||
       !this.product?._id ||
       this.description.trim().length === 0 ||
       this.listingLaunches.some(
         launch =>
-          launch.value === 0 ||
-          launch.comment.trim().length === 0 ||
+          (!excludedLaunches.includes(launch.type) && launch.value === 0) ||
           launch.dateFrom === null ||
           launch.dateTo === null,
       )
@@ -86,6 +83,18 @@ export class ReportModalModel extends UseProductsPermissions {
     this.reportId = reportId
     this.updateProductAndColumns(defaultProduct)
     this.getListingReportById()
+
+    /* if (defaultProduct) {
+      this.onGetListingReportByProductId(defaultProduct._id)
+    } */
+
+    /* reaction(
+      () => this.listingLaunches,
+      () =>
+        (this.launchOptions = launchOptions.filter(
+          ({ value }) => !this.listingLaunches.some(({ type }) => type === value),
+        )),
+    ) */
 
     makeObservable(this, reportModalConfig)
   }
@@ -116,7 +125,7 @@ export class ReportModalModel extends UseProductsPermissions {
     try {
       this.setRequestTableStatus(loadingStatus.IS_LOADING)
 
-      const removedIdToListingLaunches = this.listingLaunches.map(({ request, ...restProps }) => restProps)
+      const removedIdToListingLaunches = this.listingLaunches.map(({ request, _id, ...restProps }) => restProps)
       const generatedListingReport = {
         productId: this.product?._id,
         newProductPrice: this.newProductPrice,
@@ -140,7 +149,7 @@ export class ReportModalModel extends UseProductsPermissions {
       this.setRequestTableStatus(loadingStatus.IS_LOADING)
 
       const removedIdToListingLaunches = this.listingLaunches.map(
-        ({ expired, updatedAt, createdAt, request, ...restProps }) => restProps,
+        ({ expired, updatedAt, createdAt, request, _id, ...restProps }) => restProps,
       )
       const generatedListingReport = {
         newProductPrice: this.newProductPrice,
@@ -177,6 +186,7 @@ export class ReportModalModel extends UseProductsPermissions {
         comment: '',
         requestId: null,
         result: '',
+        _id: uuid(),
       }
       this.listingLaunches = [...this.listingLaunches, generatedListingLaunch]
       this.selectLaunchValue = null
@@ -186,15 +196,16 @@ export class ReportModalModel extends UseProductsPermissions {
   onSelectProduct = (value: string, option: BaseOptionType) => {
     if (value) {
       this.updateProductAndColumns(option as IProduct)
+      // this.onGetListingReportByProductId(value) // value is productId
     }
   }
 
-  findLaunchIndex = (type: Launches) => {
-    return this.listingLaunches.findIndex(el => el.type === type)
+  findLaunchIndex = (id: string) => {
+    return this.listingLaunches.findIndex(el => el._id === id)
   }
 
-  onChangeNumberCellValue: ChangeNumberCellValueType = (type, field) => event => {
-    const foundLaunchIndex = this.findLaunchIndex(type)
+  onChangeNumberCellValue: ChangeNumberCellValueType = (id, field) => event => {
+    const foundLaunchIndex = this.findLaunchIndex(id)
 
     if (foundLaunchIndex !== -1 && field === 'value') {
       const updatedLaunches = [...this.listingLaunches]
@@ -206,8 +217,8 @@ export class ReportModalModel extends UseProductsPermissions {
     }
   }
 
-  onChangeCommentCellValue: ChangeCommentCellValueType = (type, field) => event => {
-    const foundLaunchIndex = this.findLaunchIndex(type)
+  onChangeCommentCellValue: ChangeCommentCellValueType = (id, field) => event => {
+    const foundLaunchIndex = this.findLaunchIndex(id)
 
     if (foundLaunchIndex !== -1 && (field === 'comment' || field === 'result')) {
       const updatedLaunches = [...this.listingLaunches]
@@ -219,8 +230,8 @@ export class ReportModalModel extends UseProductsPermissions {
     }
   }
 
-  onChangeDateCellValue: ChangeDateCellValueType = (type, field) => dates => {
-    const foundLaunchIndex = this.findLaunchIndex(type)
+  onChangeDateCellValue: ChangeDateCellValueType = (id, field) => dates => {
+    const foundLaunchIndex = this.findLaunchIndex(id)
 
     if (foundLaunchIndex !== -1 && (field === 'dateFrom' || field === 'dateTo')) {
       const transformedDatesToISOString = [
@@ -239,7 +250,7 @@ export class ReportModalModel extends UseProductsPermissions {
 
   onAddRequest = (selectedlaunch: ILaunch, request?: IRequest) => {
     if (request) {
-      const existingLaunchIndex = this.listingLaunches.findIndex(el => el.type === selectedlaunch.type)
+      const existingLaunchIndex = this.listingLaunches.findIndex(el => el._id === selectedlaunch._id)
       const generatedRequest = {
         ...request,
         launch: selectedlaunch,
@@ -257,9 +268,9 @@ export class ReportModalModel extends UseProductsPermissions {
     }
   }
 
-  onRemoveRequest = (type: LaunchType) => {
-    if (type) {
-      const existingLaunchIndex = this.listingLaunches.findIndex(el => el.type === type)
+  onRemoveRequest = (id?: string) => {
+    if (id) {
+      const existingLaunchIndex = this.listingLaunches.findIndex(el => el._id === id)
 
       if (existingLaunchIndex !== -1) {
         const generatedLaunch = {
@@ -273,8 +284,8 @@ export class ReportModalModel extends UseProductsPermissions {
     }
   }
 
-  onRemoveLaunch = (type: Launches) => {
-    this.listingLaunches = this.listingLaunches.filter(el => el.type !== type)
+  onRemoveLaunch = (id: string) => {
+    this.listingLaunches = this.listingLaunches.filter(el => el._id !== id)
   }
 
   setRequestTableStatus(requestTableStatus: loadingStatus) {
@@ -282,15 +293,34 @@ export class ReportModalModel extends UseProductsPermissions {
   }
 
   updateProductAndColumns = (product?: IProduct) => {
-    this.product = product
-    this.columnsProps.product = product
+    if (product) {
+      this.product = product
+      this.columnsProps.product = product
+    }
+
     this.columnsModel = reportModalColumns(this.columnsProps)
   }
 
-  onVirtialSelectScroll = () => {
+  onGetProducts = () => {
     this.permissionsData = []
     this.isCanLoadMore = true
     this.setOptions({ offset: 0, filters: '' })
     this.getPermissionsData()
   }
+
+  /* onGetListingReportByProductId = async (id: string) => {
+    try {
+      const response = await ClientModel.getListingReportByProductId({ guid: id })
+      const activeLaunches = response?.rows?.flatMap(({ listingLaunches }) => listingLaunches) as ILaunch[]
+
+      runInAction(
+        () =>
+          (this.launchOptions = launchOptions.filter(
+            ({ value }) => !activeLaunches.some(({ type }) => type === value),
+          )),
+      )
+    } catch (error) {
+      console.error(error)
+    }
+  } */
 }

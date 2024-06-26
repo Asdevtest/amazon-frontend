@@ -431,8 +431,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   async onClickSaveShippingLabel(tmpShippingLabel: IUploadFile[]) {
     if (tmpShippingLabel.length) {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       // @ts-ignore
       await onSubmitPostImages.call(this, { images: tmpShippingLabel, type: 'uploadedFiles' })
+      this.setRequestStatus(loadingStatus.SUCCESS)
     }
 
     if (this.selectedBox?.shippingLabel === null) {
@@ -760,6 +762,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           }
 
           resBoxes.push(boxToPush)
+
+          runInAction(() => {
+            this.uploadedFiles = []
+          })
         }
 
         const splitBoxesResult = await this.splitBoxes(id, resBoxes as any)
@@ -1253,6 +1259,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       }
 
       toast.warning(t(TranslationKey['The box is unchanged']))
+    } finally {
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
     }
   }
 

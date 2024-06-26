@@ -26,6 +26,11 @@ export interface ISupplier {
   priceVariations: Array<object>
   createdAt: string
   updatedAt: string
+  imageUnit: string[]
+  heightUnit: number
+  widthUnit: number
+  lengthUnit: number
+  weighUnit: number
 }
 
 interface IBoxProperties {
