@@ -11,13 +11,7 @@ import { App } from './app'
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
-  integrations: [
-    Sentry.reactRouterV6BrowserTracingIntegration({
-      useEffect,
-      useLocation,
-    }),
-    Sentry.replayIntegration(),
-  ],
+
   tracesSampleRate: 1.0,
   tracePropagationTargets: [
     /^\//,

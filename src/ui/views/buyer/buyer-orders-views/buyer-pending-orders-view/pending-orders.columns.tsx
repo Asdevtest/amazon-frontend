@@ -1,4 +1,3 @@
-import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { OrderStatusByCode, OrderStatusTranslate, orderColorByStatus } from '@constants/orders/order-status'
@@ -21,6 +20,13 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
+
+import {
+  productColumnMenuItems,
+  productColumnMenuValue,
+  productionTermColumnMenuItems,
+  productionTermColumnMenuValue,
+} from './column.config'
 
 export const pendingOrdersColumns = () => {
   const columns: IGridColumn[] = [
@@ -71,38 +77,8 @@ export const pendingOrdersColumns = () => {
         )
       },
 
-      fields: [
-        {
-          label: () => t(TranslationKey.ASIN),
-          value: 0,
-        },
-        {
-          label: () => t(TranslationKey.SKU),
-          value: 1,
-        },
-        {
-          label: () => t(TranslationKey.Title),
-          value: 2,
-        },
-      ],
-
-      columnMenuConfig: [
-        {
-          field: 'asin',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.STRING,
-        },
-        {
-          field: 'skuByClient',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.STRING,
-        },
-        {
-          field: 'amazonTitle',
-          table: DataGridFilterTables.PRODUCTS,
-          columnKey: ColumnMenuKeys.STRING,
-        },
-      ],
+      fields: productColumnMenuItems,
+      columnMenuConfig: productColumnMenuValue,
 
       disableCustomSort: true,
 
@@ -184,7 +160,7 @@ export const pendingOrdersColumns = () => {
     },
 
     {
-      field: 'productionTerm',
+      field: 'minProductionTerm',
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
@@ -200,8 +176,13 @@ export const pendingOrdersColumns = () => {
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
-      width: 120,
+
+      fields: productionTermColumnMenuItems,
+      columnMenuConfig: productionTermColumnMenuValue,
+
+      columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
+      width: 120,
     },
 
     {
@@ -210,6 +191,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params =>
         params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <MultilineTextCell text={'-'} />,
+      columnKey: columnnsKeys.shared.DATE,
       width: 100,
     },
 
@@ -242,6 +224,8 @@ export const pendingOrdersColumns = () => {
         <UserMiniCell userName={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
       width: 130,
+      table: DataGridFilterTables.PRODUCTS,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
 
@@ -251,6 +235,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
       renderCell: params => <MultilineTextCell text={params.row.destination?.name} />,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       width: 130,
       disableCustomSort: true,
     },
@@ -262,6 +247,7 @@ export const pendingOrdersColumns = () => {
 
       renderCell: params => <MultilineTextCell threeLines maxLength={140} text={params.value} />,
       width: 200,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
     },
 
@@ -272,6 +258,7 @@ export const pendingOrdersColumns = () => {
 
       renderCell: params => <MultilineTextCell threeLines maxLength={140} text={params.value} />,
       width: 200,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
     },
 
@@ -281,6 +268,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
+      columnKey: columnnsKeys.shared.DATE,
       width: 100,
     },
 
@@ -290,6 +278,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
+      columnKey: columnnsKeys.shared.DATE,
       width: 100,
     },
   ]

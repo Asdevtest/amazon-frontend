@@ -44,15 +44,14 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
   const columns: IGridColumn[] = [
     {
       field: 'id',
-      headerName: t(TranslationKey.ID) + ' / item',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-      renderCell: params => <MultilineTextCell text={params.row.idAndItem} />,
-      valueGetter: params => params.row.idAndItem,
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: params => <MultilineTextCell text={params.value} />,
 
       sortable: true,
       width: 100,
 
-      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -93,6 +92,7 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       sortable: false,
       valueGetter: params => `ASIN: ${params.row.product.asin ?? ''}, SKU: ${params.row.product.skuByClient ?? ''}`,
 
+      table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
     },
 
@@ -274,9 +274,9 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
             Math.abs(getDistanceBetweenDatesInSeconds(params.row.paymentDateToSupplier)) >
               convertDaysToSeconds(params.row.orderSupplier?.productionTerm) &&
             params.row.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER as keyof typeof OrderStatusByKey] &&
-            !!params.row.orderSupplier?.productionTerm
+            !!params.row.orderSupplier?.minProductionTerm
               ? '#FF1616'
-              : ''
+              : undefined
           }
           text={params.row.paymentDateToSupplier ? formatDate(params.row.paymentDateToSupplier) : ''}
         />
@@ -304,9 +304,10 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
       renderCell: params => (
         <UserMiniCell userName={params.row.product.client?.name} userId={params.row.product.client?._id} />
       ),
+
       width: 180,
       sortable: false,
-
+      table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT,
     },
 
@@ -380,6 +381,14 @@ export const buyerOrdersColumns = ({ rowHandlers, isShowPartialPayment }: buyerO
 
       columnKey: columnnsKeys.shared.QUANTITY,
     })
+  }
+
+  for (const column of columns) {
+    if (!column.table) {
+      column.table = DataGridFilterTables.ORDERS
+    }
+
+    column.sortable = false
   }
 
   return columns

@@ -44,7 +44,7 @@ export class BuyerFreeOrdersViewModel extends DataGridTableModel {
 
     if (orderId) {
       // @ts-ignore
-      this.history.push(`${history?.location?.pathname}`)
+      this.history.push(`${this.history?.location?.pathname}`)
       this.onChangeFilterModel({
         items: [
           {
