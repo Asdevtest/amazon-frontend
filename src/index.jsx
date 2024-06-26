@@ -13,7 +13,13 @@ import { App } from './app'
 
 Sentry.init({
   dsn: 'https://9d93845486a53513477f1c4901b80625@o4507371916099584.ingest.de.sentry.io/4507446537158736',
-  integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
+  integrations: [
+    Sentry.browserTracingIntegration(),
+    Sentry.httpClientIntegration(),
+    Sentry.replayIntegration(),
+    Sentry.sessionTimingIntegration(),
+    // add a router when updating routing
+  ],
   tracesSampleRate: 1.0,
   tracePropagationTargets: ['as-crm-git-sentry-test-aservs-projects.vercel.app', 'as-crm-dev.vercel.app'],
   replaysSessionSampleRate: 0.1,
@@ -21,6 +27,7 @@ Sentry.init({
   release: appVersion,
   environment: 'development',
   normalizeMaxBreadth: 200,
+  sendDefaultPii: true,
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
