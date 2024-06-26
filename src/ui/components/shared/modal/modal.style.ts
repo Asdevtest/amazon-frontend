@@ -25,7 +25,7 @@ export const useStyles = makeStyles()(theme => ({
   contentWrapper: {
     position: 'relative',
     padding: 20, // 20 - for test, before was 30
-    background: theme.palette.background.general,
+    background: theme.palette.background.second,
     borderRadius: 20,
 
     [theme.breakpoints.down(768)]: {

@@ -38,25 +38,23 @@ import {
 export class SupervisorProductViewModel {
   history = undefined
   requestStatus = undefined
-
   imagesForLoad = []
   uploadedImages = []
-
   product = undefined
   productId = undefined
   productBase = undefined
-
   weightParserAmazon = 0
   weightParserSELLCENTRAL = 0
-
   curUpdateProductData = undefined
-  confirmMessage = ''
-
   showConfirmModal = false
-
   formFields = { ...formFieldsDefault }
-
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+  setOpenModal = undefined
+  confirmModalSettings = {
+    isWarning: false,
+    message: '',
+    onClickOkBtn: () => this.onSaveProductData(),
+  }
 
   get userInfo() {
     return UserModel.userInfo
@@ -64,14 +62,6 @@ export class SupervisorProductViewModel {
 
   get currentData() {
     return this.product
-  }
-
-  setOpenModal = undefined
-
-  confirmModalSettings = {
-    isWarning: false,
-    message: '',
-    onClickOkBtn: () => this.onSaveProductData(),
   }
 
   constructor({ history, setOpenModal }) {
@@ -83,6 +73,8 @@ export class SupervisorProductViewModel {
     if (setOpenModal) {
       this.setOpenModal = setOpenModal
     }
+
+    this.loadData()
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
@@ -202,7 +194,7 @@ export class SupervisorProductViewModel {
     }
   }
 
-  handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
+  onProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
         this.openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler)

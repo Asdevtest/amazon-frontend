@@ -1259,6 +1259,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       }
 
       toast.warning(t(TranslationKey['The box is unchanged']))
+    } finally {
+      runInAction(() => {
+        this.uploadedFiles = []
+      })
     }
   }
 

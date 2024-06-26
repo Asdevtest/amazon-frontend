@@ -9,6 +9,6 @@ export const MinusIcon = (props: SvgIconProps) => (
     viewBox="0 0 10 3"
     style={{ fill: 'currentColor' }}
   >
-    <path d="M1 1.5H9" fill="none" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M1 1.5H9" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
   </SvgIcon>
 )

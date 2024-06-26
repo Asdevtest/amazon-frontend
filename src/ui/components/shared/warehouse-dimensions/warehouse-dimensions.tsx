@@ -102,7 +102,7 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey['Volume weight']) + ': '}
           labelClasses={styles.label}
-          value={dimensions.volumeWeight}
+          value={String(dimensions.volumeWeight)}
         />
 
         <Field
@@ -110,7 +110,7 @@ export const WarehouseDimensions: FC<WarehouseDimensionsProps> = memo(props => {
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey['Final weight']) + ': '}
           labelClasses={styles.label}
-          value={dimensions.finalWeight}
+          value={String(dimensions.finalWeight)}
         />
       </div>
     </div>

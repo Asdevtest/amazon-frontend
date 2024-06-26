@@ -16,8 +16,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { useStyles } from './finances-view.style'
 
 import { FinancesViewModel } from './finances-view.model'
-import { getEntityTypeConfig } from './helpers/get-entity-type-config'
-import { getPaymentTypeConfig } from './helpers/get-payment-type-config'
+import { getEntityTypeConfig, getPaymentTypeConfig } from './finances.config'
 
 export const FinancesView = observer(() => {
   const { classes: styles } = useStyles()

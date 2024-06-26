@@ -22,7 +22,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 10,
-    backgroundColor: theme.palette.background.general,
 
     [theme.breakpoints.down(768)]: {
       width: '300px',
@@ -72,7 +71,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   warningModalMessageWrapper: {
-    background: theme.palette.background.general,
     borderRadius: '10px 10px',
   },
 
@@ -105,12 +103,10 @@ export const useStyles = makeStyles()(theme => ({
     gap: '30px',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.palette.background.general,
   },
 
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
-    backgroundColor: theme.palette.background.general,
     marginTop: '22px',
     [theme.breakpoints.down(768)]: {
       marginTop: '18px',

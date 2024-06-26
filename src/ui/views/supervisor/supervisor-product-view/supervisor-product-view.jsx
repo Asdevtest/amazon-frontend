@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,10 +14,6 @@ import { SupervisorProductViewModel } from './supervisor-product-view.model'
 export const SupervisorProductView = observer(({ history }) => {
   const [viewModel] = useState(() => new SupervisorProductViewModel({ history }))
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   return (
     <>
       {viewModel.product ? (
@@ -31,7 +27,7 @@ export const SupervisorProductView = observer(({ history }) => {
           navigateToProduct={viewModel.navigateToProduct}
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
           actionStatus={viewModel.requestStatus}
-          handleProductActionButtons={viewModel.handleProductActionButtons}
+          handleProductActionButtons={viewModel.onProductActionButtons}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
           onChangeField={viewModel.onChangeProductFields}

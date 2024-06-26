@@ -108,3 +108,5 @@ export { ViewCartsBlockIcon } from '@components/shared/svg-icons/view-carts-bloc
 export { ViewCartsLineIcon } from '@components/shared/svg-icons/view-carts-line-icon/view-carts-line-icon'
 export { ViewCartsTableIcon } from '@components/shared/svg-icons/view-carts-table-icon/view-carts-table-icon'
 export { WatchLaterSharpIcon } from '@components/shared/svg-icons/watch-later-sharp-icon/watch-later-sharp-icon'
+export { FineIcon } from '@components/shared/svg-icons/fine-icon/fine-icon'
+export { ReplenishIcon } from '@components/shared/svg-icons/replenish-icon/replenish-icon'

@@ -24,6 +24,7 @@ interface NewBoxesProps {
   destinationsFavourites: any
   showEditBoxModalR: boolean
   volumeWeightCoefficient: number
+  titleClassName?: string
   onChangeField: (e: any, field: string, boxId: string) => void
   setNewBoxes: (box: any) => void
   onClickEditBox: (box: any) => void
@@ -46,6 +47,7 @@ export const NewBoxes: FC<NewBoxesProps> = memo(props => {
     destinations,
     storekeepers,
     destinationsFavourites,
+    titleClassName,
     setDestinationsFavouritesItem,
     showEditBoxModalR,
     onTriggerShowEditBoxModalR,
@@ -74,6 +76,7 @@ export const NewBoxes: FC<NewBoxesProps> = memo(props => {
             setCurBox={setCurBox}
             selectedBox={selectedBox}
             destinationsFavourites={destinationsFavourites}
+            titleClassName={titleClassName}
             setDestinationsFavouritesItem={setDestinationsFavouritesItem}
             onChangeAmountInput={onChangeAmountInput}
             onChangeField={onChangeField}

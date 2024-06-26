@@ -8,7 +8,7 @@ import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
-import { supervisorProductsViewColumns } from './supervisor-products-columns'
+import { supervisorProductsViewColumns } from './supervisor-products-view.columns'
 import { additionalFields, supervisorProductsConfig } from './supervisor-products-view.config'
 
 export class SupervisorProductsViewModel extends DataGridFilterTableModel {
@@ -62,7 +62,6 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
       onClickTableRow: id => this.onClickTableRow(id),
     }
     const columns = supervisorProductsViewColumns(rowHandlers)
-
     const filtersFields = getFilterFields(columns, additionalFields)
 
     super({

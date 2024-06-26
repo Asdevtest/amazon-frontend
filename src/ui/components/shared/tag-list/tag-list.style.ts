@@ -11,9 +11,10 @@ export const useStyles = makeStyles()(theme => ({
 
     overflowY: 'auto',
     padding: '5px',
-    borderRadius: '7px',
+    borderRadius: '20px',
 
     boxShadow: theme.palette.boxShadow.filter,
+    backgroundColor: theme.palette.background.general,
   },
 
   noTagsWrapper: {

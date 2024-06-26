@@ -219,7 +219,7 @@ export const EditTaskModal = memo(
                 <Field
                   multiline
                   disabled
-                  className={[styles.heightFieldAuto, styles.clientAndBuyerComment]}
+                  className={cx(styles.heightFieldAuto, styles.clientAndBuyerComment)}
                   minRows={isPcSmallResolution ? 2 : 4}
                   maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Client comment'])}
@@ -229,7 +229,7 @@ export const EditTaskModal = memo(
                 <Field
                   multiline
                   disabled
-                  className={[styles.heightFieldAuto, styles.clientAndBuyerComment]}
+                  className={cx(styles.heightFieldAuto, styles.clientAndBuyerComment)}
                   minRows={isPcSmallResolution ? 2 : 4}
                   maxRows={isPcSmallResolution ? 2 : 4}
                   label={t(TranslationKey['Buyer comment'])}

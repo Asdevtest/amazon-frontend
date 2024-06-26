@@ -16,6 +16,9 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { getPaymentTypeColor } from './helpers/get-payment-type-color'
+import { getPaymentTypeIcon } from './helpers/get-payment-type-icon'
+
 export const financesViewColumns = () => {
   const columns: IGridColumn[] = [
     {
@@ -56,8 +59,19 @@ export const financesViewColumns = () => {
       headerName: t(TranslationKey.Type),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-      width: 110,
-      renderCell: params => <MultilineTextCell text={getPaymentTypeTranslations(params.value)} />,
+      width: 140,
+      renderCell: ({ value }) => {
+        const color = getPaymentTypeColor(value)
+        const Icon = getPaymentTypeIcon(value)
+
+        return (
+          <MultilineTextCell
+            startIcon={Icon ? <Icon color={color} /> : null}
+            text={getPaymentTypeTranslations(value)}
+            color={color}
+          />
+        )
+      },
       transformValueMethod: getPaymentTypeTranslations,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -82,7 +96,7 @@ export const financesViewColumns = () => {
 
       width: 170,
 
-      renderCell: params => <UserLinkCell name={params.value.name} userId={params.value?._id} />,
+      renderCell: params => <UserLinkCell name={params.row?.createdBy?.name} userId={params.row?.createdBy?._id} />,
       valueGetter: params => params.value.name,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -95,7 +109,7 @@ export const financesViewColumns = () => {
 
       width: 170,
 
-      renderCell: params => <UserLinkCell name={params.value.name} userId={params.value?._id} />,
+      renderCell: params => <UserLinkCell name={params.row?.recipient?.name} userId={params.row?.recipient?._id} />,
       valueGetter: params => params.value.name,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
