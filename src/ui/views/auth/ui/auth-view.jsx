@@ -1,42 +1,35 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
 
-import { Typography } from '@mui/material'
+// import { useEffect, useState } from 'react'
+// import { Typography } from '@mui/material'
+// import { TranslationKey } from '@constants/translations/translation-key'
+// import { SettingsModel } from '@models/settings-model'
+// import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
+// import { AuthPageBanner } from '@components/auth/auth-page-banner'
+// import { AuthForm } from '@components/forms/auth-form'
+// import { t } from '@utils/translations'
+import { AuthViewModel } from '../model/auth-view.model'
 
-import { TranslationKey } from '@constants/translations/translation-key'
+import styles from './auth-view.module.scss'
 
-import { SettingsModel } from '@models/settings-model'
+export const AuthView = observer(() => {
+  // const [viewModel] = useState(() => new AuthViewModel({ history }))
 
-import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
-import { AuthPageBanner } from '@components/auth/auth-page-banner'
-import { AuthForm } from '@components/forms/auth-form'
+  // useEffect(() => {
+  //   viewModel.onLoadPage()
+  // }, [])
 
-import { t } from '@utils/translations'
+  // const onChangeFormField = fieldName => event => {
+  //   viewModel.setField(fieldName)(event.target.value)
+  // }
 
-import { useStyles } from './auth-view.style'
-
-import { AuthViewModel } from './auth-view.model'
-
-export const AuthView = observer(({ history }) => {
-  const { classes: styles } = useStyles()
-
-  const [viewModel] = useState(() => new AuthViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.onLoadPage()
-  }, [])
-
-  const onChangeFormField = fieldName => event => {
-    viewModel.setField(fieldName)(event.target.value)
-  }
-
-  const onClickRedirect = () => {
-    history.push('/registration')
-  }
+  // const onClickRedirect = () => {
+  //   history.push('/registration')
+  // }
 
   return (
     <div className={styles.root}>
-      <AuthPageBanner />
+      {/* <AuthPageBanner />
 
       <AuthFormWrapper
         redirect={t(TranslationKey['Create account'])}
@@ -70,7 +63,7 @@ export const AuthView = observer(({ history }) => {
                 t(TranslationKey.Error))}
           </Typography>
         )}
-      </AuthFormWrapper>
+      </AuthFormWrapper> */}
     </div>
   )
 })

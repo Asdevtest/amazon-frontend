@@ -67,7 +67,7 @@ export const AuthFormWrapper = memo(props => {
         </p>
       </div>
 
-      {showConfirmModal ? (
+      {/* {showConfirmModal ? (
         <ConfirmationModal
           // @ts-ignore
           openModal={showConfirmModal}
@@ -80,7 +80,7 @@ export const AuthFormWrapper = memo(props => {
           onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
           onClickCancelBtn={onToggleModal}
         />
-      ) : null}
+      ) : null} */}
     </>
   )
 })

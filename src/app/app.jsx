@@ -1,6 +1,7 @@
 import { ConfigProvider, theme as antTheme } from 'antd'
+import { RouterProvider } from 'react-router-dom'
 
-import { Layout } from '../widgets/layout'
+import { router } from '../routes/router'
 import { ToastifyProvider } from '../widgets/navigation/toastify/toastify-provider'
 
 import { useNotifications } from './providers/notifications'
@@ -17,7 +18,7 @@ export const App = () => {
   return (
     <ConfigProvider theme={customTheme} locale="en">
       <ToastifyProvider theme={theme} />
-      <Layout />
+      <RouterProvider router={router} />
     </ConfigProvider>
   )
 }

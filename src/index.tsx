@@ -13,14 +13,19 @@ import './shared/config/i18n'
 import './shared/config/sentry'
 import { FallBack } from './widgets/fall-back'
 
-const container = document.getElementById('root')!
-const root = createRoot(container)
-root.render(
-  <Sentry.ErrorBoundary showDialog fallback={<FallBack />}>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </Sentry.ErrorBoundary>,
-)
+const container = document.getElementById('root')
 
-reportWebVitals()
+if (container) {
+  const root = createRoot(container)
+  root.render(
+    <Sentry.ErrorBoundary showDialog fallback={<FallBack />}>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </Sentry.ErrorBoundary>,
+  )
+
+  reportWebVitals()
+} else {
+  throw new Error('Root element not found')
+}

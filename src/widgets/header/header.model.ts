@@ -34,9 +34,7 @@ export class HeaderModel {
     return ChatModel.toggleServerSettings
   }
 
-  constructor(history: HistoryType) {
-    this.history = history
-
+  constructor() {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 

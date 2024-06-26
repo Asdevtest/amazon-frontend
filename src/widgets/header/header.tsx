@@ -2,7 +2,6 @@ import { Header as AntHeader } from 'antd/es/layout/layout'
 import { observer } from 'mobx-react'
 import { FC, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { languageOptions } from '@constants/translations/language-options'
@@ -21,8 +20,7 @@ interface Props {
 }
 
 export const Header: FC<Props> = observer(({ title }) => {
-  const history = useHistory()
-  const [viewModel] = useState(() => new HeaderModel(history))
+  const [viewModel] = useState(() => new HeaderModel())
 
   /* useEffect(() => {
     if (
@@ -46,11 +44,11 @@ export const Header: FC<Props> = observer(({ title }) => {
     toast.dismiss()
     toast.clearWaitingQueue()
     viewModel.onExitFromRole()
-    history.push('/auth')
+    // history.push('/auth')
   }
 
   const onClickProfile = () => {
-    history.push(`/profile`)
+    // history.push(`/profile`)
   }
 
   const { t, i18n } = useTranslation()
