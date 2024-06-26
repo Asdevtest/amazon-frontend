@@ -154,7 +154,7 @@ export const useStyles = makeStyles()(theme => ({
 
   button: {
     height: '40px',
-    width: '98px',
+    minWidth: '98px',
     [theme.breakpoints.down(768)]: {
       width: '69px',
     },

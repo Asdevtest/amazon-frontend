@@ -18,15 +18,8 @@ import { t } from '@utils/translations'
 
 import { IDestinationVariationWithCalculations } from '@typings/shared/destinations'
 
-import { IVariationParams } from './supplier-approximate-calculations.type'
-
 interface columnHandlersProps {
-  isTariffsSelect: boolean
   isHideCalculation: boolean
-  getCurrentVariationId: () => string | undefined
-  getInitialDestinationId: () => string | undefined
-  getStrictVariationSelect: () => boolean | undefined
-  onClickChangeVariation: ({ variationId, destinationId, logicsTariffId }: IVariationParams) => void
 }
 
 export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHandlersProps) => {

@@ -1,6 +1,8 @@
 import { action, computed, observable, override } from 'mobx'
 
 export const observerConfig = {
+  showConfirmModal: observable,
+
   storekeepers: observable,
   productId: observable,
   supplierId: observable,
@@ -13,6 +15,7 @@ export const observerConfig = {
   currentDestinationId: observable,
   currentLogicsTariffId: observable,
   currentStorekeeperId: observable,
+  variationMinBoxWeight: observable,
 
   isStrictVariationSelect: observable,
   boxItems: observable,
@@ -20,6 +23,7 @@ export const observerConfig = {
 
   role: computed,
 
+  handleCheckVariation: action.bound,
   getStorekeepersData: action.bound,
   setCurrentStorekeeper: action.bound,
   getBoxData: action.bound,
