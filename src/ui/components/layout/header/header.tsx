@@ -150,14 +150,6 @@ export const Header: FC<Props> = observer(({ title, onToggleModal }) => {
         <MenuIcon className={styles.menuIcon} onClick={onToggleModal} />
       </div>
 
-      <button
-        onClick={() => {
-          throw new Error('TEST SENTRY 2')
-        }}
-      >
-        TEST SENTRY
-      </button>
-
       <div className={styles.toolbar}>
         <div className={styles.titleWrapper}>
           <p key={SettingsModel.languageTag} className={styles.title}>

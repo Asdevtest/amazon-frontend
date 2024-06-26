@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import FaviconNotificationContextProvider from 'react-favicon-notification'
 import 'reflect-metadata'
 
+import { appVersion } from '@constants/app-version'
+
 import '@services/mobx-persist-configure'
 
 import { reportWebVitals } from '@utils/report-web-vitals'
@@ -16,6 +18,9 @@ Sentry.init({
   tracePropagationTargets: ['as-crm-git-sentry-test-aservs-projects.vercel.app', 'as-crm-dev.vercel.app'],
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
+  release: appVersion,
+  environment: 'development',
+  normalizeMaxBreadth: 200,
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

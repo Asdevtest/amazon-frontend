@@ -125,6 +125,14 @@ export const UserProfile = memo(props => {
         )}
 
         {!isAnotherUser && <PurchaseHistory user={user} tabHistory={tabHistory} setTabHistory={setTabHistory} />}
+
+        <button
+          onClick={() => {
+            throw new Error('TEST SENTRY')
+          }}
+        >
+          Leave a review
+        </button>
       </div>
     </div>
   )
