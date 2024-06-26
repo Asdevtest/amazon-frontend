@@ -75,8 +75,8 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                 )}
 
                 {columnVisibilityModel?.minWeight === false ? null : (
-                  <div className={cx(styles.destination, { [styles.withoutCheckbox]: !isHideCalculation })}>
-                    {isHideCalculation ? (
+                  <div className={cx(styles.destination, { [styles.withoutCheckbox]: isHideCalculation })}>
+                    {isHideCalculation ? null : (
                       <Checkbox
                         checked={isActiveSelectedVariation}
                         disabled={
@@ -90,7 +90,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                           })
                         }
                       />
-                    ) : null}
+                    )}
 
                     <p title={weightText} className={styles.text}>
                       {weightText}

@@ -4,6 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     paddingLeft: '50px',
     display: 'flex',
+    backgroundColor: theme.palette.background.general,
   },
 
   tariffDetails: {
