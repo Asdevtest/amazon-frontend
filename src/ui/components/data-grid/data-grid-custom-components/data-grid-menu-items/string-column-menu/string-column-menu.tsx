@@ -46,6 +46,7 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
     field,
     table,
     filtersData,
+    transformValueMethod,
     onClickFilterBtn,
   })
 
