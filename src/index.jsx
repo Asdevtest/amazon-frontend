@@ -11,10 +11,13 @@ import { reportWebVitals } from '@utils/report-web-vitals'
 
 import { App } from './app'
 
-console.log(process.env.REACT_APP_TEST_URL, process.env.REACT_APP_SENTRY_DSN)
+const SENTRY_DSN = process.env.REACT_APP_SENTRY_DSN
+const TEST_URL = process.env.REACT_APP_TEST_URL
+
+console.log(SENTRY_DSN, TEST_URL)
 
 Sentry.init({
-  dsn: process.env.REACT_APP_SENTRY_DSN,
+  dsn: SENTRY_DSN,
   integrations: [
     Sentry.browserTracingIntegration(),
     Sentry.httpClientIntegration(),
@@ -23,7 +26,7 @@ Sentry.init({
     // add a router when updating routing
   ],
   tracesSampleRate: 1.0,
-  tracePropagationTargets: [process.env.REACT_APP_TEST_URL, 'as-crm-dev.vercel.app'],
+  tracePropagationTargets: [TEST_URL, 'as-crm-dev.vercel.app'],
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
   release: appVersion,
