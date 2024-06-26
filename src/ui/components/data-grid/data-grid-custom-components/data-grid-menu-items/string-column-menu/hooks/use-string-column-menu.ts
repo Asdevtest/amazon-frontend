@@ -25,7 +25,9 @@ export const useStringColumnMenu = ({
 
   const dataforRender: string[] = useMemo(() => {
     return filterData?.filter(item =>
-      String(transformValueMethod(item)).toLowerCase().includes(searchValue.toLowerCase()),
+      String(transformValueMethod ? transformValueMethod(item) : item)
+        .toLowerCase()
+        .includes(searchValue.toLowerCase()),
     )
   }, [filterData, searchValue])
 

@@ -12,6 +12,7 @@ import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
+import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
@@ -407,18 +408,9 @@ export const EditBoxForm = memo(
                           <div className={styles.rightProductColumn}>
                             <Typography className={styles.amazonTitle}>{item.product.amazonTitle}</Typography>
 
-                            <Field
-                              oneLine
-                              containerClasses={styles.field}
-                              labelClasses={styles.standartLabel}
-                              label={`${t(TranslationKey.ASIN)}:`}
-                              inputComponent={
-                                <div className={styles.asinTextWrapper}>
-                                  <Typography className={styles.asinText}>{item.product.asin}</Typography>{' '}
-                                  {item.product.asin && <CopyValue text={item.product.asin} />}
-                                </div>
-                              }
-                            />
+                            {item.product.asin ? (
+                              <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.product.asin} />
+                            ) : null}
 
                             <Field
                               oneLine

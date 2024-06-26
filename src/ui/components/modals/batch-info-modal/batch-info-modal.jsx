@@ -289,7 +289,7 @@ export const BatchInfoModal = observer(
               inputComponent={
                 <ChangeInputCell
                   rowId={currentBatch?._id}
-                  text={currentBatch?.actualShippingCost}
+                  text={currentBatch?.actualShippingCost || '0'}
                   onClickSubmit={(id, cost) => {
                     if (Number.isNaN(cost)) {
                       return

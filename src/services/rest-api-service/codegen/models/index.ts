@@ -444,7 +444,6 @@ export * from './inline-response20085';
 export * from './inline-response20085-announcement';
 export * from './inline-response20085-count-proposals-by-statuses';
 export * from './inline-response20085-details-custom';
-export * from './inline-response20085-freelance-notices';
 export * from './inline-response20085-media';
 export * from './inline-response20085-product';
 export * from './inline-response20085-proposals';
