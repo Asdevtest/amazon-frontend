@@ -12,7 +12,7 @@ import { reportWebVitals } from '@utils/report-web-vitals'
 import { App } from './app'
 
 Sentry.init({
-  dsn: 'https://9d93845486a53513477f1c4901b80625@o4507371916099584.ingest.de.sentry.io/4507446537158736',
+  dsn: 'https://9d93845486a53513477f1c4901b80625@o4507371916099584.ingest.de.sentry.io/4507446537158736', // research about process.env
   integrations: [
     Sentry.browserTracingIntegration(),
     Sentry.httpClientIntegration(),
@@ -21,7 +21,7 @@ Sentry.init({
     // add a router when updating routing
   ],
   tracesSampleRate: 1.0,
-  tracePropagationTargets: ['as-crm-dev.vercel.app'],
+  tracePropagationTargets: ['as-crm-dev.vercel.app'], // research about process.env
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
   release: appVersion,
