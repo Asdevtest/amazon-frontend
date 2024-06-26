@@ -11,7 +11,7 @@ import { reportWebVitals } from '@utils/report-web-vitals'
 
 import { App } from './app'
 
-console.log('process.env.REACT_APP_TEST_URL', process.env.REACT_APP_TEST_URL, process.env.REACT_APP_SENTRY_DSN)
+console.log(process.env.REACT_APP_TEST_URL, process.env.REACT_APP_SENTRY_DSN)
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
