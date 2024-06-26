@@ -30,7 +30,6 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [error, setError] = useState(false)
-
   const [asins, setAsins] = useState('')
   const [reasons, setReasons] = useState('')
   const [asinsAndReasonsData, setAsinsAndReasonsData] = useState([])
@@ -199,7 +198,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
                 onSubmit(prev => [...new Set([...prev, ...asinsAndReasonsData])])
                 onClose()
               } else {
-                onSubmit(asinsAndReasonsData, strategy)
+                onSubmit(asinsAndReasonsData)
               }
 
               setSubmitIsClicked(true)

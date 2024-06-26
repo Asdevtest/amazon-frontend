@@ -28,7 +28,6 @@ export const fieldsOfProductAllowedToUpdate = [
   'minpurchase',
   'fbaamount',
   'strategyStatus',
-
   'niche',
   'asins',
   'avgRevenue',

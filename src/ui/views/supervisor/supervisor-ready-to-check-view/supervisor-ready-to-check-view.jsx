@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,52 +14,67 @@ import { useStyles } from './supervisor-ready-to-check-view.style'
 
 import { SupervisorReadyToCheckViewModel } from './supervisor-ready-to-check-view.model'
 
-export const SupervisorReadyToCheckView = observer(({ history }) => {
+export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
   const { classes: styles } = useStyles()
-
-  const [viewModel] = useState(() => new SupervisorReadyToCheckViewModel({ history }))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
+  const [viewModel] = useState(() => new SupervisorReadyToCheckViewModel(isCreatedByClient))
 
   return (
     <>
-      <div className={styles.btnsWrapper}>
+      <div className={styles.header}>
         <Button
           tooltipInfoContent={t(TranslationKey['Assign several product cards to a Supervisor'])}
-          disabled={viewModel.selectedRowIds.length === 0}
-          onClick={viewModel.onPickupSomeItems}
+          disabled={viewModel.selectedRows.length === 0}
+          onClick={viewModel.onPickUpSomeItems}
         >
           {t(TranslationKey['Take on the work of the selected'])}
         </Button>
       </div>
-      <div className={styles.datagridWrapper}>
+
+      <div className={styles.tableWrapper}>
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
           sortingMode="client"
           paginationMode="client"
+          rowCount={viewModel.rowCount}
+          rows={viewModel.filteredData}
+          sortModel={viewModel.sortModel}
+          columns={viewModel.columnsModel}
+          filterModel={viewModel.filterModel}
+          pinnedColumns={viewModel.pinnedColumns}
+          rowSelectionModel={viewModel.selectedRows}
           paginationModel={viewModel.paginationModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
+            columnMenu: viewModel.columnMenuSettings,
             toolbar: {
+              resetFiltersBtnSettings: {
+                onClickResetFilters: viewModel.onClickResetFilters,
+                isSomeFilterOn: viewModel.isSomeFilterOn,
+              },
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          rows={viewModel.currentData}
-          rowHeight={100}
-          columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-          onPaginationModelChange={viewModel.onPaginationModelChange}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
+          onSortModelChange={viewModel.onChangeSortingModel}
+          onFilterModelChange={viewModel.onChangeFilterModel}
           onRowSelectionModelChange={viewModel.onSelectionModel}
+          onPaginationModelChange={viewModel.onPaginationModelChange}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         />
       </div>

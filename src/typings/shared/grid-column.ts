@@ -11,6 +11,6 @@ export interface IGridColumn extends GridBaseColDef {
   disableCustomSort?: boolean
   hideEmptyObject?: boolean
   fields?: IRadioBottonsSetting[]
-  transformValueMethod?: (value: string) => string
+  transformValueMethod?: (value: any) => string
   columnMenuConfig?: any
 }

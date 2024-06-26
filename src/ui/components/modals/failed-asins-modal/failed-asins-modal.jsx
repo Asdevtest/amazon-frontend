@@ -13,6 +13,7 @@ import { useStyles } from './failed-asins-modal.style'
 
 export const FailedAsinsModal = ({ failedData, onClickSuccessBtn }) => {
   const { classes: styles } = useStyles()
+
   return (
     <div className={styles.modalMessageWrapper}>
       <Typography paragraph className={styles.title}>
