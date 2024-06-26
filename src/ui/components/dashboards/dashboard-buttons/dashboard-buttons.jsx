@@ -32,7 +32,9 @@ export const DashboardButtons = ({ user }) => {
     (user.notificationCounter || 0)
 
   const isNotificationsShown =
-    !checkIsResearcher(UserRoleCodeMap[user.role]) && !checkIsStorekeeper(UserRoleCodeMap[user.role])
+    !checkIsResearcher(UserRoleCodeMap[user.role]) &&
+    !checkIsStorekeeper(UserRoleCodeMap[user.role]) &&
+    !checkIsAdmin(UserRoleCodeMap[user.role])
 
   return (
     <div className={styles.buttonsWrapper}>
