@@ -18,10 +18,10 @@ Sentry.init({
     Sentry.browserProfilingIntegration(),
     // Sentry.captureConsoleIntegration(), // all console logs
     Sentry.contextLinesIntegration(),
-    Sentry.debugIntegration(),
+    // Sentry.debugIntegration(), // debugger-console.log in devtools
     Sentry.extraErrorDataIntegration(),
     Sentry.httpClientIntegration({
-      failedRequestTargets: ['amazonapi.fvds.ru', 'amazon-socket.fvds.ru'],
+      // failedRequestTargets: ['amazonapi.fvds.ru', 'amazon-socket.fvds.ru'],
       failedRequestStatusCodes: [
         [500, 599],
         [400, 499],
@@ -38,7 +38,7 @@ Sentry.init({
   release: appVersion,
   environment: 'development',
   normalizeMaxBreadth: 200,
-  // sendDefaultPii: true,
+  sendDefaultPii: true,
   denyUrls: ['localhost'],
 })
 
