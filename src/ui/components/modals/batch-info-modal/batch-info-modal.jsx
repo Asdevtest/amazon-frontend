@@ -252,7 +252,7 @@ export const BatchInfoModal = observer(
                 disabled
                 classes={{ disabled: styles.disabled }}
                 containerClasses={cx(styles.sumField, styles.dividerField)}
-                inputClasses={[styles.infoField, styles.dividerField]}
+                inputClasses={cx(styles.infoField, styles.dividerField)}
                 labelClasses={styles.subFieldLabel}
                 label={`${t(TranslationKey['Total price'])} (${t(TranslationKey.China)})`}
                 value={currentBatch?.totalPriceFromOrderSupplier}

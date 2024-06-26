@@ -1,8 +1,6 @@
 import * as Sentry from '@sentry/react'
-import { useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import FaviconNotificationContextProvider from 'react-favicon-notification'
-import { useLocation } from 'react-router-dom'
 import 'reflect-metadata'
 
 import '@services/mobx-persist-configure'

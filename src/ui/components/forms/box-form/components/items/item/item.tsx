@@ -129,21 +129,19 @@ export const Item: FC<ItemProps> = memo(props => {
             </Button>
 
             <div>
-              {item.barCode ? (
-                <div className={styles.checkboxContainer}>
-                  <Checkbox disabled className={styles.checkbox} checked={barcodeChecked} />
-                  <p className={styles.text}>{barcodeText}</p>
-                  <LabelWithCopy labelValue={item.barCode} lableLinkTitle={t(TranslationKey.View)} />
-                </div>
-              ) : null}
+              <div className={styles.checkboxContainer}>
+                <Checkbox disabled className={styles.checkbox} checked={barcodeChecked} />
+                <p className={styles.text}>{barcodeText}</p>
+                {item.barCode && <LabelWithCopy labelValue={item.barCode} lableLinkTitle={t(TranslationKey.View)} />}
+              </div>
 
-              {item.transparencyFile ? (
-                <div className={styles.checkboxContainer}>
-                  <Checkbox disabled className={styles.checkbox} checked={transparencyChecked} />
-                  <p className={styles.text}>{transparencyText}</p>
+              <div className={styles.checkboxContainer}>
+                <Checkbox disabled className={styles.checkbox} checked={transparencyChecked} />
+                <p className={styles.text}>{transparencyText}</p>
+                {item.transparencyFile && (
                   <LabelWithCopy labelValue={item.transparencyFile} lableLinkTitle={t(TranslationKey.View)} />
-                </div>
-              ) : null}
+                )}
+              </div>
             </div>
           </>
         ) : null}

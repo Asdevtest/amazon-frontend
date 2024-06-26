@@ -90,7 +90,7 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
 
         <Button
           variant={ButtonVariant.OUTLINED}
-          className={[styles.button, styles.cancelButton]}
+          className={cx(styles.button, styles.cancelButton)}
           onClick={() => closeModal()}
         >
           {t(TranslationKey.Cancel)}

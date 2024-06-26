@@ -688,14 +688,14 @@ export const AdminUserEditContent = observer(
           <Button
             type={ButtonStyle.SUCCESS}
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
-            className={[styles.button, styles.rightBtn]}
+            className={cx(styles.button, styles.rightBtn)}
             onClick={onClickSubmit}
           >
             {buttonLabel}
           </Button>
 
           <Button
-            className={[styles.button, styles.rightBtn, styles.cancelBtn]}
+            className={cx(styles.button, styles.rightBtn, styles.cancelBtn)}
             variant={ButtonVariant.OUTLINED}
             onClick={() => {
               onClickCancelBtn()

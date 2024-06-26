@@ -49,7 +49,7 @@ export const Info = ({ headerInfoData }) => {
         value={withText(headerInfoData.youBlocked, t(TranslationKey.investors))}
       />
 
-      <Divider orientation={'horizontal'} className={[styles.divider, styles.mobileDivider]} />
+      <Divider orientation={'horizontal'} className={cx(styles.divider, styles.mobileDivider)} />
       <InfoRow label={t(TranslationKey['Account created'])} value={headerInfoData.accountCreateAt} />
     </Paper>
   )

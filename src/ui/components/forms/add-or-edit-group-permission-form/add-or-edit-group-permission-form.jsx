@@ -23,7 +23,7 @@ import { AddOrEditSinglePermissionForm } from '../add-or-edit-single-permission-
 
 export const AddOrEditGroupPermissionForm = observer(
   ({ onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions, existingGroupPermissions }) => {
-    const { classes: styles } = useStyles()
+    const { classes: styles, cx } = useStyles()
 
     const objectSinglePermissions = singlePermissions.reduce(
       (prev, item) => ({ ...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item] }),
@@ -311,7 +311,7 @@ export const AddOrEditGroupPermissionForm = observer(
 
                         <Button
                           disabled={!curPermissions.length}
-                          className={[styles.button, styles.resetBtn]}
+                          className={cx(styles.button, styles.resetBtn)}
                           onClick={() => onChangeField('permissions')({ target: { value: [] } })}
                         >
                           {t(TranslationKey.reset)}

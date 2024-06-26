@@ -20,7 +20,7 @@ import { useStyles } from './table-row.style'
 export const TableBodyBoxRow = memo(({ item, handlers }) => {
   const { classes: styles, cx } = useStyles()
 
-  const buttonTextWithCounter = `${t(TranslationKey.Photos)} ${item.tmpImages.length || ''}`
+  const buttonTextWithCounter = `${t(TranslationKey.Photos)} ${item.images.length || ''}`
 
   return (
     <TableRow className={styles.row}>

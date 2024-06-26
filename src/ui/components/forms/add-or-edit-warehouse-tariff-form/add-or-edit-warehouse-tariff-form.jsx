@@ -16,7 +16,7 @@ import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { useStyles } from './add-or-edit-warehouse-tariff-form.style'
 
 export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -115,7 +115,7 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
 
         <Button
           variant={ButtonVariant.OUTLINED}
-          className={[styles.button, styles.closeButton]}
+          className={cx(styles.button, styles.closeButton)}
           onClick={() => onCloseModal()}
         >
           {t(TranslationKey.Cancel)}
