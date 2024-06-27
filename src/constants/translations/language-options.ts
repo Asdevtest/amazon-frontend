@@ -1,3 +1,7 @@
+import en from 'antd/locale/en_US'
+import ru from 'antd/locale/ru_RU'
+import ch from 'antd/locale/zh_CN'
+
 import { LanguageKey } from '@typings/enums/language-key'
 
 export interface LanguageOption {
@@ -20,3 +24,23 @@ export const languageOptions: LanguageOption[] = [
     label: '中国',
   },
 ]
+
+export const gerAntLocale = (lang: LanguageKey) => {
+  let antLocale
+
+  switch (lang) {
+    case 'ru':
+      antLocale = ru
+      break
+    case 'en':
+      antLocale = en
+      break
+    case 'ch':
+      antLocale = ch
+      break
+    default:
+      antLocale = en
+  }
+
+  return antLocale
+}
