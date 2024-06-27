@@ -94,6 +94,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
     params => (
       <TariffDetails
         tariff={params.row}
+        isTariffsSelect={isTariffsSelect}
         isHideCalculation={isHideCalculation}
         currentVariationId={viewModel.currentVariationId}
         columnVisibilityModel={viewModel.columnVisibilityModel}

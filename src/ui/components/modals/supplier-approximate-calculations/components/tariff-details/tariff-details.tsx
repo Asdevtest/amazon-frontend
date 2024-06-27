@@ -27,12 +27,14 @@ interface TariffDetailsProps {
   columnVisibilityModel?: GridColumnVisibilityModel
   isStrictVariationSelect?: boolean
   isHideCalculation?: boolean
+  isTariffsSelect?: boolean
 }
 
 export const TariffDetails: FC<TariffDetailsProps> = memo(
   ({
     tariff,
     currentVariationId,
+    isTariffsSelect,
     isHideCalculation,
     initialDestinationId,
     isStrictVariationSelect,
@@ -75,8 +77,12 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                 )}
 
                 {columnVisibilityModel?.minWeight === false ? null : (
-                  <div className={cx(styles.destination, { [styles.withoutCheckbox]: isHideCalculation })}>
-                    {isHideCalculation ? null : (
+                  <div
+                    className={cx(styles.destination, {
+                      [styles.withoutCheckbox]: isHideCalculation || !isTariffsSelect,
+                    })}
+                  >
+                    {isHideCalculation || !isTariffsSelect ? null : (
                       <Checkbox
                         checked={isActiveSelectedVariation}
                         disabled={
