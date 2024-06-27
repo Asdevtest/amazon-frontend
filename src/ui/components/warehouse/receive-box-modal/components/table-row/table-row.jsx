@@ -1,6 +1,5 @@
 import { memo } from 'react'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -8,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { Input } from '@components/shared/input'
-import { PlusIcon } from '@components/shared/svg-icons'
+import { DeleteIcon, PlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsValidBoxSize } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'

@@ -1,6 +1,6 @@
-import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
-
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { WatchLaterSharpIcon } from '@components/shared/svg-icons'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'

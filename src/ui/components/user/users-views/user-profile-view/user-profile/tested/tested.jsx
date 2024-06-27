@@ -1,8 +1,9 @@
-import CheckIcon from '@mui/icons-material/Check'
 import { Box, Paper, Typography } from '@mui/material'
 
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { CheckIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 

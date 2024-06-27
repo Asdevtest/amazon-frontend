@@ -2,7 +2,6 @@ import { ClassNamesArg } from '@emotion/react'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import SearchIcon from '@mui/icons-material/Search'
 import { InputAdornment } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -13,6 +12,8 @@ import { Input } from '@components/shared/input'
 import { t } from '@utils/translations'
 
 import { useStyles } from './search-input.style'
+
+import { SearchIcon } from '../svg-icons'
 
 interface Props {
   disabled?: boolean

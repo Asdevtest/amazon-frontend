@@ -2,12 +2,12 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { ArrowRightIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -31,14 +31,14 @@ export const ClientTradingShopsViewRaw = props => {
             <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickBuyShops}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Buy store'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
+                <ArrowRightIcon color="primary" />
               </div>
             </Button>
 
             <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickSellShops}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Sell the store'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
+                <ArrowRightIcon color="primary" />
               </div>
             </Button>
           </div>

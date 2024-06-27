@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
+import { WatchLaterSharpIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from './order-id-and-amount-count-cell.style'
 

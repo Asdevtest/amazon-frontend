@@ -1,11 +1,10 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { ArrowRightIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -27,7 +26,7 @@ export const FreelancerFreelanceView = memo(() => {
           <Link key={item.text} to={item.link}>
             <Button className={styles.button} color="primary" variant={ButtonVariant.OUTLINED}>
               <p>{t(TranslationKey[item.text])}</p>
-              <ArrowRightAltIcon className={styles.primary} />
+              <ArrowRightIcon className={styles.primary} />
             </Button>
           </Link>
         ))}

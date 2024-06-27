@@ -2,11 +2,10 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { ArrowRightIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -29,14 +28,14 @@ export const ClientFreelanceViewRaw = props => {
         <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickServiceExchange}>
           <div className={styles.btnTextWrapper}>
             <p className={styles.btnText}>{t(TranslationKey['Service exchange'])}</p>
-            <ArrowRightAltIcon color="primary" />
+            <ArrowRightIcon color="primary" />
           </div>
         </Button>
 
         <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickMyRequests}>
           <div className={styles.btnTextWrapper}>
             <p className={styles.btnText}>{t(TranslationKey['My requests'])}</p>
-            <ArrowRightAltIcon color="primary" />
+            <ArrowRightIcon color="primary" />
           </div>
         </Button>
       </div>

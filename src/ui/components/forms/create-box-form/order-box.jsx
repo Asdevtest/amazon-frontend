@@ -1,12 +1,12 @@
 import { memo } from 'react'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
+import { DeleteIcon } from '@components/shared/svg-icons'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'

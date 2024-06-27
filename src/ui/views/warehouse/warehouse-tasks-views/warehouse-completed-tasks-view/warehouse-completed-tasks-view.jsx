@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import FileDownloadIcon from '@mui/icons-material/FileDownload'
-
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,6 +9,7 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
 import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
+import { DownloadIcon } from '@components/shared/svg-icons'
 import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 
@@ -49,7 +48,7 @@ export const WarehouseCompletedTasksView = observer(({ history }) => {
             onClick={viewModel.onClickReportBtn}
           >
             {t(TranslationKey['Download task file'])}
-            <FileDownloadIcon />
+            <DownloadIcon />
           </Button>
         </div>
         <div className={styles.headerWrapper}>

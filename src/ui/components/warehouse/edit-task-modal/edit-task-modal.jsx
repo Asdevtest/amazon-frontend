@@ -1,6 +1,5 @@
 import { memo, useEffect, useState } from 'react'
 
-import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Divider, Typography } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
@@ -17,7 +16,7 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { BoxArrowIcon } from '@components/shared/svg-icons'
+import { BoxArrowIcon, DownloadIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
@@ -203,7 +202,7 @@ export const EditTaskModal = memo(
             {task.operationType === TaskOperationType.RECEIVE && (
               <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download task file'])}
-                <FileDownloadIcon />
+                <DownloadIcon />
               </Button>
             )}
           </div>

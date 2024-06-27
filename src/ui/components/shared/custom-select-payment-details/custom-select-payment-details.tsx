@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
-import EditIcon from '@mui/icons-material/Edit'
 import { Checkbox, MenuItem, Select, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,6 +13,8 @@ import { t } from '@utils/translations'
 import { IPaymentMethod } from '@typings/shared/payment-method'
 
 import { useStyles } from './custom-select-payment-details.style'
+
+import { EditIcon } from '../svg-icons'
 
 interface CustomSelectPaymentDetailsProps {
   orderPayments: IPaymentMethod[]

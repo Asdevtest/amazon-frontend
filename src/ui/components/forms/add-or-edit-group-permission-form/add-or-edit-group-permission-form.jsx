@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, Input, MenuItem, Select, Tooltip, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
@@ -13,6 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
+import { DeleteIcon } from '@components/shared/svg-icons'
 
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'

@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { ArrowRightIcon } from '@components/shared/svg-icons'
 
 import { CategoryRootViewModel } from '@views/shared/category-root-view/category-root-view.model'
 import { useCategoryRootViewStyles } from '@views/shared/category-root-view/category-root-view.style'
@@ -37,7 +37,7 @@ export const CategoryRootView = observer(props => {
           >
             <div className={styles.btnTextWrapper}>
               <Typography className={styles.btnText}>{el.subtitle()}</Typography>
-              <ArrowRightAltIcon color="primary" />
+              <ArrowRightIcon color="primary" />
             </div>
           </Button>
         ))}

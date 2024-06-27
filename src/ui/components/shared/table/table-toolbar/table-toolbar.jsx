@@ -1,9 +1,10 @@
-import { FormatAlignLeft, Search } from '@material-ui/icons'
+import { FormatAlignLeft } from '@material-ui/icons'
 import { Button, IconButton, InputAdornment, MenuItem, Select, Toolbar, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Input } from '@components/shared/input'
+import { SearchIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -20,7 +21,7 @@ export const TableToolbar = ({ rowsPerPage, handlerRowsPerPage }) => {
         startAdornment={
           <InputAdornment className={styles.searchAdornment} position="start">
             <IconButton className={styles.iconButton}>
-              <Search className={styles.icon} />
+              <SearchIcon className={styles.icon} />
             </IconButton>
           </InputAdornment>
         }

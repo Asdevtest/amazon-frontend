@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { ArrowRightIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -30,14 +30,14 @@ export const WarehouseTasksView = observer(({ history }) => {
             <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickVacantTask}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['New tasks'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
+                <ArrowRightIcon color="primary" />
               </div>
             </Button>
 
             <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickMyTasks}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['My tasks'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
+                <ArrowRightIcon color="primary" />
               </div>
             </Button>
 
@@ -48,14 +48,14 @@ export const WarehouseTasksView = observer(({ history }) => {
             >
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Completed tasks'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
+                <ArrowRightIcon color="primary" />
               </div>
             </Button>
 
             <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickCanceledTasks}>
               <div className={styles.btnTextWrapper}>
                 <Typography className={styles.btnText}>{t(TranslationKey['Canceled tasks'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
+                <ArrowRightIcon color="primary" />
               </div>
             </Button>
           </div>

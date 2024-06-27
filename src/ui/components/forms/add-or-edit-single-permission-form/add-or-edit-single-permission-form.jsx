@@ -2,7 +2,6 @@ import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { MenuItem, Select } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -11,7 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
-import { CustomPlusIcon } from '@components/shared/svg-icons'
+import { CustomPlusIcon, DeleteIcon } from '@components/shared/svg-icons'
 
 import { checkIsPositiveNum } from '@utils/checks'
 import { clearSpecialCharacters } from '@utils/text'

@@ -2,7 +2,6 @@ import { isValid } from 'date-fns'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,7 +14,7 @@ import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { TruckIcon } from '@components/shared/svg-icons'
+import { DeleteIcon, TruckIcon } from '@components/shared/svg-icons'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'

@@ -2,12 +2,12 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { ArrowRightIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -34,7 +34,7 @@ export const BuyerNotificationsViewRaw = props => {
         >
           <div className={styles.btnTextWrapper}>
             <Typography className={styles.btnText}>{t(TranslationKey['On ideas'])}</Typography>
-            <ArrowRightAltIcon color="primary" />
+            <ArrowRightIcon color="primary" />
           </div>
         </Button>
       </div>

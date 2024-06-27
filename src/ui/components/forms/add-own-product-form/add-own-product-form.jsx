@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, IconButton } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,6 +9,7 @@ import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
+import { DeleteIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { getAmazonCodeFromLink } from '@utils/get-amazon-code-from-link'

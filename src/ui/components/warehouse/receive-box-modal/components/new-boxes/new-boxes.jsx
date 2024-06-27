@@ -1,12 +1,12 @@
 import { memo } from 'react'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { Input } from '@components/shared/input'
+import { DeleteIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 import { TableHeadRow } from '@components/table/table-rows/batches-view/table-head-row'
 

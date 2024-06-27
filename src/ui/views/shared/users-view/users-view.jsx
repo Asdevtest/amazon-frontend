@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { ArrowRightIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -26,7 +26,7 @@ export const UsersView = observer(props => {
 
       <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickSubUsers}>
         {t(TranslationKey['My users'])}
-        <ArrowRightAltIcon />
+        <ArrowRightIcon />
       </Button>
     </>
   )

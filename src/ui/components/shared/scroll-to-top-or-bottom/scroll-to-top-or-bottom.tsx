@@ -1,8 +1,8 @@
 import { CSSProperties, FC } from 'react'
 
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-
 import { useStyles } from './scroll-to-top-or-bottom.style'
+
+import { ArrowUpIcon } from '../svg-icons'
 
 interface ScrollToTopOrBottomProps {
   customStyles?: CSSProperties
@@ -25,12 +25,12 @@ export const ScrollToTopOrBottom: FC<ScrollToTopOrBottomProps> = props => {
     <div className={styles.root} style={customStyles}>
       {showScrollUp && (
         <div className={styles.arrowWrapper} onClick={() => scrollTo('start')}>
-          <KeyboardArrowUpIcon className={styles.arrowIcon} />
+          <ArrowUpIcon className={styles.arrowIcon} />
         </div>
       )}
       {showScrollDown && (
         <div className={styles.arrowWrapper} onClick={() => scrollTo('end')}>
-          <KeyboardArrowUpIcon className={cx(styles.arrowIcon, styles.arrowIconRoteta)} />
+          <ArrowUpIcon className={cx(styles.arrowIcon, styles.arrowIconRoteta)} />
         </div>
       )}
     </div>
