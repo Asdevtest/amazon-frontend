@@ -4,7 +4,6 @@ export { ActualCostWithDeliveryPerUnit } from './actual-cost-with-delivery-per-u
 export { ActualCostWithDelivery } from './actual-cost-with-delivery/actual-cost-with-delivery'
 export { AddAsinIdeaActionsCell } from './add-asin-idea-actions-cell/add-asin-idea-actions-cell'
 export { AllIdeasActionsCell } from './all-ideas-actions-cell/all-ideas-actions-cell'
-export { ApproximateWeightCell } from './approximate-weight-cell/approximate-weight-cell'
 export { AsinCell } from './asin-cell/asin-cell'
 export { BatchBoxesCell } from './batch-boxes-cell/batch-boxes-cell'
 export { BatchTrackingCell } from './batch-tracking-cell/batch-tracking-cell'
