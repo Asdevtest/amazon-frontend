@@ -94,7 +94,7 @@ export const ImageEditForm = observer(({ item, onSave, setOpenModal }) => {
           <Button disabled={!rotation} onClick={handleSave}>
             {t(TranslationKey.Save)}
           </Button>
-          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={setOpenModal}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

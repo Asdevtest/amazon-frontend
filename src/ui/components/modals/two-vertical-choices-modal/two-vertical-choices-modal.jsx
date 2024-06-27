@@ -1,7 +1,5 @@
 import { memo } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
@@ -29,18 +27,15 @@ export const TwoVerticalChoicesModal = memo(
     return (
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
         <div className={styles.modalMessageWrapper}>
-          <Typography variant="h5" className={styles.title}>
-            {title}
-          </Typography>
+          <p className={styles.title}>{title}</p>
 
           <div className={styles.resultButtonsWrapper}>
-            <Button tooltipInfoContent={tooltipFirstButton} className={styles.button} onClick={onClickTopBtn}>
+            <Button tooltipInfoContent={tooltipFirstButton} onClick={onClickTopBtn}>
               {topBtnText}
             </Button>
             <Button
               tooltipInfoContent={tooltipSecondButton}
               variant={ButtonVariant.OUTLINED}
-              className={styles.bottomBtnText}
               onClick={onClickBottomBtn}
             >
               {bottomBtnText}
@@ -49,7 +44,6 @@ export const TwoVerticalChoicesModal = memo(
               <Button
                 tooltipInfoContent={tooltipThirdButton}
                 variant={ButtonVariant.OUTLINED}
-                className={styles.bottomBtnText}
                 onClick={onClickThirdBtn}
               >
                 {thirdBtnText}

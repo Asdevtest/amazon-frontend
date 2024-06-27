@@ -19,11 +19,4 @@ export const useStyles = makeStyles()(theme => ({
   typoSpan: {
     color: `${theme.palette.text.second} !important`,
   },
-
-  cellBtn: {
-    color: 'rgba(0, 123, 255, 1)',
-    paddingTop: '0px',
-    paddingBottom: '0px',
-    textTransform: 'none',
-  },
 }))

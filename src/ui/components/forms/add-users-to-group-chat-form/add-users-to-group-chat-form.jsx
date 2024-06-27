@@ -79,7 +79,6 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
-          className={styles.button}
           onClick={() => {
             setSubmitIsClicked
             onSubmit(chosenUsers)
@@ -88,7 +87,7 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
           {t(TranslationKey.Add)}
         </Button>
 
-        <Button styleType={ButtonStyle.CASUAL} className={cx(styles.button, styles.cancelButton)} onClick={closeModal}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={closeModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

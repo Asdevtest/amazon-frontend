@@ -126,7 +126,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
           {t(TranslationKey.Next)}
         </Button>
 
-        <Button styleType={ButtonStyle.CASUAL} className={styles.canselButton} onClick={onClickCancelButton}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelButton}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

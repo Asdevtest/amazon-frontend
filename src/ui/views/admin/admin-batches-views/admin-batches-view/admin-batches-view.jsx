@@ -2,9 +2,6 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -23,30 +20,16 @@ export const AdminBatchesViewRaw = props => {
 
   return (
     <>
-      <div>
-        <div>
-          <Typography className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</Typography>
+      <p className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</p>
 
-          <div className={styles.btnsWrapper}>
-            <Button
-              className={styles.button}
-              variant={ButtonVariant.OUTLINED}
-              onClick={viewModel.onClickAwaitingBatches}
-            >
-              <div className={styles.btnTextWrapper}>
-                <Typography className={styles.btnText}>{t(TranslationKey['Awaiting send'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
+      <div className={styles.btnsWrapper}>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickAwaitingBatches}>
+          {t(TranslationKey['Awaiting send'])}
+        </Button>
 
-            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickSentBatches}>
-              <div className={styles.btnTextWrapper}>
-                <Typography className={styles.btnText}>{t(TranslationKey.Sent)}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
-          </div>
-        </div>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickSentBatches}>
+          {t(TranslationKey.Sent)}
+        </Button>
       </div>
     </>
   )

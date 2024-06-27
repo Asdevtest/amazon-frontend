@@ -41,10 +41,4 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     marginTop: 20,
   },
-
-  closeButton: {
-    width: 200,
-    height: 40,
-    color: theme.palette.primary.main,
-  },
 }))

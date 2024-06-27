@@ -306,7 +306,6 @@ export const AddOrEditGroupPermissionForm = observer(
                       <div className={styles.selectModalBtnsWrapper}>
                         <Button
                           styleType={ButtonStyle.CASUAL}
-                          className={styles.button}
                           onClick={() => setOpenSinglePermissions(!openSinglePermissions)}
                         >
                           {t(TranslationKey.Close)}
@@ -314,7 +313,6 @@ export const AddOrEditGroupPermissionForm = observer(
 
                         <Button
                           disabled={!curPermissions.length}
-                          className={cx(styles.button, styles.resetBtn)}
                           onClick={() => onChangeField('permissions')({ target: { value: [] } })}
                         >
                           {t(TranslationKey.reset)}
@@ -363,7 +361,7 @@ export const AddOrEditGroupPermissionForm = observer(
             {isEdit ? t(TranslationKey['Edit a group']) : t(TranslationKey['Create a group'])}
           </Button>
 
-          <Button styleType={ButtonStyle.CASUAL} className={styles.button} onClick={onCloseModal}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

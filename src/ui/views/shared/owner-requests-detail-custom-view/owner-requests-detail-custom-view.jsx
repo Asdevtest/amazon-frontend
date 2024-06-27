@@ -186,9 +186,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
         {viewModel.showChat && (
           <div className={styles.hideChatButtonWrapper}>
-            <Button className={styles.hideChatButton} onClick={viewModel.onClickHideChat}>
-              {t(TranslationKey['Hide chat'])}
-            </Button>
+            <Button onClick={viewModel.onClickHideChat}>{t(TranslationKey['Hide chat'])}</Button>
           </div>
         )}
       </div>

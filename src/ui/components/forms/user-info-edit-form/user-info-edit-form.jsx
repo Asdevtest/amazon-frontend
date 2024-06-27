@@ -236,12 +236,7 @@ export const UserInfoEditForm = observer(
             </>
           ) : (
             <>
-              <Button
-                iconButton
-                styleType={ButtonStyle.CASUAL}
-                className={styles.back}
-                onClick={onToggleUserInfoEditFormFlag}
-              >
+              <Button iconButton styleType={ButtonStyle.CASUAL} onClick={onToggleUserInfoEditFormFlag}>
                 <ArrowBackIcon />
               </Button>
               <p className={styles.title}>{t(TranslationKey['Active sessions'])}</p>

@@ -187,7 +187,6 @@ export const CreateOrEditTradingShopContent = ({
                 : t(TranslationKey['Cancel request creation'])
             }
             styleType={ButtonStyle.CASUAL}
-            className={styles.backBtn}
             onClick={onClickBackBtn}
           >
             {curStep === stepVariant.STEP_ONE ? t(TranslationKey.Close) : t(TranslationKey.Back)}
@@ -201,7 +200,6 @@ export const CreateOrEditTradingShopContent = ({
                 : t(TranslationKey['Go to Step 2'])
             }
             disabled={disableSubmit}
-            className={styles.successBtn}
             onClick={onSuccessSubmit}
           >
             {curStep === stepVariant.STEP_THREE ? (

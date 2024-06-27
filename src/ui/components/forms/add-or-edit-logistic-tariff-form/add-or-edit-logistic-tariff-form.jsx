@@ -445,20 +445,11 @@ export const AddOrEditLogisticTariffForm = observer(
           </div>
 
           <div className={styles.btnsWrapper}>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              disabled={disableSubmitBtn}
-              className={styles.button}
-              onClick={onSubmit}
-            >
+            <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button
-              className={cx(styles.button, styles.cancelBtn)}
-              styleType={ButtonStyle.CASUAL}
-              onClick={onCloseModal}
-            >
+            <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
               {t(TranslationKey.Close)}
             </Button>
           </div>

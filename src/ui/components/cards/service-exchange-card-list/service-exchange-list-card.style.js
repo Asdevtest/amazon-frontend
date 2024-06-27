@@ -82,11 +82,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 10,
   },
 
-  openBtn: {
-    padding: '0 75px',
-    height: 40,
-  },
-
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'center',

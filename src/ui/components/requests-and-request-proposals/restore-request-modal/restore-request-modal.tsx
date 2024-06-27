@@ -65,7 +65,6 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={!date || currentRequestsCount > Number(requestCount)}
-          className={styles.controlButton}
           onClick={() => {
             handleSubmit(date, requestCount)
             handleCloseModal()
@@ -73,11 +72,7 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button
-          styleType={ButtonStyle.CASUAL}
-          className={cx(styles.controlButton, styles.cancelButton)}
-          onClick={handleCloseModal}
-        >
+        <Button styleType={ButtonStyle.CASUAL} onClick={handleCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

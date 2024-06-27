@@ -275,38 +275,10 @@ export const useStyles = makeStyles()(theme => ({
     margin: '0 !important',
   },
 
-  plusIcon: {
-    width: '11px !important',
-    height: '11px !important',
-    color: '#FFFFFF',
-  },
-
-  plusButton: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    width: 21,
-    minWidth: 'unset !important',
-    height: 21,
-    padding: 0,
-  },
-
-  regionMainWrapper: {},
-
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'end',
     gap: 40,
-  },
-
-  button: {
-    padding: '0 43px',
-  },
-
-  cancelBtn: {
-    color: theme.palette.text.general,
-    padding: '0 35px',
   },
 
   controlOptionsButtons: {
@@ -335,13 +307,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     gap: 10,
     height: 30,
-  },
-
-  applyButton: {
-    paddingInline: 10,
-    paddingBlock: 2,
-    height: 'auto',
-    borderRadius: 30,
   },
 
   datePickerIcon: {

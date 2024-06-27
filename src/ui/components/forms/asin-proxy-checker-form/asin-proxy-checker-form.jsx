@@ -192,7 +192,6 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
               submitIsClicked ||
               error
             }
-            className={styles.button}
             onClick={() => {
               if (checkIsAdmin(userRole)) {
                 onSubmit(prev => [...new Set([...prev, ...asinsAndReasonsData])])
@@ -207,7 +206,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button styleType={ButtonStyle.CASUAL} className={styles.buttonCancel} onClick={onClose}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

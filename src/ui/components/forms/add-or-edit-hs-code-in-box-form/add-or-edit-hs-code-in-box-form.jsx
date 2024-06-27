@@ -13,7 +13,7 @@ import { TableHeadRow } from '@components/table/table-rows/batches-view/table-he
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-hs-code-in-box-form.style'
 
@@ -109,16 +109,11 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          disabled={submitDisabled}
-          className={styles.saveButton}
-          onClick={onClickSubmit}
-        >
+        <Button styleType={ButtonStyle.SUCCESS} disabled={submitDisabled} onClick={onClickSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button className={styles.closeButton} styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
+        <Button variant={ButtonVariant.OUTLINED} onClick={() => setOpenModal()}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

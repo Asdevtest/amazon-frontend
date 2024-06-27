@@ -68,15 +68,11 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
             </Button>
 
             <div className={styles.btnsSubWrapper}>
-              <Button
-                disabled={!selectedBatch}
-                className={cx(styles.cancelBtn, styles.moveBox)}
-                onClick={() => onSubmit(box, selectedBatch)}
-              >
+              <Button disabled={!selectedBatch} onClick={() => onSubmit(box, selectedBatch)}>
                 {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey.Add)}
               </Button>
 
-              <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={setOpenModal}>
+              <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
                 {t(TranslationKey.Close)}
               </Button>
             </div>
@@ -102,7 +98,7 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
               {t(TranslationKey['Create new batch'])}
             </Button>
 
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={setOpenModal}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
               {t(TranslationKey.Close)}
             </Button>
           </div>

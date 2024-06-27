@@ -40,12 +40,11 @@ export const SetFourMonthesStockModal = ({ title, onSubmit, onCloseModal, select
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={!newValue || newValue > 99999}
-          className={styles.saveBtn}
           onClick={() => onSubmit(newValue)}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button styleType={ButtonStyle.CASUAL} className={styles.closeBtn} onClick={onCloseModal}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </Box>

@@ -25,10 +25,6 @@ export const useStyles = makeStyles()(() => ({
     gap: 10,
   },
 
-  button: {
-    width: 220,
-  },
-
   text: {
     overflow: 'hidden',
     whiteSpace: 'nowrap',

@@ -32,7 +32,7 @@ export const UserMoneyTransferModal = memo(({ openModal, setOpenModal, isWithdra
           <Typography className={styles.link}>{t(TranslationKey['Money transfer link'])}</Typography>
         </Link>
 
-        <Button styleType={ButtonStyle.SUCCESS} className={styles.button} onClick={setOpenModal}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={setOpenModal}>
           {t(TranslationKey.Ok)}
         </Button>
       </div>

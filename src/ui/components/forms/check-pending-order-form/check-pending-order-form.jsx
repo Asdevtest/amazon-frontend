@@ -56,7 +56,7 @@ export const CheckPendingOrderForm = ({
         <Button styleType={ButtonStyle.SUCCESS} disabled={submitIsClicked} onClick={onSubmit}>
           {t(TranslationKey.Continue)}
         </Button>
-        <Button styleType={ButtonStyle.CASUAL} className={styles.CancelBtn} onClick={onClickCancelBtn}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelBtn}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

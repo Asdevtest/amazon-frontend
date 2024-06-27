@@ -33,9 +33,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
   }
 
   const renderTaskInfoBtn = () => (
-    <Button className={styles.infoBtn} onClick={() => handlers.onClickTaskInfo(row)}>
-      {t(TranslationKey.Details)}
-    </Button>
+    <Button onClick={() => handlers.onClickTaskInfo(row)}>{t(TranslationKey.Details)}</Button>
   )
 
   const renderHistoryItem = () => {
@@ -48,7 +46,6 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
                 styleType={ButtonStyle.CASUAL}
-                className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
               >
                 {t(TranslationKey.Close)}
@@ -63,7 +60,6 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
                 styleType={ButtonStyle.CASUAL}
-                className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
               >
                 {t(TranslationKey.Close)}
@@ -81,7 +77,6 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
                 styleType={ButtonStyle.CASUAL}
-                className={styles.cancelTaskBtn}
                 onClick={() =>
                   handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
                 }

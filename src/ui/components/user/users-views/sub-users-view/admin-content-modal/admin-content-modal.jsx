@@ -367,7 +367,7 @@ export const AdminContentModal = observer(
             {buttonLabel}
           </Button>
 
-          <Button styleType={ButtonStyle.CASUAL} className={styles.rightBtn} onClick={onCloseModal}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

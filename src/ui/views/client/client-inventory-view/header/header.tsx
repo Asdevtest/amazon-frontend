@@ -68,12 +68,7 @@ export const Header: FC<HeaderProps> = memo(props => {
               {t(TranslationKey['To order'])}
             </Button>
 
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              disabled={selectedRows.length > 1}
-              className={styles.actionButtonWithPlus}
-              onClick={onClickProductLaunch}
-            >
+            <Button styleType={ButtonStyle.SUCCESS} disabled={selectedRows.length > 1} onClick={onClickProductLaunch}>
               <PlusIcon className={styles.icon} />
               {t(TranslationKey['Product launch'])}
             </Button>
@@ -126,7 +121,6 @@ export const Header: FC<HeaderProps> = memo(props => {
               tooltipInfoContent={t(
                 TranslationKey['Delete the selected product (the product is moved to the archive)'],
               )}
-              className={styles.actionButtonWithPlus}
               disabled={isNoSelectedRows}
               styleType={ButtonStyle.DANGER}
               variant={ButtonVariant.OUTLINED}
@@ -143,18 +137,13 @@ export const Header: FC<HeaderProps> = memo(props => {
             <Button
               styleType={ButtonStyle.SUCCESS}
               tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
-              className={styles.actionButtonWithPlus}
               onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
             >
               <PlusIcon className={styles.icon} />
               {t(TranslationKey.Product)}
             </Button>
 
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              className={styles.actionButtonWithPlus}
-              onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
-            >
+            <Button styleType={ButtonStyle.SUCCESS} onClick={() => onTriggerOpenModal('showAddSuppliersModal')}>
               <PlusIcon className={styles.icon} />
               {t(TranslationKey['Supplier list'])}
             </Button>

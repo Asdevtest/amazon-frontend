@@ -138,14 +138,6 @@ export const useStyles = makeStyles()(theme => ({
     columnGap: '25px',
   },
 
-  storekeeperBtn: {
-    height: '40px',
-  },
-
-  storekeeperTrafficBtn: {
-    color: '#ffff',
-  },
-
   fieldInput: {
     height: '40px',
   },

@@ -25,13 +25,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: 0,
   },
 
-  modalButton: {
-    color: '#fff',
-    fontSize: '16px',
-    fontWeight: 500,
-    lineHeight: '19px',
-  },
-
   table: {
     '& td': {
       flexShrink: 0,
@@ -267,18 +260,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     gap: 50,
     margin: '20px 15px 5px 0px',
-  },
-  buyNowBtn: {
-    color: '#fff',
-  },
-  cancelBtn: {
-    backgroundColor: 'inherit !important',
-    color: theme.palette.text.general,
-    textTransform: 'none',
-    '&:hover': {
-      color: theme.palette.text.general,
-      backgroundColor: '#e4e4e4',
-    },
   },
 
   sumWrapper: {

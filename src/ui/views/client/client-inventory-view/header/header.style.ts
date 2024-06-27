@@ -23,10 +23,6 @@ export const useStyles = makeStyles()(() => ({
     width: '330px',
   },
 
-  actionButtonWithPlus: {
-    gap: '5px',
-  },
-
   icon: {
     width: '16px !important',
     height: '16px !important',

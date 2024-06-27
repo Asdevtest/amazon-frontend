@@ -26,14 +26,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
-  controlButton: {
-    padding: '0 25px',
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
-  },
-
   errorInput: {
     borderColor: theme.palette.text.red,
   },

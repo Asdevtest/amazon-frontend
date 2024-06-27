@@ -7,11 +7,4 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-
-  button: {
-    height: 30,
-    display: 'flex',
-    alignItems: 'center',
-    gap: 10,
-  },
 }))

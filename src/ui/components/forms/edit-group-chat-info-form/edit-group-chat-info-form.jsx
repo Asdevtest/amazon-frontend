@@ -126,7 +126,7 @@ export const EditGroupChatInfoForm = ({ onSubmit, onCloseModal, chat }) => {
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onCloseModal}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

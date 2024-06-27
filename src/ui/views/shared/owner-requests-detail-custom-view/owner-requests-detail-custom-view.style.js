@@ -20,15 +20,6 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'center',
   },
 
-  hideChatButton: {
-    width: '250px',
-    height: '52px',
-    fontSize: '16px',
-    lineHeight: '19px',
-    fontWeight: '400',
-    marginTop: '10px',
-  },
-
   additionalButtonsWrapper: {
     marginTop: 20,
     display: 'flex',

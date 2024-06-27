@@ -40,7 +40,7 @@ export const ReviewsForm: FC<ReviewsFormProps> = memo(({ onClickCloseButton, rev
       </div>
 
       <div className={styles.footerWrapper}>
-        <Button styleType={ButtonStyle.CASUAL} className={styles.closeButton} onClick={onClickCloseButton}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCloseButton}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

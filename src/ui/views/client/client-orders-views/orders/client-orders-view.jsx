@@ -38,7 +38,6 @@ export const ClientOrdersView = observer(history => {
             <Button
               styleType={ButtonStyle.SUCCESS}
               disabled={!viewModel.selectedRows.length}
-              className={styles.button}
               onClick={viewModel.onClickManyReorder}
             >
               {t(TranslationKey['To order'])}
@@ -47,7 +46,6 @@ export const ClientOrdersView = observer(history => {
             <Button
               styleType={ButtonStyle.DANGER}
               disabled={!viewModel.selectedRows.length}
-              className={cx(styles.button, styles.buttonDanger)}
               onClick={viewModel.onConfirmCancelManyReorder}
             >
               {t(TranslationKey['Cancel order'])}

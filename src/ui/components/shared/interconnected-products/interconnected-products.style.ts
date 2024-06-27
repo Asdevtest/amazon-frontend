@@ -21,22 +21,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '5px',
   },
 
-  button: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '0 5px',
-
-    svg: {
-      width: '12px !important',
-      height: '12px !important',
-
-      path: {
-        stroke: 'currentcolor',
-      },
-    },
-  },
-
   sourceProductWrapper: {
     display: 'flex',
     alignItems: 'center',

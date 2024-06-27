@@ -58,19 +58,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
   },
 
-  editButton: {
-    width: '220px',
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: 400,
-  },
-  deleteButton: {
-    width: '258px',
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: 400,
-  },
-
   link: {
     padding: '5px 20px',
     border: '1px solid #006CFF',

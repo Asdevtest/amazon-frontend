@@ -418,7 +418,6 @@ export const AddOrEditUserPermissionsForm = memo(props => {
         <div className={styles.buttonsSubWrapper}>
           <Button
             disabled={submitDisabled}
-            className={styles.button}
             onClick={() => {
               onSubmit(
                 formFields,
@@ -448,7 +447,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
             {t(TranslationKey.Edit)}
           </Button>
 
-          <Button className={cx(styles.button, styles.cancelBtn)} styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

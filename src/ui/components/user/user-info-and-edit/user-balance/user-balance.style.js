@@ -27,12 +27,4 @@ export const useStyles = makeStyles()(theme => ({
   greenRow: {
     color: theme.palette.text.green,
   },
-
-  button: {
-    padding: '14px 40px',
-  },
-
-  depositBtn: {
-    marginRight: 50,
-  },
 }))

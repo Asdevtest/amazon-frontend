@@ -649,9 +649,7 @@ export const EditBoxForm = memo(
           <Button
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
-            onClick={() => {
-              onSubmit(formItem?._id, getBoxDataToSubmit(), formItem, priority, priorityReason)
-            }}
+            onClick={() => onSubmit(formItem?._id, getBoxDataToSubmit(), formItem, priority, priorityReason)}
           >
             {t(TranslationKey.Save)}
           </Button>

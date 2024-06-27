@@ -8,10 +8,6 @@ export const useStyles = makeStyles()(() => ({
     width: '100%',
   },
 
-  downloadLinkButton: {
-    padding: '0',
-  },
-
   downloadLink: {
     color: 'currentColor',
     display: 'flex',

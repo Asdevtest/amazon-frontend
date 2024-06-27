@@ -1,9 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  button: {
-    marginLeft: '10px',
-  },
   conditionsField: {
     width: '100%',
     minHeight: '300px',

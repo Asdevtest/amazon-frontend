@@ -43,18 +43,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
-  actionButton: {
-    minWidth: '240px',
-  },
-
-  cancelBtn: {
-    backgroundColor: '#F44336',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#F44336',
-    },
-  },
-
   timeInfoWrapper: {
     width: '300px',
   },

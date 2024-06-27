@@ -237,13 +237,12 @@ export const RequestDesignerResultClientForm = memo(props => {
               <Typography>{t(TranslationKey['Select all'])}</Typography>
             </div>
 
-            <Button disabled={!imagesForDownload.length} className={styles.imagesModalBtn} onClick={onClickAllDownload}>
+            <Button disabled={!imagesForDownload.length} onClick={onClickAllDownload}>
               <DownloadOutlinedIcon />
             </Button>
 
             <Button
               disabled={!imagesForDownload.length || archiveButtonInactiveBeforeDownloading}
-              className={styles.imagesModalBtn}
               onClick={onClickDownloadArchive}
             >
               <DownloadArchiveIcon />
@@ -253,8 +252,6 @@ export const RequestDesignerResultClientForm = memo(props => {
           {!noShowActions && (
             <>
               <Button
-                // disabled={disableSubmit}
-                className={styles.button}
                 onClick={() =>
                   onPressSubmitDesignerResultToCorrect({
                     reason: comment,
@@ -267,7 +264,6 @@ export const RequestDesignerResultClientForm = memo(props => {
               </Button>
               <Button
                 styleType={ButtonStyle.SUCCESS}
-                className={styles.button}
                 onClick={() => {
                   onClickProposalResultAccept(proposal.proposal._id)
                   setOpenModal()
@@ -278,11 +274,7 @@ export const RequestDesignerResultClientForm = memo(props => {
             </>
           )}
 
-          <Button
-            styleType={ButtonStyle.CASUAL}
-            className={cx(styles.button, styles.cancelButton)}
-            onClick={setOpenModal}
-          >
+          <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

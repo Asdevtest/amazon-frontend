@@ -87,11 +87,7 @@ export const MyServicesInfo = ({
 
       <div className={styles.footerWrapper}>
         {shopFullDescriptionButton ? (
-          <Button
-            styleType={ButtonStyle.CASUAL}
-            className={styles.detailsButton}
-            onClick={() => setShowFullDescription(prev => !prev)}
-          >
+          <Button styleType={ButtonStyle.CASUAL} onClick={() => setShowFullDescription(prev => !prev)}>
             {t(TranslationKey.Close)}
           </Button>
         ) : (
@@ -99,17 +95,13 @@ export const MyServicesInfo = ({
         )}
 
         <div className={styles.buttonsWrapper}>
-          <Button styleType={ButtonStyle.DANGER} className={styles.deleteButton} onClick={onClickCloseAnnouncementBtn}>
+          <Button styleType={ButtonStyle.DANGER} onClick={onClickCloseAnnouncementBtn}>
             {t(TranslationKey['Delete ad'])}
           </Button>
 
-          <Button className={styles.editButton} onClick={onClickEditBtn}>
-            {t(TranslationKey.Edit)}
-          </Button>
+          <Button onClick={onClickEditBtn}>{t(TranslationKey.Edit)}</Button>
 
-          <Button className={styles.backButton} onClick={onClickBackBtn}>
-            {t(TranslationKey.Back)}
-          </Button>
+          <Button onClick={onClickBackBtn}>{t(TranslationKey.Back)}</Button>
         </div>
       </div>
     </div>

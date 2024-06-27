@@ -66,24 +66,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: '0',
   },
 
-  storekeeperBtnDefault: {
-    color: '#ffff',
-  },
-
-  storekeeperBtn: {
-    height: '40px',
-  },
-
-  storekeeperBtnColored: {
-    color: theme.palette.text.negativeMain,
-  },
-
-  storekeeperDisableBtn: {
-    borderRadius: '4px',
-    padding: '6px 7px',
-    backgroundColor: theme.palette.input.customDisabled,
-  },
-
   fieldInput: {
     height: '40px',
   },
@@ -147,10 +129,6 @@ export const useStyles = makeStyles()(theme => ({
   bottomBlockWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-
-  deleteBtn: {
-    color: theme.palette.text.second,
   },
 
   incomingBtnWrapper: {

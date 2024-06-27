@@ -546,7 +546,6 @@ export const AddOrEditBatchForm = observer(
               disabled={
                 !boxesToAddIds.length || (!chosenBoxesBase.length && boxesToAddIds.length !== 1 && !batchToEdit)
               }
-              className={styles.actionBtn}
               onClick={onClickAdd}
             >
               {t(TranslationKey.Add)}
@@ -659,7 +658,6 @@ export const AddOrEditBatchForm = observer(
             <Button
               styleType={ButtonStyle.DANGER}
               disabled={!boxesToDeliteIds.length || !chosenBoxes.length}
-              className={styles.actionBtn}
               onClick={onClickTrash}
             >
               {t(TranslationKey.Remove)}
@@ -672,13 +670,12 @@ export const AddOrEditBatchForm = observer(
             <Button
               styleType={ButtonStyle.SUCCESS}
               disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
-              className={styles.actionBtn}
               onClick={onClickSubmit}
             >
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button styleType={ButtonStyle.CASUAL} className={cx(styles.actionBtn, styles.cancelBtn)} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>

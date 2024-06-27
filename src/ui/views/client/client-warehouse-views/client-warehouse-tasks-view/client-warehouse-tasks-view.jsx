@@ -30,7 +30,7 @@ export const ClientWarehouseTasksView = observer(() => {
   return (
     <>
       <div className={styles.headerWrapper}>
-        <div className={styles.downloadBtn} />
+        <div />
 
         <SearchInput
           value={viewModel.nameSearchValue}
@@ -39,11 +39,7 @@ export const ClientWarehouseTasksView = observer(() => {
           onSubmit={viewModel.onSearchSubmit}
         />
 
-        <Button
-          сlassName={styles.downloadBtn}
-          disabled={viewModel.isDisabledDownload}
-          onClick={viewModel.onClickReportBtn}
-        >
+        <Button disabled={viewModel.isDisabledDownload} onClick={viewModel.onClickReportBtn}>
           {t(TranslationKey['Download task file'])}
           <DownloadIcon
             className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: viewModel.isDisabledDownload })}

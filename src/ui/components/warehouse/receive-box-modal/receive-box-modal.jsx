@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 import AddIcon from '@mui/icons-material/Add'
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -208,19 +208,16 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
   return (
     <div className={styles.root}>
       <div className={styles.modalHeaderWrapper}>
-        <Typography className={styles.modalTitle}>{t(TranslationKey['Receive and distribute'])}</Typography>
+        <p className={styles.modalTitle}>{t(TranslationKey['Receive and distribute'])}</p>
 
         {!receiveNotFromBuyer && (
-          <div className={styles.addButtonWrapper}>
-            <Button
-              className={styles.addButton}
-              tooltipInfoContent={t(TranslationKey['Add a box'])}
-              onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
-            >
-              {t(TranslationKey['New box'])}
-              <AddIcon fontSize="small" className={styles.icon} />
-            </Button>
-          </div>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Add a box'])}
+            onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
+          >
+            {t(TranslationKey['New box'])}
+            <AddIcon fontSize="small" className={styles.icon} />
+          </Button>
         )}
       </div>
 
@@ -246,17 +243,6 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         />
       </div>
 
-      <div className={styles.addButtonWrapperMobile}>
-        <Button
-          className={styles.addButtonMobile}
-          tooltipInfoContent={t(TranslationKey['Add a box'])}
-          onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
-        >
-          {t(TranslationKey['New box'])}
-          <AddIcon fontSize="small" className={styles.icon} />
-        </Button>
-      </div>
-
       <div className={styles.buttonsWrapper}>
         {isSomeBoxHasntImage && (
           <p className={styles.noImageText}>{t(TranslationKey['Be sure to add a photo to the box'])}</p>
@@ -265,7 +251,6 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
-          className={styles.button}
           onClick={() => {
             receiveNotFromBuyer
               ? onClickRedistributeBtn()
@@ -277,11 +262,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button
-          styleType={ButtonStyle.CASUAL}
-          className={cx(styles.button, styles.cancelButton)}
-          onClick={setOpenModal}
-        >
+        <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

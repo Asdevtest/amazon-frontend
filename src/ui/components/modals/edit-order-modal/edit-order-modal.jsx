@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react'
 
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import { Box, InputAdornment, MenuItem, Select, Typography } from '@mui/material'
+import { InputAdornment, MenuItem, Select, Typography } from '@mui/material'
 
 import {
   OrderStatus,
@@ -709,18 +709,16 @@ export const EditOrderModal = memo(
             <div className={styles.addBoxButtonWrapper}>
               <Typography className={styles.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
 
-              <Box width="fit-content">
-                <Button tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])} onClick={addBoxHandler}>
-                  {t(TranslationKey['Add a box'])}
-                </Button>
-              </Box>
+              <Button tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])} onClick={addBoxHandler}>
+                {t(TranslationKey['Add a box'])}
+              </Button>
             </div>
           ) : (
             <div />
           )}
 
           <Button onClick={() => setCommentModalModal(!commentModal)}>
-            <Typography className={styles.seeCommentsText}>{t(TranslationKey['See comments'])}</Typography>
+            {t(TranslationKey['See comments'])}
             <VisibilityIcon className={styles.seeCommentsIcon} />
           </Button>
         </div>

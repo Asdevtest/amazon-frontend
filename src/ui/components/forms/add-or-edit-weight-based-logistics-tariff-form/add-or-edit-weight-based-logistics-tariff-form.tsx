@@ -550,16 +550,10 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         />
 
         <div className={styles.btnsWrapper}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            disabled={disableSubmitBtn}
-            className={styles.button}
-            onClick={onSubmit}
-          >
+          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
             {t(TranslationKey.Save)}
           </Button>
-
-          <Button styleType={ButtonStyle.CASUAL} className={cx(styles.button, styles.cancelBtn)} onClick={onClickClose}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClickClose}>
             {t(TranslationKey.Close)}
           </Button>
         </div>
@@ -702,9 +696,7 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
                       {t(TranslationKey['Apply to all'])}
                     </Text>
 
-                    <Button className={styles.applyButton} onClick={() => onApplyMinBoxWeightToAll(variantIndex)}>
-                      {t(TranslationKey.Apply)}
-                    </Button>
+                    <Button onClick={() => onApplyMinBoxWeightToAll(variantIndex)}>{t(TranslationKey.Apply)}</Button>
                   </div>
                 </>
               }
@@ -715,47 +707,45 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
               labelClasses={styles.fieldLabel}
               containerClasses={styles.regionContainer}
               inputComponent={
-                <div className={styles.regionMainWrapper}>
-                  <div className={styles.regionWrapper}>
-                    <Input
-                      placeholder={'0.00'}
-                      value={
-                        currentCurrency === currencyTypes.DOLLAR
-                          ? variant.pricePerKgUsd
-                          : currentCurrency === currencyTypes.YUAN
-                          ? variant.pricePerKgRmb
-                          : ''
-                      }
-                      inputProps={{ maxLength: 7 }}
-                      className={styles.fieldInput}
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        const input = e.target.value
+                <div className={styles.regionWrapper}>
+                  <Input
+                    placeholder={'0.00'}
+                    value={
+                      currentCurrency === currencyTypes.DOLLAR
+                        ? variant.pricePerKgUsd
+                        : currentCurrency === currencyTypes.YUAN
+                        ? variant.pricePerKgRmb
+                        : ''
+                    }
+                    inputProps={{ maxLength: 7 }}
+                    className={styles.fieldInput}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                      const input = e.target.value
 
-                        if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
-                          // e.target.value = toFixed(e.target.value, 2)
-                          onChangeDestinationVariations(
-                            currentCurrency === currencyTypes.DOLLAR ? 'pricePerKgUsd' : 'pricePerKgRmb',
-                          )(variantIndex)(input)
-                        }
-                      }}
-                    />
-                    <Typography className={styles.currencyStyle}>
-                      {currencyTypesToHumanFriendlyValue(currentCurrency)}
-                    </Typography>
-                  </div>
+                      if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(input) && Number(input) < 100000) {
+                        // e.target.value = toFixed(e.target.value, 2)
+                        onChangeDestinationVariations(
+                          currentCurrency === currencyTypes.DOLLAR ? 'pricePerKgUsd' : 'pricePerKgRmb',
+                        )(variantIndex)(input)
+                      }
+                    }}
+                  />
+                  <Typography className={styles.currencyStyle}>
+                    {currencyTypesToHumanFriendlyValue(currentCurrency)}
+                  </Typography>
                 </div>
               }
             />
 
             <div className={styles.controlOptionsButtons}>
               {destinationVariations.length > 1 && (
-                <Button className={styles.plusButton} onClick={() => onClickRemoveDestinationVariation(variantIndex)}>
-                  <RemoveIcon className={styles.plusIcon} />
+                <Button iconButton onClick={() => onClickRemoveDestinationVariation(variantIndex)}>
+                  <RemoveIcon />
                 </Button>
               )}
 
-              <Button className={styles.plusButton} onClick={() => onClickAddDestinationVariation(variantIndex)}>
-                <AddIcon className={styles.plusIcon} />
+              <Button iconButton onClick={() => onClickAddDestinationVariation(variantIndex)}>
+                <AddIcon />
               </Button>
             </div>
           </div>

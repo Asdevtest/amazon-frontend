@@ -102,7 +102,7 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button styleType={ButtonStyle.CASUAL} className={styles.cancel} onClick={handleClose}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={handleClose}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

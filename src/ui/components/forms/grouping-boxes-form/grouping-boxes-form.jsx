@@ -223,7 +223,6 @@ export const GroupingBoxesForm = memo(props => {
       <div className={styles.buttonsWrapper}>
         <Button
           disabled={disabledSubmitBtn}
-          className={styles.button}
           onClick={() => {
             setDisableSubmitBtn(true)
             onClickSubmit()
@@ -235,7 +234,6 @@ export const GroupingBoxesForm = memo(props => {
         <Button
           styleType={ButtonStyle.CASUAL}
           tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-          className={cx(styles.button, styles.cancelButton)}
           onClick={onCloseModal}
         >
           {t(TranslationKey.Close)}

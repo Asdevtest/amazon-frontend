@@ -146,7 +146,6 @@ export const AddOrEditDestinationForm = observer(
           <Button
             styleType={ButtonStyle.SUCCESS}
             tooltipInfoContent={t(TranslationKey['Add a new rate'])}
-            className={styles.placeAddBtn}
             onClick={onClickAddBtn}
           >
             {t(TranslationKey.Add)}
@@ -157,7 +156,7 @@ export const AddOrEditDestinationForm = observer(
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button className={styles.button} styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
               {t(TranslationKey.Close)}
             </Button>
           </div>

@@ -457,7 +457,7 @@ export const MyRequestsStatusMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
             {t(TranslationKey.Close)}
           </Button>
         </div>
@@ -559,7 +559,7 @@ export const FreelanceRequestType = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
             {t(TranslationKey.Close)}
           </Button>
         </div>
@@ -696,7 +696,7 @@ export const CreatedByMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -850,7 +850,7 @@ export const ObJectFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -1018,7 +1018,7 @@ export const IdeaShopsFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -1093,7 +1093,7 @@ export const BoxestatusMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
             {t(TranslationKey.Close)}
           </Button>
         </div>
@@ -1242,7 +1242,7 @@ export const NormalFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -1333,7 +1333,7 @@ export const PriorityMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -1406,7 +1406,7 @@ export const FreelancerToWorkConfirmationMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -1604,7 +1604,7 @@ export const ProductMenuItem = memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
-          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
             {t(TranslationKey.Close)}
           </Button>
         </div>
@@ -1762,7 +1762,7 @@ export const OrderOrItemMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -1923,7 +1923,7 @@ export const DestinationMenuItem = memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
-          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
             {t(TranslationKey.Close)}
           </Button>
         </div>
@@ -2086,7 +2086,7 @@ export const FromToDateMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -2201,7 +2201,7 @@ export const DateDetailsMenuItem = memo(
           </div>
 
           <div className={styles.buttonsWrapper}>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
             <Button
@@ -2380,7 +2380,7 @@ export const NumberFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -2520,7 +2520,7 @@ export const InStockMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
@@ -2612,13 +2612,7 @@ export const OnListingCellMenuItem = memo(
           </div>
         </div>
         <div className={styles.buttonsWrapper}>
-          <Button
-            onClick={e => {
-              onClose(e)
-            }}
-          >
-            {t(TranslationKey.Accept)}
-          </Button>
+          <Button onClick={e => onClose(e)}>{t(TranslationKey.Accept)}</Button>
         </div>
       </div>
     )
@@ -3045,7 +3039,7 @@ export const SecondsCellMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

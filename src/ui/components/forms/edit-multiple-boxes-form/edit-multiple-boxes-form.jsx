@@ -398,13 +398,7 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
 
-                <Button
-                  disabled={disabledApplyBtn}
-                  className={cx(styles.applyButton, {
-                    [styles.applyButtonClicked]: applyBtnsClicked.destinationId,
-                  })}
-                  onClick={() => onApplySharedValuesToAllBoxes('destinationId')}
-                >
+                <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('destinationId')}>
                   {applyBtnsClicked.destinationId ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
@@ -417,7 +411,6 @@ export const EditMultipleBoxesForm = observer(
                   labelClasses={styles.label}
                   inputComponent={
                     <Button
-                      className={styles.button}
                       onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                     >
                       {sharedFields.logicsTariffId
@@ -431,13 +424,7 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
 
-                <Button
-                  disabled={disabledApplyBtn}
-                  className={cx(styles.applyButton, {
-                    [styles.applyButtonClicked]: applyBtnsClicked.logicsTariffId,
-                  })}
-                  onClick={() => onApplySharedValuesToAllBoxes('logicsTariffId')}
-                >
+                <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('logicsTariffId')}>
                   {applyBtnsClicked.logicsTariffId ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
@@ -454,13 +441,7 @@ export const EditMultipleBoxesForm = observer(
                   onChange={e => onChangeSharedFields(e, 'fbaShipment')}
                 />
 
-                <Button
-                  disabled={disabledApplyBtn}
-                  className={cx(styles.applyButton, {
-                    [styles.applyButtonClicked]: applyBtnsClicked.fbaShipment,
-                  })}
-                  onClick={() => onApplySharedValuesToAllBoxes('fbaShipment')}
-                >
+                <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('fbaShipment')}>
                   {applyBtnsClicked.fbaShipment ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
@@ -480,13 +461,7 @@ export const EditMultipleBoxesForm = observer(
                     />
                   }
                 />
-                <Button
-                  disabled={disabledApplyBtn}
-                  className={cx(styles.applyButton, {
-                    [styles.applyButtonClicked]: applyBtnsClicked.tmpShippingLabel,
-                  })}
-                  onClick={() => onApplySharedValuesToAllBoxes('tmpShippingLabel')}
-                >
+                <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('tmpShippingLabel')}>
                   {applyBtnsClicked.tmpShippingLabel ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
@@ -505,13 +480,7 @@ export const EditMultipleBoxesForm = observer(
                     />
                   }
                 />
-                <Button
-                  disabled={disabledApplyBtn}
-                  className={cx(styles.applyButton, {
-                    [styles.applyButtonClicked]: applyBtnsClicked.tmpBarCode,
-                  })}
-                  onClick={() => onApplySharedValuesToAllBoxes('tmpBarCode')}
-                >
+                <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('tmpBarCode')}>
                   {applyBtnsClicked.tmpBarCode ? <DoneIcon /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
@@ -537,9 +506,6 @@ export const EditMultipleBoxesForm = observer(
                 />
                 <Button
                   disabled={disabledApplyBtn}
-                  className={cx(styles.applyButton, {
-                    [styles.applyButtonClicked]: applyBtnsClicked.tmpTransparencyFile,
-                  })}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
                 >
                   {applyBtnsClicked.tmpTransparencyFile ? <DoneIcon /> : t(TranslationKey.Apply)}
@@ -565,9 +531,6 @@ export const EditMultipleBoxesForm = observer(
                   />
                   <Button
                     disabled={disabledApplyBtn}
-                    className={cx(styles.applyButton, {
-                      [styles.applyButtonClicked]: applyBtnsClicked.isShippingLabelAttachedByStorekeeper,
-                    })}
                     onClick={() => onApplySharedValuesToAllBoxes('isShippingLabelAttachedByStorekeeper')}
                   >
                     {applyBtnsClicked.isShippingLabelAttachedByStorekeeper ? <DoneIcon /> : t(TranslationKey.Apply)}
@@ -634,9 +597,6 @@ export const EditMultipleBoxesForm = observer(
 
                   <Button
                     disabled={disabledApplyBtn}
-                    className={cx(styles.applyButton, {
-                      [styles.applyButtonClicked]: applyBtnsClicked.isBarcodeLabelAttached,
-                    })}
                     onClick={() => onApplySharedValuesToAllBoxes('isBarcodeLabelAttached')}
                   >
                     {applyBtnsClicked.isBarcodeLabelAttached ? <DoneIcon /> : t(TranslationKey.Apply)}
@@ -663,14 +623,13 @@ export const EditMultipleBoxesForm = observer(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button disabled={disabledSubmitBtn} className={styles.button} onClick={onClickSubmit}>
+          <Button disabled={disabledSubmitBtn} onClick={onClickSubmit}>
             {t(TranslationKey.Edit)}
           </Button>
 
           <Button
             styleType={ButtonStyle.CASUAL}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={cx(styles.button, styles.cancelButton)}
             onClick={onCloseModal}
           >
             {t(TranslationKey.Close)}

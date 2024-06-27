@@ -101,7 +101,7 @@ export const RequestResultModal = memo(props => {
                   onChange={e => setLink(e.target.value)}
                 />
 
-                <Button disabled={!link} className={styles.button} onClick={onClickLinkBtn}>
+                <Button disabled={!link} onClick={onClickLinkBtn}>
                   {t(TranslationKey.Add)}
                 </Button>
               </div>
@@ -160,7 +160,6 @@ export const RequestResultModal = memo(props => {
             <Button
               styleType={ButtonStyle.SUCCESS}
               disabled={disabledSendButton}
-              className={styles.button}
               onClick={() => {
                 onClickSendAsResult({
                   message: formFields.result,
@@ -175,11 +174,7 @@ export const RequestResultModal = memo(props => {
             </Button>
           )}
 
-          <Button
-            styleType={ButtonStyle.CASUAL}
-            className={cx(styles.button, styles.cancelButton)}
-            onClick={setOpenModal}
-          >
+          <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

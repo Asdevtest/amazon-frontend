@@ -484,9 +484,7 @@ export const AdminUserEditContent = observer(
                   label={t(TranslationKey.Rate)}
                 />
 
-                <div className={styles.actionDelButton} onClick={() => removeAllowedRole(role)}>
-                  {'-'}
-                </div>
+                <div onClick={() => removeAllowedRole(role)}>{'-'}</div>
               </div>
             ))}
             <div className={styles.allowedRoleWrapper}>
@@ -541,13 +539,7 @@ export const AdminUserEditContent = observer(
                   />
                 </div>
               </div>
-              {selectedRole ? (
-                <CheckBoxIcon
-                  fontSize="medium"
-                  classes={{ root: styles.actionButton }}
-                  onClick={() => addAllowedRole()}
-                />
-              ) : null}
+              {selectedRole ? <CheckBoxIcon fontSize="medium" onClick={() => addAllowedRole()} /> : null}
             </div>
 
             <Field
@@ -625,7 +617,7 @@ export const AdminUserEditContent = observer(
             <Field
               label={t(TranslationKey['Security/Sharing options'])}
               inputComponent={
-                <Button className={styles.securityButton} onClick={() => setShowPermissionModal(!showPermissionModal)}>
+                <Button onClick={() => setShowPermissionModal(!showPermissionModal)}>
                   {t(TranslationKey['Manage permissions'])}
                 </Button>
               }
@@ -688,17 +680,12 @@ export const AdminUserEditContent = observer(
           <Button
             type={ButtonStyle.SUCCESS}
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
-            className={cx(styles.button, styles.rightBtn)}
             onClick={onClickSubmit}
           >
             {buttonLabel}
           </Button>
 
-          <Button
-            className={cx(styles.button, styles.rightBtn, styles.cancelBtn)}
-            styleType={ButtonStyle.CASUAL}
-            onClick={onClickCancelBtn}
-          >
+          <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelBtn}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

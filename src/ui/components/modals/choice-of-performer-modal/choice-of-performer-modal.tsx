@@ -162,7 +162,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         >
           {t(TranslationKey.Select)}
         </Button>
-        <Button styleType={ButtonStyle.CASUAL} className={styles.cancelButton} onClick={onClickCloseBtn}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCloseBtn}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

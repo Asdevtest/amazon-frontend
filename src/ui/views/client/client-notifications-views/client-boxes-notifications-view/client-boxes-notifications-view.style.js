@@ -5,11 +5,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     height: '100%',
     flexDirection: 'column',
-    gap: '15px',
-
-    '> button': {
-      width: 'fit-content',
-    },
+    gap: '20px',
   },
 
   tableWrapper: {
@@ -19,6 +15,6 @@ export const useStyles = makeStyles()(() => ({
 
   buttonsContainer: {
     display: 'flex',
-    gap: '10px',
+    gap: '20px',
   },
 }))

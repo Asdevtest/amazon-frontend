@@ -74,11 +74,11 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
 
       <div className={styles.buttonsWrapper}>
         {!readOnly && (
-          <Button styleType={ButtonStyle.SUCCESS} className={styles.actionButton} onClick={handleSaveButton}>
+          <Button styleType={ButtonStyle.SUCCESS} onClick={handleSaveButton}>
             {t(TranslationKey.Save)}
           </Button>
         )}
-        <Button styleType={ButtonStyle.CASUAL} className={styles.actionButton} onClick={onClickCancelButton}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelButton}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

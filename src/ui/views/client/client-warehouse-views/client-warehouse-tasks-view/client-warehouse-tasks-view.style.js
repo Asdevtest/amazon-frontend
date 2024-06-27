@@ -34,8 +34,4 @@ export const useStyles = makeStyles()(theme => ({
   disabledDownloadIcon: {
     color: theme.palette.button.disabledText,
   },
-
-  downloadBtn: {
-    width: '250px',
-  },
 }))

@@ -53,20 +53,11 @@ export const SelectShopsModal = memo(props => {
       <p className={styles.message}>{message}</p>
 
       <div className={styles.buttons}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          disabled={isDisabled}
-          className={styles.button}
-          onClick={() => onClickSuccessBtn(selectedItem)}
-        >
+        <Button styleType={ButtonStyle.SUCCESS} disabled={isDisabled} onClick={() => onClickSuccessBtn(selectedItem)}>
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button
-          className={cx(styles.button, styles.cancelButton)}
-          styleType={ButtonStyle.CASUAL}
-          onClick={onClickCancelBtn}
-        >
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelBtn}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

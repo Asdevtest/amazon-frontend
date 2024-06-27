@@ -65,16 +65,10 @@ export const UserProfile = memo(props => {
             </div>
 
             <div className={styles.userInfoButtons}>
-              {isAnotherUser && (
-                <Button className={styles.userInfoButton} onClick={() => onClickWriteBtn(user._id)}>
-                  {t(TranslationKey.Write)}
-                </Button>
-              )}
+              {isAnotherUser && <Button onClick={() => onClickWriteBtn(user._id)}>{t(TranslationKey.Write)}</Button>}
 
               {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                <Button className={styles.userInfoButton} onClick={onClickChangeUserInfo}>
-                  {t(TranslationKey.Edit)}
-                </Button>
+                <Button onClick={onClickChangeUserInfo}>{t(TranslationKey.Edit)}</Button>
               )}
             </div>
           </div>

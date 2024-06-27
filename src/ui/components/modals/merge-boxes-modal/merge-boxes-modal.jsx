@@ -7,8 +7,6 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
 import { Button } from '@components/shared/button'
@@ -31,7 +29,6 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { TariffModal } from '@typings/enums/tariff-modal'
-import { UiTheme } from '@typings/enums/ui-theme'
 
 import { INCHES_COEFFICIENT, POUNDS_COEFFICIENT, useChangeDimensions } from '@hooks/dimensions/use-change-dimensions'
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -329,10 +326,6 @@ export const MergeBoxesModal = ({
                 inputComponent={
                   <Button
                     disabled={isDifferentStorekeepers}
-                    className={cx(styles.storekeeperBtnDefault, {
-                      [styles.storekeeperBtn]: !boxBody.logicsTariffId,
-                      [styles.storekeeperBtnDark]: SettingsModel.uiTheme === UiTheme.dark,
-                    })}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId
@@ -438,7 +431,6 @@ export const MergeBoxesModal = ({
           <Button
             tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
             disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
-            className={styles.button}
             onClick={handleSubmit}
           >
             {t(TranslationKey.Merge)}
@@ -447,7 +439,6 @@ export const MergeBoxesModal = ({
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             disabled={requestStatus === loadingStatus.IS_LOADING}
             styleType={ButtonStyle.CASUAL}
-            className={cx(styles.button, styles.cancelButton)}
             onClick={onCloseBoxesModal}
           >
             {t(TranslationKey.Close)}

@@ -64,7 +64,6 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
           <Button
             styleType={ButtonStyle.SUCCESS}
             disabled={disableMarkAsCompletedButton}
-            className={styles.publishBtn}
             onClick={() => onClickMarkAsCompletedBtn(request?._id)}
           >
             {t(TranslationKey['Mark as completed'])}
@@ -85,7 +84,6 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
                 <Button
                   tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
-                  className={styles.editBtn}
                   onClick={onClickEditBtn}
                 >
                   {t(TranslationKey.Edit)}
@@ -95,7 +93,6 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
                   <Button
                     styleType={ButtonStyle.SUCCESS}
                     tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
-                    className={styles.publishBtn}
                     onClick={onClickPublishBtn}
                   >
                     {t(TranslationKey.Publish)}
@@ -106,9 +103,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
             {showChangeRequestTermsButton && (
               <>
-                <Button className={styles.recoverBtn} onClick={() => setIsRestoreModalOpen(true)}>
-                  {t(TranslationKey['Change request terms'])}
-                </Button>
+                <Button onClick={() => setIsRestoreModalOpen(true)}>{t(TranslationKey['Change request terms'])}</Button>
 
                 <Modal openModal={isRestoreModalOpen} setOpenModal={() => setIsRestoreModalOpen(false)}>
                   <RestoreRequestModal

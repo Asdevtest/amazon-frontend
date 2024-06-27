@@ -18,15 +18,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  createRequest: {
-    display: 'flex',
-    gap: '5px',
-
-    svg: {
-      width: 12,
-    },
-  },
-
   deadlineBorder: {
     position: 'relative',
 

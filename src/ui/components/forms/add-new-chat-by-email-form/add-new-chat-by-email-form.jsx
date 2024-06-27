@@ -102,7 +102,6 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
-          className={styles.button}
           onClick={() => {
             setSubmitIsClicked(true)
             onSubmit(formFields)
@@ -111,7 +110,7 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
           {t(TranslationKey.Create)}
         </Button>
 
-        <Button styleType={ButtonStyle.CASUAL} className={cx(styles.button, styles.cancelButton)} onClick={closeModal}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={closeModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

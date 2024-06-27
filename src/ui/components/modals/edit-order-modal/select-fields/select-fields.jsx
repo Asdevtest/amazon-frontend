@@ -315,7 +315,7 @@ export const SelectFields = ({
                 </div>
               }
             />
-            <Button disabled={checkIsPlanningPrice} className={styles.button} onClick={onClickUpdateButton}>
+            <Button disabled={checkIsPlanningPrice} onClick={onClickUpdateButton}>
               {t(TranslationKey.Update)}
             </Button>
           </div>
@@ -391,7 +391,6 @@ export const SelectFields = ({
           </Box>
           <div className={styles.supplierPaymentButtonWrapper}>
             <Button
-              className={styles.documentButton}
               variant={editPaymentDetailsPhotos.length ? ButtonVariant.CONTAINED : ButtonVariant.OUTLINED}
               onClick={onClickSupplierPaymentButton}
             >

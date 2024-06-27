@@ -11,9 +11,4 @@ export const useStyles = makeStyles()(() => ({
   detailsWrapper: {
     marginTop: '20px',
   },
-
-  backBtn: {
-    width: '140px',
-    height: '40px',
-  },
 }))

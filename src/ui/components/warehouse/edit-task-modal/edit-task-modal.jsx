@@ -201,7 +201,7 @@ export const EditTaskModal = memo(
             </div>
 
             {task.operationType === TaskOperationType.RECEIVE && (
-              <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
+              <Button onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download task file'])}
                 <FileDownloadIcon />
               </Button>
@@ -281,7 +281,6 @@ export const EditTaskModal = memo(
             <div className={styles.buttonsWrapperMobile}>
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <Button
-                  className={styles.buttonMobile}
                   tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
                   onClick={() => setReceiveBoxModal(!receiveBoxModal)}
                 >
@@ -300,7 +299,6 @@ export const EditTaskModal = memo(
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <div className={styles.hideButton}>
                   <Button
-                    className={styles.button}
                     tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
                     onClick={() => {
                       setReceiveBoxModal(!receiveBoxModal)
@@ -314,7 +312,6 @@ export const EditTaskModal = memo(
               <div className={styles.buttons}>
                 <Button
                   styleType={ButtonStyle.SUCCESS}
-                  className={styles.successBtn}
                   disabled={disableSaveButton}
                   tooltipInfoContent={t(TranslationKey['Save task data'])}
                   onClick={() => {
@@ -329,14 +326,14 @@ export const EditTaskModal = memo(
                 >
                   {t(TranslationKey.Save)}
                 </Button>
-                <Button vstyleType={ButtonStyle.CASUAL} className={styles.cancelButton} onClick={onClickOpenCloseModal}>
+                <Button styleType={ButtonStyle.CASUAL} onClick={onClickOpenCloseModal}>
                   {t(TranslationKey.Close)}
                 </Button>
               </div>
             </div>
           ) : (
             <div className={styles.buttonWrapper}>
-              <Button styleType={ButtonStyle.CASUAL} className={styles.closeButton} onClick={onClickOpenCloseModal}>
+              <Button styleType={ButtonStyle.CASUAL} onClick={onClickOpenCloseModal}>
                 {t(TranslationKey.Close)}
               </Button>
             </div>

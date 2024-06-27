@@ -93,7 +93,7 @@ export const EstimateCreateTradingShopForm = ({
               <div className={styles.estimateCostWrapper}>
                 <Typography>{toFixed(averagePureIncome * reqMultiplier, 2)}</Typography>
 
-                <Button variant={ButtonVariant.OUTLINED} className={styles.applyBtn} onClick={applyReqMultiplier}>
+                <Button variant={ButtonVariant.OUTLINED} onClick={applyReqMultiplier}>
                   {t(TranslationKey.Apply)}
                 </Button>
               </div>
@@ -151,21 +151,11 @@ export const EstimateCreateTradingShopForm = ({
       </Typography>
 
       <div className={styles.buttonsWrapper}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          disabled={submitIsClicked}
-          className={styles.buttonOk}
-          onClick={onClickSubmit}
-        >
+        <Button styleType={ButtonStyle.SUCCESS} disabled={submitIsClicked} onClick={onClickSubmit}>
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button
-          styleType={ButtonStyle.CASUAL}
-          disabled={submitIsClicked}
-          className={styles.buttonCancel}
-          onClick={setOpenModal}
-        >
+        <Button styleType={ButtonStyle.CASUAL} disabled={submitIsClicked} onClick={setOpenModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

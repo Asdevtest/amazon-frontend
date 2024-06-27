@@ -37,18 +37,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '10px',
     width: '370px',
-
-    [theme.breakpoints.down(1500)]: {
-      width: '320px',
-    },
   },
 
   searchInput: {
     width: 375,
-
-    [theme.breakpoints.down(1500)]: {
-      margin: '0px 35px',
-    },
   },
 
   cardsWrapper: {
@@ -79,9 +71,5 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginBottom: '5px',
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
   },
 }))

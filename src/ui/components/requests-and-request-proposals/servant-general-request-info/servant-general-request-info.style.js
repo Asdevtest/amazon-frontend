@@ -49,11 +49,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-start',
   },
 
-  actionBtn: {
-    width: 185,
-    height: 30,
-  },
-
   requestInfoWrapper: {
     flex: '1 1 auto',
     display: 'flex',

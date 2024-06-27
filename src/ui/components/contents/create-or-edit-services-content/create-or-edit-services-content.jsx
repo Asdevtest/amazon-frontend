@@ -108,14 +108,13 @@ export const CreateOrEditServiceContent = memo(props => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClickBackBtn}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickBackBtn}>
           {t(TranslationKey.Close)}
         </Button>
 
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={disabledSubmitButton}
-          className={styles.successBtn}
           onClick={() => (isEdit ? onClickEditBtn(formFields) : onClickCreateBtn(formFields))}
         >
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}

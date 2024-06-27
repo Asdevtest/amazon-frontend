@@ -46,11 +46,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 31,
   },
 
-  cancelBtn: {
-    padding: '0 27px',
-    color: theme.palette.text.general,
-  },
-
   requestInfo: {
     whiteSpace: 'pre-wrap',
     cursor: 'pointer',

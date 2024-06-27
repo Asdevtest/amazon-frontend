@@ -57,7 +57,6 @@ export const Link: FC<LinkProps> = memo(props => {
       <Button
         disabled={disabledLoadButton}
         tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])}
-        className={styles.loadButton}
         onClick={onLoadFile}
       >
         {t(TranslationKey.Load)}
