@@ -43,7 +43,7 @@ export const useStyles = makeStyles()(theme => ({
 
   divider: {
     margin: '8px 0 16px',
-    border: `1px solid ${theme.palette.input.customBorder}`,
+    border: `1px solid ${theme.palette?.input?.customBorder}`,
   },
 
   redirect: {

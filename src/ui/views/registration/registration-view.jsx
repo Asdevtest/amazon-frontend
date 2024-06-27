@@ -14,7 +14,7 @@ import { useStyles } from './registration-view.style'
 
 import { RegistrationViewModel } from './registration-view.model'
 
-export const RegistrationView = observer(({ history }) => {
+const RegistrationView = observer(() => {
   const { classes: styles } = useStyles()
   const [viewModel] = useState(() => new RegistrationViewModel({ history }))
 
@@ -56,3 +56,5 @@ export const RegistrationView = observer(({ history }) => {
     </div>
   )
 })
+
+export default RegistrationView

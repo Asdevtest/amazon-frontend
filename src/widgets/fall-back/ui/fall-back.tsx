@@ -1,7 +1,5 @@
 import { memo } from 'react'
 
-import { Typography } from '@mui/material'
-
 import styles from './fall-back.module.scss'
 
 export const FallBack = memo(() => {
@@ -11,9 +9,9 @@ export const FallBack = memo(() => {
         <img className={styles.logo} alt="company logo" src={'/assets/icons/logo-var-2.svg'} />
       </div>
       <div className={styles.main}>
-        <Typography className={styles.title}>{'Иногда, чтобы идти вперёд, нужно сделать шаг назад.'}</Typography>
+        <p className={styles.title}>{'Иногда, чтобы идти вперёд, нужно сделать шаг назад.'}</p>
 
-        <Typography>{'Вернитесь назад и перезагрузите страницу.'}</Typography>
+        <p>{'Вернитесь назад и перезагрузите страницу.'}</p>
       </div>
     </div>
   )

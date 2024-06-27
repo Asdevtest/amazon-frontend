@@ -273,7 +273,10 @@
           ["@views", "./src/ui/views"],
           ["@utils", "./src/utils"],
           ["@typings", "./src/typings"],
-          ["@contexts", "./src/contexts"]
+          ["@contexts", "./src/contexts"],
+          ["@widgets", "./src/widgets"],
+          ["@routes", "./src/routes"],
+          ["@ui", "./src/ui"]
         ],
         "extensions": [".ts", ".js", ".jsx", ".json", ".tsx", ".d.ts"]
       }

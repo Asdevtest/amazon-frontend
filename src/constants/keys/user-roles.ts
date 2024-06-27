@@ -55,4 +55,4 @@ export const UserRolesForAdminProduct = {
   buyer: 40,
 }
 
-export const mapUserRoleEnumToKey: Record<string, number> = objectFlip(UserRoleCodeMap, parseInt)
+export const mapUserRoleEnumToKey: Record<string, number> = /* objectFlip(UserRoleCodeMap, parseInt) */ { role: 10 }

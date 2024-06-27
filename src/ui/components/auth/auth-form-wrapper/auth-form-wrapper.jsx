@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { Link } from 'react-router-dom'
 
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
@@ -13,17 +14,7 @@ import { UiTheme } from '@typings/enums/ui-theme'
 import { useStyles } from './auth-form-wrapper.style'
 
 export const AuthFormWrapper = memo(props => {
-  const {
-    redirect,
-    title,
-    showConfirmModal = false,
-    confirmModalSettings,
-    children,
-    onClickThemeIcon,
-    onClickRedirect,
-    onToggleModal,
-    onClickVersion,
-  } = props
+  const { redirect, title, children, onClickThemeIcon, onClickVersion } = props
   const { classes: styles } = useStyles()
 
   return (
@@ -34,9 +25,9 @@ export const AuthFormWrapper = memo(props => {
             <p className={styles.title}>{title}</p>
 
             <div className={styles.redirectWrapper}>
-              <p className={styles.redirect} onClick={onClickRedirect}>
+              <Link to={'/registration'} className={styles.redirect}>
                 {redirect}
-              </p>
+              </Link>
 
               <div className={styles.selectorsWrapper}>
                 {SettingsModel.uiTheme === UiTheme.light ? (

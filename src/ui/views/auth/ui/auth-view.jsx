@@ -1,42 +1,42 @@
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 
-// import { useEffect, useState } from 'react'
-// import { Typography } from '@mui/material'
-// import { TranslationKey } from '@constants/translations/translation-key'
-// import { SettingsModel } from '@models/settings-model'
-// import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
-// import { AuthPageBanner } from '@components/auth/auth-page-banner'
-// import { AuthForm } from '@components/forms/auth-form'
-// import { t } from '@utils/translations'
+import { Typography } from '@mui/material'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { SettingsModel } from '@models/settings-model'
+
+import { AuthFormWrapper } from '@components/auth/auth-form-wrapper'
+import { AuthPageBanner } from '@components/auth/auth-page-banner'
+import { AuthForm } from '@components/forms/auth-form'
+
+import { t } from '@utils/translations'
+
 import { AuthViewModel } from '../model/auth-view.model'
 
 import styles from './auth-view.module.scss'
 
-export const AuthView = observer(() => {
-  // const [viewModel] = useState(() => new AuthViewModel({ history }))
+const AuthView = observer(() => {
+  const [viewModel] = useState(() => new AuthViewModel({ history }))
 
-  // useEffect(() => {
-  //   viewModel.onLoadPage()
-  // }, [])
+  useEffect(() => {
+    viewModel.onLoadPage()
+  }, [])
 
-  // const onChangeFormField = fieldName => event => {
-  //   viewModel.setField(fieldName)(event.target.value)
-  // }
-
-  // const onClickRedirect = () => {
-  //   history.push('/registration')
-  // }
+  const onChangeFormField = fieldName => event => {
+    viewModel.setField(fieldName)(event.target.value)
+  }
 
   return (
     <div className={styles.root}>
-      {/* <AuthPageBanner />
+      <AuthPageBanner />
 
       <AuthFormWrapper
         redirect={t(TranslationKey['Create account'])}
         title={t(TranslationKey['Sign in'])}
         showConfirmModal={viewModel.showConfirmModal}
         confirmModalSettings={viewModel.confirmModalSettings}
-        onClickRedirect={onClickRedirect}
         onClickThemeIcon={viewModel.onClickThemeIcon}
         onToggleModal={viewModel.onToggleModal}
         onClickVersion={viewModel.onClickVersion}
@@ -63,7 +63,9 @@ export const AuthView = observer(() => {
                 t(TranslationKey.Error))}
           </Typography>
         )}
-      </AuthFormWrapper> */}
+      </AuthFormWrapper>
     </div>
   )
 })
+
+export default AuthView

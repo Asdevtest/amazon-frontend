@@ -1,1 +1,3 @@
-export { RegistrationView } from './registration-view'
+import { lazy } from 'react'
+
+export const RegistrationView = lazy(() => import('./registration-view'))

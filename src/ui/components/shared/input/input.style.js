@@ -47,6 +47,6 @@ export const stylesWithIcon = theme => ({
     border: '1px solid rgba(0, 123, 255, 1)',
   },
   disabled: {
-    backgroundColor: theme.palette.input.customDisabled,
+    backgroundColor: theme?.palette?.input?.customDisabled,
   },
 })

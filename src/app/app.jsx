@@ -1,4 +1,5 @@
 import { ConfigProvider, theme as antTheme } from 'antd'
+import { Suspense } from 'react'
 import { RouterProvider } from 'react-router-dom'
 
 import { router } from '../routes/router'
@@ -18,7 +19,9 @@ export const App = () => {
   return (
     <ConfigProvider theme={customTheme} locale="en">
       <ToastifyProvider theme={theme} />
-      <RouterProvider router={router} />
+      <Suspense fallback={<>Loading...</>}>
+        <RouterProvider router={router} />
+      </Suspense>
     </ConfigProvider>
   )
 }

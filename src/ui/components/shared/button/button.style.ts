@@ -1,23 +1,25 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => {
+  console.log('theme :>> ', theme)
+
   const primaryMain = theme.palette.primary.main
   const redMain = theme.palette.text.red
   const successMain = theme.palette.text.green
   const backgroundGeneral = theme.palette.background.general
 
-  const defaultBoxShadow = theme.palette.button.defaultBoxShadow
-  const primaryHoverColor = theme.palette.button.primaryHoverColor
-  const primaryHoverBackground = theme.palette.button.primaryHoverBackground
-  const primaryDisabledColor = theme.palette.button.primaryDisabledColor
+  const defaultBoxShadow = theme?.palette?.button?.defaultBoxShadow
+  const primaryHoverColor = theme.palette.button?.primaryHoverColor
+  const primaryHoverBackground = theme.palette.button?.primaryHoverBackground
+  const primaryDisabledColor = theme.palette.button?.primaryDisabledColor
 
-  const errorHoverColor = theme.palette.button.errorHoverColor
-  const errorHoverBackground = theme.palette.button.errorHoverBackground
-  const errorDisabledColor = theme.palette.button.errorDisabledColor
+  const errorHoverColor = theme.palette.button?.errorHoverColor
+  const errorHoverBackground = theme.palette.button?.errorHoverBackground
+  const errorDisabledColor = theme.palette.button?.errorDisabledColor
 
-  const successHoverColor = theme.palette.button.successHoverColor
-  const successHoverBackground = theme.palette.button.successHoverBackground
-  const successDisabledColor = theme.palette.button.successDisabledColor
+  const successHoverColor = theme.palette.button?.successHoverColor
+  const successHoverBackground = theme.palette.button?.successHoverBackground
+  const successDisabledColor = theme.palette.button?.successDisabledColor
 
   return {
     root: {
@@ -78,94 +80,94 @@ export const useStyles = makeStyles()(theme => {
     },
 
     primary: {
-      color: theme.palette.primaryButton.color,
-      backgroundColor: theme.palette.primaryButton.backgroundColor,
+      color: theme.palette.primaryButton?.color,
+      backgroundColor: theme.palette.primaryButton?.backgroundColor,
 
       '&:hover': {
-        color: theme.palette.primaryButton.hoverColor,
-        backgroundColor: theme.palette.primaryButton.hoverBackgroundColor,
+        color: theme.palette.primaryButton?.hoverColor,
+        backgroundColor: theme.palette.primaryButton?.hoverBackgroundColor,
       },
 
       '&:disabled': {
-        color: theme.palette.primaryButton.disabledColor,
-        backgroundColor: theme.palette.primaryButton.disabledBackgroundColor,
+        color: theme.palette.primaryButton?.disabledColor,
+        backgroundColor: theme.palette.primaryButton?.disabledBackgroundColor,
       },
     },
 
     outlinedPrimary: {
-      color: theme.palette.primaryButton.backgroundColor,
+      color: theme.palette.primaryButton?.backgroundColor,
       border: `2px solid currentColor`,
       backgroundColor: 'transparent',
 
       '&:hover': {
-        color: theme.palette.primaryButton.hoverBackgroundColor,
+        color: theme.palette.primaryButton?.hoverBackgroundColor,
         backgroundColor: 'transparent',
       },
 
       '&:disabled': {
-        color: theme.palette.primaryButton.disabledBackgroundColor,
+        color: theme.palette.primaryButton?.disabledBackgroundColor,
         backgroundColor: 'transparent',
       },
     },
 
     success: {
-      color: theme.palette.succesButton.color,
-      backgroundColor: theme.palette.succesButton.backgroundColor,
+      color: theme.palette.succesButton?.color,
+      backgroundColor: theme.palette.succesButton?.backgroundColor,
 
       '&:hover': {
-        color: theme.palette.succesButton.hoverColor,
-        backgroundColor: theme.palette.succesButton.hoverBackgroundColor,
+        color: theme.palette.succesButton?.hoverColor,
+        backgroundColor: theme.palette.succesButton?.hoverBackgroundColor,
       },
 
       '&:disabled': {
-        color: theme.palette.succesButton.disabledColor,
-        backgroundColor: theme.palette.succesButton.disabledBackgroundColor,
+        color: theme.palette.succesButton?.disabledColor,
+        backgroundColor: theme.palette.succesButton?.disabledBackgroundColor,
       },
     },
 
     outlinedSuccess: {
-      color: theme.palette.succesButton.backgroundColor,
+      color: theme.palette.succesButton?.backgroundColor,
       border: `2px solid currentColor`,
       backgroundColor: 'transparent',
 
       '&:hover': {
-        color: theme.palette.succesButton.hoverBackgroundColor,
+        color: theme.palette.succesButton?.hoverBackgroundColor,
         backgroundColor: 'transparent',
       },
 
       '&:disabled': {
-        color: theme.palette.succesButton.disabledBackgroundColor,
+        color: theme.palette.succesButton?.disabledBackgroundColor,
         backgroundColor: 'transparent',
       },
     },
 
     danger: {
-      color: theme.palette.dangerButton.color,
-      backgroundColor: theme.palette.dangerButton.backgroundColor,
+      color: theme.palette.dangerButton?.color,
+      backgroundColor: theme.palette.dangerButton?.backgroundColor,
 
       '&:hover': {
-        color: theme.palette.dangerButton.hoverColor,
-        backgroundColor: theme.palette.dangerButton.hoverBackgroundColor,
+        color: theme.palette.dangerButton?.hoverColor,
+        backgroundColor: theme.palette.dangerButton?.hoverBackgroundColor,
       },
 
       '&:disabled': {
-        color: theme.palette.dangerButton.disabledColor,
-        backgroundColor: theme.palette.dangerButton.disabledBackgroundColor,
+        color: theme.palette.dangerButton?.disabledColor,
+        backgroundColor: theme.palette.dangerButton?.disabledBackgroundColor,
       },
     },
 
     outlinedDanger: {
-      color: theme.palette.dangerButton.outlinedColor,
-      border: `2px solid ${theme.palette.dangerButton.backgroundColor}`,
+      color: theme.palette.dangerButton?.outlinedColor,
+      border: `2px solid ${theme.palette.dangerButton?.backgroundColor}`,
       backgroundColor: 'transparent',
 
       '&:hover': {
-        color: theme.palette.dangerButton.outlinedHoverColor,
+        color: theme.palette.dangerButton?.outlinedHoverColor,
         backgroundColor: 'transparent',
       },
 
       '&:disabled': {
-        color: theme.palette.dangerButton.outlinedDisabledColor,
+        color: theme.palette.dangerButton?.outlinedDisabledColor,
         backgroundColor: 'transparent',
       },
     },
@@ -207,18 +209,18 @@ export const useStyles = makeStyles()(theme => {
       fontWeight: 500,
       color: theme.palette.text.general,
       backgroundColor: backgroundGeneral,
-      boxShadow: theme.palette.boxShadow.casualBoxShadow,
-      border: `2px solid ${theme.palette.button.casualBorder}`,
+      boxShadow: theme.palette.dangerButton?.casualBoxShadow,
+      border: `2px solid ${theme.palette.button?.casualBorder}`,
       '&:hover': {
-        boxShadow: theme.palette.boxShadow.casualBoxShadow,
-        backgroundColor: `${theme.palette.boxShadow.casualHover}`,
-        border: `2px solid ${theme.palette.button.casualHoverBorder}`,
+        boxShadow: theme.palette.dangerButton?.casualBoxShadow,
+        backgroundColor: `${theme.palette.dangerButton?.casualHover}`,
+        border: `2px solid ${theme.palette.button?.casualHoverBorder}`,
       },
       '&:disabled': {
-        color: theme.palette.button.casualDisabledText,
+        color: theme.palette.button?.casualDisabledText,
         backgroundColor: backgroundGeneral,
-        boxShadow: theme.palette.boxShadow.casualBoxShadow,
-        border: `2px solid ${theme.palette.button.casualDisabledBorder}`,
+        boxShadow: theme.palette.dangerButton?.casualBoxShadow,
+        border: `2px solid ${theme.palette.button?.casualDisabledBorder}`,
       },
     },
 

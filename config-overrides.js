@@ -18,6 +18,9 @@ module.exports = config => ({
       '@typings': path.resolve(__dirname, './src/typings'),
       '@contexts': path.resolve(__dirname, './src/contexts'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@widgets': path.resolve(__dirname, './src/widgets'),
+      '@routes': path.resolve(__dirname, './src/routes'),
+      '@ui': path.resolve(__dirname, './src/ui'),
     },
   },
 })
