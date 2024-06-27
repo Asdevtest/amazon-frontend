@@ -3,9 +3,9 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   box: {
     width: 527,
-    backgroundColor: theme.palette.background.second,
-    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
-    borderRadius: '7px',
+    backgroundColor: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.box,
+    borderRadius: '20px',
     padding: '20px 17px',
   },
 

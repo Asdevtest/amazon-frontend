@@ -5,7 +5,7 @@ import { t } from '@utils/translations'
 import { EntityType } from './entity-type'
 import { PaymentType } from './payment-type'
 
-export const getEntityTypeTranslations = (paymentType: EntityType) => {
+export const getEntityTypeTranslations = (paymentType: string) => {
   switch (paymentType) {
     case EntityType.ORDER:
       return t(TranslationKey.Order)
@@ -13,18 +13,18 @@ export const getEntityTypeTranslations = (paymentType: EntityType) => {
       return t(TranslationKey.Product)
     case EntityType.BOX:
       return t(TranslationKey.Box)
-    case EntityType.REQUEST_PROPOSAL_CUSTOM:
+    default:
       return t(TranslationKey.Proposal)
   }
 }
 
-export const getPaymentTypeTranslations = (paymentType: PaymentType) => {
+export const getPaymentTypeTranslations = (paymentType: string) => {
   switch (paymentType) {
     case PaymentType.FINE:
       return t(TranslationKey.Fine)
     case PaymentType.REPLENISH:
       return t(TranslationKey.Replenish)
-    case PaymentType.ZERO:
+    default:
       return t(TranslationKey.Zero)
   }
 }

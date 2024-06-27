@@ -23,6 +23,8 @@ import { INewDataOfVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './supplier-approximate-calculations.style'
 
+import { ConfirmationModal } from '../confirmation-modal'
+
 import { ProductCard, TariffDetails } from './components'
 import { getTitleModal } from './helpers/get-modal-title'
 import { SupplierApproximateCalculationsModel } from './supplier-approximate-calculations.model'
@@ -66,7 +68,6 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
         supplierId: currentSupplierId,
         productId,
         boxId,
-        isTariffsSelect,
         onClickSubmit,
         box,
         isHideCalculation,
@@ -94,7 +95,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
     params => (
       <TariffDetails
         tariff={params.row}
-        isTariffsSelect={isTariffsSelect}
+        isHideCalculation={isHideCalculation}
         currentVariationId={viewModel.currentVariationId}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         initialDestinationId={viewModel.initialDestinationId}
@@ -103,7 +104,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
       />
     ),
     [
-      isTariffsSelect,
+      isHideCalculation,
       viewModel.currentVariationId,
       viewModel.initialDestinationId,
       viewModel.isStrictVariationSelect,
@@ -222,7 +223,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
 
         {isTariffsSelect ? (
           <div className={styles.buttonsWrapper}>
-            <Button disabled={isDisableButton} onClick={viewModel?.handleSaveVariationTariff}>
+            <Button disabled={isDisableButton} onClick={viewModel?.handleCheckVariation}>
               {t(TranslationKey.Choose)}
             </Button>
 
@@ -234,6 +235,20 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
               {t(TranslationKey.reset)}
             </Button>
           </div>
+        ) : null}
+
+        {viewModel.showConfirmModal ? (
+          <ConfirmationModal
+            // @ts-ignore
+            openModal={viewModel.showConfirmModal}
+            title={viewModel.confirmModalSettings.title}
+            message={viewModel.confirmModalSettings.message}
+            successBtnText={t(TranslationKey.Confirm)}
+            cancelBtnText={t(TranslationKey.Cancel)}
+            setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal', false)}
+            onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
+            onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
+          />
         ) : null}
       </div>
     </Modal>

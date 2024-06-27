@@ -124,6 +124,10 @@ export const lightTheme = createTheme({
           transition: '0.3s ease',
         },
 
+        cell: {
+          overflow: 'hidden',
+        },
+
         sortIcon: {
           width: 14,
           height: 14,
@@ -404,6 +408,7 @@ export const lightTheme = createTheme({
       filter: '0 -4px 13px 0 rgba(135, 135, 135, 0.15) inset',
       casualBoxShadow: '0px 2.18px 4.36px 0px rgba(97, 97, 97, 0.18), 0px 1.09px 2.18px 0px rgba(97, 97, 97, 0.18)',
       casualHover: '#F4F4F4',
+      box: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
     },
 
     input: {
@@ -962,6 +967,7 @@ export const darkTheme = createTheme({
       casualBoxShadow:
         '0px 2px 11px 2px #1F1F1F, 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
       casualHover: '#474753',
+      box: 'none',
     },
 
     input: {

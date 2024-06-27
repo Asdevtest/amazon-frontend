@@ -3,6 +3,7 @@ import { makeObservable, reaction, runInAction } from 'mobx'
 import { GridColDef } from '@mui/x-data-grid-premium'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
@@ -14,6 +15,7 @@ import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-swi
 
 import { checkIsStorekeeper } from '@utils/checks'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IBox } from '@typings/models/boxes/box'
@@ -28,6 +30,8 @@ import { additionalFilterFields, columnsToHide } from './supplier-approximate-ca
 import { IVariationParams } from './supplier-approximate-calculations.type'
 
 export class SupplierApproximateCalculationsModel extends DataGridFilterTableModel {
+  showConfirmModal: boolean = false
+
   storekeepers: ISwitcherSettings[] = []
 
   currentStorekeeperId: string = ''
@@ -46,6 +50,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   currentVariationId: string | undefined = undefined
   currentDestinationId: string | undefined = undefined
   currentLogicsTariffId: string | undefined = undefined
+  variationMinBoxWeight: number | undefined = undefined
 
   handleSave: ((body: INewDataOfVariation) => void) | undefined
 
@@ -63,7 +68,6 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     productId,
     ideaId,
     boxId,
-    isTariffsSelect,
     onClickSubmit,
     box,
     isHideCalculation,
@@ -74,18 +78,12 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     productId?: string
     ideaId?: string
     boxId?: string
-    isTariffsSelect?: boolean
     isHideCalculation?: boolean
     isGetAllStorekeepers?: boolean
     onClickSubmit?: (body: INewDataOfVariation) => void
   }) {
     const columnHandlers = {
-      isTariffsSelect: !!isTariffsSelect,
       isHideCalculation: !!isHideCalculation,
-      getCurrentVariationId: () => this.currentVariationId,
-      getInitialDestinationId: () => this.initialDestinationId,
-      getStrictVariationSelect: () => this.isStrictVariationSelect,
-      onClickChangeVariation: (variationParams: IVariationParams) => this.handleSetVariation(variationParams),
     }
 
     const columns = SupplierApproximateCalculationsColumns(columnHandlers) as GridColDef[]
@@ -217,10 +215,29 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this.isStrictVariationSelect = isStrictVariationSelect
   }
 
-  handleSetVariation({ variationId, destinationId, logicsTariffId }: IVariationParams) {
+  handleSetVariation({ variationId, destinationId, logicsTariffId, variationMinBoxWeight }: IVariationParams) {
     this.currentVariationId = variationId
     this.currentDestinationId = destinationId
     this.currentLogicsTariffId = logicsTariffId
+    this.variationMinBoxWeight = variationMinBoxWeight
+  }
+
+  handleCheckVariation() {
+    if (this.boxData && this.variationMinBoxWeight && this.boxData.finalWeight < this.variationMinBoxWeight) {
+      this.confirmModalSettings = {
+        isWarning: true,
+        title: t(TranslationKey.Attention),
+        message: `${t(TranslationKey['Final box weight'])} (${this.boxData.finalWeight} ${t(TranslationKey.kg)}) ${t(
+          TranslationKey['less than recommended by this tariff'],
+        )} (${this.variationMinBoxWeight} ${t(TranslationKey.kg)}). ${t(TranslationKey.Continue)}?`,
+        onSubmit: () => this.handleSaveVariationTariff(),
+        onCancel: () => this.onTriggerOpenModal('showConfirmModal', false),
+      }
+
+      this.onTriggerOpenModal('showConfirmModal', true)
+    } else {
+      this.handleSaveVariationTariff()
+    }
   }
 
   handleSaveVariationTariff() {
@@ -263,7 +280,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this.currentVariationId = box?.variationTariff?._id
     this.currentDestinationId = destinationId
     this.initialDestinationId = destinationId
-    this.currentLogicsTariffId = box?.variationTariff?.storekeeperTariffLogisticsId || box?.logicsTariff?._id
+    this.currentLogicsTariffId = box?.logicsTariff?._id || box?.variationTariff?.storekeeperTariffLogisticsId
 
     this.storekeepers = [{ label: () => box?.storekeeper?.name || '', value: box?.storekeeper?._id }]
     this.boxItems = box?.items

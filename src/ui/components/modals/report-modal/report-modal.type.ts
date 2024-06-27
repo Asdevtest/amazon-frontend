@@ -17,17 +17,17 @@ export interface IRequestWithLaunch extends IRequest {
 }
 
 export type ChangeNumberCellValueType = (
-  type: Launches,
+  id: string,
   field: keyof IListingLaunch,
 ) => (value: string | number | null) => void
 
 export type ChangeCommentCellValueType = (
-  type: Launches,
+  id: string,
   field: keyof IListingLaunch,
 ) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 
 export type ChangeDateCellValueType = (
-  type: Launches,
+  id: string,
   field: keyof IListingLaunch,
 ) => (dates: null | (Dayjs | null)[], dateStrings: string[]) => void
 
@@ -38,7 +38,7 @@ export interface ReportModalColumnsProps {
   onChangeCommentCellValue: ChangeCommentCellValueType
   onChangeDateCellValue: ChangeDateCellValueType
   onAddRequest: AddRequestType
-  onRemoveLaunch: (type: Launches) => void
+  onRemoveLaunch: (id: string) => void
   product?: IProduct
 }
 

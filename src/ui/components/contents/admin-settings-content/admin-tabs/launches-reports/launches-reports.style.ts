@@ -26,6 +26,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   input: {
-    width: 160,
+    width: 120,
   },
 }))

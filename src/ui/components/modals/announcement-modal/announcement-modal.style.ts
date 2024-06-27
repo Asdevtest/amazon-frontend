@@ -77,6 +77,10 @@ export const useStyles = makeStyles()(() => ({
     marginTop: 0,
   },
 
+  customTextEditor: {
+    overflowY: 'hidden',
+  },
+
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',

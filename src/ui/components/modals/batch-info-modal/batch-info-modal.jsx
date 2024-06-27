@@ -28,7 +28,7 @@ import {
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
 import { formatDateWithoutTime } from '@utils/date-time'
-import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles } from './batch-info-modal.style'
@@ -289,7 +289,7 @@ export const BatchInfoModal = observer(
               inputComponent={
                 <ChangeInputCell
                   rowId={currentBatch?._id}
-                  text={currentBatch?.actualShippingCost}
+                  text={currentBatch?.actualShippingCost || '0'}
                   onClickSubmit={(id, cost) => {
                     if (Number.isNaN(cost)) {
                       return

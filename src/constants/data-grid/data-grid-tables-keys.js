@@ -131,4 +131,5 @@ export const DataGridTablesKeys = {
 
   UPDATED_PATH_NOUTES: 'updatedPatchNoutes',
   PRODUCT_LISTING_REPORTS: 'productListingReports',
+  PRODUCT_BATCHES_DATA: 'productBatchesData',
 }

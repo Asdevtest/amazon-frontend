@@ -4,7 +4,17 @@ import { IFilter } from '@utils/data-grid-filters'
 
 import { HookParams } from '../../column-menu.type'
 
-export const useStringColumnMenu = ({ field, table, filtersData, onClickFilterBtn }: HookParams<string>) => {
+interface useStringColumnMenuProps extends HookParams<string> {
+  transformValueMethod: (value: string) => string
+}
+
+export const useStringColumnMenu = ({
+  field,
+  table,
+  filtersData,
+  transformValueMethod,
+  onClickFilterBtn,
+}: useStringColumnMenuProps) => {
   const [chosenItems, setChosenItems] = useState<string[]>([])
 
   const [searchValue, setSearchValue] = useState('')
@@ -14,7 +24,11 @@ export const useStringColumnMenu = ({ field, table, filtersData, onClickFilterBt
   }, [field, filtersData])
 
   const dataforRender: string[] = useMemo(() => {
-    return filterData?.filter(item => String(item).toLowerCase().includes(searchValue.toLowerCase()))
+    return filterData?.filter(item =>
+      String(transformValueMethod ? transformValueMethod(item) : item)
+        .toLowerCase()
+        .includes(searchValue.toLowerCase()),
+    )
   }, [filterData, searchValue])
 
   const onClickItem = useCallback((value: string) => {

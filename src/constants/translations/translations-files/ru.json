@@ -1582,7 +1582,7 @@
   "Boxes with identical storekeeper must be selected": "Должны быть выбраны коробки с идентичным складом",
   "Cannot be merged with a Superbox": "Нельзя соединить с Супербоксом",
   "Comments from the supervisor": "Комментарий супервизора",
-  "Storekeeper and destination match": "Склад и пункт назначения совпадают",
+  "Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses": "Выбирайте самый эффективный тариф, разделите партии на несколько закупок, если вам нужно отправить товар на разные склады",
   "Search by Email, Nickname...": "Поиск по Email, Nickname...",
   "Repeat search": "Повторить поиск",
   "Repeat the search for a supplier": "Повторить поиск поставщика",
@@ -1973,7 +1973,7 @@
   "Set urgent priority": "Установить срочный приоритет",
   "Finished": "Завершено",
   "Responsible": "Ответственный",
-  "Unread messages": "Непрочитанных сообщений",
+  "Unread messages": "Непрочитанные сообщения",
   "Uploaded by on listing": "Выгружено на листинг",
   "Partial payment": "Частичная оплата",
   "Open in a new tab": "Открыть в новой вкладке",
@@ -2296,5 +2296,7 @@
   "Off": "Выкл",
   "Shutdown delay": "Таймер выключения",
   "Are you sure you want to remove this launch?": "Вы уверены, что хотите удалить данный запуск?",
-  "Time until server shutdown": "Время до выключения сервера"
+  "Time until server shutdown": "Время до выключения сервера",
+  "Final box weight": "Финальный вес коробки",
+  "less than recommended by this tariff": "меньше, чем рекомендовано по этому тарифу"
 }

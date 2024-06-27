@@ -11,3 +11,5 @@ export const productDataFormConfig = {
   onToggleArchive: action.bound,
   patchActualShippingCostBatch: action.bound,
 }
+
+export const searchFields: string[] = ['batchHumanFriendlyId', 'fbaShipment']

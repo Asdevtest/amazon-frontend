@@ -45,6 +45,7 @@ interface BoxProps {
   isNewBox?: boolean
   totalProductsAmount?: number
   destinationsFavourites?: any
+  titleClassName?: string
   onClickEditBox: (box: any) => void
   setCurBox: (box: any) => void
   onClickApplyAllBtn: (box: any) => void
@@ -67,6 +68,7 @@ export const Box: FC<BoxProps> = memo(props => {
     isNewBox,
     totalProductsAmount,
     destinationsFavourites,
+    titleClassName,
     onClickEditBox,
     setCurBox,
     onClickApplyAllBtn,
@@ -130,7 +132,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 <div>
                   <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order.product.asin} />
 
-                  <p className={styles.title}>{order.product.amazonTitle}</p>
+                  <p className={cx(styles.title, titleClassName)}>{order.product.amazonTitle}</p>
                 </div>
 
                 <div>

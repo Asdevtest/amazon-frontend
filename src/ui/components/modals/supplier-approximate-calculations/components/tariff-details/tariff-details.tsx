@@ -21,19 +21,24 @@ import { dateConfig } from './date.config'
 
 interface TariffDetailsProps {
   tariff: ILogicTariff
-  onClickChangeVariation: ({ variationId, destinationId, logicsTariffId }: IVariationParams) => void
+  onClickChangeVariation: ({
+    variationId,
+    destinationId,
+    logicsTariffId,
+    variationMinBoxWeight,
+  }: IVariationParams) => void
   currentVariationId?: string
   initialDestinationId?: string
   columnVisibilityModel?: GridColumnVisibilityModel
   isStrictVariationSelect?: boolean
-  isTariffsSelect?: boolean
+  isHideCalculation?: boolean
 }
 
 export const TariffDetails: FC<TariffDetailsProps> = memo(
   ({
     tariff,
     currentVariationId,
-    isTariffsSelect,
+    isHideCalculation,
     initialDestinationId,
     isStrictVariationSelect,
     columnVisibilityModel,
@@ -75,8 +80,8 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                 )}
 
                 {columnVisibilityModel?.minWeight === false ? null : (
-                  <div className={cx(styles.destination, { [styles.withoutCheckbox]: !isTariffsSelect })}>
-                    {isTariffsSelect ? (
+                  <div className={cx(styles.destination, { [styles.withoutCheckbox]: isHideCalculation })}>
+                    {isHideCalculation ? null : (
                       <Checkbox
                         checked={isActiveSelectedVariation}
                         disabled={
@@ -87,10 +92,11 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                             variationId: variation?._id,
                             destinationId,
                             logicsTariffId: variation?.storekeeperTariffLogisticsId,
+                            variationMinBoxWeight: variation?.minWeight,
                           })
                         }
                       />
-                    ) : null}
+                    )}
 
                     <p title={weightText} className={styles.text}>
                       {weightText}
@@ -135,7 +141,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
           </div>
         )}
 
-        {isTariffsSelect ? (
+        {isHideCalculation ? null : (
           <>
             {columnVisibilityModel?.costUnitWithDeliveryToChina === false ? null : (
               <div className={cx(styles.costUnitWrapper, styles.borderBotton)}>
@@ -171,7 +177,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
               })}
             </div>
           </>
-        ) : null}
+        )}
       </div>
     )
   },

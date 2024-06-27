@@ -25,6 +25,8 @@ interface MultilineTextCellProps {
   maxLength?: number
   customTextClass?: string
   link?: boolean
+  startIcon?: JSX.Element | null
+  endIcon?: JSX.Element | null
   onClickText?: () => void
 }
 
@@ -47,6 +49,8 @@ export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
     maxLength,
     customTextClass,
     link,
+    startIcon,
+    endIcon,
   } = props
 
   const maxTextLength = maxLength ?? MAX_LENGTH_TITLE
@@ -62,6 +66,8 @@ export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
         [styles.illuminationCell]: illuminationCell && textForRender,
       })}
     >
+      {startIcon ? startIcon : null}
+
       <Tooltip title={isTooltip ? tooltipText || text : ''}>
         <p
           className={cx(
@@ -82,6 +88,8 @@ export const MultilineTextCell: FC<MultilineTextCellProps> = memo(props => {
             : textForRender || noText || '0'}
         </p>
       </Tooltip>
+
+      {endIcon ? endIcon : null}
     </div>
   )
 })

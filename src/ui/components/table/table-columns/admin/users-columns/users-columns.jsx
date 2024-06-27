@@ -55,7 +55,8 @@ export const adminUsersViewColumns = handlers => {
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
       width: 100,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+      transformValueMethod: balance => toFixedWithDollarSign(balance),
       type: 'number',
     },
 
@@ -66,7 +67,8 @@ export const adminUsersViewColumns = handlers => {
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value)} />,
       width: 120,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+      transformValueMethod: balance => toFixedWithDollarSign(balance),
       type: 'number',
     },
 

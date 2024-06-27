@@ -150,6 +150,16 @@ export const myRequestsViewColumns = rowHandlers => {
     },
 
     {
+      field: 'freelanceNotices',
+      headerName: t(TranslationKey['Unread messages']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Unread messages'])} />,
+      type: 'number',
+      align: 'center',
+      renderCell: params => <MultilineTextCell text={params.value} />,
+      width: 130,
+    },
+
+    {
       field: 'createdBy',
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,

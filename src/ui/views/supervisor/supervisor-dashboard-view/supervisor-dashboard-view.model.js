@@ -1,64 +1,45 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { SupervisorDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
-
 import { DashboardModel } from '@models/dashboard-model'
 import { SupervisorModel } from '@models/supervisor-model'
 import { UserModel } from '@models/user-model'
 
-import { loadingStatus } from '@typings/enums/loading-status'
+import { SupervisorDashboardCardDataKey } from './supervisor-dashboard-view.config'
 
 export class SupervisorDashboardViewModel {
   history = undefined
-  requestStatus = undefined
-
   productsVacant = []
   producatsMy = []
   paymentsMy = []
-
   dashboardData = {
     [SupervisorDashboardCardDataKey.ALL_PRODUCTS]: '',
     [SupervisorDashboardCardDataKey.SUCCESS_PRODUCTS]: '',
     [SupervisorDashboardCardDataKey.PAYED_PRODUCTS]: '',
-
     [SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_RESEARCHER]: '',
     [SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT]: '',
     [SupervisorDashboardCardDataKey.ON_CHECKING]: '',
     [SupervisorDashboardCardDataKey.AWAIT_SOLVE]: '',
-
     [SupervisorDashboardCardDataKey.IN_SEARCH_PRODUCTS]: '',
     [SupervisorDashboardCardDataKey.REJECTED_PRODUCTS]: '',
-
     [SupervisorDashboardCardDataKey.REPLENISH]: '',
     [SupervisorDashboardCardDataKey.FINES]: '',
   }
+  supervisorButtonsRoutes = {
+    notifications: '',
+    messages: 'messages',
+    settings: 'settings',
+  }
+
   get userInfo() {
     return UserModel.userInfo
   }
 
   constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+    this.history = history
+
+    this.getDashboardElementCount()
+
     makeAutoObservable(this, undefined, { autoBind: true })
-  }
-
-  async loadData() {
-    try {
-      runInAction(() => {
-        this.requestStatus = loadingStatus.IS_LOADING
-      })
-
-      this.getDashboardElementCount()
-      runInAction(() => {
-        this.requestStatus = loadingStatus.SUCCESS
-      })
-    } catch (error) {
-      runInAction(() => {
-        this.requestStatus = loadingStatus.FAILED
-      })
-      console.error(error)
-    }
   }
 
   async getDashboardElementCount() {
@@ -101,6 +82,7 @@ export class SupervisorDashboardViewModel {
   async getProductsVacant() {
     try {
       const result = await SupervisorModel.getProductsVacant()
+
       runInAction(() => {
         this.productsVacant = result.filter(el => el.icomment !== '')
       })
