@@ -51,6 +51,12 @@ export interface InlineResponse20021 {
      */
     status?: InlineResponse20021StatusEnum;
     /**
+     * Final weight
+     * @type {number}
+     * @memberof InlineResponse20021
+     */
+    finalWeight?: number;
+    /**
      * Storage in boxes
      * @type {string}
      * @memberof InlineResponse20021

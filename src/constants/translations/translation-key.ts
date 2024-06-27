@@ -2298,4 +2298,6 @@ export enum TranslationKey {
   'Shutdown delay' = 'Shutdown delay',
   'Are you sure you want to remove this launch?' = 'Are you sure you want to remove this launch?',
   'Time until server shutdown' = 'Time until server shutdown',
+  'Final box weight' = 'Final box weight',
+  'less than recommended by this tariff' = 'less than recommended by this tariff',
 }
