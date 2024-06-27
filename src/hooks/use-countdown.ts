@@ -52,5 +52,6 @@ const getReturnValues = (countDown: number) => {
     hours: formatNumber(hours),
     minutes: formatNumber(minutes),
     seconds: formatNumber(seconds),
+    shouldLogout: Number(days) + Number(hours) + Number(minutes) + Number(seconds) === 0,
   }
 }
