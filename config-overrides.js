@@ -21,6 +21,7 @@ module.exports = config => ({
       '@widgets': path.resolve(__dirname, './src/widgets'),
       '@routes': path.resolve(__dirname, './src/routes'),
       '@ui': path.resolve(__dirname, './src/ui'),
+      '@shared': path.resolve(__dirname, './src/shared'),
     },
   },
 })
