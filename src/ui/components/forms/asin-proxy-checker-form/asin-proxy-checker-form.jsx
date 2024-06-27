@@ -207,8 +207,8 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button variant={ButtonVariant.OUTLINED} className={styles.buttonCancel} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} className={styles.buttonCancel} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

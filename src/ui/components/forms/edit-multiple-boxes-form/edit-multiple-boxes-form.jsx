@@ -25,7 +25,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { checkIsStorekeeper } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -668,12 +668,12 @@ export const EditMultipleBoxesForm = observer(
           </Button>
 
           <Button
-            variant={ButtonVariant.OUTLINED}
+            styleType={ButtonStyle.CASUAL}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={cx(styles.button, styles.cancelButton)}
             onClick={onCloseModal}
           >
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
 

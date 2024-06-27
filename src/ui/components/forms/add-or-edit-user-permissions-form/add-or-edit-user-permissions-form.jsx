@@ -20,7 +20,7 @@ import { deepArrayCompare } from '@utils/array'
 import { checkIsFreelancer, checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-user-permissions-form.style'
 
@@ -448,12 +448,8 @@ export const AddOrEditUserPermissionsForm = memo(props => {
             {t(TranslationKey.Edit)}
           </Button>
 
-          <Button
-            className={cx(styles.button, styles.cancelBtn)}
-            variant={ButtonVariant.OUTLINED}
-            onClick={onCloseModal}
-          >
-            {t(TranslationKey.Cancel)}
+          <Button className={cx(styles.button, styles.cancelBtn)} styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

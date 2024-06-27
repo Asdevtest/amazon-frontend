@@ -14,7 +14,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { isString } from '@typings/guards'
 
 import { useStyles } from './request-result-modal.style'
@@ -176,11 +176,11 @@ export const RequestResultModal = memo(props => {
           )}
 
           <Button
-            variant={ButtonVariant.OUTLINED}
+            styleType={ButtonStyle.CASUAL}
             className={cx(styles.button, styles.cancelButton)}
             onClick={setOpenModal}
           >
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

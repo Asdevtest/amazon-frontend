@@ -36,7 +36,7 @@ import { objectDeepCompare } from '@utils/object'
 import { checkAndMakeAbsoluteUrl, clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { RequestSwitherType } from '@typings/enums/request/request-type'
 
 import { useStyles } from './idea-view-and-edit-card.style'
@@ -814,9 +814,9 @@ export const IdeaViewAndEditCard = observer(
 
                 {isModalView && (
                   <Button
-                    variant={ButtonVariant.OUTLINED}
+                    styleType={ButtonStyle.CASUAL}
                     className={cx(styles.actionButton, styles.cancelBtn)}
-                    onClick={() => onClickCancelBtn()}
+                    onClick={onClickCancelBtn}
                   >
                     {t(TranslationKey.Close)}
                   </Button>
@@ -835,9 +835,9 @@ export const IdeaViewAndEditCard = observer(
             </Button>
 
             <Button
-              variant={ButtonVariant.OUTLINED}
+              styleType={ButtonStyle.CASUAL}
               className={cx(styles.actionButton, styles.btnLeftMargin, styles.cancelBtn)}
-              onClick={() => onClickCancelBtn()}
+              onClick={onClickCancelBtn}
             >
               {t(TranslationKey.Close)}
             </Button>

@@ -18,6 +18,8 @@ import { UserBalanceHistory } from '@components/user/user-balance-history'
 import { checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './listing.style'
 
 import { ListingModel } from './listing.model'
@@ -167,8 +169,8 @@ export const Listing = observer(({ productId, onClickBack }) => {
                   {t(TranslationKey.Save)}
                 </Button>
 
-                <Button className={styles.button} onClick={onCancel}>
-                  {t(TranslationKey.Cancel)}
+                <Button styleType={ButtonStyle.CASUAL} className={styles.button} onClick={onCancel}>
+                  {t(TranslationKey.Close)}
                 </Button>
 
                 <Button className={styles.button} onClick={onClickBack}>

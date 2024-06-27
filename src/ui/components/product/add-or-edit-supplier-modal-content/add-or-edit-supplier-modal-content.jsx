@@ -27,7 +27,7 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './add-or-edit-supplier-modal-content.style'
@@ -273,7 +273,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     } else if (onlyRead) {
       return (
         <div className={styles.buttonsWrapper}>
-          <Button className={styles.cancelBtn} variant={ButtonVariant.OUTLINED} onClick={onTriggerShowModal}>
+          <Button className={styles.cancelBtn} styleType={ButtonStyle.CASUAL} onClick={onTriggerShowModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>
@@ -298,12 +298,12 @@ export const AddOrEditSupplierModalContent = memo(props => {
             {t(TranslationKey.Save)}
           </Button>
           <Button
-            variant={ButtonVariant.OUTLINED}
+            styleType={ButtonStyle.CASUAL}
             tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
             className={styles.cancelBtn}
             onClick={onTriggerShowModal}
           >
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       )

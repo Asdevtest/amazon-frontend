@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 
 import { Typography } from '@mui/material'
-import { useGridApiContext, useGridApiRef } from '@mui/x-data-grid-premium'
+import { useGridApiRef } from '@mui/x-data-grid-premium'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
@@ -158,7 +158,7 @@ export const MyRequestsView = observer(() => {
           message={viewModel.confirmModalSettings.message}
           smallMessage={viewModel.confirmModalSettings.smallMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
@@ -174,7 +174,7 @@ export const MyRequestsView = observer(() => {
           title={t(TranslationKey['Suspend the acceptance of proposals?'])}
           commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
           successBtnText={t(TranslationKey.Ok)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.onSubmitAbortRequest}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
         />

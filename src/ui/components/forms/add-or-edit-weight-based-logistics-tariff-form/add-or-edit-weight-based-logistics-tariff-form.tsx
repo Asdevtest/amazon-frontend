@@ -23,7 +23,7 @@ import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterD
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { IDestination, IDestinationVariation } from '@typings/shared/destinations'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
 
@@ -554,17 +554,13 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
             styleType={ButtonStyle.SUCCESS}
             disabled={disableSubmitBtn}
             className={styles.button}
-            onClick={() => onSubmit()}
+            onClick={onSubmit}
           >
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            className={cx(styles.button, styles.cancelBtn)}
-            onClick={() => onClickClose()}
-          >
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} className={cx(styles.button, styles.cancelBtn)} onClick={onClickClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

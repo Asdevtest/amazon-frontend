@@ -47,11 +47,11 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                styleType={ButtonStyle.DANGER}
+                styleType={ButtonStyle.CASUAL}
                 className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
               >
-                {t(TranslationKey.Cancel)}
+                {t(TranslationKey.Close)}
               </Button>
             )}
           </>
@@ -62,11 +62,11 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                styleType={ButtonStyle.DANGER}
+                styleType={ButtonStyle.CASUAL}
                 className={styles.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
               >
-                {t(TranslationKey.Cancel)}
+                {t(TranslationKey.Close)}
               </Button>
             )}
           </>
@@ -80,13 +80,13 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                styleType={ButtonStyle.DANGER}
+                styleType={ButtonStyle.CASUAL}
                 className={styles.cancelTaskBtn}
-                onClick={() => {
+                onClick={() =>
                   handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
-                }}
+                }
               >
-                {t(TranslationKey.Cancel)}
+                {t(TranslationKey.Close)}
               </Button>
             )}
           </>

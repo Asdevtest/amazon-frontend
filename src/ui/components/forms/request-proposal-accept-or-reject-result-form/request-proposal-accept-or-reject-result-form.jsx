@@ -100,7 +100,7 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
               title={t(TranslationKey.Attention)}
               message={t(TranslationKey['Are you sure you want to close this window?'])}
               successBtnText={t(TranslationKey.Yes)}
-              cancelBtnText={t(TranslationKey.Cancel)}
+              cancelBtnText={t(TranslationKey.Close)}
               onClickSuccessBtn={() => {
                 setIsShowConfirmationModal(false)
                 onClose()

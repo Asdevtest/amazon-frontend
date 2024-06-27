@@ -16,7 +16,6 @@ import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
-import { CopyValue } from '@components/shared/copy-value'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -30,6 +29,7 @@ import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { TariffModal } from '@typings/enums/tariff-modal'
@@ -656,8 +656,12 @@ export const EditBoxForm = memo(
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={onTriggerOpenModal}>
-            {t(TranslationKey.Cancel)}
+          <Button
+            styleType={ButtonStyle.CASUAL}
+            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
+            onClick={onTriggerOpenModal}
+          >
+            {t(TranslationKey.Close)}
           </Button>
         </div>
 

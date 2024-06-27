@@ -13,7 +13,7 @@ import { CustomReactSelect } from '@components/shared/selects/custom-react-selec
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-users-to-group-chat-form.style'
 
@@ -88,12 +88,8 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
           {t(TranslationKey.Add)}
         </Button>
 
-        <Button
-          variant={ButtonVariant.OUTLINED}
-          className={cx(styles.button, styles.cancelButton)}
-          onClick={() => closeModal()}
-        >
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} className={cx(styles.button, styles.cancelButton)} onClick={closeModal}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

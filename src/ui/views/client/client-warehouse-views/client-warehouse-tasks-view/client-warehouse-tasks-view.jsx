@@ -157,7 +157,7 @@ export const ClientWarehouseTasksView = observer(() => {
           title={t(TranslationKey.Attention)}
           commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.onClickCancelAfterConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
         />

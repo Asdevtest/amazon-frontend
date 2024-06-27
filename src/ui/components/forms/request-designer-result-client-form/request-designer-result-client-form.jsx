@@ -19,7 +19,7 @@ import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { isString } from '@typings/guards'
 
 import { useStyles } from './request-designer-result-client-form.style'
@@ -279,11 +279,11 @@ export const RequestDesignerResultClientForm = memo(props => {
           )}
 
           <Button
-            variant={ButtonVariant.OUTLINED}
+            styleType={ButtonStyle.CASUAL}
             className={cx(styles.button, styles.cancelButton)}
             onClick={setOpenModal}
           >
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

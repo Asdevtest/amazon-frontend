@@ -88,11 +88,11 @@ export const MyServicesInfo = ({
       <div className={styles.footerWrapper}>
         {shopFullDescriptionButton ? (
           <Button
-            variant={ButtonVariant.OUTLINED}
+            styleType={ButtonStyle.CASUAL}
             className={styles.detailsButton}
             onClick={() => setShowFullDescription(prev => !prev)}
           >
-            {showFullDescription ? t(TranslationKey.Close) : t(TranslationKey.Details)}
+            {t(TranslationKey.Close)}
           </Button>
         ) : (
           <div />

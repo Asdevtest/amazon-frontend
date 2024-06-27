@@ -170,11 +170,11 @@ export const RightSideComments = memo(
                   )}
 
                   <Button
-                    styleType={checkIsClient(curUserRole) ? ButtonStyle.PRIMARY : ButtonStyle.DANGER}
+                    styleType={ButtonStyle.CASUAL}
                     tooltipInfoContent={translateTooltipCloseBtnMessage(curUserRole)}
                     onClick={() => handleProductActionButtons('cancel')}
                   >
-                    {checkIsClient(curUserRole) ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
+                    {t(TranslationKey.Close)}
                   </Button>
 
                   {checkIsClient(curUserRole) && product?.archive && (
@@ -183,6 +183,7 @@ export const RightSideComments = memo(
                 </>
               ) : (
                 <Button
+                  styleType={ButtonStyle.CASUAL}
                   tooltipInfoContent={t(TranslationKey['Close product card'])}
                   onClick={() => handleProductActionButtons('cancel')}
                 >

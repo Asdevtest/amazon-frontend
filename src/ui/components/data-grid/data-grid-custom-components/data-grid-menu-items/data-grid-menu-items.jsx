@@ -15,7 +15,6 @@ import {
 } from '@mui/material'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
-import { OrderStatusTranslate } from '@constants/orders/order-status'
 import { MyRequestStatus, MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { BoxStatus, boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
@@ -36,7 +35,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './data-grid-menu-items.style'
@@ -458,8 +457,8 @@ export const MyRequestsStatusMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>
@@ -560,8 +559,8 @@ export const FreelanceRequestType = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>
@@ -697,8 +696,8 @@ export const CreatedByMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -851,8 +850,8 @@ export const ObJectFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1019,8 +1018,8 @@ export const IdeaShopsFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1094,8 +1093,8 @@ export const BoxestatusMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>
@@ -1243,8 +1242,8 @@ export const NormalFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1334,8 +1333,8 @@ export const PriorityMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1407,8 +1406,8 @@ export const FreelancerToWorkConfirmationMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1605,8 +1604,8 @@ export const ProductMenuItem = memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>
@@ -1763,8 +1762,8 @@ export const OrderOrItemMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -1924,8 +1923,8 @@ export const DestinationMenuItem = memo(
         </div>
         <div className={styles.buttonsWrapper}>
           <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>
@@ -2087,8 +2086,8 @@ export const FromToDateMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -2202,8 +2201,8 @@ export const DateDetailsMenuItem = memo(
           </div>
 
           <div className={styles.buttonsWrapper}>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
             <Button
               disabled={disableButton}
@@ -2381,8 +2380,8 @@ export const NumberFieldMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -2521,8 +2520,8 @@ export const InStockMenuItem = memo(
             >
               {t(TranslationKey.Accept)}
             </Button>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>
@@ -3046,8 +3045,8 @@ export const SecondsCellMenuItem = memo(
           >
             {t(TranslationKey.Accept)}
           </Button>
-          <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClose}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={onClose}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

@@ -13,7 +13,7 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/check
 import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-trading-shop-content.style'
 
@@ -186,11 +186,11 @@ export const CreateOrEditTradingShopContent = ({
                 ? t(TranslationKey['Back to Step 1'])
                 : t(TranslationKey['Cancel request creation'])
             }
-            variant={ButtonVariant.OUTLINED}
+            styleType={ButtonStyle.CASUAL}
             className={styles.backBtn}
             onClick={onClickBackBtn}
           >
-            {curStep === stepVariant.STEP_ONE ? t(TranslationKey.Cancel) : t(TranslationKey.Back)}
+            {curStep === stepVariant.STEP_ONE ? t(TranslationKey.Close) : t(TranslationKey.Back)}
           </Button>
 
           <Button

@@ -19,7 +19,7 @@ import { useEditTaskPriorityModalStyles } from '@components/warehouse/edit-task-
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 interface EditTaskPriorityModalProps {
   data: {
@@ -102,8 +102,8 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant={ButtonVariant.OUTLINED} className={styles.cancel} onClick={handleClose}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} className={styles.cancel} onClick={handleClose}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

@@ -696,10 +696,11 @@ export const EditOrderModal = memo(
             {t(TranslationKey.Save)}
           </Button>
           <Button
+            styleType={ButtonStyle.CASUAL}
             tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
             onClick={() => onTriggerOpenModal('showOrderModal')}
           >
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
 

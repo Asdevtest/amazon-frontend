@@ -10,7 +10,7 @@ import { Input } from '@components/shared/input'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './restore-request-modal.style'
 
@@ -74,11 +74,11 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
           {t(TranslationKey.Save)}
         </Button>
         <Button
-          variant={ButtonVariant.OUTLINED}
+          styleType={ButtonStyle.CASUAL}
           className={cx(styles.controlButton, styles.cancelButton)}
           onClick={handleCloseModal}
         >
-          {t(TranslationKey.Cancel)}
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

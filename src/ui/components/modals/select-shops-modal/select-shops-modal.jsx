@@ -8,7 +8,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './select-shops-modal.style'
 
@@ -64,10 +64,10 @@ export const SelectShopsModal = memo(props => {
 
         <Button
           className={cx(styles.button, styles.cancelButton)}
-          variant={ButtonVariant.OUTLINED}
+          styleType={ButtonStyle.CASUAL}
           onClick={onClickCancelBtn}
         >
-          {t(TranslationKey.Cancel)}
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

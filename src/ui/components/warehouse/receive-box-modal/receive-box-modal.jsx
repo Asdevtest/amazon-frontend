@@ -14,7 +14,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './receive-box-modal.style'
 
@@ -278,11 +278,11 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         </Button>
 
         <Button
-          variant={ButtonVariant.OUTLINED}
+          styleType={ButtonStyle.CASUAL}
           className={cx(styles.button, styles.cancelButton)}
           onClick={setOpenModal}
         >
-          {t(TranslationKey.Cancel)}
+          {t(TranslationKey.Close)}
         </Button>
       </div>
 

@@ -78,8 +78,8 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
             {t(TranslationKey.Save)}
           </Button>
         )}
-        <Button className={styles.actionButton} onClick={onClickCancelButton}>
-          {readOnly ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} className={styles.actionButton} onClick={onClickCancelButton}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

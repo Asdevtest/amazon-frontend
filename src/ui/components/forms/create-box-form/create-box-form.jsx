@@ -327,7 +327,9 @@ export const CreateBoxForm = observer(
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
           </Button>
 
-          <Button onClick={() => onTriggerOpenModal()}>{t(TranslationKey.Cancel)}</Button>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onTriggerOpenModal}>
+            {t(TranslationKey.Close)}
+          </Button>
         </div>
       </div>
     )

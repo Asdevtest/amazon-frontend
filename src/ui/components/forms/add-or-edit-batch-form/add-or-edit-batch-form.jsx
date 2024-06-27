@@ -36,7 +36,7 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-batch-form.style'
 
@@ -678,12 +678,8 @@ export const AddOrEditBatchForm = observer(
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button
-              variant={ButtonVariant.OUTLINED}
-              className={cx(styles.actionBtn, styles.cancelBtn)}
-              onClick={onClose}
-            >
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={cx(styles.actionBtn, styles.cancelBtn)} onClick={onClose}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>

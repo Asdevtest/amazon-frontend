@@ -11,7 +11,7 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './move-box-to-batch-form.style'
 
@@ -76,8 +76,8 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
                 {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey.Add)}
               </Button>
 
-              <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={setOpenModal}>
-                {t(TranslationKey.Cancel)}
+              <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={setOpenModal}>
+                {t(TranslationKey.Close)}
               </Button>
             </div>
           </div>
@@ -102,8 +102,8 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
               {t(TranslationKey['Create new batch'])}
             </Button>
 
-            <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={setOpenModal}>
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} className={styles.cancelBtn} onClick={setOpenModal}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>

@@ -16,6 +16,8 @@ import { UserLink } from '@components/user/user-link'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './admin-content-modal.style'
 
 const activeOptions = [
@@ -365,12 +367,7 @@ export const AdminContentModal = observer(
             {buttonLabel}
           </Button>
 
-          <Button
-            className={styles.rightBtn}
-            onClick={() => {
-              onCloseModal()
-            }}
-          >
+          <Button styleType={ButtonStyle.CASUAL} className={styles.rightBtn} onClick={onCloseModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

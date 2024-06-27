@@ -16,6 +16,8 @@ import { checkIsPositiveNum, isNotUndefined } from '@utils/checks'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './order-product-modal.style'
 
 import { SetFilesModal } from '../set-files-modal'
@@ -514,11 +516,12 @@ export const OrderProductModal = memo(props => {
         </Button>
 
         <Button
+          styleType={ButtonStyle.CASUAL}
           tooltipInfoContent={t(TranslationKey['Close the checkout window without saving'])}
           className={(styles.modalButton, styles.cancelBtn)}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
         >
-          {t(TranslationKey.Cancel)}
+          {t(TranslationKey.Close)}
         </Button>
       </div>
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>

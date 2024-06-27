@@ -11,7 +11,7 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-destination-form.style'
 
@@ -157,8 +157,8 @@ export const AddOrEditDestinationForm = observer(
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
-              {t(TranslationKey.Cancel)}
+            <Button className={styles.button} styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>

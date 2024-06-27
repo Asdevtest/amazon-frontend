@@ -22,7 +22,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
@@ -329,18 +329,14 @@ export const EditTaskModal = memo(
                 >
                   {t(TranslationKey.Save)}
                 </Button>
-                <Button
-                  variant={ButtonVariant.OUTLINED}
-                  className={styles.cancelButton}
-                  onClick={onClickOpenCloseModal}
-                >
-                  {t(TranslationKey.Cancel)}
+                <Button vstyleType={ButtonStyle.CASUAL} className={styles.cancelButton} onClick={onClickOpenCloseModal}>
+                  {t(TranslationKey.Close)}
                 </Button>
               </div>
             </div>
           ) : (
             <div className={styles.buttonWrapper}>
-              <Button className={styles.closeButton} onClick={onClickOpenCloseModal}>
+              <Button styleType={ButtonStyle.CASUAL} className={styles.closeButton} onClick={onClickOpenCloseModal}>
                 {t(TranslationKey.Close)}
               </Button>
             </div>

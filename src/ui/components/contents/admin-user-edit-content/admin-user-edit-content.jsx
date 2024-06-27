@@ -24,7 +24,7 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } fro
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './admin-user-edit-content.style'
 
@@ -696,10 +696,8 @@ export const AdminUserEditContent = observer(
 
           <Button
             className={cx(styles.button, styles.rightBtn, styles.cancelBtn)}
-            variant={ButtonVariant.OUTLINED}
-            onClick={() => {
-              onClickCancelBtn()
-            }}
+            styleType={ButtonStyle.CASUAL}
+            onClick={onClickCancelBtn}
           >
             {t(TranslationKey.Close)}
           </Button>

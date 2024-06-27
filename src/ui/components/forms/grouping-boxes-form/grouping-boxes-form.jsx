@@ -10,7 +10,7 @@ import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './grouping-boxes-form.style'
 
@@ -233,12 +233,12 @@ export const GroupingBoxesForm = memo(props => {
         </Button>
 
         <Button
-          variant={ButtonVariant.OUTLINED}
+          styleType={ButtonStyle.CASUAL}
           tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
           className={cx(styles.button, styles.cancelButton)}
           onClick={onCloseModal}
         >
-          {t(TranslationKey.Cancel)}
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

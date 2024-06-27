@@ -160,8 +160,13 @@ export const EstimateCreateTradingShopForm = ({
           {t(TranslationKey.Yes)}
         </Button>
 
-        <Button disabled={submitIsClicked} className={styles.buttonCancel} onClick={setOpenModal}>
-          {t(TranslationKey.Cancel)}
+        <Button
+          styleType={ButtonStyle.CASUAL}
+          disabled={submitIsClicked}
+          className={styles.buttonCancel}
+          onClick={setOpenModal}
+        >
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>
