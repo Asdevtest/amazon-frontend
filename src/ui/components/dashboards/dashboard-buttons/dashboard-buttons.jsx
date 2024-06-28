@@ -31,11 +31,8 @@ export const DashboardButtons = ({ user }) => {
     (user.freelanceNotices?.length || 0) +
     (user.notificationCounter || 0)
 
-  const isNotificationsShown =
-    !checkIsResearcher(UserRoleCodeMap[user.role]) &&
-    !checkIsStorekeeper(UserRoleCodeMap[user.role]) &&
-    !checkIsAdmin(UserRoleCodeMap[user.role]) &&
-    !checkIsSupervisor(UserRoleCodeMap[user.role])
+  const excludedRoles = [checkIsResearcher, checkIsStorekeeper, checkIsAdmin, checkIsSupervisor]
+  const isNotificationsShown = excludedRoles.every(check => !check(UserRoleCodeMap[user.role]))
 
   return (
     <div className={styles.buttonsWrapper}>
