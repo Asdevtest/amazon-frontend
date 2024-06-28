@@ -15,17 +15,17 @@
 
 
 /**
- * Схема апдейта рекомендаций
+ * Схема комментарии байера.
  * @export
  * @interface InlineObject67
  */
 export interface InlineObject67 {
     /**
-     * Рекомендуемое значение
-     * @type {number}
+     * Комментарии байера.
+     * @type {string}
      * @memberof InlineObject67
      */
-    recommendedValue: number;
+    buyerComment: string;
 }
 
 

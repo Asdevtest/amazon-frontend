@@ -21,35 +21,71 @@
  */
 export interface InlineResponse20045Orders {
     /**
-     * GUID заказа в базе данных
-     * @type {string}
-     * @memberof InlineResponse20045Orders
-     */
-    _id?: string;
-    /**
-     * Айди заказа
-     * @type {string}
-     * @memberof InlineResponse20045Orders
-     */
-    id?: string;
-    /**
-     * Статус заказа
+     * 
      * @type {number}
      * @memberof InlineResponse20045Orders
      */
-    status?: number;
+    inProcess?: number;
     /**
-     * Сумма заказа
+     * 
      * @type {number}
      * @memberof InlineResponse20045Orders
      */
-    amount?: number;
+    free?: number;
     /**
-     * Дедлайн заказа
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineResponse20045Orders
      */
-    deadline?: string;
+    completed?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Orders
+     */
+    all?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Orders
+     */
+    paid?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Orders
+     */
+    canceled?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Orders
+     */
+    notPaid?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Orders
+     */
+    needTrackNumber?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Orders
+     */
+    inbound?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Orders
+     */
+    confirmationRequired?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20045Orders
+     */
+    closedAndCanceled?: number;
 }
 
 

@@ -21,35 +21,23 @@
  */
 export interface InlineResponse20044Orders {
     /**
-     * GUID заказа в базе данных
-     * @type {string}
-     * @memberof InlineResponse20044Orders
-     */
-    _id?: string;
-    /**
-     * Айди заказа
-     * @type {string}
-     * @memberof InlineResponse20044Orders
-     */
-    id?: string;
-    /**
-     * Статус заказа
+     * 
      * @type {number}
      * @memberof InlineResponse20044Orders
      */
-    status?: number;
+    all?: number;
     /**
-     * Сумма заказа
+     * 
      * @type {number}
      * @memberof InlineResponse20044Orders
      */
-    amount?: number;
+    paid?: number;
     /**
-     * Дедлайн заказа
-     * @type {string}
+     * 
+     * @type {number}
      * @memberof InlineResponse20044Orders
      */
-    deadline?: string;
+    canceled?: number;
 }
 
 

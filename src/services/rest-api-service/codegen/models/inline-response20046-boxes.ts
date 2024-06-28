@@ -25,19 +25,13 @@ export interface InlineResponse20046Boxes {
      * @type {number}
      * @memberof InlineResponse20046Boxes
      */
-    inStock?: number;
+    all?: number;
     /**
      * 
      * @type {number}
      * @memberof InlineResponse20046Boxes
      */
-    requestedSendToBatch?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20046Boxes
-     */
-    inBatchOnTheWay?: number;
+    requestedShipment?: number;
 }
 
 

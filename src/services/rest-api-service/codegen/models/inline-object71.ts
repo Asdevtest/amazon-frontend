@@ -21,11 +21,11 @@
  */
 export interface InlineObject71 {
     /**
-     * Тег
-     * @type {string}
+     * Сумма воврата
+     * @type {number}
      * @memberof InlineObject71
      */
-    title: string;
+    refundPrice?: number;
 }
 
 

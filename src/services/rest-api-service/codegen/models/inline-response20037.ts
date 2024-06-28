@@ -13,25 +13,32 @@
  */
 
 
+import { InlineResponse20037Rows } from './inline-response20037-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20037
  */
 export interface InlineResponse20037 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse20037
      */
-    _id?: string;
+    count?: number;
     /**
-     * Имя пользователя.
-     * @type {string}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20037Rows>}
      * @memberof InlineResponse20037
      */
-    name?: string;
+    rows?: Array<InlineResponse20037Rows>;
+    /**
+     * 
+     * @type {object}
+     * @memberof InlineResponse20037
+     */
+    meta?: object;
 }
 
 

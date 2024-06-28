@@ -13,8 +13,8 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
+import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
 
 /**
  * 
@@ -234,10 +234,10 @@ export interface InlineObject137 {
     redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
     /**
      * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @type {Array<ApiV1ClientsProductsGuidTags>}
      * @memberof InlineObject137
      */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    tags?: Array<ApiV1ClientsProductsGuidTags>;
     /**
      * Комментарий к статусу проверки.
      * @type {string}

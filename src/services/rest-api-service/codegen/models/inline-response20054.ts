@@ -13,27 +13,26 @@
  */
 
 
-import { InlineResponse20052Finances } from './inline-response20052-finances';
-import { InlineResponse20054Products } from './inline-response20054-products';
+import { InlineResponse20052 } from './inline-response20052';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20054
  */
 export interface InlineResponse20054 {
     /**
-     * 
-     * @type {InlineResponse20054Products}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse20054
      */
-    products?: InlineResponse20054Products;
+    count?: number;
     /**
-     * 
-     * @type {InlineResponse20052Finances}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20052>}
      * @memberof InlineResponse20054
      */
-    finances?: InlineResponse20052Finances;
+    rows?: Array<InlineResponse20052>;
 }
 
 

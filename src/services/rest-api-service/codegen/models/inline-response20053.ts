@@ -13,9 +13,6 @@
  */
 
 
-import { InlineResponse20053Batches } from './inline-response20053-batches';
-import { InlineResponse20053Boxes } from './inline-response20053-boxes';
-import { InlineResponse20053Tasks } from './inline-response20053-tasks';
 
 /**
  * 
@@ -24,23 +21,35 @@ import { InlineResponse20053Tasks } from './inline-response20053-tasks';
  */
 export interface InlineResponse20053 {
     /**
-     * 
-     * @type {InlineResponse20053Tasks}
+     * GUID продукта в базе данных
+     * @type {string}
      * @memberof InlineResponse20053
      */
-    tasks?: InlineResponse20053Tasks;
+    _id?: string;
     /**
-     * 
-     * @type {InlineResponse20053Boxes}
+     * ASIN продукта
+     * @type {string}
      * @memberof InlineResponse20053
      */
-    boxes?: InlineResponse20053Boxes;
+    asin?: string;
     /**
-     * 
-     * @type {InlineResponse20053Batches}
+     * SKU введенным клиентом.
+     * @type {string}
      * @memberof InlineResponse20053
      */
-    batches?: InlineResponse20053Batches;
+    skuByClient?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse20053
+     */
+    images?: Array<string>;
+    /**
+     * Заголовок на товар с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse20053
+     */
+    amazonTitle?: string;
 }
 
 

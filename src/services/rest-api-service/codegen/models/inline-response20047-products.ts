@@ -31,7 +31,31 @@ export interface InlineResponse20047Products {
      * @type {number}
      * @memberof InlineResponse20047Products
      */
-    paid?: number;
+    completed?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20047Products
+     */
+    rejected?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20047Products
+     */
+    inWork?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20047Products
+     */
+    searchSupplierFromBuyer?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20047Products
+     */
+    withoutStatus?: number;
 }
 
 

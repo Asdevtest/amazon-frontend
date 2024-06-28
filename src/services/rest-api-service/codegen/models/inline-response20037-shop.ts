@@ -21,13 +21,13 @@
  */
 export interface InlineResponse20037Shop {
     /**
-     * The shop id
+     * GUID магазина
      * @type {string}
      * @memberof InlineResponse20037Shop
      */
     _id?: string;
     /**
-     * The shop name
+     * Название магазина
      * @type {string}
      * @memberof InlineResponse20037Shop
      */

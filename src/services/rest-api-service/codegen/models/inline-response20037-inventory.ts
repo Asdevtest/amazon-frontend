@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20037InventoryShop } from './inline-response20037-inventory-shop';
 
 /**
  * 
@@ -111,6 +112,84 @@ export interface InlineResponse20037Inventory {
      */
     timeUpdated?: string;
     /**
+     * organicCv
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    organicCv?: number;
+    /**
+     * historical_days_of_supply
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    historicalDaysOfSupply?: number;
+    /**
+     * estimated_storage_cost
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    estimatedStorageCost?: number;
+    /**
+     * estimated_aged_inventory_surcharge
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    estimatedAgedInventorySurcharge?: number;
+    /**
+     * age_0_to_90_days
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    age0to90Days?: number;
+    /**
+     * age_91_to_180_days
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    age91to180Days?: number;
+    /**
+     * age_181_to_270_days
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    age181to270Days?: number;
+    /**
+     * age_271_to_365_days
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    age271to365Days?: number;
+    /**
+     * age_365_plus_days
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    age365plusDays?: number;
+    /**
+     * storage_volume
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    storageVolume?: number;
+    /**
+     * low_inventory_level_fee
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    lowInventoryLevelFee?: number;
+    /**
+     * cog
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    cog?: number;
+    /**
+     * unitProfit
+     * @type {number}
+     * @memberof InlineResponse20037Inventory
+     */
+    unitProfit?: number;
+    /**
      * Дата создания
      * @type {string}
      * @memberof InlineResponse20037Inventory
@@ -123,17 +202,11 @@ export interface InlineResponse20037Inventory {
      */
     updatedAt?: string;
     /**
-     * The shop _id
-     * @type {string}
+     * 
+     * @type {InlineResponse20037InventoryShop}
      * @memberof InlineResponse20037Inventory
      */
-    shop?: string;
-    /**
-     * The product _id
-     * @type {string}
-     * @memberof InlineResponse20037Inventory
-     */
-    product?: string;
+    shop?: InlineResponse20037InventoryShop;
 }
 
 

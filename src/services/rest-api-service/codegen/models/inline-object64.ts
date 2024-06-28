@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
 
 /**
  * 
@@ -22,16 +23,58 @@
 export interface InlineObject64 {
     /**
      * 
-     * @type {string}
-     * @memberof InlineObject64
-     */
-    clientComment: string;
-    /**
-     * Для избежания пролем для потвержения нужно вернуть стимость работы по поиску поставщика.
      * @type {number}
      * @memberof InlineObject64
      */
-    priceForClient: number;
+    amazon?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject64
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject64
+     */
+    fbafee?: number;
+    /**
+     * ФБА кол-во
+     * @type {number}
+     * @memberof InlineObject64
+     */
+    fbaamount?: number;
+    /**
+     * Код статуса
+     * @type {number}
+     * @memberof InlineObject64
+     */
+    status?: number;
+    /**
+     * Прибыль
+     * @type {number}
+     * @memberof InlineObject64
+     */
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject64
+     */
+    margin?: number;
+    /**
+     * Примечания байера.
+     * @type {string}
+     * @memberof InlineObject64
+     */
+    buyersComment?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidTags>}
+     * @memberof InlineObject64
+     */
+    tags?: Array<ApiV1ClientsProductsGuidTags>;
 }
 
 

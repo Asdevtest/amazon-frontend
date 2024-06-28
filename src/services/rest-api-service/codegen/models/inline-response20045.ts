@@ -13,8 +13,10 @@
  */
 
 
-import { InlineResponse20045BoxAmounts } from './inline-response20045-box-amounts';
+import { InlineResponse20045Finances } from './inline-response20045-finances';
 import { InlineResponse20045Orders } from './inline-response20045-orders';
+import { InlineResponse20045PendingOrders } from './inline-response20045-pending-orders';
+import { InlineResponse20045Products } from './inline-response20045-products';
 
 /**
  * 
@@ -23,125 +25,29 @@ import { InlineResponse20045Orders } from './inline-response20045-orders';
  */
 export interface InlineResponse20045 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
+     * 
+     * @type {InlineResponse20045Products}
      * @memberof InlineResponse20045
      */
-    _id?: string;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20045
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20045
-     */
-    skuByClient?: string;
-    /**
-     * ID магазина для продукта
-     * @type {string}
-     * @memberof InlineResponse20045
-     */
-    shopId?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20045
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20045
-     */
-    amazonTitle?: string;
-    /**
-     * Сколько такого продукта находится в заказах.
-     * @type {number}
-     * @memberof InlineResponse20045
-     */
-    amountInOrders?: number;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20045
-     */
-    updatedAt?: string;
-    /**
-     * Каков должен быть сток за 4 месяца
-     * @type {number}
-     * @memberof InlineResponse20045
-     */
-    fourMonthesStock?: number;
-    /**
-     * “sumStock”=“boxAmounts” + ”inTransfer” + ”productsInWarehouse”(“reserved” + ”fbaFbmStock” + ”sentToFba”) + “amountInOrders“ + “stockUSA“
-     * @type {number}
-     * @memberof InlineResponse20045
-     */
-    sumStock?: number;
-    /**
-     * “purchaseQuantity”=”fourMonthesStock” - “sumStock” - меньше нуля быть не может, если отрицательное значение выставляем 0
-     * @type {number}
-     * @memberof InlineResponse20045
-     */
-    purchaseQuantity?: number;
+    products?: InlineResponse20045Products;
     /**
      * 
-     * @type {number}
+     * @type {InlineResponse20045Orders}
      * @memberof InlineResponse20045
      */
-    reservedSum?: number;
-    /**
-     * Сколько такого продукта находится в заказах в статусах 0, 2, 3.
-     * @type {number}
-     * @memberof InlineResponse20045
-     */
-    amountInPendingOrders?: number;
+    orders?: InlineResponse20045Orders;
     /**
      * 
-     * @type {number}
+     * @type {InlineResponse20045PendingOrders}
      * @memberof InlineResponse20045
      */
-    sentToFbaSum?: number;
+    pendingOrders?: InlineResponse20045PendingOrders;
     /**
      * 
-     * @type {number}
+     * @type {InlineResponse20045Finances}
      * @memberof InlineResponse20045
      */
-    fbaFbmStockSum?: number;
-    /**
-     * Кол-во товаров, которые находятся в пути
-     * @type {number}
-     * @memberof InlineResponse20045
-     */
-    inTransfer?: number;
-    /**
-     * Стоимость стока товара
-     * @type {number}
-     * @memberof InlineResponse20045
-     */
-    stockCost?: number;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof InlineResponse20045
-     */
-    productsInWarehouseSchema?: Array<object>;
-    /**
-     * 
-     * @type {Array<InlineResponse20045BoxAmounts>}
-     * @memberof InlineResponse20045
-     */
-    boxAmounts?: Array<InlineResponse20045BoxAmounts>;
-    /**
-     * 
-     * @type {Array<InlineResponse20045Orders>}
-     * @memberof InlineResponse20045
-     */
-    orders?: Array<InlineResponse20045Orders>;
+    finances?: InlineResponse20045Finances;
 }
 
 
