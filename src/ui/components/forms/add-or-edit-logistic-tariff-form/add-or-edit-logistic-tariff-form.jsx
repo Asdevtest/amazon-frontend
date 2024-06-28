@@ -10,7 +10,6 @@ import { Button } from '@components/shared/button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
-import { Text } from '@components/shared/text'
 
 import { roundHalf } from '@utils/calculation'
 import {
@@ -245,12 +244,7 @@ export const AddOrEditLogisticTariffForm = observer(
           <div className={styles.costBlock}>
             <div className={styles.costSubBlock}>
               <div className={styles.ratesTitleWrapper}>
-                <Text
-                  tooltipInfoContent={t(TranslationKey['Shipping cost per kilogram to the region'])}
-                  className={styles.rateTitle}
-                >
-                  {t(TranslationKey.Rates)}
-                </Text>
+                <p>{t(TranslationKey.Rates)}</p>
 
                 <div>
                   <CustomSwitcher

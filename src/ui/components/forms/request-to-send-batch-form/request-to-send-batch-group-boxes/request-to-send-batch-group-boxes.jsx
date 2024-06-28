@@ -3,7 +3,6 @@ import { Typography } from '@mui/material'
 import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { calcFinalWeightForBox } from '@utils/calculation'
@@ -122,13 +121,13 @@ export const RequestToSendBatchesGroupBoxes = ({
           <div>
             <div className={styles.footerSubWrapper}>
               <div className={styles.footerSubWrapper}>
-                <Text className={styles.footerTitle}>{t(TranslationKey['Total volume weight'])}</Text>
+                <p>{t(TranslationKey['Total volume weight'])}</p>
 
                 <Typography className={styles.footerSpanText}>{toFixedWithKg(totalVolumeWeight, 2)}</Typography>
               </div>
 
               <div className={styles.footerSubWrapper}>
-                <Text className={styles.footerTitle}>{t(TranslationKey['Total CBM'])}</Text>
+                <p>{t(TranslationKey['Total CBM'])}</p>
 
                 <Typography className={styles.footerSpanText}>{toFixed(totalCubicMeters, 6)}</Typography>
               </div>
@@ -142,23 +141,13 @@ export const RequestToSendBatchesGroupBoxes = ({
           </div>
 
           <div className={styles.footerSubWrapper}>
-            <Text
-              tooltipInfoContent={t(TranslationKey['Total weight of the selected boxes'])}
-              className={styles.footerTitle}
-            >
-              {t(TranslationKey['Total weight'])}
-            </Text>
+            <p>{t(TranslationKey['Total weight'])}</p>
 
             <Typography className={styles.footerSpanText}>{toFixedWithKg(totalWeight, 2)}</Typography>
           </div>
 
           <div className={styles.footerSubWrapper}>
-            <Text
-              tooltipInfoContent={t(TranslationKey['The cost depends on the total weight and the rate you choose'])}
-              className={styles.footerTitle}
-            >
-              {t(TranslationKey['Total cost of shipment'])}
-            </Text>
+            <p>{t(TranslationKey['Total cost of shipment'])}</p>
 
             <Typography className={styles.footerSpanText}>{toFixedWithDollarSign(totalPrice, 2)}</Typography>
           </div>

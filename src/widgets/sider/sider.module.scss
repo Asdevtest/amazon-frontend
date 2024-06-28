@@ -4,6 +4,14 @@
   min-width: 80px !important;
   width: 80px !important;
 
+  .logotip {
+    height: 64px;
+    width: 80px;
+    background-image: var(--logotip-url);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+  }
+
   &:hover {
     flex: 0 0 240px !important;
     max-width: 240px !important;
@@ -15,6 +23,14 @@
     left: 0;
     z-index: 7;
     transition: all 0.5s ease;
+
+    div: {
+      div: {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
 }
 

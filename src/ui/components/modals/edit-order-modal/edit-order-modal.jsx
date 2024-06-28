@@ -33,7 +33,6 @@ import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { SaveIcon, TruckIcon } from '@components/shared/svg-icons'
 import { BoxesToOrder } from '@components/shared/tables/boxes-to-order'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
-import { Text } from '@components/shared/text'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -654,7 +653,7 @@ export const EditOrderModal = memo(
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
 
-          <Text className={styles.tableTitle}>{t(TranslationKey.Product)}</Text>
+          <p>{t(TranslationKey.Product)}</p>
 
           <ProductTable
             checkIsPlanningPrice={checkIsPlanningPrice}

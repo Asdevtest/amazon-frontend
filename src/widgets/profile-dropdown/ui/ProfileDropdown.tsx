@@ -1,4 +1,4 @@
-import { Dropdown, MenuProps, Space } from 'antd'
+import { Dropdown, MenuProps } from 'antd'
 import { FC, memo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CgProfile } from 'react-icons/cg'
@@ -6,6 +6,9 @@ import { GoChevronDown } from 'react-icons/go'
 import { IoExitOutline } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+
+import { CustomAvatar } from '@components/shared/custom-avatar'
+import { CustomText } from '@components/shared/custom-text'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixedWithDollarSign } from '@utils/text'
@@ -48,22 +51,20 @@ export const ProfileDropdown: FC<ProfileDropdownProps> = memo(() => {
   return (
     <Dropdown menu={{ items }} trigger={['click']}>
       <a onClick={e => e.preventDefault()}>
-        <Space>
-          <div className={classes.profileContainer}>
-            <div>
-              <img className={classes.avatar} src={getUserAvatarSrc(viewModel.userInfo?._id)} />
-            </div>
+        <div className={classes.flexContainer}>
+          <div className={classes.flexContainer}>
+            <CustomAvatar size={36} src={getUserAvatarSrc(viewModel.userInfo?._id)} />
 
             <div className={classes.userContainer}>
-              <p className={classes.userName}>{viewModel.userInfo?.name}</p>
+              <CustomText>{viewModel.userInfo?.name}</CustomText>
 
               {!isResearcher(Roles[viewModel.userInfo?.role]) && (
-                <p className={classes.balance}>{toFixedWithDollarSign(viewModel.userInfo?.balance)}</p>
+                <CustomText>{toFixedWithDollarSign(viewModel.userInfo?.balance)}</CustomText>
               )}
             </div>
           </div>
           <GoChevronDown />
-        </Space>
+        </div>
       </a>
     </Dropdown>
   )

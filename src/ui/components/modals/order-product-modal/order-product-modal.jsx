@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
-import { Text } from '@components/shared/text'
 import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
@@ -354,75 +353,36 @@ export const OrderProductModal = memo(props => {
                 <p className={styles.cellText}>{t(TranslationKey.Product)}</p>
               </TableCell>
               <TableCell className={styles.priceCell}>
-                <Text
-                  className={styles.priceCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
-                >
-                  {t(TranslationKey['Price without delivery']) + ' $'}
-                </Text>
+                <p>{t(TranslationKey['Price without delivery']) + ' $'}</p>
               </TableCell>
 
               <TableCell className={styles.deliveryCell}>
-                <Text
-                  className={styles.deliveryCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Delivery costs to the prep center'])}
-                >
-                  {t(TranslationKey['Delivery per unit.']) + ' $'}
-                </Text>
+                <p>{t(TranslationKey['Delivery per unit.']) + ' $'}</p>
               </TableCell>
               <TableCell className={styles.qntCell}>
-                <Text
-                  className={styles.qntCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Specify the amount of goods you want to order'])}
-                >
-                  {t(TranslationKey.Quantity)}
-                </Text>
+                <p>{t(TranslationKey.Quantity)}</p>
               </TableCell>
               <TableCell className={styles.totalCell}>
-                <Text
-                  className={styles.totalCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Order amount for a specific product'])}
-                >
-                  {t(TranslationKey.Total) + ' $'}
-                </Text>
+                <p>{t(TranslationKey.Total) + ' $'}</p>
               </TableCell>
               <TableCell className={styles.totalCell}>
-                <Text className={styles.totalCellBtn}>{t(TranslationKey['Price variations'])}</Text>
+                <p>{t(TranslationKey['Price variations'])}</p>
               </TableCell>
               <TableCell className={styles.barCodeCell}>
-                <Text className={styles.barCodeCellBtn}>
-                  {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency codes'])}`}
-                </Text>
+                <p>{`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency codes'])}`}</p>
               </TableCell>
               <TableCell className={styles.tariffCell}>
-                <Text
-                  className={styles.tariffCellBtn}
-                  tooltipInfoContent={t(
-                    TranslationKey['Choose a prep center in China and the rate at which the delivery will take place'],
-                  )}
-                >
-                  {`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}
-                </Text>
+                <p>{`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}</p>
               </TableCell>
               <TableCell className={styles.warehouseCell}>
-                <Text
-                  className={styles.warehouseCellBtn}
-                  tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
-                >
-                  {t(TranslationKey.Destination)}
-                </Text>
+                <p>{t(TranslationKey.Destination)}</p>
               </TableCell>
 
               <TableCell className={styles.commentCell}>
-                <Text
-                  className={styles.commentCellBtn}
-                  tooltipInfoContent={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
-                >
-                  {t(TranslationKey['Client comment'])}
-                </Text>
+                <p>{t(TranslationKey['Client comment'])}</p>
               </TableCell>
               <TableCell className={styles.deadlineCell}>
-                <Text className={styles.cellText}>{'Deadline'}</Text>
+                <p>{'Deadline'}</p>
               </TableCell>
             </TableRow>
           </TableHead>

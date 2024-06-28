@@ -26,6 +26,8 @@ export const Comments: FC<CommentsProps> = memo(props => {
   const clientCommentPlaceholder = isClient && onSubmitChangeFields ? t(TranslationKey['Add comment']) : ''
   const storekeeperCommentPlaceholder = isStorekeeper && onSubmitChangeFields ? t(TranslationKey['Add comment']) : ''
 
+  console.log('onSubmitChangeFields', onSubmitChangeFields)
+
   return (
     <div className={styles.wrapper}>
       <Field

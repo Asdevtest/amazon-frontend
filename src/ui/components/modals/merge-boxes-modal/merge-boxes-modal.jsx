@@ -16,7 +16,6 @@ import { Modal } from '@components/shared/modal'
 import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SizeSwitcher } from '@components/shared/size-switcher'
-import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
@@ -372,12 +371,7 @@ export const MergeBoxesModal = ({
                 inputComponent={
                   <div className={styles.blockOfNewBoxWrapper}>
                     <div className={styles.sizesTitleWrapper}>
-                      <Text
-                        tooltipInfoContent={t(TranslationKey['The dimensions of the box specified by the prep center'])}
-                        className={styles.standartLabel}
-                      >
-                        {t(TranslationKey.Dimensions)}
-                      </Text>
+                      <p>{t(TranslationKey.Dimensions)}</p>
 
                       <SizeSwitcher condition={sizeSetting} onChangeCondition={setSizeSetting} />
                     </div>

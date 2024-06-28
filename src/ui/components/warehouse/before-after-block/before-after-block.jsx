@@ -16,7 +16,6 @@ import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { BoxArrowIcon } from '@components/shared/svg-icons'
-import { Text } from '@components/shared/text'
 
 import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
@@ -365,13 +364,7 @@ const NewBoxes = memo(props => {
   return (
     <div className={styles.newBoxes}>
       <div className={styles.titleWrapper}>
-        <Text
-          tooltipInfoContent={t(TranslationKey['New box condition'])}
-          className={styles.sectionTitle}
-          containerClasses={styles.sectionTitleWrapper}
-        >
-          {t(TranslationKey['New boxes'])}
-        </Text>
+        <p>{t(TranslationKey['New boxes'])}</p>
 
         <Typography>{`${t(TranslationKey['Total number of boxes'])}: ${newBoxes.reduce(
           (acc, cur) => (acc += cur.amount),
@@ -441,13 +434,7 @@ export const BeforeAfterBlock = memo(props => {
     <>
       <div className={styles.currentBox}>
         <div className={styles.titleWrapper}>
-          <Text
-            tooltipInfoContent={t(TranslationKey['Previous condition of the box'])}
-            className={styles.sectionTitle}
-            containerClasses={styles.sectionTitleWrapper}
-          >
-            {t(TranslationKey.Incoming)}
-          </Text>
+          <p>{t(TranslationKey.Incoming)}</p>
 
           <Typography>{`${t(TranslationKey['Total number of boxes'])}: ${incomingBoxes.reduce(
             (acc, cur) => (acc += cur.amount),

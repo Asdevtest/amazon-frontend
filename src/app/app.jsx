@@ -19,6 +19,7 @@ export const App = () => {
   return (
     <ConfigProvider theme={customTheme} locale="en">
       <ToastifyProvider theme={theme} />
+
       <Suspense fallback={<>Loading...</>}>
         <RouterProvider router={router} />
       </Suspense>

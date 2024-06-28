@@ -1,6 +1,6 @@
 import { Roles } from '@typings/enums/roles'
 
 export const roleMapper = (roleCode: number) => ({
-  label: Roles[roleCode],
+  label: <span style={{ textTransform: 'capitalize' }}>{Roles[roleCode]}</span>,
   value: roleCode,
 })

@@ -6,7 +6,6 @@ import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/stat
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestStatusCell } from '@components/data-grid/data-grid-cells'
-import { Text } from '@components/shared/text'
 
 import { formatDateDistanceFromNowStrict, formatNormDateTime } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
@@ -52,14 +51,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
           <div className={styles.confirmationWrapper}>
             <DoneIcon className={styles.doneIcon} />
 
-            <Text
-              tooltipInfoContent={t(
-                TranslationKey['Allowed to the performer to take the application to work without confirmation'],
-              )}
-              className={styles.sectionTitle}
-            >
-              {`(${t(TranslationKey['Without confirmation']).toLocaleLowerCase()})`}
-            </Text>
+            <p>{`(${t(TranslationKey['Without confirmation']).toLocaleLowerCase()})`}</p>
           </div>
         )}
       </div>

@@ -27,7 +27,6 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { CustomPlusIcon, FireIcon } from '@components/shared/svg-icons'
-import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
@@ -675,15 +674,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       checked={formFields.request.withoutConfirmation}
                       onChange={onChangeField('request')('withoutConfirmation')}
                     />
-                    <Text
-                      tooltipPosition={'corner'}
-                      className={styles.subTitle}
-                      tooltipInfoContent={t(
-                        TranslationKey['Allow the performer to take the request for work without confirmation'],
-                      )}
-                    >
-                      {t(TranslationKey['Allow the performer to take the request for work without confirmation'])}
-                    </Text>
+                    <p>{t(TranslationKey['Allow the performer to take the request for work without confirmation'])}</p>
                   </div>
 
                   <div className={styles.checkbox}>
@@ -692,15 +683,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
                       onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
                     />
-                    <Text
-                      tooltipPosition={'corner'}
-                      className={styles.subTitle}
-                      tooltipInfoContent={t(
-                        TranslationKey['After providing the result, the same performer may make a new proposal'],
-                      )}
-                    >
-                      {t(TranslationKey['Prohibit multiple performances by the same performer'])}
-                    </Text>
+                    <p>{t(TranslationKey['Prohibit multiple performances by the same performer'])}</p>
                   </div>
                 </div>
 
@@ -717,9 +700,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         }
                       }}
                     />
-                    <Text className={styles.subTitle} tooltipPosition={'corner'}>
-                      {t(TranslationKey['Set urgent priority'])}
-                    </Text>
+                    <p>{t(TranslationKey['Set urgent priority'])}</p>
                     <FireIcon className={styles.fireIcon} />
                   </div>
                 </div>

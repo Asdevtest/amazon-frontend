@@ -1,7 +1,5 @@
 import { SettingsModel } from '@models/settings-model'
 
-import { Text } from '@components/shared/text'
-
 import { objectFlip } from '@utils/object'
 import { t } from '@utils/translations'
 
@@ -263,11 +261,7 @@ export const OrderStatusText = ({ className, status, isClient }) => {
     }
   }
 
-  return (
-    <Text tooltipInfoContent={t(TranslationKey['Current order status'])} className={className} color={colorByStatus()}>
-      {OrderStatusTranslate(status, isClient)}
-    </Text>
-  )
+  return <p>{OrderStatusTranslate(status, isClient)}</p>
 }
 
 export const getOrderStatusOptionByCode = statusCode =>

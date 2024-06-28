@@ -17,7 +17,7 @@ interface Props {
   title: string
 }
 
-export const Header: FC<Props> = observer(({ title }) => {
+export const Header: FC<Props> = observer(() => {
   const [viewModel] = useState(() => new HeaderModel())
 
   /* useEffect(() => {
@@ -40,10 +40,6 @@ export const Header: FC<Props> = observer(({ title }) => {
 
   return (
     <AntHeader className={classes.header}>
-      {/* <div className={classes.menuIconWrapper}>
-        <MenuIcon className={classes.menuIcon} />
-      </div> */}
-
       {/* <div className={classes.titleWrapper}>
         <p key={SettingsModel.languageTag} className={classes.title}>
           {t(TranslationKey[`${title as TranslationKey}`])}

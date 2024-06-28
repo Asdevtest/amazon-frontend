@@ -8,7 +8,7 @@ interface SiderProps {}
 export const Sider: FC<SiderProps> = memo(() => {
   return (
     <AntSider className={classes.sider} prefixCls={classes.theme}>
-      Sider
+      <div className={classes.logotip} />
     </AntSider>
   )
 })

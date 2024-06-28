@@ -15,6 +15,7 @@ import { FallBack } from './widgets/fall-back'
 
 const container = document.getElementById('root')
 
+// TODO: убрать условие и добавить номр правило TS-linter на '!'
 if (container) {
   const root = createRoot(container)
   root.render(
