@@ -6,7 +6,7 @@ import { CopyValue } from '../copy-value'
 
 interface TextWithCopyProps {
   text: string
-  justifyContent: string
+  justifyContent?: string
 }
 
 export const TextWithCopy: FC<TextWithCopyProps> = memo(({ text, justifyContent = 'center' }) => {
