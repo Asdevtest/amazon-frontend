@@ -6,7 +6,7 @@ class SupervisorModelStatic {
       isCreatedByClient,
       noCache: true,
     })
-    return response.data
+    return response?.data || []
   }
 
   getProductsMyPag = async body => {

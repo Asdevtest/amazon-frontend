@@ -123,16 +123,11 @@ export class HeaderModel {
     } else {
       switch (this.role) {
         case mapUserRoleEnumToKey[UserRole.CLIENT]:
-          return this.history.push(`/client/freelance/my-requests/custom-request?request-id=${noticeItem.crmItemId}`, {
-            chatId: noticeItem.chatId,
-          })
+          return this.history.push(`/client/freelance/my-requests/custom-request?request-id=${noticeItem.crmItemId}`)
 
         case mapUserRoleEnumToKey[UserRole.FREELANCER]:
           return this.history.push(
             `/freelancer/freelance/my-proposals/custom-search-request?request-id=${noticeItem.crmItemId}`,
-            {
-              chatId: noticeItem.chatId,
-            },
           )
 
         default:
