@@ -141,7 +141,7 @@ class StorekeeperModelStatic {
 
   getStorekeepersTariffsWithCalculations = async options => {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersTariffsWithCalculationsGet(options)
-    return response.data
+    return response?.data || []
   }
 }
 
