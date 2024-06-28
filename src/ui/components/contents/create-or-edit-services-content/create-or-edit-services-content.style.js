@@ -68,14 +68,4 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     gap: 20,
   },
-  cancelBtn: {
-    color: theme.palette.text.general,
-
-    height: 40,
-    padding: '0 32px',
-  },
-  successBtn: {
-    height: 40,
-    padding: '0 64px',
-  },
 }))

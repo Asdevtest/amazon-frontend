@@ -178,7 +178,7 @@ export class ClientProductViewModel {
       title: t(TranslationKey['Product unbundling']),
       message: t(TranslationKey['Are you sure you want to unbind the product?']),
       successBtnText: t(TranslationKey.Yes),
-      cancelBtnText: t(TranslationKey.Cancel),
+      cancelBtnText: t(TranslationKey.Close),
       onClickOkBtn: () => this.unbindProduct(childProductIds),
     }
 
@@ -324,7 +324,7 @@ export class ClientProductViewModel {
             title: t(TranslationKey['Delete a card']),
             message: t(TranslationKey['After confirmation, the card will be moved to the archive. Move?']),
             successBtnText: t(TranslationKey.Delete),
-            cancelBtnText: t(TranslationKey.Cancel),
+            cancelBtnText: t(TranslationKey.Close),
             onClickOkBtn: () => this.onDeleteProduct(isModal, updateDataHandler),
           }
         })
@@ -340,7 +340,7 @@ export class ClientProductViewModel {
             title: t(TranslationKey['Return to Inventory']),
             message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
             successBtnText: t(TranslationKey.Yes),
-            cancelBtnText: t(TranslationKey.Cancel),
+            cancelBtnText: t(TranslationKey.Close),
             onClickOkBtn: () => this.onRestoreProduct(isModal, updateDataHandler),
           }
         })

@@ -31,11 +31,8 @@ export const ChatGroupUsers: FC<ChatGroupUsersProps> = memo(props => {
     <div className={styles.groupSettingsWrapper}>
       {userId === chat.info?.createdBy ? (
         <Button onClick={onClickAddUsersToGroupChat}>
-          <div className={styles.addMemberBtnWrapper}>
-            <p className={styles.addMemberBtnText}>{t(TranslationKey['Add member'])}</p>
-
-            <MemberPlusIcon className={styles.arrowIcon} />
-          </div>
+          {t(TranslationKey['Add member'])}
+          <MemberPlusIcon />
         </Button>
       ) : null}
 

@@ -10,7 +10,7 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-shop-form.style'
 
@@ -102,11 +102,10 @@ export const AddOrEditShopForm = observer(({ onCloseModal, onSubmit, shopToEdit 
 
         <Button
           tooltipInfoContent={t(TranslationKey['Closes the store creation/editing window without saving'])}
-          styleType={ButtonStyle.DANGER}
-          variant={ButtonVariant.OUTLINED}
-          onClick={() => onCloseModal()}
+          styleType={ButtonStyle.CASUAL}
+          onClick={onCloseModal}
         >
-          {t(TranslationKey.Cancel)}
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

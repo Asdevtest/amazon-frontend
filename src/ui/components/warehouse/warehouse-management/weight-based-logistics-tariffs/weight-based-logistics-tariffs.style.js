@@ -14,18 +14,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingRight: '5px',
-    [theme.breakpoints.down(768)]: {
-      paddingRight: '10px',
-    },
   },
 
   btnsWrapper: {
     display: 'flex',
-  },
-
-  openArchiveBtn: {
-    padding: '0 30px',
-    color: theme.palette.primary.main,
   },
 
   addressMainWrapper: {

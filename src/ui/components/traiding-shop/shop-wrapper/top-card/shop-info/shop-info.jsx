@@ -84,10 +84,8 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
           <div className={styles.buttonsWrapper}>
             {userInfo._id === data.ownerId ? (
               <>
-                <Button className={styles.editButton} onClick={onClickEditBtn}>
-                  {t(TranslationKey.Edit)}
-                </Button>
-                <Button disabled styleType={ButtonStyle.DANGER} className={styles.deleteButton}>
+                <Button onClick={onClickEditBtn}>{t(TranslationKey.Edit)}</Button>
+                <Button disabled styleType={ButtonStyle.DANGER}>
                   {t(TranslationKey['Delete ad'])}
                 </Button>
               </>

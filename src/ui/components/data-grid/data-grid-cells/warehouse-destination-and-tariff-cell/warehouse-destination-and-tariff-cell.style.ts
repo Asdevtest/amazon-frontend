@@ -8,13 +8,6 @@ export const useStyles = makeStyles()(() => ({
     gap: 10,
   },
 
-  storekeeperBtn: {
-    width: 180,
-    padding: '0 15px',
-    fontSize: 12,
-    lineHeight: '16px',
-  },
-
   tafiffText: {
     width: '100%',
     maxWidth: 'max-content',

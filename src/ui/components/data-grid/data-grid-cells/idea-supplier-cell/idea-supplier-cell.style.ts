@@ -6,14 +6,4 @@ export const useStyles = makeStyles()(() => ({
       fontSize: 14,
     },
   },
-
-  buttonWithIcon: {
-    height: 30,
-    display: 'flex',
-    gap: 5,
-
-    svg: {
-      width: 12,
-    },
-  },
 }))

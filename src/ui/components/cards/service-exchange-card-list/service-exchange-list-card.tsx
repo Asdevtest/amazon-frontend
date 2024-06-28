@@ -100,7 +100,6 @@ export const ServiceExchangeCardList: FC<ServiceExchangeCardListProps> = memo(pr
           <div className={styles.buttonWrapper}>
             <Button
               styleType={isSuccess ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
-              className={styles.openBtn}
               onClick={() => onClickButton(service)}
             >
               {buttonContent}

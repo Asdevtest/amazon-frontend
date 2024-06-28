@@ -68,13 +68,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  cancelBtn: {
-    color: theme.palette.text.general,
-    [theme.breakpoints.down(768)]: {
-      width: '120px',
-    },
-  },
-
   filtersWrapper: {
     display: 'flex',
     margin: '20px 0 13px',
@@ -111,11 +104,6 @@ export const useStyles = makeStyles()(theme => ({
       width: '280px',
       marginBottom: '15px',
     },
-  },
-
-  actionBtn: {
-    width: '144px',
-    height: '40px',
   },
 
   footerWrapper: {

@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   root: {
     width: '395px',
     padding: 10,
@@ -57,9 +57,5 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     gap: '30px',
-  },
-
-  canselButton: {
-    color: theme.palette.text.general,
   },
 }))

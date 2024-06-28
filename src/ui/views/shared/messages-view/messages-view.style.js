@@ -100,14 +100,4 @@ export const useStyles = makeStyles()(theme => ({
   noticesTextNotActive: {
     color: '#c4c4c4',
   },
-
-  newDialogBtn: {
-    height: 40,
-    padding: '0 25px',
-
-    [theme.breakpoints.down(768)]: {
-      padding: 8,
-      borderRadius: 7,
-    },
-  },
 }))

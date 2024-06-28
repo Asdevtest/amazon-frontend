@@ -89,7 +89,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
           setOpenModal={onToggleShowConfirmModal}
           message={t(TranslationKey['Are you sure you want to send the result for rework?'])}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={onClickSuccessConfirm}
           onClickCancelBtn={onToggleShowConfirmModal}
         />

@@ -10,7 +10,7 @@ import { Input } from '@components/shared/input'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './restore-request-modal.style'
 
@@ -65,7 +65,6 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={!date || currentRequestsCount > Number(requestCount)}
-          className={styles.controlButton}
           onClick={() => {
             handleSubmit(date, requestCount)
             handleCloseModal()
@@ -73,12 +72,8 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button
-          variant={ButtonVariant.OUTLINED}
-          className={cx(styles.controlButton, styles.cancelButton)}
-          onClick={handleCloseModal}
-        >
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={handleCloseModal}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

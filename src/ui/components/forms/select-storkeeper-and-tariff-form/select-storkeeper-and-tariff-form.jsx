@@ -208,7 +208,6 @@ export const SelectStorekeeperAndTariffForm = observer(
             <div className={styles.clearBtnWrapper}>
               <Button
                 variant={ButtonVariant.OUTLINED}
-                className={styles.resetBtn}
                 onClick={() => {
                   setVariationTariffId(null)
                   onSubmit(null, null, null, null, null, true)

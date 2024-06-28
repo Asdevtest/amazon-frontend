@@ -29,7 +29,7 @@ interface InterconnectedProductsProps {
 }
 
 export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(props => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
 
   const { variationProduct, isParent, showRemoveButton, productId, unbindProductHandler, navigateToProduct } = props
   const { asin, skuByClient, images, _id } = variationProduct
@@ -47,7 +47,7 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button iconButton smallIconButton className={styles.button} onClick={() => navigateToProduct(_id)}>
+        <Button iconButton smallIconButton onClick={() => navigateToProduct(_id)}>
           <ShareIcon />
         </Button>
 
@@ -56,7 +56,6 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
             iconButton
             smallIconButton
             styleType={ButtonStyle.DANGER}
-            className={cx(styles.button)}
             onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}
           >
             <MinusIcon />

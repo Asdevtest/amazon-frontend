@@ -58,14 +58,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
-  button: {
-    height: '40px',
-    padding: '0 25px',
-  },
-  cancelButton: {
-    color: theme.palette.text.general,
-  },
-
   asinTitle: {
     fontSize: '14px',
     lineHeight: '19px',

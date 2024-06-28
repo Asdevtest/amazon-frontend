@@ -71,17 +71,12 @@ export const ClientIdeasView = observer(({ history }) => {
           onSubmit={viewModel.onSearchSubmit}
         />
 
-        <div>
-          {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              className={styles.createRequest}
-              onClick={viewModel.onClickProductLaunch}
-            >
-              <PlusIcon /> {t(TranslationKey['Create idea'])}
-            </Button>
-          )}
-        </div>
+        {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
+          <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickProductLaunch}>
+            <PlusIcon />
+            {t(TranslationKey['Create idea'])}
+          </Button>
+        )}
       </div>
 
       <div className={styles.datagridWrapper}>

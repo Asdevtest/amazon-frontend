@@ -205,7 +205,7 @@ export class ListSuppliersModel {
             isWarning: true,
             message: t(TranslationKey['Are you sure you want to remove the supplier?']),
             successBtnText: t(TranslationKey.Yes),
-            cancelBtnText: t(TranslationKey.Cancel),
+            cancelBtnText: t(TranslationKey.Close),
             onClickOkBtn: () => {
               this.removeSupplier()
               this.onToggleModal(ModalNames.CONFIRM)

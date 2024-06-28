@@ -171,7 +171,6 @@ export const OwnerRequestProposalsCard = ({
                 <Button
                   styleType={ButtonStyle.SUCCESS}
                   tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
-                  className={styles.actionButton}
                   onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
                 >
                   {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
@@ -179,7 +178,6 @@ export const OwnerRequestProposalsCard = ({
               )}
             <Button
               tooltipInfoContent={t(TranslationKey['Open a chat with the performer'])}
-              className={styles.actionButton}
               onClick={() => onClickContactWithExecutor(item.proposal)}
             >
               {t(TranslationKey['Contact the performer'])}

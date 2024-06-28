@@ -78,9 +78,7 @@ export const AppealsListCard = ({ onClickViewMore }) => {
                 </div>
               </div>
             </div>
-            <Button className={styles.actionButton} onClick={() => onClickViewMore()}>
-              {t(TranslationKey['Open an appeal'])}
-            </Button>
+            <Button onClick={() => onClickViewMore()}>{t(TranslationKey['Open an appeal'])}</Button>
           </div>
         </div>
       </div>

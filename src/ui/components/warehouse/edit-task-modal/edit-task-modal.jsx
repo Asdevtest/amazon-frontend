@@ -22,7 +22,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
@@ -201,7 +201,7 @@ export const EditTaskModal = memo(
             </div>
 
             {task.operationType === TaskOperationType.RECEIVE && (
-              <Button className={styles.downloadButton} onClick={uploadTemplateFile}>
+              <Button onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download task file'])}
                 <FileDownloadIcon />
               </Button>
@@ -281,7 +281,6 @@ export const EditTaskModal = memo(
             <div className={styles.buttonsWrapperMobile}>
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <Button
-                  className={styles.buttonMobile}
                   tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
                   onClick={() => setReceiveBoxModal(!receiveBoxModal)}
                 >
@@ -300,7 +299,6 @@ export const EditTaskModal = memo(
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <div className={styles.hideButton}>
                   <Button
-                    className={styles.button}
                     tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
                     onClick={() => {
                       setReceiveBoxModal(!receiveBoxModal)
@@ -314,7 +312,6 @@ export const EditTaskModal = memo(
               <div className={styles.buttons}>
                 <Button
                   styleType={ButtonStyle.SUCCESS}
-                  className={styles.successBtn}
                   disabled={disableSaveButton}
                   tooltipInfoContent={t(TranslationKey['Save task data'])}
                   onClick={() => {
@@ -329,18 +326,14 @@ export const EditTaskModal = memo(
                 >
                   {t(TranslationKey.Save)}
                 </Button>
-                <Button
-                  variant={ButtonVariant.OUTLINED}
-                  className={styles.cancelButton}
-                  onClick={onClickOpenCloseModal}
-                >
-                  {t(TranslationKey.Cancel)}
+                <Button styleType={ButtonStyle.CASUAL} onClick={onClickOpenCloseModal}>
+                  {t(TranslationKey.Close)}
                 </Button>
               </div>
             </div>
           ) : (
             <div className={styles.buttonWrapper}>
-              <Button className={styles.closeButton} onClick={onClickOpenCloseModal}>
+              <Button styleType={ButtonStyle.CASUAL} onClick={onClickOpenCloseModal}>
                 {t(TranslationKey.Close)}
               </Button>
             </div>

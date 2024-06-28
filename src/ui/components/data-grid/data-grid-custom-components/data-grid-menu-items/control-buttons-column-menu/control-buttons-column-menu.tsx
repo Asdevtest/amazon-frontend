@@ -6,7 +6,7 @@ import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './control-buttons-column-menu.style'
 
@@ -33,8 +33,8 @@ export const ControlButtonsColumnMenu: FC<ControlButtonsColumnMenuProps> = memo(
         {t(TranslationKey.Accept)}
       </Button>
 
-      <Button variant={ButtonVariant.OUTLINED} onClick={onClose}>
-        {t(TranslationKey.Cancel)}
+      <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+        {t(TranslationKey.Close)}
       </Button>
     </div>
   )

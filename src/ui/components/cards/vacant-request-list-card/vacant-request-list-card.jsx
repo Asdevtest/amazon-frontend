@@ -90,7 +90,6 @@ export const VacantRequestListCard = ({ item, onClickViewMore, onDoubleClick, is
           </div>
           <Button
             tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
-            className={styles.actionButton}
             onClick={() => onClickViewMore(item._id)}
           >
             {t(TranslationKey.Details)}

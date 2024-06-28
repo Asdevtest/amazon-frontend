@@ -104,7 +104,6 @@ export const MessagesView = observer(({ history }) => {
               </div>
 
               <Button
-                className={styles.newDialogBtn}
                 disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
                 onClick={viewModel.onClickAddNewChatByEmail}
               >
@@ -144,7 +143,6 @@ export const MessagesView = observer(({ history }) => {
             </div>
 
             <Button
-              className={styles.newDialogBtn}
               disabled={checkIsResearcher(UserRoleCodeMap[viewModel.user.role])}
               onClick={viewModel.onClickAddNewChatByEmail}
             >

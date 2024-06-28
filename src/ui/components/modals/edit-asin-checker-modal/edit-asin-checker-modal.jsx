@@ -61,7 +61,7 @@ export const EditAsinCheckerModal = memo(props => {
         </Button>
 
         <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-          {t(TranslationKey.Cancel)}
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

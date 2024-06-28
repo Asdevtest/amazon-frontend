@@ -51,18 +51,6 @@ export const useStyles = makeStyles()(theme => ({
     flex: '1 1 auto',
   },
 
-  button: {
-    width: 120,
-
-    [theme.breakpoints.down(768)]: {
-      width: 90,
-    },
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
-  },
-
   isFocusedOption: {
     transition: '.3s ease',
 

@@ -4,9 +4,7 @@ export const useStyles = makeStyles()(() => ({
   buttonWrapper: {
     textAlign: 'right',
   },
-  rightBtn: {
-    marginLeft: '10px',
-  },
+
   modalContainer: {
     minWidth: '460px',
   },

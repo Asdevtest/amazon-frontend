@@ -46,11 +46,7 @@ export const TrackNumber: FC<TrackNumberProps> = memo(props => {
               onChange={onChangeField('trackNumberText')}
             />
 
-            <Button
-              disabled={!isEdit}
-              className={styles.button}
-              onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
-            >
+            <Button disabled={!isEdit} onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
               {formFields?.trackNumberFile?.length ? t(TranslationKey['File added']) : t(TranslationKey['Add file'])}
             </Button>
           </div>

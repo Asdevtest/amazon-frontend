@@ -72,8 +72,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  textsWrapper: {},
-
   standartText: {
     color: theme.palette.text.general,
 
@@ -98,9 +96,5 @@ export const useStyles = makeStyles()(theme => ({
     [theme.breakpoints.down(768)]: {
       justifyContent: 'space-between',
     },
-  },
-
-  cancelBtn: {
-    color: theme.palette.text.general,
   },
 }))

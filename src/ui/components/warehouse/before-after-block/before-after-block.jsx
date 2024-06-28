@@ -290,9 +290,7 @@ const Box = memo(props => {
                     !box.lengthCmWarehouse ||
                     !box.heightCmWarehouse
                   }
-                  onClick={() => {
-                    onClickApplyAllBtn(box)
-                  }}
+                  onClick={() => onClickApplyAllBtn(box)}
                 >
                   {t(TranslationKey['Apply to all'])}
                 </Button>
@@ -335,9 +333,7 @@ const ReceiveBoxes = memo(({ taskType, onClickOpenModal }) => {
         <BoxArrowIcon className={styles.boxArrowSvg} />
       </div>
 
-      <Typography className={styles.receiveBoxTitle}>
-        {t(TranslationKey['Add boxes that have arrived in stock'])}
-      </Typography>
+      <p className={styles.receiveBoxTitle}>{t(TranslationKey['Add boxes that have arrived in stock'])}</p>
 
       {taskType === TaskOperationType.RECEIVE && (
         <Button onClick={onClickOpenModal}>{t(TranslationKey.Receive)}</Button>

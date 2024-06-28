@@ -79,18 +79,18 @@ export const WeightBasedLogisticsTariffs = observer(() => {
             </div>
           ) : null}
 
-          <Button onClick={() => onClickAddressBtn()}>
+          <Button onClick={onClickAddressBtn}>
             {storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
           </Button>
         </div>
 
         {isArchive ? (
-          <Button variant={ButtonVariant.OUTLINED} className={styles.openArchiveBtn} onClick={onTriggerArchive}>
+          <Button variant={ButtonVariant.OUTLINED} onClick={onTriggerArchive}>
             {t(TranslationKey['Current tariffs'])}
           </Button>
         ) : (
           <div className={styles.btnsWrapper}>
-            <Button variant={ButtonVariant.OUTLINED} className={styles.openArchiveBtn} onClick={onTriggerArchive}>
+            <Button variant={ButtonVariant.OUTLINED} onClick={onTriggerArchive}>
               {t(TranslationKey['Open archive'])}
             </Button>
           </div>

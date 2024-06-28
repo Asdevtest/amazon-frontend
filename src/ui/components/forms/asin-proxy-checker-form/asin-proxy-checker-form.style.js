@@ -78,12 +78,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 30,
   },
 
-  buttonCancel: {
-    padding: '10px 25px',
-    color: theme.palette.text.general,
-    background: theme.palette.background.general,
-  },
-
   error: {
     color: 'red',
   },

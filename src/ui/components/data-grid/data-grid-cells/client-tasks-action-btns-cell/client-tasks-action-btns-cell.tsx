@@ -33,9 +33,7 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
   }
 
   const renderTaskInfoBtn = () => (
-    <Button className={styles.infoBtn} onClick={() => handlers.onClickTaskInfo(row)}>
-      {t(TranslationKey.Details)}
-    </Button>
+    <Button onClick={() => handlers.onClickTaskInfo(row)}>{t(TranslationKey.Details)}</Button>
   )
 
   const renderHistoryItem = () => {
@@ -47,11 +45,10 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                styleType={ButtonStyle.DANGER}
-                className={styles.cancelTaskBtn}
+                styleType={ButtonStyle.CASUAL}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
               >
-                {t(TranslationKey.Cancel)}
+                {t(TranslationKey.Close)}
               </Button>
             )}
           </>
@@ -62,11 +59,10 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                styleType={ButtonStyle.DANGER}
-                className={styles.cancelTaskBtn}
+                styleType={ButtonStyle.CASUAL}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
               >
-                {t(TranslationKey.Cancel)}
+                {t(TranslationKey.Close)}
               </Button>
             )}
           </>
@@ -80,13 +76,12 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
               <Button
-                styleType={ButtonStyle.DANGER}
-                className={styles.cancelTaskBtn}
-                onClick={() => {
+                styleType={ButtonStyle.CASUAL}
+                onClick={() =>
                   handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
-                }}
+                }
               >
-                {t(TranslationKey.Cancel)}
+                {t(TranslationKey.Close)}
               </Button>
             )}
           </>

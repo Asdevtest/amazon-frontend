@@ -9,10 +9,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
-  listingButton: {
-    width: '100%',
-  },
-
   listingCheckbox: {
     color: theme.palette.primary.main,
   },

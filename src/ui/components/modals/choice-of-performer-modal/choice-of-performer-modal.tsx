@@ -9,7 +9,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
 
@@ -162,7 +162,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         >
           {t(TranslationKey.Select)}
         </Button>
-        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelButton} onClick={onClickCloseBtn}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCloseBtn}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

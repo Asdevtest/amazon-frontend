@@ -71,7 +71,6 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
         {showUpdateSeoFilesInProductButton ? (
           <Button
             disabled={disabledUpdateSeoFilesInProductButton}
-            className={styles.button}
             variant={ButtonVariant.OUTLINED}
             styleType={errorUpdateSeoFilesInProduct ? ButtonStyle.DANGER : ButtonStyle.PRIMARY}
             onClick={onUpdateSeoIFilesInProduct}

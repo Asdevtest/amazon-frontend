@@ -103,9 +103,6 @@ export const styles = theme => ({
     gap: 20,
   },
 
-  cancelBtn: {
-    color: theme.palette.text.general,
-  },
   radioGroup: {
     display: 'flex',
     justifyContent: 'space-between',

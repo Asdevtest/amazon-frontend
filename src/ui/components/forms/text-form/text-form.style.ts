@@ -26,8 +26,4 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: 20,
   },
-
-  button: {
-    width: 100,
-  },
 }))

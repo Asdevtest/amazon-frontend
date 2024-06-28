@@ -135,7 +135,7 @@ export const AnotherUserProfileViewRaw = props => {
           title={viewModel.confirmModalSettings.confirmTitle}
           message={viewModel.confirmModalSettings.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
@@ -160,7 +160,7 @@ export const AnotherUserProfileViewRaw = props => {
           rateLabel={t(TranslationKey['Rate the user'])}
           reviewLabel={t(TranslationKey['Leave a user review'])}
           confirmButtonText={t(TranslationKey.Confirm)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onSubmit={viewModel.onAcceptReview}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />

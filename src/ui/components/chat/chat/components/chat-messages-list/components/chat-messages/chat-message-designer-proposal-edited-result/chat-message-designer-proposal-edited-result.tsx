@@ -87,10 +87,7 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
           />
         </div>
 
-        <Button
-          className={styles.actionButton}
-          onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}
-        >
+        <Button onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}>
           {t(TranslationKey['Open result'])}
         </Button>
       </div>

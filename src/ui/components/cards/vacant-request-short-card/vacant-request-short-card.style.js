@@ -49,11 +49,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  actionButton: {
-    width: '254px',
-    height: '40px',
-  },
-
   mainInfosWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

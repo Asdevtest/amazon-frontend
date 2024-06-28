@@ -9,7 +9,7 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { IFeedback } from '@typings/models/feedbacks/feedback'
 import { ICreatedBy } from '@typings/shared/created-by'
 
@@ -40,7 +40,7 @@ export const ReviewsForm: FC<ReviewsFormProps> = memo(({ onClickCloseButton, rev
       </div>
 
       <div className={styles.footerWrapper}>
-        <Button variant={ButtonVariant.OUTLINED} className={styles.closeButton} onClick={onClickCloseButton}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCloseButton}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

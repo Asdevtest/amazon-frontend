@@ -72,14 +72,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
       renderCell: ({ row }) => (
-        <Button
-          style={{
-            height: '30px !important',
-          }}
-          onClick={() => handlers.onClickReplyBtn(row.request._id, row.chatId)}
-        >
-          {t(TranslationKey.Reply)}
-        </Button>
+        <Button onClick={() => handlers.onClickReplyBtn(row.request._id, row.chatId)}>{t(TranslationKey.Reply)}</Button>
       ),
       disableCustomSort: true,
     },

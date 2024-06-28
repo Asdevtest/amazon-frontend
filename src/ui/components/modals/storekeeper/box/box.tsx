@@ -8,8 +8,6 @@ import { IconButton } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
@@ -26,7 +24,6 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { TariffModal } from '@typings/enums/tariff-modal'
-import { UiTheme } from '@typings/enums/ui-theme'
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -194,15 +191,6 @@ export const Box: FC<BoxProps> = memo(props => {
                     {isNewBox ? (
                       <Button
                         disabled={!isNewBox}
-                        className={cx(
-                          styles.storekeeperBtnDefault,
-                          { [styles.storekeeperBtn]: !box.logicsTariffId },
-                          {
-                            [styles.storekeeperBtnColored]:
-                              !box.logicsTariffId && SettingsModel.uiTheme === UiTheme.light,
-                          },
-                          { [styles.storekeeperDisableBtn]: !isNewBox },
-                        )}
                         onClick={() =>
                           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                         }
@@ -212,7 +200,7 @@ export const Box: FC<BoxProps> = memo(props => {
                           : t(TranslationKey.Select)}
                       </Button>
                     ) : (
-                      <p className={styles.storekeeperDisableBtn}>{`${
+                      <p>{`${
                         box.logicsTariff?._id ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}` : 'none'
                       }`}</p>
                     )}
@@ -288,16 +276,9 @@ export const Box: FC<BoxProps> = memo(props => {
           {isNewBox && (
             <div className={styles.bottomBlockWrapper}>
               <IconButton classes={{ root: styles.icon }} onClick={() => onRemoveBox(box._id)}>
-                <DeleteOutlineOutlinedIcon className={styles.deleteBtn} />
+                <DeleteOutlineOutlinedIcon />
               </IconButton>
               <Button
-                className={cx(styles.editBtn, {
-                  [styles.editBtnYellow]:
-                    !box.widthCmWarehouse ||
-                    !box.weighGrossKgWarehouse ||
-                    !box.lengthCmWarehouse ||
-                    !box.heightCmWarehouse,
-                })}
                 tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
                 onClick={() => {
                   setCurBox(box)
@@ -314,10 +295,7 @@ export const Box: FC<BoxProps> = memo(props => {
                   !box.lengthCmWarehouse ||
                   !box.heightCmWarehouse
                 }
-                className={styles.editBtn}
-                onClick={() => {
-                  onClickApplyAllBtn(box)
-                }}
+                onClick={() => onClickApplyAllBtn(box)}
               >
                 {t(TranslationKey['Apply to all'])}
               </Button>

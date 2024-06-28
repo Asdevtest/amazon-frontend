@@ -77,16 +77,11 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
             <Button
               disabled={!formFields.rating}
               styleType={isReject ? ButtonStyle.DANGER : ButtonStyle.SUCCESS}
-              className={cx(styles.btnSubmit, { [styles.btnLargeSubmit]: isSupervisor })}
               onClick={() => onSubmit(formFields)}
             >
               {isReject ? rejectButtonText : confirmButtonText}
             </Button>
-            <Button
-              variant={ButtonVariant.OUTLINED}
-              className={cx(styles.btnSubmit, styles.cancelSubmit)}
-              onClick={() => setIsShowConfirmationModal(true)}
-            >
+            <Button variant={ButtonVariant.OUTLINED} onClick={() => setIsShowConfirmationModal(true)}>
               {cancelBtnText}
             </Button>
           </div>
@@ -100,7 +95,7 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
               title={t(TranslationKey.Attention)}
               message={t(TranslationKey['Are you sure you want to close this window?'])}
               successBtnText={t(TranslationKey.Yes)}
-              cancelBtnText={t(TranslationKey.Cancel)}
+              cancelBtnText={t(TranslationKey.Close)}
               onClickSuccessBtn={() => {
                 setIsShowConfirmationModal(false)
                 onClose()

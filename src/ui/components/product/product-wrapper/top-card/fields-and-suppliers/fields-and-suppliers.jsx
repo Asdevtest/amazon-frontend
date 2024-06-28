@@ -125,7 +125,6 @@ export const FieldsAndSuppliers = memo(props => {
               {!checkIsBuyer(curUserRole) ? (
                 <Button
                   tooltipInfoContent={t(TranslationKey['Fills the card with the necessary information'])}
-                  className={styles.buttonParseAmazon}
                   disabled={curUserRole === UserRole.ADMIN}
                   onClick={() => {
                     // onClickParseProductData(ProductDataParser.AMAZON, product)
@@ -557,11 +556,7 @@ export const FieldsAndSuppliers = memo(props => {
           label={t(TranslationKey['HS code'])}
           labelClasses={styles.label}
           containerClasses={styles.hsFieldContainer}
-          inputComponent={
-            <Button className={styles.hsCodeBtn} onClick={() => onClickHsCode(product?._id)}>
-              {t(TranslationKey['HS code'])}
-            </Button>
-          }
+          inputComponent={<Button onClick={() => onClickHsCode(product?._id)}>{t(TranslationKey['HS code'])}</Button>}
         />
       ) : null}
       {checkIsClient(curUserRole) ? (

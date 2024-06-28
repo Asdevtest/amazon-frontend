@@ -86,16 +86,12 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           </div>
           <div className={!showDetails ? styles.buttonsWrapper : styles.buttonWrapper}>
             {!showDetails && (
-              <Button
-                styleType={ButtonStyle.SUCCESS}
-                className={styles.actionButton}
-                onClick={() => onClickGetToWorkModal(item._id, item.requestId)}
-              >
+              <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickGetToWorkModal(item._id, item.requestId)}>
                 {t(TranslationKey['Get to work'])}
               </Button>
             )}
 
-            <Button className={styles.actionButton} onClick={() => onClickViewMore(item.requestId, item._id)}>
+            <Button onClick={() => onClickViewMore(item.requestId, item._id)}>
               {t(TranslationKey['Open a deal'])}
             </Button>
           </div>

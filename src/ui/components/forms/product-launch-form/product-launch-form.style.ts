@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   root: {
     width: '395px',
     padding: '40px',
@@ -39,9 +39,5 @@ export const useStyles = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     gap: '30px',
-  },
-
-  canselButton: {
-    color: theme.palette.text.general,
   },
 }))

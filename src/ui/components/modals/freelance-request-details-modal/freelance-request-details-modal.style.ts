@@ -15,22 +15,11 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
     position: 'sticky',
     top: 0,
-
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-    },
   },
 
   headerDetails: {
     display: 'flex',
     gap: '80px',
-
-    [theme.breakpoints.down(768)]: {
-      gap: '20px',
-      flexWrap: 'wrap',
-    },
   },
 
   flexContainer: {
@@ -53,10 +42,6 @@ export const useStyles = makeStyles()(theme => ({
   content: {
     display: 'flex',
     gap: '50px',
-
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-    },
   },
 
   categoryTitle: {
@@ -129,22 +114,9 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  publishBtn: {
-    width: '100%',
-    height: 40,
-  },
-
-  listingButton: {
-    color: theme.palette.primary.main,
-  },
-
   buttonsWrapper: {
     display: 'flex',
     gap: '10px',
     justifyContent: 'flex-end',
-  },
-
-  recoverBtn: {
-    width: '100%',
   },
 }))

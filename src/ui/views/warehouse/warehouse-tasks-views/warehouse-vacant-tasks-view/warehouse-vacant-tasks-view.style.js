@@ -32,14 +32,6 @@ export const useStyles = makeStyles()(theme => ({
     paddingLeft: '7px',
   },
 
-  pickupOrdersButton: {
-    padding: '0 20px',
-    height: 40,
-    color: '#fff',
-    display: 'flex',
-    gap: 10,
-  },
-
   downloadIcon: {
     color: '#fff',
   },

@@ -243,14 +243,12 @@ export const BoxItemCard = ({
                     taskType !== 'edit' && (
                       <Field
                         oneLine
-                        // containerClasses={styles.checkboxContainer}
                         labelClasses={styles.label}
                         label={t(TranslationKey['Apply to all boxes'])}
                         tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
                         inputComponent={
                           <Button
                             disabled={disableBarCodeCheckbox}
-                            className={styles.applyButton}
                             onClick={() =>
                               onApplyGluedBarcodeToAllBoxes(
                                 item.isBarCodeAlreadyAttachedByTheSupplier,
@@ -407,7 +405,6 @@ export const BoxItemCard = ({
                       inputComponent={
                         <Button
                           disabled={disableBarCodeCheckbox}
-                          className={styles.applyButton}
                           onClick={() =>
                             onApplyGluedBarcodeToAllBoxes(
                               item.isBarCodeAlreadyAttachedByTheSupplier,

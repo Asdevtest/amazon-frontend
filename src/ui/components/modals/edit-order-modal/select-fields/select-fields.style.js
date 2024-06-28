@@ -160,12 +160,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
   },
 
-  button: {
-    height: '40px',
-    padding: '0 25px',
-    whiteSpace: 'nowrap',
-    color: '#fff',
-  },
   checkboxWithButton: {
     display: 'flex',
   },
@@ -289,10 +283,6 @@ export const useStyles = makeStyles()(theme => ({
     marginTop: 20,
     display: 'flex',
     justifyContent: 'center',
-  },
-
-  documentButton: {
-    width: '100%',
   },
 
   imageFileInputWrapper: {

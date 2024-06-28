@@ -58,7 +58,7 @@ export const WarehouseDashboardViewRaw = props => {
                     </div>
                   ) : null}
 
-                  <Button className={styles.editBtn} onClick={viewModel.onClickAddressBtn}>
+                  <Button onClick={viewModel.onClickAddressBtn}>
                     {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
                   </Button>
                 </div>
@@ -78,7 +78,7 @@ export const WarehouseDashboardViewRaw = props => {
                 </div>
               ) : null}
 
-              <Button className={styles.editBtn} onClick={viewModel.onClickAddressBtn}>
+              <Button onClick={viewModel.onClickAddressBtn}>
                 {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add Address'])}
               </Button>
             </div>

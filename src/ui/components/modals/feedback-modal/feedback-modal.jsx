@@ -63,7 +63,7 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
             {t(TranslationKey.Send)}
           </Button>
           <Button styleType={ButtonStyle.CASUAL} onClick={() => setIsShowConfirmationModal(true)}>
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
 

@@ -20,15 +20,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     marginTop: '20px',
   },
-  saveBtn: {
-    width: '123px',
-    height: '40px',
-  },
-  closeBtn: {
-    width: '123px',
-    height: '40px',
-    color: theme.palette.text.general,
-  },
 
   standartText: {
     color: theme.palette.text.general,

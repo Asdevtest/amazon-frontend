@@ -1,9 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -21,46 +18,26 @@ export const WarehouseTasksView = observer(({ history }) => {
   const [viewModel] = useState(() => new WarehouseTasksViewModel({ history }))
 
   return (
-    <>
-      <div>
-        <div>
-          <Typography className={styles.title}>{t(TranslationKey['Choose a section in Tasks'])}</Typography>
+    <div>
+      <p className={styles.title}>{t(TranslationKey['Choose a section in Tasks'])}</p>
 
-          <div className={styles.btnsWrapper}>
-            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickVacantTask}>
-              <div className={styles.btnTextWrapper}>
-                <Typography className={styles.btnText}>{t(TranslationKey['New tasks'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
+      <div className={styles.btnsWrapper}>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickVacantTask}>
+          {t(TranslationKey['New tasks'])}
+        </Button>
 
-            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickMyTasks}>
-              <div className={styles.btnTextWrapper}>
-                <Typography className={styles.btnText}>{t(TranslationKey['My tasks'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickMyTasks}>
+          {t(TranslationKey['My tasks'])}
+        </Button>
 
-            <Button
-              className={styles.button}
-              variant={ButtonVariant.OUTLINED}
-              onClick={viewModel.onClickCompletedTasks}
-            >
-              <div className={styles.btnTextWrapper}>
-                <Typography className={styles.btnText}>{t(TranslationKey['Completed tasks'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickCompletedTasks}>
+          {t(TranslationKey['Completed tasks'])}
+        </Button>
 
-            <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickCanceledTasks}>
-              <div className={styles.btnTextWrapper}>
-                <Typography className={styles.btnText}>{t(TranslationKey['Canceled tasks'])}</Typography>
-                <ArrowRightAltIcon color="primary" />
-              </div>
-            </Button>
-          </div>
-        </div>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickCanceledTasks}>
+          {t(TranslationKey['Canceled tasks'])}
+        </Button>
       </div>
-    </>
+    </div>
   )
 })

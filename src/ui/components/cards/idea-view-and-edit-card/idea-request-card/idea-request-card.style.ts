@@ -49,12 +49,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
   },
 
-  resultButton: {
-    padding: '0 20px',
-    height: '30px',
-    whiteSpace: 'nowrap',
-  },
-
   linkStyles: {
     color: theme.palette.primary.main,
   },

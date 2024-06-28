@@ -12,6 +12,8 @@ import { Modal } from '@components/shared/modal'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './admin-balance-modal.style'
 
 const paymentTypeSettings = {
@@ -136,7 +138,9 @@ export const AdminBalanceModal = ({ user, isWithdraw, onTriggerParentModal, onSu
           <Typography paragraph>{confirmMsg()}</Typography>
           <div className={styles.buttonWrapper}>
             <Button onClick={onConfirm}>{t(TranslationKey.Yes)}</Button>
-            <Button onClick={onDecline}>{t(TranslationKey.Cancel)}</Button>
+            <Button styleType={ButtonStyle.CASUAL} onClick={onDecline}>
+              {t(TranslationKey.Close)}
+            </Button>
           </div>
         </div>
       </Modal>

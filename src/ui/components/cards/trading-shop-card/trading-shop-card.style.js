@@ -105,10 +105,6 @@ export const useStyles = makeStyles()(theme => ({
     color: 'red',
   },
 
-  actionButton: {
-    padding: '8px 60px',
-  },
-
   percentWrapper: {
     display: 'flex',
     alignItems: 'center',

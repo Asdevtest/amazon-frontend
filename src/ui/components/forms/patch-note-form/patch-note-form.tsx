@@ -63,7 +63,7 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
 
       <div className={styles.buttons}>
         <Button styleType={ButtonStyle.CASUAL} onClick={onToggleModal}>
-          {t(TranslationKey.Cancel)}
+          {t(TranslationKey.Close)}
         </Button>
         <Button disabled={disabledSubmitButton} onClick={onSubmit}>
           {editPatchNote ? t(TranslationKey.Edit) : t(TranslationKey.Create)}

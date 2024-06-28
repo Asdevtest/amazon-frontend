@@ -43,7 +43,6 @@ export const HeaderTable = ({ viewModel }) => {
             tooltipInfoContent={t(
               TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
             )}
-            styles={styles.cancelBtn}
             onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           >
             {t(TranslationKey['Cancel Send'])}
@@ -57,19 +56,14 @@ export const HeaderTable = ({ viewModel }) => {
           />
         </div>
 
-        <div className={styles.rightSideButtonsWrapper}>
+        <div className={styles.btnsSubWrapper}>
           <Button
             disabled={viewModel.selectedRows.length !== 1}
-            styles={styles.rightSideButton}
             onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: false })}
           >
             {t(TranslationKey['Edit batch'])}
           </Button>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            styles={styles.rightSideButton}
-            onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}
-          >
+          <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddOrEditBatch({ isAdding: true })}>
             {t(TranslationKey['Create a batch'])}
           </Button>
         </div>
