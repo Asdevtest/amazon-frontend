@@ -76,7 +76,7 @@ export const adminUsersViewColumns = handlers => {
       field: 'email',
       headerName: t(TranslationKey.Email),
       renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Email)} />,
-      renderCell: ({ row }) => <TextWithCopy text={row.email} />,
+      renderCell: ({ row }) => <TextWithCopy text={row.email} justifyContent={'flex-end'} />,
       columnKey: columnnsKeys.shared.STRING,
       width: 200,
     },
