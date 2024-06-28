@@ -9,6 +9,7 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './buyer-search-supplier-by-supervisor-view.style'
 
@@ -35,6 +36,19 @@ export const BuyerSearchSupplierBySupervisorView = observer(() => {
           disableRowSelectionOnClick
           sortingMode="client"
           paginationMode="client"
+          getRowHeight={() => 'auto'}
+          getRowId={(row: IProduct) => row._id}
+          pinnedColumns={viewModel.pinnedColumns}
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
+          columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          rowSelectionModel={viewModel.selectedRows}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -47,15 +61,10 @@ export const BuyerSearchSupplierBySupervisorView = observer(() => {
               },
             },
           }}
-          columnVisibilityModel={viewModel.columnVisibilityModel}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          rowHeight={80}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
     </div>
