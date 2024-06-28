@@ -123,6 +123,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
       </div>
 
       <Modal
+        missClickModalOn
         openModal={viewModel.showAddOrEditSupplierModal}
         setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
       >
