@@ -14,22 +14,21 @@ import { useStyles } from './buyer-search-supplier-by-supervisor-view.style'
 
 import { BuyerSearchSupplierBySupervisorModel } from './buyer-search-supplier-by-supervisor-view.model'
 
-export const BuyerSearchSupplierBySupervisorView = observer(({ history }) => {
+export const BuyerSearchSupplierBySupervisorView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new BuyerSearchSupplierBySupervisorModel({ history }))
+  const [viewModel] = useState(() => new BuyerSearchSupplierBySupervisorModel())
 
   return (
-    <>
-      <div className={styles.btnsWrapper}>
-        <Button
-          disabled={viewModel.selectedRowIds.length === 0}
-          tooltipInfoContent={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
-          onClick={viewModel.onPickupSomeItems}
-        >
-          {t(TranslationKey['Take on the work of the selected'])}
-        </Button>
-      </div>
+    <div className={styles.container}>
+      <Button
+        disabled={viewModel.selectedRows.length === 0}
+        tooltipInfoContent={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
+        onClick={viewModel.onPickupSomeItems}
+      >
+        {t(TranslationKey['Take on the work of the selected'])}
+      </Button>
+
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
           checkboxSelection
@@ -59,6 +58,6 @@ export const BuyerSearchSupplierBySupervisorView = observer(({ history }) => {
           onPaginationModelChange={viewModel.onPaginationModelChange}
         />
       </div>
-    </>
+    </div>
   )
 })

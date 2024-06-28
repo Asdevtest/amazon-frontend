@@ -65,6 +65,7 @@ export const DataGridTablesKeys = {
   BUYER_MY_ORDERS_CONFIRMATION_REQUIRED: 'buyerMyOrdersConfirmationRequiredDataGridState',
   BUYER_MY_ORDERS_CLOSED_AND_CANCELED: 'buyerMyOrdersClosedAndCanceledDataGridState',
   BUYER_MY_ORDERS_ALL_ORDERS: 'buyerMyOrdersAllDataGridState',
+  BUYER_SEARCH_SUPPLIER_BY_SUPERVISOR: 'buyerSearchSupplierBySupervisorDataGridState',
 
   BUYER_FREE_ORDERS: 'buyerFreeOrdersDataGridState',
   BUYER_SUB_USERS: 'buyerSubUsersDataGridState',

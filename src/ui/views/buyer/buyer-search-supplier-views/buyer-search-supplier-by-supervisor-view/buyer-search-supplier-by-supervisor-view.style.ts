@@ -1,9 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  btnsWrapper: {
+  container: {
     display: 'flex',
-    marginBottom: 20,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '20px',
   },
 
   datagridWrapper: {
