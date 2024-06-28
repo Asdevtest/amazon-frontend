@@ -1,15 +1,18 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '20px',
+  },
+
   dataGridWrapper: {
     height: 'calc(100vh - 160px)',
     width: '100%',
   },
 
-  headerWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    marginBottom: 20,
-  },
   searchInput: {
     width: 320,
   },
@@ -65,4 +68,4 @@ export const styles = theme => ({
       height: 21,
     },
   },
-})
+}))

@@ -1,13 +1,13 @@
 import { OpenInNewTabCell } from '..'
-import { FC, memo } from 'react'
+import { FC, ReactNode, memo } from 'react'
 
 import { useStyles } from './select-row-cell.style'
 
 interface SelectRowCellProps {
-  checkboxComponent: JSX.Element
-  onClickShareIcon: () => void
+  checkboxComponent?: ReactNode
   isShowSheldGreen?: boolean
   isShowSheldYellow?: boolean
+  onClickShareIcon: () => void
 }
 
 export const SelectRowCell: FC<SelectRowCellProps> = memo(
