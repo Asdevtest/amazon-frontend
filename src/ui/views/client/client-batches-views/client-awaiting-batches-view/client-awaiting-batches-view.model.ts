@@ -12,6 +12,7 @@ import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { ProductModel } from '@models/product-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -52,6 +53,10 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
   progressValue = 0
 
   productViewMode = tableProductViewMode.EXTENDED
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor(isModalModel = false) {
     const rowHandlers = {
