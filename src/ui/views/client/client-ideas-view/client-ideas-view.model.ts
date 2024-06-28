@@ -699,8 +699,10 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   }
 
   async onClickNextButton(chosenProduct: IProduct) {
+    const result = await ProductModel.getProductById(chosenProduct?._id)
+
     runInAction(() => {
-      this.currentProduct = chosenProduct
+      this.currentProduct = result as unknown as IProduct
       this.productId = chosenProduct?._id
     })
 
