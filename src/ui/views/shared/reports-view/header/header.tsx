@@ -34,7 +34,7 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   return (
     <div className={styles.header}>
-      <CustomRangeDatePicker onChange={onChangeRangeDate} />
+      <CustomRangeDatePicker className={styles.datePicker} onChange={onChangeRangeDate} />
 
       {subView ? (
         <CustomInputSearch
