@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useState } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -23,30 +21,16 @@ export const WarehouseBatchesViewRaw = props => {
 
   return (
     <>
-      <div>
-        <div>
-          <Typography className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</Typography>
+      <p className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</p>
 
-          <div className={styles.btnsWrapper}>
-            <Button
-              className={styles.button}
-              styleType={ButtonStyle.SUCCESS}
-              onClick={viewModel.onClickAwaitingBatches}
-            >
-              <div className={styles.btnTextWrapper}>
-                <Typography className={styles.btnText}>{t(TranslationKey['Awaiting send'])}</Typography>
-                <ArrowRightIcon color="primary" />
-              </div>
-            </Button>
+      <div className={styles.btnsWrapper}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickAwaitingBatches}>
+          {t(TranslationKey['Awaiting send'])}
+        </Button>
 
-            <Button className={styles.button} styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickSentBatches}>
-              <div className={styles.btnTextWrapper}>
-                <Typography className={styles.btnText}>{t(TranslationKey.Sent)}</Typography>
-                <ArrowRightIcon color="primary" />
-              </div>
-            </Button>
-          </div>
-        </div>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickSentBatches}>
+          {t(TranslationKey.Sent)}
+        </Button>
       </div>
     </>
   )

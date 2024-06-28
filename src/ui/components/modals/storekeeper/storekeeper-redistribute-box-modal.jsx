@@ -10,7 +10,7 @@ import { Button } from '@components/shared/button'
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './storekeeper-redistribute-box-modal.style'
@@ -246,31 +246,24 @@ export const StorekeeperRedistributeBox = observer(
           <Button
             tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
             disabled={totalProductsAmount < 1 && isMasterBox}
-            className={styles.button}
-            onClick={() => {
-              setNewBoxes(newBoxes.concat(getEmptyBox()))
-            }}
+            onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
           >
             {t(TranslationKey['Create a new box'])}
           </Button>
           <Button
             tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
             disabled={disabledSubmitBtn}
-            className={styles.button}
             onClick={onClickRedistributeBtn}
           >
             {t(TranslationKey.Redistribute)}
           </Button>
 
           <Button
-            variant={ButtonVariant.OUTLINED}
+            styleType={ButtonStyle.CASUAL}
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={cx(styles.button, styles.cancelButton)}
-            onClick={() => {
-              onTriggerOpenModal('showRedistributeBoxModal')
-            }}
+            onClick={() => onTriggerOpenModal('showRedistributeBoxModal')}
           >
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

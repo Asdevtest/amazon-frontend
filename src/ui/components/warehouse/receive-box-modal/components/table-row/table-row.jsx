@@ -170,9 +170,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
         />
       </TableCell>
       <TableCell>
-        <Button className={styles.photosButton} onClick={() => handlers.onAddImages(item._id)}>
-          {buttonTextWithCounter}
-        </Button>
+        <Button onClick={() => handlers.onAddImages(item._id)}>{buttonTextWithCounter}</Button>
       </TableCell>
 
       <TableCell>
@@ -183,7 +181,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
 
       <TableCell>
         <IconButton onClick={() => handlers.onRemoveBox(item._id)}>
-          <DeleteIcon className={styles.deleteBtn} />
+          <DeleteIcon />
         </IconButton>
       </TableCell>
     </TableRow>

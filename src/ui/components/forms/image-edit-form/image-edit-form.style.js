@@ -29,8 +29,4 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 20,
   },
-
-  cancelBtn: {
-    color: theme.palette.text.general,
-  },
 }))

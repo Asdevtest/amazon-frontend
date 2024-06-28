@@ -135,7 +135,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
           title={confirmModalSettings.confirmTitle}
           message={confirmModalSettings.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />

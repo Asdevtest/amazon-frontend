@@ -47,7 +47,6 @@ export const useStyles = makeStyles()(theme => {
 
     transparent: {
       padding: '0 5px',
-      margin: '0',
       color: theme.palette.text.general,
       background: 'transparent',
       '&:hover': {

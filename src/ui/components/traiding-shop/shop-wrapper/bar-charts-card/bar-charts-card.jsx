@@ -76,31 +76,13 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
         />
 
         <div className={styles.buttonsWrapper}>
-          <Button
-            className={cx(styles.button, {
-              [styles.selectedBtn]: curFilterSetting === filterSettings.SIX_MONTHS,
-            })}
-            variant={ButtonVariant.OUTLINED}
-            onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}
-          >
+          <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
             {`6 ${t(TranslationKey.months)}`}
           </Button>
-          <Button
-            className={cx(styles.button, {
-              [styles.selectedBtn]: curFilterSetting === filterSettings.TWELVE_MONTHS,
-            })}
-            variant={ButtonVariant.OUTLINED}
-            onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}
-          >
+          <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
             {`12 ${t(TranslationKey.months)}`}
           </Button>
-          <Button
-            className={cx(styles.button, {
-              [styles.selectedBtn]: curFilterSetting === filterSettings.ALL_MONTHS,
-            })}
-            variant={ButtonVariant.OUTLINED}
-            onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}
-          >
+          <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
             {t(TranslationKey['All time'])}
           </Button>
         </div>

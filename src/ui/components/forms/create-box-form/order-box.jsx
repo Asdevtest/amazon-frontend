@@ -144,7 +144,6 @@ export const OrderBox = memo(props => {
       <Button
         variant={ButtonVariant.OUTLINED}
         tooltipInfoContent={t(TranslationKey['Remove box'])}
-        className={styles.iconBtn}
         onClick={() => onRemoveBox(orderBoxIndex)}
       >
         <DeleteIcon />

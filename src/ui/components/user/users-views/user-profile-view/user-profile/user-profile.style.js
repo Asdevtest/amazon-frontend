@@ -91,10 +91,6 @@ export const useStyles = makeStyles()(() => ({
     gap: 10,
   },
 
-  userInfoButton: {
-    height: 30,
-  },
-
   roles: {
     display: 'flex',
     flexWrap: 'wrap',

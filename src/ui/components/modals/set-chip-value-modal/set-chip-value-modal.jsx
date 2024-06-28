@@ -9,7 +9,7 @@ import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './set-chip-value-modal.style'
 
@@ -30,15 +30,10 @@ export const SetChipValueModal = ({ title, onSubmit, onCloseModal, sourceValue, 
       />
 
       <Box className={styles.saveBox}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          disabled={sourceValue === newValue}
-          className={styles.saveBtn}
-          onClick={() => onSubmit(newValue)}
-        >
+        <Button styleType={ButtonStyle.SUCCESS} disabled={sourceValue === newValue} onClick={() => onSubmit(newValue)}>
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={onCloseModal}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </Box>

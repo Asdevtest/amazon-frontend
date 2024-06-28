@@ -25,18 +25,12 @@ export const ClientFreelanceViewRaw = props => {
       <p className={styles.title}>{t(TranslationKey['Choose a section in Freelance'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickServiceExchange}>
-          <div className={styles.btnTextWrapper}>
-            <p className={styles.btnText}>{t(TranslationKey['Service exchange'])}</p>
-            <ArrowRightIcon color="primary" />
-          </div>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickServiceExchange}>
+          {t(TranslationKey['Service exchange'])}
         </Button>
 
-        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickMyRequests}>
-          <div className={styles.btnTextWrapper}>
-            <p className={styles.btnText}>{t(TranslationKey['My requests'])}</p>
-            <ArrowRightIcon color="primary" />
-          </div>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickMyRequests}>
+          {t(TranslationKey['My requests'])}
         </Button>
       </div>
     </>

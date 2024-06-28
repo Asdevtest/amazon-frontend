@@ -20,20 +20,6 @@ export const useStyles = makeStyles()(theme => ({
     alignSelf: 'start',
   },
 
-  buttonOk: {
-    padding: '8px 36px',
-    marginRight: '10px',
-  },
-
-  buttonCancel: {
-    padding: '8px 36px',
-    backgroundColor: theme.palette.background.general,
-    color: theme.palette.text.general,
-    '&:hover': {
-      backgroundColor: 'rgba(231, 231, 231, 0.801)',
-    },
-  },
-
   buttonsWrapper: {
     alignSelf: 'center',
   },
@@ -49,10 +35,6 @@ export const useStyles = makeStyles()(theme => ({
   fieldInput: {
     height: 40,
     width: 273,
-  },
-
-  applyBtn: {
-    color: theme.palette.primary.main,
   },
 
   estimateCostWrapper: {

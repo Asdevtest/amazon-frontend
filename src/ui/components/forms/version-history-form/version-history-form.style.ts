@@ -19,7 +19,6 @@ export const useStyles = makeStyles()(() => ({
   back: {
     width: 25,
     height: 25,
-    margin: 0,
   },
 
   title: {

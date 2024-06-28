@@ -51,19 +51,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  applyButton: {
-    height: 26,
-    width: 90,
-    transition: '0.3s ease',
-  },
-
-  applyButtonClicked: {
-    backgroundColor: 'green',
-    '&: hover': {
-      backgroundColor: 'green',
-    },
-  },
-
   sectionTitle: {
     color: theme.palette.text.general,
     fontSize: '18px',
@@ -133,11 +120,6 @@ export const useStyles = makeStyles()(theme => ({
   searchCount: {
     color: theme.palette.primary.main,
     fontSize: 14,
-  },
-
-  cancelButton: {
-    color: theme.palette.text.general,
-    backgroundColor: theme.palette.background.general,
   },
 
   label: {

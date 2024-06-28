@@ -225,7 +225,7 @@ export const AddOrEditSinglePermissionForm = observer(
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey['Create a permission'])}
           </Button>
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={() => onCloseModal()}>
+          <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
             {t(TranslationKey.Close)}
           </Button>
         </div>

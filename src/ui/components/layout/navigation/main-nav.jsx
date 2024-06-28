@@ -9,6 +9,7 @@ import { ThemeProvider } from '@mui/material/styles'
 
 import { changeSystemTheme } from '@constants/theme/change-system-theme'
 import { darkTheme, globalStyles, lightTheme } from '@constants/theme/mui-theme'
+import { gerAntLocale } from '@constants/translations/language-options'
 
 import { SettingsModel } from '@models/settings-model'
 
@@ -53,7 +54,7 @@ export const MainNav = observer(() => {
   }
 
   return (
-    <ConfigProvider theme={customTheme} locale={lang}>
+    <ConfigProvider theme={customTheme} locale={gerAntLocale(lang)}>
       <ThemeProvider theme={{ ...themeMui, lang }}>
         <HintsContextProvider hints>
           <ToastifyProvider theme={SettingsModel.uiTheme} />

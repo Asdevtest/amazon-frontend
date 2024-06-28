@@ -52,19 +52,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: '0 0 0 20px',
   },
 
-  backBtn: {
-    width: '211px',
-    height: '42px',
-
-    color: theme.palette.text.general,
-  },
-
-  successBtn: {
-    marginLeft: '60px',
-    width: '211px',
-    height: '42px',
-  },
-
   successBtnTextWrapper: {
     display: 'flex',
     alignItems: 'center',

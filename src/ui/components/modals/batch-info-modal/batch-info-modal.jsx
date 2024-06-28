@@ -28,8 +28,10 @@ import {
   checkActualBatchWeightGreaterVolumeBatchWeight,
 } from '@utils/calculation'
 import { formatDateWithoutTime } from '@utils/date-time'
-import { getNewTariffTextForBoxOrOrder, getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './batch-info-modal.style'
 
@@ -374,7 +376,9 @@ export const BatchInfoModal = observer(
                 <DownloadIcon />
               </Button>
 
-              <Button onClick={setOpenModal}>{t(TranslationKey.Close)}</Button>
+              <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
+                {t(TranslationKey.Close)}
+              </Button>
             </div>
           </div>
 

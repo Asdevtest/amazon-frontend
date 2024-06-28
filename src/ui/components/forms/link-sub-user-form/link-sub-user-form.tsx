@@ -7,7 +7,7 @@ import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './link-sub-user-form.style'
 
@@ -42,8 +42,8 @@ export const LinkSubUserForm: FC<LinkSubUserFormProps> = memo(({ onToggleModal, 
           {t(TranslationKey.Add)}
         </Button>
 
-        <Button variant={ButtonVariant.OUTLINED} onClick={onToggleModal}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onToggleModal}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

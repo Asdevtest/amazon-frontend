@@ -45,8 +45,4 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     gap: 30,
   },
-
-  closeBtn: {
-    color: theme.palette.text.general,
-  },
 }))

@@ -35,24 +35,6 @@ export const useStyles = makeStyles()(theme => ({
     marginTop: '16px',
   },
 
-  prevBtnClient: {
-    height: '40px',
-    alignSelf: 'end',
-  },
-
-  saveBtnClient: {
-    width: '240px',
-  },
-
-  saveBtn: {
-    color: '#fff',
-  },
-  cancelBtn: {
-    color: theme.palette.text.general,
-    textTransform: 'none',
-    marginLeft: '8px',
-  },
-
   commentField: {
     height: 'auto',
     width: '100%',

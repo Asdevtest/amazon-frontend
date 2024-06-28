@@ -34,15 +34,6 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-
-    [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      fontWeight: 400,
-      lineHeight: '21px',
-      overflow: 'visible',
-      textOverflow: 'inherit',
-      whiteSpace: 'pre-wrap',
-    },
   },
 
   asinWrapper: {
@@ -70,19 +61,10 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '4px',
     maxWidth: '90px',
     height: '30px',
-
-    [theme.breakpoints.down(768)]: {
-      border: '1px solid rgba(143, 152, 165, 1)',
-      maxWidth: '45px',
-    },
   },
 
   error: {
     border: '1px solid red',
-
-    [theme.breakpoints.down(768)]: {
-      border: '1px solid red',
-    },
   },
 
   input: {
@@ -103,27 +85,10 @@ export const useStyles = makeStyles()(theme => ({
   sizeWrapper: {
     display: 'flex',
     gap: '5px',
-
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '1px',
-    },
-  },
-
-  deleteBtn: {
-    color: 'rgba(189, 194, 209, 1)',
-    [theme.breakpoints.down(768)]: {
-      color: theme.palette.text.general,
-    },
   },
 
   plusIcon: {
     width: '14px !important',
     height: '14px !important',
-  },
-
-  photosButton: {
-    whiteSpace: 'nowrap',
   },
 }))

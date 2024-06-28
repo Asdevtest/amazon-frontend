@@ -39,7 +39,6 @@ export const WarehouseBoxesBtnsCell: FC<WarehouseBoxesBtnsCellProps> = memo(({ r
             }
             tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
             disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF || row.isDraft}
-            className={styles.warehouseBoxesBtn}
             onClick={() => handlers.moveBox(row)}
           >
             {t(TranslationKey['Move box'])}
@@ -51,7 +50,6 @@ export const WarehouseBoxesBtnsCell: FC<WarehouseBoxesBtnsCellProps> = memo(({ r
           styleType={ButtonStyle.SUCCESS}
           disabled={row.isDraft}
           tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
-          className={styles.warehouseBoxesBtn}
           onClick={() => handlers.moveBox(row)}
         >
           {t(TranslationKey['Add to batch'])}

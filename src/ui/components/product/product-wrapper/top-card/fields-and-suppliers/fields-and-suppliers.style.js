@@ -15,11 +15,6 @@ export const useStyles = makeStyles()(theme => ({
     marginTop: 20,
   },
 
-  hsCodeBtn: {
-    width: 300,
-    height: 32,
-  },
-
   strategyOption: {
     color: theme.palette.text.general,
   },
@@ -65,9 +60,6 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: '24px',
   },
 
-  buttonParseAmazon: {
-    whiteSpace: 'nowrap',
-  },
   productFieldBox: {
     display: 'flex',
     flexWrap: 'wrap',

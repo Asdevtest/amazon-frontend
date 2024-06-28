@@ -30,7 +30,7 @@ export const ClientWarehouseTasksView = observer(() => {
   return (
     <>
       <div className={styles.headerWrapper}>
-        <div className={styles.downloadBtn} />
+        <div />
 
         <SearchInput
           value={viewModel.nameSearchValue}
@@ -39,11 +39,7 @@ export const ClientWarehouseTasksView = observer(() => {
           onSubmit={viewModel.onSearchSubmit}
         />
 
-        <Button
-          сlassName={styles.downloadBtn}
-          disabled={viewModel.isDisabledDownload}
-          onClick={viewModel.onClickReportBtn}
-        >
+        <Button disabled={viewModel.isDisabledDownload} onClick={viewModel.onClickReportBtn}>
           {t(TranslationKey['Download task file'])}
           <DownloadIcon
             className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: viewModel.isDisabledDownload })}
@@ -157,7 +153,7 @@ export const ClientWarehouseTasksView = observer(() => {
           title={t(TranslationKey.Attention)}
           commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.onClickCancelAfterConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmWithCommentModal')}
         />

@@ -1,4 +1,4 @@
-import { action, computed, observable, override } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 export const observerConfig = {
   curOrder: observable,

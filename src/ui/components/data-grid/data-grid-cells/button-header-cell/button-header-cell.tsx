@@ -17,7 +17,7 @@ export const ButtonHeaderCell: FC<ButtonHeaderCellProps> = memo(props => {
 
   return (
     <div className={styles.wrapper}>
-      <Button className={styles.button} onClick={onOpenModal}>
+      <Button onClick={onOpenModal}>
         {icon}
         <span>{text}</span>
       </Button>

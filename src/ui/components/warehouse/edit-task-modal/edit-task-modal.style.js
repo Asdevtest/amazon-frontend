@@ -9,14 +9,6 @@ export const useStyles = makeStyles()(theme => ({
 
     flexDirection: 'column',
     position: 'relative',
-    [theme.breakpoints.down(1282)]: {
-      width: 1150,
-      maxHeight: 'calc(100vh - 145px)',
-    },
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      maxWidth: '520px',
-    },
   },
 
   buttonsMainWrapper: {
@@ -36,9 +28,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '41px',
     fontWeight: 600,
     color: theme.palette.text.general,
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
   },
   typeTaskWrapper: {
     display: 'flex',
@@ -50,20 +39,12 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: 600,
     color: theme.palette.text.second,
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
   },
   typeTaskSubTitle: {
     fontSize: '30px',
     lineHeight: '41px',
     fontWeight: 600,
     color: theme.palette.text.general,
-    [theme.breakpoints.down(768)]: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      fontWeight: 600,
-    },
   },
   form: {
     maxHeight: 606,
@@ -76,12 +57,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'grid',
     gap: '20px',
     gridTemplateColumns: '1fr 1fr 1fr',
-
-    [theme.breakpoints.down(1282)]: {
-      height: 550,
-      width: 'auto',
-      overflowY: 'auto',
-    },
   },
 
   buttonsWrapper: {
@@ -89,28 +64,14 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-end',
     alignItems: 'center',
     gap: '20px',
+  },
 
-    [theme.breakpoints.down(768)]: {
-      position: 'sticky',
-      bottom: 0,
-      display: 'flex',
-      justifyContent: 'center',
-    },
-  },
-  button: {
-    width: '183px',
-    height: '40px',
-  },
   subTitle: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
     color: theme.palette.text.general,
     gridColumn: '1 / 4',
-
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
   },
   field: {
     flexBasis: '100%',
@@ -123,10 +84,6 @@ export const useStyles = makeStyles()(theme => ({
   horizontalDivider: {
     backgroundColor: '#E0E0E0',
     gridColumn: '1 / 4',
-
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
   },
 
   newBoxes: {
@@ -160,65 +117,22 @@ export const useStyles = makeStyles()(theme => ({
 
     padding: 0,
     border: `1px solid ${theme.palette.input.customBorder}`,
-    [theme.breakpoints.down(1282)]: {
-      width: 260,
-    },
-    [theme.breakpoints.down(768)]: {
-      height: 'auto',
-      width: '100%',
-      padding: 0,
-    },
-  },
-
-  storekeeperCommentField: {
-    [theme.breakpoints.down(1282)]: {
-      height: 182,
-    },
   },
 
   clientAndBuyerComment: {
     height: '100px',
-    [theme.breakpoints.down(1282)]: {
-      height: 62,
-    },
   },
 
   commentsWrapper: {
     width: '400px',
     display: 'flex',
     gap: '30px',
-    [theme.breakpoints.down(1282)]: {
-      width: 'fit-content',
-    },
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: '20px',
-    },
   },
 
   imageFileInputWrapper: {
     width: '690px',
     display: 'flex',
     justifyContent: 'center',
-
-    [theme.breakpoints.down(1282)]: {
-      width: 550,
-    },
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      padding: '0 10px',
-    },
-  },
-
-  successBtn: {
-    width: '183px',
-    height: '40px',
-    [theme.breakpoints.down(768)]: {
-      width: '121px',
-      height: '40px',
-    },
   },
 
   commentsAndFilesWrapper: {
@@ -226,11 +140,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'start',
     gridColumn: '1 / 4',
-
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      flexDirection: 'column',
-    },
   },
 
   buttons: {
@@ -238,41 +147,11 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
   },
 
-  cancelButton: {
-    width: '183px',
-    height: '40px',
-    color: theme.palette.text.general,
-
-    zIndex: 7,
-
-    [theme.breakpoints.down(768)]: {
-      width: '121px',
-      height: '40px',
-    },
-  },
-
-  closeButton: {
-    width: '183px',
-    height: '40px',
-  },
-
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'end',
-
-    [theme.breakpoints.down(768)]: {
-      justifyContent: 'center',
-    },
   },
 
-  buttonsWrapperMobile: {
-    display: 'none',
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      justifyContent: 'center',
-      // marginBottom: '20px',
-    },
-  },
   boxSvgContainer: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -286,31 +165,6 @@ export const useStyles = makeStyles()(theme => ({
     height: '12px !important',
     width: '12px !important',
     color: theme.palette.primary.main,
-  },
-  hideBlock: {
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
-  },
-  hideButton: {
-    [theme.breakpoints.down(768)]: {
-      display: 'none',
-    },
-  },
-
-  buttonMobile: {
-    [theme.breakpoints.down(768)]: {
-      width: '183px',
-      height: '40px',
-    },
-  },
-
-  downloadButton: {
-    padding: '0 20px',
-    // width: 216,
-    height: 40,
-    gap: 5,
-    marginLeft: 30,
   },
 
   modalSubHeader: {

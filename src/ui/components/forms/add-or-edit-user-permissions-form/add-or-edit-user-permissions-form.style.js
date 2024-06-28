@@ -58,18 +58,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  button: {
-    width: '152px',
-    height: '40px',
-    [theme.breakpoints.down(768)]: {
-      width: '144px',
-      height: '40px',
-    },
-  },
-  cancelBtn: {
-    color: theme.palette.text.general,
-  },
-
   leftSideWrapper: {
     display: 'flex',
     flexDirection: 'column',

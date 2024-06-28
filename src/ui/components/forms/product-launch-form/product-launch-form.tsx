@@ -11,7 +11,7 @@ import { SelectProductButton } from '@components/shared/selects/with-search-sele
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './product-launch-form.style'
 
@@ -126,8 +126,8 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
           {t(TranslationKey.Next)}
         </Button>
 
-        <Button variant={ButtonVariant.OUTLINED} className={styles.canselButton} onClick={onClickCancelButton}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelButton}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

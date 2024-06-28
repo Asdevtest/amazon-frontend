@@ -380,17 +380,12 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
               onChange={e => setSourceLink(e.target.value)}
             />
 
-            <Button
-              variant={ButtonVariant.OUTLINED}
-              className={cx(styles.button, styles.cancelButton)}
-              onClick={setOpenModal}
-            >
+            <Button variant={ButtonVariant.OUTLINED} onClick={setOpenModal}>
               {t(TranslationKey.Back)}
             </Button>
 
             <Button
               disabled={disableSubmit}
-              className={cx(styles.button)}
               onClick={() => {
                 onClickSendAsResult({ message: comment, files: imagesData.filter(el => el.fileLink), sourceLink })
                 setOpenModal()

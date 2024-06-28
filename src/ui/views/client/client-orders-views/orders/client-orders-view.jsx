@@ -38,7 +38,6 @@ export const ClientOrdersView = observer(history => {
             <Button
               styleType={ButtonStyle.SUCCESS}
               disabled={!viewModel.selectedRows.length}
-              className={styles.button}
               onClick={viewModel.onClickManyReorder}
             >
               {t(TranslationKey['To order'])}
@@ -47,7 +46,6 @@ export const ClientOrdersView = observer(history => {
             <Button
               styleType={ButtonStyle.DANGER}
               disabled={!viewModel.selectedRows.length}
-              className={cx(styles.button, styles.buttonDanger)}
               onClick={viewModel.onConfirmCancelManyReorder}
             >
               {t(TranslationKey['Cancel order'])}
@@ -196,7 +194,7 @@ export const ClientOrdersView = observer(history => {
           title={viewModel.confirmModalSettings.title}
           message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />

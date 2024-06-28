@@ -16,24 +16,10 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  addMemberBtnWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-  },
-
-  addMemberBtnText: {
-    color: '#fff',
-  },
-
   membersWrapper: {
     padding: 10,
     overflowY: 'auto',
     width: '100%',
-
-    [theme.breakpoints.down(768)]: {
-      maxHeight: 335,
-    },
   },
 
   avatarWrapper: {
@@ -61,20 +47,10 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-
-    [theme.breakpoints.down(768)]: {
-      maxWidth: 160,
-      fontSize: 14,
-    },
   },
 
   ownerSign: {
     color: theme.palette.text.second,
     marginLeft: 5,
-  },
-
-  arrowIcon: {
-    // marginLeft: 8,
-    color: theme.palette.primary.main,
   },
 }))

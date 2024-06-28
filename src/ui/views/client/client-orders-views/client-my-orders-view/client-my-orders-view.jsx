@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -22,24 +20,18 @@ export const ClientMyOrdersView = observer(({ history }) => {
   const [viewModel] = useState(() => new ClientMyOrdersViewModel({ history }))
 
   return (
-    <div>
-      <Typography className={styles.title}>{t(TranslationKey['Choose a section in My orders'])}</Typography>
+    <>
+      <p className={styles.title}>{t(TranslationKey['Choose a section in My orders'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickOrders}>
-          <div className={styles.btnTextWrapper}>
-            <Typography className={styles.btnText}>{t(TranslationKey.Orders)}</Typography>
-            <ArrowRightIcon color="primary" />
-          </div>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickOrders}>
+          {t(TranslationKey.Orders)}
         </Button>
 
-        <Button className={styles.button} variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickPendingOrders}>
-          <div className={styles.btnTextWrapper}>
-            <Typography className={styles.btnText}>{t(TranslationKey['Pending orders'])}</Typography>
-            <ArrowRightIcon color="primary" />
-          </div>
+        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickPendingOrders}>
+          {t(TranslationKey['Pending orders'])}
         </Button>
       </div>
-    </div>
+    </>
   )
 })

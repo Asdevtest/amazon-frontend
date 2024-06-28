@@ -44,7 +44,7 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
             </Typography>
           </div>
 
-          <Button disabled={disableProposeDealButton} className={styles.dealBtn} onClick={onClickSuggestDealBtn}>
+          <Button disabled={disableProposeDealButton} onClick={onClickSuggestDealBtn}>
             {t(TranslationKey['Suggest a deal'])}
           </Button>
         </div>

@@ -108,12 +108,6 @@ export const useStyles = makeStyles()(theme => ({
     objectPosition: 'center',
   },
 
-  actionButton: {
-    marginTop: 30,
-    width: '242px',
-    height: '40px',
-  },
-
   cardPrice: {
     fontSize: '16px',
     lineHeight: '21px',

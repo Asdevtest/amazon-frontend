@@ -72,14 +72,4 @@ export const useStyles = makeStyles()(theme => ({
   amount: {
     marginLeft: '5px',
   },
-
-  closeButton: {
-    width: '136px',
-    height: '40px',
-    color: theme.palette.text.general,
-  },
-  saveButton: {
-    width: '136px',
-    height: '40px',
-  },
 }))

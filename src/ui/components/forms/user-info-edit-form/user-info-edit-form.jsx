@@ -15,7 +15,7 @@ import { checkIsResearcher } from '@utils/checks'
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './user-info-edit-form.style'
 
@@ -236,12 +236,7 @@ export const UserInfoEditForm = observer(
             </>
           ) : (
             <>
-              <Button
-                iconButton
-                styleType={ButtonStyle.CASUAL}
-                className={styles.back}
-                onClick={onToggleUserInfoEditFormFlag}
-              >
+              <Button iconButton styleType={ButtonStyle.CASUAL} onClick={onToggleUserInfoEditFormFlag}>
                 <ArrowBackIcon />
               </Button>
               <p className={styles.title}>{t(TranslationKey['Active sessions'])}</p>
@@ -358,8 +353,8 @@ export const UserInfoEditForm = observer(
                 {t(TranslationKey.Save)}
               </Button>
 
-              <Button variant={ButtonVariant.OUTLINED} onClick={onCloseModal}>
-                {t(TranslationKey.Cancel)}
+              <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+                {t(TranslationKey.Close)}
               </Button>
             </div>
           </>

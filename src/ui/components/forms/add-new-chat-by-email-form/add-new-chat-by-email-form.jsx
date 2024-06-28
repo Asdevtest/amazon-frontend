@@ -10,7 +10,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-new-chat-by-email-form.style'
 
@@ -102,7 +102,6 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
         <Button
           styleType={ButtonStyle.SUCCESS}
           disabled={disableSubmit}
-          className={styles.button}
           onClick={() => {
             setSubmitIsClicked(true)
             onSubmit(formFields)
@@ -111,12 +110,8 @@ export const AddNewChatByEmailForm = memo(({ closeModal, onSubmit, usersData }) 
           {t(TranslationKey.Create)}
         </Button>
 
-        <Button
-          variant={ButtonVariant.OUTLINED}
-          className={cx(styles.button, styles.cancelButton)}
-          onClick={() => closeModal()}
-        >
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={closeModal}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

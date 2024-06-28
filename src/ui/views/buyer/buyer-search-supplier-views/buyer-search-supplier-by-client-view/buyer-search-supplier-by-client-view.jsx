@@ -19,7 +19,7 @@ export const BuyerSearchSupplierByClientView = observer(({ history }) => {
   const [viewModel] = useState(() => new BuyerSearchSupplierByClientModel({ history }))
 
   return (
-    <div>
+    <>
       <div className={styles.btnsWrapper}>
         <Button
           disabled={viewModel.selectedRowIds.length === 0}
@@ -58,6 +58,6 @@ export const BuyerSearchSupplierByClientView = observer(({ history }) => {
           onPaginationModelChange={viewModel.onPaginationModelChange}
         />
       </div>
-    </div>
+    </>
   )
 })

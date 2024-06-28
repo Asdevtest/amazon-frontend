@@ -65,9 +65,6 @@ export const ClientSellShopsAds = observer(() => {
           </Button>
           <Button
             disabled={curFilter === filtersSettings.PURCHASED_ADS}
-            className={cx(styles.button, {
-              [styles.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
-            })}
             variant={ButtonVariant.OUTLINED}
             onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
           >
@@ -75,7 +72,7 @@ export const ClientSellShopsAds = observer(() => {
           </Button>
         </div>
 
-        <Button styleType={ButtonStyle.SUCCESS} className={styles.addBtn} onClick={onClickAddBtn}>
+        <Button styleType={ButtonStyle.SUCCESS} onClick={onClickAddBtn}>
           {t(TranslationKey['Add shop'])}
         </Button>
       </div>

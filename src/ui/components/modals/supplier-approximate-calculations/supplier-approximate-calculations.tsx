@@ -244,7 +244,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
             title={viewModel.confirmModalSettings.title}
             message={viewModel.confirmModalSettings.message}
             successBtnText={t(TranslationKey.Confirm)}
-            cancelBtnText={t(TranslationKey.Cancel)}
+            cancelBtnText={t(TranslationKey.Close)}
             setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal', false)}
             onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
             onClickCancelBtn={viewModel.confirmModalSettings.onCancel}

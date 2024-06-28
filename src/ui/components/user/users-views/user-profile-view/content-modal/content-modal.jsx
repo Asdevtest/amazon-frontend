@@ -52,13 +52,9 @@ export const ContentModal = props => {
         </Table>
       </TableContainer>
       <div className={styles.buttonsWrapper}>
-        <Button className={(styles.modalButton, styles.buyNowBtn)} onClick={() => props.setOpenModal(false)}>
-          {'Заказать сразу'}
-        </Button>
+        <Button onClick={() => props.setOpenModal(false)}>{'Заказать сразу'}</Button>
 
-        <Button className={(styles.modalButton, styles.cancelBtn)} onClick={() => props.setOpenModal(false)}>
-          {'Отменить'}
-        </Button>
+        <Button onClick={() => props.setOpenModal(false)}>{'Отменить'}</Button>
       </div>
     </Container>
   )

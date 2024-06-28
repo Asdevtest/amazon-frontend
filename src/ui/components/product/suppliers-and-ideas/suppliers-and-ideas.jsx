@@ -140,7 +140,6 @@ export const SuppliersAndIdeas = observer(props => {
             styleType={ButtonStyle.SUCCESS}
             disabled={!!product.parentProductId}
             tooltipInfoContent={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
-            variant="contained"
             onClick={onCreateIdea}
           >
             {t(TranslationKey['Add a product idea'])}

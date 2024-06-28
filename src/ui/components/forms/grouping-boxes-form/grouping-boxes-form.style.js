@@ -127,15 +127,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
   },
 
-  button: {
-    height: '40px',
-    padding: '0 25px',
-  },
-  cancelButton: {
-    color: theme.palette.text.general,
-    backgroundColor: theme.palette.background.general,
-  },
-
   marginBox: {
     '&:not(:last-child)': {
       marginBottom: '20px',

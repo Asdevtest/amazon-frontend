@@ -160,7 +160,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           setOpenModal={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
           message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={() => viewModel.confirmModalSettings.onClickOkBtn()}
           onClickCancelBtn={() => viewModel.onToggleModal(ModalNames.CONFIRM)}
         />

@@ -529,11 +529,7 @@ export const IdeaViewAndEditCard = observer(
                                 className={styles.input}
                                 onChange={e => setLinkLine(e.target.value)}
                               />
-                              <Button
-                                disabled={!linkLine || disableFields}
-                                className={styles.defaultBtn}
-                                onClick={onClickLinkBtn}
-                              >
+                              <Button disabled={!linkLine || disableFields} onClick={onClickLinkBtn}>
                                 {t(TranslationKey.Add)}
                               </Button>
                             </div>
@@ -727,7 +723,6 @@ export const IdeaViewAndEditCard = observer(
                     <Button
                       styleType={ButtonStyle.SUCCESS}
                       disabled={!supplierFound}
-                      className={styles.actionButton}
                       onClick={() => onClickAcceptButton(formFields, supplierFound)}
                     >
                       {t(TranslationKey.Save)}
@@ -746,7 +741,6 @@ export const IdeaViewAndEditCard = observer(
                     styleType={ButtonStyle.SUCCESS}
                     tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                     disabled={idea.childProduct}
-                    className={styles.actionButton}
                     onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
                   >
                     {t(TranslationKey['Create a product card'])}
@@ -754,11 +748,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && showCreateRequestButton && (
-                  <Button
-                    styleType={ButtonStyle.SUCCESS}
-                    className={styles.actionButton}
-                    onClick={() => onClickCreateRequestButton(formFields)}
-                  >
+                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickCreateRequestButton(formFields)}>
                     <PlusIcon className={styles.plusIcon} />
                     {t(TranslationKey['Create request'])}
                   </Button>
@@ -781,13 +771,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isNewIdea && (
-                  <Button
-                    onClick={() => {
-                      onClickAcceptButton(formFields)
-                    }}
-                  >
-                    {t(TranslationKey['To check'])}
-                  </Button>
+                  <Button onClick={() => onClickAcceptButton(formFields)}>{t(TranslationKey['To check'])}</Button>
                 )}
 
                 {currentUserIsClient && isRejected && (
@@ -813,11 +797,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {isModalView && (
-                  <Button
-                    variant={ButtonVariant.OUTLINED}
-                    className={cx(styles.actionButton, styles.cancelBtn)}
-                    onClick={() => onClickCancelBtn()}
-                  >
+                  <Button variant={ButtonVariant.OUTLINED} onClick={() => onClickCancelBtn()}>
                     {t(TranslationKey.Close)}
                   </Button>
                 )}
@@ -834,11 +814,7 @@ export const IdeaViewAndEditCard = observer(
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button
-              variant={ButtonVariant.OUTLINED}
-              className={cx(styles.actionButton, styles.btnLeftMargin, styles.cancelBtn)}
-              onClick={() => onClickCancelBtn()}
-            >
+            <Button variant={ButtonVariant.OUTLINED} onClick={() => onClickCancelBtn()}>
               {t(TranslationKey.Close)}
             </Button>
           </div>

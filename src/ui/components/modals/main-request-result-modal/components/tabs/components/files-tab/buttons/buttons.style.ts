@@ -34,12 +34,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 10,
   },
 
-  button: {
-    width: 270,
-    padding: '0 10px',
-    height: 30,
-  },
-
   icon: {
     width: '16px !important',
     height: '16px !important',

@@ -51,20 +51,12 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
           />
 
           {window.innerWidth < 1282 && (
-            <Button
-              disabled={!viewModel.selectedTasks.length}
-              className={styles.pickupOrdersButton}
-              onClick={viewModel.onClickPickupManyTasksBtn}
-            >
+            <Button disabled={!viewModel.selectedTasks.length} onClick={viewModel.onClickPickupManyTasksBtn}>
               {t(TranslationKey['Take on the work of the selected'])}
             </Button>
           )}
 
-          <Button
-            disabled={isDisableDowloadButton}
-            className={styles.pickupOrdersButton}
-            onClick={viewModel.onClickReportBtn}
-          >
+          <Button disabled={isDisableDowloadButton} onClick={viewModel.onClickReportBtn}>
             {t(TranslationKey['Download task file'])}
             <DownloadIcon
               className={cx(styles.downloadIcon, { [styles.disabledDownloadIcon]: isDisableDowloadButton })}
@@ -75,11 +67,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
         <div className={styles.headerWrapper}>
           <div className={styles.headerContainer}>
             {window.innerWidth > 1281 && (
-              <Button
-                disabled={!viewModel.selectedTasks.length}
-                className={styles.pickupOrdersButton}
-                onClick={viewModel.onClickPickupManyTasksBtn}
-              >
+              <Button disabled={!viewModel.selectedTasks.length} onClick={viewModel.onClickPickupManyTasksBtn}>
                 {t(TranslationKey['Take on the work of the selected'])}
               </Button>
             )}
@@ -183,7 +171,7 @@ export const WarehouseVacantTasksView = observer(({ history }) => {
           message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          commentCancelBtnText={t(TranslationKey.Cancel)}
+          commentCancelBtnText={t(TranslationKey.Close)}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}

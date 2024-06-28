@@ -37,7 +37,7 @@ export const ClosedIdeaActionsCell: FC<ClosedIdeaActionsCellProps> = memo(({ row
       <Button
         isTableButton
         fullWidth
-        styleType={ButtonStyle.DANGER}
+        styleType={ButtonStyle.CASUAL}
         disabled={ideaStatusByKey[ideaStatus.CLOSED] === row.status}
         onClick={() => rowHandlers.onClickClose(row._id)}
       >

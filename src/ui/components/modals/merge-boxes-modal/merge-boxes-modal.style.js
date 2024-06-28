@@ -82,22 +82,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 'bold',
   },
 
-  storekeeperBtn: {
-    height: '32px',
-    color: theme.palette.text.negativeMain,
-  },
-
-  storekeeperBtnDark: {
-    color: theme.palette.text.general,
-  },
-
-  storekeeperBtnDefault: {
-    color: '#ffff',
-
-    width: 230,
-    height: '40px !important',
-  },
-
   field: {
     margin: '0',
   },
@@ -165,13 +149,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     marginTop: '40px',
   },
-  button: {
-    width: '183px',
-    height: '40px',
-  },
-  cancelButton: {
-    color: theme.palette.text.general,
-  },
+
   boxTitle: {
     fontSize: '18px',
     lineHeight: '140%',

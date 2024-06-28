@@ -6,10 +6,4 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
-
-  button: {
-    padding: '0 20px',
-    display: 'flex',
-    gap: 10,
-  },
 }))

@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { withStyles } from 'tss-react/mui'
@@ -40,9 +39,6 @@ export const ClientReadyBoxesViewRaw = props => {
             <Button
               key={storekeeper._id}
               disabled={viewModel.currentStorekeeper?._id === storekeeper._id}
-              className={cx(styles.button, {
-                [styles.selectedBoxesBtn]: viewModel.currentStorekeeper?._id === storekeeper._id,
-              })}
               variant={ButtonVariant.OUTLINED}
               onClick={() => viewModel.onClickStorekeeperBtn(storekeeper)}
             >
@@ -52,7 +48,6 @@ export const ClientReadyBoxesViewRaw = props => {
 
           <Button
             disabled={!viewModel.currentStorekeeper?._id}
-            className={cx(styles.button, { [styles.selectedBoxesBtn]: !viewModel.currentStorekeeper?._id })}
             variant={ButtonVariant.OUTLINED}
             onClick={viewModel.onClickStorekeeperBtn}
           >
@@ -69,9 +64,6 @@ export const ClientReadyBoxesViewRaw = props => {
                 <Button
                   key={destination._id}
                   disabled={viewModel.curDestination?._id === destination._id}
-                  className={cx(styles.button, {
-                    [styles.selectedBoxesBtn]: viewModel.curDestination?._id === destination._id,
-                  })}
                   variant={ButtonVariant.OUTLINED}
                   onClick={() => viewModel.onClickDestinationBtn(destination)}
                 >
@@ -83,7 +75,6 @@ export const ClientReadyBoxesViewRaw = props => {
           <Button
             disabled={!viewModel.curDestination?._id}
             tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-            className={cx(styles.button, { [styles.selectedBoxesBtn]: !viewModel.curDestination?._id })}
             variant={ButtonVariant.OUTLINED}
             onClick={viewModel.onClickDestinationBtn}
           >
@@ -97,7 +88,6 @@ export const ClientReadyBoxesViewRaw = props => {
             tooltipInfoContent={t(
               TranslationKey['Removes the box for further addition to the batch, returns to My Warehouse'],
             )}
-            className={styles.returnButton}
             onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           >
             {t(TranslationKey['Return to stock'])}

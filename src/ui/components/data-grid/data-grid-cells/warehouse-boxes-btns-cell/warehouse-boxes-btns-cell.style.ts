@@ -10,9 +10,4 @@ export const useStyles = makeStyles()(() => ({
     height: '100%',
     padding: '6px 0',
   },
-
-  warehouseBoxesBtn: {
-    width: 210,
-    height: 30,
-  },
 }))

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,7 +22,7 @@ export const UsersView = observer(props => {
 
   return (
     <>
-      <Typography className={styles.title}>{t(TranslationKey['Choose a section in Users'])}</Typography>
+      <p className={styles.title}>{t(TranslationKey['Choose a section in Users'])}</p>
 
       <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickSubUsers}>
         {t(TranslationKey['My users'])}

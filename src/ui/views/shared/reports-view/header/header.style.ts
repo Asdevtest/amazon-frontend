@@ -8,6 +8,10 @@ export const useStyles = makeStyles()(() => ({
     gap: 20,
   },
 
+  datePicker: {
+    width: 290,
+  },
+
   searchInput: {
     marginRight: 'auto',
   },

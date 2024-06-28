@@ -21,12 +21,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  button: {
-    width: '130px',
-    fontSize: '18px',
-    marginTop: '30px',
-  },
-
   asinsWrapper: {
     display: 'flex',
     gap: '25px',

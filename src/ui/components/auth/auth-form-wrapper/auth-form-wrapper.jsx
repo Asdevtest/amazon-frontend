@@ -83,7 +83,7 @@ export const AuthFormWrapper = memo(props => {
           title={confirmModalSettings?.confirmTitle}
           message={confirmModalSettings?.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={confirmModalSettings?.onClickConfirm}
           onClickCancelBtn={onToggleModal}
         />

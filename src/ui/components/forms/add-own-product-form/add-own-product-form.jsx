@@ -83,7 +83,6 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
             />
             <Button
               tooltipInfoContent={t(TranslationKey['Fills in the ASIN field from the added Amazon link'])}
-              className={styles.defaultBtn}
               onClick={onClickParseBtn}
             >
               Parse
@@ -145,11 +144,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                     onChange={e => setSkuLine(e.target.value)}
                   />
 
-                  <Button
-                    disabled={skuLine === '' || !!formFields.skuByClient}
-                    className={styles.defaultBtn}
-                    onClick={onClickSkuBtn}
-                  >
+                  <Button disabled={skuLine === '' || !!formFields.skuByClient} onClick={onClickSkuBtn}>
                     {t(TranslationKey.Add)}
                   </Button>
                 </div>
