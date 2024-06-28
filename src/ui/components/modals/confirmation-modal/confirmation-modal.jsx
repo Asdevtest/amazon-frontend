@@ -140,7 +140,7 @@ export const ConfirmationModal = memo(props => {
           >
             {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
           </Button>
-          )
+
           <Button disabled={submitIsClicked} styleType={ButtonStyle.CASUAL} onClick={() => handleClose()}>
             {isShowComment ? commentCancelBtnText || cancelBtnText : cancelBtnText}
           </Button>
