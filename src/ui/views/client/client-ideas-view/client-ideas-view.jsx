@@ -126,12 +126,15 @@ export const ClientIdeasView = observer(({ history }) => {
 
       <Modal
         openModal={viewModel.showProductLaunch}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+        setOpenModal={() => {
+          useProductsPermissions.resetOptions()
+          viewModel.onTriggerOpenModal('showProductLaunch')
+        }}
       >
         <ProductLaunchForm
           productsToLaunch={useProductsPermissions.currentPermissionsData}
-          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
-          onClickVariationRadioButton={() => useProductsPermissions.getPermissionsData()}
+          loadMorePermissionsDataHadler={useProductsPermissions.loadMoreDataHadler}
+          onClickVariationRadioButton={useProductsPermissions.getPermissionsData}
           onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.onClickNextButton}
           onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
