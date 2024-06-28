@@ -3,7 +3,7 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 class SupervisorModelStatic {
   getProductsVacant = async isCreatedByClient => {
     const response = await restApiService.supervisorApi.apiV1SupervisorsProductsVacGet({ isCreatedByClient })
-    return response.data
+    return response?.data || []
   }
 
   getProductsMyPag = async body => {
