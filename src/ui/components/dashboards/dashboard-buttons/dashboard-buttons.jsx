@@ -10,7 +10,7 @@ import { ChatModel } from '@models/chat-model'
 import { useStyles } from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
 import { MessageIcon, MyNotificationsIcon, SettingsIcon } from '@components/shared/svg-icons'
 
-import { checkIsAdmin, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor } from '@utils/checks'
+import { checkIsAdmin, checkIsStorekeeper, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
 export const DashboardButtons = ({ user }) => {
