@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
-import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { UserRole, UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
@@ -31,8 +31,8 @@ export const DashboardButtons = ({ user }) => {
     (user.freelanceNotices?.length || 0) +
     (user.notificationCounter || 0)
 
-  const excludedRoles = [checkIsResearcher, checkIsStorekeeper, checkIsAdmin, checkIsSupervisor]
-  const isNotificationsShown = excludedRoles.every(check => !check(UserRoleCodeMap[user.role]))
+  const excludedRoles = [UserRole.RESEARCHER, UserRole.STOREKEEPER, UserRole.ADMIN, UserRole.SUPERVISOR]
+  const isNotificationsShown = !excludedRoles.includes(UserRoleCodeMap[user.role])
 
   return (
     <div className={styles.buttonsWrapper}>
