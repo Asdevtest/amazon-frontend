@@ -28,9 +28,7 @@ export const RequestProposalsDetailsCustomItem = observer(({ requestProposal }) 
         <Typography className={styles.text}>{comment}</Typography>
       </div>
 
-      <Button disabled className={styles.button}>
-        {'Открыть'}
-      </Button>
+      <Button disabled>{'Открыть'}</Button>
     </div>
   )
 })

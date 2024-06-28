@@ -26,7 +26,6 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
       <Button
         tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
         disabled={!selectedBoxes?.length}
-        className={styles.editBtn}
         onClick={onEditBox}
       >
         {t(TranslationKey.Edit)}

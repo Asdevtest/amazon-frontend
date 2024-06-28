@@ -10,7 +10,7 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-tag-form.style'
 
@@ -60,8 +60,8 @@ export const AddOrEditTagForm = observer(({ tags, tagToEdit, onCloseModal, onCre
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant={ButtonVariant.OUTLINED} onClick={() => onCloseModal()}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

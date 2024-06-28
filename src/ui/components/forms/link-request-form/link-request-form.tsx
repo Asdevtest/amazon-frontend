@@ -71,7 +71,7 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
         <CustomButton type="primary" disabled={viewModel.selectedRows.length === 0} onClick={handleSave}>
           {t(TranslationKey['Link request'])}
         </CustomButton>
-        <CustomButton onClick={onClose}>{t(TranslationKey.Cancel)}</CustomButton>
+        <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

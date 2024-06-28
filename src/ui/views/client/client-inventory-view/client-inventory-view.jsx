@@ -385,7 +385,7 @@ export const ClientInventoryView = observer(({ history }) => {
           title={viewModel.confirmModalSettings.confirmTitle}
           message={viewModel.confirmModalSettings.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />

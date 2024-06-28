@@ -405,11 +405,9 @@ export const Chat: FC<ChatProps> = memo(
               onPaste={evt => onPasteFiles(evt)}
             />
 
-            <Button disabled={disabledSubmit} className={styles.sendBtn} onClick={() => onSubmitMessageInternal()}>
-              <div className={styles.sendBtnTextWrapper}>
-                <p className={styles.sendBtnText}>{t(TranslationKey.Send)}</p>
-                <SendIcon className={styles.sendBtnIcon} />
-              </div>
+            <Button disabled={disabledSubmit} onClick={() => onSubmitMessageInternal()}>
+              {t(TranslationKey.Send)}
+              <SendIcon />
             </Button>
           </div>
 

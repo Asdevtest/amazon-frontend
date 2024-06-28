@@ -8,7 +8,7 @@ import { Button } from '@components/shared/button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './check-request-by-type-exists.style'
 
@@ -67,8 +67,8 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
         <Button styleType={ButtonStyle.SUCCESS} onClick={onClickContinue}>
           {t(TranslationKey.Continue)}
         </Button>
-        <Button variant={ButtonVariant.OUTLINED} className={styles.cancelBtn} onClick={onClickCancel}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancel}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

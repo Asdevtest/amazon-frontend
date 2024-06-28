@@ -36,10 +36,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  back: {
-    margin: 0,
-  },
-
   label: {
     marginBottom: 5,
     fontSize: '14px',

@@ -93,7 +93,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           message={viewModel.confirmModalSettings.message}
           smallMessage={viewModel.confirmModalSettings.smallMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={viewModel.confirmModalSettings.onCancel}
         />

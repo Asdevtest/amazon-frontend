@@ -265,12 +265,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.second,
   },
 
-  seeCommentsText: {
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '19px',
-  },
-
   productCell: {
     width: 225,
   },

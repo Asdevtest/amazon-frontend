@@ -73,10 +73,8 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: 10,
     marginTop: '15px',
-  },
-  button: {
-    marginRight: '10px',
   },
 
   imageFileInputWrapper: {

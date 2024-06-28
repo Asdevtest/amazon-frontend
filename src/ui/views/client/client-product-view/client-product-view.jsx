@@ -84,7 +84,7 @@ export const ClientProductView = observer(({ history }) => {
           title={viewModel.confirmModalSettings.title}
           message={viewModel.confirmModalSettings.message}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={() => {
             viewModel.confirmModalSettings.onClickOkBtn()
             viewModel.onTriggerOpenModal('showConfirmModal')

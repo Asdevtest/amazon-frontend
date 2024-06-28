@@ -66,7 +66,7 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
             {t(TranslationKey.Save)}
           </Button>
           <Button styleType={ButtonStyle.CASUAL} onClick={() => setOpenModal(false)}>
-            {t(TranslationKey.Cancel)}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
       </div>

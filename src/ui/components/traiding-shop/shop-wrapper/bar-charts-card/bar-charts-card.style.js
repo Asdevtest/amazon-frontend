@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   cardHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -27,19 +27,10 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
-  button: {
-    color: theme.palette.text.general,
-  },
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'center',
     gap: '30px',
     marginTop: '40px',
-  },
-
-  selectedBtn: {
-    marginBottom: 0,
-    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
-    borderBottom: '5px solid #0460DE',
   },
 }))

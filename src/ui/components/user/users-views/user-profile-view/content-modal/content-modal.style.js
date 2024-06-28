@@ -52,14 +52,4 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'right',
     marginTop: '16px',
   },
-  buyNowBtn: {
-    backgroundColor: 'rgba(0, 123, 255, 1)',
-    color: '#fff',
-    marginRight: '8px',
-  },
-  cancelBtn: {
-    backgroundColor: '#d5d5d5',
-    color: theme.palette.text.general,
-    textTransform: 'none',
-  },
 }))

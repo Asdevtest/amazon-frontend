@@ -36,7 +36,7 @@ import { formatDateForShowWithoutParseISO } from '@utils/date-time'
 import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { Specs } from '@typings/enums/specs'
 
@@ -1091,10 +1091,10 @@ export const CreateOrEditRequestContent = memo(props => {
               tooltipInfoContent={
                 isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
               }
-              variant={ButtonVariant.OUTLINED}
+              styleType={ButtonStyle.CASUAL}
               onClick={onClickBackBtn}
             >
-              {isSecondStep ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
+              {isSecondStep ? t(TranslationKey.Back) : t(TranslationKey.Close)}
             </Button>
 
             {requestToEdit ? (

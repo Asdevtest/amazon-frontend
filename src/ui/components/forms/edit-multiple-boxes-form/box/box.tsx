@@ -395,10 +395,6 @@ export const Box: FC<BoxProps> = memo(props => {
                 labelClasses={styles.label}
                 inputComponent={
                   <Button
-                    className={cx({
-                      [styles.storekeeperBtn]: !box.logicsTariffId,
-                      [styles.storekeeperTrafficBtn]: box.logicsTariffId,
-                    })}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {box.logicsTariffId

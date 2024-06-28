@@ -32,9 +32,4 @@ export const useStyles = makeStyles()(theme => ({
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 20,
   },
-
-  loadButton: {
-    margin: 0,
-    height: 32,
-  },
 }))

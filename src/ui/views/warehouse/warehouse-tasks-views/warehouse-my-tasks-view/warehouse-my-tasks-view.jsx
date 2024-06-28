@@ -145,7 +145,7 @@ export const WarehouseMyTasksView = observer(({ history }) => {
           message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          commentCancelBtnText={t(TranslationKey.Cancel)}
+          commentCancelBtnText={t(TranslationKey.Close)}
           setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           onClickSuccessBtn={viewModel.onClickConfirmCancelTask}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}

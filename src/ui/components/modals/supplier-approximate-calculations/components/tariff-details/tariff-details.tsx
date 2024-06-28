@@ -21,7 +21,12 @@ import { dateConfig } from './date.config'
 
 interface TariffDetailsProps {
   tariff: ILogicTariff
-  onClickChangeVariation: ({ variationId, destinationId, logicsTariffId }: IVariationParams) => void
+  onClickChangeVariation: ({
+    variationId,
+    destinationId,
+    logicsTariffId,
+    variationMinBoxWeight,
+  }: IVariationParams) => void
   currentVariationId?: string
   initialDestinationId?: string
   columnVisibilityModel?: GridColumnVisibilityModel
@@ -87,6 +92,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                             variationId: variation?._id,
                             destinationId,
                             logicsTariffId: variation?.storekeeperTariffLogisticsId,
+                            variationMinBoxWeight: variation?.minWeight,
                           })
                         }
                       />

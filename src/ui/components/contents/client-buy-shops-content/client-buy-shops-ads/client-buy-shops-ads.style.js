@@ -59,17 +59,4 @@ export const useStyles = makeStyles()(theme => ({
     gap: '40px',
     marginBottom: 10,
   },
-
-  button: {
-    marginBottom: 5,
-    padding: '0 30px',
-    color: `${theme.palette.primary.main} !important`,
-  },
-
-  selectedBoxesBtn: {
-    marginBottom: 0,
-    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
-
-    borderBottom: `5px solid ${theme.palette.primary.main}`,
-  },
 }))

@@ -27,9 +27,7 @@ export const ServicesDetailCustomView = observer(({ history }) => {
     <>
       <div>
         <div className={styles.backBtnWrapper}>
-          <Button className={styles.backBtn} onClick={viewModel.onClickBackBtn}>
-            {t(TranslationKey.Back)}
-          </Button>
+          <Button onClick={viewModel.onClickBackBtn}>{t(TranslationKey.Back)}</Button>
         </div>
 
         <div className={styles.requestInfoWrapper}>

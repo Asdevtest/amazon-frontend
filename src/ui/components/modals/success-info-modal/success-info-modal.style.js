@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   modalMessageWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -11,18 +11,12 @@ export const useStyles = makeStyles()(theme => ({
     minHeight: '168px',
     padding: 10,
   },
+
   title: {
     textAlign: 'center',
     width: '350px',
-
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
-    color: theme.palette.text.general,
-  },
-
-  button: {
-    width: '130px',
-    fontSize: '18px',
   },
 }))

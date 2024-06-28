@@ -24,6 +24,5 @@ export const useStyles = makeStyles()(theme => ({
 
   button: {
     height: 38,
-    margin: 0,
   },
 }))

@@ -21,20 +21,7 @@ export const useStyles = makeStyles()(theme => ({
     position: 'relative',
     minWidth: '100px',
   },
-  subTitle: {
-    flex: '1',
-    cursor: 'pointer',
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '14px',
-    color: 'rgba(189, 194, 209, 1)',
-    backgroundColor: 'inherit',
-    padding: '10px 10px 0 0',
-    '&:hover': {
-      backgroundColor: 'inherit',
-      color: theme.palette.primary.main,
-    },
-  },
+
   subTitleWrapper: {
     position: 'absolute',
     display: 'flex',

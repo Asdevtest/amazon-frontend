@@ -31,6 +31,7 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 import { TariffModal } from '@typings/enums/tariff-modal'
 
@@ -818,8 +819,12 @@ export const EditBoxStorekeeperForm = memo(
             {t(TranslationKey.Save)}
           </Button>
 
-          <Button tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={onTriggerOpenModal}>
-            {t(TranslationKey.Cancel)}
+          <Button
+            styleType={ButtonStyle.CASUAL}
+            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
+            onClick={onTriggerOpenModal}
+          >
+            {t(TranslationKey.Close)}
           </Button>
         </div>
 

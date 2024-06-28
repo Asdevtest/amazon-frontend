@@ -19,7 +19,7 @@ export const Buttons: FC<ButtonsProps> = memo(({ disabled, onClick }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Button disabled={disabled} className={styles.button} onClick={onClick}>
+      <Button disabled={disabled} onClick={onClick}>
         <CustomPlusIcon />
         {t(TranslationKey['Add to request'])}
       </Button>

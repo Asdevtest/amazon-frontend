@@ -43,10 +43,6 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 16,
   },
 
-  button: {
-    height: 36,
-  },
-
   text: {
     fontSize: 14,
     lineHeight: '19px',

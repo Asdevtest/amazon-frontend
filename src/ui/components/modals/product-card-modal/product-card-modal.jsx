@@ -212,17 +212,6 @@ export const ProductCardModal = observer(props => {
                 </Button>
               )}
 
-              <Button
-                styleType={
-                  checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) ? ButtonStyle.PRIMARY : ButtonStyle.DANGER
-                }
-                onClick={() => viewModel?.handleProductActionButtons('closeModal')}
-              >
-                {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
-                  ? t(TranslationKey.Close)
-                  : t(TranslationKey.Cancel)}
-              </Button>
-
               {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && viewModel?.product.archive && (
                 <Button
                   onClick={() => viewModel?.handleProductActionButtons('restore', undefined, true, updateDataHandler)}
@@ -230,9 +219,16 @@ export const ProductCardModal = observer(props => {
                   {t(TranslationKey.Restore)}
                 </Button>
               )}
+
+              <Button
+                styleType={ButtonStyle.CASUAL}
+                onClick={() => viewModel?.handleProductActionButtons('closeModal')}
+              >
+                {t(TranslationKey.Close)}
+              </Button>
             </div>
           ) : (
-            <Button onClick={() => viewModel?.handleProductActionButtons('closeModal')}>
+            <Button styleType={ButtonStyle.CASUAL} onClick={() => viewModel?.handleProductActionButtons('closeModal')}>
               {t(TranslationKey.Close)}
             </Button>
           )}
@@ -248,7 +244,7 @@ export const ProductCardModal = observer(props => {
           title={viewModel?.confirmModalSettings?.title}
           message={viewModel?.confirmModalSettings?.message}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={() => {
             viewModel?.confirmModalSettings?.onClickOkBtn()
             viewModel?.onTriggerOpenModal('showConfirmModal')

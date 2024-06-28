@@ -186,9 +186,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
         {viewModel.showChat && (
           <div className={styles.hideChatButtonWrapper}>
-            <Button className={styles.hideChatButton} onClick={viewModel.onClickHideChat}>
-              {t(TranslationKey['Hide chat'])}
-            </Button>
+            <Button onClick={viewModel.onClickHideChat}>{t(TranslationKey['Hide chat'])}</Button>
           </div>
         )}
       </div>
@@ -279,7 +277,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           message={viewModel.confirmModalSettings.message}
           smallMessage={viewModel.confirmModalSettings.smallMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.confirmModalSettings.onSubmit}
           onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmModal')}
         />
@@ -295,7 +293,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           title={t(TranslationKey['Suspend the acceptance of proposals?'])}
           commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
           successBtnText={t(TranslationKey.Ok)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.onSubmitAbortRequest}
           onClickCancelBtn={viewModel.onClickAbortBtn}
         />

@@ -68,12 +68,6 @@ export const useStyles = makeStyles()(theme => ({
   labelFieldsWrapper: {
     display: 'flex',
   },
-  iconBtn: {
-    padding: 0,
-    width: 36,
-    height: 36,
-    minWidth: 36,
-  },
 
   checkboxWithLabelWrapper: {
     display: 'flex',

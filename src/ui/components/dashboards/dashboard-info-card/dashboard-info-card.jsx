@@ -31,7 +31,6 @@ export const DashboardInfoCard = observer(
                 tooltipInfoContent={
                   sectionIndex === 0 && sectionSubIndex === 0 && t(TranslationKey['Open the appropriate section'])
                 }
-                className={styles.subTitle}
                 onClick={() => onClickViewMore(route, dataGridFilter)}
               >
                 {t(TranslationKey['View more'])}

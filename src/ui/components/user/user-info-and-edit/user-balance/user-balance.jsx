@@ -54,14 +54,8 @@ export const UserBalance = observer(({ userId }) => {
       <DashboardBalance user={user} />
 
       <div className={styles.btnsWrapper}>
-        <Button className={cx(styles.button, styles.depositBtn)} onClick={onTriggerReplenishModal}>
-          {t(TranslationKey.Deposit)}
-        </Button>
-        <Button
-          className={cx(styles.button, styles.cancelBtn)}
-          variant={ButtonVariant.OUTLINED}
-          onClick={onTriggerWithdrawModal}
-        >
+        <Button onClick={onTriggerReplenishModal}>{t(TranslationKey.Deposit)}</Button>
+        <Button variant={ButtonVariant.OUTLINED} onClick={onTriggerWithdrawModal}>
           {t(TranslationKey.Withdraw)}
         </Button>
       </div>

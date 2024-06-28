@@ -20,7 +20,7 @@ import {
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-logistic-tariff-form.style'
 
@@ -445,21 +445,12 @@ export const AddOrEditLogisticTariffForm = observer(
           </div>
 
           <div className={styles.btnsWrapper}>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              disabled={disableSubmitBtn}
-              className={styles.button}
-              onClick={onSubmit}
-            >
+            <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button
-              className={cx(styles.button, styles.cancelBtn)}
-              variant={ButtonVariant.OUTLINED}
-              onClick={() => onCloseModal()}
-            >
-              {t(TranslationKey.Cancel)}
+            <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
         </div>

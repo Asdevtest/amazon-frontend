@@ -125,14 +125,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: '0px 10px',
   },
 
-  btnLeftMargin: {
-    marginLeft: '40px',
-  },
-
-  cancelBtn: {
-    color: theme.palette.text.general,
-  },
-
   existedIdeaBtnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -267,12 +259,6 @@ export const useStyles = makeStyles()(theme => ({
   addOrEditBtnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
-  },
-
-  defaultBtn: {
-    marginLeft: '10px',
-    height: '40px',
-    width: '100px',
   },
 
   input: {
@@ -475,12 +461,6 @@ export const useStyles = makeStyles()(theme => ({
   plusIcon: {
     width: '14px !important',
     height: '14px !important',
-  },
-
-  actionButton: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '5px',
   },
 
   statusText: {

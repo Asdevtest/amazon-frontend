@@ -227,12 +227,4 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     whiteSpace: 'nowrap',
   },
-
-  actionButton: {
-    padding: '0 40px',
-
-    [theme.breakpoints.down(1700)]: {
-      padding: '0 30px',
-    },
-  },
 }))

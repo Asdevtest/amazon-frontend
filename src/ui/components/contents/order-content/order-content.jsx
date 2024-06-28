@@ -214,7 +214,6 @@ export const OrderContent = ({
 
             <Button
               disabled={disabledSaveSubmit}
-              className={styles.button}
               onClick={() => {
                 onSubmitSaveOrder(
                   {

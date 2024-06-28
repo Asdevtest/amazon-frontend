@@ -49,7 +49,6 @@ export const ClientDashboardView = observer(({ history }) => {
               <div className={styles.buttonWrapper}>
                 <Button
                   tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
-                  className={styles.button}
                   onClick={viewModel.onClickWithdrawMoney}
                 >
                   <PlusIcon className={styles.icon} />
@@ -57,7 +56,6 @@ export const ClientDashboardView = observer(({ history }) => {
                 </Button>
                 <Button
                   tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
-                  className={cx(styles.button, styles.withdrawBtn)}
                   variant={ButtonVariant.OUTLINED}
                   onClick={viewModel.onClickAddMoney}
                 >

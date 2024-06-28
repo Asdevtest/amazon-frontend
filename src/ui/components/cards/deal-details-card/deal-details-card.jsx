@@ -99,10 +99,7 @@ export const DealDetailsCard = ({
             RequestStatus.VERIFYING_BY_SUPERVISOR,
           ].includes(curProposal?.proposal.status) ? (
             <div>
-              <Button
-                className={styles.actionButton}
-                onClick={() => onSubmitSendInForRework(curProposal?.proposal._id)}
-              >
+              <Button onClick={() => onSubmitSendInForRework(curProposal?.proposal._id)}>
                 {t(TranslationKey['Send in for rework'])}
               </Button>
             </div>
@@ -160,7 +157,6 @@ export const DealDetailsCard = ({
               <div className={styles.buttonsWrapper}>
                 <Button
                   styleType={ButtonStyle.DANGER}
-                  className={styles.actionButton}
                   onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}
                 >
                   {t(TranslationKey['Reject the deal'])}
@@ -168,7 +164,6 @@ export const DealDetailsCard = ({
 
                 <Button
                   styleType={ButtonStyle.SUCCESS}
-                  className={styles.actionButton}
                   onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}
                 >
                   {t(TranslationKey['Accept the deal'])}
@@ -177,11 +172,7 @@ export const DealDetailsCard = ({
             )}
           {dealsOnReview ? (
             <div className={styles.buttonWrapper}>
-              <Button
-                styleType={ButtonStyle.SUCCESS}
-                className={styles.actionButton}
-                onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}
-              >
+              <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}>
                 {t(TranslationKey['Get to work'])}
               </Button>
             </div>

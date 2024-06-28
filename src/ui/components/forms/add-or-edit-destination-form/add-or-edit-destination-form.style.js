@@ -6,10 +6,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: 10,
   },
 
-  button: {
-    color: theme.palette.text.general,
-  },
-
   standartText: {
     color: theme.palette.text.general,
   },

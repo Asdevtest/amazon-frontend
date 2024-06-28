@@ -155,9 +155,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
         {isEdit ? 'editBtn' : 'createBtn'}
       </Button>
 
-      <Button className={styles.button} onClick={() => setOpenModal()}>
-        {'cancelBtn'}
-      </Button>
+      <Button onClick={() => setOpenModal()}>{'cancelBtn'}</Button>
     </div>
   )
 }

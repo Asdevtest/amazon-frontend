@@ -8,7 +8,7 @@ import { UserLink } from '@components/user/user-link'
 import { formatNormDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './reply-feedback-form.style'
 
@@ -39,7 +39,7 @@ export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
           {t(TranslationKey.Reply)}
         </Button>
 
-        <Button variant={ButtonVariant.OUTLINED} className={styles.closeBtn} onClick={onCloseModal}>
+        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </div>

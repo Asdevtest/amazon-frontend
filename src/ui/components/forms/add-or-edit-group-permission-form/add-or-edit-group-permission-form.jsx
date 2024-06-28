@@ -17,6 +17,8 @@ import { Modal } from '@components/shared/modal'
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { ButtonStyle } from '@typings/enums/button-style'
+
 import { useStyles } from './add-or-edit-group-permission-form.style'
 
 import { AddOrEditSinglePermissionForm } from '../add-or-edit-single-permission-form'
@@ -303,7 +305,7 @@ export const AddOrEditGroupPermissionForm = observer(
                         )}
                       <div className={styles.selectModalBtnsWrapper}>
                         <Button
-                          className={styles.button}
+                          styleType={ButtonStyle.CASUAL}
                           onClick={() => setOpenSinglePermissions(!openSinglePermissions)}
                         >
                           {t(TranslationKey.Close)}
@@ -311,7 +313,6 @@ export const AddOrEditGroupPermissionForm = observer(
 
                         <Button
                           disabled={!curPermissions.length}
-                          className={cx(styles.button, styles.resetBtn)}
                           onClick={() => onChangeField('permissions')({ target: { value: [] } })}
                         >
                           {t(TranslationKey.reset)}
@@ -360,8 +361,8 @@ export const AddOrEditGroupPermissionForm = observer(
             {isEdit ? t(TranslationKey['Edit a group']) : t(TranslationKey['Create a group'])}
           </Button>
 
-          <Button className={styles.button} onClick={() => onCloseModal()}>
-            {t(TranslationKey.Cancel)}
+          <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+            {t(TranslationKey.Close)}
           </Button>
         </div>
 

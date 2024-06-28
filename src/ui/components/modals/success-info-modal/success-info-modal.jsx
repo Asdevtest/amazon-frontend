@@ -35,12 +35,7 @@ export const SuccessInfoModal = memo(props => {
           {title}
         </Typography>
 
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          disabled={!openModal}
-          className={styles.button}
-          onClick={onClickSuccessBtn}
-        >
+        <Button styleType={ButtonStyle.SUCCESS} disabled={!openModal} onClick={onClickSuccessBtn}>
           {successBtnText}
         </Button>
       </div>

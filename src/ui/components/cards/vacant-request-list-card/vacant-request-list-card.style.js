@@ -55,11 +55,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  actionButton: {
-    width: 130,
-    height: 40,
-  },
-
   updatedAtWrapper: {
     marginTop: 'auto',
     alignSelf: 'flex-end',

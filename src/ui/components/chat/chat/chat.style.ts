@@ -119,27 +119,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  sendBtnTextWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 15,
-  },
-
-  sendBtnIcon: {
-    width: '22px !important',
-    height: '18px !important',
-  },
-
-  sendBtn: {
-    height: 40,
-
-    [theme.breakpoints.down(1024)]: {
-      width: 40,
-      height: 40,
-      borderRadius: '50%',
-    },
-  },
-
   inputFilled: {
     background: theme.palette.input.second,
   },

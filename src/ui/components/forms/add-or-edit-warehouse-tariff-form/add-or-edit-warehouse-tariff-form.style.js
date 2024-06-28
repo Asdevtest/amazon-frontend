@@ -4,10 +4,6 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     minWidth: '500px',
     padding: 10,
-    [theme.breakpoints.down(768)]: {
-      minWidth: 0,
-      width: '280px',
-    },
   },
 
   modalTitle: {
@@ -16,17 +12,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
 
     fontWeight: 600,
-    [theme.breakpoints.down(768)]: {
-      fontSize: '16px',
-      lineHeight: '22px',
-      fontWeight: 600,
-    },
-  },
-
-  button: { width: '120px', height: '40px' },
-
-  closeButton: {
-    color: theme.palette.text.general,
   },
 
   multiline: {
@@ -48,19 +33,14 @@ export const useStyles = makeStyles()(theme => ({
 
   btnsWrapper: {
     marginRight: 15,
-    [theme.breakpoints.down(768)]: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
+
     display: 'flex',
     justifyContent: 'flex-end',
     gap: '20px',
   },
   fieldLabel: {
-    [theme.breakpoints.down(768)]: {
-      fontSize: '14px',
-      lineHeight: '19px',
-      color: '#656565',
-    },
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
   },
 }))

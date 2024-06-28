@@ -62,14 +62,6 @@ export const ClientBuyShopsAds = observer(() => {
           <div className={styles.boxesFiltersWrapper}>
             <Button
               disabled={curFilter === filtersSettings.ALL_ADS}
-              className={cx(styles.button, {
-                [styles.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
-              })}
-              sx={{
-                '&.Mui-disabled': {
-                  backgroundColor: 'none',
-                },
-              }}
               variant={ButtonVariant.OUTLINED}
               onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
             >
@@ -77,15 +69,7 @@ export const ClientBuyShopsAds = observer(() => {
             </Button>
 
             <Button
-              disabled={curFilter === filtersSettings.PURCHASED_ADS} // Вернуть чтобы откатится
-              className={cx(styles.button, {
-                [styles.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
-              })}
-              sx={{
-                '&.Mui-disabled': {
-                  backgroundColor: 'none',
-                },
-              }}
+              disabled={curFilter === filtersSettings.PURCHASED_ADS}
               variant={ButtonVariant.OUTLINED}
               onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
             >

@@ -44,17 +44,12 @@ export const TextForm: FC<TextFormProps> = memo(props => {
       />
 
       <div className={styles.buttons}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          disabled={disabledButton}
-          className={styles.button}
-          onClick={handleSubmit}
-        >
+        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledButton} onClick={handleSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button className={styles.button} onClick={onClose}>
-          {t(TranslationKey.Cancel)}
+        <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

@@ -41,11 +41,6 @@ export const useStyles = makeStyles()(theme => ({
     width: 'calc(100% - 120px)',
   },
 
-  defaultBtn: {
-    height: 32,
-    width: 100,
-  },
-
   skuItemsWrapper: {
     marginBottom: '10px',
     padding: '0 10px',

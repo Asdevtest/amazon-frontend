@@ -1,9 +1,6 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
@@ -24,24 +21,16 @@ export const CategoryRootView = observer(props => {
   }, [viewModel.language])
 
   return (
-    <div>
-      <Typography className={styles.title}>{t(TranslationKey['Choose a section'])}</Typography>
+    <>
+      <p className={styles.title}>{t(TranslationKey['Choose a section'])}</p>
 
       <div className={styles.btnsWrapper}>
         {viewModel.subRoutes?.map((el, index) => (
-          <Button
-            key={index}
-            className={styles.button}
-            variant={ButtonVariant.OUTLINED}
-            onClick={() => viewModel.onClickCategory(el.subRoute)}
-          >
-            <div className={styles.btnTextWrapper}>
-              <Typography className={styles.btnText}>{el.subtitle()}</Typography>
-              <ArrowRightAltIcon color="primary" />
-            </div>
+          <Button key={index} variant={ButtonVariant.OUTLINED} onClick={() => viewModel.onClickCategory(el.subRoute)}>
+            {el.subtitle()}
           </Button>
         ))}
       </div>
-    </div>
+    </>
   )
 })
