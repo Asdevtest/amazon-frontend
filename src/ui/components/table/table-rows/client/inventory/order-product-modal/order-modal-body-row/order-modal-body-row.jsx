@@ -51,7 +51,7 @@ export const OrderModalBodyRow = ({
   const { classes: styles, cx } = useStyles()
 
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
-  const minDate = dayjs().add(2, 'day')
+  const minDate = new Date(dayjs().add(2, 'day'))
   const [deadline, setDeadline] = useState(item.deadline ? new Date(item.deadline) : item.deadline)
 
   const [pricePerUnit, setPerPriceUnit] = useState(null)
