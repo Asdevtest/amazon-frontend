@@ -1,7 +1,7 @@
 import en from 'antd/locale/en_US'
 import ru from 'antd/locale/ru_RU'
 import uk from 'antd/locale/uk_UA'
-import ch from 'antd/locale/zh_CN'
+import zh from 'antd/locale/zh_CN'
 
 import { LanguageKey } from '@typings/enums/language-key'
 
@@ -43,7 +43,7 @@ export const gerAntLocale = (lang: LanguageKey) => {
       antLocale = en
       break
     case 'ch':
-      antLocale = ch
+      antLocale = zh
       break
     default:
       antLocale = en
