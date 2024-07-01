@@ -1,5 +1,3 @@
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { useStyles } from '@components/dashboards/dashboard-balance/dashboard-balance.style'
@@ -12,14 +10,15 @@ export const DashboardBalance = ({ user }) => {
 
   return (
     <div>
-      <Typography className={styles.title}>{t(TranslationKey['My balance'])}</Typography>
+      <p className={styles.title}>{t(TranslationKey['My balance'])}</p>
 
       <div className={styles.balanceWrapper}>
-        <Typography className={styles.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
+        <p className={styles.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</p>
+
         {user.balanceFreeze !== 0 && (
-          <Typography className={styles.balanceFreeze}>{`(${toFixedWithDollarSign(user.balanceFreeze, 2)} ${t(
+          <p className={styles.balanceFreeze}>{`(${toFixedWithDollarSign(user.balanceFreeze, 2)} ${t(
             TranslationKey.freeze,
-          )})`}</Typography>
+          )})`}</p>
         )}
       </div>
     </div>
