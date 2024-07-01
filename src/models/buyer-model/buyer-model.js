@@ -14,7 +14,7 @@ class BuyerModelStatic {
   }
 
   getProductsMyPag = async data => {
-    const response = await restApiService.buyerApi.apiV1BuyersProductsPagMyGet(filterNullValues(data))
+    const response = await restApiService.buyerApi.apiV1BuyersProductsPagMyGet(data)
     return response.data
   }
 
