@@ -98,7 +98,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                             variationId: variation?._id,
                             destinationId,
                             logicsTariffId: variation?.storekeeperTariffLogisticsId,
-                            variationMinBoxWeight: variation?.minWeight,
+                            variationMinBoxWeight: variation?.minBoxWeight,
                           })
                         }
                       />
