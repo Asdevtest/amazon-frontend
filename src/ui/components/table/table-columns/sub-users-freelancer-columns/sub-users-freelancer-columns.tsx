@@ -57,7 +57,6 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       },
       width: 110,
       filterable: false,
-      disableColumnMenu: true,
       disableCustomSort: true,
     },
 
@@ -86,7 +85,6 @@ export const subUsersFreelancerColumns = (handlers: SubUsersFreelancerColumnsPro
       ),
 
       width: 230,
-      disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
     },
