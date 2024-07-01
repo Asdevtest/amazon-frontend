@@ -10,4 +10,6 @@ export const translationGetters = {
     require('./translations-files/ru.json') as Record<TranslationKey, string>,
   [LanguageKey.zh]: (): Record<TranslationKey, string> =>
     require('./translations-files/zh.json') as Record<TranslationKey, string>,
+  [LanguageKey.uk]: (): Record<TranslationKey, string> =>
+    require('./translations-files/uk.json') as Record<TranslationKey, string>,
 }
