@@ -12,7 +12,7 @@ import {
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
-import { getNewTariffTextForBoxOrOrder } from '@utils/text'
+import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -142,7 +142,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       renderHeader: () => (
         <MultilineTextHeaderCell text={`${t(TranslationKey['Final weight'])}, ${t(TranslationKey.kg)}`} />
       ),
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
       type: 'number',
       width: 130,
 
@@ -156,7 +156,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
         <MultilineTextHeaderCell text={`${t(TranslationKey['Gross weight'])}, ${t(TranslationKey.kg)}`} />
       ),
 
-      renderCell: params => <MultilineTextCell text={params.value} />,
+      renderCell: params => <MultilineTextCell text={toFixed(params.value)} />,
       type: 'number',
       width: 130,
 
