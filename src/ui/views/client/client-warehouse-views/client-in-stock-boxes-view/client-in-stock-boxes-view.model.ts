@@ -1211,7 +1211,13 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             isShippingLabelAttachedByStorekeeper:
               sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
             items: requestBoxItems,
-            shippingLabel: boxData.shippingLabel || boxData.tmpShippingLabel?.[0] || '',
+            shippingLabel: boxData.shippingLabel
+              ? boxData.shippingLabel
+              : boxData.tmpShippingLabel?.[0]
+              ? boxData.tmpShippingLabel?.[0]
+              : boxData.shippingLabel === null
+              ? null
+              : '',
           },
           updateBoxWhiteList,
         )
