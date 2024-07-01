@@ -1,7 +1,6 @@
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
-import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
@@ -11,7 +10,9 @@ import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/models/products/product'
 
-import { buyerSearchSuppliersViewColumns } from './buyer-seach-suppliers-columns'
+import { buyerSearchSuppliersViewColumns } from './buyer-search-supplier-columns'
+import { getQuery } from './helpers/get-query'
+import { getTableKey } from './helpers/get-table-key'
 import { observerConfig } from './observer-config'
 
 export class BuyerSearchSupplierBySupervisorModel extends DataGridTableModel {
@@ -19,17 +20,26 @@ export class BuyerSearchSupplierBySupervisorModel extends DataGridTableModel {
     const rowHandlers = {
       onPickUp: (row: IProduct) => this.onClickTableRowBtn(row),
     }
+
     const columnsModel = buyerSearchSuppliersViewColumns(rowHandlers)
+    const tableKey = getTableKey(location.pathname)
+
+    const options = getQuery(location.pathname)
+
+    const defaultGetCurrentDataOptions = () => options
 
     super({
       getMainDataMethod: BuyerModel.getProductsVacant,
       columnsModel,
-      tableKey: DataGridTablesKeys.BUYER_SEARCH_SUPPLIER_BY_SUPERVISOR,
+      tableKey,
+      defaultGetCurrentDataOptions,
     })
 
     makeObservable(this, observerConfig)
-    this.sortModel = [{ field: 'updatedAt', sort: 'asc' }]
 
+    this.initHistory()
+
+    this.sortModel = [{ field: 'updatedAt', sort: 'asc' }]
     this.getDataGridState()
     this.getCurrentData()
   }
@@ -60,10 +70,7 @@ export class BuyerSearchSupplierBySupervisorModel extends DataGridTableModel {
       this.getCurrentData()
 
       if (!noPush) {
-        this.history.push({
-          pathname: '/buyer/search-supplier-by-supervisor/product',
-          search: 'product-id=' + item._id,
-        })
+        this.history.push(`/buyer/my-products/product?product-id=${item._id}`)
       }
     } catch (error) {
       console.error(error)

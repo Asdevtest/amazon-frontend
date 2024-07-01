@@ -11,9 +11,9 @@ import { t } from '@utils/translations'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IProduct } from '@typings/models/products/product'
 
-import { useStyles } from './buyer-search-supplier-by-supervisor-view.style'
+import { useStyles } from './buyer-search-supplier-view.style'
 
-import { BuyerSearchSupplierBySupervisorModel } from './buyer-search-supplier-by-supervisor-view.model'
+import { BuyerSearchSupplierBySupervisorModel } from './buyer-search-supplier-view.model'
 
 export const BuyerSearchSupplierBySupervisorView = observer(() => {
   const { classes: styles } = useStyles()

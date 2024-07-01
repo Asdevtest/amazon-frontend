@@ -103,19 +103,10 @@ const BuyerMyOrdersView = lazy(() =>
 const BuyerProductView = lazy(() =>
   import('@views/buyer/buyer-product-view').then(module => ({ default: module.BuyerProductView })),
 )
-const BuyerSearchSupplierByClientView = lazy(() =>
-  import('@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view').then(module => ({
-    default: module.BuyerSearchSupplierByClientView,
-  })),
-)
+
 const BuyerSearchSupplierBySupervisorView = lazy(() =>
-  import('@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view').then(module => ({
+  import('@views/buyer/buyer-search-supplier').then(module => ({
     default: module.BuyerSearchSupplierBySupervisorView,
-  })),
-)
-const BuyerSearchSupplierForIdeaView = lazy(() =>
-  import('@views/buyer/buyer-search-supplier-views/buyer-search-supplier-for-idea-view').then(module => ({
-    default: module.BuyerSearchSupplierForIdeaView,
   })),
 )
 
@@ -578,7 +569,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/buyer/search-supplier-by-client',
-    component: BuyerSearchSupplierByClientView,
+    component: BuyerSearchSupplierBySupervisorView,
     exact: true,
     permission: [UserRole.BUYER],
     permissionKey: permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER,
@@ -588,21 +579,6 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
       activeSubCategory: 1,
       title: () => `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Client'])}`,
-    },
-  },
-
-  {
-    routePath: '/buyer/search-supplier-for-idea',
-    component: BuyerSearchSupplierForIdeaView,
-    exact: true,
-    permission: [UserRole.BUYER],
-
-    crumbNameKey: TranslationKey['Supplier search'],
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
-      activeSubCategory: 2,
-      title: () => `${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['for the idea'])}`,
     },
   },
 

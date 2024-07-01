@@ -20,15 +20,6 @@ interface IHandlers {
 export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
     {
-      field: 'number',
-      headerName: '№',
-      renderHeader: () => <MultilineTextHeaderCell text="№" />,
-      renderCell: params => <MultilineTextCell text={params.value} />,
-      type: 'number',
-      width: 300,
-    },
-
-    {
       field: 'action',
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
@@ -54,8 +45,8 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
       field: 'checkednotes',
       headerName: t(TranslationKey['Comments from the supervisor']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Comments from the supervisor'])} />,
-
       renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={165} text={params.value} />,
+
       width: 400,
     },
 
@@ -63,10 +54,9 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-      minWidth: 150,
-      flex: 1,
       renderCell: params => <NormDateCell value={params.value} />,
+
+      width: 100,
     },
   ]
 
