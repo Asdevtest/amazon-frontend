@@ -315,11 +315,11 @@ export const clientInventoryColumns = ({
       },
       fields: [
         {
-          label: () => t(TranslationKey['Min. production time, days']),
+          label: 'Min. production time, days',
           value: 'currentSupplierMinProductionTerm',
         },
         {
-          label: () => t(TranslationKey['Max. production time, days']),
+          label: 'Max. production time, days',
           value: 'currentSupplierMaxProductionTerm',
         },
       ],

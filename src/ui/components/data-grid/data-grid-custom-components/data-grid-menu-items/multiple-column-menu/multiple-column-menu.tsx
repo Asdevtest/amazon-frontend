@@ -49,10 +49,9 @@ export const MultipleColumnMenu: FC<MultipleColumnMenuProps> = memo(props => {
     <div>
       <div className={styles.radioButtonsWrapper}>
         <RadioButtons
-          verticalDirection
           radioBottonsSettings={props.fields}
           currentValue={currentColumnMenu}
-          onClickRadioButton={selectedStatus => handleChangeCurrentColumnMenu(selectedStatus as string)}
+          onClickRadioButton={handleChangeCurrentColumnMenu}
         />
       </div>
 
