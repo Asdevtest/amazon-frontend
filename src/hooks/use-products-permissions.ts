@@ -62,6 +62,7 @@ export class UseProductsPermissions {
       loadMoreDataHadler: action.bound,
       onClickSubmitSearch: action.bound,
       setOptions: action.bound,
+      resetOptions: action.bound,
     })
 
     this.callback = callback
@@ -144,6 +145,16 @@ export class UseProductsPermissions {
       })
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  resetOptions() {
+    this.options = {
+      offset: 0,
+      limit: 15,
+      sortField: 'asin',
+      sortType: 'ASC',
+      filters: '',
     }
   }
 
