@@ -169,6 +169,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '10px 20px 0',
     gap: 20,
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
 
   productsWrapper: {
