@@ -17,6 +17,8 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
+import { productColumnMenuItems, productColumnMenuValue } from './admin-exchange-views.config'
+
 interface IRowHandlers {
   onClickOpenInNewTab: (id: string) => void
 }
@@ -53,9 +55,12 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
           />
         )
       },
-      width: 300,
-      columnKey: columnnsKeys.client.INVENTORY_PRODUCT,
+
+      fields: productColumnMenuItems,
+      columnMenuConfig: productColumnMenuValue,
       disableCustomSort: true,
+      columnKey: columnnsKeys.shared.MULTIPLE,
+      width: 250,
     },
 
     {
