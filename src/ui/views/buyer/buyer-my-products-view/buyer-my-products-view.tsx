@@ -4,7 +4,6 @@ import { useState } from 'react'
 
 import { GridRowClassNameParams, GridRowParams } from '@mui/x-data-grid-premium'
 
-import { ProductStatus } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
@@ -18,14 +17,8 @@ import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './buyer-my-products-view.style'
 
+import { attentionStatuses } from './buyer-my-products-view.constants'
 import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
-
-const attentionStatuses = [
-  ProductStatus.TO_BUYER_FOR_RESEARCH,
-  ProductStatus.BUYER_PICKED_PRODUCT,
-  ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH,
-  ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT,
-]
 
 export const BuyerMyProductsView = observer(() => {
   const { classes: styles } = useStyles()
