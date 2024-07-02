@@ -25,25 +25,25 @@ export interface InlineObject146 {
      * @type {string}
      * @memberof InlineObject146
      */
-    endpoint?: string;
-    /**
-     * Название таблицы
-     * @type {string}
-     * @memberof InlineObject146
-     */
-    table?: string;
+    endpoint: string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {object}
      * @memberof InlineObject146
      */
-    fields?: Array<string>;
+    options: object;
     /**
-     * Является ли пресет активным.
+     * Является ли активным.
      * @type {boolean}
      * @memberof InlineObject146
      */
-    isActive?: boolean;
+    activeOption: boolean;
+    /**
+     * Title of preset
+     * @type {string}
+     * @memberof InlineObject146
+     */
+    title: string;
 }
 
 

@@ -17,21 +17,15 @@
 /**
  * 
  * @export
- * @interface InlineObject151
+ * @interface InlineObject159
  */
-export interface InlineObject151 {
+export interface InlineObject159 {
     /**
-     * Старый ароль
+     * Comment for request details.
      * @type {string}
-     * @memberof InlineObject151
+     * @memberof InlineObject159
      */
-    oldPassword: string;
-    /**
-     * Новый пароль
-     * @type {string}
-     * @memberof InlineObject151
-     */
-    newPassword: string;
+    comment?: string;
 }
 
 

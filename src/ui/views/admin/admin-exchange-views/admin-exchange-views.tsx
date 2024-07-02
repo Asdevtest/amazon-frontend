@@ -3,13 +3,9 @@ import { useMemo, useState } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
-
-import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IProduct } from '@typings/models/products/product'
@@ -51,9 +47,6 @@ export const AdminExchangeViews = observer(() => {
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           getRowId={({ _id }: IProduct) => _id}
           slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
             columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {
@@ -65,6 +58,12 @@ export const AdminExchangeViews = observer(() => {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+              },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
               },
             },
           }}

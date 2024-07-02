@@ -13,34 +13,56 @@
  */
 
 
-import { ApiV1RequestProposalsCustomByRequestIdGuidDetails } from './api-v1-request-proposals-custom-by-request-id-guid-details';
-import { ApiV1RequestProposalsCustomByRequestIdGuidProposal } from './api-v1-request-proposals-custom-by-request-id-guid-proposal';
-import { ApiV1RequestProposalsCustomByRequestIdGuidRequest } from './api-v1-request-proposals-custom-by-request-id-guid-request';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
- * Схема универсального предложения
+ * 
  * @export
  * @interface InlineResponse200108
  */
 export interface InlineResponse200108 {
     /**
-     * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidProposal}
+     * GUID записи
+     * @type {string}
      * @memberof InlineResponse200108
      */
-    proposal?: ApiV1RequestProposalsCustomByRequestIdGuidProposal;
+    _id?: string;
     /**
      * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidDetails}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200108
      */
-    details?: ApiV1RequestProposalsCustomByRequestIdGuidDetails;
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Роль юзера, когда он оставлял отзыв
+     * @type {number}
+     * @memberof InlineResponse200108
+     */
+    role?: number;
+    /**
+     * Комментарий к оценке
+     * @type {string}
+     * @memberof InlineResponse200108
+     */
+    comment?: string;
+    /**
+     * Оценка, целое число от 1 до 5
+     * @type {number}
+     * @memberof InlineResponse200108
+     */
+    rating?: number;
     /**
      * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidRequest}
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
      * @memberof InlineResponse200108
      */
-    request?: ApiV1RequestProposalsCustomByRequestIdGuidRequest;
+    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse200108
+     */
+    createdAt?: string;
 }
 
 

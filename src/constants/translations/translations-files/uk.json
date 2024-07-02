@@ -1924,5 +1924,6 @@
   "Shutdown delay": "Таймер вимкнення",
   "Are you sure you want to remove this launch?": "Ви впевнені, що хочете видалити цей запуск?",
   "Final box weight": "Остаточна вага коробки",
-  "less than recommended by this tariff": "менше, ніж рекомендовано цим тарифом"
+  "less than recommended by this tariff": "менше, ніж рекомендовано цим тарифом",
+  "The supplier's price does not fit": "Ціна постачальника не підходить"
 }

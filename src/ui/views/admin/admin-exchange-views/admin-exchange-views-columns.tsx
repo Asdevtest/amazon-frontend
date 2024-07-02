@@ -77,7 +77,13 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       ),
 
       width: 250,
-      columnKey: columnnsKeys.admin.STRATEGY_STATUS,
+
+      transformValueMethod: status =>
+        humanFriendlyStategyStatus(
+          productStrategyStatusesEnum[status as keyof typeof productStrategyStatusesEnum],
+        ) as string,
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,
     },
 
@@ -90,7 +96,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       width: 150,
       type: 'number',
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -101,7 +107,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value._id} />,
       width: 200,
 
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
     {
       field: 'checkedBy',
@@ -113,7 +119,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       ),
       width: 200,
 
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
 
@@ -125,7 +131,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
       width: 200,
 
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
 
@@ -138,7 +144,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       width: 200,
       disableCustomSort: true,
 
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -150,7 +156,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       width: 150,
       type: 'number',
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
     {
       field: 'margin',
@@ -161,7 +167,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       width: 150,
       type: 'number',
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
     {
       field: 'bsr',
@@ -172,7 +178,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       width: 150,
       type: 'number',
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
     {
       field: 'fbafee',
@@ -183,7 +189,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       width: 150,
       type: 'number',
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
     {
       field: 'fbaamount',
@@ -194,7 +200,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       width: 150,
       type: 'number',
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {

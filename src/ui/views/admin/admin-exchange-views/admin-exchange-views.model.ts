@@ -27,7 +27,11 @@ export class AdminExchangeViewModel extends DataGridFilterTableModel {
 
     const filtersFields = getFilterFields(columnsModel, ['amazonTitle', 'skuByClient'])
 
-    const defaultFilterParams = () => ({})
+    const defaultFilterParams = () => ({
+      statusGroup: {
+        $eq: this.activeCategory,
+      },
+    })
 
     super({
       getMainDataMethod: AdministratorModel.getProductsPag,

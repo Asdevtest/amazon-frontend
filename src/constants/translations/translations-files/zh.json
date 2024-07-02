@@ -1917,5 +1917,6 @@
   "Shutdown delay": "关闭延迟",
   "Are you sure you want to remove this launch?": "您确定要移除这个启动吗？",
   "Final box weight": "最终箱子重量",
-  "less than recommended by this tariff": "低于该关税推荐的重量"
+  "less than recommended by this tariff": "低于该关税推荐的重量",
+  "The supplier's price does not fit": "供应商的价格不适合"
 }

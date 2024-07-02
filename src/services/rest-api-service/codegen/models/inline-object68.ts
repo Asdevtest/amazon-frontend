@@ -13,19 +13,38 @@
  */
 
 
+import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
- * Схема изменения итоговой цены, totalPriceChanged
+ * 
  * @export
  * @interface InlineObject68
  */
 export interface InlineObject68 {
     /**
-     * новое значение изменения итоговой цены.
+     * Гуид продукта
+     * @type {string}
+     * @memberof InlineObject68
+     */
+    productId: string;
+    /**
+     * New product price
      * @type {number}
      * @memberof InlineObject68
      */
-    totalPriceChanged: number;
+    newProductPrice?: number;
+    /**
+     * Description of product_listing_report
+     * @type {string}
+     * @memberof InlineObject68
+     */
+    description?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * @memberof InlineObject68
+     */
+    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
 }
 
 
