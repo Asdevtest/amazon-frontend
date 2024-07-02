@@ -21,6 +21,6 @@ export const getStatusGroup = (pathname: string) => {
       return 'closed'
 
     case routsPathes.BUYER_MY_ORDERS_ALL_ORDERS:
-      return 'ongoing'
+      return 'buyerOngoing'
   }
 }
