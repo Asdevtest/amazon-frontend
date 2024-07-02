@@ -13,20 +13,31 @@
  */
 
 
-import { ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments } from './api-v1-buyers-orders-ready-for-payment-guid-order-payments';
 
 /**
- * 
+ * Схема подтверждения возрата коробок на склад
  * @export
  * @interface InlineObject65
  */
 export interface InlineObject65 {
     /**
-     * 
-     * @type {Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>}
+     * GUID коробки, который планируем изменить
+     * @type {string}
      * @memberof InlineObject65
      */
-    orderPayments?: Array<ApiV1BuyersOrdersReadyForPaymentGuidOrderPayments>;
+    boxId: string;
+    /**
+     * GUID тарифа, на которую планируем изменить
+     * @type {string}
+     * @memberof InlineObject65
+     */
+    logicsTariffId: string;
+    /**
+     * GUID дестинейшена.
+     * @type {string}
+     * @memberof InlineObject65
+     */
+    destinationId?: string;
 }
 
 

@@ -21,47 +21,41 @@
  */
 export interface InlineObject48 {
     /**
+     * комментарии байера.
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    buyerComment?: string;
+    /**
      * GUID storekeeper-a
      * @type {string}
      * @memberof InlineObject48
      */
-    storekeeperId: string;
-    /**
-     * GUID баера
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    buyerId?: string;
-    /**
-     * Защита листинга
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    transparencyFile?: string;
+    storekeeperId?: string;
     /**
      * 
-     * @type {string}
+     * @type {Array<string>}
      * @memberof InlineObject48
      */
-    item?: string;
+    paymentDetails?: Array<string>;
     /**
-     * GUID тарифа доставки
-     * @type {string}
+     * Цена в юанях
+     * @type {number}
      * @memberof InlineObject48
      */
-    logicsTariffId: string;
+    priceInYuan?: number;
     /**
-     * Гуид вариации
-     * @type {string}
+     * Цена доставки партии в юанях
+     * @type {number}
      * @memberof InlineObject48
      */
-    variationTariffId?: string;
+    priceBatchDeliveryInYuan?: number;
     /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * GUID тарифа доставки.
      * @type {string}
      * @memberof InlineObject48
      */
-    priority?: InlineObject48PriorityEnum;
+    logicsTariffId?: string;
     /**
      * GUID пункта назначения.
      * @type {string}
@@ -69,11 +63,23 @@ export interface InlineObject48 {
      */
     destinationId?: string;
     /**
-     * Кол-во продукта по этой позиции.
+     * 
+     * @type {string}
+     * @memberof InlineObject48
+     */
+    item?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject48
+     */
+    images?: Array<string>;
+    /**
+     * Курс юань доллар.
      * @type {number}
      * @memberof InlineObject48
      */
-    amount: number;
+    yuanToDollarRate?: number;
     /**
      * Стоимость доставки до склада.
      * @type {number}
@@ -81,60 +87,41 @@ export interface InlineObject48 {
      */
     deliveryCostToTheWarehouse?: number;
     /**
-     * Комментарии клиента.
+     * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
      * @type {string}
      * @memberof InlineObject48
      */
-    clientComment?: string;
+    trackingNumberChina?: string;
     /**
-     * GUID заказанного продукта
+     * GUID поставщика, для данного заказа.
      * @type {string}
      * @memberof InlineObject48
      */
-    productId: string;
+    orderSupplierId?: string;
     /**
-     * Массив изображений.
-     * @type {Array<string>}
-     * @memberof InlineObject48
-     */
-    images?: Array<string>;
-    /**
-     * Флаг , обозначающий оплату за экспресс доставку по китаю
-     * @type {boolean}
-     * @memberof InlineObject48
-     */
-    expressChinaDelivery?: boolean;
-    /**
-     * Нуждается ли заказ в повторном поиске поставщика
-     * @type {boolean}
-     * @memberof InlineObject48
-     */
-    needsResearch?: boolean;
-    /**
-     * Дедлайн выкупа заказа
-     * @type {string}
-     * @memberof InlineObject48
-     */
-    deadline?: string;
-    /**
-     * Сумма оплаты $ за партию товара - это сумма в $ указывается закупщиком
+     * Cумма частичной оплаты
      * @type {number}
      * @memberof InlineObject48
      */
-    totalPrice?: number;
+    partialPaymentAmountRmb?: number;
+    /**
+     * Cумма частичной оплаты
+     * @type {number}
+     * @memberof InlineObject48
+     */
+    partiallyPaid?: number;
+    /**
+     * Оплачивается ли заказ частично
+     * @type {boolean}
+     * @memberof InlineObject48
+     */
+    partialPayment?: boolean;
+    /**
+     * Кол-во в заказе
+     * @type {number}
+     * @memberof InlineObject48
+     */
+    amount?: number;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject48PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 

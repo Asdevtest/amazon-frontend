@@ -13,8 +13,8 @@
  */
 
 
-import { InlineResponse20099 } from './inline-response20099';
 import { UserInfoSchemaAllowedSpec } from './user-info-schema-allowed-spec';
+import { UserInfoSchemaFreelanceNotices } from './user-info-schema-freelance-notices';
 import { UserInfoSchemaIdeas } from './user-info-schema-ideas';
 import { UserInfoSchemaMasterUser } from './user-info-schema-master-user';
 import { UserInfoSchemaMyProposals } from './user-info-schema-my-proposals';
@@ -391,10 +391,10 @@ export interface UserInfoSchema {
     ideas?: UserInfoSchemaIdeas;
     /**
      * 
-     * @type {Array<InlineResponse20099>}
+     * @type {Array<UserInfoSchemaFreelanceNotices>}
      * @memberof UserInfoSchema
      */
-    freelanceNotices?: Array<InlineResponse20099>;
+    freelanceNotices?: Array<UserInfoSchemaFreelanceNotices>;
     /**
      * Кол-во нотификаций юзера(archive: false)
      * @type {number}

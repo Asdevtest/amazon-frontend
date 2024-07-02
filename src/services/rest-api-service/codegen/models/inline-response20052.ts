@@ -13,8 +13,10 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
-import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
+import { InlineResponse20052Finances } from './inline-response20052-finances';
+import { InlineResponse20052Orders } from './inline-response20052-orders';
+import { InlineResponse20052PendingOrders } from './inline-response20052-pending-orders';
+import { InlineResponse20052Products } from './inline-response20052-products';
 
 /**
  * 
@@ -23,155 +25,29 @@ import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products
  */
 export interface InlineResponse20052 {
     /**
-     * GUID продукта в базе данных
-     * @type {string}
+     * 
+     * @type {InlineResponse20052Products}
      * @memberof InlineResponse20052
      */
-    _id?: string;
-    /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineResponse20052
-     */
-    asin?: string;
-    /**
-     * SKU введенным клиентом.
-     * @type {string}
-     * @memberof InlineResponse20052
-     */
-    skuByClient?: string;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineResponse20052
-     */
-    strategyStatus?: number;
-    /**
-     * Имеет ли дочерние продукты данный продукт (по parentProductId)
-     * @type {boolean}
-     * @memberof InlineResponse20052
-     */
-    hasChildren?: boolean;
+    products?: InlineResponse20052Products;
     /**
      * 
-     * @type {string}
+     * @type {InlineResponse20052Orders}
      * @memberof InlineResponse20052
      */
-    checkednotes?: string;
+    orders?: InlineResponse20052Orders;
     /**
      * 
-     * @type {number}
+     * @type {InlineResponse20052PendingOrders}
      * @memberof InlineResponse20052
      */
-    bsr?: number;
+    pendingOrders?: InlineResponse20052PendingOrders;
     /**
      * 
-     * @type {number}
+     * @type {InlineResponse20052Finances}
      * @memberof InlineResponse20052
      */
-    amazon?: number;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineResponse20052
-     */
-    reffee?: number;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineResponse20052
-     */
-    fbafee?: number;
-    /**
-     *  Общая сумма с фба.
-     * @type {number}
-     * @memberof InlineResponse20052
-     */
-    fbaamount?: number;
-    /**
-     * Код текущего статуса
-     * @type {number}
-     * @memberof InlineResponse20052
-     */
-    status?: number;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20052
-     */
-    images?: Array<string>;
-    /**
-     * Заголовок на товар с сайта амазон.
-     * @type {string}
-     * @memberof InlineResponse20052
-     */
-    amazonTitle?: string;
-    /**
-     * Прибыль
-     * @type {number}
-     * @memberof InlineResponse20052
-     */
-    profit?: number;
-    /**
-     * Материл продукта
-     * @type {string}
-     * @memberof InlineResponse20052
-     */
-    material?: string;
-    /**
-     * Применение продукта
-     * @type {string}
-     * @memberof InlineResponse20052
-     */
-    productUsage?: string;
-    /**
-     * chinese title?
-     * @type {string}
-     * @memberof InlineResponse20052
-     */
-    chinaTitle?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20052
-     */
-    ideasOnCheck?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20052
-     */
-    ideasFinished?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20052
-     */
-    ideasClosed?: number;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
-     * @memberof InlineResponse20052
-     */
-    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
-    /**
-     * 
-     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
-     * @memberof InlineResponse20052
-     */
-    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20052
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20052
-     */
-    updatedAt?: string;
+    finances?: InlineResponse20052Finances;
 }
 
 

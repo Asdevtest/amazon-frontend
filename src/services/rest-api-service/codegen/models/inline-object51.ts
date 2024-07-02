@@ -21,88 +21,17 @@
  */
 export interface InlineObject51 {
     /**
-     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
-     * @type {number}
-     * @memberof InlineObject51
-     */
-    taskId: number;
-    /**
      * 
      * @type {Array<string>}
      * @memberof InlineObject51
      */
-    boxesBefore?: Array<string>;
+    userIds: Array<string>;
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof InlineObject51
-     */
-    boxes: Array<string>;
-    /**
-     * Тип операции
+     * Название группового чата
      * @type {string}
      * @memberof InlineObject51
      */
-    operationType: InlineObject51OperationTypeEnum;
-    /**
-     * Комментарий клиента.
-     * @type {string}
-     * @memberof InlineObject51
-     */
-    clientComment?: string;
-    /**
-     * Комментарий баера.
-     * @type {string}
-     * @memberof InlineObject51
-     */
-    buyerComment?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineObject51
-     */
-    images?: Array<string>;
-    /**
-     * Комментарий работника склада.
-     * @type {string}
-     * @memberof InlineObject51
-     */
-    storekeeperComment?: string;
-    /**
-     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
-     * @type {string}
-     * @memberof InlineObject51
-     */
-    priority?: InlineObject51PriorityEnum;
-    /**
-     * Причина приоритета
-     * @type {string}
-     * @memberof InlineObject51
-     */
-    reason?: string;
+    title: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject51OperationTypeEnum {
-    Merge = 'merge',
-    Split = 'split',
-    Receive = 'receive',
-    Edit = 'edit'
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineObject51PriorityEnum {
-    _10 = '10',
-    _20 = '20',
-    _30 = '30',
-    _40 = '40',
-    _50 = '50'
-}
-
 
 
