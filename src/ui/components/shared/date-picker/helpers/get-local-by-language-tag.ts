@@ -12,7 +12,7 @@ export const getLocalByLanguageTag = (languageTag: LanguageKey) => {
     case LanguageKey.en:
       return enLocale
 
-    case LanguageKey.ch:
+    case LanguageKey.zh:
       return zhLocale
 
     default:
