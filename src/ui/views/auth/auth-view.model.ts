@@ -44,8 +44,10 @@ export class AuthViewModel {
       toast.success(t(TranslationKey['Successful registration']))
 
       this.onRedirect()
-    } catch (error) {
-      console.error(error)
+    } catch (error: any) {
+      if (error?.response?.data?.message) {
+        toast.error(t(TranslationKey[error?.response.data.message as TranslationKey]))
+      }
     }
   }
 
@@ -67,7 +69,9 @@ export class AuthViewModel {
 
       toast.success(t(TranslationKey['Successful login']))
     } catch (error: any) {
-      console.log({ ...error })
+      if (error?.response?.data?.message) {
+        toast.error(t(TranslationKey[error?.response.data.message as TranslationKey]))
+      }
     }
   }
 
@@ -85,27 +89,4 @@ export class AuthViewModel {
   onClickVersion = () => {
     SettingsModel.resetLocalStorageAndCach()
   }
-
-  /* async onSubmitForm2() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      await UserModel.signIn(this.email.toLowerCase(), this.password)
-      await UserModel.getUserInfo()
-      await UserModel.getUsersInfoCounters()
-
-      if (UserModel.accessToken) {
-        const allowedRoutes = privateRoutesConfigs.filter(route =>
-          route?.permission?.includes(UserRoleCodeMap[UserModel.userInfo.role]),
-        )
-
-        this.history.push(allowedRoutes[0].routePath)
-      }
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
-    }
-  } */
 }

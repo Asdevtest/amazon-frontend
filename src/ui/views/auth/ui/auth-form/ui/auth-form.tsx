@@ -1,6 +1,6 @@
 import { Form, Input } from 'antd'
-import { FC, memo, useCallback, useMemo } from 'react'
-import { MdAlternateEmail } from 'react-icons/md'
+import { FC, memo, useCallback } from 'react'
+import { MdOutlineEmail } from 'react-icons/md'
 import { RiLockPasswordLine, RiUser3Line } from 'react-icons/ri'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,9 +14,9 @@ import { useStyles } from './auth-form.style'
 import { FieldType } from '../../../auth-view.type'
 import {
   confirmValidationRules,
-  emailValidationRules,
+  getEmailValidationRules,
+  getPasswordValidationRules,
   nameValidationRules,
-  passwordValidationRules,
 } from '../model/config/rules'
 
 interface AuthFormFormProps {
@@ -39,30 +39,36 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
     [onSubmit],
   )
 
-  const redirectText = useMemo(
-    () => (auth ? t(TranslationKey['Create account']) : t(TranslationKey['Already have account?'])),
-    [auth],
-  )
-  const buttonText = useMemo(() => (auth ? t(TranslationKey.Login) : t(TranslationKey.Register)), [auth])
+  const redirectText = auth ? t(TranslationKey['Create account']) : t(TranslationKey['Already have account?'])
+  const buttonText = auth ? t(TranslationKey.Login) : t(TranslationKey.Register)
+  const passwordValidationRules = getPasswordValidationRules(auth)
+  const emailValidationRules = getEmailValidationRules(auth)
 
   return (
-    <Form name="registration" size="large" form={form} onFinish={onFinish}>
+    <Form autoComplete="off" name="registration" size="large" form={form} onFinish={onFinish}>
       {!auth ? (
         <Form.Item name="name" rules={nameValidationRules}>
-          <Input size="large" placeholder={t(TranslationKey.Name)} prefix={<RiUser3Line />} />
+          <Input maxLength={64} size="large" placeholder={t(TranslationKey.Name)} prefix={<RiUser3Line />} />
         </Form.Item>
       ) : null}
 
       <Form.Item<FieldType> name="email" rules={emailValidationRules}>
-        <Input size="large" placeholder={t(TranslationKey.Email)} prefix={<MdAlternateEmail />} />
+        <Input
+          maxLength={64}
+          size="large"
+          placeholder={t(TranslationKey.Email)}
+          autoComplete={!auth ? 'username' : 'on'}
+          prefix={<MdOutlineEmail />}
+        />
       </Form.Item>
 
       <Form.Item<FieldType> hasFeedback name="password" rules={passwordValidationRules}>
         <Input.Password
+          maxLength={64}
           size="large"
           type="password"
           placeholder={t(TranslationKey.Password)}
-          autoComplete={!auth ? 'new-password' : ''}
+          autoComplete={!auth ? 'new-password' : 'on'}
           prefix={<RiLockPasswordLine />}
         />
       </Form.Item>
@@ -70,6 +76,7 @@ export const AuthForm: FC<AuthFormFormProps> = memo(props => {
       {!auth ? (
         <Form.Item hasFeedback name="confirm" dependencies={['password']} rules={confirmValidationRules}>
           <Input.Password
+            maxLength={64}
             size="large"
             placeholder={t(TranslationKey['Confirm password'])}
             prefix={<RiLockPasswordLine />}

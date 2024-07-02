@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
@@ -13,9 +12,57 @@ import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { t } from '@utils/translations'
 
-import { accessDeniedErrorMessageList, errorMessageList } from './error-message-list'
+const api = axios.create({
+  baseURL: BACKEND_API_URL,
+})
 
-export const getAxiosInstance = () => {
+api.interceptors.request.use(config => {
+  config.headers = config.headers || {}
+  const userModel = SettingsModel.loadValue('UserModel')
+  config.headers.Authorization = `Bearer ${userModel.accessToken}`
+
+  return config
+})
+
+api.interceptors.response.use(
+  config => {
+    return config
+  },
+  async error => {
+    const originalRequest = error.config
+
+    if ((error.response.status === 403 || error.response.status === 401) && error.config && !error.config._isRetry) {
+      originalRequest._isRetry = true
+      const userModel = SettingsModel.loadValue('UserModel')
+
+      try {
+        const response = await restApiService.userApi.apiV1UsersGetAccessTokenPost({
+          body: { refreshToken: userModel.refreshToken },
+        })
+
+        const accessToken = response?.data?.accessToken
+
+        SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
+        UserModel.setAccessToken(accessToken)
+
+        ChatModel.disconnect()
+        ChatModel.init(accessToken)
+
+        return api.request(originalRequest)
+      } catch (e) {
+        toast.error(t(TranslationKey['Access is denied']), {
+          toastId: 'accessDenied',
+        })
+      }
+    }
+
+    throw error
+  },
+)
+
+export default api
+
+/* export const getAxiosInstance = () => {
   let isRefreshing = false
   let failedQueue: any = []
 
@@ -124,4 +171,4 @@ export const getAxiosInstance = () => {
   )
 
   return axiosInstance
-}
+} */
