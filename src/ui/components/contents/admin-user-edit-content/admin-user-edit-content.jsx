@@ -391,17 +391,6 @@ export const AdminUserEditContent = observer(
                   </span>
                 ))}
               </div>
-              <div className={styles.validationHiddenMessage}>
-                <Typography
-                  className={cx(
-                    styles.validationHiddenText,
-                    { [styles.red]: submit && errorMaxLength },
-                    { [styles.visibility]: errorMaxLength },
-                  )}
-                >
-                  {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
-                </Typography>
-              </div>
             </div>
 
             <div className={styles.field}>
@@ -409,7 +398,6 @@ export const AdminUserEditContent = observer(
                 disabled
                 inputProps={{ maxLength: 128 }}
                 labelClasses={styles.labelField}
-                error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
                 inputClasses={styles.input}
                 label={t(TranslationKey['Re-enter the new password'])}
                 placeholder={t(TranslationKey.Password)}

@@ -250,10 +250,6 @@ export const UserInfoEditForm = observer(
               label={t(TranslationKey.Name)}
               inputProps={{ maxLength: 25 }}
               labelClasses={styles.label}
-              error={
-                checkValidationNameOrEmail?.nameIsUnique === false &&
-                t(TranslationKey['A user with this name already exists'])
-              }
               value={formFields.name}
               onChange={onChangeField('name')}
             />
@@ -263,11 +259,6 @@ export const UserInfoEditForm = observer(
               label={t(TranslationKey.Email)}
               inputProps={{ maxLength: 35 }}
               labelClasses={styles.label}
-              error={
-                (checkValidationNameOrEmail?.emailIsUnique === false &&
-                  t(TranslationKey['A user with this email already exists'])) ||
-                (emailInputError && t(TranslationKey['Invalid email!']))
-              }
               type="email"
               value={formFields.email}
               onChange={onChangeField('email')}
@@ -320,18 +311,6 @@ export const UserInfoEditForm = observer(
                   </span>
                 ))}
               </div>
-
-              <div className={styles.validationHiddenMessage}>
-                <p
-                  className={cx(
-                    styles.validationHiddenText,
-                    { [styles.red]: submit && errorMaxLength },
-                    { [styles.visibility]: errorMaxLength },
-                  )}
-                >
-                  {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
-                </p>
-              </div>
             </div>
 
             <div className={styles.field}>
@@ -339,7 +318,6 @@ export const UserInfoEditForm = observer(
                 disabled={checkIsResearcher(UserRoleCodeMap[user.role])}
                 inputProps={{ maxLength: 128 }}
                 labelClasses={styles.label}
-                error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
                 label={t(TranslationKey['Re-enter the new password'])}
                 placeholder={t(TranslationKey.Password)}
                 type={!visibilityPass ? 'password' : 'text'}
