@@ -443,7 +443,7 @@ export const FieldsAndSuppliers = memo(props => {
               </div>
               <div className={styles.subUsersBodyWrapper}>
                 <div className={styles.subUsersBody}>
-                  {product?.subUsers?.map((subUser, index) => (
+                  {product?.subUsers.concat(product?.subUsersByShop)?.map((subUser, index) => (
                     <div key={index} className={styles.subUserBodyWrapper}>
                       <UserLinkCell
                         withAvatar

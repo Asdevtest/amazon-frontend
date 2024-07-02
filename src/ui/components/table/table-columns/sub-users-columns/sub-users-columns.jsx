@@ -54,7 +54,6 @@ export const subUsersColumns = handlers => {
         />
       ),
       width: 230,
-      disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
     },
@@ -71,7 +70,6 @@ export const subUsersColumns = handlers => {
         />
       ),
       width: 340,
-      disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
     },

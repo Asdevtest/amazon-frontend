@@ -137,7 +137,10 @@ export const ClientIdeasView = observer(({ history }) => {
           onClickVariationRadioButton={useProductsPermissions.getPermissionsData}
           onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.onClickNextButton}
-          onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+          onClickCancelButton={() => {
+            useProductsPermissions.resetOptions()
+            viewModel.onTriggerOpenModal('showProductLaunch')
+          }}
         />
       </Modal>
 
