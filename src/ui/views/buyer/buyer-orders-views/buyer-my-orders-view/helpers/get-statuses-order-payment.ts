@@ -3,7 +3,7 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 
 export const getStatusesOrderPayment = (pathname: string): string => {
   switch (pathname) {
-    case routsPathes.BUYER_MY_ORDERS_INBOUND:
+    case routsPathes.BUYER_MY_ORDERS_NOT_PAID:
       return `${OrderStatusByKey[OrderStatus.AT_PROCESS as keyof typeof OrderStatusByKey]},${
         OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE as keyof typeof OrderStatusByKey]
       }`
