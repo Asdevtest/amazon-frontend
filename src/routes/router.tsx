@@ -16,6 +16,7 @@ export const router = createBrowserRouter([
     path: routerPath[AppRoute.MAIN],
     element: <Layout />,
     errorElement: <FallBack />,
+    children: [],
   },
   {
     path: routerPath[AppRoute.AUTH],

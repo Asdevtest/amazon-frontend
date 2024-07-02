@@ -3,9 +3,10 @@
   max-width: 80px !important;
   min-width: 80px !important;
   width: 80px !important;
+  transition: all 0.5s ease;
 
   .logotip {
-    height: 64px;
+    height: 80px;
     width: 80px;
     background-image: var(--logotip-url);
     background-position: 50% 50%;
@@ -30,6 +31,12 @@
         align-items: center;
         justify-content: center;
       }
+    }
+
+    .logotip {
+      width: 100%;
+      background-image: var(--full-logotip-url);
+      background-position: 50% -50%;
     }
   }
 }
