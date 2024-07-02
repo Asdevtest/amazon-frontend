@@ -68,8 +68,6 @@ export class AdminInventoryViewModel {
 
   rowSelectionModel = undefined
 
-  selectedProduct = undefined
-
   paginationModel = { page: 0, pageSize: 15 }
   sortModel = []
   filterModel = { items: [] }
@@ -103,30 +101,6 @@ export class AdminInventoryViewModel {
       this.history = history
     })
     makeAutoObservable(this, undefined, { autoBind: true })
-
-    reaction(
-      () => this.products,
-      () =>
-        runInAction(() => {
-          this.currentData = this.getCurrentData()
-        }),
-    )
-  }
-
-  onPaginationModelChange(model) {
-    runInAction(() => {
-      this.paginationModel = model
-    })
-
-    this.setDataGridState()
-    this.getProducts()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    runInAction(() => {
-      this.columnVisibilityModel = model
-    })
-    this.setDataGridState()
   }
 
   setDataGridState() {
@@ -140,34 +114,8 @@ export class AdminInventoryViewModel {
     TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_INVENTORY)
   }
 
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_INVENTORY)
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
   onClickTableRow(id) {
-    const url = `/admin/inventory/product?product-id=${id}`
-    const newTab = window.open(`${url}`, '_blank')
-    newTab.focus()
-  }
-
-  onChangeSortingModel(sortModel) {
-    runInAction(() => {
-      this.sortModel = sortModel
-    })
-    this.getProducts()
-    this.setDataGridState()
-  }
-
-  onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
-    this.getProducts()
+    window.open?.(`/admin/inventory/product?product-id=${id}`, '_blank')?.focus?.()
   }
 
   async getProducts() {
@@ -203,39 +151,11 @@ export class AdminInventoryViewModel {
     }
   }
 
-  getCurrentData() {
-    return this.products
-  }
-
-  onSelectionModel(model) {
-    runInAction(() => {
-      this.rowSelectionModel = model
-    })
-  }
-
-  setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
-  onTriggerOpenModal(modalState) {
-    runInAction(() => {
-      this[modalState] = !this[modalState]
-    })
-  }
-
   onClickShowProduct(id) {
-    const win = window.open(`${window.location.origin}/admin/inventory/product?product-id=${id}`, '_blank')
-
-    win.focus()
+    window?.open?.(`/admin/inventory/product?product-id=${id}`, '_blank')?.focus?.()
   }
 
   onClickProductModal(row) {
-    if (window.getSelection().toString()) {
-      return
-    }
-
     if (row) {
       this.history.push(`/admin/inventory?product-id=${row._id}`)
     } else {
@@ -245,8 +165,6 @@ export class AdminInventoryViewModel {
     this.onTriggerOpenModal('productCardModal')
   }
 
-  // * Filtration
-
   getFilters(exclusion) {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
@@ -255,43 +173,6 @@ export class AdminInventoryViewModel {
         'amazonTitle',
       ]),
     )
-  }
-
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
-  }
-
-  onChangeFilterModel(model) {
-    runInAction(() => {
-      this.filterModel = model
-    })
-    this.setDataGridState()
-    this.getProducts()
-  }
-
-  onClickResetFilters() {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        ...dataGridFiltersInitializer(filtersFields),
-      }
-    })
-
-    this.getProducts()
-    this.getDataGridState()
-  }
-
-  setFilterRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        filterRequestStatus: requestStatus,
-      }
-    })
-  }
-
-  onLeaveColumnField() {
-    this.onHover = null
   }
 
   async onClickFilterBtn(column) {
@@ -319,17 +200,5 @@ export class AdminInventoryViewModel {
         this.error = error
       })
     }
-  }
-
-  onChangeFullFieldMenuItem(value, field) {
-    runInAction(() => {
-      this.columnMenuSettings = {
-        ...this.columnMenuSettings,
-        [field]: {
-          ...this.columnMenuSettings[field],
-          currentFilterData: value,
-        },
-      }
-    })
   }
 }

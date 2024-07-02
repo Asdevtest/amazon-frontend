@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(() => ({
   datagridWrapper: {
     height: '82vh',
     width: '100%',
@@ -17,4 +19,4 @@ export const styles = theme => ({
     height: 36,
     overflow: 'visible',
   },
-})
+}))
