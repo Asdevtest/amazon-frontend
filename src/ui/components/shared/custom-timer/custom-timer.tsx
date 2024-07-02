@@ -10,7 +10,6 @@ import { t } from '@utils/translations'
 import { useCountdown } from '@hooks/use-countdown'
 
 import classes from './custom-timer.module.scss'
-
 import { logout } from './helpers/logout'
 
 interface CustomTimerProps {
@@ -27,7 +26,7 @@ export const CustomTimer: FC<CustomTimerProps> = memo(props => {
   if (new Date() >= new Date(targetDate) || !targetDate) {
     return null
   }
- 
+
   const { days, hours, minutes, seconds, shouldLogout } = useCountdown(targetDate)
 
   useEffect(() => {
