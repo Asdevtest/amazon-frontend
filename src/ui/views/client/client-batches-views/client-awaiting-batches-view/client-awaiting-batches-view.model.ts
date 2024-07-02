@@ -12,6 +12,7 @@ import { BoxesModel } from '@models/boxes-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { ProductModel } from '@models/product-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
+import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -52,6 +53,10 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
   progressValue = 0
 
   productViewMode = tableProductViewMode.EXTENDED
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor(isModalModel = false) {
     const rowHandlers = {
@@ -156,9 +161,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
 
       await this.getCurrentData()
 
-      runInAction(() => {
-        this.curBatch = this.currentData.find(batch => this.curBatch?._id === batch._id)
-      })
+      this.setCurrentOpenedBatch(this.curBatch?._id, true)
 
       toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
@@ -174,7 +177,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
     this.getCurrentData()
   }
 
-  async setCurrentOpenedBatch(id: string, notTriggerModal: boolean) {
+  async setCurrentOpenedBatch(id?: string, notTriggerModal?: boolean) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
 

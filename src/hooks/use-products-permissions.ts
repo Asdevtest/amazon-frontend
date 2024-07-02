@@ -149,12 +149,12 @@ export class UseProductsPermissions {
   }
 
   resetOptions() {
+    this.isCanLoadMore = true
+
     this.options = {
+      ...this.options,
       offset: 0,
       limit: 15,
-      sortField: 'asin',
-      sortType: 'ASC',
-      filters: '',
     }
   }
 
