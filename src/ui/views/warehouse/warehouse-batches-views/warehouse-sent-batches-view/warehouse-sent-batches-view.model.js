@@ -165,9 +165,7 @@ export class WarehouseSentBatchesViewModel {
 
       await this.loadData()
 
-      runInAction(() => {
-        this.curBatch = this.batches.find(batch => this.curBatch._id === batch.originalData._id)?.originalData
-      })
+      this.setCurrentOpenedBatch(this.curBatch?._id, true)
 
       toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
