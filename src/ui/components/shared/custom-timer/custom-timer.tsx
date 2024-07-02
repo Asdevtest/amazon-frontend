@@ -1,21 +1,17 @@
 import { cx } from '@emotion/css'
 import { Tooltip } from 'antd'
-import { FC, ReactNode, memo, useEffect, useMemo } from 'react'
+import { FC, ReactNode, memo, useEffect } from 'react'
 import { AiOutlinePoweroff } from 'react-icons/ai'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserModel } from '@models/user-model'
-
-import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
-
-import { Roles } from '@typings/enums/roles'
-import { IFullUser } from '@typings/shared/full-user'
 
 import { useCountdown } from '@hooks/use-countdown'
 
 import classes from './custom-timer.module.scss'
+
+import { logout } from './helpers/logout'
 
 interface CustomTimerProps {
   targetDate: Date | string
@@ -31,37 +27,34 @@ export const CustomTimer: FC<CustomTimerProps> = memo(props => {
   if (new Date() >= new Date(targetDate) || !targetDate) {
     return null
   }
-
-  const { days, hours, minutes, seconds } = useCountdown(targetDate)
-
-  const shouldLogout = useMemo(() => {
-    return Number(days) + Number(hours) + Number(minutes) + Number(seconds) === 0
-  }, [days, hours, minutes, seconds])
-
-  const handleVisibilityChange = () => {
-    if (document.visibilityState === 'visible' && shouldLogout) {
-      const userInfo = UserModel.userInfo as unknown as IFullUser
-      const logoutCondition = !checkIsAdmin(Roles[userInfo?.role])
-
-      if (logoutCondition) {
-        UserModel.signOut()
-      }
-    }
-  }
+ 
+  const { days, hours, minutes, seconds, shouldLogout } = useCountdown(targetDate)
 
   useEffect(() => {
+    if (shouldLogout) {
+      logout()
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && shouldLogout) {
+        logout()
+      }
+    }
+
     document.addEventListener('visibilitychange', handleVisibilityChange)
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
-  }, [targetDate])
+  }, [shouldLogout])
 
-  const tooltip = useMemo(() => {
-    return tooltipText
-      ? `${t(TranslationKey[tooltipText as TranslationKey])}: ${days} : ${hours} : ${minutes} : ${seconds}`
-      : ''
-  }, [tooltipText, days, hours, minutes, seconds])
+  if (shouldLogout) {
+    return null
+  }
+
+  const tooltip = tooltipText
+    ? `${t(TranslationKey[tooltipText as TranslationKey])}: ${days} : ${hours} : ${minutes} : ${seconds}`
+    : ''
 
   return (
     <Tooltip title={tooltip} rootClassName={classes.tooltip}>

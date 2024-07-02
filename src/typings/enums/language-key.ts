@@ -1,5 +1,6 @@
 export enum LanguageKey {
   ru = 'ru',
   en = 'en',
-  ch = 'ch',
+  zh = 'ch',
+  uk = 'uk',
 }

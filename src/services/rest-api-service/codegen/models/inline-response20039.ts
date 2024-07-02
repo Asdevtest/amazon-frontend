@@ -13,37 +13,26 @@
  */
 
 
+import { InlineResponse20039Rows } from './inline-response20039-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20039
  */
 export interface InlineResponse20039 {
     /**
-     * Гуид сообщения
-     * @type {string}
-     * @memberof InlineResponse20039
-     */
-    _id?: string;
-    /**
-     * Гуид чата
-     * @type {string}
-     * @memberof InlineResponse20039
-     */
-    chatId?: string;
-    /**
-     * Смещение для пагинации
+     * Всего кол-во записей в результате запроса
      * @type {number}
      * @memberof InlineResponse20039
      */
-    offset?: number;
+    count?: number;
     /**
-     * 
-     * @type {Array<string>}
+     * Массив заказов c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20039Rows>}
      * @memberof InlineResponse20039
      */
-    allMedia?: Array<string>;
+    rows?: Array<InlineResponse20039Rows>;
 }
 
 

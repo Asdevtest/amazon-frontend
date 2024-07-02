@@ -10,8 +10,10 @@ import { ChatModel } from '@models/chat-model'
 import { useStyles } from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
 import { MessageIcon, MyNotificationsIcon, SettingsIcon } from '@components/shared/svg-icons'
 
-import { checkIsAdmin, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor } from '@utils/checks'
+import { checkIsAdmin, checkIsStorekeeper, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
+
+import { Roles } from '@typings/enums/roles'
 
 export const DashboardButtons = ({ user }) => {
   const { classes: styles } = useStyles()
@@ -31,8 +33,8 @@ export const DashboardButtons = ({ user }) => {
     (user.freelanceNotices?.length || 0) +
     (user.notificationCounter || 0)
 
-  const isNotificationsShown =
-    !checkIsResearcher(UserRoleCodeMap[user.role]) && !checkIsStorekeeper(UserRoleCodeMap[user.role])
+  const excludedRoles = [Roles.RESEARCHER, Roles.STOREKEEPER, Roles.ADMIN, Roles.SUPERVISOR]
+  const isNotificationsShown = !excludedRoles.includes(user.role)
 
   return (
     <div className={styles.buttonsWrapper}>

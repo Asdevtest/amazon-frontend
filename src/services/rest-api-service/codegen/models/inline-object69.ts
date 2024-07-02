@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -22,23 +21,107 @@ import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clie
  */
 export interface InlineObject69 {
     /**
-     * New product price
-     * @type {number}
-     * @memberof InlineObject69
-     */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
+     * комментарии байера.
      * @type {string}
      * @memberof InlineObject69
      */
-    description?: string;
+    buyerComment?: string;
     /**
-     * 
-     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * GUID storekeeper-a
+     * @type {string}
      * @memberof InlineObject69
      */
-    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
+    storekeeperId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject69
+     */
+    paymentDetails?: Array<string>;
+    /**
+     * Цена в юанях
+     * @type {number}
+     * @memberof InlineObject69
+     */
+    priceInYuan?: number;
+    /**
+     * Цена доставки партии в юанях
+     * @type {number}
+     * @memberof InlineObject69
+     */
+    priceBatchDeliveryInYuan?: number;
+    /**
+     * GUID тарифа доставки.
+     * @type {string}
+     * @memberof InlineObject69
+     */
+    logicsTariffId?: string;
+    /**
+     * GUID пункта назначения.
+     * @type {string}
+     * @memberof InlineObject69
+     */
+    destinationId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject69
+     */
+    item?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject69
+     */
+    images?: Array<string>;
+    /**
+     * Курс юань доллар.
+     * @type {number}
+     * @memberof InlineObject69
+     */
+    yuanToDollarRate?: number;
+    /**
+     * Стоимость доставки до склада.
+     * @type {number}
+     * @memberof InlineObject69
+     */
+    deliveryCostToTheWarehouse?: number;
+    /**
+     * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
+     * @type {string}
+     * @memberof InlineObject69
+     */
+    trackingNumberChina?: string;
+    /**
+     * GUID поставщика, для данного заказа.
+     * @type {string}
+     * @memberof InlineObject69
+     */
+    orderSupplierId?: string;
+    /**
+     * Cумма частичной оплаты
+     * @type {number}
+     * @memberof InlineObject69
+     */
+    partialPaymentAmountRmb?: number;
+    /**
+     * Cумма частичной оплаты
+     * @type {number}
+     * @memberof InlineObject69
+     */
+    partiallyPaid?: number;
+    /**
+     * Оплачивается ли заказ частично
+     * @type {boolean}
+     * @memberof InlineObject69
+     */
+    partialPayment?: boolean;
+    /**
+     * Кол-во в заказе
+     * @type {number}
+     * @memberof InlineObject69
+     */
+    amount?: number;
 }
 
 

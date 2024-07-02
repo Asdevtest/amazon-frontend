@@ -663,7 +663,7 @@ export const EditOrderModal = memo(
             setOrderField={setOrderField}
           />
 
-          <div className={styles.supplierCheckboxWrapper} onClick={() => setUpdateSupplierData(!updateSupplierData)}>
+          <div className={styles.supplierCheckboxWrapper} onClick={() => setUpdateSupplierData?.(!updateSupplierData)}>
             <Checkbox checked={updateSupplierData} color="primary">
               <p className={styles.checkboxTitle}>{t(TranslationKey['Update supplier data'])}</p>
             </Checkbox>

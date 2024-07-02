@@ -21,11 +21,11 @@
  */
 export interface InlineObject63 {
     /**
-     * 
-     * @type {Array<string>}
+     * Тег
+     * @type {string}
      * @memberof InlineObject63
      */
-    productIds: Array<string>;
+    title: string;
 }
 
 

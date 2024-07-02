@@ -13,19 +13,20 @@
  */
 
 
+import { InlineResponse20045Finances } from './inline-response20045-finances';
 
 /**
- * цену для клиента на поиск поставщика
+ * 
  * @export
  * @interface InlineResponse20048
  */
 export interface InlineResponse20048 {
     /**
      * 
-     * @type {number}
+     * @type {InlineResponse20045Finances}
      * @memberof InlineResponse20048
      */
-    priceForClient?: number;
+    finances?: InlineResponse20045Finances;
 }
 
 

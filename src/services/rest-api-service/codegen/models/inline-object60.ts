@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1ClientsProductsListingReportsListingLaunches } from './api-v1-clients-products-listing-reports-listing-launches';
 
 /**
  * 
@@ -21,11 +22,29 @@
  */
 export interface InlineObject60 {
     /**
-     * 
+     * Гуид продукта
      * @type {string}
      * @memberof InlineObject60
      */
-    clientComment?: string;
+    productId: string;
+    /**
+     * New product price
+     * @type {number}
+     * @memberof InlineObject60
+     */
+    newProductPrice?: number;
+    /**
+     * Description of product_listing_report
+     * @type {string}
+     * @memberof InlineObject60
+     */
+    description?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsListingReportsListingLaunches>}
+     * @memberof InlineObject60
+     */
+    listingLaunches?: Array<ApiV1ClientsProductsListingReportsListingLaunches>;
 }
 
 

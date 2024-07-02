@@ -1,20 +1,18 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { WarehouseDashboardCardDataKey } from '@constants/navigation/dashboard-configs'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { DashboardModel } from '@models/dashboard-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { loadingStatus } from '@typings/enums/loading-status'
+import { t } from '@utils/translations'
 
 export class WarehouseDashboardViewModel {
   history = undefined
-  requestStatus = undefined
-
   showAddOrEditDestinationModal = false
-
   dashboardData = {
     [WarehouseDashboardCardDataKey.VACANT_TASKS]: '',
     [WarehouseDashboardCardDataKey.TASKS_MY]: '',
@@ -25,41 +23,44 @@ export class WarehouseDashboardViewModel {
     [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: '',
     [WarehouseDashboardCardDataKey.REQUESTED_SEND_TO_BATCH]: '',
   }
+  warhouseButtonsRoutes = {
+    notifications: '',
+    messages: 'messages',
+    settings: 'management',
+  }
 
   get userInfo() {
     return UserModel.userInfo
   }
+  get adress() {
+    return `${t(TranslationKey['Warehouse address'])}: ${this.storekeeperDestination?.name} : ${
+      this.storekeeperDestination?.zipCode
+    }, ${this.storekeeperDestination?.country}, ${this.storekeeperDestination?.state}, ${
+      this.storekeeperDestination?.city
+    }, ${this.storekeeperDestination?.address}`
+  }
 
-  constructor({ history }) {
-    runInAction(() => {
-      this.history = history
-    })
+  constructor(history) {
+    this.history = history
+    this.loadData()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      this.getDashboardElementCount()
-
-      this.getDestinations()
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
+  loadData() {
+    this.getDashboardElementCount()
+    this.getDestinations()
   }
 
   async getDestinations() {
     try {
       const result = await ClientModel.getDestinations()
-
       const storekeeperDestination = result.find(
         el =>
           el.storekeeper?._id === this.userInfo._id ||
           (el.storekeeper?._id === this.userInfo.masterUser?._id && el.storekeeper),
       )
+
       if (storekeeperDestination) {
         runInAction(() => {
           this.storekeeperDestination = storekeeperDestination
@@ -92,6 +93,7 @@ export class WarehouseDashboardViewModel {
   async getDashboardElementCount() {
     try {
       const result = await DashboardModel.getStorekeeperDashboadItems()
+
       runInAction(() => {
         this.dashboardData = {
           [WarehouseDashboardCardDataKey.VACANT_TASKS]: result.tasks.vacant,
@@ -109,15 +111,7 @@ export class WarehouseDashboardViewModel {
     }
   }
 
-  setRequestStatus(requestStatus) {
-    runInAction(() => {
-      this.requestStatus = requestStatus
-    })
-  }
-
   onTriggerOpenModal(modal) {
-    runInAction(() => {
-      this[modal] = !this[modal]
-    })
+    this[modal] = !this[modal]
   }
 }

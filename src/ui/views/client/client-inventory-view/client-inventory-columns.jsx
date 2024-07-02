@@ -298,7 +298,7 @@ export const clientInventoryColumns = ({
     },
 
     {
-      field: 'currentSupplierMinProductionTerm',
+      field: 'currentSupplierMaxProductionTerm',
       headerName: t(TranslationKey['Production time']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
@@ -467,8 +467,18 @@ export const clientInventoryColumns = ({
       field: 'subUsers',
       headerName: t(TranslationKey['Access to product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
-      renderCell: params => <ManyUserLinkCell usersData={params.row?.subUsers} />,
-      valueGetter: ({ row }) => row?.subUsers?.map(el => el?.name).join(', '),
+      renderCell: params => {
+        const subUsers = params.row?.subUsers || []
+        const subUsersByShop = params.row?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const subUsers = row?.subUsers || []
+        const subUsersByShop = row?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
       width: 187,
       filterable: false,
       disableCustomSort: true,

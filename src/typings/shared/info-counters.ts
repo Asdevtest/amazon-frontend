@@ -17,7 +17,7 @@ export interface IInfoCounters {
   balance: number
   balanceFreeze: number
   overdraft: number
-  permissions: Array<IPermission>
+  permissions: Array<IPermission | string>
   permissionGroups: Array<IPermissionGroup>
   masterUser: IName
   allowedRoles: Array<number>

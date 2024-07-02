@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserRole } from '@constants/keys/user-roles'
 import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 

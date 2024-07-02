@@ -14,7 +14,7 @@
     "generate-rest-api-service": "openapi-generator-cli generate -i ./schema.json -g typescript-axios -c ./src/services/rest-api-service/options-openapi.json -o ./src/services/rest-api-service/codegen/ --skip-validate-spec",
     "lint:fix": "eslint --fix --ext .js,.jsx .",
     "typecheck": "tsc",
-    "translations:check": "npx ts-node scripts/translations-check"
+    "translations:filter": "node scripts/filter-unused-translations.js"
   },
   "dependencies": {
     "@emoji-mart/data": "^1.0.6",
@@ -47,6 +47,8 @@
     "emoji-mart": "^5.2.2",
     "env-cmd": "^10.1.0",
     "favico.js": "^0.3.10",
+    "fs": "^0.0.1-security",
+    "glob": "^10.4.2",
     "he": "^1.2.0",
     "i18n-js": "^3.9.2",
     "i18next": "^23.11.5",

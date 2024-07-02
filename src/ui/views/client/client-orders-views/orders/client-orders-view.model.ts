@@ -331,23 +331,29 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
         }
 
         if (this.isPendingOrdering) {
-          const dataToRequest = getObjectFilteredByKeyArrayWhiteList(orderObject, [
-            'amount',
-            'orderSupplierId',
-            'images',
-            'totalPrice',
-            'item',
-            'needsResearch',
-            'deadline',
-            'priority',
-            'expressChinaDelivery',
-            'clientComment',
+          const dataToRequest = getObjectFilteredByKeyArrayWhiteList(
+            orderObject,
+            [
+              'amount',
+              'orderSupplierId',
+              'images',
+              'totalPrice',
+              'item',
+              'needsResearch',
+              'deadline',
+              'priority',
+              'expressChinaDelivery',
+              'clientComment',
 
-            'destinationId',
-            'storekeeperId',
-            'logicsTariffId',
-            'transparencyFile',
-          ])
+              'destinationId',
+              'storekeeperId',
+              'logicsTariffId',
+              'transparencyFile',
+            ],
+            undefined,
+            undefined,
+            true,
+          )
 
           await OrderModel.changeOrderData(orderObject._id, dataToRequest)
 
@@ -377,6 +383,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     ordersDataState: any
     totalOrdersCost: number
   }) {
+    console.log('ordersDataState', ordersDataState)
     this.confirmModalSettings = {
       isWarning: false,
       title: t(TranslationKey['You are making an order, are you sure?']),

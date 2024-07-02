@@ -184,9 +184,7 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
 
       await this.getCurrentData()
 
-      runInAction(() => {
-        this.curBatch = this.currentData.find(batch => this.curBatch?._id === batch._id)
-      })
+      this.setCurrentOpenedBatch(this.curBatch?._id, true)
 
       toast.success(t(TranslationKey['Data saved successfully']))
     } catch (error) {
@@ -194,7 +192,7 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async setCurrentOpenedBatch(id: string, notTriggerModal: boolean) {
+  async setCurrentOpenedBatch(id?: string, notTriggerModal?: boolean) {
     try {
       const batch = await BatchesModel.getBatchesByGuid(id)
 

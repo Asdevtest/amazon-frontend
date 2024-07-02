@@ -72,6 +72,7 @@ export const financesViewColumns = () => {
           />
         )
       },
+
       transformValueMethod: getPaymentTypeTranslations,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -120,7 +121,7 @@ export const financesViewColumns = () => {
       headerName: t(TranslationKey.Category),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
-      renderCell: params => <MultilineTextCell text={getEntityTypeTranslations(params.value)} />,
+      renderCell: params => <MultilineTextCell text={params.value} />,
       transformValueMethod: getEntityTypeTranslations,
 
       valueGetter: params => getEntityTypeTranslations(params.value),

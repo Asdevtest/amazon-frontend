@@ -13,116 +13,26 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
+import { InlineResponse20036Rows } from './inline-response20036-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20036
  */
 export interface InlineResponse20036 {
     /**
-     * GUID
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    _id?: string;
-    /**
-     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * Всего кол-во записей в результате запроса
      * @type {number}
      * @memberof InlineResponse20036
      */
-    taskId?: number;
+    count?: number;
     /**
-     * Тип операции
-     * @type {string}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20036Rows>}
      * @memberof InlineResponse20036
      */
-    operationType?: InlineResponse20036OperationTypeEnum;
-    /**
-     * Массив коробок которые были до переформирования коробок.
-     * @type {Array<ApiV1BatchesBoxes>}
-     * @memberof InlineResponse20036
-     */
-    boxesBefore?: Array<ApiV1BatchesBoxes>;
-    /**
-     * Массив коробок.
-     * @type {Array<ApiV1BatchesBoxes>}
-     * @memberof InlineResponse20036
-     */
-    boxes?: Array<ApiV1BatchesBoxes>;
-    /**
-     * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
-     * @type {number}
-     * @memberof InlineResponse20036
-     */
-    status?: number;
-    /**
-     * Приоритет задачи
-     * @type {number}
-     * @memberof InlineResponse20036
-     */
-    priority?: number;
-    /**
-     * Комментарий работника склада.
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    storekeeperComment?: string;
-    /**
-     * Комментарий клиента.
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    clientComment?: string;
-    /**
-     * Комментарий баера.
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    buyerComment?: string;
-    /**
-     * Массив картинок.
-     * @type {Array<string>}
-     * @memberof InlineResponse20036
-     */
-    images?: Array<string>;
-    /**
-     * GUID сотрудника склада, который выполняет задачу.
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    storekeeperId?: string;
-    /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20036
-     */
-    storekeeper?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Дата создания.
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20036
-     */
-    updateDate?: string;
+    rows?: Array<InlineResponse20036Rows>;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20036OperationTypeEnum {
-    Merge = 'merge',
-    Split = 'split',
-    Receive = 'receive'
-}
-
 
 

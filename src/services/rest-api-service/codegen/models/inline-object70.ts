@@ -15,17 +15,94 @@
 
 
 /**
- * Схема редактирования в первый раз shippingLabel коробки
+ * 
  * @export
  * @interface InlineObject70
  */
 export interface InlineObject70 {
     /**
-     * shippingLabel
+     * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @type {number}
+     * @memberof InlineObject70
+     */
+    taskId: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject70
+     */
+    boxesBefore?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineObject70
+     */
+    boxes: Array<string>;
+    /**
+     * Тип операции
      * @type {string}
      * @memberof InlineObject70
      */
-    shippingLabel: string;
+    operationType: InlineObject70OperationTypeEnum;
+    /**
+     * Комментарий клиента.
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    clientComment?: string;
+    /**
+     * Комментарий баера.
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    buyerComment?: string;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineObject70
+     */
+    images?: Array<string>;
+    /**
+     * Комментарий работника склада.
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    storekeeperComment?: string;
+    /**
+     * Приоритет заказа: от 10 до 50 - от найменее значимого до найболее значимого соответственно
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    priority?: InlineObject70PriorityEnum;
+    /**
+     * Причина приоритета
+     * @type {string}
+     * @memberof InlineObject70
+     */
+    reason?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject70OperationTypeEnum {
+    Merge = 'merge',
+    Split = 'split',
+    Receive = 'receive',
+    Edit = 'edit'
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineObject70PriorityEnum {
+    _10 = '10',
+    _20 = '20',
+    _30 = '30',
+    _40 = '40',
+    _50 = '50'
+}
+
 
 

@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse20049Rows } from './inline-response20049-rows';
+import { InlineResponse20045Finances } from './inline-response20045-finances';
+import { InlineResponse20049Checking } from './inline-response20049-checking';
+import { InlineResponse20049Products } from './inline-response20049-products';
 
 /**
  * 
@@ -22,17 +24,23 @@ import { InlineResponse20049Rows } from './inline-response20049-rows';
  */
 export interface InlineResponse20049 {
     /**
-     * Count of rows
-     * @type {number}
+     * 
+     * @type {InlineResponse20049Products}
      * @memberof InlineResponse20049
      */
-    count?: number;
+    products?: InlineResponse20049Products;
     /**
      * 
-     * @type {Array<InlineResponse20049Rows>}
+     * @type {InlineResponse20049Checking}
      * @memberof InlineResponse20049
      */
-    rows?: Array<InlineResponse20049Rows>;
+    checking?: InlineResponse20049Checking;
+    /**
+     * 
+     * @type {InlineResponse20045Finances}
+     * @memberof InlineResponse20049
+     */
+    finances?: InlineResponse20045Finances;
 }
 
 

@@ -176,7 +176,10 @@ export const AddOrEditBatchForm = observer(
               String(item.order.id)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
               String(item.order.item)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
           ) ||
-          String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
+          String(el.originalData.humanFriendlyId)
+            ?.toLowerCase()
+            .includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+          String(el.originalData.prepId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
       )
 
     const filterBySearchValueChosenBoxes = boxesArr =>
@@ -189,7 +192,8 @@ export const AddOrEditBatchForm = observer(
               String(item.order.id)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
               String(item.order.item)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
           ) ||
-          String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
+          String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+          String(el.originalData.prepId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
       )
 
     useEffect(() => {
