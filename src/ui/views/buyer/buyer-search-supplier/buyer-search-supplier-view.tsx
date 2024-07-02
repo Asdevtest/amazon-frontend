@@ -9,33 +9,46 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IProduct } from '@typings/models/products/product'
 
-import { useStyles } from './buyer-search-supplier-by-client-view.style'
+import { useStyles } from './buyer-search-supplier-view.style'
 
-import { BuyerSearchSupplierByClientModel } from './buyer-search-supplier-by-client-view.model'
+import { BuyerSearchSupplierBySupervisorModel } from './buyer-search-supplier-view.model'
 
-export const BuyerSearchSupplierByClientView = observer(({ history }) => {
+export const BuyerSearchSupplierBySupervisorView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new BuyerSearchSupplierByClientModel({ history }))
+
+  const [viewModel] = useState(() => new BuyerSearchSupplierBySupervisorModel())
 
   return (
-    <>
-      <div className={styles.btnsWrapper}>
-        <Button
-          disabled={viewModel.selectedRowIds.length === 0}
-          tooltipInfoContent={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
-          onClick={viewModel.onPickupSomeItems}
-        >
-          {t(TranslationKey['Take on the work of the selected'])}
-        </Button>
-      </div>
+    <div className={styles.container}>
+      <Button
+        disabled={viewModel.selectedRows.length === 0}
+        tooltipInfoContent={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
+        onClick={viewModel.onPickupSomeItems}
+      >
+        {t(TranslationKey['Take on the work of the selected'])}
+      </Button>
+
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
           checkboxSelection
           disableRowSelectionOnClick
           sortingMode="client"
           paginationMode="client"
+          getRowHeight={() => 'auto'}
+          getRowId={(row: IProduct) => row._id}
+          pinnedColumns={viewModel.pinnedColumns}
+          rowCount={viewModel.rowCount}
+          sortModel={viewModel.sortModel}
+          filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
+          paginationModel={viewModel.paginationModel}
+          rows={viewModel.currentData}
+          rowSelectionModel={viewModel.selectedRows}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
@@ -48,16 +61,12 @@ export const BuyerSearchSupplierByClientView = observer(({ history }) => {
               },
             },
           }}
-          paginationModel={viewModel.paginationModel}
-          rows={viewModel.currentData}
-          rowHeight={80}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onRowSelectionModelChange={viewModel.onSelectionModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
-    </>
+    </div>
   )
 })
