@@ -8,24 +8,8 @@ import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-swi
 import { t } from '@utils/translations'
 
 export const adminUsersViewModelConfig = {
-  groupPermissions: observable,
-  singlePermissions: observable,
-  checkValidationNameOrEmail: observable,
-  availableSubUsers: observable,
-  changeNameAndEmail: observable,
-  editUserFormFields: observable,
-  rowSelectionModel: observable,
   switcherCondition: observable,
-  submitEditData: observable,
-  showConfirmModal: observable,
-  showEditUserModal: observable,
 
-  loadData: action.bound,
-  getGroupPermissions: action.bound,
-  getSinglePermissions: action.bound,
-  submitEditUserForm: action.bound,
-  finalStepSubmitEditUserForm: action.bound,
-  onClickEditUser: action.bound,
   onClickUser: action.bound,
   onClickBalance: action.bound,
   onClickChangeRole: action.bound,
