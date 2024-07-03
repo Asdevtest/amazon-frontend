@@ -1937,6 +1937,6 @@
   "Successful login": "Успішний вхід",
   "User is waiting for confirmation": "Користувач чекає підтвердження",
   "Invalid password or email address.": "Невірний пароль або адреса електронної пошти.",
-  "User with such email already exists.": "Користувач з такою електронною поштою вже існує."
+  "User with such email already exists.": "Користувач з такою електронною поштою вже існує.",
   "The supplier's price does not fit": "Ціна постачальника не підходить"
 }
