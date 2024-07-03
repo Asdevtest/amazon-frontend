@@ -54,6 +54,8 @@ export const DataGridTablesKeys = {
   SUPERVISOR_PRODUCTS: 'supervisorProductsDataGridState',
   SUPERVISOR_SUB_USERS: 'supervisorSubUsersDataGridState',
   SUPERVISOR_SETTINGS: 'supervisorSettingsDataGridState',
+  SUPERVISOR_CHECK_CLIENT: 'supervisorCheckClient',
+  SUPERVISOR_CHECK_RESEATCHER: 'supervisorCheckResearcher',
 
   BUYER_PRODUCTS: 'buyerProductsDataGridState',
   BUYER_MY_ORDERS_: 'buyerMyOrdersDataGridState',
