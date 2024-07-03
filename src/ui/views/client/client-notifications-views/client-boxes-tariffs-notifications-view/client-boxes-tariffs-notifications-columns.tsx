@@ -112,6 +112,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       width: 130,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
+      disableCustomSort: true,
     },
 
     {
@@ -123,6 +124,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       width: 160,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      disableCustomSort: true,
     },
 
     {
@@ -134,6 +136,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       width: 200,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      disableCustomSort: true,
     },
 
     {
