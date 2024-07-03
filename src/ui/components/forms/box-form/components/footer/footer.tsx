@@ -22,10 +22,15 @@ export const Footer: FC<FooterProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
+  const handleSubmitChangeFields = () => {
+    onSubmitChangeFields()
+    onToggleModal()
+  }
+
   return (
     <div className={styles.wrapper}>
       {isEdit ? (
-        <Button styleType={ButtonStyle.SUCCESS} disabled={disableSaveButton} onClick={onSubmitChangeFields}>
+        <Button styleType={ButtonStyle.SUCCESS} disabled={disableSaveButton} onClick={handleSubmitChangeFields}>
           {t(TranslationKey.Save)}
         </Button>
       ) : null}
