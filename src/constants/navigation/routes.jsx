@@ -430,8 +430,8 @@ const SupervisorReadyToCheckByClientView = lazy(() =>
   }),
 )
 const SupervisorSettingsView = lazy(() =>
-  import('@views/supervisor/supervisor-ready-to-check-view').then(module => {
-    const Component = module.SupervisorReadyToCheckView
+  import('@views/supervisor/supervisor-settings-view').then(module => {
+    const Component = module.SupervisorSettingsView
 
     return { default: props => <Component isCreatedByClient={false} {...props} /> }
   }),
