@@ -1932,5 +1932,7 @@
   "Invalid password or email address.": "无效的密码或电子邮件地址.",
   "User with such email already exists.": "已存在使用此电子邮件的用户.",
   "The supplier's price does not fit": "供应商的价格不适合",
-  "Supervisor's comment": "主管的评论"
+  "Supervisor's comment": "主管的评论",
+  "Document added": "文件已添加",
+  "Add payment document": "添加支付文件"
 }

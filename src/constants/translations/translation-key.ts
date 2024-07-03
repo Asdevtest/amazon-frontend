@@ -1940,4 +1940,6 @@ export enum TranslationKey {
   'User with such email already exist.' = 'User with such email already exist.',
   "The supplier's price does not fit" = "The supplier's price does not fit",
   "Supervisor's comment" = "Supervisor's comment",
+  'Document added' = 'Document added',
+  'Add payment document' = 'Add payment document',
 }

@@ -1939,5 +1939,7 @@
   "Invalid password or email address.": "Невірний пароль або адреса електронної пошти.",
   "User with such email already exists.": "Користувач з такою електронною поштою вже існує.",
   "The supplier's price does not fit": "Ціна постачальника не підходить",
-  "Supervisor's comment": "Коментар супервайзера"
+  "Supervisor's comment": "Коментар супервайзера",
+  "Document added": "Документ додано",
+  "Add payment document": "Додати платіжний документ"
 }
