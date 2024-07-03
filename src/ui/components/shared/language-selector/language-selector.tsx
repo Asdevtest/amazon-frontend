@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 
-import { Typography } from '@mui/material'
+import { PopoverProps, Typography } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
@@ -12,12 +12,16 @@ import { setI18nConfig } from '@utils/translations'
 
 import { useStyles } from './language-selector.style'
 
-export const LanguageSelector = ({ className }) => {
+interface LanguageSelectorProps {
+  className?: string
+}
+
+export const LanguageSelector: FC<LanguageSelectorProps> = ({ className }) => {
   const { classes: styles } = useStyles()
 
-  const [anchorEl, setAnchorEl] = useState(false)
+  const [anchorEl, setAnchorEl] = useState<PopoverProps['anchorEl']>(null)
 
-  const handleClick = event => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget)
   }
 

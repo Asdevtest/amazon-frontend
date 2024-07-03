@@ -74,8 +74,13 @@ const AdminWarehouseView = lazy(() =>
     default: module.AdminWarehouseView,
   })),
 )
-const AuthView = lazy(() => import('@views/auth').then(module => ({ default: module.AuthView })))
+const AuthView = lazy(() =>
+  import('@views/auth').then(module => {
+    const Component = module.AuthView
 
+    return { default: props => <Component auth {...props} /> }
+  }),
+)
 const BuyerDashboardView = lazy(() =>
   import('@views/buyer/buyer-dashboard-view').then(module => ({ default: module.BuyerDashboardView })),
 )
@@ -290,7 +295,11 @@ const ModeratorSettingsView = lazy(() =>
   import('@views/moderator/moderator-settings-view').then(module => ({ default: module.ModeratorSettingsView })),
 )
 const RegistrationView = lazy(() =>
-  import('@views/registration').then(module => ({ default: module.RegistrationView })),
+  import('@views/auth').then(module => {
+    const Component = module.AuthView
+
+    return { default: props => <Component auth={false} {...props} /> }
+  }),
 )
 const ResearcherDashboardView = lazy(() =>
   import('@views/researcher/researcher-dashboard-view').then(module => ({ default: module.ResearcherDashboardView })),
