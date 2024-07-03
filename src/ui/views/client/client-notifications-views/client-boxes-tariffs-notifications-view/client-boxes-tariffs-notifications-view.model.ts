@@ -176,9 +176,7 @@ export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTabl
 
   async onClickConfirmTarrifChangeBtn(tariffData: INewDataOfVariation) {
     try {
-      // const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, this.platformSettings?.volumeWeightCoefficient)
-
-      const finalSum = (this.curBox?.finalWeight || 1) * (this.curBox?.variationTariff?.pricePerKgUsd || 1)
+      const finalSum = (this.curBox?.finalWeight || 1) * (tariffData?.pricePerKgUsd || 1)
       runInAction(() => {
         this.confirmModalSettings = {
           isWarning: false,

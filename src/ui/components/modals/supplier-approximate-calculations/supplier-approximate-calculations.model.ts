@@ -51,6 +51,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   currentDestinationId: string | undefined = undefined
   currentLogicsTariffId: string | undefined = undefined
   variationMinBoxWeight: number | undefined = undefined
+  pricePerKgUsd: number | undefined = undefined
 
   handleSave: ((body: INewDataOfVariation) => void) | undefined
 
@@ -215,11 +216,18 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this.isStrictVariationSelect = isStrictVariationSelect
   }
 
-  handleSetVariation({ variationId, destinationId, logicsTariffId, variationMinBoxWeight }: IVariationParams) {
+  handleSetVariation({
+    variationId,
+    destinationId,
+    logicsTariffId,
+    variationMinBoxWeight,
+    pricePerKgUsd,
+  }: IVariationParams) {
     this.currentVariationId = variationId
     this.currentDestinationId = destinationId
     this.currentLogicsTariffId = logicsTariffId
     this.variationMinBoxWeight = variationMinBoxWeight
+    this.pricePerKgUsd = pricePerKgUsd
   }
 
   handleCheckVariation() {
@@ -247,6 +255,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       destinationId: this.currentDestinationId,
       logicsTariffId: this.currentLogicsTariffId,
       storekeeperId: this.currentStorekeeperId,
+      pricePerKgUsd: this.pricePerKgUsd,
     }
 
     this.handleSave?.(data as INewDataOfVariation)
