@@ -25,10 +25,6 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject112 } from '../models';
-// @ts-ignore
-import { InlineObject113 } from '../models';
-// @ts-ignore
 import { InlineObject114 } from '../models';
 // @ts-ignore
 import { InlineObject115 } from '../models';
@@ -40,6 +36,10 @@ import { InlineObject117 } from '../models';
 import { InlineObject118 } from '../models';
 // @ts-ignore
 import { InlineObject119 } from '../models';
+// @ts-ignore
+import { InlineObject120 } from '../models';
+// @ts-ignore
+import { InlineObject121 } from '../models';
 // @ts-ignore
 import { InlineObject157 } from '../models';
 // @ts-ignore
@@ -53,8 +53,6 @@ import { InlineResponse200110 } from '../models';
 // @ts-ignore
 import { InlineResponse200111 } from '../models';
 // @ts-ignore
-import { InlineResponse20083 } from '../models';
-// @ts-ignore
 import { InlineResponse20084 } from '../models';
 // @ts-ignore
 import { InlineResponse20085 } from '../models';
@@ -62,6 +60,8 @@ import { InlineResponse20085 } from '../models';
 import { InlineResponse20086 } from '../models';
 // @ts-ignore
 import { InlineResponse20087 } from '../models';
+// @ts-ignore
+import { InlineResponse20088 } from '../models';
 // @ts-ignore
 import { InlineResponse20112 } from '../models';
 // @ts-ignore
@@ -573,12 +573,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
          * ## Прервать прием предложений.  При вызове этого метода клиент прекращает прием предложений, статус меняется на FORBID_NEW_PROPOSALS  Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами PUBLISHED, IN_PROGRESS
          * @summary # Прервать прием предложений.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject116} [body] 
+         * @param {InlineObject118} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGuidAbortPatch: async (guid: string, body?: InlineObject116, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsGuidAbortPatch: async (guid: string, body?: InlineObject118, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestsGuidAbortPatch', 'guid', guid)
             const localVarPath = `/api/v1/requests/{guid}/abort`
@@ -703,12 +703,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
          * ## Этот метод вызывает тот кто бронирует место в заявке.  При первом бронировании статус заявка меняется с PUBLISHED на IN_PROGRESS. В зависимости от типа заявки создается предложение и его детали, статус предложения CREATED  ## Создается чат и добавляется клиент и исполнитель  Проверки: Можно бронировать только заявки со статусами: PUBLISHED, IN_PROCESS Владелец заявки не может отправлять себе предложения.  Если роль пользователя нет в списке roles заявки, то не может забронировать Если есть ограничение по количеству предложений maxAmountOfProposals !== null  Количество активных (принятых + в работе) предложений меньше чем ограничение клиента на эту заявку. Активные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ACCEPTED_BY_CLIENT ACCEPTED_BY_SUPERVISOR  Если у данной заявки есть незавершенные предложения от данного пользователя Незавершенные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary # Этот метод вызывает тот кто бронирует место в заявке.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject115} [body] 
+         * @param {InlineObject117} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGuidPickupPost: async (guid: string, body?: InlineObject115, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsGuidPickupPost: async (guid: string, body?: InlineObject117, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestsGuidPickupPost', 'guid', guid)
             const localVarPath = `/api/v1/requests/{guid}/pickup`
@@ -749,12 +749,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
          * ## Опубликовать заявку.   Статус поменяется на PUBLISHED. ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и до момента вызова данного метода,  для подтверждения нужно вернуть totalCost Проверки:  Публиковать можно только заявки со статусом DRAFT и FORBID_NEW_PROPOSALS. Только владелец может опубликовать. Проверка изменения totalCost
          * @summary #  Опубликовать заявку.
          * @param {string} guid GUID в БД
-         * @param {InlineObject112} [body] 
+         * @param {InlineObject114} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGuidToPublishPatch: async (guid: string, body?: InlineObject112, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsGuidToPublishPatch: async (guid: string, body?: InlineObject114, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestsGuidToPublishPatch', 'guid', guid)
             const localVarPath = `/api/v1/requests/{guid}/to_publish`
@@ -795,12 +795,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
          * Обновить дедлайн, вернуть из статуса EXPIRED
          * @summary # Обновить дедлайн, вернуть из статуса EXPIRED
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject114} [body] 
+         * @param {InlineObject116} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGuidUpdateDeadlinePatch: async (guid: string, body?: InlineObject114, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsGuidUpdateDeadlinePatch: async (guid: string, body?: InlineObject116, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestsGuidUpdateDeadlinePatch', 'guid', guid)
             const localVarPath = `/api/v1/requests/{guid}/update_deadline`
@@ -841,12 +841,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
          * ## Связать заявку с идеей
          * @summary #  Связать заявку с идеей, поле, которое не отправляется сетится на наллб если ничего не отправлено - на налл сетятся оба
          * @param {string} guid ID идеи
-         * @param {InlineObject119} [body] 
+         * @param {InlineObject121} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsIdeasGuidPatch: async (guid: string, body?: InlineObject119, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsIdeasGuidPatch: async (guid: string, body?: InlineObject121, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestsIdeasGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/requests/ideas/{guid}`
@@ -971,12 +971,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
          * ## Изменить медиа
          * @summary #  Изменить медиа.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject117} [body] 
+         * @param {InlineObject119} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsMediaGuidPatch: async (guid: string, body?: InlineObject117, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsMediaGuidPatch: async (guid: string, body?: InlineObject119, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestsMediaGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/requests/media/{guid}`
@@ -1058,12 +1058,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * ## Создать медиа
          * @summary #  Создать медиа.
-         * @param {InlineObject118} [body] 
+         * @param {InlineObject120} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsMediaPost: async (body?: InlineObject118, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsMediaPost: async (body?: InlineObject120, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/requests/media`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1100,12 +1100,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * # Изменить uploadedToListing
          * @summary # Изменить uploadedToListing
-         * @param {InlineObject113} [body] 
+         * @param {InlineObject115} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsUploadedToListingPatch: async (body?: InlineObject113, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsUploadedToListingPatch: async (body?: InlineObject115, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/requests/uploaded_to_listing`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1160,7 +1160,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsByProductLightGuidGet(guid: string, status?: string, excludeIdeaId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20086>>> {
+        async apiV1RequestsByProductLightGuidGet(guid: string, status?: string, excludeIdeaId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20087>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsByProductLightGuidGet(guid, status, excludeIdeaId, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1172,7 +1172,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsCalculateRequestCostGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20083>> {
+        async apiV1RequestsCalculateRequestCostGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20084>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsCalculateRequestCostGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1266,7 +1266,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsGet(kind: 'VACANT' | 'MY' | 'PICKUPED_BY_ME' | 'ALL', productId?: string, onlyWaitedProposals?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20085>> {
+        async apiV1RequestsGet(kind: 'VACANT' | 'MY' | 'PICKUPED_BY_ME' | 'ALL', productId?: string, onlyWaitedProposals?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20086>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsGet(kind, productId, onlyWaitedProposals, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1279,7 +1279,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid: string, specType: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20084>>> {
+        async apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid: string, specType: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20085>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid, specType, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1287,12 +1287,12 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * ## Прервать прием предложений.  При вызове этого метода клиент прекращает прием предложений, статус меняется на FORBID_NEW_PROPOSALS  Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами PUBLISHED, IN_PROGRESS
          * @summary # Прервать прием предложений.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject116} [body] 
+         * @param {InlineObject118} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsGuidAbortPatch(guid: string, body?: InlineObject116, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestsGuidAbortPatch(guid: string, body?: InlineObject118, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsGuidAbortPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1324,12 +1324,12 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * ## Этот метод вызывает тот кто бронирует место в заявке.  При первом бронировании статус заявка меняется с PUBLISHED на IN_PROGRESS. В зависимости от типа заявки создается предложение и его детали, статус предложения CREATED  ## Создается чат и добавляется клиент и исполнитель  Проверки: Можно бронировать только заявки со статусами: PUBLISHED, IN_PROCESS Владелец заявки не может отправлять себе предложения.  Если роль пользователя нет в списке roles заявки, то не может забронировать Если есть ограничение по количеству предложений maxAmountOfProposals !== null  Количество активных (принятых + в работе) предложений меньше чем ограничение клиента на эту заявку. Активные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ACCEPTED_BY_CLIENT ACCEPTED_BY_SUPERVISOR  Если у данной заявки есть незавершенные предложения от данного пользователя Незавершенные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary # Этот метод вызывает тот кто бронирует место в заявке.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject115} [body] 
+         * @param {InlineObject117} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsGuidPickupPost(guid: string, body?: InlineObject115, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20112>> {
+        async apiV1RequestsGuidPickupPost(guid: string, body?: InlineObject117, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20112>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsGuidPickupPost(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1337,12 +1337,12 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * ## Опубликовать заявку.   Статус поменяется на PUBLISHED. ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и до момента вызова данного метода,  для подтверждения нужно вернуть totalCost Проверки:  Публиковать можно только заявки со статусом DRAFT и FORBID_NEW_PROPOSALS. Только владелец может опубликовать. Проверка изменения totalCost
          * @summary #  Опубликовать заявку.
          * @param {string} guid GUID в БД
-         * @param {InlineObject112} [body] 
+         * @param {InlineObject114} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsGuidToPublishPatch(guid: string, body?: InlineObject112, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestsGuidToPublishPatch(guid: string, body?: InlineObject114, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsGuidToPublishPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1350,12 +1350,12 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * Обновить дедлайн, вернуть из статуса EXPIRED
          * @summary # Обновить дедлайн, вернуть из статуса EXPIRED
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject114} [body] 
+         * @param {InlineObject116} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsGuidUpdateDeadlinePatch(guid: string, body?: InlineObject114, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestsGuidUpdateDeadlinePatch(guid: string, body?: InlineObject116, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsGuidUpdateDeadlinePatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1363,12 +1363,12 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * ## Связать заявку с идеей
          * @summary #  Связать заявку с идеей, поле, которое не отправляется сетится на наллб если ничего не отправлено - на налл сетятся оба
          * @param {string} guid ID идеи
-         * @param {InlineObject119} [body] 
+         * @param {InlineObject121} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsIdeasGuidPatch(guid: string, body?: InlineObject119, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestsIdeasGuidPatch(guid: string, body?: InlineObject121, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsIdeasGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1392,7 +1392,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20087>>> {
+        async apiV1RequestsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20088>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsMediaGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1400,12 +1400,12 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * ## Изменить медиа
          * @summary #  Изменить медиа.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject117} [body] 
+         * @param {InlineObject119} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsMediaGuidPatch(guid: string, body?: InlineObject117, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestsMediaGuidPatch(guid: string, body?: InlineObject119, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsMediaGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1424,24 +1424,24 @@ export const RequestsApiFp = function(configuration?: Configuration) {
         /**
          * ## Создать медиа
          * @summary #  Создать медиа.
-         * @param {InlineObject118} [body] 
+         * @param {InlineObject120} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsMediaPost(body?: InlineObject118, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20113>> {
+        async apiV1RequestsMediaPost(body?: InlineObject120, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20113>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsMediaPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * # Изменить uploadedToListing
          * @summary # Изменить uploadedToListing
-         * @param {InlineObject113} [body] 
+         * @param {InlineObject115} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsUploadedToListingPatch(body?: InlineObject113, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestsUploadedToListingPatch(body?: InlineObject115, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsUploadedToListingPatch(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1466,7 +1466,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsByProductLightGuidGet(guid: string, status?: string, excludeIdeaId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20086>> {
+        apiV1RequestsByProductLightGuidGet(guid: string, status?: string, excludeIdeaId?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20087>> {
             return localVarFp.apiV1RequestsByProductLightGuidGet(guid, status, excludeIdeaId, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1477,7 +1477,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCalculateRequestCostGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20083> {
+        apiV1RequestsCalculateRequestCostGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20084> {
             return localVarFp.apiV1RequestsCalculateRequestCostGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1564,7 +1564,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGet(kind: 'VACANT' | 'MY' | 'PICKUPED_BY_ME' | 'ALL', productId?: string, onlyWaitedProposals?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20085> {
+        apiV1RequestsGet(kind: 'VACANT' | 'MY' | 'PICKUPED_BY_ME' | 'ALL', productId?: string, onlyWaitedProposals?: boolean, filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20086> {
             return localVarFp.apiV1RequestsGet(kind, productId, onlyWaitedProposals, filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1576,19 +1576,19 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid: string, specType: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20084>> {
+        apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid: string, specType: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20085>> {
             return localVarFp.apiV1RequestsGetExistingRequestsSpecTypeGuidGet(guid, specType, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Прервать прием предложений.  При вызове этого метода клиент прекращает прием предложений, статус меняется на FORBID_NEW_PROPOSALS  Проверки: Только владелец заявки может вызывать данный метод Только для заявок  со статусами PUBLISHED, IN_PROGRESS
          * @summary # Прервать прием предложений.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject116} [body] 
+         * @param {InlineObject118} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGuidAbortPatch(guid: string, body?: InlineObject116, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestsGuidAbortPatch(guid: string, body?: InlineObject118, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestsGuidAbortPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1617,48 +1617,48 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * ## Этот метод вызывает тот кто бронирует место в заявке.  При первом бронировании статус заявка меняется с PUBLISHED на IN_PROGRESS. В зависимости от типа заявки создается предложение и его детали, статус предложения CREATED  ## Создается чат и добавляется клиент и исполнитель  Проверки: Можно бронировать только заявки со статусами: PUBLISHED, IN_PROCESS Владелец заявки не может отправлять себе предложения.  Если роль пользователя нет в списке roles заявки, то не может забронировать Если есть ограничение по количеству предложений maxAmountOfProposals !== null  Количество активных (принятых + в работе) предложений меньше чем ограничение клиента на эту заявку. Активные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED ACCEPTED_BY_CLIENT ACCEPTED_BY_SUPERVISOR  Если у данной заявки есть незавершенные предложения от данного пользователя Незавершенные предложения имеют статусы:  CREATED OFFER_CONDITIONS_REJECTED OFFER_CONDITIONS_CORRECTED OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary # Этот метод вызывает тот кто бронирует место в заявке.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject115} [body] 
+         * @param {InlineObject117} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGuidPickupPost(guid: string, body?: InlineObject115, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20112> {
+        apiV1RequestsGuidPickupPost(guid: string, body?: InlineObject117, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20112> {
             return localVarFp.apiV1RequestsGuidPickupPost(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Опубликовать заявку.   Статус поменяется на PUBLISHED. ## Важно!! Для избежания проблем связанных с изменением состояния заявки, с того момента когда пользователь  ## получил детализацию из калькулятора стоимости заявки и до момента вызова данного метода,  для подтверждения нужно вернуть totalCost Проверки:  Публиковать можно только заявки со статусом DRAFT и FORBID_NEW_PROPOSALS. Только владелец может опубликовать. Проверка изменения totalCost
          * @summary #  Опубликовать заявку.
          * @param {string} guid GUID в БД
-         * @param {InlineObject112} [body] 
+         * @param {InlineObject114} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGuidToPublishPatch(guid: string, body?: InlineObject112, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestsGuidToPublishPatch(guid: string, body?: InlineObject114, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestsGuidToPublishPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * Обновить дедлайн, вернуть из статуса EXPIRED
          * @summary # Обновить дедлайн, вернуть из статуса EXPIRED
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject114} [body] 
+         * @param {InlineObject116} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsGuidUpdateDeadlinePatch(guid: string, body?: InlineObject114, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestsGuidUpdateDeadlinePatch(guid: string, body?: InlineObject116, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestsGuidUpdateDeadlinePatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Связать заявку с идеей
          * @summary #  Связать заявку с идеей, поле, которое не отправляется сетится на наллб если ничего не отправлено - на налл сетятся оба
          * @param {string} guid ID идеи
-         * @param {InlineObject119} [body] 
+         * @param {InlineObject121} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsIdeasGuidPatch(guid: string, body?: InlineObject119, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestsIdeasGuidPatch(guid: string, body?: InlineObject121, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestsIdeasGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1680,19 +1680,19 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20087>> {
+        apiV1RequestsMediaGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20088>> {
             return localVarFp.apiV1RequestsMediaGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить медиа
          * @summary #  Изменить медиа.
          * @param {string} guid GUID в сущности в БД
-         * @param {InlineObject117} [body] 
+         * @param {InlineObject119} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsMediaGuidPatch(guid: string, body?: InlineObject117, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestsMediaGuidPatch(guid: string, body?: InlineObject119, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestsMediaGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1709,23 +1709,23 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
         /**
          * ## Создать медиа
          * @summary #  Создать медиа.
-         * @param {InlineObject118} [body] 
+         * @param {InlineObject120} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsMediaPost(body?: InlineObject118, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20113> {
+        apiV1RequestsMediaPost(body?: InlineObject120, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20113> {
             return localVarFp.apiV1RequestsMediaPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * # Изменить uploadedToListing
          * @summary # Изменить uploadedToListing
-         * @param {InlineObject113} [body] 
+         * @param {InlineObject115} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsUploadedToListingPatch(body?: InlineObject113, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestsUploadedToListingPatch(body?: InlineObject115, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestsUploadedToListingPatch(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -2054,10 +2054,10 @@ export interface RequestsApiApiV1RequestsGuidAbortPatchRequest {
 
     /**
      * 
-     * @type {InlineObject116}
+     * @type {InlineObject118}
      * @memberof RequestsApiApiV1RequestsGuidAbortPatch
      */
-    readonly body?: InlineObject116
+    readonly body?: InlineObject118
 
     /**
      * 
@@ -2124,10 +2124,10 @@ export interface RequestsApiApiV1RequestsGuidPickupPostRequest {
 
     /**
      * 
-     * @type {InlineObject115}
+     * @type {InlineObject117}
      * @memberof RequestsApiApiV1RequestsGuidPickupPost
      */
-    readonly body?: InlineObject115
+    readonly body?: InlineObject117
 
     /**
      * 
@@ -2152,10 +2152,10 @@ export interface RequestsApiApiV1RequestsGuidToPublishPatchRequest {
 
     /**
      * 
-     * @type {InlineObject112}
+     * @type {InlineObject114}
      * @memberof RequestsApiApiV1RequestsGuidToPublishPatch
      */
-    readonly body?: InlineObject112
+    readonly body?: InlineObject114
 
     /**
      * 
@@ -2180,10 +2180,10 @@ export interface RequestsApiApiV1RequestsGuidUpdateDeadlinePatchRequest {
 
     /**
      * 
-     * @type {InlineObject114}
+     * @type {InlineObject116}
      * @memberof RequestsApiApiV1RequestsGuidUpdateDeadlinePatch
      */
-    readonly body?: InlineObject114
+    readonly body?: InlineObject116
 
     /**
      * 
@@ -2208,10 +2208,10 @@ export interface RequestsApiApiV1RequestsIdeasGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject119}
+     * @type {InlineObject121}
      * @memberof RequestsApiApiV1RequestsIdeasGuidPatch
      */
-    readonly body?: InlineObject119
+    readonly body?: InlineObject121
 
     /**
      * 
@@ -2278,10 +2278,10 @@ export interface RequestsApiApiV1RequestsMediaGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject117}
+     * @type {InlineObject119}
      * @memberof RequestsApiApiV1RequestsMediaGuidPatch
      */
-    readonly body?: InlineObject117
+    readonly body?: InlineObject119
 
     /**
      * 
@@ -2320,10 +2320,10 @@ export interface RequestsApiApiV1RequestsMediaManyPatchRequest {
 export interface RequestsApiApiV1RequestsMediaPostRequest {
     /**
      * 
-     * @type {InlineObject118}
+     * @type {InlineObject120}
      * @memberof RequestsApiApiV1RequestsMediaPost
      */
-    readonly body?: InlineObject118
+    readonly body?: InlineObject120
 
     /**
      * 
@@ -2341,10 +2341,10 @@ export interface RequestsApiApiV1RequestsMediaPostRequest {
 export interface RequestsApiApiV1RequestsUploadedToListingPatchRequest {
     /**
      * 
-     * @type {InlineObject113}
+     * @type {InlineObject115}
      * @memberof RequestsApiApiV1RequestsUploadedToListingPatch
      */
-    readonly body?: InlineObject113
+    readonly body?: InlineObject115
 
     /**
      * 

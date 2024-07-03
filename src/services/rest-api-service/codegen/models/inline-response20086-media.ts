@@ -17,39 +17,33 @@
 /**
  * 
  * @export
- * @interface InlineObject120
+ * @interface InlineResponse20086Media
  */
-export interface InlineObject120 {
+export interface InlineResponse20086Media {
     /**
-     * Guid заявки
+     * Гуид медиа
      * @type {string}
-     * @memberof InlineObject120
+     * @memberof InlineResponse20086Media
      */
-    requestId?: string;
+    _id?: string;
     /**
-     * Guid предложения
+     * File link
      * @type {string}
-     * @memberof InlineObject120
+     * @memberof InlineResponse20086Media
      */
-    proposalId?: string;
+    fileLink?: string;
     /**
-     * комментарий клиента
+     * Comment by client
      * @type {string}
-     * @memberof InlineObject120
+     * @memberof InlineResponse20086Media
      */
     commentByClient?: string;
     /**
-     * комментарий исполнителя
+     * Comment by performer
      * @type {string}
-     * @memberof InlineObject120
+     * @memberof InlineResponse20086Media
      */
     commentByPerformer?: string;
-    /**
-     * Ссылка на файл
-     * @type {string}
-     * @memberof InlineObject120
-     */
-    fileLink: string;
 }
 
 

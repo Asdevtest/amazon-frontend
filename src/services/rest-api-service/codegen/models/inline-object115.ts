@@ -21,35 +21,17 @@
  */
 export interface InlineObject115 {
     /**
-     * Время на выполнение, в минутах.
-     * @type {number}
-     * @memberof InlineObject115
-     */
-    execution_time?: number;
-    /**
-     * Цена предложения.
-     * @type {number}
-     * @memberof InlineObject115
-     */
-    price?: number;
-    /**
-     * Комментарий к предложению.
-     * @type {string}
-     * @memberof InlineObject115
-     */
-    comment?: string;
-    /**
-     * Ссылки на медиафайлы.
+     * 
      * @type {Array<string>}
      * @memberof InlineObject115
      */
-    linksToMediaFiles?: Array<string>;
+    requestIds: Array<string>;
     /**
-     * Название предложения
-     * @type {string}
+     * 
+     * @type {boolean}
      * @memberof InlineObject115
      */
-    title?: string;
+    uploadedToListing: boolean;
 }
 
 
