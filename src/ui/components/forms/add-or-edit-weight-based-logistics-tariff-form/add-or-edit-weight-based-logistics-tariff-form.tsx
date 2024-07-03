@@ -1,9 +1,9 @@
 /* eslint-disable no-prototype-builtins */
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC, memo, useState } from 'react'
+import { FaMinus } from 'react-icons/fa'
+import { FaPlus } from 'react-icons/fa6'
 
-import AddIcon from '@mui/icons-material/Add'
-import RemoveIcon from '@mui/icons-material/Remove'
 import { Typography } from '@mui/material'
 
 import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
@@ -11,6 +11,7 @@ import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomSwitcher } from '@components/shared/custom-switcher'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
@@ -739,14 +740,20 @@ const DestinationVariationsContent: FC<DestinationVariationsContentProps> = memo
 
             <div className={styles.controlOptionsButtons}>
               {destinationVariations.length > 1 && (
-                <Button iconButton onClick={() => onClickRemoveDestinationVariation(variantIndex)}>
-                  <RemoveIcon />
-                </Button>
+                <CustomButton
+                  type="primary"
+                  shape="circle"
+                  icon={<FaMinus />}
+                  onClick={() => onClickRemoveDestinationVariation(variantIndex)}
+                />
               )}
 
-              <Button iconButton onClick={() => onClickAddDestinationVariation(variantIndex)}>
-                <AddIcon />
-              </Button>
+              <CustomButton
+                type="primary"
+                shape="circle"
+                icon={<FaPlus />}
+                onClick={() => onClickAddDestinationVariation(variantIndex)}
+              />
             </div>
           </div>
         ))}

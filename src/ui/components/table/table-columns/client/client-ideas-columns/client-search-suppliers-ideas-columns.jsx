@@ -200,11 +200,11 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       },
       fields: [
         {
-          label: () => t(TranslationKey['Min. production time, days']),
+          label: 'Min. production time, days',
           value: 'minProductionTerm',
         },
         {
-          label: () => t(TranslationKey['Max. production time, days']),
+          label: 'Max. production time, days',
           value: 'maxProductionTerm',
         },
       ],

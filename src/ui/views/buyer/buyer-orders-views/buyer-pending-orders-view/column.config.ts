@@ -1,20 +1,17 @@
 import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { TranslationKey } from '@constants/translations/translation-key'
-
-import { t } from '@utils/translations'
 
 export const productColumnMenuItems = [
   {
-    label: () => t(TranslationKey.ASIN),
+    label: 'ASIN',
     value: 0,
   },
   {
-    label: () => t(TranslationKey.SKU),
+    label: 'SKU',
     value: 1,
   },
   {
-    label: () => t(TranslationKey.Title),
+    label: 'Title',
     value: 2,
   },
 ]
@@ -39,11 +36,11 @@ export const productColumnMenuValue = [
 
 export const productionTermColumnMenuItems = [
   {
-    label: () => t(TranslationKey['Min. production time, days']),
+    label: 'Min. production time, days',
     value: 0,
   },
   {
-    label: () => t(TranslationKey['Max. production time, days']),
+    label: 'Max. production time, days',
     value: 1,
   },
 ]

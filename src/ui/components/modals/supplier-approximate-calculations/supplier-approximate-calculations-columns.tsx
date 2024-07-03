@@ -72,11 +72,11 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       align: 'center',
       fields: [
         {
-          label: () => t(TranslationKey['Min. weight, kg']),
+          label: 'Min. weight, kg',
           value: 'minWeight',
         },
         {
-          label: () => t(TranslationKey['Max. weight, kg']),
+          label: 'Max. weight, kg',
           value: 'maxWeight',
         },
       ],

@@ -49,13 +49,8 @@ class UserModelStatic {
     SettingsModel.setBreadcrumbsForProfile(null)
   }
 
-  async signIn(email, password) {
-    const result = await restApiService.userApi.apiV1UsersSignInPost({
-      body: {
-        email,
-        password,
-      },
-    })
+  async signIn(body) {
+    const result = await restApiService.userApi.apiV1UsersSignInPost({ body })
 
     const response = result.data
     const accessToken = response.accessToken

@@ -2,26 +2,18 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   rightPanel: {
+    position: 'relative',
+    width: '50%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.general,
-    padding: '48px 64px',
-
-    [theme.breakpoints.down(768)]: {
-      flexDirection: 'column',
-      width: '100vw',
-      padding: '0  20px 20px 20px',
-    },
   },
 
   formWrapper: {
-    justifySelf: 'center',
-    minWidth: '300px',
-    maxWidth: '600px',
-
-    [theme.breakpoints.down(768)]: { width: '100%' },
+    width: 400,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
   },
 
   formHeader: {
@@ -31,14 +23,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   title: {
+    fontSize: '24px',
+    lineHeight: '32px',
+    fontWeight: '500',
     color: theme.palette.primary.main,
-    fontSize: '18px',
-    fontWeight: '600',
-
-    [theme.breakpoints.down(768)]: {
-      fontSize: '16px',
-      lineHeight: '22px',
-    },
   },
 
   divider: {
@@ -58,10 +46,6 @@ export const useStyles = makeStyles()(theme => ({
       color: theme.palette.primary.main,
       fontWeight: '500',
     },
-
-    [theme.breakpoints.down(768)]: {
-      margin: '0 10px',
-    },
   },
 
   redirectWrapper: {
@@ -70,13 +54,9 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   version: {
-    alignSelf: 'flex-end',
-    justifySelf: 'flex-end',
-    transform: 'translate(150%, 0)',
-    color: theme.palette.primary.main,
-    cursor: 'pointer',
-
-    [theme.breakpoints.down(768)]: { transform: 'none' },
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
   },
 
   selectorsWrapper: {

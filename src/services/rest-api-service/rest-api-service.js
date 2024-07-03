@@ -1,6 +1,6 @@
 import { BACKEND_API_URL } from '@constants/keys/env'
 
-import { getAxiosInstance } from '@services/axios-instance'
+import { getAxiosInstance } from '@services/axios/api'
 
 import { Configuration } from './codegen'
 import { AdministratorApi } from './codegen/api/administrator-api'

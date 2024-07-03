@@ -35,11 +35,11 @@ interface ProductLaunchFormProps {
 
 const radioBottonsSettings = [
   {
-    label: () => t(TranslationKey['New product']),
+    label: 'New product',
     value: false,
   },
   {
-    label: () => t(TranslationKey.Variation),
+    label: 'Variation',
     value: true,
   },
 ]

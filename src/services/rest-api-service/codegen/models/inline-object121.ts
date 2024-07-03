@@ -13,98 +13,231 @@
  */
 
 
-import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
+import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
+import { ApiV1ClientsProductsGuidRedFlags } from './api-v1-clients-products-guid-red-flags';
 
 /**
- * Схема продажи магазина
+ * 
  * @export
  * @interface InlineObject121
  */
 export interface InlineObject121 {
     /**
-     * Имя магазина для продажи
+     * Категория
      * @type {string}
      * @memberof InlineObject121
      */
-    title?: string;
+    category?: string;
     /**
-     * Стоимость магазина
+     * Ссылка на этот продукт на амазоне.
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    lamazon?: string;
+    /**
+     * 
      * @type {number}
      * @memberof InlineObject121
      */
-    price?: number;
+    bsr?: number;
     /**
-     * Дата создания бизнеса
+     * Признак fba
+     * @type {boolean}
+     * @memberof InlineObject121
+     */
+    fba?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    amazon?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    height?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    width?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    length?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    weight?: number;
+    /**
+     * комиссия которую берет амазон за любой заказ - 15%
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    reffee?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    fbafee?: number;
+    /**
+     *  Общая сумма с фба.
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    fbaamount?: number;
+    /**
+     *  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    status?: number;
+    /**
+     * Комментарии к товару.
      * @type {string}
      * @memberof InlineObject121
      */
-    businessStartDate?: string;
+    icomment?: string;
     /**
-     * Детали магазина
+     * Массив изображений.
+     * @type {Array<string>}
+     * @memberof InlineObject121
+     */
+    images?: Array<string>;
+    /**
+     * 
      * @type {string}
      * @memberof InlineObject121
      */
-    shopDetails?: string;
+    amazonDescription?: string;
     /**
-     * Активы магазина
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    shopAssets?: Array<string>;
-    /**
-     * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    files?: Array<string>;
-    /**
-     * Ссылка на сайт магазина
+     * 
      * @type {string}
      * @memberof InlineObject121
      */
-    shopLink?: string;
+    amazonDetail?: string;
     /**
-     * Статистика магазина по месяцам
-     * @type {Array<ApiV1ShopSellStatistics1>}
+     * 
+     * @type {string}
      * @memberof InlineObject121
      */
-    statistics?: Array<ApiV1ShopSellStatistics1>;
+    amazonTitle?: string;
     /**
-     * Возможности магазина
-     * @type {Array<string>}
+     * Материл продукта
+     * @type {string}
      * @memberof InlineObject121
      */
-    opportunities?: Array<string>;
+    material?: string;
     /**
-     * Риски магазина
-     * @type {Array<string>}
+     * Применение продукта
+     * @type {string}
      * @memberof InlineObject121
      */
-    risks?: Array<string>;
+    productUsage?: string;
     /**
-     * Требуемые навыки
-     * @type {Array<string>}
+     * chinese title?
+     * @type {string}
      * @memberof InlineObject121
      */
-    requiredSkills?: Array<string>;
+    chinaTitle?: string;
     /**
-     * В продажу также включено
-     * @type {Array<string>}
+     * 
+     * @type {string}
      * @memberof InlineObject121
      */
-    sellIncludes?: Array<string>;
+    barCode?: string;
     /**
-     * Причина продажи
-     * @type {Array<string>}
+     * 
+     * @type {number}
      * @memberof InlineObject121
      */
-    reasonForSale?: Array<string>;
+    minpurchase?: number;
     /**
-     * Дополнительная информация
-     * @type {Array<string>}
+     * Прибыль
+     * @type {number}
      * @memberof InlineObject121
      */
-    additionalInfo?: Array<string>;
+    profit?: number;
+    /**
+     * Маржа
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    margin?: number;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineObject121
+     */
+    strategyStatus?: number;
+    /**
+     * Ниша
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    niche?: string;
+    /**
+     * Асины
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    asins?: string;
+    /**
+     * Общий доход
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    totalRevenue?: string;
+    /**
+     * Коэффициент прибыли
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    coefficient?: string;
+    /**
+     * Средний доход
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    avgRevenue?: string;
+    /**
+     * Средний BSR
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    avgBSR?: string;
+    /**
+     * Средняя цена
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    avgPrice?: string;
+    /**
+     * Средний отзывы
+     * @type {string}
+     * @memberof InlineObject121
+     */
+    avgReviews?: string;
+    /**
+     * 
+     * @type {Array<ApiV1ClientsProductsGuidRedFlags>}
+     * @memberof InlineObject121
+     */
+    redFlags?: Array<ApiV1ClientsProductsGuidRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1BuyersProductsGuidTags>}
+     * @memberof InlineObject121
+     */
+    tags?: Array<ApiV1BuyersProductsGuidTags>;
 }
 
 

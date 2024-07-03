@@ -1,4 +1,4 @@
-import { computed, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 export const observerConfig = {
   tariffIdToChange: observable,
@@ -13,4 +13,15 @@ export const observerConfig = {
 
   userInfo: computed,
   platformSettings: computed,
+
+  onSubmitChangeBoxFields: action.bound,
+  onClickSaveHsCode: action.bound,
+  onClickHsCode: action.bound,
+  getStorekeepers: action.bound,
+  onTriggerOpenConfirmModal: action.bound,
+  onSubmitSelectTariff: action.bound,
+  onClickConfirmTarrifChangeBtn: action.bound,
+  onTriggerOpenRejectModal: action.bound,
+  setCurrentOpenedBox: action.bound,
+  onClickRejectOrderPriceChangeBtn: action.bound,
 }
