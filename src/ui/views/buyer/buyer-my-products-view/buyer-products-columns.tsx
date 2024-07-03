@@ -1,5 +1,3 @@
-import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
@@ -11,9 +9,9 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  OpenInNewTabCell,
   ProductAsinCell,
   RedFlagsCell,
-  SelectRowCell,
   TagsCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -32,14 +30,16 @@ interface IHandlers {
 export const buyerProductsViewColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
     {
-      ...GRID_CHECKBOX_SELECTION_COL_DEF,
+      field: 'link',
+      headerName: t(TranslationKey.Link),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
       renderCell: params => (
-        <SelectRowCell
-          checkboxComponent={GRID_CHECKBOX_SELECTION_COL_DEF?.renderCell?.(params)}
-          onClickShareIcon={() => handlers.onClickShowProduct(params.row as IProduct)}
-        />
+        <OpenInNewTabCell isFullSize onClickOpenInNewTab={() => handlers.onClickShowProduct(params.row as IProduct)} />
       ),
       width: 80,
+
+      filterable: false,
+      disableCustomSort: true,
     },
 
     {
