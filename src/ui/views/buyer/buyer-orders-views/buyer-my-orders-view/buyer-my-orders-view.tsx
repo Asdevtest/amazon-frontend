@@ -53,7 +53,7 @@ export const BuyerMyOrdersView = observer(({ history }: any) => {
         <PaymentAllSuppliers
           // @ts-ignore
           paymentAmount={viewModel.paymentAmount}
-          isNoPaidedOrders={pathname === routsPathes.BUYER_MY_ORDERS_INBOUND}
+          isNoPaidedOrders={pathname === routsPathes.BUYER_MY_ORDERS_NOT_PAID}
           // @ts-ignore
           yuanToDollarRate={viewModel.platformSettings?.yuanToDollarRate}
         />

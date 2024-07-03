@@ -21,35 +21,35 @@
  */
 export interface InlineObject117 {
     /**
-     * комментарий клиента
-     * @type {string}
+     * Время на выполнение, в минутах.
+     * @type {number}
      * @memberof InlineObject117
      */
-    commentByClient?: string;
+    execution_time?: number;
     /**
-     * комментарий исполнителя
-     * @type {string}
+     * Цена предложения.
+     * @type {number}
      * @memberof InlineObject117
      */
-    commentByPerformer?: string;
+    price?: number;
     /**
-     * Ссылка на файл
+     * Комментарий к предложению.
      * @type {string}
      * @memberof InlineObject117
      */
-    fileLink?: string;
+    comment?: string;
     /**
-     * Файл для записи в FreelanceSource
-     * @type {string}
+     * Ссылки на медиафайлы.
+     * @type {Array<string>}
      * @memberof InlineObject117
      */
-    proposalId?: string;
+    linksToMediaFiles?: Array<string>;
     /**
-     * Комментарий к файлу
+     * Название предложения
      * @type {string}
      * @memberof InlineObject117
      */
-    requestId?: string;
+    title?: string;
 }
 
 

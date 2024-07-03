@@ -15,59 +15,23 @@
 
 
 /**
- * 
+ * Успешный ответ.
  * @export
  * @interface InlineResponse20083
  */
 export interface InlineResponse20083 {
     /**
-     * Цена за каждое предложение.
-     * @type {number}
+     * Флаг, показывает есть ли такой ASIN в базе или нет
+     * @type {boolean}
      * @memberof InlineResponse20083
      */
-    price?: number;
+    isExist?: boolean;
     /**
-     * Процент с каждого предложения, маржа платформы, в процентах.
-     * @type {number}
+     * Причина из таблицы с асинами
+     * @type {string}
      * @memberof InlineResponse20083
      */
-    requestPlatformMarginInPercent?: number;
-    /**
-     * Услуги платформы.
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    platformMargin?: number;
-    /**
-     * Процент с каждого предложения для супервайзера, в процентах.
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    requestSupervisorFeeInPercent?: number;
-    /**
-     * Услуги супервайзера.
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    supervisorFee?: number;
-    /**
-     * Сумма.
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    unitCost?: number;
-    /**
-     * Количество предложений, не менее.
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    maxAmountOfProposals?: number;
-    /**
-     * Итого.
-     * @type {number}
-     * @memberof InlineResponse20083
-     */
-    totalCost?: number;
+    reason?: string;
 }
 
 

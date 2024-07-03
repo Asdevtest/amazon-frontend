@@ -13,55 +13,32 @@
  */
 
 
-import { InlineResponse20044Batch } from './inline-response20044-batch';
-import { InlineResponse20044Boxes } from './inline-response20044-boxes';
-import { InlineResponse20044Orders } from './inline-response20044-orders';
-import { InlineResponse20044Products } from './inline-response20044-products';
-import { InlineResponse20044Requests } from './inline-response20044-requests';
-import { InlineResponse20044Shops } from './inline-response20044-shops';
+import { InlineResponse20044Rows } from './inline-response20044-rows';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20044
  */
 export interface InlineResponse20044 {
     /**
-     * 
-     * @type {InlineResponse20044Orders}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse20044
      */
-    orders?: InlineResponse20044Orders;
+    count?: number;
+    /**
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<InlineResponse20044Rows>}
+     * @memberof InlineResponse20044
+     */
+    rows?: Array<InlineResponse20044Rows>;
     /**
      * 
-     * @type {InlineResponse20044Shops}
+     * @type {object}
      * @memberof InlineResponse20044
      */
-    shops?: InlineResponse20044Shops;
-    /**
-     * 
-     * @type {InlineResponse20044Requests}
-     * @memberof InlineResponse20044
-     */
-    requests?: InlineResponse20044Requests;
-    /**
-     * 
-     * @type {InlineResponse20044Products}
-     * @memberof InlineResponse20044
-     */
-    products?: InlineResponse20044Products;
-    /**
-     * 
-     * @type {InlineResponse20044Batch}
-     * @memberof InlineResponse20044
-     */
-    batch?: InlineResponse20044Batch;
-    /**
-     * 
-     * @type {InlineResponse20044Boxes}
-     * @memberof InlineResponse20044
-     */
-    boxes?: InlineResponse20044Boxes;
+    meta?: object;
 }
 
 

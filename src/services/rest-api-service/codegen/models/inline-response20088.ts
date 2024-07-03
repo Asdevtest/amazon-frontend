@@ -13,75 +13,61 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1ShopSellStatistics } from './api-v1-shop-sell-statistics';
 
 /**
- * Схема получение лайт версии продажи магазина
+ * 
  * @export
  * @interface InlineResponse20088
  */
 export interface InlineResponse20088 {
     /**
-     * GUID магазина на продажу.
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse20088
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse20088
-     */
-    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Имя магазина для продажи
+     * Guid заявки к которой относится данное media.
      * @type {string}
      * @memberof InlineResponse20088
      */
-    title?: string;
+    requestId?: string;
     /**
-     * Статус магазина для продажи
+     * Guid предложения к которой относится данное media.
      * @type {string}
      * @memberof InlineResponse20088
      */
-    status?: string;
+    proposalId?: string;
     /**
-     * Файлы, которые привязаны к магазину
-     * @type {Array<string>}
-     * @memberof InlineResponse20088
-     */
-    files?: Array<string>;
-    /**
-     * Стоимость магазина
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    price?: number;
-    /**
-     * Ежемесячный множитель
-     * @type {number}
-     * @memberof InlineResponse20088
-     */
-    monthlyMultiplier?: number;
-    /**
-     * 
-     * @type {ApiV1ShopSellStatistics}
-     * @memberof InlineResponse20088
-     */
-    statistics?: ApiV1ShopSellStatistics;
-    /**
-     * Дата создания бизнеса
+     * комментарий клиента
      * @type {string}
      * @memberof InlineResponse20088
      */
-    businessStartDate?: string;
+    commentByClient?: string;
     /**
-     * Детали магазина
+     * комментарий исполнителя
      * @type {string}
      * @memberof InlineResponse20088
      */
-    shopDetails?: string;
+    commentByPerformer?: string;
+    /**
+     * Ссылка на файл
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    fileLink?: string;
+    /**
+     * Дата создания.
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse20088
+     */
+    updatedAt?: string;
 }
 
 

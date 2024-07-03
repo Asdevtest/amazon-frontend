@@ -286,7 +286,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-start',
     display: 'flex',
     gap: 10,
-    paddingTop: 33,
+    paddingTop: 28,
     minWidth: 53,
   },
 

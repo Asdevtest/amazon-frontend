@@ -196,11 +196,11 @@ export const clientClosedIdeasColumns = rowHandlers => {
 
       fields: [
         {
-          label: () => TranslationKey['Master user'],
+          label: 'Master user',
           value: 0,
         },
         {
-          label: () => TranslationKey['Sub user'],
+          label: 'Sub user',
           value: 1,
         },
       ],

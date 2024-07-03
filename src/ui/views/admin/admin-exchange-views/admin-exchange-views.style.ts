@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import { makeStyles } from 'tss-react/mui'
+
+export const useStyles = makeStyles()(theme => ({
   filterBtnWrapper: {
     marginBottom: 20,
   },
@@ -27,4 +29,4 @@ export const styles = theme => ({
     height: '74vh',
     width: '100%',
   },
-})
+}))

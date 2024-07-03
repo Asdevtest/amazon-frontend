@@ -32,7 +32,7 @@ export const ClientFreelanceNotificationsView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={(row: IFreelanceNotice) => row?.chatId}
+        getRowId={(row: IFreelanceNotice) => row?._id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

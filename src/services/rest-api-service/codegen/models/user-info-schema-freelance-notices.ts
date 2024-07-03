@@ -13,7 +13,7 @@
  */
 
 
-import { UserInfoSchemaRequest } from './user-info-schema-request';
+import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-notices-request';
 
 /**
  * 
@@ -35,10 +35,10 @@ export interface UserInfoSchemaFreelanceNotices {
     chatId?: string;
     /**
      * 
-     * @type {UserInfoSchemaRequest}
+     * @type {ApiV1UsersFreelanceNoticesRequest}
      * @memberof UserInfoSchemaFreelanceNotices
      */
-    request?: UserInfoSchemaRequest;
+    request?: ApiV1UsersFreelanceNoticesRequest;
 }
 
 
