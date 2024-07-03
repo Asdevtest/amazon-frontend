@@ -22,6 +22,12 @@ export class AdminInventoryViewModel extends DataGridFilterTableModel {
     }
     const columnsModel = adminInventoryColumns(rowHandlers)
 
+    const defaultFilterParams = () => ({
+      statusGroup: {
+        $eq: 'ongoing',
+      },
+    })
+
     super({
       getMainDataMethod: AdministratorModel.getProductsPag,
       columnsModel,
@@ -29,6 +35,7 @@ export class AdminInventoryViewModel extends DataGridFilterTableModel {
       mainMethodURL: 'admins/products/pag?',
       fieldsForSearch,
       tableKey: DataGridTablesKeys.ADMIN_INVENTORY,
+      defaultFilterParams,
     })
 
     makeObservable(this, observerConfig)
