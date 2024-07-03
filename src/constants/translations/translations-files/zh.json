@@ -1931,5 +1931,7 @@
   "User is waiting for confirmation": "用户正在等待确认",
   "Invalid password or email address.": "无效的密码或电子邮件地址.",
   "User with such email already exists.": "已存在使用此电子邮件的用户.",
-  "The supplier's price does not fit": "供应商的价格不适合"
+  "The supplier's price does not fit": "供应商的价格不适合",
+  "Account replenishment": "账户补充",
+  "Write-off": "销账"
 }

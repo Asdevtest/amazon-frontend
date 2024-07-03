@@ -1939,4 +1939,6 @@ export enum TranslationKey {
   'Invalid password or email address.' = 'Invalid password or email address.',
   'User with such email already exist.' = 'User with such email already exist.',
   "The supplier's price does not fit" = "The supplier's price does not fit",
+  'Account replenishment' = 'Account replenishment',
+  'Write-off' = 'Write-off',
 }
