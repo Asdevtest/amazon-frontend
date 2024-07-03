@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
  * 
@@ -21,53 +22,47 @@
  */
 export interface InlineResponse20087 {
     /**
-     * GUID в базе данных
+     * GUID заявки
      * @type {string}
      * @memberof InlineResponse20087
      */
     _id?: string;
     /**
-     * Guid заявки к которой относится данное media.
-     * @type {string}
+     * Номер заявки
+     * @type {number}
      * @memberof InlineResponse20087
      */
-    requestId?: string;
+    humanFriendlyId?: number;
     /**
-     * Guid предложения к которой относится данное media.
-     * @type {string}
+     * 
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20087
      */
-    proposalId?: string;
+    spec?: ApiV1AnnouncementsMySpec;
     /**
-     * комментарий клиента
+     * Название заявки
      * @type {string}
      * @memberof InlineResponse20087
      */
-    commentByClient?: string;
+    title?: string;
     /**
-     * комментарий исполнителя
+     * Статус заявки
      * @type {string}
      * @memberof InlineResponse20087
      */
-    commentByPerformer?: string;
+    status?: string;
     /**
-     * Ссылка на файл
+     * 
      * @type {string}
      * @memberof InlineResponse20087
      */
-    fileLink?: string;
+    onFinishedIdeaId?: string;
     /**
-     * Дата создания.
+     * 
      * @type {string}
      * @memberof InlineResponse20087
      */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20087
-     */
-    updatedAt?: string;
+    onCheckedIdeaId?: string;
 }
 
 

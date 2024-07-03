@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20052Finances } from './inline-response20052-finances';
 
 /**
  * 
@@ -21,23 +22,11 @@
  */
 export interface InlineResponse20055 {
     /**
-     * total price in yuan for these statuses
-     * @type {number}
+     * 
+     * @type {InlineResponse20052Finances}
      * @memberof InlineResponse20055
      */
-    totalPriceInYuan?: number;
-    /**
-     * total price in USD for these statuses
-     * @type {number}
-     * @memberof InlineResponse20055
-     */
-    totalPriceInUSD?: number;
-    /**
-     * Total partialPaymentAmountRmb
-     * @type {number}
-     * @memberof InlineResponse20055
-     */
-    partialPaymentAmountRmb?: number;
+    finances?: InlineResponse20052Finances;
 }
 
 

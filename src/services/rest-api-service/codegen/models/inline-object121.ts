@@ -13,98 +13,25 @@
  */
 
 
-import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
- * Схема продажи магазина
+ * 
  * @export
  * @interface InlineObject121
  */
 export interface InlineObject121 {
     /**
-     * Имя магазина для продажи
+     * Гуид идеи в статусе onChecked(10)
      * @type {string}
      * @memberof InlineObject121
      */
-    title?: string;
+    onCheckedIdeaId?: string;
     /**
-     * Стоимость магазина
-     * @type {number}
-     * @memberof InlineObject121
-     */
-    price?: number;
-    /**
-     * Дата создания бизнеса
+     * Гуид идеи в статусе finished(20)
      * @type {string}
      * @memberof InlineObject121
      */
-    businessStartDate?: string;
-    /**
-     * Детали магазина
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    shopDetails?: string;
-    /**
-     * Активы магазина
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    shopAssets?: Array<string>;
-    /**
-     * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    files?: Array<string>;
-    /**
-     * Ссылка на сайт магазина
-     * @type {string}
-     * @memberof InlineObject121
-     */
-    shopLink?: string;
-    /**
-     * Статистика магазина по месяцам
-     * @type {Array<ApiV1ShopSellStatistics1>}
-     * @memberof InlineObject121
-     */
-    statistics?: Array<ApiV1ShopSellStatistics1>;
-    /**
-     * Возможности магазина
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    opportunities?: Array<string>;
-    /**
-     * Риски магазина
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    risks?: Array<string>;
-    /**
-     * Требуемые навыки
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    requiredSkills?: Array<string>;
-    /**
-     * В продажу также включено
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    sellIncludes?: Array<string>;
-    /**
-     * Причина продажи
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    reasonForSale?: Array<string>;
-    /**
-     * Дополнительная информация
-     * @type {Array<string>}
-     * @memberof InlineObject121
-     */
-    additionalInfo?: Array<string>;
+    onFinishedIdeaId?: string;
 }
 
 

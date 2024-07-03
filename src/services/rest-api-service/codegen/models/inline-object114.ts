@@ -21,17 +21,11 @@
  */
 export interface InlineObject114 {
     /**
-     * Время закрытия заявки.
-     * @type {string}
-     * @memberof InlineObject114
-     */
-    timeoutAt: string;
-    /**
-     * Количество предложений. null без лимитов
+     * Для подтверждения нужно вернуть totalCost из калькулятора.
      * @type {number}
      * @memberof InlineObject114
      */
-    maxAmountOfProposals?: number;
+    totalCost: number;
 }
 
 
