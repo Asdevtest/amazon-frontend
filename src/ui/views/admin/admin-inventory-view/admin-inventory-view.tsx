@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useState } from 'react'
+
+import { GridRowParams } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,22 +12,18 @@ import { SearchInput } from '@components/shared/search-input'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IProduct } from '@typings/models/products/product'
 
-import { styles } from './admin-inventory-view.style'
+import { useStyles } from './admin-inventory-view.style'
 
 import { AdminInventoryViewModel } from './admin-inventory-view.model'
 
-export const AdminInventoryView = observer(props => {
-  const [viewModel] = useState(() => new AdminInventoryViewModel({ history: props.history }))
-  const { classes: styles } = props
-
-  useEffect(() => {
-    viewModel.getProducts()
-    viewModel.getDataGridState()
-  }, [])
+export const AdminInventoryView = observer(() => {
+  const [viewModel] = useState(() => new AdminInventoryViewModel())
+  const { classes: styles } = useStyles()
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <SearchInput
         inputClasses={styles.searchInput}
         placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
@@ -35,41 +32,47 @@ export const AdminInventoryView = observer(props => {
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid
-          density={viewModel.densityModel}
-          columns={viewModel.columnsModel}
+          pinnedColumns={viewModel.pinnedColumns}
+          rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rowHeight={100}
+          rows={viewModel.currentData}
+          getRowHeight={() => 'auto'}
+          getRowId={(row: IProduct) => row._id}
+          rowSelectionModel={viewModel.selectedRows}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),
             },
             columnMenu: viewModel.columnMenuSettings,
-
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
-
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          getRowId={row => row._id}
-          rowCount={viewModel.rowsCount}
-          rows={viewModel.currentData}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
-          onRowDoubleClick={params => viewModel.onClickProductModal(params.row)}
+          onRowDoubleClick={(params: GridRowParams) => viewModel.onClickProductModal(params.row)}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 

@@ -1,22 +1,21 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  datagridWrapper: {
-    height: '82vh',
+  wrapper: {
     width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
   },
 
-  topHeaderBtnsWrapper: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'center',
-    marginBottom: 20,
+  datagridWrapper: {
+    flex: '1',
+    overflow: 'hidden',
+    padding: '3px',
   },
 
   searchInput: {
-    border: `1px solid ${theme.palette.primary.main}`,
     width: '400px',
-    height: 36,
-    overflow: 'visible',
   },
 }))
