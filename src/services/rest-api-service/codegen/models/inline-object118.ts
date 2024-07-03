@@ -21,11 +21,35 @@
  */
 export interface InlineObject118 {
     /**
-     * Причины закрытия приема предложений.
+     * Guid заявки
      * @type {string}
      * @memberof InlineObject118
      */
-    reason?: string;
+    requestId?: string;
+    /**
+     * Guid предложения
+     * @type {string}
+     * @memberof InlineObject118
+     */
+    proposalId?: string;
+    /**
+     * комментарий клиента
+     * @type {string}
+     * @memberof InlineObject118
+     */
+    commentByClient?: string;
+    /**
+     * комментарий исполнителя
+     * @type {string}
+     * @memberof InlineObject118
+     */
+    commentByPerformer?: string;
+    /**
+     * Ссылка на файл
+     * @type {string}
+     * @memberof InlineObject118
+     */
+    fileLink: string;
 }
 
 

@@ -21,7 +21,6 @@ import { UserInfoSchemaMyProposals } from './user-info-schema-my-proposals';
 import { UserInfoSchemaNeedConfirmPriceChange } from './user-info-schema-need-confirm-price-change';
 import { UserInfoSchemaNeedUpdateTariff } from './user-info-schema-need-update-tariff';
 import { UserInfoSchemaPermissionGroups } from './user-info-schema-permission-groups';
-import { UserInfoSchemaPermissions } from './user-info-schema-permissions';
 
 /**
  * 
@@ -91,10 +90,10 @@ export interface UserInfoSchema {
     overdraft?: number;
     /**
      * Массив permission-ов.
-     * @type {Array<UserInfoSchemaPermissions>}
+     * @type {Array<string>}
      * @memberof UserInfoSchema
      */
-    permissions?: Array<UserInfoSchemaPermissions>;
+    permissions?: Array<string>;
     /**
      * Массив групп permission-ов.
      * @type {Array<UserInfoSchemaPermissionGroups>}

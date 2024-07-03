@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags';
 
 /**
  * 
@@ -22,155 +21,11 @@ import { ApiV1BuyersProductsGuidTags } from './api-v1-buyers-products-guid-tags'
  */
 export interface InlineObject112 {
     /**
-     * ASIN продукта
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    asin: string;
-    /**
-     * Ссылка на этот продукт на амазоне.
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    lamazon: string;
-    /**
-     * GUID поставщика
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    currentSupplierId?: string;
-    /**
-     * Категория
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    category?: string;
-    /**
-     * 
+     * Для подтверждения нужно вернуть totalCost из калькулятора.
      * @type {number}
      * @memberof InlineObject112
      */
-    bsr?: number;
-    /**
-     * Признак fba
-     * @type {boolean}
-     * @memberof InlineObject112
-     */
-    fba?: boolean;
-    /**
-     *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
-     * @type {number}
-     * @memberof InlineObject112
-     */
-    status?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineObject112
-     */
-    amazon?: number;
-    /**
-     * Массив поставщиков.
-     * @type {Array<string>}
-     * @memberof InlineObject112
-     */
-    suppliersIds?: Array<string>;
-    /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject112
-     */
-    fbafee?: number;
-    /**
-     * Комментарии к товару.
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    icomment?: string;
-    /**
-     * Массив изображений.
-     * @type {Array<string>}
-     * @memberof InlineObject112
-     */
-    images?: Array<string>;
-    /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject112
-     */
-    reffee?: number;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineObject112
-     */
-    strategyStatus?: number;
-    /**
-     * Ниша
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    niche?: string;
-    /**
-     * Асины
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    asins?: string;
-    /**
-     * Общий доход
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    totalRevenue?: string;
-    /**
-     * Коэффициент прибыли
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    coefficient?: string;
-    /**
-     * Средний доход
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    avgRevenue?: string;
-    /**
-     * Средний BSR
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    avgBSR?: string;
-    /**
-     * Средняя цена
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    avgPrice?: string;
-    /**
-     * Средний отзывы
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    avgReviews?: string;
-    /**
-     * Дополнительная инфа для дозакупок
-     * @type {number}
-     * @memberof InlineObject112
-     */
-    fourMonthesStock?: number;
-    /**
-     * ID магазинa продукта
-     * @type {string}
-     * @memberof InlineObject112
-     */
-    shopId?: string;
-    /**
-     * 
-     * @type {Array<ApiV1BuyersProductsGuidTags>}
-     * @memberof InlineObject112
-     */
-    tags?: Array<ApiV1BuyersProductsGuidTags>;
+    totalCost: number;
 }
 
 

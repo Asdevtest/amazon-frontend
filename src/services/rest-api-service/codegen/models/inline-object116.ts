@@ -21,17 +21,11 @@
  */
 export interface InlineObject116 {
     /**
-     * Время закрытия заявки.
+     * Причины закрытия приема предложений.
      * @type {string}
      * @memberof InlineObject116
      */
-    timeoutAt: string;
-    /**
-     * Количество предложений. null без лимитов
-     * @type {number}
-     * @memberof InlineObject116
-     */
-    maxAmountOfProposals?: number;
+    reason?: string;
 }
 
 
