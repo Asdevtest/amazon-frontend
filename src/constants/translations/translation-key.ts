@@ -1942,4 +1942,5 @@ export enum TranslationKey {
   "Supervisor's comment" = "Supervisor's comment",
   'Document added' = 'Document added',
   'Add payment document' = 'Add payment document',
+  "Doesn't fit" = "Doesn't fit",
 }

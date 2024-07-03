@@ -1934,5 +1934,6 @@
   "The supplier's price does not fit": "供应商的价格不适合",
   "Supervisor's comment": "主管的评论",
   "Document added": "文件已添加",
-  "Add payment document": "添加支付文件"
+  "Add payment document": "添加支付文件",
+  "Doesn't fit": "不合适"
 }

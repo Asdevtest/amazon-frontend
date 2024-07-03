@@ -1941,5 +1941,6 @@
   "The supplier's price does not fit": "Цена поставщика не подходит",
   "Supervisor's comment": "Комментарий супервайзера",
   "Document added": "Документ добавлен",
-  "Add payment document": "Добавить платёжный документ"
+  "Add payment document": "Добавить платёжный документ",
+  "Doesn't fit": "Не подходит"
 }
