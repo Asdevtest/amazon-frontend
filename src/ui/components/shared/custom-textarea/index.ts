@@ -1,1 +1,1 @@
-export { CustomTextarea } from './custom-textarea'
+export { CustomTextarea } from './ui/CustomTextarea'

@@ -1,1 +1,1 @@
-export { CustomButton } from './custom-button'
+export { CustomButton } from './ui/CustomButton'

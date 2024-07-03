@@ -1,0 +1,9 @@
+.cell {
+  padding: 10px 0;
+}
+
+.checkbox {
+  span {
+    border-radius: 4px !important; // delete when completely switching to antd
+  }
+}

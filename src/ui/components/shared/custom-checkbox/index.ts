@@ -1,1 +1,1 @@
-export { CustomCheckbox } from './custom-checkbox'
+export { CustomCheckbox } from './ui/CustomCheckbox'

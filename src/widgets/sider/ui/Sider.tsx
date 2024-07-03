@@ -1,7 +1,7 @@
 import AntSider from 'antd/es/layout/Sider'
 import { FC, memo } from 'react'
 
-import classes from './sider.module.scss'
+import classes from './Sider.module.scss'
 
 interface SiderProps {}
 

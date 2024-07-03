@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import styles from './fall-back.module.scss'
+import styles from './Fallback.module.scss'
 
 export const FallBack = memo(() => {
   return (

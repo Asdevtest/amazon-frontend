@@ -1,0 +1,18 @@
+.root {
+  display: flex;
+}
+
+.cell {
+  padding: 10px 0;
+}
+
+.button {
+  border-radius: 16; // delete when completely switching to antd
+}
+
+.iconButton {
+  span {
+    display: flex;
+    align-items: center;
+  }
+}

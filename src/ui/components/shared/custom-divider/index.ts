@@ -1,1 +1,1 @@
-export { CustomDivider } from './custom-divider'
+export { CustomDivider } from './ui/CustomDivider'

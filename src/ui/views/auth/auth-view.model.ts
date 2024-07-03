@@ -12,20 +12,19 @@ import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
 import { IFullUser } from '@typings/shared/full-user'
-import { HistoryType } from '@typings/types/history'
 
 import { FieldType } from './auth-view.type'
 
 export class AuthViewModel {
-  history?: HistoryType
+  navigate?: any
   auth = true
 
   get userInfo() {
     return UserModel.userInfo as unknown as IFullUser
   }
 
-  constructor({ history, auth }: { history: HistoryType; auth: boolean }) {
-    this.history = history
+  constructor({ navigate, auth }: { navigate: any; auth: boolean }) {
+    this.navigate = navigate
     this.auth = auth
 
     makeAutoObservable(this, undefined, { autoBind: true })
@@ -64,7 +63,7 @@ export class AuthViewModel {
           route?.permission?.includes(UserRoleCodeMap[this.userInfo?.role]),
         )
 
-        this.history?.push(allowedRoutes[0].routePath)
+        this.navigate?.(allowedRoutes[0].routePath)
       }
 
       toast.success(t(TranslationKey['Successful login']))
@@ -78,7 +77,7 @@ export class AuthViewModel {
   onRedirect = () => {
     const path = this.auth ? '/registration' : '/auth'
 
-    this.history?.push(path)
+    this.navigate(path)
   }
 
   onChangeTheme = () => {

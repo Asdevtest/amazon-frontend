@@ -4,14 +4,14 @@ import { FC, useState } from 'react'
 
 import { CustomTimer } from '@components/shared/custom-timer'
 
-import { LanguageSelect } from '../language-select'
-import { NotificationSelect } from '../notification-select'
-import { ProfileDropdown } from '../profile-dropdown'
-import { RoleSelect } from '../role-select'
-import { ThemeSelect } from '../theme-select'
+import { LanguageSelect } from '../../language-select'
+import { NotificationSelect } from '../../notification-select'
+import { ProfileDropdown } from '../../profile-dropdown'
+import { RoleSelect } from '../../role-select'
+import { ThemeSelect } from '../../theme-select'
+import { HeaderModel } from '../model/model'
 
-import { HeaderModel } from './header.model'
-import classes from './header.module.scss'
+import classes from './Header.module.scss'
 
 interface Props {
   title: string

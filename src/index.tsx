@@ -11,7 +11,7 @@ import { ThemeProvider } from './app/providers/theme'
 import './app/styles/index.scss'
 import './shared/config/i18n'
 import './shared/config/sentry'
-import { FallBack } from './widgets/fall-back'
+import { FallBack } from './widgets/fallback'
 
 const container = document.getElementById('root')
 

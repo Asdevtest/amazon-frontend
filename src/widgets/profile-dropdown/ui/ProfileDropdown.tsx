@@ -16,7 +16,7 @@ import { toFixedWithDollarSign } from '@utils/text'
 import { Roles } from '@typings/enums/roles'
 import { isResearcher } from '@typings/guards/roles'
 
-import { ProfileDropdownModel } from '../model/ProfileDropdown.model'
+import { ProfileDropdownModel } from '../model/model'
 
 import classes from './ProfileDropdown.module.scss'
 

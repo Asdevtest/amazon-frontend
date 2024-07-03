@@ -1,1 +1,1 @@
-export { CustomTimer } from './custom-timer'
+export { CustomTimer } from './ui/CustomTimer'

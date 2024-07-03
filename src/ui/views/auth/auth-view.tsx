@@ -1,7 +1,9 @@
+import { LanguageSelect } from '@widgets/language-select'
 import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
 import { IoMoonSharp, IoSunnySharp } from 'react-icons/io5'
+import { useNavigate } from 'react-router-dom'
 
 import { appVersion } from '@constants/app-version'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -9,12 +11,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { LanguageSelector } from '@components/shared/language-selector/language-selector'
 
 import { t } from '@utils/translations'
 
 import { UiTheme } from '@typings/enums/ui-theme'
-import { HistoryType } from '@typings/types/history'
 
 import { useStyles } from './auth-view.style'
 
@@ -23,13 +23,13 @@ import { AuthForm } from './ui/auth-form'
 import { Banner } from './ui/banner'
 
 interface AuthViewProps {
-  history: HistoryType
   auth: boolean
 }
 
-export const AuthView: FC<AuthViewProps> = observer(({ history, auth }) => {
+const AuthView: FC<AuthViewProps> = observer(({ auth }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AuthViewModel({ history, auth }))
+  const navigate = useNavigate()
+  const [viewModel] = useState(() => new AuthViewModel({ navigate, auth }))
   const title = auth ? t(TranslationKey['Sign in']) : t(TranslationKey.Registration)
 
   return (
@@ -46,7 +46,7 @@ export const AuthView: FC<AuthViewProps> = observer(({ history, auth }) => {
                 {SettingsModel.uiTheme === UiTheme.light ? <IoMoonSharp size={18} /> : <IoSunnySharp size={18} />}
               </CustomButton>
 
-              <LanguageSelector />
+              <LanguageSelect />
             </div>
           </div>
 
@@ -71,3 +71,5 @@ export const AuthView: FC<AuthViewProps> = observer(({ history, auth }) => {
     </div>
   )
 })
+
+export default AuthView

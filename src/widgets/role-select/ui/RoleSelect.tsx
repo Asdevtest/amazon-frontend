@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { CustomSelect } from '@components/shared/custom-select'
 
-import { RoleSelectModel } from '../model/RoleSelect.model'
+import { RoleSelectModel } from '../model/model'
 
 import classes from './RoleSelect.module.scss'
 
