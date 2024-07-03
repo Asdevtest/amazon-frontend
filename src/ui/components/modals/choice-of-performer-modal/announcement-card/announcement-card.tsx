@@ -35,7 +35,6 @@ export const AnnouncementCard: FC<AnnouncementCardProps> = props => {
 
   const radioBottonsSettings = [
     {
-      label: () => '',
       value: announcementData?._id,
     },
   ]

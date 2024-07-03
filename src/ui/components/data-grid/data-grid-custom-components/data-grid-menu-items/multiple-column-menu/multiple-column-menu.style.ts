@@ -2,10 +2,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   radioButtonsWrapper: {
-    width: '100%',
+    width: '300px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    padding: '0 20px',
+    padding: '10px 20px',
   },
 }))

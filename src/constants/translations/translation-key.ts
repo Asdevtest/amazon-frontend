@@ -1925,4 +1925,5 @@ export enum TranslationKey {
   'Are you sure you want to remove this launch?' = 'Are you sure you want to remove this launch?',
   'Final box weight' = 'Final box weight',
   'less than recommended by this tariff' = 'less than recommended by this tariff',
+  "The supplier's price does not fit" = "The supplier's price does not fit",
 }

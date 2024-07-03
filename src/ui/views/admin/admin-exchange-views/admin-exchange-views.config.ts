@@ -1,5 +1,16 @@
 import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
+
+import { AdminExchangeStatuses, adminExchangeStatusesTranslations } from './admin-exchange.types'
+
+export const getSwitcherConfig = () =>
+  Object.values(AdminExchangeStatuses).map(status => ({
+    label: () => t(TranslationKey[adminExchangeStatusesTranslations[status] as keyof typeof TranslationKey]),
+    value: status,
+  }))
 
 export const productColumnMenuItems = [
   {
@@ -31,29 +42,5 @@ export const productColumnMenuValue = [
     field: 'amazonTitle',
     table: DataGridFilterTables.PRODUCTS,
     columnKey: ColumnMenuKeys.STRING,
-  },
-]
-
-export const productionTermColumnMenuItems = [
-  {
-    label: 'Min. production time, days',
-    value: 0,
-  },
-  {
-    label: 'Max. production time, days',
-    value: 1,
-  },
-]
-
-export const productionTermColumnMenuValue = [
-  {
-    field: 'minProductionTerm',
-    table: DataGridFilterTables.SUPPLIERS,
-    columnKey: ColumnMenuKeys.NUMBER,
-  },
-  {
-    field: 'maxProductionTerm',
-    table: DataGridFilterTables.SUPPLIERS,
-    columnKey: ColumnMenuKeys.NUMBER,
   },
 ]

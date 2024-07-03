@@ -1924,5 +1924,6 @@
   "Shutdown delay": "Таймер выключения",
   "Are you sure you want to remove this launch?": "Вы уверены, что хотите удалить данный запуск?",
   "Final box weight": "Финальный вес коробки",
-  "less than recommended by this tariff": "меньше, чем рекомендовано по этому тарифу"
+  "less than recommended by this tariff": "меньше, чем рекомендовано по этому тарифу",
+  "The supplier's price does not fit": "Цена поставщика не подходит"
 }

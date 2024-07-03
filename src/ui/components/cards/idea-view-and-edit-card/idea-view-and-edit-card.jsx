@@ -103,12 +103,12 @@ export const IdeaViewAndEditCard = observer(
 
     const radioBottonsSettings = [
       {
-        label: () => t(TranslationKey['Supplier found']),
+        label: 'Supplier found',
         value: ideaStatusByKey[ideaStatus.SUPPLIER_FOUND],
         disabled: !formFields?.suppliers?.length,
       },
       {
-        label: () => t(TranslationKey['Supplier not found']),
+        label: 'Supplier not found',
         value: ideaStatusByKey[ideaStatus.SUPPLIER_NOT_FOUND],
       },
     ]
