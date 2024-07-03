@@ -39,7 +39,7 @@ export const PrivateRoutes = observer(() => {
           route =>
             !isHaveMasterUser(userInfo) ||
             !route?.permissionKey ||
-            userInfo?.permissions?.some(item => item.key === route?.permissionKey),
+            userInfo?.permissions?.some(item => item === route?.permissionKey),
         ),
     )
 

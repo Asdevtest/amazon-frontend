@@ -47,12 +47,12 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
 
   const radioBottonsSettings = [
     {
-      label: () => t(TranslationKey['Add parent']),
+      label: 'Add parent',
       value: ProductVariation.PARENT,
       disabled: !sourceProduct?.parentProductId && sourceProduct?.hasChildren,
     },
     {
-      label: () => t(TranslationKey['Add variations']),
+      label: 'Add variations',
       value: ProductVariation.CHILD,
     },
   ]

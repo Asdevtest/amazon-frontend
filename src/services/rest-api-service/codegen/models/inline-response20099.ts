@@ -22,6 +22,12 @@ import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-noti
  */
 export interface InlineResponse20099 {
     /**
+     * GUID в базе данных
+     * @type {string}
+     * @memberof InlineResponse20099
+     */
+    _id?: string;
+    /**
      * Кол-во непрочитаных сообщений по заявке
      * @type {number}
      * @memberof InlineResponse20099

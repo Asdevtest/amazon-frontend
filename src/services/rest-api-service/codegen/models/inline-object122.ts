@@ -13,164 +13,98 @@
  */
 
 
-import { ApiV1ClientsProductsGuidTags } from './api-v1-clients-products-guid-tags';
+import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
 
 /**
- * 
+ * Схема продажи магазина
  * @export
  * @interface InlineObject122
  */
 export interface InlineObject122 {
     /**
-     * ASIN продукта
+     * Имя магазина для продажи
      * @type {string}
      * @memberof InlineObject122
      */
-    asin: string;
+    title?: string;
     /**
-     * Ссылка на этот продукт на амазоне.
-     * @type {string}
-     * @memberof InlineObject122
-     */
-    lamazon: string;
-    /**
-     * GUID поставщика
-     * @type {string}
-     * @memberof InlineObject122
-     */
-    currentSupplierId?: string;
-    /**
-     * Категория
-     * @type {string}
-     * @memberof InlineObject122
-     */
-    category?: string;
-    /**
-     * 
+     * Стоимость магазина
      * @type {number}
      * @memberof InlineObject122
      */
-    bsr?: number;
+    price?: number;
     /**
-     * Признак fba
-     * @type {boolean}
+     * Дата создания бизнеса
+     * @type {string}
      * @memberof InlineObject122
      */
-    fba?: boolean;
+    businessStartDate?: string;
     /**
-     *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
-     * @type {number}
+     * Детали магазина
+     * @type {string}
      * @memberof InlineObject122
      */
-    status?: number;
+    shopDetails?: string;
     /**
-     * 
-     * @type {number}
-     * @memberof InlineObject122
-     */
-    amazon?: number;
-    /**
-     * Массив поставщиков.
+     * Активы магазина
      * @type {Array<string>}
      * @memberof InlineObject122
      */
-    suppliersIds?: Array<string>;
+    shopAssets?: Array<string>;
     /**
-     * ФБА комиссия
-     * @type {number}
-     * @memberof InlineObject122
-     */
-    fbafee?: number;
-    /**
-     * Комментарии к товару.
-     * @type {string}
-     * @memberof InlineObject122
-     */
-    icomment?: string;
-    /**
-     * Массив изображений.
+     * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
      * @type {Array<string>}
      * @memberof InlineObject122
      */
-    images?: Array<string>;
+    files?: Array<string>;
     /**
-     * комиссия которую берет амазон за любой заказ - 15%
-     * @type {number}
-     * @memberof InlineObject122
-     */
-    reffee?: number;
-    /**
-     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
-     * @type {number}
-     * @memberof InlineObject122
-     */
-    strategyStatus?: number;
-    /**
-     * Ниша
+     * Ссылка на сайт магазина
      * @type {string}
      * @memberof InlineObject122
      */
-    niche?: string;
+    shopLink?: string;
     /**
-     * Асины
-     * @type {string}
+     * Статистика магазина по месяцам
+     * @type {Array<ApiV1ShopSellStatistics1>}
      * @memberof InlineObject122
      */
-    asins?: string;
+    statistics?: Array<ApiV1ShopSellStatistics1>;
     /**
-     * Общий доход
-     * @type {string}
+     * Возможности магазина
+     * @type {Array<string>}
      * @memberof InlineObject122
      */
-    totalRevenue?: string;
+    opportunities?: Array<string>;
     /**
-     * Коэффициент прибыли
-     * @type {string}
+     * Риски магазина
+     * @type {Array<string>}
      * @memberof InlineObject122
      */
-    coefficient?: string;
+    risks?: Array<string>;
     /**
-     * Средний доход
-     * @type {string}
+     * Требуемые навыки
+     * @type {Array<string>}
      * @memberof InlineObject122
      */
-    avgRevenue?: string;
+    requiredSkills?: Array<string>;
     /**
-     * Средний BSR
-     * @type {string}
+     * В продажу также включено
+     * @type {Array<string>}
      * @memberof InlineObject122
      */
-    avgBSR?: string;
+    sellIncludes?: Array<string>;
     /**
-     * Средняя цена
-     * @type {string}
+     * Причина продажи
+     * @type {Array<string>}
      * @memberof InlineObject122
      */
-    avgPrice?: string;
+    reasonForSale?: Array<string>;
     /**
-     * Средний отзывы
-     * @type {string}
+     * Дополнительная информация
+     * @type {Array<string>}
      * @memberof InlineObject122
      */
-    avgReviews?: string;
-    /**
-     * Дополнительная инфа для дозакупок
-     * @type {number}
-     * @memberof InlineObject122
-     */
-    fourMonthesStock?: number;
-    /**
-     * ID магазинa продукта
-     * @type {string}
-     * @memberof InlineObject122
-     */
-    shopId?: string;
-    /**
-     * 
-     * @type {Array<ApiV1ClientsProductsGuidTags>}
-     * @memberof InlineObject122
-     */
-    tags?: Array<ApiV1ClientsProductsGuidTags>;
+    additionalInfo?: Array<string>;
 }
 
 

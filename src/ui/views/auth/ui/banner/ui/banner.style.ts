@@ -2,20 +2,18 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   leftPanel: {
-    width: '45%',
-    height: '100vh',
+    width: '50%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    gap: 30,
-    background: theme.palette.background.entryLeftPanel,
+    gap: 40,
     color: theme.palette.text.second,
   },
 
   logo: {
-    width: '283px !important',
-    height: '150px !important',
+    width: '250px !important',
+    height: '84px !important',
     color: theme.palette.text.general,
 
     'path:first-of-type': {
@@ -24,25 +22,21 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   main: {
+    marginBottom: 200,
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'column',
-  },
-
-  title: {
-    fontSize: 48,
+    gap: 10,
     fontWeight: 600,
-    lineHeight: '110%',
     textAlign: 'center',
   },
 
-  subtitle: {
-    fontSize: '24px',
-    fontWeight: 600,
+  title: {
+    fontSize: 40,
+    lineHeight: '48px',
   },
 
-  footer: {
-    height: '20%',
+  subtitle: {
+    fontSize: 24,
+    lineHeight: '32px',
   },
 }))

@@ -41,17 +41,17 @@ import { InlineObject118 } from '../models';
 // @ts-ignore
 import { InlineObject119 } from '../models';
 // @ts-ignore
-import { InlineObject155 } from '../models';
-// @ts-ignore
-import { InlineObject156 } from '../models';
-// @ts-ignore
 import { InlineObject157 } from '../models';
+// @ts-ignore
+import { InlineObject158 } from '../models';
+// @ts-ignore
+import { InlineObject159 } from '../models';
 // @ts-ignore
 import { InlineObject5 } from '../models';
 // @ts-ignore
-import { InlineResponse200109 } from '../models';
-// @ts-ignore
 import { InlineResponse200110 } from '../models';
+// @ts-ignore
+import { InlineResponse200111 } from '../models';
 // @ts-ignore
 import { InlineResponse20083 } from '../models';
 // @ts-ignore
@@ -223,12 +223,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
          * ## Изменить детали заявки.   Проверки: Только владелец может редактировать заявку  
          * @summary #  Изменить детали заявки.
          * @param {string} guid GUID заявки в БД
-         * @param {InlineObject157} [body] 
+         * @param {InlineObject159} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCustomDetailsGuidPatch: async (guid: string, body?: InlineObject157, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsCustomDetailsGuidPatch: async (guid: string, body?: InlineObject159, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestsCustomDetailsGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/requests/custom/details/{guid}`
@@ -354,12 +354,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
          * ## Изменить заявку.   Цена будет округлена на до 0,01$   Проверки: Только владелец может редактировать заявку  Проверка на статус, статус должен быть DRAFT или PUBLISHED..
          * @summary #  Изменить заявку.
          * @param {string} guid GUID в БД
-         * @param {InlineObject156} [body] 
+         * @param {InlineObject158} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCustomGuidPatch: async (guid: string, body?: InlineObject156, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsCustomGuidPatch: async (guid: string, body?: InlineObject158, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestsCustomGuidPatch', 'guid', guid)
             const localVarPath = `/api/v1/requests/custom/{guid}`
@@ -399,12 +399,12 @@ export const RequestsApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * ## Создать универсальную заявку.   Цена будет округлена на до 0,01$   Роли которые могут работать с заявками клиент, фрилансер и супервайзер  Проверки: пока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)
          * @summary # Создать универсальную заявку.
-         * @param {InlineObject155} [body] 
+         * @param {InlineObject157} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCustomPost: async (body?: InlineObject155, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestsCustomPost: async (body?: InlineObject157, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/requests/custom/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1192,12 +1192,12 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * ## Изменить детали заявки.   Проверки: Только владелец может редактировать заявку  
          * @summary #  Изменить детали заявки.
          * @param {string} guid GUID заявки в БД
-         * @param {InlineObject157} [body] 
+         * @param {InlineObject159} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsCustomDetailsGuidPatch(guid: string, body?: InlineObject157, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestsCustomDetailsGuidPatch(guid: string, body?: InlineObject159, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsCustomDetailsGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1208,7 +1208,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsCustomGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200109>>> {
+        async apiV1RequestsCustomGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200110>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsCustomGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1221,7 +1221,7 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsCustomGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200110>> {
+        async apiV1RequestsCustomGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200111>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsCustomGuidGet(guid, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1229,24 +1229,24 @@ export const RequestsApiFp = function(configuration?: Configuration) {
          * ## Изменить заявку.   Цена будет округлена на до 0,01$   Проверки: Только владелец может редактировать заявку  Проверка на статус, статус должен быть DRAFT или PUBLISHED..
          * @summary #  Изменить заявку.
          * @param {string} guid GUID в БД
-         * @param {InlineObject156} [body] 
+         * @param {InlineObject158} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsCustomGuidPatch(guid: string, body?: InlineObject156, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestsCustomGuidPatch(guid: string, body?: InlineObject158, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsCustomGuidPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * ## Создать универсальную заявку.   Цена будет округлена на до 0,01$   Роли которые могут работать с заявками клиент, фрилансер и супервайзер  Проверки: пока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)
          * @summary # Создать универсальную заявку.
-         * @param {InlineObject155} [body] 
+         * @param {InlineObject157} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestsCustomPost(body?: InlineObject155, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
+        async apiV1RequestsCustomPost(body?: InlineObject157, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2017>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestsCustomPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1495,12 +1495,12 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * ## Изменить детали заявки.   Проверки: Только владелец может редактировать заявку  
          * @summary #  Изменить детали заявки.
          * @param {string} guid GUID заявки в БД
-         * @param {InlineObject157} [body] 
+         * @param {InlineObject159} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCustomDetailsGuidPatch(guid: string, body?: InlineObject157, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestsCustomDetailsGuidPatch(guid: string, body?: InlineObject159, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestsCustomDetailsGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1510,7 +1510,7 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCustomGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200109>> {
+        apiV1RequestsCustomGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200110>> {
             return localVarFp.apiV1RequestsCustomGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1522,30 +1522,30 @@ export const RequestsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCustomGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200110> {
+        apiV1RequestsCustomGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200111> {
             return localVarFp.apiV1RequestsCustomGuidGet(guid, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Изменить заявку.   Цена будет округлена на до 0,01$   Проверки: Только владелец может редактировать заявку  Проверка на статус, статус должен быть DRAFT или PUBLISHED..
          * @summary #  Изменить заявку.
          * @param {string} guid GUID в БД
-         * @param {InlineObject156} [body] 
+         * @param {InlineObject158} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCustomGuidPatch(guid: string, body?: InlineObject156, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestsCustomGuidPatch(guid: string, body?: InlineObject158, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestsCustomGuidPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
          * ## Создать универсальную заявку.   Цена будет округлена на до 0,01$   Роли которые могут работать с заявками клиент, фрилансер и супервайзер  Проверки: пока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)
          * @summary # Создать универсальную заявку.
-         * @param {InlineObject155} [body] 
+         * @param {InlineObject157} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestsCustomPost(body?: InlineObject155, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
+        apiV1RequestsCustomPost(body?: InlineObject157, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2017> {
             return localVarFp.apiV1RequestsCustomPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1830,10 +1830,10 @@ export interface RequestsApiApiV1RequestsCustomDetailsGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject157}
+     * @type {InlineObject159}
      * @memberof RequestsApiApiV1RequestsCustomDetailsGuidPatch
      */
-    readonly body?: InlineObject157
+    readonly body?: InlineObject159
 
     /**
      * 
@@ -1900,10 +1900,10 @@ export interface RequestsApiApiV1RequestsCustomGuidPatchRequest {
 
     /**
      * 
-     * @type {InlineObject156}
+     * @type {InlineObject158}
      * @memberof RequestsApiApiV1RequestsCustomGuidPatch
      */
-    readonly body?: InlineObject156
+    readonly body?: InlineObject158
 
     /**
      * 
@@ -1921,10 +1921,10 @@ export interface RequestsApiApiV1RequestsCustomGuidPatchRequest {
 export interface RequestsApiApiV1RequestsCustomPostRequest {
     /**
      * 
-     * @type {InlineObject155}
+     * @type {InlineObject157}
      * @memberof RequestsApiApiV1RequestsCustomPost
      */
-    readonly body?: InlineObject155
+    readonly body?: InlineObject157
 
     /**
      * 

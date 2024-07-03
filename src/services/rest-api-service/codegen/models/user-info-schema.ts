@@ -13,15 +13,14 @@
  */
 
 
-import { InlineResponse20099 } from './inline-response20099';
 import { UserInfoSchemaAllowedSpec } from './user-info-schema-allowed-spec';
+import { UserInfoSchemaFreelanceNotices } from './user-info-schema-freelance-notices';
 import { UserInfoSchemaIdeas } from './user-info-schema-ideas';
 import { UserInfoSchemaMasterUser } from './user-info-schema-master-user';
 import { UserInfoSchemaMyProposals } from './user-info-schema-my-proposals';
 import { UserInfoSchemaNeedConfirmPriceChange } from './user-info-schema-need-confirm-price-change';
 import { UserInfoSchemaNeedUpdateTariff } from './user-info-schema-need-update-tariff';
 import { UserInfoSchemaPermissionGroups } from './user-info-schema-permission-groups';
-import { UserInfoSchemaPermissions } from './user-info-schema-permissions';
 
 /**
  * 
@@ -91,10 +90,10 @@ export interface UserInfoSchema {
     overdraft?: number;
     /**
      * Массив permission-ов.
-     * @type {Array<UserInfoSchemaPermissions>}
+     * @type {Array<string>}
      * @memberof UserInfoSchema
      */
-    permissions?: Array<UserInfoSchemaPermissions>;
+    permissions?: Array<string>;
     /**
      * Массив групп permission-ов.
      * @type {Array<UserInfoSchemaPermissionGroups>}
@@ -391,10 +390,10 @@ export interface UserInfoSchema {
     ideas?: UserInfoSchemaIdeas;
     /**
      * 
-     * @type {Array<InlineResponse20099>}
+     * @type {Array<UserInfoSchemaFreelanceNotices>}
      * @memberof UserInfoSchema
      */
-    freelanceNotices?: Array<InlineResponse20099>;
+    freelanceNotices?: Array<UserInfoSchemaFreelanceNotices>;
     /**
      * Кол-во нотификаций юзера(archive: false)
      * @type {number}
