@@ -24,23 +24,19 @@ export const AdminOrdersViews = observer(() => {
   const [viewModel] = useState(() => new AdminOrdersAllViewModel())
 
   return (
-    <div>
-      <div className={styles.searchContainer}>
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-          onSubmit={viewModel.onSearchSubmit}
-        />
-      </div>
+    <div className={styles.container}>
+      <SearchInput
+        inputClasses={styles.searchInput}
+        placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+        onSubmit={viewModel.onSearchSubmit}
+      />
 
-      <div className={styles.filterBtnWrapper}>
-        <CustomSwitcher
-          switchMode="medium"
-          condition={viewModel.activeCategory}
-          switcherSettings={getSwitcherConfig()}
-          changeConditionHandler={viewModel.onChangeActiveCategory}
-        />
-      </div>
+      <CustomSwitcher
+        switchMode="medium"
+        condition={viewModel.activeCategory}
+        switcherSettings={getSwitcherConfig()}
+        changeConditionHandler={viewModel.onChangeActiveCategory}
+      />
 
       <div className={styles.datagridWrapper}>
         <CustomDataGrid

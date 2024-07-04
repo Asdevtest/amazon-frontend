@@ -1,25 +1,23 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  searchContainer: {
+export const useStyles = makeStyles()(() => ({
+  container: {
     display: 'flex',
-    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 20,
   },
 
   searchInput: {
     width: 400,
-    height: 36,
-    overflow: 'visible',
-    border: `1px solid ${theme.palette.primary.main}`,
-  },
-
-  filterBtnWrapper: {
-    marginTop: 20,
   },
 
   datagridWrapper: {
-    height: '76vh',
+    flex: 1,
     width: '100%',
-    marginTop: 20,
+    overflow: 'hidden',
+    padding: '3px',
   },
 }))
