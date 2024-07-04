@@ -60,10 +60,16 @@ export const MessagesView = observer(({ history }) => {
       }
     })
     .sort((a, b) => {
-      return compareDesc(
-        parseISO(a.lastMessage?.createdAt || a.createdAt),
-        parseISO(b.lastMessage?.createdAt || b.createdAt),
-      )
+      if (a.type === 'SAVED' && b.type !== 'SAVED') {
+        return -1
+      } else if (a.type !== 'SAVED' && b.type === 'SAVED') {
+        return 1
+      } else {
+        return compareDesc(
+          parseISO(a.lastMessage?.createdAt || a.createdAt),
+          parseISO(b.lastMessage?.createdAt || b.createdAt),
+        )
+      }
     })
 
   const isChatSelectedAndFound = isNotUndefined(viewModel.chatSelectedId) && currentChat

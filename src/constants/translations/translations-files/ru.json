@@ -1938,5 +1938,6 @@
   "User is waiting for confirmation": "Пользователь ожидает подтверждения",
   "Invalid password or email address.": "Неверный пароль или адрес электронной почты.",
   "User with such email already exists.": "Пользователь с таким адресом электронной почты уже существует.",
-  "The supplier's price does not fit": "Цена поставщика не подходит"
+  "The supplier's price does not fit": "Цена поставщика не подходит",
+  "Favorites": "Избранное"
 }
