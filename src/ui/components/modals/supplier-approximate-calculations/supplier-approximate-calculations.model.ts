@@ -15,6 +15,7 @@ import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-swi
 
 import { checkIsStorekeeper } from '@utils/checks'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -235,9 +236,11 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       this.confirmModalSettings = {
         isWarning: true,
         title: t(TranslationKey.Attention),
-        message: `${t(TranslationKey['Final box weight'])} (${this.boxData.finalWeight} ${t(TranslationKey.kg)}) ${t(
-          TranslationKey['less than recommended by this tariff'],
-        )} (${this.variationMinBoxWeight} ${t(TranslationKey.kg)}). ${t(TranslationKey.Continue)}?`,
+        message: `${t(TranslationKey['Final box weight'])} (${toFixed(this.boxData.finalWeight)} ${t(
+          TranslationKey.kg,
+        )}) ${t(TranslationKey['less than recommended by this tariff'])} (${toFixed(this.variationMinBoxWeight)} ${t(
+          TranslationKey.kg,
+        )}). ${t(TranslationKey.Continue)}?`,
         onSubmit: () => this.handleSaveVariationTariff(),
         onCancel: () => this.onTriggerOpenModal('showConfirmModal', false),
       }
