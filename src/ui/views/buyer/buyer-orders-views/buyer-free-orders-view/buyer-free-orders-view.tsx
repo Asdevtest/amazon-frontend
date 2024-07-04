@@ -86,7 +86,7 @@ export const BuyerFreeOrdersView = observer(() => {
           title={t(TranslationKey['Order picked up'])}
           topBtnText={t(TranslationKey['Go to order'])}
           bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
-          onClickTopBtn={() => viewModel.goToMyOrders()}
+          onClickTopBtn={viewModel.goToMyOrders}
           onClickBottomBtn={viewModel.onClickContinueWorkButton}
         />
       ) : null}
