@@ -66,7 +66,7 @@ export class ClientBoxesTariffsNotificationsViewModel extends DataGridFilterTabl
     super({
       getMainDataMethod: BoxesModel.getBoxesForCurClientLightPag,
       columnsModel,
-      tableKey: DataGridTablesKeys.CLIENT_BOXES_NOTIFICATIONS,
+      tableKey: DataGridTablesKeys.CLIENT_BOXES_TARIFF_NOTIFICATIONS,
       filtersFields: getFilterFields(columnsModel),
       mainMethodURL: 'boxes/pag/clients_light?',
       additionalPropertiesGetFilters,
