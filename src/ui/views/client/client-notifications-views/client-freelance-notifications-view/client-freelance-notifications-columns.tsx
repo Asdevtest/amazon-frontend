@@ -46,7 +46,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'spec',
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
-      renderCell: params => <MultilineTextCell threeLines text={params.row?.request?.spec?.title} />,
+      renderCell: ({ row }) => <MultilineTextCell threeLines text={row?.request?.spec?.title} />,
       width: 140,
       disableCustomSort: true,
     },
@@ -55,7 +55,7 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
       field: 'humanFriendlyId',
       headerName: `ID ${t(TranslationKey.Requests)}`,
       renderHeader: () => <MultilineTextHeaderCell text={`ID ${t(TranslationKey.Requests)}`} />,
-      renderCell: params => <MultilineTextCell text={params.row?.request?.humanFriendlyId} />,
+      renderCell: ({ row }) => <MultilineTextCell text={row?.request?.humanFriendlyId} />,
       disableCustomSort: true,
     },
 
