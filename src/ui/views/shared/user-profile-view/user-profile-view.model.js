@@ -180,7 +180,7 @@ export class ProfileViewModel {
 
   async changeUserNameOrEmail(data) {
     try {
-      await UserModel.changeUserInfo({ name: data.name, email: data.email })
+      await UserModel.changeUserInfo({ name: data.name })
 
       await UserModel.getUserInfo()
     } catch (error) {
