@@ -16,6 +16,7 @@ export const observerConfig = {
   currentLogicsTariffId: observable,
   currentStorekeeperId: observable,
   variationMinBoxWeight: observable,
+  pricePerKgUsd: observable,
 
   isStrictVariationSelect: observable,
   boxItems: observable,

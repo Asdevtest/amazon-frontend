@@ -1940,4 +1940,5 @@ export enum TranslationKey {
   'User with such email already exist.' = 'User with such email already exist.',
   "The supplier's price does not fit" = "The supplier's price does not fit",
   'The new password that you entered matches the current password!' = 'The new password that you entered matches the current password!',
+  'Favorites' = 'Favorites',
 }

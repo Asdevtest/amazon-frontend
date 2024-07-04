@@ -20,6 +20,7 @@ export interface INewDataOfVariation {
   destinationId: string
   logicsTariffId: string
   storekeeperId: string
+  pricePerKgUsd: number
 }
 
 export const useTariffVariation = (initialDestinationId: string, handleSetState: Dispatch<SetStateAction<IBox>>) => {

@@ -1932,5 +1932,6 @@
   "Invalid password or email address.": "无效的密码或电子邮件地址.",
   "User with such email already exists.": "已存在使用此电子邮件的用户.",
   "The supplier's price does not fit": "供应商的价格不适合",
-  "The new password that you entered matches the current password!": "您输入的新密码与当前密码相同!"
+  "The new password that you entered matches the current password!": "您输入的新密码与当前密码相同!",
+  "Favorites": "收藏"
 }

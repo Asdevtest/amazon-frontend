@@ -3,7 +3,7 @@ import { makeObservable } from 'mobx'
 import { ChangeEvent } from 'react'
 
 import { GridColumnVisibilityModel, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
-import { GridPinnedColumns } from '@mui/x-data-grid-premium'
+import { GRID_CHECKBOX_SELECTION_COL_DEF, GridPinnedColumns } from '@mui/x-data-grid-premium'
 
 import { DefaultModel } from '@models/default-model'
 import { TableSettingsModel } from '@models/table-settings'
@@ -30,7 +30,7 @@ export class DataGridTableModel extends DefaultModel {
   fieldsForSearch: string[] = []
 
   pinnedColumns: GridPinnedColumns = {
-    left: [],
+    left: [GRID_CHECKBOX_SELECTION_COL_DEF.field],
     right: [],
   }
 

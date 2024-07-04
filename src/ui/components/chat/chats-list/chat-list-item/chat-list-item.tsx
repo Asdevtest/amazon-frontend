@@ -16,6 +16,7 @@ import { ChatMessageType } from '@services/websocket-chat-service'
 import { ChatMessageTextType, OnTypingMessageResponse } from '@services/websocket-chat-service/interfaces'
 
 import { IsReadIcon, NoReadIcon, SoundOffIcon } from '@components/shared/svg-icons'
+import { FavoritesIcon } from '@components/shared/svg-icons/favorites-icon/favorites-icon'
 
 import { checkIsClient } from '@utils/checks'
 import { formatDateWithoutTime } from '@utils/date-time'
@@ -38,6 +39,8 @@ interface Props {
 
 export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typingUsers, isMutedChat, typeOfChat }) => {
   const { classes: styles, cx } = useStyles()
+
+  const isFavoritesChat = chat?.type === 'SAVED'
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
@@ -92,7 +95,12 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   const oponentUser = getUserByChatType()
 
-  const title = typeof oponentUser?.name === 'string' ? oponentUser.name : t(TranslationKey['System message'])
+  const title =
+    typeof oponentUser?.name === 'string'
+      ? oponentUser.name
+      : isFavoritesChat
+      ? t(TranslationKey.Favorites)
+      : t(TranslationKey['System message'])
 
   const message = lastMessage?.text
     ? (() => {
@@ -139,14 +147,18 @@ export const ChatListItem: FC<Props> = observer(({ chat, userId, onClick, typing
 
   return (
     <div className={styles.root} onClick={() => onClick(chat)}>
-      <Avatar
-        src={
-          isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
-            ? getAmazonImageUrl(chat.info?.image)
-            : getUserAvatarSrc(oponentUser?._id)
-        }
-        className={styles.avatar}
-      />
+      {isFavoritesChat ? (
+        <FavoritesIcon className={cx(styles.favoritesIcon, styles.avatar)} />
+      ) : (
+        <Avatar
+          src={
+            isGroupChat && Object.keys(chatRequestAndRequestProposal).length === 0
+              ? getAmazonImageUrl(chat.info?.image)
+              : getUserAvatarSrc(oponentUser?._id)
+          }
+          className={styles.avatar}
+        />
+      )}
 
       <div className={styles.rightSide}>
         <div className={styles.titleWrapper}>

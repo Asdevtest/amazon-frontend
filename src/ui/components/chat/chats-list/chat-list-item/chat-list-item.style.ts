@@ -21,18 +21,22 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   avatar: {
-    height: 49,
-    width: 49,
+    height: '49px !important',
+    width: '49px !important',
 
     [theme.breakpoints.down(1024)]: {
-      height: 30,
-      width: 30,
+      height: '30px !important',
+      width: '30px !important',
     },
 
     [theme.breakpoints.down(768)]: {
-      height: 43,
-      width: 43,
+      height: '43px !important',
+      width: '43px !important',
     },
+  },
+
+  favoritesIcon: {
+    color: `${theme.palette.primary.main} !important`,
   },
 
   rightSide: {
