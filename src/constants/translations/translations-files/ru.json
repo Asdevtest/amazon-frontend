@@ -166,7 +166,7 @@
   "Without the group": "Без группы",
   "The avatar has been uploaded. The update will take place within a few minutes.": "Аватар загружен. Обновление произойдёт в течение нескольких минут.",
   "Roles": "Роли",
-  "Enter information": "Введите данные",
+  "Change user details": "Изменить данные пользователя",
   "Invalid email!": "Почта невалидна!",
   "Load": "Загрузить",
   "Allowed image formats": "Допустимые форматы изображений",
@@ -1939,5 +1939,6 @@
   "Invalid password or email address.": "Неверный пароль или адрес электронной почты.",
   "User with such email already exists.": "Пользователь с таким адресом электронной почты уже существует.",
   "The supplier's price does not fit": "Цена поставщика не подходит",
+  "The new password that you entered matches the current password!": "Новый пароль, который вы ввели, совпадает с текущим паролем!",
   "Favorites": "Избранное"
 }
