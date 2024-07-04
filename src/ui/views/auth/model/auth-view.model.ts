@@ -14,11 +14,12 @@ import { UiTheme } from '@typings/enums/ui-theme'
 import { IFullUser } from '@typings/shared/full-user'
 import { HistoryType } from '@typings/types/history'
 
-import { FieldType } from './auth-view.type'
+import { FieldData } from './types/field'
 
 export class AuthViewModel {
   history?: HistoryType
   auth = true
+  loading = false
 
   get userInfo() {
     return UserModel.userInfo as unknown as IFullUser
@@ -31,11 +32,13 @@ export class AuthViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async onSubmitForm(value: FieldType) {
-    this.auth ? this.onLogin(value) : this.onRegister(value)
+  async onSubmitForm(value: FieldData) {
+    this.loading = true
+    this.auth ? await this.onLogin(value) : await this.onRegister(value)
+    this.loading = false
   }
 
-  async onRegister(value: FieldType) {
+  async onRegister(value: FieldData) {
     try {
       const requestData = { name: value?.name, email: value?.email?.toLowerCase(), password: value?.password }
 
@@ -51,7 +54,7 @@ export class AuthViewModel {
     }
   }
 
-  async onLogin(value: FieldType) {
+  async onLogin(value: FieldData) {
     try {
       const requestData = { email: value?.email?.toLowerCase(), password: value?.password }
 

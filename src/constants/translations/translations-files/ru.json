@@ -166,7 +166,7 @@
   "Without the group": "Без группы",
   "The avatar has been uploaded. The update will take place within a few minutes.": "Аватар загружен. Обновление произойдёт в течение нескольких минут.",
   "Roles": "Роли",
-  "Enter information": "Введите данные",
+  "Change user details": "Изменить данные пользователя",
   "Invalid email!": "Почта невалидна!",
   "Load": "Загрузить",
   "Allowed image formats": "Допустимые форматы изображений",
@@ -1942,5 +1942,7 @@
   "Supervisor's comment": "Комментарий супервайзера",
   "Document added": "Документ добавлен",
   "Add payment document": "Добавить платёжный документ",
-  "Doesn't fit": "Не подходит"
+  "Doesn't fit": "Не подходит",
+  "The new password that you entered matches the current password!": "Новый пароль, который вы ввели, совпадает с текущим паролем!",
+  "Favorites": "Избранное"
 }

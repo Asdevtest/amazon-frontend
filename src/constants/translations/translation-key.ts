@@ -165,7 +165,7 @@ export enum TranslationKey {
   'Without the group' = 'Without the group',
   'The avatar has been uploaded. The update will take place within a few minutes.' = 'The avatar has been uploaded. The update will take place within a few minutes.',
   'Roles' = 'Roles',
-  'Enter information' = 'Enter information',
+  'Change user details' = 'Change user details',
   'Invalid email!' = 'Invalid email!',
   'Load' = 'Load',
   'Allowed image formats' = 'Allowed image formats',
@@ -1943,4 +1943,6 @@ export enum TranslationKey {
   'Document added' = 'Document added',
   'Add payment document' = 'Add payment document',
   "Doesn't fit" = "Doesn't fit",
+  'The new password that you entered matches the current password!' = 'The new password that you entered matches the current password!',
+  'Favorites' = 'Favorites',
 }

@@ -38,7 +38,6 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
             item?.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE) &&
           itemIndex === 0
         const extraPaymentValue = toFixedWithDollarSign(item.deliveryTotalPriceChanged - item.deliveryTotalPrice, 2)
-        const isNeedToUpdate = box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF
 
         return (
           <Fragment key={itemIndex}>
@@ -54,10 +53,6 @@ export const OrderManyItemsCell: FC<OrderManyItemsCellProps> = memo(props => {
               <span className={styles.error}>{`${t(
                 TranslationKey['Extra payment required!'],
               )} (${extraPaymentValue})`}</span>
-            ) : null}
-
-            {isNeedToUpdate ? (
-              <span className={styles.error}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
             ) : null}
 
             {error ? <span className={styles.error}>{error}</span> : null}

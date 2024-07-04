@@ -1,6 +1,12 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
+  form: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
   buttons: {
     display: 'flex',
     alignItems: 'center',
@@ -14,5 +20,9 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.primary.main,
+  },
+
+  editUser: {
+    marginTop: 'auto',
   },
 }))

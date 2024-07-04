@@ -194,7 +194,7 @@ export class SupervisorProductViewModel {
     }
   }
 
-  onProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
+  handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
         this.openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler)

@@ -417,9 +417,9 @@ const SupervisorProductsView = lazy(() =>
   import('@views/supervisor/supervisor-products-view').then(module => ({ default: module.SupervisorProductsView })),
 )
 
-const SupervisorReadyToCheckView = lazy(() =>
-  import('@views/supervisor/supervisor-ready-to-check-view').then(module => ({
-    default: module.SupervisorReadyToCheckView,
+const SupervisorSettingsView = lazy(() =>
+  import('@views/supervisor/supervisor-settings-view').then(module => ({
+    default: module.SupervisorSettingsView,
   })),
 )
 const SupervisorReadyToCheckByClientView = lazy(() =>
@@ -429,7 +429,7 @@ const SupervisorReadyToCheckByClientView = lazy(() =>
     return { default: props => <Component isCreatedByClient {...props} /> }
   }),
 )
-const SupervisorSettingsView = lazy(() =>
+const SupervisorReadyToCheckView = lazy(() =>
   import('@views/supervisor/supervisor-ready-to-check-view').then(module => {
     const Component = module.SupervisorReadyToCheckView
 

@@ -23,7 +23,9 @@ export class SupervisorReadyToCheckViewModel extends DataGridTableModel {
     super({
       getMainDataMethod: () => SupervisorModel.getProductsVacant(isCreatedByClient),
       columnsModel,
-      tableKey: DataGridTablesKeys.CLIENT_FREELANCE_NOTIFICATIONS,
+      tableKey: isCreatedByClient
+        ? DataGridTablesKeys.SUPERVISOR_CHECK_CLIENT
+        : DataGridTablesKeys.SUPERVISOR_CHECK_RESEATCHER,
     })
 
     this.isCreatedByClient = isCreatedByClient

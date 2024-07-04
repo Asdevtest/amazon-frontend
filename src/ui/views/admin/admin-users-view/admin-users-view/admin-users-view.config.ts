@@ -1,9 +1,19 @@
+import { action, observable } from 'mobx'
+
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
 
 import { t } from '@utils/translations'
+
+export const adminUsersViewModelConfig = {
+  switcherCondition: observable,
+
+  onClickUser: action.bound,
+  onClickBalance: action.bound,
+  onClickChangeRole: action.bound,
+}
 
 const filterableRoles = [
   UserRole.CANDIDATE,
@@ -31,3 +41,5 @@ const getSwitcherConfig = (userRoles: string[]) => {
 }
 
 export const switcherConfig = getSwitcherConfig(filterableRoles)
+
+export const fieldsForSearch = ['name', 'email']
