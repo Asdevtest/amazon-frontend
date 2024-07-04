@@ -1,15 +1,12 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-
-import { TranslationKey } from '@constants/translations/translation-key'
+import { useState } from 'react'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 
-import { t } from '@utils/translations'
-
 import { loadingStatus } from '@typings/enums/loading-status'
+import { ITask } from '@typings/models/tasks/task'
 
 import { useStyles } from './admin-warehouse-tasks-view.style'
 
@@ -20,45 +17,48 @@ export const AdminWarehouseTasksView = observer(() => {
 
   const [viewModel] = useState(() => new AdminWarehouseTasksViewModel())
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   return (
     <>
       <div className={styles.tableWrapper}>
         <CustomDataGrid
+          rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
+          pinnedColumns={viewModel.pinnedColumns}
           rows={viewModel.currentData}
-          rowCount={viewModel.rowsCount}
-          getRowId={row => row._id}
           getRowHeight={() => 'auto'}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowId={({ _id }: ITask) => _id}
           slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
             columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -67,9 +67,11 @@ export const AdminWarehouseTasksView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
       >
         <EditTaskModal
+          // @ts-ignore
           readOnly
+          // @ts-ignore
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          task={viewModel.curOpenedTask}
+          task={viewModel.currentTask}
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
         />
       </Modal>
