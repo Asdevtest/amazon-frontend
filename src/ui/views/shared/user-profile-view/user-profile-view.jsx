@@ -104,11 +104,7 @@ export const UserProfileView = observer(() => {
         }}
       >
         <UserInfoEditForm
-          resetProfileDataValidation={viewModel.resetProfileDataValidation}
           user={viewModel.userInfo}
-          clearError={viewModel.clearError}
-          wrongPassword={viewModel.wrongPassword}
-          checkValidationNameOrEmail={viewModel.checkValidationNameOrEmail}
           activeSessions={viewModel.activeSessions}
           userInfoEditFormFlag={viewModel.userInfoEditFormFlag}
           onToggleUserInfoEditFormFlag={viewModel.onToggleUserInfoEditFormFlag}

@@ -1,14 +1,18 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
+import { ProductStatusByCode, colorByProductStatus, productStatusTranslateKey } from '@constants/product/product-status'
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  DownloadAndCopyBtnsCell,
+  FeesValuesWithCalculateBtnCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OpenInNewTabCell,
   ProductAsinCell,
+  SupplierCell,
   UserLinkCell,
 } from '@components/data-grid/data-grid-cells'
 
@@ -23,12 +27,12 @@ interface IRowHandlers {
   onClickOpenInNewTab: (id: string) => void
 }
 
-export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
+export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
   const columns: IGridColumn[] = [
     {
       field: 'action',
       headerName: t(TranslationKey.Action),
-      renderHeader: () => <MultilineTextHeaderCell text={''} />,
+      renderHeader: () => null,
 
       renderCell: params => (
         <OpenInNewTabCell onClickOpenInNewTab={() => rowHandlers.onClickOpenInNewTab(params.row._id)} />
@@ -64,6 +68,28 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
     },
 
     {
+      field: 'status',
+      headerName: t(TranslationKey.Status),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+
+      renderCell: params => (
+        <MultilineTextCell
+          color={colorByProductStatus(ProductStatusByCode[params.value as keyof typeof ProductStatusByCode])}
+          // @ts-ignore
+          text={t(productStatusTranslateKey(ProductStatusByCode[params.value]))}
+        />
+      ),
+
+      transformValueMethod: status =>
+        // @ts-ignore
+        t(productStatusTranslateKey(ProductStatusByCode[status])),
+
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+      disableCustomSort: true,
+      width: 150,
+    },
+
+    {
       field: 'strategyStatus',
       headerName: t(TranslationKey.Strategy),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
@@ -71,12 +97,10 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => (
         <MultilineTextCell
           text={humanFriendlyStategyStatus(
-            productStrategyStatusesEnum[params.value as keyof typeof productStrategyStatusesEnum],
+            productStrategyStatusesEnum[params?.value as keyof typeof productStrategyStatusesEnum],
           )}
         />
       ),
-
-      width: 250,
 
       transformValueMethod: status =>
         humanFriendlyStategyStatus(
@@ -84,6 +108,26 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
         ) as string,
 
       columnKey: columnnsKeys.shared.STRING_VALUE,
+
+      width: 150,
+      disableCustomSort: true,
+    },
+
+    {
+      field: 'fees-net',
+      headerName: t(TranslationKey['Fees & Net']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Fees & Net'])} />,
+
+      renderCell: params => (
+        <FeesValuesWithCalculateBtnCell
+          noCalculate
+          fbafee={params.row?.fbafee}
+          reffee={params.row?.reffee}
+          productId={params.row?._id}
+        />
+      ),
+      width: 100,
+      filterable: false,
       disableCustomSort: true,
     },
 
@@ -93,10 +137,33 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
 
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-      width: 150,
       type: 'number',
-
+      width: 100,
       columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
+      field: 'barCode',
+      headerName: t(TranslationKey.BarCode),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+
+      width: 150,
+      renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
+
+      disableCustomSort: true,
+      filterable: false,
+    },
+
+    {
+      field: 'client',
+      headerName: t(TranslationKey.Client),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
+
+      renderCell: params => <UserLinkCell blackText name={params?.value?.name} userId={params?.value?._id} />,
+      width: 150,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      disableCustomSort: true,
     },
 
     {
@@ -104,20 +171,19 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value._id} />,
-      width: 200,
-
+      renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
+      width: 150,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      disableCustomSort: true,
     },
+
     {
       field: 'checkedBy',
       headerName: t(TranslationKey.Supervisor),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
-      renderCell: params => (
-        <UserLinkCell blackText name={params.row.checkedBy?.name} userId={params.row.checkedBy?._id} />
-      ),
-      width: 200,
+      renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
+      width: 150,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
@@ -129,22 +195,22 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
       renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
-      width: 200,
+      width: 150,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
 
     {
-      field: 'checkednotes',
-      headerName: t(TranslationKey['Supervisor comment']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Supervisor comment'])} />,
+      field: 'currentSupplier',
+      headerName: t(TranslationKey.Supplier),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
 
-      renderCell: params => <MultilineTextCell leftAlign threeLines maxLength={140} text={params.value} />,
-      width: 200,
+      renderCell: params => <SupplierCell supplierName={params.value?.name} supplierLink={params.value?.link} />,
+      width: 150,
+
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
-
-      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -155,9 +221,9 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       width: 150,
       type: 'number',
-
       columnKey: columnnsKeys.shared.NUMBER,
     },
+
     {
       field: 'margin',
       headerName: t(TranslationKey.Margin),
@@ -166,9 +232,9 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       width: 150,
       type: 'number',
-
       columnKey: columnnsKeys.shared.NUMBER,
     },
+
     {
       field: 'bsr',
       headerName: t(TranslationKey.BSR),
@@ -177,9 +243,9 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => <MultilineTextCell text={params.value} />,
       width: 150,
       type: 'number',
-
       columnKey: columnnsKeys.shared.NUMBER,
     },
+
     {
       field: 'fbafee',
       headerName: t(TranslationKey['FBA fee , $']),
@@ -188,9 +254,9 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
       width: 150,
       type: 'number',
-
       columnKey: columnnsKeys.shared.NUMBER,
     },
+
     {
       field: 'fbaamount',
       headerName: t(TranslationKey['FBA Amount']),
@@ -199,8 +265,18 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => <MultilineTextCell text={params.value} />,
       width: 150,
       type: 'number',
-
       columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 120,
+
+      columnKey: columnnsKeys.shared.DATE,
     },
 
     {
@@ -213,23 +289,13 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       columnKey: columnnsKeys.shared.DATE,
     },
-
-    {
-      field: 'createdAt',
-      headerName: t(TranslationKey.Created),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-      renderCell: params => <NormDateCell value={params?.value} />,
-      width: 120,
-
-      columnKey: columnnsKeys.shared.DATE,
-    },
   ]
 
   for (const column of columns) {
     if (!column.table) {
       column.table = DataGridFilterTables.PRODUCTS
     }
+
     column.sortable = false
   }
 

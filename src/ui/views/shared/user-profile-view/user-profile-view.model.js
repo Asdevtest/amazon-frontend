@@ -29,10 +29,7 @@ export class ProfileViewModel {
   showTabModal = false
   showConfirmWorkResultFormModal = false
 
-  checkValidationNameOrEmail = undefined
   productsVacant = []
-  isUniqueProfileData = true
-  wrongPassword = undefined
   tabHistory = 0
   selectedUser = undefined
   reviews = []
@@ -150,33 +147,21 @@ export class ProfileViewModel {
 
   async onSubmitUserInfoEdit(data) {
     try {
-      if (data) {
-        const { name, email, oldPassword, newPassword } = data
+      const { name, email, oldPassword, password } = data
 
-        if (name || email) {
-          await this.changeUserNameOrEmail(data)
-        }
-
-        if (oldPassword && newPassword) {
-          await this.changeUserPassword(data)
-        }
-
-        if (!this.wrongPassword && this.isUniqueProfileData) {
-          this.onTriggerOpenModal('showUserInfoModal')
-
-          toast.success(t(TranslationKey['Data was successfully saved']))
-        }
-      } else {
-        return
+      if (name || email) {
+        await this.changeUserNameOrEmail(data)
       }
+
+      if (oldPassword && password) {
+        await this.changeUserPassword(data)
+      }
+
+      this.onTriggerOpenModal('showUserInfoModal')
+
+      toast.success(t(TranslationKey['Data was successfully saved']))
     } catch (error) {
       console.error(error)
-    }
-  }
-
-  clearError() {
-    if (this.wrongPassword) {
-      this.wrongPassword = undefined
     }
   }
 
@@ -189,37 +174,15 @@ export class ProfileViewModel {
 
       await UserModel.getUserInfo()
     } catch (error) {
-      runInAction(() => {
-        if (error.body && error.body.message === 'Wrong password') {
-          this.wrongPassword = error.body.message
-        }
-      })
+      console.error(error)
     }
   }
 
   async changeUserNameOrEmail(data) {
     try {
-      this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
-        name: data.name,
-        email: data.email,
-      })
+      await UserModel.changeUserInfo({ name: data.name, email: data.email })
 
-      if (
-        this.checkValidationNameOrEmail.nameIsUnique === false ||
-        this.checkValidationNameOrEmail.emailIsUnique === false
-      ) {
-        runInAction(() => {
-          this.isUniqueProfileData = false
-        })
-      } else {
-        await UserModel.changeUserInfo({ name: data.name, email: data.email })
-
-        await UserModel.getUserInfo()
-
-        runInAction(() => {
-          this.isUniqueProfileData = true
-        })
-      }
+      await UserModel.getUserInfo()
     } catch (error) {
       console.error(error)
     }
@@ -253,10 +216,6 @@ export class ProfileViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  resetProfileDataValidation() {
-    this.checkValidationNameOrEmail = undefined
   }
 
   async getReviews() {

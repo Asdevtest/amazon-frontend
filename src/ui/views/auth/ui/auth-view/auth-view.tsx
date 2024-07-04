@@ -8,6 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { AuthForm } from '@components/forms/auth-form'
 import { CustomButton } from '@components/shared/custom-button'
 import { LanguageSelector } from '@components/shared/language-selector/language-selector'
 
@@ -18,9 +19,8 @@ import { HistoryType } from '@typings/types/history'
 
 import { useStyles } from './auth-view.style'
 
-import { AuthViewModel } from './auth-view.model'
-import { AuthForm } from './ui/auth-form'
-import { Banner } from './ui/banner'
+import { AuthViewModel } from '../../model/auth-view.model'
+import { Banner } from '../banner/banner'
 
 interface AuthViewProps {
   history: HistoryType
@@ -50,7 +50,12 @@ export const AuthView: FC<AuthViewProps> = observer(({ history, auth }) => {
             </div>
           </div>
 
-          <AuthForm auth={auth} onSubmit={viewModel.onSubmitForm} onRedirect={viewModel.onRedirect} />
+          <AuthForm
+            auth={auth}
+            loading={viewModel.loading}
+            onSubmit={viewModel.onSubmitForm}
+            onRedirect={viewModel.onRedirect}
+          />
         </div>
 
         <div className={styles.versionContainer}>

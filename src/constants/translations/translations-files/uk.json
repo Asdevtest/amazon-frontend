@@ -166,7 +166,7 @@
   "Without the group": "Без групи",
   "The avatar has been uploaded. The update will take place within a few minutes.": "Аватар завантажено. Оновлення відбудеться протягом декількох хвилин.",
   "Roles": "Ролі",
-  "Enter information": "Введіть дані",
+  "Change user details": "Змінити дані користувача",
   "Invalid email!": "Пошта недійсна!",
   "Load": "Завантажити",
   "Allowed image formats": "Допустимі формати зображень",
@@ -1940,5 +1940,11 @@
   "User with such email already exists.": "Користувач з такою електронною поштою вже існує.",
   "The supplier's price does not fit": "Ціна постачальника не підходить",
   "Account replenishment": "Поповнення рахунку",
-  "Write-off": "Списання коштів"
+  "Write-off": "Списання коштів",
+  "Supervisor's comment": "Коментар супервайзера",
+  "Document added": "Документ додано",
+  "Add payment document": "Додати платіжний документ",
+  "Doesn't fit": "Не підходить",
+  "The new password that you entered matches the current password!": "Новий пароль, який ви ввели, співпадає з поточним паролем!",
+  "Favorites": "Вибране"
 }

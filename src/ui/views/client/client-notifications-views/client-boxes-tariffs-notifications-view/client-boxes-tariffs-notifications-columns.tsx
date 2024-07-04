@@ -137,6 +137,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
+      hideEmptyObject: true,
     },
 
     {

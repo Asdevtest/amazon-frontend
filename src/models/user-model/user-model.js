@@ -82,16 +82,6 @@ class UserModelStatic {
     })
   }
 
-  async isCheckUniqueUser({ name, email }) {
-    const response = await restApiService.userApi.apiV1UsersCheckIsUniqueNameOrEmailPost({
-      body: {
-        name,
-        email,
-      },
-    })
-    return response.data
-  }
-
   async changeUserPassword({ oldPassword, newPassword }) {
     const response = await restApiService.userApi.apiV1UsersChangePasswordPatch({
       body: {

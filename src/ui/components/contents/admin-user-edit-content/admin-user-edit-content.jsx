@@ -42,9 +42,7 @@ export const AdminUserEditContent = observer(
     onClickCancelBtn,
     groupPermissions,
     singlePermissions,
-    checkValidationNameOrEmail,
     changeFields,
-    wrongPassword,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -325,19 +323,12 @@ export const AdminUserEditContent = observer(
               <Field
                 inputProps={{ maxLength: 50 }}
                 label={t(TranslationKey.Name)}
-                error={
-                  checkValidationNameOrEmail?.nameIsUnique === false && 'Пользователь с таким именем уже существует'
-                }
                 value={formFields.name}
                 onChange={onChangeFormField('name')}
               />
               <Field
                 inputProps={{ maxLength: 50 }}
                 label={t(TranslationKey.Email)}
-                error={
-                  (checkValidationNameOrEmail.emailIsUnique === false && 'Пользователь с таким email уже существует') ||
-                  (!emailIsValid && t(TranslationKey['Invalid email!']))
-                }
                 value={formFields.email}
                 type="email"
                 onChange={onChangeFormField('email')}
@@ -349,7 +340,6 @@ export const AdminUserEditContent = observer(
                 disabled
                 inputProps={{ maxLength: 128 }}
                 labelClasses={styles.labelField}
-                error={wrongPassword && t(TranslationKey['Old password'])}
                 inputClasses={styles.input}
                 label={t(TranslationKey['Old password'])}
                 placeholder={t(TranslationKey['Old password'])}

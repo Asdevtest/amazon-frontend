@@ -54,6 +54,8 @@ export const DataGridTablesKeys = {
   SUPERVISOR_PRODUCTS: 'supervisorProductsDataGridState',
   SUPERVISOR_SUB_USERS: 'supervisorSubUsersDataGridState',
   SUPERVISOR_SETTINGS: 'supervisorSettingsDataGridState',
+  SUPERVISOR_CHECK_CLIENT: 'supervisorCheckClient',
+  SUPERVISOR_CHECK_RESEATCHER: 'supervisorCheckResearcher',
 
   BUYER_PRODUCTS: 'buyerProductsDataGridState',
   BUYER_MY_ORDERS_: 'buyerMyOrdersDataGridState',
@@ -78,6 +80,7 @@ export const DataGridTablesKeys = {
   CLIENT_PENDING_ORDERS: 'clientPendingOrdersDataGridState',
   CLIENT_ORDERS_NOTIFICATIONS: 'clientOrdersNotificationsDataGridState',
   CLIENT_BOXES_NOTIFICATIONS: 'clientBoxesNotificationsDataGridState',
+  CLIENT_BOXES_TARIFF_NOTIFICATIONS: 'clientBoxesTariffsNotificationsDataGridState',
   CLIENT_IDEAS_NOTIFICATIONS: 'clientIdeasNotificationsDataGridState',
   CLIENT_FREELANCE_NOTIFICATIONS: 'clientFreelanceNotificationsDataGridState',
 

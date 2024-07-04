@@ -166,7 +166,7 @@
   "Without the group": "没有群",
   "The avatar has been uploaded. The update will take place within a few minutes.": "头像上传成功. 要几分钟更新的",
   "Roles": "角色",
-  "Enter information": "输入信息",
+  "Change user details": "更改用户详细信息",
   "Invalid email!": "电子邮件验证失败!",
   "Load": "上载",
   "Allowed image formats": "支持的图片格式",
@@ -1933,5 +1933,11 @@
   "User with such email already exists.": "已存在使用此电子邮件的用户.",
   "The supplier's price does not fit": "供应商的价格不适合",
   "Account replenishment": "账户补充",
-  "Write-off": "销账"
+  "Write-off": "销账",
+  "Supervisor's comment": "主管的评论",
+  "Document added": "文件已添加",
+  "Add payment document": "添加支付文件",
+  "Doesn't fit": "不合适",
+  "The new password that you entered matches the current password!": "您输入的新密码与当前密码相同!",
+  "Favorites": "收藏"
 }
