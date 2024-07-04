@@ -8,6 +8,7 @@ export const useCategoryRootViewStyles = makeStyles()(() => ({
   },
 
   btnsWrapper: {
+    width: 300,
     display: 'flex',
     gap: 20,
     flexDirection: 'column',

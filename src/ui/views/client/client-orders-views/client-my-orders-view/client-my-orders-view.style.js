@@ -8,6 +8,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   btnsWrapper: {
+    width: 300,
     display: 'flex',
     gap: 20,
     flexDirection: 'column',
