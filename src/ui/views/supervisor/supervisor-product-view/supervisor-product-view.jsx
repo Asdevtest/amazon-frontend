@@ -27,7 +27,7 @@ export const SupervisorProductView = observer(({ history }) => {
           navigateToProduct={viewModel.navigateToProduct}
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
           actionStatus={viewModel.requestStatus}
-          handleProductActionButtons={viewModel.onProductActionButtons}
+          handleProductActionButtons={viewModel.handleProductActionButtons}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onClickSetProductStatusBtn={viewModel.onClickSetProductStatusBtn}
           onChangeField={viewModel.onChangeProductFields}
