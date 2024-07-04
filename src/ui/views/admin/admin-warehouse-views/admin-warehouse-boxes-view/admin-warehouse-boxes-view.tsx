@@ -1,5 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
+import { GridRowParams } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,6 +13,7 @@ import { SearchInput } from '@components/shared/search-input'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IBox } from '@typings/models/boxes/box'
 
 import { useStyles } from './admin-warehouse-boxes-view.style'
 
@@ -21,53 +24,55 @@ export const AdminWarehouseBoxesView = observer(() => {
 
   const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel())
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   return (
-    <>
-      <div className={styles.header}>
-        <SearchInput
-          inputClasses={styles.searchInput}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-          onSubmit={viewModel.onSearchSubmit}
-        />
-      </div>
+    <div className={styles.container}>
+      <SearchInput
+        inputClasses={styles.searchInput}
+        placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+        onSubmit={viewModel.onSearchSubmit}
+      />
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
+          rowCount={viewModel.rowCount}
           sortModel={viewModel.sortModel}
           filterModel={viewModel.filterModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           paginationModel={viewModel.paginationModel}
-          rowCount={viewModel.rowCount}
+          pinnedColumns={viewModel.pinnedColumns}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
+          density={viewModel.densityModel}
+          columns={viewModel.columnsModel}
+          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
+          getRowId={({ _id }: IBox) => _id}
           slotProps={{
-            baseTooltip: {
-              title: t(TranslationKey.Filter),
-            },
             columnMenu: viewModel.columnMenuSettings,
             toolbar: {
               resetFiltersBtnSettings: {
                 onClickResetFilters: viewModel.onClickResetFilters,
                 isSomeFilterOn: viewModel.isSomeFilterOn,
               },
+
               columsBtnSettings: {
                 columnsModel: viewModel.columnsModel,
                 columnVisibilityModel: viewModel.columnVisibilityModel,
                 onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
               },
+
+              sortSettings: {
+                sortModel: viewModel.sortModel,
+                columnsModel: viewModel.columnsModel,
+                onSortModelChange: viewModel.onChangeSortingModel,
+              },
             },
           }}
-          columns={viewModel.columnsModel}
-          loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
           onSortModelChange={viewModel.onChangeSortingModel}
           onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
           onPaginationModelChange={viewModel.onPaginationModelChange}
           onFilterModelChange={viewModel.onChangeFilterModel}
-          onRowDoubleClick={e => viewModel.setCurrentOpenedBox(e.row.originalData)}
+          onRowDoubleClick={(params: GridRowParams) => viewModel.setCurrentOpenedBox(params.row)}
+          onPinnedColumnsChange={viewModel.handlePinColumn}
         />
       </div>
 
@@ -75,8 +80,9 @@ export const AdminWarehouseBoxesView = observer(() => {
         openModal={viewModel.showBoxViewModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')}
       >
+        {/* @ts-ignore */}
         <BoxForm box={viewModel.curBox} onToggleModal={() => viewModel.onTriggerOpenModal('showBoxViewModal')} />
       </Modal>
-    </>
+    </div>
   )
 })
