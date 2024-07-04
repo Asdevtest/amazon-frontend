@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 import { InlineResponse2004AllowedUrls } from './inline-response2004-allowed-urls';
 
 /**
@@ -57,6 +58,12 @@ export interface PermissionGroupGetDtoSchemaPermissions {
      * @memberof PermissionGroupGetDtoSchemaPermissions
      */
     role: number;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusCreatedBy>}
+     * @memberof PermissionGroupGetDtoSchemaPermissions
+     */
+    users?: Array<ApiV1AdminsGetProductsByStatusCreatedBy>;
     /**
      * Для фронта, чтобы хранить иерархию.
      * @type {number}

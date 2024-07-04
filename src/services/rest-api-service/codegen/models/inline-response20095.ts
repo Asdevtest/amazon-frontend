@@ -13,45 +13,73 @@
  */
 
 
-import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
-import { ApiV1StorekeepersTariffWarehouses } from './api-v1-storekeepers-tariff-warehouses';
 
 /**
- * 
+ * Схема магазина.
  * @export
  * @interface InlineResponse20095
  */
 export interface InlineResponse20095 {
     /**
-     * GUID сторкипера в DB
+     * ID магазина.
      * @type {string}
      * @memberof InlineResponse20095
      */
-    _id: string;
+    _id?: string;
     /**
-     * Имя сторкипера.
+     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
      * @type {string}
      * @memberof InlineResponse20095
      */
     name?: string;
     /**
-     * Тарифы логистики для сторкипера.
-     * @type {Array<ApiV1AdminsOrdersLogicsTariff>}
+     * URL для скачивания ежедневных отчетов SellerBoard.
+     * @type {string}
      * @memberof InlineResponse20095
      */
-    tariffLogistics?: Array<ApiV1AdminsOrdersLogicsTariff>;
+    sellerBoardWarehouseReportUrlDaily?: string;
     /**
-     * Тарифы складов для сторкипера.
-     * @type {Array<ApiV1StorekeepersTariffWarehouses>}
+     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * @type {string}
      * @memberof InlineResponse20095
      */
-    tariffWarehouses?: Array<ApiV1StorekeepersTariffWarehouses>;
+    sellerBoardWarehouseReportUrlMonthly?: string;
     /**
-     * Количество коробок в сторкепере.
-     * @type {number}
+     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * @type {string}
      * @memberof InlineResponse20095
      */
-    boxesCount?: number;
+    reportAccountUrl?: string;
+    /**
+     * GUID, владелеца.
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    ownerId?: string;
+    /**
+     * GUID любого, кто последний создал.
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    createdById?: string;
+    /**
+     * GUID любого, кто последний редактировал.
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    lastModifiedById?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse20095
+     */
+    updatedAt?: string;
 }
 
 

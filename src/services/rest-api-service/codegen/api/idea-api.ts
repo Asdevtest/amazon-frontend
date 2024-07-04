@@ -33,13 +33,13 @@ import { InlineObject79 } from '../models';
 // @ts-ignore
 import { InlineObject80 } from '../models';
 // @ts-ignore
-import { InlineResponse20060 } from '../models';
-// @ts-ignore
-import { InlineResponse20061 } from '../models';
-// @ts-ignore
-import { InlineResponse20061Rows } from '../models';
-// @ts-ignore
 import { InlineResponse20062 } from '../models';
+// @ts-ignore
+import { InlineResponse20063 } from '../models';
+// @ts-ignore
+import { InlineResponse20063Rows } from '../models';
+// @ts-ignore
+import { InlineResponse20064 } from '../models';
 // @ts-ignore
 import { InlineResponse2015 } from '../models';
 // @ts-ignore
@@ -970,7 +970,7 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasByParentGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20060>>> {
+        async apiV1IdeasByParentGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20062>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasByParentGuidGet(guid, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1021,7 +1021,7 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasGuidGet(guid: string, withRequests?: boolean, withOrder?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20061Rows>> {
+        async apiV1IdeasGuidGet(guid: string, withRequests?: boolean, withOrder?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20063Rows>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasGuidGet(guid, withRequests, withOrder, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1047,7 +1047,7 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasNotificationsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20062>>> {
+        async apiV1IdeasNotificationsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20064>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasNotificationsGet(archive, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1078,7 +1078,7 @@ export const IdeaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1IdeasPagMyGet(filters?: string, withRequests?: boolean, withOrder?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC' | 'DESC NULLS LAST', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20061>> {
+        async apiV1IdeasPagMyGet(filters?: string, withRequests?: boolean, withOrder?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC' | 'DESC NULLS LAST', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20063>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1IdeasPagMyGet(filters, withRequests, withOrder, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1222,7 +1222,7 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasByParentGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20060>> {
+        apiV1IdeasByParentGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20062>> {
             return localVarFp.apiV1IdeasByParentGuidGet(guid, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1269,7 +1269,7 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasGuidGet(guid: string, withRequests?: boolean, withOrder?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20061Rows> {
+        apiV1IdeasGuidGet(guid: string, withRequests?: boolean, withOrder?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20063Rows> {
             return localVarFp.apiV1IdeasGuidGet(guid, withRequests, withOrder, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1293,7 +1293,7 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasNotificationsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20062>> {
+        apiV1IdeasNotificationsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20064>> {
             return localVarFp.apiV1IdeasNotificationsGet(archive, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1322,7 +1322,7 @@ export const IdeaApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1IdeasPagMyGet(filters?: string, withRequests?: boolean, withOrder?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC' | 'DESC NULLS LAST', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20061> {
+        apiV1IdeasPagMyGet(filters?: string, withRequests?: boolean, withOrder?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC' | 'DESC NULLS LAST', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20063> {
             return localVarFp.apiV1IdeasPagMyGet(filters, withRequests, withOrder, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

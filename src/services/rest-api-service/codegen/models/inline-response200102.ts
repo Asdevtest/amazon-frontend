@@ -21,7 +21,7 @@
  */
 export interface InlineResponse200102 {
     /**
-     * 
+     * GUID метода оплаты в базе данных
      * @type {string}
      * @memberof InlineResponse200102
      */
@@ -34,16 +34,22 @@ export interface InlineResponse200102 {
     title?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof InlineResponse200102
      */
-    type?: number;
+    iconImage?: string;
     /**
-     * 
-     * @type {boolean}
+     * Дата создания
+     * @type {string}
      * @memberof InlineResponse200102
      */
-    archive?: boolean;
+    createdAt?: string;
+    /**
+     * Дата обновления.
+     * @type {string}
+     * @memberof InlineResponse200102
+     */
+    updatedAt?: string;
 }
 
 

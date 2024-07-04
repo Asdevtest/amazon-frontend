@@ -21,53 +21,17 @@
  */
 export interface InlineResponse200107 {
     /**
-     * GUID пользователя.
+     * userAgent с которым был получен токен
      * @type {string}
      * @memberof InlineResponse200107
      */
-    _id?: string;
+    device: string;
     /**
-     * Имя пользователя.
+     * 
      * @type {string}
      * @memberof InlineResponse200107
      */
-    name?: string;
-    /**
-     * Рейтинг пользователя.
-     * @type {number}
-     * @memberof InlineResponse200107
-     */
-    rating?: number;
-    /**
-     * Количество положительных отзыв
-     * @type {number}
-     * @memberof InlineResponse200107
-     */
-    numberOfPositiveFeedbacks?: number;
-    /**
-     * Количество негативных отзыв
-     * @type {number}
-     * @memberof InlineResponse200107
-     */
-    numberOfNegativeFeedbacks?: number;
-    /**
-     * Страна
-     * @type {string}
-     * @memberof InlineResponse200107
-     */
-    country?: string;
-    /**
-     * Пользователь онлайн
-     * @type {boolean}
-     * @memberof InlineResponse200107
-     */
-    isOnline?: boolean;
-    /**
-     * Количество общих сделок
-     * @type {number}
-     * @memberof InlineResponse200107
-     */
-    countsOfDeals?: number;
+    createdAt: string;
 }
 
 

@@ -13,6 +13,8 @@
  */
 
 
+import { ApiV1ProductsKeepaOffers } from './api-v1-products-keepa-offers';
+import { ApiV1ProductsKeepaStats } from './api-v1-products-keepa-stats';
 
 /**
  * 
@@ -21,53 +23,137 @@
  */
 export interface InlineResponse20083 {
     /**
-     * Цена за каждое предложение.
-     * @type {number}
+     * 
+     * @type {boolean}
      * @memberof InlineResponse20083
      */
-    price?: number;
+    isRecommended?: boolean;
     /**
-     * Процент с каждого предложения, маржа платформы, в процентах.
+     * 
      * @type {number}
      * @memberof InlineResponse20083
      */
-    requestPlatformMarginInPercent?: number;
+    trackingSince?: number;
     /**
-     * Услуги платформы.
+     * 
      * @type {number}
      * @memberof InlineResponse20083
      */
-    platformMargin?: number;
+    lastRatingUpdate?: number;
     /**
-     * Процент с каждого предложения для супервайзера, в процентах.
+     * 
      * @type {number}
      * @memberof InlineResponse20083
      */
-    requestSupervisorFeeInPercent?: number;
+    rootCategory?: number;
     /**
-     * Услуги супервайзера.
-     * @type {number}
+     * 
+     * @type {Array<number>}
      * @memberof InlineResponse20083
      */
-    supervisorFee?: number;
+    categories?: Array<number>;
     /**
-     * Сумма.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse20083
      */
-    unitCost?: number;
+    parentAsin?: string;
     /**
-     * Количество предложений, не менее.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse20083
      */
-    maxAmountOfProposals?: number;
+    variationCSV?: string;
     /**
-     * Итого.
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20083
+     */
+    frequentlyBoughtTogether?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    manufacturer?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    brand?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    productGroup?: string;
+    /**
+     * 
      * @type {number}
      * @memberof InlineResponse20083
      */
-    totalCost?: number;
+    publicationDate?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20083
+     */
+    releaseDate?: number;
+    /**
+     * 
+     * @type {Array<Array<number>>}
+     * @memberof InlineResponse20083
+     */
+    contributors?: Array<Array<number>>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20083
+     */
+    size?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof InlineResponse20083
+     */
+    salesRanks?: object;
+    /**
+     * 
+     * @type {Array<ApiV1ProductsKeepaOffers>}
+     * @memberof InlineResponse20083
+     */
+    offers?: Array<ApiV1ProductsKeepaOffers>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof InlineResponse20083
+     */
+    liveOffersOrder?: Array<number>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof InlineResponse20083
+     */
+    buyBoxSellerIdHistory?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20083
+     */
+    availabilityAmazon?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse20083
+     */
+    newPriceIsMAP?: boolean;
+    /**
+     * 
+     * @type {ApiV1ProductsKeepaStats}
+     * @memberof InlineResponse20083
+     */
+    stats?: ApiV1ProductsKeepaStats;
 }
 
 

@@ -13,9 +13,7 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { InlineResponse200105ListingLaunches } from './inline-response200105-listing-launches';
-import { InlineResponse200105Product } from './inline-response200105-product';
+import { InlineResponse200105Shop } from './inline-response200105-shop';
 
 /**
  * 
@@ -24,65 +22,62 @@ import { InlineResponse200105Product } from './inline-response200105-product';
  */
 export interface InlineResponse200105Rows {
     /**
-     * GUID в базе данных
+     * GUID нотификации в базе данных
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * JSON нотификации
+     * @type {object}
      * @memberof InlineResponse200105Rows
      */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    data?: object;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200105Rows
-     */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * 
-     * @type {InlineResponse200105Product}
-     * @memberof InlineResponse200105Rows
-     */
-    product?: InlineResponse200105Product;
-    /**
-     * Is Actual report
-     * @type {boolean}
-     * @memberof InlineResponse200105Rows
-     */
-    isActive?: boolean;
-    /**
-     * New product price
-     * @type {number}
-     * @memberof InlineResponse200105Rows
-     */
-    newProductPrice?: number;
-    /**
-     * Description of product_listing_report
+     * Тип нотификации
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
-    description?: string;
+    type?: InlineResponse200105RowsTypeEnum;
     /**
      * 
-     * @type {Array<InlineResponse200105ListingLaunches>}
+     * @type {InlineResponse200105Shop}
      * @memberof InlineResponse200105Rows
      */
-    listingLaunches?: Array<InlineResponse200105ListingLaunches>;
+    shop?: InlineResponse200105Shop;
     /**
-     * 
+     * Заархивирована ли нотификация
+     * @type {boolean}
+     * @memberof InlineResponse200105Rows
+     */
+    archive?: boolean;
+    /**
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
     createdAt?: string;
     /**
-     * 
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse200105Rows
      */
     updatedAt?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse200105RowsTypeEnum {
+    Box = 'box',
+    Order = 'order',
+    Product = 'product',
+    Idea = 'idea',
+    Request = 'request',
+    Shop = 'shop',
+    Launch = 'launch'
+}
+
 
 

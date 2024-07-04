@@ -21,53 +21,53 @@
  */
 export interface InlineResponse20087 {
     /**
-     * GUID в базе данных
-     * @type {string}
+     * Цена за каждое предложение.
+     * @type {number}
      * @memberof InlineResponse20087
      */
-    _id?: string;
+    price?: number;
     /**
-     * Guid заявки к которой относится данное media.
-     * @type {string}
+     * Процент с каждого предложения, маржа платформы, в процентах.
+     * @type {number}
      * @memberof InlineResponse20087
      */
-    requestId?: string;
+    requestPlatformMarginInPercent?: number;
     /**
-     * Guid предложения к которой относится данное media.
-     * @type {string}
+     * Услуги платформы.
+     * @type {number}
      * @memberof InlineResponse20087
      */
-    proposalId?: string;
+    platformMargin?: number;
     /**
-     * комментарий клиента
-     * @type {string}
+     * Процент с каждого предложения для супервайзера, в процентах.
+     * @type {number}
      * @memberof InlineResponse20087
      */
-    commentByClient?: string;
+    requestSupervisorFeeInPercent?: number;
     /**
-     * комментарий исполнителя
-     * @type {string}
+     * Услуги супервайзера.
+     * @type {number}
      * @memberof InlineResponse20087
      */
-    commentByPerformer?: string;
+    supervisorFee?: number;
     /**
-     * Ссылка на файл
-     * @type {string}
+     * Сумма.
+     * @type {number}
      * @memberof InlineResponse20087
      */
-    fileLink?: string;
+    unitCost?: number;
     /**
-     * Дата создания.
-     * @type {string}
+     * Количество предложений, не менее.
+     * @type {number}
      * @memberof InlineResponse20087
      */
-    createdAt?: string;
+    maxAmountOfProposals?: number;
     /**
-     * Дата обновления.
-     * @type {string}
+     * Итого.
+     * @type {number}
      * @memberof InlineResponse20087
      */
-    updatedAt?: string;
+    totalCost?: number;
 }
 
 

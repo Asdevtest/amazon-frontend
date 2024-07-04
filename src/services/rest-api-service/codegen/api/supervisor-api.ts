@@ -31,9 +31,9 @@ import { InlineObject138 } from '../models';
 // @ts-ignore
 import { InlineResponse200 } from '../models';
 // @ts-ignore
-import { InlineResponse20031 } from '../models';
+import { InlineResponse200101 } from '../models';
 // @ts-ignore
-import { InlineResponse20097 } from '../models';
+import { InlineResponse20031 } from '../models';
 // @ts-ignore
 import { InternalServerError } from '../models';
 // @ts-ignore
@@ -398,7 +398,7 @@ export const SupervisorApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1SupervisorsProductsPagMyGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, filters?: string, statusGroup?: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20097>> {
+        async apiV1SupervisorsProductsPagMyGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, filters?: string, statusGroup?: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200101>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1SupervisorsProductsPagMyGet(limit, offset, sortField, sortType, noCache, filters, statusGroup, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -485,7 +485,7 @@ export const SupervisorApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1SupervisorsProductsPagMyGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, filters?: string, statusGroup?: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20097> {
+        apiV1SupervisorsProductsPagMyGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, filters?: string, statusGroup?: string, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200101> {
             return localVarFp.apiV1SupervisorsProductsPagMyGet(limit, offset, sortField, sortType, noCache, filters, statusGroup, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**

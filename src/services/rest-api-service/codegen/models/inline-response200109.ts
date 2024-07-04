@@ -13,34 +13,55 @@
  */
 
 
-import { ApiV1RequestProposalsCustomByRequestIdGuidDetails } from './api-v1-request-proposals-custom-by-request-id-guid-details';
-import { ApiV1RequestProposalsCustomByRequestIdGuidProposal } from './api-v1-request-proposals-custom-by-request-id-guid-proposal';
-import { ApiV1RequestProposalsCustomByRequestIdGuidRequest } from './api-v1-request-proposals-custom-by-request-id-guid-request';
 
 /**
- * Схема универсального предложения
+ * 
  * @export
  * @interface InlineResponse200109
  */
 export interface InlineResponse200109 {
     /**
-     * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidProposal}
+     * ID пресета.
+     * @type {string}
      * @memberof InlineResponse200109
      */
-    proposal?: ApiV1RequestProposalsCustomByRequestIdGuidProposal;
+    _id?: string;
+    /**
+     * Эндпоинт пресета
+     * @type {string}
+     * @memberof InlineResponse200109
+     */
+    endpoint?: string;
+    /**
+     * Состояние  preset-options.
+     * @type {boolean}
+     * @memberof InlineResponse200109
+     */
+    activeOption?: boolean;
     /**
      * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidDetails}
+     * @type {object}
      * @memberof InlineResponse200109
      */
-    details?: ApiV1RequestProposalsCustomByRequestIdGuidDetails;
+    options?: object;
     /**
-     * 
-     * @type {ApiV1RequestProposalsCustomByRequestIdGuidRequest}
+     * Title of preset
+     * @type {string}
      * @memberof InlineResponse200109
      */
-    request?: ApiV1RequestProposalsCustomByRequestIdGuidRequest;
+    title?: string;
+    /**
+     * Дата создания
+     * @type {string}
+     * @memberof InlineResponse200109
+     */
+    createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200109
+     */
+    updatedAt?: string;
 }
 
 

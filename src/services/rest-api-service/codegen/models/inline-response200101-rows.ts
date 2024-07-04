@@ -13,7 +13,9 @@
  */
 
 
-import { InlineResponse200101Shop } from './inline-response200101-shop';
+import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
+import { ApiV1AdminsGetProductsByStatusRedFlags } from './api-v1-admins-get-products-by-status-red-flags';
+import { ApiV1AdminsGetProductsByStatusTags } from './api-v1-admins-get-products-by-status-tags';
 
 /**
  * 
@@ -22,62 +24,107 @@ import { InlineResponse200101Shop } from './inline-response200101-shop';
  */
 export interface InlineResponse200101Rows {
     /**
-     * GUID нотификации в базе данных
+     * GUID продукта в базе данных
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
     _id?: string;
     /**
-     * JSON нотификации
-     * @type {object}
-     * @memberof InlineResponse200101Rows
-     */
-    data?: object;
-    /**
-     * Тип нотификации
+     * ASIN продукта
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
-    type?: InlineResponse200101RowsTypeEnum;
+    asin?: string;
     /**
-     * 
-     * @type {InlineResponse200101Shop}
+     * SKU введенным клиентом.
+     * @type {string}
      * @memberof InlineResponse200101Rows
      */
-    shop?: InlineResponse200101Shop;
+    skuByClient?: string;
     /**
-     * Заархивирована ли нотификация
+     * Есть ли товар в заказах
      * @type {boolean}
      * @memberof InlineResponse200101Rows
      */
-    archive?: boolean;
+    ordered?: boolean;
     /**
-     * Дата создания.
+     * 
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    bsr?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    amazon?: number;
+    /**
+     * ФБА комиссия
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    fbafee?: number;
+    /**
+     * Код текущего статуса
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    status?: number;
+    /**
+     * Массив картинок.
+     * @type {Array<string>}
+     * @memberof InlineResponse200101Rows
+     */
+    images?: Array<string>;
+    /**
+     * Заголовок на товар с сайта амазон.
+     * @type {string}
+     * @memberof InlineResponse200101Rows
+     */
+    amazonTitle?: string;
+    /**
+     * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+     * @type {number}
+     * @memberof InlineResponse200101Rows
+     */
+    strategyStatus?: number;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusRedFlags>}
+     * @memberof InlineResponse200101Rows
+     */
+    redFlags?: Array<ApiV1AdminsGetProductsByStatusRedFlags>;
+    /**
+     * 
+     * @type {Array<ApiV1AdminsGetProductsByStatusTags>}
+     * @memberof InlineResponse200101Rows
+     */
+    tags?: Array<ApiV1AdminsGetProductsByStatusTags>;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse200101Rows
+     */
+    buyer?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * 
+     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @memberof InlineResponse200101Rows
+     */
+    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
     createdAt?: string;
     /**
-     * Дата создания.
+     * Дата изменения
      * @type {string}
      * @memberof InlineResponse200101Rows
      */
     updatedAt?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse200101RowsTypeEnum {
-    Box = 'box',
-    Order = 'order',
-    Product = 'product',
-    Idea = 'idea',
-    Request = 'request',
-    Shop = 'shop',
-    Launch = 'launch'
-}
-
 
 

@@ -13,6 +13,9 @@
  */
 
 
+import { InlineResponse20039AllFiles } from './inline-response20039-all-files';
+import { InlineResponse20039AllImages } from './inline-response20039-all-images';
+import { InlineResponse20039AllVideo } from './inline-response20039-all-video';
 
 /**
  * 
@@ -21,29 +24,23 @@
  */
 export interface InlineResponse20039 {
     /**
-     * Гуид сообщения
-     * @type {string}
+     * 
+     * @type {Array<InlineResponse20039AllImages>}
      * @memberof InlineResponse20039
      */
-    _id?: string;
-    /**
-     * Гуид чата
-     * @type {string}
-     * @memberof InlineResponse20039
-     */
-    chatId?: string;
-    /**
-     * Смещение для пагинации
-     * @type {number}
-     * @memberof InlineResponse20039
-     */
-    offset?: number;
+    allImages?: Array<InlineResponse20039AllImages>;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<InlineResponse20039AllFiles>}
      * @memberof InlineResponse20039
      */
-    allMedia?: Array<string>;
+    allFiles?: Array<InlineResponse20039AllFiles>;
+    /**
+     * 
+     * @type {Array<InlineResponse20039AllVideo>}
+     * @memberof InlineResponse20039
+     */
+    allVideo?: Array<InlineResponse20039AllVideo>;
 }
 
 

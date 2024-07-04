@@ -16,19 +16,19 @@
 import { InlineResponse200101Rows } from './inline-response200101-rows';
 
 /**
- * Результат запроса с пагинацией
+ * 
  * @export
  * @interface InlineResponse200101
  */
 export interface InlineResponse200101 {
     /**
-     * Всего кол-во записей в результате запроса
+     * Общее кол-во записей
      * @type {number}
      * @memberof InlineResponse200101
      */
     count?: number;
     /**
-     * Массив коробок c пагинацией(заданная страничка).
+     * Массив товаров.
      * @type {Array<InlineResponse200101Rows>}
      * @memberof InlineResponse200101
      */

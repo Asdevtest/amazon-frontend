@@ -13,6 +13,7 @@
  */
 
 
+import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-notices-request';
 
 /**
  * 
@@ -21,17 +22,29 @@
  */
 export interface InlineResponse200103 {
     /**
-     * userAgent с которым был получен токен
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse200103
      */
-    device: string;
+    _id?: string;
+    /**
+     * Кол-во непрочитаных сообщений по заявке
+     * @type {number}
+     * @memberof InlineResponse200103
+     */
+    unreadMessages?: number;
+    /**
+     * Гуид чата
+     * @type {string}
+     * @memberof InlineResponse200103
+     */
+    chatId?: string;
     /**
      * 
-     * @type {string}
+     * @type {ApiV1UsersFreelanceNoticesRequest}
      * @memberof InlineResponse200103
      */
-    createdAt: string;
+    request?: ApiV1UsersFreelanceNoticesRequest;
 }
 
 

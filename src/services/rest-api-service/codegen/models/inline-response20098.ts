@@ -13,43 +13,26 @@
  */
 
 
+import { ApiV1BatchesBoxes } from './api-v1-batches-boxes';
 
 /**
- * 
+ * Результат запроса с пагинацией
  * @export
  * @interface InlineResponse20098
  */
 export interface InlineResponse20098 {
     /**
-     * GUID метода оплаты в базе данных
-     * @type {string}
+     * Всего кол-во записей в результате запроса
+     * @type {number}
      * @memberof InlineResponse20098
      */
-    _id?: string;
+    count?: number;
     /**
-     * 
-     * @type {string}
+     * Массив коробок c пагинацией(заданная страничка).
+     * @type {Array<ApiV1BatchesBoxes>}
      * @memberof InlineResponse20098
      */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20098
-     */
-    iconImage?: string;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20098
-     */
-    createdAt?: string;
-    /**
-     * Дата обновления.
-     * @type {string}
-     * @memberof InlineResponse20098
-     */
-    updatedAt?: string;
+    rows?: Array<ApiV1BatchesBoxes>;
 }
 
 

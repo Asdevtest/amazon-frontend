@@ -21,35 +21,29 @@
  */
 export interface InlineResponse200106 {
     /**
-     * Курс юаня к доллару.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse200106
      */
-    yuanToDollarRate?: number;
+    _id?: string;
     /**
-     * Коэффициент расчета объемного веса.
-     * @type {number}
+     * 
+     * @type {string}
      * @memberof InlineResponse200106
      */
-    volumeWeightCoefficient?: number;
+    title?: string;
     /**
-     * Минимальная стоимость предложения (может быть .01 для практического отсутствия)
+     * 
      * @type {number}
      * @memberof InlineResponse200106
      */
-    requestMinAmountPriceOfProposal?: number;
+    type?: number;
     /**
-     * Комиссия за оплату предложения
-     * @type {number}
+     * 
+     * @type {boolean}
      * @memberof InlineResponse200106
      */
-    requestPlatformMarginInPercent?: number;
-    /**
-     * Лимит на кол-во в ордере
-     * @type {number}
-     * @memberof InlineResponse200106
-     */
-    orderAmountLimit?: number;
+    archive?: boolean;
 }
 
 

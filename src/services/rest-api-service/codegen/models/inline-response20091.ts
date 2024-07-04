@@ -15,67 +15,55 @@
 
 
 /**
- * Схема магазина.
+ * 
  * @export
  * @interface InlineResponse20091
  */
 export interface InlineResponse20091 {
     /**
-     * ID магазина.
+     * GUID в базе данных
      * @type {string}
      * @memberof InlineResponse20091
      */
     _id?: string;
     /**
-     * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * Guid заявки к которой относится данное media.
      * @type {string}
      * @memberof InlineResponse20091
      */
-    name?: string;
+    requestId?: string;
     /**
-     * URL для скачивания ежедневных отчетов SellerBoard.
+     * Guid предложения к которой относится данное media.
      * @type {string}
      * @memberof InlineResponse20091
      */
-    sellerBoardWarehouseReportUrlDaily?: string;
+    proposalId?: string;
     /**
-     * URL для скачивания отчетов SellerBoard за последний месяц.
+     * комментарий клиента
      * @type {string}
      * @memberof InlineResponse20091
      */
-    sellerBoardWarehouseReportUrlMonthly?: string;
+    commentByClient?: string;
     /**
-     * uri полный путь до файла, для скачивания отчетов amazon_data
+     * комментарий исполнителя
      * @type {string}
      * @memberof InlineResponse20091
      */
-    reportAccountUrl?: string;
+    commentByPerformer?: string;
     /**
-     * GUID, владелеца.
+     * Ссылка на файл
      * @type {string}
      * @memberof InlineResponse20091
      */
-    ownerId?: string;
+    fileLink?: string;
     /**
-     * GUID любого, кто последний создал.
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    createdById?: string;
-    /**
-     * GUID любого, кто последний редактировал.
-     * @type {string}
-     * @memberof InlineResponse20091
-     */
-    lastModifiedById?: string;
-    /**
-     * Дата создания
+     * Дата создания.
      * @type {string}
      * @memberof InlineResponse20091
      */
     createdAt?: string;
     /**
-     * Дата изменения
+     * Дата обновления.
      * @type {string}
      * @memberof InlineResponse20091
      */

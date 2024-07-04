@@ -13,7 +13,8 @@
  */
 
 
-import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-notices-request';
+import { ApiV1AdminsOrdersLogicsTariff } from './api-v1-admins-orders-logics-tariff';
+import { ApiV1StorekeepersTariffWarehouses } from './api-v1-storekeepers-tariff-warehouses';
 
 /**
  * 
@@ -22,29 +23,35 @@ import { ApiV1UsersFreelanceNoticesRequest } from './api-v1-users-freelance-noti
  */
 export interface InlineResponse20099 {
     /**
-     * GUID в базе данных
+     * GUID сторкипера в DB
      * @type {string}
      * @memberof InlineResponse20099
      */
-    _id?: string;
+    _id: string;
     /**
-     * Кол-во непрочитаных сообщений по заявке
+     * Имя сторкипера.
+     * @type {string}
+     * @memberof InlineResponse20099
+     */
+    name?: string;
+    /**
+     * Тарифы логистики для сторкипера.
+     * @type {Array<ApiV1AdminsOrdersLogicsTariff>}
+     * @memberof InlineResponse20099
+     */
+    tariffLogistics?: Array<ApiV1AdminsOrdersLogicsTariff>;
+    /**
+     * Тарифы складов для сторкипера.
+     * @type {Array<ApiV1StorekeepersTariffWarehouses>}
+     * @memberof InlineResponse20099
+     */
+    tariffWarehouses?: Array<ApiV1StorekeepersTariffWarehouses>;
+    /**
+     * Количество коробок в сторкепере.
      * @type {number}
      * @memberof InlineResponse20099
      */
-    unreadMessages?: number;
-    /**
-     * Гуид чата
-     * @type {string}
-     * @memberof InlineResponse20099
-     */
-    chatId?: string;
-    /**
-     * 
-     * @type {ApiV1UsersFreelanceNoticesRequest}
-     * @memberof InlineResponse20099
-     */
-    request?: ApiV1UsersFreelanceNoticesRequest;
+    boxesCount?: number;
 }
 
 

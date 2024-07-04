@@ -13,27 +13,61 @@
  */
 
 
-import { InlineResponse200111Details } from './inline-response200111-details';
-import { InlineResponse20085Rows } from './inline-response20085-rows';
 
 /**
- * Схема детали на поиск ниш.
+ * 
  * @export
  * @interface InlineResponse200111
  */
 export interface InlineResponse200111 {
     /**
-     * 
-     * @type {InlineResponse20085Rows}
+     * GUID пользователя.
+     * @type {string}
      * @memberof InlineResponse200111
      */
-    request?: InlineResponse20085Rows;
+    _id?: string;
     /**
-     * 
-     * @type {InlineResponse200111Details}
+     * Имя пользователя.
+     * @type {string}
      * @memberof InlineResponse200111
      */
-    details?: InlineResponse200111Details;
+    name?: string;
+    /**
+     * Рейтинг пользователя.
+     * @type {number}
+     * @memberof InlineResponse200111
+     */
+    rating?: number;
+    /**
+     * Количество положительных отзыв
+     * @type {number}
+     * @memberof InlineResponse200111
+     */
+    numberOfPositiveFeedbacks?: number;
+    /**
+     * Количество негативных отзыв
+     * @type {number}
+     * @memberof InlineResponse200111
+     */
+    numberOfNegativeFeedbacks?: number;
+    /**
+     * Страна
+     * @type {string}
+     * @memberof InlineResponse200111
+     */
+    country?: string;
+    /**
+     * Пользователь онлайн
+     * @type {boolean}
+     * @memberof InlineResponse200111
+     */
+    isOnline?: boolean;
+    /**
+     * Количество общих сделок
+     * @type {number}
+     * @memberof InlineResponse200111
+     */
+    countsOfDeals?: number;
 }
 
 

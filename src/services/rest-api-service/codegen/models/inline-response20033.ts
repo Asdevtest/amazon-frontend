@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse2001 } from './inline-response2001';
 
 /**
  * 
@@ -21,23 +22,17 @@
  */
 export interface InlineResponse20033 {
     /**
-     * total price in yuan for these statuses
+     * Count of rows
      * @type {number}
      * @memberof InlineResponse20033
      */
-    totalPriceInYuan?: number;
+    count?: number;
     /**
-     * total price in USD for these statuses
-     * @type {number}
+     * Массив заказов.
+     * @type {Array<InlineResponse2001>}
      * @memberof InlineResponse20033
      */
-    totalPriceInUSD?: number;
-    /**
-     * Total partialPaymentAmountRmb
-     * @type {number}
-     * @memberof InlineResponse20033
-     */
-    partialPaymentAmountRmb?: number;
+    rows?: Array<InlineResponse2001>;
 }
 
 

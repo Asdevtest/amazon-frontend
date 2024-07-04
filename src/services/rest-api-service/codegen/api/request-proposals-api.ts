@@ -49,15 +49,15 @@ import { InlineObject110 } from '../models';
 // @ts-ignore
 import { InlineObject111 } from '../models';
 // @ts-ignore
-import { InlineObject156 } from '../models';
+import { InlineObject159 } from '../models';
 // @ts-ignore
-import { InlineResponse200109 } from '../models';
+import { InlineResponse200115 } from '../models';
 // @ts-ignore
-import { InlineResponse20080 } from '../models';
+import { InlineResponse20084 } from '../models';
 // @ts-ignore
-import { InlineResponse20081 } from '../models';
+import { InlineResponse20085 } from '../models';
 // @ts-ignore
-import { InlineResponse20082 } from '../models';
+import { InlineResponse20086 } from '../models';
 // @ts-ignore
 import { InlineResponse20111 } from '../models';
 // @ts-ignore
@@ -168,12 +168,12 @@ export const RequestProposalsApiAxiosParamCreator = function (configuration?: Co
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject156} [body] 
+         * @param {InlineObject159} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomGuidResultEditPatch: async (guid: string, body?: InlineObject156, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1RequestProposalsCustomGuidResultEditPatch: async (guid: string, body?: InlineObject159, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'guid' is not null or undefined
             assertParamExists('apiV1RequestProposalsCustomGuidResultEditPatch', 'guid', guid)
             const localVarPath = `/api/v1/request-proposals/custom/{guid}/result_edit`
@@ -1079,7 +1079,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200109>>> {
+        async apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200115>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsCustomByRequestIdGuidGet(guid, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1100,12 +1100,12 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject156} [body] 
+         * @param {InlineObject159} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject156, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject159, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsCustomGuidResultEditPatch(guid, body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1116,7 +1116,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20081>>> {
+        async apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20085>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1168,7 +1168,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsGet(type: 'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT', kind: 'VACANT' | 'LINKED_TO_ME' | 'ALL', noCache?: boolean, status?: Set<'CREATED' | 'OFFER_CONDITIONS_ACCEPTED' | 'READY_TO_VERIFY' | 'OFFER_CONDITIONS_REJECTED' | 'OFFER_CONDITIONS_CORRECTED' | 'VERIFYING_BY_SUPERVISOR' | 'TO_CORRECT' | 'CORRECTED' | 'CANCELED_BY_CREATOR_OF_REQUEST' | 'CANCELED_BY_SUPERVISOR' | 'CANCELED_BY_EXECUTOR' | 'ACCEPTED_BY_CLIENT' | 'ACCEPTED_BY_SUPERVISOR' | 'EXPIRED' | 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20080>>> {
+        async apiV1RequestProposalsGet(type: 'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT', kind: 'VACANT' | 'LINKED_TO_ME' | 'ALL', noCache?: boolean, status?: Set<'CREATED' | 'OFFER_CONDITIONS_ACCEPTED' | 'READY_TO_VERIFY' | 'OFFER_CONDITIONS_REJECTED' | 'OFFER_CONDITIONS_CORRECTED' | 'VERIFYING_BY_SUPERVISOR' | 'TO_CORRECT' | 'CORRECTED' | 'CANCELED_BY_CREATOR_OF_REQUEST' | 'CANCELED_BY_SUPERVISOR' | 'CANCELED_BY_EXECUTOR' | 'ACCEPTED_BY_CLIENT' | 'ACCEPTED_BY_SUPERVISOR' | 'EXPIRED' | 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'>, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20084>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsGet(type, kind, noCache, status, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1341,7 +1341,7 @@ export const RequestProposalsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1RequestProposalsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20082>> {
+        async apiV1RequestProposalsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20086>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1RequestProposalsPagMyGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1364,7 +1364,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200109>> {
+        apiV1RequestProposalsCustomByRequestIdGuidGet(guid: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200115>> {
             return localVarFp.apiV1RequestProposalsCustomByRequestIdGuidGet(guid, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1383,12 +1383,12 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * ## Редактировать результат работы   Проверки: Владелец предложения может редактировать.  Принимаются только статусы:  OFFER_CONDITIONS_ACCEPTED READY_TO_VERIFY VERIFYING_BY_SUPERVISOR TO_CORRECT CORRECTED
          * @summary #  Редактировать результат работы.
          * @param {string} guid GUID в БД
-         * @param {InlineObject156} [body] 
+         * @param {InlineObject159} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject156, acceptEncoding?: string, options?: any): AxiosPromise<string> {
+        apiV1RequestProposalsCustomGuidResultEditPatch(guid: string, body?: InlineObject159, acceptEncoding?: string, options?: any): AxiosPromise<string> {
             return localVarFp.apiV1RequestProposalsCustomGuidResultEditPatch(guid, body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1398,7 +1398,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20081>> {
+        apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20085>> {
             return localVarFp.apiV1RequestProposalsFreelanceSourcesGet(acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1446,7 +1446,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsGet(type: 'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT', kind: 'VACANT' | 'LINKED_TO_ME' | 'ALL', noCache?: boolean, status?: Set<'CREATED' | 'OFFER_CONDITIONS_ACCEPTED' | 'READY_TO_VERIFY' | 'OFFER_CONDITIONS_REJECTED' | 'OFFER_CONDITIONS_CORRECTED' | 'VERIFYING_BY_SUPERVISOR' | 'TO_CORRECT' | 'CORRECTED' | 'CANCELED_BY_CREATOR_OF_REQUEST' | 'CANCELED_BY_SUPERVISOR' | 'CANCELED_BY_EXECUTOR' | 'ACCEPTED_BY_CLIENT' | 'ACCEPTED_BY_SUPERVISOR' | 'EXPIRED' | 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'>, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20080>> {
+        apiV1RequestProposalsGet(type: 'CUSTOM' | 'SEARCH_NICHE' | 'SEARCH_PRODUCT', kind: 'VACANT' | 'LINKED_TO_ME' | 'ALL', noCache?: boolean, status?: Set<'CREATED' | 'OFFER_CONDITIONS_ACCEPTED' | 'READY_TO_VERIFY' | 'OFFER_CONDITIONS_REJECTED' | 'OFFER_CONDITIONS_CORRECTED' | 'VERIFYING_BY_SUPERVISOR' | 'TO_CORRECT' | 'CORRECTED' | 'CANCELED_BY_CREATOR_OF_REQUEST' | 'CANCELED_BY_SUPERVISOR' | 'CANCELED_BY_EXECUTOR' | 'ACCEPTED_BY_CLIENT' | 'ACCEPTED_BY_SUPERVISOR' | 'EXPIRED' | 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED'>, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20084>> {
             return localVarFp.apiV1RequestProposalsGet(type, kind, noCache, status, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1606,7 +1606,7 @@ export const RequestProposalsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1RequestProposalsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20082> {
+        apiV1RequestProposalsPagMyGet(filters?: string, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse20086> {
             return localVarFp.apiV1RequestProposalsPagMyGet(filters, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -1683,10 +1683,10 @@ export interface RequestProposalsApiApiV1RequestProposalsCustomGuidResultEditPat
 
     /**
      * 
-     * @type {InlineObject156}
+     * @type {InlineObject159}
      * @memberof RequestProposalsApiApiV1RequestProposalsCustomGuidResultEditPatch
      */
-    readonly body?: InlineObject156
+    readonly body?: InlineObject159
 
     /**
      * 

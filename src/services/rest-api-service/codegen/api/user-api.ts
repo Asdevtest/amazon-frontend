@@ -13,18 +13,21 @@
  */
 
 
-import globalAxios, { AxiosInstance, AxiosPromise } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, createRequestFunction, serializeDataIfNeeded, setApiKeyToObject, setSearchParams, toPathString } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, BaseAPI, RequestArgs, RequiredError } from '../base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
 import { ApiV1AdminsGetProductsByStatusCreatedBy } from '../models';
 // @ts-ignore
+import { BadRequestError } from '../models';
 // @ts-ignore
+import { ConflictInTheState } from '../models';
 // @ts-ignore
+import { ForbiddenError } from '../models';
 // @ts-ignore
 import { InlineObject143 } from '../models';
 // @ts-ignore
@@ -52,17 +55,11 @@ import { InlineObject154 } from '../models';
 // @ts-ignore
 import { InlineObject155 } from '../models';
 // @ts-ignore
-import { InlineResponse200100 } from '../models';
-// @ts-ignore
-import { InlineResponse200100Rows } from '../models';
-// @ts-ignore
-import { InlineResponse200101 } from '../models';
-// @ts-ignore
-import { InlineResponse200102 } from '../models';
-// @ts-ignore
 import { InlineResponse200103 } from '../models';
 // @ts-ignore
 import { InlineResponse200104 } from '../models';
+// @ts-ignore
+import { InlineResponse200104Rows } from '../models';
 // @ts-ignore
 import { InlineResponse200105 } from '../models';
 // @ts-ignore
@@ -72,7 +69,13 @@ import { InlineResponse200107 } from '../models';
 // @ts-ignore
 import { InlineResponse200108 } from '../models';
 // @ts-ignore
-import { InlineResponse20099 } from '../models';
+import { InlineResponse200109 } from '../models';
+// @ts-ignore
+import { InlineResponse200110 } from '../models';
+// @ts-ignore
+import { InlineResponse200111 } from '../models';
+// @ts-ignore
+import { InlineResponse200112 } from '../models';
 // @ts-ignore
 import { InlineResponse20112 } from '../models';
 // @ts-ignore
@@ -82,11 +85,13 @@ import { InlineResponse20116 } from '../models';
 // @ts-ignore
 import { InlineResponse20117 } from '../models';
 // @ts-ignore
+import { InternalServerError } from '../models';
 // @ts-ignore
 import { LinkSubuserInputSchema } from '../models';
 // @ts-ignore
 import { MePatchInputSchema } from '../models';
 // @ts-ignore
+import { NotFoundError } from '../models';
 // @ts-ignore
 import { SigninInputSchema } from '../models';
 // @ts-ignore
@@ -998,7 +1003,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  При редактировании полей name email необходимо проверить на уникальность.  // POST /users/check_isUnique_name_or_email Проверки: Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
+         * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
          * @summary # Обновления информации о себе самим пользователем.
          * @param {MePatchInputSchema} [body] 
          * @param {string} [acceptEncoding] 
@@ -1926,7 +1931,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersContactsGet(noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200107>>> {
+        async apiV1UsersContactsGet(noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200111>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersContactsGet(noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1938,7 +1943,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersDevicesGet(noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200103>>> {
+        async apiV1UsersDevicesGet(noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200107>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersDevicesGet(noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1977,7 +1982,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersFeedbackGuidGet(guid: string, noCache?: boolean, role?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200108>>> {
+        async apiV1UsersFeedbackGuidGet(guid: string, noCache?: boolean, role?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200112>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersFeedbackGuidGet(guid, noCache, role, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2016,7 +2021,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersFeedbackMyGet(noCache?: boolean, role?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200108>>> {
+        async apiV1UsersFeedbackMyGet(noCache?: boolean, role?: number, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200112>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersFeedbackMyGet(noCache, role, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2040,7 +2045,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersFreelanceNoticesGet(noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse20099>>> {
+        async apiV1UsersFreelanceNoticesGet(noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200103>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersFreelanceNoticesGet(noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2053,7 +2058,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersFreelanceSpecsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200102>>> {
+        async apiV1UsersFreelanceSpecsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200106>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersFreelanceSpecsGet(archive, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2146,7 +2151,7 @@ export const UserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  При редактировании полей name email необходимо проверить на уникальность.  // POST /users/check_isUnique_name_or_email Проверки: Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
+         * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
          * @summary # Обновления информации о себе самим пользователем.
          * @param {MePatchInputSchema} [body] 
          * @param {string} [acceptEncoding] 
@@ -2195,7 +2200,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersNotificationsPagMyGet(filters?: string, archive?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200101>> {
+        async apiV1UsersNotificationsPagMyGet(filters?: string, archive?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200105>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersNotificationsPagMyGet(filters, archive, limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2211,7 +2216,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersPatchNotesGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200100>> {
+        async apiV1UsersPatchNotesGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200104>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPatchNotesGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2223,7 +2228,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersPatchNotesGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200100Rows>>> {
+        async apiV1UsersPatchNotesGuidGet(guid: string, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200104Rows>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPatchNotesGuidGet(guid, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2235,7 +2240,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersPlatformSettingsGet(noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200106>> {
+        async apiV1UsersPlatformSettingsGet(noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200110>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPlatformSettingsGet(noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2259,7 +2264,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersPresetsGet(noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200104>>> {
+        async apiV1UsersPresetsGet(noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200108>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPresetsGet(noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2310,7 +2315,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1UsersPresetsOptionsMyGet(filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200105>>> {
+        async apiV1UsersPresetsOptionsMyGet(filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<InlineResponse200109>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1UsersPresetsOptionsMyGet(filters, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2439,7 +2444,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersContactsGet(noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200107>> {
+        apiV1UsersContactsGet(noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200111>> {
             return localVarFp.apiV1UsersContactsGet(noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2450,7 +2455,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersDevicesGet(noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200103>> {
+        apiV1UsersDevicesGet(noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200107>> {
             return localVarFp.apiV1UsersDevicesGet(noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2486,7 +2491,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersFeedbackGuidGet(guid: string, noCache?: boolean, role?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200108>> {
+        apiV1UsersFeedbackGuidGet(guid: string, noCache?: boolean, role?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200112>> {
             return localVarFp.apiV1UsersFeedbackGuidGet(guid, noCache, role, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2522,7 +2527,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersFeedbackMyGet(noCache?: boolean, role?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200108>> {
+        apiV1UsersFeedbackMyGet(noCache?: boolean, role?: number, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200112>> {
             return localVarFp.apiV1UsersFeedbackMyGet(noCache, role, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2544,7 +2549,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersFreelanceNoticesGet(noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse20099>> {
+        apiV1UsersFreelanceNoticesGet(noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200103>> {
             return localVarFp.apiV1UsersFreelanceNoticesGet(noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2556,7 +2561,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersFreelanceSpecsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200102>> {
+        apiV1UsersFreelanceSpecsGet(archive?: boolean, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200106>> {
             return localVarFp.apiV1UsersFreelanceSpecsGet(archive, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2641,7 +2646,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.apiV1UsersMastersGet(role, guid, specs, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
-         * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  При редактировании полей name email необходимо проверить на уникальность.  // POST /users/check_isUnique_name_or_email Проверки: Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
+         * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
          * @summary # Обновления информации о себе самим пользователем.
          * @param {MePatchInputSchema} [body] 
          * @param {string} [acceptEncoding] 
@@ -2687,7 +2692,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersNotificationsPagMyGet(filters?: string, archive?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200101> {
+        apiV1UsersNotificationsPagMyGet(filters?: string, archive?: boolean, limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200105> {
             return localVarFp.apiV1UsersNotificationsPagMyGet(filters, archive, limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2702,7 +2707,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPatchNotesGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200100> {
+        apiV1UsersPatchNotesGet(limit?: number, offset?: number, sortField?: string, sortType?: 'ASC' | 'DESC', noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200104> {
             return localVarFp.apiV1UsersPatchNotesGet(limit, offset, sortField, sortType, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2713,7 +2718,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPatchNotesGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200100Rows>> {
+        apiV1UsersPatchNotesGuidGet(guid: string, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200104Rows>> {
             return localVarFp.apiV1UsersPatchNotesGuidGet(guid, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2724,7 +2729,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPlatformSettingsGet(noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200106> {
+        apiV1UsersPlatformSettingsGet(noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse200110> {
             return localVarFp.apiV1UsersPlatformSettingsGet(noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2746,7 +2751,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsGet(noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200104>> {
+        apiV1UsersPresetsGet(noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200108>> {
             return localVarFp.apiV1UsersPresetsGet(noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2793,7 +2798,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1UsersPresetsOptionsMyGet(filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200105>> {
+        apiV1UsersPresetsOptionsMyGet(filters?: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<InlineResponse200109>> {
             return localVarFp.apiV1UsersPresetsOptionsMyGet(filters, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4140,7 +4145,7 @@ export class UserApi extends BaseAPI {
     }
 
     /**
-     * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  При редактировании полей name email необходимо проверить на уникальность.  // POST /users/check_isUnique_name_or_email Проверки: Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
+     * ## Сейчас возможно только редактирование поля role.  ## Можно выбрать роль из массива allowedRoles.  Данный метод не доступен для сабюзера и админа   новое имя или почта должна быть уникальной.
      * @summary # Обновления информации о себе самим пользователем.
      * @param {UserApiApiV1UsersMePatchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

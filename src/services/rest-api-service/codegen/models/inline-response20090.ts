@@ -13,165 +13,56 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
-import { ApiV1ShopSellStatistics1 } from './api-v1-shop-sell-statistics1';
+import { ApiV1AnnouncementsMySpec } from './api-v1-announcements-my-spec';
 
 /**
- * Схема получение лайт версии продажи магазина
+ * 
  * @export
  * @interface InlineResponse20090
  */
 export interface InlineResponse20090 {
     /**
-     * GUID магазина на продажу.
+     * GUID заявки
      * @type {string}
      * @memberof InlineResponse20090
      */
     _id?: string;
     /**
+     * Номер заявки
+     * @type {number}
+     * @memberof InlineResponse20090
+     */
+    humanFriendlyId?: number;
+    /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {ApiV1AnnouncementsMySpec}
      * @memberof InlineResponse20090
      */
-    owner?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    spec?: ApiV1AnnouncementsMySpec;
     /**
-     * GUID покупателя магазина
-     * @type {string}
-     * @memberof InlineResponse20090
-     */
-    bidderId?: string;
-    /**
-     * GUID модератора магазина
-     * @type {string}
-     * @memberof InlineResponse20090
-     */
-    moderatorId?: string;
-    /**
-     * GUID чата
-     * @type {string}
-     * @memberof InlineResponse20090
-     */
-    chatId?: string;
-    /**
-     * Имя магазина для продажи
+     * Название заявки
      * @type {string}
      * @memberof InlineResponse20090
      */
     title?: string;
     /**
-     * Статус магазина для продажи
+     * Статус заявки
      * @type {string}
      * @memberof InlineResponse20090
      */
     status?: string;
     /**
-     * Файлы, которые привязаны к магазину
-     * @type {Array<string>}
-     * @memberof InlineResponse20090
-     */
-    files?: Array<string>;
-    /**
-     * Стоимость магазина
-     * @type {number}
-     * @memberof InlineResponse20090
-     */
-    price?: number;
-    /**
-     * Ежемесячная прибыль
-     * @type {number}
-     * @memberof InlineResponse20090
-     */
-    monthlyProfit?: number;
-    /**
-     * Ежемесячная чистая прибыль
-     * @type {number}
-     * @memberof InlineResponse20090
-     */
-    monthlyPureProfit?: number;
-    /**
-     * Ежемесячный множитель
-     * @type {number}
-     * @memberof InlineResponse20090
-     */
-    monthlyMultiplier?: number;
-    /**
-     * Статистика магазина по месяцам
-     * @type {Array<ApiV1ShopSellStatistics1>}
-     * @memberof InlineResponse20090
-     */
-    statistics?: Array<ApiV1ShopSellStatistics1>;
-    /**
-     * Дата создания бизнеса
+     * 
      * @type {string}
      * @memberof InlineResponse20090
      */
-    businessStartDate?: string;
+    onFinishedIdeaId?: string;
     /**
-     * Детали магазина
+     * 
      * @type {string}
      * @memberof InlineResponse20090
      */
-    shopDetails?: string;
-    /**
-     * Ссылка магазина
-     * @type {string}
-     * @memberof InlineResponse20090
-     */
-    shopLink?: string;
-    /**
-     * Массив активов
-     * @type {Array<string>}
-     * @memberof InlineResponse20090
-     */
-    shopAssets?: Array<string>;
-    /**
-     * Массив возможностей
-     * @type {Array<string>}
-     * @memberof InlineResponse20090
-     */
-    opportunities?: Array<string>;
-    /**
-     * Массив рисков
-     * @type {Array<string>}
-     * @memberof InlineResponse20090
-     */
-    risks?: Array<string>;
-    /**
-     * Массив требуемых навыков
-     * @type {Array<string>}
-     * @memberof InlineResponse20090
-     */
-    requiredSkills?: Array<string>;
-    /**
-     * Поддержка продавца включает
-     * @type {Array<string>}
-     * @memberof InlineResponse20090
-     */
-    sellIncludes?: Array<string>;
-    /**
-     * Причины продажи
-     * @type {Array<string>}
-     * @memberof InlineResponse20090
-     */
-    reasonForSale?: Array<string>;
-    /**
-     * Дополнительная информация
-     * @type {Array<string>}
-     * @memberof InlineResponse20090
-     */
-    additionalInfo?: Array<string>;
-    /**
-     * Дата создания
-     * @type {string}
-     * @memberof InlineResponse20090
-     */
-    createdAt?: string;
-    /**
-     * Дата изменения
-     * @type {string}
-     * @memberof InlineResponse20090
-     */
-    updatedAt?: string;
+    onCheckedIdeaId?: string;
 }
 
 

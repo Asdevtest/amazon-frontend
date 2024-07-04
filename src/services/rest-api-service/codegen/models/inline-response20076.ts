@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse20076Failed } from './inline-response20076-failed';
 
 /**
  * 
@@ -22,10 +23,10 @@
 export interface InlineResponse20076 {
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<InlineResponse20076Failed>}
      * @memberof InlineResponse20076
      */
-    shopIds?: Array<string>;
+    failed?: Array<InlineResponse20076Failed>;
 }
 
 

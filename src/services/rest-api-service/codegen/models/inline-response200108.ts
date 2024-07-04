@@ -13,7 +13,6 @@
  */
 
 
-import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-products-by-status-created-by';
 
 /**
  * 
@@ -22,47 +21,53 @@ import { ApiV1AdminsGetProductsByStatusCreatedBy } from './api-v1-admins-get-pro
  */
 export interface InlineResponse200108 {
     /**
-     * GUID записи
+     * ID пресета.
      * @type {string}
      * @memberof InlineResponse200108
      */
     _id?: string;
     /**
-     * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
-     * @memberof InlineResponse200108
-     */
-    createdBy?: ApiV1AdminsGetProductsByStatusCreatedBy;
-    /**
-     * Роль юзера, когда он оставлял отзыв
-     * @type {number}
-     * @memberof InlineResponse200108
-     */
-    role?: number;
-    /**
-     * Комментарий к оценке
+     * Название таблицы
      * @type {string}
      * @memberof InlineResponse200108
      */
-    comment?: string;
+    table?: string;
     /**
-     * Оценка, целое число от 1 до 5
-     * @type {number}
+     * Эндпоинт пресета
+     * @type {string}
      * @memberof InlineResponse200108
      */
-    rating?: number;
+    endpoint?: string;
     /**
      * 
-     * @type {ApiV1AdminsGetProductsByStatusCreatedBy}
+     * @type {Array<string>}
      * @memberof InlineResponse200108
      */
-    sub?: ApiV1AdminsGetProductsByStatusCreatedBy;
+    fields?: Array<string>;
     /**
-     * Дата создания.
+     * Состояние пресета.
+     * @type {boolean}
+     * @memberof InlineResponse200108
+     */
+    isActive?: boolean;
+    /**
+     * ID юзера.
+     * @type {string}
+     * @memberof InlineResponse200108
+     */
+    userId?: string;
+    /**
+     * Дата создания
      * @type {string}
      * @memberof InlineResponse200108
      */
     createdAt?: string;
+    /**
+     * Дата изменения
+     * @type {string}
+     * @memberof InlineResponse200108
+     */
+    updatedAt?: string;
 }
 
 

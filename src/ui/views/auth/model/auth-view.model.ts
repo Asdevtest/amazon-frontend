@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
@@ -33,9 +33,9 @@ export class AuthViewModel {
   }
 
   async onSubmitForm(value: FieldData) {
-    this.loading = true
+    runInAction(() => (this.loading = true))
     this.auth ? await this.onLogin(value) : await this.onRegister(value)
-    this.loading = false
+    runInAction(() => (this.loading = false))
   }
 
   async onRegister(value: FieldData) {
