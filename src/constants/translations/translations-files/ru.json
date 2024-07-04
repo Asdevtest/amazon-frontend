@@ -1939,6 +1939,8 @@
   "Invalid password or email address.": "Неверный пароль или адрес электронной почты.",
   "User with such email already exists.": "Пользователь с таким адресом электронной почты уже существует.",
   "The supplier's price does not fit": "Цена поставщика не подходит",
+  "Account replenishment": "Пополнение счета",
+  "Write-off": "Списание средств",
   "Supervisor's comment": "Комментарий супервайзера",
   "Document added": "Документ добавлен",
   "Add payment document": "Добавить платёжный документ",

@@ -6,6 +6,7 @@ import { PaymentType } from '@constants/finances/payment-type'
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { OtherModel } from '@models/other-model'
+import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
@@ -15,6 +16,11 @@ import { observerConfig } from './observer-config'
 export class FinancesViewModel extends DataGridFilterTableModel {
   paymentType: PaymentType | string = ''
   entityType: EntityType | string = ''
+
+  get userRole() {
+    // @ts-ignore
+    return UserModel?.userInfo?.role
+  }
 
   constructor() {
     const columnsModel = financesViewColumns()
