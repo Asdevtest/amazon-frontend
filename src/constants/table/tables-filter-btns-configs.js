@@ -63,7 +63,7 @@ export const adminExchangeBtnsConfig = [
   },
   {
     value: AdminExchangeStatusesCategories.completePriceNotAcceptable,
-    label: () => t(TranslationKey["The supplier's price does not fit"]),
+    label: () => t(TranslationKey["The supplier's price does't fit"]),
   },
 ]
 

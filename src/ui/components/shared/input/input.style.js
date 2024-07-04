@@ -3,7 +3,6 @@ export const styles = theme => ({
     height: '32px',
     width: '100%',
     borderRadius: '4px',
-    flexShrink: '0',
   },
   input: {
     padding: '9px 15px',
@@ -27,9 +26,8 @@ export const stylesWithIcon = theme => ({
   root: {
     height: '32px',
     width: '100%',
-    // border: '1px solid rgba(217, 222, 229, 1)',
     borderRadius: '4px',
-    flexShrink: '0',
+
     '&$disabled': {
       backgroundColor: '#e4e7ea',
     },
