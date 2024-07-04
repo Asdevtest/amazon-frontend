@@ -1,10 +1,11 @@
 import { FC, MouseEvent, memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CircleSpinner } from '@components/shared/circle-spinner'
-import { CrossIcon, CustomPlusIcon } from '@components/shared/svg-icons'
+import { CrossIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -81,7 +82,7 @@ export const TagsSelect: FC<TagsSelectProps> = memo(props => {
                 setSearchValue('')
               }}
             >
-              <CustomPlusIcon />
+              <FiPlus style={{ width: 16, height: 16 }} />
             </Button>
           </div>
         ) : null}

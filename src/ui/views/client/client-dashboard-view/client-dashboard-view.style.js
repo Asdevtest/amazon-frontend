@@ -34,11 +34,6 @@ export const useStyles = makeStyles()(theme => ({
     minWidth: 700,
   },
 
-  icon: {
-    width: '16px !important',
-    height: '16px !important',
-  },
-
   masterUserWrapper: {
     display: 'flex',
     alignItems: 'center',

@@ -1,3 +1,5 @@
+import { FiPlus } from 'react-icons/fi'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -7,7 +9,6 @@ import {
   MultilineTextHeaderCell,
   TableDataControlsButtonsCell,
 } from '@components/data-grid/data-grid-cells'
-import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -80,7 +81,7 @@ export const tabFreelanceColumns = ({
     renderHeader: () => (
       <ButtonHeaderCell
         text={t(TranslationKey['New specialty'])}
-        icon={<CustomPlusIcon />}
+        icon={<FiPlus style={{ width: 16, height: 16 }} />}
         onOpenModal={onClickToggleAddOrEditTextModal}
       />
     ),

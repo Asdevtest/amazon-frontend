@@ -458,11 +458,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
-  plusIcon: {
-    width: '14px !important',
-    height: '14px !important',
-  },
-
   statusText: {
     fontSize: '14px',
     fontWeight: 400,

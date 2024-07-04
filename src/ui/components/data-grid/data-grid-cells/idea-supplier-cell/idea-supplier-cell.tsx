@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { PlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -25,7 +25,8 @@ export const IdeaSupplierCell: FC<IdeaSupplierCellProps> = memo(({ onClickAddSup
       {!!suppliers.length && <p>{suppliers[0].name}</p>}
       {!suppliers.length && (
         <Button styleType={ButtonStyle.SUCCESS} onClick={onClickAddSupplier}>
-          <PlusIcon /> {t(TranslationKey.Add)}
+          <FiPlus style={{ width: 16, height: 16 }} />
+          {t(TranslationKey.Add)}
         </Button>
       )}
     </div>

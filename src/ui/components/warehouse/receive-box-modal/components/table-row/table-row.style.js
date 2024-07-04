@@ -86,9 +86,4 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '5px',
   },
-
-  plusIcon: {
-    width: '14px !important',
-    height: '14px !important',
-  },
 }))

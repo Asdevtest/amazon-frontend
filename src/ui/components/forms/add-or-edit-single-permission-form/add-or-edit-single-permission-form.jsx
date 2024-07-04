@@ -1,6 +1,7 @@
 import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import { MenuItem, Select } from '@mui/material'
@@ -11,7 +12,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
-import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { checkIsPositiveNum } from '@utils/checks'
 import { clearSpecialCharacters } from '@utils/text'
@@ -211,7 +211,7 @@ export const AddOrEditSinglePermissionForm = observer(
               </div>
               <div className={styles.buttonContainer}>
                 <Button iconButton onClick={addAllowUrl}>
-                  <CustomPlusIcon />
+                  <FiPlus style={{ width: 16, height: 16 }} />
                 </Button>
               </div>
             </>

@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
@@ -27,7 +28,6 @@ import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 import { SearchInput } from '@components/shared/search-input'
-import { PlusIcon } from '@components/shared/svg-icons'
 
 import { useStyles } from '@views/client/client-ideas-view/client-ideas-view.style'
 
@@ -73,7 +73,7 @@ export const ClientIdeasView = observer(({ history }) => {
 
         {['/client/ideas/new', '/client/ideas/all'].includes(viewModel.history.location.pathname) && (
           <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickProductLaunch}>
-            <PlusIcon />
+            <FiPlus style={{ width: 16, height: 16 }} />
             {t(TranslationKey['Create idea'])}
           </Button>
         )}

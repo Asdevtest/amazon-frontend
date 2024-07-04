@@ -1,13 +1,13 @@
 import { FC, memo } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import { FiPlus } from 'react-icons/fi'
 
 import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CommentsModal } from '@components/modals/comments-modal'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { CustomPlusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -105,7 +105,7 @@ export const FilesTab: FC<FilesTabProps> = memo(props => {
           />
         ) : (
           <button className={styles.button} onClick={onAddFile}>
-            <CustomPlusIcon className={styles.icon} />
+            <FiPlus style={{ width: 16, height: 16 }} />
             <span>{t(TranslationKey['Add file'])}</span>
           </button>
         )}
