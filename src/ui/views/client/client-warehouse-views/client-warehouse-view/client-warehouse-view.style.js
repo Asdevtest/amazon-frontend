@@ -6,6 +6,7 @@ export const styles = () => ({
   },
 
   btnsWrapper: {
+    width: 300,
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
