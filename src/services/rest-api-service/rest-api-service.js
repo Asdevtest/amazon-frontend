@@ -1,7 +1,6 @@
 import { BACKEND_API_URL } from '@constants/keys/env'
 
-// import { getAxiosInstance } from '@services/axios/api'
-import api from '../axios/api'
+import api, { getAxiosInstance } from '@services/axios/api'
 
 import { Configuration } from './codegen'
 import { AdministratorApi } from './codegen/api/administrator-api'
@@ -35,6 +34,9 @@ class RestApiService {
   constructor(api) {
     this.openapiConfig.basePath = BACKEND_API_URL
 
+    console.log('api :>> ', api)
+    console.log('getAxiosInstance :>> ', getAxiosInstance())
+
     this.axiosInstance = api
     this.administratorApi = new AdministratorApi(this.openapiConfig, undefined, this.axiosInstance)
     this.announcementsApi = new AnnouncementsApi(this.openapiConfig, undefined, this.axiosInstance)
@@ -60,6 +62,9 @@ class RestApiService {
     this.chatsApi = new ChatsApi(this.openapiConfig, undefined, this.axiosInstance)
     this.orderApi = new OrderApi(this.openapiConfig, undefined, this.axiosInstance)
     this.generalApi = new GeneralApi(this.openapiConfig, undefined, this.axiosInstance)
+
+    console.log('this.administratorApi :>> ', this.administratorApi)
+    console.log('this.axiosInstance :>> ', this.axiosInstance)
   }
 }
 
