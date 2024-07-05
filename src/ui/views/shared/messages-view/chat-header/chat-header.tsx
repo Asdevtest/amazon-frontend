@@ -92,6 +92,8 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
 
                 <ChatSoundNotification isMuteChat={isMuteCurrentChat} onToggleMuteChat={onToggleMuteCurrentChat} />
               </>
+            ) : currentChat?.type === chatsType.SAVED ? (
+              <ChatSoundNotification isMuteChat={isMuteCurrentChat} onToggleMuteChat={onToggleMuteCurrentChat} />
             ) : (
               <>
                 <div className={styles.opponentWrapper}>
