@@ -52,6 +52,7 @@ export const filtersFields = [
   'sub',
   'redFlags',
   'totalPrice',
+  'subUsers',
 ]
 
 export const fieldsForSearch = [
