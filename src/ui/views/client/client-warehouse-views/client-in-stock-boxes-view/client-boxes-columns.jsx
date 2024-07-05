@@ -8,6 +8,7 @@ import {
   ChangeInputCell,
   DeadlineCell,
   FormedCell,
+  ManyUserLinkCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -230,6 +231,31 @@ export const clientBoxesViewColumns = (
       renderCell: params => <DeadlineCell deadline={params.row.deadline} />,
       valueFormatter: params => (params.value ? formatNormDateTime(params.value) : ''),
       width: 100,
+    },
+
+    {
+      field: 'subUsers',
+      headerName: t(TranslationKey['Access to product']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
+      renderCell: params => {
+        const product = params.row?.items?.[0]?.product
+        const subUsers = product?.subUsers || []
+        const subUsersByShop = product?.subUsersByShop || []
+
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+      valueGetter: ({ row }) => {
+        const product = row?.items?.[0]?.product
+        const subUsers = product?.subUsers || []
+        const subUsersByShop = product?.subUsersByShop || []
+
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+      width: 187,
+      table: DataGridFilterTables.PRODUCTS,
+      filterable: false,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT,
     },
 
     {
