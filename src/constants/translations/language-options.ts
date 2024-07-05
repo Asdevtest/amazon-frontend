@@ -20,7 +20,7 @@ export const languageOptions: LanguageOption[] = [
     label: 'Русский',
   },
   {
-    key: LanguageKey.uk,
+    key: LanguageKey.ua,
     label: 'Український',
   },
   {
@@ -36,7 +36,7 @@ export const gerAntLocale = (lang: LanguageKey) => {
     case 'ru':
       antLocale = ru
       break
-    case 'uk':
+    case 'ua':
       antLocale = uk
       break
     case 'en':
