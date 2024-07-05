@@ -35,7 +35,6 @@ import { StorekeepersApi } from './codegen/api/storekeepers-api'
 import { SupervisorApi } from './codegen/api/supervisor-api'
 import { SupplierApi } from './codegen/api/supplier-api'
 import { UserApi } from './codegen/api/user-api'
-import { accessDeniedErrorMessageList, errorMessageList } from './error-message-list'
 
 const api = axios.create({
   baseURL: BACKEND_API_URL,
