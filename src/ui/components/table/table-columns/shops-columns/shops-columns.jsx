@@ -7,6 +7,7 @@ import {
   ShortDateCell,
   TableDataControlsButtonsCell,
 } from '@components/data-grid/data-grid-cells'
+import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -166,12 +167,22 @@ export const shopsColumns = handlers => {
 
       width: 120,
       renderCell: params => (
-        <TableDataControlsButtonsCell
-          onClickEditButton={() => handlers.onClickEditBtn(params.row)}
-          onClickCancelButton={() => handlers.onClickRemoveBtn(params.row)}
+        <ActionButtonsCell
+          isFirstButton
+          isSecondButton
+          iconButton
+          row
+          isFirstRow={params.api.getSortedRowIds()?.[0] === params.row._id}
+          firstButtonTooltipText={t(TranslationKey['Change store name or links to reports'])}
+          firstButtonElement={<EditIcon />}
+          firstButtonStyle={ButtonStyle.PRIMARY}
+          secondButtonTooltipText={t(TranslationKey['Remove a store from your list'])}
+          secondButtonElement={<CrossIcon />}
+          secondButtonStyle={ButtonStyle.DANGER}
+          onClickFirstButton={() => handlers.onClickEditBtn(params.row)}
+          onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
         />
       ),
-
       filterable: false,
       disableCustomSort: true,
     },
