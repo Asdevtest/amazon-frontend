@@ -17,25 +17,24 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IDestinationVariationWithCalculations } from '@typings/shared/destinations'
+import { IGridColumn } from '@typings/shared/grid-column'
 
 interface columnHandlersProps {
   isHideCalculation: boolean
 }
 
 export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHandlersProps) => {
-  const columns = [
+  const columns: IGridColumn[] = [
     {
       field: 'name',
       headerName: t(TranslationKey.Tariff),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-      width: 140,
       renderCell: (params: GridValidRowModel) => (
         <TariffInfoCell title={params.value} description={params?.row?.description} />
       ),
-      filterable: false,
-      sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.STRING,
+      width: 140,
     },
 
     {
@@ -49,9 +48,6 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
           ?.map((el: IDestinationVariationWithCalculations) => el?.destination?.name)
           .join(', '),
       minWidth: 100,
-      align: 'center',
-      filterable: false,
-      sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.STRING,
     },
@@ -68,8 +64,6 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
               `${toFixed(variation?.minWeight)} - ${toFixed(variation?.maxWeight)}`,
           )
           .join(', '),
-      width: 140,
-      align: 'center',
       fields: [
         {
           label: 'Min. weight, kg',
@@ -80,10 +74,9 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
           value: 'maxWeight',
         },
       ],
-      filterable: false,
-      sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.NUMBERS,
+      width: 140,
     },
 
     {
@@ -96,9 +89,6 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
           ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.pricePerKgRmb))
           .join(', '),
       width: 80,
-      align: 'center',
-      filterable: false,
-      sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -113,9 +103,6 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
           ?.map((variation: IDestinationVariationWithCalculations) => toFixed(variation?.pricePerKgUsd))
           .join(', '),
       width: 80,
-      align: 'center',
-      filterable: false,
-      sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -131,9 +118,6 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
         )}, eta: ${formatDateWithoutTime(params.row?.eta)}`
       },
       width: 140,
-      align: 'center',
-      filterable: false,
-      sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.BATCHES_SHIPPING_DATE,
     },
@@ -145,7 +129,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       width: 130,
       renderCell: (params: GridValidRowModel) => <MultilineTextCell text={params.value} />,
       table: DataGridFilterTables.STOREKEEPERS,
-      sortable: false,
+
       columnKey: columnnsKeys.shared.STRING,
     },
 
@@ -158,9 +142,6 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       renderCell: (params: GridValidRowModel) => <MultilineTextCell text={toFixed(params.value, 2)} />,
       valueGetter: (params: GridRenderCellParams) => toFixed(params.row?.costUnitWithDeliveryToChina),
       width: 150,
-      align: 'center',
-      filterable: false,
-      sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -179,9 +160,6 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
           )
           .join(', '),
       width: 130,
-      align: 'center',
-      filterable: false,
-      sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -197,8 +175,6 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
           .join(', '),
       width: 140,
       align: 'center',
-      filterable: false,
-      sortable: false,
       table: DataGridFilterTables.STOREKEEPERS,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -207,6 +183,13 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
   if (columnHandlers.isHideCalculation) {
     // @ts-ignore
     return columns?.slice(0, -3)
+  }
+
+  for (const column of columns) {
+    column.table = DataGridFilterTables.STOREKEEPERS
+    column.sortable = false
+    column.filterable = false
+    column.resizable = false
   }
 
   return columns
